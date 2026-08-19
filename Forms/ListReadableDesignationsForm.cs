@@ -15,8 +15,6 @@
 
 using NLog;
 
-using Planetoid_DB.Forms;
-
 using System.Diagnostics;
 
 namespace Planetoid_DB;
@@ -73,15 +71,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 
 	/// <summary>List of planetoid records from the database</summary>
 	/// <remarks>This list contains all the planetoid records retrieved from the database.</remarks>
-	private List<string> planetoidsDatabase = [];
-
-	/// <summary>Number of planetoids in the database.</summary>
-	/// <remarks>This field keeps track of the total number of planetoids in the database.</remarks>
-	private int numberPlanetoids;
-
-	/// <summary>Index of the currently selected planetoid.</summary>
-	/// <remarks>This index is used to keep track of the currently selected planetoid in the list.</remarks>
-	private int selectedIndex;
+	private IReadOnlyList<string> planetoidsDatabase = [];
 
 	/// <summary>NLog logger instance for the class.</summary>
 	/// <remarks>This logger is used to log messages for the <see cref="ListReadableDesignationsForm"/> class.</remarks>
@@ -124,128 +114,36 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 	/// <remarks>This method is used to provide a short string representation of the current instance for debugging purposes.</remarks>
 	private string GetDebuggerDisplay() => ToString();
 
-	/// <summary>Creates a ListViewItem for the specified index.</summary>
-	/// <param name="index">The index of the planetoid.</param>
-	/// <returns>A ListViewItem representing the planetoid, or null if the index is invalid.</returns>
-	/// <remarks>This method is used to create a ListViewItem for the specified index.</remarks>
-	private ListViewItem? CreateListViewItem(int index)
-	{
-		// Check if the index is valid
-		if (index < 0 || index >= numberPlanetoids)
-		{
-			// Log a warning and return null
-			logger.Warn(message: $"Invalid index {index} requested.");
-			return null;
-		}
-		// Get the current planetoid data
-		string currentData = planetoidsDatabase[index];
-		// Check if the current data is long enough
-		if (currentData.Length < nameStartIndex + nameLength)
-		{
-			// Log a warning and return null
-			logger.Warn(message: $"The record at index {index} is too short.");
-			return null;
-		}
-		// Extract the index and designation name
-		string strIndex = currentData[..indexLength].Trim();
-		string strDesignationName = currentData.Substring(startIndex: nameStartIndex, length: nameLength).Trim();
-		// Create and return the ListViewItem
-		ListViewItem item = new(text: strIndex)
-		{
-			// Set the tool tip text
-			ToolTipText = $"{strIndex}: {strDesignationName}"
-		};
-		// Add the designation name as a subitem
-		item.SubItems.Add(text: strDesignationName);
-		// Return the created item
-		return item;
-	}
-
-	/// <summary>Fills the planetoids database with the provided list.</summary>
-	/// <param name="arrTemp">The list to fill the database with.</param>
-	/// <remarks>This method is used to fill the planetoids database with the provided list.</remarks>
-	public void FillArray(List<string> arrTemp)
-	{
-		planetoidsDatabase = [.. arrTemp];
-		numberPlanetoids = planetoidsDatabase.Count;
-	}
-
-	/// <summary>Sets the maximum index for the planetoids database.</summary>
-	/// <param name="maxIndex">The maximum index.</param>
-	/// <remarks>This method is used to set the maximum index for the planetoids database.</remarks>
-	public void SetMaxIndex(int maxIndex) => numberPlanetoids = maxIndex;
 
 	/// <summary>Gets the selected index in the list view.</summary>
-	/// <returns>The selected index.</returns>
+	/// <returns>The selected index if an item is selected; otherwise, -1.</returns>
 	/// <remarks>This method is used to get the selected index in the list view.</remarks>
-	public int GetSelectedIndex() => selectedIndex;
+	public int GetSelectedIndex() => listView.SelectedIndices.Count > 0 ? listView.SelectedIndices[index: 0] : -1;
 
-	/// <summary>Tries to parse a fixed-width planetoid record into its index and designation components.</summary>
+	/// <summary>Attempts to parse a planetoid record string into its index and designation components.</summary>
 	/// <param name="record">The raw database record to parse.</param>
-	/// <param name="recordIndex">The zero-based index of the record in the database, used for logging purposes.</param>
 	/// <param name="parsedIndex">When this method returns <c>true</c>, contains the parsed index value.</param>
 	/// <param name="parsedDesignation">When this method returns <c>true</c>, contains the parsed designation value.</param>
 	/// <returns><c>true</c> if the record was successfully parsed; otherwise, <c>false</c>.</returns>
-	private static bool TryParsePlanetoidRecord(string record, int recordIndex, out string parsedIndex, out string parsedDesignation)
+	/// <remarks>This method is used to extract the index and designation from a fixed-width planetoid record string. It validates the input and uses <see cref="ReadOnlySpan{T}"/> for efficient substring extraction without allocations.</remarks>
+	private static bool TryParsePlanetoidRecord(string record, out string parsedIndex, out string parsedDesignation)
 	{
 		// Initialize output parameters
 		parsedIndex = string.Empty;
 		parsedDesignation = string.Empty;
 		// Validate the input record
-		if (string.IsNullOrWhiteSpace(value: record))
+		if (string.IsNullOrWhiteSpace(value: record) || record.Length < nameStartIndex + nameLength)
 		{
-			logger.Warn(message: $"The record at index {recordIndex} is null, empty, or consists only of white-space characters.");
+			// Log a warning and return false if the record is null, empty, or too short
+			logger.Warn(message: $"The record is null, empty, or too short. Record length: {record?.Length ?? 0}");
 			return false;
 		}
-		// Check if the record is long enough to contain the expected fields
-		if (record.Length < nameStartIndex + nameLength)
-		{
-			logger.Warn(message: $"The record at index {recordIndex} is too short.");
-			return false;
-		}
+		// Use ReadOnlySpan<char> for efficient substring extraction without allocations
+		ReadOnlySpan<char> span = record.AsSpan();
 		// Extract the index and designation from the fixed-width record
-		parsedIndex = record[..indexLength].Trim();
-		parsedDesignation = record.Substring(startIndex: nameStartIndex, length: nameLength).Trim();
-		return true;
-	}
-
-	/// <summary>Selects the currently highlighted planetoid in the list view and navigates to its corresponding record in the main form.</summary>
-	/// <remarks>If no item is selected or the selected record is invalid, the method returns <c>false</c> without performing any action. When a valid planetoid is selected, the main form is brought to the foreground and displays the details of the selected planetoid.</remarks>
-	/// <returns><c>true</c> if navigation to the selected planetoid succeeded; otherwise, <c>false</c>.</returns>
-	private bool SelectPlanetoidInMainForm()
-	{
-		if (listView.SelectedIndices.Count == 0)
-		{
-			return false;
-		}
-		int selectedIndex = listView.SelectedIndices[index: 0];
-		// Calculate the real database index (considering virtual mode offset and sorting)
-		int dbIndex = listView.VirtualMode
-			? (sortedIndices != null && selectedIndex < sortedIndices.Count ? sortedIndices[index: selectedIndex] : virtualListOffset + selectedIndex)
-			: selectedIndex;
-		// Check if the index is valid
-		if (dbIndex < 0 || dbIndex >= planetoidsDatabase.Count)
-		{
-			logger.Warn(message: $"Invalid database index {dbIndex} for selected index {selectedIndex}.");
-			return false;
-		}
-		// Get the record string
-		string currentData = planetoidsDatabase[index: dbIndex];
-		// Parse index and designation using shared parsing logic
-		if (!TryParsePlanetoidRecord(record: currentData, recordIndex: dbIndex, parsedIndex: out string strIndex, parsedDesignation: out string strDesignation))
-		{
-			// If parsing fails, log and show an error message and return
-			logger.Warn(message: $"Failed to parse planetoid record at database index {dbIndex}.");
-			ShowErrorMessage(message: "Invalid record format.");
-			return false;
-		}
-		// Jump to the record in the main form
-		if (Application.OpenForms.OfType<PlanetoidDbForm>().FirstOrDefault() is PlanetoidDbForm mainForm)
-		{
-			logger.Info(message: $"Navigating to planetoid record: Index={strIndex}, Designation={strDesignation}");
-			mainForm.JumpToRecord(index: strIndex, designation: strDesignation);
-			mainForm.BringToFront();
-		}
+		parsedIndex = span[..indexLength].Trim().ToString();
+		parsedDesignation = span.Slice(start: nameStartIndex, length: nameLength).Trim().ToString();
+		// Log the parsed values for debugging purposes
 		return true;
 	}
 
@@ -255,29 +153,207 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 	/// <remarks>This method is used to handle the SelectedIndexChanged event of the ListView.</remarks>
 	private void SelectedIndexChanged(object? sender, EventArgs? e)
 	{
-		// Check if there are any selected indices
-		if (listView.SelectedIndices.Count <= 0)
+		// If no item is selected, clear the status bar and disable the Go to object button
+		int? dbIndex = GetSelectedDatabaseIndex();
+		// If a valid index is selected, parse the record and update the status bar
+		if (dbIndex.HasValue && dbIndex.Value >= 0 && dbIndex.Value < planetoidsDatabase.Count)
 		{
-			logger.Warn(message: "No item is selected in the list view.");
-			SetStatusBar(label: labelInformation, text: string.Empty);
-			toolStripButtonGoToObject.Enabled = false;
+			// Use the shared parsing logic to extract index and designation
+			if (TryParsePlanetoidRecord(record: planetoidsDatabase[index: dbIndex.Value], parsedIndex: out string strIndex, parsedDesignation: out string strDesignation))
+			{
+				// Update the status bar with the selected planetoid's index and designation
+				SetStatusBar(labelInformation, $"{I18nStrings.Index}: {strIndex} - {strDesignation}");
+				// Enable the Go to object button
+				toolStripButtonGoToObject.Enabled = true;
+				// Log the selection change
+				return;
+			}
+		}
+		// If no valid selection, clear the status bar and disable the Go to object button
+		SetStatusBar(labelInformation, string.Empty);
+		toolStripButtonGoToObject.Enabled = false;
+	}
+
+	/// <summary>Gets the currently selected database index, considering virtual mode and sorting.</summary>
+	/// <returns>The actual database index corresponding to the currently selected item in the ListView, or <c>null</c> if no item is selected.</returns>
+	/// <remarks>This method returns the actual database index corresponding to the currently selected item in the ListView, taking into account any sorting and virtual list offset.</remarks>
+	private int? GetSelectedDatabaseIndex()
+	{
+		// If no item is selected, log a warning and return null
+		if (listView.SelectedIndices.Count == 0)
+		{
+			logger.Warn(message: "No item is selected in the list view when attempting to get the selected database index.");
+			return null;
+		}
+		// Get the virtual index of the selected item
+		int virtualIdx = listView.SelectedIndices[index: 0];
+		// Calculate the actual database index based on sorting and virtual list offset
+		return sortedIndices != null && virtualIdx < sortedIndices.Count ? sortedIndices[index: virtualIdx] : virtualListOffset + virtualIdx;
+	}
+
+	/// <summary>Restores the selection in the ListView based on the provided database index.</summary>
+	/// <param name="selectedDbIndex">The database index of the item to select.</param>
+	/// <remarks>This method restores the selection in the ListView based on the provided database index, taking into account any sorting and virtual list offset.</remarks>
+	private void RestoreSelection(int? selectedDbIndex)
+	{
+		// If no database index is provided, log a warning and return
+		if (!selectedDbIndex.HasValue)
+		{
+			logger.Warn(message: "No database index provided to restore selection.");
 			return;
 		}
-		// Get the selected virtual index
-		int index = listView.SelectedIndices[index: 0];
-		// Calculate the real database index (considering virtual mode offset and sorting)
-		int dbIndex = listView.VirtualMode
-			? (sortedIndices != null && index < sortedIndices.Count ? sortedIndices[index: index] : virtualListOffset + index)
-			: index;
-		// Derive display text from the backing data to avoid accessing Items in virtual mode
-		if (dbIndex >= 0 && dbIndex < planetoidsDatabase.Count &&
-			TryParsePlanetoidRecord(record: planetoidsDatabase[index: dbIndex], recordIndex: dbIndex, parsedIndex: out string strIndex, parsedDesignation: out string strDesignation))
+		// Calculate the new virtual index based on sorting and virtual list offset
+		int newVirtualIndex = sortedIndices != null ? sortedIndices.IndexOf(item: selectedDbIndex.Value) : selectedDbIndex.Value - virtualListOffset;
+		// If the new virtual index is valid, select it and ensure it is visible
+		if (newVirtualIndex >= 0 && newVirtualIndex < listView.VirtualListSize)
 		{
-			SetStatusBar(label: labelInformation, text: $"{I18nStrings.Index}: {strIndex} - {strDesignation}");
+			// Log the restoration of selection
+			listView.SelectedIndices.Clear();
+			// Add the new virtual index to the selected indices
+			_ = listView.SelectedIndices.Add(itemIndex: newVirtualIndex);
+			// Ensure the newly selected item is visible in the ListView
+			listView.EnsureVisible(index: newVirtualIndex);
 		}
-		// Enable the Go to object button
-		toolStripButtonGoToObject.Enabled = true;
-		selectedIndex = index;
+	}
+
+	/// <summary>Updates the column headers of the ListView to reflect the current sort order. Adds an ascending or descending indicator to the sorted column header and removes any indicators from other columns.</summary>
+	/// <remarks>This method is called after sorting to visually indicate which column is currently sorted and in which order.</remarks>
+	private void UpdateColumnHeaders()
+	{
+		// Iterate through all columns in the ListView
+		for (int i = 0; i < listView.Columns.Count; i++)
+		{
+			// Remove any existing sort indicators from the header text
+			string headerText = listView.Columns[index: i].Text.TrimStart('▲', '▼', ' ');
+			// If this is the currently sorted column, add the appropriate sort indicator
+			if (i == sortColumn)
+			{
+				string indicator = sortOrder == SortOrder.Ascending ? "▲" : "▼";
+				listView.Columns[index: i].Text = $"{indicator} {headerText}";
+			}
+			// For other columns, just update the text without indicators
+			else
+			{
+				listView.Columns[index: i].Text = headerText;
+			}
+		}
+	}
+
+	/// <summary>Sorts the virtual list based on the current sort column and order. This method updates the sortedIndices list to reflect the new order of items in the ListView, preserving the selection if possible.</summary>
+	/// <remarks>This method is called when the user clicks a column header to sort the list. It uses a custom comparison to sort the indices based on the selected column and order, and then restores the selection based on the previously selected database index.</remarks>
+	private void SortVirtualList()
+	{
+		// If there are no items, do not attempt to sort
+		if (listView.VirtualListSize == 0)
+		{
+			logger.Warn(message: "Attempted to sort an empty virtual list.");
+			return;
+		}
+		// Get the current count of items in the virtual list
+		int count = listView.VirtualListSize;
+		// Initialize sortedIndices if it is null or if the count has changed (e.g., due to a new list being loaded)
+		if (sortedIndices == null || sortedIndices.Count != count)
+		{
+			// Initialize sortedIndices with the current range of indices based on the virtual list offset
+			sortedIndices = [.. Enumerable.Range(start: virtualListOffset, count: count)];
+		}
+		// Remember the currently selected database index before sorting, so we can restore selection afterward
+		int? selectedDbIndex = GetSelectedDatabaseIndex();
+		// Sort the indices using a custom comparison that uses the precomputed sort keys
+		sortedIndices.Sort(comparison: (a, b) =>
+		{
+			// Retrieve the records for the two indices being compared
+			string recA = planetoidsDatabase[index: a];
+			string recB = planetoidsDatabase[index: b];
+			// Validate that both records are long enough for comparison
+			if (recA.Length < nameStartIndex + nameLength || recB.Length < nameStartIndex + nameLength)
+			{
+				// Log a warning if one or both records are too short for comparison
+				logger.Warn(message: $"One or both records are too short for comparison. Index A: {a}, Length: {recA.Length}; Index B: {b}, Length: {recB.Length}");
+				return 0;
+			}
+			// Use ReadOnlySpan<char> for efficient substring extraction without allocations
+			ReadOnlySpan<char> spanA = recA.AsSpan();
+			ReadOnlySpan<char> spanB = recB.AsSpan();
+			// Initialize the comparison result
+			int result = 0;
+			// Perform the comparison based on the currently sorted column. Sort by Index (Numeric comparison if possible, otherwise string comparison)
+			if (sortColumn == 0)
+			{
+				// Sort by Index (Numeric comparison if possible, otherwise string comparison)
+				ReadOnlySpan<char> indexA = spanA[..indexLength].Trim();
+				ReadOnlySpan<char> indexB = spanB[..indexLength].Trim();
+				// Attempt to parse the indices as integers for numeric comparison
+				bool isNumA = int.TryParse(s: indexA, result: out int numA);
+				bool isNumB = int.TryParse(s: indexB, result: out int numB);
+				// If both indices are numeric, compare numerically; otherwise, compare as strings (case-insensitive)
+				result = (isNumA && isNumB) ? numA.CompareTo(value: numB) : indexA.CompareTo(other: indexB, comparisonType: StringComparison.OrdinalIgnoreCase);
+			}
+			else if (sortColumn == 1) // Sort by Designation (String comparison)
+			{
+				// Sort by Designation (String comparison)
+				ReadOnlySpan<char> desigA = spanA.Slice(start: nameStartIndex, length: nameLength).Trim();
+				ReadOnlySpan<char> desigB = spanB.Slice(start: nameStartIndex, length: nameLength).Trim();
+				result = desigA.CompareTo(other: desigB, comparisonType: StringComparison.OrdinalIgnoreCase);
+			}
+			// If the values are equal, we can optionally fall back to comparing the original indices to ensure a stable sort, but in this case we will just return 0 for equal values.
+			return sortOrder == SortOrder.Descending ? -result : result;
+		});
+		// After sorting, restore the selection based on the remembered database index, if possible.
+		RestoreSelection(selectedDbIndex: selectedDbIndex);
+		listView.Invalidate();
+		// Log the sorting action
+		logger.Info(message: $"Virtual list sorted by column {sortColumn} in {sortOrder} order.");
+	}
+
+	/// <summary>Sets the reference to the planetoids database for this form. This method is used to provide the form with the necessary data to display and interact with the list of readable designations.</summary>
+	/// <param name="database">The planetoids database to be referenced by this form.</param>
+	/// <exception cref="ArgumentNullException">Thrown if the provided database is null.</exception>
+	/// <remarks>This method is called to set the reference to the planetoids database, which is used for displaying and navigating through the list of readable designations.</remarks>
+	public void SetDatabaseReference(IReadOnlyList<string> database)
+	{
+		planetoidsDatabase = database ?? throw new ArgumentNullException(paramName: nameof(database));
+		logger.Info(message: $"Database reference set with {planetoidsDatabase.Count} records.");
+	}
+
+	/// <summary>Triggers navigation to the selected planetoid record in the main form. This method retrieves the selected database index, validates it, and attempts to parse the corresponding record. If successful, it navigates to the record in the main form; otherwise, it shows an error message.</summary>
+	/// <remarks>This method is called when the user clicks the "Go to Object" button or double-clicks a list view item. It handles the navigation logic to the selected planetoid record in the main form.</remarks>
+	private void TriggerNavigation()
+	{
+		// Retrieve the selected database index
+		int? dbIndex = GetSelectedDatabaseIndex();
+		// Validate the selected index and ensure it is within the bounds of the database
+		if (!dbIndex.HasValue || dbIndex.Value < 0 || dbIndex.Value >= planetoidsDatabase.Count)
+		{
+			// Log a warning if no valid item is selected for navigation
+			logger.Warn(message: "No valid item selected for navigation.");
+			return;
+		}
+		// Attempt to parse the selected planetoid record
+		if (TryParsePlanetoidRecord(record: planetoidsDatabase[index: dbIndex.Value], parsedIndex: out string strIndex, parsedDesignation: out string strDesignation))
+		{
+			// If the main form is open, navigate to the selected record
+			if (Application.OpenForms.OfType<PlanetoidDbForm>().FirstOrDefault() is PlanetoidDbForm mainForm)
+			{
+				// Log the navigation action with the selected index and designation
+				logger.Info(message: $"Navigating to planetoid record: Index={strIndex}, Designation={strDesignation}");
+				// Call the JumpToRecord method on the main form to navigate to the selected record
+				mainForm.JumpToRecord(index: strIndex, designation: strDesignation);
+				// Bring the main form to the front after navigation
+				mainForm.BringToFront();
+			}
+			// Set the dialog result to OK and close the form after successful navigation
+			DialogResult = DialogResult.OK;
+			Close();
+		}
+		// If the record format is invalid, log a warning and show an error message
+		else
+		{
+			// Log a warning if the record format is invalid
+			logger.Warn(message: $"Invalid record format for navigation at index {dbIndex.Value}. Record: {planetoidsDatabase[dbIndex.Value]}");
+			// Show an error message if the record format is invalid
+			ShowErrorMessage("Invalid record format.");
+		}
 	}
 
 	#endregion
@@ -290,6 +366,8 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 	/// <remarks>This method is used to initialize the form's UI components and state.</remarks>
 	private void ListReadableDesignationsForm_Load(object? sender, EventArgs? e)
 	{
+		// Log the form load event
+		logger.Info(message: "ListReadableDesignationsForm is loading.");
 		// Clear the status bar on load
 		ClearStatusBar(label: labelInformation);
 		// Disable controls until data is available
@@ -307,6 +385,8 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		toolStripNumericUpDownMaximum.Maximum = planetoidsDatabase.Count;
 		toolStripNumericUpDownMinimum.Value = 1;
 		toolStripNumericUpDownMaximum.Value = planetoidsDatabase.Count;
+		// Log the count of the planetoids database
+		logger.Info(message: $"Form loaded with planetoids database count: {planetoidsDatabase.Count}");
 	}
 
 	/// <summary>Handles the form Closed event. Cleans up resources and cancels any ongoing operations.</summary>
@@ -327,122 +407,24 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 	/// <remarks>This method determines the sort order and initiates the sorting process for the selected column.</remarks>
 	private void ListView_ColumnClick(object? sender, ColumnClickEventArgs e)
 	{
-		// If there are no items, do not attempt to sort
+		// Log the column click event
+		logger.Info(message: $"Column {e.Column} clicked for sorting.");
+		// If the virtual list is empty, log a warning and return without sorting
 		if (listView.VirtualListSize == 0)
 		{
-			logger.Warn(message: "Attempted to sort an empty list view.");
+			logger.Warn(message: "Attempted to sort an empty virtual list on column click.");
 			return;
 		}
-		// Determine the new sort order based on the clicked column
-		if (e.Column == sortColumn)
-		{
-			// Toggle sort order if the same column is clicked
-			sortOrder = sortOrder == SortOrder.Ascending ? SortOrder.Descending : SortOrder.Ascending;
-		}
-		else
-		{
-			// Set new sort column and default to ascending order
-			sortColumn = e.Column;
-			sortOrder = SortOrder.Ascending;
-		}
-		// Update column headers with sort indicators
-		for (int i = 0; i < listView.Columns.Count; i++)
-		{
-			// Remove existing sort indicators from the header text
-			string headerText = listView.Columns[index: i].Text;
-			// Check for existing indicators and remove them
-			if (headerText.StartsWith(value: "▲ ") || headerText.StartsWith(value: "▼ "))
-			{
-				headerText = headerText[2..];
-			}
-			// Add the new sort indicator to the currently sorted column
-			if (i == sortColumn)
-			{
-				string indicator = sortOrder == SortOrder.Ascending ? "▲" : "▼";
-				listView.Columns[index: i].Text = $"{indicator} {headerText}";
-			}
-			// For other columns, just update the text without indicators
-			else
-			{
-				listView.Columns[index: i].Text = headerText;
-			}
-		}
-		// Sort the indices based on the selected column and sort order
-		int count = listView.VirtualListSize;
-		// Initialize sortedIndices if it is null or if the count has changed (e.g., due to a new list being loaded)
-		if (sortedIndices == null || sortedIndices.Count != count)
-		{
-			// Create a list of indices corresponding to the current virtual list size
-			sortedIndices = [.. Enumerable.Range(start: virtualListOffset, count: count)];
-		}
-		// Before sorting, capture the currently selected database index (if any) so selection can be preserved.
-		int? selectedDatabaseIndex = null;
-		if (listView.SelectedIndices.Count > 0)
-		{
-			int selectedVirtualIndex = listView.SelectedIndices[index: 0];
-			int realIndexBeforeSort = sortedIndices != null && selectedVirtualIndex < sortedIndices.Count
-				? sortedIndices[index: selectedVirtualIndex]
-				: virtualListOffset + selectedVirtualIndex;
-			logger.Info(message: $"Selected database index before sort: {realIndexBeforeSort}");
-			selectedDatabaseIndex = realIndexBeforeSort;
-		}
-		// Precompute sort keys once per index to avoid repeated substring/trim/parse work during comparison
-#pragma warning disable CS8602 // Dereferenzierung eines möglichen Nullverweises.
-		Dictionary<int, (bool HasNumeric, int NumericValue, string TextValue)> sortKeyCache = new(capacity: sortedIndices.Count);
-#pragma warning restore CS8602 // Dereferenzierung eines möglichen Nullverweises.
-		foreach (int index in sortedIndices)
-		{
-			string rec = index >= 0 && index < planetoidsDatabase.Count ? planetoidsDatabase[index: index] : string.Empty;
-			string value = string.Empty;
-			// For column 0, we compare the index; for column 1, we compare the designation name
-			switch (sortColumn)
-			{
-				case 0:
-					value = rec.Length >= indexLength ? rec[..indexLength].Trim() : string.Empty;
-					break;
-				case 1:
-					value = rec.Length >= nameStartIndex + nameLength
-						? rec.Substring(startIndex: nameStartIndex, length: nameLength).Trim()
-						: string.Empty;
-					break;
-			}
-			bool hasNumeric = int.TryParse(s: value, result: out int numericValue);
-			sortKeyCache[key: index] = (hasNumeric, numericValue, value);
-		}
-		// Sort the indices using a custom comparison that uses the precomputed sort keys
-		sortedIndices.Sort(comparison: (a, b) =>
-		{
-			// Retrieve precomputed sort keys; if missing, fall back to empty defaults
-			(bool HasNumeric, int NumericValue, string TextValue) = sortKeyCache.TryGetValue(key: a, value: out (bool HasNumeric, int NumericValue, string TextValue) ka) ? ka : (HasNumeric: false, NumericValue: 0, TextValue: string.Empty);
-			(bool HasNumericB, int NumericValueB, string TextValueB) = sortKeyCache.TryGetValue(key: b, value: out (bool HasNumeric, int NumericValue, string TextValue) kb) ? kb : (HasNumeric: false, NumericValue: 0, TextValue: string.Empty);
-			int result = HasNumeric && HasNumericB
-				? NumericValue.CompareTo(value: NumericValueB)
-				: string.Compare(
-					strA: TextValue,
-					strB: TextValueB,
-					comparisonType: StringComparison.OrdinalIgnoreCase);
-			// If both values have numeric representations, compare numerically; otherwise, compare as strings (case-insensitive)
-			// If the values are equal, we can optionally fall back to comparing the original indices to ensure a stable sort, but in this case we will just return 0 for equal values.
-			return sortOrder == SortOrder.Descending ? -result : result;
-		});
-		// After sorting, restore the selection based on the remembered database index, if possible.
-		if (selectedDatabaseIndex.HasValue)
-		{
-			// Find the new virtual index of the previously selected database index after sorting
-			int newVirtualIndex = sortedIndices != null
-				? sortedIndices.IndexOf(item: selectedDatabaseIndex.Value)
-				: selectedDatabaseIndex.Value - virtualListOffset;
-			// If sortedIndices is not null, we can find the new virtual index directly; otherwise, we calculate it based on the offset.
-			// If the new virtual index is valid, select it and ensure it is visible
-			if (newVirtualIndex >= 0 && newVirtualIndex < listView.VirtualListSize)
-			{
-				listView.SelectedIndices.Clear();
-				listView.SelectedIndices.Add(itemIndex: newVirtualIndex);
-				listView.EnsureVisible(index: newVirtualIndex);
-			}
-		}
-		// After sorting the indices, we need to refresh the ListView to reflect the new order. In virtual mode, this is done by invalidating the control, which will trigger it to request the items in the new order.
-		listView.Invalidate();
+		// Toggle the sort order if the same column is clicked; otherwise, set to ascending
+		sortOrder = (e.Column == sortColumn && sortOrder == SortOrder.Ascending) ? SortOrder.Descending : SortOrder.Ascending;
+		// Update the sort column to the newly clicked column
+		sortColumn = e.Column;
+		// Log the new sort order
+		logger.Info(message: $"Sorting by column {sortColumn} in {sortOrder} order.");
+		// Update the column headers to reflect the new sort order
+		UpdateColumnHeaders();
+		// Sort the virtual list based on the new sort order
+		SortVirtualList();
 	}
 
 	/// <summary>Handles the retrieval of virtual items for the ListView. Dynamically creates ListViewItems when they are needed for display.</summary>
@@ -455,20 +437,31 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		int realIndex = sortedIndices != null && e.ItemIndex < sortedIndices.Count
 			? sortedIndices[index: e.ItemIndex]
 			: virtualListOffset + e.ItemIndex;
-		// Creating the item (uses the existing logic)
-		ListViewItem? item = CreateListViewItem(index: realIndex);
-		// If the item was created successfully, assign it.
-		// If null is returned (error), create a placeholder to avoid crashes.
-		if (item != null)
+		// Validate the real index and create the ListViewItem if valid
+		if (realIndex >= 0 && realIndex < planetoidsDatabase.Count)
 		{
-			e.Item = item;
+			// Retrieve the current data for the real index
+			string currentData = planetoidsDatabase[index: realIndex];
+			// Use the shared parsing logic to extract index and designation
+			if (TryParsePlanetoidRecord(record: currentData, parsedIndex: out string strIndex, parsedDesignation: out string strDesignation))
+			{
+				// Create a new ListViewItem with the parsed index and designation
+				ListViewItem item = new(strIndex)
+				{
+					ToolTipText = $"{strIndex}: {strDesignation}"
+				};
+				// Add the designation as a subitem
+				_ = item.SubItems.Add(text: strDesignation);
+				e.Item = item;
+				return;
+			}
+			// If parsing fails, log a warning
+			logger.Warn($"Invalid record at index {realIndex}. Data too short or malformed.");
 		}
-		else
-		{
-			logger.Warn(message: $"Failed to create ListViewItem for database index {realIndex}.");
-			e.Item = new ListViewItem(text: "Error");
-			e.Item.SubItems.Add(text: "Invalid Data");
-		}
+		// If the real index is out of bounds, log an error and provide a placeholder item
+		logger.Error($"Failed to retrieve virtual item for index {e.ItemIndex}. Real index: {realIndex}. Database count: {planetoidsDatabase.Count}.");
+		e.Item = new ListViewItem(text: "Error");
+		_ = e.Item.SubItems.Add(text: "Invalid Data");
 	}
 
 	#endregion
@@ -489,56 +482,46 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 			logger.Warn(message: "Planetoids database is empty.");
 			return;
 		}
-		// Define columns (as in the original)
-		ColumnHeader columnHeaderIndex = new()
-		{
-			Text = I18nStrings.Index,
-			TextAlign = HorizontalAlignment.Right,
-			Width = 100
-		};
-		ColumnHeader columnHeaderReadableDesignation = new()
-		{
-			Text = "Readable Designation",
-			TextAlign = HorizontalAlignment.Left,
-			Width = 300
-		};
-		// Begin UI update
+		// Validate the numeric up/down values
 		try
 		{
+			// Validate the numeric up/down values
 			listView.BeginUpdate();
-			// Reset list
 			listView.Visible = false;
+			listView.VirtualMode = false;
 			// Clear selection before resetting, very important!
 			listView.SelectedIndices.Clear();
-			// Temporarily disable to clear
-			listView.VirtualMode = false;
 			listView.Items.Clear();
 			listView.Columns.Clear();
-			listView.Columns.AddRange(values: [columnHeaderIndex, columnHeaderReadableDesignation]);
-			// Calculate range
+			// Add columns for index and readable designation
+			listView.Columns.Add(new ColumnHeader { Text = I18nStrings.Index, TextAlign = HorizontalAlignment.Right, Width = 100 });
+			listView.Columns.Add(new ColumnHeader { Text = "Readable Designation", TextAlign = HorizontalAlignment.Left, Width = 300 });
+			// Calculate the range based on the numeric up/down values
 			int min = (int)toolStripNumericUpDownMinimum.Value - 1;
 			int max = (int)toolStripNumericUpDownMaximum.Value;
 			int count = max - min;
-			if (count <= 0)
+			// If the count is less than or equal to zero, show a message and return
+			if (count > 0)
 			{
-				listView.Visible = true;
-				listView.EndUpdate();
-				return;
+				// Virtual Mode configure
+				sortedIndices = null;
+				sortColumn = -1;
+				sortOrder = SortOrder.None;
+				virtualListOffset = min;
+				// Enable virtual mode and set the virtual list size
+				listView.VirtualMode = true;
+				listView.VirtualListSize = count;
 			}
-			// Virtual Mode configure
-			sortedIndices = null;
-			sortColumn = -1;
-			sortOrder = SortOrder.None;
-			virtualListOffset = min; // Start offset save
-			listView.VirtualMode = true; // Activate virtual mode
-			listView.VirtualListSize = count; // Set number of rows (triggers RetrieveVirtualItem when scrolling)
+			// If the count is zero or negative, just show an empty list
 			listView.Visible = true;
 		}
+		// Handle any exceptions that occur during the list initialization
 		catch (Exception ex)
 		{
 			logger.Error(exception: ex, message: "Error initializing virtual list.");
 			ShowErrorMessage(message: $"Error loading list: {ex.Message}");
 		}
+		// Ensure that the UI is updated and the save button is enabled regardless of success or failure
 		finally
 		{
 			listView.EndUpdate();
@@ -546,19 +529,16 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		}
 	}
 
-	/// <summary>Handles the Click event of the Go To Object button on the tool strip, initiating the selection of a planetoid and, when successful, closing the current form.</summary>
-	/// <param name="sender">The source of the event, typically the Go To Object button on the tool strip.</param>
+	/// <summary>Handles the click event for the "Go to Object" button. This method triggers navigation to the selected planetoid record in the main form.</summary>
+	/// <param name="sender">The source of the event, typically the "Go to Object" button.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
-	/// <remarks>When the Go To Object button is clicked, this method calls the SelectPlanetoidInMainForm method to navigate to the selected planetoid record in the main form. Only if navigation succeeds, it closes the current form and sets the dialog result to <see cref="DialogResult.OK"/> to signal a successful selection.</remarks>
+	/// <remarks>This method calls the TriggerNavigation method to navigate to the selected planetoid record in the main form.</remarks>
 	private void ToolStripButtonGoToObject_Click(object sender, EventArgs e)
 	{
-		// Select the planetoid in the main form; only close if navigation succeeded
-		if (SelectPlanetoidInMainForm())
-		{
-			logger.Info(message: "Navigating to selected planetoid succeeded.");
-			DialogResult = DialogResult.OK;
-			Close();
-		}
+		// Log the button click event
+		logger.Info(message: "Go to Object button clicked.");
+		// Trigger navigation to the selected planetoid record
+		TriggerNavigation();
 	}
 
 	#endregion
@@ -571,8 +551,10 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	private void ListView_DoubleClick(object sender, EventArgs e)
 	{
-		logger.Info(message: "List view item double-clicked.");
-		SelectPlanetoidInMainForm();
+		// Log the button click event
+		logger.Info(message: "Go to Object button clicked.");
+		// Trigger navigation to the selected planetoid record
+		TriggerNavigation();
 	}
 
 	#endregion
