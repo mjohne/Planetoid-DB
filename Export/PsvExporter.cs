@@ -38,7 +38,8 @@ public class PsvExporter : IOrbitDataExporter
 
 	/// <summary>Gets the file filter string for the save file dialog.</summary>
 	/// <remarks>This property provides the filter string used in the save file dialog to specify the types of files that can be saved.</remarks>
-	public string Filter => "PSV files (*.docx)|*.psv|All files (*.*)|*.*";
+	public string Filter => "PSV files (*.psv)|*.psv|All files (*.*)|*.*";
+
 	/// <summary>Gets the title for the save file dialog.</summary>
 	/// <remarks>This property provides the title text displayed in the save file dialog.</remarks>
 	public string Title => "Save database information as PSV";

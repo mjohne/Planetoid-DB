@@ -38,7 +38,8 @@ public class XmlExporter : IOrbitDataExporter
 
 	/// <summary>Gets the file filter string for the save file dialog.</summary>
 	/// <remarks>This property provides the filter string used in the save file dialog to specify the types of files that can be saved.</remarks>
-	public string Filter => "XML files (*.docx)|*.xml|All files (*.*)|*.*";
+	public string Filter => "XML files (*.xml)|*.xml|All files (*.*)|*.*";
+
 	/// <summary>Gets the title for the save file dialog.</summary>
 	/// <remarks>This property provides the title text displayed in the save file dialog.</remarks>
 	public string Title => "Save database information as XML";
@@ -59,16 +60,16 @@ public class XmlExporter : IOrbitDataExporter
 		logger.Info(message: $"Exporting data to XML file: {filePath}");
 		// Create a StringBuilder to build the content of the XML file
 		StringBuilder sb = new();
-        // Append the XML content to the StringBuilder
+		// Append the XML content to the StringBuilder
 		_ = sb.AppendLine(value: "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>");
 		_ = sb.AppendLine(value: "<MinorPlanet xmlns=\"https://github.com/mjohne/Planetoid-DB\">");
-        // Append each key-value pair from the selected data to the StringBuilder
+		// Append each key-value pair from the selected data to the StringBuilder
 		foreach (KeyValuePair<string, string> kvp in selectedData)
 		{
 			// Append the key and value in the format "Key: Value" to the StringBuilder
-            _ = sb.AppendLine(handler: $"\t<{kvp.Key} value=\"{kvp.Value}\"/>",
+			_ = sb.AppendLine(handler: $"\t<{kvp.Key} value=\"{kvp.Value}\"/>");
 		}
-        // Append the closing tag for the XML content
+		// Append the closing tag for the XML content
 		_ = sb.Append(value: "</MinorPlanet>");
 		// Write the content of the StringBuilder to the specified file path
 		File.WriteAllText(path: filePath, contents: sb.ToString());

@@ -22,8 +22,8 @@ using System.Text;
 
 namespace Planetoid_DB.Export;
 
-/// <summary>Represents a text exporter for exporting database information to a iCalender file.</summary>
-/// <remarks>This class implements the IOrbitDataExporter interface and provides functionality to export database information to a iCalender file format.</remarks>
+/// <summary>Represents a text exporter for exporting database information to a iCalendar file.</summary>
+/// <remarks>This class implements the IOrbitDataExporter interface and provides functionality to export database information to a iCalendar file format.</remarks>
 // You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
 [DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 public class IcsExporter : IOrbitDataExporter
@@ -38,7 +38,8 @@ public class IcsExporter : IOrbitDataExporter
 
 	/// <summary>Gets the file filter string for the save file dialog.</summary>
 	/// <remarks>This property provides the filter string used in the save file dialog to specify the types of files that can be saved.</remarks>
-	public string Filter => "Text files (*.txt)|*.txt|All files (*.*)|*.*";
+	public string Filter => "iCalendar files (*.ics)|*.ics|All files (*.*)|*.*";
+
 	/// <summary>Gets the title for the save file dialog.</summary>
 	/// <remarks>This property provides the title text displayed in the save file dialog.</remarks>
 	public string Title => "Save database information as iCalendar";

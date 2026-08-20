@@ -38,7 +38,8 @@ public class TsvExporter : IOrbitDataExporter
 
 	/// <summary>Gets the file filter string for the save file dialog.</summary>
 	/// <remarks>This property provides the filter string used in the save file dialog to specify the types of files that can be saved.</remarks>
-	public string Filter => "TSV files (*.docx)|*.tsv|All files (*.*)|*.*";
+	public string Filter => "TSV files (*.tsv)|*.tsv|All files (*.*)|*.*";
+
 	/// <summary>Gets the title for the save file dialog.</summary>
 	/// <remarks>This property provides the title text displayed in the save file dialog.</remarks>
 	public string Title => "Save database information as TSV";

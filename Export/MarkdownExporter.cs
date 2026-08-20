@@ -38,7 +38,8 @@ public class MarkdownExporter : IOrbitDataExporter
 
 	/// <summary>Gets the file filter string for the save file dialog.</summary>
 	/// <remarks>This property provides the filter string used in the save file dialog to specify the types of files that can be saved.</remarks>
-	public string Filter => "Markdown files (*.markdown)|*.markdown|All files (*.*)|*.*";
+	public string Filter => "Markdown files (*.md)|*.md|All files (*.*)|*.*";
+
 	/// <summary>Gets the title for the save file dialog.</summary>
 	/// <remarks>This property provides the title text displayed in the save file dialog.</remarks>
 	public string Title => "Save database information as Markdown";

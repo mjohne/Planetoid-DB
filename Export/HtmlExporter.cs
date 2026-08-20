@@ -38,7 +38,8 @@ public class HtmlExporter : IOrbitDataExporter
 
 	/// <summary>Gets the file filter string for the save file dialog.</summary>
 	/// <remarks>This property provides the filter string used in the save file dialog to specify the types of files that can be saved.</remarks>
-	public string Filter => "HTML files (*.docx)|*.html|All files (*.*)|*.*";
+	public string Filter => "HTML files (*.html)|*.html|All files (*.*)|*.*";
+
 	/// <summary>Gets the title for the save file dialog.</summary>
 	/// <remarks>This property provides the title text displayed in the save file dialog.</remarks>
 	public string Title => "Save database information as HTML";
@@ -59,7 +60,7 @@ public class HtmlExporter : IOrbitDataExporter
 		logger.Info(message: $"Exporting data to HTML file: {filePath}");
 		// Create a StringBuilder to build the content of the HTML file
 		StringBuilder sb = new();
-        // Append the HTML content to the StringBuilder
+		// Append the HTML content to the StringBuilder
 		_ = sb.AppendLine(value: "<!DOCTYPE html>");
 		_ = sb.AppendLine(value: "<html lang=\"en\">");
 		_ = sb.AppendLine(value: "\t<head>");
@@ -83,9 +84,9 @@ public class HtmlExporter : IOrbitDataExporter
 		foreach (KeyValuePair<string, string> kvp in selectedData)
 		{
 			// Append the key and value in the format "Key: Value" to the StringBuilder
-            _ = sb.AppendLine(handler: $"\t\t\t<span class=\"bold block\" xml:id=\"element-id-{kvp.Key}\">{kvp.Key}:</span> <span xml:id=\"value-id-{kvp.Key}\">{kvp.Value}</span><br />");
+			_ = sb.AppendLine(handler: $"\t\t\t<span class=\"bold block\" xml:id=\"element-id-{kvp.Key}\">{kvp.Key}:</span> <span xml:id=\"value-id-{kvp.Key}\">{kvp.Value}</span><br />");
 		}
-        // Append the closing tags for the HTML content
+		// Append the closing tags for the HTML content
 		_ = sb.AppendLine(value: "\t\t</p>");
 		_ = sb.AppendLine(value: "\t</body>");
 		_ = sb.Append(value: "</html>");
