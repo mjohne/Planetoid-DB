@@ -34,7 +34,7 @@ public class CsvExporter : IOrbitDataExporter
 
 	/// <summary>Initializes a new instance of the CsvExporter class.</summary>
 	/// <remarks>This constructor initializes a new instance of the CsvExporter class.</remarks>
-	public string Extension => "docx";
+	public string Extension => "csv";
 
 	/// <summary>Gets the file filter string for the save file dialog.</summary>
 	/// <remarks>This property provides the filter string used in the save file dialog to specify the types of files that can be saved.</remarks>
