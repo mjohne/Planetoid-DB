@@ -122,7 +122,6 @@ public class WordExporter : IOrbitDataExporter
 				</w:body>
 			</w:document>
 			""";
-
 		// Create a new FileStream to write the Word document content to the specified file
 		using FileStream fileStream = new(path: filePath, mode: FileMode.Create, access: FileAccess.Write, share: FileShare.None);
 		// Create a new ZipArchive to create the Word document as a ZIP file containing the necessary XML parts
