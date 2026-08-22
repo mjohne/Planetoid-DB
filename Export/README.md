@@ -35,10 +35,11 @@ IOrbitDataExporter
 | `LatexExporter` | LaTeX | `.tex` | Produces LaTeX-compatible output for scientific and technical documents. |
 | `MarkdownExporter` | Markdown | `.md` | Generates Markdown suitable for documentation, GitHub, notes, and other Markdown-compatible systems. |
 | `PsvExporter` | Pipe-Separated Values | `.psv` | Writes data using the pipe (`|`) character as the field separator. |
+| `RtfExporter` | Rich Text Format | `.rtf` | ... |
 | `TextExporter` | Plain text | `.txt` | Produces a human-readable plain-text representation of the selected data. |
 | `TsvExporter` | Tab-Separated Values | `.tsv` | Writes data with tab characters as field separators. |
-| `XmlExporter` | XML | `.xml` | Generates structured XML output for interoperability and machine processing. |
 | `YamlExporter` | YAML | `.yaml` | Produces YAML-style structured text for configuration- and data-oriented use cases. |
+| `XmlExporter` | XML | `.xml` | Generates structured XML output for interoperability and machine processing. |
 
 ## Architecture
 
@@ -237,10 +238,11 @@ Export/
 ├── LatexExporter.cs
 ├── MarkdownExporter.cs
 ├── PsvExporter.cs
+├── RtfExporter.cs
 ├── TextExporter.cs
 ├── TsvExporter.cs
-├── XmlExporter.cs
-└── YamlExporter.cs
+├── YamlExporter.cs
+└── XmlExporter.cs
 ```
 
 The common abstraction is located outside the directory:
