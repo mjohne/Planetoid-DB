@@ -69,7 +69,7 @@ public class LatexExporter : IOrbitDataExporter
 		_ = sb.AppendLine(value: "\\usepackage{amssymb}");
 		_ = sb.AppendLine(value: "\\usepackage{geometry}");
 		_ = sb.AppendLine(value: "\\geometry{a4paper, margin=1in}");
-		_ = sb.AppendLine(handler: $"\\title{{Export for {exportTitle}}}");
+		_ = sb.AppendLine(handler: $"\\title{{{exportTitle}}}");
 		_ = sb.AppendLine(value: "\\begin{document}");
 		_ = sb.AppendLine(value: "\\maketitle");
 		_ = sb.AppendLine(value: "\\begin{itemize}");
