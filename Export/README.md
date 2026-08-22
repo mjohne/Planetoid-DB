@@ -34,6 +34,7 @@ IOrbitDataExporter
 | `JsonExporter` | JSON | `.json` | Serializes selected data into JSON for machine-readable interchange. |
 | `LatexExporter` | LaTeX | `.tex` | Produces LaTeX-compatible output for scientific and technical documents. |
 | `MarkdownExporter` | Markdown | `.md` | Generates Markdown suitable for documentation, GitHub, notes, and other Markdown-compatible systems. |
+| `OdtExporter` | Open Document Type | `.odt` | ... |
 | `PsvExporter` | Pipe-Separated Values | `.psv` | Writes data using the pipe (`|`) character as the field separator. |
 | `RtfExporter` | Rich Text Format | `.rtf` | ... |
 | `TextExporter` | Plain text | `.txt` | Produces a human-readable plain-text representation of the selected data. |
@@ -238,6 +239,7 @@ Export/
 ├── JsonExporter.cs
 ├── LatexExporter.cs
 ├── MarkdownExporter.cs
+├── OdtExporter.cs
 ├── PsvExporter.cs
 ├── RtfExporter.cs
 ├── TextExporter.cs
