@@ -38,6 +38,7 @@ IOrbitDataExporter
 | `RtfExporter` | Rich Text Format | `.rtf` | ... |
 | `TextExporter` | Plain text | `.txt` | Produces a human-readable plain-text representation of the selected data. |
 | `TsvExporter` | Tab-Separated Values | `.tsv` | Writes data with tab characters as field separators. |
+| `RtfExporter` | Word Document | `.docx` | ... |
 | `YamlExporter` | YAML | `.yaml` | Produces YAML-style structured text for configuration- and data-oriented use cases. |
 | `XmlExporter` | XML | `.xml` | Generates structured XML output for interoperability and machine processing. |
 
@@ -241,7 +242,8 @@ Export/
 ├── RtfExporter.cs
 ├── TextExporter.cs
 ├── TsvExporter.cs
-├── YamlExporter.cs
+├── TsvExporter.cs
+├── WordExporter.cs
 └── XmlExporter.cs
 ```
 
