@@ -73,7 +73,7 @@ public class OdsExporter : IOrbitDataExporter
 		foreach (KeyValuePair<string, string> kvp in selectedData)
 		{
 			string elementName = EscapeXml(value: kvp.Key ?? string.Empty);
-			string elementValue = EscapeXml(value: kvp.Value);
+			string elementValue = EscapeXml(value: kvp.Value ?? string.Empty);
 			// Append the key and value in the format "Key: Value" to the StringBuilder
 			_ = sb.AppendLine(value: $"<table:table-row><table:table-cell office:value-type=\"string\"><text:p>{elementName}</text:p></table:table-cell><table:table-cell office:value-type=\"string\"><text:p>{elementValue}</text:p></table:table-cell></table:table-row>");
 		}
