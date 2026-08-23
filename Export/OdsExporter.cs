@@ -1,5 +1,5 @@
 ﻿/*
- * File:        OdtExporter.cs
+ * File:        OdsExporter.cs
  * Project:     Planetoid-DB
  * Namespace:   Planetoid_DB.Export
  * Description: Exports database information to a Word file.
@@ -23,27 +23,27 @@ using System.Text;
 
 namespace Planetoid_DB.Export;
 
-/// <summary>Represents a ODT exporter for exporting database information to a Word file.</summary>
-/// <remarks>This class implements the IOrbitDataExporter interface and provides functionality to export database information to a ODT file format.</remarks>
+/// <summary>Represents a ODS exporter for exporting database information to a Word file.</summary>
+/// <remarks>This class implements the IOrbitDataExporter interface and provides functionality to export database information to a ODS file format.</remarks>
 // You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
 [DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-public class OdtExporter : IOrbitDataExporter
+public class OdsExporter : IOrbitDataExporter
 {
 	/// <summary>NLog logger instance for the class.</summary>
 	/// <remarks>This logger is used to log messages for the class.</remarks>
 	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
-	/// <summary>Initializes a new instance of the OdtExporter class.</summary>
-	/// <remarks>This constructor initializes a new instance of the odtExporter class.</remarks>
-	public string Extension => "odt";
+	/// <summary>Initializes a new instance of the OdsExporter class.</summary>
+	/// <remarks>This constructor initializes a new instance of the ODsExporter class.</remarks>
+	public string Extension => "dos";
 
 	/// <summary>Gets the file filter string for the save file dialog.</summary>
 	/// <remarks>This property provides the filter string used in the save file dialog to specify the types of files that can be saved.</remarks>
-	public string Filter => "ODT files (*.odt)|*.odt|All files (*.*)|*.*";
+	public string Filter => "ODS files (*.ods)|*.ods|All files (*.*)|*.*";
 
 	/// <summary>Gets the title for the save file dialog.</summary>
 	/// <remarks>This property provides the title text displayed in the save file dialog.</remarks>
-	public string Title => "Save database information as ODT file";
+	public string Title => "Save database information as ODS file";
 
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
@@ -61,40 +61,40 @@ public class OdtExporter : IOrbitDataExporter
 	/// <param name="filePath">The path of the file to export to.</param>
 	/// <param name="exportTitle">The title of the export.</param>
 	/// <param name="selectedData">The data to be exported.</param>
-	/// <remarks>This method exports the selected data to a ODT file at the specified file path.</remarks>
+	/// <remarks>This method exports the selected data to a ODS file at the specified file path.</remarks>
 	public void Export(string filePath, string exportTitle, Dictionary<string, string> selectedData)
 	{
 		// Log the export operation
-		logger.Info(message: $"Exporting data to ODT file: {filePath}");
-		// Create a StringBuilder to build the content of the ODT file
+		logger.Info(message: $"Exporting data to ODS file: {filePath}");
+		// Create a StringBuilder to build the content of the ODS file
 		StringBuilder sb = new();
+		_ = sb.AppendLine(value: "<table:table-row><table:table-cell office:value-type=\"string\"><text:p>Element</text:p></table:table-cell><table:table-cell office:value-type=\"string\"><text:p>Value</text:p></table:table-cell></table:table-row>");
 		// Append the RTF content to the StringBuilder
 		foreach (KeyValuePair<string, string> kvp in selectedData)
 		{
+			string elementName = EscapeXml(value: kvp.Key ?? string.Empty);
+			string elementValue = EscapeXml(value: kvp.Value);
 			// Append the key and value in the format "Key: Value" to the StringBuilder
-			_ = sb.Append(value: $"<text:p><text:span text:style-name=\"T1\">{EscapeXml(value: kvp.Key)}:</text:span> {EscapeXml(value: kvp.Value)}</text:p>");
+			_ = sb.AppendLine(value: $"<table:table-row><table:table-cell office:value-type=\"string\"><text:p>{elementName}</text:p></table:table-cell><table:table-cell office:value-type=\"string\"><text:p>{elementValue}</text:p></table:table-cell></table:table-row>");
 		}
-		// Define the XML content for the content types of the ODT document
+		// Define the XML content for the content of the ODS file, including the table with the selected orbital elements
 		string contentXml = $"""
 			<?xml version="1.0" encoding="UTF-8"?>
 			<office:document-content
 				xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0"
+				xmlns:table="urn:oasis:names:tc:opendocument:xmlns:table:1.0"
 				xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0"
-				xmlns:style="urn:oasis:names:tc:opendocument:xmlns:style:1.0"
 				office:version="1.2">
-				<office:automatic-styles>
-					<style:style style:name="T1" style:family="text">
-						<style:text-properties fo:font-weight="bold" xmlns:fo="urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0"/>
-					</style:style>
-				</office:automatic-styles>
 				<office:body>
-					<office:text>
-						{sb}
-					</office:text>
+					<office:spreadsheet>
+						<table:table table:name="Export">
+							{sb}
+						</table:table>
+					</office:spreadsheet>
 				</office:body>
 			</office:document-content>
 			""";
-		// Define the XML content for the styles of the ODT document
+		// Define the XML content for the styles of the ODS file
 		string stylesXml = """
 			<?xml version="1.0" encoding="UTF-8"?>
 			<office:document-styles
@@ -103,7 +103,7 @@ public class OdtExporter : IOrbitDataExporter
 				<office:styles/>
 			</office:document-styles>
 			""";
-		// Define the XML content for the meta information of the ODT document
+		// Define the XML content for the meta information of the ODS file
 		string metaXml = """
 			<?xml version="1.0" encoding="UTF-8"?>
 			<office:document-meta
@@ -115,7 +115,7 @@ public class OdtExporter : IOrbitDataExporter
 				</office:meta>
 			</office:document-meta>
 			""";
-		// Define the XML content for the settings of the ODT document
+		// Define the XML content for the settings of the ODS file
 		string settingsXml = """
 			<?xml version="1.0" encoding="UTF-8"?>
 			<office:document-settings
@@ -124,11 +124,11 @@ public class OdtExporter : IOrbitDataExporter
 				<office:settings/>
 			</office:document-settings>
 			""";
-		// Define the XML content for the manifest of the ODT document, which lists the files included in the ODT package
+		// Define the XML content for the manifest of the ODS file
 		string manifestXml = """
 			<?xml version="1.0" encoding="UTF-8"?>
 			<manifest:manifest xmlns:manifest="urn:oasis:names:tc:opendocument:xmlns:manifest:1.0" manifest:version="1.2">
-				<manifest:file-entry manifest:full-path="/" manifest:media-type="application/vnd.oasis.opendocument.text"/>
+				<manifest:file-entry manifest:full-path="/" manifest:media-type="application/vnd.oasis.opendocument.spreadsheet"/>
 				<manifest:file-entry manifest:full-path="content.xml" manifest:media-type="text/xml"/>
 				<manifest:file-entry manifest:full-path="styles.xml" manifest:media-type="text/xml"/>
 				<manifest:file-entry manifest:full-path="meta.xml" manifest:media-type="text/xml"/>
@@ -136,19 +136,19 @@ public class OdtExporter : IOrbitDataExporter
 				<manifest:file-entry manifest:full-path="META-INF/manifest.xml" manifest:media-type="text/xml"/>
 			</manifest:manifest>
 			""";
-		// Create a new FileStream to write the ODT document content to the specified file
+		// Create a new FileStream to write the ODS file content to the specified file
 		using FileStream fileStream = new(path: filePath, mode: FileMode.Create, access: FileAccess.Write, share: FileShare.None);
-		// Create a new ZipArchive to create the ODT document as a ZIP file containing the necessary XML parts
+		// Create a new ZipArchive to create the ODS file as a ZIP file containing the necessary XML parts
 		using ZipArchive archive = new(stream: fileStream, mode: ZipArchiveMode.Create);
 		// Helper method to add an entry to the ZIP archive with the specified name, content, and compression level
 		void AddEntry(string entryName, string content, CompressionLevel compressionLevel = CompressionLevel.Optimal)
 		{
-			ZipArchiveEntry entry = archive.CreateEntry(entryName, compressionLevel);
+			ZipArchiveEntry entry = archive.CreateEntry(entryName: entryName, compressionLevel: compressionLevel);
 			using StreamWriter writer = new(stream: entry.Open(), encoding: new UTF8Encoding(encoderShouldEmitUTF8Identifier: false));
 			writer.Write(value: content);
 		}
-		// Add the necessary XML parts to the ZIP archive to create a valid ODT document
-		AddEntry(entryName: "mimetype", content: "application/vnd.oasis.opendocument.text", compressionLevel: CompressionLevel.NoCompression);
+		// Add the necessary XML parts to the ZIP archive to create a valid ODS file
+		AddEntry(entryName: "mimetype", content: "application/vnd.oasis.opendocument.spreadsheet", compressionLevel: CompressionLevel.NoCompression);
 		AddEntry(entryName: "content.xml", content: contentXml);
 		AddEntry(entryName: "styles.xml", content: stylesXml);
 		AddEntry(entryName: "meta.xml", content: metaXml);
@@ -158,6 +158,7 @@ public class OdtExporter : IOrbitDataExporter
 		//File.WriteAllText(path: filePath, contents: sb.ToString());
 
 		// Log that the data was exported successfully
-		logger.Info(message: $"Data exported successfully to ODT file: {filePath}");
+		logger.Info(message: $"Data exported successfully to ODS file: {filePath}");
+
 	}
 }
