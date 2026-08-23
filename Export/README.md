@@ -29,17 +29,22 @@ IOrbitDataExporter
 | `BbcodeExporter` | BBCode | `.bbcode` | Exports data using BBCode-style markup suitable for forums and systems supporting BBCode. |
 | `CreoleExporter` | Creole Wiki Markup | `.creole` | Produces wiki markup based on the Creole syntax. |
 | `CsvExporter` | CSV | `.csv` | Exports selected data in a delimited text format suitable for spreadsheets and data-processing tools. |
+| `EpubExporter` | Epub | `.epub` | ... |
 | `ExcelExporter` | Excel | `.xlsx` | ... |
 | `HtmlExporter` | HTML | `.html` | Generates a standalone HTML document containing the selected data and basic presentation markup. |
 | `IcsExporter` | iCalendar | `.ics` | Exports relevant information in iCalendar format for use with calendar applications and compatible tools. |
 | `JsonExporter` | JSON | `.json` | Serializes selected data into JSON for machine-readable interchange. |
 | `LatexExporter` | LaTeX | `.tex` | Produces LaTeX-compatible output for scientific and technical documents. |
 | `MarkdownExporter` | Markdown | `.md` | Generates Markdown suitable for documentation, GitHub, notes, and other Markdown-compatible systems. |
+| `MobiExporter` | Mobi | `.mobi` | ... |
 | `OdsExporter` | Open Document Type | `.ods` | ... |
 | `OdtExporter` | Open Document Type | `.odt` | ... |
+| `PdfExporter` | PDF | `.pdf` | ... |
 | `PsvExporter` | Pipe-Separated Values | `.psv` | Writes data using the pipe (`|`) character as the field separator. |
+| `PostscriptExporter` | PostScript | `.ps` | ... |
 | `RtfExporter` | Rich Text Format | `.rtf` | ... |
 | `TextExporter` | Plain text | `.txt` | Produces a human-readable plain-text representation of the selected data. |
+| `SqlExporter` | SQL | `.sql` | ... |
 | `TsvExporter` | Tab-Separated Values | `.tsv` | Writes data with tab characters as field separators. |
 | `RtfExporter` | Word Document | `.docx` | ... |
 | `YamlExporter` | YAML | `.yaml` | Produces YAML-style structured text for configuration- and data-oriented use cases. |
@@ -236,16 +241,21 @@ Export/
 ├── BbcodeExporter.cs
 ├── CreoleExporter.cs
 ├── CsvExporter.cs
+├── EpubExporter.cs
 ├── ExcelExporter.cs
 ├── HtmlExporter.cs
 ├── IcsExporter.cs
 ├── JsonExporter.cs
 ├── LatexExporter.cs
 ├── MarkdownExporter.cs
+├── MobiExporter.cs
 ├── OdsExporter.cs
 ├── OdtExporter.cs
+├── PdfExporter.cs
 ├── PsvExporter.cs
+├── PostscriptExporter.cs
 ├── RtfExporter.cs
+├── SqlExporter.cs
 ├── TextExporter.cs
 ├── TsvExporter.cs
 ├── TsvExporter.cs
