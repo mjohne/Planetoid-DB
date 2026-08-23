@@ -35,7 +35,7 @@ public class OdsExporter : IOrbitDataExporter
 
 	/// <summary>Initializes a new instance of the OdsExporter class.</summary>
 	/// <remarks>This constructor initializes a new instance of the OdsExporter class.</remarks>
-	public string Extension => "dos";
+	public string Extension => "ods";
 
 	/// <summary>Gets the file filter string for the save file dialog.</summary>
 	/// <remarks>This property provides the filter string used in the save file dialog to specify the types of files that can be saved.</remarks>
