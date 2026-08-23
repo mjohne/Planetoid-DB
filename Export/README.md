@@ -29,6 +29,7 @@ IOrbitDataExporter
 | `BbcodeExporter` | BBCode | `.bbcode` | Exports data using BBCode-style markup suitable for forums and systems supporting BBCode. |
 | `CreoleExporter` | Creole Wiki Markup | `.creole` | Produces wiki markup based on the Creole syntax. |
 | `CsvExporter` | CSV | `.csv` | Exports selected data in a delimited text format suitable for spreadsheets and data-processing tools. |
+| `ExcelExporter` | Excel | `.xlsx` | ... |
 | `HtmlExporter` | HTML | `.html` | Generates a standalone HTML document containing the selected data and basic presentation markup. |
 | `IcsExporter` | iCalendar | `.ics` | Exports relevant information in iCalendar format for use with calendar applications and compatible tools. |
 | `JsonExporter` | JSON | `.json` | Serializes selected data into JSON for machine-readable interchange. |
@@ -234,6 +235,7 @@ Export/
 ├── BbcodeExporter.cs
 ├── CreoleExporter.cs
 ├── CsvExporter.cs
+├── ExcelExporter.cs
 ├── HtmlExporter.cs
 ├── IcsExporter.cs
 ├── JsonExporter.cs
