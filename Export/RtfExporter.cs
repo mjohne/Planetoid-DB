@@ -50,9 +50,9 @@ public class RtfExporter : IOrbitDataExporter
 	private string GetDebuggerDisplay() => ToString() ?? string.Empty;
 
 	private static string EscapeRtf(string value) => value
-		.Replace(oldValue: "\\", newValue: "\\\\", comparisonType: StringComparison.Ordinal)
-		.Replace(oldValue: "{", newValue: "\\{", comparisonType: StringComparison.Ordinal)
-		.Replace(oldValue: "}", newValue: "\\}", comparisonType: StringComparison.Ordinal);
+			.Replace(oldValue: "\\", newValue: "\\\\", comparisonType: StringComparison.Ordinal)
+			.Replace(oldValue: "{", newValue: "\\{", comparisonType: StringComparison.Ordinal)
+			.Replace(oldValue: "}", newValue: "\\}", comparisonType: StringComparison.Ordinal);
 
 	/// <summary>Exports the selected data to a text file.</summary>
 	/// <param name="filePath">The path of the file to export to.</param>
@@ -79,5 +79,7 @@ public class RtfExporter : IOrbitDataExporter
 		_ = sb.Append(value: '}');
 		// Write the content of the StringBuilder to the specified file path
 		File.WriteAllText(path: filePath, contents: sb.ToString());
+		// Log that the data was exported successfully
+		logger.Info(message: $"Data exported successfully to RTF file: {filePath}");
 	}
 }

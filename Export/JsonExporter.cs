@@ -64,5 +64,7 @@ public class JsonExporter : IOrbitDataExporter
 		string jsonString = JsonSerializer.Serialize(value: selectedData, options: options);
 		// Write the content of the JSON string to the specified file path
 		File.WriteAllText(path: filePath, contents: jsonString);
+		// Log that the data was exported successfully
+		logger.Info(message: $"Data exported successfully to JSON file: {filePath}");
 	}
 }

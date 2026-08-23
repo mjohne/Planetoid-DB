@@ -92,5 +92,7 @@ public class HtmlExporter : IOrbitDataExporter
 		_ = sb.Append(value: "</html>");
 		// Write the content of the StringBuilder to the specified file path
 		File.WriteAllText(path: filePath, contents: sb.ToString());
+		// Log that the data was exported successfully
+		logger.Info(message: $"Data exported successfully to HTML file: {filePath}");
 	}
 }
