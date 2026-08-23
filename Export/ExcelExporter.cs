@@ -2,7 +2,7 @@
  * File:        ExcelExporter.cs
  * Project:     Planetoid-DB
  * Namespace:   Planetoid_DB.Export
- * Description: Exports database information to a Word file.
+ * Description: Exports database information to a Excel file.
  *
  * Author:      Michael Johne
  * Company:     Mijo Software
