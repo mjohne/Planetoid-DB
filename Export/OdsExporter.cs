@@ -34,7 +34,7 @@ public class OdsExporter : IOrbitDataExporter
 	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
 	/// <summary>Initializes a new instance of the OdsExporter class.</summary>
-	/// <remarks>This constructor initializes a new instance of the ODsExporter class.</remarks>
+	/// <remarks>This constructor initializes a new instance of the OdsExporter class.</remarks>
 	public string Extension => "dos";
 
 	/// <summary>Gets the file filter string for the save file dialog.</summary>
