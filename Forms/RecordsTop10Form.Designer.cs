@@ -2257,7 +2257,7 @@ partial class RecordsTop10Form
 		SizeGripStyle = SizeGripStyle.Hide;
 		StartPosition = FormStartPosition.CenterScreen;
 		Text = "Top ten records";
-		Load += RecordsMainForm_Load;
+		Load += RecordsTop10Form_Load;
 		((ISupportInitialize)kryptonPanelMain).EndInit();
 		kryptonPanelMain.ResumeLayout(false);
 		splitContainerMain.Panel1.ResumeLayout(false);

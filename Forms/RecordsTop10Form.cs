@@ -17,7 +17,6 @@ using Krypton.Toolkit;
 
 using NLog;
 
-using Planetoid_DB.Forms;
 using Planetoid_DB.Helpers;
 
 using System.Diagnostics;
@@ -430,8 +429,8 @@ public partial class RecordsTop10Form : BaseKryptonForm
 	/// <summary>Handles the Load event of the form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>This method is called when the RecordsMainForm is loaded.</remarks>
-	private void RecordsMainForm_Load(object sender, EventArgs e)
+	/// <remarks>This method is called when the RecordsTop10Form_Load is loaded.</remarks>
+	private void RecordsTop10Form_Load(object sender, EventArgs e)
 	{
 		// On form load, we clear the status bar to ensure it starts in a clean state, disable the Cancel button since no scan is active, and disable the "Goto" buttons since there are no records to navigate to yet. This sets up the initial state of the UI for the user when they first open the form.
 		ClearStatusBar(label: labelInformation);
