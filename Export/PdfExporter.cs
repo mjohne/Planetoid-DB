@@ -60,7 +60,7 @@ public class PdfExporter : IOrbitDataExporter
 				'\\' => escaped.Append(value: "\\\\"),
 				'(' => escaped.Append(value: "\\("),
 				')' => escaped.Append(value: "\\)"),
-				'\r' or '\n' => escaped.Append(value: " "),
+				'\r' or '\n' => escaped.Append(value: ' '),
 				_ => escaped.Append(value: character is >= ' ' and <= '~' ? character : '?'),
 			};
 		}
