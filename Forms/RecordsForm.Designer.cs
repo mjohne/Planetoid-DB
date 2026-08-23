@@ -152,7 +152,7 @@ partial class RecordsForm
 		toolStripMenuItemRecordsMeanAnomalyAtTheEpoch = new ToolStripMenuItem();
 		toolStripMenuItemRecordsArgumentOfThePerihelion = new ToolStripMenuItem();
 		toolStripMenuItemRecordsLongitudeOfTheAscendingNode = new ToolStripMenuItem();
-		toolStripMenuItemRecordsInclination = new ToolStripMenuItem();
+		toolStripMenuItemRecordsInclinationToTheEcliptic = new ToolStripMenuItem();
 		toolStripMenuItemRecordsOrbitalEccentricity = new ToolStripMenuItem();
 		toolStripMenuItemRecordsMeanDailyMotion = new ToolStripMenuItem();
 		toolStripMenuItemRecordsSemiMajorAxis = new ToolStripMenuItem();
@@ -1774,6 +1774,7 @@ partial class RecordsForm
 		kryptonStatusStrip.AccessibleRole = AccessibleRole.StatusBar;
 		kryptonStatusStrip.AllowClickThrough = true;
 		kryptonStatusStrip.AllowItemReorder = true;
+		kryptonStatusStrip.Dock = DockStyle.None;
 		kryptonStatusStrip.Font = new Font("Segoe UI", 9F);
 		kryptonStatusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
 		kryptonStatusStrip.Location = new Point(0, 0);
@@ -1987,9 +1988,8 @@ partial class RecordsForm
 		contextMenuTopTenRecords.AccessibleRole = AccessibleRole.MenuPopup;
 		contextMenuTopTenRecords.AllowClickThrough = true;
 		contextMenuTopTenRecords.Font = new Font("Segoe UI", 9F);
-		contextMenuTopTenRecords.Items.AddRange(new ToolStripItem[] { toolStripMenuItemRecordsMeanAnomalyAtTheEpoch, toolStripMenuItemRecordsArgumentOfThePerihelion, toolStripMenuItemRecordsLongitudeOfTheAscendingNode, toolStripMenuItemRecordsInclination, toolStripMenuItemRecordsOrbitalEccentricity, toolStripMenuItemRecordsMeanDailyMotion, toolStripMenuItemRecordsSemiMajorAxis, toolStripMenuItemRecordsAbsoluteMagnitude, toolStripMenuItemRecordsSlopeParameter, toolStripMenuItemRecordsNumberOfOppositions, toolStripMenuItemRecordsNumberOfObservations, toolStripMenuItemRecordsRmsResidual });
+		contextMenuTopTenRecords.Items.AddRange(new ToolStripItem[] { toolStripMenuItemRecordsMeanAnomalyAtTheEpoch, toolStripMenuItemRecordsArgumentOfThePerihelion, toolStripMenuItemRecordsLongitudeOfTheAscendingNode, toolStripMenuItemRecordsInclinationToTheEcliptic, toolStripMenuItemRecordsOrbitalEccentricity, toolStripMenuItemRecordsMeanDailyMotion, toolStripMenuItemRecordsSemiMajorAxis, toolStripMenuItemRecordsAbsoluteMagnitude, toolStripMenuItemRecordsSlopeParameter, toolStripMenuItemRecordsNumberOfOppositions, toolStripMenuItemRecordsNumberOfObservations, toolStripMenuItemRecordsRmsResidual });
 		contextMenuTopTenRecords.Name = "contextMenuTopTenRecords";
-		contextMenuTopTenRecords.OwnerItem = toolStripDropDownButtonTopTenRecords;
 		contextMenuTopTenRecords.Size = new Size(250, 268);
 		contextMenuTopTenRecords.TabStop = true;
 		contextMenuTopTenRecords.Text = "Top ten records";
@@ -2036,19 +2036,19 @@ partial class RecordsForm
 		toolStripMenuItemRecordsLongitudeOfTheAscendingNode.MouseEnter += Control_Enter;
 		toolStripMenuItemRecordsLongitudeOfTheAscendingNode.MouseLeave += Control_Leave;
 		// 
-		// toolStripMenuItemRecordsInclination
+		// toolStripMenuItemRecordsInclinationToTheEcliptic
 		// 
-		toolStripMenuItemRecordsInclination.AccessibleDescription = "Shows the record of the inclination to the ecliptic";
-		toolStripMenuItemRecordsInclination.AccessibleName = "Record of the inclination to the ecliptic";
-		toolStripMenuItemRecordsInclination.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemRecordsInclination.AutoToolTip = true;
-		toolStripMenuItemRecordsInclination.Image = FatcowIcons16px.fatcow_text_list_numbers_16px;
-		toolStripMenuItemRecordsInclination.Name = "toolStripMenuItemRecordsInclination";
-		toolStripMenuItemRecordsInclination.Size = new Size(249, 22);
-		toolStripMenuItemRecordsInclination.Text = "Inclination to the ecliptic";
-		toolStripMenuItemRecordsInclination.Click += RecordsInclination_Click;
-		toolStripMenuItemRecordsInclination.MouseEnter += Control_Enter;
-		toolStripMenuItemRecordsInclination.MouseLeave += Control_Leave;
+		toolStripMenuItemRecordsInclinationToTheEcliptic.AccessibleDescription = "Shows the record of the inclination to the ecliptic";
+		toolStripMenuItemRecordsInclinationToTheEcliptic.AccessibleName = "Record of the inclination to the ecliptic";
+		toolStripMenuItemRecordsInclinationToTheEcliptic.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemRecordsInclinationToTheEcliptic.AutoToolTip = true;
+		toolStripMenuItemRecordsInclinationToTheEcliptic.Image = FatcowIcons16px.fatcow_text_list_numbers_16px;
+		toolStripMenuItemRecordsInclinationToTheEcliptic.Name = "toolStripMenuItemRecordsInclinationToTheEcliptic";
+		toolStripMenuItemRecordsInclinationToTheEcliptic.Size = new Size(249, 22);
+		toolStripMenuItemRecordsInclinationToTheEcliptic.Text = "Inclination to the ecliptic";
+		toolStripMenuItemRecordsInclinationToTheEcliptic.Click += RecordsInclination_Click;
+		toolStripMenuItemRecordsInclinationToTheEcliptic.MouseEnter += Control_Enter;
+		toolStripMenuItemRecordsInclinationToTheEcliptic.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemRecordsOrbitalEccentricity
 		// 
@@ -2231,6 +2231,7 @@ partial class RecordsForm
 		AutoScaleDimensions = new SizeF(7F, 15F);
 		AutoScaleMode = AutoScaleMode.Font;
 		ClientSize = new Size(542, 415);
+		ControlBox = false;
 		Controls.Add(toolStripContainer);
 		FormBorderStyle = FormBorderStyle.SizableToolWindow;
 		Icon = (Icon)resources.GetObject("$this.Icon");
@@ -2370,7 +2371,7 @@ partial class RecordsForm
 	private ToolStripMenuItem toolStripMenuItemRecordsMeanAnomalyAtTheEpoch;
 	private ToolStripMenuItem toolStripMenuItemRecordsArgumentOfThePerihelion;
 	private ToolStripMenuItem toolStripMenuItemRecordsLongitudeOfTheAscendingNode;
-	private ToolStripMenuItem toolStripMenuItemRecordsInclination;
+	private ToolStripMenuItem toolStripMenuItemRecordsInclinationToTheEcliptic;
 	private ToolStripMenuItem toolStripMenuItemRecordsOrbitalEccentricity;
 	private ToolStripMenuItem toolStripMenuItemRecordsMeanDailyMotion;
 	private ToolStripMenuItem toolStripMenuItemRecordsSemiMajorAxis;
