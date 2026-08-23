@@ -68,7 +68,7 @@ public class OdtExporter : IOrbitDataExporter
 		logger.Info(message: $"Exporting data to ODT file: {filePath}");
 		// Create a StringBuilder to build the content of the ODT file
 		StringBuilder sb = new();
-		// Append the RTF content to the StringBuilder
+		// Append the ODT content to the StringBuilder
 		foreach (KeyValuePair<string, string> kvp in selectedData)
 		{
 			// Append the key and value in the format "Key: Value" to the StringBuilder

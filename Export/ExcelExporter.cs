@@ -70,7 +70,7 @@ public class ExcelExporter : IOrbitDataExporter
 		StringBuilder sb = new();
 		// Append the selected orbital elements to the rows of the Excel sheet
 		int excelRow = 2;
-		// Append the RTF content to the StringBuilder
+		// Append the Excel content to the StringBuilder
 		foreach (KeyValuePair<string, string> kvp in selectedData)
 		{
 			// Mark that there are selected elements to be included in the Excel document

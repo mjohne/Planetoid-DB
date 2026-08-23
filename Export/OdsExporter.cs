@@ -69,7 +69,7 @@ public class OdsExporter : IOrbitDataExporter
 		// Create a StringBuilder to build the content of the ODS file
 		StringBuilder sb = new();
 		_ = sb.AppendLine(value: "<table:table-row><table:table-cell office:value-type=\"string\"><text:p>Element</text:p></table:table-cell><table:table-cell office:value-type=\"string\"><text:p>Value</text:p></table:table-cell></table:table-row>");
-		// Append the RTF content to the StringBuilder
+		// Append the ODS content to the StringBuilder
 		foreach (KeyValuePair<string, string> kvp in selectedData)
 		{
 			string elementName = EscapeXml(value: kvp.Key ?? string.Empty);

@@ -68,7 +68,7 @@ public class WordExporter : IOrbitDataExporter
 		logger.Info(message: $"Exporting data to Word file: {filePath}");
 		// Create a StringBuilder to build the content of the Word file
 		StringBuilder sb = new();
-		// Append the RTF content to the StringBuilder
+		// Append the Word content to the StringBuilder
 		foreach (KeyValuePair<string, string> kvp in selectedData)
 		{
 			// Append the key and value in the format "Key: Value" to the StringBuilder
