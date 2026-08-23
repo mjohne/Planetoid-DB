@@ -29,25 +29,27 @@ IOrbitDataExporter
 | `BbcodeExporter` | BBCode | `.bbcode` | Exports data using BBCode-style markup suitable for forums and systems supporting BBCode. |
 | `CreoleExporter` | Creole Wiki Markup | `.creole` | Produces wiki markup based on the Creole syntax. |
 | `CsvExporter` | CSV | `.csv` | Exports selected data in a delimited text format suitable for spreadsheets and data-processing tools. |
-| `EpubExporter` | Epub | `.epub` | ... |
-| `ExcelExporter` | Excel | `.xlsx` | ... |
+| `EpubExporter` | Epub | `.epub` | Generates an EPUB e-book containing the selected data in a format suitable for electronic reading devices and applications. |
+| `ExcelExporter` | Excel | `.xlsx` | Exports the selected data as an Excel workbook suitable for spreadsheets, analysis, and further processing. |
 | `HtmlExporter` | HTML | `.html` | Generates a standalone HTML document containing the selected data and basic presentation markup. |
 | `IcsExporter` | iCalendar | `.ics` | Exports relevant information in iCalendar format for use with calendar applications and compatible tools. |
 | `JsonExporter` | JSON | `.json` | Serializes selected data into JSON for machine-readable interchange. |
 | `LatexExporter` | LaTeX | `.tex` | Produces LaTeX-compatible output for scientific and technical documents. |
 | `MarkdownExporter` | Markdown | `.md` | Generates Markdown suitable for documentation, GitHub, notes, and other Markdown-compatible systems. |
-| `MobiExporter` | Mobi | `.mobi` | ... |
-| `OdsExporter` | Open Document Type | `.ods` | ... |
-| `OdtExporter` | Open Document Type | `.odt` | ... |
-| `PdfExporter` | PDF | `.pdf` | ... |
-| `PsvExporter` | Pipe-Separated Values | `.psv` | Writes data using the pipe (`|`) character as the field separator. |
-| `PostscriptExporter` | PostScript | `.ps` | ... |
-| `RtfExporter` | Rich Text Format | `.rtf` | ... |
+| `MobiExporter` | Mobi | `.mobi` | Generates a MOBI e-book containing the selected data for use with compatible e-book readers and applications. |
+| `OdsExporter` | OpenDocument spreadsheet | `.ods` | Exports the selected data as an OpenDocument spreadsheet suitable for office suites supporting the ODS format. |
+| `OdtExporter` | OpenDocument text | `.odt` | Exports the selected data as an OpenDocument text document suitable for word processors supporting the ODT format. |
+| `PdfExporter` | PDF | `.pdf` | Generates a portable PDF document containing the selected data for viewing, sharing, and printing. |
+| `PsvExporter` | Pipe-Separated Values | `.psv` | Writes data using the pipe character as the field separator. |
+| `PostscriptExporter` | PostScript | `.ps` | Generates PostScript output suitable for printing, document processing, and compatible publishing workflows. |
+| `RtfExporter` | Rich Text Format | `.rtf` | Exports the selected data as an RTF document supporting basic text formatting and compatibility with many word processors. |
 | `TextExporter` | Plain text | `.txt` | Produces a human-readable plain-text representation of the selected data. |
-| `SqlExporter` | SQL | `.sql` | ... |
+| `SqlExporter` | SQL | `.sql` | Generates SQL statements representing the selected data for database import, migration, or further processing. |
 | `TsvExporter` | Tab-Separated Values | `.tsv` | Writes data with tab characters as field separators. |
-| `RtfExporter` | Word Document | `.docx` | ... |
+| `WordExporter` | Word Document | `.docx` | Exports the selected data as a Microsoft Word document suitable for editing, formatting, and distribution. |
+| `VcalExporter` | vCalendar | `.vcal` | Exports relevant information in vCalendar format for use with compatible calendar and scheduling applications. |
 | `YamlExporter` | YAML | `.yaml` | Produces YAML-style structured text for configuration- and data-oriented use cases. |
+| `XcalExporter` | xCalendar | `.xcal` | Generates xCalendar XML output for structured representation and exchange of calendar information. |
 | `XmlExporter` | XML | `.xml` | Generates structured XML output for interoperability and machine processing. |
 
 ## Architecture
@@ -259,7 +261,9 @@ Export/
 ├── TextExporter.cs
 ├── TsvExporter.cs
 ├── TsvExporter.cs
+├── VcalExporter.cs
 ├── WordExporter.cs
+├── XcalExporter.cs
 └── XmlExporter.cs
 ```
 
