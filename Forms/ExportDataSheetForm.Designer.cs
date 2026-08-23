@@ -62,6 +62,8 @@ partial class ExportDataSheetForm
 		toolStripMenuItemExportAsText = new ToolStripMenuItem();
 		toolStripMenuItemExportAsLatex = new ToolStripMenuItem();
 		toolStripMenuItemExportAsMarkdown = new ToolStripMenuItem();
+		toolStripMenuItemExportAsBbcode = new ToolStripMenuItem();
+		toolStripMenuItemExportAsCreole = new ToolStripMenuItem();
 		toolStripMenuItemExportAsWord = new ToolStripMenuItem();
 		toolStripMenuItemExportAsOdt = new ToolStripMenuItem();
 		toolStripMenuItemExportAsRtf = new ToolStripMenuItem();
@@ -79,9 +81,12 @@ partial class ExportDataSheetForm
 		toolStripMenuItemExportAsPostScript = new ToolStripMenuItem();
 		toolStripMenuItemExportAsEpub = new ToolStripMenuItem();
 		toolStripMenuItemExportAsMobi = new ToolStripMenuItem();
+		toolStripMenuItemExportAsIcalendar = new ToolStripMenuItem();
 		toolStripSeparator1 = new ToolStripSeparator();
 		toolStripButtonMarkAll = new ToolStripButton();
 		toolStripButtonUnmarkAll = new ToolStripButton();
+		toolStripMenuItemExportAsVcalendar = new ToolStripMenuItem();
+		toolStripMenuItemExportAsXcalendar = new ToolStripMenuItem();
 		kryptonStatusStrip.SuspendLayout();
 		((ISupportInitialize)kryptonPanelMain).BeginInit();
 		kryptonPanelMain.SuspendLayout();
@@ -270,10 +275,9 @@ partial class ExportDataSheetForm
 		contextMenuExport.AccessibleName = "Context menu for exporting the data sheet";
 		contextMenuExport.AccessibleRole = AccessibleRole.MenuPopup;
 		contextMenuExport.Font = new Font("Segoe UI", 9F);
-		contextMenuExport.Items.AddRange(new ToolStripItem[] { toolStripMenuItemExportAsText, toolStripMenuItemExportAsLatex, toolStripMenuItemExportAsMarkdown, toolStripMenuItemExportAsWord, toolStripMenuItemExportAsOdt, toolStripMenuItemExportAsRtf, toolStripMenuItemExportAsExcel, toolStripMenuItemExportAsOds, toolStripMenuItemExportAsCsv, toolStripMenuItemExportAsTsv, toolStripMenuItemExportAsPsv, toolStripMenuItemExportAsHtml, toolStripMenuItemExportAsXml, toolStripMenuItemExportAsJson, toolStripMenuItemExportAsYaml, toolStripMenuItemExportAsSql, toolStripMenuItemExportAsPdf, toolStripMenuItemExportAsPostScript, toolStripMenuItemExportAsEpub, toolStripMenuItemExportAsMobi });
+		contextMenuExport.Items.AddRange(new ToolStripItem[] { toolStripMenuItemExportAsText, toolStripMenuItemExportAsLatex, toolStripMenuItemExportAsMarkdown, toolStripMenuItemExportAsBbcode, toolStripMenuItemExportAsCreole, toolStripMenuItemExportAsWord, toolStripMenuItemExportAsOdt, toolStripMenuItemExportAsRtf, toolStripMenuItemExportAsExcel, toolStripMenuItemExportAsOds, toolStripMenuItemExportAsCsv, toolStripMenuItemExportAsTsv, toolStripMenuItemExportAsPsv, toolStripMenuItemExportAsHtml, toolStripMenuItemExportAsXml, toolStripMenuItemExportAsJson, toolStripMenuItemExportAsYaml, toolStripMenuItemExportAsSql, toolStripMenuItemExportAsPdf, toolStripMenuItemExportAsPostScript, toolStripMenuItemExportAsEpub, toolStripMenuItemExportAsMobi, toolStripMenuItemExportAsVcalendar, toolStripMenuItemExportAsIcalendar, toolStripMenuItemExportAsXcalendar });
 		contextMenuExport.Name = "contextMenuSaveToFile";
-		contextMenuExport.OwnerItem = toolStripDropDownButtonExport;
-		contextMenuExport.Size = new Size(226, 444);
+		contextMenuExport.Size = new Size(183, 554);
 		contextMenuExport.TabStop = true;
 		contextMenuExport.Text = "Export";
 		contextMenuExport.MouseEnter += Control_Enter;
@@ -287,10 +291,9 @@ partial class ExportDataSheetForm
 		toolStripMenuItemExportAsText.AutoToolTip = true;
 		toolStripMenuItemExportAsText.Image = FatcowIcons16px.fatcow_page_white_text_16px;
 		toolStripMenuItemExportAsText.Name = "toolStripMenuItemExportAsText";
-		toolStripMenuItemExportAsText.ShortcutKeyDisplayString = "Strg+X";
-		toolStripMenuItemExportAsText.ShortcutKeys = Keys.Control | Keys.X;
-		toolStripMenuItemExportAsText.Size = new Size(225, 22);
-		toolStripMenuItemExportAsText.Text = "Export as te&xt";
+		toolStripMenuItemExportAsText.ShortcutKeyDisplayString = "";
+		toolStripMenuItemExportAsText.Size = new Size(182, 22);
+		toolStripMenuItemExportAsText.Text = "Export as text";
 		toolStripMenuItemExportAsText.Click += ToolStripMenuItemExportAsText_Click;
 		toolStripMenuItemExportAsText.MouseEnter += Control_Enter;
 		toolStripMenuItemExportAsText.MouseLeave += Control_Leave;
@@ -303,10 +306,9 @@ partial class ExportDataSheetForm
 		toolStripMenuItemExportAsLatex.AutoToolTip = true;
 		toolStripMenuItemExportAsLatex.Image = FatcowIcons16px.fatcow_page_white_text_16px;
 		toolStripMenuItemExportAsLatex.Name = "toolStripMenuItemExportAsLatex";
-		toolStripMenuItemExportAsLatex.ShortcutKeyDisplayString = "Strg+E";
-		toolStripMenuItemExportAsLatex.ShortcutKeys = Keys.Control | Keys.E;
-		toolStripMenuItemExportAsLatex.Size = new Size(225, 22);
-		toolStripMenuItemExportAsLatex.Text = "Export as Lat&ex";
+		toolStripMenuItemExportAsLatex.ShortcutKeyDisplayString = "";
+		toolStripMenuItemExportAsLatex.Size = new Size(182, 22);
+		toolStripMenuItemExportAsLatex.Text = "Export as LaTex";
 		toolStripMenuItemExportAsLatex.Click += ToolStripMenuItemExportAsLatex_Click;
 		toolStripMenuItemExportAsLatex.MouseEnter += Control_Enter;
 		toolStripMenuItemExportAsLatex.MouseLeave += Control_Leave;
@@ -319,13 +321,42 @@ partial class ExportDataSheetForm
 		toolStripMenuItemExportAsMarkdown.AutoToolTip = true;
 		toolStripMenuItemExportAsMarkdown.Image = FatcowIcons16px.fatcow_page_white_text_16px;
 		toolStripMenuItemExportAsMarkdown.Name = "toolStripMenuItemExportAsMarkdown";
-		toolStripMenuItemExportAsMarkdown.ShortcutKeyDisplayString = "Strg+K";
-		toolStripMenuItemExportAsMarkdown.ShortcutKeys = Keys.Control | Keys.K;
-		toolStripMenuItemExportAsMarkdown.Size = new Size(225, 22);
-		toolStripMenuItemExportAsMarkdown.Text = "Export as Mar&kdown";
+		toolStripMenuItemExportAsMarkdown.ShortcutKeyDisplayString = "";
+		toolStripMenuItemExportAsMarkdown.Size = new Size(182, 22);
+		toolStripMenuItemExportAsMarkdown.Text = "Export as Markdown";
 		toolStripMenuItemExportAsMarkdown.Click += ToolStripMenuItemExportAsMarkdown_Click;
 		toolStripMenuItemExportAsMarkdown.MouseEnter += Control_Enter;
 		toolStripMenuItemExportAsMarkdown.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemExportAsBbcode
+		// 
+		toolStripMenuItemExportAsBbcode.AccessibleDescription = "Exports the information as BBCode file";
+		toolStripMenuItemExportAsBbcode.AccessibleName = "Export as BBCode";
+		toolStripMenuItemExportAsBbcode.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemExportAsBbcode.AutoToolTip = true;
+		toolStripMenuItemExportAsBbcode.Image = FatcowIcons16px.fatcow_page_white_text_16px;
+		toolStripMenuItemExportAsBbcode.Name = "toolStripMenuItemExportAsBbcode";
+		toolStripMenuItemExportAsBbcode.ShortcutKeyDisplayString = "";
+		toolStripMenuItemExportAsBbcode.Size = new Size(182, 22);
+		toolStripMenuItemExportAsBbcode.Text = "Export as BBCode";
+		toolStripMenuItemExportAsBbcode.Click += ToolStripMenuItemExportAsBbcode_Click;
+		toolStripMenuItemExportAsBbcode.MouseEnter += Control_Enter;
+		toolStripMenuItemExportAsBbcode.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemExportAsCreole
+		// 
+		toolStripMenuItemExportAsCreole.AccessibleDescription = "Exports the information as Creole file";
+		toolStripMenuItemExportAsCreole.AccessibleName = "Export as Creole";
+		toolStripMenuItemExportAsCreole.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemExportAsCreole.AutoToolTip = true;
+		toolStripMenuItemExportAsCreole.Image = FatcowIcons16px.fatcow_page_white_text_16px;
+		toolStripMenuItemExportAsCreole.Name = "toolStripMenuItemExportAsCreole";
+		toolStripMenuItemExportAsCreole.ShortcutKeyDisplayString = "";
+		toolStripMenuItemExportAsCreole.Size = new Size(182, 22);
+		toolStripMenuItemExportAsCreole.Text = "Export as Creole";
+		toolStripMenuItemExportAsCreole.Click += ToolStripMenuItemExportAsLatex_Click;
+		toolStripMenuItemExportAsCreole.MouseEnter += Control_Enter;
+		toolStripMenuItemExportAsCreole.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemExportAsWord
 		// 
@@ -335,10 +366,9 @@ partial class ExportDataSheetForm
 		toolStripMenuItemExportAsWord.AutoToolTip = true;
 		toolStripMenuItemExportAsWord.Image = FatcowIcons16px.fatcow_page_white_word_16px;
 		toolStripMenuItemExportAsWord.Name = "toolStripMenuItemExportAsWord";
-		toolStripMenuItemExportAsWord.ShortcutKeyDisplayString = "Strg+W";
-		toolStripMenuItemExportAsWord.ShortcutKeys = Keys.Control | Keys.W;
-		toolStripMenuItemExportAsWord.Size = new Size(225, 22);
-		toolStripMenuItemExportAsWord.Text = "Export as &Word";
+		toolStripMenuItemExportAsWord.ShortcutKeyDisplayString = "";
+		toolStripMenuItemExportAsWord.Size = new Size(182, 22);
+		toolStripMenuItemExportAsWord.Text = "Export as Word";
 		toolStripMenuItemExportAsWord.Click += ToolStripMenuItemExportAsWord_Click;
 		toolStripMenuItemExportAsWord.MouseEnter += Control_Enter;
 		toolStripMenuItemExportAsWord.MouseLeave += Control_Leave;
@@ -351,10 +381,9 @@ partial class ExportDataSheetForm
 		toolStripMenuItemExportAsOdt.AutoToolTip = true;
 		toolStripMenuItemExportAsOdt.Image = FatcowIcons16px.fatcow_page_white_word_16px;
 		toolStripMenuItemExportAsOdt.Name = "toolStripMenuItemExportAsOdt";
-		toolStripMenuItemExportAsOdt.ShortcutKeyDisplayString = "Strg+D";
-		toolStripMenuItemExportAsOdt.ShortcutKeys = Keys.Control | Keys.D;
-		toolStripMenuItemExportAsOdt.Size = new Size(225, 22);
-		toolStripMenuItemExportAsOdt.Text = "Export as O&DT";
+		toolStripMenuItemExportAsOdt.ShortcutKeyDisplayString = "";
+		toolStripMenuItemExportAsOdt.Size = new Size(182, 22);
+		toolStripMenuItemExportAsOdt.Text = "Export as ODT";
 		toolStripMenuItemExportAsOdt.Click += ToolStripMenuItemExportAsOdt_Click;
 		toolStripMenuItemExportAsOdt.MouseEnter += Control_Enter;
 		toolStripMenuItemExportAsOdt.MouseLeave += Control_Leave;
@@ -367,10 +396,9 @@ partial class ExportDataSheetForm
 		toolStripMenuItemExportAsRtf.AutoToolTip = true;
 		toolStripMenuItemExportAsRtf.Image = FatcowIcons16px.fatcow_page_white_word_16px;
 		toolStripMenuItemExportAsRtf.Name = "toolStripMenuItemExportAsRtf";
-		toolStripMenuItemExportAsRtf.ShortcutKeyDisplayString = "Strg+R";
-		toolStripMenuItemExportAsRtf.ShortcutKeys = Keys.Control | Keys.R;
-		toolStripMenuItemExportAsRtf.Size = new Size(225, 22);
-		toolStripMenuItemExportAsRtf.Text = "Export as &RTF";
+		toolStripMenuItemExportAsRtf.ShortcutKeyDisplayString = "";
+		toolStripMenuItemExportAsRtf.Size = new Size(182, 22);
+		toolStripMenuItemExportAsRtf.Text = "Export as RTF";
 		toolStripMenuItemExportAsRtf.Click += ToolStripMenuItemExportAsRtf_Click;
 		toolStripMenuItemExportAsRtf.MouseEnter += Control_Enter;
 		toolStripMenuItemExportAsRtf.MouseLeave += Control_Leave;
@@ -383,10 +411,9 @@ partial class ExportDataSheetForm
 		toolStripMenuItemExportAsExcel.AutoToolTip = true;
 		toolStripMenuItemExportAsExcel.Image = FatcowIcons16px.fatcow_page_white_excel_16px;
 		toolStripMenuItemExportAsExcel.Name = "toolStripMenuItemExportAsExcel";
-		toolStripMenuItemExportAsExcel.ShortcutKeyDisplayString = "Strg+L";
-		toolStripMenuItemExportAsExcel.ShortcutKeys = Keys.Control | Keys.L;
-		toolStripMenuItemExportAsExcel.Size = new Size(225, 22);
-		toolStripMenuItemExportAsExcel.Text = "Export as Exce&l";
+		toolStripMenuItemExportAsExcel.ShortcutKeyDisplayString = "";
+		toolStripMenuItemExportAsExcel.Size = new Size(182, 22);
+		toolStripMenuItemExportAsExcel.Text = "Export as Excel";
 		toolStripMenuItemExportAsExcel.Click += ToolStripMenuItemExportAsExcel_Click;
 		toolStripMenuItemExportAsExcel.MouseEnter += Control_Enter;
 		toolStripMenuItemExportAsExcel.MouseLeave += Control_Leave;
@@ -399,10 +426,9 @@ partial class ExportDataSheetForm
 		toolStripMenuItemExportAsOds.AutoToolTip = true;
 		toolStripMenuItemExportAsOds.Image = FatcowIcons16px.fatcow_page_white_excel_16px;
 		toolStripMenuItemExportAsOds.Name = "toolStripMenuItemExportAsOds";
-		toolStripMenuItemExportAsOds.ShortcutKeyDisplayString = "Strg+S";
-		toolStripMenuItemExportAsOds.ShortcutKeys = Keys.Control | Keys.S;
-		toolStripMenuItemExportAsOds.Size = new Size(225, 22);
-		toolStripMenuItemExportAsOds.Text = "Export as OD&S";
+		toolStripMenuItemExportAsOds.ShortcutKeyDisplayString = "";
+		toolStripMenuItemExportAsOds.Size = new Size(182, 22);
+		toolStripMenuItemExportAsOds.Text = "Export as ODS";
 		toolStripMenuItemExportAsOds.Click += ToolStripMenuItemExportAsOds_Click;
 		toolStripMenuItemExportAsOds.MouseEnter += Control_Enter;
 		toolStripMenuItemExportAsOds.MouseLeave += Control_Leave;
@@ -415,10 +441,9 @@ partial class ExportDataSheetForm
 		toolStripMenuItemExportAsCsv.AutoToolTip = true;
 		toolStripMenuItemExportAsCsv.Image = FatcowIcons16px.fatcow_page_white_excel_16px;
 		toolStripMenuItemExportAsCsv.Name = "toolStripMenuItemExportAsCsv";
-		toolStripMenuItemExportAsCsv.ShortcutKeyDisplayString = "Strg+C";
-		toolStripMenuItemExportAsCsv.ShortcutKeys = Keys.Control | Keys.C;
-		toolStripMenuItemExportAsCsv.Size = new Size(225, 22);
-		toolStripMenuItemExportAsCsv.Text = "Export as &CSV";
+		toolStripMenuItemExportAsCsv.ShortcutKeyDisplayString = "";
+		toolStripMenuItemExportAsCsv.Size = new Size(182, 22);
+		toolStripMenuItemExportAsCsv.Text = "Export as CSV";
 		toolStripMenuItemExportAsCsv.Click += ToolStripMenuItemExportAsCsv_Click;
 		toolStripMenuItemExportAsCsv.MouseEnter += Control_Enter;
 		toolStripMenuItemExportAsCsv.MouseLeave += Control_Leave;
@@ -431,10 +456,9 @@ partial class ExportDataSheetForm
 		toolStripMenuItemExportAsTsv.AutoToolTip = true;
 		toolStripMenuItemExportAsTsv.Image = FatcowIcons16px.fatcow_page_white_excel_16px;
 		toolStripMenuItemExportAsTsv.Name = "toolStripMenuItemExportAsTsv";
-		toolStripMenuItemExportAsTsv.ShortcutKeyDisplayString = "Strg+T";
-		toolStripMenuItemExportAsTsv.ShortcutKeys = Keys.Control | Keys.T;
-		toolStripMenuItemExportAsTsv.Size = new Size(225, 22);
-		toolStripMenuItemExportAsTsv.Text = "Export as &TSV";
+		toolStripMenuItemExportAsTsv.ShortcutKeyDisplayString = "";
+		toolStripMenuItemExportAsTsv.Size = new Size(182, 22);
+		toolStripMenuItemExportAsTsv.Text = "Export as TSV";
 		toolStripMenuItemExportAsTsv.Click += ToolStripMenuItemExportAsTsv_Click;
 		toolStripMenuItemExportAsTsv.MouseEnter += Control_Enter;
 		toolStripMenuItemExportAsTsv.MouseLeave += Control_Leave;
@@ -447,10 +471,9 @@ partial class ExportDataSheetForm
 		toolStripMenuItemExportAsPsv.AutoToolTip = true;
 		toolStripMenuItemExportAsPsv.Image = FatcowIcons16px.fatcow_page_white_excel_16px;
 		toolStripMenuItemExportAsPsv.Name = "toolStripMenuItemExportAsPsv";
-		toolStripMenuItemExportAsPsv.ShortcutKeyDisplayString = "Strg+V";
-		toolStripMenuItemExportAsPsv.ShortcutKeys = Keys.Control | Keys.V;
-		toolStripMenuItemExportAsPsv.Size = new Size(225, 22);
-		toolStripMenuItemExportAsPsv.Text = "Export as PS&V";
+		toolStripMenuItemExportAsPsv.ShortcutKeyDisplayString = "";
+		toolStripMenuItemExportAsPsv.Size = new Size(182, 22);
+		toolStripMenuItemExportAsPsv.Text = "Export as PSV";
 		toolStripMenuItemExportAsPsv.Click += ToolStripMenuItemExportAsPsv_Click;
 		toolStripMenuItemExportAsPsv.MouseEnter += Control_Enter;
 		toolStripMenuItemExportAsPsv.MouseLeave += Control_Leave;
@@ -463,10 +486,9 @@ partial class ExportDataSheetForm
 		toolStripMenuItemExportAsHtml.AutoToolTip = true;
 		toolStripMenuItemExportAsHtml.Image = FatcowIcons16px.fatcow_page_white_code_16px;
 		toolStripMenuItemExportAsHtml.Name = "toolStripMenuItemExportAsHtml";
-		toolStripMenuItemExportAsHtml.ShortcutKeyDisplayString = "Strg+H";
-		toolStripMenuItemExportAsHtml.ShortcutKeys = Keys.Control | Keys.H;
-		toolStripMenuItemExportAsHtml.Size = new Size(225, 22);
-		toolStripMenuItemExportAsHtml.Text = "Export as &HTML";
+		toolStripMenuItemExportAsHtml.ShortcutKeyDisplayString = "";
+		toolStripMenuItemExportAsHtml.Size = new Size(182, 22);
+		toolStripMenuItemExportAsHtml.Text = "Export as HTML";
 		toolStripMenuItemExportAsHtml.Click += ToolStripMenuItemExportAsHtml_Click;
 		toolStripMenuItemExportAsHtml.MouseEnter += Control_Enter;
 		toolStripMenuItemExportAsHtml.MouseLeave += Control_Leave;
@@ -479,10 +501,9 @@ partial class ExportDataSheetForm
 		toolStripMenuItemExportAsXml.AutoToolTip = true;
 		toolStripMenuItemExportAsXml.Image = FatcowIcons16px.fatcow_page_white_code_16px;
 		toolStripMenuItemExportAsXml.Name = "toolStripMenuItemExportAsXml";
-		toolStripMenuItemExportAsXml.ShortcutKeyDisplayString = "Strg+M";
-		toolStripMenuItemExportAsXml.ShortcutKeys = Keys.Control | Keys.M;
-		toolStripMenuItemExportAsXml.Size = new Size(225, 22);
-		toolStripMenuItemExportAsXml.Text = "Export as X&ML";
+		toolStripMenuItemExportAsXml.ShortcutKeyDisplayString = "";
+		toolStripMenuItemExportAsXml.Size = new Size(182, 22);
+		toolStripMenuItemExportAsXml.Text = "Export as XML";
 		toolStripMenuItemExportAsXml.Click += ToolStripMenuItemExportAsXml_Click;
 		toolStripMenuItemExportAsXml.MouseEnter += Control_Enter;
 		toolStripMenuItemExportAsXml.MouseLeave += Control_Leave;
@@ -495,10 +516,9 @@ partial class ExportDataSheetForm
 		toolStripMenuItemExportAsJson.AutoToolTip = true;
 		toolStripMenuItemExportAsJson.Image = FatcowIcons16px.fatcow_page_white_code_red_16px;
 		toolStripMenuItemExportAsJson.Name = "toolStripMenuItemExportAsJson";
-		toolStripMenuItemExportAsJson.ShortcutKeyDisplayString = "Strg+J";
-		toolStripMenuItemExportAsJson.ShortcutKeys = Keys.Control | Keys.J;
-		toolStripMenuItemExportAsJson.Size = new Size(225, 22);
-		toolStripMenuItemExportAsJson.Text = "Export as &JSON";
+		toolStripMenuItemExportAsJson.ShortcutKeyDisplayString = "";
+		toolStripMenuItemExportAsJson.Size = new Size(182, 22);
+		toolStripMenuItemExportAsJson.Text = "Export as JSON";
 		toolStripMenuItemExportAsJson.Click += ToolStripMenuItemExportAsJson_Click;
 		toolStripMenuItemExportAsJson.MouseEnter += Control_Enter;
 		toolStripMenuItemExportAsJson.MouseLeave += Control_Leave;
@@ -511,10 +531,9 @@ partial class ExportDataSheetForm
 		toolStripMenuItemExportAsYaml.AutoToolTip = true;
 		toolStripMenuItemExportAsYaml.Image = FatcowIcons16px.fatcow_page_white_code_red_16px;
 		toolStripMenuItemExportAsYaml.Name = "toolStripMenuItemExportAsYaml";
-		toolStripMenuItemExportAsYaml.ShortcutKeyDisplayString = "Strg+Y";
-		toolStripMenuItemExportAsYaml.ShortcutKeys = Keys.Control | Keys.Y;
-		toolStripMenuItemExportAsYaml.Size = new Size(225, 22);
-		toolStripMenuItemExportAsYaml.Text = "Export as &YAML";
+		toolStripMenuItemExportAsYaml.ShortcutKeyDisplayString = "";
+		toolStripMenuItemExportAsYaml.Size = new Size(182, 22);
+		toolStripMenuItemExportAsYaml.Text = "Export as YAML";
 		toolStripMenuItemExportAsYaml.Click += ToolStripMenuItemExportAsYaml_Click;
 		toolStripMenuItemExportAsYaml.MouseEnter += Control_Enter;
 		toolStripMenuItemExportAsYaml.MouseLeave += Control_Leave;
@@ -527,10 +546,9 @@ partial class ExportDataSheetForm
 		toolStripMenuItemExportAsSql.AutoToolTip = true;
 		toolStripMenuItemExportAsSql.Image = FatcowIcons16px.fatcow_page_white_database_16px;
 		toolStripMenuItemExportAsSql.Name = "toolStripMenuItemExportAsSql";
-		toolStripMenuItemExportAsSql.ShortcutKeyDisplayString = "Strg+Q";
-		toolStripMenuItemExportAsSql.ShortcutKeys = Keys.Control | Keys.Q;
-		toolStripMenuItemExportAsSql.Size = new Size(225, 22);
-		toolStripMenuItemExportAsSql.Text = "Export as S&QL";
+		toolStripMenuItemExportAsSql.ShortcutKeyDisplayString = "";
+		toolStripMenuItemExportAsSql.Size = new Size(182, 22);
+		toolStripMenuItemExportAsSql.Text = "Export as SQL";
 		toolStripMenuItemExportAsSql.Click += ToolStripMenuItemExportAsSql_Click;
 		toolStripMenuItemExportAsSql.MouseEnter += Control_Enter;
 		toolStripMenuItemExportAsSql.MouseLeave += Control_Leave;
@@ -543,10 +561,9 @@ partial class ExportDataSheetForm
 		toolStripMenuItemExportAsPdf.AutoToolTip = true;
 		toolStripMenuItemExportAsPdf.Image = FatcowIcons16px.fatcow_page_white_acrobat_16px;
 		toolStripMenuItemExportAsPdf.Name = "toolStripMenuItemExportAsPdf";
-		toolStripMenuItemExportAsPdf.ShortcutKeyDisplayString = "Strg+F";
-		toolStripMenuItemExportAsPdf.ShortcutKeys = Keys.Control | Keys.F;
-		toolStripMenuItemExportAsPdf.Size = new Size(225, 22);
-		toolStripMenuItemExportAsPdf.Text = "Export as PD&F";
+		toolStripMenuItemExportAsPdf.ShortcutKeyDisplayString = "";
+		toolStripMenuItemExportAsPdf.Size = new Size(182, 22);
+		toolStripMenuItemExportAsPdf.Text = "Export as PDF";
 		toolStripMenuItemExportAsPdf.Click += ToolStripMenuItemExportAsPdf_Click;
 		toolStripMenuItemExportAsPdf.MouseEnter += Control_Enter;
 		toolStripMenuItemExportAsPdf.MouseLeave += Control_Leave;
@@ -559,10 +576,9 @@ partial class ExportDataSheetForm
 		toolStripMenuItemExportAsPostScript.AutoToolTip = true;
 		toolStripMenuItemExportAsPostScript.Image = FatcowIcons16px.fatcow_page_white_acrobat_16px;
 		toolStripMenuItemExportAsPostScript.Name = "toolStripMenuItemExportAsPostScript";
-		toolStripMenuItemExportAsPostScript.ShortcutKeyDisplayString = "Strg+P";
-		toolStripMenuItemExportAsPostScript.ShortcutKeys = Keys.Control | Keys.P;
-		toolStripMenuItemExportAsPostScript.Size = new Size(225, 22);
-		toolStripMenuItemExportAsPostScript.Text = "Export as &PS";
+		toolStripMenuItemExportAsPostScript.ShortcutKeyDisplayString = "";
+		toolStripMenuItemExportAsPostScript.Size = new Size(182, 22);
+		toolStripMenuItemExportAsPostScript.Text = "Export as PostScript";
 		toolStripMenuItemExportAsPostScript.Click += ToolStripMenuItemExportAsPostScript_Click;
 		toolStripMenuItemExportAsPostScript.MouseEnter += Control_Enter;
 		toolStripMenuItemExportAsPostScript.MouseLeave += Control_Leave;
@@ -575,10 +591,9 @@ partial class ExportDataSheetForm
 		toolStripMenuItemExportAsEpub.AutoToolTip = true;
 		toolStripMenuItemExportAsEpub.Image = FatcowIcons16px.fatcow_page_white_acrobat_16px;
 		toolStripMenuItemExportAsEpub.Name = "toolStripMenuItemExportAsEpub";
-		toolStripMenuItemExportAsEpub.ShortcutKeyDisplayString = "Strg+B";
-		toolStripMenuItemExportAsEpub.ShortcutKeys = Keys.Control | Keys.B;
-		toolStripMenuItemExportAsEpub.Size = new Size(225, 22);
-		toolStripMenuItemExportAsEpub.Text = "Export as EPU&B";
+		toolStripMenuItemExportAsEpub.ShortcutKeyDisplayString = "";
+		toolStripMenuItemExportAsEpub.Size = new Size(182, 22);
+		toolStripMenuItemExportAsEpub.Text = "Export as EPUB";
 		toolStripMenuItemExportAsEpub.Click += ToolStripMenuItemExportAsEpub_Click;
 		toolStripMenuItemExportAsEpub.MouseEnter += Control_Enter;
 		toolStripMenuItemExportAsEpub.MouseLeave += Control_Leave;
@@ -591,13 +606,27 @@ partial class ExportDataSheetForm
 		toolStripMenuItemExportAsMobi.AutoToolTip = true;
 		toolStripMenuItemExportAsMobi.Image = FatcowIcons16px.fatcow_page_white_acrobat_16px;
 		toolStripMenuItemExportAsMobi.Name = "toolStripMenuItemExportAsMobi";
-		toolStripMenuItemExportAsMobi.ShortcutKeyDisplayString = "Strg+I";
-		toolStripMenuItemExportAsMobi.ShortcutKeys = Keys.Control | Keys.I;
-		toolStripMenuItemExportAsMobi.Size = new Size(225, 22);
-		toolStripMenuItemExportAsMobi.Text = "Export as MOB&I";
+		toolStripMenuItemExportAsMobi.ShortcutKeyDisplayString = "";
+		toolStripMenuItemExportAsMobi.Size = new Size(182, 22);
+		toolStripMenuItemExportAsMobi.Text = "Export as MOBI";
 		toolStripMenuItemExportAsMobi.Click += ToolStripMenuItemExportAsMobi_Click;
 		toolStripMenuItemExportAsMobi.MouseEnter += Control_Enter;
 		toolStripMenuItemExportAsMobi.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemExportAsIcalendar
+		// 
+		toolStripMenuItemExportAsIcalendar.AccessibleDescription = "Exports the information as iCalender file";
+		toolStripMenuItemExportAsIcalendar.AccessibleName = "Export as iCalender";
+		toolStripMenuItemExportAsIcalendar.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemExportAsIcalendar.AutoToolTip = true;
+		toolStripMenuItemExportAsIcalendar.Image = FatcowIcons16px.fatcow_calendar_16px;
+		toolStripMenuItemExportAsIcalendar.Name = "toolStripMenuItemExportAsIcalendar";
+		toolStripMenuItemExportAsIcalendar.ShortcutKeyDisplayString = "";
+		toolStripMenuItemExportAsIcalendar.Size = new Size(182, 22);
+		toolStripMenuItemExportAsIcalendar.Text = "Export as iCalender";
+		toolStripMenuItemExportAsIcalendar.Click += ToolStripMenuItemExportAsIcs_Click;
+		toolStripMenuItemExportAsIcalendar.MouseEnter += Control_Enter;
+		toolStripMenuItemExportAsIcalendar.MouseLeave += Control_Leave;
 		// 
 		// toolStripSeparator1
 		// 
@@ -637,6 +666,34 @@ partial class ExportDataSheetForm
 		toolStripButtonUnmarkAll.MouseEnter += Control_Enter;
 		toolStripButtonUnmarkAll.MouseLeave += Control_Leave;
 		// 
+		// toolStripMenuItemExportAsVcalendar
+		// 
+		toolStripMenuItemExportAsVcalendar.AccessibleDescription = "Exports the information as vCalender file";
+		toolStripMenuItemExportAsVcalendar.AccessibleName = "Export as vCalender";
+		toolStripMenuItemExportAsVcalendar.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemExportAsVcalendar.AutoToolTip = true;
+		toolStripMenuItemExportAsVcalendar.Image = FatcowIcons16px.fatcow_calendar_16px;
+		toolStripMenuItemExportAsVcalendar.Name = "toolStripMenuItemExportAsVcalendar";
+		toolStripMenuItemExportAsVcalendar.Size = new Size(182, 22);
+		toolStripMenuItemExportAsVcalendar.Text = "Export as vCalender";
+		toolStripMenuItemExportAsVcalendar.Click += ToolStripMenuItemExportAsVcal_Click;
+		toolStripMenuItemExportAsVcalendar.MouseEnter += Control_Enter;
+		toolStripMenuItemExportAsVcalendar.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemExportAsXcalendar
+		// 
+		toolStripMenuItemExportAsXcalendar.AccessibleDescription = "Exports the information as xCalender file";
+		toolStripMenuItemExportAsXcalendar.AccessibleName = "Export as xCalender";
+		toolStripMenuItemExportAsXcalendar.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemExportAsXcalendar.AutoToolTip = true;
+		toolStripMenuItemExportAsXcalendar.Image = FatcowIcons16px.fatcow_calendar_16px;
+		toolStripMenuItemExportAsXcalendar.Name = "toolStripMenuItemExportAsXcalendar";
+		toolStripMenuItemExportAsXcalendar.Size = new Size(182, 22);
+		toolStripMenuItemExportAsXcalendar.Text = "Export as xCalender";
+		toolStripMenuItemExportAsXcalendar.Click += ToolStripMenuItemExportAsXcal_Click;
+		toolStripMenuItemExportAsXcalendar.MouseEnter += Control_Enter;
+		toolStripMenuItemExportAsXcalendar.MouseLeave += Control_Leave;
+		// 
 		// ExportDataSheetForm
 		// 
 		AccessibleDescription = "Exports data sheet";
@@ -675,6 +732,7 @@ partial class ExportDataSheetForm
 	}
 
 	#endregion
+
 	private KryptonStatusStrip kryptonStatusStrip;
 	private ToolStripStatusLabel labelInformation;
 	private KryptonPanel kryptonPanelMain;
@@ -707,4 +765,9 @@ partial class ExportDataSheetForm
 	private ToolStripMenuItem toolStripMenuItemExportAsPostScript;
 	private ToolStripMenuItem toolStripMenuItemExportAsEpub;
 	private ToolStripMenuItem toolStripMenuItemExportAsMobi;
+	private ToolStripMenuItem toolStripMenuItemExportAsBbcode;
+	private ToolStripMenuItem toolStripMenuItemExportAsCreole;
+	private ToolStripMenuItem toolStripMenuItemExportAsIcalendar;
+	private ToolStripMenuItem toolStripMenuItemExportAsVcalendar;
+	private ToolStripMenuItem toolStripMenuItemExportAsXcalendar;
 }
