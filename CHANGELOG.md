@@ -1,4 +1,50 @@
-# Changelog
+## Planetoid-DB 0.9.28.91
+
+* Hidden `SizeGripStyle` in window properties of `PlanetoidDB` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1082
+* Fixed incorrect window settings in `PreloadForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1084
+* Added an `AppInfo` button in `PreloadForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1086
+* Added split buttons for history navigation in PlanetoidDB by @mjohne with @Claude in https://github.com/mjohne/Planetoid-DB/pull/1089
+* Updated `NLog` package to version 6.2.0 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1092
+* Refactored navigation history handling by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1093
+* Added bookmark system for PlanetoidDB by @mjohne with @Claude in https://github.com/mjohne/Planetoid-DB/pull/1094
+* Refactored bookmark handling by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1095
+* Refactored bookmark handling by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1096
+* Refactored `ListReadableDesignationsForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1099
+* Added `Helpers/IOrbitDataExporter.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1100
+* Added `Export/TextExporter.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1101
+* Added `Export/JsonExporter.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1102
+* Added `Export/IcsExporter.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1103
+* Added `Export/LatexExporter.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1104
+* Added `Export/CreoleExporter.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1105
+* Added `Export/BbcodeExporter.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1106
+* Added `Export/MarkdownExporter.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1107
+* Added `Export/CsvExporter.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1108
+* Added `Export/TsvExporter.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1109
+* Added `Export/PsvExporter.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1110
+* Added `Export/HtmlExporter.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1111
+* Added `Export/XmlExporter.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1112
+* Added `Export/YamlExporter.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1113
+* Created `Forms/README.md` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1114
+* Created `Export/README.md` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1115
+* Created `Helpers/README.md` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1116
+* Added `Export/RtfExporter.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1117
+* Added `Export/WordExporter.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1118
+* Added `Export/OdtExporter.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1119
+* Added `Export/ExcelExporter.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1120
+* Added `Export/OdsExporter.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1121
+* Added `Export/SqlExporter.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1122
+* Added `Export/PdfExporter.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1123
+* Added `Export/PostscriptExporter.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1124
+* Added `Export/EpubExporter.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1125
+* Added `Export/MobiExporter.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1126
+* Added `Export/VcalExporter.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1127
+* Added `Export/XcalExporter.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1128
+* Refactored `ExportDataSheetForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1129
+* Updated internal database `demoset-10000.txt` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1130
+* Updated to version 0.9.28.91 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1131
+
+**Full Changelog**: https://github.com/mjohne/Planetoid-DB/compare/0.9.27.90.1077.3740...0.9.28.91.1131.4043
+
 
 ## Planetoid-DB 0.9.27.90
 
