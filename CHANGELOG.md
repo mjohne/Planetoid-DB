@@ -7,8 +7,7 @@
 * Updated `NLog` package to version 6.2.0 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1092
 * Refactored navigation history handling by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1093
 * Added bookmark system for PlanetoidDB by @mjohne with @Claude in https://github.com/mjohne/Planetoid-DB/pull/1094
-* Refactored bookmark handling by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1095
-* Refactored bookmark handling by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1096
+* Refactored bookmark handling by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1095 and https://github.com/mjohne/Planetoid-DB/pull/1096
 * Refactored `ListReadableDesignationsForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1099
 * Added `Helpers/IOrbitDataExporter.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1100
 * Added `Export/TextExporter.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1101
