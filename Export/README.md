@@ -83,7 +83,7 @@ Each exporter is responsible only for converting the supplied `selectedData` int
 Every exporter implements:
 
 ```csharp
-public interface IOrbitDataExporter
+internal interface IOrbitDataExporter
 {
     string Extension { get; }
 
@@ -105,7 +105,7 @@ Returns the file extension associated with the exporter.
 Example:
 
 ```csharp
-public string Extension => "json";
+internal string Extension => "json";
 ```
 
 ### `Filter`
@@ -115,7 +115,7 @@ Provides the filter string used by a WinForms `SaveFileDialog`.
 Example:
 
 ```csharp
-public string Filter =>
+internal string Filter =>
     "JSON files (*.json)|*.json|All files (*.*)|*.*";
 ```
 
@@ -126,7 +126,7 @@ Provides a human-readable description of the export operation and can be used as
 Example:
 
 ```csharp
-public string Title =>
+internal string Title =>
     "Save database information as JSON";
 ```
 
@@ -291,7 +291,7 @@ Example skeleton:
 ```csharp
 namespace Planetoid_DB.Export;
 
-public sealed class ExampleExporter : IOrbitDataExporter
+internal sealed class ExampleExporter : IOrbitDataExporter
 {
     public string Extension => "example";
 
