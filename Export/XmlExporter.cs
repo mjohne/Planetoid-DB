@@ -18,15 +18,16 @@ using NLog;
 using Planetoid_DB.Helpers;
 
 using System.Diagnostics;
+using System.Globalization;
 using System.Text;
 
 namespace Planetoid_DB.Export;
 
 /// <summary>Represents a XML exporter for exporting database information to a XML file.</summary>
 /// <remarks>This class implements the IOrbitDataExporter interface and provides functionality to export database information to a XML file format.</remarks>
-// You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
-[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-public class XmlExporter : IOrbitDataExporter
+// You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
+[DebuggerDisplay(value: "{" + nameof(DebuggerDisplay) + ",nq}")]
+internal class XmlExporter : IOrbitDataExporter
 {
 	/// <summary>NLog logger instance for the class.</summary>
 	/// <remarks>This logger is used to log messages for the class.</remarks>
@@ -46,8 +47,8 @@ public class XmlExporter : IOrbitDataExporter
 
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>This method is used to provide a visual representation of the object in the debugger.</remarks>
-	private string GetDebuggerDisplay() => ToString() ?? string.Empty;
+	/// <remarks>This property is used to provide a visual representation of the object in the debugger.</remarks>
+	private string DebuggerDisplay => ToString() ?? string.Empty;
 
 	/// <summary>Exports the selected data to a XML file.</summary>
 	/// <param name="filePath">The path of the file to export to.</param>
@@ -67,7 +68,7 @@ public class XmlExporter : IOrbitDataExporter
 		foreach (KeyValuePair<string, string> kvp in selectedData)
 		{
 			// Append the key and value in the format "Key: Value" to the StringBuilder
-			_ = sb.AppendLine(handler: $"\t<{kvp.Key} value=\"{kvp.Value}\"/>");
+			_ = sb.AppendLine(provider: CultureInfo.InvariantCulture, handler: $"\t<{kvp.Key} value=\"{kvp.Value}\"/>");
 		}
 		// Append the closing tag for the XML content
 		_ = sb.Append(value: "</MinorPlanet>");

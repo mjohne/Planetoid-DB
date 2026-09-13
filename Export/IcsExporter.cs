@@ -24,9 +24,9 @@ namespace Planetoid_DB.Export;
 
 /// <summary>Represents a text exporter for exporting database information to a iCalendar file.</summary>
 /// <remarks>This class implements the IOrbitDataExporter interface and provides functionality to export database information to a iCalendar file format.</remarks>
-// You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
-[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-public class IcsExporter : IOrbitDataExporter
+// You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
+[DebuggerDisplay(value: "{" + nameof(DebuggerDisplay) + ",nq}")]
+internal class IcsExporter : IOrbitDataExporter
 {
 	/// <summary>NLog logger instance for the class.</summary>
 	/// <remarks>This logger is used to log messages for the class.</remarks>
@@ -46,8 +46,8 @@ public class IcsExporter : IOrbitDataExporter
 
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>This method is used to provide a visual representation of the object in the debugger.</remarks>
-	private string GetDebuggerDisplay() => ToString() ?? string.Empty;
+	/// <remarks>This property is used to provide a visual representation of the object in the debugger.</remarks>
+	private string DebuggerDisplay => ToString() ?? string.Empty;
 
 	/// <summary>Exports the selected data to a text file.</summary>
 	/// <param name="filePath">The path of the file to export to.</param>
@@ -71,6 +71,7 @@ public class IcsExporter : IOrbitDataExporter
 		_ = sb.AppendLine(value: $"SUMMARY:Observation/Data for {exportTitle}");
 		// Add the description with key-value pairs from the selected data
 		string description = string.Join(separator: "\\n", values: selectedData.Select(selector: static x => $"{x.Key}: {x.Value}"));
+
 		_ = sb.AppendLine(value: $"DESCRIPTION:{description}");
 		// Add the end of the event and calendar
 		_ = sb.AppendLine(value: "END:VEVENT");

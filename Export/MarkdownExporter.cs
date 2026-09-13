@@ -24,9 +24,9 @@ namespace Planetoid_DB.Export;
 
 /// <summary>Represents a Markdown exporter for exporting database information to a Markdown file.</summary>
 /// <remarks>This class implements the IOrbitDataExporter interface and provides functionality to export database information to a Markdown file format.</remarks>
-// You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
-[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-public class MarkdownExporter : IOrbitDataExporter
+// You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
+[DebuggerDisplay(value: "{" + nameof(DebuggerDisplay) + ",nq}")]
+internal class MarkdownExporter : IOrbitDataExporter
 {
 	/// <summary>NLog logger instance for the class.</summary>
 	/// <remarks>This logger is used to log messages for the class.</remarks>
@@ -34,7 +34,7 @@ public class MarkdownExporter : IOrbitDataExporter
 
 	/// <summary>Initializes a new instance of the MarkdownExporter class.</summary>
 	/// <remarks>This constructor initializes a new instance of the MarkdownExporter class.</remarks>
-	public string Extension => "markdown";
+	public string Extension => "md";
 
 	/// <summary>Gets the file filter string for the save file dialog.</summary>
 	/// <remarks>This property provides the filter string used in the save file dialog to specify the types of files that can be saved.</remarks>
@@ -46,8 +46,8 @@ public class MarkdownExporter : IOrbitDataExporter
 
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>This method is used to provide a visual representation of the object in the debugger.</remarks>
-	private string GetDebuggerDisplay() => ToString() ?? string.Empty;
+	/// <remarks>This property is used to provide a visual representation of the object in the debugger.</remarks>
+	private string DebuggerDisplay => ToString() ?? string.Empty;
 
 	/// <summary>Exports the selected data to a Markdown file.</summary>
 	/// <param name="filePath">The path of the file to export to.</param>

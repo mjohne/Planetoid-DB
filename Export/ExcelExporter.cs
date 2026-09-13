@@ -25,9 +25,9 @@ namespace Planetoid_DB.Export;
 
 /// <summary>Represents a Excel exporter for exporting database information to a Word file.</summary>
 /// <remarks>This class implements the IOrbitDataExporter interface and provides functionality to export database information to a Excel file format.</remarks>
-// You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
-[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-public class ExcelExporter : IOrbitDataExporter
+// You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
+[DebuggerDisplay(value: "{" + nameof(DebuggerDisplay) + ",nq}")]
+internal class ExcelExporter : IOrbitDataExporter
 {
 	/// <summary>NLog logger instance for the class.</summary>
 	/// <remarks>This logger is used to log messages for the class.</remarks>
@@ -47,15 +47,22 @@ public class ExcelExporter : IOrbitDataExporter
 
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>This method is used to provide a visual representation of the object in the debugger.</remarks>
-	private string GetDebuggerDisplay() => ToString() ?? string.Empty;
+	/// <remarks>This property is used to provide a visual representation of the object in the debugger.</remarks>
+	private string DebuggerDisplay => ToString() ?? string.Empty;
 
-	private static string EscapeXml(string value) => value
+	/// <summary>Escapes special characters in a string for use in XML.</summary>
+	/// <param name="value">The string value to escape.</param>
+	/// <returns>The escaped string value.</returns>
+	/// <remarks>This method replaces special characters in the input string with their corresponding XML escape sequences.</remarks>
+	private static string EscapeXml(string value)
+	{
+		return value
 				.Replace(oldValue: "&", newValue: "&amp;", comparisonType: StringComparison.Ordinal)
 				.Replace(oldValue: "<", newValue: "&lt;", comparisonType: StringComparison.Ordinal)
 				.Replace(oldValue: ">", newValue: "&gt;", comparisonType: StringComparison.Ordinal)
 				.Replace(oldValue: "\"", newValue: "&quot;", comparisonType: StringComparison.Ordinal)
 				.Replace(oldValue: "'", newValue: "&apos;", comparisonType: StringComparison.Ordinal);
+	}
 
 	/// <summary>Exports the selected data to a text file.</summary>
 	/// <param name="filePath">The path of the file to export to.</param>
