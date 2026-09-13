@@ -427,7 +427,7 @@ internal partial class SearchForm : BaseKryptonForm
 						}
 					}
 				}
-			}, cancellationToken: token).ConfigureAwait(continueOnCapturedContext: false);
+			}, cancellationToken: token).ConfigureAwait(continueOnCapturedContext: true);
 			// After the search operation is completed, update the progress bar text to indicate whether the search was cancelled or completed successfully, and display the number of entries found. Set the progress bar value to 100% to indicate that the search operation has finished.
 			kryptonProgressBar.Text = token.IsCancellationRequested ? "Search cancelled." : $"Search completed. Found {_searchResults.Count} entries.";
 			kryptonProgressBar.Value = 100;
