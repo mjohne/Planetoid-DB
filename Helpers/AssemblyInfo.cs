@@ -17,11 +17,11 @@ using NLog;
 
 using System.Reflection;
 
-namespace Planetoid_DB;
+namespace Planetoid_DB.Helpers;
 
 /// <summary>Provide some assembly information</summary>
 /// <remarks>This class provides access to assembly-level attributes.</remarks>
-public static class AssemblyInfo
+internal static class AssemblyInfo
 {
 	/// <summary>NLog logger instance.</summary>
 	/// <remarks>This logger is used to log messages and errors for the class.</remarks>

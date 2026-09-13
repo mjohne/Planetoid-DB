@@ -26,7 +26,7 @@ namespace Planetoid_DB.Helpers;
 
 /// <summary>Provides static methods to import user-scoped application settings from CSV, INI, XML, JSON, and YAML files into <see cref="Settings.Default"/>.</summary>
 /// <remarks>Only user-scoped settings can be written back; application-scoped settings that appear in the file are silently skipped. After a successful import <see cref="Settings.Default"/> is saved automatically.</remarks>
-public static class SettingsImporter
+internal static class SettingsImporter
 {
 	/// <summary>NLog logger for the class.</summary>
 	/// <remarks>This logger is used to log messages and errors during the import process.</remarks>
@@ -334,14 +334,14 @@ public static class SettingsImporter
 					// Possible type hint: "; Type: <TypeName>"
 					string comment = line[1..].Trim();
 					// Check if the comment line starts with "Type:" (case-insensitive) to extract the type hint.
-					if (comment.StartsWith(value: "Type:", comparisonType: StringComparison.OrdinalIgnoreCase))
+					if (comment.StartsWith(value: "Type:", comparisonType: StringComparison.InvariantCulture))
 					{
 						currentTypeName = comment[5..].Trim();
 					}
 					continue;
 				}
 				// Check if the line contains an equals sign, indicating a key-value pair.
-				int eqIndex = line.IndexOf(value: '=');
+				int eqIndex = line.IndexOf(value: '=', comparisonType: StringComparison.InvariantCulture);
 				// If there is no equals sign or it is at the start of the line, skip this line.
 				if (eqIndex <= 0)
 				{
@@ -568,7 +568,7 @@ public static class SettingsImporter
 				// Create a new SettingEntry object with the extracted fields and add it to the entries list.
 				entries.Add(item: new SettingEntry
 				{
-					Name = name ?? string.Empty,
+					Name = name,
 					TypeName = typeName ?? string.Empty,
 					Scope = scope ?? string.Empty,
 					Value = value ?? string.Empty,
@@ -694,7 +694,7 @@ public static class SettingsImporter
 	private static string JsonUnescape(string value)
 	{
 		// If the string does not contain any backslashes, return it as-is for efficiency.
-		if (!value.Contains(value: '\\'))
+		if (!value.Contains(value: '\\', comparisonType: StringComparison.InvariantCulture))
 		{
 			return value;
 		}
@@ -768,7 +768,7 @@ public static class SettingsImporter
 					continue;
 				}
 				// Check if the line starts a new entry with "- name:".
-				if (line.StartsWith(value: "- name:"))
+				if (line.StartsWith(value: "- name:", comparisonType: StringComparison.InvariantCulture))
 				{
 					// Save previous entry if complete
 					if (inEntry && !string.IsNullOrEmpty(value: name))
@@ -783,17 +783,17 @@ public static class SettingsImporter
 					inEntry = true;
 				}
 				// Check if the line contains the "type:" key for the current entry.
-				else if (inEntry && line.StartsWith(value: "  type:"))
+				else if (inEntry && line.StartsWith(value: "  type:", comparisonType: StringComparison.InvariantCulture))
 				{
 					typeName = YamlUnquote(scalar: ParseYamlValue(line: line, key: "type"));
 				}
 				// Check if the line contains the "scope:" key for the current entry.
-				else if (inEntry && line.StartsWith(value: "  scope:"))
+				else if (inEntry && line.StartsWith(value: "  scope:", comparisonType: StringComparison.InvariantCulture))
 				{
 					scope = YamlUnquote(scalar: ParseYamlValue(line: line, key: "scope"));
 				}
 				// Check if the line contains the "value:" key for the current entry.
-				else if (inEntry && line.StartsWith(value: "  value:"))
+				else if (inEntry && line.StartsWith(value: "  value:", comparisonType: StringComparison.InvariantCulture))
 				{
 					value = YamlUnquote(scalar: ParseYamlValue(line: line, key: "value"));
 				}
@@ -839,7 +839,7 @@ public static class SettingsImporter
 		if (scalar.Length >= 2 && scalar[0] == '\'' && scalar[^1] == '\'')
 		{
 			// Single-quoted scalar — unescape '' → '
-			return scalar[1..^1].Replace(oldValue: "''", newValue: "'");
+			return scalar[1..^1].Replace(oldValue: "''", newValue: "'", comparisonType: StringComparison.InvariantCulture);
 		}
 		// Otherwise, return the scalar as-is.
 		return scalar;

@@ -21,7 +21,7 @@ namespace Planetoid_DB.Helpers;
 
 /// <summary>Controls the progress bar of the program icon in the Windows taskbar.</summary>
 /// <remarks>This class provides methods to interact with the Windows taskbar to display progress.</remarks>
-public static class TaskbarProgress
+internal static class TaskbarProgress
 {
 	/// <summary>Provides a synchronization lock for operations related to the taskbar instance.</summary>
 	/// <remarks>Use this lock to ensure thread safety when accessing or modifying shared taskbar-related resources.</remarks>
@@ -33,7 +33,7 @@ public static class TaskbarProgress
 
 	/// <summary>Determines whether the current operating system supports the taskbar progress API (Windows 7 / Server 2008 R2 or later).</summary>
 	/// <remarks>This property checks the OS version to ensure that taskbar progress features are available before attempting to use them.</remarks>
-	public static bool IsSupported => OperatingSystem.IsWindowsVersionAtLeast(major: 6, minor: 1);
+	internal static bool IsSupported => OperatingSystem.IsWindowsVersionAtLeast(major: 6, minor: 1);
 
 	/// <summary>NLog logger instance.</summary>
 	/// <remarks>This logger is used throughout the application to log important events and errors.</remarks>
@@ -151,7 +151,7 @@ public static class TaskbarProgress
 				try
 				{
 					// Release the COM object to free native resources.
-					Marshal.ReleaseComObject(o: _taskbarInstance);
+					_ = Marshal.ReleaseComObject(o: _taskbarInstance);
 				}
 				catch (COMException ex) when (_taskbarInstance != null)
 				{
@@ -170,7 +170,7 @@ public static class TaskbarProgress
 
 /// <summary>Defines the possible states of the taskbar progress bar.</summary>
 /// <remarks>This enumeration represents the different visual states that the taskbar progress bar can display, providing feedback to the user about the progress of an operation.</remarks>
-public enum TaskbarProgressState
+internal enum TaskbarProgressState
 {
 	/// <summary>Disables the taskbar progress bar.</summary>
 	/// <remarks>Use this state to hide the progress bar and indicate that no progress is being tracked.</remarks>

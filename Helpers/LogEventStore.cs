@@ -23,7 +23,7 @@ namespace Planetoid_DB.Helpers;
 
 /// <summary>Thread-safe in-memory store for NLog <see cref="LogEventInfo"/> instances captured during the application session.</summary>
 /// <remarks> <see cref="LogEventTarget"/> writes every received <see cref="LogEventInfo"/> into this store. The <c>LogViewerForm</c> reads from it to populate the list view. All public members are thread-safe.</remarks>
-public static class LogEventStore
+internal static class LogEventStore
 {
 	/// <summary>Lock used to synchronise access to <see cref="_events"/>.</summary>
 	/// <remarks>All public methods that access <see cref="_events"/> must acquire the lock in either read or write mode.</remarks>
@@ -191,18 +191,26 @@ public static class LogEventStore
 				_ = Directory.CreateDirectory(path: directory);
 			}
 			// Open a file stream for asynchronous writing to the specified storage path
-			await using FileStream fs = new(
+			FileStream fs = new(
 				path: StoragePath,
 				mode: FileMode.Create,
 				access: FileAccess.Write,
 				share: FileShare.None,
 				bufferSize: 4096,
 				useAsync: true);
+			// Use await using to ensure the file stream is disposed asynchronously after use
+			await using (fs.ConfigureAwait(continueOnCapturedContext: false))
+			{
+				await JsonSerializer.SerializeAsync(
+					utf8Json: fs,
+					value: dtos,
+					options: jsonSerializerOptions).ConfigureAwait(continueOnCapturedContext: false);
+			}
 			// Serialize the list of DTOs to JSON and write it to the file stream
 			await JsonSerializer.SerializeAsync(
 				utf8Json: fs,
 				value: dtos,
-				options: jsonSerializerOptions);
+				options: jsonSerializerOptions).ConfigureAwait(continueOnCapturedContext: false);
 			// Log a success message indicating that the log events were saved successfully.
 			logger.Info(message: $"Successfully saved log events to: {StoragePath}");
 		}
@@ -227,50 +235,53 @@ public static class LogEventStore
 		try
 		{
 			// Open a file stream for asynchronous reading from the specified storage path
-			await using FileStream fs = new(
+			FileStream fs = new(
 				path: StoragePath,
 				mode: FileMode.Open,
 				access: FileAccess.Read,
 				share: FileShare.Read,
 				bufferSize: 4096,
 				useAsync: true);
-			// Deserialize the JSON array from the file stream into a list of DTOs
-			List<LogEventDto>? dtos = await JsonSerializer.DeserializeAsync<List<LogEventDto>>(utf8Json: fs);
-			// If the deserialized list is null or empty, there are no events to restore, so we can return early.
-			if (dtos is null || dtos.Count == 0)
+			// Use await using to ensure the file stream is disposed asynchronously after use
+			await using (fs.ConfigureAwait(continueOnCapturedContext: false))
 			{
-				return;
-			}
-			// Convert the list of DTOs back into LogEventInfo instances
-			List<LogEventInfo> restored = dtos.ConvertAll(converter: dto =>
-			{
-				// Convert the level name string back into a LogLevel instance
-				LogLevel level = LogLevel.FromString(levelName: dto.Level);
-				// Create a new LogEventInfo instance with the restored properties
-				LogEventInfo evt = LogEventInfo.Create(level, "Restored", dto.Message);
-				// Set the timestamp of the restored event to match the original event
-				evt.TimeStamp = dto.TimeStamp;
-				// If the exception type name is not empty, add it to the event properties for reference
-				if (!string.IsNullOrEmpty(value: dto.ExceptionTypeName))
+				List<LogEventDto>? dtos = await JsonSerializer.DeserializeAsync<List<LogEventDto>>(utf8Json: fs).ConfigureAwait(continueOnCapturedContext: false);
+				// If the deserialized list is null or empty, there are no events to restore, so we can return early.
+				if (dtos is null || dtos.Count == 0)
 				{
-					evt.Properties["ExceptionTypeName"] = dto.ExceptionTypeName;
+					return;
 				}
-				// Return the restored LogEventInfo instance
-				return evt;
-			});
-			// Acquire write lock to ensure exclusive access to the list while prepending restored events
-			_lock.EnterWriteLock();
-			// Use a try/finally block to ensure the write lock is always released
-			try
-			{
-				// Prepend so previous-session events appear first.
-				_events.InsertRange(index: 0, collection: restored);
-			}
-			// Release the write lock in the finally block to ensure it is always released, even if an exception occurs
-			finally
-			{
-				// Release the write lock to allow other threads to access the list
-				_lock.ExitWriteLock();
+				// Convert the list of DTOs back into LogEventInfo instances
+				List<LogEventInfo> restored = dtos.ConvertAll(converter: dto =>
+				{
+					// Convert the level name string back into a LogLevel instance
+					LogLevel level = LogLevel.FromString(levelName: dto.Level);
+					// Create a new LogEventInfo instance with the restored properties
+					LogEventInfo evt = LogEventInfo.Create(level, "Restored", dto.Message);
+					// Set the timestamp of the restored event to match the original event
+					evt.TimeStamp = dto.TimeStamp;
+					// If the exception type name is not empty, add it to the event properties for reference
+					if (!string.IsNullOrEmpty(value: dto.ExceptionTypeName))
+					{
+						evt.Properties["ExceptionTypeName"] = dto.ExceptionTypeName;
+					}
+					// Return the restored LogEventInfo instance
+					return evt;
+				});
+				// Acquire write lock to ensure exclusive access to the list while prepending restored events
+				_lock.EnterWriteLock();
+				// Use a try/finally block to ensure the write lock is always released
+				try
+				{
+					// Prepend so previous-session events appear first.
+					_events.InsertRange(index: 0, collection: restored);
+				}
+				// Release the write lock in the finally block to ensure it is always released, even if an exception occurs
+				finally
+				{
+					// Release the write lock to allow other threads to access the list
+					_lock.ExitWriteLock();
+				}
 			}
 		}
 		catch (Exception ex)

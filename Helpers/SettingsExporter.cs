@@ -25,7 +25,7 @@ namespace Planetoid_DB.Helpers;
 
 /// <summary>Provides static methods to export all application settings (user-scoped and application-scoped) from <see cref="Settings"/> to CSV, INI, XML, JSON, and YAML files.</summary>
 /// <remarks>Each setting is exported with its name, data type, scope (User/Application), and current value.</remarks>
-public static class SettingsExporter
+internal static class SettingsExporter
 {
 	/// <summary>NLog logger for the class.</summary>
 	/// <remarks>This logger is used to log messages and errors during the export process.</remarks>
@@ -389,7 +389,7 @@ public static class SettingsExporter
 			return value;
 		}
 		// Single-quoted YAML: internal single quotes are doubled.
-		return $"'{value.Replace(oldValue: "'", newValue: "''")}'";
+		return $"'{value.Replace(oldValue: "'", newValue: "''", comparisonType: StringComparison.InvariantCulture)}'";
 	}
 
 	#endregion

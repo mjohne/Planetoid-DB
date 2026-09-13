@@ -15,13 +15,16 @@
 
 using NLog;
 
+using System.Diagnostics;
 using System.Text.Json;
 
 namespace Planetoid_DB.Helpers;
 
 /// <summary>Manages loading and saving of bookmark entries per database file.</summary>
 /// <remarks>Each database file has its own bookmark JSON file stored in the user's application-data directory under the "Planetoid-DB" sub-folder.</remarks>
-public sealed class BookmarkStore
+// You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
+[DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
+internal sealed class BookmarkStore
 {
 	/// <summary>NLog logger instance.</summary>
 	/// <remarks>Used for logging errors during load/save operations.</remarks>
@@ -109,7 +112,7 @@ public sealed class BookmarkStore
 			// Get the full path to the bookmark file for the specified database filename
 			path = GetBookmarkFilePath(databaseFilename: databaseFilename);
 			// Ensure the bookmark directory exists; create it if it does not
-			Directory.CreateDirectory(path: bookmarkDirectory);
+			_ = Directory.CreateDirectory(path: bookmarkDirectory);
 			// Serialize the list of bookmark entries to JSON format with indentation for readability
 			List<BookmarkEntry> entryList = entries as List<BookmarkEntry> ?? [.. entries];
 			// Write the serialized JSON content to the bookmark file, overwriting any existing content
@@ -151,4 +154,9 @@ public sealed class BookmarkStore
 			logger.Error(exception: ex, message: $"Failed to clear bookmarks from '{path ?? databaseFilename}': {ex.Message}");
 		}
 	}
+
+	/// <summary>Returns a string representation of the current object for debugging purposes.</summary>
+	/// <returns>A string representation of the current object.</returns>
+	/// <remarks>This property is used by the debugger to display a friendly string representation of the object.</remarks>
+	private string DebuggerDisplay => ToString() ?? string.Empty;
 }

@@ -19,7 +19,7 @@ namespace Planetoid_DB.Helpers;
 
 /// <summary>Provides static helper methods for escaping strings in various document formats, as well as shared UI feedback methods used by all exporter classes.</summary>
 /// <remarks>This class contains methods for escaping special characters in LaTeX, Markdown, PostScript, PDF, RTF, CSV, and TOML formats, and shared methods for displaying success and error messages during export operations.</remarks>
-public static class ExportEscapeHelper
+internal static class ExportEscapeHelper
 {
 	/// <summary>Escapes LaTeX special characters.</summary>
 	/// <param name="input">The raw input string.</param>
@@ -63,14 +63,18 @@ public static class ExportEscapeHelper
 	public static string EscapeMarkdownCell(string? input)
 	{
 		// In Markdown tables, the pipe character '|' is used as a column separator, so it must be escaped if it appears in cell content.
-		return string.IsNullOrEmpty(value: input) ? string.Empty : input.Replace(oldValue: "|", newValue: "\\|");
+		return string.IsNullOrEmpty(value: input) ? string.Empty : input.Replace(oldValue: "|", newValue: "\\|", comparisonType: StringComparison.InvariantCulture);
 	}
 
 	/// <summary>Escapes Typst table cell characters.</summary>
 	/// <param name="input">The raw cell value.</param>
 	/// <returns>The escaped string suitable for Typst table output.</returns>
 	/// <remarks>In Typst tables, the pipe character '|' is used as a column separator, so it must be escaped if it appears in cell content. This method checks if the input string is null or empty and returns an empty string in that case; otherwise, it replaces all occurrences of '|' with '\|'.</remarks>
-	public static string EscapeTypstCell(string? input) => EscapeMarkdownCell(input: input);
+	public static string EscapeTypstCell(string? input)
+	{
+		// In Typst tables, the pipe character '|' is used as a column separator, so it must be escaped if it appears in cell content.
+		return EscapeMarkdownCell(input: input);
+	}
 
 	/// <summary>Escapes PostScript string literal characters.</summary>
 	/// <param name="input">The raw input string.</param>
@@ -180,7 +184,7 @@ public static class ExportEscapeHelper
 			return "\"\"";
 		}
 		// Replace any internal double quotes with two double quotes to escape them, and wrap the entire field in double quotes.
-		return $"\"{input.Replace("\"", "\"\"")}\"";
+		return $"\"{input.Replace("\"", "\"\"", StringComparison.InvariantCulture)}\"";
 	}
 
 	/// <summary>Escapes a TOML string value.</summary>

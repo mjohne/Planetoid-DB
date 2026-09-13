@@ -17,6 +17,8 @@ using NLog;
 
 using System.Data.SQLite;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using System.IO.Compression;
 using System.Text;
 using System.Text.Json;
@@ -26,7 +28,8 @@ namespace Planetoid_DB.Helpers;
 
 /// <summary>Provides static methods for saving the contents of a <see cref="ListView"/> to various file formats.</summary>
 /// <remarks>Each method accepts the source <see cref="ListView"/>, a document title used in the file content, and the full file-system path of the output file. Column headers are read from the ListView column collection; row data is read from either the normal items collection or (in virtual mode) by requesting items via the <see cref="ListView.RetrieveVirtualItem"/> event handler of the owning form. Compressed file formats (DOCX, ODT, ODS, XLSX, EPUB) are written as proper ZIP archives rather than flat XML files. SQLite export requires System.Data.SQLite; CHM export requires Microsoft HTML Help Workshop (hhc.exe).</remarks>
-public static partial class ListViewExporter
+[SuppressMessage(category: "Maintainability", checkId: "CA1515:Erwägen Sie, öffentliche Typen intern zu machen.", Justification = "<Ausstehend>")]
+internal static partial class ListViewExporter
 {
 	/// <summary>Reusable JSON serializer options for efficient serialization.</summary>
 	/// <remarks>Creating a static instance of JsonSerializerOptions with WriteIndented set to true allows for consistent formatting of JSON output across all methods that serialize to JSON, while avoiding the overhead of creating new options instances for each serialization operation.</remarks>
@@ -233,7 +236,7 @@ public static partial class ListViewExporter
 			foreach (string[] row in GetRows(listView: listView, virtualRowProvider: virtualRowProvider))
 			{
 				// Escape pipe characters in the cell data to prevent breaking the AsciiDoc table syntax, since '|' is used as a column separator. The escaping is done by replacing '|' with '\|', which is the standard way to escape a pipe in AsciiDoc.
-				string[] escaped = [.. row.Select(selector: static v => v.Replace(oldValue: "|", newValue: "\\|"))];
+				string[] escaped = [.. row.Select(selector: static v => v.Replace(oldValue: "|", newValue: "\\|", comparisonType: StringComparison.InvariantCulture))];
 				writer.WriteLine(value: "|" + string.Join(separator: "|", values: escaped));
 			}
 			writer.WriteLine(value: "|===");
@@ -307,7 +310,7 @@ public static partial class ListViewExporter
 				{
 					string cell = c < row.Length ? row[c] : string.Empty;
 					// Escape pipe characters in the cell data to prevent breaking the Textile table syntax, since '|' is used as a column separator. The escaping is done by replacing '|' with '&#124;', which is the HTML entity for the pipe character.
-					cell = cell.Replace(oldValue: "|", newValue: "&#124;");
+					cell = cell.Replace(oldValue: "|", newValue: "&#124;", comparisonType: StringComparison.InvariantCulture);
 					return $" {cell.PadRight(totalWidth: widths[c] - 1)}";
 				}))}|";
 				writer.WriteLine(value: dataRow);
@@ -348,7 +351,7 @@ public static partial class ListViewExporter
 			foreach (string[] row in GetRows(listView: listView, virtualRowProvider: virtualRowProvider))
 			{
 				// Escape pipe characters in the cell data to prevent breaking the Textile table syntax, since '|' is used as a column separator. The escaping is done by replacing '|' with '&#124;', which is the HTML entity for the pipe character.
-				string[] escaped = [.. row.Select(selector: static v => v.Replace(oldValue: "|", newValue: "&#124;"))];
+				string[] escaped = [.. row.Select(selector: static v => v.Replace(oldValue: "|", newValue: "&#124;", comparisonType: StringComparison.InvariantCulture))];
 				writer.WriteLine(value: "| " + string.Join(separator: " | ", values: escaped) + " |");
 			}
 			// Log a success message indicating that the Textile file was saved successfully.
@@ -391,7 +394,7 @@ public static partial class ListViewExporter
 			// Write each row of data as a Typst table row, escaping double quotes in the cell data to prevent breaking the Typst syntax. Each cell is enclosed in double quotes, and rows are separated by commas.
 			foreach (string[] row in rows)
 			{
-				string[] escaped = [.. row.Select(selector: static v => v.Replace(oldValue: "\"", newValue: "\\\""))];
+				string[] escaped = [.. row.Select(selector: static v => v.Replace(oldValue: "\"", newValue: "\\\"", comparisonType: StringComparison.InvariantCulture))];
 				writer.WriteLine(value: "    [" + string.Join(separator: ", ", values: escaped.Select(selector: static v => $"\"{v}\"")) + "],");
 			}
 			writer.WriteLine(value: "  ]");
@@ -1285,7 +1288,7 @@ public static partial class ListViewExporter
 			// Use a StreamWriter to write the output file in YAML format with UTF-8 encoding. The 'append: false' parameter ensures that the file is overwritten if it already exists. The YAML document has a root object containing a "title" property and a "rows" property. The "rows" property is an array of objects, where each object represents a row in the ListView and has properties corresponding to the column headers. Special characters in the headers and cell data are escaped by replacing double quotes with escaped double quotes to ensure that the YAML document is well-formed.
 			using StreamWriter writer = new(path: fileName, append: false, encoding: Encoding.UTF8);
 			writer.WriteLine(value: "---");
-			writer.WriteLine(value: $"title: \"{title.Replace(oldValue: "\"", newValue: "\\\"")}\"");
+			writer.WriteLine(value: $"title: \"{title.Replace(oldValue: "\"", newValue: "\\\"", comparisonType: StringComparison.InvariantCulture)}\"");
 			writer.WriteLine(value: $"created_at: \"{DateTime.UtcNow:O}\"");
 			writer.WriteLine(value: "rows:");
 			foreach (string[] row in GetRows(listView: listView, virtualRowProvider: virtualRowProvider))
@@ -1390,7 +1393,7 @@ public static partial class ListViewExporter
 				string values = string.Join(separator: ", ", values: Enumerable.Range(start: 0, count: headers.Length).Select(selector: c =>
 				{
 					string cell = c < row.Length ? row[c] : string.Empty;
-					return $"'{cell.Replace(oldValue: "'", newValue: "''")}'";
+					return $"'{cell.Replace(oldValue: "'", newValue: "''", comparisonType: StringComparison.InvariantCulture)}'";
 				}));
 				writer.WriteLine(value: $"INSERT INTO [{tableName}] ({colList}) VALUES ({values});");
 			}
@@ -1438,7 +1441,7 @@ public static partial class ListViewExporter
 			{
 				string colDefs = string.Join(separator: ", ", values: headers.Select(selector: static h => $"[{h}] TEXT"));
 				cmd.CommandText = $"CREATE TABLE IF NOT EXISTS [{tableName}] ({colDefs});";
-				cmd.ExecuteNonQuery();
+				_ = cmd.ExecuteNonQuery();
 			}
 			using SQLiteTransaction transaction = connection.BeginTransaction();
 			string colNames = string.Join(separator: ", ", values: headers.Select(selector: static h => $"[{h}]"));
@@ -1458,7 +1461,7 @@ public static partial class ListViewExporter
 				{
 					parameters[c].Value = c < row.Length ? row[c] : string.Empty;
 				}
-				insertCmd.ExecuteNonQuery();
+				_ = insertCmd.ExecuteNonQuery();
 			}
 			transaction.Commit();
 			connection.Close();
@@ -2053,7 +2056,7 @@ public static partial class ListViewExporter
 			xmlWriter.WriteElementString(localName: "last-name", value: string.Empty);
 			xmlWriter.WriteEndElement();
 			xmlWriter.WriteElementString(localName: "program-used", value: "Planetoid-DB");
-			string fb2DateString = DateTime.Now.ToString(format: "yyyy-MM-dd");
+			string fb2DateString = DateTime.Now.ToString(format: "yyyy-MM-dd", provider: CultureInfo.InvariantCulture);
 			xmlWriter.WriteStartElement(localName: "date");
 			xmlWriter.WriteAttributeString(localName: "value", value: fb2DateString);
 			xmlWriter.WriteString(text: fb2DateString);

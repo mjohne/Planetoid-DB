@@ -17,6 +17,8 @@ using NLog;
 
 using System.Data.SQLite;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using System.IO.Compression;
 using System.Text;
 using System.Text.Json;
@@ -26,7 +28,7 @@ namespace Planetoid_DB.Helpers;
 
 /// <summary>Provides static methods for saving the contents of a <see cref="TextBox"/> to various file formats.</summary>
 /// <remarks>Each method accepts the source <see cref="TextBox"/>, a document title used in the file content, and the full file-system path of the output file. Compressed file formats (DOCX, ODT, ODS, XLSX, EPUB) are written as proper ZIP archives rather than flat XML files. SQLite export requires System.Data.SQLite; CHM export requires Microsoft HTML Help Workshop (hhc.exe).</remarks>
-public static partial class TextBoxExporter
+internal static partial class TextBoxExporter
 {
 	/// <summary>Reusable JSON serializer options for efficient serialization.</summary>
 	/// <remarks>Creating a static instance of JsonSerializerOptions with WriteIndented set to true allows for consistent formatting of JSON output across all methods that serialize to JSON, while avoiding the overhead of creating new options instances for each serialization operation.</remarks>
@@ -681,7 +683,11 @@ public static partial class TextBoxExporter
 	/// <param name="textBox">The TextBox control whose lines will be written as rows in the generated Excel worksheet. Cannot be null.</param>
 	/// <param name="title">The title to be written as the first row in the Excel worksheet. This value appears as the header of the exported data.</param>
 	/// <param name="fileName">The full path and file name for the Excel file to create. If a file with the same name exists, it will be overwritten.</param>
-	public static void SaveAsExcel(TextBox textBox, string title, string fileName) => SaveAsXlsx(textBox: textBox, title: title, fileName: fileName);
+	public static void SaveAsExcel(TextBox textBox, string title, string fileName)
+	{
+		// Delegate to SaveAsXlsx to avoid duplicating XLSX-generation logic. This ensures that the Excel export functionality is centralized and consistent.
+		SaveAsXlsx(textBox: textBox, title: title, fileName: fileName);
+	}
 
 	/// <summary>Saves the contents of the specified TextBox as a PDF document.</summary>
 	/// <remarks>The method creates a valid PDF document using a consistent object numbering scheme (Catalog, Pages, Font, then Page/Content pairs). A proper cross-reference table with computed byte offsets is appended before the trailer so that PDF readers can locate each object. If an I/O or access error occurs during saving, an error message is displayed to the user.</remarks>
@@ -835,7 +841,7 @@ public static partial class TextBoxExporter
 			writer.WriteLine(value: "/Root 1 0 R");
 			writer.WriteLine(value: ">>");
 			writer.WriteLine(value: "startxref");
-			writer.WriteLine(value: xrefOffset.ToString());
+			writer.WriteLine(value: xrefOffset.ToString(provider: CultureInfo.InvariantCulture));
 			writer.WriteLine(value: "%%EOF");
 			// If the save operation completes successfully, show a success message to the user.
 			ExportFeedbackHelper.ShowSuccess();
@@ -905,7 +911,7 @@ public static partial class TextBoxExporter
 			// The program-used element is set to "Planetoid-DB", which indicates the program that was used to create the FB2 document. This element is included in the document-info section and provides information about the software used to generate the document.
 			xmlWriter.WriteElementString(localName: "program-used", ns: fb2Ns, value: "Planetoid-DB");
 			// The date element is set to the current date, which indicates when the FB2 document was created. This element is included in the document-info section and provides information about the creation date of the document.
-			string fb2DateString = DateTime.Now.ToString(format: "yyyy-MM-dd");
+			string fb2DateString = DateTime.Now.ToString(format: "yyyy-MM-dd", provider: CultureInfo.InvariantCulture);
 			// The date element includes a value attribute that contains the date in the format "yyyy-MM-dd". The text content of the date element also contains the same date string. This provides both a machine-readable value and a human-readable representation of the creation date in the FB2 document.
 			xmlWriter.WriteStartElement(localName: "date", ns: fb2Ns);
 			// The value attribute of the date element is set to the current date in the format "yyyy-MM-dd". This provides a machine-readable representation of the creation date in the FB2 document, which can be used by readers to display or sort documents based on their creation dates.
@@ -979,7 +985,7 @@ public static partial class TextBoxExporter
 		// Create a temporary directory to store the HTML, HHC, and HHP files needed for compiling the CHM. The directory is created in the system's temporary folder with a unique name generated using a GUID. This ensures that the temporary files do not conflict with any existing files and can be safely cleaned up after the compilation process.
 		string tempDir = Path.Combine(path1: Path.GetTempPath(), path2: Guid.NewGuid().ToString());
 		// Create the temporary directory.
-		Directory.CreateDirectory(path: tempDir);
+		_ = Directory.CreateDirectory(path: tempDir);
 		// The method uses a try-finally block to ensure that the temporary directory is deleted after the compilation process, regardless of whether it succeeds or fails. The try block contains the code for generating the HTML, HHC, and HHP files, as well as invoking hhc.exe to compile the CHM. The finally block checks if the temporary directory exists and deletes it recursively to clean up any temporary files created during the process.
 		try
 		{
@@ -1511,7 +1517,7 @@ public static partial class TextBoxExporter
 	/// <remarks>YAML single-quoted scalars preserve backslashes literally and only require escaping of embedded single quotes by doubling them. This method wraps the input value in single quotes and replaces any single quote characters with two single quotes to ensure the resulting YAML scalar is well-formed and preserves the original text content.</remarks>
 	private static string EscapeYamlSingleQuotedScalar(string? value)
 	{
-		return $"'{(value ?? string.Empty).Replace(oldValue: "'", newValue: "''")}'";
+		return $"'{(value ?? string.Empty).Replace(oldValue: "'", newValue: "''", comparisonType: StringComparison.InvariantCulture)}'";
 	}
 
 	/// <summary>Saves the contents of the specified TextBox as a YAML file with the given title.</summary>
@@ -1618,7 +1624,7 @@ public static partial class TextBoxExporter
 			// Write an INSERT INTO statement for each line from the TextBox. Single quotes in the data are escaped by doubling them.
 			foreach (string line in textBox.Lines)
 			{
-				string escaped = line.Replace(oldValue: "'", newValue: "''");
+				string escaped = line.Replace(oldValue: "'", newValue: "''", comparisonType: StringComparison.InvariantCulture);
 				writer.WriteLine(value: $"INSERT INTO [{tableName}] ([Content]) VALUES ('{escaped}');");
 			}
 			writer.WriteLine(value: "COMMIT;");
@@ -1641,6 +1647,7 @@ public static partial class TextBoxExporter
 	/// <param name="textBox">The TextBox control whose lines will be exported as SQLite database rows. Cannot be null.</param>
 	/// <param name="title">The title used as the table name in the SQLite database. Non-alphanumeric characters are replaced by underscores.</param>
 	/// <param name="fileName">The full path and file name where the SQLite database will be created. If a file with the same name exists, it will be overwritten.</param>
+	[SuppressMessage(category: "Security", checkId: "CA2100:Review SQL queries for security vulnerabilities", Justification = "The table identifier is restricted to alphanumeric characters and underscores; row values are parameterized.")]
 	public static void SaveAsSqlite(TextBox textBox, string title, string fileName)
 	{
 		// Create a SQLite database file with a single table containing a TEXT column for each line from the TextBox. The table name is derived from the title parameter, with non-alphanumeric characters replaced by underscores. Parameterized SQL commands are used to safely insert the data.
@@ -1664,7 +1671,7 @@ public static partial class TextBoxExporter
 			using (SQLiteCommand cmd = connection.CreateCommand())
 			{
 				cmd.CommandText = $"CREATE TABLE IF NOT EXISTS [{tableName}] ([Content] TEXT);";
-				cmd.ExecuteNonQuery();
+				_ = cmd.ExecuteNonQuery();
 			}
 			// Use a transaction for efficient batch insertion of all lines.
 			using SQLiteTransaction transaction = connection.BeginTransaction();
@@ -1675,7 +1682,7 @@ public static partial class TextBoxExporter
 			foreach (string line in textBox.Lines)
 			{
 				parameter.Value = line;
-				insertCmd.ExecuteNonQuery();
+				_ = insertCmd.ExecuteNonQuery();
 			}
 			transaction.Commit();
 			connection.Close();
@@ -1900,11 +1907,11 @@ public static partial class TextBoxExporter
 				hw.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: 65001));
 				hw.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: 0x12345678));
 				hw.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: 6));
-				ms.Seek(offset: 96, loc: SeekOrigin.Begin);
+				_ = ms.Seek(offset: 96, loc: SeekOrigin.Begin);
 				hw.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: textRecords.Count + 1));
-				ms.Seek(offset: 100, loc: SeekOrigin.Begin);
+				_ = ms.Seek(offset: 100, loc: SeekOrigin.Begin);
 				hw.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: 0));
-				ms.Seek(offset: 120, loc: SeekOrigin.Begin);
+				_ = ms.Seek(offset: 120, loc: SeekOrigin.Begin);
 				hw.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: 6));
 			}
 			byte[] eofRecord = [0xe9, 0x8e, 0x0d, 0x0a];

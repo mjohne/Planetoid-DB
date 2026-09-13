@@ -13,6 +13,7 @@
  * See LICENSE file in the project root for license information.
  */
 
+using System.Diagnostics;
 using System.Globalization;
 
 namespace Planetoid_DB.Helpers;
@@ -21,7 +22,9 @@ namespace Planetoid_DB.Helpers;
 /// <param name="column">The column index to sort by.</param>
 /// <param name="order">The sort order (<see cref="SortOrder.Ascending"/> or <see cref="SortOrder.Descending"/>).</param>
 /// <remarks>This comparer ensures that numeric values are sorted before text values and that sorting is transitive, meaning if A &lt; B and B &lt; C, then A &lt; C.</remarks>
-public class ListViewItemComparer(int column, SortOrder order) : System.Collections.IComparer
+// You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
+[DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
+internal class ListViewItemComparer(int column, SortOrder order) : System.Collections.IComparer
 {
 	/// <summary>Compares two objects and returns a value indicating whether one is less than, equal to, or greater than the other.</summary>
 	/// <param name="x">The first object to compare.</param>
@@ -62,4 +65,9 @@ public class ListViewItemComparer(int column, SortOrder order) : System.Collecti
 			: string.Compare(strA: textX, strB: textY, comparisonType: StringComparison.OrdinalIgnoreCase);
 		return order == SortOrder.Descending ? -valueResult : valueResult;
 	}
+
+	/// <summary>Returns a string representation of the current object for debugging purposes.</summary>
+	/// <returns>A string representation of the current object.</returns>
+	/// <remarks>This property is used by the debugger to display the state of the object in a human-readable format.</remarks>
+	private string DebuggerDisplay => ToString() ?? string.Empty;
 }

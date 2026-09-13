@@ -21,7 +21,7 @@ namespace Planetoid_DB.Helpers;
 
 /// <summary>Handles UI feedback and logging during export operations.</summary>
 /// <remarks>This static class provides methods for displaying success and error messages to the user, as well as logging errors that occur during file export operations.</remarks>
-public static class ExportFeedbackHelper
+internal static class ExportFeedbackHelper
 {
 	/// <summary>NLog logger for logging export-related messages and errors.</summary>
 	/// <remarks>This logger captures error and info messages during export operations.</remarks>

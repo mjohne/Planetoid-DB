@@ -16,12 +16,17 @@
 using NLog;
 using NLog.Targets;
 
+using System.Diagnostics;
+
 namespace Planetoid_DB.Helpers;
 
 /// <summary>Custom NLog target that forwards every received <see cref="LogEventInfo"/> to <see cref="LogEventStore"/> for later retrieval by the log viewer UI.</summary>
 /// <remarks>Register an instance of this target with the NLog configuration before calling <see cref="LogManager.ReconfigExistingLoggers()"/>. The target is thread-safe because <see cref="LogEventStore.Add"/> is thread-safe. </remarks>
+// Target name is used to identify this target in the NLog configuration, allowing multiple targets to coexist while remaining individually addressable.
 [Target(name: "LogEventStore")]
-public sealed class LogEventTarget : Target
+// You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
+[DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
+internal sealed class LogEventTarget : Target
 {
 	/// <summary>Initializes a new instance of the <see cref="LogEventTarget"/> class with a given target name.</summary>
 	/// <param name="name">The NLog target name used to identify this target in the configuration.</param>
@@ -42,4 +47,9 @@ public sealed class LogEventTarget : Target
 		// Forward the log event to the LogEventStore for storage
 		LogEventStore.Add(logEvent: logEvent);
 	}
+
+	/// <summary>Returns a string representation of the current object for debugging purposes.</summary>
+	/// <returns>A string representation of the current object.</returns>
+	/// <remarks>This property is used by the debugger to display information about the object.</remarks>
+	private string DebuggerDisplay => ToString();
 }
