@@ -671,7 +671,7 @@ internal partial class ScatterplotsForm : BaseKryptonForm
 					progress: progress,
 					liveResults: liveResults,
 					cancellationToken: _cancellationTokenSource.Token),
-				cancellationToken: _cancellationTokenSource.Token).ConfigureAwait(continueOnCapturedContext: false);
+				cancellationToken: _cancellationTokenSource.Token).ConfigureAwait(continueOnCapturedContext: true);
 			// Once the scatter-plot generation is complete, apply the final results to the chart and ListView.
 			int excluded = ApplyResults(xDefinition: xDefinition, yDefinition: yDefinition, results: finalResults);
 			// Update the information label to summarise the results of the scatter-plot generation.
