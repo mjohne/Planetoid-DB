@@ -547,7 +547,7 @@ internal partial class DatabaseDifferencesForm : BaseKryptonForm
 		try
 		{
 			// Run the comparison operation asynchronously on a separate thread to avoid blocking the UI, passing in the file paths, whether the first file is newer, the progress reporter, and the cancellation token
-			await Task.Run(action: () => CompareFiles(p1: pathFile1, p2: pathFile2, file1IsNewer: file1IsNewer, progress: progress, token: _cancellationTokenSource.Token)).ConfigureAwait(continueOnCapturedContext: false);
+			await Task.Run(action: () => CompareFiles(p1: pathFile1, p2: pathFile2, file1IsNewer: file1IsNewer, progress: progress, token: _cancellationTokenSource.Token)).ConfigureAwait(continueOnCapturedContext: true);
 			// After the comparison operation completes successfully, update the progress bar text to indicate that the comparison is complete and show a message box summarizing the results of the comparison, including the counts of added, changed, and deleted records
 			kryptonProgressBar.Text = "Comparison Complete";
 			_ = KryptonMessageBox.Show(owner: this, text: $"Comparison completed successfully.\n\nAdded records: {addedRecords}\nChanged records: {changedRecords}\nDeleted records: {deletedRecords}", caption: "Summary", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
