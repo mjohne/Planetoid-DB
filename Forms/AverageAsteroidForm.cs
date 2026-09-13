@@ -292,7 +292,7 @@ internal partial class AverageAsteroidForm : BaseKryptonForm
 				}
 				// After computing all rows, return the array of ListViewItem objects to be added to the ListView on the UI thread
 				return items;
-			}, cancellationToken: ct).ConfigureAwait(continueOnCapturedContext: false);
+			}, cancellationToken: ct).ConfigureAwait(continueOnCapturedContext: true);
 			// Check for cancellation one final time before updating the UI with the computed average rows
 			ct.ThrowIfCancellationRequested();
 			// Update the ListView on the UI thread with the pre-computed rows
