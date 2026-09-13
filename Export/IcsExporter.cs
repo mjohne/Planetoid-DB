@@ -70,7 +70,7 @@ internal class IcsExporter : IOrbitDataExporter
 		_ = sb.AppendLine(value: $"DTSTAMP:{DateTime.UtcNow:yyyyMMddTHHmmssZ}");
 		_ = sb.AppendLine(value: $"SUMMARY:Observation/Data for {exportTitle}");
 		// Add the description with key-value pairs from the selected data
-		string description = string.Join(separator: "\n", values: selectedData.Select(selector: static x => $"{x.Key}: {x.Value}"));
+string description = string.Join(separator: "\\n", values: selectedData.Select(selector: static x => $"{x.Key}: {x.Value}"));
 		_ = sb.AppendLine(value: $"DESCRIPTION:{description}");
 		// Add the end of the event and calendar
 		_ = sb.AppendLine(value: "END:VEVENT");
