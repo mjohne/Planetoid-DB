@@ -24,8 +24,8 @@ namespace Planetoid_DB.Export;
 
 /// <summary>Represents a text exporter for exporting database information to a iCalendar file.</summary>
 /// <remarks>This class implements the IOrbitDataExporter interface and provides functionality to export database information to a iCalendar file format.</remarks>
-// You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
-[DebuggerDisplay(value: "{" + nameof(DebuggerDisplay) + ",nq}")]
+// You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
+[DebuggerDisplay(value: "{" + nameof(DebuggerDisplay) + ",nq}")]
 internal class IcsExporter : IOrbitDataExporter
 {
 	/// <summary>NLog logger instance for the class.</summary>
@@ -70,7 +70,7 @@ internal class IcsExporter : IOrbitDataExporter
 		_ = sb.AppendLine(value: $"DTSTAMP:{DateTime.UtcNow:yyyyMMddTHHmmssZ}");
 		_ = sb.AppendLine(value: $"SUMMARY:Observation/Data for {exportTitle}");
 		// Add the description with key-value pairs from the selected data
-string description = string.Join(separator: "\\n", values: selectedData.Select(selector: static x => $"{x.Key}: {x.Value}"));
+		string description = string.Join(separator: "\\n", values: selectedData.Select(selector: static x => $"{x.Key}: {x.Value}"));
 
 		_ = sb.AppendLine(value: $"DESCRIPTION:{description}");
 		// Add the end of the event and calendar
