@@ -210,7 +210,7 @@ MOID analysis is an important part of minor-planet orbital analysis because it p
 The export interface is intentionally located in `Helpers` rather than `Export` because it represents the contract shared by the application and all concrete exporters.
 
 ```csharp
-public interface IOrbitDataExporter
+internal interface IOrbitDataExporter
 {
     string Extension { get; }
 

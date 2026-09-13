@@ -14,23 +14,27 @@
  */
 
 using System.ComponentModel;
+using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Windows.Forms.Design;
 
 namespace Planetoid_DB.Helpers;
 
 /// <summary>Represents a numeric up-down control hosted in a ToolStrip.</summary>
 /// <remarks>This class provides a convenient way to include a NumericUpDown control within a ToolStrip or StatusStrip, allowing for easy integration of numeric input functionality in these UI components.</remarks>
+/// <remarks>Initializes a new instance of the <see cref="ToolStripNumericUpDown"/> class.</remarks>
+/// <remarks>The <see cref="ToolStripControlHost"/> base class owns and disposes the created hosted control.</remarks>
 // You can use this class to add a numeric up-down control to a ToolStrip or StatusStrip, enabling users to input numeric values directly within these UI elements. The class exposes properties and events of the underlying NumericUpDown control, allowing for customization and interaction handling as needed.
+// The DesignerCategory attribute specifies that this class is intended for use in a design-time environment, such as Visual Studio's designer. It helps the designer recognize this class as a component that can be added to a form or container during design time.
 [DesignerCategory(category: "code")]
+// The ToolStripItemDesignerAvailability attribute specifies the availability of the ToolStripNumericUpDown control in the designer. It indicates that this control can be used in both ToolStrip and StatusStrip containers, allowing developers to add it to these UI components during design time.
 [ToolStripItemDesignerAvailability(visibility: ToolStripItemDesignerAvailability.ToolStrip | ToolStripItemDesignerAvailability.StatusStrip)]
-public class ToolStripNumericUpDown : ToolStripControlHost
+// You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
+[DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
+// Suppress the CA2000 warning for disposing objects before losing scope, as ToolStripControlHost takes ownership of and disposes the control supplied to its constructor.
+[method: SuppressMessage(category: "Reliability", checkId: "CA2000:Dispose objects before losing scope", Justification = "ToolStripControlHost takes ownership of and disposes the control supplied to its constructor.")]
+internal class ToolStripNumericUpDown() : ToolStripControlHost(c: CreateControlInstance())
 {
-	/// <summary>Initializes a new instance of the ToolStripNumericUpDown class.</summary>
-	/// <remarks>This constructor creates a new instance of the ToolStripNumericUpDown class and initializes the hosted NumericUpDown control.</remarks>
-	public ToolStripNumericUpDown() : base(c: CreateControlInstance())
-	{
-	}
-
 	/// <summary>Creates a new instance of the NumericUpDown control configured for numeric input within a specified range.</summary>
 	/// <remarks>The returned control is suitable for scenarios where a fixed-size numeric selector is required. The Minimum and Maximum properties are preset to restrict input to values between 0 and 100. The AutoSize property is disabled to allow custom sizing.</remarks>
 	/// <returns>A NumericUpDown control with AutoSize set to false, a size of 60 by 22 pixels, and a value range from 0 to 100.</returns>
@@ -394,37 +398,61 @@ public class ToolStripNumericUpDown : ToolStripControlHost
 	/// <remarks>Call this method when the value changes to allow event handlers to respond accordingly. This is useful for updating UI elements or triggering additional logic in response to value changes.</remarks>
 	/// <param name="sender">The source of the event, typically the object whose value has changed.</param>
 	/// <param name="e">An EventArgs instance containing the event data associated with the value change.</param>
-	private void OnValueChanged(object? sender, EventArgs e) => ValueChanged?.Invoke(sender: this, e: e);
+	private void OnValueChanged(object? sender, EventArgs e)
+	{
+		// Call the base class method to ensure that any necessary processing is performed by the base class.
+		ValueChanged?.Invoke(sender: this, e: e);
+	}
 
 	/// <summary>Raises the KeyDown event when a key is pressed while the control has focus.</summary>
 	/// <remarks>This method invokes the KeyDown event handler, allowing subscribers to respond to key press events.</remarks>
 	/// <param name="sender">The source of the event, typically the control that received the key press.</param>
 	/// <param name="e">An instance of KeyEventArgs that contains the event data, including information about which key was pressed.</param>
-	private void OnKeyDown(object? sender, KeyEventArgs e) => KeyDown?.Invoke(sender: this, e: e);
+	private void OnKeyDown(object? sender, KeyEventArgs e)
+	{
+		// Call the base class method to ensure that any necessary processing is performed by the base class.
+		KeyDown?.Invoke(sender: this, e: e);
+	}
 
 	/// <summary>Raises the KeyPress event, allowing subscribers to handle key press actions.</summary>
 	/// <remarks>This method invokes the KeyPress event handler if there are any subscribers. It is typically used to respond to user input in text controls.</remarks>
 	/// <param name="sender">The source of the event, typically the control that received the key press.</param>
 	/// <param name="e">An instance of KeyPressEventArgs that contains the event data, including the pressed key character.</param>
-	private void OnKeyPress(object? sender, KeyPressEventArgs e) => KeyPress?.Invoke(sender: this, e: e);
+	private void OnKeyPress(object? sender, KeyPressEventArgs e)
+	{
+		// Call the base class method to ensure that any necessary processing is performed by the base class.
+		KeyPress?.Invoke(sender: this, e: e);
+	}
 
 	/// <summary>Raises the KeyUp event, allowing subscribers to respond when a key is released while the control has focus.</summary>
 	/// <remarks>This method is typically called when a key is released. Event handlers attached to the KeyUp event can use this to implement custom behavior based on key input.</remarks>
 	/// <param name="sender">The source of the event, typically the control that received the key input.</param>
 	/// <param name="e">An instance of KeyEventArgs that contains information about the released key.</param>
-	private void OnKeyUp(object? sender, KeyEventArgs e) => KeyUp?.Invoke(sender: this, e: e);
+	private void OnKeyUp(object? sender, KeyEventArgs e)
+	{
+		// Call the base class method to ensure that any necessary processing is performed by the base class.
+		KeyUp?.Invoke(sender: this, e: e);
+	}
 
 	/// <summary>Raises the Validating event, allowing subscribers to handle validation logic before the control loses focus.</summary>
 	/// <remarks>This method is typically called before the control loses focus. Event handlers attached to the Validating event can use this to implement custom validation logic and potentially cancel the focus change.</remarks>
 	/// <param name="sender">The source of the event, typically the control that is being validated.</param>
 	/// <param name="e">An instance of CancelEventArgs that contains the event data, including a flag to cancel the validation.</param>
-	private void OnValidating(object? sender, CancelEventArgs e) => Validating?.Invoke(sender: this, e: e);
+	private void OnValidating(object? sender, CancelEventArgs e)
+	{
+		// Call the base class method to ensure that any necessary processing is performed by the base class.
+		Validating?.Invoke(sender: this, e: e);
+	}
 
 	/// <summary>Raises the Validated event to indicate that validation has completed for the associated control.</summary>
 	/// <remarks>Call this method after validation logic has finished to notify subscribers that validation is complete. This allows event handlers to perform additional actions in response to validation.</remarks>
 	/// <param name="sender">The source of the event, typically the control that has been validated.</param>
 	/// <param name="e">An EventArgs instance containing the event data for the validation event.</param>
-	private void OnValidated(object? sender, EventArgs e) => Validated?.Invoke(sender: this, e: e);
+	private void OnValidated(object? sender, EventArgs e)
+	{
+		// Call the base class method to ensure that any necessary processing is performed by the base class.
+		Validated?.Invoke(sender: this, e: e);
+	}
 
 	/// <summary>Raises the TextChanged event to notify subscribers when the text content has changed.</summary>
 	/// <remarks>This handler is attached to the hosted control's <see cref="Control.TextChanged"/> event. It delegates to the base <see cref="ToolStripItem.OnTextChanged(EventArgs)"/> method so that the standard ToolStripItem event pipeline is used.</remarks>
@@ -440,83 +468,144 @@ public class ToolStripNumericUpDown : ToolStripControlHost
 	/// <remarks>This handler is attached to the hosted control's <see cref="Control.Click"/> event. It calls <see cref="ToolStripItem.OnClick(EventArgs)"/> to raise the standard ToolStripItem Click event and to ensure that any overrides in derived classes are honored.</remarks>
 	/// <param name="sender">The source of the event, typically the hosted control that raised the event.</param>
 	/// <param name="e">An instance of <see cref="EventArgs"/> that contains the event data.</param>
-	private void OnClick(object? sender, EventArgs e) => base.OnClick(e: e);
+	private void OnClick(object? sender, EventArgs e)
+	{
+		// Call the base class method to ensure that any necessary processing is performed by the base class.
+		base.OnClick(e: e);
+	}
 
 	/// <summary>Raises the DoubleClick event, allowing subscribers to respond to a double-click action on the control.</summary>
 	/// <remarks>This handler is attached to the hosted control's <see cref="Control.DoubleClick"/> event. It delegates to <see cref="ToolStripItem.OnDoubleClick(EventArgs)"/> so that the built-in DoubleClick event pipeline of <see cref="ToolStripItem"/> is used.</remarks>
 	/// <param name="sender">The source of the event, typically the hosted control that was double-clicked.</param>
 	/// <param name="e">An <see cref="EventArgs"/> instance containing the event data associated with the double-click event.</param>
-	private void OnDoubleClick(object? sender, EventArgs e) => base.OnDoubleClick(e: e);
+	private void OnDoubleClick(object? sender, EventArgs e)
+	{
+		// Call the base class method to ensure that any necessary processing is performed by the base class.
+		base.OnDoubleClick(e: e);
+	}
 
 	/// <summary>Raises the MouseClick event, providing the event data to any subscribed event handlers.</summary>
 	/// <remarks>This method is typically called in response to mouse click actions on the control. Ensure that any event handlers are properly subscribed to handle the MouseClick event.</remarks>
 	/// <param name="sender">The source of the event, typically the control that raised the event.</param>
 	/// <param name="e">An instance of MouseEventArgs that contains the event data, including information about the mouse button pressed and the mouse cursor position.</param>
-	private void OnMouseClick(object? sender, MouseEventArgs e) => MouseClick?.Invoke(sender: this, e: e);
+	private void OnMouseClick(object? sender, MouseEventArgs e)
+	{
+		// Call the base class method to ensure that any necessary processing is performed by the base class.
+		MouseClick?.Invoke(sender: this, e: e);
+	}
 
 	/// <summary>Raises the MouseDoubleClick event when the mouse is double-clicked over the control.</summary>
 	/// <remarks>This method invokes the MouseDoubleClick event handler, allowing subscribers to respond to double-click actions.</remarks>
 	/// <param name="sender">The source of the event, typically the control that raised the event.</param>
 	/// <param name="e">An instance of MouseEventArgs that contains the event data, including the position of the mouse and the button that was pressed.</param>
-	private void OnMouseDoubleClick(object? sender, MouseEventArgs e) => MouseDoubleClick?.Invoke(sender: this, e: e);
+	private void OnMouseDoubleClick(object? sender, MouseEventArgs e)
+	{
+		// Call the base class method to ensure that any necessary processing is performed by the base class.
+		MouseDoubleClick?.Invoke(sender: this, e: e);
+	}
 
 	/// <summary>Raises the MouseDown event when a mouse button is pressed over the control.</summary>
 	/// <remarks>Use this method to provide custom handling for mouse down events by subscribing to the MouseDown event. Ensure event handlers are attached as needed to respond to user interactions.</remarks>
 	/// <param name="sender">The source of the event, typically the control that received the mouse down action.</param>
 	/// <param name="e">An instance of MouseEventArgs containing information about the mouse button pressed and the cursor position.</param>
-	private void OnMouseDown(object? sender, MouseEventArgs e) => MouseDown?.Invoke(sender: this, e: e);
+	private void OnMouseDown(object? sender, MouseEventArgs e)
+	{
+		// Call the base class method to ensure that any necessary processing is performed by the base class.
+		MouseDown?.Invoke(sender: this, e: e);
+	}
 
 	/// <summary>Raises the MouseEnter event when the mouse pointer enters the bounds of the control.</summary>
 	/// <remarks>Override this method to implement custom logic that executes when the mouse pointer enters the control area. This method allows derived classes to respond to mouse entry events without attaching a delegate.</remarks>
 	/// <param name="sender">The source of the event, typically the control that the mouse pointer has entered.</param>
 	/// <param name="e">The event data associated with the mouse enter event.</param>
-	private void OnMouseEnter(object? sender, EventArgs e) => MouseEnter?.Invoke(sender: this, e: e);
+	private void OnMouseEnter(object? sender, EventArgs e)
+	{
+		// Call the base class method to ensure that any necessary processing is performed by the base class.
+		MouseEnter?.Invoke(sender: this, e: e);
+	}
 
 	/// <summary>Handles the event when the mouse pointer leaves the bounds of the control.</summary>
 	/// <remarks>This method can be used to trigger visual updates or other actions when the mouse pointer exits the control area. It is commonly used to revert changes made during mouse hover events.</remarks>
 	/// <param name="sender">The source of the event, typically the control from which the mouse pointer has departed.</param>
 	/// <param name="e">An object containing the event data associated with the mouse leave action.</param>
-	private void OnMouseLeave(object? sender, EventArgs e) => MouseLeave?.Invoke(sender: this, e: e);
+	private void OnMouseLeave(object? sender, EventArgs e)
+	{
+		// Call the base class method to ensure that any necessary processing is performed by the base class.
+		MouseLeave?.Invoke(sender: this, e: e);
+	}
 
 	/// <summary>Raises the MouseHover event when the mouse pointer hovers over the control.</summary>
 	/// <remarks>This method invokes the MouseHover event handler, allowing subscribers to respond to mouse hover actions.</remarks>
 	/// <param name="sender">The source of the event, typically the control that the mouse is hovering over.</param>
 	/// <param name="e">An EventArgs that contains the event data for the MouseHover event.</param>
-	private void OnMouseHover(object? sender, EventArgs e) => MouseHover?.Invoke(sender: this, e: e);
+	private void OnMouseHover(object? sender, EventArgs e)
+	{
+		// Call the base class method to ensure that any necessary processing is performed by the base class.
+		MouseHover?.Invoke(sender: this, e: e);
+	}
 
 	/// <summary>Raises the MouseMove event to notify subscribers when the mouse pointer moves over the control.</summary>
 	/// <remarks>Override this method in a derived class to provide custom handling for mouse movement events. The method invokes the MouseMove event if there are any subscribers.</remarks>
 	/// <param name="sender">The source of the event, typically the control that received the mouse movement.</param>
 	/// <param name="e">An instance of MouseEventArgs containing information about the mouse position and button states.</param>
-	private void OnMouseMove(object? sender, MouseEventArgs e) => MouseMove?.Invoke(sender: this, e: e);
+	private void OnMouseMove(object? sender, MouseEventArgs e)
+	{
+		// Call the base class method to ensure that any necessary processing is performed by the base class.
+		MouseMove?.Invoke(sender: this, e: e);
+	}
 
 	/// <summary>Raises the MouseUp event when a mouse button is released over the control.</summary>
 	/// <remarks>Use this method to handle mouse button release actions, such as completing a drag-and-drop operation or updating control state in response to user input.</remarks>
 	/// <param name="sender">The source of the event, typically the control that received the mouse input.</param>
 	/// <param name="e">An object containing information about the mouse event, including the mouse button released and the cursor position.</param>
-	private void OnMouseUp(object? sender, MouseEventArgs e) => MouseUp?.Invoke(sender: this, e: e);
+	private void OnMouseUp(object? sender, MouseEventArgs e)
+	{
+		// Call the base class method to ensure that any necessary processing is performed by the base class.
+		MouseUp?.Invoke(sender: this, e: e);
+	}
 
 	/// <summary>Raises the GotFocus event to notify subscribers that the control has received focus.</summary>
 	/// <remarks>Use this method to trigger any logic that should occur when the control gains focus. Subscribers to the GotFocus event can respond to the focus change as needed.</remarks>
 	/// <param name="sender">The source of the event, typically the control that received focus.</param>
 	/// <param name="e">An EventArgs instance containing the event data associated with the focus change.</param>
-	private void OnGotFocus(object? sender, EventArgs e) => GotFocus?.Invoke(sender: this, e: e);
+	private void OnGotFocus(object? sender, EventArgs e)
+	{
+		// Call the base class method to ensure that any necessary processing is performed by the base class.
+		GotFocus?.Invoke(sender: this, e: e);
+	}
 
 	/// <summary>Raises the LostFocus event when the control loses input focus.</summary>
 	/// <remarks>Use this method to handle custom logic when the control loses focus by subscribing to the LostFocus event.</remarks>
 	/// <param name="sender">The source of the event, typically the control that has lost focus.</param>
 	/// <param name="e">An EventArgs instance containing the event data associated with the focus loss.</param>
-	private void OnLostFocus(object? sender, EventArgs e) => LostFocus?.Invoke(sender: this, e: e);
+	private void OnLostFocus(object? sender, EventArgs e)
+	{
+		// Call the base class method to ensure that any necessary processing is performed by the base class.
+		LostFocus?.Invoke(sender: this, e: e);
+	}
 
 	/// <summary>Invokes the Enter event, passing the current instance and event arguments to the event handlers.</summary>
 	/// <remarks>This method is typically used to handle the Enter event for controls, allowing for custom behavior when the control gains focus.</remarks>
 	/// <param name="sender">The source of the event, typically the control that raised the event.</param>
 	/// <param name="e">The event data associated with the Enter event.</param>
-	private void OnEnter(object? sender, EventArgs e) => Enter?.Invoke(sender: this, e: e);
+	private void OnEnter(object? sender, EventArgs e)
+	{
+		// Call the base class method to ensure that any necessary processing is performed by the base class.
+		Enter?.Invoke(sender: this, e: e);
+	}
 
 	/// <summary>Raises the Leave event for the control, passing the specified event arguments to all registered handlers.</summary>
 	/// <remarks>Call this method when the control loses focus to allow subscribers to perform cleanup or respond to the focus change.</remarks>
 	/// <param name="sender">The source of the event, typically the control that is losing focus.</param>
 	/// <param name="e">The event data associated with the Leave event.</param>
-	private void OnLeave(object? sender, EventArgs e) => Leave?.Invoke(sender: this, e: e);
+	private void OnLeave(object? sender, EventArgs e)
+	{
+		// Call the base class method to ensure that any necessary processing is performed by the base class.
+		Leave?.Invoke(sender: this, e: e);
+	}
+
+	/// <summary>Returns a string that represents the current object for debugging purposes. This property is used to provide a more informative display in the debugger, showing relevant information</summary>
+	/// <returns>A string that represents the current object.</returns>
+	/// <remarks>This property is used by the debugger to display a string representation of the object. It can be overridden in derived classes to provide more specific information about the object's state.</remarks>
+	private string DebuggerDisplay => ToString() ?? string.Empty;
 }

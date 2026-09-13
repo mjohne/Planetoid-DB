@@ -13,6 +13,8 @@
  * See LICENSE file in the project root for license information.
  */
 
+using System.Diagnostics;
+
 namespace Planetoid_DB.Helpers;
 
 /// <summary>Represents a single planetoid dataset.</summary>
@@ -36,29 +38,11 @@ namespace Planetoid_DB.Helpers;
 /// <param name="Flags">flags of the planetoid</param>
 /// <param name="DesignationName">designation name of the planetoid</param>
 /// <param name="ObservationLastDate">observation last date of the planetoid</param>
+/// <return>The planetoid record.</return>
 /// <remarks>This record struct is used to represent a single planetoid dataset.</remarks>
-public readonly record struct PlanetoidRecord(
-	string Index, // Gets the index of the planetoid.
-	string MagAbs, // Gets the absolute magnitude of the planetoid.
-	string SlopeParam, // Gets the slope parameter of the planetoid.
-	string Epoch, // Gets the epoch of the planetoid.
-	string MeanAnomaly, // Gets the mean anomaly of the planetoid.
-	string ArgPeri, // Gets the argument of perihelion of the planetoid.
-	string LongAscNode, // Gets the longitude of the ascending node of the planetoid.
-	string Incl, // Gets the inclination of the planetoid.
-	string OrbEcc, // Gets the orbital eccentricity of the planetoid.
-	string Motion, // Gets the mean daily motion of the planetoid.
-	string SemiMajorAxis, // Gets the semi-major axis of the planetoid.
-	string Ref, // Gets the reference of the planetoid.
-	string NumberObservation, // Gets the number of observations of the planetoid.
-	string NumberOpposition, // Gets the number of oppositions of the planetoid.
-	string ObsSpan, // Gets the observation span of the planetoid.
-	string RmsResidual, // Gets the root mean square residual of the planetoid.
-	string ComputerName, // Gets the computer name of the planetoid.
-	string Flags, // Gets the flags of the planetoid.
-	string DesignationName, // Gets the designation name of the planetoid.
-	string ObservationLastDate // Gets the observation last date of the planetoid.
-)
+// You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
+[DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
+internal readonly record struct PlanetoidRecord(string Index, string MagAbs, string SlopeParam, string Epoch, string MeanAnomaly, string ArgPeri, string LongAscNode, string Incl, string OrbEcc, string Motion, string SemiMajorAxis, string Ref, string NumberObservation, string NumberOpposition, string ObsSpan, string RmsResidual, string ComputerName, string Flags, string DesignationName, string ObservationLastDate)
 {
 	/// <summary>Parses a raw line (Fixed-Width) into a PlanetoidRecord object.</summary>
 	/// <param name="rawLine">The raw line to parse.</param>
@@ -100,4 +84,9 @@ public readonly record struct PlanetoidRecord(
 		);
 
 	}
+
+	/// <summary>Returns a string representation of the PlanetoidRecord for debugging purposes.</summary>
+	/// <returns>A string representation of the PlanetoidRecord.</returns>
+	/// <remarks>This property is used by the DebuggerDisplay attribute to provide a concise view of the record's contents during debugging.</remarks>
+	private string DebuggerDisplay => ToString();
 }

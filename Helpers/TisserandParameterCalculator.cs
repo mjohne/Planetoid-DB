@@ -13,23 +13,16 @@
  * See LICENSE file in the project root for license information.
  */
 
+using System.Diagnostics;
+
 namespace Planetoid_DB.Helpers;
 
 /// <summary>Provides methods for calculating the Tisserand parameter of a minor planet relative to each of the eight solar system planets.</summary>
 /// <remarks>The Tisserand parameter is a quasi-conserved quantity derived from the Jacobi constant in the circular restricted three-body problem. It is defined as: <para><c>T_P = a_P / a + 2 * cos(i) * sqrt(a / a_P * (1 - e²))</c></para> where <c>a_P</c> is the semi-major axis of the reference planet, <c>a</c> is the semi-major axis of the minor planet, <c>e</c> is the eccentricity of the minor planet, and <c>i</c> is the orbital inclination of the minor planet. By convention <c>T_J</c> (relative to Jupiter) is the most commonly used form and is widely employed to classify small solar-system bodies.</remarks>
-internal class TisserandParameterCalculator
+// You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
+[DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
+internal partial class TisserandParameterCalculator
 {
-	/// <summary>Represents the name and semi-major axis of a solar system planet used in Tisserand parameter calculations.</summary>
-	/// <param name="Name">The common name of the planet.</param>
-	/// <param name="SemiMajorAxis">The semi-major axis in AU (J2000.0 mean elements).</param>
-	/// <remarks>Only the semi-major axis is required for the Tisserand parameter formula.</remarks>
-	public readonly record struct PlanetData(string Name, double SemiMajorAxis);
-
-	/// <summary>Represents the Tisserand parameter result for a minor planet relative to a specific solar system planet.</summary>
-	/// <param name="PlanetName">The name of the reference planet.</param>
-	/// <param name="TisserandValue">The computed Tisserand parameter value (dimensionless).</param>
-	/// <remarks>Values near 3 (relative to Jupiter) indicate a Jupiter-family comet or Jupiter-crossing orbit. Values greater than 3 typically indicate an asteroid, while values less than 2 suggest a nearly isotropic comet.</remarks>
-	public readonly record struct TisserandResult(string PlanetName, double TisserandValue);
 
 	/// <summary>Mean semi-major axes of the eight solar system planets at J2000.0.</summary>
 	/// <remarks>Values are taken from the standard IAU/JPL mean orbital elements (Standish, E.M. 1992, "Keplerian Elements for Approximate Planetary Positions").</remarks>
@@ -96,4 +89,9 @@ internal class TisserandParameterCalculator
 		// Return the array of Tisserand results for all planets
 		return results;
 	}
+
+	/// <summary>Returns a string representation of the <see cref="TisserandParameterCalculator"/> class for debugging purposes.</summary>
+	/// <returns>A string representation of the <see cref="TisserandParameterCalculator"/> class.</returns>
+	/// <remarks>This property is used by the debugger to display the contents of the class in a human-readable format.</remarks>
+	private string DebuggerDisplay => ToString() ?? string.Empty;
 }

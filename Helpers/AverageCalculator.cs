@@ -17,7 +17,7 @@ namespace Planetoid_DB.Helpers;
 
 /// <summary>Provides methods to calculate various types of averages from a collection of numeric values.</summary>
 /// <remarks>This class implements multiple averaging methods including arithmetic mean, median, mode, geometric mean, harmonic mean, quadratic mean, cubic mean, logarithmic mean, Winsor mean, quartile mean, shortest half mean, Gastwirth-Cohen mean, range mean, a-mean, moving average, Hölder mean of shortest half, and Lehmer mean.</remarks>
-public static class AverageCalculator
+internal static class AverageCalculator
 {
 
 	#region Helper Methods
@@ -26,7 +26,10 @@ public static class AverageCalculator
 	/// <param name="v">The value to check.</param>
 	/// <returns><c>true</c> if the value is valid; otherwise, <c>false</c>.</returns>
 	/// <remarks>This method is used internally to filter out invalid values before performing calculations.</remarks>
-	private static bool IsValid(double v) => !double.IsNaN(d: v) && !double.IsInfinity(d: v);
+	private static bool IsValid(double v)
+	{
+		return !double.IsNaN(d: v) && !double.IsInfinity(d: v);
+	}
 
 	/// <summary>Filters out invalid values (NaN and Infinity) from the input collection and returns a sorted array of valid values.</summary>
 	/// <param name="values">The collection of numeric values to filter and sort.</param>
@@ -215,6 +218,8 @@ public static class AverageCalculator
 				return double.NaN;
 			case 1:
 				return valueArray[0];
+			default:
+				break;
 		}
 		// For multiple values, calculate pairwise logarithmic means
 		double sum = 0;

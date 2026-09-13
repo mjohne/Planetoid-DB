@@ -17,6 +17,7 @@ using NLog;
 
 using System.Data.SQLite;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.IO.Compression;
 using System.Net;
 using System.Text;
@@ -27,7 +28,7 @@ namespace Planetoid_DB.Helpers;
 
 /// <summary>Provides static methods for saving the contents of a <see cref="TableLayoutPanel"/> to various file formats.</summary>
 /// <remarks>Each method accepts the source <see cref="TableLayoutPanel"/>, a document title used in the file content, and the full file-system path of the output file. Column headers are read from the controls in the first row (row 0); row data is read from controls in subsequent rows. Compressed file formats (DOCX, ODT, ODS, XLSX, EPUB) are written as proper ZIP archives rather than flat XML files. SQLite export requires System.Data.SQLite; CHM export requires Microsoft HTML Help Workshop (hhc.exe).</remarks>
-public static class TableLayoutPanelExporter
+internal static class TableLayoutPanelExporter
 {
 	/// <summary>Reusable JSON serializer options for efficient serialization.</summary>
 	/// <remarks>Creating a static instance of JsonSerializerOptions with WriteIndented set to true allows for consistent formatting of JSON output across all methods that serialize to JSON, while avoiding the overhead of creating new options instances for each serialization operation.</remarks>
@@ -228,7 +229,7 @@ public static class TableLayoutPanelExporter
 			foreach (string[] row in GetRows(tableLayoutPanel: tableLayoutPanel))
 			{
 				// Escape pipe characters in the cell data to prevent breaking the AsciiDoc table syntax, since '|' is used as a column separator. The escaping is done by replacing '|' with '\|', which is the standard way to escape a pipe in AsciiDoc.
-				string[] escaped = [.. row.Select(selector: static v => v.Replace(oldValue: "|", newValue: "\\|"))];
+				string[] escaped = [.. row.Select(selector: static v => v.Replace(oldValue: "|", newValue: "\\|", comparisonType: StringComparison.InvariantCulture))];
 				writer.WriteLine(value: "|" + string.Join(separator: "|", values: escaped));
 			}
 			writer.WriteLine(value: "|===");
@@ -302,7 +303,7 @@ public static class TableLayoutPanelExporter
 				{
 					string cell = c < row.Length ? row[c] : string.Empty;
 					// Escape pipe characters in the cell data to prevent breaking the Textile table syntax, since '|' is used as a column separator. The escaping is done by replacing '|' with '&#124;', which is the HTML entity for the pipe character.
-					cell = cell.Replace(oldValue: "|", newValue: "&#124;");
+					cell = cell.Replace(oldValue: "|", newValue: "&#124;", comparisonType: StringComparison.InvariantCulture);
 					return $" {cell.PadRight(totalWidth: widths[c] - 1)}";
 				})) + "|";
 				writer.WriteLine(value: dataRow);
@@ -343,7 +344,7 @@ public static class TableLayoutPanelExporter
 			foreach (string[] row in GetRows(tableLayoutPanel: tableLayoutPanel))
 			{
 				// Escape pipe characters in the cell data to prevent breaking the Textile table syntax, since '|' is used as a column separator. The escaping is done by replacing '|' with '&#124;', which is the HTML entity for the pipe character.
-				string[] escaped = [.. row.Select(selector: static v => v.Replace(oldValue: "|", newValue: "&#124;"))];
+				string[] escaped = [.. row.Select(selector: static v => v.Replace(oldValue: "|", newValue: "&#124;", comparisonType: StringComparison.InvariantCulture))];
 				writer.WriteLine(value: "| " + string.Join(separator: " | ", values: escaped) + " |");
 			}
 			// Show a success message after the file has been saved.
@@ -1272,7 +1273,7 @@ public static class TableLayoutPanelExporter
 			// Use a StreamWriter to write the output file in YAML format with UTF-8 encoding. The 'append: false' parameter ensures that the file is overwritten if it already exists. The YAML document has a root object containing a "title" property and a "rows" property. The "rows" property is an array of objects, where each object represents a row in the TableLayoutPanel and has properties corresponding to the column headers. Special characters in the headers and cell data are escaped by replacing double quotes with escaped double quotes to ensure that the YAML document is well-formed.
 			using StreamWriter writer = new(path: fileName, append: false, encoding: Encoding.UTF8);
 			writer.WriteLine(value: "---");
-			writer.WriteLine(value: $"title: \"{title.Replace(oldValue: "\"", newValue: "\\\"")}\"");
+			writer.WriteLine(value: $"title: \"{title.Replace(oldValue: "\"", newValue: "\\\"", comparisonType: StringComparison.InvariantCulture)}\"");
 			writer.WriteLine(value: $"created_at: \"{DateTime.UtcNow:O}\"");
 			writer.WriteLine(value: "rows:");
 			foreach (string[] row in GetRows(tableLayoutPanel: tableLayoutPanel))
@@ -1282,8 +1283,8 @@ public static class TableLayoutPanelExporter
 				for (int c = 0; c < headers.Length; c++)
 				{
 					string cell = c < row.Length ? row[c] : string.Empty;
-					string safeCell = cell.Replace(oldValue: "\"", newValue: "\\\"");
-					string safeKey = headers[c].Replace(oldValue: "\"", newValue: "\\\"");
+					string safeCell = cell.Replace(oldValue: "\"", newValue: "\\\"", comparisonType: StringComparison.InvariantCulture);
+					string safeKey = headers[c].Replace(oldValue: "\"", newValue: "\\\"", comparisonType: StringComparison.InvariantCulture);
 					writer.WriteLine(value: $"      {safeKey}: \"{safeCell}\"");
 				}
 			}
@@ -1378,7 +1379,7 @@ public static class TableLayoutPanelExporter
 				string values = string.Join(separator: ", ", values: Enumerable.Range(start: 0, count: headers.Length).Select(selector: c =>
 				{
 					string cell = c < row.Length ? row[c] : string.Empty;
-					return $"'{cell.Replace(oldValue: "'", newValue: "''")}'";
+					return $"'{cell.Replace(oldValue: "'", newValue: "''", comparisonType: StringComparison.InvariantCulture)}'";
 				}));
 				writer.WriteLine(value: $"INSERT INTO [{tableName}] ({colList}) VALUES ({values});");
 			}
@@ -1402,6 +1403,7 @@ public static class TableLayoutPanelExporter
 	/// <param name="title">Used as the table name inside the SQLite database.</param>
 	/// <param name="fileName">The full path of the output file.</param>
 	/// <remarks>This method creates a SQLite database file with a single table containing the data from the TableLayoutPanel. The table name is derived from the title parameter, with non-alphanumeric characters replaced by underscores. The method uses parameterized SQL commands to insert the data, which ensures that special characters in the data are properly escaped and that the resulting database is well-formed and can be opened with SQLite tools without issues.</remarks>
+	[SuppressMessage(category: "Security", checkId: "CA2100:Review SQL queries for security vulnerabilities", Justification = "The table identifier is restricted to alphanumeric characters and underscores; row values are parameterized.")]
 	public static void SaveAsSqlite(TableLayoutPanel tableLayoutPanel, string title, string fileName)
 	{
 		// Get the column headers and rows, and create a SQLite database file with a single table containing the data from the TableLayoutPanel. The table name is derived from the title parameter, with non-alphanumeric characters replaced by underscores. The method uses parameterized SQL commands to insert the data, which ensures that special characters in the data are properly escaped and that the resulting database is well-formed.
@@ -1426,7 +1428,7 @@ public static class TableLayoutPanelExporter
 			{
 				string colDefs = string.Join(separator: ", ", values: headers.Select(selector: h => $"[{h}] TEXT"));
 				cmd.CommandText = $"CREATE TABLE IF NOT EXISTS [{tableName}] ({colDefs});";
-				cmd.ExecuteNonQuery();
+				_ = cmd.ExecuteNonQuery();
 			}
 			using SQLiteTransaction transaction = connection.BeginTransaction();
 			string colNames = string.Join(separator: ", ", values: headers.Select(selector: h => $"[{h}]"));
@@ -1446,7 +1448,7 @@ public static class TableLayoutPanelExporter
 				{
 					parameters[c].Value = c < row.Length ? row[c] : string.Empty;
 				}
-				insertCmd.ExecuteNonQuery();
+				_ = insertCmd.ExecuteNonQuery();
 			}
 			transaction.Commit();
 			connection.Close();
@@ -1868,11 +1870,11 @@ public static class TableLayoutPanelExporter
 				hw.Write(value: IPAddress.HostToNetworkOrder(host: 65001));
 				hw.Write(value: IPAddress.HostToNetworkOrder(host: 0x12345678));
 				hw.Write(value: IPAddress.HostToNetworkOrder(host: 6));
-				ms.Seek(offset: 96, loc: SeekOrigin.Begin);
+				_ = ms.Seek(offset: 96, loc: SeekOrigin.Begin);
 				hw.Write(value: IPAddress.HostToNetworkOrder(host: textRecords.Count + 1));
-				ms.Seek(offset: 100, loc: SeekOrigin.Begin);
+				_ = ms.Seek(offset: 100, loc: SeekOrigin.Begin);
 				hw.Write(value: IPAddress.HostToNetworkOrder(host: 0));
-				ms.Seek(offset: 120, loc: SeekOrigin.Begin);
+				_ = ms.Seek(offset: 120, loc: SeekOrigin.Begin);
 				hw.Write(value: IPAddress.HostToNetworkOrder(host: 6));
 			}
 			byte[] eofRecord = [0xe9, 0x8e, 0x0d, 0x0a];
@@ -1965,7 +1967,7 @@ public static class TableLayoutPanelExporter
 			xmlWriter.WriteElementString(localName: "last-name", ns: fb2Ns, value: string.Empty);
 			xmlWriter.WriteEndElement();
 			xmlWriter.WriteElementString(localName: "program-used", ns: fb2Ns, value: "Planetoid-DB");
-			string fb2DateString = DateTime.Now.ToString(format: "yyyy-MM-dd");
+			string fb2DateString = DateTime.Now.ToString(format: "yyyy-MM-dd", provider: System.Globalization.CultureInfo.InvariantCulture);
 			xmlWriter.WriteStartElement(localName: "date", ns: fb2Ns);
 			xmlWriter.WriteAttributeString(localName: "value", value: fb2DateString);
 			xmlWriter.WriteString(text: fb2DateString);
@@ -2035,7 +2037,7 @@ public static class TableLayoutPanelExporter
 		}
 		// Create a temporary directory to store the intermediate files needed for CHM compilation. The directory is created in the system's temporary path with a unique name generated using a GUID. After the compilation process, the temporary directory and its contents will be deleted to clean up any intermediate files.
 		string tempDir = Path.Combine(path1: Path.GetTempPath(), path2: Guid.NewGuid().ToString());
-		Directory.CreateDirectory(path: tempDir);
+		_ = Directory.CreateDirectory(path: tempDir);
 		// Generate the index.html file with the TableLayoutPanel data formatted as a table, the toc.hhc file for the table of contents, and the project.hhp file for the project configuration. The index.html file includes a title and a table with the column headers and data rows. The toc.hhc file defines a single entry in the table of contents that points to index.html. The project.hhp file specifies the options for CHM compilation, including the title, default topic, and contents file.
 		try
 		{
@@ -2212,7 +2214,7 @@ public static class TableLayoutPanelExporter
 			// Define local functions to start a new page and finish the current page. The StartNewPage function initializes the currentPageBuilder with the XML content for a new fixed page, including the title and column headers. The FinishCurrentPage function finalizes the current page by closing the XML tags, creating a new entry in the ZIP archive for the page, and writing the page content to that entry. It also creates a relationships entry for the page that references the font resource used in the page.
 			void StartNewPage()
 			{
-				currentPageBuilder.Clear();
+				_ = currentPageBuilder.Clear();
 				_ = currentPageBuilder.AppendLine(value: "<?xml version=\"1.0\" encoding=\"utf-8\"?>");
 				_ = currentPageBuilder.AppendLine(value: "<FixedPage Width=\"816\" Height=\"1056\" xmlns=\"http://schemas.microsoft.com/xps/2005/06\" xml:lang=\"en-US\">");
 				string safeTitle = System.Security.SecurityElement.Escape(str: title) ?? string.Empty;
@@ -2260,7 +2262,7 @@ public static class TableLayoutPanelExporter
 					string safeCell = System.Security.SecurityElement.Escape(str: cell) ?? string.Empty;
 					if (!string.IsNullOrEmpty(value: safeCell))
 					{
-						currentPageBuilder.AppendLine(value: $"  <Glyphs Fill=\"#FF000000\" FontUri=\"/Resources/Dummy.ttf\" DeviceFontName=\"Arial\" FontRenderingEmSize=\"10\" OriginX=\"{colX[c]}\" OriginY=\"{currentY}\" UnicodeString=\"{safeCell}\"/>");
+						_ = currentPageBuilder.AppendLine(value: $"  <Glyphs Fill=\"#FF000000\" FontUri=\"/Resources/Dummy.ttf\" DeviceFontName=\"Arial\" FontRenderingEmSize=\"10\" OriginX=\"{colX[c]}\" OriginY=\"{currentY}\" UnicodeString=\"{safeCell}\"/>");
 					}
 				}
 				currentY += lineHeight;

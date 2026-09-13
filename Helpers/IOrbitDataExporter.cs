@@ -18,7 +18,7 @@ namespace Planetoid_DB.Helpers;
 
 /// <summary>Interface for exporting orbit data to different file formats.</summary>
 /// <remarks>This interface defines the properties and methods required for exporting orbit data to various file formats.</remarks>
-public interface IOrbitDataExporter
+internal interface IOrbitDataExporter
 {
 	/// <summary>Gets the file extension associated with the export format.</summary>
 	/// <remarks>This property returns the file extension (e.g., ".csv", ".json") that corresponds to the export format.</remarks>

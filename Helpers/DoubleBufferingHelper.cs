@@ -38,27 +38,30 @@ internal static class DoubleBufferingHelper
 
 	/// <summary>A static delegate instance for the SetStyle method on Control. This delegate is initialized via reflection to allow setting control styles for double buffering and optimized painting.</summary>
 	/// <remarks>This delegate is created once and reused for all controls, ensuring efficient application of double buffering and painting optimizations.</remarks>
-	private static readonly SetStyleDelegate? SetStyle;
+	private static readonly SetStyleDelegate? SetStyle = CreateSetStyleDelegate();
 
-	/// <summary>Static constructor for the <see cref="DoubleBufferingHelper"/> class. Initializes the <see cref="SetStyle"/> delegate using reflection to access the protected <c>SetStyle</c> method on <see cref="Control"/> instances.</summary>
-	/// <remarks>This constructor is called automatically before any static members are accessed, ensuring that the delegate is ready for use when enabling double buffering on controls.</remarks>
-	static DoubleBufferingHelper()
+	/// <summary>Creates a delegate for the protected <see cref="Control.SetStyle"/> method.</summary>
+	/// <returns>A delegate for <see cref="Control.SetStyle"/>, or <see langword="null"/> if the delegate cannot be created.</returns>
+	/// <remarks>This method uses reflection to access the protected SetStyle method on Control instances. If the method cannot be found or an exception occurs, a warning is logged and null is returned.</remarks>
+	private static SetStyleDelegate? CreateSetStyleDelegate()
 	{
-		// Initialize the SetStyle delegate using reflection to access the protected SetStyle method on Control.
+		// Attempt to create a delegate for the protected SetStyle method on Control using reflection. If the method is not found or an exception occurs, log an error and return null.
 		try
 		{
 			// Use reflection to get the MethodInfo for the protected SetStyle method on Control.
-			MethodInfo? methodInfo = typeof(Control).GetMethod(name: "SetStyle", bindingAttr: BindingFlags.NonPublic | BindingFlags.Instance);
-			// If the method is found, create a delegate for it to allow high-performance invocation.
-			if (methodInfo != null)
-			{
-				SetStyle = (SetStyleDelegate)Delegate.CreateDelegate(type: typeof(SetStyleDelegate), method: methodInfo);
-			}
+			MethodInfo? methodInfo = typeof(Control).GetMethod(
+				name: "SetStyle",
+				bindingAttr: BindingFlags.NonPublic | BindingFlags.Instance);
+			// If the method is found, create a delegate of type SetStyleDelegate. If not, return null.
+			return methodInfo is null
+				? null
+				: (SetStyleDelegate)Delegate.CreateDelegate(type: typeof(SetStyleDelegate), method: methodInfo);
 		}
-		// Log an error if the delegate creation fails, indicating that double buffering cannot be applied.
+		// Catch any exceptions that occur during the delegate creation process and log an error with context about the failure.
 		catch (Exception ex)
 		{
 			logger.Error(exception: ex, message: "Failed to create high-performance delegate for Control.SetStyle.");
+			return null;
 		}
 	}
 
@@ -126,7 +129,9 @@ internal static class DoubleBufferingHelper
 	/// <param name="control">The control to which the double buffering styles will be applied.</param>
 	/// <param name="styles">The double buffering styles to apply to the control.</param>
 	/// <remarks>This method uses the SetStyle delegate to apply the specified double buffering styles to the control, enhancing rendering performance and reducing flicker.</remarks>
-	private static void ApplyDoubleBufferingStyles(Control control, ControlStyles styles) =>
+	private static void ApplyDoubleBufferingStyles(Control control, ControlStyles styles)
+	{
 		// Apply the specified double buffering styles to the control using the SetStyle delegate.
 		SetStyle?.Invoke(control: control, flag: styles, value: true);
+	}
 }

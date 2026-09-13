@@ -15,6 +15,7 @@
 
 using System.Buffers;
 using System.Collections.Concurrent;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Runtime.Intrinsics;
 
@@ -22,7 +23,9 @@ namespace Planetoid_DB.Helpers;
 
 /// <summary>Provides methods for calculating the Minimum Orbit Intersection Distance (MOID) between a minor planet and the eight solar system planets.</summary>
 /// <remarks>This class implements a fast, high-precision numerical double-grid search algorithm with local refinement, equivalent to the approach used by the Minor Planet Center (MPC) for computing MOID values. The method samples both orbits on a fine angular grid to locate the global minimum distance, then refines it using coordinate-descent optimization to achieve sub-milliarcsecond accuracy.</remarks>
-internal class MoidCalculator
+// You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
+[DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
+internal partial class MoidCalculator
 {
 	/// <summary>Number of angular samples per orbit used in the coarse search phase.</summary>
 	/// <remarks>720 samples correspond to a 0.5° sampling interval over the full 0..2π range.</remarks>
@@ -30,62 +33,11 @@ internal class MoidCalculator
 
 	/// <summary>2π in radians.</summary>
 	/// <remarks>Used for converting sampled angle indices to true anomaly values.</remarks>
-	private static readonly double TwoPi = 2.0 * Math.PI;
+	private const double TwoPi = 2.0 * Math.PI;
 
 	/// <summary>Angular step size in radians for the coarse grid.</summary>
 	/// <remarks>This value is computed once and reused across all MOID evaluations.</remarks>
-	private static readonly double GridStepSize = TwoPi / GridSteps;
-
-	/// <summary>Represents the Keplerian orbital elements of a solar system planet.</summary>
-	/// <param name="Name">The common name of the planet.</param>
-	/// <param name="SemiMajorAxis">The semi-major axis in AU.</param>
-	/// <param name="Eccentricity">The orbital eccentricity (dimensionless).</param>
-	/// <param name="InclinationDeg">The orbital inclination to the ecliptic in degrees.</param>
-	/// <param name="LongitudeAscendingNodeDeg">The longitude of the ascending node in degrees.</param>
-	/// <param name="ArgumentPerihelionDeg">The argument of perihelion in degrees.</param>
-	/// <remarks>These mean orbital elements are referenced to the J2000.0 ecliptic and equinox, as listed in standard astronomical references (Standish 1992 / IAU).</remarks>
-	public record PlanetElements(
-		string Name,
-		double SemiMajorAxis,
-		double Eccentricity,
-		double InclinationDeg,
-		double LongitudeAscendingNodeDeg,
-		double ArgumentPerihelionDeg);
-
-	/// <summary>Represents the MOID result for a minor planet relative to a specific solar system planet.</summary>
-	/// <param name="PlanetName">The name of the planet.</param>
-	/// <param name="MoidAu">The Minimum Orbit Intersection Distance in AU.</param>
-	/// <remarks>The MOID is the closest geometric approach distance between the two osculating orbits, independent of the bodies' actual positions at any epoch.</remarks>
-	public record MoidResult(string PlanetName, double MoidAu);
-
-	/// <summary>Precomputed values for one planet used during repeated MOID computations.</summary>
-	/// <param name="Name">Planet name.</param>
-	/// <param name="SemiMajorAxis">Semi-major axis in AU.</param>
-	/// <param name="Eccentricity">Orbital eccentricity.</param>
-	/// <param name="ArgumentPerihelionRad">Argument of perihelion in radians.</param>
-	/// <param name="CosLongitudeAscendingNode">Precomputed cos(Ω).</param>
-	/// <param name="SinLongitudeAscendingNode">Precomputed sin(Ω).</param>
-	/// <param name="CosInclination">Precomputed cos(i).</param>
-	/// <param name="SinInclination">Precomputed sin(i).</param>
-	/// <param name="OneMinusEccentricitySquared">Precomputed 1 - e².</param>
-	/// <remarks>These precomputed values are used to optimize the inner loop of the MOID calculation by avoiding repeated trigonometric and arithmetic computations for the planetary orbit during bulk processing.</remarks>
-	private record PlanetComputationData(
-		string Name,
-		double SemiMajorAxis,
-		double Eccentricity,
-		double ArgumentPerihelionRad,
-		double CosLongitudeAscendingNode,
-		double SinLongitudeAscendingNode,
-		double CosInclination,
-		double SinInclination,
-		double OneMinusEccentricitySquared);
-
-	/// <summary>Represents the coarse-search minimum used as the starting point for local refinement.</summary>
-	/// <param name="MinDistanceSquared">Squared distance at the best coarse grid sample.</param>
-	/// <param name="BestF1">Best true anomaly on orbit 1 from the coarse grid.</param>
-	/// <param name="BestF2">Best true anomaly on orbit 2 from the coarse grid.</param>
-	/// <remarks>This struct is used to return multiple values from the coarse grid search phase without needing to allocate a separate class or tuple, and is designed to be efficiently passed by value.</remarks>
-	private readonly record struct CoarseMinimumResult(double MinDistanceSquared, double BestF1, double BestF2);
+	private const double GridStepSize = TwoPi / GridSteps;
 
 	/// <summary>Mean orbital elements of the eight solar system planets at J2000.0 (ecliptic reference frame).</summary>
 	/// <remarks>These constants follow the commonly cited IAU-JPL mean planetary elements at J2000.0 as published by Standish (1992). The reference frame is the J2000.0 ecliptic and equinox. The stored <c>ArgumentPerihelionDeg</c> values are the argument of perihelion (<c>ω</c>), derived from the published longitude of perihelion (<c>ϖ</c>) and longitude of the ascending node (<c>Ω</c>) using <c>ω = ϖ - Ω</c>.</remarks>
@@ -215,7 +167,7 @@ internal class MoidCalculator
 		try
 		{
 			// Precompute the positions of the planet's orbit at each coarse grid step in parallel for efficiency
-			Parallel.For(fromInclusive: 0, toExclusive: GridSteps, parallelOptions: new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount, CancellationToken = cancellationToken }, body: idx =>
+			_ = Parallel.For(fromInclusive: 0, toExclusive: GridSteps, parallelOptions: new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount, CancellationToken = cancellationToken }, body: idx =>
 			{
 				// Cancellation is observed via ParallelOptions.CancellationToken
 				cancellationToken.ThrowIfCancellationRequested();
@@ -463,8 +415,8 @@ internal class MoidCalculator
 					// If the CompareExchange succeeds, update the best indices and exit the loop
 					if (Interlocked.CompareExchange(location1: ref minDistSquaredBits, value: newMinBits, comparand: currentMinBits) == currentMinBits)
 					{
-						Interlocked.Exchange(location1: ref bestF1Bits, value: BitConverter.DoubleToInt64Bits(value: localBestI * GridStepSize));
-						Interlocked.Exchange(location1: ref bestF2Bits, value: BitConverter.DoubleToInt64Bits(value: localBestJ * GridStepSize));
+						_ = Interlocked.Exchange(location1: ref bestF1Bits, value: BitConverter.DoubleToInt64Bits(value: localBestI * GridStepSize));
+						_ = Interlocked.Exchange(location1: ref bestF2Bits, value: BitConverter.DoubleToInt64Bits(value: localBestJ * GridStepSize));
 						break;
 					}
 				}
@@ -623,4 +575,8 @@ internal class MoidCalculator
 		double dz = p1.Z - p2.Z;
 		return (dx * dx) + (dy * dy) + (dz * dz);
 	}
+
+	/// <summary>Provides a string representation of the current object for debugging purposes.</summary>
+	/// <remarks>This property is used by the debugger to display a concise summary of the object's state.</remarks>
+	private string DebuggerDisplay => ToString() ?? string.Empty;
 }
