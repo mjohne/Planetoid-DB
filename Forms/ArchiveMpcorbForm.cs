@@ -158,7 +158,7 @@ internal partial class ArchiveMpcorbForm : BaseKryptonForm
 			// Create an HTTP HEAD request to the specified URL
 			using HttpRequestMessage request = new(method: HttpMethod.Head, requestUri: new Uri(uriString: uriString));
 			// Send the request and get the response
-			using HttpResponseMessage response = await _httpClient.SendAsync(request: request).ConfigureAwait(continueOnCapturedContext: false);
+			using HttpResponseMessage response = await _httpClient.SendAsync(request: request).ConfigureAwait(continueOnCapturedContext: true);
 			// If the response is successful and the Last-Modified header is present, return the last modified date in UTC
 			if (response.IsSuccessStatusCode && response.Content.Headers.LastModified.HasValue)
 			{
