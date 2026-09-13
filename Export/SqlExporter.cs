@@ -25,7 +25,7 @@ namespace Planetoid_DB.Export;
 /// <summary>Represents a SQL exporter for exporting database information to a Word file.</summary>
 /// <remarks>This class implements the IOrbitDataExporter interface and provides functionality to export database information to a SQL file format.</remarks>
 // You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
-[DebuggerDisplay(value: "{" + nameof(DebuggerDisplay) + ",nq}")]
+[DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
 internal class SqlExporter : IOrbitDataExporter
 {
 	/// <summary>NLog logger instance for the class.</summary>
