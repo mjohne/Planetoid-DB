@@ -292,7 +292,8 @@ internal partial class AverageAsteroidForm : BaseKryptonForm
 				}
 				// After computing all rows, return the array of ListViewItem objects to be added to the ListView on the UI thread
 				return items;
-			}, cancellationToken: ct).ConfigureAwait(continueOnCapturedContext: true);
+			}, cancellationToken: ct).ConfigureAwait(continueOnCapturedContext: true);
+
 			// Check for cancellation one final time before updating the UI with the computed average rows
 			ct.ThrowIfCancellationRequested();
 			// Update the ListView on the UI thread with the pre-computed rows
@@ -424,7 +425,7 @@ internal partial class AverageAsteroidForm : BaseKryptonForm
 		SetCalculationRunning(running: true);
 		// Start the asynchronous calculation of averages and handle any unexpected exceptions that may occur during the process
 		try
-		{
+await CalculateAveragesAsync(ct: _calculationCts.Token).ConfigureAwait(continueOnCapturedContext: true);
 			await CalculateAveragesAsync(ct: _calculationCts.Token).ConfigureAwait(continueOnCapturedContext: false);
 		}
 		catch (Exception ex)
