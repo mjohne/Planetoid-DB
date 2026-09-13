@@ -130,12 +130,6 @@ internal partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>Overrides the base class property to return the form-specific status label.</remarks>
 	protected override ToolStripStatusLabel? StatusLabel => labelInformation;
 
-	/// <summary>Represents a single resonance result combining a planetoid designation with its resonance data.</summary>
-	/// <param name="PlanetoidName">The readable designation or packed index of the planetoid.</param>
-	/// <param name="Resonance">The computed orbital resonance data.</param>
-	/// <remarks>This record is used to store the results of the resonance calculations for each planetoid.</remarks>
-	private record ResonanceResult(string PlanetoidName, DerivedElements.OrbitalResonance Resonance);
-
 	#region constructor
 
 	/// <summary>Initializes a new instance of the <see cref="OrbitalResonancesOfAllMinorPlanetsForm"/> class.</summary>
