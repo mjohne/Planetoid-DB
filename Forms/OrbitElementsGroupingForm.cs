@@ -426,7 +426,7 @@ internal partial class OrbitElementsGroupingForm : BaseKryptonForm
 		// Start the grouping operation asynchronously using Task.Run, passing the necessary parameters and the cancellation token. The operation will run on a background thread, allowing the UI to remain responsive.
 		try
 		{
-			await Task.Run(function: () => PerformGroupingAsync(elementsCount: elementsCount, tolerancePercent: tolerancePercent, progress: progress, messageProgress: messageProgress, cancellationToken: _cancellationTokenSource.Token), cancellationToken: _cancellationTokenSource.Token).ConfigureAwait(continueOnCapturedContext: false);
+			await Task.Run(function: () => PerformGroupingAsync(elementsCount: elementsCount, tolerancePercent: tolerancePercent, progress: progress, messageProgress: messageProgress, cancellationToken: _cancellationTokenSource.Token), cancellationToken: _cancellationTokenSource.Token).ConfigureAwait(continueOnCapturedContext: true);
 		}
 		// Handle cancellation of the operation gracefully by catching the OperationCanceledException. When cancellation is requested, an informational message is logged to indicate that the grouping task was canceled.
 		catch (OperationCanceledException ex)
