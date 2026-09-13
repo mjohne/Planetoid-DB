@@ -80,7 +80,7 @@ internal class PostscriptExporter : IOrbitDataExporter
 		_ = sb.AppendLine(value: "%%EndComments");
 		_ = sb.AppendLine(value: "/Helvetica findfont 12 scalefont setfont");
 		_ = sb.AppendLine(value: "50 800 moveto");
-		_ = sb.AppendLine(value: $"({EscapePostScriptString(value: $"Export for {exportTitle}")} show");
+		_ = sb.AppendLine(value: $"({EscapePostScriptString(value: $"Export for {exportTitle}")}) show");
 		_ = sb.AppendLine(value: "0 -20 rmoveto");
 		foreach (KeyValuePair<string, string> kvp in selectedData)
 		{

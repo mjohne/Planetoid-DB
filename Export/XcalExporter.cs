@@ -86,6 +86,7 @@ internal class XcalExporter : IOrbitDataExporter
 					<text>Planetoid-DB - Orbit Data Export</text>
 				</prodid>
 				<components>
+					<vevent>
 						<uid>
 							<text>{Guid.NewGuid()}@planetoid-db.de</text>
 						</uid>
