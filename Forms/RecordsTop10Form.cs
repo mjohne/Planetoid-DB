@@ -64,12 +64,6 @@ internal partial class RecordsTop10Form : BaseKryptonForm
 	/// <remarks>When null, no scan is currently active.</remarks>
 	private CancellationTokenSource? cancellationTokenSource;
 
-	/// <summary>Holds one top-ten entry containing designation, numeric value, and display value.</summary>
-	/// <param name="Designation">Readable designation of the planetoid.</param>
-	/// <param name="StringValue">Original string value as shown from source data.</param>
-	/// <param name="NumericValue">Numeric value used for ranking and comparison.</param>
-	private readonly record struct TopRecordEntry(string Designation, string StringValue, double NumericValue);
-
 	/// <summary>Gets the status label to be used for displaying information.</summary>
 	/// <remarks>Derived classes should override this property to provide the specific label.</remarks>
 	protected override ToolStripStatusLabel? StatusLabel => labelInformation;
