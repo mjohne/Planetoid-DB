@@ -155,7 +155,7 @@ internal partial class CheckDatabaseForm : BaseKryptonForm
 			// Send a HEAD request to the specified URI
 			using HttpRequestMessage request = new(method: HttpMethod.Head, requestUri: uri);
 			// Send the request and get the response
-			using HttpResponseMessage response = await client.SendAsync(request: request).ConfigureAwait(continueOnCapturedContext: false);
+			using HttpResponseMessage response = await client.SendAsync(request: request).ConfigureAwait(continueOnCapturedContext: true);
 			// Check if the response is successful
 			if (response.IsSuccessStatusCode)
 			{
