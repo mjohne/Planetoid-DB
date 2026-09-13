@@ -25,8 +25,8 @@ namespace Planetoid_DB.Export;
 /// <summary>Represents a HTML exporter for exporting database information to a HTML file.</summary>
 /// <remarks>This class implements the IOrbitDataExporter interface and provides functionality to export database information to a HTML file format.</remarks>
 // You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
-[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-public class HtmlExporter : IOrbitDataExporter
+[DebuggerDisplay(value: "{" + nameof(DebuggerDisplay) + "(),nq}")]
+internal class HtmlExporter : IOrbitDataExporter
 {
 	/// <summary>NLog logger instance for the class.</summary>
 	/// <remarks>This logger is used to log messages for the class.</remarks>
@@ -46,8 +46,8 @@ public class HtmlExporter : IOrbitDataExporter
 
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>This method is used to provide a visual representation of the object in the debugger.</remarks>
-	private string GetDebuggerDisplay() => ToString() ?? string.Empty;
+	/// <remarks>This property is used to provide a visual representation of the object in the debugger.</remarks>
+	private string DebuggerDisplay => ToString() ?? string.Empty;
 
 	/// <summary>Exports the selected data to a HTML file.</summary>
 	/// <param name="filePath">The path of the file to export to.</param>
@@ -68,7 +68,7 @@ public class HtmlExporter : IOrbitDataExporter
 		_ = sb.AppendLine(value: "\t\t<meta name=\"description\" content=\"\">");
 		_ = sb.AppendLine(value: "\t\t<meta name=\"keywords\" content=\"\">");
 		_ = sb.AppendLine(value: "\t\t<meta name=\"generator\" content=\"Planetoid-DB\">");
-		_ = sb.AppendLine(handler: $"\t\t<title>{exportTitle}</title>");
+		_ = sb.AppendLine(value: $"\t\t<title>{exportTitle}</title>");
 		_ = sb.AppendLine(value: "\t\t<style>");
 		_ = sb.AppendLine(value: "\t\t\t* {font-family: sans-serif;}");
 		_ = sb.AppendLine(value: "\t\t\t.italic {font-style: italic;}");
@@ -84,7 +84,7 @@ public class HtmlExporter : IOrbitDataExporter
 		foreach (KeyValuePair<string, string> kvp in selectedData)
 		{
 			// Append the key and value in the format "Key: Value" to the StringBuilder
-			_ = sb.AppendLine(handler: $"\t\t\t<span class=\"bold block\" xml:id=\"element-id-{kvp.Key}\">{kvp.Key}:</span> <span xml:id=\"value-id-{kvp.Key}\">{kvp.Value}</span><br />");
+			_ = sb.AppendLine(value: $"\t\t\t<span class=\"bold block\" xml:id=\"element-id-{kvp.Key}\">{kvp.Key}:</span> <span xml:id=\"value-id-{kvp.Key}\">{kvp.Value}</span><br />");
 		}
 		// Append the closing tags for the HTML content
 		_ = sb.AppendLine(value: "\t\t</p>");
