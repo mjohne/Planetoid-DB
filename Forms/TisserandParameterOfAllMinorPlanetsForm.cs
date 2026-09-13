@@ -346,7 +346,7 @@ internal partial class TisserandParameterOfAllMinorPlanetsForm : BaseKryptonForm
 					}
 				}
 				logger.Info(message: $"Tisserand parameter calculation completed. Total results: {localResults.Count}");
-			}, cancellationToken: token).ConfigureAwait(continueOnCapturedContext: true);
+			}, cancellationToken: token).ConfigureAwait(continueOnCapturedContext: true);
 		}
 		// Catch the OperationCanceledException to handle user cancellation gracefully
 		catch (OperationCanceledException)

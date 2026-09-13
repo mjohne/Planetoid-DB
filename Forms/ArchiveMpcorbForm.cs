@@ -471,7 +471,7 @@ internal partial class ArchiveMpcorbForm : BaseKryptonForm
 		{
 			logger.Warn(exception: CancelEx, message: "Archiving operation was cancelled by the user.");
 			labelInformation.Text = "Archiving cancelled.";
-await Task.Delay(millisecondsDelay: 100).ConfigureAwait(continueOnCapturedContext: true);
+await Task.Delay(millisecondsDelay: 100).ConfigureAwait(continueOnCapturedContext: true);
 			await Task.Delay(millisecondsDelay: 100).ConfigureAwait(continueOnCapturedContext: false);
 			// If the target file exists after cancellation, attempt to delete it to clean up any partial archive. Log a warning if the deletion fails.
 			if (File.Exists(path: targetFile))
