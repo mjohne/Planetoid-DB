@@ -661,7 +661,7 @@ internal partial class DistributionsForm : BaseKryptonForm
 					progress: progress,
 					liveResults: liveResults,
 					cancellationToken: _cancellationTokenSource.Token),
-				cancellationToken: _cancellationTokenSource.Token).ConfigureAwait(continueOnCapturedContext: false);
+				cancellationToken: _cancellationTokenSource.Token).ConfigureAwait(continueOnCapturedContext: true);
 			// Once the histogram generation is complete, apply the final results to the chart and ListView. The ApplyResults method will update the UI to display the final histogram based on the generated bin results. Additionally, the information label will be updated to show a summary of the histogram, including the number of ranges and total counted planetoids.
 			ApplyResults(definition: definition, results: finalResults);
 			// Update the information label to summarize the results of the histogram generation. If no planetoid values were available for the selected histogram, a message indicating this will be displayed. Otherwise, a summary will show the number of ranges (bins) in the histogram and the total count of planetoids across all bins, formatted with thousands separators for readability.
