@@ -26,9 +26,9 @@ namespace Planetoid_DB;
 
 /// <summary>Represents a form that displays the list of MPC observatory codes and their corresponding locations.</summary>
 /// <remarks>This form provides a two-column ListView with observatory codes and location names. All data is built-in and does not require an internet connection.</remarks>
-// You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
-[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-public partial class ObservatoryCodesForm : BaseKryptonForm
+// You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
+[DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
+internal partial class ObservatoryCodesForm : BaseKryptonForm
 {
 	#region Export override properties
 
@@ -66,9 +66,11 @@ public partial class ObservatoryCodesForm : BaseKryptonForm
 
 	/// <summary>Initializes a new instance of the <see cref="ObservatoryCodesForm"/> class.</summary>
 	/// <remarks>Initializes the form components.</remarks>
-	public ObservatoryCodesForm() =>
+	public ObservatoryCodesForm()
+	{
 		// Initialize the form components
 		InitializeComponent();
+	}
 
 	#endregion
 
@@ -76,8 +78,8 @@ public partial class ObservatoryCodesForm : BaseKryptonForm
 
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>This method is used to provide a visual representation of the object in the debugger.</remarks>
-	private string GetDebuggerDisplay() => ToString();
+	/// <remarks>This property is used to provide a visual representation of the object in the debugger.</remarks>
+	private string DebuggerDisplay => ToString();
 
 	/// <summary>Populates the ListView with the observatory code data from the embedded resource.</summary>
 	/// <remarks>This method reads the <c>ObservatoryCodes</c> resource line by line, splits each entry by the pipe character, and populates the ListView with the code and location. It uses BeginUpdate/EndUpdate for performance when adding many items.</remarks>
@@ -115,7 +117,7 @@ public partial class ObservatoryCodesForm : BaseKryptonForm
 				if (parts.Length == 2)
 				{
 					ListViewItem item = new(parts[0]);
-					item.SubItems.Add(text: parts[1]);
+					_ = item.SubItems.Add(text: parts[1]);
 					items.Add(item: item);
 				}
 			}
@@ -187,7 +189,7 @@ public partial class ObservatoryCodesForm : BaseKryptonForm
 		for (int i = 0; i < listView.Columns.Count; i++)
 		{
 			string headerText = listView.Columns[index: i].Text;
-			if (headerText.StartsWith(value: "▲ ") || headerText.StartsWith(value: "▼ "))
+			if (headerText.StartsWith(value: "▲ ", comparisonType: StringComparison.InvariantCulture) || headerText.StartsWith(value: "▼ ", comparisonType: StringComparison.InvariantCulture))
 			{
 				headerText = headerText[2..];
 			}

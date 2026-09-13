@@ -31,12 +31,17 @@ partial class SearchForm
 		/// <remarks>This method disposes of the resources used by the form.</remarks>
 		protected override void Dispose(bool disposing)
 		{
-			if (disposing && (components != null))
-			{
-				components.Dispose();
-			}
-			base.Dispose(disposing);
+		if (disposing)
+		{
+			_cancellationTokenSource?.Cancel();
+			_cancellationTokenSource?.Dispose();
+			_cancellationTokenSource = null;
+
+			components?.Dispose();
 		}
+
+		base.Dispose(disposing);
+	}
 
 	#region Windows Form Designer generated code
 

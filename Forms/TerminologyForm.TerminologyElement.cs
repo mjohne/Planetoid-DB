@@ -15,11 +15,13 @@
 
 namespace Planetoid_DB;
 
-public partial class TerminologyForm
+/// <summary>Represents the terminology elements used in the application.</summary>
+/// <remarks>This class contains an enumeration of the various terminology elements that can be used within the application.</remarks>
+internal partial class TerminologyForm
 {
 	/// <summary>Enumeration of terminology elements used in the application.</summary>
 	/// <remarks>This enumeration defines the various terminology elements that can be selected.</remarks>
-	public enum TerminologyElement
+	internal enum TerminologyElement
 	{
 		/// <summary>Index number of the element.</summary>
 		/// <remarks>This field stores the index number of the element.</remarks>

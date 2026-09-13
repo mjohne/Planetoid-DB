@@ -25,9 +25,9 @@ namespace Planetoid_DB;
 
 /// <summary>Form for calculating the Minimum Orbit Intersection Distance (MOID) between two minor planets selected by the user from the loaded MPCORB database.</summary>
 /// <remarks>The form presents two combo boxes populated with all planetoid designations from the loaded database. A random-selection button next to each combo box picks a random entry. The MOID between the two selected planetoids is computed using the same double-grid search algorithm as <see cref="MoidCalculator"/> and displayed in a label below the combo boxes. The calculation is triggered automatically whenever the selection in either combo box changes.</remarks>
-// You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
-[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-public partial class MoidsRelativeToMinorPlanetsForm : BaseKryptonForm
+// You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
+[DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
+internal partial class MoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 {
 	/// <summary>NLog logger instance.</summary>
 	/// <remarks>This logger is used throughout the form to log important events and errors.</remarks>
@@ -75,8 +75,8 @@ public partial class MoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>This method is used to provide a visual representation of the object in the debugger.</remarks>
-	private string GetDebuggerDisplay() => ToString();
+	/// <remarks>This property is used to provide a visual representation of the object in the debugger.</remarks>
+	private string DebuggerDisplay => ToString();
 
 	/// <summary>Extracts the readable designation string from a single MPCORB record line.</summary>
 	/// <param name="line">The raw MPCORB record string.</param>
@@ -234,7 +234,7 @@ public partial class MoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 				semiMajorAxis2: sma2, eccentricity2: e2, inclinationDeg2: i2,
 				longitudeAscendingNodeDeg2: omega2, argumentPerihelionDeg2: w2);
 			// Display the MOID in AU formatted to 8 decimal places
-			kryptonLabelMoidValue.Text = moid.ToString(format: "F8");
+			kryptonLabelMoidValue.Text = moid.ToString(format: "F8", provider: CultureInfo.InvariantCulture);
 		}
 		catch (Exception ex)
 		{
@@ -318,7 +318,10 @@ public partial class MoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 	/// <param name="sender">Event source (one of the two planetoid combo boxes).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This event fires only when the user commits an item from the list; at that point both values are stable enough to perform a full MOID calculation.</remarks>
-	private void ComboBoxPlanetoid_SelectionChangeCommitted(object sender, EventArgs e) => CalculateAndDisplayMoid();
+	private void ComboBoxPlanetoid_SelectionChangeCommitted(object sender, EventArgs e)
+	{
+		CalculateAndDisplayMoid();
+	}
 
 	/// <summary>Recalculates the MOID only when both combo boxes contain exact valid designations.</summary>
 	/// <remarks>During typing, partial text is common. This method avoids expensive full-record scans until both values match known designations, and clears stale output otherwise.</remarks>

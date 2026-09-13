@@ -27,9 +27,9 @@ namespace Planetoid_DB;
 
 /// <summary>Form for displaying the Tisserand parameter of all minor planets relative to each of the eight solar system planets.</summary>
 /// <remarks>This form iterates over all planetoids in the database and computes their Tisserand parameters with respect to all eight planets. Results are presented in a ListView where each row corresponds to one planetoid and the eight Tisserand parameter columns correspond to Mercury through Neptune. The user can start and cancel the calculation at any time and track progress via the integrated progress bar.</remarks>
-// You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
-[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-public partial class TisserandParameterOfAllMinorPlanetsForm : BaseKryptonForm
+// You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
+[DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
+internal partial class TisserandParameterOfAllMinorPlanetsForm : BaseKryptonForm
 {
 	#region Export override properties
 
@@ -100,6 +100,7 @@ public partial class TisserandParameterOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>Each element in <paramref name="planetoids"/> must be a raw MPCORB-format string.</remarks>
 	public TisserandParameterOfAllMinorPlanetsForm(IReadOnlyList<string> planetoids)
 	{
+		logger.Info(message: $"Initializing TisserandParameterOfAllMinorPlanetsForm with {planetoids.Count} planetoid records.");
 		InitializeComponent();
 		// Cache the planetoid records for use during the calculation; this allows the calculation method to access the raw data without needing to pass it around or access it from a shared resource
 		_planetoids = planetoids;
@@ -112,7 +113,7 @@ public partial class TisserandParameterOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
 	/// <remarks>This method is primarily intended for debugging purposes.</remarks>
-	private string GetDebuggerDisplay() => ToString();
+	private string DebuggerDisplay => ToString();
 
 	/// <summary>Updates the progress bar value and text label.</summary>
 	/// <param name="percent">Progress value from 0 to 100.</param>
@@ -242,7 +243,11 @@ public partial class TisserandParameterOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <param name="sender">Event source (the form).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 	/// <remarks>Clears the status bar when the form is loaded.</remarks>
-	private void TisserandParameterOfAllMinorPlanetsForm_Load(object sender, EventArgs e) => ClearStatusBar(label: labelInformation);
+	private void TisserandParameterOfAllMinorPlanetsForm_Load(object sender, EventArgs e)
+	{
+		logger.Info(message: "TisserandParameterOfAllMinorPlanetsForm loaded.");
+		ClearStatusBar(label: labelInformation);
+	}
 
 	/// <summary>Handles the FormClosing event. Cancels any running calculation and disposes the cancellation token source.</summary>
 	/// <param name="sender">Event source (the form).</param>
@@ -250,6 +255,7 @@ public partial class TisserandParameterOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>Cancels any running calculation and disposes the cancellation token source when the form is closing.</remarks>
 	private void TisserandParameterOfAllMinorPlanetsForm_FormClosing(object sender, FormClosingEventArgs e)
 	{
+		logger.Info(message: "TisserandParameterOfAllMinorPlanetsForm is closing.");
 		// If a calculation is currently running, signal cancellation and dispose of the token source
 		if (_cancellationTokenSource != null)
 		{
@@ -279,7 +285,7 @@ public partial class TisserandParameterOfAllMinorPlanetsForm : BaseKryptonForm
 		string[] subItems = new string[PlanetCount];
 		for (int i = 0; i < PlanetCount; i++)
 		{
-			subItems[i] = result.TisserandValues[i].ToString(format: "F6");
+			subItems[i] = result.TisserandValues[i].ToString(format: "F6", provider: CultureInfo.InvariantCulture);
 		}
 		item.SubItems.AddRange(items: subItems);
 		e.Item = item;
@@ -295,6 +301,7 @@ public partial class TisserandParameterOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>The calculation runs on a background thread. Progress is reported via the progress bar. The user can cancel at any time using the Cancel button.</remarks>
 	private async void ButtonStart_Click(object sender, EventArgs e)
 	{
+		logger.Info(message: "Start button clicked. Beginning Tisserand parameter calculation.");
 		if (_planetoids.Count == 0)
 		{
 			_ = KryptonMessageBox.Show(
@@ -339,7 +346,7 @@ public partial class TisserandParameterOfAllMinorPlanetsForm : BaseKryptonForm
 					}
 				}
 				logger.Info(message: $"Tisserand parameter calculation completed. Total results: {localResults.Count}");
-			}, cancellationToken: token);
+			}, cancellationToken: token).ConfigureAwait(continueOnCapturedContext: true);
 		}
 		// Catch the OperationCanceledException to handle user cancellation gracefully
 		catch (OperationCanceledException)
@@ -395,6 +402,7 @@ public partial class TisserandParameterOfAllMinorPlanetsForm : BaseKryptonForm
 		// If a calculation is currently running, request cancellation and prevent repeated cancel clicks.
 		if (_cancellationTokenSource != null)
 		{
+			logger.Info(message: "Cancel button clicked. Requesting cancellation of Tisserand parameter calculation.");
 			_cancellationTokenSource.Cancel();
 			toolStripButtonCancel.Enabled = false;
 		}
@@ -406,6 +414,7 @@ public partial class TisserandParameterOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>When the "Go to Object" button is clicked, the corresponding planetoid is displayed in the <see cref="PlanetoidDbForm"/> without closing this form.</remarks>
 	private void ToolStripButtonGoToObject_Click(object sender, EventArgs e)
 	{
+		logger.Info(message: "Go to Object button clicked. Navigating to selected planetoid in main form.");
 		SelectedPlanetoidInMainForm();
 		Close();
 	}
@@ -420,6 +429,7 @@ public partial class TisserandParameterOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>Toggles the sort order for the clicked column (ascending/descending) and re-sorts the results list. Column headers are updated with a ▲ or ▼ indicator to show the current sort direction.</remarks>
 	private void ListView_ColumnClick(object sender, ColumnClickEventArgs e)
 	{
+		logger.Info(message: $"Column {e.Column} clicked. Toggling sort order.");
 		// If there are no results to sort, exit the method early
 		if (_results.Count == 0)
 		{
@@ -460,7 +470,11 @@ public partial class TisserandParameterOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
 	/// <remarks>When an item is double-clicked, the corresponding planetoid is displayed in the <see cref="PlanetoidDbForm"/> without closing this form.</remarks>
-	private void ListView_DoubleClick(object sender, EventArgs e) => SelectedPlanetoidInMainForm();
+	private void ListView_DoubleClick(object sender, EventArgs e)
+	{
+		logger.Info(message: "ListView item double-clicked. Navigating to selected planetoid in main form.");
+		SelectedPlanetoidInMainForm();
+	}
 
 	#endregion
 }

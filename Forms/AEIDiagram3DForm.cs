@@ -21,6 +21,7 @@ using OpenTK.GLControl;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Windowing.Common;
 
+using Planetoid_DB.Forms;
 using Planetoid_DB.Helpers;
 using Planetoid_DB.Resources;
 
@@ -30,8 +31,10 @@ using System.Globalization;
 namespace Planetoid_DB;
 
 /// <summary>Displays a 3D a,e,i diagram for all known planetoids.</summary>
-[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-public partial class AEIDiagram3DForm : BaseKryptonForm
+/// <remarks>This form is used to visualize the three-dimensional a, e, i point cloud for all known planetoids, providing interactive camera controls for rotation, zoom, and pan.</remarks>
+// You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
+[DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
+internal partial class AEIDiagram3DForm : BaseKryptonForm
 {
 	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
@@ -73,7 +76,7 @@ public partial class AEIDiagram3DForm : BaseKryptonForm
 		UpdateStatusLabel();
 	}
 
-	private string GetDebuggerDisplay() => ToString();
+	private string DebuggerDisplay => ToString();
 
 	private void CreateGlControl()
 	{

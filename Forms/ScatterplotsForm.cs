@@ -17,6 +17,7 @@ using Krypton.Toolkit;
 
 using NLog;
 
+using Planetoid_DB.Forms;
 using Planetoid_DB.Helpers;
 
 using ScottPlot;
@@ -29,8 +30,9 @@ namespace Planetoid_DB;
 
 /// <summary>Displays a scatter plot of two selected orbital elements or derived properties for all planetoids in the database.</summary>
 /// <remarks>The form plots each planetoid as a point with user-selected X-axis and Y-axis orbital elements. The chart and a tabular ListView are shown side by side. Users can optionally request live updates while the background data-collection operation is running.</remarks>
-[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-public partial class ScatterplotsForm : BaseKryptonForm
+// You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
+[DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
+internal partial class ScatterplotsForm : BaseKryptonForm
 {
 	/// <summary>NLog logger instance.</summary>
 	/// <remarks>This logger is used to record errors and cancellation events from the scatter-plot generation workflow.</remarks>
@@ -57,23 +59,6 @@ public partial class ScatterplotsForm : BaseKryptonForm
 
 	/// <summary>Stores the Y-axis definition used for the currently displayed results.</summary>
 	private ScatterDefinition? _currentYDefinition;
-
-	/// <summary>Represents one selectable scatter-plot axis definition.</summary>
-	/// <param name="DisplayName">The user-facing name of the orbital element or property.</param>
-	/// <param name="AxisLabel">The axis label for the chart.</param>
-	/// <param name="UnitSuffix">The optional unit suffix used in formatted values.</param>
-	/// <param name="ValueSelector">The callback used to extract the numeric value from a raw MPCORB line.</param>
-	/// <remarks>The definition centralises presentation metadata and parsing logic for one scatter-plot axis.</remarks>
-	private sealed record ScatterDefinition(
-		string DisplayName,
-		string AxisLabel,
-		string UnitSuffix,
-		Func<string, double?> ValueSelector)
-	{
-		/// <summary>Returns the display text shown inside ComboBox controls.</summary>
-		/// <returns>The scatter definition name.</returns>
-		public override string ToString() => DisplayName;
-	}
 
 	/// <summary>Represents one plotted scatter-plot data point.</summary>
 	/// <param name="X">The X-axis value of the data point.</param>
@@ -106,55 +91,55 @@ public partial class ScatterplotsForm : BaseKryptonForm
 
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>The method currently returns the same string as <c>ToString()</c> on this instance, but it can be customized to include more specific information if needed.</remarks>
-	private string GetDebuggerDisplay() => ToString();
+	/// <remarks>The property currently returns the same string as <c>ToString()</c> on this instance, but it can be customized to include more specific information if needed.</remarks>
+	private string DebuggerDisplay => ToString();
 
 	/// <summary>Creates all scatter-plot axis definitions supported by the form.</summary>
 	/// <returns>A list of selectable scatter-plot axis definitions.</returns>
 	/// <remarks>The selectable items include directly stored orbital elements and a few useful derived properties computed from semi-major axis and eccentricity.</remarks>
-	private static List<ScatterDefinition> CreateScatterDefinitions() =>
-		[
-			new ScatterDefinition(
-				DisplayName: "Semi-major axis", AxisLabel: "Semi-major axis (AU)", UnitSuffix: " AU",
-				ValueSelector: static line => TryParseSemiMajorAxis(line: line, value: out double value) ? value : null),
-			new ScatterDefinition(
-				DisplayName: "Eccentricity", AxisLabel: "Eccentricity", UnitSuffix: string.Empty,
-				ValueSelector: static line => TryParseEccentricity(line: line, value: out double value) ? value : null),
-			new ScatterDefinition(
-				DisplayName: "Inclination", AxisLabel: "Inclination (°)", UnitSuffix: "°",
-				ValueSelector: static line => TryParseInclination(line: line, value: out double value) ? value : null),
-			new ScatterDefinition(
-				DisplayName: "Mean anomaly", AxisLabel: "Mean anomaly (°)", UnitSuffix: "°",
-				ValueSelector: static line => TryParseMeanAnomaly(line: line, value: out double value) ? value : null),
-			new ScatterDefinition(
-				DisplayName: "Argument of perihelion", AxisLabel: "Argument of perihelion (°)", UnitSuffix: "°",
-				ValueSelector: static line => TryParseArgumentOfPerihelion(line: line, value: out double value) ? value : null),
-			new ScatterDefinition(
-				DisplayName: "Longitude of ascending node", AxisLabel: "Longitude of ascending node (°)", UnitSuffix: "°",
-				ValueSelector: static line => TryParseLongitudeOfAscendingNode(line: line, value: out double value) ? value : null),
-			new ScatterDefinition(
-				DisplayName: "Mean daily motion", AxisLabel: "Mean daily motion (°/day)", UnitSuffix: " °/day",
-				ValueSelector: static line => TryParseMeanDailyMotion(line: line, value: out double value) ? value : null),
-			new ScatterDefinition(
-				DisplayName: "Perihelion distance", AxisLabel: "Perihelion distance (AU)", UnitSuffix: " AU",
-				ValueSelector: static line => TryParsePerihelionDistance(line: line, value: out double value) ? value : null),
-			new ScatterDefinition(
-				DisplayName: "Aphelion distance", AxisLabel: "Aphelion distance (AU)", UnitSuffix: " AU",
-				ValueSelector: static line => TryParseAphelionDistance(line: line, value: out double value) ? value : null),
-			new ScatterDefinition(
-				DisplayName: "Orbital period", AxisLabel: "Orbital period (years)", UnitSuffix: " years",
-				ValueSelector: static line => TryParseOrbitalPeriod(line: line, value: out double value) ? value : null)
-		];
+	private static List<ScatterDefinition> CreateScatterDefinitions => [
+		new ScatterDefinition(
+			DisplayName: "Semi-major axis", AxisLabel: "Semi-major axis (AU)", UnitSuffix: " AU",
+			ValueSelector: static line => TryParseSemiMajorAxis(line: line, value: out double value) ? value : null),
+		new ScatterDefinition(
+			DisplayName: "Eccentricity", AxisLabel: "Eccentricity", UnitSuffix: string.Empty,
+			ValueSelector: static line => TryParseEccentricity(line: line, value: out double value) ? value : null),
+		new ScatterDefinition(
+			DisplayName: "Inclination", AxisLabel: "Inclination (°)", UnitSuffix: "°",
+			ValueSelector: static line => TryParseInclination(line: line, value: out double value) ? value : null),
+		new ScatterDefinition(
+			DisplayName: "Mean anomaly", AxisLabel: "Mean anomaly (°)", UnitSuffix: "°",
+			ValueSelector: static line => TryParseMeanAnomaly(line: line, value: out double value) ? value : null),
+		new ScatterDefinition(
+			DisplayName: "Argument of perihelion", AxisLabel: "Argument of perihelion (°)", UnitSuffix: "°",
+			ValueSelector: static line => TryParseArgumentOfPerihelion(line: line, value: out double value) ? value : null),
+		new ScatterDefinition(
+			DisplayName: "Longitude of ascending node", AxisLabel: "Longitude of ascending node (°)", UnitSuffix: "°",
+			ValueSelector: static line => TryParseLongitudeOfAscendingNode(line: line, value: out double value) ? value : null),
+		new ScatterDefinition(
+			DisplayName: "Mean daily motion", AxisLabel: "Mean daily motion (°/day)", UnitSuffix: " °/day",
+			ValueSelector: static line => TryParseMeanDailyMotion(line: line, value: out double value) ? value : null),
+		new ScatterDefinition(
+			DisplayName: "Perihelion distance", AxisLabel: "Perihelion distance (AU)", UnitSuffix: " AU",
+			ValueSelector: static line => TryParsePerihelionDistance(line: line, value: out double value) ? value : null),
+		new ScatterDefinition(
+			DisplayName: "Aphelion distance", AxisLabel: "Aphelion distance (AU)", UnitSuffix: " AU",
+			ValueSelector: static line => TryParseAphelionDistance(line: line, value: out double value) ? value : null),
+		new ScatterDefinition(
+			DisplayName: "Orbital period", AxisLabel: "Orbital period (years)", UnitSuffix: " years",
+			ValueSelector: static line => TryParseOrbitalPeriod(line: line, value: out double value) ? value : null)
+	];
 
 	/// <summary>Initializes the selectable X-axis and Y-axis element drop-downs.</summary>
 	/// <remarks>Both drop-downs are populated with the same set of scatter-plot definitions so that any element can be selected for either axis.</remarks>
 	private void InitializeSelections()
 	{
+		logger.Info(message: "Initializing scatter-plot axis selections.");
 		// Clear and repopulate the X-axis element ComboBox with all available scatter-plot definitions.
 		toolStripComboBoxXAxis.Items.Clear();
 		// Clear and repopulate the Y-axis element ComboBox with all available scatter-plot definitions.
 		toolStripComboBoxYAxis.Items.Clear();
-		List<ScatterDefinition> definitions = CreateScatterDefinitions();
+		List<ScatterDefinition> definitions = CreateScatterDefinitions;
 		// Add each definition to both the X-axis and Y-axis ComboBoxes.
 		foreach (ScatterDefinition definition in definitions)
 		{
@@ -181,12 +166,27 @@ public partial class ScatterplotsForm : BaseKryptonForm
 	/// <summary>Gets the currently selected X-axis scatter-plot definition.</summary>
 	/// <returns>The selected X-axis scatter-plot definition, or <see langword="null"/> if none is selected.</returns>
 	/// <remarks>The method casts the selected item to a <see cref="ScatterDefinition"/>; if the cast fails, it returns <see langword="null"/>.</remarks>
-	private ScatterDefinition? GetSelectedXDefinition() => toolStripComboBoxXAxis.SelectedItem as ScatterDefinition;
+	private ScatterDefinition? SelectedXDefinition
+	{
+		get
+		{
+			logger.Info(message: "Retrieving selected X-axis definition from ComboBox.");
+			return toolStripComboBoxXAxis.SelectedItem as ScatterDefinition;
+		}
+	}
 
 	/// <summary>Gets the currently selected Y-axis scatter-plot definition.</summary>
 	/// <returns>The selected Y-axis scatter-plot definition, or <see langword="null"/> if none is selected.</returns>
 	/// <remarks>The method casts the selected item to a <see cref="ScatterDefinition"/>; if the cast fails, it returns <see langword="null"/>.</remarks>
-	private ScatterDefinition? GetSelectedYDefinition() => toolStripComboBoxYAxis.SelectedItem as ScatterDefinition;
+	private ScatterDefinition? SelectedYDefinition
+	{
+		// Defines a property to retrieve the currently selected Y-axis scatter-plot definition from the ComboBox.
+		get
+		{
+			logger.Info(message: "Retrieving selected Y-axis definition from ComboBox.");
+			return toolStripComboBoxYAxis.SelectedItem as ScatterDefinition;
+		}
+	}
 
 	/// <summary>Updates the toolbar state to reflect whether scatter-plot creation is running.</summary>
 	/// <param name="isRunning">True while the background task is active; otherwise false.</param>
@@ -215,7 +215,7 @@ public partial class ScatterplotsForm : BaseKryptonForm
 		_currentYDefinition = null;
 		listViewResults.VirtualListSize = 0;
 		// Update the scatter plot to reflect the cleared results.
-		UpdateScatterPlot(xDefinition: GetSelectedXDefinition(), yDefinition: GetSelectedYDefinition(), results: _currentResults);
+		_ = UpdateScatterPlot(xDefinition: SelectedXDefinition, yDefinition: SelectedYDefinition, results: _currentResults);
 	}
 
 	/// <summary>Updates the progress bar value and taskbar progress indicator.</summary>
@@ -410,19 +410,24 @@ public partial class ScatterplotsForm : BaseKryptonForm
 	/// <remarks>The method creates a snapshot of the accumulated scatter points, limiting the number of points to a maximum for efficient live rendering.</remarks>
 	private static List<ScatterPoint> CreateLivePreviewSnapshot(List<ScatterPoint> points)
 	{
+		logger.Info(message: "Creating live preview snapshot with {0} points.", argument: points.Count);
+		// Limit the number of points in the live preview to avoid performance issues with very large datasets.
 		const int maxPreviewPoints = 20_000;
+		// If the total number of points is within the limit, return a copy of the full list.
 		if (points.Count <= maxPreviewPoints)
 		{
 			return [.. points];
 		}
-
+		// Calculate the step size to sample points evenly across the full list.
 		int step = (int)Math.Ceiling((double)points.Count / maxPreviewPoints);
+		// Create a new list to hold the sampled preview points.
 		List<ScatterPoint> previewPoints = new(capacity: maxPreviewPoints);
+		// Sample points at regular intervals based on the calculated step size.
 		for (int i = 0; i < points.Count; i += step)
 		{
 			previewPoints.Add(item: points[i]);
 		}
-
+		// Ensure the last point is included in the preview if it wasn't already added.
 		return previewPoints;
 	}
 
@@ -430,7 +435,10 @@ public partial class ScatterplotsForm : BaseKryptonForm
 	/// <param name="value">The value to format.</param>
 	/// <returns>The formatted text.</returns>
 	/// <remarks>The method formats a numeric value using the invariant culture to ensure consistent formatting regardless of the user's locale.</remarks>
-	private static string FormatNumericValue(double value) => value.ToString(format: "0.####", provider: CultureInfo.InvariantCulture);
+	private static string FormatNumericValue(double value)
+	{
+		return value.ToString(format: "0.####", provider: CultureInfo.InvariantCulture);
+	}
 
 	/// <summary>Attempts to parse a floating-point slice from a raw MPCORB record.</summary>
 	/// <param name="line">The raw MPCORB line.</param>
@@ -441,6 +449,7 @@ public partial class ScatterplotsForm : BaseKryptonForm
 	/// <remarks>The method checks that the specified slice is within the bounds of the line and attempts to parse it as a double using invariant culture formatting. The slice is trimmed of whitespace before parsing.</remarks>
 	private static bool TryParseValue(string line, int startIndex, int length, out double value)
 	{
+		logger.Info(message: "Attempting to parse value from line at index {0} with length {1}.", argument1: startIndex, argument2: length);
 		value = default;
 		return line.Length >= startIndex + length && double.TryParse(
 			s: line.Substring(startIndex: startIndex, length: length).Trim(),
@@ -454,49 +463,77 @@ public partial class ScatterplotsForm : BaseKryptonForm
 	/// <param name="value">When this method returns, contains the parsed semi-major axis if parsing succeeded.</param>
 	/// <returns><see langword="true"/> if parsing succeeded; otherwise <see langword="false"/>.</returns>
 	/// <remarks>The semi-major axis is in astronomical units (AU), as specified in the MPCORB format documentation.</remarks>
-	private static bool TryParseSemiMajorAxis(string line, out double value) => TryParseValue(line: line, startIndex: 92, length: 11, value: out value);
+	private static bool TryParseSemiMajorAxis(string line, out double value)
+	{
+		logger.Info(message: "Attempting to parse semi-major axis from line.");
+		return TryParseValue(line: line, startIndex: 92, length: 11, value: out value);
+	}
 
 	/// <summary>Attempts to parse the orbital eccentricity from a raw MPCORB record.</summary>
 	/// <param name="line">The raw MPCORB line.</param>
 	/// <param name="value">When this method returns, contains the parsed eccentricity if parsing succeeded.</param>
 	/// <returns><see langword="true"/> if parsing succeeded; otherwise <see langword="false"/>.</returns>
 	/// <remarks>The eccentricity is a unitless value, as specified in the MPCORB format documentation.</remarks>
-	private static bool TryParseEccentricity(string line, out double value) => TryParseValue(line: line, startIndex: 70, length: 9, value: out value);
+	private static bool TryParseEccentricity(string line, out double value)
+	{
+		logger.Info(message: "Attempting to parse eccentricity from line.");
+		return TryParseValue(line: line, startIndex: 70, length: 9, value: out value);
+	}
 
 	/// <summary>Attempts to parse the inclination from a raw MPCORB record.</summary>
 	/// <param name="line">The raw MPCORB line.</param>
 	/// <param name="value">When this method returns, contains the parsed inclination if parsing succeeded.</param>
 	/// <returns><see langword="true"/> if parsing succeeded; otherwise <see langword="false"/>.</returns>
 	/// <remarks>The inclination is in degrees, as specified in the MPCORB format documentation.</remarks>
-	private static bool TryParseInclination(string line, out double value) => TryParseValue(line: line, startIndex: 59, length: 9, value: out value);
+	private static bool TryParseInclination(string line, out double value)
+	{
+		logger.Info(message: "Attempting to parse inclination from line.");
+		return TryParseValue(line: line, startIndex: 59, length: 9, value: out value);
+	}
 
 	/// <summary>Attempts to parse the mean anomaly from a raw MPCORB record.</summary>
 	/// <param name="line">The raw MPCORB line.</param>
 	/// <param name="value">When this method returns, contains the parsed mean anomaly if parsing succeeded.</param>
 	/// <returns><see langword="true"/> if parsing succeeded; otherwise <see langword="false"/>.</returns>
 	/// <remarks>The mean anomaly is in degrees, as specified in the MPCORB format documentation.</remarks>
-	private static bool TryParseMeanAnomaly(string line, out double value) => TryParseValue(line: line, startIndex: 26, length: 9, value: out value);
+	private static bool TryParseMeanAnomaly(string line, out double value)
+	{
+		logger.Info(message: "Attempting to parse mean anomaly from line.");
+		return TryParseValue(line: line, startIndex: 26, length: 9, value: out value);
+	}
 
 	/// <summary>Attempts to parse the argument of perihelion from a raw MPCORB record.</summary>
 	/// <param name="line">The raw MPCORB line.</param>
 	/// <param name="value">When this method returns, contains the parsed argument of perihelion if parsing succeeded.</param>
 	/// <returns><see langword="true"/> if parsing succeeded; otherwise <see langword="false"/>.</returns>
 	/// <remarks>The argument of perihelion is in degrees, as specified in the MPCORB format documentation.</remarks>
-	private static bool TryParseArgumentOfPerihelion(string line, out double value) => TryParseValue(line: line, startIndex: 37, length: 9, value: out value);
+	private static bool TryParseArgumentOfPerihelion(string line, out double value)
+	{
+		logger.Info(message: "Attempting to parse argument of perihelion from line.");
+		return TryParseValue(line: line, startIndex: 37, length: 9, value: out value);
+	}
 
 	/// <summary>Attempts to parse the longitude of the ascending node from a raw MPCORB record.</summary>
 	/// <param name="line">The raw MPCORB line.</param>
 	/// <param name="value">When this method returns, contains the parsed longitude of the ascending node if parsing succeeded.</param>
 	/// <returns><see langword="true"/> if parsing succeeded; otherwise <see langword="false"/>.</returns>
 	/// <remarks>The longitude of the ascending node is in degrees, as specified in the MPCORB format documentation.</remarks>
-	private static bool TryParseLongitudeOfAscendingNode(string line, out double value) => TryParseValue(line: line, startIndex: 48, length: 9, value: out value);
+	private static bool TryParseLongitudeOfAscendingNode(string line, out double value)
+	{
+		logger.Info(message: "Attempting to parse longitude of ascending node from line.");
+		return TryParseValue(line: line, startIndex: 48, length: 9, value: out value);
+	}
 
 	/// <summary>Attempts to parse the mean daily motion from a raw MPCORB record.</summary>
 	/// <param name="line">The raw MPCORB line.</param>
 	/// <param name="value">When this method returns, contains the parsed mean daily motion if parsing succeeded.</param>
 	/// <returns><see langword="true"/> if parsing succeeded; otherwise <see langword="false"/>.</returns>
 	/// <remarks>The mean daily motion is in degrees per day, as specified in the MPCORB format documentation.</remarks>
-	private static bool TryParseMeanDailyMotion(string line, out double value) => TryParseValue(line: line, startIndex: 80, length: 11, value: out value);
+	private static bool TryParseMeanDailyMotion(string line, out double value)
+	{
+		logger.Info(message: "Attempting to parse mean daily motion from line.");
+		return TryParseValue(line: line, startIndex: 80, length: 11, value: out value);
+	}
 
 	/// <summary>Attempts to parse the perihelion distance from a raw MPCORB record.</summary>
 	/// <param name="line">The raw MPCORB line.</param>
@@ -505,6 +542,7 @@ public partial class ScatterplotsForm : BaseKryptonForm
 	/// <remarks>The perihelion distance is calculated using the semi-major axis and eccentricity, assuming the semi-major axis is in astronomical units (AU) and the distance is in AU.</remarks>
 	private static bool TryParsePerihelionDistance(string line, out double value)
 	{
+		logger.Info(message: "Attempting to parse perihelion distance from line.");
 		value = default;
 		return TryParseSemiMajorAxis(line: line, value: out double semiMajorAxis) &&
 		TryParseEccentricity(line: line, value: out double eccentricity) && (value = semiMajorAxis * (1 - eccentricity)) >= 0;
@@ -517,6 +555,7 @@ public partial class ScatterplotsForm : BaseKryptonForm
 	/// <remarks>The aphelion distance is calculated using the semi-major axis and eccentricity, assuming the semi-major axis is in astronomical units (AU) and the distance is in AU.</remarks>
 	private static bool TryParseAphelionDistance(string line, out double value)
 	{
+		logger.Info(message: "Attempting to parse aphelion distance from line.");
 		value = default;
 		return TryParseSemiMajorAxis(line: line, value: out double semiMajorAxis) &&
 		TryParseEccentricity(line: line, value: out double eccentricity) && (value = semiMajorAxis * (1 + eccentricity)) >= 0;
@@ -529,6 +568,7 @@ public partial class ScatterplotsForm : BaseKryptonForm
 	/// <remarks>The orbital period is calculated using Kepler's third law, assuming the semi-major axis is in astronomical units (AU) and the period is in years.</remarks>
 	private static bool TryParseOrbitalPeriod(string line, out double value)
 	{
+		logger.Info(message: "Attempting to parse orbital period from line.");
 		value = default;
 		return TryParseSemiMajorAxis(line: line, value: out double semiMajorAxis) && semiMajorAxis >= 0 && (value = Math.Sqrt(d: Math.Pow(x: semiMajorAxis, y: 3))) >= 0;
 	}
@@ -541,7 +581,11 @@ public partial class ScatterplotsForm : BaseKryptonForm
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data associated with the form-closing request.</param>
 	/// <remarks>The running task is canceled so the form can close cleanly without leaving background work behind.</remarks>
-	private void ScatterplotsForm_FormClosing(object? sender, FormClosingEventArgs e) => _cancellationTokenSource?.Cancel();
+	private void ScatterplotsForm_FormClosing(object? sender, FormClosingEventArgs e)
+	{
+		logger.Info(message: "Form is closing. Cancelling any running scatter-plot generation task.");
+		_cancellationTokenSource?.Cancel();
+	}
 
 	/// <summary>Handles the RetrieveVirtualItem event of the ListView to supply items on demand.</summary>
 	/// <param name="sender">The source of the event.</param>
@@ -593,8 +637,8 @@ public partial class ScatterplotsForm : BaseKryptonForm
 			return;
 		}
 		// Retrieve the selected X-axis and Y-axis definitions from the UI.
-		ScatterDefinition? xDefinition = GetSelectedXDefinition();
-		ScatterDefinition? yDefinition = GetSelectedYDefinition();
+		ScatterDefinition? xDefinition = SelectedXDefinition;
+		ScatterDefinition? yDefinition = SelectedYDefinition;
 		// If either definition is not selected, display an informational message to the user.
 		if (xDefinition is null || yDefinition is null)
 		{
@@ -627,7 +671,7 @@ public partial class ScatterplotsForm : BaseKryptonForm
 					progress: progress,
 					liveResults: liveResults,
 					cancellationToken: _cancellationTokenSource.Token),
-				cancellationToken: _cancellationTokenSource.Token);
+				cancellationToken: _cancellationTokenSource.Token).ConfigureAwait(continueOnCapturedContext: true);
 			// Once the scatter-plot generation is complete, apply the final results to the chart and ListView.
 			int excluded = ApplyResults(xDefinition: xDefinition, yDefinition: yDefinition, results: finalResults);
 			// Update the information label to summarise the results of the scatter-plot generation.
@@ -666,22 +710,31 @@ public partial class ScatterplotsForm : BaseKryptonForm
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data associated with the selection change.</param>
 	/// <remarks>The empty chart is redrawn so the title and axes immediately reflect the current X-axis selection.</remarks>
-	private void ToolStripComboBoxXAxis_SelectedIndexChanged(object? sender, EventArgs e) =>
-		UpdateScatterPlot(xDefinition: GetSelectedXDefinition(), yDefinition: GetSelectedYDefinition(), results: _currentResults);
+	private void ToolStripComboBoxXAxis_SelectedIndexChanged(object? sender, EventArgs e)
+	{
+		_ = UpdateScatterPlot(xDefinition: SelectedXDefinition, yDefinition: SelectedYDefinition, results: _currentResults);
+		logger.Info(message: "X-axis selection changed to {0}. Updating scatter plot.", argument: SelectedXDefinition?.DisplayName ?? "None");
+	}
 
 	/// <summary>Handles the SelectedIndexChanged event of the Y-axis drop-down.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data associated with the selection change.</param>
 	/// <remarks>The empty chart is redrawn so the title and axes immediately reflect the current Y-axis selection.</remarks>
-	private void ToolStripComboBoxYAxis_SelectedIndexChanged(object? sender, EventArgs e) =>
-		UpdateScatterPlot(xDefinition: GetSelectedXDefinition(), yDefinition: GetSelectedYDefinition(), results: _currentResults);
+	private void ToolStripComboBoxYAxis_SelectedIndexChanged(object? sender, EventArgs e)
+	{
+		_ = UpdateScatterPlot(xDefinition: SelectedXDefinition, yDefinition: SelectedYDefinition, results: _currentResults);
+		logger.Info(message: "Y-axis selection changed to {0}. Updating scatter plot.", argument: SelectedYDefinition?.DisplayName ?? "None");
+	}
 
 	/// <summary>Handles the CheckedChanged event of the live-display button.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data associated with the check-state change.</param>
 	/// <remarks>The button text mirrors the current state so users can immediately see whether live updates are enabled.</remarks>
-	private void ToolStripButtonLiveDisplay_CheckedChanged(object? sender, EventArgs e) =>
+	private void ToolStripButtonLiveDisplay_CheckedChanged(object? sender, EventArgs e)
+	{
 		toolStripButtonLiveDisplay.Text = toolStripButtonLiveDisplay.Checked ? "On" : "Off";
+		logger.Info(message: "Live display toggled to {0}.", argument: toolStripButtonLiveDisplay.Checked ? "On" : "Off");
+	}
 
 	/// <summary>Handles the CheckedChanged event of the X-axis logarithmic scale button.</summary>
 	/// <param name="sender">The source of the event.</param>

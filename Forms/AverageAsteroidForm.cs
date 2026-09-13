@@ -17,6 +17,7 @@ using Krypton.Toolkit;
 
 using NLog;
 
+using Planetoid_DB.Forms;
 using Planetoid_DB.Helpers;
 
 using System.Diagnostics;
@@ -26,8 +27,8 @@ namespace Planetoid_DB;
 
 /// <summary>Represents a form that displays the theoretical average planetoid calculated from all orbital elements and astrophysical values.</summary>
 /// <remarks>This form calculates and displays various types of averages (arithmetic, median, mode, geometric, harmonic, quadratic, cubic, logarithmic, Winsor, quartile, shortest half, Gastwirth-Cohen, range, "a", moving, Hölder, Lehmer) for each orbital element and astrophysical property.</remarks>
-[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-public partial class AverageAsteroidForm : BaseKryptonForm
+[DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
+internal partial class AverageAsteroidForm : BaseKryptonForm
 {
 	#region Export override properties
 
@@ -89,8 +90,8 @@ public partial class AverageAsteroidForm : BaseKryptonForm
 
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>This method is used to provide a visual representation of the object in the debugger.</remarks>
-	private string GetDebuggerDisplay() => ToString();
+	/// <remarks>This property is used to provide a visual representation of the object in the debugger.</remarks>
+	private string DebuggerDisplay => ToString() ?? string.Empty;
 
 	/// <summary>Starts the asynchronous, parallel calculation of all average types for the planetoid database.</summary>
 	/// <param name="ct">The cancellation token to observe during the calculation.</param>
@@ -161,7 +162,7 @@ public partial class AverageAsteroidForm : BaseKryptonForm
 				int processed = 0;
 				int lastReported = -1;
 				// Process each planetoid entry in parallel by index, extracting the relevant values and storing them at the corresponding slot
-				Parallel.For(
+				_ = Parallel.For(
 					fromInclusive: 0,
 					toExclusive: total,
 					parallelOptions: new ParallelOptions { CancellationToken = ct },
@@ -176,7 +177,9 @@ public partial class AverageAsteroidForm : BaseKryptonForm
 						// Attempt to parse each relevant value from the entry using the specified substring positions and lengths; log any parsing errors without throwing exceptions
 						try
 						{
+							// Use ReadOnlySpan<char> to avoid unnecessary string allocations during parsing
 							ReadOnlySpan<char> entrySpan = entry.AsSpan();
+							// Parse each value using TryParse to avoid exceptions on invalid formats; store the parsed value in the corresponding local array slot
 							if (double.TryParse(s: entrySpan.Slice(start: 26, length: 9).Trim(), style: NumberStyles.Any, provider: provider, result: out double valM))
 							{
 								localM[i] = valM; // Mean anomaly at the epoch
@@ -254,7 +257,7 @@ public partial class AverageAsteroidForm : BaseKryptonForm
 				numberOfOppositions.AddRange(collection: localNOpp.Where(predicate: static v => !double.IsNaN(d: v)));
 				numberOfObservations.AddRange(collection: localNObs.Where(predicate: static v => !double.IsNaN(d: v)));
 				rmsResiduals.AddRange(collection: localRms.Where(predicate: static v => !double.IsNaN(d: v)));
-			}, cancellationToken: ct);
+			}, cancellationToken: ct).ConfigureAwait(continueOnCapturedContext: false);
 			// Check for cancellation after the parsing phase before proceeding to the average calculations
 			ct.ThrowIfCancellationRequested();
 			// Phase 2 (90–100 %): Compute all averages on the thread pool; one step per property row
@@ -289,7 +292,8 @@ public partial class AverageAsteroidForm : BaseKryptonForm
 				}
 				// After computing all rows, return the array of ListViewItem objects to be added to the ListView on the UI thread
 				return items;
-			}, cancellationToken: ct);
+			}, cancellationToken: ct).ConfigureAwait(continueOnCapturedContext: true);
+
 			// Check for cancellation one final time before updating the UI with the computed average rows
 			ct.ThrowIfCancellationRequested();
 			// Update the ListView on the UI thread with the pre-computed rows
@@ -313,7 +317,7 @@ public partial class AverageAsteroidForm : BaseKryptonForm
 		catch (Exception ex)
 		{
 			logger.Error(message: $"An error occurred while calculating averages: {ex}");
-			KryptonMessageBox.Show(owner: this, text: $"An error has occurred while calculating averages: {ex.Message}", caption: "Calculation Error", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Error);
+			_ = KryptonMessageBox.Show(owner: this, text: $"An error has occurred while calculating averages: {ex.Message}", caption: "Calculation Error", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Error);
 			SetStatusBar(label: labelInformation, text: "Error calculating averages");
 		}
 		// Ensure the cursor is reset to default and the UI state is updated to reflect that the calculation is no longer running, regardless of success, cancellation, or error
@@ -351,23 +355,23 @@ public partial class AverageAsteroidForm : BaseKryptonForm
 		// Create a new ListViewItem with the property name as the first column
 		ListViewItem item = new(text: propertyName);
 		// Calculate and add all average types
-		item.SubItems.Add(text: FormatValue(value: AverageCalculator.ArithmeticMean(values: values)));
-		item.SubItems.Add(text: FormatValue(value: AverageCalculator.Median(values: values)));
-		item.SubItems.Add(text: FormatValue(value: AverageCalculator.Mode(values: values)));
-		item.SubItems.Add(text: FormatValue(value: AverageCalculator.GeometricMean(values: values)));
-		item.SubItems.Add(text: FormatValue(value: AverageCalculator.HarmonicMean(values: values)));
-		item.SubItems.Add(text: FormatValue(value: AverageCalculator.QuadraticMean(values: values)));
-		item.SubItems.Add(text: FormatValue(value: AverageCalculator.CubicMean(values: values)));
-		item.SubItems.Add(text: FormatValue(value: AverageCalculator.LogarithmicMean(values: values)));
-		item.SubItems.Add(text: FormatValue(value: AverageCalculator.WinsorMean(values: values)));
-		item.SubItems.Add(text: FormatValue(value: AverageCalculator.QuartileMean(values: values)));
-		item.SubItems.Add(text: FormatValue(value: AverageCalculator.ShortestHalfMean(values: values)));
-		item.SubItems.Add(text: FormatValue(value: AverageCalculator.GastwirthCohenMean(values: values)));
-		item.SubItems.Add(text: FormatValue(value: AverageCalculator.RangeMean(values: values)));
-		item.SubItems.Add(text: FormatValue(value: AverageCalculator.AMean(values: values)));
-		item.SubItems.Add(text: FormatValue(value: AverageCalculator.MovingAverage(values: values)));
-		item.SubItems.Add(text: FormatValue(value: AverageCalculator.HolderMeanShortestHalf(values: values)));
-		item.SubItems.Add(text: FormatValue(value: AverageCalculator.LehmerMean(values: values)));
+		_ = item.SubItems.Add(text: FormatValue(value: AverageCalculator.ArithmeticMean(values: values)));
+		_ = item.SubItems.Add(text: FormatValue(value: AverageCalculator.Median(values: values)));
+		_ = item.SubItems.Add(text: FormatValue(value: AverageCalculator.Mode(values: values)));
+		_ = item.SubItems.Add(text: FormatValue(value: AverageCalculator.GeometricMean(values: values)));
+		_ = item.SubItems.Add(text: FormatValue(value: AverageCalculator.HarmonicMean(values: values)));
+		_ = item.SubItems.Add(text: FormatValue(value: AverageCalculator.QuadraticMean(values: values)));
+		_ = item.SubItems.Add(text: FormatValue(value: AverageCalculator.CubicMean(values: values)));
+		_ = item.SubItems.Add(text: FormatValue(value: AverageCalculator.LogarithmicMean(values: values)));
+		_ = item.SubItems.Add(text: FormatValue(value: AverageCalculator.WinsorMean(values: values)));
+		_ = item.SubItems.Add(text: FormatValue(value: AverageCalculator.QuartileMean(values: values)));
+		_ = item.SubItems.Add(text: FormatValue(value: AverageCalculator.ShortestHalfMean(values: values)));
+		_ = item.SubItems.Add(text: FormatValue(value: AverageCalculator.GastwirthCohenMean(values: values)));
+		_ = item.SubItems.Add(text: FormatValue(value: AverageCalculator.RangeMean(values: values)));
+		_ = item.SubItems.Add(text: FormatValue(value: AverageCalculator.AMean(values: values)));
+		_ = item.SubItems.Add(text: FormatValue(value: AverageCalculator.MovingAverage(values: values)));
+		_ = item.SubItems.Add(text: FormatValue(value: AverageCalculator.HolderMeanShortestHalf(values: values)));
+		_ = item.SubItems.Add(text: FormatValue(value: AverageCalculator.LehmerMean(values: values)));
 		return item;
 	}
 
@@ -375,9 +379,11 @@ public partial class AverageAsteroidForm : BaseKryptonForm
 	/// <param name="value">The numeric value to format.</param>
 	/// <returns>A formatted string representation of the value, or "N/A" if the value is NaN or Infinity.</returns>
 	/// <remarks>This method formats values with appropriate precision for display.</remarks>
-	private static string FormatValue(double value) =>
+	private static string FormatValue(double value)
+	{
 		// Check for NaN or Infinity and return "N/A" if so; otherwise, format the value with 6 decimal places using invariant culture
-		double.IsNaN(d: value) || double.IsInfinity(d: value) ? "N/A" : value.ToString(format: "F6", provider: CultureInfo.InvariantCulture);
+		return double.IsNaN(d: value) || double.IsInfinity(d: value) ? "N/A" : value.ToString(format: "F6", provider: CultureInfo.InvariantCulture);
+	}
 
 	#endregion
 
@@ -387,7 +393,10 @@ public partial class AverageAsteroidForm : BaseKryptonForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>Initialises the UI state on load without starting the calculation.</remarks>
-	private void AverageAsteroidForm_Load(object? sender, EventArgs e) => SetCalculationRunning(running: false);
+	private void AverageAsteroidForm_Load(object? sender, EventArgs e)
+	{
+		SetCalculationRunning(running: false);
+	}
 
 	/// <summary>Handles the FormClosing event to cancel any running calculation and release resources.</summary>
 	/// <param name="sender">The event source.</param>
@@ -416,8 +425,8 @@ public partial class AverageAsteroidForm : BaseKryptonForm
 		SetCalculationRunning(running: true);
 		// Start the asynchronous calculation of averages and handle any unexpected exceptions that may occur during the process
 		try
-		{
-			await CalculateAveragesAsync(ct: _calculationCts.Token);
+await CalculateAveragesAsync(ct: _calculationCts.Token).ConfigureAwait(continueOnCapturedContext: true);
+			await CalculateAveragesAsync(ct: _calculationCts.Token).ConfigureAwait(continueOnCapturedContext: false);
 		}
 		catch (Exception ex)
 		{
@@ -434,7 +443,10 @@ public partial class AverageAsteroidForm : BaseKryptonForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method signals cancellation of the ongoing average calculation by calling the Cancel method on the cancellation token source. If no calculation is running, this method has no effect.</remarks>
-	private void ToolStripButtonCancel_Click(object? sender, EventArgs e) => _calculationCts?.Cancel();
+	private void ToolStripButtonCancel_Click(object? sender, EventArgs e)
+	{
+		_calculationCts?.Cancel();
+	}
 
 	#endregion
 
@@ -467,7 +479,7 @@ public partial class AverageAsteroidForm : BaseKryptonForm
 		{
 			// Remove any existing sort indicators from the column header text
 			string headerText = listView.Columns[index: i].Text;
-			if (headerText.StartsWith(value: "▲ ") || headerText.StartsWith(value: "▼ "))
+			if (headerText.StartsWith(value: "▲ ", comparisonType: StringComparison.InvariantCulture) || headerText.StartsWith(value: "▼ ", comparisonType: StringComparison.InvariantCulture))
 			{
 				headerText = headerText[2..];
 			}

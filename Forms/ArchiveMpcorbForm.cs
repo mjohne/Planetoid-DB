@@ -17,21 +17,23 @@ using Krypton.Toolkit;
 
 using NLog;
 
+using Planetoid_DB.Forms;
 using Planetoid_DB.Helpers;
 using Planetoid_DB.Properties;
 using Planetoid_DB.Resources;
 
 using System.Diagnostics;
+using System.Globalization;
 using System.IO.Compression;
 
 namespace Planetoid_DB;
 
 /// <summary>Represents a form for archiving MPCORB files.</summary>
 /// <remarks>This form provides functionality for archiving MPCORB files using various compression formats and levels.</remarks>
-// You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
-[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
+// You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
+[DebuggerDisplay(value: $"{{{nameof(GetDebuggerDisplay)},nq}}")]
 
-public partial class ArchiveMpcorbForm : BaseKryptonForm
+internal partial class ArchiveMpcorbForm : BaseKryptonForm
 {
 	/// <summary>NLog logger for logging messages and errors.</summary>
 	/// <remarks>This logger is used to log messages and errors that occur within the form.</remarks>
@@ -78,7 +80,10 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
 	/// <remarks>This method is used to provide a custom debugger display string.</remarks>
-	private string GetDebuggerDisplay() => ToString();
+	private string GetDebuggerDisplay()
+	{
+		return ToString();
+	}
 
 	/// <summary>Formats the given number of bytes into a human-readable string with appropriate units.</summary>
 	/// <param name="bytes">The number of bytes to format.</param>
@@ -110,7 +115,7 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 	{
 		// Determine the timestamp for the default file name based on the online last modified date or the current time if the online date is not available
 		DateTime date = _onlineLastModified ?? DateTime.UtcNow;
-		string timestamp = date.ToString(format: "yyyyMMddHHmmss");
+		string timestamp = date.ToString(format: "yyyyMMddHHmmss", provider: CultureInfo.InvariantCulture);
 		// Determine the file extension based on the selected compression format
 		extension = format switch
 		{
@@ -153,7 +158,8 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 			// Create an HTTP HEAD request to the specified URL
 			using HttpRequestMessage request = new(method: HttpMethod.Head, requestUri: new Uri(uriString: uriString));
 			// Send the request and get the response
-			using HttpResponseMessage response = await _httpClient.SendAsync(request: request);
+			using HttpResponseMessage response = await _httpClient.SendAsync(request: request).ConfigureAwait(continueOnCapturedContext: true);
+
 			// If the response is successful and the Last-Modified header is present, return the last modified date in UTC
 			if (response.IsSuccessStatusCode && response.Content.Headers.LastModified.HasValue)
 			{
@@ -193,12 +199,12 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 		// Set the report interval to 100 milliseconds to control how often progress updates are sent to the UI
 		const int reportIntervalMs = 100;
 		// Loop to read data from the source stream in chunks
-		while ((read = await source.ReadAsync(buffer, cancellationToken: token)) > 0)
+		while ((read = await source.ReadAsync(buffer, cancellationToken: token).ConfigureAwait(continueOnCapturedContext: false)) > 0)
 		{
 			// Check for cancellation before writing to the destination stream
 			token.ThrowIfCancellationRequested();
 			// Write the read bytes to the destination stream
-			await destination.WriteAsync(buffer: buffer.AsMemory(start: 0, length: read), cancellationToken: token);
+			await destination.WriteAsync(buffer: buffer.AsMemory(start: 0, length: read), cancellationToken: token).ConfigureAwait(continueOnCapturedContext: false);
 			// Update the total number of bytes read
 			totalRead += read;
 			// Check if it's time to report progress based on the elapsed time and the report interval
@@ -231,7 +237,7 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 					try
 					{
 						// Use BeginInvoke to update the UI elements on the main thread, ensuring thread safety
-						BeginInvoke(method: new Action(() =>
+						_ = BeginInvoke(method: new Action(() =>
 						{
 							// Ensure the progress value does not exceed 100%
 							int currentProgress = Math.Min(progress, 100);
@@ -265,7 +271,10 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 
 	/// <summary>Initializes a new instance of the ArchiveMpcorbForm class.</summary>
 	/// <remarks>This constructor sets up the form's components and prepares it for use.</remarks>
-	public ArchiveMpcorbForm() => InitializeComponent();
+	public ArchiveMpcorbForm()
+	{
+		InitializeComponent();
+	}
 
 	#endregion
 
@@ -295,7 +304,7 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 		try
 		{
 			// Retrieve the last modified date of the online MPCORB file
-			_onlineLastModified = await GetOnlineLastModifiedAsync();
+			_onlineLastModified = await GetOnlineLastModifiedAsync().ConfigureAwait(continueOnCapturedContext: false);
 			// Update the status label with the retrieved online date or indicate that it could not be retrieved
 			labelInformation.Text = _onlineLastModified.HasValue
 				? $"Online date: {_onlineLastModified.Value}"
@@ -435,35 +444,35 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 						{
 							using ZipArchive archive = new(stream: targetStream, mode: ZipArchiveMode.Create);
 							ZipArchiveEntry entry = archive.CreateEntry(entryName: Path.GetFileName(path: sourceFile), compressionLevel: compressionLevel);
-							using Stream entryStream = entry.Open();
-							await CopyStreamWithProgressAsync(source: sourceStream, destination: entryStream, totalBytes: totalBytes, outputStream: targetStream, compressionLevel: currentCompressionStr, stopwatch: stopwatch, token: cancellationToken);
+							using Stream entryStream = await entry.OpenAsync(cancellationToken).ConfigureAwait(continueOnCapturedContext: false);
+							await CopyStreamWithProgressAsync(source: sourceStream, destination: entryStream, totalBytes: totalBytes, outputStream: targetStream, compressionLevel: currentCompressionStr, stopwatch: stopwatch, token: cancellationToken).ConfigureAwait(continueOnCapturedContext: false);
 							break;
 						}
 					case "GZip":
 						{
 							using GZipStream compressionStream = new(stream: targetStream, compressionLevel: compressionLevel);
-							await CopyStreamWithProgressAsync(source: sourceStream, destination: compressionStream, totalBytes: totalBytes, outputStream: targetStream, compressionLevel: currentCompressionStr, stopwatch: stopwatch, token: cancellationToken);
+							await CopyStreamWithProgressAsync(source: sourceStream, destination: compressionStream, totalBytes: totalBytes, outputStream: targetStream, compressionLevel: currentCompressionStr, stopwatch: stopwatch, token: cancellationToken).ConfigureAwait(continueOnCapturedContext: false);
 							break;
 						}
 					case "Brotli":
 						{
 							using BrotliStream compressionStream = new(stream: targetStream, compressionLevel: compressionLevel);
-							await CopyStreamWithProgressAsync(source: sourceStream, destination: compressionStream, totalBytes: totalBytes, outputStream: targetStream, compressionLevel: currentCompressionStr, stopwatch: stopwatch, token: cancellationToken);
+							await CopyStreamWithProgressAsync(source: sourceStream, destination: compressionStream, totalBytes: totalBytes, outputStream: targetStream, compressionLevel: currentCompressionStr, stopwatch: stopwatch, token: cancellationToken).ConfigureAwait(continueOnCapturedContext: false);
 							break;
 						}
 				}
-			}, cancellationToken: cancellationToken);
+			}, cancellationToken: cancellationToken).ConfigureAwait(continueOnCapturedContext: false);
 			// If the archiving process completes successfully without cancellation, update the status label and show a success message box
 			labelInformation.Text = "Archiving completed successfully.";
-			KryptonMessageBox.Show(owner: this, text: "Archiving completed successfully.", caption: "Success", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+			_ = KryptonMessageBox.Show(owner: this, text: "Archiving completed successfully.", caption: "Success", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 		}
 		// Catch an OperationCanceledException to handle the case where the archiving process was cancelled by the user. Update the status label and attempt to delete the partially created target file if it exists
 		catch (OperationCanceledException CancelEx)
 		{
 			logger.Warn(exception: CancelEx, message: "Archiving operation was cancelled by the user.");
 			labelInformation.Text = "Archiving cancelled.";
-			// Give Streams time to release locks before trying to delete
-			await Task.Delay(millisecondsDelay: 100);
+await Task.Delay(millisecondsDelay: 100).ConfigureAwait(continueOnCapturedContext: true);
+			await Task.Delay(millisecondsDelay: 100).ConfigureAwait(continueOnCapturedContext: false);
 			// If the target file exists after cancellation, attempt to delete it to clean up any partial archive. Log a warning if the deletion fails.
 			if (File.Exists(path: targetFile))
 			{

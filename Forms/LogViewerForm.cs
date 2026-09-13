@@ -27,9 +27,9 @@ namespace Planetoid_DB;
 
 /// <summary>A form that displays all NLog log events captured during the current application session.</summary>
 /// <remarks>The form loads all stored log events from <see cref="LogEventStore"/> asynchronously when it opens. The <see cref="ListView"/> operates in virtual mode for performance. Users can delete selected entries or clear all entries via toolbar buttons.</remarks>
-// You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
-[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-public partial class LogViewerForm : BaseKryptonForm
+// You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
+[DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
+internal partial class LogViewerForm : BaseKryptonForm
 {
 	#region Export override properties
 
@@ -89,7 +89,10 @@ public partial class LogViewerForm : BaseKryptonForm
 
 	/// <summary>Initializes a new instance of the <see cref="LogViewerForm"/> class.</summary>
 	/// <remarks>Initializes the form components.</remarks>
-	public LogViewerForm() => InitializeComponent();
+	public LogViewerForm()
+	{
+		InitializeComponent();
+	}
 
 	#endregion
 
@@ -97,14 +100,17 @@ public partial class LogViewerForm : BaseKryptonForm
 
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>This method is used to provide a visual representation of the object in the debugger.</remarks>
-	private string GetDebuggerDisplay() => ToString();
+	/// <remarks>This property is used to provide a visual representation of the object in the debugger.</remarks>
+	private string DebuggerDisplay => ToString();
 
 	/// <summary>Formats a <see cref="DateTime"/> value for display in the Date/Time column.</summary>
 	/// <param name="timestamp">The timestamp to format.</param>
 	/// <returns>A formatted date/time string using <c>yyyy-MM-dd HH:mm:ss.fff</c>.</returns>
 	/// <remarks>This method ensures consistent formatting of timestamps in the ListView.</remarks>
-	private static string FormatTimestamp(DateTime timestamp) => timestamp.ToString(format: "yyyy-MM-dd HH:mm:ss.fff", provider: CultureInfo.InvariantCulture);
+	private static string FormatTimestamp(DateTime timestamp)
+	{
+		return timestamp.ToString(format: "yyyy-MM-dd HH:mm:ss.fff", provider: CultureInfo.InvariantCulture);
+	}
 
 	/// <summary>Creates a <see cref="ListViewItem"/> from a <see cref="LogEventInfo"/> for virtual-mode display.</summary>
 	/// <param name="logEvent">The log event to convert into a list item.</param>
@@ -177,7 +183,7 @@ public partial class LogViewerForm : BaseKryptonForm
 				// Report initial progress
 				progress.Report(value: 0);
 				return events;
-			});
+			}).ConfigureAwait(continueOnCapturedContext: false);
 			logger.Info(message: $"Loaded {snapshot.Count} log events from the store.");
 			// The snapshot is ready; update the UI-bound cache on the UI thread
 			_displayCache = snapshot;
@@ -190,7 +196,7 @@ public partial class LogViewerForm : BaseKryptonForm
 			for (int i = 0; i <= 100; i += 10)
 			{
 				progress.Report(value: i);
-				await Task.Delay(millisecondsDelay: 1);
+				await Task.Delay(millisecondsDelay: 1).ConfigureAwait(continueOnCapturedContext: false);
 			}
 			// Activate virtual mode with the loaded count
 			listView.VirtualListSize = total;
@@ -241,7 +247,10 @@ public partial class LogViewerForm : BaseKryptonForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>Loading is performed asynchronously to keep the UI responsive.</remarks>
-	private async void LogViewerForm_Load(object sender, EventArgs e) => await LoadLogEventsAsync();
+	private async void LogViewerForm_Load(object sender, EventArgs e)
+	{
+		await LoadLogEventsAsync().ConfigureAwait(continueOnCapturedContext: false);
+	}
 
 	#endregion
 
@@ -269,7 +278,10 @@ public partial class LogViewerForm : BaseKryptonForm
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>Enables or disables the delete-selected button based on whether any items are currently selected in the ListView.</remarks>
-	private void ListView_SelectedIndexChanged(object? sender, EventArgs e) => toolStripButtonDeleteSelected.Enabled = listView.SelectedIndices.Count > 0;
+	private void ListView_SelectedIndexChanged(object? sender, EventArgs e)
+	{
+		toolStripButtonDeleteSelected.Enabled = listView.SelectedIndices.Count > 0;
+	}
 
 	/// <summary>Handles the ColumnClick event for the ListView to sort columns alphanumerically.</summary>
 	/// <param name="sender">Event source (the ListView).</param>
@@ -301,7 +313,7 @@ public partial class LogViewerForm : BaseKryptonForm
 			// Remove existing sort indicators from the header text
 			string headerText = listView.Columns[index: i].Text;
 			// Check for existing indicators and remove them
-			if (headerText.StartsWith(value: "▲ ") || headerText.StartsWith(value: "▼ "))
+			if (headerText.StartsWith(value: "▲ ", comparisonType: StringComparison.InvariantCulture) || headerText.StartsWith(value: "▼ ", comparisonType: StringComparison.InvariantCulture))
 			{
 				headerText = headerText[2..];
 			}

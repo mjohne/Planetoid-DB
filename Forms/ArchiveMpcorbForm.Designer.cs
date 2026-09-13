@@ -25,22 +25,27 @@ namespace Planetoid_DB;
 /// <summary>Represents a dialog form that enables users to archive the MPCORB.DAT file by specifying source and target paths, selecting compression formats and methods, and monitoring progress.</summary>
 /// <remarks>The form provides a user interface for browsing file paths, choosing between multiple compression formats (Zip, GZip, Brotli), and selecting compression methods (Optimal, Fastest, No compression, Smallest size). Progress and status information are displayed during the archiving process. This form is intended to be used as a modal dialog within a parent application.</remarks>
 partial class ArchiveMpcorbForm
-    {
-        /// <summary>Required designer variable.</summary>
+	{
+	/// <summary>Required designer variable.</summary>
 	/// <remarks>This variable is used by the Windows Form Designer to keep track of components.</remarks>
-        private IContainer components = null;
+		private IContainer components = null;
 
 	/// <summary>Clean up any resources being used.</summary>
 	/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
 	/// <remarks>This method is called when the form is being disposed to release resources.</remarks>
 	protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+	{
+		if (disposing)
+		{
+			cancellationTokenSource?.Cancel();
+			cancellationTokenSource?.Dispose();
+			cancellationTokenSource = null;
+
+			components?.Dispose();
+		}
+
+		base.Dispose(disposing);
+	}
 
 	#region Windows Form Designer generated code
 
@@ -601,10 +606,9 @@ partial class ArchiveMpcorbForm
 
 	#endregion
 	private KryptonTextBox kryptonTextBoxSource;
-        private KryptonButton kryptonButtonBrowseSource;
-        
-        private KryptonStatusStrip kryptonStatusStrip;
-        private ToolStripStatusLabel labelInformation;
+	private KryptonButton kryptonButtonBrowseSource;
+	private KryptonStatusStrip kryptonStatusStrip;
+	private ToolStripStatusLabel labelInformation;
 	private ToolStripContainer toolStripContainer;
 	private KryptonToolStrip toolStripIcons;
 	private KryptonPanel kryptonPanelMain;

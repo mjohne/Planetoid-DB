@@ -25,9 +25,9 @@ namespace Planetoid_DB;
 
 /// <summary>Form for displaying the Maximum Orbit Intersection Distance (MAXOID) of a minor planet relative to each of the eight solar system planets.</summary>
 /// <remarks>This form computes and presents the MAXOID values for a minor planet using a fast, high-precision numerical algorithm equivalent to the approach used by the Minor Planet Center (MPC). The results are shown in a two-column table layout: planet name in the first column, MAXOID in AU in the second column.</remarks>
-// You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
-[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-public partial class MaxoidsOfOneMinorPlanetForm : BaseKryptonForm
+// You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
+[DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
+internal partial class MaxoidsOfOneMinorPlanetForm : BaseKryptonForm
 {
 	#region Export override properties
 
@@ -45,21 +45,6 @@ public partial class MaxoidsOfOneMinorPlanetForm : BaseKryptonForm
 
 	#endregion
 
-	/// <summary>Represents the orbital elements of a minor planet used for MAXOID calculations.</summary>
-	/// <param name="SemiMajorAxis">The semi-major axis of the orbit in astronomical units (AU).</param>
-	/// <param name="Eccentricity">The orbital eccentricity.</param>
-	/// <param name="InclinationDeg">The orbital inclination in degrees.</param>
-	/// <param name="LongitudeAscendingNodeDeg">The longitude of the ascending node in degrees.</param>
-	/// <param name="ArgumentPerihelionDeg">The argument of perihelion in degrees.</param>
-	/// <remarks>This record is used to encapsulate the orbital parameters of a minor planet for MAXOID calculations.</remarks>
-	public record OrbitalElements(
-		double SemiMajorAxis,
-		double Eccentricity,
-		double InclinationDeg,
-		double LongitudeAscendingNodeDeg,
-		double ArgumentPerihelionDeg
-	);
-
 	/// <summary>NLog logger instance.</summary>
 	/// <remarks>This logger is used throughout the form to log important events and errors.</remarks>
 	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
@@ -76,7 +61,10 @@ public partial class MaxoidsOfOneMinorPlanetForm : BaseKryptonForm
 
 	/// <summary>Initializes a new instance of the <see cref="MaxoidsOfOneMinorPlanetForm"/> class.</summary>
 	/// <remarks>This constructor initializes the form components.</remarks>
-	public MaxoidsOfOneMinorPlanetForm() => InitializeComponent();
+	public MaxoidsOfOneMinorPlanetForm()
+	{
+		InitializeComponent();
+	}
 
 	#endregion
 
@@ -84,8 +72,8 @@ public partial class MaxoidsOfOneMinorPlanetForm : BaseKryptonForm
 
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>This method is used to provide a visual representation of the object in the debugger.</remarks>
-	private string GetDebuggerDisplay() => ToString();
+	/// <remarks>This property is used to provide a visual representation of the object in the debugger.</remarks>
+	private string DebuggerDisplay => ToString();
 
 	/// <summary>Sets the orbital elements of the minor planet used for computing MAXOID values.</summary>
 	/// <param name="semiMajorAxis">The semi-major axis in AU.</param>
@@ -113,7 +101,10 @@ public partial class MaxoidsOfOneMinorPlanetForm : BaseKryptonForm
 	/// <summary>Sets the orbital elements of the minor planet used for computing MAXOID values.</summary>
 	/// <param name="elements">The orbital elements to set.</param>
 	/// <remarks>Call this method before showing the form so that the MAXOID data is available on load.</remarks>
-	public void SetOrbitalElements(OrbitalElements elements) => _orbitalElements = elements ?? throw new ArgumentNullException(paramName: nameof(elements));
+	private void SetOrbitalElements(OrbitalElements elements)
+	{
+		_orbitalElements = elements ?? throw new ArgumentNullException(paramName: nameof(elements));
+	}
 
 	/// <summary>Updates the UI labels with the calculated data using InvariantCulture.</summary>
 	/// <param name="maxoids">The list of MAXOID results for each planet.</param>
@@ -151,6 +142,9 @@ public partial class MaxoidsOfOneMinorPlanetForm : BaseKryptonForm
 	{
 		// Clear the status bar
 		ClearStatusBar(label: labelInformation);
+		// Log the start of the MAXOID computation process
+		logger.Info(message: "Starting MAXOID computation process.");
+		// Attempt to compute MAXOID values and update the UI
 		try
 		{
 			// Ensure that orbital elements have been set before attempting to compute MAXOID values

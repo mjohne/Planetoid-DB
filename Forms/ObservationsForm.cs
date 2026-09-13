@@ -17,6 +17,7 @@ using Krypton.Toolkit;
 
 using NLog;
 
+using Planetoid_DB.Forms;
 using Planetoid_DB.Helpers;
 
 using System.Diagnostics;
@@ -27,9 +28,9 @@ namespace Planetoid_DB;
 
 /// <summary>Form for displaying observations of a minor planet fetched from the Minor Planet Center.</summary>
 /// <remarks>This form retrieves the observation data for a given minor planet from the MPC website, parses the observation records, and displays them in a ListView with 8 columns.</remarks>
-// You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
-[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-public partial class ObservationsForm : BaseKryptonForm
+// You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
+[DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
+internal partial class ObservationsForm : BaseKryptonForm
 {
 	#region Export override properties
 
@@ -68,7 +69,7 @@ public partial class ObservationsForm : BaseKryptonForm
 	private static readonly HttpClient httpClient = new()
 	{
 		// Set a reasonable timeout for HTTP requests to prevent hanging indefinitely
-		Timeout = TimeSpan.FromSeconds(30)
+		Timeout = TimeSpan.FromSeconds(seconds: 30)
 	};
 
 	/// <summary>Minimum number of characters an observation line must have to be parsed.</summary>
@@ -203,7 +204,10 @@ public partial class ObservationsForm : BaseKryptonForm
 
 	/// <summary>Initializes a new instance of the <see cref="ObservationsForm"/> class.</summary>
 	/// <remarks>This constructor initializes the form components.</remarks>
-	public ObservationsForm() => InitializeComponent();
+	public ObservationsForm()
+	{
+		InitializeComponent();
+	}
 
 	#endregion
 
@@ -211,13 +215,16 @@ public partial class ObservationsForm : BaseKryptonForm
 
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>This method is used to provide a visual representation of the object in the debugger.</remarks>
-	private string GetDebuggerDisplay() => ToString();
+	/// <remarks>This property is used to provide a visual representation of the object in the debugger.</remarks>
+	private string DebuggerDisplay => ToString();
 
 	/// <summary>Sets the minor planet index data used to query the MPC observations page.</summary>
 	/// <param name="indexData">The packed minor planet number or provisional designation.</param>
 	/// <remarks>Call this method before showing the form so that the observation data is available on load.</remarks>
-	public void SetIndexData(string indexData) => this.indexData = indexData;
+	public void SetIndexData(string indexData)
+	{
+		this.indexData = indexData;
+	}
 
 	/// <summary>Fetches and parses the observation data from the MPC website, then populates the ListView.</summary>
 	/// <remarks>This method performs an HTTP GET request to the MPC website, locates the observations download link, fetches the observation text file, and parses each line into the 8 observation fields.</remarks>
@@ -239,10 +246,10 @@ public partial class ObservationsForm : BaseKryptonForm
 		{
 			Cursor.Current = Cursors.WaitCursor;
 			// Fetch the HTML page for the object
-			string pageUrl = MpcBaseUrl + Uri.EscapeDataString(stringToEscape: indexData);
-			kryptonProgressBar.Text = "Loading observation data from " + pageUrl;
+			Uri pageUri = new(uriString: MpcBaseUrl + Uri.EscapeDataString(stringToEscape: indexData), uriKind: UriKind.Absolute);
+			kryptonProgressBar.Text = "Loading observation data from " + pageUri;
 			kryptonProgressBar.Style = ProgressBarStyle.Marquee;
-			string html = await httpClient.GetStringAsync(requestUri: pageUrl).ConfigureAwait(continueOnCapturedContext: true);
+			string html = await httpClient.GetStringAsync(requestUri: pageUri).ConfigureAwait(continueOnCapturedContext: true);
 			kryptonProgressBar.Text = "Parsing observation data...";
 			// Locate the <h2>Observations</h2> section and find the download link after it
 			int observationsHeadingIndex = html.IndexOf(value: "<h2>Observations</h2>", comparisonType: StringComparison.Ordinal);
@@ -272,9 +279,9 @@ public partial class ObservationsForm : BaseKryptonForm
 			string relativeUrl = downloadMatch.Groups[groupnum: 1].Value;
 			// Convert relative URL to absolute URL
 			// e.g. ../tmp2/~0uY1.txt → https://www.minorplanetcenter.net/tmp2/~0uY1.txt
-			string absoluteUrl = ResolveUrl(baseUrl: MpcRootUrl, relativeUrl: relativeUrl);
+			Uri absoluteUri = new(uriString: ResolveUrl(baseUrl: MpcRootUrl, relativeUrl: relativeUrl), uriKind: UriKind.Absolute);
 			// Fetch the observations text file
-			string obsText = await httpClient.GetStringAsync(requestUri: absoluteUrl).ConfigureAwait(continueOnCapturedContext: true);
+			string obsText = await httpClient.GetStringAsync(requestUri: absoluteUri).ConfigureAwait(continueOnCapturedContext: true);
 			// Parse lines and populate ListView
 			string[] lines = obsText.Split(separator: '\n');
 			listView.BeginUpdate();
@@ -315,7 +322,7 @@ public partial class ObservationsForm : BaseKryptonForm
 						observedMagnitudeAndBand,
 						observatoryCodeEntry
 					]);
-					listView.Items.Add(value: item);
+					_ = listView.Items.Add(value: item);
 				}
 			}
 			// In the event of an exception during parsing, log the error and show an error message to the user
@@ -447,9 +454,11 @@ public partial class ObservationsForm : BaseKryptonForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>Clears the status bar and initiates the asynchronous loading of observation data.</remarks>
-	private void ObservationsForm_Load(object sender, EventArgs e) =>
+	private void ObservationsForm_Load(object sender, EventArgs e)
+	{
 		// Clear the status bar and load the observatory codes when the form loads
 		LoadObservatoryCodes();
+	}
 
 	#endregion
 
@@ -483,7 +492,7 @@ public partial class ObservationsForm : BaseKryptonForm
 			// Get the current header text for the column, removing any existing sort indicators
 			string headerText = listView.Columns[index: i].Text;
 			// Remove existing sort indicators (▲ or ▼) from the header text
-			if (headerText.StartsWith(value: "▲ ") || headerText.StartsWith(value: "▼ "))
+			if (headerText.StartsWith(value: "▲ ", comparisonType: StringComparison.InvariantCulture) || headerText.StartsWith(value: "▼ ", comparisonType: StringComparison.InvariantCulture))
 			{
 				headerText = headerText[2..];
 			}

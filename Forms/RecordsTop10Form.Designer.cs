@@ -35,10 +35,15 @@ partial class RecordsTop10Form
 	/// <remarks>This method disposes of the resources used by the form.</remarks>
 	protected override void Dispose(bool disposing)
 	{
-		if (disposing && (components != null))
+		if (disposing)
 		{
-			components.Dispose();
+			cancellationTokenSource?.Cancel();
+			cancellationTokenSource?.Dispose();
+			cancellationTokenSource = null;
+
+			components?.Dispose();
 		}
+
 		base.Dispose(disposing);
 	}
 

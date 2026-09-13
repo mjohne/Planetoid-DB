@@ -35,10 +35,15 @@ partial class AsteroidFamiliesForm
 	/// <remarks>Dispose is called by the runtime to release unmanaged resources and optionally managed resources.</remarks>
 	protected override void Dispose(bool disposing)
 	{
-		if (disposing && (components != null))
+		if (disposing)
 		{
-			components.Dispose();
+			_cancellationTokenSource?.Cancel();
+			_cancellationTokenSource?.Dispose();
+			_cancellationTokenSource = null;
+
+			components?.Dispose();
 		}
+
 		base.Dispose(disposing);
 	}
 

@@ -28,9 +28,9 @@ namespace Planetoid_DB;
 
 /// <summary>Represents the form that scans all orbital elements for maximum or minimum record values.</summary>
 /// <remarks>This form displays the record holder (asteroid with the highest or lowest value) for each orbital element in the database. The user can choose between maximum and minimum records, start and cancel the scan at any time.</remarks>
-// You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
-[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-public partial class RecordsForm : BaseKryptonForm
+// You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
+[DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
+internal partial class RecordsForm : BaseKryptonForm
 {
 	#region Export override properties
 
@@ -104,13 +104,17 @@ public partial class RecordsForm : BaseKryptonForm
 
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>This method is called to obtain a string representation of the current instance.</remarks>
-	private string GetDebuggerDisplay() => ToString();
+	/// <remarks>This property is called to obtain a string representation of the current instance.</remarks>
+	private string DebuggerDisplay => ToString();
 
 	/// <summary>Fills the internal database list with a copy of the provided planetoid data.</summary>
 	/// <param name="arrTemp">The list of raw planetoid data lines from the main form.</param>
 	/// <remarks>This method must be called before starting the scan to provide the data source. The data is stored as a copy so changes in the main form do not affect the scan.</remarks>
-	public void FillArray(List<string> arrTemp) => planetoidsDatabase = [.. arrTemp];
+	public void FillArray(List<string> arrTemp)
+	{
+		ArgumentNullException.ThrowIfNull(argument: arrTemp);
+		planetoidsDatabase = [.. arrTemp];
+	}
 
 	/// <summary>Resets all record labels to the initial state before starting a new scan.</summary>
 	/// <remarks>Clears designation and value labels, and resets internal tracking arrays.</remarks>
@@ -136,22 +140,26 @@ public partial class RecordsForm : BaseKryptonForm
 	/// <summary>Gets the array of designation labels in element order.</summary>
 	/// <returns>An array of <see cref="KryptonLabel"/> controls for designation display.</returns>
 	/// <remarks>The array is ordered to match the orbital element order used in record tracking.</remarks>
-	private KryptonLabel[] GetDesignationLabels() =>
-	[
+	private KryptonLabel[] GetDesignationLabels()
+	{
+		return [
 		labelDesignationMeanAnomalyAtTheEpoch, labelDesignationArgumentOfThePerihelion, labelDesignationLongitudeOfTheAscendingNode, labelDesignationInclinationToTheEcliptic,
 		labelDesignationOrbitalEccentricity, labelDesignationMeanDailyMotion, labelDesignationSemiMajorAxis, labelDesignationAbsoluteMagnitude,
 		labelDesignationSlopeParameter, labelDesignationNumberOfOppositions, labelDesignationNumberOfObservations, labelDesignationRmsResidual
 	];
+	}
 
 	/// <summary>Gets the array of value labels in element order.</summary>
 	/// <returns>An array of <see cref="KryptonLabel"/> controls for value display.</returns>
 	/// <remarks>The array is ordered to match the orbital element order used in record tracking.</remarks>
-	private KryptonLabel[] GetValueLabels() =>
-	[
+	private KryptonLabel[] GetValueLabels()
+	{
+		return [
 		labelValueMeanAnomalyAtTheEpoch, labelValueArgumentOfThePerihelion, labelValueLongitudeOfTheAscendingNode, labelValueInclinationToTheEcliptic,
 		labelValueOrbitalEccentricity, labelValueMeanDailyMotion, labelValueSemiMajorAxis, labelValueAbsoluteMagnitude,
 		labelValueSlopeParameter, labelValueNumberOfOppositions, labelValueNumberOfObservations, labelValueRmsResidual
 		];
+	}
 
 	/// <summary>Checks whether a numeric value beats the current record for the given element index and, if so, fires a <see cref="BackgroundWorker.ReportProgress(int, object)"/> event so the UI labels can be updated safely on the UI thread.</summary>
 	/// <param name="elementIndex">Zero-based index of the orbital element.</param>
@@ -400,6 +408,7 @@ public partial class RecordsForm : BaseKryptonForm
 			ShowErrorMessage(message: I18nStrings.MpcorbDatNotFoundText);
 			return;
 		}
+		logger.Info(message: "User started the record detection scan.");
 		// Reset state
 		isCancelled = false;
 		ResetLabels();
@@ -426,19 +435,30 @@ public partial class RecordsForm : BaseKryptonForm
 		isCancelled = true;
 		backgroundWorker.CancelAsync();
 		toolStripButtonCancel.Enabled = false;
+		logger.Info(message: "User cancelled the record detection scan.");
 	}
 
 	/// <summary>Handles the Click event of the ToolStripButtonSortOrderAscending control. Selects ascending sort order and deselects descending sort order.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>Ensures that exactly one of Ascending/Descending is selected at all times.</remarks>
-	private void SetAscendingSortOrder_Click(object sender, EventArgs e) => toolStripButtonSortOrderDescending.Checked = !toolStripButtonSortOrderAscending.Checked;
+	private void SetAscendingSortOrder_Click(object sender, EventArgs e)
+	{
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		toolStripButtonSortOrderDescending.Checked = !toolStripButtonSortOrderAscending.Checked;
+		logger.Info(message: $"User selected ascending sort order. Descending sort order is now {(toolStripButtonSortOrderDescending.Checked ? "checked" : "unchecked")}.");
+	}
 
 	/// <summary>Handles the Click event of the ToolStripButtonSortOrderDescending control. Selects descending sort order and deselects ascending sort order.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>Ensures that exactly one of Ascending/Descending is selected at all times.</remarks>
-	private void SetDescendingSortOrder_Click(object sender, EventArgs e) => toolStripButtonSortOrderAscending.Checked = !toolStripButtonSortOrderDescending.Checked;
+	private void SetDescendingSortOrder_Click(object sender, EventArgs e)
+	{
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		toolStripButtonSortOrderAscending.Checked = !toolStripButtonSortOrderDescending.Checked;
+		logger.Info(message: $"User selected descending sort order. Ascending sort order is now {(toolStripButtonSortOrderAscending.Checked ? "checked" : "unchecked")}.");
+	}
 
 	/// <summary>Handles the click event for the ToolStripMenuItemRecordsMeanAnomalyAtTheEpoch. Shows the top ten records form for mean anomaly at the epoch.</summary>
 	/// <param name="sender">The event source.</param>

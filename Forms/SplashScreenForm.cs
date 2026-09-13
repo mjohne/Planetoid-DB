@@ -19,14 +19,15 @@ using Planetoid_DB.Forms;
 using Planetoid_DB.Helpers;
 
 using System.Diagnostics;
+using System.Globalization;
 
 namespace Planetoid_DB;
 
 /// <summary>Represents the splash screen form of the application.</summary>
 /// <remarks>This form is displayed while the application is loading.</remarks>
-// You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
-[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-public partial class SplashScreenForm : BaseKryptonForm
+// You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
+[DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
+internal partial class SplashScreenForm : BaseKryptonForm
 {
 	/// <summary>NLog logger instance.</summary>
 	/// <remarks>This logger is used throughout the application to log important events and errors.</remarks>
@@ -36,7 +37,11 @@ public partial class SplashScreenForm : BaseKryptonForm
 
 	/// <summary>Initializes a new instance of the <see cref="SplashScreenForm"/> class.</summary>
 	/// <remarks>This constructor initializes the form components.</remarks>
-	public SplashScreenForm() => InitializeComponent();
+	public SplashScreenForm()
+	{
+		logger.Info(message: "Initializing SplashScreenForm.");
+		InitializeComponent();
+	}
 
 	#endregion
 
@@ -45,7 +50,7 @@ public partial class SplashScreenForm : BaseKryptonForm
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
 	/// <remarks>This method is called to obtain a string representation of the current instance.</remarks>
-	private string GetDebuggerDisplay() => ToString();
+	private string DebuggerDisplay => ToString();
 
 	/// <summary>Sets the splash screen progress bar value.</summary>
 	/// <param name="value">The value to set on the progress bar. Must be between <c>progressBarSplash.Minimum</c> and <c>progressBarSplash.Maximum</c>.</param>
@@ -77,8 +82,11 @@ public partial class SplashScreenForm : BaseKryptonForm
 	/// <param name="sender">Event source (the form).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is called when the splash screen form loads.</remarks>
-	private void SplashScreenForm_Load(object sender, EventArgs e) =>
+	private void SplashScreenForm_Load(object sender, EventArgs e)
+	{
 		// Set the version label text to the assembly version
-		labelVersion.Text = string.Format(format: I18nStrings.VersionTemplate, arg0: AssemblyInfo.AssemblyVersion);
+		labelVersion.Text = string.Format(provider: CultureInfo.CurrentCulture, format: I18nStrings.VersionTemplate, arg0: AssemblyInfo.AssemblyVersion);
+	}
+
 	#endregion
 }

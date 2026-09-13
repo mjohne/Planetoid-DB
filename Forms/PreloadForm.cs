@@ -15,6 +15,7 @@
 
 using NLog;
 
+using Planetoid_DB.Forms;
 using Planetoid_DB.Properties;
 
 using System.ComponentModel;
@@ -26,9 +27,9 @@ namespace Planetoid_DB;
 
 /// <summary>A form that gets the file MPCORB.DAT.</summary>
 /// <remarks>This form is responsible for preloading the necessary data files for the application.</remarks>
-// You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
-[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-public partial class PreloadForm : BaseKryptonForm
+// You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
+[DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
+internal partial class PreloadForm : BaseKryptonForm
 {
 	/// <summary>NLog logger instance for logging events and errors.</summary>
 	/// <remarks>This logger is used to log events and errors that occur within the form.</remarks>
@@ -61,8 +62,8 @@ public partial class PreloadForm : BaseKryptonForm
 
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>This method is used to provide a custom display string for the debugger.</remarks>
-	private string GetDebuggerDisplay() => ToString();
+	/// <remarks>This property is used to provide a custom display string for the debugger.</remarks>
+	private string DebuggerDisplay => ToString();
 
 	/// <summary>Safely extracts resource data bytes to the specified output file path.</summary>
 	/// <param name="resourceData">The byte array containing the resource data.</param>

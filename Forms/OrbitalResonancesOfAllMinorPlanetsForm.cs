@@ -28,9 +28,9 @@ namespace Planetoid_DB;
 
 /// <summary>Form for finding orbital resonances of all minor planets relative to the 8 known solar system planets.</summary>
 /// <remarks>This form iterates over all planetoids in the database and computes their orbital resonances with each selected planet. Results are displayed in a VirtualMode ListView. The user can select which planets to include, start and cancel the search at any time.</remarks>
-// You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
-[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
+// You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
+[DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
+internal partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 {
 	#region Export override properties
 
@@ -154,8 +154,8 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>This method is primarily intended for debugging purposes.</remarks>
-	private string GetDebuggerDisplay() => ToString();
+	/// <remarks>This property is primarily intended for debugging purposes.</remarks>
+	private string DebuggerDisplay => ToString();
 
 	/// <summary>Filters the result set list accordingly.</summary>
 	/// <remarks>This method applies the active filter settings to the results and refreshes the list view to reflect the filtered data. The filter includes only results for selected planets and, if enabled, further restricts by resonance deviation. The method should be called whenever filter settings or selection change to ensure the displayed data remains accurate.</remarks>
@@ -275,7 +275,10 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <param name="sender">Event source (the form).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 	/// <remarks>Clears the status bar when the form is loaded.</remarks>
-	private void OrbitalResonancesOfAllMinorPlanetsForm_Load(object sender, EventArgs e) => ClearStatusBar(label: labelInformation);
+	private void OrbitalResonancesOfAllMinorPlanetsForm_Load(object sender, EventArgs e)
+	{
+		ClearStatusBar(label: labelInformation);
+	}
 
 	/// <summary>Handles the FormClosing event. Cancels any running search and disposes the cancellation token source.</summary>
 	/// <param name="sender">Event source (the form).</param>
@@ -321,11 +324,11 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 		item.SubItems.AddRange(items:
 		[
 			result.Resonance.PlanetName,
-			result.Resonance.PlanetPeriod.ToString(format: "F6"),
-			result.Resonance.PlanetoidPeriod.ToString(format: "F6"),
-			result.Resonance.Ratio.ToString(format: "F6"),
+			result.Resonance.PlanetPeriod.ToString(format: "F6", provider: CultureInfo.InvariantCulture),
+			result.Resonance.PlanetoidPeriod.ToString(format: "F6", provider: CultureInfo.InvariantCulture),
+			result.Resonance.Ratio.ToString(format: "F6", provider: CultureInfo.InvariantCulture),
 			$"{result.Resonance.ResonanceP}:{result.Resonance.ResonanceQ}",
-			result.Resonance.DeviationPercent.ToString(format: "F2"),
+			result.Resonance.DeviationPercent.ToString(format: "F2", provider: CultureInfo.InvariantCulture),
 			isResonance
 		]);
 		// Set the text color of the entire row based on whether the result is a near-resonance; if the deviation percent is below the threshold, the text is colored green to indicate a near-resonance, otherwise it is colored red to indicate that it is not a near-resonance
@@ -422,7 +425,7 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 				}
 				// Log the completion of the search with the total number of resonances found; this provides feedback in the logs about the outcome of the search
 				logger.Info(message: $"Orbital resonance search completed. Total resonances found: {localResults.Count}");
-			}, cancellationToken: token);
+			}, cancellationToken: token).ConfigureAwait(continueOnCapturedContext: true);
 		}
 		// Catch the OperationCanceledException to handle user cancellation gracefully; log the cancellation event and update the status label to inform the user that the search was cancelled
 		catch (OperationCanceledException ex)
@@ -525,11 +528,11 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 		{
 			result.PlanetoidName,
 			result.Resonance.PlanetName,
-			result.Resonance.PlanetPeriod.ToString(format: "F6"),
-			result.Resonance.PlanetoidPeriod.ToString(format: "F6"),
-			result.Resonance.Ratio.ToString(format: "F6"),
+			result.Resonance.PlanetPeriod.ToString(format: "F6", provider: CultureInfo.InvariantCulture),
+			result.Resonance.PlanetoidPeriod.ToString(format: "F6", provider: CultureInfo.InvariantCulture),
+			result.Resonance.Ratio.ToString(format: "F6", provider: CultureInfo.InvariantCulture),
 			$"{result.Resonance.ResonanceP}:{result.Resonance.ResonanceQ}",
-			result.Resonance.DeviationPercent.ToString(format: "F2"),
+			result.Resonance.DeviationPercent.ToString(format: "F2", provider: CultureInfo.InvariantCulture),
 			isResonance
 		});
 		logger.Info(message: $"Copying selected row to clipboard: {text}");
@@ -609,18 +612,21 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <param name="result">The resonance result.</param>
 	/// <param name="column">The zero-based column index.</param>
 	/// <returns>The text value used for sorting and display of the specified column.</returns>
-	private static string GetColumnText(ResonanceResult result, int column) => column switch
+	private static string GetColumnText(ResonanceResult result, int column)
 	{
-		// Returns the display text for each column of a ResonanceResult
-		ColumnIndexPlanetoid => result.PlanetoidName,
-		// For the Planet column, return the name of the planet involved in the resonance
-		ColumnIndexPlanet => result.Resonance.PlanetName,
-		// For the Resonance column, return a string in the format "P:Q" representing the resonance ratio
-		ColumnIndexResonance => $"{result.Resonance.ResonanceP}:{result.Resonance.ResonanceQ}",
-		// For the IsResonance column, return "Yes" if the deviation is below the threshold, otherwise "No"
-		ColumnIndexIsResonance => result.Resonance.DeviationPercent < ResonanceThresholdPercent ? "Yes" : "No",
-		_ => string.Empty
-	};
+		return column switch
+		{
+			// Returns the display text for each column of a ResonanceResult
+			ColumnIndexPlanetoid => result.PlanetoidName,
+			// For the Planet column, return the name of the planet involved in the resonance
+			ColumnIndexPlanet => result.Resonance.PlanetName,
+			// For the Resonance column, return a string in the format "P:Q" representing the resonance ratio
+			ColumnIndexResonance => $"{result.Resonance.ResonanceP}:{result.Resonance.ResonanceQ}",
+			// For the IsResonance column, return "Yes" if the deviation is below the threshold, otherwise "No"
+			ColumnIndexIsResonance => result.Resonance.DeviationPercent < ResonanceThresholdPercent ? "Yes" : "No",
+			_ => string.Empty
+		};
+	}
 
 	#endregion
 

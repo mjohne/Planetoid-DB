@@ -15,6 +15,8 @@
 
 using Krypton.Toolkit;
 
+using System.Globalization;
+
 namespace Planetoid_DB;
 
 /// <summary>Partial class for <see cref="PlanetoidDbForm"/> containing methods for decoding MPCORB flags and references.</summary>
@@ -31,12 +33,7 @@ public partial class PlanetoidDbForm
 		if (string.IsNullOrWhiteSpace(value: flagText))
 		{
 			logger.Warn(message: "Flag text is empty or whitespace");
-			_ = KryptonMessageBox.Show(
-				owner: this,
-				text: "No flag data available.",
-				caption: "Flag Decoder",
-				buttons: KryptonMessageBoxButtons.OK,
-				icon: KryptonMessageBoxIcon.Warning);
+			_ = KryptonMessageBox.Show(owner: this, text: "No flag data available.", caption: "Flag Decoder", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Warning);
 			return;
 		}
 		// Validate that the flag text is a valid 4-hexdigit string
@@ -152,6 +149,7 @@ public partial class PlanetoidDbForm
 			_ = KryptonMessageBox.Show(owner: this, text: result.ToString(), caption: "MPCORB Reference Decoder", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 			logger.Info(message: $"Decoded MPCORB reference: '{compressedRef}' → '{decodedReference}'");
 		}
+		// Handle any general exceptions that may occur during decoding
 		catch (Exception ex)
 		{
 			logger.Error(exception: ex, message: $"Error decoding MPCORB reference '{compressedRef}': {ex.Message}");
@@ -256,7 +254,7 @@ public partial class PlanetoidDbForm
 		foreach (char c in encoded)
 		{
 			// Find the index of the character in the Base-62 character set
-			int digit = base62Chars.IndexOf(value: c);
+			int digit = base62Chars.IndexOf(value: c, comparisonType: StringComparison.InvariantCulture);
 			if (digit == -1)
 			{
 				// If the character is not found in the Base-62 set, throw a format exception
@@ -278,12 +276,7 @@ public partial class PlanetoidDbForm
 		if (string.IsNullOrWhiteSpace(value: packedEpoch))
 		{
 			logger.Warn(message: "Packed epoch text is empty or whitespace");
-			_ = KryptonMessageBox.Show(
-				owner: this,
-				text: "No epoch data available.",
-				caption: "Packed Epoch Decoder",
-				buttons: KryptonMessageBoxButtons.OK,
-				icon: KryptonMessageBoxIcon.Warning);
+			_ = KryptonMessageBox.Show(owner: this, text: "No epoch data available.", caption: "Packed Epoch Decoder", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Warning);
 			return;
 		}
 		// Attempt to decode the packed epoch
@@ -302,6 +295,7 @@ public partial class PlanetoidDbForm
 			_ = KryptonMessageBox.Show(owner: this, text: result.ToString(), caption: "Packed Epoch Decoder", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 			logger.Info(message: $"Decoded packed epoch: '{packedEpoch}' → '{decodedEpoch}'");
 		}
+		// Handle any general exceptions that may occur during decoding
 		catch (Exception ex)
 		{
 			logger.Error(exception: ex, message: $"Error decoding packed epoch '{packedEpoch}': {ex.Message}");
@@ -352,7 +346,7 @@ public partial class PlanetoidDbForm
 			_ => throw new FormatException(message: $"Invalid day character '{dayChar}' in packed epoch '{packedEpoch}'")
 		};
 		// Return the unpacked date as a string in yyyy-MM-dd format
-		return new DateOnly(year: year, month: month, day: day).ToString(format: "yyyy-MM-dd");
+		return new DateOnly(year: year, month: month, day: day).ToString(format: "yyyy-MM-dd", provider: CultureInfo.InvariantCulture);
 	}
 
 	/// <summary>Decodes the readable designation from the label and displays the unpacked form in a KryptonMessageBox.</summary>
@@ -365,12 +359,7 @@ public partial class PlanetoidDbForm
 		if (string.IsNullOrWhiteSpace(value: packed))
 		{
 			logger.Warn(message: "Readable designation text is empty or whitespace");
-			_ = KryptonMessageBox.Show(
-				owner: this,
-				text: "No readable designation data available.",
-				caption: "Readable Designation Decoder",
-				buttons: KryptonMessageBoxButtons.OK,
-				icon: KryptonMessageBoxIcon.Warning);
+			_ = KryptonMessageBox.Show(owner: this, text: "No readable designation data available.", caption: "Readable Designation Decoder", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Warning);
 			return;
 		}
 		// Attempt to decode the packed designation
@@ -409,7 +398,7 @@ public partial class PlanetoidDbForm
 			throw new FormatException(message: "Designation string must not be empty.");
 		}
 		// Already unpacked if it contains a space (e.g. "1995 XA")
-		if (packed.Contains(value: ' '))
+		if (packed.Contains(value: ' ', comparisonType: StringComparison.InvariantCulture))
 		{
 			return packed;
 		}
@@ -468,7 +457,7 @@ public partial class PlanetoidDbForm
 			}
 			int subscript = (tens * 10) + (subscriptOnes - '0');
 			// Build the unpacked designation
-			string subscriptStr = subscript == 0 ? string.Empty : subscript.ToString(provider: System.Globalization.CultureInfo.InvariantCulture);
+			string subscriptStr = subscript == 0 ? string.Empty : subscript.ToString(provider: CultureInfo.InvariantCulture);
 			return $"{year} {halfMonthLetter}{orderLetter}{subscriptStr}";
 		}
 		// Numbered asteroid designations: 5 chars
@@ -484,7 +473,7 @@ public partial class PlanetoidDbForm
 			{
 				if (int.TryParse(s: packed, result: out int number))
 				{
-					return number.ToString(provider: System.Globalization.CultureInfo.InvariantCulture);
+					return number.ToString(provider: CultureInfo.InvariantCulture);
 				}
 			}
 			// Alphanumeric prefix (A-Z or a-z) + 4 digits
@@ -494,7 +483,7 @@ public partial class PlanetoidDbForm
 				if (int.TryParse(s: packed.AsSpan(start: 1, length: 4), result: out int suffix))
 				{
 					int asteroidNumber = (prefixValue * 10000) + suffix;
-					return asteroidNumber.ToString(provider: System.Globalization.CultureInfo.InvariantCulture);
+					return asteroidNumber.ToString(provider: CultureInfo.InvariantCulture);
 				}
 			}
 			// Tilde prefix encodes very large asteroid numbers (> 619999) in base-62 — not decoded here
@@ -511,75 +500,78 @@ public partial class PlanetoidDbForm
 	/// <param name="code">The two-letter journal code.</param>
 	/// <returns>The full journal name, or an empty string if not found.</returns>
 	/// <remarks>Supports various journal codes as specified by the Minor Planet Center; taken from https://www.minorplanetcenter.net/iau/info/References.html.</remarks>
-	private static string GetJournalName(string code) => code switch
+	private static string GetJournalName(string code)
 	{
-		"AA" => "Astronomy and Astrophysics",
-		"AB" => "Bulletin des Astrophysikalischen Observatoriums Abastumani",
-		"AC" => "Astronomisches Zirkular der Akademie der Wissenschaften der UdSSR",
-		"AE" => "Astronomical Papers prepared for the use of the American Ephemeris and Nautical Almanac",
-		"AJ" => "Astronomical Journal",
-		"AN" => "Astronomische Nachrichten",
-		"AP" => "Astrophysical Journal Supplement",
-		"As" => "Astronomy and Astrophysics Supplement",
-		"BA" => "Bulletin Astronomique",
-		"BB" => "Bulletin Astronomique de l'Observatoire Royal de Belgique, Uccle",
-		"BC" => "Bulletin of the Astronomical Institutes of Czechoslovakia",
-		"BG" => "Bulletin de l'Observatoire Astronomique de Beograd",
-		"BN" => "Bulletin of the Astronomical Institutes of the Netherlands",
-		"BP" => "Bulletin de la Societe des amis des sciences et des lettres de Poznan",
-		"BZ" => "Beobachtungs-Zirkulare der Astronomischen Nachrichten",
-		"CB" => "Comet Bulletin of the Orient Astronomical Association",
-		"CC" => "Observatorio Astronomico de Cordoba, Serie Contribuciones",
-		"CD" => "Tsirkulyari Rasadkhonai Stalinobod",
-		"CK" => "Izvestiya Krymskoj Astrofizicheskoj Observatorii",
-		"CM" => "Circulaire de l'Observatoire de Marseille",
-		"CO" => "Odesskij Gosudarstvennyj Universitet Izvestiya Astronomicheskoj Observattorii",
-		"CR" => "Comptes Rendus hebdomadaires de l'academie des sciences de Paris",
-		"CS" => "Soobshcheniya Gosudarstvennogo Astronomicheskogo Instituta imeni P. K. Shternberga",
-		"GO" => "Greenwich Observations",
-		"HA" => "Harvard Annal",
-		"HD" => "Veröffentlichungen der Landessternwarte Heidelberg",
-		"HTCDR" => "Hipparcos-Tycho CD-ROM",
-		"IHW" => "International Halley Watch CD-ROM",
-		"Ic" => "Icarus",
-		"JB" => "Journal of the British Astronomical Association",
-		"JC" => "Japan Astronomical Study Association Circular",
-		"JO" => "Journal des Observateurs",
-		"KB" => "Bulletin of the Kwasan Observatory, Kyoto",
-		"KK" => "Kiev Komet Tsirkular",
-		"LB" => "Lick Observatory Bulletin",
-		"LO" => "Lowell Observatory Bulletin",
-		"LP" => "Publicaciones Observatorio Astronomico de La Plata",
-		"MN" => "Monthly Notices of the Royal Astronomical Society",
-		"NA" => "Annales de l'Observatoire de Nice",
-		"NC" => "Nihondaira Observatory Circular",
-		"NO" => "Publications of the U.S. Naval Observatory, Second Series",
-		"NZ" => "Nachrichtenblatt der Astronomischen Zentralstelle",
-		"OB" => "The Observatory",
-		"PA" => "Publications of the Astronomical Society of the Pacific",
-		"PC" => "Poulkovo Observatory Circular",
-		"PD" => "Tartu Astronoomia Observatooriumi Publikatsioonid",
-		"PK" => "Pyublikatsii Kievskoj Astronomicheskoj Observatorii",
-		"PO" => "Perth Observatory Communication",
-		"PP" => "Izvestiya Glavnoj Astronomicheskoj Observatorii v Pulkove",
-		"PT" => "Pubblicazioni del Osservatorio di Torino",
-		"PZ" => "Zirkular des Astronomischen Hauptobservatoriums Pulkowo",
-		"RA" => "Ricerche Astronomiche",
-		"RM" => "Memoirs of the Royal Astronomical Society",
-		"SA" => "Monthly Notices of the Astronomical Society of Southern Africa",
-		"SOB" => "Observatory Bulletin",
-		"TB" => "Tokyo Astronomical Bulletin",
-		"TC" => "Transval Observatory Circular",
-		"TI" => "Astronomia-Optika Institucio, Universitato de Turku, Informo",
-		"UC" => "Circular of the Union Observatory, Johannesburg",
-		"WO" => "Astronomical Observations of the U.S. Naval Observatory, Washington",
-		"WiA" => "Annalen der Sternwarte der Universität Wien",
-		"pM" => "Mitteilungen der Nikolai-Hauptsternwarte zu Pulkowo",
-		"CMC" => "Carlsberg Meridian Circle Publications",
-		"APO" => "Annales de l'Observatoire de Paris: Observations",
-		"AS" => "Acta Astronomica Sinica",
-		"AZ" => "Astronomicheskij Zhurnal",
-		"AcA" => "Acta Astronomica",
-		_ => string.Empty
-	};
+		return code switch
+		{
+			"AA" => "Astronomy and Astrophysics",
+			"AB" => "Bulletin des Astrophysikalischen Observatoriums Abastumani",
+			"AC" => "Astronomisches Zirkular der Akademie der Wissenschaften der UdSSR",
+			"AE" => "Astronomical Papers prepared for the use of the American Ephemeris and Nautical Almanac",
+			"AJ" => "Astronomical Journal",
+			"AN" => "Astronomische Nachrichten",
+			"AP" => "Astrophysical Journal Supplement",
+			"As" => "Astronomy and Astrophysics Supplement",
+			"BA" => "Bulletin Astronomique",
+			"BB" => "Bulletin Astronomique de l'Observatoire Royal de Belgique, Uccle",
+			"BC" => "Bulletin of the Astronomical Institutes of Czechoslovakia",
+			"BG" => "Bulletin de l'Observatoire Astronomique de Beograd",
+			"BN" => "Bulletin of the Astronomical Institutes of the Netherlands",
+			"BP" => "Bulletin de la Societe des amis des sciences et des lettres de Poznan",
+			"BZ" => "Beobachtungs-Zirkulare der Astronomischen Nachrichten",
+			"CB" => "Comet Bulletin of the Orient Astronomical Association",
+			"CC" => "Observatorio Astronomico de Cordoba, Serie Contribuciones",
+			"CD" => "Tsirkulyari Rasadkhonai Stalinobod",
+			"CK" => "Izvestiya Krymskoj Astrofizicheskoj Observatorii",
+			"CM" => "Circulaire de l'Observatoire de Marseille",
+			"CO" => "Odesskij Gosudarstvennyj Universitet Izvestiya Astronomicheskoj Observattorii",
+			"CR" => "Comptes Rendus hebdomadaires de l'academie des sciences de Paris",
+			"CS" => "Soobshcheniya Gosudarstvennogo Astronomicheskogo Instituta imeni P. K. Shternberga",
+			"GO" => "Greenwich Observations",
+			"HA" => "Harvard Annal",
+			"HD" => "Veröffentlichungen der Landessternwarte Heidelberg",
+			"HTCDR" => "Hipparcos-Tycho CD-ROM",
+			"IHW" => "International Halley Watch CD-ROM",
+			"Ic" => "Icarus",
+			"JB" => "Journal of the British Astronomical Association",
+			"JC" => "Japan Astronomical Study Association Circular",
+			"JO" => "Journal des Observateurs",
+			"KB" => "Bulletin of the Kwasan Observatory, Kyoto",
+			"KK" => "Kiev Komet Tsirkular",
+			"LB" => "Lick Observatory Bulletin",
+			"LO" => "Lowell Observatory Bulletin",
+			"LP" => "Publicaciones Observatorio Astronomico de La Plata",
+			"MN" => "Monthly Notices of the Royal Astronomical Society",
+			"NA" => "Annales de l'Observatoire de Nice",
+			"NC" => "Nihondaira Observatory Circular",
+			"NO" => "Publications of the U.S. Naval Observatory, Second Series",
+			"NZ" => "Nachrichtenblatt der Astronomischen Zentralstelle",
+			"OB" => "The Observatory",
+			"PA" => "Publications of the Astronomical Society of the Pacific",
+			"PC" => "Poulkovo Observatory Circular",
+			"PD" => "Tartu Astronoomia Observatooriumi Publikatsioonid",
+			"PK" => "Pyublikatsii Kievskoj Astronomicheskoj Observatorii",
+			"PO" => "Perth Observatory Communication",
+			"PP" => "Izvestiya Glavnoj Astronomicheskoj Observatorii v Pulkove",
+			"PT" => "Pubblicazioni del Osservatorio di Torino",
+			"PZ" => "Zirkular des Astronomischen Hauptobservatoriums Pulkowo",
+			"RA" => "Ricerche Astronomiche",
+			"RM" => "Memoirs of the Royal Astronomical Society",
+			"SA" => "Monthly Notices of the Astronomical Society of Southern Africa",
+			"SOB" => "Observatory Bulletin",
+			"TB" => "Tokyo Astronomical Bulletin",
+			"TC" => "Transval Observatory Circular",
+			"TI" => "Astronomia-Optika Institucio, Universitato de Turku, Informo",
+			"UC" => "Circular of the Union Observatory, Johannesburg",
+			"WO" => "Astronomical Observations of the U.S. Naval Observatory, Washington",
+			"WiA" => "Annalen der Sternwarte der Universität Wien",
+			"pM" => "Mitteilungen der Nikolai-Hauptsternwarte zu Pulkowo",
+			"CMC" => "Carlsberg Meridian Circle Publications",
+			"APO" => "Annales de l'Observatoire de Paris: Observations",
+			"AS" => "Acta Astronomica Sinica",
+			"AZ" => "Astronomicheskij Zhurnal",
+			"AcA" => "Acta Astronomica",
+			_ => string.Empty
+		};
+	}
 }

@@ -35,6 +35,16 @@ partial class DatabaseDifferencesForm
 	/// <param name="disposing">true to release both managed and unmanaged resources; false to release only unmanaged resources.</param>
 	protected override void Dispose(bool disposing)
 	{
+		if (disposing)
+		{
+			_cancellationTokenSource?.Cancel();
+			_cancellationTokenSource?.Dispose();
+			_cancellationTokenSource = null;
+
+			components?.Dispose();
+		}
+
+		base.Dispose(disposing);
 		if (disposing && (components != null))
 		{
 			components.Dispose();

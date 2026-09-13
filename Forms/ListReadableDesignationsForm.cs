@@ -15,15 +15,17 @@
 
 using NLog;
 
+using Planetoid_DB.Forms;
+
 using System.Diagnostics;
 
 namespace Planetoid_DB;
 
 /// <summary>Form to list readable designations from the planetoids database.</summary>
 /// <remarks>This form is used to display a list of all readable designations from the planetoids database.</remarks>
-// You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
-[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-public partial class ListReadableDesignationsForm : BaseKryptonForm
+// You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
+[DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
+internal partial class ListReadableDesignationsForm : BaseKryptonForm
 {
 	#region Export override properties
 
@@ -67,7 +69,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 
 	/// <summary>Offset for virtual mode to calculate the starting index in the database</summary>
 	/// <remarks>This field is used to calculate the starting index in the database for virtual mode.</remarks>
-	private int virtualListOffset = 0;
+	private int virtualListOffset;
 
 	/// <summary>List of planetoid records from the database</summary>
 	/// <remarks>This list contains all the planetoid records retrieved from the database.</remarks>
@@ -103,7 +105,10 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 
 	/// <summary>Initializes a new instance of the <see cref="ListReadableDesignationsForm"/> class.</summary>
 	/// <remarks>This constructor initializes the form and its components.</remarks>
-	public ListReadableDesignationsForm() => InitializeComponent();
+	public ListReadableDesignationsForm()
+	{
+		InitializeComponent();
+	}
 
 	#endregion
 
@@ -111,14 +116,13 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>This method is used to provide a short string representation of the current instance for debugging purposes.</remarks>
-	private string GetDebuggerDisplay() => ToString();
-
+	/// <remarks>This property is used to provide a short string representation of the current instance for debugging purposes.</remarks>
+	private string DebuggerDisplay => ToString();
 
 	/// <summary>Gets the selected index in the list view.</summary>
 	/// <returns>The selected index if an item is selected; otherwise, -1.</returns>
-	/// <remarks>This method is used to get the selected index in the list view.</remarks>
-	public int GetSelectedIndex() => listView.SelectedIndices.Count > 0 ? listView.SelectedIndices[index: 0] : -1;
+	/// <remarks>This property is used to get the selected index in the list view.</remarks>
+	public int SelectedIndex => listView.SelectedIndices.Count > 0 ? listView.SelectedIndices[index: 0] : -1;
 
 	/// <summary>Attempts to parse a planetoid record string into its index and designation components.</summary>
 	/// <param name="record">The raw database record to parse.</param>
@@ -393,9 +397,11 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 	/// <param name="sender">Event source (the form).</param>
 	/// <param name="e">The <see cref="FormClosedEventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is called when the form is closed.</remarks>
-	private void ListReadableDesignationsForm_FormClosed(object sender, FormClosedEventArgs e) =>
+	private void ListReadableDesignationsForm_FormClosed(object sender, FormClosedEventArgs e)
+	{
 		// Clearing the token if the window is closed during work
 		listView.Dispose();
+	}
 
 	#endregion
 
@@ -494,8 +500,8 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 			listView.Items.Clear();
 			listView.Columns.Clear();
 			// Add columns for index and readable designation
-			listView.Columns.Add(new ColumnHeader { Text = I18nStrings.Index, TextAlign = HorizontalAlignment.Right, Width = 100 });
-			listView.Columns.Add(new ColumnHeader { Text = "Readable Designation", TextAlign = HorizontalAlignment.Left, Width = 300 });
+			_ = listView.Columns.Add(new ColumnHeader { Text = I18nStrings.Index, TextAlign = HorizontalAlignment.Right, Width = 100 });
+			_ = listView.Columns.Add(new ColumnHeader { Text = "Readable Designation", TextAlign = HorizontalAlignment.Left, Width = 300 });
 			// Calculate the range based on the numeric up/down values
 			int min = (int)toolStripNumericUpDownMinimum.Value - 1;
 			int max = (int)toolStripNumericUpDownMaximum.Value;

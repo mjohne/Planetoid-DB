@@ -31,8 +31,15 @@ partial class DatabaseDownloaderForm
 	/// <remarks>This method is called by the runtime to release resources used by the form.</remarks>
 	protected override void Dispose(bool disposing)
 	{
-		if (disposing && (components != null))
-			components.Dispose();
+		if (disposing)
+		{
+			cancellationTokenSource?.Cancel();
+			cancellationTokenSource?.Dispose();
+			cancellationTokenSource = null;
+
+			components?.Dispose();
+		}
+
 		base.Dispose(disposing);
 	}
 

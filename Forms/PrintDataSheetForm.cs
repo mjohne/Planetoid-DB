@@ -19,17 +19,18 @@ using NLog;
 
 using Planetoid_DB.Forms;
 
+using System.ComponentModel;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Drawing.Printing;
 
 namespace Planetoid_DB;
 
 /// <summary>Represents a form that enables users to print data sheets for orbital elements, providing options to select elements, configure print settings, and manage printing operations.</summary>
 /// <remarks>This form allows users to preview, print, and customize the output of orbital element data sheets. It supports marking and unmarking elements for inclusion, handles print cancellation, and provides progress feedback during printing. Use this form to facilitate user-driven printing workflows for orbital element data in a Windows Forms application.</remarks>
-// You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
-[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-
-public partial class PrintDataSheetForm : BaseKryptonForm
+// You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
+[DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
+internal partial class PrintDataSheetForm : BaseKryptonForm
 {
 	/// <summary>NLog logger for logging messages and errors.</summary>
 	/// <remarks>This logger is used to log messages and errors that occur within the form.</remarks>
@@ -40,20 +41,20 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 	protected override ToolStripStatusLabel? StatusLabel => labelInformation;
 
 	/// <summary>Print document used for printing data sheets.</summary>
-	/// <remarks>This document is used to print the data sheets.</remarks>
+	/// <remarks>This document is owned by the form component container and is disposed when the form is disposed.</remarks>
+	[SuppressMessage(category: "Usage", checkId: "CA2213:Disposable fields should be disposed", Justification = "The PrintDocument is registered with the form component container, which disposes it in the designer-generated Dispose method.")]
 	private readonly PrintDocument printDoc;
-
 	/// <summary>List of orbit elements to be printed.</summary>
 	/// <remarks>This list contains the values of the orbital elements that will be printed on the data sheet.</remarks>
 	private List<string> orbitElements = [];
 
 	/// <summary>The index of the last printed item.</summary>
 	/// <remarks>This field keeps track of the last printed item's index to manage printing progress.</remarks>
-	private int lastPrintedIndex = 0;
+	private int lastPrintedIndex;
 
 	/// <summary>Indicates whether the printing process has been canceled.</summary>
 	/// <remarks>This field is used to track the cancellation state of the printing process.</remarks>
-	private bool cancelPrinting = false;
+	private bool cancelPrinting;
 
 	#region constructor
 
@@ -63,12 +64,15 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 	{
 		// Initialize the form components
 		InitializeComponent();
-		// Initialize the print document and subscribe to its events
+		// Initialize the print document, register it for disposal with the form and subscribe to its events
 		printDoc = new PrintDocument();
+		// Ensure the form's component container is not null before adding the print document to it
+		IContainer componentContainer = components ?? throw new InvalidOperationException("The form component container was not initialized.");
+		// Add the print document to the component container for proper disposal
+		componentContainer.Add(component: printDoc);
+		// Subscribe to the PrintPage and BeginPrint events of the print document
 		printDoc.PrintPage += PrintDoc_PrintPage;
 		printDoc.BeginPrint += PrintDoc_BeginPrint;
-		// Ensure the print document is disposed when the form is closed
-		FormClosed += (s, e) => printDoc?.Dispose();
 	}
 
 	#endregion
@@ -78,12 +82,15 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 	/// <summary>Sets the database of orbital elements.</summary>
 	/// <param name="db">The list of orbital elements.</param>
 	/// <remarks>This method sets the database of orbital elements to be used by the form.</remarks>
-	public void SetDatabase(List<string> db) => orbitElements = db;
+	public void SetDatabase(List<string> db)
+	{
+		orbitElements = db;
+	}
 
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>This method is used to provide a custom debugger display string.</remarks>
-	private string GetDebuggerDisplay() => ToString();
+	/// <remarks>This property is used to provide a custom debugger display string.</remarks>
+	private string DebuggerDisplay => ToString();
 
 	/// <summary>Checks or unchecks all items in the orbital elements checklist.</summary>
 	/// <param name="check">If true, all items are checked; if false, all items are unchecked.</param>
@@ -156,7 +163,7 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is called when the print button is clicked.</remarks>
-	private async void ButtonPrintDataSheet_Click(object sender, EventArgs e)
+	private void ButtonPrintDataSheet_Click(object sender, EventArgs e)
 	{
 		// Create a new PrintDialog instance
 		using PrintDialog dialogPrint = new();
@@ -240,7 +247,9 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 	/// <remarks>This method sets the cancelPrinting flag to true, indicating that the printing process should be canceled.</remarks>
 	private void ToolStripButtonCancelPrint_Click(object sender, EventArgs e)
 	{
+		// Log a warning message indicating that the user requested to cancel printing
 		logger.Warn(message: "User requested to cancel printing.");
+		// Set the cancelPrinting flag to true to indicate that the printing process should be canceled
 		cancelPrinting = true;
 	}
 
@@ -248,13 +257,21 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to mark all items in the orbital elements checklist.</remarks>
-	private void ToolStripButtonMarkAll_Click(object sender, EventArgs e) => CheckIt(check: true);
+	private void ToolStripButtonMarkAll_Click(object sender, EventArgs e)
+	{
+		// Mark all items in the checked list box
+		CheckIt(check: true);
+	}
 
 	/// <summary>Handles the click event for the 'Unmark All' button, resetting all items to an unchecked state.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The event data associated with the click event.</param>
 	/// <remarks>This method is used to unmark all items in the orbital elements checklist.</remarks>
-	private void ToolStripButtonUnmarkAll_Click(object sender, EventArgs e) => CheckIt(check: false);
+	private void ToolStripButtonUnmarkAll_Click(object sender, EventArgs e)
+	{
+		// Unmark all items in the checked list box
+		CheckIt(check: false);
+	}
 
 	#endregion
 
@@ -356,7 +373,7 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 			// Update the progress bar based on the last printed index and total items
 			int progress = (int)((double)lastPrintedIndex / checkedListBoxOrbitalElements.Items.Count * 100);
 			progress = Math.Min(100, progress);
-			this.BeginInvoke(method: new Action(() =>
+			_ = BeginInvoke(method: new Action(() =>
 			{
 				toolStripProgressBarPrinting.Value = progress;
 				toolStripProgressBarPrinting.Text = $"{progress}%";

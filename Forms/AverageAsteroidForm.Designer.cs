@@ -35,10 +35,15 @@ partial class AverageAsteroidForm
 	/// <remarks>This method is called by the runtime to release resources used by the form.</remarks>
 	protected override void Dispose(bool disposing)
 	{
-		if (disposing && (components != null))
+		if (disposing)
 		{
-			components.Dispose();
+			_calculationCts?.Cancel();
+			_calculationCts?.Dispose();
+			_calculationCts = null;
+
+			components?.Dispose();
 		}
+
 		base.Dispose(disposing);
 	}
 

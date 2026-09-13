@@ -35,10 +35,15 @@ partial class MoidsOfAllMinorPlanetsForm
 	/// <remarks>This method is called by the runtime to release resources used by the form.</remarks>
 	protected override void Dispose(bool disposing)
 	{
-		if (disposing && (components != null))
+		if (disposing)
 		{
-			components.Dispose();
+			_cancellationTokenSource?.Cancel();
+			_cancellationTokenSource?.Dispose();
+			_cancellationTokenSource = null;
+
+			components?.Dispose();
 		}
+
 		base.Dispose(disposing);
 	}
 

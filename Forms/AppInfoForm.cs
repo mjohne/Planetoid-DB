@@ -22,14 +22,15 @@ using Planetoid_DB.Helpers;
 using Planetoid_DB.Properties;
 
 using System.Diagnostics;
+using System.Globalization;
 
 namespace Planetoid_DB;
 
 /// <summary>A form that displays application information.</summary>
 /// <remarks>This form is used to present information about the application, such as its version, description, and copyright details.</remarks>
-// You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
-[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-public partial class AppInfoForm : BaseKryptonForm
+// You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
+[DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
+internal partial class AppInfoForm : BaseKryptonForm
 {
 	/// <summary>NLog logger instance.</summary>
 	/// <remarks>This logger is used to log messages and errors for the class.</remarks>
@@ -43,9 +44,11 @@ public partial class AppInfoForm : BaseKryptonForm
 
 	/// <summary>Initializes a new instance of the <see cref="AppInfoForm"/> class.</summary>
 	/// <remarks>This constructor initializes the form components.</remarks>
-	public AppInfoForm() =>
+	public AppInfoForm()
+	{
 		// Initialize the form components
 		InitializeComponent();
+	}
 
 	#endregion
 
@@ -53,8 +56,8 @@ public partial class AppInfoForm : BaseKryptonForm
 
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>This method is used to provide a visual representation of the object in the debugger.</remarks>
-	private string GetDebuggerDisplay() => ToString();
+	/// <remarks>This property is used to provide a visual representation of the object in the debugger.</remarks>
+	private string DebuggerDisplay => ToString();
 
 	/// <summary>Applies a pixelation animation effect to the image displayed in the specified <see cref="KryptonPictureBox"/> asynchronously.</summary>
 	/// <remarks>
@@ -114,7 +117,8 @@ public partial class AppInfoForm : BaseKryptonForm
 
 							// Return the generated pixelated frame; the caller will assign and manage its lifetime.
 							return frame;
-						});
+						})
+						.ConfigureAwait(continueOnCapturedContext: true);
 					// Store the previously assigned temporary pixelated bitmap so it can be safely disposed
 					// after the PictureBox has been updated to use the new image.
 					Bitmap? oldPixelated = previousPixelated;
@@ -126,11 +130,11 @@ public partial class AppInfoForm : BaseKryptonForm
 					// ensuring that the PictureBox no longer references it.
 					oldPixelated?.Dispose();
 					// Wait briefly to create an animation effect before the next iteration
-					await Task.Delay(millisecondsDelay: 5);
+					await Task.Delay(millisecondsDelay: 5).ConfigureAwait(continueOnCapturedContext: true);
 				}
 			}
 			// Wait briefly before starting the zoom-out effect
-			await Task.Delay(millisecondsDelay: 20);
+			await Task.Delay(millisecondsDelay: 20).ConfigureAwait(continueOnCapturedContext: true);
 			// Before starting the zoom-out effect, track any temporary bitmap currently assigned
 			// to the PictureBox image that is not the original image so it can be disposed safely
 			// after a new image has been assigned.
@@ -186,7 +190,8 @@ public partial class AppInfoForm : BaseKryptonForm
 							// Ensure the smaller bitmap is disposed to free GDI resources, even if an exception occurs during processing.
 							small.Dispose();
 						}
-					});
+					})
+					.ConfigureAwait(continueOnCapturedContext: true);
 				// Update the PictureBox image to the pixelated version on the UI thread.
 				pictureBox.Image = pixelated;
 				// Dispose the previously used pixelated bitmap, if any, now that it is no longer referenced by the PictureBox.
@@ -194,7 +199,7 @@ public partial class AppInfoForm : BaseKryptonForm
 				previousPixelated = null;
 				previousPixelated = pixelated;
 				// Wait briefly to create an animation effect before the next iteration
-				await Task.Delay(millisecondsDelay: 5);
+				await Task.Delay(millisecondsDelay: 5).ConfigureAwait(continueOnCapturedContext: true);
 			}
 		}
 		catch (Exception ex)
@@ -223,7 +228,7 @@ public partial class AppInfoForm : BaseKryptonForm
 	private void AppInfoForm_Load(object sender, EventArgs e)
 	{
 		kryptonLabelTitle.Text = AssemblyInfo.AssemblyProduct;
-		kryptonLabelVersion.Text = string.Format(format: I18nStrings.VersionTemplate, arg0: AssemblyInfo.AssemblyVersion);
+		kryptonLabelVersion.Text = string.Format(format: I18nStrings.VersionTemplate, arg0: AssemblyInfo.AssemblyVersion, provider: CultureInfo.CurrentCulture);
 		kryptonLabelCompany.Text = $"Company: {AssemblyInfo.AssemblyCompany}";
 		kryptonLabelAuthor.Text = "Author: Michael Johne";
 		kryptonLabelDescription.Text = AssemblyInfo.AssemblyDescription;
@@ -321,7 +326,7 @@ public partial class AppInfoForm : BaseKryptonForm
 			using Process process = new();
 			process.StartInfo = new ProcessStartInfo(fileName: "mailto:info@planetoid-db.de") { UseShellExecute = true };
 			// Start the process asynchronously
-			_ = await Task.Run(function: process.Start);
+			_ = await Task.Run(function: process.Start).ConfigureAwait(continueOnCapturedContext: true);
 		}
 		catch (Exception ex)
 		{
@@ -347,7 +352,7 @@ public partial class AppInfoForm : BaseKryptonForm
 
 		try
 		{
-			await ApplyZoomAndPixelateAsync(pictureBox: pictureBoxBanner);
+			await ApplyZoomAndPixelateAsync(pictureBox: pictureBoxBanner).ConfigureAwait(continueOnCapturedContext: true);
 		}
 		catch (Exception ex)
 		{

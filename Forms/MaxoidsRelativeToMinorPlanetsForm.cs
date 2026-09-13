@@ -25,9 +25,9 @@ namespace Planetoid_DB;
 
 /// <summary>Form for calculating the Maximum Orbit Intersection Distance (MAXOID) between two minor planets selected by the user from the loaded MPCORB database.</summary>
 /// <remarks>The form presents two combo boxes populated with all planetoid designations from the loaded database. A random-selection button next to each combo box picks a random entry. The MAXOID between the two selected planetoids is computed using the same double-grid search algorithm as <see cref="MaxoidCalculator"/> and displayed in a label below the combo boxes. The calculation is triggered automatically whenever the selection in either combo box changes.</remarks>
-// You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
-[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-public partial class MaxoidsRelativeToMinorPlanetsForm : BaseKryptonForm
+// You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
+[DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
+internal partial class MaxoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 {
 	/// <summary>NLog logger instance.</summary>
 	/// <remarks>This logger is used throughout the form to log important events and errors.</remarks>
@@ -71,8 +71,8 @@ public partial class MaxoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>This method is used to provide a visual representation of the object in the debugger.</remarks>
-	private string GetDebuggerDisplay() => ToString();
+	/// <remarks>This property is used to provide a visual representation of the object in the debugger.</remarks>
+	private string DebuggerDisplay => ToString();
 
 	/// <summary>Extracts the readable designation string from a single MPCORB record line.</summary>
 	/// <param name="line">The raw MPCORB record string.</param>
@@ -84,6 +84,7 @@ public partial class MaxoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 		if (line.Length < 7)
 		{
 			logger.Warn(message: $"Line too short to extract designation: '{line}'");
+			ShowErrorMessage(message: $"Line too short to extract designation: '{line}'");
 			return null;
 		}
 		// Prefer the full readable designation (positions 166-193)
@@ -130,30 +131,35 @@ public partial class MaxoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 		if (!double.TryParse(s: line.Substring(startIndex: 92, length: 11).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out semiMajorAxis) || semiMajorAxis <= 0)
 		{
 			logger.Warn(message: $"Failed to parse semi-major axis: '{line.Substring(startIndex: 92, length: 11).Trim()}'");
+			ShowErrorMessage(message: $"Failed to parse semi-major axis: '{line.Substring(startIndex: 92, length: 11).Trim()}'");
 			return false;
 		}
 		// Eccentricity: positions 70-78
 		if (!double.TryParse(s: line.Substring(startIndex: 70, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out eccentricity))
 		{
 			logger.Warn(message: $"Failed to parse eccentricity: '{line.Substring(startIndex: 70, length: 9).Trim()}'");
+			ShowErrorMessage(message: $"Failed to parse eccentricity: '{line.Substring(startIndex: 70, length: 9).Trim()}'");
 			return false;
 		}
 		// Inclination: positions 59-67
 		if (!double.TryParse(s: line.Substring(startIndex: 59, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out inclinationDeg))
 		{
 			logger.Warn(message: $"Failed to parse inclination: '{line.Substring(startIndex: 59, length: 9).Trim()}'");
+			ShowErrorMessage(message: $"Failed to parse inclination: '{line.Substring(startIndex: 59, length: 9).Trim()}'");
 			return false;
 		}
 		// Longitude of ascending node: positions 48-56
 		if (!double.TryParse(s: line.Substring(startIndex: 48, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out longitudeAscendingNodeDeg))
 		{
 			logger.Warn(message: $"Failed to parse longitude of ascending node: '{line.Substring(startIndex: 48, length: 9).Trim()}'");
+			ShowErrorMessage(message: $"Failed to parse longitude of ascending node: '{line.Substring(startIndex: 48, length: 9).Trim()}'");
 			return false;
 		}
 		// Argument of perihelion: positions 37-45
 		if (!double.TryParse(s: line.Substring(startIndex: 37, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out argumentPerihelionDeg))
 		{
 			logger.Warn(message: $"Failed to parse argument of perihelion: '{line.Substring(startIndex: 37, length: 9).Trim()}'");
+			ShowErrorMessage(message: $"Failed to parse argument of perihelion: '{line.Substring(startIndex: 37, length: 9).Trim()}'");
 			return false;
 		}
 		return true;
@@ -230,12 +236,13 @@ public partial class MaxoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 				semiMajorAxis2: sma2, eccentricity2: e2, inclinationDeg2: i2,
 				longitudeAscendingNodeDeg2: omega2, argumentPerihelionDeg2: w2);
 			// Display the MAXOID in AU formatted to 8 decimal places
-			kryptonLabelMaxoidValue.Text = maxoid.ToString();
+			kryptonLabelMaxoidValue.Text = maxoid.ToString(provider: CultureInfo.InvariantCulture);
 		}
 		catch (Exception ex)
 		{
-			logger.Error(exception: ex, message: $"Error calculating MAXOID between '{name1}' and '{name2}': {ex}");
 			kryptonLabelMaxoidValue.Text = "-";
+			logger.Error(exception: ex, message: $"Error calculating MAXOID between '{name1}' and '{name2}': {ex}");
+			ShowErrorMessage(message: $"Error calculating MAXOID between '{name1}' and '{name2}': {ex.Message}");
 		}
 	}
 
@@ -244,11 +251,14 @@ public partial class MaxoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>The combo box items are replaced with all names that contain the current text (case-insensitive). The cursor is repositioned at the end of the typed text after the update.</remarks>
 	private void ApplyContainsFilter(ComboBox comboBox)
 	{
+		// Prevent re-entrant updates when the combo box is being modified programmatically
 		if (_updatingComboBox)
 		{
 			return;
 		}
+		// Set the guard flag to indicate that a programmatic update is in progress
 		_updatingComboBox = true;
+		// Use a try-finally block to ensure the guard flag is reset even if an exception occurs
 		try
 		{
 			string text = comboBox.Text;
@@ -263,9 +273,11 @@ public partial class MaxoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 			comboBox.SelectionStart = text.Length;
 			comboBox.SelectionLength = 0;
 		}
+		// Catch any exceptions that occur during filtering and log them
 		catch (Exception ex)
 		{
 			logger.Error(exception: ex, message: $"Error applying filter to combo box: {ex}");
+			ShowErrorMessage(message: $"Error applying filter to combo box: {ex.Message}");
 		}
 		finally
 		{
@@ -312,11 +324,18 @@ public partial class MaxoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 	/// <param name="sender">Event source (one of the two combo boxes).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is triggered when the user changes the selection in either combo box. It calls the method to calculate and display the MAXOID based on the current selections.</remarks>
-	private void ComboBoxPlanetoid_SelectionChangeCommitted(object sender, EventArgs e) => CalculateAndDisplayMaxoid();
+	private void ComboBoxPlanetoid_SelectionChangeCommitted(object sender, EventArgs e)
+	{
+		ArgumentNullException.ThrowIfNull(argument: e);
+		CalculateAndDisplayMaxoid();
+	}
 
 	/// <summary>Refreshes the displayed MAXOID state after either combo box text changes.</summary>
 	/// <remarks>This ensures that manual typing or pasting updates the displayed result consistently: a valid pair is recalculated, while any invalid text clears a previously displayed stale MAXOID via <see cref="CalculateAndDisplayMaxoid"/>.</remarks>
-	private void RecalculateMaxoidIfBothPlanetoidsAreValid() => CalculateAndDisplayMaxoid();
+	private void RecalculateMaxoidIfBothPlanetoidsAreValid()
+	{
+		CalculateAndDisplayMaxoid();
+	}
 
 	/// <summary>Handles the TextChanged event for the first combo box. Applies a contains-based filter to the first combo box items.</summary>
 	/// <param name="sender">Event source (the first combo box).</param>
@@ -324,14 +343,19 @@ public partial class MaxoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>This method is triggered whenever the text in the first combo box changes. It applies a filter to the items in the combo box so that only names containing the current text (case-insensitive) are shown. The cursor is repositioned at the end of the typed text after the update. If both combo boxes contain valid designations after filtering, the MAXOID is recalculated.</remarks>
 	private void ComboBoxPlanetoid1_TextChanged(object sender, EventArgs e)
 	{
+		// Guard against re-entrant updates when the combo box is being modified programmatically
 		try
 		{
+			// Apply a contains-based filter to the first combo box items
 			ApplyContainsFilter(comboBox: comboBoxPlanetoid1);
+			// Recalculate the MAXOID if both planetoids are valid after filtering
 			RecalculateMaxoidIfBothPlanetoidsAreValid();
 		}
+		// Catch any exceptions that occur during filtering or recalculation and log them
 		catch (Exception ex)
 		{
 			logger.Error(exception: ex, message: $"Error handling TextChanged event for ComboBoxPlanetoid1: {ex}");
+			ShowErrorMessage(message: $"Error handling TextChanged event for ComboBoxPlanetoid1: {ex.Message}");
 		}
 	}
 
@@ -349,6 +373,7 @@ public partial class MaxoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 		catch (Exception ex)
 		{
 			logger.Error(exception: ex, message: $"Error handling TextChanged event for ComboBoxPlanetoid2: {ex}");
+			ShowErrorMessage(message: $"Error handling TextChanged event for ComboBoxPlanetoid2: {ex.Message}");
 		}
 	}
 

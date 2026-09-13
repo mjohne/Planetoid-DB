@@ -27,9 +27,9 @@ namespace Planetoid_DB;
 
 /// <summary>Represents the form for displaying planetoids data in table mode.</summary>
 /// <remarks>This form provides a user interface for viewing and managing planetoids data in a tabular format.</remarks>
-// You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
-[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-public partial class TableModeForm : BaseKryptonForm
+// You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
+[DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
+internal partial class TableModeForm : BaseKryptonForm
 {
 	#region Export override properties
 
@@ -91,6 +91,7 @@ public partial class TableModeForm : BaseKryptonForm
 	/// <remarks>This constructor initializes the form components.</remarks>
 	public TableModeForm()
 	{
+		logger.Info(message: "Initializing TableModeForm.");
 		// Initialize the form components
 		InitializeComponent();
 		// Enable virtual mode for the ListView
@@ -106,13 +107,14 @@ public partial class TableModeForm : BaseKryptonForm
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
 	/// <remarks>This method is called to obtain a string representation of the current instance.</remarks>
-	private string GetDebuggerDisplay() => ToString();
+	private string DebuggerDisplay => ToString();
 
 	/// <summary>Fills the internal planetoids database from the provided list.</summary>
 	/// <param name="arrTemp">A list containing planetoid records as strings. Each entry is appended to the internal database.</param>
 	/// <remarks>The method stores the elements of <paramref name="arrTemp"/> in the internal <see cref="planetoidsDatabase"/> list. The caller is responsible for providing data in the expected string format.</remarks>
 	public void FillArray(List<string> arrTemp)
 	{
+		logger.Info(message: "Filling the internal planetoids database with {Count} records.", argument: arrTemp.Count);
 		// Fill the internal planetoids database
 		planetoidsDatabase = [.. arrTemp];
 		// Update the UI controls if the form handle is created
@@ -167,30 +169,34 @@ public partial class TableModeForm : BaseKryptonForm
 	/// <param name="columnIndex">The index of the column to retrieve.</param>
 	/// <returns>The value of the specified column as a string.</returns>
 	/// <remarks>This method uses pattern matching to return the value of the specified column. The order MUST exactly match your column order in the ListView!</remarks>
-	private static string GetValueByColumn(PlanetoidRecord p, int columnIndex) => columnIndex switch
+	private static string GetValueByColumn(PlanetoidRecord p, int columnIndex)
 	{
-		0 => p.Index,
-		1 => p.DesignationName,
-		2 => p.Epoch,
-		3 => p.MeanAnomaly,
-		4 => p.ArgPeri,
-		5 => p.LongAscNode,
-		6 => p.Incl,
-		7 => p.OrbEcc,
-		8 => p.Motion,
-		9 => p.SemiMajorAxis,
-		10 => p.MagAbs,
-		11 => p.SlopeParam,
-		12 => p.Ref,
-		13 => p.NumberOpposition,
-		14 => p.NumberObservation,
-		15 => p.ObsSpan,
-		16 => p.RmsResidual,
-		17 => p.ComputerName,
-		18 => p.Flags,
-		19 => p.ObservationLastDate,
-		_ => string.Empty
-	};
+		// The order of the cases must match the order of the columns in the ListView.
+		return columnIndex switch
+		{
+			0 => p.Index,
+			1 => p.DesignationName,
+			2 => p.Epoch,
+			3 => p.MeanAnomaly,
+			4 => p.ArgPeri,
+			5 => p.LongAscNode,
+			6 => p.Incl,
+			7 => p.OrbEcc,
+			8 => p.Motion,
+			9 => p.SemiMajorAxis,
+			10 => p.MagAbs,
+			11 => p.SlopeParam,
+			12 => p.Ref,
+			13 => p.NumberOpposition,
+			14 => p.NumberObservation,
+			15 => p.ObsSpan,
+			16 => p.RmsResidual,
+			17 => p.ComputerName,
+			18 => p.Flags,
+			19 => p.ObservationLastDate,
+			_ => string.Empty
+		};
+	}
 
 	/// <summary>Sorts the display cache based on the specified column and sort order.</summary>
 	/// <param name="columnIndex">The index of the column to sort by.</param>
@@ -291,6 +297,7 @@ public partial class TableModeForm : BaseKryptonForm
 	/// <remarks>This method is called when the form is loaded.</remarks>
 	private void TableModeForm_Load(object sender, EventArgs e)
 	{
+		logger.Info(message: "Loading TableModeForm.");
 		// Clear the status bar text
 		ClearStatusBar(label: labelInformation);
 		// Disable the status bar, the list view and the cancel button
@@ -310,9 +317,12 @@ public partial class TableModeForm : BaseKryptonForm
 	/// <param name="sender">Event source (the form).</param>
 	/// <param name="e">The <see cref="FormClosingEventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is called when the form begins closing, allowing pending asynchronous work to be cancelled before UI controls are disposed.</remarks>
-	private void TableModeForm_FormClosing(object sender, FormClosingEventArgs e) =>
+	private void TableModeForm_FormClosing(object sender, FormClosingEventArgs e)
+	{
+		logger.Info(message: "Closing TableModeForm. Requesting cancellation of any ongoing operations.");
 		// Request cancellation of any ongoing operations while the UI is still alive
 		cancellationTokenSource?.Cancel();
+	}
 
 	/// <summary>Handles the form Closed event. Cleans up resources and cancels any ongoing operations.</summary>
 	/// <param name="sender">Event source (the form).</param>
@@ -394,6 +404,7 @@ public partial class TableModeForm : BaseKryptonForm
 	/// <remarks>This method is called when the List button is clicked.</remarks>
 	private async void ToolStripButtonList_ClickAsync(object sender, EventArgs e)
 	{
+		logger.Info(message: "List button clicked. Starting background processing of planetoid records.");
 		// Determine the range to process
 		int minIndex = (int)toolStripNumericUpDownMinimum.Value - 1;
 		int maxIndex = (int)toolStripNumericUpDownMaximum.Value;
@@ -458,7 +469,7 @@ public partial class TableModeForm : BaseKryptonForm
 					}
 				}
 				return tempResults;
-			}, cancellationToken: token);
+			}, cancellationToken: token).ConfigureAwait(continueOnCapturedContext: false);
 			// If not cancelled, update the UI with the parsed data
 			if (!token.IsCancellationRequested)
 			{
@@ -507,6 +518,7 @@ public partial class TableModeForm : BaseKryptonForm
 	/// <remarks>This method is called when a column header is clicked.</remarks>
 	private void ListView_ColumnClick(object? sender, ColumnClickEventArgs e)
 	{
+		logger.Info(message: "Column {ColumnIndex} clicked for sorting.", argument: e.Column);
 		// If empty list, do nothing
 		if (displayCache.Count == 0)
 		{
@@ -565,6 +577,7 @@ public partial class TableModeForm : BaseKryptonForm
 	/// <remarks>This method is called when the Cancel button is clicked.</remarks>
 	private void ButtonCancel_Click(object? sender, EventArgs? e)
 	{
+		logger.Info(message: "Cancel button clicked. Requesting cancellation of any ongoing operations.");
 		// Stop the stopwatch for performance measurement
 		stopwatch.Stop();
 		// Set the cancel flag to true to request cancellation
@@ -579,7 +592,11 @@ public partial class TableModeForm : BaseKryptonForm
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
 	/// <remarks>When an item in the list is double-clicked, the corresponding planetoid is displayed in the <see cref="PlanetoidDbForm"/> without closing this form.</remarks>
-	private void ListView_DoubleClick(object? sender, EventArgs e) => GoToObject(closeAfterNavigation: false);
+	private void ListView_DoubleClick(object? sender, EventArgs e)
+	{
+		logger.Info(message: "ListView item double-clicked. Navigating to the selected planetoid.");
+		GoToObject(closeAfterNavigation: false);
+	}
 
 	#endregion
 
@@ -589,13 +606,18 @@ public partial class TableModeForm : BaseKryptonForm
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
 	/// <remarks>When clicked, the corresponding planetoid is displayed in the <see cref="PlanetoidDbForm"/> and this form is closed.</remarks>
-	private void ToolStripButtonGoToObject_Click(object? sender, EventArgs e) => GoToObject(closeAfterNavigation: true);
+	private void ToolStripButtonGoToObject_Click(object? sender, EventArgs e)
+	{
+		logger.Info(message: "'Go to object' toolbar button clicked. Navigating to the selected planetoid.");
+		GoToObject(closeAfterNavigation: true);
+	}
 
 	/// <summary>Navigates to the currently selected planetoid in the <see cref="PlanetoidDbForm"/>.</summary>
 	/// <param name="closeAfterNavigation">If <see langword="true"/>, this form is closed after navigation.</param>
 	/// <remarks>Does nothing when no item is selected or the display cache is empty.</remarks>
 	private void GoToObject(bool closeAfterNavigation)
 	{
+		logger.Info(message: "GoToObject called with closeAfterNavigation={CloseAfterNavigation}.", argument: closeAfterNavigation);
 		// If no item is selected or the display cache is empty, do nothing
 		if (listView.SelectedIndices.Count == 0)
 		{
