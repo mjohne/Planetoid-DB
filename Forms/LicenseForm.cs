@@ -127,7 +127,7 @@ internal partial class LicenseForm : BaseKryptonForm
 		// Extract the LICENSE file from the embedded resources and copy it to the selected file location
 		try
 		{
-			await ExtractResourceAsync(nameSpace: resourceRootNamespace, destinationPath: saveFileDialog.FileName, resourceName: licenseResourceName).ConfigureAwait(continueOnCapturedContext: false);
+			await ExtractResourceAsync(nameSpace: resourceRootNamespace, destinationPath: saveFileDialog.FileName, resourceName: licenseResourceName).ConfigureAwait(continueOnCapturedContext: true);
 			logger.Info(message: "License saved successfully.");
 			_ = KryptonMessageBox.Show(owner: this, text: "License saved successfully.", caption: "Success", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 		}
