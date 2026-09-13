@@ -425,7 +425,7 @@ internal partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 				}
 				// Log the completion of the search with the total number of resonances found; this provides feedback in the logs about the outcome of the search
 				logger.Info(message: $"Orbital resonance search completed. Total resonances found: {localResults.Count}");
-			}, cancellationToken: token).ConfigureAwait(continueOnCapturedContext: false);
+			}, cancellationToken: token).ConfigureAwait(continueOnCapturedContext: true);
 		}
 		// Catch the OperationCanceledException to handle user cancellation gracefully; log the cancellation event and update the status label to inform the user that the search was cancelled
 		catch (OperationCanceledException ex)
