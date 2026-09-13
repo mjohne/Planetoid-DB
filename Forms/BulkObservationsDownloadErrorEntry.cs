@@ -24,7 +24,7 @@ namespace Planetoid_DB.Forms;
 /// <param name="ErrorDescription">Detailed error explanation.</param>
 /// <returns>A string representation of the current object for debugging purposes.</returns>
 /// <remarks>Instances of this record are immutable and intended for display purposes only.</remarks>
-[DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}") ]
+[DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}") ]
 internal sealed record BulkObservationsDownloadErrorEntry(DateTime Timestamp, string Url, string ErrorType, string ErrorDescription)
 {
 	/// <summary>Returns a string representation of the current object for debugging purposes.</summary>

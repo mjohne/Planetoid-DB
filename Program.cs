@@ -76,7 +76,7 @@ internal static class Program
 	/// <param name="fEnable">Specifies whether the feature should be enabled or disabled.</param>
 	/// <returns>An HRESULT value indicating success or failure.</returns>
 	/// <remarks>This method sets the specified feature for the current process.</remarks>
-	[DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
+	[DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
 	[DllImport(dllName: "urlmon.dll")]
 	[PreserveSig]
 	[return: MarshalAs(unmanagedType: UnmanagedType.Error)]

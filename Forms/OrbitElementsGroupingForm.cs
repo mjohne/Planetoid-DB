@@ -362,7 +362,7 @@ internal partial class OrbitElementsGroupingForm : BaseKryptonForm
 			{
 				toolStripButtonStart.Enabled = true;
 				toolStripButtonCancel.Enabled = false;
-			}, cancellationToken: CancellationToken.None).ConfigureAwait(continueOnCapturedContext: false);
+			}, cancellationToken: CancellationToken.None).ConfigureAwait(continueOnCapturedContext: false);
 		}
 	}
 

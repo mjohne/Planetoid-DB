@@ -330,7 +330,7 @@ internal partial class AsteroidFamiliesForm : BaseKryptonForm
 			{
 				toolStripButtonStartSearch.Enabled = true;
 				toolStripButtonCancel.Enabled = false;
-			}, cancellationToken: CancellationToken.None).ConfigureAwait(continueOnCapturedContext: false);
+			}, cancellationToken: CancellationToken.None).ConfigureAwait(continueOnCapturedContext: false);
 		}
 	}
 

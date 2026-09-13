@@ -500,7 +500,7 @@ internal partial class RecordsTop10Form : BaseKryptonForm
 		try
 		{
 			logger.Info(message: "Starting top-ten scan asynchronously.");
-			await ScanTopRecordsAsync(selectedElementIndex: listBox.SelectedIndex, isAscending: isAscending, token: cancellationTokenSource.Token, progress: progress).ConfigureAwait(continueOnCapturedContext: true);
+			await ScanTopRecordsAsync(selectedElementIndex: listBox.SelectedIndex, isAscending: isAscending, token: cancellationTokenSource.Token, progress: progress).ConfigureAwait(continueOnCapturedContext: true);
 			kryptonProgressBar.Text = "100 %";
 		}
 		// Catch the OperationCanceledException to handle the case when the scan is cancelled by the user. We update the progress bar text to indicate that the scan was cancelled, providing feedback to the user that their cancellation request was acknowledged and processed.

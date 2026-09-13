@@ -336,7 +336,7 @@ internal partial class FilterForm : BaseKryptonForm
 			try
 			{
 				// This may take a while for large databases, so run it in a background task to keep the UI responsive
-				await Task.Run(action: ComputeMinMaxFromDatabase).ConfigureAwait(continueOnCapturedContext: true);
+				await Task.Run(action: ComputeMinMaxFromDatabase).ConfigureAwait(continueOnCapturedContext: true);
 				ResetAllElements();
 			}
 			// Catch any exceptions that occur during the computation and log them, then show an error message to the user
