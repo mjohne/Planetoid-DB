@@ -39,11 +39,12 @@ partial class PlanetoidDbForm
 	/// <remarks>This method is called by the runtime to release resources used by the form.</remarks>
 	protected override void Dispose(bool disposing)
 	{
-	  if (disposing && (components != null))
-	  {
-		components.Dispose();
-	  }
-	  base.Dispose(disposing);
+		if (disposing)
+		{
+			formSplashScreen.Dispose();
+			components?.Dispose();
+		}
+		base.Dispose(disposing);
 	}
 
 	#region Windows Form Designer generated code
@@ -60,10 +61,10 @@ partial class PlanetoidDbForm
 		toolStripMenuItemNavigateStep1000 = new ToolStripMenuItem();
 		toolStripMenuItemNavigateStep10000 = new ToolStripMenuItem();
 		toolStripMenuItemNavigateStep100000 = new ToolStripMenuItem();
-		toolStripMenuItemNavigateSomeDataBackward = new ToolStripMenuItem();
-		toolStripMenuItemNavigateSomeDataForward = new ToolStripMenuItem();
 		toolStripSplitButtonStepForward = new ToolStripSplitButton();
 		toolStripSplitButtonStepBackward = new ToolStripSplitButton();
+		toolStripMenuItemNavigateSomeDataBackward = new ToolStripMenuItem();
+		toolStripMenuItemNavigateSomeDataForward = new ToolStripMenuItem();
 		toolStripSplitButtonHistoryBack = new ToolStripSplitButton();
 		toolStripSplitButtonHistoryForward = new ToolStripSplitButton();
 		toolStripSeparatorHistory = new ToolStripSeparator();
@@ -578,7 +579,7 @@ partial class PlanetoidDbForm
 		contextMenuNavigationStep.Font = new Font("Segoe UI", 9F);
 		contextMenuNavigationStep.Items.AddRange(new ToolStripItem[] { toolStripMenuItemNavigateStep10, toolStripMenuItemNavigateStep100, toolStripMenuItemNavigateStep1000, toolStripMenuItemNavigateStep10000, toolStripMenuItemNavigateStep100000 });
 		contextMenuNavigationStep.Name = "contextMenu";
-		contextMenuNavigationStep.OwnerItem = toolStripSplitButtonStepBackward;
+		contextMenuNavigationStep.OwnerItem = toolStripMenuItemNavigateSomeDataForward;
 		contextMenuNavigationStep.ShowCheckMargin = true;
 		contextMenuNavigationStep.ShowImageMargin = false;
 		contextMenuNavigationStep.Size = new Size(111, 114);
@@ -661,38 +662,6 @@ partial class PlanetoidDbForm
 		toolStripMenuItemNavigateStep100000.MouseEnter += (this.Control_Enter);
 		toolStripMenuItemNavigateStep100000.MouseLeave += (this.Control_Leave);
 		// 
-		// toolStripMenuItemNavigateSomeDataBackward
-		// 
-		toolStripMenuItemNavigateSomeDataBackward.AccessibleDescription = "Navigates some data backward";
-		toolStripMenuItemNavigateSomeDataBackward.AccessibleName = "Navigates some data backward";
-		toolStripMenuItemNavigateSomeDataBackward.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemNavigateSomeDataBackward.AutoToolTip = true;
-		toolStripMenuItemNavigateSomeDataBackward.DropDown = contextMenuNavigationStep;
-		toolStripMenuItemNavigateSomeDataBackward.Image = FatcowIcons16px.fatcow_control_rewind_blue_16px;
-		toolStripMenuItemNavigateSomeDataBackward.Name = "toolStripMenuItemNavigateSomeDataBackward";
-		toolStripMenuItemNavigateSomeDataBackward.ShortcutKeys = (Keys)(Keys.Control) | (Keys.D2);
-		toolStripMenuItemNavigateSomeDataBackward.Size = new Size(275, 22);
-		toolStripMenuItemNavigateSomeDataBackward.Text = "Navigate some data back&ward";
-		toolStripMenuItemNavigateSomeDataBackward.Click += (this.NavigateSomeDataBackward_Click);
-		toolStripMenuItemNavigateSomeDataBackward.MouseEnter += (this.Control_Enter);
-		toolStripMenuItemNavigateSomeDataBackward.MouseLeave += (this.Control_Leave);
-		// 
-		// toolStripMenuItemNavigateSomeDataForward
-		// 
-		toolStripMenuItemNavigateSomeDataForward.AccessibleDescription = "Navigates some data forward";
-		toolStripMenuItemNavigateSomeDataForward.AccessibleName = "Navigates some data forward";
-		toolStripMenuItemNavigateSomeDataForward.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemNavigateSomeDataForward.AutoToolTip = true;
-		toolStripMenuItemNavigateSomeDataForward.DropDown = contextMenuNavigationStep;
-		toolStripMenuItemNavigateSomeDataForward.Image = FatcowIcons16px.fatcow_control_fastforward_blue_16px;
-		toolStripMenuItemNavigateSomeDataForward.Name = "toolStripMenuItemNavigateSomeDataForward";
-		toolStripMenuItemNavigateSomeDataForward.ShortcutKeys = (Keys)(Keys.Control) | (Keys.D5);
-		toolStripMenuItemNavigateSomeDataForward.Size = new Size(275, 22);
-		toolStripMenuItemNavigateSomeDataForward.Text = "Navigate some data &forward";
-		toolStripMenuItemNavigateSomeDataForward.Click += (this.NavigateSomeDataForward_Click);
-		toolStripMenuItemNavigateSomeDataForward.MouseEnter += (this.Control_Enter);
-		toolStripMenuItemNavigateSomeDataForward.MouseLeave += (this.Control_Leave);
-		// 
 		// toolStripSplitButtonStepForward
 		// 
 		toolStripSplitButtonStepForward.AccessibleDescription = "Navigates some data forward";
@@ -724,6 +693,38 @@ partial class PlanetoidDbForm
 		toolStripSplitButtonStepBackward.ButtonClick += (this.NavigateSomeDataBackward_Click);
 		toolStripSplitButtonStepBackward.MouseEnter += (this.Control_Enter);
 		toolStripSplitButtonStepBackward.MouseLeave += (this.Control_Leave);
+		// 
+		// toolStripMenuItemNavigateSomeDataBackward
+		// 
+		toolStripMenuItemNavigateSomeDataBackward.AccessibleDescription = "Navigates some data backward";
+		toolStripMenuItemNavigateSomeDataBackward.AccessibleName = "Navigates some data backward";
+		toolStripMenuItemNavigateSomeDataBackward.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemNavigateSomeDataBackward.AutoToolTip = true;
+		toolStripMenuItemNavigateSomeDataBackward.DropDown = contextMenuNavigationStep;
+		toolStripMenuItemNavigateSomeDataBackward.Image = FatcowIcons16px.fatcow_control_rewind_blue_16px;
+		toolStripMenuItemNavigateSomeDataBackward.Name = "toolStripMenuItemNavigateSomeDataBackward";
+		toolStripMenuItemNavigateSomeDataBackward.ShortcutKeys = (Keys)(Keys.Control) | (Keys.D2);
+		toolStripMenuItemNavigateSomeDataBackward.Size = new Size(275, 22);
+		toolStripMenuItemNavigateSomeDataBackward.Text = "Navigate some data back&ward";
+		toolStripMenuItemNavigateSomeDataBackward.Click += (this.NavigateSomeDataBackward_Click);
+		toolStripMenuItemNavigateSomeDataBackward.MouseEnter += (this.Control_Enter);
+		toolStripMenuItemNavigateSomeDataBackward.MouseLeave += (this.Control_Leave);
+		// 
+		// toolStripMenuItemNavigateSomeDataForward
+		// 
+		toolStripMenuItemNavigateSomeDataForward.AccessibleDescription = "Navigates some data forward";
+		toolStripMenuItemNavigateSomeDataForward.AccessibleName = "Navigates some data forward";
+		toolStripMenuItemNavigateSomeDataForward.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemNavigateSomeDataForward.AutoToolTip = true;
+		toolStripMenuItemNavigateSomeDataForward.DropDown = contextMenuNavigationStep;
+		toolStripMenuItemNavigateSomeDataForward.Image = FatcowIcons16px.fatcow_control_fastforward_blue_16px;
+		toolStripMenuItemNavigateSomeDataForward.Name = "toolStripMenuItemNavigateSomeDataForward";
+		toolStripMenuItemNavigateSomeDataForward.ShortcutKeys = (Keys)(Keys.Control) | (Keys.D5);
+		toolStripMenuItemNavigateSomeDataForward.Size = new Size(275, 22);
+		toolStripMenuItemNavigateSomeDataForward.Text = "Navigate some data &forward";
+		toolStripMenuItemNavigateSomeDataForward.Click += (this.NavigateSomeDataForward_Click);
+		toolStripMenuItemNavigateSomeDataForward.MouseEnter += (this.Control_Enter);
+		toolStripMenuItemNavigateSomeDataForward.MouseLeave += (this.Control_Leave);
 		// 
 		// toolStripSplitButtonHistoryBack
 		// 

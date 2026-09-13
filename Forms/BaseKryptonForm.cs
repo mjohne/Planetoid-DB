@@ -1,7 +1,7 @@
 /*
  * File:        BaseKryptonForm.cs
  * Project:     Planetoid-DB
- * Namespace:   Planetoid_DB
+ * Namespace:   Planetoid_DB.Forms
  * Description: Base form providing common behaviours for application forms.
  *
  * Author:      Michael Johne
@@ -21,12 +21,13 @@ using Planetoid_DB.Helpers;
 
 using System.Diagnostics;
 
-namespace Planetoid_DB;
+namespace Planetoid_DB.Forms;
 
 /// <summary>Base form providing common behaviours for application forms.</summary>
 /// <remarks>This class serves as a base form for the application, providing common functionality and behaviors that can be shared across derived forms.</remarks>
-// You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
-[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
+// You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
+// You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
+[DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
 public class BaseKryptonForm : KryptonForm
 {
 	/// <summary>NLog logger instance for the class.</summary>
@@ -48,23 +49,27 @@ public class BaseKryptonForm : KryptonForm
 
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation for the debugger.</returns>
-	/// <remarks>This method is used to provide a visual representation of the object in the debugger.</remarks>
-	private string GetDebuggerDisplay() => ToString();
+	/// <remarks>This property is used to provide a visual representation of the object in the debugger.</remarks>
+	private string DebuggerDisplay => ToString();
 
 	/// <summary>Displays an error message.</summary>
 	/// <param name="caption">The caption of the message.</param>
 	/// <param name="message">The error message.</param>
 	/// <remarks>This method is used to display an error message to the user.</remarks>
-	protected static void ShowWarnMessage(string caption, string message) =>
+	protected static void ShowWarnMessage(string caption, string message)
+	{
 		// Show an error message box with the specified message
 		_ = KryptonMessageBox.Show(text: message, caption: caption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Warning);
+	}
 
 	/// <summary>Displays an error message.</summary>
 	/// <param name="message">The error message.</param>
 	/// <remarks>This method is used to display an error message to the user.</remarks>
-	protected static void ShowErrorMessage(string message) =>
+	protected static void ShowErrorMessage(string message)
+	{
 		// Show an error message box with the specified message
 		_ = KryptonMessageBox.Show(text: message, caption: I18nStrings.ErrorCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Error);
+	}
 
 	/// <summary>Copies the specified text to the clipboard and shows a confirmation dialog.</summary>
 	/// <param name="text">The text to copy to the clipboard.</param>
@@ -255,7 +260,7 @@ public class BaseKryptonForm : KryptonForm
 			// Open the website in the default browser
 			using Process process = new();
 			process.StartInfo = new ProcessStartInfo(fileName: fileName) { UseShellExecute = true };
-			process.Start();
+			_ = process.Start();
 		}
 		catch (Exception ex)
 		{
@@ -302,6 +307,8 @@ public class BaseKryptonForm : KryptonForm
 	/// <remarks>The suggested file name is composed of <see cref="ExportFilePrefix"/> and the current timestamp in the format <c>yyyy-MM-dd_HH-mm-ss</c>. Override in derived forms to customise the file naming or dialog behaviour.</remarks>
 	protected virtual bool PrepareSaveDialog(FileDialog dialog, string ext)
 	{
+		ArgumentNullException.ThrowIfNull(argument: dialog);
+		ArgumentException.ThrowIfNullOrWhiteSpace(argument: ext);
 		// Set the initial directory to the user's Documents folder and suggest a default file name with a timestamp
 		dialog.InitialDirectory = Environment.GetFolderPath(folder: Environment.SpecialFolder.MyDocuments);
 		dialog.FileName = $"{ExportFilePrefix}_{DateTime.Now:yyyy-MM-dd_HH-mm-ss}.{ext}";
@@ -326,6 +333,11 @@ public class BaseKryptonForm : KryptonForm
 		Action<TableLayoutPanel, string, string> tableLayoutPanelAction,
 		Action<TextBox, string, string>? textBoxAction = null)
 	{
+		ArgumentNullException.ThrowIfNull(argument: filter);
+		ArgumentNullException.ThrowIfNull(argument: defaultExt);
+		ArgumentNullException.ThrowIfNull(argument: dialogTitle);
+		ArgumentNullException.ThrowIfNull(argument: listViewAction);
+		ArgumentNullException.ThrowIfNull(argument: tableLayoutPanelAction);
 		// Create and configure the save file dialog with the specified filter, default extension, and title
 		using SaveFileDialog saveFileDialog = new()
 		{
@@ -345,15 +357,15 @@ public class BaseKryptonForm : KryptonForm
 			// Dispatch to the appropriate exporter based on the configured export control
 			if (ExportListView is not null)
 			{
-				listViewAction(ExportListView, ExportTitle, saveFileDialog.FileName, ExportVirtualRowProvider);
+				listViewAction(arg1: ExportListView, arg2: ExportTitle, arg3: saveFileDialog.FileName, arg4: ExportVirtualRowProvider);
 			}
 			else if (ExportTableLayoutPanel is not null)
 			{
-				tableLayoutPanelAction(ExportTableLayoutPanel, ExportTitle, saveFileDialog.FileName);
+				tableLayoutPanelAction(arg1: ExportTableLayoutPanel, arg2: ExportTitle, arg3: saveFileDialog.FileName);
 			}
 			else if (ExportTextBox is not null && textBoxAction is not null)
 			{
-				textBoxAction(ExportTextBox, ExportTitle, saveFileDialog.FileName);
+				textBoxAction(arg1: ExportTextBox, arg2: ExportTitle, arg3: saveFileDialog.FileName);
 			}
 			else
 			{

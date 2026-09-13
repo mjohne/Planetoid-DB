@@ -26,9 +26,9 @@ namespace Planetoid_DB;
 
 /// <summary>A form that displays application information.</summary>
 /// <remarks>This form is used to display information about the application, including version and copyright details.</remarks>
-// You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
-[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-public partial class LicenseForm : BaseKryptonForm
+// You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
+[DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
+internal partial class LicenseForm : BaseKryptonForm
 {
 	/// <summary>NLog logger instance for the class.</summary>
 	/// <remarks>This logger is used to log messages for the form.</remarks>
@@ -50,18 +50,20 @@ public partial class LicenseForm : BaseKryptonForm
 
 	/// <summary>Initializes a new instance of the <see cref="LicenseForm"/> class.</summary>
 	/// <remarks>This constructor initializes the form components.</remarks>
-	public LicenseForm() =>
+	public LicenseForm()
+	{
 		// Initialize the form components
 		InitializeComponent();
+	}
 
 	#endregion
 
 	#region helper methods
 
-	/// <summary>Returns a short debugger display string for this instance.</summary>
+	/// <summary>Gets a short debugger display string for this instance.</summary>
+	/// <remarks>This property is used to provide a visual representation of the object in the debugger.</remarks>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>This method is used to provide a visual representation of the object in the debugger.</remarks>
-	private string GetDebuggerDisplay() => ToString();
+	private string DebuggerDisplay => ToString();
 
 	/// <summary>Asynchronously extracts an embedded resource to a file.</summary>
 	/// <param name="nameSpace">The root namespace.</param>
@@ -88,7 +90,7 @@ public partial class LicenseForm : BaseKryptonForm
 			bufferSize: 4096,
 			useAsync: true);
 		// Copy the resource stream to the file stream
-		await resourceStream.CopyToAsync(destination: fileStream, cancellationToken: token);
+		await resourceStream.CopyToAsync(destination: fileStream, cancellationToken: token).ConfigureAwait(continueOnCapturedContext: false);
 	}
 
 	#endregion
@@ -99,7 +101,10 @@ public partial class LicenseForm : BaseKryptonForm
 	/// <param name="sender">Event source (the form).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to initialize the form and set up any necessary data.</remarks>
-	private void LicenseForm_Load(object sender, EventArgs e) => ClearStatusBar(label: labelInformation);
+	private void LicenseForm_Load(object sender, EventArgs e)
+	{
+		ClearStatusBar(label: labelInformation);
+	}
 
 	#endregion
 
@@ -122,7 +127,7 @@ public partial class LicenseForm : BaseKryptonForm
 		// Extract the LICENSE file from the embedded resources and copy it to the selected file location
 		try
 		{
-			await ExtractResourceAsync(nameSpace: resourceRootNamespace, destinationPath: saveFileDialog.FileName, resourceName: licenseResourceName);
+			await ExtractResourceAsync(nameSpace: resourceRootNamespace, destinationPath: saveFileDialog.FileName, resourceName: licenseResourceName).ConfigureAwait(continueOnCapturedContext: false);
 			logger.Info(message: "License saved successfully.");
 			_ = KryptonMessageBox.Show(owner: this, text: "License saved successfully.", caption: "Success", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 		}

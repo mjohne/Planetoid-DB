@@ -24,8 +24,9 @@ namespace Planetoid_DB;
 
 /// <summary>Represents a dialog that imports all user-scoped application settings from one of five formats: CSV, INI, XML, JSON, or YAML.</summary>
 /// <remarks>The form provides five equally-sized, horizontally-arranged import buttons. Settings are read from the chosen file and applied to <c>Settings.Default</c> by name, data type, and value. Application-scoped settings found in the file are silently ignored. The form also accepts drag-and-drop of a settings file: the correct import method is selected automatically based on the file extension.</remarks>
-[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-public partial class SettingsImportForm : BaseKryptonForm
+// You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
+[DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
+internal partial class SettingsImportForm : BaseKryptonForm
 {
 	/// <summary>NLog logger instance for the class.</summary>
 	/// <remarks>This logger is used to log messages and errors for the class.</remarks>
@@ -40,7 +41,7 @@ public partial class SettingsImportForm : BaseKryptonForm
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
 	/// <remarks>This method is used to provide a custom display string for the debugger.</remarks>
-	private string GetDebuggerDisplay() => ToString();
+	private string DebuggerDisplay => ToString();
 
 	/// <summary>Shows an open file dialog and, if confirmed, calls the supplied <paramref name="importer"/> action.</summary>
 	/// <param name="filter">The file-type filter string for the open dialog.</param>
@@ -50,6 +51,7 @@ public partial class SettingsImportForm : BaseKryptonForm
 	/// <remarks>The initial directory defaults to the user's Documents folder. The wait cursor is shown during import. Any unexpected exception is logged and shown as an error.</remarks>
 	private void ImportSettings(string filter, string defaultExt, string dialogTitle, Action<string> importer)
 	{
+		logger.Info(message: $"Opening file dialog for settings import with filter '{filter}' and default extension '{defaultExt}'.");
 		// Show the open file dialog to the user
 		using OpenFileDialog openFileDialog = new()
 		{
@@ -93,7 +95,11 @@ public partial class SettingsImportForm : BaseKryptonForm
 
 	/// <summary>Initializes a new instance of the <see cref="SettingsImportForm"/> class.</summary>
 	/// <remarks>This constructor initializes the form components.</remarks>
-	public SettingsImportForm() => InitializeComponent();
+	public SettingsImportForm()
+	{
+		logger.Info(message: "Initializing SettingsImportForm.");
+		InitializeComponent();
+	}
 
 	#endregion
 

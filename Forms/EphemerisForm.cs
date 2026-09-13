@@ -24,9 +24,9 @@ namespace Planetoid_DB;
 
 /// <summary>Represents a form for displaying ephemeris data.</summary>
 /// <remarks>This form is used to display ephemeris data for celestial objects.</remarks>
-// You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
-[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-public partial class EphemerisForm : BaseKryptonForm
+// You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
+[DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
+internal partial class EphemerisForm : BaseKryptonForm
 {
 	/// <summary>NLog logger instance for the class.</summary>
 	/// <remarks>This logger is used to log messages for the form.</remarks>
@@ -40,18 +40,20 @@ public partial class EphemerisForm : BaseKryptonForm
 
 	/// <summary>Initializes a new instance of the <see cref="EphemerisForm"/> class.</summary>
 	/// <remarks>This constructor initializes the form components.</remarks>
-	public EphemerisForm() =>
+	public EphemerisForm()
+	{
 		// Initialize the form components
 		InitializeComponent();
+	}
 
 	#endregion
 
 	#region helper methods
 
-	/// <summary>Returns a short debugger display string for this instance.</summary>
+	/// <summary>Gets a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>This method is used to provide a visual representation of the object in the debugger.</remarks>
-	private string GetDebuggerDisplay() => ToString();
+	/// <remarks>This property is used to provide a visual representation of the object in the debugger.</remarks>
+	private string DebuggerDisplay => ToString();
 
 	#endregion
 
@@ -61,7 +63,10 @@ public partial class EphemerisForm : BaseKryptonForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to handle the Load event of the form.</remarks>
-	private void EphemerisForm_Load(object sender, EventArgs e) => ClearStatusBar(label: labelInformation);
+	private void EphemerisForm_Load(object sender, EventArgs e)
+	{
+		ClearStatusBar(label: labelInformation);
+	}
 
 	#endregion
 

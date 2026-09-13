@@ -19,14 +19,15 @@ using Planetoid_DB.Forms;
 using Planetoid_DB.Helpers;
 
 using System.Diagnostics;
+using System.Globalization;
 
 namespace Planetoid_DB;
 
 /// <summary>Form for displaying the Minimum Orbit Intersection Distance (MOID) and Maximum Orbit Intersection Distance (MAXOID) of a minor planet relative to each of the eight solar system planets.</summary>
 /// <remarks>This form computes and presents the MOID and MAXOID values for a minor planet using a fast, high-precision numerical algorithm equivalent to the approach used by the Minor Planet Center (MPC). The results are shown in a three-column table layout: planet name in the first column, MOID in AU in the second column, and MAXOID in AU in the third column.</remarks>
-// You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
-[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-public partial class MoidsAndMaxoidsOfOneMinorPlanetForm : BaseKryptonForm
+// You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
+[DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
+internal partial class MoidsAndMaxoidsOfOneMinorPlanetForm : BaseKryptonForm
 {
 	#region Export override properties
 
@@ -76,7 +77,10 @@ public partial class MoidsAndMaxoidsOfOneMinorPlanetForm : BaseKryptonForm
 
 	/// <summary>Initializes a new instance of the <see cref="MoidsAndMaxoidsOfOneMinorPlanetForm"/> class.</summary>
 	/// <remarks>This constructor initializes the form components.</remarks>
-	public MoidsAndMaxoidsOfOneMinorPlanetForm() => InitializeComponent();
+	public MoidsAndMaxoidsOfOneMinorPlanetForm()
+	{
+		InitializeComponent();
+	}
 
 	#endregion
 
@@ -84,8 +88,8 @@ public partial class MoidsAndMaxoidsOfOneMinorPlanetForm : BaseKryptonForm
 
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>This method is used to provide a visual representation of the object in the debugger.</remarks>
-	private string GetDebuggerDisplay() => ToString();
+	/// <remarks>This property is used to provide a visual representation of the object in the debugger.</remarks>
+	private string DebuggerDisplay => ToString();
 
 	/// <summary>Sets the orbital elements of the minor planet used for computing MOID and MAXOID values.</summary>
 	/// <param name="semiMajorAxis">The semi-major axis in AU.</param>
@@ -132,14 +136,14 @@ public partial class MoidsAndMaxoidsOfOneMinorPlanetForm : BaseKryptonForm
 			// Populate the data labels (one per planet row, index 0 = Mercury … 7 = Neptune)
 			if (moids.Count >= 8)
 			{
-				labelMercuryMoidData.Text = moids[index: 0].MoidAu.ToString(format: "F8");
-				labelVenusMoidData.Text = moids[index: 1].MoidAu.ToString(format: "F8");
-				labelEarthMoidData.Text = moids[index: 2].MoidAu.ToString(format: "F8");
-				labelMarsMoidData.Text = moids[index: 3].MoidAu.ToString(format: "F8");
-				labelJupiterMoidData.Text = moids[index: 4].MoidAu.ToString(format: "F8");
-				labelSaturnMoidData.Text = moids[index: 5].MoidAu.ToString(format: "F8");
-				labelUranusMoidData.Text = moids[index: 6].MoidAu.ToString(format: "F8");
-				labelNeptuneMoidData.Text = moids[index: 7].MoidAu.ToString(format: "F8");
+				labelMercuryMoidData.Text = moids[index: 0].MoidAu.ToString(format: "F8", provider: CultureInfo.InvariantCulture);
+				labelVenusMoidData.Text = moids[index: 1].MoidAu.ToString(format: "F8", provider: CultureInfo.InvariantCulture);
+				labelEarthMoidData.Text = moids[index: 2].MoidAu.ToString(format: "F8", provider: CultureInfo.InvariantCulture);
+				labelMarsMoidData.Text = moids[index: 3].MoidAu.ToString(format: "F8", provider: CultureInfo.InvariantCulture);
+				labelJupiterMoidData.Text = moids[index: 4].MoidAu.ToString(format: "F8", provider: CultureInfo.InvariantCulture);
+				labelSaturnMoidData.Text = moids[index: 5].MoidAu.ToString(format: "F8", provider: CultureInfo.InvariantCulture);
+				labelUranusMoidData.Text = moids[index: 6].MoidAu.ToString(format: "F8", provider: CultureInfo.InvariantCulture);
+				labelNeptuneMoidData.Text = moids[index: 7].MoidAu.ToString(format: "F8", provider: CultureInfo.InvariantCulture);
 			}
 			// Calculate MAXOIDs for all 8 planets
 			List<MaxoidCalculator.MaxoidResult> maxoids = MaxoidCalculator.CalculateMaxoids(
@@ -151,14 +155,14 @@ public partial class MoidsAndMaxoidsOfOneMinorPlanetForm : BaseKryptonForm
 			// Populate the data labels (one per planet row, index 0 = Mercury … 7 = Neptune)
 			if (maxoids.Count >= 8)
 			{
-				labelMercuryMaxoidData.Text = maxoids[index: 0].MaxoidAu.ToString(format: "F8");
-				labelVenusMaxoidData.Text = maxoids[index: 1].MaxoidAu.ToString(format: "F8");
-				labelEarthMaxoidData.Text = maxoids[index: 2].MaxoidAu.ToString(format: "F8");
-				labelMarsMaxoidData.Text = maxoids[index: 3].MaxoidAu.ToString(format: "F8");
-				labelJupiterMaxoidData.Text = maxoids[index: 4].MaxoidAu.ToString(format: "F8");
-				labelSaturnMaxoidData.Text = maxoids[index: 5].MaxoidAu.ToString(format: "F8");
-				labelUranusMaxoidData.Text = maxoids[index: 6].MaxoidAu.ToString(format: "F8");
-				labelNeptuneMaxoidData.Text = maxoids[index: 7].MaxoidAu.ToString(format: "F8");
+				labelMercuryMaxoidData.Text = maxoids[index: 0].MaxoidAu.ToString(format: "F8", provider: CultureInfo.InvariantCulture);
+				labelVenusMaxoidData.Text = maxoids[index: 1].MaxoidAu.ToString(format: "F8", provider: CultureInfo.InvariantCulture);
+				labelEarthMaxoidData.Text = maxoids[index: 2].MaxoidAu.ToString(format: "F8", provider: CultureInfo.InvariantCulture);
+				labelMarsMaxoidData.Text = maxoids[index: 3].MaxoidAu.ToString(format: "F8", provider: CultureInfo.InvariantCulture);
+				labelJupiterMaxoidData.Text = maxoids[index: 4].MaxoidAu.ToString(format: "F8", provider: CultureInfo.InvariantCulture);
+				labelSaturnMaxoidData.Text = maxoids[index: 5].MaxoidAu.ToString(format: "F8", provider: CultureInfo.InvariantCulture);
+				labelUranusMaxoidData.Text = maxoids[index: 6].MaxoidAu.ToString(format: "F8", provider: CultureInfo.InvariantCulture);
+				labelNeptuneMaxoidData.Text = maxoids[index: 7].MaxoidAu.ToString(format: "F8", provider: CultureInfo.InvariantCulture);
 			}
 		}
 		// Handle any exceptions that may occur during MOID and MAXOID calculation and display an error message

@@ -18,409 +18,409 @@ using System.Runtime.CompilerServices;
 
 namespace Planetoid_DB {
 	/// <summary>
-    ///   Eine stark typisierte Ressourcenklasse zum Suchen von lokalisierten Zeichenfolgen usw.
-    /// </summary>
-    // Diese Klasse wurde von der StronglyTypedResourceBuilder automatisch generiert
-    // -Klasse über ein Tool wie ResGen oder Visual Studio automatisch generiert.
-    // Um einen Member hinzuzufügen oder zu entfernen, bearbeiten Sie die .ResX-Datei und führen dann ResGen
-    // mit der /str-Option erneut aus, oder Sie erstellen Ihr VS-Projekt neu.
-    [GeneratedCode("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
-    [DebuggerNonUserCode()]
-    [CompilerGenerated()]
-    internal class I18nStrings {
-        
-        private static ResourceManager resourceMan;
-        
-        private static CultureInfo resourceCulture;
-        
-        [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal I18nStrings() {
-        }
-        
-        /// <summary>
-        ///   Gibt die zwischengespeicherte ResourceManager-Instanz zurück, die von dieser Klasse verwendet wird.
-        /// </summary>
-        [EditorBrowsable(EditorBrowsableState.Advanced)]
-        internal static ResourceManager ResourceManager {
-            get {
-                if (ReferenceEquals(resourceMan, null)) {
-                    ResourceManager temp = new ResourceManager("Planetoid_DB.I18nStrings", typeof(I18nStrings).Assembly);
-                    resourceMan = temp;
-                }
-                return resourceMan;
-            }
-        }
-        
-        /// <summary>
-        ///   Überschreibt die CurrentUICulture-Eigenschaft des aktuellen Threads für alle
-        ///   Ressourcenzuordnungen, die diese stark typisierte Ressourcenklasse verwenden.
-        /// </summary>
-        [EditorBrowsable(EditorBrowsableState.Advanced)]
-        internal static CultureInfo Culture {
-            get {
-                return resourceCulture;
-            }
-            set {
-                resourceCulture = value;
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Do you want download the latest MPCORB.DAT file? ähnelt.
-        /// </summary>
-        internal static string AskForDownloadingLatestMpcorbDatFile {
-            get {
-                return ResourceManager.GetString("AskForDownloadingLatestMpcorbDatFile", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Download MPCORB.DAT? ähnelt.
-        /// </summary>
-        internal static string AskForDownloadingLatestMpcorbDatFileCaption {
-            get {
-                return ResourceManager.GetString("AskForDownloadingLatestMpcorbDatFileCaption", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die bytes ähnelt.
-        /// </summary>
-        internal static string BytesText {
-            get {
-                return ResourceManager.GetString("BytesText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Complete ähnelt.
-        /// </summary>
-        internal static string CompleteCaption {
-            get {
-                return ResourceManager.GetString("CompleteCaption", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Copied to clipboard. ähnelt.
-        /// </summary>
-        internal static string CopiedToClipboard {
-            get {
-                return ResourceManager.GetString("CopiedToClipboard", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Loading data... ähnelt.
-        /// </summary>
-        internal static string DataLoading {
-            get {
-                return ResourceManager.GetString("DataLoading", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Download cancelled! ähnelt.
-        /// </summary>
-        internal static string DownloadCancelledText {
-            get {
-                return ResourceManager.GetString("DownloadCancelledText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Download complete! Do you want to restart the application to apply the update of the database? ähnelt.
-        /// </summary>
-        internal static string DownloadCompleteAndRestartQuestionText {
-            get {
-                return ResourceManager.GetString("DownloadCompleteAndRestartQuestionText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Download completed! ähnelt.
-        /// </summary>
-        internal static string DownloadCompleteText {
-            get {
-                return ResourceManager.GetString("DownloadCompleteText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Unknown Error! ähnelt.
-        /// </summary>
-        internal static string DownloadUnknownError {
-            get {
-                return ResourceManager.GetString("DownloadUnknownError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Don&apos;t disturb. I&apos;m loading. ☺ ähnelt.
-        /// </summary>
-        internal static string EasterEgg {
-            get {
-                return ResourceManager.GetString("EasterEgg", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Error ähnelt.
-        /// </summary>
-        internal static string ErrorCaption {
-            get {
-                return ResourceManager.GetString("ErrorCaption", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Index ähnelt.
-        /// </summary>
-        internal static string Index {
-            get {
-                return ResourceManager.GetString("Index", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Index is out of range ähnelt.
-        /// </summary>
-        internal static string IndexOutOfRange {
-            get {
-                return ResourceManager.GetString("IndexOutOfRange", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Information ähnelt.
-        /// </summary>
-        internal static string InformationCaption {
-            get {
-                return ResourceManager.GetString("InformationCaption", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die mail ähnelt.
-        /// </summary>
-        internal static string Mail {
-            get {
-                return ResourceManager.GetString("Mail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die MPCORB.DAT information ähnelt.
-        /// </summary>
-        internal static string MpcorbDatInformationCaption {
-            get {
-                return ResourceManager.GetString("MpcorbDatInformationCaption", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die MPCORB.DAT not found ähnelt.
-        /// </summary>
-        internal static string MpcorbDatNotFoundCaption {
-            get {
-                return ResourceManager.GetString("MpcorbDatNotFoundCaption", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die The file MPCORB.DAT was not found. You need it to run the application. The file has a size of about 150-200 MB. Do you want to download the MPCORB.DAT file from the MPC website? ähnelt.
-        /// </summary>
-        internal static string MpcorbDatNotFoundText {
-            get {
-                return ResourceManager.GetString("MpcorbDatNotFoundText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die no file found ähnelt.
-        /// </summary>
-        internal static string NoFileFoundText {
-            get {
-                return ResourceManager.GetString("NoFileFoundText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die No internet connection available! ähnelt.
-        /// </summary>
-        internal static string NoInternetConnectionText {
-            get {
-                return ResourceManager.GetString("NoInternetConnectionText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die No update needed! ähnelt.
-        /// </summary>
-        internal static string NoUpdateNeededText {
-            get {
-                return ResourceManager.GetString("NoUpdateNeededText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die 0 ähnelt.
-        /// </summary>
-        internal static string NumberZero {
-            get {
-                return ResourceManager.GetString("NumberZero", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die  % ähnelt.
-        /// </summary>
-        internal static string PercentSign {
-            get {
-                return ResourceManager.GetString("PercentSign", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Download cancelled... ähnelt.
-        /// </summary>
-        internal static string StatusDownloadCancelled {
-            get {
-                return ResourceManager.GetString("StatusDownloadCancelled", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Download complete ähnelt.
-        /// </summary>
-        internal static string StatusDownloadCompleteText {
-            get {
-                return ResourceManager.GetString("StatusDownloadCompleteText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Downloading... ähnelt.
-        /// </summary>
-        internal static string StatusDownloading {
-            get {
-                return ResourceManager.GetString("StatusDownloading", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die nothing to do... ähnelt.
-        /// </summary>
-        internal static string StatusNothingToDoText {
-            get {
-                return ResourceManager.GetString("StatusNothingToDoText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Refreshing database... ähnelt.
-        /// </summary>
-        internal static string StatusRefreshingDatabaseText {
-            get {
-                return ResourceManager.GetString("StatusRefreshingDatabaseText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Try to connect... ähnelt.
-        /// </summary>
-        internal static string StatusTryToConnect {
-            get {
-                return ResourceManager.GetString("StatusTryToConnect", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Unknown error... ähnelt.
-        /// </summary>
-        internal static string StatusUnknownError {
-            get {
-                return ResourceManager.GetString("StatusUnknownError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
-        ///&lt;html lang=&quot;en&quot;&gt;
-        ///	&lt;head&gt;
-        ///		&lt;meta charset=&quot;utf-8&quot;&gt;
-        ///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
-        ///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
-        ///		&lt;title&gt;Absolute magnitude, H&lt;/title&gt;
-        ///		&lt;style&gt;
-        ///			* {font-family:sans-serif;}
-        ///			.bold {font-weight: bold;}
-        ///			.italic {font-variant: italic;}
-        ///			.sup {vertical-align: super; font-size: smaller;}
-        ///			.sub {vertical-align: sub; font-size: smaller;}
-        ///		&lt;/style&gt;
-        ///	&lt;/head&gt;
-        ///	&lt;body&gt;
-        ///		&lt;h1&gt;Absolute magnitude, H&lt;/h1&gt;
-        ///		&lt;p&gt;&lt;span class=&quot;bold&quot;&gt;Absolute magnitude &lt;span class=&quot;itali [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
-        /// </summary>
-        internal static string terminology_AbsoluteMagnitude {
-            get {
-                return ResourceManager.GetString("terminology_AbsoluteMagnitude", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
-        ///&lt;html lang=&quot;en&quot;&gt;
-        ///	&lt;head&gt;
-        ///		&lt;meta charset=&quot;utf-8&quot;&gt;
-        ///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
-        ///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
-        ///		&lt;title&gt;Aphelion distance&lt;/title&gt;
-        ///		&lt;style&gt;
-        ///			* {font-family:sans-serif;}
-        ///			.bold {font-weight: bold;}
-        ///			.italic {font-variant: italic;}
-        ///			.sup {vertical-align: super; font-size: smaller;}
-        ///			.sub {vertical-align: sub; font-size: smaller;}
-        ///		&lt;/style&gt;
-        ///	&lt;/head&gt;
-        ///	&lt;body&gt;
-        ///		&lt;h1&gt;Aphelion distance&lt;/h1&gt;
-        ///		&lt;p&gt;&lt;span class=&quot;bold&quot;&gt;Apsis&lt;/span&gt; (Greek: á¼ÏˆÎ¯Ï‚; plural &lt;span  [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
-        /// </summary>
-        internal static string terminology_AphelionDistance {
-            get {
-                return ResourceManager.GetString("terminology_AphelionDistance", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
-        ///&lt;html lang=&quot;en&quot;&gt;
-        ///	&lt;head&gt;
-        ///		&lt;meta charset=&quot;utf-8&quot;&gt;
-        ///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
-        ///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
-        ///		&lt;title&gt;Argument of aphelion&lt;/title&gt;
-        ///		&lt;style&gt;
-        ///			* {font-family:sans-serif;}
-        ///			.bold {font-weight: bold;}
-        ///			.italic {font-variant: italic;}
-        ///			.sup {vertical-align: super; font-size: smaller;}
-        ///			.sub {vertical-align: sub; font-size: smaller;}
-        ///		&lt;/style&gt;
-        ///	&lt;/head&gt;
-        ///	&lt;body&gt;
-        ///		&lt;h1&gt;Argument of aphelion&lt;/h1&gt;
-        ///		&lt;p&gt;The &lt;span class=&quot;bold&quot;&gt;argument of aphelion&lt;/span&gt; is the  [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
-        /// </summary>
-        internal static string terminology_ArgumentOfTheAphelion {
-            get {
-                return ResourceManager.GetString("terminology_ArgumentOfTheAphelion", resourceCulture);
-            }
-        }
+	///   Eine stark typisierte Ressourcenklasse zum Suchen von lokalisierten Zeichenfolgen usw.
+	/// </summary>
+	// Diese Klasse wurde von der StronglyTypedResourceBuilder automatisch generiert
+	// -Klasse über ein Tool wie ResGen oder Visual Studio automatisch generiert.
+	// Um einen Member hinzuzufügen oder zu entfernen, bearbeiten Sie die .ResX-Datei und führen dann ResGen
+	// mit der /str-Option erneut aus, oder Sie erstellen Ihr VS-Projekt neu.
+	[GeneratedCode("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
+	[DebuggerNonUserCode()]
+	[CompilerGenerated()]
+	internal class I18nStrings {
+		
+		private static ResourceManager resourceMan;
+		
+		private static CultureInfo resourceCulture;
+		
+		[SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+		internal I18nStrings() {
+		}
+		
+		/// <summary>
+		///   Gibt die zwischengespeicherte ResourceManager-Instanz zurück, die von dieser Klasse verwendet wird.
+		/// </summary>
+		[EditorBrowsable(EditorBrowsableState.Advanced)]
+		internal static ResourceManager ResourceManager {
+			get {
+				if (ReferenceEquals(resourceMan, null)) {
+					ResourceManager temp = new ResourceManager("Planetoid_DB.I18nStrings", typeof(I18nStrings).Assembly);
+					resourceMan = temp;
+				}
+				return resourceMan;
+			}
+		}
+		
+		/// <summary>
+		///   Überschreibt die CurrentUICulture-Eigenschaft des aktuellen Threads für alle
+		///   Ressourcenzuordnungen, die diese stark typisierte Ressourcenklasse verwenden.
+		/// </summary>
+		[EditorBrowsable(EditorBrowsableState.Advanced)]
+		internal static CultureInfo Culture {
+			get {
+				return resourceCulture;
+			}
+			set {
+				resourceCulture = value;
+			}
+		}
+		
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die Do you want download the latest MPCORB.DAT file? ähnelt.
+		/// </summary>
+		internal static string AskForDownloadingLatestMpcorbDatFile {
+			get {
+				return ResourceManager.GetString("AskForDownloadingLatestMpcorbDatFile", resourceCulture);
+			}
+		}
+		
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die Download MPCORB.DAT? ähnelt.
+		/// </summary>
+		internal static string AskForDownloadingLatestMpcorbDatFileCaption {
+			get {
+				return ResourceManager.GetString("AskForDownloadingLatestMpcorbDatFileCaption", resourceCulture);
+			}
+		}
+		
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die bytes ähnelt.
+		/// </summary>
+		internal static string BytesText {
+			get {
+				return ResourceManager.GetString("BytesText", resourceCulture);
+			}
+		}
+		
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die Complete ähnelt.
+		/// </summary>
+		internal static string CompleteCaption {
+			get {
+				return ResourceManager.GetString("CompleteCaption", resourceCulture);
+			}
+		}
+		
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die Copied to clipboard. ähnelt.
+		/// </summary>
+		internal static string CopiedToClipboard {
+			get {
+				return ResourceManager.GetString("CopiedToClipboard", resourceCulture);
+			}
+		}
+		
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die Loading data... ähnelt.
+		/// </summary>
+		internal static string DataLoading {
+			get {
+				return ResourceManager.GetString("DataLoading", resourceCulture);
+			}
+		}
+		
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die Download cancelled! ähnelt.
+		/// </summary>
+		internal static string DownloadCancelledText {
+			get {
+				return ResourceManager.GetString("DownloadCancelledText", resourceCulture);
+			}
+		}
+		
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die Download complete! Do you want to restart the application to apply the update of the database? ähnelt.
+		/// </summary>
+		internal static string DownloadCompleteAndRestartQuestionText {
+			get {
+				return ResourceManager.GetString("DownloadCompleteAndRestartQuestionText", resourceCulture);
+			}
+		}
+		
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die Download completed! ähnelt.
+		/// </summary>
+		internal static string DownloadCompleteText {
+			get {
+				return ResourceManager.GetString("DownloadCompleteText", resourceCulture);
+			}
+		}
+		
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die Unknown Error! ähnelt.
+		/// </summary>
+		internal static string DownloadUnknownError {
+			get {
+				return ResourceManager.GetString("DownloadUnknownError", resourceCulture);
+			}
+		}
+		
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die Don&apos;t disturb. I&apos;m loading. ☺ ähnelt.
+		/// </summary>
+		internal static string EasterEgg {
+			get {
+				return ResourceManager.GetString("EasterEgg", resourceCulture);
+			}
+		}
+		
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die Error ähnelt.
+		/// </summary>
+		internal static string ErrorCaption {
+			get {
+				return ResourceManager.GetString("ErrorCaption", resourceCulture);
+			}
+		}
+		
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die Index ähnelt.
+		/// </summary>
+		internal static string Index {
+			get {
+				return ResourceManager.GetString("Index", resourceCulture);
+			}
+		}
+		
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die Index is out of range ähnelt.
+		/// </summary>
+		internal static string IndexOutOfRange {
+			get {
+				return ResourceManager.GetString("IndexOutOfRange", resourceCulture);
+			}
+		}
+		
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die Information ähnelt.
+		/// </summary>
+		internal static string InformationCaption {
+			get {
+				return ResourceManager.GetString("InformationCaption", resourceCulture);
+			}
+		}
+		
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die mail ähnelt.
+		/// </summary>
+		internal static string Mail {
+			get {
+				return ResourceManager.GetString("Mail", resourceCulture);
+			}
+		}
+		
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die MPCORB.DAT information ähnelt.
+		/// </summary>
+		internal static string MpcorbDatInformationCaption {
+			get {
+				return ResourceManager.GetString("MpcorbDatInformationCaption", resourceCulture);
+			}
+		}
+		
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die MPCORB.DAT not found ähnelt.
+		/// </summary>
+		internal static string MpcorbDatNotFoundCaption {
+			get {
+				return ResourceManager.GetString("MpcorbDatNotFoundCaption", resourceCulture);
+			}
+		}
+		
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die The file MPCORB.DAT was not found. You need it to run the application. The file has a size of about 150-200 MB. Do you want to download the MPCORB.DAT file from the MPC website? ähnelt.
+		/// </summary>
+		internal static string MpcorbDatNotFoundText {
+			get {
+				return ResourceManager.GetString("MpcorbDatNotFoundText", resourceCulture);
+			}
+		}
+		
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die no file found ähnelt.
+		/// </summary>
+		internal static string NoFileFoundText {
+			get {
+				return ResourceManager.GetString("NoFileFoundText", resourceCulture);
+			}
+		}
+		
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die No internet connection available! ähnelt.
+		/// </summary>
+		internal static string NoInternetConnectionText {
+			get {
+				return ResourceManager.GetString("NoInternetConnectionText", resourceCulture);
+			}
+		}
+		
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die No update needed! ähnelt.
+		/// </summary>
+		internal static string NoUpdateNeededText {
+			get {
+				return ResourceManager.GetString("NoUpdateNeededText", resourceCulture);
+			}
+		}
+		
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die 0 ähnelt.
+		/// </summary>
+		internal static string NumberZero {
+			get {
+				return ResourceManager.GetString("NumberZero", resourceCulture);
+			}
+		}
+		
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die  % ähnelt.
+		/// </summary>
+		internal static string PercentSign {
+			get {
+				return ResourceManager.GetString("PercentSign", resourceCulture);
+			}
+		}
+		
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die Download cancelled... ähnelt.
+		/// </summary>
+		internal static string StatusDownloadCancelled {
+			get {
+				return ResourceManager.GetString("StatusDownloadCancelled", resourceCulture);
+			}
+		}
+		
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die Download complete ähnelt.
+		/// </summary>
+		internal static string StatusDownloadCompleteText {
+			get {
+				return ResourceManager.GetString("StatusDownloadCompleteText", resourceCulture);
+			}
+		}
+		
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die Downloading... ähnelt.
+		/// </summary>
+		internal static string StatusDownloading {
+			get {
+				return ResourceManager.GetString("StatusDownloading", resourceCulture);
+			}
+		}
+		
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die nothing to do... ähnelt.
+		/// </summary>
+		internal static string StatusNothingToDoText {
+			get {
+				return ResourceManager.GetString("StatusNothingToDoText", resourceCulture);
+			}
+		}
+		
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die Refreshing database... ähnelt.
+		/// </summary>
+		internal static string StatusRefreshingDatabaseText {
+			get {
+				return ResourceManager.GetString("StatusRefreshingDatabaseText", resourceCulture);
+			}
+		}
+		
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die Try to connect... ähnelt.
+		/// </summary>
+		internal static string StatusTryToConnect {
+			get {
+				return ResourceManager.GetString("StatusTryToConnect", resourceCulture);
+			}
+		}
+		
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die Unknown error... ähnelt.
+		/// </summary>
+		internal static string StatusUnknownError {
+			get {
+				return ResourceManager.GetString("StatusUnknownError", resourceCulture);
+			}
+		}
+		
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
+		///&lt;html lang=&quot;en&quot;&gt;
+		///	&lt;head&gt;
+		///		&lt;meta charset=&quot;utf-8&quot;&gt;
+		///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
+		///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
+		///		&lt;title&gt;Absolute magnitude, H&lt;/title&gt;
+		///		&lt;style&gt;
+		///			* {font-family:sans-serif;}
+		///			.bold {font-weight: bold;}
+		///			.italic {font-variant: italic;}
+		///			.sup {vertical-align: super; font-size: smaller;}
+		///			.sub {vertical-align: sub; font-size: smaller;}
+		///		&lt;/style&gt;
+		///	&lt;/head&gt;
+		///	&lt;body&gt;
+		///		&lt;h1&gt;Absolute magnitude, H&lt;/h1&gt;
+		///		&lt;p&gt;&lt;span class=&quot;bold&quot;&gt;Absolute magnitude &lt;span class=&quot;itali [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
+		/// </summary>
+		internal static string terminology_AbsoluteMagnitude {
+			get {
+				return ResourceManager.GetString("terminology_AbsoluteMagnitude", resourceCulture);
+			}
+		}
+		
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
+		///&lt;html lang=&quot;en&quot;&gt;
+		///	&lt;head&gt;
+		///		&lt;meta charset=&quot;utf-8&quot;&gt;
+		///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
+		///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
+		///		&lt;title&gt;Aphelion distance&lt;/title&gt;
+		///		&lt;style&gt;
+		///			* {font-family:sans-serif;}
+		///			.bold {font-weight: bold;}
+		///			.italic {font-variant: italic;}
+		///			.sup {vertical-align: super; font-size: smaller;}
+		///			.sub {vertical-align: sub; font-size: smaller;}
+		///		&lt;/style&gt;
+		///	&lt;/head&gt;
+		///	&lt;body&gt;
+		///		&lt;h1&gt;Aphelion distance&lt;/h1&gt;
+		///		&lt;p&gt;&lt;span class=&quot;bold&quot;&gt;Apsis&lt;/span&gt; (Greek: á¼ÏˆÎ¯Ï‚; plural &lt;span  [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
+		/// </summary>
+		internal static string terminology_AphelionDistance {
+			get {
+				return ResourceManager.GetString("terminology_AphelionDistance", resourceCulture);
+			}
+		}
+		
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
+		///&lt;html lang=&quot;en&quot;&gt;
+		///	&lt;head&gt;
+		///		&lt;meta charset=&quot;utf-8&quot;&gt;
+		///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
+		///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
+		///		&lt;title&gt;Argument of aphelion&lt;/title&gt;
+		///		&lt;style&gt;
+		///			* {font-family:sans-serif;}
+		///			.bold {font-weight: bold;}
+		///			.italic {font-variant: italic;}
+		///			.sup {vertical-align: super; font-size: smaller;}
+		///			.sub {vertical-align: sub; font-size: smaller;}
+		///		&lt;/style&gt;
+		///	&lt;/head&gt;
+		///	&lt;body&gt;
+		///		&lt;h1&gt;Argument of aphelion&lt;/h1&gt;
+		///		&lt;p&gt;The &lt;span class=&quot;bold&quot;&gt;argument of aphelion&lt;/span&gt; is the  [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
+		/// </summary>
+		internal static string terminology_ArgumentOfTheAphelion {
+			get {
+				return ResourceManager.GetString("terminology_ArgumentOfTheAphelion", resourceCulture);
+			}
+		}
 
 		/// <summary>
 		///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
@@ -444,8 +444,8 @@ namespace Planetoid_DB {
 		/// </summary>
 		internal static string terminology_ArgumentOfThePerihelion{
 			get {
-                return ResourceManager.GetString("terminology_ArgumentOfThePerihelion", resourceCulture);
-            }
+				return ResourceManager.GetString("terminology_ArgumentOfThePerihelion", resourceCulture);
+			}
 		}
 
 		/// <summary>
@@ -471,923 +471,923 @@ namespace Planetoid_DB {
 		///&lt;/html&gt; ähnelt.
 		/// </summary>
 		internal static string terminology_ComputerName {
-            get {
-                return ResourceManager.GetString("terminology_ComputerName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
-        ///&lt;html lang=&quot;en&quot;&gt;
-        ///	&lt;head&gt;
-        ///		&lt;meta charset=&quot;utf-8&quot;&gt;
-        ///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
-        ///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
-        ///		&lt;title&gt;Date of last observation&lt;/title&gt;
-        ///		&lt;style&gt;
-        ///			* {font-family:sans-serif;}
-        ///			.bold {font-weight: bold;}
-        ///			.italic {font-variant: italic;}
-        ///			.sup {vertical-align: super; font-size: smaller;}
-        ///			.sub {vertical-align: sub; font-size: smaller;}
-        ///		&lt;/style&gt;
-        ///	&lt;/head&gt;
-        ///	&lt;body&gt;
-        ///		&lt;h1&gt;Date of last observation&lt;/h1&gt;
-        ///		&lt;p&gt;This is the date of last observation included in o [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
-        /// </summary>
-        internal static string terminology_DateOfLastObservation {
-            get {
-                return ResourceManager.GetString("terminology_DateOfLastObservation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
-        ///&lt;html lang=&quot;en&quot;&gt;
-        ///	&lt;head&gt;
-        ///		&lt;meta charset=&quot;utf-8&quot;&gt;
-        ///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
-        ///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
-        ///		&lt;title&gt;Eccenctric anomaly&lt;/title&gt;
-        ///		&lt;style&gt;
-        ///			* {font-family:sans-serif;}
-        ///			.bold {font-weight: bold;}
-        ///			.italic {font-variant: italic;}
-        ///			.sup {vertical-align: super; font-size: smaller;}
-        ///			.sub {vertical-align: sub; font-size: smaller;}
-        ///		&lt;/style&gt;
-        ///	&lt;/head&gt;
-        ///	&lt;body&gt;
-        ///		&lt;h1&gt;Eccentric anomaly&lt;/h1&gt;
-        ///		&lt;p&gt;In orbital mechanics, the &lt;span class=&quot;bold&quot;&gt;eccentric anomaly [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
-        /// </summary>
-        internal static string terminology_EccentricAnomaly {
-            get {
-                return ResourceManager.GetString("terminology_EccentricAnomaly", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
-        ///&lt;html lang=&quot;en&quot;&gt;
-        ///	&lt;head&gt;
-        ///		&lt;meta charset=&quot;utf-8&quot;&gt;
-        ///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
-        ///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
-        ///		&lt;title&gt;Terminology: Epoch (in packed form, .0 TT)&lt;/title&gt;
-        ///		&lt;style&gt;
-        ///			* {font-family:sans-serif;}
-        ///			.bold {font-weight: bold;}
-        ///			.italic {font-variant: italic;}
-        ///			.sup {vertical-align: super; font-size: smaller;}
-        ///			.sub {vertical-align: sub; font-size: smaller;}
-        ///		&lt;/style&gt;
-        ///	&lt;/head&gt;
-        ///	&lt;body&gt;
-        ///		&lt;h1&gt;Epoch (in packed form, .0 TT)&lt;/h1&gt;
-        ///		&lt;p&gt;In astronomy, an epoch&lt;/spa [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
-        /// </summary>
-        internal static string terminology_Epoch {
-            get {
-                return ResourceManager.GetString("terminology_Epoch", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
-        ///&lt;html lang=&quot;en&quot;&gt;
-        ///	&lt;head&gt;
-        ///		&lt;meta charset=&quot;utf-8&quot;&gt;
-        ///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
-        ///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
-        ///		&lt;title&gt;4-hexdigit flags&lt;/title&gt;
-        ///		&lt;style&gt;
-        ///			* {font-family:sans-serif;}
-        ///			.bold {font-weight: bold;}
-        ///			.italic {font-variant: italic;}
-        ///			.sup {vertical-align: super; font-size: smaller;}
-        ///			.sub {vertical-align: sub; font-size: smaller;}
-        ///		&lt;/style&gt;
-        ///	&lt;/head&gt;
-        ///	&lt;body&gt;
-        ///		&lt;h1&gt;4-hexdigit flags&lt;/h1&gt;
-        ///		&lt;p&gt;This information has been updated 2014 July 16, for files created  [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
-        /// </summary>
-        internal static string terminology_Flags {
-            get {
-                return ResourceManager.GetString("terminology_Flags", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
-        ///&lt;html lang=&quot;en&quot;&gt;
-        ///	&lt;head&gt;
-        ///		&lt;meta charset=&quot;utf-8&quot;&gt;
-        ///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
-        ///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
-        ///		&lt;title&gt;Focal parameter&lt;/title&gt;
-        ///		&lt;style&gt;
-        ///			* {font-family:sans-serif;}
-        ///			.bold {font-weight: bold;}
-        ///			.italic {font-variant: italic;}
-        ///			.sup {vertical-align: super; font-size: smaller;}
-        ///			.sub {vertical-align: sub; font-size: smaller;}
-        ///		&lt;/style&gt;
-        ///	&lt;/head&gt;
-        ///	&lt;body&gt;
-        ///		&lt;h1&gt;Focal parameter&lt;/h1&gt;
-        ///		&lt;p&gt;In addition to the eccentricity (&lt;span class=&quot;italic&quot;&gt;e&lt;/span&gt;), foc [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
-        /// </summary>
-        internal static string terminology_FocalParameter {
-            get {
-                return ResourceManager.GetString("terminology_FocalParameter", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
-        ///&lt;html lang=&quot;en&quot;&gt;
-        ///	&lt;head&gt;
-        ///		&lt;meta charset=&quot;utf-8&quot;&gt;
-        ///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
-        ///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
-        ///		&lt;title&gt;Inclination to the ecliptic, J2000.0 (degrees)&lt;/title&gt;
-        ///		&lt;style&gt;
-        ///			* {font-family:sans-serif;}
-        ///			.bold {font-weight: bold;}
-        ///			.italic {font-variant: italic;}
-        ///			.sup {vertical-align: super; font-size: smaller;}
-        ///			.sub {vertical-align: sub; font-size: smaller;}
-        ///		&lt;/style&gt;
-        ///	&lt;/head&gt;
-        ///	&lt;body&gt;
-        ///		&lt;h1&gt;Inclination to the ecliptic, J2000.0 (degrees)&lt;/h1&gt;
-        ///		&lt;p&gt;&lt;span  [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
-        /// </summary>
-        internal static string terminology_InclinationToTheEcliptic {
-            get {
-                return ResourceManager.GetString("terminology_InclinationToTheEcliptic", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
-        ///&lt;html lang=&quot;en&quot;&gt;
-        ///	&lt;head&gt;
-        ///		&lt;meta charset=&quot;utf-8&quot;&gt;
-        ///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
-        ///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
-        ///		&lt;title&gt;Terminology: Index No.&lt;/title&gt;
-        ///		&lt;style&gt;
-        ///			* {font-family:sans-serif;}
-        ///			.bold {font-weight: bold;}
-        ///			.italic {font-variant: italic;}
-        ///			.sup {vertical-align: super; font-size: smaller;}
-        ///			.sub {vertical-align: sub; font-size: smaller;}
-        ///		&lt;/style&gt;
-        ///	&lt;/head&gt;
-        ///	&lt;body&gt;
-        ///		&lt;h1&gt;Index No.&lt;/h1&gt;
-        ///		&lt;p&gt;This is the intern index number.&lt;/p&gt;
-        ///	&lt;/body&gt;
-        ///&lt;/html&gt; ähnelt.
-        /// </summary>
-        internal static string terminology_IndexNumber {
-            get {
-                return ResourceManager.GetString("terminology_IndexNumber", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
-        ///&lt;html lang=&quot;en&quot;&gt;
-        ///	&lt;head&gt;
-        ///		&lt;meta charset=&quot;utf-8&quot;&gt;
-        ///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
-        ///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
-        ///		&lt;title&gt;Latus rectum&lt;/title&gt;
-        ///		&lt;style&gt;
-        ///			* {font-family:sans-serif;}
-        ///			.bold {font-weight: bold;}
-        ///			.italic {font-variant: italic;}
-        ///			.sup {vertical-align: super; font-size: smaller;}
-        ///			.sub {vertical-align: sub; font-size: smaller;}
-        ///		&lt;/style&gt;
-        ///	&lt;/head&gt;
-        ///	&lt;body&gt;
-        ///		&lt;h1&gt;Latus rectum&lt;/h1&gt;
-        ///		&lt;p&gt;In addition to the eccentricity (&lt;span class=&quot;italic&quot;&gt;e&lt;/span&gt;), foci, and [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
-        /// </summary>
-        internal static string terminology_LatusRectum {
-            get {
-                return ResourceManager.GetString("terminology_LatusRectum", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
-        ///&lt;html lang=&quot;en&quot;&gt;
-        ///	&lt;head&gt;
-        ///		&lt;meta charset=&quot;utf-8&quot;&gt;
-        ///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
-        ///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
-        ///		&lt;title&gt;Linear eccentricity&lt;/title&gt;
-        ///		&lt;style&gt;
-        ///			* {font-family:sans-serif;}
-        ///			.bold {font-weight: bold;}
-        ///			.italic {font-variant: italic;}
-        ///			.sup {vertical-align: super; font-size: smaller;}
-        ///			.sub {vertical-align: sub; font-size: smaller;}
-        ///		&lt;/style&gt;
-        ///	&lt;/head&gt;
-        ///	&lt;body&gt;
-        ///		&lt;h1&gt;Linear eccentricity&lt;/h1&gt;
-        ///		&lt;p&gt;In addition to the eccentricity (&lt;span class=&quot;italic&quot;&gt;e&lt;/spa [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
-        /// </summary>
-        internal static string terminology_LinearEccentricity {
-            get {
-                return ResourceManager.GetString("terminology_LinearEccentricity", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
-        ///&lt;html lang=&quot;en&quot;&gt;
-        ///	&lt;head&gt;
-        ///		&lt;meta charset=&quot;utf-8&quot;&gt;
-        ///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
-        ///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
-        ///		&lt;title&gt;Longitude of the ascending node, J2000.0&lt;/title&gt;
-        ///		&lt;style&gt;
-        ///			* {font-family:sans-serif;}
-        ///			.bold {font-weight: bold;}
-        ///			.italic {font-variant: italic;}
-        ///			.sup {vertical-align: super; font-size: smaller;}
-        ///			.sub {vertical-align: sub; font-size: smaller;}
-        ///		&lt;/style&gt;
-        ///	&lt;/head&gt;
-        ///	&lt;body&gt;
-        ///		&lt;h1&gt;Longitude of the ascending node, J2000.0&lt;/h1&gt;
-        ///		&lt;p&gt;The &lt;span class=&quot;b [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
-        /// </summary>
-        internal static string terminology_LongitudeOfTheAscendingNode {
-            get {
-                return ResourceManager.GetString("terminology_LongitudeOfTheAscendingNode", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
-        ///&lt;html lang=&quot;en&quot;&gt;
-        ///	&lt;head&gt;
-        ///		&lt;meta charset=&quot;utf-8&quot;&gt;
-        ///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
-        ///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
-        ///		&lt;title&gt;Longitude of Descending node&lt;/title&gt;
-        ///		&lt;style&gt;
-        ///			* {font-family:sans-serif;}
-        ///			.bold {font-weight: bold;}
-        ///			.italic {font-variant: italic;}
-        ///			.sup {vertical-align: super; font-size: smaller;}
-        ///			.sub {vertical-align: sub; font-size: smaller;}
-        ///		&lt;/style&gt;
-        ///	&lt;/head&gt;
-        ///	&lt;body&gt;
-        ///		&lt;h1&gt;Longitude of Descending node&lt;/h1&gt;
-        ///		&lt;p&gt;The &lt;span class=&quot;bold&quot;&gt;longitude of the de [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
-        /// </summary>
-        internal static string terminology_LongitudeOfTheDescendingNode {
-            get {
-                return ResourceManager.GetString("terminology_LongitudeOfTheDescendingNode", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
-        ///&lt;html lang=&quot;en&quot;&gt;
-        ///	&lt;head&gt;
-        ///		&lt;meta charset=&quot;utf-8&quot;&gt;
-        ///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
-        ///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
-        ///		&lt;title&gt;Major axis&lt;/title&gt;
-        ///		&lt;style&gt;
-        ///			* {font-family:sans-serif;}
-        ///			.bold {font-weight: bold;}
-        ///			.italic {font-variant: italic;}
-        ///			.sup {vertical-align: super; font-size: smaller;}
-        ///			.sub {vertical-align: sub; font-size: smaller;}
-        ///		&lt;/style&gt;
-        ///	&lt;/head&gt;
-        ///	&lt;body&gt;
-        ///		&lt;h1&gt;Major axis&lt;/h1&gt;
-        ///		&lt;p&gt;In addition to the eccentricity (&lt;span class=&quot;italic&quot;&gt;e&lt;/span&gt;), foci, and dir [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
-        /// </summary>
-        internal static string terminology_MajorAxis {
-            get {
-                return ResourceManager.GetString("terminology_MajorAxis", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
-        ///&lt;html lang=&quot;en&quot;&gt;
-        ///	&lt;head&gt;
-        ///		&lt;meta charset=&quot;utf-8&quot;&gt;
-        ///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
-        ///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
-        ///		&lt;title&gt;Terminology: Mean anomaly at the epoch, in degrees&lt;/title&gt;
-        ///		&lt;style&gt;
-        ///			* {font-family:sans-serif;}
-        ///			.bold {font-weight: bold;}
-        ///			.italic {font-variant: italic;}
-        ///			.sup {vertical-align: super; font-size: smaller;}
-        ///			.sub {vertical-align: sub; font-size: smaller;}
-        ///		&lt;/style&gt;
-        ///	&lt;/head&gt;
-        ///  &lt;body&gt;
-        ///  	&lt;h1&gt;Mean anomaly at the epoch, in degrees&lt;/h1&gt;
-        ///		&lt;p&gt;In celest [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
-        /// </summary>
-        internal static string terminology_MeanAnomalyAtTheEpoch {
-            get {
-                return ResourceManager.GetString("terminology_MeanAnomalyAtTheEpoch", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
-        ///&lt;html lang=&quot;en&quot;&gt;
-        ///	&lt;head&gt;
-        ///		&lt;meta charset=&quot;utf-8&quot;&gt;
-        ///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
-        ///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
-        ///		&lt;title&gt;Mean axis&lt;/title&gt;
-        ///		&lt;style&gt;
-        ///			* {font-family:sans-serif;}
-        ///			.bold {font-weight: bold;}
-        ///			.italic {font-variant: italic;}
-        ///			.sup {vertical-align: super; font-size: smaller;}
-        ///			.sub {vertical-align: sub; font-size: smaller;}
-        ///		&lt;/style&gt;
-        ///	&lt;/head&gt;
-        ///	&lt;body&gt;
-        ///		&lt;h1&gt;Mean axis&lt;/h1&gt;
-        ///		&lt;p&gt;The &lt;span class=&quot;bold&quot;&gt;mean axis&lt;/span&gt; is the arithmetic mean of the major axis [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
-        /// </summary>
-        internal static string terminology_MeanAxis {
-            get {
-                return ResourceManager.GetString("terminology_MeanAxis", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
-        ///&lt;html lang=&quot;en&quot;&gt;
-        ///	&lt;head&gt;
-        ///		&lt;meta charset=&quot;utf-8&quot;&gt;
-        ///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
-        ///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
-        ///		&lt;title&gt;Mean daily motion (degrees per day)&lt;/title&gt;
-        ///		&lt;style&gt;
-        ///			* {font-family:sans-serif;}
-        ///			.bold {font-weight: bold;}
-        ///			.italic {font-variant: italic;}
-        ///			.sup {vertical-align: super; font-size: smaller;}
-        ///			.sub {vertical-align: sub; font-size: smaller;}
-        ///		&lt;/style&gt;
-        ///	&lt;/head&gt;
-        ///	&lt;body&gt;
-        ///		&lt;h1&gt;Mean daily motion (degrees per day)&lt;/h1&gt;
-        ///		&lt;p&gt;In orbital mechanics, &lt;span  [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
-        /// </summary>
-        internal static string terminology_MeanDailyMotion {
-            get {
-                return ResourceManager.GetString("terminology_MeanDailyMotion", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
-        ///&lt;html lang=&quot;en&quot;&gt;
-        ///	&lt;head&gt;
-        ///		&lt;meta charset=&quot;utf-8&quot;&gt;
-        ///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
-        ///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
-        ///		&lt;title&gt;Minor axis&lt;/title&gt;
-        ///		&lt;style&gt;
-        ///			* {font-family:sans-serif;}
-        ///			.bold {font-weight: bold;}
-        ///			.italic {font-variant: italic;}
-        ///			.sup {vertical-align: super; font-size: smaller;}
-        ///			.sub {vertical-align: sub; font-size: smaller;}
-        ///		&lt;/style&gt;
-        ///	&lt;/head&gt;
-        ///	&lt;body&gt;
-        ///		&lt;h1&gt;Minor axis&lt;/h1&gt;
-        ///		&lt;p&gt;In addition to the eccentricity (&lt;span class=&quot;italic&quot;&gt;e&lt;/span&gt;), foci, and dir [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
-        /// </summary>
-        internal static string terminology_MinorAxis {
-            get {
-                return ResourceManager.GetString("terminology_MinorAxis", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
-        ///&lt;html lang=&quot;en&quot;&gt;
-        ///	&lt;head&gt;
-        ///		&lt;meta charset=&quot;utf-8&quot;&gt;
-        ///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
-        ///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
-        ///		&lt;title&gt;Number of observations&lt;/title&gt;
-        ///		&lt;style&gt;
-        ///			* {font-family:sans-serif;}
-        ///			.bold {font-weight: bold;}
-        ///			.italic {font-variant: italic;}
-        ///			.sup {vertical-align: super; font-size: smaller;}
-        ///			.sub {vertical-align: sub; font-size: smaller;}
-        ///		&lt;/style&gt;
-        ///	&lt;/head&gt;
-        ///	&lt;body&gt;
-        ///		&lt;h1&gt;Number of observations&lt;/h1&gt;
-        ///		&lt;p&gt;This is the number of observations.&lt;/p&gt;
-        ///	&lt;/body&gt;
-        ///&lt;/htm [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
-        /// </summary>
-        internal static string terminology_NumberOfObservations {
-            get {
-                return ResourceManager.GetString("terminology_NumberOfObservations", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
-        ///&lt;html lang=&quot;en&quot;&gt;
-        ///	&lt;head&gt;
-        ///		&lt;meta charset=&quot;utf-8&quot;&gt;
-        ///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
-        ///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
-        ///		&lt;title&gt;Number of oppositions&lt;/title&gt;
-        ///		&lt;style&gt;
-        ///			* {font-family:sans-serif;}
-        ///			.bold {font-weight: bold;}
-        ///			.italic {font-variant: italic;}
-        ///			.sup {vertical-align: super; font-size: smaller;}
-        ///			.sub {vertical-align: sub; font-size: smaller;}
-        ///		&lt;/style&gt;
-        ///	&lt;/head&gt;
-        ///	&lt;body&gt;
-        ///		&lt;h1&gt;Number of oppositions&lt;/h1&gt;
-        ///		&lt;p&gt;This is the number of oppositions.&lt;/p&gt;
-        ///		&lt;p&gt;In positiona [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
-        /// </summary>
-        internal static string terminology_NumberOfOppositions {
-            get {
-                return ResourceManager.GetString("terminology_NumberOfOppositions", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
-        ///&lt;html lang=&quot;en&quot;&gt;
-        ///	&lt;head&gt;
-        ///		&lt;meta charset=&quot;utf-8&quot;&gt;
-        ///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
-        ///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
-        ///		&lt;title&gt;Observation span&lt;/title&gt;
-        ///		&lt;style&gt;
-        ///			* {font-family:sans-serif;}
-        ///			.bold {font-weight: bold;}
-        ///			.italic {font-variant: italic;}
-        ///			.sup {vertical-align: super; font-size: smaller;}
-        ///			.sub {vertical-align: sub; font-size: smaller;}
-        ///		&lt;/style&gt;
-        ///	&lt;/head&gt;
-        ///	&lt;body&gt;
-        ///		&lt;h1&gt;Observation span&lt;/h1&gt;
-        ///		&lt;p&gt;This is the observation span with the year of first observation an [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
-        /// </summary>
-        internal static string terminology_ObservationSpan {
-            get {
-                return ResourceManager.GetString("terminology_ObservationSpan", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
-        ///&lt;html lang=&quot;en&quot;&gt;
-        ///	&lt;head&gt;
-        ///		&lt;meta charset=&quot;utf-8&quot;&gt;
-        ///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
-        ///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
-        ///		&lt;title&gt;Orbital area&lt;/title&gt;
-        ///		&lt;style&gt;
-        ///			* {font-family:sans-serif;}
-        ///			.bold {font-weight: bold;}
-        ///			.italic {font-variant: italic;}
-        ///			.sup {vertical-align: super; font-size: smaller;}
-        ///			.sub {vertical-align: sub; font-size: smaller;}
-        ///		&lt;/style&gt;
-        ///	&lt;/head&gt;
-        ///	&lt;body&gt;
-        ///		&lt;h1&gt;Orbital area&lt;/h1&gt;
-        ///		&lt;p&gt;The &lt;span class=&quot;bold&quot;&gt;orbital area&lt;/span&gt; is the area of the orbit.&lt;/p&gt;
-        ///	 [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
-        /// </summary>
-        internal static string terminology_OrbitalArea {
-            get {
-                return ResourceManager.GetString("terminology_OrbitalArea", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
-        ///&lt;html lang=&quot;en&quot;&gt;
-        ///	&lt;head&gt;
-        ///		&lt;meta charset=&quot;utf-8&quot;&gt;
-        ///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
-        ///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
-        ///		&lt;title&gt;Orbital eccentricity&lt;/title&gt;
-        ///		&lt;style&gt;
-        ///			* {font-family:sans-serif;}
-        ///			.bold {font-weight: bold;}
-        ///			.italic {font-variant: italic;}
-        ///			.sup {vertical-align: super; font-size: smaller;}
-        ///			.sub {vertical-align: sub; font-size: smaller;}
-        ///		&lt;/style&gt;
-        ///	&lt;/head&gt;
-        ///	&lt;body&gt;
-        ///		&lt;h1&gt;Orbital eccentricity&lt;/h1&gt;
-        ///		&lt;p&gt;The &lt;span class=&quot;bold&quot;&gt;orbital eccentricity&lt;/span&gt; of an a [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
-        /// </summary>
-        internal static string terminology_OrbitalEccentricity {
-            get {
-                return ResourceManager.GetString("terminology_OrbitalEccentricity", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
-        ///&lt;html lang=&quot;en&quot;&gt;
-        ///	&lt;head&gt;
-        ///		&lt;meta charset=&quot;utf-8&quot;&gt;
-        ///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
-        ///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
-        ///		&lt;title&gt;Orbital perimeter&lt;/title&gt;
-        ///		&lt;style&gt;
-        ///			* {font-family:sans-serif;}
-        ///			.bold {font-weight: bold;}
-        ///			.italic {font-variant: italic;}
-        ///			.sup {vertical-align: super; font-size: smaller;}
-        ///			.sub {vertical-align: sub; font-size: smaller;}
-        ///		&lt;/style&gt;
-        ///	&lt;/head&gt;
-        ///	&lt;body&gt;
-        ///		&lt;h1&gt;Orbital perimeter&lt;/h1&gt;
-        ///		&lt;p&gt;The &lt;span class=&quot;bold&quot;&gt;orbital perimeter&lt;/span&gt; is the perimeter [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
-        /// </summary>
-        internal static string terminology_OrbitalPerimeter {
-            get {
-                return ResourceManager.GetString("terminology_OrbitalPerimeter", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
-        ///&lt;html lang=&quot;en&quot;&gt;
-        ///	&lt;head&gt;
-        ///		&lt;meta charset=&quot;utf-8&quot;&gt;
-        ///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
-        ///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
-        ///		&lt;title&gt;Period&lt;/title&gt;
-        ///		&lt;style&gt;
-        ///			* {font-family:sans-serif;}
-        ///			.bold {font-weight: bold;}
-        ///			.italic {font-variant: italic;}
-        ///			.sup {vertical-align: super; font-size: smaller;}
-        ///			.sub {vertical-align: sub; font-size: smaller;}
-        ///		&lt;/style&gt;
-        ///	&lt;/head&gt;
-        ///	&lt;body&gt;
-        ///		&lt;h1&gt;Period&lt;/h1&gt;
-        ///		&lt;p&gt;The &lt;span class=&quot;bold&quot;&gt;orbital period&lt;/span&gt; is the time a given astronomical object t [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
-        /// </summary>
-        internal static string terminology_OrbitalPeriod {
-            get {
-                return ResourceManager.GetString("terminology_OrbitalPeriod", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
-        ///&lt;html lang=&quot;en&quot;&gt;
-        ///	&lt;head&gt;
-        ///		&lt;meta charset=&quot;utf-8&quot;&gt;
-        ///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
-        ///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
-        ///		&lt;title&gt;Perihelion distance&lt;/title&gt;
-        ///		&lt;style&gt;
-        ///			* {font-family:sans-serif;}
-        ///			.bold {font-weight: bold;}
-        ///			.italic {font-variant: italic;}
-        ///			.sup {vertical-align: super; font-size: smaller;}
-        ///			.sub {vertical-align: sub; font-size: smaller;}
-        ///		&lt;/style&gt;
-        ///	&lt;/head&gt;
-        ///	&lt;body&gt;
-        ///		&lt;h1&gt;Perihelion distance&lt;/h1&gt;
-        ///		&lt;p&gt;&lt;span class=&quot;bold&quot;&gt;Apsis&lt;/span&gt; (Greek: á¼ÏˆÎ¯Ï‚; plural &lt;s [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
-        /// </summary>
-        internal static string terminology_PerihelionDistance {
-            get {
-                return ResourceManager.GetString("terminology_PerihelionDistance", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
-        ///&lt;html lang=&quot;en&quot;&gt;
-        ///	&lt;head&gt;
-        ///		&lt;meta charset=&quot;utf-8&quot;&gt;
-        ///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
-        ///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
-        ///		&lt;title&gt;Terminology: Readable designation&lt;/title&gt;
-        ///		&lt;style&gt;
-        ///			* {font-family:sans-serif;}
-        ///			.bold {font-weight: bold;}
-        ///			.italic {font-variant: italic;}
-        ///			.sup {vertical-align: super; font-size: smaller;}
-        ///			.sub {vertical-align: sub; font-size: smaller;}
-        ///		&lt;/style&gt;
-        ///	&lt;/head&gt;
-        ///	&lt;body&gt;
-        ///		&lt;h1&gt;Readable designation&lt;/h1&gt;
-        ///		&lt;p&gt;This is the readable designation.&lt;/p&gt;
-        ///  &lt;/bod [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
-        /// </summary>
-        internal static string terminology_ReadableDesignation {
-            get {
-                return ResourceManager.GetString("terminology_ReadableDesignation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
-        ///&lt;html lang=&quot;en&quot;&gt;
-        ///	&lt;head&gt;
-        ///		&lt;meta charset=&quot;utf-8&quot;&gt;
-        ///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
-        ///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
-        ///		&lt;title&gt;Reference&lt;/title&gt;
-        ///		&lt;style&gt;
-        ///			* {font-family:sans-serif;}
-        ///			.bold {font-weight: bold;}
-        ///			.italic {font-variant: italic;}
-        ///			.sup {vertical-align: super; font-size: smaller;}
-        ///			.sub {vertical-align: sub; font-size: smaller;}
-        ///		&lt;/style&gt;
-        ///	&lt;/head&gt;
-        ///	&lt;body&gt;
-        ///		&lt;h1&gt;Reference&lt;/h1&gt;
-        ///		&lt;p&gt;This is the reference where the observation data published.&lt;/p&gt;
-        ///	&lt;/body&gt;
-        ///&lt;/html&gt; ähnelt.
-        /// </summary>
-        internal static string terminology_Reference {
-            get {
-                return ResourceManager.GetString("terminology_Reference", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
-        ///&lt;html lang=&quot;en&quot;&gt;
-        ///	&lt;head&gt;
-        ///		&lt;meta charset=&quot;utf-8&quot;&gt;
-        ///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
-        ///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
-        ///		&lt;title&gt;r.m.s. residual (&quot;)&lt;/title&gt;
-        ///		&lt;style&gt;
-        ///			* {font-family:sans-serif;}
-        ///			.bold {font-weight: bold;}
-        ///			.italic {font-variant: italic;}
-        ///			.sup {vertical-align: super; font-size: smaller;}
-        ///			.sub {vertical-align: sub; font-size: smaller;}
-        ///		&lt;/style&gt;
-        ///	&lt;/head&gt;
-        ///	&lt;body&gt;
-        ///		&lt;h1&gt;r.m.s. residual (&quot;)&lt;/h1&gt;
-        ///		&lt;p&gt;The &lt;span class=&quot;bold&quot;&gt;root-mean-square deviation (RMSD)&lt;/sp [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
-        /// </summary>
-        internal static string terminology_RmsResidual {
-            get {
-                return ResourceManager.GetString("terminology_RmsResidual", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
-        ///&lt;html lang=&quot;en&quot;&gt;
-        ///	&lt;head&gt;
-        ///		&lt;meta charset=&quot;utf-8&quot;&gt;
-        ///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
-        ///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
-        ///		&lt;title&gt;Semi-latus rectum&lt;/title&gt;
-        ///		&lt;style&gt;
-        ///			* {font-family:sans-serif;}
-        ///			.bold {font-weight: bold;}
-        ///			.italic {font-variant: italic;}
-        ///			.sup {vertical-align: super; font-size: smaller;}
-        ///			.sub {vertical-align: sub; font-size: smaller;}
-        ///		&lt;/style&gt;
-        ///	&lt;/head&gt;
-        ///	&lt;body&gt;
-        ///		&lt;h1&gt;Semi-latus rectum&lt;/h1&gt;
-        ///		&lt;p&gt;In addition to the eccentricity (&lt;span class=&quot;italic&quot;&gt;e&lt;/span&gt;), [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
-        /// </summary>
-        internal static string terminology_SemiLatusRectum {
-            get {
-                return ResourceManager.GetString("terminology_SemiLatusRectum", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
-        ///&lt;html lang=&quot;en&quot;&gt;
-        ///	&lt;head&gt;
-        ///		&lt;meta charset=&quot;utf-8&quot;&gt;
-        ///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
-        ///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
-        ///		&lt;title&gt;Semimajor axis (AU)&lt;/title&gt;
-        ///		&lt;style&gt;
-        ///			* {font-family:sans-serif;}
-        ///			.bold {font-weight: bold;}
-        ///			.italic {font-variant: italic;}
-        ///			.sup {vertical-align: super; font-size: smaller;}
-        ///			.sub {vertical-align: sub; font-size: smaller;}
-        ///		&lt;/style&gt;
-        ///	&lt;/head&gt;
-        ///	&lt;body&gt;
-        ///		&lt;h1&gt;Semimajor axis (AU)&lt;/h1&gt;
-        ///		&lt;p&gt;In geometry, the major axis of an ellipse is its longest dia [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
-        /// </summary>
-        internal static string terminology_SemiMajorAxis {
-            get {
-                return ResourceManager.GetString("terminology_SemiMajorAxis", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
-        ///&lt;html lang=&quot;en&quot;&gt;
-        ///	&lt;head&gt;
-        ///		&lt;meta charset=&quot;utf-8&quot;&gt;
-        ///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
-        ///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
-        ///		&lt;title&gt;Semi-mean axis&lt;/title&gt;
-        ///		&lt;style&gt;
-        ///			* {font-family:sans-serif;}
-        ///			.bold {font-weight: bold;}
-        ///			.italic {font-variant: italic;}
-        ///			.sup {vertical-align: super; font-size: smaller;}
-        ///			.sub {vertical-align: sub; font-size: smaller;}
-        ///		&lt;/style&gt;
-        ///	&lt;/head&gt;
-        ///	&lt;body&gt;
-        ///		&lt;h1&gt;Semi-mean axis&lt;/h1&gt;
-        ///		&lt;p&gt;The mean axis is the arithmetic mean of the major axis and the minor a [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
-        /// </summary>
-        internal static string terminology_SemiMeanAxis {
-            get {
-                return ResourceManager.GetString("terminology_SemiMeanAxis", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
-        ///&lt;html lang=&quot;en&quot;&gt;
-        ///	&lt;head&gt;
-        ///		&lt;meta charset=&quot;utf-8&quot;&gt;
-        ///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
-        ///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
-        ///		&lt;title&gt;Semi-minor axis&lt;/title&gt;
-        ///		&lt;style&gt;
-        ///			* {font-family:sans-serif;}
-        ///			.bold {font-weight: bold;}
-        ///			.italic {font-variant: italic;}
-        ///			.sup {vertical-align: super; font-size: smaller;}
-        ///			.sub {vertical-align: sub; font-size: smaller;}
-        ///		&lt;/style&gt;
-        ///	&lt;/head&gt;
-        ///	&lt;body&gt;
-        ///		&lt;h1&gt;Semi-minor axis&lt;/h1&gt;
-        ///		&lt;p&gt;In addition to the eccentricity (&lt;span class=&quot;italic&quot;&gt;e&lt;/span&gt;), foc [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
-        /// </summary>
-        internal static string terminology_SemiMinorAxis {
-            get {
-                return ResourceManager.GetString("terminology_SemiMinorAxis", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
-        ///&lt;html lang=&quot;en&quot;&gt;
-        ///	&lt;head&gt;
-        ///		&lt;meta charset=&quot;utf-8&quot;&gt;
-        ///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
-        ///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
-        ///		&lt;title&gt;Slope parameter, G&lt;/title&gt;
-        ///		&lt;style&gt;
-        ///			* {font-family:sans-serif;}
-        ///			.bold {font-weight: bold;}
-        ///			.italic {font-variant: italic;}
-        ///			.sup {vertical-align: super; font-size: smaller;}
-        ///			.sub {vertical-align: sub; font-size: smaller;}
-        ///		&lt;/style&gt;
-        ///	&lt;/head&gt;
-        ///	&lt;body&gt;
-        ///		&lt;h1&gt;Slope parameter, G&lt;/h1&gt;
-        ///		&lt;p&gt;This is the slope parameter.&lt;/p&gt;
-        ///	&lt;/body&gt;
-        ///&lt;/html&gt; ähnelt.
-        /// </summary>
-        internal static string terminology_SlopeParameter {
-            get {
-                return ResourceManager.GetString("terminology_SlopeParameter", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
-        ///&lt;html lang=&quot;en&quot;&gt;
-        ///	&lt;head&gt;
-        ///		&lt;meta charset=&quot;utf-8&quot;&gt;
-        ///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
-        ///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
-        ///		&lt;title&gt;Standard gravitational parameter&lt;/title&gt;
-        ///		&lt;style&gt;
-        ///			* {font-family:sans-serif;}
-        ///			.bold {font-weight: bold;}
-        ///			.italic {font-variant: italic;}
-        ///			.sup {vertical-align: super; font-size: smaller;}
-        ///			.sub {vertical-align: sub; font-size: smaller;}
-        ///		&lt;/style&gt;
-        ///	&lt;/head&gt;
-        ///	&lt;body&gt;
-        ///		&lt;h1&gt;Standard gravitational parameter&lt;/h1&gt;
-        ///		&lt;p&gt;In celestial mechanics, the &lt;span  [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
-        /// </summary>
-        internal static string terminology_StandardGravitationalParameter {
-            get {
-                return ResourceManager.GetString("terminology_StandardGravitationalParameter", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
-        ///&lt;html lang=&quot;en&quot;&gt;
-        ///	&lt;head&gt;
-        ///		&lt;meta charset=&quot;utf-8&quot;&gt;
-        ///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
-        ///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
-        ///		&lt;title&gt;True anomaly&lt;/title&gt;
-        ///		&lt;style&gt;
-        ///			* {font-family:sans-serif;}
-        ///			.bold {font-weight: bold;}
-        ///			.italic {font-variant: italic;}
-        ///			.sup {vertical-align: super; font-size: smaller;}
-        ///			.sub {vertical-align: sub; font-size: smaller;}
-        ///		&lt;/style&gt;
-        ///	&lt;/head&gt;
-        ///	&lt;body&gt;
-        ///		&lt;h1&gt;True anomaly&lt;/h1&gt;
-        ///		&lt;p&gt;In celestial mechanics, &lt;span class=&quot;bold&quot;&gt;true anomaly&lt;/span&gt; is an angul [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
-        /// </summary>
-        internal static string terminology_TrueAnomaly {
-            get {
-                return ResourceManager.GetString("terminology_TrueAnomaly", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Update recommended ähnelt.
-        /// </summary>
-        internal static string UpdateRecommendedText {
-            get {
-                return ResourceManager.GetString("UpdateRecommendedText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Version: {0} ähnelt.
-        /// </summary>
-        internal static string VersionTemplate {
-            get {
-                return ResourceManager.GetString("VersionTemplate", resourceCulture);
-            }
-        }
+			get {
+				return ResourceManager.GetString("terminology_ComputerName", resourceCulture);
+			}
+		}
+		
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
+		///&lt;html lang=&quot;en&quot;&gt;
+		///	&lt;head&gt;
+		///		&lt;meta charset=&quot;utf-8&quot;&gt;
+		///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
+		///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
+		///		&lt;title&gt;Date of last observation&lt;/title&gt;
+		///		&lt;style&gt;
+		///			* {font-family:sans-serif;}
+		///			.bold {font-weight: bold;}
+		///			.italic {font-variant: italic;}
+		///			.sup {vertical-align: super; font-size: smaller;}
+		///			.sub {vertical-align: sub; font-size: smaller;}
+		///		&lt;/style&gt;
+		///	&lt;/head&gt;
+		///	&lt;body&gt;
+		///		&lt;h1&gt;Date of last observation&lt;/h1&gt;
+		///		&lt;p&gt;This is the date of last observation included in o [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
+		/// </summary>
+		internal static string terminology_DateOfLastObservation {
+			get {
+				return ResourceManager.GetString("terminology_DateOfLastObservation", resourceCulture);
+			}
+		}
+		
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
+		///&lt;html lang=&quot;en&quot;&gt;
+		///	&lt;head&gt;
+		///		&lt;meta charset=&quot;utf-8&quot;&gt;
+		///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
+		///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
+		///		&lt;title&gt;Eccenctric anomaly&lt;/title&gt;
+		///		&lt;style&gt;
+		///			* {font-family:sans-serif;}
+		///			.bold {font-weight: bold;}
+		///			.italic {font-variant: italic;}
+		///			.sup {vertical-align: super; font-size: smaller;}
+		///			.sub {vertical-align: sub; font-size: smaller;}
+		///		&lt;/style&gt;
+		///	&lt;/head&gt;
+		///	&lt;body&gt;
+		///		&lt;h1&gt;Eccentric anomaly&lt;/h1&gt;
+		///		&lt;p&gt;In orbital mechanics, the &lt;span class=&quot;bold&quot;&gt;eccentric anomaly [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
+		/// </summary>
+		internal static string terminology_EccentricAnomaly {
+			get {
+				return ResourceManager.GetString("terminology_EccentricAnomaly", resourceCulture);
+			}
+		}
+		
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
+		///&lt;html lang=&quot;en&quot;&gt;
+		///	&lt;head&gt;
+		///		&lt;meta charset=&quot;utf-8&quot;&gt;
+		///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
+		///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
+		///		&lt;title&gt;Terminology: Epoch (in packed form, .0 TT)&lt;/title&gt;
+		///		&lt;style&gt;
+		///			* {font-family:sans-serif;}
+		///			.bold {font-weight: bold;}
+		///			.italic {font-variant: italic;}
+		///			.sup {vertical-align: super; font-size: smaller;}
+		///			.sub {vertical-align: sub; font-size: smaller;}
+		///		&lt;/style&gt;
+		///	&lt;/head&gt;
+		///	&lt;body&gt;
+		///		&lt;h1&gt;Epoch (in packed form, .0 TT)&lt;/h1&gt;
+		///		&lt;p&gt;In astronomy, an epoch&lt;/spa [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
+		/// </summary>
+		internal static string terminology_Epoch {
+			get {
+				return ResourceManager.GetString("terminology_Epoch", resourceCulture);
+			}
+		}
+		
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
+		///&lt;html lang=&quot;en&quot;&gt;
+		///	&lt;head&gt;
+		///		&lt;meta charset=&quot;utf-8&quot;&gt;
+		///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
+		///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
+		///		&lt;title&gt;4-hexdigit flags&lt;/title&gt;
+		///		&lt;style&gt;
+		///			* {font-family:sans-serif;}
+		///			.bold {font-weight: bold;}
+		///			.italic {font-variant: italic;}
+		///			.sup {vertical-align: super; font-size: smaller;}
+		///			.sub {vertical-align: sub; font-size: smaller;}
+		///		&lt;/style&gt;
+		///	&lt;/head&gt;
+		///	&lt;body&gt;
+		///		&lt;h1&gt;4-hexdigit flags&lt;/h1&gt;
+		///		&lt;p&gt;This information has been updated 2014 July 16, for files created  [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
+		/// </summary>
+		internal static string terminology_Flags {
+			get {
+				return ResourceManager.GetString("terminology_Flags", resourceCulture);
+			}
+		}
+		
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
+		///&lt;html lang=&quot;en&quot;&gt;
+		///	&lt;head&gt;
+		///		&lt;meta charset=&quot;utf-8&quot;&gt;
+		///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
+		///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
+		///		&lt;title&gt;Focal parameter&lt;/title&gt;
+		///		&lt;style&gt;
+		///			* {font-family:sans-serif;}
+		///			.bold {font-weight: bold;}
+		///			.italic {font-variant: italic;}
+		///			.sup {vertical-align: super; font-size: smaller;}
+		///			.sub {vertical-align: sub; font-size: smaller;}
+		///		&lt;/style&gt;
+		///	&lt;/head&gt;
+		///	&lt;body&gt;
+		///		&lt;h1&gt;Focal parameter&lt;/h1&gt;
+		///		&lt;p&gt;In addition to the eccentricity (&lt;span class=&quot;italic&quot;&gt;e&lt;/span&gt;), foc [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
+		/// </summary>
+		internal static string terminology_FocalParameter {
+			get {
+				return ResourceManager.GetString("terminology_FocalParameter", resourceCulture);
+			}
+		}
+		
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
+		///&lt;html lang=&quot;en&quot;&gt;
+		///	&lt;head&gt;
+		///		&lt;meta charset=&quot;utf-8&quot;&gt;
+		///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
+		///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
+		///		&lt;title&gt;Inclination to the ecliptic, J2000.0 (degrees)&lt;/title&gt;
+		///		&lt;style&gt;
+		///			* {font-family:sans-serif;}
+		///			.bold {font-weight: bold;}
+		///			.italic {font-variant: italic;}
+		///			.sup {vertical-align: super; font-size: smaller;}
+		///			.sub {vertical-align: sub; font-size: smaller;}
+		///		&lt;/style&gt;
+		///	&lt;/head&gt;
+		///	&lt;body&gt;
+		///		&lt;h1&gt;Inclination to the ecliptic, J2000.0 (degrees)&lt;/h1&gt;
+		///		&lt;p&gt;&lt;span  [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
+		/// </summary>
+		internal static string terminology_InclinationToTheEcliptic {
+			get {
+				return ResourceManager.GetString("terminology_InclinationToTheEcliptic", resourceCulture);
+			}
+		}
+		
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
+		///&lt;html lang=&quot;en&quot;&gt;
+		///	&lt;head&gt;
+		///		&lt;meta charset=&quot;utf-8&quot;&gt;
+		///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
+		///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
+		///		&lt;title&gt;Terminology: Index No.&lt;/title&gt;
+		///		&lt;style&gt;
+		///			* {font-family:sans-serif;}
+		///			.bold {font-weight: bold;}
+		///			.italic {font-variant: italic;}
+		///			.sup {vertical-align: super; font-size: smaller;}
+		///			.sub {vertical-align: sub; font-size: smaller;}
+		///		&lt;/style&gt;
+		///	&lt;/head&gt;
+		///	&lt;body&gt;
+		///		&lt;h1&gt;Index No.&lt;/h1&gt;
+		///		&lt;p&gt;This is the intern index number.&lt;/p&gt;
+		///	&lt;/body&gt;
+		///&lt;/html&gt; ähnelt.
+		/// </summary>
+		internal static string terminology_IndexNumber {
+			get {
+				return ResourceManager.GetString("terminology_IndexNumber", resourceCulture);
+			}
+		}
+		
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
+		///&lt;html lang=&quot;en&quot;&gt;
+		///	&lt;head&gt;
+		///		&lt;meta charset=&quot;utf-8&quot;&gt;
+		///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
+		///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
+		///		&lt;title&gt;Latus rectum&lt;/title&gt;
+		///		&lt;style&gt;
+		///			* {font-family:sans-serif;}
+		///			.bold {font-weight: bold;}
+		///			.italic {font-variant: italic;}
+		///			.sup {vertical-align: super; font-size: smaller;}
+		///			.sub {vertical-align: sub; font-size: smaller;}
+		///		&lt;/style&gt;
+		///	&lt;/head&gt;
+		///	&lt;body&gt;
+		///		&lt;h1&gt;Latus rectum&lt;/h1&gt;
+		///		&lt;p&gt;In addition to the eccentricity (&lt;span class=&quot;italic&quot;&gt;e&lt;/span&gt;), foci, and [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
+		/// </summary>
+		internal static string terminology_LatusRectum {
+			get {
+				return ResourceManager.GetString("terminology_LatusRectum", resourceCulture);
+			}
+		}
+		
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
+		///&lt;html lang=&quot;en&quot;&gt;
+		///	&lt;head&gt;
+		///		&lt;meta charset=&quot;utf-8&quot;&gt;
+		///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
+		///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
+		///		&lt;title&gt;Linear eccentricity&lt;/title&gt;
+		///		&lt;style&gt;
+		///			* {font-family:sans-serif;}
+		///			.bold {font-weight: bold;}
+		///			.italic {font-variant: italic;}
+		///			.sup {vertical-align: super; font-size: smaller;}
+		///			.sub {vertical-align: sub; font-size: smaller;}
+		///		&lt;/style&gt;
+		///	&lt;/head&gt;
+		///	&lt;body&gt;
+		///		&lt;h1&gt;Linear eccentricity&lt;/h1&gt;
+		///		&lt;p&gt;In addition to the eccentricity (&lt;span class=&quot;italic&quot;&gt;e&lt;/spa [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
+		/// </summary>
+		internal static string terminology_LinearEccentricity {
+			get {
+				return ResourceManager.GetString("terminology_LinearEccentricity", resourceCulture);
+			}
+		}
+		
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
+		///&lt;html lang=&quot;en&quot;&gt;
+		///	&lt;head&gt;
+		///		&lt;meta charset=&quot;utf-8&quot;&gt;
+		///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
+		///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
+		///		&lt;title&gt;Longitude of the ascending node, J2000.0&lt;/title&gt;
+		///		&lt;style&gt;
+		///			* {font-family:sans-serif;}
+		///			.bold {font-weight: bold;}
+		///			.italic {font-variant: italic;}
+		///			.sup {vertical-align: super; font-size: smaller;}
+		///			.sub {vertical-align: sub; font-size: smaller;}
+		///		&lt;/style&gt;
+		///	&lt;/head&gt;
+		///	&lt;body&gt;
+		///		&lt;h1&gt;Longitude of the ascending node, J2000.0&lt;/h1&gt;
+		///		&lt;p&gt;The &lt;span class=&quot;b [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
+		/// </summary>
+		internal static string terminology_LongitudeOfTheAscendingNode {
+			get {
+				return ResourceManager.GetString("terminology_LongitudeOfTheAscendingNode", resourceCulture);
+			}
+		}
+		
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
+		///&lt;html lang=&quot;en&quot;&gt;
+		///	&lt;head&gt;
+		///		&lt;meta charset=&quot;utf-8&quot;&gt;
+		///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
+		///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
+		///		&lt;title&gt;Longitude of Descending node&lt;/title&gt;
+		///		&lt;style&gt;
+		///			* {font-family:sans-serif;}
+		///			.bold {font-weight: bold;}
+		///			.italic {font-variant: italic;}
+		///			.sup {vertical-align: super; font-size: smaller;}
+		///			.sub {vertical-align: sub; font-size: smaller;}
+		///		&lt;/style&gt;
+		///	&lt;/head&gt;
+		///	&lt;body&gt;
+		///		&lt;h1&gt;Longitude of Descending node&lt;/h1&gt;
+		///		&lt;p&gt;The &lt;span class=&quot;bold&quot;&gt;longitude of the de [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
+		/// </summary>
+		internal static string terminology_LongitudeOfTheDescendingNode {
+			get {
+				return ResourceManager.GetString("terminology_LongitudeOfTheDescendingNode", resourceCulture);
+			}
+		}
+		
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
+		///&lt;html lang=&quot;en&quot;&gt;
+		///	&lt;head&gt;
+		///		&lt;meta charset=&quot;utf-8&quot;&gt;
+		///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
+		///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
+		///		&lt;title&gt;Major axis&lt;/title&gt;
+		///		&lt;style&gt;
+		///			* {font-family:sans-serif;}
+		///			.bold {font-weight: bold;}
+		///			.italic {font-variant: italic;}
+		///			.sup {vertical-align: super; font-size: smaller;}
+		///			.sub {vertical-align: sub; font-size: smaller;}
+		///		&lt;/style&gt;
+		///	&lt;/head&gt;
+		///	&lt;body&gt;
+		///		&lt;h1&gt;Major axis&lt;/h1&gt;
+		///		&lt;p&gt;In addition to the eccentricity (&lt;span class=&quot;italic&quot;&gt;e&lt;/span&gt;), foci, and dir [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
+		/// </summary>
+		internal static string terminology_MajorAxis {
+			get {
+				return ResourceManager.GetString("terminology_MajorAxis", resourceCulture);
+			}
+		}
+		
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
+		///&lt;html lang=&quot;en&quot;&gt;
+		///	&lt;head&gt;
+		///		&lt;meta charset=&quot;utf-8&quot;&gt;
+		///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
+		///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
+		///		&lt;title&gt;Terminology: Mean anomaly at the epoch, in degrees&lt;/title&gt;
+		///		&lt;style&gt;
+		///			* {font-family:sans-serif;}
+		///			.bold {font-weight: bold;}
+		///			.italic {font-variant: italic;}
+		///			.sup {vertical-align: super; font-size: smaller;}
+		///			.sub {vertical-align: sub; font-size: smaller;}
+		///		&lt;/style&gt;
+		///	&lt;/head&gt;
+		///  &lt;body&gt;
+		///  	&lt;h1&gt;Mean anomaly at the epoch, in degrees&lt;/h1&gt;
+		///		&lt;p&gt;In celest [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
+		/// </summary>
+		internal static string terminology_MeanAnomalyAtTheEpoch {
+			get {
+				return ResourceManager.GetString("terminology_MeanAnomalyAtTheEpoch", resourceCulture);
+			}
+		}
+		
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
+		///&lt;html lang=&quot;en&quot;&gt;
+		///	&lt;head&gt;
+		///		&lt;meta charset=&quot;utf-8&quot;&gt;
+		///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
+		///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
+		///		&lt;title&gt;Mean axis&lt;/title&gt;
+		///		&lt;style&gt;
+		///			* {font-family:sans-serif;}
+		///			.bold {font-weight: bold;}
+		///			.italic {font-variant: italic;}
+		///			.sup {vertical-align: super; font-size: smaller;}
+		///			.sub {vertical-align: sub; font-size: smaller;}
+		///		&lt;/style&gt;
+		///	&lt;/head&gt;
+		///	&lt;body&gt;
+		///		&lt;h1&gt;Mean axis&lt;/h1&gt;
+		///		&lt;p&gt;The &lt;span class=&quot;bold&quot;&gt;mean axis&lt;/span&gt; is the arithmetic mean of the major axis [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
+		/// </summary>
+		internal static string terminology_MeanAxis {
+			get {
+				return ResourceManager.GetString("terminology_MeanAxis", resourceCulture);
+			}
+		}
+		
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
+		///&lt;html lang=&quot;en&quot;&gt;
+		///	&lt;head&gt;
+		///		&lt;meta charset=&quot;utf-8&quot;&gt;
+		///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
+		///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
+		///		&lt;title&gt;Mean daily motion (degrees per day)&lt;/title&gt;
+		///		&lt;style&gt;
+		///			* {font-family:sans-serif;}
+		///			.bold {font-weight: bold;}
+		///			.italic {font-variant: italic;}
+		///			.sup {vertical-align: super; font-size: smaller;}
+		///			.sub {vertical-align: sub; font-size: smaller;}
+		///		&lt;/style&gt;
+		///	&lt;/head&gt;
+		///	&lt;body&gt;
+		///		&lt;h1&gt;Mean daily motion (degrees per day)&lt;/h1&gt;
+		///		&lt;p&gt;In orbital mechanics, &lt;span  [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
+		/// </summary>
+		internal static string terminology_MeanDailyMotion {
+			get {
+				return ResourceManager.GetString("terminology_MeanDailyMotion", resourceCulture);
+			}
+		}
+		
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
+		///&lt;html lang=&quot;en&quot;&gt;
+		///	&lt;head&gt;
+		///		&lt;meta charset=&quot;utf-8&quot;&gt;
+		///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
+		///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
+		///		&lt;title&gt;Minor axis&lt;/title&gt;
+		///		&lt;style&gt;
+		///			* {font-family:sans-serif;}
+		///			.bold {font-weight: bold;}
+		///			.italic {font-variant: italic;}
+		///			.sup {vertical-align: super; font-size: smaller;}
+		///			.sub {vertical-align: sub; font-size: smaller;}
+		///		&lt;/style&gt;
+		///	&lt;/head&gt;
+		///	&lt;body&gt;
+		///		&lt;h1&gt;Minor axis&lt;/h1&gt;
+		///		&lt;p&gt;In addition to the eccentricity (&lt;span class=&quot;italic&quot;&gt;e&lt;/span&gt;), foci, and dir [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
+		/// </summary>
+		internal static string terminology_MinorAxis {
+			get {
+				return ResourceManager.GetString("terminology_MinorAxis", resourceCulture);
+			}
+		}
+		
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
+		///&lt;html lang=&quot;en&quot;&gt;
+		///	&lt;head&gt;
+		///		&lt;meta charset=&quot;utf-8&quot;&gt;
+		///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
+		///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
+		///		&lt;title&gt;Number of observations&lt;/title&gt;
+		///		&lt;style&gt;
+		///			* {font-family:sans-serif;}
+		///			.bold {font-weight: bold;}
+		///			.italic {font-variant: italic;}
+		///			.sup {vertical-align: super; font-size: smaller;}
+		///			.sub {vertical-align: sub; font-size: smaller;}
+		///		&lt;/style&gt;
+		///	&lt;/head&gt;
+		///	&lt;body&gt;
+		///		&lt;h1&gt;Number of observations&lt;/h1&gt;
+		///		&lt;p&gt;This is the number of observations.&lt;/p&gt;
+		///	&lt;/body&gt;
+		///&lt;/htm [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
+		/// </summary>
+		internal static string terminology_NumberOfObservations {
+			get {
+				return ResourceManager.GetString("terminology_NumberOfObservations", resourceCulture);
+			}
+		}
+		
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
+		///&lt;html lang=&quot;en&quot;&gt;
+		///	&lt;head&gt;
+		///		&lt;meta charset=&quot;utf-8&quot;&gt;
+		///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
+		///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
+		///		&lt;title&gt;Number of oppositions&lt;/title&gt;
+		///		&lt;style&gt;
+		///			* {font-family:sans-serif;}
+		///			.bold {font-weight: bold;}
+		///			.italic {font-variant: italic;}
+		///			.sup {vertical-align: super; font-size: smaller;}
+		///			.sub {vertical-align: sub; font-size: smaller;}
+		///		&lt;/style&gt;
+		///	&lt;/head&gt;
+		///	&lt;body&gt;
+		///		&lt;h1&gt;Number of oppositions&lt;/h1&gt;
+		///		&lt;p&gt;This is the number of oppositions.&lt;/p&gt;
+		///		&lt;p&gt;In positiona [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
+		/// </summary>
+		internal static string terminology_NumberOfOppositions {
+			get {
+				return ResourceManager.GetString("terminology_NumberOfOppositions", resourceCulture);
+			}
+		}
+		
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
+		///&lt;html lang=&quot;en&quot;&gt;
+		///	&lt;head&gt;
+		///		&lt;meta charset=&quot;utf-8&quot;&gt;
+		///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
+		///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
+		///		&lt;title&gt;Observation span&lt;/title&gt;
+		///		&lt;style&gt;
+		///			* {font-family:sans-serif;}
+		///			.bold {font-weight: bold;}
+		///			.italic {font-variant: italic;}
+		///			.sup {vertical-align: super; font-size: smaller;}
+		///			.sub {vertical-align: sub; font-size: smaller;}
+		///		&lt;/style&gt;
+		///	&lt;/head&gt;
+		///	&lt;body&gt;
+		///		&lt;h1&gt;Observation span&lt;/h1&gt;
+		///		&lt;p&gt;This is the observation span with the year of first observation an [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
+		/// </summary>
+		internal static string terminology_ObservationSpan {
+			get {
+				return ResourceManager.GetString("terminology_ObservationSpan", resourceCulture);
+			}
+		}
+		
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
+		///&lt;html lang=&quot;en&quot;&gt;
+		///	&lt;head&gt;
+		///		&lt;meta charset=&quot;utf-8&quot;&gt;
+		///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
+		///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
+		///		&lt;title&gt;Orbital area&lt;/title&gt;
+		///		&lt;style&gt;
+		///			* {font-family:sans-serif;}
+		///			.bold {font-weight: bold;}
+		///			.italic {font-variant: italic;}
+		///			.sup {vertical-align: super; font-size: smaller;}
+		///			.sub {vertical-align: sub; font-size: smaller;}
+		///		&lt;/style&gt;
+		///	&lt;/head&gt;
+		///	&lt;body&gt;
+		///		&lt;h1&gt;Orbital area&lt;/h1&gt;
+		///		&lt;p&gt;The &lt;span class=&quot;bold&quot;&gt;orbital area&lt;/span&gt; is the area of the orbit.&lt;/p&gt;
+		///	 [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
+		/// </summary>
+		internal static string terminology_OrbitalArea {
+			get {
+				return ResourceManager.GetString("terminology_OrbitalArea", resourceCulture);
+			}
+		}
+		
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
+		///&lt;html lang=&quot;en&quot;&gt;
+		///	&lt;head&gt;
+		///		&lt;meta charset=&quot;utf-8&quot;&gt;
+		///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
+		///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
+		///		&lt;title&gt;Orbital eccentricity&lt;/title&gt;
+		///		&lt;style&gt;
+		///			* {font-family:sans-serif;}
+		///			.bold {font-weight: bold;}
+		///			.italic {font-variant: italic;}
+		///			.sup {vertical-align: super; font-size: smaller;}
+		///			.sub {vertical-align: sub; font-size: smaller;}
+		///		&lt;/style&gt;
+		///	&lt;/head&gt;
+		///	&lt;body&gt;
+		///		&lt;h1&gt;Orbital eccentricity&lt;/h1&gt;
+		///		&lt;p&gt;The &lt;span class=&quot;bold&quot;&gt;orbital eccentricity&lt;/span&gt; of an a [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
+		/// </summary>
+		internal static string terminology_OrbitalEccentricity {
+			get {
+				return ResourceManager.GetString("terminology_OrbitalEccentricity", resourceCulture);
+			}
+		}
+		
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
+		///&lt;html lang=&quot;en&quot;&gt;
+		///	&lt;head&gt;
+		///		&lt;meta charset=&quot;utf-8&quot;&gt;
+		///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
+		///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
+		///		&lt;title&gt;Orbital perimeter&lt;/title&gt;
+		///		&lt;style&gt;
+		///			* {font-family:sans-serif;}
+		///			.bold {font-weight: bold;}
+		///			.italic {font-variant: italic;}
+		///			.sup {vertical-align: super; font-size: smaller;}
+		///			.sub {vertical-align: sub; font-size: smaller;}
+		///		&lt;/style&gt;
+		///	&lt;/head&gt;
+		///	&lt;body&gt;
+		///		&lt;h1&gt;Orbital perimeter&lt;/h1&gt;
+		///		&lt;p&gt;The &lt;span class=&quot;bold&quot;&gt;orbital perimeter&lt;/span&gt; is the perimeter [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
+		/// </summary>
+		internal static string terminology_OrbitalPerimeter {
+			get {
+				return ResourceManager.GetString("terminology_OrbitalPerimeter", resourceCulture);
+			}
+		}
+		
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
+		///&lt;html lang=&quot;en&quot;&gt;
+		///	&lt;head&gt;
+		///		&lt;meta charset=&quot;utf-8&quot;&gt;
+		///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
+		///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
+		///		&lt;title&gt;Period&lt;/title&gt;
+		///		&lt;style&gt;
+		///			* {font-family:sans-serif;}
+		///			.bold {font-weight: bold;}
+		///			.italic {font-variant: italic;}
+		///			.sup {vertical-align: super; font-size: smaller;}
+		///			.sub {vertical-align: sub; font-size: smaller;}
+		///		&lt;/style&gt;
+		///	&lt;/head&gt;
+		///	&lt;body&gt;
+		///		&lt;h1&gt;Period&lt;/h1&gt;
+		///		&lt;p&gt;The &lt;span class=&quot;bold&quot;&gt;orbital period&lt;/span&gt; is the time a given astronomical object t [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
+		/// </summary>
+		internal static string terminology_OrbitalPeriod {
+			get {
+				return ResourceManager.GetString("terminology_OrbitalPeriod", resourceCulture);
+			}
+		}
+		
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
+		///&lt;html lang=&quot;en&quot;&gt;
+		///	&lt;head&gt;
+		///		&lt;meta charset=&quot;utf-8&quot;&gt;
+		///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
+		///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
+		///		&lt;title&gt;Perihelion distance&lt;/title&gt;
+		///		&lt;style&gt;
+		///			* {font-family:sans-serif;}
+		///			.bold {font-weight: bold;}
+		///			.italic {font-variant: italic;}
+		///			.sup {vertical-align: super; font-size: smaller;}
+		///			.sub {vertical-align: sub; font-size: smaller;}
+		///		&lt;/style&gt;
+		///	&lt;/head&gt;
+		///	&lt;body&gt;
+		///		&lt;h1&gt;Perihelion distance&lt;/h1&gt;
+		///		&lt;p&gt;&lt;span class=&quot;bold&quot;&gt;Apsis&lt;/span&gt; (Greek: á¼ÏˆÎ¯Ï‚; plural &lt;s [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
+		/// </summary>
+		internal static string terminology_PerihelionDistance {
+			get {
+				return ResourceManager.GetString("terminology_PerihelionDistance", resourceCulture);
+			}
+		}
+		
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
+		///&lt;html lang=&quot;en&quot;&gt;
+		///	&lt;head&gt;
+		///		&lt;meta charset=&quot;utf-8&quot;&gt;
+		///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
+		///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
+		///		&lt;title&gt;Terminology: Readable designation&lt;/title&gt;
+		///		&lt;style&gt;
+		///			* {font-family:sans-serif;}
+		///			.bold {font-weight: bold;}
+		///			.italic {font-variant: italic;}
+		///			.sup {vertical-align: super; font-size: smaller;}
+		///			.sub {vertical-align: sub; font-size: smaller;}
+		///		&lt;/style&gt;
+		///	&lt;/head&gt;
+		///	&lt;body&gt;
+		///		&lt;h1&gt;Readable designation&lt;/h1&gt;
+		///		&lt;p&gt;This is the readable designation.&lt;/p&gt;
+		///  &lt;/bod [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
+		/// </summary>
+		internal static string terminology_ReadableDesignation {
+			get {
+				return ResourceManager.GetString("terminology_ReadableDesignation", resourceCulture);
+			}
+		}
+		
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
+		///&lt;html lang=&quot;en&quot;&gt;
+		///	&lt;head&gt;
+		///		&lt;meta charset=&quot;utf-8&quot;&gt;
+		///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
+		///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
+		///		&lt;title&gt;Reference&lt;/title&gt;
+		///		&lt;style&gt;
+		///			* {font-family:sans-serif;}
+		///			.bold {font-weight: bold;}
+		///			.italic {font-variant: italic;}
+		///			.sup {vertical-align: super; font-size: smaller;}
+		///			.sub {vertical-align: sub; font-size: smaller;}
+		///		&lt;/style&gt;
+		///	&lt;/head&gt;
+		///	&lt;body&gt;
+		///		&lt;h1&gt;Reference&lt;/h1&gt;
+		///		&lt;p&gt;This is the reference where the observation data published.&lt;/p&gt;
+		///	&lt;/body&gt;
+		///&lt;/html&gt; ähnelt.
+		/// </summary>
+		internal static string terminology_Reference {
+			get {
+				return ResourceManager.GetString("terminology_Reference", resourceCulture);
+			}
+		}
+		
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
+		///&lt;html lang=&quot;en&quot;&gt;
+		///	&lt;head&gt;
+		///		&lt;meta charset=&quot;utf-8&quot;&gt;
+		///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
+		///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
+		///		&lt;title&gt;r.m.s. residual (&quot;)&lt;/title&gt;
+		///		&lt;style&gt;
+		///			* {font-family:sans-serif;}
+		///			.bold {font-weight: bold;}
+		///			.italic {font-variant: italic;}
+		///			.sup {vertical-align: super; font-size: smaller;}
+		///			.sub {vertical-align: sub; font-size: smaller;}
+		///		&lt;/style&gt;
+		///	&lt;/head&gt;
+		///	&lt;body&gt;
+		///		&lt;h1&gt;r.m.s. residual (&quot;)&lt;/h1&gt;
+		///		&lt;p&gt;The &lt;span class=&quot;bold&quot;&gt;root-mean-square deviation (RMSD)&lt;/sp [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
+		/// </summary>
+		internal static string terminology_RmsResidual {
+			get {
+				return ResourceManager.GetString("terminology_RmsResidual", resourceCulture);
+			}
+		}
+		
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
+		///&lt;html lang=&quot;en&quot;&gt;
+		///	&lt;head&gt;
+		///		&lt;meta charset=&quot;utf-8&quot;&gt;
+		///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
+		///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
+		///		&lt;title&gt;Semi-latus rectum&lt;/title&gt;
+		///		&lt;style&gt;
+		///			* {font-family:sans-serif;}
+		///			.bold {font-weight: bold;}
+		///			.italic {font-variant: italic;}
+		///			.sup {vertical-align: super; font-size: smaller;}
+		///			.sub {vertical-align: sub; font-size: smaller;}
+		///		&lt;/style&gt;
+		///	&lt;/head&gt;
+		///	&lt;body&gt;
+		///		&lt;h1&gt;Semi-latus rectum&lt;/h1&gt;
+		///		&lt;p&gt;In addition to the eccentricity (&lt;span class=&quot;italic&quot;&gt;e&lt;/span&gt;), [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
+		/// </summary>
+		internal static string terminology_SemiLatusRectum {
+			get {
+				return ResourceManager.GetString("terminology_SemiLatusRectum", resourceCulture);
+			}
+		}
+		
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
+		///&lt;html lang=&quot;en&quot;&gt;
+		///	&lt;head&gt;
+		///		&lt;meta charset=&quot;utf-8&quot;&gt;
+		///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
+		///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
+		///		&lt;title&gt;Semimajor axis (AU)&lt;/title&gt;
+		///		&lt;style&gt;
+		///			* {font-family:sans-serif;}
+		///			.bold {font-weight: bold;}
+		///			.italic {font-variant: italic;}
+		///			.sup {vertical-align: super; font-size: smaller;}
+		///			.sub {vertical-align: sub; font-size: smaller;}
+		///		&lt;/style&gt;
+		///	&lt;/head&gt;
+		///	&lt;body&gt;
+		///		&lt;h1&gt;Semimajor axis (AU)&lt;/h1&gt;
+		///		&lt;p&gt;In geometry, the major axis of an ellipse is its longest dia [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
+		/// </summary>
+		internal static string terminology_SemiMajorAxis {
+			get {
+				return ResourceManager.GetString("terminology_SemiMajorAxis", resourceCulture);
+			}
+		}
+		
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
+		///&lt;html lang=&quot;en&quot;&gt;
+		///	&lt;head&gt;
+		///		&lt;meta charset=&quot;utf-8&quot;&gt;
+		///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
+		///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
+		///		&lt;title&gt;Semi-mean axis&lt;/title&gt;
+		///		&lt;style&gt;
+		///			* {font-family:sans-serif;}
+		///			.bold {font-weight: bold;}
+		///			.italic {font-variant: italic;}
+		///			.sup {vertical-align: super; font-size: smaller;}
+		///			.sub {vertical-align: sub; font-size: smaller;}
+		///		&lt;/style&gt;
+		///	&lt;/head&gt;
+		///	&lt;body&gt;
+		///		&lt;h1&gt;Semi-mean axis&lt;/h1&gt;
+		///		&lt;p&gt;The mean axis is the arithmetic mean of the major axis and the minor a [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
+		/// </summary>
+		internal static string terminology_SemiMeanAxis {
+			get {
+				return ResourceManager.GetString("terminology_SemiMeanAxis", resourceCulture);
+			}
+		}
+		
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
+		///&lt;html lang=&quot;en&quot;&gt;
+		///	&lt;head&gt;
+		///		&lt;meta charset=&quot;utf-8&quot;&gt;
+		///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
+		///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
+		///		&lt;title&gt;Semi-minor axis&lt;/title&gt;
+		///		&lt;style&gt;
+		///			* {font-family:sans-serif;}
+		///			.bold {font-weight: bold;}
+		///			.italic {font-variant: italic;}
+		///			.sup {vertical-align: super; font-size: smaller;}
+		///			.sub {vertical-align: sub; font-size: smaller;}
+		///		&lt;/style&gt;
+		///	&lt;/head&gt;
+		///	&lt;body&gt;
+		///		&lt;h1&gt;Semi-minor axis&lt;/h1&gt;
+		///		&lt;p&gt;In addition to the eccentricity (&lt;span class=&quot;italic&quot;&gt;e&lt;/span&gt;), foc [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
+		/// </summary>
+		internal static string terminology_SemiMinorAxis {
+			get {
+				return ResourceManager.GetString("terminology_SemiMinorAxis", resourceCulture);
+			}
+		}
+		
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
+		///&lt;html lang=&quot;en&quot;&gt;
+		///	&lt;head&gt;
+		///		&lt;meta charset=&quot;utf-8&quot;&gt;
+		///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
+		///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
+		///		&lt;title&gt;Slope parameter, G&lt;/title&gt;
+		///		&lt;style&gt;
+		///			* {font-family:sans-serif;}
+		///			.bold {font-weight: bold;}
+		///			.italic {font-variant: italic;}
+		///			.sup {vertical-align: super; font-size: smaller;}
+		///			.sub {vertical-align: sub; font-size: smaller;}
+		///		&lt;/style&gt;
+		///	&lt;/head&gt;
+		///	&lt;body&gt;
+		///		&lt;h1&gt;Slope parameter, G&lt;/h1&gt;
+		///		&lt;p&gt;This is the slope parameter.&lt;/p&gt;
+		///	&lt;/body&gt;
+		///&lt;/html&gt; ähnelt.
+		/// </summary>
+		internal static string terminology_SlopeParameter {
+			get {
+				return ResourceManager.GetString("terminology_SlopeParameter", resourceCulture);
+			}
+		}
+		
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
+		///&lt;html lang=&quot;en&quot;&gt;
+		///	&lt;head&gt;
+		///		&lt;meta charset=&quot;utf-8&quot;&gt;
+		///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
+		///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
+		///		&lt;title&gt;Standard gravitational parameter&lt;/title&gt;
+		///		&lt;style&gt;
+		///			* {font-family:sans-serif;}
+		///			.bold {font-weight: bold;}
+		///			.italic {font-variant: italic;}
+		///			.sup {vertical-align: super; font-size: smaller;}
+		///			.sub {vertical-align: sub; font-size: smaller;}
+		///		&lt;/style&gt;
+		///	&lt;/head&gt;
+		///	&lt;body&gt;
+		///		&lt;h1&gt;Standard gravitational parameter&lt;/h1&gt;
+		///		&lt;p&gt;In celestial mechanics, the &lt;span  [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
+		/// </summary>
+		internal static string terminology_StandardGravitationalParameter {
+			get {
+				return ResourceManager.GetString("terminology_StandardGravitationalParameter", resourceCulture);
+			}
+		}
+		
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
+		///&lt;html lang=&quot;en&quot;&gt;
+		///	&lt;head&gt;
+		///		&lt;meta charset=&quot;utf-8&quot;&gt;
+		///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
+		///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
+		///		&lt;title&gt;True anomaly&lt;/title&gt;
+		///		&lt;style&gt;
+		///			* {font-family:sans-serif;}
+		///			.bold {font-weight: bold;}
+		///			.italic {font-variant: italic;}
+		///			.sup {vertical-align: super; font-size: smaller;}
+		///			.sub {vertical-align: sub; font-size: smaller;}
+		///		&lt;/style&gt;
+		///	&lt;/head&gt;
+		///	&lt;body&gt;
+		///		&lt;h1&gt;True anomaly&lt;/h1&gt;
+		///		&lt;p&gt;In celestial mechanics, &lt;span class=&quot;bold&quot;&gt;true anomaly&lt;/span&gt; is an angul [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
+		/// </summary>
+		internal static string terminology_TrueAnomaly {
+			get {
+				return ResourceManager.GetString("terminology_TrueAnomaly", resourceCulture);
+			}
+		}
+		
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die Update recommended ähnelt.
+		/// </summary>
+		internal static string UpdateRecommendedText {
+			get {
+				return ResourceManager.GetString("UpdateRecommendedText", resourceCulture);
+			}
+		}
+		
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die Version: {0} ähnelt.
+		/// </summary>
+		internal static string VersionTemplate {
+			get {
+				return ResourceManager.GetString("VersionTemplate", resourceCulture);
+			}
+		}
 
 		/// <summary>
 		///   Sucht eine lokalisierte Zeichenfolge, die www ähnelt.

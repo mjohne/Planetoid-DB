@@ -319,7 +319,7 @@ public partial class PlanetoidDbForm
 		// Log the completion of the database loading process
 		logger.Info(message: "Database loading completed");
 		// Set the initial value of the goto index text box
-		toolStripTextBoxGotoIndex.Text = 1.ToString();
+		toolStripTextBoxGotoIndex.Text = 1.ToString(provider: CultureInfo.InvariantCulture);
 		// Set the current position to the first record
 		currentPosition = 0;
 		// Set the step position to 100
@@ -378,13 +378,21 @@ public partial class PlanetoidDbForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to check for a new MPCORB data file.</remarks>
-	private void TimerCheckForNewMpcorbDatFile_Tick(object sender, EventArgs e) => PlanetoidDBForm_Shown(sender: sender, e: e);
+	private void TimerCheckForNewMpcorbDatFile_Tick(object sender, EventArgs e)
+	{
+		// Call the PlanetoidDBForm_Shown method to check for new MPCORB data file
+		PlanetoidDBForm_Shown(sender: sender, e: e);
+	}
 
 	/// <summary>Handles the tick event for checking new ASTORB data file. Calls the PlanetoidDBForm_Shown method.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to check for a new ASTORB data file.</remarks>
-	private void TimerCheckForNewAstorbDatFile_Tick(object sender, EventArgs e) => PlanetoidDBForm_Shown(sender: sender, e: e);
+	private void TimerCheckForNewAstorbDatFile_Tick(object sender, EventArgs e)
+	{
+		// Call the PlanetoidDBForm_Shown method to check for new ASTORB data file
+		PlanetoidDBForm_Shown(sender: sender, e: e);
+	}
 
 	#endregion
 
@@ -526,6 +534,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to navigate to a specific index in the data.</remarks>
 	private void NavigateStep10_Click(object sender, EventArgs e)
 	{
+		logger.Info(message: "Navigating to step 10");
 		// Set the step position to 10
 		stepPosition = 10;
 		// Clear the checked state of all other menu items
@@ -540,6 +549,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to navigate to a specific index in the data.</remarks>
 	private void NavigateStep100_Click(object sender, EventArgs e)
 	{
+		logger.Info(message: "Navigating to step 100");
 		// Set the step position to 100
 		stepPosition = 100;
 		// Clear the checked state of all other menu items
@@ -554,6 +564,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to navigate to a specific index in the data.</remarks>
 	private void NavigateStep1000_Click(object sender, EventArgs e)
 	{
+		logger.Info(message: "Navigating to step 1000");
 		// Set the step position to 1000
 		stepPosition = 1000;
 		// Clear the checked state of all other menu items
@@ -568,6 +579,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to navigate to a specific index in the data.</remarks>
 	private void NavigateStep10000_Click(object sender, EventArgs e)
 	{
+		logger.Info(message: "Navigating to step 10000");
 		// Set the step position to 10000
 		stepPosition = 10000;
 		// Clear the checked state of all other menu items
@@ -582,6 +594,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to navigate to a specific index in the data.</remarks>
 	private void NavigateStep100000_Click(object sender, EventArgs e)
 	{
+		logger.Info(message: "Navigating to step 100000");
 		// Set the step position to 100000
 		stepPosition = 100000;
 		// Clear the checked state of all other menu items
@@ -594,7 +607,11 @@ public partial class PlanetoidDbForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to close the application.</remarks>
-	private void Exit_Click(object sender, EventArgs e) => Close();
+	private void Exit_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: "Exiting application");
+		Close();
+	}
 
 	/// <summary>Handles the click event for the ToolStripMenuItemOpenWebsiteMPC. Opens the Minor Planet Center website.</summary>
 	/// <param name="sender">The event source.</param>
@@ -1819,7 +1836,7 @@ public partial class PlanetoidDbForm
 			// Disable logging
 			logger.Info(message: "Logging disabled");
 			logger.Log(level: LogLevel.Off, message: "Logging has been disabled.");
-			LogManager.SuspendLogging();
+			_ = LogManager.SuspendLogging();
 		}
 		// Save the logging preference to user settings
 		Settings.Default.userEnableLogging = toolStripMenuItemLogging.Checked;
@@ -1966,7 +1983,10 @@ public partial class PlanetoidDbForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show an Easter egg message when the user double-clicks on a control.</remarks>
-	private void EasterEgg_DoubleClick(object sender, EventArgs e) => _ = KryptonMessageBox.Show(owner: this, text: I18nStrings.EasterEgg, caption: I18nStrings.ErrorCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+	private void EasterEgg_DoubleClick(object sender, EventArgs e)
+	{
+		_ = KryptonMessageBox.Show(owner: this, text: I18nStrings.EasterEgg, caption: I18nStrings.ErrorCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+	}
 
 	#endregion
 
@@ -2060,6 +2080,7 @@ public partial class PlanetoidDbForm
 	#endregion
 
 	#region DropDown event handlers
+
 	/// <summary>Handles the DropDownOpening event for the back history split button. Populates the drop-down menu with the back-history entries.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
@@ -2098,7 +2119,7 @@ public partial class PlanetoidDbForm
 			item.MouseEnter += Control_Enter;
 			item.MouseLeave += Control_Leave;
 			// Add the item to the back-history drop-down menu
-			toolStripSplitButtonHistoryBack.DropDownItems.Add(value: item);
+			_ = toolStripSplitButtonHistoryBack.DropDownItems.Add(value: item);
 		}
 	}
 
@@ -2140,48 +2161,90 @@ public partial class PlanetoidDbForm
 			item.MouseEnter += Control_Enter;
 			item.MouseLeave += Control_Leave;
 			// Add the item to the forward-history drop-down menu
-			toolStripSplitButtonHistoryForward.DropDownItems.Add(value: item);
+			_ = toolStripSplitButtonHistoryForward.DropDownItems.Add(value: item);
 		}
 	}
+
+	#endregion
 
 	#region bookmark event handlers
 
 	/// <summary>Handles the Click event of the bookmark toolbar button and menu item to toggle the bookmark state of the current MPCORB.DAT entry.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	private void ToggleBookmark_Click(object? sender, EventArgs e) => ToggleMpcorbDatBookmark();
+	private void ToggleBookmark_Click(object? sender, EventArgs e)
+	{
+		// Log the action of toggling the bookmark for the current MPCORB.DAT entry
+		logger.Info(message: $"Toggling bookmark for MPCORB.DAT entry at index {labelMpcorbIndexData.Text}");
+		// Call the method to toggle the bookmark state for the current MPCORB.DAT entry
+		ToggleMpcorbDatBookmark();
+	}
 
 	/// <summary>Handles the Click event of the "Clear MPCORB.DAT bookmarks" menu item.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	private void BookmarkClearMpcorbDat_Click(object? sender, EventArgs e) => ClearMpcorbDatBookmarks();
+	private void BookmarkClearMpcorbDat_Click(object? sender, EventArgs e)
+	{
+		// Log the action of clearing MPCORB.DAT bookmarks
+		logger.Info(message: "Clearing MPCORB.DAT bookmarks");
+		// Call the method to clear all bookmarks for MPCORB.DAT entries
+		ClearMpcorbDatBookmarks();
+	}
 
 	/// <summary>Handles the Click event of the "Clear MPCORB.JSON bookmarks" menu item.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	private void BookmarkClearMpcorbJson_Click(object? sender, EventArgs e) => ClearMpcorbJsonBookmarks();
+	private void BookmarkClearMpcorbJson_Click(object? sender, EventArgs e)
+	{
+		// Log the action of clearing MPCORB.JSON bookmarks
+		logger.Info(message: "Clearing MPCORB.JSON bookmarks");
+		// Call the method to clear all bookmarks for MPCORB.JSON entries
+		ClearMpcorbJsonBookmarks();
+	}
 
 	/// <summary>Handles the Click event of the "Clear ASTORB.DAT bookmarks" menu item.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	private void BookmarkClearAstorbDat_Click(object? sender, EventArgs e) => ClearAstorbDatBookmarks();
+	private void BookmarkClearAstorbDat_Click(object? sender, EventArgs e)
+	{
+		// Log the action of clearing ASTORB.DAT bookmarks
+		logger.Info(message: "Clearing ASTORB.DAT bookmarks");
+		// Call the method to clear all bookmarks for ASTORB.DAT entries
+		ClearAstorbDatBookmarks();
+	}
 
 	/// <summary>Handles the Click event of the "Clear ALLNUM.CAT bookmarks" menu item.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	private void BookmarkClearAllnumCat_Click(object? sender, EventArgs e) => ClearAllnumCatBookmarks();
+	private void BookmarkClearAllnumCat_Click(object? sender, EventArgs e)
+	{
+		// Log the action of clearing ALLNUM.CAT bookmarks
+		logger.Info(message: "Clearing ALLNUM.CAT bookmarks");
+		// Call the method to clear all bookmarks for ALLNUM.CAT entries
+		ClearAllnumCatBookmarks();
+	}
 
 	/// <summary>Handles the Click event of the "Clear SINGOPP.CAT bookmarks" menu item.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	private void BookmarkClearSingoppCat_Click(object? sender, EventArgs e) => ClearSingoppCatBookmarks();
+	private void BookmarkClearSingoppCat_Click(object? sender, EventArgs e)
+	{
+		// Log the action of clearing SINGOPP.CAT bookmarks
+		logger.Info(message: "Clearing SINGOPP.CAT bookmarks");
+		// Call the method to clear all bookmarks for SINGOPP.CAT entries
+		ClearSingoppCatBookmarks();
+	}
 
 	/// <summary>Handles the Click event of the "Clear UFITOBS.CAT bookmarks" menu item.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	private void BookmarkClearUfitobsCat_Click(object? sender, EventArgs e) => ClearUfitobsCatBookmarks();
-
-	#endregion
+	private void BookmarkClearUfitobsCat_Click(object? sender, EventArgs e)
+	{
+		// Log the action of clearing UFITOBS.CAT bookmarks
+		logger.Info(message: "Clearing UFITOBS.CAT bookmarks");
+		// Call the method to clear all bookmarks for UFITOBS.CAT entries
+		ClearUfitobsCatBookmarks();
+	}
 
 	#endregion
 }

@@ -45,8 +45,8 @@ public partial class PlanetoidDbForm
 
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>This method is used to provide a custom display string for the debugger.</remarks>
-	private string GetDebuggerDisplay() => ToString();
+	/// <remarks>This property is used to provide a custom display string for the debugger.</remarks>
+	private string DebuggerDisplay => ToString();
 
 	/// <summary>Tries to parse an integer from the input string.</summary>
 	/// <param name="input">The input string to parse.</param>
@@ -185,8 +185,10 @@ public partial class PlanetoidDbForm
 		// Clear all labels in the TableLayoutPanel
 		try
 		{
+			// Use a foreach loop to iterate through all controls in the TableLayoutPanel
 			foreach (Control control in tableLayoutPanelMpcorbData.Controls)
 			{
+				// Check if the control is a KryptonLabel or a standard Label and clear its text
 				if (control is KryptonLabel or Label)
 				{
 					control.Text = string.Empty;
@@ -288,29 +290,6 @@ public partial class PlanetoidDbForm
 		return DateTime.MinValue;
 	}
 
-	/// <summary>Retrieves the last modified date and time (in UTC) asynchronously.</summary>
-	/// <param name="uri">The URI of the resource to check.</param>
-	/// <returns>The <see cref="DateTime"/> representing the last modified date and time in UTC if available; otherwise, <see cref="DateTime.MinValue"/>.</returns>
-	/// <remarks>This method is used to retrieve the last modified date and time of a resource asynchronously.</remarks>
-	private static async Task<DateTime> GetLastModifiedAsync(Uri uri)
-	{
-		// Throw an exception if the URI is null
-		ArgumentNullException.ThrowIfNull(argument: uri);
-		// Create a HEAD request to get only the headers of the resource
-		using HttpRequestMessage request = new(method: HttpMethod.Head, requestUri: uri);
-		// Send the request asynchronously and get the response
-		using HttpResponseMessage response = await client.SendAsync(request: request);
-		// Check if the request was successful and if the Last-Modified header is present
-		if (response.IsSuccessStatusCode && response.Content.Headers.LastModified.HasValue)
-		{
-			// Return the last modified date in UTC
-			return response.Content.Headers.LastModified.Value.UtcDateTime;
-		}
-		// If the Last-Modified header is not present or the request failed, log a warning and return DateTime.MinValue
-		logger.Warn(message: $"Failed to retrieve Last-Modified header for URI: {uri}");
-		return DateTime.MinValue;
-	}
-
 	/// <summary>Gets the content length of the specified URI.</summary>
 	/// <param name="uri">The URI to check.</param>
 	/// <returns>The content length of the URI.</returns>
@@ -332,28 +311,6 @@ public partial class PlanetoidDbForm
 				// Return the content length
 				return response.Content.Headers.ContentLength.Value;
 			}
-		}
-		// If the Content-Length header is not present or the request failed, log a warning and return 0
-		logger.Warn(message: $"Failed to retrieve Content-Length header for URI: {uri}");
-		return 0;
-	}
-
-	/// <summary>Asynchronously retrieves the content length of the specified URI.</summary>
-	/// <param name="uri">The URI of the resource to check.</param>
-	/// <returns>The content length of the resource if available; otherwise, 0.</returns>
-	private static async Task<long> GetContentLengthAsync(Uri uri)
-	{
-		// Throw an exception if the URI is null
-		ArgumentNullException.ThrowIfNull(argument: uri);
-		// Create a HEAD request to get only the headers of the resource
-		using HttpRequestMessage request = new(method: HttpMethod.Head, requestUri: uri);
-		// Send the request asynchronously and get the response
-		using HttpResponseMessage response = await client.SendAsync(request: request);
-		// Check if the request was successful and if the Content-Length header is present
-		if (response.IsSuccessStatusCode && response.Content.Headers.ContentLength.HasValue)
-		{
-			// Return the content length
-			return response.Content.Headers.ContentLength.Value;
 		}
 		// If the Content-Length header is not present or the request failed, log a warning and return 0
 		logger.Warn(message: $"Failed to retrieve Content-Length header for URI: {uri}");
@@ -703,7 +660,7 @@ public partial class PlanetoidDbForm
 			if (navigationHistoryBack.Count > 0)
 			{
 				// Remove the target from back stack
-				navigationHistoryBack.Pop();
+				_ = navigationHistoryBack.Pop();
 				// Push currentPosition first so it is the next forward step
 				navigationHistoryForward.Push(item: currentPosition);
 				// Push intermediate entries in pop-order so the nearest entry is on top
@@ -727,7 +684,7 @@ public partial class PlanetoidDbForm
 			if (navigationHistoryForward.Count > 0)
 			{
 				// Remove the target from forward stack
-				navigationHistoryForward.Pop();
+				_ = navigationHistoryForward.Pop();
 				// Push currentPosition first so it is the next back step
 				navigationHistoryBack.Push(item: currentPosition);
 				// Push intermediate entries in pop-order so the nearest entry is on top
@@ -786,7 +743,7 @@ public partial class PlanetoidDbForm
 		// Trim leading and trailing whitespace
 		result = result.Trim();
 		// Replace all remaining spaces with nothing (remove spaces)
-		result = result.Replace(oldValue: " ", newValue: "");
+		result = result.Replace(oldValue: " ", newValue: "", comparisonType: StringComparison.InvariantCulture);
 		return result;
 	}
 
@@ -963,12 +920,7 @@ public partial class PlanetoidDbForm
 	/// <param name="argumentPerihelionDeg">When this method returns, contains the parsed argument of perihelion in degrees.</param>
 	/// <returns><see langword="true"/> if all orbital elements were parsed successfully; otherwise, <see langword="false"/>.</returns>
 	/// <remarks>This method uses the <see cref="labelMpcorbSemiMajorAxisData"/>, <see cref="labelMpcorbOrbitalEccentricityData"/>, <see cref="labelMpcorbInclinationToTheEclipticData"/>, <see cref="labelMpcorbLongitudeOfTheAscendingNodeData"/>, and <see cref="labelMpcorbArgumentOfThePerihelionData"/> labels to parse the orbital elements.</remarks>
-	private bool TryParseCurrentOrbitalElements(
-		out double semiMajorAxis,
-		out double eccentricity,
-		out double inclinationDeg,
-		out double longitudeAscendingNodeDeg,
-		out double argumentPerihelionDeg)
+	private bool TryParseCurrentOrbitalElements(out double semiMajorAxis, out double eccentricity, out double inclinationDeg, out double longitudeAscendingNodeDeg, out double argumentPerihelionDeg)
 	{
 		// Initialize output parameters
 		semiMajorAxis = default;
@@ -1034,12 +986,7 @@ public partial class PlanetoidDbForm
 		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 		formMoids.TopMost = TopMost;
 		// Pass the parsed orbital elements to the form
-		formMoids.SetOrbitalElements(
-			semiMajorAxis: semiMajorAxis,
-			eccentricity: eccentricity,
-			inclinationDeg: inclinationDeg,
-			longitudeAscendingNodeDeg: longitudeAscendingNodeDeg,
-			argumentPerihelionDeg: argumentPerihelionDeg);
+		formMoids.SetOrbitalElements(semiMajorAxis: semiMajorAxis, eccentricity: eccentricity, inclinationDeg: inclinationDeg, longitudeAscendingNodeDeg: longitudeAscendingNodeDeg, argumentPerihelionDeg: argumentPerihelionDeg);
 		// Show the MOIDs form as a modal dialog
 		_ = formMoids.ShowDialog(owner: this);
 	}
@@ -1049,12 +996,7 @@ public partial class PlanetoidDbForm
 	private void ShowMaxoids()
 	{
 		// Try to parse the current orbital elements from the UI labels
-		if (!TryParseCurrentOrbitalElements(
-			semiMajorAxis: out double semiMajorAxis,
-			eccentricity: out double eccentricity,
-			inclinationDeg: out double inclinationDeg,
-			longitudeAscendingNodeDeg: out double longitudeAscendingNodeDeg,
-			argumentPerihelionDeg: out double argumentPerihelionDeg))
+		if (!TryParseCurrentOrbitalElements(semiMajorAxis: out double semiMajorAxis, eccentricity: out double eccentricity, inclinationDeg: out double inclinationDeg, longitudeAscendingNodeDeg: out double longitudeAscendingNodeDeg, argumentPerihelionDeg: out double argumentPerihelionDeg))
 		{
 			logger.Error(message: "Failed to parse orbital elements for MAXOIDs form.");
 			return;
@@ -1081,12 +1023,7 @@ public partial class PlanetoidDbForm
 	private void ShowMoidsAndMaxoids()
 	{
 		// Try to parse the current orbital elements from the UI labels
-		if (!TryParseCurrentOrbitalElements(
-			semiMajorAxis: out double semiMajorAxis,
-			eccentricity: out double eccentricity,
-			inclinationDeg: out double inclinationDeg,
-			longitudeAscendingNodeDeg: out double longitudeAscendingNodeDeg,
-			argumentPerihelionDeg: out double argumentPerihelionDeg))
+		if (!TryParseCurrentOrbitalElements(semiMajorAxis: out double semiMajorAxis, eccentricity: out double eccentricity, inclinationDeg: out double inclinationDeg, longitudeAscendingNodeDeg: out double longitudeAscendingNodeDeg, argumentPerihelionDeg: out double argumentPerihelionDeg))
 		{
 			logger.Error(message: "Failed to parse orbital elements for MOIDs and MAXOIDs form.");
 			return;
@@ -1098,12 +1035,7 @@ public partial class PlanetoidDbForm
 		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 		formMoidsAndMaxoids.TopMost = TopMost;
 		// Pass the parsed orbital elements to the form
-		formMoidsAndMaxoids.SetOrbitalElements(
-			semiMajorAxis: semiMajorAxis,
-			eccentricity: eccentricity,
-			inclinationDeg: inclinationDeg,
-			longitudeAscendingNodeDeg: longitudeAscendingNodeDeg,
-			argumentPerihelionDeg: argumentPerihelionDeg);
+		formMoidsAndMaxoids.SetOrbitalElements(semiMajorAxis: semiMajorAxis, eccentricity: eccentricity, inclinationDeg: inclinationDeg, longitudeAscendingNodeDeg: longitudeAscendingNodeDeg, argumentPerihelionDeg: argumentPerihelionDeg);
 		// Show the MOIDs and MAXOIDs form as a modal dialog
 		_ = formMoidsAndMaxoids.ShowDialog(owner: this);
 	}
@@ -1169,12 +1101,7 @@ public partial class PlanetoidDbForm
 	private void ShowOrbit2DTopView()
 	{
 		// Use the TryParseCurrentOrbitalElements method to parse the necessary orbital elements from the UI labels.
-		if (!TryParseCurrentOrbitalElements(
-			semiMajorAxis: out double semiMajorAxis,
-			eccentricity: out double eccentricity,
-			inclinationDeg: out _,
-			longitudeAscendingNodeDeg: out _,
-			argumentPerihelionDeg: out double argumentPerihelionDeg))
+		if (!TryParseCurrentOrbitalElements(semiMajorAxis: out double semiMajorAxis, eccentricity: out double eccentricity, inclinationDeg: out _, longitudeAscendingNodeDeg: out _, argumentPerihelionDeg: out double argumentPerihelionDeg))
 		{
 			logger.Error(message: "Failed to parse orbital elements for Orbit2DTopView form.");
 			return;
@@ -1184,11 +1111,7 @@ public partial class PlanetoidDbForm
 		// Use the readable designation as the planetoid label in the diagram title.
 		string planetoidName = labelMpcorbReadableDesignationData.Text;
 		// Create a new instance of the Orbit2DTopViewForm and show it as a modal dialog.
-		using Orbit2DTopViewForm formOrbit2DTopView = new(
-			planetoidName: planetoidName,
-			semiMajorAxis: semiMajorAxis,
-			eccentricity: eccentricity,
-			argumentPerihelionDeg: argumentPerihelionDeg);
+		using Orbit2DTopViewForm formOrbit2DTopView = new(planetoidName: planetoidName, semiMajorAxis: semiMajorAxis, eccentricity: eccentricity, argumentPerihelionDeg: argumentPerihelionDeg);
 		formOrbit2DTopView.TopMost = TopMost;
 		_ = formOrbit2DTopView.ShowDialog(owner: this);
 	}
@@ -1198,12 +1121,7 @@ public partial class PlanetoidDbForm
 	private void ShowOrbit2DSideView()
 	{
 		// Use the TryParseCurrentOrbitalElements method to parse the necessary orbital elements from the UI labels.
-		if (!TryParseCurrentOrbitalElements(
-			semiMajorAxis: out double semiMajorAxis,
-			eccentricity: out double eccentricity,
-			inclinationDeg: out double inclinationDeg,
-			longitudeAscendingNodeDeg: out _,
-			argumentPerihelionDeg: out _))
+		if (!TryParseCurrentOrbitalElements(semiMajorAxis: out double semiMajorAxis, eccentricity: out double eccentricity, inclinationDeg: out double inclinationDeg, longitudeAscendingNodeDeg: out _, argumentPerihelionDeg: out _))
 		{
 			logger.Error(message: "Failed to parse orbital elements for Orbit2DSideView form.");
 			return;
@@ -1213,11 +1131,7 @@ public partial class PlanetoidDbForm
 		// Use the readable designation as the planetoid label in the diagram title.
 		string planetoidName = labelMpcorbReadableDesignationData.Text;
 		// Create a new instance of the Orbit2DSideViewForm and show it as a modal dialog.
-		using Orbit2DSideViewForm formOrbit2DSideView = new(
-			planetoidName: planetoidName,
-			semiMajorAxis: semiMajorAxis,
-			eccentricity: eccentricity,
-			inclinationDeg: inclinationDeg);
+		using Orbit2DSideViewForm formOrbit2DSideView = new(planetoidName: planetoidName, semiMajorAxis: semiMajorAxis, eccentricity: eccentricity, inclinationDeg: inclinationDeg);
 		formOrbit2DSideView.TopMost = TopMost;
 		_ = formOrbit2DSideView.ShowDialog(owner: this);
 	}
@@ -1227,12 +1141,7 @@ public partial class PlanetoidDbForm
 	private void ShowOrbit3DView()
 	{
 		// Use the TryParseCurrentOrbitalElements method to parse the necessary orbital elements from the UI labels.
-		if (!TryParseCurrentOrbitalElements(
-			semiMajorAxis: out double semiMajorAxis,
-			eccentricity: out double eccentricity,
-			inclinationDeg: out double inclinationDeg,
-			longitudeAscendingNodeDeg: out double longitudeAscendingNodeDeg,
-			argumentPerihelionDeg: out double argumentPerihelionDeg))
+		if (!TryParseCurrentOrbitalElements(semiMajorAxis: out double semiMajorAxis, eccentricity: out double eccentricity, inclinationDeg: out double inclinationDeg, longitudeAscendingNodeDeg: out double longitudeAscendingNodeDeg, argumentPerihelionDeg: out double argumentPerihelionDeg))
 		{
 			logger.Error(message: "Failed to parse orbital elements for Orbit3DForm.");
 			return;
@@ -1253,15 +1162,7 @@ public partial class PlanetoidDbForm
 		// Log the action of opening the Orbit3DForm with the parsed orbital elements
 		logger.Info(message: $"Opening Orbit3DForm with orbital elements: semi-major axis={semiMajorAxis}, eccentricity={eccentricity}, inclination={inclinationDeg}, longitude of ascending node={longitudeAscendingNodeDeg}, argument of perihelion={argumentPerihelionDeg}, mean anomaly={meanAnomalyDeg}, epoch={epochMpcorb}");
 		// Create a new instance of the Orbit3DForm and show it as a modal dialog.
-		using Orbit3DForm formOrbit3D = new(
-			planetoidName: planetoidName,
-			semiMajorAxis: semiMajorAxis,
-			eccentricity: eccentricity,
-			inclinationDeg: inclinationDeg,
-			longitudeAscendingNodeDeg: longitudeAscendingNodeDeg,
-			argumentPerihelionDeg: argumentPerihelionDeg,
-			meanAnomalyDeg: meanAnomalyDeg,
-			epochMpcorb: epochMpcorb);
+		using Orbit3DForm formOrbit3D = new(planetoidName: planetoidName, semiMajorAxis: semiMajorAxis, eccentricity: eccentricity, inclinationDeg: inclinationDeg, longitudeAscendingNodeDeg: longitudeAscendingNodeDeg, argumentPerihelionDeg: argumentPerihelionDeg, meanAnomalyDeg: meanAnomalyDeg, epochMpcorb: epochMpcorb);
 		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 		formOrbit3D.TopMost = TopMost;
 		// Show the 3D orbit visualization form as a modal dialog
@@ -1452,7 +1353,7 @@ public partial class PlanetoidDbForm
 
 	/// <summary>Shows the MPCORB.DAT data check form.</summary>
 	/// <remarks>This method is used to check the MPCORB.DAT data for updates.</remarks>
-	private async void ShowMpcorbDatUpdateCheck()
+	private void ShowMpcorbDatUpdateCheck()
 	{
 		// Check if the network is available before proceeding with the download
 		if (!NetworkInterface.GetIsNetworkAvailable())
@@ -1476,7 +1377,7 @@ public partial class PlanetoidDbForm
 
 	/// <summary>Shows the MPCORB.JSON data check form.</summary>
 	/// <remarks>This method is used to check the MPCORB.JSON data for updates.</remarks>
-	private async void ShowMpcorbJsonUpdateCheck()
+	private void ShowMpcorbJsonUpdateCheck()
 	{
 		// Check if the network is available before proceeding with the download
 		if (!NetworkInterface.GetIsNetworkAvailable())
@@ -1706,10 +1607,10 @@ public partial class PlanetoidDbForm
 		// Show the list readable designations form as a modal dialog
 		_ = formListReadableDesignations.ShowDialog(owner: this);
 		// Check if the dialog result is OK and the selected index is greater than 0
-		if (formListReadableDesignations.DialogResult == DialogResult.OK && formListReadableDesignations.GetSelectedIndex() > 0)
+		if (formListReadableDesignations.DialogResult == DialogResult.OK && formListReadableDesignations.SelectedIndex > 0)
 		{
 			// Navigate to the current position in the database
-			GotoCurrentPosition(position: formListReadableDesignations.GetSelectedIndex());
+			GotoCurrentPosition(position: formListReadableDesignations.SelectedIndex);
 			currentAstorbPosition = currentPosition;
 			GotoCurrentAstorbPosition(position: currentAstorbPosition);
 			currentMpcorbJsonPosition = currentPosition;
@@ -1728,11 +1629,11 @@ public partial class PlanetoidDbForm
 		// Use the invariant culture for consistent parsing of numeric values
 		IFormatProvider provider = CultureInfo.InvariantCulture;
 		// Parse the necessary orbital elements from the UI labels, using TryParse to handle potential parsing errors gracefully
-		double.TryParse(s: labelMpcorbSemiMajorAxisData.Text, style: NumberStyles.Any, provider: provider, result: out double semiMajorAxis);
-		double.TryParse(s: labelMpcorbOrbitalEccentricityData.Text, style: NumberStyles.Any, provider: provider, result: out double numericalEccentricity);
-		double.TryParse(s: labelMpcorbMeanAnomalyAtTheEpochData.Text, style: NumberStyles.Any, provider: provider, result: out double meanAnomaly);
-		double.TryParse(s: labelMpcorbLongitudeOfTheAscendingNodeData.Text, style: NumberStyles.Any, provider: provider, result: out double longitudeAscendingNode);
-		double.TryParse(s: labelMpcorbArgumentOfThePerihelionData.Text, style: NumberStyles.Any, provider: provider, result: out double argumentAphelion);
+		_ = double.TryParse(s: labelMpcorbSemiMajorAxisData.Text, style: NumberStyles.Any, provider: provider, result: out double semiMajorAxis);
+		_ = double.TryParse(s: labelMpcorbOrbitalEccentricityData.Text, style: NumberStyles.Any, provider: provider, result: out double numericalEccentricity);
+		_ = double.TryParse(s: labelMpcorbMeanAnomalyAtTheEpochData.Text, style: NumberStyles.Any, provider: provider, result: out double meanAnomaly);
+		_ = double.TryParse(s: labelMpcorbLongitudeOfTheAscendingNodeData.Text, style: NumberStyles.Any, provider: provider, result: out double longitudeAscendingNode);
+		_ = double.TryParse(s: labelMpcorbArgumentOfThePerihelionData.Text, style: NumberStyles.Any, provider: provider, result: out double argumentAphelion);
 		// Add the original orbital elements to the list
 		elements.Add(item: labelMpcorbIndexData.Text);
 		elements.Add(item: labelMpcorbReadableDesignationData.Text);
@@ -1880,7 +1781,11 @@ public partial class PlanetoidDbForm
 
 	/// <summary>Checks if the form should stay on top of other windows.</summary>
 	/// <remarks>This method is used to check if the form should stay on top of other windows.</remarks>
-	private void CheckStayOnTop() => TopMost = toolStripMenuItemOptionStayOnTop.Checked;
+	private void CheckStayOnTop()
+	{
+		// Set the form's TopMost property based on the checked state of the corresponding menu item
+		TopMost = toolStripMenuItemOptionStayOnTop.Checked;
+	}
 
 	/// <summary>Displays the form's <see cref="openFileDialog"/> to allow the user to choose a local MPCORB.DAT file and restarts the application to load the selected file if confirmed.</summary>
 	/// <remarks>Uses the pre-configured <see cref="openFileDialog"/> component. If the user selects a valid, non-empty file, the application prompts for confirmation and restarts with the selected file as a command-line argument. If the file is invalid or empty, an error message is shown and the operation is aborted. This method is intended for scenarios where the user needs to manually specify a new MPCORB.DAT data source.</remarks>
@@ -2816,7 +2721,11 @@ public partial class PlanetoidDbForm
 	/// <param name="position">The zero-based index position to check.</param>
 	/// <returns><c>true</c> if a bookmark exists for this position; otherwise <c>false</c>.</returns>
 	/// <remarks>This method checks the in-memory list of bookmarks for the MPCORB.DAT database to see if an entry exists for the specified position.</remarks>
-	private bool IsMpcorbDatPositionBookmarked(int position) => bookmarksMpcorbDat.Exists(match: b => b.Position == position);
+	private bool IsMpcorbDatPositionBookmarked(int position)
+	{
+		// Check if the bookmarks list contains an entry with the specified position
+		return bookmarksMpcorbDat.Exists(match: b => b.Position == position);
+	}
 
 	/// <summary>Toggles the bookmark state for the current MPCORB.DAT position.</summary>
 	/// <remarks>Adds a new bookmark if none exists for the current position, otherwise removes the existing one.</remarks>
@@ -2827,7 +2736,7 @@ public partial class PlanetoidDbForm
 		{
 			logger.Warn(message: "Cannot toggle bookmark: MPCORB.DAT database is empty.");
 			// Optionally, show a message to the user indicating that bookmarking is not possible
-			KryptonMessageBox.Show(owner: this, text: "Cannot toggle bookmark: MPCORB.DAT database is empty.", caption: "Warning", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Warning);
+			_ = KryptonMessageBox.Show(owner: this, text: "Cannot toggle bookmark: MPCORB.DAT database is empty.", caption: "Warning", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Warning);
 			// Exit early since there is no valid position to bookmark
 			return;
 		}
@@ -2896,7 +2805,7 @@ public partial class PlanetoidDbForm
 				AccessibleDescription = I18nStrings.BookmarkNoEntries
 			};
 			empty.MouseEnter += Control_Enter;
-			parentItem.DropDownItems.Add(value: empty);
+			_ = parentItem.DropDownItems.Add(value: empty);
 			return;
 		}
 		// Iterate through each bookmark entry and create a corresponding menu item
@@ -2992,43 +2901,61 @@ public partial class PlanetoidDbForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">Event data.</param>
 	/// <remarks>This method is called when the user opens the MPCORB.DAT bookmark drop-down menu. It populates the drop-down with the current list of bookmarks for MPCORB.DAT, creating a menu item for each bookmark entry and associating it with the appropriate click event handler.</remarks>
-	internal void BookmarkListMpcorbDat_DropDownOpening(object? sender, EventArgs e) =>
+	internal void BookmarkListMpcorbDat_DropDownOpening(object? sender, EventArgs e)
+	{
+		// Call the helper method to populate the drop-down with the current bookmarks for MPCORB.DAT
 		PopulateBookmarkDropDown(parentItem: toolStripMenuItemBookmarkListMpcorbDat, bookmarks: bookmarksMpcorbDat, onClickHandler: BookmarkNavigateMpcorbDat_Click);
+	}
 
 	/// <summary>Populates the MPCORB.JSON bookmark drop-down when the user opens it.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">Event data.</param>												   
 	/// <remarks>This method is called when the user opens the MPCORB.JSON bookmark drop-down menu. It populates the drop-down with the current list of bookmarks for MPCORB.JSON, creating a menu item for each bookmark entry and associating it with the appropriate click event handler.</remarks>
-	internal void BookmarkListMpcorbJson_DropDownOpening(object? sender, EventArgs e) =>
+	internal void BookmarkListMpcorbJson_DropDownOpening(object? sender, EventArgs e)
+	{
+		// Call the helper method to populate the drop-down with the current bookmarks for MPCORB.JSON
 		PopulateBookmarkDropDown(parentItem: toolStripMenuItemBookmarkListMpcorbJson, bookmarks: bookmarksMpcorbJson, onClickHandler: BookmarkNavigateMpcorbJson_Click);
+	}
 
 	/// <summary>Populates the ASTORB.DAT bookmark drop-down when the user opens it.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">Event data.</param>
 	/// <remarks>This method is called when the user opens the ASTORB.DAT bookmark drop-down menu. It populates the drop-down with the current list of bookmarks for ASTORB.DAT, creating a menu item for each bookmark entry and associating it with the appropriate click event handler.</remarks>
-	internal void BookmarkListAstorbDat_DropDownOpening(object? sender, EventArgs e) =>
+	internal void BookmarkListAstorbDat_DropDownOpening(object? sender, EventArgs e)
+	{
+		// Call the helper method to populate the drop-down with the current bookmarks for ASTORB.DAT
 		PopulateBookmarkDropDown(parentItem: toolStripMenuItemBookmarkListAstorbDat, bookmarks: bookmarksAstorbDat, onClickHandler: BookmarkNavigateAstorbDat_Click);
+	}
 
 	/// <summary>Populates the ALLNUM.CAT bookmark drop-down when the user opens it.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">Event data.</param>
 	/// <remarks>This method is called when the user opens the ALLNUM.CAT bookmark drop-down menu. It populates the drop-down with the current list of bookmarks for ALLNUM.CAT, creating a menu item for each bookmark entry and associating it with the appropriate click event handler.</remarks>
-	internal void BookmarkListAllnumCat_DropDownOpening(object? sender, EventArgs e) =>
+	internal void BookmarkListAllnumCat_DropDownOpening(object? sender, EventArgs e)
+	{
+		// Call the helper method to populate the drop-down with the current bookmarks for ALLNUM.CAT
 		PopulateBookmarkDropDown(parentItem: toolStripMenuItemBookmarkListAllnumCat, bookmarks: bookmarksAllnumCat, onClickHandler: BookmarkNavigateAllnumCat_Click);
+	}
 
 	/// <summary>Populates the SINGOPP.CAT bookmark drop-down when the user opens it.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">Event data.</param>
 	/// <remarks>This method is called when the user opens the SINGOPP.CAT bookmark drop-down menu. It populates the drop-down with the current list of bookmarks for SINGOPP.CAT, creating a menu item for each bookmark entry and associating it with the appropriate click event handler.</remarks>
-	internal void BookmarkListSingoppCat_DropDownOpening(object? sender, EventArgs e) =>
+	internal void BookmarkListSingoppCat_DropDownOpening(object? sender, EventArgs e)
+	{
+		// Call the helper method to populate the drop-down with the current bookmarks for SINGOPP.CAT
 		PopulateBookmarkDropDown(parentItem: toolStripMenuItemBookmarkListSingoppCat, bookmarks: bookmarksSingoppCat, onClickHandler: BookmarkNavigateSingoppCat_Click);
+	}
 
 	/// <summary>Populates the UFITOBS.CAT bookmark drop-down when the user opens it.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">Event data.</param>
 	/// <remarks>This method is called when the user opens the UFITOBS.CAT bookmark drop-down menu. It populates the drop-down with the current list of bookmarks for UFITOBS.CAT, creating a menu item for each bookmark entry and associating it with the appropriate click event handler.</remarks>
-	internal void BookmarkListUfitobsCat_DropDownOpening(object? sender, EventArgs e) =>
+	internal void BookmarkListUfitobsCat_DropDownOpening(object? sender, EventArgs e)
+	{
+		// Call the helper method to populate the drop-down with the current bookmarks for UFITOBS.CAT
 		PopulateBookmarkDropDown(parentItem: toolStripMenuItemBookmarkListUfitobsCat, bookmarks: bookmarksUfitobsCat, onClickHandler: BookmarkNavigateUfitobsCat_Click);
+	}
 
 	/// <summary>Navigates to the MPCORB.DAT record stored in the clicked bookmark item.</summary>
 	/// <param name="sender">The clicked menu item whose <see cref="ToolStripItem.Tag"/> is a <see cref="BookmarkEntry"/>.</param>

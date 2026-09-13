@@ -27,9 +27,9 @@ namespace Planetoid_DB.Forms;
 
 /// <summary>Form to analyze and group planetoids based on common orbital element ranges.</summary>
 /// <remarks>This form provides functionality to group planetoids based on their orbital elements, allowing for analysis of patterns and similarities.</remarks>
-// You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
-[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-public partial class OrbitElementsGroupingForm : BaseKryptonForm
+// You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
+[DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
+internal partial class OrbitElementsGroupingForm : BaseKryptonForm
 {
 	#region Export override properties
 
@@ -89,25 +89,28 @@ public partial class OrbitElementsGroupingForm : BaseKryptonForm
 
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>This method is used to provide a visual representation of the object in the debugger.</remarks>
-	private string GetDebuggerDisplay() => ToString();
+	/// <remarks>This property is used to provide a visual representation of the object in the debugger.</remarks>
+	private string DebuggerDisplay => ToString();
 
 	/// <summary>Retrieves the name of the orbital element corresponding to the specified index.</summary>
 	/// <remarks>The method maps specific indices to standard orbital element names. If an index outside the range 0–6 is provided, the method returns "Unknown".</remarks>
 	/// <param name="index">The zero-based index of the orbital element. Valid values are 0 through 6.</param>
 	/// <returns>A string representing the name of the orbital element for the given index, or "Unknown" if the index is not recognized.</returns>
-	private static string GetElementName(int index) => index switch
+	private static string GetElementName(int index)
 	{
-		// Map the indices to their corresponding orbital element names. This mapping is based on the order of elements as they are parsed from the planetoid data.
-		0 => "MeanAnomaly",
-		1 => "ArgPeri",
-		2 => "LongAscNode",
-		3 => "Incl",
-		4 => "OrbEcc",
-		5 => "Motion",
-		6 => "SemiMajorAxis",
-		_ => "Unknown"
-	};
+		return index switch
+		{
+			// Map the indices to their corresponding orbital element names. This mapping is based on the order of elements as they are parsed from the planetoid data.
+			0 => "MeanAnomaly",
+			1 => "ArgPeri",
+			2 => "LongAscNode",
+			3 => "Incl",
+			4 => "OrbEcc",
+			5 => "Motion",
+			6 => "SemiMajorAxis",
+			_ => "Unknown"
+		};
+	}
 
 	/// <summary>Generates all possible combinations of a specified length from the provided array of elements.</summary>
 	/// <remarks>The order of elements within each combination matches their order in the input array. The method does not return duplicate combinations. If k is 0, a single empty combination is returned.</remarks>
@@ -313,20 +316,20 @@ public partial class OrbitElementsGroupingForm : BaseKryptonForm
 				if (clusters.Count != 0)
 				{
 					StringBuilder sb = new();
-					sb.AppendLine(handler: $"--- Clusters for elements {string.Join(separator: ", ", values: combo.Select(GetElementName))} ---");
+					_ = sb.AppendLine(value: $"--- Clusters for elements {string.Join(separator: ", ", values: combo.Select(GetElementName))} ---");
 					// Order clusters by size and take the top 999 groups to display. This ensures that the most significant clusters are shown to the user, while very small clusters are omitted for clarity.
 					IEnumerable<List<PlanetoidData>> orderedClusters = clusters.OrderByDescending(keySelector: c => c.Count).Take(count: 999); // Show top 999 groups
 					foreach (List<PlanetoidData> group in orderedClusters)
 					{
 						// For each cluster, append a message that includes the number of planetoids in the cluster and the representative planetoid (the first planetoid in the cluster). Then, for each planetoid in the cluster, append a line with its index, name, and the values of the specified elements. This provides detailed information about each cluster and its members.
-						sb.AppendLine(handler: $"Found group with {group.Count} planetoids (Representative: {group[index: 0].Index} - {group[index: 0].Name}):");
+						_ = sb.AppendLine(value: $"Found group with {group.Count} planetoids (Representative: {group[index: 0].Index} - {group[index: 0].Name}):");
 						foreach (PlanetoidData? p in group.Take(count: 999))
 						{
 							// Append a line for each planetoid in the cluster, showing its index, name, and the values of the specified elements. The element values are formatted to four decimal places for readability. This provides detailed information about each member of the cluster.
-							sb.AppendLine(value: $"  {p.Index} '{p.Name}' {string.Join(separator: ", ", values: combo.Select(c => $"{GetElementName(index: c)}={p.Elements[c]:F4}"))}");
+							_ = sb.AppendLine(value: $"  {p.Index} '{p.Name}' {string.Join(separator: ", ", values: combo.Select(c => $"{GetElementName(index: c)}={p.Elements[c]:F4}"))}");
 						}
 						// Append a new line after each cluster for better readability in the output text box.
-						sb.AppendLine();
+						_ = sb.AppendLine();
 					}
 					// Report the details of the clusters found for the current combination through the message progress interface, which will display the information in the output text box. This allows the user to see the results of the grouping operation for each combination of elements.
 					messageProgress.Report(value: sb.ToString());
@@ -359,7 +362,7 @@ public partial class OrbitElementsGroupingForm : BaseKryptonForm
 			{
 				toolStripButtonStart.Enabled = true;
 				toolStripButtonCancel.Enabled = false;
-			}, cancellationToken: cancellationToken);
+			}, cancellationToken: cancellationToken).ConfigureAwait(continueOnCapturedContext: false);
 		}
 	}
 
@@ -390,6 +393,7 @@ public partial class OrbitElementsGroupingForm : BaseKryptonForm
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	private async void ButtonStart_Click(object? sender, EventArgs e)
 	{
+		logger.Info(message: "Start button clicked. Initiating grouping operation.");
 		// Check if there are any planetoid records to process. If not, show an informational message and return.
 		if (_planetoids.Count == 0)
 		{
@@ -422,7 +426,7 @@ public partial class OrbitElementsGroupingForm : BaseKryptonForm
 		// Start the grouping operation asynchronously using Task.Run, passing the necessary parameters and the cancellation token. The operation will run on a background thread, allowing the UI to remain responsive.
 		try
 		{
-			await Task.Run(function: () => PerformGroupingAsync(elementsCount: elementsCount, tolerancePercent: tolerancePercent, progress: progress, messageProgress: messageProgress, cancellationToken: _cancellationTokenSource.Token), cancellationToken: _cancellationTokenSource.Token);
+			await Task.Run(function: () => PerformGroupingAsync(elementsCount: elementsCount, tolerancePercent: tolerancePercent, progress: progress, messageProgress: messageProgress, cancellationToken: _cancellationTokenSource.Token), cancellationToken: _cancellationTokenSource.Token).ConfigureAwait(continueOnCapturedContext: false);
 		}
 		// Handle cancellation of the operation gracefully by catching the OperationCanceledException. When cancellation is requested, an informational message is logged to indicate that the grouping task was canceled.
 		catch (OperationCanceledException ex)

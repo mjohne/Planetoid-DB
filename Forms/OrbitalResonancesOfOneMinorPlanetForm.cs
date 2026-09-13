@@ -15,17 +15,19 @@
 
 using NLog;
 
+using Planetoid_DB.Forms;
 using Planetoid_DB.Helpers;
 
 using System.Diagnostics;
+using System.Globalization;
 
 namespace Planetoid_DB;
 
 /// <summary>Form for displaying orbital resonances of a planetoid relative to the 8 solar system planets.</summary>
 /// <remarks>This form computes and presents the orbital resonance of a planetoid with each planet, including the resonance ratio, deviation, and whether a near-resonance is detected.</remarks>
-// You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
-[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-public partial class OrbitalResonancesOfOneMinorPlanetForm : BaseKryptonForm
+// You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
+[DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
+internal partial class OrbitalResonancesOfOneMinorPlanetForm : BaseKryptonForm
 {
 	#region Export override properties
 
@@ -81,8 +83,10 @@ public partial class OrbitalResonancesOfOneMinorPlanetForm : BaseKryptonForm
 
 	/// <summary>Initializes a new instance of the <see cref="OrbitalResonancesOfOneMinorPlanetForm"/> class.</summary>
 	/// <remarks>This constructor initializes the form components.</remarks>
-	public OrbitalResonancesOfOneMinorPlanetForm() =>
+	public OrbitalResonancesOfOneMinorPlanetForm()
+	{
 		InitializeComponent();
+	}
 
 	#endregion
 
@@ -90,13 +94,16 @@ public partial class OrbitalResonancesOfOneMinorPlanetForm : BaseKryptonForm
 
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>This method is used to provide a visual representation of the object in the debugger.</remarks>
-	private string GetDebuggerDisplay() => ToString();
+	/// <remarks>This property is used to provide a visual representation of the object in the debugger.</remarks>
+	private string DebuggerDisplay => ToString();
 
 	/// <summary>Sets the semi-major axis of the planetoid used for computing orbital resonances.</summary>
 	/// <param name="semiMajorAxis">The semi-major axis in AU.</param>
 	/// <remarks>Call this method before showing the form so that the resonance data is available on load.</remarks>
-	public void SetSemiMajorAxis(double semiMajorAxis) => this.semiMajorAxis = semiMajorAxis;
+	public void SetSemiMajorAxis(double semiMajorAxis)
+	{
+		this.semiMajorAxis = semiMajorAxis;
+	}
 
 	/// <summary>Populates the <see cref="listView"/> with orbital resonance data from the <see cref="allResonances"/> field, optionally filtering to only true resonances.</summary>
 	/// <remarks>Each resonance is shown as one row. The "Is Resonance" column shows "Yes" when the deviation is below 1%. Rows are colored green for resonances and red for non-resonances.</remarks>
@@ -120,18 +127,18 @@ public partial class OrbitalResonancesOfOneMinorPlanetForm : BaseKryptonForm
 			ListViewItem item = new(text: resonance.PlanetName);
 			item.SubItems.AddRange(items:
 			[
-				resonance.PlanetPeriod.ToString(format: "F6"),
-				resonance.PlanetoidPeriod.ToString(format: "F6"),
-				resonance.Ratio.ToString(format: "F6"),
+				resonance.PlanetPeriod.ToString(format: "F6", provider: CultureInfo.InvariantCulture),
+				resonance.PlanetoidPeriod.ToString(format: "F6", provider: CultureInfo.InvariantCulture),
+				resonance.Ratio.ToString(format: "F6", provider: CultureInfo.InvariantCulture),
 				$"{resonance.ResonanceP}:{resonance.ResonanceQ}",
-				resonance.DeviationPercent.ToString(format: "F2"),
+				resonance.DeviationPercent.ToString(format: "F2", provider: CultureInfo.InvariantCulture),
 				isResonance
 			]);
 			// Set the UseItemStyleForSubItems property to true to allow coloring of sub-items; set the text color based on resonance status (green for resonances, red for non-resonances, black for unknown)
 			item.UseItemStyleForSubItems = true;
 			item.ForeColor = isResonance == "Yes" ? Color.Green : isResonance == "No" ? Color.Red : Color.Black;
 			// Add the item to the list view
-			listView.Items.Add(value: item);
+			_ = listView.Items.Add(value: item);
 		}
 		listView.EndUpdate();
 	}
@@ -195,7 +202,7 @@ public partial class OrbitalResonancesOfOneMinorPlanetForm : BaseKryptonForm
 			// Remove existing sort indicators from the header text
 			string headerText = listView.Columns[index: i].Text;
 			// Check for existing indicators and remove them
-			if (headerText.StartsWith(value: "▲ ") || headerText.StartsWith(value: "▼ "))
+			if (headerText.StartsWith(value: "▲ ", comparisonType: StringComparison.InvariantCulture) || headerText.StartsWith(value: "▼ ", comparisonType: StringComparison.InvariantCulture))
 			{
 				headerText = headerText[2..];
 			}

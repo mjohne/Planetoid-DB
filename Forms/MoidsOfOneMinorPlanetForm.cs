@@ -19,14 +19,15 @@ using Planetoid_DB.Forms;
 using Planetoid_DB.Helpers;
 
 using System.Diagnostics;
+using System.Globalization;
 
 namespace Planetoid_DB;
 
 /// <summary>Form for displaying the Minimum Orbit Intersection Distance (MOID) of a minor planet relative to each of the eight solar system planets.</summary>
 /// <remarks>This form computes and presents the MOID values for a minor planet using a fast, high-precision numerical algorithm equivalent to the approach used by the Minor Planet Center (MPC). The results are shown in a two-column table layout: planet name in the first column, MOID in AU in the second column.</remarks>
-// You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
-[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-public partial class MoidsOfOneMinorPlanetForm : BaseKryptonForm
+// You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
+[DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
+internal partial class MoidsOfOneMinorPlanetForm : BaseKryptonForm
 {
 	#region Export override properties
 
@@ -76,7 +77,10 @@ public partial class MoidsOfOneMinorPlanetForm : BaseKryptonForm
 
 	/// <summary>Initializes a new instance of the <see cref="MoidsOfOneMinorPlanetForm"/> class.</summary>
 	/// <remarks>This constructor initializes the form components.</remarks>
-	public MoidsOfOneMinorPlanetForm() => InitializeComponent();
+	public MoidsOfOneMinorPlanetForm()
+	{
+		InitializeComponent();
+	}
 
 	#endregion
 
@@ -84,8 +88,8 @@ public partial class MoidsOfOneMinorPlanetForm : BaseKryptonForm
 
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>This method is used to provide a visual representation of the object in the debugger.</remarks>
-	private string GetDebuggerDisplay() => ToString();
+	/// <remarks>This property is used to provide a visual representation of the object in the debugger.</remarks>
+	private string DebuggerDisplay => ToString();
 
 	/// <summary>Sets the orbital elements of the minor planet used for computing MOID values.</summary>
 	/// <param name="semiMajorAxis">The semi-major axis in AU.</param>
@@ -132,14 +136,14 @@ public partial class MoidsOfOneMinorPlanetForm : BaseKryptonForm
 			// Populate the data labels (one per planet row, index 0 = Mercury … 7 = Neptune)
 			if (moids.Count >= 8)
 			{
-				labelMercuryData.Text = moids[index: 0].MoidAu.ToString();
-				labelVenusData.Text = moids[index: 1].MoidAu.ToString();
-				labelEarthData.Text = moids[index: 2].MoidAu.ToString();
-				labelMarsData.Text = moids[index: 3].MoidAu.ToString();
-				labelJupiterData.Text = moids[index: 4].MoidAu.ToString();
-				labelSaturnData.Text = moids[index: 5].MoidAu.ToString();
-				labelUranusData.Text = moids[index: 6].MoidAu.ToString();
-				labelNeptuneData.Text = moids[index: 7].MoidAu.ToString();
+				labelMercuryData.Text = moids[index: 0].MoidAu.ToString(provider: CultureInfo.InvariantCulture);
+				labelVenusData.Text = moids[index: 1].MoidAu.ToString(provider: CultureInfo.InvariantCulture);
+				labelEarthData.Text = moids[index: 2].MoidAu.ToString(provider: CultureInfo.InvariantCulture);
+				labelMarsData.Text = moids[index: 3].MoidAu.ToString(provider: CultureInfo.InvariantCulture);
+				labelJupiterData.Text = moids[index: 4].MoidAu.ToString(provider: CultureInfo.InvariantCulture);
+				labelSaturnData.Text = moids[index: 5].MoidAu.ToString(provider: CultureInfo.InvariantCulture);
+				labelUranusData.Text = moids[index: 6].MoidAu.ToString(provider: CultureInfo.InvariantCulture);
+				labelNeptuneData.Text = moids[index: 7].MoidAu.ToString(provider: CultureInfo.InvariantCulture);
 			}
 		}
 		// Handle any exceptions that may occur during MOID calculation and display an error message

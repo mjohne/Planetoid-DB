@@ -19,13 +19,14 @@ using Planetoid_DB.Forms;
 using Planetoid_DB.Helpers;
 
 using System.Diagnostics;
+using System.Globalization;
 
 namespace Planetoid_DB;
 
 /// <summary>Form for displaying the Tisserand parameter of a minor planet relative to each of the eight solar system planets.</summary>
 /// <remarks>This form computes and presents the Tisserand parameter values for a minor planet using the standard three-body formula. The results are shown in a two-column table layout: planet name in the first column, Tisserand parameter value in the second column.</remarks>
-// You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
-[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
+// You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
+[DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
 public partial class TisserandParameterOfOneMinorPlanetForm : BaseKryptonForm
 {
 	#region Export override properties
@@ -68,7 +69,11 @@ public partial class TisserandParameterOfOneMinorPlanetForm : BaseKryptonForm
 
 	/// <summary>Initializes a new instance of the <see cref="TisserandParameterOfOneMinorPlanetForm"/> class.</summary>
 	/// <remarks>This constructor initializes the form components.</remarks>
-	public TisserandParameterOfOneMinorPlanetForm() => InitializeComponent();
+	public TisserandParameterOfOneMinorPlanetForm()
+	{
+		logger.Info(message: "Initializing TisserandParameterOfOneMinorPlanetForm");
+		InitializeComponent();
+	}
 
 	#endregion
 
@@ -77,18 +82,16 @@ public partial class TisserandParameterOfOneMinorPlanetForm : BaseKryptonForm
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
 	/// <remarks>This method is used to provide a visual representation of the object in the debugger.</remarks>
-	private string GetDebuggerDisplay() => ToString();
+	private string DebuggerDisplay => ToString();
 
 	/// <summary>Sets the orbital elements of the minor planet used for computing Tisserand parameter values.</summary>
 	/// <param name="semiMajorAxis">The semi-major axis in AU.</param>
 	/// <param name="eccentricity">The orbital eccentricity.</param>
 	/// <param name="inclinationDeg">The inclination to the ecliptic in degrees.</param>
 	/// <remarks>Call this method before showing the form so that the Tisserand parameter data is available on load.</remarks>
-	public void SetOrbitalElements(
-		double semiMajorAxis,
-		double eccentricity,
-		double inclinationDeg)
+	public void SetOrbitalElements(double semiMajorAxis, double eccentricity, double inclinationDeg)
 	{
+		logger.Info(message: $"Setting orbital elements: semiMajorAxis={semiMajorAxis}, eccentricity={eccentricity}, inclinationDeg={inclinationDeg}");
 		this.semiMajorAxis = semiMajorAxis;
 		this.eccentricity = eccentricity;
 		this.inclinationDeg = inclinationDeg;
@@ -104,6 +107,7 @@ public partial class TisserandParameterOfOneMinorPlanetForm : BaseKryptonForm
 	/// <remarks>Tisserand parameter values are calculated using <see cref="TisserandParameterCalculator.CalculateTisserandParameters"/> and displayed in the second column of the <see cref="tableLayoutPanel"/>.</remarks>
 	private void TisserandParameterOfOneMinorPlanetForm_Load(object sender, EventArgs e)
 	{
+		logger.Info(message: "TisserandParameterOfOneMinorPlanetForm loaded. Starting Tisserand parameter calculations.");
 		// Clear the status bar
 		ClearStatusBar(label: labelInformation);
 		try
@@ -131,14 +135,14 @@ public partial class TisserandParameterOfOneMinorPlanetForm : BaseKryptonForm
 			// Populate the data labels (one per planet row, index 0 = Mercury … 7 = Neptune)
 			if (tisserandResults.Length >= 8)
 			{
-				labelMercuryData.Text = tisserandResults[0].TisserandValue.ToString(format: "F6");
-				labelVenusData.Text = tisserandResults[1].TisserandValue.ToString(format: "F6");
-				labelEarthData.Text = tisserandResults[2].TisserandValue.ToString(format: "F6");
-				labelMarsData.Text = tisserandResults[3].TisserandValue.ToString(format: "F6");
-				labelJupiterData.Text = tisserandResults[4].TisserandValue.ToString(format: "F6");
-				labelSaturnData.Text = tisserandResults[5].TisserandValue.ToString(format: "F6");
-				labelUranusData.Text = tisserandResults[6].TisserandValue.ToString(format: "F6");
-				labelNeptuneData.Text = tisserandResults[7].TisserandValue.ToString(format: "F6");
+				labelMercuryData.Text = tisserandResults[0].TisserandValue.ToString(format: "F6", provider: CultureInfo.InvariantCulture);
+				labelVenusData.Text = tisserandResults[1].TisserandValue.ToString(format: "F6", provider: CultureInfo.InvariantCulture);
+				labelEarthData.Text = tisserandResults[2].TisserandValue.ToString(format: "F6", provider: CultureInfo.InvariantCulture);
+				labelMarsData.Text = tisserandResults[3].TisserandValue.ToString(format: "F6", provider: CultureInfo.InvariantCulture);
+				labelJupiterData.Text = tisserandResults[4].TisserandValue.ToString(format: "F6", provider: CultureInfo.InvariantCulture);
+				labelSaturnData.Text = tisserandResults[5].TisserandValue.ToString(format: "F6", provider: CultureInfo.InvariantCulture);
+				labelUranusData.Text = tisserandResults[6].TisserandValue.ToString(format: "F6", provider: CultureInfo.InvariantCulture);
+				labelNeptuneData.Text = tisserandResults[7].TisserandValue.ToString(format: "F6", provider: CultureInfo.InvariantCulture);
 			}
 		}
 		// Log any exceptions that occur during the calculation and show an error message to the user
@@ -157,49 +161,81 @@ public partial class TisserandParameterOfOneMinorPlanetForm : BaseKryptonForm
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	/// <remarks>This event handler retrieves the Tisserand parameter value relative to Mercury from the corresponding label and copies it to the clipboard using the <see cref="BaseKryptonForm.CopyToClipboard(string)"/> helper method.</remarks>
-	private void MenuitemCopyToClipboardTisserandParameterRelativeToMercury_Click(object sender, EventArgs e) => CopyToClipboard(text: labelMercuryData.Text);
+	private void MenuitemCopyToClipboardTisserandParameterRelativeToMercury_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: $"Copying Tisserand parameter relative to Mercury to clipboard: {labelMercuryData.Text}");
+		CopyToClipboard(text: labelMercuryData.Text);
+	}
 
 	/// <summary>Handles the click event for copying the Tisserand parameter relative to Venus to the clipboard.</summary>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	/// <remarks>This event handler retrieves the Tisserand parameter value relative to Venus from the corresponding label and copies it to the clipboard using the <see cref="BaseKryptonForm.CopyToClipboard(string)"/> helper method.</remarks>
-	private void MenuitemCopyToClipboardTisserandParameterRelativeToVenus_Click(object sender, EventArgs e) => CopyToClipboard(text: labelVenusData.Text);
+	private void MenuitemCopyToClipboardTisserandParameterRelativeToVenus_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: $"Copying Tisserand parameter relative to Venus to clipboard: {labelVenusData.Text}");
+		CopyToClipboard(text: labelVenusData.Text);
+	}
 
 	/// <summary>Handles the click event for copying the Tisserand parameter relative to Earth to the clipboard.</summary>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	/// <remarks>This event handler retrieves the Tisserand parameter value relative to Earth from the corresponding label and copies it to the clipboard using the <see cref="BaseKryptonForm.CopyToClipboard(string)"/> helper method.</remarks>
-	private void MenuitemCopyToClipboardTisserandParameterRelativeToEarth_Click(object sender, EventArgs e) => CopyToClipboard(text: labelEarthData.Text);
+	private void MenuitemCopyToClipboardTisserandParameterRelativeToEarth_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: $"Copying Tisserand parameter relative to Earth to clipboard: {labelEarthData.Text}");
+		CopyToClipboard(text: labelEarthData.Text);
+	}
 
 	/// <summary>Handles the click event for copying the Tisserand parameter relative to Mars to the clipboard.</summary>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	/// <remarks>This event handler retrieves the Tisserand parameter value relative to Mars from the corresponding label and copies it to the clipboard using the <see cref="BaseKryptonForm.CopyToClipboard(string)"/> helper method.</remarks>
-	private void MenuitemCopyToClipboardTisserandParameterRelativeToMars_Click(object sender, EventArgs e) => CopyToClipboard(text: labelMarsData.Text);
+	private void MenuitemCopyToClipboardTisserandParameterRelativeToMars_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: $"Copying Tisserand parameter relative to Mars to clipboard: {labelMarsData.Text}");
+		CopyToClipboard(text: labelMarsData.Text);
+	}
 
 	/// <summary>Handles the click event for copying the Tisserand parameter relative to Jupiter to the clipboard.</summary>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	/// <remarks>This event handler retrieves the Tisserand parameter value relative to Jupiter from the corresponding label and copies it to the clipboard using the <see cref="BaseKryptonForm.CopyToClipboard(string)"/> helper method.</remarks>
-	private void MenuitemCopyToClipboardTisserandParameterRelativeToJupiter_Click(object sender, EventArgs e) => CopyToClipboard(text: labelJupiterData.Text);
+	private void MenuitemCopyToClipboardTisserandParameterRelativeToJupiter_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: $"Copying Tisserand parameter relative to Jupiter to clipboard: {labelJupiterData.Text}");
+		CopyToClipboard(text: labelJupiterData.Text);
+	}
 
 	/// <summary>Handles the click event for copying the Tisserand parameter relative to Saturn to the clipboard.</summary>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	/// <remarks>This event handler retrieves the Tisserand parameter value relative to Saturn from the corresponding label and copies it to the clipboard using the <see cref="BaseKryptonForm.CopyToClipboard(string)"/> helper method.</remarks>
-	private void MenuitemCopyToClipboardTisserandParameterRelativeToSaturn_Click(object sender, EventArgs e) => CopyToClipboard(text: labelSaturnData.Text);
+	private void MenuitemCopyToClipboardTisserandParameterRelativeToSaturn_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: $"Copying Tisserand parameter relative to Saturn to clipboard: {labelSaturnData.Text}");
+		CopyToClipboard(text: labelSaturnData.Text);
+	}
 
 	/// <summary>Handles the click event for copying the Tisserand parameter relative to Uranus to the clipboard.</summary>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	/// <remarks>This event handler retrieves the Tisserand parameter value relative to Uranus from the corresponding label and copies it to the clipboard using the <see cref="BaseKryptonForm.CopyToClipboard(string)"/> helper method.</remarks>
-	private void MenuitemCopyToClipboardTisserandParameterRelativeToUranus_Click(object sender, EventArgs e) => CopyToClipboard(text: labelUranusData.Text);
+	private void MenuitemCopyToClipboardTisserandParameterRelativeToUranus_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: $"Copying Tisserand parameter relative to Uranus to clipboard: {labelUranusData.Text}");
+		CopyToClipboard(text: labelUranusData.Text);
+	}
 
 	/// <summary>Handles the click event for copying the Tisserand parameter relative to Neptune to the clipboard.</summary>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	/// <remarks>This event handler retrieves the Tisserand parameter value relative to Neptune from the corresponding label and copies it to the clipboard using the <see cref="BaseKryptonForm.CopyToClipboard(string)"/> helper method.</remarks>
-	private void MenuitemCopyToClipboardTisserandParameterRelativeToNeptune_Click(object sender, EventArgs e) => CopyToClipboard(text: labelNeptuneData.Text);
+	private void MenuitemCopyToClipboardTisserandParameterRelativeToNeptune_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: $"Copying Tisserand parameter relative to Neptune to clipboard: {labelNeptuneData.Text}");
+		CopyToClipboard(text: labelNeptuneData.Text);
+	}
 
 	#endregion
 }

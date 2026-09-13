@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <_LastSelectedProfileId>D:\Programming\Visual Studio 2026\Planetoid-DB\Properties\PublishProfiles\FolderProfile.pubxml</_LastSelectedProfileId>
+    <_LastSelectedProfileId>D:\Programming\Visual Studio 2026\Planetoid-DB\Properties\PublishProfiles\FolderProfile_win-x86_standalone.pubxml</_LastSelectedProfileId>
   </PropertyGroup>
   <ItemGroup>
     <Compile Update="Forms\AEIDiagram3DForm.cs">
@@ -13,10 +13,28 @@
     <Compile Update="Forms\ArchiveMpcorbForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Forms\AsteroidFamiliesForm.AsteroidFamily.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Forms\AsteroidFamiliesForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Forms\AsteroidFamiliesForm.PlanetoidEntry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\AsteroidGameForm.Asteroid.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\AsteroidGameForm.Bullet.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Forms\AsteroidGameForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\AsteroidGameForm.GameState.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\AsteroidGameForm.Ship.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Forms\BaseKryptonForm.cs">
@@ -43,6 +61,15 @@
     <Compile Update="Forms\AverageAsteroidForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Forms\DistributionsForm.HistogramBinResult.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\DistributionsForm.HistogramDefinition.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\DistributionsForm.StepOption.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Forms\EphemerisForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -58,6 +85,9 @@
     <Compile Update="Forms\DistributionsForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Forms\FilterForm.OrbitalElementFilter.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Forms\LicenseForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -71,6 +101,9 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Forms\MaxoidsOfOneMinorPlanetForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\MaxoidsOfOneMinorPlanetForm.OrbitalElements.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Forms\MaxoidsRelativeToMinorPlanetsForm.cs">
@@ -142,7 +175,13 @@
     <Compile Update="Forms\ScatterplotsForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Forms\ScatterplotsForm.ScatterDefinition.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Forms\SearchForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\SearchForm.SearchResult.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Forms\SettingsExportForm.cs">
@@ -164,6 +203,9 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Forms\TerminologyForm.TerminologyElement.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\TestForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Forms\TisserandParameterOfAllMinorPlanetsForm.cs">

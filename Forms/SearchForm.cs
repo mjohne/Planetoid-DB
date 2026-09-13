@@ -28,9 +28,9 @@ namespace Planetoid_DB;
 
 /// <summary>Represents a form that provides advanced search functionality for planetoid records, allowing users to search, filter, and export search results in various formats.</summary>
 /// <remarks>The SearchForm enables users to perform text-based searches across multiple orbital element fields within a planetoid database. Users can select which elements to search, view results in a virtualized list, and export results to a wide range of file formats, including text, spreadsheet, and markup formats. The form manages search progress, cancellation, and error handling, and integrates with the main application to allow navigation to specific records. Thread safety is maintained for search result access, and the form provides feedback on long-running operations.</remarks>
-// You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
-[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-public partial class SearchForm : BaseKryptonForm
+// You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
+[DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
+internal partial class SearchForm : BaseKryptonForm
 {
 	#region Export override properties
 
@@ -58,7 +58,7 @@ public partial class SearchForm : BaseKryptonForm
 
 	/// <summary>Cancellation token source for managing search cancellation.</summary>
 	/// <remarks>This token source is used to signal cancellation requests to the background search task, allowing the search operation to be stopped gracefully.</remarks>
-	private CancellationTokenSource? _cts;
+	private CancellationTokenSource? _cancellationTokenSource;
 
 	/// <summary>Dictionary mapping orbital element names to functions that retrieve their values from a PlanetoidRecord.</summary>
 	/// <remarks>This dictionary maps the names of orbital elements (e.g., "Epoch", "Mean anomaly") to functions that take a PlanetoidRecord as input and return the corresponding value as a string. This mapping allows the search functionality to dynamically access the relevant fields of the planetoid records based on user-selected search criteria.</remarks>
@@ -86,26 +86,13 @@ public partial class SearchForm : BaseKryptonForm
 	/// <remarks>Overrides the base class property to return the form-specific status label.</remarks>
 	protected override ToolStripStatusLabel? StatusLabel => labelInformation;
 
-	/// <summary>Represents the result of a search operation, containing information about the matched item.</summary>
-	/// <remarks>This struct is used to store information about each search result found during the search operation. It includes the index of the record, its designation, the specific orbital element that matched the search criteria, and the value of that element. This structured format allows for easy management and display of search results in the user interface.</remarks>
-	private struct SearchResult
-	{
-		/// <summary>Index of the matched record in the database.</summary>
-		public string Index;
-		/// <summary>Designation of the matched record.</summary>
-		public string Designation;
-		/// <summary>Name of the orbital element that matched the search criteria.</summary>
-		public string Element;
-		/// <summary>Value of the orbital element that matched the search criteria.</summary>
-		public string Value;
-	}
-
 	#region Constructor
 
 	/// <summary>Initializes a new instance of the <see cref="SearchForm"/> class.</summary>
 	/// <remarks>This constructor sets up the form and initializes the property map for searching.</remarks>
 	public SearchForm()
 	{
+		logger.Info(message: "Initializing SearchForm instance.");
 		// Initialize the form components and set up the property map for searching.
 		InitializeComponent();
 		// Set up the mapping of orbital element names to their corresponding retrieval functions from a PlanetoidRecord.
@@ -118,8 +105,8 @@ public partial class SearchForm : BaseKryptonForm
 
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>This method is used to provide a custom debugger display string.</remarks>
-	private string GetDebuggerDisplay() => ToString();
+	/// <remarks>This property is used to provide a custom debugger display string.</remarks>
+	private string DebuggerDisplay => ToString();
 
 	/// <summary>Initializes the property map with mappings between property names and their corresponding accessors.</summary>
 	/// <remarks>This method populates the internal property map with key-value pairs that associate human-readable property names with lambda expressions for accessing the corresponding properties of the target object. This mapping is typically used for dynamic property access or data export scenarios.</remarks>
@@ -154,7 +141,7 @@ public partial class SearchForm : BaseKryptonForm
 	private void GoToObject(bool closeAfterNavigation = false)
 	{
 		// If a cancellation token source is active, it means a search operation is in progress, and we should not attempt to navigate to an object. In this case, simply return without doing anything.
-		if (_cts != null)
+		if (_cancellationTokenSource != null)
 		{
 			logger.Warn(message: "GoToObject called while a search operation is in progress. No action will be taken.");
 			return;
@@ -249,6 +236,7 @@ public partial class SearchForm : BaseKryptonForm
 	/// <remarks>Displays progress and search results in the user interface. Disables the Search button and enables the Cancel button during the search operation. Notifies the user if required input is missing or if the database file cannot be found. Supports cancellation of the search operation.</remarks>
 	private async void KryptonButtonSearch_Click(object sender, EventArgs e)
 	{
+		logger.Info(message: "Search button clicked. Starting search operation.");
 		// Get the search text entered by the user in the search text box. If the search text is null, empty, or consists only of whitespace, show a warning message to the user and return without performing any search.
 		string searchText = toolStripTextBoxSearch.Text;
 		if (string.IsNullOrWhiteSpace(value: searchText))
@@ -276,14 +264,14 @@ public partial class SearchForm : BaseKryptonForm
 			return;
 		}
 		// If a cancellation token source is already active, it means that a search operation is currently in progress. In this case, we should not start a new search until the current one is completed or cancelled. Show a warning message to the user and return without performing any search.
-		if (_cts != null)
+		if (_cancellationTokenSource != null)
 		{
-			_cts.Cancel();
-			_cts.Dispose();
+			_cancellationTokenSource.Cancel();
+			_cancellationTokenSource.Dispose();
 		}
 		// Create a new cancellation token source for the upcoming search operation. This will allow the search to be cancelled if the user clicks the Cancel button.
-		_cts = new CancellationTokenSource();
-		CancellationToken token = _cts.Token;
+		_cancellationTokenSource = new CancellationTokenSource();
+		CancellationToken token = _cancellationTokenSource.Token;
 		// Get the list of selected orbital element keys from the checked list box. This will determine which properties of the planetoid records will be searched for the specified search text.
 		List<string> selectedKeys = [.. kryptonCheckedListBoxElements.CheckedItems.Cast<string>()];
 		bool fullText = toolStripButtonFullText.Checked;
@@ -406,7 +394,7 @@ public partial class SearchForm : BaseKryptonForm
 							try
 							{
 								// Update the progress bar value and text to reflect the current progress of the search operation. Also update the virtual list size of the list view to reflect the number of search results found so far. This provides real-time feedback to the user about the progress and results of the search.
-								BeginInvoke(method: new Action(() =>
+								_ = BeginInvoke(method: new Action(() =>
 								{
 									// Check again if the form is disposed or disposing before performing the UI update, as the state of the form may have changed since the previous check. If the form is disposed or disposing, return without attempting to update the UI to avoid exceptions.
 									if (IsDisposed || Disposing)
@@ -439,7 +427,7 @@ public partial class SearchForm : BaseKryptonForm
 						}
 					}
 				}
-			}, cancellationToken: token);
+			}, cancellationToken: token).ConfigureAwait(continueOnCapturedContext: false);
 			// After the search operation is completed, update the progress bar text to indicate whether the search was cancelled or completed successfully, and display the number of entries found. Set the progress bar value to 100% to indicate that the search operation has finished.
 			kryptonProgressBar.Text = token.IsCancellationRequested ? "Search cancelled." : $"Search completed. Found {_searchResults.Count} entries.";
 			kryptonProgressBar.Value = 100;
@@ -476,9 +464,9 @@ public partial class SearchForm : BaseKryptonForm
 			// Invalidate the list view to force it to redraw and display the new search results. This is necessary because the virtual list view relies on the VirtualListSize property to determine how many items to display, and we have just updated that property.
 			listViewResults.Invalidate();
 			// Dispose of the cancellation token source to free resources, and set it to null to indicate that there is no active search operation. This is important for cleaning up resources and allowing a new search to be started in the future.
-			_cts?.Dispose();
+			_cancellationTokenSource?.Dispose();
 			// Set the cancellation token source to null to indicate that there is no active search operation. This also serves as a flag for other parts of the code to check if a search is currently in progress.
-			_cts = null;
+			_cancellationTokenSource = null;
 		}
 	}
 
@@ -489,9 +477,9 @@ public partial class SearchForm : BaseKryptonForm
 	private void KryptonButtonCancel_Click(object sender, EventArgs e)
 	{
 		// Check if a cancellation token source is active, which indicates that a search operation is currently in progress. If it is active and a cancellation has not already been requested, call the Cancel method to signal the search operation to stop. This allows the user to cancel a long-running search if they no longer wish to wait for it to complete.
-		if (_cts != null && !_cts.IsCancellationRequested)
+		if (_cancellationTokenSource != null && !_cancellationTokenSource.IsCancellationRequested)
 		{
-			_cts.Cancel();
+			_cancellationTokenSource.Cancel();
 			logger.Warn(message: "Search operation cancellation requested by user.");
 		}
 	}
@@ -502,6 +490,7 @@ public partial class SearchForm : BaseKryptonForm
 	/// <remarks>When the user clicks the "Mark All" menu item, this event handler is triggered. It iterates through all items in the kryptonCheckedListBoxElements and sets their checked state to true, effectively marking all orbital elements for inclusion in the search or export operations.</remarks>
 	private void ToolStripMenuItemMarkAll_Click(object sender, EventArgs e)
 	{
+		logger.Info(message: "Mark All clicked. Marking all items in the checked list box.");
 		// If there are no items in the checked list box, there is nothing to mark, so return without doing anything.
 		if (kryptonCheckedListBoxElements.Items.Count == 0)
 		{
@@ -527,6 +516,7 @@ public partial class SearchForm : BaseKryptonForm
 	/// <remarks>When the user clicks the "Unmark All" menu item, this event handler is triggered. It iterates through all items in the kryptonCheckedListBoxElements and sets their checked state to false, effectively unmarking all orbital elements for exclusion from the search or export operations.</remarks>
 	private void ToolStripMenuItemUnmarkAll_Click(object sender, EventArgs e)
 	{
+		logger.Info(message: "Unmark All clicked. Unchecking all items in the checked list box.");
 		// If there are no items in the checked list box, there is nothing to unmark, so return without doing anything.
 		if (kryptonCheckedListBoxElements.Items.Count == 0)
 		{
@@ -550,7 +540,11 @@ public partial class SearchForm : BaseKryptonForm
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
 	/// <remarks>When the user clicks the "Go To Object" toolbar button, this event handler is triggered. It calls the GoToObject method with the parameter closeAfterNavigation set to true, which navigates to the selected object in the main application form and then closes the search form.</remarks>
-	private void ToolStripButtonGoToObject_Click(object sender, EventArgs e) => GoToObject(closeAfterNavigation: true);
+	private void ToolStripButtonGoToObject_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: "Go To Object button clicked. Navigating to selected object and closing the search form.");
+		GoToObject(closeAfterNavigation: true);
+	}
 
 	#endregion
 
@@ -560,7 +554,11 @@ public partial class SearchForm : BaseKryptonForm
 	/// <param name="sender">The source of the event, typically the ListView.</param>
 	/// <param name="e">The event data associated with the double-click event.</param>	
 	/// <remarks>When the user double-clicks on an item in the ListView, this event handler is triggered. It calls the GoToObject method to navigate to the selected object in the main application form. This provides a convenient way for users to quickly access the details of a search result by double-clicking on it.</remarks>
-	private void ListViewResults_DoubleClick(object? sender, EventArgs e) => GoToObject();
+	private void ListViewResults_DoubleClick(object? sender, EventArgs e)
+	{
+		logger.Info(message: "ListView item double-clicked. Navigating to selected object.");
+		GoToObject();
+	}
 
 	#endregion
 
@@ -596,7 +594,7 @@ public partial class SearchForm : BaseKryptonForm
 			// Remove existing sort indicators from the header text
 			string headerText = listViewResults.Columns[index: i].Text;
 			// Check for existing indicators and remove them
-			if (headerText.StartsWith(value: "▲ ") || headerText.StartsWith(value: "▼ "))
+			if (headerText.StartsWith(value: "▲ ", comparisonType: StringComparison.InvariantCulture) || headerText.StartsWith(value: "▼ ", comparisonType: StringComparison.InvariantCulture))
 			{
 				headerText = headerText[2..];
 			}
@@ -639,6 +637,7 @@ public partial class SearchForm : BaseKryptonForm
 		}
 		// Refresh the ListView to reflect the new sort order
 		listViewResults.Invalidate();
+		logger.Info(message: "ListView refreshed to reflect the new sort order.");
 	}
 
 	/// <summary>Gets the value for a specific column from a SearchResult.</summary>
@@ -646,20 +645,27 @@ public partial class SearchForm : BaseKryptonForm
 	/// <param name="columnIndex">The column index (0=Index, 1=Designation, 2=Element, 3=Value).</param>
 	/// <returns>The string value for the specified column.</returns>
 	/// <remarks>This method is used to retrieve the value for a specific column from a SearchResult, primarily for sorting purposes.</remarks>
-	private static string GetColumnValue(SearchResult result, int columnIndex) => columnIndex switch
+	private static string GetColumnValue(SearchResult result, int columnIndex)
 	{
-		0 => result.Index,
-		1 => result.Designation,
-		2 => result.Element,
-		3 => result.Value,
-		_ => string.Empty
-	};
+		return columnIndex switch
+		{
+			0 => result.Index,
+			1 => result.Designation,
+			2 => result.Element,
+			3 => result.Value,
+			_ => string.Empty
+		};
+	}
 
 	/// <summary>Handles the SelectedIndexChanged event of the results ListView.</summary>
 	/// <param name="sender">The source of the event, typically the ListView.</param>
 	/// <param name="e">The event data associated with the selection change.</param>
 	/// <remarks>Enables or disables the Go To Object toolbar button based on whether an item is currently selected in the list view.</remarks>
-	private void ListViewResults_SelectedIndexChanged(object? sender, EventArgs e) => toolStripButtonGoToObject.Enabled = listViewResults.SelectedIndices.Count > 0;
+	private void ListViewResults_SelectedIndexChanged(object? sender, EventArgs e)
+	{
+		logger.Info(message: "ListView selection changed. Updating Go To Object button enabled state.");
+		toolStripButtonGoToObject.Enabled = listViewResults.SelectedIndices.Count > 0;
+	}
 
 	#endregion
 
@@ -689,10 +695,10 @@ public partial class SearchForm : BaseKryptonForm
 			}
 		}
 		// Create a new ListViewItem populated with the data from the retrieved SearchResult and assign it to the event args to be displayed in the ListView
-		var lvi = new ListViewItem(text: item.Index);
-		lvi.SubItems.Add(text: item.Designation);
-		lvi.SubItems.Add(text: item.Element);
-		lvi.SubItems.Add(text: item.Value);
+		ListViewItem lvi = new(text: item.Index);
+		_ = lvi.SubItems.Add(text: item.Designation);
+		_ = lvi.SubItems.Add(text: item.Element);
+		_ = lvi.SubItems.Add(text: item.Value);
 		e.Item = lvi;
 	}
 

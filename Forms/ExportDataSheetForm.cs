@@ -18,6 +18,7 @@ using Krypton.Toolkit;
 using NLog;
 
 using Planetoid_DB.Export;
+using Planetoid_DB.Forms;
 using Planetoid_DB.Helpers;
 
 using System.Diagnostics;
@@ -27,9 +28,9 @@ namespace Planetoid_DB;
 
 /// <summary>Form for exporting data sheets with various formats.</summary>
 /// <remarks>This form allows users to select orbital elements and export them in different formats.</remarks>
-// You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
-[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-public partial class ExportDataSheetForm : BaseKryptonForm
+// You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
+[DebuggerDisplay($"{{{nameof(DebuggerDisplay)},nq}}")]
+internal partial class ExportDataSheetForm : BaseKryptonForm
 {
 	/// <summary>NLog logger instance for the class.</summary>
 	/// <remarks>This logger is used to log messages for the form.</remarks>
@@ -47,28 +48,35 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 
 	/// <summary>Initializes a new instance of the <see cref="ExportDataSheetForm"/> class.</summary>
 	/// <remarks>This constructor initializes the form components.</remarks>
-	public ExportDataSheetForm() =>
+	public ExportDataSheetForm()
+	{
 		// Initialize the form components
 		InitializeComponent();
+	}
 
 	#endregion
 
 	#region helper methods
 
-	/// <summary>Returns a short debugger display string for this instance.</summary>
+	/// <summary>Gets a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>This method is used to provide a visual representation of the object in the debugger.</remarks>
-	private string GetDebuggerDisplay() => ToString();
+	/// <remarks>This property is used to provide a visual representation of the object in the debugger.</remarks>
+	private string DebuggerDisplay => ToString();
 
 	/// <summary>Sets the internal list of orbit elements that will be used for export operations.</summary>
 	/// <param name="list">A list of orbit element values (strings). The list is stored by reference.</param>
 	/// <remarks>This method is used to set the internal list of orbit elements that will be used for export operations.</remarks>
-	public void SetDatabase(List<string> list) => orbitElements = list;
-
+	public void SetDatabase(List<string> list)
+	{
+		orbitElements = list;
+	}
 
 	/// <summary>Updates the enabled state of the export button based on the number of checked items in the orbital elements checklist.</summary>
 	/// <remarks>This method is used to enable or disable the export button based on whether any items are checked in the orbital elements checklist.</remarks>
-	private void UpdateExportButtonState() => toolStripDropDownButtonExport.Enabled = checkedListBoxOrbitalElements.CheckedItems.Count > 0;
+	private void UpdateExportButtonState()
+	{
+		toolStripDropDownButtonExport.Enabled = checkedListBoxOrbitalElements.CheckedItems.Count > 0;
+	}
 
 	/// <summary>Checks or unchecks all items in the orbital elements checklist and toggles export buttons.</summary>
 	/// <param name="check">If true, all items are checked; if false, all items are unchecked.</param>
@@ -87,11 +95,17 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 
 	/// <summary>Checks all items in the orbital elements checklist.</summary>
 	/// <remarks>This method is used to mark all items in the orbital elements checklist.</remarks>
-	private void MarkAll() => CheckIt(check: true);
+	private void MarkAll()
+	{
+		CheckIt(check: true);
+	}
 
 	/// <summary>Unchecks all items in the orbital elements checklist.</summary>
 	/// <remarks>This method is used to unmark all items in the orbital elements checklist.</remarks>
-	private void UnmarkAll() => CheckIt(check: false);
+	private void UnmarkAll()
+	{
+		CheckIt(check: false);
+	}
 
 	/// <summary>Executes the export operation using the specified exporter.</summary>
 	/// <param name="exporter">The exporter to use for the export operation.</param>
@@ -153,7 +167,7 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 			// Log that the data was exported successfully
 			logger.Info(message: $"Data exported successfully to {exporter.Extension} file: {dialog.FileName}");
 			// Show a message box indicating that the data was exported successfully
-			KryptonMessageBox.Show(owner: this, text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+			_ = KryptonMessageBox.Show(owner: this, text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 		}
 		// Handle any exceptions that may occur during the export operation
 		catch (Exception ex)

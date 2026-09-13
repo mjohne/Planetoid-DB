@@ -17,6 +17,7 @@ using Krypton.Toolkit;
 
 using NLog;
 
+using Planetoid_DB.Forms;
 using Planetoid_DB.Helpers;
 
 using ScottPlot;
@@ -29,8 +30,9 @@ namespace Planetoid_DB;
 
 /// <summary>Displays a histogram of counted planetoids for a selected orbital element or derived property.</summary>
 /// <remarks>The form groups planetoids into selectable ranges, renders the distribution as a ScottPlot bar chart, and mirrors the counted bins in a tabular ListView. Users can optionally request live updates while the background counting operation is running.</remarks>
-[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-public partial class DistributionsForm : BaseKryptonForm
+// You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
+[DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
+internal partial class DistributionsForm : BaseKryptonForm
 {
 	/// <summary>NLog logger instance.</summary>
 	/// <remarks>This logger is used to record errors and cancellation events from the histogram generation workflow.</remarks>
@@ -51,43 +53,6 @@ public partial class DistributionsForm : BaseKryptonForm
 	/// <summary>Stores the currently displayed histogram results.</summary>
 	/// <remarks>The list is refreshed whenever the diagram and the ListView are updated.</remarks>
 	private List<HistogramBinResult> _currentResults = [];
-
-	/// <summary>Represents one selectable histogram step size.</summary>
-	/// <param name="Value">The numeric width of a single histogram bin.</param>
-	/// <param name="DisplayText">The text shown in the step-size drop-down.</param>
-	/// <remarks>The display text is used directly by the ComboBox, so <see cref="ToString"/> returns <see cref="DisplayText"/>.</remarks>
-	private sealed record StepOption(double Value, string DisplayText)
-	{
-		/// <summary>Returns the display text shown inside ComboBox controls.</summary>
-		/// <returns>The preformatted step-size label.</returns>
-		public override string ToString() => DisplayText;
-	}
-
-	/// <summary>Represents one selectable histogram definition.</summary>
-	/// <param name="DisplayName">The user-facing name of the orbital element or property.</param>
-	/// <param name="AxisLabel">The x-axis label for the chart.</param>
-	/// <param name="UnitSuffix">The optional unit suffix used in formatted values.</param>
-	/// <param name="StepOptions">The meaningful step sizes offered for the definition.</param>
-	/// <param name="ValueSelector">The callback used to extract the numeric value from a raw MPCORB line.</param>
-	/// <remarks>The definition centralizes presentation metadata and parsing logic for one histogram mode.</remarks>
-	private sealed record HistogramDefinition(
-		string DisplayName,
-		string AxisLabel,
-		string UnitSuffix,
-		IReadOnlyList<StepOption> StepOptions,
-		Func<string, double?> ValueSelector)
-	{
-		/// <summary>Returns the display text shown inside ComboBox controls.</summary>
-		/// <returns>The histogram definition name.</returns>
-		public override string ToString() => DisplayName;
-	}
-
-	/// <summary>Represents one counted histogram range.</summary>
-	/// <param name="Start">The inclusive lower range boundary.</param>
-	/// <param name="End">The exclusive upper range boundary.</param>
-	/// <param name="Count">The number of planetoids inside the range.</param>
-	/// <remarks>Histogram rows are sorted by their range start value before being displayed.</remarks>
-	private sealed record HistogramBinResult(double Start, double End, int Count);
 
 	#region Constructor
 
@@ -114,14 +79,15 @@ public partial class DistributionsForm : BaseKryptonForm
 
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>The method currently returns the same string as <c>ToString()</c> on this instance, but it can be customized to include more specific information if needed.</remarks>
-	private string GetDebuggerDisplay() => ToString();
+	/// <remarks>The property currently returns the same string as <c>ToString()</c> on this instance, but it can be customized to include more specific information if needed.</remarks>
+	private string DebuggerDisplay => ToString();
 
 	/// <summary>Creates all histogram definitions supported by the form.</summary>
 	/// <returns>A list of selectable histogram definitions.</returns>
 	/// <remarks>The selectable items include directly stored orbital elements and a few useful derived properties computed from semi-major axis and eccentricity.</remarks>
-	private static List<HistogramDefinition> CreateHistogramDefinitions() =>
-		[
+	private static List<HistogramDefinition> CreateHistogramDefinitions()
+	{
+		return [
 			new HistogramDefinition(
 				DisplayName: "Semi-major axis", AxisLabel: "Semi-major axis (AU)", UnitSuffix: " AU",
 				StepOptions: [
@@ -217,6 +183,7 @@ public partial class DistributionsForm : BaseKryptonForm
 				],
 				ValueSelector: static line => TryParseOrbitalPeriod(line: line, value: out double value) ? value : null)
 		];
+	}
 
 	/// <summary>Initializes the selectable orbital element and step-size drop-downs.</summary>
 	/// <remarks>The step-size list is rebuilt automatically whenever the selected orbital element changes.</remarks>
@@ -240,11 +207,17 @@ public partial class DistributionsForm : BaseKryptonForm
 
 	/// <summary>Gets the currently selected histogram definition.</summary>
 	/// <returns>The selected histogram definition, or <see langword="null"/> if none is selected.</returns>
-	private HistogramDefinition? GetSelectedDefinition() => toolStripComboBoxOrbitElement.SelectedItem as HistogramDefinition;
+	private HistogramDefinition? GetSelectedDefinition()
+	{
+		return toolStripComboBoxOrbitElement.SelectedItem as HistogramDefinition;
+	}
 
 	/// <summary>Gets the currently selected histogram step size.</summary>
 	/// <returns>The selected step size, or <see langword="null"/> if none is selected.</returns>
-	private StepOption? GetSelectedStep() => toolStripComboBoxStepSize.SelectedItem as StepOption;
+	private StepOption? GetSelectedStep()
+	{
+		return toolStripComboBoxStepSize.SelectedItem as StepOption;
+	}
 
 	/// <summary>Updates the toolbar state to reflect whether histogram creation is running.</summary>
 	/// <param name="isRunning">True while the background task is active; otherwise false.</param>
@@ -322,7 +295,7 @@ public partial class DistributionsForm : BaseKryptonForm
 			_ = item.SubItems.Add(text: FormatNumericValue(value: result.End));
 			_ = item.SubItems.Add(text: result.Count.ToString(format: "N0", provider: CultureInfo.InvariantCulture));
 			// Add the configured item to the ListView to display it in the tabular view.
-			listViewResults.Items.Add(value: item);
+			_ = listViewResults.Items.Add(value: item);
 		}
 		// Redraw the histogram plot to reflect the new results. This ensures that the visual representation of the histogram is updated in sync with the ListView data.
 		listViewResults.EndUpdate();
@@ -420,7 +393,7 @@ public partial class DistributionsForm : BaseKryptonForm
 				// Calculate the bin index for the current value by dividing it by the step size and taking the floor of the result. This determines which histogram bin the value belongs to based on the defined step size.
 				int binIndex = (int)Math.Floor(d: value.Value / stepSize);
 				// Increment the count for the calculated bin index in the sorted dictionary. If the bin index does not exist in the dictionary, it will be added with an initial count of zero before incrementing. This allows for dynamic counting of bins as new indices are encountered during the iteration.
-				counts.TryGetValue(key: binIndex, value: out int currentCount);
+				_ = counts.TryGetValue(key: binIndex, value: out int currentCount);
 				// Update the count for the current bin index by incrementing it by one. If the bin index was not previously present in the dictionary, it will be added with a count of one.
 				counts[key: binIndex] = currentCount + 1;
 			}
@@ -449,21 +422,23 @@ public partial class DistributionsForm : BaseKryptonForm
 	/// <returns>A sorted list of histogram rows.</returns>
 	/// <remarks>The method transforms the bin indices and counts into a list of HistogramBinResult objects, calculating the start and end values for each bin based on the step size. The resulting list is sorted by the bin index, which corresponds to the range of values for each histogram bin.</remarks>
 	private static List<HistogramBinResult> CreateHistogramResults(SortedDictionary<int, int> counts, double stepSize)
+	{
 		// Convert the sorted dictionary of counts into a list of HistogramBinResult objects, where each object represents a histogram bin with its start and end values calculated based on the bin index and step size. The start value of each bin is calculated as the bin index multiplied by the step size, and the end value is calculated as the start value plus the step size. The count for each bin is taken directly from the sorted dictionary.
-		=> counts.Count == 0
+		return counts.Count == 0
 		? []
 		: [
 			// Include all bin indices between the lowest and highest observed bins so zero-count gaps are represented explicitly in both chart and table output.
 			.. Enumerable.Range(start: counts.First().Key, count: counts.Last().Key - counts.First().Key + 1).Select(selector: binIndex =>
 			{
 				// For each bin index in the full covered range, create a new HistogramBinResult object. The Start property is calculated as the bin index multiplied by the step size, and the End property is calculated as the start value plus the step size. The Count property is set to the count of planetoids for that bin, or zero if no values fell into that bin.
-				counts.TryGetValue(key: binIndex, value: out int count);
+				_ = counts.TryGetValue(key: binIndex, value: out int count);
 				return new HistogramBinResult(
 					Start: binIndex * stepSize,
 					End: (binIndex + 1) * stepSize,
 					Count: count);
 			})
 		];
+	}
 
 	/// <summary>Formats a chart and ListView label for one histogram range.</summary>
 	/// <param name="start">The inclusive lower boundary.</param>
@@ -472,14 +447,19 @@ public partial class DistributionsForm : BaseKryptonForm
 	/// <returns>A formatted range label.</returns>
 	/// <remarks>The method formats the start and end values of a histogram bin into a readable string, including the specified unit suffix. The start value is formatted as an inclusive lower boundary, while the end value is formatted as an exclusive upper boundary, with a double dot ("..") separator between them.</remarks>
 	private static string FormatRangeLabel(double start, double end, string unitSuffix)
+	{
 		// The range label is formatted to show the start and end values of the histogram bin, with the unit suffix appended to each value. The start value is formatted as an inclusive lower boundary, while the end value is formatted as an exclusive upper boundary, using a double dot ("..") separator between them for clarity.
-		=> $"{FormatNumericValue(value: start)}{unitSuffix} .. {FormatNumericValue(value: end)}{unitSuffix}";
+		return $"{FormatNumericValue(value: start)}{unitSuffix} .. {FormatNumericValue(value: end)}{unitSuffix}";
+	}
 
 	/// <summary>Formats a numeric value for display in the chart and ListView.</summary>
 	/// <param name="value">The value to format.</param>
 	/// <returns>The formatted text.</returns>
 	/// <remarks>The method formats a numeric value using the invariant culture to ensure consistent formatting regardless of the user's locale. The format string "0.####" is used to display up to four decimal places without trailing zeros, providing a clean and readable representation of the value for display in the chart and ListView.</remarks>
-	private static string FormatNumericValue(double value) => value.ToString(format: "0.####", provider: CultureInfo.InvariantCulture);
+	private static string FormatNumericValue(double value)
+	{
+		return value.ToString(format: "0.####", provider: CultureInfo.InvariantCulture);
+	}
 
 	/// <summary>Attempts to parse a floating-point slice from a raw MPCORB record.</summary>
 	/// <param name="line">The raw MPCORB line.</param>
@@ -505,49 +485,70 @@ public partial class DistributionsForm : BaseKryptonForm
 	/// <param name="value">When this method returns, contains the parsed semi-major axis if parsing succeeded.</param>
 	/// <returns><see langword="true"/> if parsing succeeded; otherwise <see langword="false"/>.</returns>
 	/// <remarks>The semi-major axis is located at a fixed position in the MPCORB record, and this method uses the TryParseValue helper to extract and parse it as a double.</remarks>
-	private static bool TryParseSemiMajorAxis(string line, out double value) => TryParseValue(line: line, startIndex: 92, length: 11, value: out value);
+	private static bool TryParseSemiMajorAxis(string line, out double value)
+	{
+		return TryParseValue(line: line, startIndex: 92, length: 11, value: out value);
+	}
 
 	/// <summary>Attempts to parse the orbital eccentricity from a raw MPCORB record.</summary>
 	/// <param name="line">The raw MPCORB line.</param>
 	/// <param name="value">When this method returns, contains the parsed eccentricity if parsing succeeded.</param>
 	/// <returns><see langword="true"/> if parsing succeeded; otherwise <see langword="false"/>.</returns>
 	/// <remarks>The eccentricity is located at a fixed position in the MPCORB record, and this method uses the TryParseValue helper to extract and parse it as a double.</remarks>
-	private static bool TryParseEccentricity(string line, out double value) => TryParseValue(line: line, startIndex: 70, length: 9, value: out value);
+	private static bool TryParseEccentricity(string line, out double value)
+	{
+		return TryParseValue(line: line, startIndex: 70, length: 9, value: out value);
+	}
 
 	/// <summary>Attempts to parse the inclination from a raw MPCORB record.</summary>
 	/// <param name="line">The raw MPCORB line.</param>
 	/// <param name="value">When this method returns, contains the parsed inclination if parsing succeeded.</param>
 	/// <returns><see langword="true"/> if parsing succeeded; otherwise <see langword="false"/>.</returns>
 	/// <remarks>The inclination is located at a fixed position in the MPCORB record, and this method uses the TryParseValue helper to extract and parse it as a double.</remarks>
-	private static bool TryParseInclination(string line, out double value) => TryParseValue(line: line, startIndex: 59, length: 9, value: out value);
+	private static bool TryParseInclination(string line, out double value)
+	{
+		return TryParseValue(line: line, startIndex: 59, length: 9, value: out value);
+	}
 
 	/// <summary>Attempts to parse the mean anomaly from a raw MPCORB record.</summary>
 	/// <param name="line">The raw MPCORB line.</param>
 	/// <param name="value">When this method returns, contains the parsed mean anomaly if parsing succeeded.</param>
 	/// <returns><see langword="true"/> if parsing succeeded; otherwise <see langword="false"/>.</returns>
 	/// <remarks>The mean anomaly is located at a fixed position in the MPCORB record, and this method uses the TryParseValue helper to extract and parse it as a double.</remarks>
-	private static bool TryParseMeanAnomaly(string line, out double value) => TryParseValue(line: line, startIndex: 26, length: 9, value: out value);
+	private static bool TryParseMeanAnomaly(string line, out double value)
+	{
+		return TryParseValue(line: line, startIndex: 26, length: 9, value: out value);
+	}
 
 	/// <summary>Attempts to parse the argument of perihelion from a raw MPCORB record.</summary>
 	/// <param name="line">The raw MPCORB line.</param>
 	/// <param name="value">When this method returns, contains the parsed argument of perihelion if parsing succeeded.</param>
 	/// <returns><see langword="true"/> if parsing succeeded; otherwise <see langword="false"/>.</returns>
 	/// <remarks>The argument of perihelion is located at a fixed position in the MPCORB record, and this method uses the TryParseValue helper to extract and parse it as a double.</remarks>
-	private static bool TryParseArgumentOfPerihelion(string line, out double value) => TryParseValue(line: line, startIndex: 37, length: 9, value: out value);
+	private static bool TryParseArgumentOfPerihelion(string line, out double value)
+	{
+		return TryParseValue(line: line, startIndex: 37, length: 9, value: out value);
+	}
 
 	/// <summary>Attempts to parse the longitude of the ascending node from a raw MPCORB record.</summary>
 	/// <param name="line">The raw MPCORB line.</param>
 	/// <param name="value">When this method returns, contains the parsed longitude of the ascending node if parsing succeeded.</param>
 	/// <returns><see langword="true"/> if parsing succeeded; otherwise <see langword="false"/>.</returns>
 	/// <remarks>The longitude of the ascending node is located at a fixed position in the MPCORB record, and this method uses the TryParseValue helper to extract and parse it as a double.</remarks>
-	private static bool TryParseLongitudeOfAscendingNode(string line, out double value) => TryParseValue(line: line, startIndex: 48, length: 9, value: out value);
+	private static bool TryParseLongitudeOfAscendingNode(string line, out double value)
+	{
+		return TryParseValue(line: line, startIndex: 48, length: 9, value: out value);
+	}
 
 	/// <summary>Attempts to parse the mean daily motion from a raw MPCORB record.</summary>
 	/// <param name="line">The raw MPCORB line.</param>
 	/// <param name="value">When this method returns, contains the parsed mean daily motion if parsing succeeded.</param>
 	/// <returns><see langword="true"/> if parsing succeeded; otherwise <see langword="false"/>.</returns>
 	/// <remarks>The mean daily motion is located at a fixed position in the MPCORB record, and this method uses the TryParseValue helper to extract and parse it as a double.</remarks>
-	private static bool TryParseMeanDailyMotion(string line, out double value) => TryParseValue(line: line, startIndex: 80, length: 11, value: out value);
+	private static bool TryParseMeanDailyMotion(string line, out double value)
+	{
+		return TryParseValue(line: line, startIndex: 80, length: 11, value: out value);
+	}
 
 	/// <summary>Attempts to parse the perihelion distance from a raw MPCORB record.</summary>
 	/// <param name="line">The raw MPCORB line.</param>
@@ -660,7 +661,7 @@ public partial class DistributionsForm : BaseKryptonForm
 					progress: progress,
 					liveResults: liveResults,
 					cancellationToken: _cancellationTokenSource.Token),
-				cancellationToken: _cancellationTokenSource.Token);
+				cancellationToken: _cancellationTokenSource.Token).ConfigureAwait(continueOnCapturedContext: false);
 			// Once the histogram generation is complete, apply the final results to the chart and ListView. The ApplyResults method will update the UI to display the final histogram based on the generated bin results. Additionally, the information label will be updated to show a summary of the histogram, including the number of ranges and total counted planetoids.
 			ApplyResults(definition: definition, results: finalResults);
 			// Update the information label to summarize the results of the histogram generation. If no planetoid values were available for the selected histogram, a message indicating this will be displayed. Otherwise, a summary will show the number of ranges (bins) in the histogram and the total count of planetoids across all bins, formatted with thousands separators for readability.

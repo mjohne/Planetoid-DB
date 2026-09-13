@@ -13,6 +13,8 @@
  * See LICENSE file in the project root for license information.
  */
 
+using Krypton.Toolkit;
+
 using NLog;
 using NLog.Config;
 
@@ -126,7 +128,9 @@ internal static class Program
 			else
 			{
 				// Start the main form with the specified MPCORB.DAT file path
-				Application.Run(mainForm: new PlanetoidDbForm(mpcorbDatFilePath: mpcorbFilePath));
+				using PlanetoidDbForm mainForm = new(mpcorbDatFilePath: mpcorbFilePath);
+				Application.Run(mainForm: mainForm);
+				//Application.Run(mainForm: new Forms.TestForm());
 			}
 		}
 		// Catch specific exceptions and handle them accordingly
@@ -181,9 +185,11 @@ internal static class Program
 
 	/// <summary>Disables the navigation sounds.</summary>
 	/// <remarks>This method disables the navigation sounds for the current process.</remarks>
-	private static void DisableNavigationSounds() =>
+	private static void DisableNavigationSounds()
+	{
 		// Disable navigation sounds for the current process
 		_ = CoInternetSetFeatureEnabled(featureEntry: FeatureDisableNavigationSounds, dwFlags: SetFeatureOnProcess, fEnable: true);
+	}
 
 	/// <summary>Registers a <see cref="LogEventTarget"/> with the current NLog configuration so that every log event is also captured in <see cref="Helpers.LogEventStore"/>.</summary>
 	/// <remarks>
@@ -195,8 +201,11 @@ internal static class Program
 		// Get the existing NLog configuration, or create a new one if none exists
 		LoggingConfiguration config = LogManager.Configuration ?? new LoggingConfiguration();
 		// Create the custom in-memory target
+#pragma warning disable CA2000
+		// Ownership is transferred to NLog by LoggingConfiguration.AddTarget and released by LogManager.Shutdown.
 		LogEventTarget storeTarget = new(name: "logEventStore");
-		// Register the target
+#pragma warning restore CA2000
+		// Register the target                            
 		config.AddTarget(target: storeTarget);
 		// Route all levels from all loggers to this target
 		config.AddRule(minLevel: LogLevel.Trace, maxLevel: LogLevel.Fatal, target: storeTarget, loggerNamePattern: "*");
@@ -232,14 +241,17 @@ internal static class Program
 		else
 		{
 			// Start the main form with the specified file path
-			Application.Run(mainForm: new PlanetoidDbForm(mpcorbDatFilePath: formPreload.MpcOrbDatFilePath));
+			using PlanetoidDbForm mainForm = new(mpcorbDatFilePath: formPreload.MpcOrbDatFilePath);
+			Application.Run(mainForm: mainForm);
 		}
 	}
 
 	/// <summary>Displays an error message.</summary>
 	/// <param name="message">The error message.</param>
 	/// <remarks>This method displays an error message to the user.</remarks>
-	private static void ShowErrorMessage(string message) =>
+	private static void ShowErrorMessage(string message)
+	{
 		// Log the error message
-		_ = MessageBox.Show(text: message, caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+		_ = KryptonMessageBox.Show(text: message, caption: I18nStrings.ErrorCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Error);
+	}
 }

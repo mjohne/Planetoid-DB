@@ -15,6 +15,7 @@
 
 using NLog;
 
+using Planetoid_DB.Forms;
 using Planetoid_DB.Helpers;
 
 using ScottPlot;
@@ -27,8 +28,9 @@ namespace Planetoid_DB;
 
 /// <summary>Displays a 2D side-view orbit visualization of a selected minor planet relative to the eight solar system planets.</summary>
 /// <remarks>The form renders each orbit as a straight line through the origin (Sun) where the slope of the line corresponds to the orbital inclination. The perihelion arm (length = a·(1–e)) is drawn above the ecliptic plane and the aphelion arm (length = a·(1+e)) below it. The X- and Y-axes are scaled to the extent of the planetoid's orbit; planet orbits that extend beyond this range are still rendered and can be revealed by zooming out.</remarks>
-[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-public partial class Orbit2DSideViewForm : BaseKryptonForm
+// You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
+[DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
+internal partial class Orbit2DSideViewForm : BaseKryptonForm
 {
 	/// <summary>NLog logger instance.</summary>
 	/// <remarks>This logger records events and errors that occur during orbit visualization rendering.</remarks>
@@ -118,8 +120,8 @@ public partial class Orbit2DSideViewForm : BaseKryptonForm
 
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>The method currently returns the same string as <c>ToString()</c> on this instance, but can be customized to include more specific information if needed.</remarks>
-	private string GetDebuggerDisplay() => ToString();
+	/// <remarks>The property currently returns the same string as <c>ToString()</c> on this instance, but can be customized to include more specific information if needed.</remarks>
+	private string DebuggerDisplay => ToString();
 
 	/// <summary>Renders the 2D side-view orbital diagram in the ScottPlot control.</summary>
 	/// <remarks><para>Each orbit is represented as a straight line through the origin (Sun). The perihelion arm of the line points in the direction of the orbital inclination (0° = positive X-axis, 90° = positive Y-axis, counterclockwise) and has length equal to the perihelion distance a·(1–e). The aphelion arm points in the opposite direction and has length a·(1+e).</para>
@@ -137,22 +139,10 @@ public partial class Orbit2DSideViewForm : BaseKryptonForm
 		for (int idx = 0; idx < PlanetOrbits.Length; idx++)
 		{
 			(string name, double a, double e, double inclinDeg) = PlanetOrbits[idx];
-			AddOrbitLine(
-				name: name,
-				semiMajorAxis: a,
-				eccentricity: e,
-				inclinationDeg: inclinDeg,
-				lineColor: PlanetColors[idx],
-				lineWidth: OrbitLineWidth);
+			AddOrbitLine(name: name, semiMajorAxis: a, eccentricity: e, inclinationDeg: inclinDeg, lineColor: PlanetColors[idx], lineWidth: OrbitLineWidth);
 		}
 		// Draw the planetoid's orbit line in a distinct orange-red so it stands out.
-		AddOrbitLine(
-			name: _planetoidName,
-			semiMajorAxis: _semiMajorAxis,
-			eccentricity: _eccentricity,
-			inclinationDeg: _inclinationDeg,
-			lineColor: Colors.OrangeRed,
-			lineWidth: OrbitLineWidth + 1f);
+		AddOrbitLine(name: _planetoidName, semiMajorAxis: _semiMajorAxis, eccentricity: _eccentricity, inclinationDeg: _inclinationDeg, lineColor: Colors.OrangeRed, lineWidth: OrbitLineWidth + 1f);
 		// Draw the Sun as a yellow filled circle at the origin.
 		// It is added after the orbit lines so it is rendered on top.
 		Ellipse sun = formsPlotOrbits.Plot.Add.Circle(xCenter: 0.0, yCenter: 0.0, radius: SunRadiusAu);
@@ -199,13 +189,7 @@ public partial class Orbit2DSideViewForm : BaseKryptonForm
 	/// <item><description>Aphelion endpoint: distance a·(1+e) from Sun, at angle <paramref name="inclinationDeg"/>+180° → (–a·(1+e)·cos(i), –a·(1+e)·sin(i)).</description></item>
 	/// </list>
 	/// <para>This results in the perihelion lying in the upper (positive Y) half-plane for inclinations between 0° and 180°, and the aphelion in the lower half-plane, consistent with the side-view convention.</para></remarks>
-	private void AddOrbitLine(
-		string name,
-		double semiMajorAxis,
-		double eccentricity,
-		double inclinationDeg,
-		ScottPlot.Color lineColor,
-		float lineWidth)
+	private void AddOrbitLine(string name, double semiMajorAxis, double eccentricity, double inclinationDeg, ScottPlot.Color lineColor, float lineWidth)
 	{
 		// Guard against degenerate or invalid orbital parameters.
 		if (semiMajorAxis <= 0.0 || eccentricity < 0.0 || eccentricity >= 1.0)

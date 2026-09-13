@@ -27,9 +27,9 @@ namespace Planetoid_DB;
 
 /// <summary>Represents a form for filtering data in the Planetoid database.</summary>
 /// <remarks>This form allows users to specify filter criteria for querying the database.</remarks>
-// You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
-[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-public partial class FilterForm : BaseKryptonForm
+// You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
+[DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
+internal partial class FilterForm : BaseKryptonForm
 {
 	/// <summary>NLog logger instance for the class.</summary>
 	/// <remarks>This logger is used to log messages for the form.</remarks>
@@ -55,14 +55,6 @@ public partial class FilterForm : BaseKryptonForm
 
 	/// <summary>Flag used to suppress re-entrant ValueChanged events while programmatically setting spinbutton values.</summary>
 	private bool suppressValueChangedEvents;
-
-	/// <summary>Defines one fixed-width MPCORB orbital element field and the corresponding min/max spinbuttons.</summary>
-	private readonly record struct OrbitalElementFilter(
-		string Name,
-		int Start,
-		int Length,
-		KryptonNumericUpDown MinimumControl,
-		KryptonNumericUpDown MaximumControl);
 
 	#region constructor
 
@@ -90,13 +82,19 @@ public partial class FilterForm : BaseKryptonForm
 
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>This method is used to provide a visual representation of the object in the debugger.</remarks>
-	private string GetDebuggerDisplay() => ToString();
+	/// <remarks>This property is used to provide a visual representation of the object in the debugger.</remarks>
+	private string DebuggerDisplay => ToString();
 
 	/// <summary>Fills the internal planetoids database from the provided list.</summary>
 	/// <param name="arrTemp">A list containing planetoid records as strings.</param>
 	/// <remarks>Call this method before showing the form to supply the data that will be filtered.</remarks>
-	public void FillArray(List<string> arrTemp) => planetoidsDatabase = [.. arrTemp];
+	public void FillArray(List<string> arrTemp)
+	{
+		// Ensure the input argument is not null to avoid runtime exceptions
+		ArgumentNullException.ThrowIfNull(argument: arrTemp);
+		// Create a copy of the input list to avoid external modifications affecting the internal state
+		planetoidsDatabase = [.. arrTemp];
+	}
 
 	/// <summary>Tries to parse a value from a fixed-width MPCORB record line.</summary>
 	/// <param name="line">The raw record line.</param>
@@ -106,7 +104,9 @@ public partial class FilterForm : BaseKryptonForm
 	/// <returns><see langword="true"/> if parsing succeeded; otherwise <see langword="false"/>.</returns>
 	private static bool TryParseField(string line, int startIndex, int length, out double value)
 	{
+		// Ensure the output parameter is initialized to a default value
 		value = default;
+		// Check if the line is long enough to contain the specified field and attempt to parse it as a double using invariant culture
 		return line.Length >= startIndex + length && double.TryParse(
 			s: line.Substring(startIndex: startIndex, length: length).Trim(),
 			style: NumberStyles.Float,
@@ -116,8 +116,10 @@ public partial class FilterForm : BaseKryptonForm
 
 	/// <summary>Creates the shared orbital-element field definition list used by scanning, resetting, and filtering.</summary>
 	/// <returns>An array of orbital-element filter definitions.</returns>
-	private OrbitalElementFilter[] GetOrbitalElementFilters() =>
-	[
+	private OrbitalElementFilter[] GetOrbitalElementFilters()
+	{
+		// Define the orbital elements with their corresponding start indices, lengths, and associated spinbutton controls
+		return [
 		new(Name: "MeanAnomaly",          Start: 26,  Length: 9,  MinimumControl: numericUpDownMinimumMeanAnomalyAtTheEpoch,       MaximumControl: numericUpDownMaximumMeanAnomalyAtTheEpoch),
 		new(Name: "ArgPeri",              Start: 37,  Length: 9,  MinimumControl: numericUpDownMinimumArgumentOfThePerihelion,     MaximumControl: numericUpDownMaximumArgumentOfThePerihelion),
 		new(Name: "LongAscNode",          Start: 48,  Length: 9,  MinimumControl: numericUpDownMinimumLongitudeOfTheAscendingNode, MaximumControl: numericUpDownMaximumLongitudeOfTheAscendingNode),
@@ -131,6 +133,7 @@ public partial class FilterForm : BaseKryptonForm
 		new(Name: "NumberOfObservations", Start: 117, Length: 5,  MinimumControl: numericUpDownMinimumNumberOfObservations,        MaximumControl: numericUpDownMaximumNumberOfObservations),
 		new(Name: "RmsResidual",          Start: 137, Length: 4,  MinimumControl: numericUpDownMinimumRmsResidual,                 MaximumControl: numericUpDownMaximumRmsResidual),
 	];
+	}
 
 	/// <summary>Computes the minimum and maximum values for all filtered orbital elements across the entire database.</summary>
 	/// <remarks>This method iterates through all records and extracts min/max for each element using fixed-width parsing.</remarks>
@@ -181,6 +184,7 @@ public partial class FilterForm : BaseKryptonForm
 	/// <remarks>If <paramref name="lower"/> is greater than <paramref name="upper"/>, the bounds are reordered automatically.</remarks>
 	private static void SetNumericValue(KryptonNumericUpDown control, decimal value, decimal lower, decimal upper)
 	{
+		// Ensure the lower and upper bounds are correctly ordered
 		decimal minimum = Math.Min(val1: lower, val2: upper);
 		decimal maximum = Math.Max(val1: lower, val2: upper);
 		control.Minimum = minimum;
@@ -194,19 +198,25 @@ public partial class FilterForm : BaseKryptonForm
 	/// <param name="maximumControl">The maximum spinbutton.</param>
 	private void ResetElement(string key, KryptonNumericUpDown minimumControl, KryptonNumericUpDown maximumControl)
 	{
+		// Log the reset action for the specified orbital element
 		logger.Info(message: $"Resetting orbital element '{key}' to default min/max values.");
+		// Suppress ValueChanged events while updating the spinbuttons to avoid triggering unnecessary event handlers
 		suppressValueChangedEvents = true;
+		// Use a try-finally block to ensure that ValueChanged events are re-enabled even if an exception occurs during the reset process
 		try
 		{
+			// Retrieve the default min/max values for the specified orbital element from the dictionaries
 			decimal minVal = defaultMinima.TryGetValue(key: key, value: out decimal mn) ? mn : 0m;
 			decimal maxVal = defaultMaxima.TryGetValue(key: key, value: out decimal mx) ? mx : 0m;
 			SetNumericValue(control: minimumControl, value: minVal, lower: minVal, upper: maxVal);
 			SetNumericValue(control: maximumControl, value: maxVal, lower: minVal, upper: maxVal);
 		}
+		// Catch any exceptions that occur during the reset process and log them
 		catch (Exception ex)
 		{
 			logger.Error(exception: ex, message: $"Failed to reset orbital element '{key}' to default min/max values.");
 		}
+		// Ensure that ValueChanged events are re-enabled even if an exception occurs
 		finally
 		{
 			suppressValueChangedEvents = false;
@@ -214,10 +224,13 @@ public partial class FilterForm : BaseKryptonForm
 	}
 
 	/// <summary>Resets all spinbuttons to their data-derived default min/max values.</summary>
+	/// <remarks>This method iterates through all orbital elements and resets their corresponding spinbuttons.</remarks>
 	private void ResetAllElements()
 	{
+		// Reset all orbital element spinbuttons to their default min/max values
 		foreach (OrbitalElementFilter filter in GetOrbitalElementFilters())
 		{
+			// Reset each orbital element to its default min/max values
 			ResetElement(key: filter.Name, minimumControl: filter.MinimumControl, maximumControl: filter.MaximumControl);
 		}
 	}
@@ -226,6 +239,7 @@ public partial class FilterForm : BaseKryptonForm
 	/// <param name="isEnabled"><see langword="true"/> to enable toolbar actions; otherwise, <see langword="false"/>.</param>
 	private void SetToolbarActionsEnabled(bool isEnabled)
 	{
+		// Enable or disable the toolbar buttons based on the provided flag
 		toolStripButtonApply.Enabled = isEnabled;
 		toolStripButtonReset.Enabled = isEnabled;
 	}
@@ -235,22 +249,28 @@ public partial class FilterForm : BaseKryptonForm
 	/// <param name="maximumControl">The maximum spinbutton.</param>
 	private void EnforceMinNotExceedsMax(KryptonNumericUpDown minimumControl, KryptonNumericUpDown maximumControl)
 	{
+		// Check if ValueChanged events are currently suppressed to avoid re-entrant calls
 		if (suppressValueChangedEvents)
 		{
 			return;
 		}
+		// Suppress ValueChanged events while enforcing the min/max relationship to avoid triggering unnecessary event handlers
 		suppressValueChangedEvents = true;
+		// Use a try-finally block to ensure that ValueChanged events are re-enabled even if an exception occurs during the enforcement process
 		try
 		{
+			//
 			if (minimumControl.Value > maximumControl.Value)
 			{
 				maximumControl.Value = minimumControl.Value;
 			}
 		}
+		// Catch any exceptions that occur during the enforcement process and log them
 		catch (Exception ex)
 		{
 			logger.Error(exception: ex, message: $"Failed to enforce minimum not exceeding maximum: {ex.Message}");
 		}
+		// Ensure that ValueChanged events are re-enabled even if an exception occurs
 		finally
 		{
 			suppressValueChangedEvents = false;
@@ -262,22 +282,28 @@ public partial class FilterForm : BaseKryptonForm
 	/// <param name="maximumControl">The maximum spinbutton.</param>
 	private void EnforceMaxNotBelowMin(KryptonNumericUpDown minimumControl, KryptonNumericUpDown maximumControl)
 	{
+		// Check if ValueChanged events are currently suppressed to avoid re-entrant calls
 		if (suppressValueChangedEvents)
 		{
 			return;
 		}
+		// Suppress ValueChanged events while enforcing the min/max relationship to avoid triggering unnecessary event handlers
 		suppressValueChangedEvents = true;
+		// Use a try-finally block to ensure that ValueChanged events are re-enabled even if an exception occurs during the enforcement process
 		try
 		{
+			// If the maximum value is less than the minimum value, adjust the minimum value to match the maximum value
 			if (maximumControl.Value < minimumControl.Value)
 			{
 				minimumControl.Value = maximumControl.Value;
 			}
 		}
+		// Catch any exceptions that occur during the enforcement process and log them
 		catch (Exception ex)
 		{
 			logger.Error(exception: ex, message: $"Failed to enforce maximum not below minimum: {ex.Message}");
 		}
+		// Ensure that ValueChanged events are re-enabled even if an exception occurs
 		finally
 		{
 			suppressValueChangedEvents = false;
@@ -310,7 +336,7 @@ public partial class FilterForm : BaseKryptonForm
 			try
 			{
 				// This may take a while for large databases, so run it in a background task to keep the UI responsive
-				await Task.Run(action: ComputeMinMaxFromDatabase);
+				await Task.Run(action: ComputeMinMaxFromDatabase).ConfigureAwait(continueOnCapturedContext: false);
 				ResetAllElements();
 			}
 			// Catch any exceptions that occur during the computation and log them, then show an error message to the user
@@ -520,169 +546,241 @@ public partial class FilterForm : BaseKryptonForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to update the minimum mean anomaly at the epoch filter.</remarks>
-	private void NumericUpDownMinimumMeanAnomalyAtTheEpoch_ValueChanged(object sender, EventArgs e) =>
+	private void NumericUpDownMinimumMeanAnomalyAtTheEpoch_ValueChanged(object sender, EventArgs e)
+	{
 		EnforceMinNotExceedsMax(minimumControl: numericUpDownMinimumMeanAnomalyAtTheEpoch, maximumControl: numericUpDownMaximumMeanAnomalyAtTheEpoch);
+		logger.Info(message: $"Minimum Mean Anomaly at the Epoch changed to {numericUpDownMinimumMeanAnomalyAtTheEpoch.Value}. Current range: [{numericUpDownMinimumMeanAnomalyAtTheEpoch.Value}, {numericUpDownMaximumMeanAnomalyAtTheEpoch.Value}]");
+	}
 
 	/// <summary>Handles the ValueChanged event of the NumericUpDownMaximumMeanAnomalyAtTheEpoch. Ensures the maximum is not below the minimum.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to update the maximum mean anomaly at the epoch filter.</remarks>
-	private void NumericUpDownMaximumMeanAnomalyAtTheEpoch_ValueChanged(object sender, EventArgs e) =>
+	private void NumericUpDownMaximumMeanAnomalyAtTheEpoch_ValueChanged(object sender, EventArgs e)
+	{
 		EnforceMaxNotBelowMin(minimumControl: numericUpDownMinimumMeanAnomalyAtTheEpoch, maximumControl: numericUpDownMaximumMeanAnomalyAtTheEpoch);
+		logger.Info(message: $"Maximum Mean Anomaly at the Epoch changed to {numericUpDownMaximumMeanAnomalyAtTheEpoch.Value}. Current range: [{numericUpDownMinimumMeanAnomalyAtTheEpoch.Value}, {numericUpDownMaximumMeanAnomalyAtTheEpoch.Value}]");
+	}
 
 	/// <summary>Handles the ValueChanged event of the NumericUpDownMinimumArgumentOfThePerihelion. Ensures the minimum does not exceed the maximum.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to update the minimum argument of the perihelion filter.</remarks>
-	private void NumericUpDownMinimumArgumentOfThePerihelion_ValueChanged(object sender, EventArgs e) =>
+	private void NumericUpDownMinimumArgumentOfThePerihelion_ValueChanged(object sender, EventArgs e)
+	{
 		EnforceMinNotExceedsMax(minimumControl: numericUpDownMinimumArgumentOfThePerihelion, maximumControl: numericUpDownMaximumArgumentOfThePerihelion);
+		logger.Info(message: $"Minimum Argument of the Perihelion changed to {numericUpDownMinimumArgumentOfThePerihelion.Value}. Current range: [{numericUpDownMinimumArgumentOfThePerihelion.Value}, {numericUpDownMaximumArgumentOfThePerihelion.Value}]");
+	}
 
 	/// <summary>Handles the ValueChanged event of the NumericUpDownMaximumArgumentOfThePerihelion. Ensures the maximum is not below the minimum.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to update the maximum argument of the perihelion filter.</remarks>
-	private void NumericUpDownMaximumArgumentOfThePerihelion_ValueChanged(object sender, EventArgs e) =>
+	private void NumericUpDownMaximumArgumentOfThePerihelion_ValueChanged(object sender, EventArgs e)
+	{
 		EnforceMaxNotBelowMin(minimumControl: numericUpDownMinimumArgumentOfThePerihelion, maximumControl: numericUpDownMaximumArgumentOfThePerihelion);
+		logger.Info(message: $"Maximum Argument of the Perihelion changed to {numericUpDownMaximumArgumentOfThePerihelion.Value}. Current range: [{numericUpDownMinimumArgumentOfThePerihelion.Value}, {numericUpDownMaximumArgumentOfThePerihelion.Value}]");
+	}
 
 	/// <summary>Handles the ValueChanged event of the NumericUpDownMinimumLongitudeOfTheAscendingNode. Ensures the minimum does not exceed the maximum.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to update the minimum longitude of the ascending node filter.</remarks>
-	private void NumericUpDownMinimumLongitudeOfTheAscendingNode_ValueChanged(object sender, EventArgs e) =>
+	private void NumericUpDownMinimumLongitudeOfTheAscendingNode_ValueChanged(object sender, EventArgs e)
+	{
 		EnforceMinNotExceedsMax(minimumControl: numericUpDownMinimumLongitudeOfTheAscendingNode, maximumControl: numericUpDownMaximumLongitudeOfTheAscendingNode);
+		logger.Info(message: $"Minimum Longitude of the Ascending Node changed to {numericUpDownMinimumLongitudeOfTheAscendingNode.Value}. Current range: [{numericUpDownMinimumLongitudeOfTheAscendingNode.Value}, {numericUpDownMaximumLongitudeOfTheAscendingNode.Value}]");
+	}
 
 	/// <summary>Handles the ValueChanged event of the NumericUpDownMaximumLongitudeOfTheAscendingNode. Ensures the maximum is not below the minimum.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to update the maximum longitude of the ascending node filter.</remarks>
-	private void NumericUpDownMaximumLongitudeOfTheAscendingNode_ValueChanged(object sender, EventArgs e) =>
+	private void NumericUpDownMaximumLongitudeOfTheAscendingNode_ValueChanged(object sender, EventArgs e)
+	{
 		EnforceMaxNotBelowMin(minimumControl: numericUpDownMinimumLongitudeOfTheAscendingNode, maximumControl: numericUpDownMaximumLongitudeOfTheAscendingNode);
+		logger.Info(message: $"Maximum Longitude of the Ascending Node changed to {numericUpDownMaximumLongitudeOfTheAscendingNode.Value}. Current range: [{numericUpDownMinimumLongitudeOfTheAscendingNode.Value}, {numericUpDownMaximumLongitudeOfTheAscendingNode.Value}]");
+	}
 
 	/// <summary>Handles the ValueChanged event of the NumericUpDownMinimumInclination. Ensures the minimum does not exceed the maximum.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to update the minimum inclination filter.</remarks>
-	private void NumericUpDownMinimumInclination_ValueChanged(object sender, EventArgs e) =>
+	private void NumericUpDownMinimumInclination_ValueChanged(object sender, EventArgs e)
+	{
 		EnforceMinNotExceedsMax(minimumControl: numericUpDownMinimumInclination, maximumControl: numericUpDownMaximumInclination);
+		logger.Info(message: $"Minimum Inclination changed to {numericUpDownMinimumInclination.Value}. Current range: [{numericUpDownMinimumInclination.Value}, {numericUpDownMaximumInclination.Value}]");
+	}
 
 	/// <summary>Handles the ValueChanged event of the NumericUpDownMaximumInclination. Ensures the maximum is not below the minimum.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to update the maximum inclination filter.</remarks>
-	private void NumericUpDownMaximumInclination_ValueChanged(object sender, EventArgs e) =>
+	private void NumericUpDownMaximumInclination_ValueChanged(object sender, EventArgs e)
+	{
 		EnforceMaxNotBelowMin(minimumControl: numericUpDownMinimumInclination, maximumControl: numericUpDownMaximumInclination);
+		logger.Info(message: $"Maximum Inclination changed to {numericUpDownMaximumInclination.Value}. Current range: [{numericUpDownMinimumInclination.Value}, {numericUpDownMaximumInclination.Value}]");
+	}
 
 	/// <summary>Handles the ValueChanged event of the NumericUpDownMinimumOrbitalEccentricity. Ensures the minimum does not exceed the maximum.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to update the minimum orbital eccentricity filter.</remarks>
-	private void NumericUpDownMinimumOrbitalEccentricity_ValueChanged(object sender, EventArgs e) =>
+	private void NumericUpDownMinimumOrbitalEccentricity_ValueChanged(object sender, EventArgs e)
+	{
 		EnforceMinNotExceedsMax(minimumControl: numericUpDownMinimumOrbitalEccentricity, maximumControl: numericUpDownMaximumOrbitalEccentricity);
+		logger.Info(message: $"Minimum Orbital Eccentricity changed to {numericUpDownMinimumOrbitalEccentricity.Value}. Current range: [{numericUpDownMinimumOrbitalEccentricity.Value}, {numericUpDownMaximumOrbitalEccentricity.Value}]");
+	}
 
 	/// <summary>Handles the ValueChanged event of the NumericUpDownMaximumOrbitalEccentricity. Ensures the maximum is not below the minimum.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to update the maximum orbital eccentricity filter.</remarks>
-	private void NumericUpDownMaximumOrbitalEccentricity_ValueChanged(object sender, EventArgs e) =>
+	private void NumericUpDownMaximumOrbitalEccentricity_ValueChanged(object sender, EventArgs e)
+	{
 		EnforceMaxNotBelowMin(minimumControl: numericUpDownMinimumOrbitalEccentricity, maximumControl: numericUpDownMaximumOrbitalEccentricity);
+		logger.Info(message: $"Maximum Orbital Eccentricity changed to {numericUpDownMaximumOrbitalEccentricity.Value}. Current range: [{numericUpDownMinimumOrbitalEccentricity.Value}, {numericUpDownMaximumOrbitalEccentricity.Value}]");
+	}
 
 	/// <summary>Handles the ValueChanged event of the NumericUpDownMinimumMeanDailyMotion. Ensures the minimum does not exceed the maximum.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to update the minimum mean daily motion filter.</remarks>
-	private void NumericUpDownMinimumMeanDailyMotion_ValueChanged(object sender, EventArgs e) =>
+	private void NumericUpDownMinimumMeanDailyMotion_ValueChanged(object sender, EventArgs e)
+	{
 		EnforceMinNotExceedsMax(minimumControl: numericUpDownMinimumMeanDailyMotion, maximumControl: numericUpDownMaximumMeanDailyMotion);
+		logger.Info(message: $"Minimum Mean Daily Motion changed to {numericUpDownMinimumMeanDailyMotion.Value}. Current range: [{numericUpDownMinimumMeanDailyMotion.Value}, {numericUpDownMaximumMeanDailyMotion.Value}]");
+	}
 
 	/// <summary>Handles the ValueChanged event of the NumericUpDownMaximumMeanDailyMotion. Ensures the maximum is not below the minimum.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to update the maximum mean daily motion filter.</remarks>
-	private void NumericUpDownMaximumMeanDailyMotion_ValueChanged(object sender, EventArgs e) =>
+	private void NumericUpDownMaximumMeanDailyMotion_ValueChanged(object sender, EventArgs e)
+	{
 		EnforceMaxNotBelowMin(minimumControl: numericUpDownMinimumMeanDailyMotion, maximumControl: numericUpDownMaximumMeanDailyMotion);
+		logger.Info(message: $"Maximum Mean Daily Motion changed to {numericUpDownMaximumMeanDailyMotion.Value}. Current range: [{numericUpDownMinimumMeanDailyMotion.Value}, {numericUpDownMaximumMeanDailyMotion.Value}]");
+	}
 
 	/// <summary>Handles the ValueChanged event of the NumericUpDownMinimumSemiMajorAxis. Ensures the minimum does not exceed the maximum.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to update the minimum semi-major axis filter.</remarks>
-	private void NumericUpDownMinimumSemiMajorAxis_ValueChanged(object sender, EventArgs e) =>
+	private void NumericUpDownMinimumSemiMajorAxis_ValueChanged(object sender, EventArgs e)
+	{
 		EnforceMinNotExceedsMax(minimumControl: numericUpDownMinimumSemiMajorAxis, maximumControl: numericUpDownMaximumSemiMajorAxis);
+		logger.Info(message: $"Minimum Semi-Major Axis changed to {numericUpDownMinimumSemiMajorAxis.Value}. Current range: [{numericUpDownMinimumSemiMajorAxis.Value}, {numericUpDownMaximumSemiMajorAxis.Value}]");
+	}
 
 	/// <summary>Handles the ValueChanged event of the NumericUpDownMaximumSemiMajorAxis. Ensures the maximum is not below the minimum.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to update the maximum semi-major axis filter.</remarks>
-	private void NumericUpDownMaximumSemiMajorAxis_ValueChanged(object sender, EventArgs e) =>
+	private void NumericUpDownMaximumSemiMajorAxis_ValueChanged(object sender, EventArgs e)
+	{
 		EnforceMaxNotBelowMin(minimumControl: numericUpDownMinimumSemiMajorAxis, maximumControl: numericUpDownMaximumSemiMajorAxis);
+		logger.Info(message: $"Maximum Semi-Major Axis changed to {numericUpDownMaximumSemiMajorAxis.Value}. Current range: [{numericUpDownMinimumSemiMajorAxis.Value}, {numericUpDownMaximumSemiMajorAxis.Value}]");
+	}
 
 	/// <summary>Handles the ValueChanged event of the NumericUpDownMinimumAbsoluteMagnitude. Ensures the minimum does not exceed the maximum.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to update the minimum absolute magnitude filter.</remarks>
-	private void NumericUpDownMinimumAbsoluteMagnitude_ValueChanged(object sender, EventArgs e) =>
+	private void NumericUpDownMinimumAbsoluteMagnitude_ValueChanged(object sender, EventArgs e)
+	{
 		EnforceMinNotExceedsMax(minimumControl: numericUpDownMinimumAbsoluteMagnitude, maximumControl: numericUpDownMaximumAbsoluteMagnitude);
+		logger.Info(message: $"Minimum Absolute Magnitude changed to {numericUpDownMinimumAbsoluteMagnitude.Value}. Current range: [{numericUpDownMinimumAbsoluteMagnitude.Value}, {numericUpDownMaximumAbsoluteMagnitude.Value}]");
+	}
 
 	/// <summary>Handles the ValueChanged event of the NumericUpDownMaximumAbsoluteMagnitude. Ensures the maximum is not below the minimum.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to update the maximum absolute magnitude filter.</remarks>
-	private void NumericUpDownMaximumAbsoluteMagnitude_ValueChanged(object sender, EventArgs e) =>
+	private void NumericUpDownMaximumAbsoluteMagnitude_ValueChanged(object sender, EventArgs e)
+	{
 		EnforceMaxNotBelowMin(minimumControl: numericUpDownMinimumAbsoluteMagnitude, maximumControl: numericUpDownMaximumAbsoluteMagnitude);
+		logger.Info(message: $"Maximum Absolute Magnitude changed to {numericUpDownMaximumAbsoluteMagnitude.Value}. Current range: [{numericUpDownMinimumAbsoluteMagnitude.Value}, {numericUpDownMaximumAbsoluteMagnitude.Value}]");
+	}
 
 	/// <summary>Handles the ValueChanged event of the NumericUpDownMinimumSlopeParameter. Ensures the minimum does not exceed the maximum.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to update the minimum slope parameter filter.</remarks>
-	private void NumericUpDownMinimumSlopeParameter_ValueChanged(object sender, EventArgs e) =>
+	private void NumericUpDownMinimumSlopeParameter_ValueChanged(object sender, EventArgs e)
+	{
 		EnforceMinNotExceedsMax(minimumControl: numericUpDownMinimumSlopeParameter, maximumControl: numericUpDownMaximumSlopeParameter);
+		logger.Info(message: $"Minimum Slope Parameter changed to {numericUpDownMinimumSlopeParameter.Value}. Current range: [{numericUpDownMinimumSlopeParameter.Value}, {numericUpDownMaximumSlopeParameter.Value}]");
+	}
 
 	/// <summary>Handles the ValueChanged event of the NumericUpDownMaximumSlopeParameter. Ensures the maximum is not below the minimum.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to update the maximum slope parameter filter.</remarks>
-	private void NumericUpDownMaximumSlopeParameter_ValueChanged(object sender, EventArgs e) =>
+	private void NumericUpDownMaximumSlopeParameter_ValueChanged(object sender, EventArgs e)
+	{
 		EnforceMaxNotBelowMin(minimumControl: numericUpDownMinimumSlopeParameter, maximumControl: numericUpDownMaximumSlopeParameter);
+		logger.Info(message: $"Maximum Slope Parameter changed to {numericUpDownMaximumSlopeParameter.Value}. Current range: [{numericUpDownMinimumSlopeParameter.Value}, {numericUpDownMaximumSlopeParameter.Value}]");
+	}
 
 	/// <summary>Handles the ValueChanged event of the NumericUpDownMinimumNumberOfOppositions. Ensures the minimum does not exceed the maximum.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to update the minimum number of oppositions filter.</remarks>
-	private void NumericUpDownMinimumNumberOfOppositions_ValueChanged(object sender, EventArgs e) =>
+	private void NumericUpDownMinimumNumberOfOppositions_ValueChanged(object sender, EventArgs e)
+	{
 		EnforceMinNotExceedsMax(minimumControl: numericUpDownMinimumNumberOfOppositions, maximumControl: numericUpDownMaximumNumberOfOppositions);
+		logger.Info(message: $"Minimum Number of Oppositions changed to {numericUpDownMinimumNumberOfOppositions.Value}. Current range: [{numericUpDownMinimumNumberOfOppositions.Value}, {numericUpDownMaximumNumberOfOppositions.Value}]");
+	}
 
 	/// <summary>Handles the ValueChanged event of the NumericUpDownMaximumNumberOfOppositions. Ensures the maximum is not below the minimum.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to update the maximum number of oppositions filter.</remarks>
-	private void NumericUpDownMaximumNumberOfOppositions_ValueChanged(object sender, EventArgs e) =>
+	private void NumericUpDownMaximumNumberOfOppositions_ValueChanged(object sender, EventArgs e)
+	{
 		EnforceMaxNotBelowMin(minimumControl: numericUpDownMinimumNumberOfOppositions, maximumControl: numericUpDownMaximumNumberOfOppositions);
+		logger.Info(message: $"Maximum Number of Oppositions changed to {numericUpDownMaximumNumberOfOppositions.Value}. Current range: [{numericUpDownMinimumNumberOfOppositions.Value}, {numericUpDownMaximumNumberOfOppositions.Value}]");
+	}
 
 	/// <summary>Handles the ValueChanged event of the NumericUpDownMinimumNumberOfObservations. Ensures the minimum does not exceed the maximum.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to update the minimum number of observations filter.</remarks>
-	private void NumericUpDownMinimumNumberOfObservations_ValueChanged(object sender, EventArgs e) =>
+	private void NumericUpDownMinimumNumberOfObservations_ValueChanged(object sender, EventArgs e)
+	{
 		EnforceMinNotExceedsMax(minimumControl: numericUpDownMinimumNumberOfObservations, maximumControl: numericUpDownMaximumNumberOfObservations);
+		logger.Info(message: $"Minimum Number of Observations changed to {numericUpDownMinimumNumberOfObservations.Value}. Current range: [{numericUpDownMinimumNumberOfObservations.Value}, {numericUpDownMaximumNumberOfObservations.Value}]");
+	}
 
 	/// <summary>Handles the ValueChanged event of the NumericUpDownMaximumNumberOfObservations. Ensures the maximum is not below the minimum.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to update the maximum number of observations filter.</remarks>
-	private void NumericUpDownMaximumNumberOfObservations_ValueChanged(object sender, EventArgs e) =>
+	private void NumericUpDownMaximumNumberOfObservations_ValueChanged(object sender, EventArgs e)
+	{
 		EnforceMaxNotBelowMin(minimumControl: numericUpDownMinimumNumberOfObservations, maximumControl: numericUpDownMaximumNumberOfObservations);
+		logger.Info(message: $"Maximum Number of Observations changed to {numericUpDownMaximumNumberOfObservations.Value}. Current range: [{numericUpDownMinimumNumberOfObservations.Value}, {numericUpDownMaximumNumberOfObservations.Value}]");
+	}
 
 	/// <summary>Handles the ValueChanged event of the NumericUpDownMinimumRmsResidual. Ensures the minimum does not exceed the maximum.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to update the minimum RMS residual filter.</remarks>
-	private void NumericUpDownMinimumRmsResidual_ValueChanged(object sender, EventArgs e) =>
+	private void NumericUpDownMinimumRmsResidual_ValueChanged(object sender, EventArgs e)
+	{
 		EnforceMinNotExceedsMax(minimumControl: numericUpDownMinimumRmsResidual, maximumControl: numericUpDownMaximumRmsResidual);
+		logger.Info(message: $"Minimum RMS Residual changed to {numericUpDownMinimumRmsResidual.Value}. Current range: [{numericUpDownMinimumRmsResidual.Value}, {numericUpDownMaximumRmsResidual.Value}]");
+	}
 
 	/// <summary>Handles the ValueChanged event of the NumericUpDownMaximumRmsResidual. Ensures the maximum is not below the minimum.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to update the maximum RMS residual filter.</remarks>
-	private void NumericUpDownMaximumRmsResidual_ValueChanged(object sender, EventArgs e) =>
+	private void NumericUpDownMaximumRmsResidual_ValueChanged(object sender, EventArgs e)
+	{
 		EnforceMaxNotBelowMin(minimumControl: numericUpDownMinimumRmsResidual, maximumControl: numericUpDownMaximumRmsResidual);
+		logger.Info(message: $"Maximum RMS Residual changed to {numericUpDownMaximumRmsResidual.Value}. Current range: [{numericUpDownMinimumRmsResidual.Value}, {numericUpDownMaximumRmsResidual.Value}]");
+	}
 
 	#endregion
 }

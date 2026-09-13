@@ -24,7 +24,7 @@ namespace Planetoid_DB;
 
 /// <summary>Represents a Windows Form that displays the Maximum Orbit Intersection Distance (MAXOID) of a minor planet relative to each of the eight solar system planets (Mercury through Neptune).</summary>
 /// <remarks>The form presents data in a two-column <see cref="KryptonTableLayoutPanel"/> with eight rows — one per planet. Column 1 shows the planet name; column 2 shows the corresponding MAXOID in AU. Export to many file formats is available through the toolbar dropdown button. The form does not appear in the taskbar and is intended to be used as a modal dialog.</remarks>
-partial class MaxoidsOfOneMinorPlanetForm
+internal partial class MaxoidsOfOneMinorPlanetForm
 {
 	/// <summary>Required designer variable.</summary>
 	/// <remarks>This field stores the components used by the form.</remarks>

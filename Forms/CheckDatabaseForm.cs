@@ -26,9 +26,9 @@ namespace Planetoid_DB;
 
 /// <summary>Database Data Verification Form.</summary>
 /// <remarks>This form is used to verify the integrity of database data files (e.g. ASTORB.DAT or MPCORB.DAT).</remarks>
-// You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
-[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-public partial class CheckDatabaseForm : BaseKryptonForm
+// You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
+[DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
+internal partial class CheckDatabaseForm : BaseKryptonForm
 {
 	#region Export override properties
 
@@ -117,8 +117,8 @@ public partial class CheckDatabaseForm : BaseKryptonForm
 
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>This method is used to provide a visual representation of the object in the debugger.</remarks>
-	private string GetDebuggerDisplay() => ToString();
+	/// <remarks>This property is used to provide a visual representation of the object in the debugger.</remarks>
+	private string DebuggerDisplay => ToString();
 
 	/// <summary>Copies the specified text to the clipboard.</summary>
 	/// <param name="value">The text to copy to the clipboard.</param>
@@ -192,7 +192,7 @@ public partial class CheckDatabaseForm : BaseKryptonForm
 		// URI for the database file
 		Uri uri = new(uriString: databaseUrl);
 		// Get the last modified date and content length of the online file in a single request
-		(DateTime datetimeFileOnline, long contentLengthOnline) = await GetOnlineFileInfoAsync(uri);
+		(DateTime datetimeFileOnline, long contentLengthOnline) = await GetOnlineFileInfoAsync(uri: uri).ConfigureAwait(continueOnCapturedContext: false);
 		// Local file last modified date
 		DateTime datetimeFileLocal = DateTime.MinValue;
 		// Check if the local file exists

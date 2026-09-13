@@ -28,9 +28,9 @@ namespace Planetoid_DB;
 
 /// <summary>Form for comparing two MPCORB.DAT files and displaying the differences.</summary>
 /// <remarks>This form allows users to select two MPCORB.DAT files, compare their contents, and view the differences in a user-friendly interface. The form includes functionality for saving the comparison results in various formats and navigating to specific records in the main form based on the differences identified.</remarks>
-// You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
-[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-public partial class DatabaseDifferencesForm : BaseKryptonForm
+// You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
+[DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
+internal partial class DatabaseDifferencesForm : BaseKryptonForm
 {
 	#region Export override properties
 
@@ -108,8 +108,8 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>This method is used to provide a custom debugger display string.</remarks>
-	private string GetDebuggerDisplay() => ToString();
+	/// <remarks>This property is used to provide a custom debugger display string.</remarks>
+	private string DebuggerDisplay => ToString();
 
 	/// <summary>Compares two PlanetoidRecord objects and returns a string describing the differences.</summary>
 	/// <param name="r1">The first PlanetoidRecord to compare.</param>
@@ -346,7 +346,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 								changedRecords++;
 							}
 							// Remove the record from the first file's dictionary to track which records have been processed and to identify any remaining records that may have been added or deleted
-							records1.Remove(key: record2.DesignationName);
+							_ = records1.Remove(key: record2.DesignationName);
 						}
 						// If no corresponding record is found in the first file's dictionary, determine whether the record was added or deleted based on which file is newer, and add a new DifferenceResult to the batch results accordingly; also increment the count of added or deleted records
 						else
@@ -386,7 +386,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		// After processing all lines in the second file, report progress indicating that the check for added records is starting
 		progress.Report(value: (100, "Checking for added records...", null));
 		// Iterate through any remaining records in the first file's dictionary, which represent records that were not found in the second file, and add them to the batch results as either added or deleted records based on which file is newer; also increment the count of added or deleted records accordingly
-		foreach (var entry in records1)
+		foreach (KeyValuePair<string, PlanetoidRecord> entry in records1)
 		{
 			// Check for cancellation requests and throw an exception if cancellation has been requested
 			token.ThrowIfCancellationRequested();
@@ -524,7 +524,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		if (date1 == date2)
 		{
 			logger.Info(message: "The file dates of both files are identical. Further comparison is aborted.");
-			KryptonMessageBox.Show(owner: this, text: "The file dates of both files are identical. The file contents of file 1 and file 2 are the same. Further comparison is aborted.", caption: "Notice", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+			_ = KryptonMessageBox.Show(owner: this, text: "The file dates of both files are identical. The file contents of file 1 and file 2 are the same. Further comparison is aborted.", caption: "Notice", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 			return;
 		}
 		// Determine whether the first file is newer than the second file based on their last write times
@@ -547,17 +547,17 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		try
 		{
 			// Run the comparison operation asynchronously on a separate thread to avoid blocking the UI, passing in the file paths, whether the first file is newer, the progress reporter, and the cancellation token
-			await Task.Run(action: () => CompareFiles(p1: pathFile1, p2: pathFile2, file1IsNewer: file1IsNewer, progress: progress, token: _cancellationTokenSource.Token));
+			await Task.Run(action: () => CompareFiles(p1: pathFile1, p2: pathFile2, file1IsNewer: file1IsNewer, progress: progress, token: _cancellationTokenSource.Token)).ConfigureAwait(continueOnCapturedContext: false);
 			// After the comparison operation completes successfully, update the progress bar text to indicate that the comparison is complete and show a message box summarizing the results of the comparison, including the counts of added, changed, and deleted records
 			kryptonProgressBar.Text = "Comparison Complete";
-			KryptonMessageBox.Show(owner: this, text: $"Comparison completed successfully.\n\nAdded records: {addedRecords}\nChanged records: {changedRecords}\nDeleted records: {deletedRecords}", caption: "Summary", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+			_ = KryptonMessageBox.Show(owner: this, text: $"Comparison completed successfully.\n\nAdded records: {addedRecords}\nChanged records: {changedRecords}\nDeleted records: {deletedRecords}", caption: "Summary", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 		}
 		// Catch an OperationCanceledException to handle the case where the user cancels the comparison operation, updating the progress bar text and showing a message box to inform the user that the comparison was cancelled
 		catch (OperationCanceledException)
 		{
 			logger.Warn(message: "Comparison operation was cancelled by the user.");
 			kryptonProgressBar.Text = "Comparison Cancelled";
-			KryptonMessageBox.Show(owner: this, text: "Comparison cancelled by user", caption: "Cancelled", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+			_ = KryptonMessageBox.Show(owner: this, text: "Comparison cancelled by user", caption: "Cancelled", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 		}
 		// Catch any other exceptions that may occur during the comparison operation, logging the error and updating the progress bar text and showing a message box to inform the user of the error
 		catch (Exception ex)
@@ -635,7 +635,11 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 	/// within the form. This method is intended for UI event handling scenarios.</remarks>
 	/// <param name="sender">The source of the event, typically the Krypton button that was clicked.</param>
 	/// <param name="e">The event data associated with the click event.</param>
-	private void KryptonButtonGoto_Click(object sender, EventArgs e) => GoToObject();
+	private void KryptonButtonGoto_Click(object sender, EventArgs e)
+	{
+		// Log the action of navigating to a specific object and call the GoToObject method to perform the navigation
+		GoToObject();
+	}
 
 	#endregion
 

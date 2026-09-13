@@ -15,24 +15,15 @@
 
 using Planetoid_DB.Resources;
 
+using System.Diagnostics;
 using System.Globalization;
 
 namespace Planetoid_DB.Forms;
 
-/// <summary>Represents a single error entry produced during bulk observations download.</summary>
-/// <param name="Timestamp">Date and time when the error occurred.</param>
-/// <param name="Url">URL that was being requested or processed.</param>
-/// <param name="ErrorType">Error type/category.</param>
-/// <param name="ErrorDescription">Detailed error explanation.</param>
-/// <remarks>Instances of this record are immutable and intended for display purposes only.</remarks>
-internal sealed record BulkObservationsDownloadErrorEntry(
-	DateTime Timestamp,
-	string Url,
-	string ErrorType,
-	string ErrorDescription);
-
 /// <summary>Dialog form that displays detailed bulk-download errors in a list view.</summary>
 /// <remarks>This form is used to present a list of errors that occurred during the bulk download process.</remarks>
+// You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
+[DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
 internal sealed class BulkObservationsDownloadErrorsForm : BaseKryptonForm
 {
 	/// <summary>Gets the status label used for displaying information in the status bar.</summary>
@@ -59,9 +50,9 @@ internal sealed class BulkObservationsDownloadErrorsForm : BaseKryptonForm
 		_listView.HideSelection = false;
 		_listView.AccessibleName = "Error list";
 		_listView.AccessibleDescription = "Shows all logged download errors with timestamp, URL and details";
-		_listView.Columns.Add(text: "Datum / Uhrzeit", width: 170);
-		_listView.Columns.Add(text: "URL", width: 390);
-		_listView.Columns.Add(text: "Fehler", width: 420);
+		_ = _listView.Columns.Add(text: "Datum / Uhrzeit", width: 170);
+		_ = _listView.Columns.Add(text: "URL", width: 390);
+		_ = _listView.Columns.Add(text: "Fehler", width: 420);
 		_listView.MouseEnter += Control_Enter;
 		_listView.MouseLeave += Control_Leave;
 		// Populate ListView with error entries
@@ -76,7 +67,7 @@ internal sealed class BulkObservationsDownloadErrorsForm : BaseKryptonForm
 		}
 		// StatusStrip configuration
 		_statusStrip.Dock = DockStyle.Bottom;
-		_statusStrip.Items.Add(value: _toolStripStatusLabel);
+		_ = _statusStrip.Items.Add(value: _toolStripStatusLabel);
 		_toolStripStatusLabel.Text = $"{entries.Count} error(s)";
 		_toolStripStatusLabel.Image = FatcowIcons16px.fatcow_information_16px;
 		_toolStripStatusLabel.MouseEnter += Control_Enter;
@@ -86,6 +77,22 @@ internal sealed class BulkObservationsDownloadErrorsForm : BaseKryptonForm
 		// Add controls to form
 		Controls.Add(value: _listView);
 		Controls.Add(value: _statusStrip);
+	}
+
+	/// <summary>Releases the resources used by the form.</summary>
+	/// <param name="disposing"><see langword="true"/> to release managed resources; otherwise, <see langword="false"/>.</param>
+	/// <remarks>Overrides the base class method to dispose of the ListView and StatusStrip controls.</remarks>
+	protected override void Dispose(bool disposing)
+	{
+		// Dispose of managed resources if disposing is true
+		if (disposing)
+		{
+			_listView.Dispose();
+			_toolStripStatusLabel.Dispose();
+			_statusStrip.Dispose();
+		}
+		// Call the base class Dispose method
+		base.Dispose(disposing);
 	}
 
 	/// <summary>Represents the ListView control used to display a collection of items in the user interface.</summary>
@@ -99,4 +106,9 @@ internal sealed class BulkObservationsDownloadErrorsForm : BaseKryptonForm
 	/// <summary>Represents the status label displayed in the associated ToolStrip control.</summary>
 	/// <remarks>This label is used to show the count of errors and can also display an icon for visual indication.</remarks>
 	private readonly ToolStripStatusLabel _toolStripStatusLabel = new();
+
+	/// <summary>Returns a string representation of the current object for debugging purposes.</summary>
+	/// <returns>A string representation of the current object.</returns>
+	/// <remarks>This property is used by the debugger to display a concise representation of the object.</remarks>
+	private string DebuggerDisplay => ToString() ?? string.Empty;
 }

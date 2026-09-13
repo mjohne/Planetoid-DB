@@ -28,9 +28,9 @@ namespace Planetoid_DB;
 
 /// <summary>Form to detect and display potential asteroid families based on orbital elements (a, e, i). Uses a binning algorithm to group planetoids whose semi-major axis, eccentricity, and inclination fall within user-defined tolerance ranges.</summary>
 /// <remarks>This form allows users to detect potential asteroid families by analyzing the orbital elements of planetoids from the MPCORB database. The detection is performed using a binning algorithm that groups planetoids based on their semi-major axis, eccentricity, and inclination, with user-defined tolerances. The results are displayed in a tree view, and users can view the members of each family in a list view. The form also provides options to save the detected families to text files.</remarks>
-// You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
-[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-public partial class AsteroidFamiliesForm : BaseKryptonForm
+// You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
+[DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
+internal partial class AsteroidFamiliesForm : BaseKryptonForm
 {
 	/// <summary>NLog logger instance.</summary>
 	/// <remarks>This logger is used throughout the form to log important events and errors.</remarks>
@@ -72,37 +72,12 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 		_planetoids = planetoids;
 	}
 
+	#region Helpers
+
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>This method is used to provide a visual representation of the object in the debugger.</remarks>
-	private string GetDebuggerDisplay() => ToString();
-
-	/// <summary>Represents parsed orbital parameters for a single planetoid.</summary>
-	/// <remarks>This record is used to store the orbital elements of a planetoid for family detection.</remarks>
-	private sealed record PlanetoidEntry(
-		string Index, // MPCORB index or provisional designation
-		string Name, // Proper name if available, otherwise empty
-		double SemiMajorAxis, // a in AU
-		double Eccentricity, // e
-		double Inclination, // i in degrees
-		double MeanAnomaly, // M in degrees
-		double ArgPeri, // ω in degrees
-		double LongAscNode); // Ω in degrees
-
-	/// <summary>Represents a detected asteroid family with its member list.</summary>
-	/// <remarks>This class is used to store the members of a detected asteroid family.</remarks>
-	private sealed class AsteroidFamily
-	{
-		/// <summary>Gets or sets the display name of this family.</summary>
-		/// <remarks>This property is used to store the name of the asteroid family.</remarks>
-		public string Name { get; set; } = string.Empty;
-
-		/// <summary>Gets the list of member planetoids.</summary>							  
-		/// <remarks>This list contains all planetoids that belong to this family.</remarks>
-		public List<PlanetoidEntry> Members { get; } = [];
-	}
-
-	#region Helpers
+	/// <remarks>This property is used to provide a visual representation of the object in the debugger.</remarks>
+	private string DebuggerDisplay => ToString();
 
 	/// <summary>Opens a save dialog and writes the specified families to a text file asynchronously.</summary>
 	/// <param name="families">The families to export.</param>
@@ -111,8 +86,8 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 	{
 		// We determine a default file name based on whether there is a single family or multiple families. If there is one family, we use its name (truncated at the first '(' if present) and replace spaces with underscores. If there are multiple families, we use a generic name "AsteroidFamilies".
 		string defaultFileName = families.Count == 1
-			? (families[index: 0].Name.Contains(value: '(')
-				? families[index: 0].Name[..families[index: 0].Name.IndexOf(value: '(', comparisonType: StringComparison.Ordinal)].Trim().Replace(oldChar: ' ', newChar: '_')
+			? (families[index: 0].Name.Contains(value: '(', comparisonType: StringComparison.InvariantCulture)
+				? families[index: 0].Name[..families[index: 0].Name.IndexOf(value: '(', comparisonType: StringComparison.InvariantCulture)].Trim().Replace(oldChar: ' ', newChar: '_')
 				: families[index: 0].Name.Replace(oldChar: ' ', newChar: '_'))
 			: "AsteroidFamilies";
 		// We create a SaveFileDialog to allow the user to choose where to save the file. We set the filter to allow text files and all files, set the default extension to "txt", and set the initial file name and title based on the number of families being saved.
@@ -152,39 +127,45 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 				Options = FileOptions.Asynchronous
 			};
 			// We create a FileStream and a StreamWriter to write the family data to the specified file. The StreamWriter is configured to use UTF-8 encoding for text output.
-			await using FileStream fs = new(path: dlg.FileName, options: options);
-			await using StreamWriter writer = new(stream: fs, encoding: Encoding.UTF8);
-			// We define a header string that contains the column names for the family data. The columns are aligned using fixed-width formatting to ensure that the output is easy to read. We also create a separator line of dashes that matches the length of the header.
-			string header = $"{"Index",-10} {"Name",-30} {"a (AU)",-12} {"e",-10} {"i (°)",-10} {"M (°)",-12} {"ArgPeri (°)",-14} {"LongAscNode (°)",-16}";
-			string separator = new(c: '-', count: header.Length);
-			int processed = 0;
-			// We loop through each family in the list of families to be saved. For each family, we write the family name, header, and separator to the file. We then loop through each member of the family and write their orbital parameters to the file in a formatted manner. We also update the progress reporter every 1000 members processed to keep the user informed about the progress of the save operation.
-			foreach (AsteroidFamily family in families)
+			FileStream fs = new(path: dlg.FileName, options: options);
+			await using (fs.ConfigureAwait(continueOnCapturedContext: false))
 			{
-				await writer.WriteLineAsync(value: $"=== {family.Name} ===");
-				await writer.WriteLineAsync(value: header);
-				await writer.WriteLineAsync(value: separator);
-				// We loop through each member of the current family and write their orbital parameters to the file in a formatted manner. The values are aligned using fixed-width formatting to ensure that the output is easy to read.
-				foreach (PlanetoidEntry p in family.Members)
+				StreamWriter writer = new(stream: fs, encoding: Encoding.UTF8);
+				await using (writer.ConfigureAwait(continueOnCapturedContext: false))
 				{
-					// We write the member's orbital parameters to the file using a formatted string. The values are aligned using fixed-width formatting to ensure that the output is easy to read. We also increment the processed counter to keep track of the total number of members written to the file across all families.
-					await writer.WriteLineAsync(value: $"{p.Index,-10} {p.Name,-30} {p.SemiMajorAxis,-12:F4} {p.Eccentricity,-10:F4} {p.Inclination,-10:F4} {p.MeanAnomaly,-12:F4} {p.ArgPeri,-14:F4} {p.LongAscNode,-16:F4}");
-					processed++;
-					// We report progress every 1000 members processed to keep the user informed about the progress of the save operation. The progress is calculated as a percentage of the total number of members across all families.
-					if (processed % 1000 == 0)
+					// We define a header string that contains the column names for the family data. The columns are aligned using fixed-width formatting to ensure that the output is easy to read. We also create a separator line of dashes that matches the length of the header.
+					string header = $"{"Index",-10} {"Name",-30} {"a (AU)",-12} {"e",-10} {"i (°)",-10} {"M (°)",-12} {"ArgPeri (°)",-14} {"LongAscNode (°)",-16}";
+					string separator = new(c: '-', count: header.Length);
+					int processed = 0;
+					// We loop through each family in the list of families to be saved. For each family, we write the family name, header, and separator to the file. We then loop through each member of the family and write their orbital parameters to the file in a formatted manner. We also update the progress reporter every 1000 members processed to keep the user informed about the progress of the save operation.
+					foreach (AsteroidFamily family in families)
 					{
-						progressReporter.Report(value: processed * 100 / totalMembers);
+						await writer.WriteLineAsync(value: $"=== {family.Name} ===").ConfigureAwait(continueOnCapturedContext: false);
+						await writer.WriteLineAsync(value: header).ConfigureAwait(continueOnCapturedContext: false);
+						await writer.WriteLineAsync(value: separator).ConfigureAwait(continueOnCapturedContext: false);
+						// We loop through each member of the current family and write their orbital parameters to the file in a formatted manner. The values are aligned using fixed-width formatting to ensure that the output is easy to read.
+						foreach (PlanetoidEntry p in family.Members)
+						{
+							// We write the member's orbital parameters to the file using a formatted string. The values are aligned using fixed-width formatting to ensure that the output is easy to read. We also increment the processed counter to keep track of the total number of members written to the file across all families.
+							await writer.WriteLineAsync(value: $"{p.Index,-10} {p.Name,-30} {p.SemiMajorAxis,-12:F4} {p.Eccentricity,-10:F4} {p.Inclination,-10:F4} {p.MeanAnomaly,-12:F4} {p.ArgPeri,-14:F4} {p.LongAscNode,-16:F4}").ConfigureAwait(continueOnCapturedContext: false);
+							processed++;
+							// We report progress every 1000 members processed to keep the user informed about the progress of the save operation. The progress is calculated as a percentage of the total number of members across all families.
+							if (processed % 1000 == 0)
+							{
+								progressReporter.Report(value: processed * 100 / totalMembers);
+							}
+						}
+						await writer.WriteLineAsync(value: string.Empty).ConfigureAwait(continueOnCapturedContext: false);
 					}
+					// After writing all families and their members to the file, we flush the StreamWriter to ensure that all buffered data is written to the underlying stream. We also report that we have reached 100% progress.
+					await writer.FlushAsync().ConfigureAwait(continueOnCapturedContext: false);
+					progressReporter.Report(value: 100);
+					// We show a message box to inform the user that the save operation was successful and display the path of the saved file.
+					_ = KryptonMessageBox.Show(owner: this, text: $"Successfully saved to:{Environment.NewLine}{dlg.FileName}", caption: "Saved", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 				}
-				await writer.WriteLineAsync(value: string.Empty);
 			}
-			// After writing all families and their members to the file, we flush the StreamWriter to ensure that all buffered data is written to the underlying stream. We also report that we have reached 100% progress.
-			await writer.FlushAsync();
-			progressReporter.Report(value: 100);
-			// We show a message box to inform the user that the save operation was successful and display the path of the saved file.
-			KryptonMessageBox.Show(owner: this, text: $"Successfully saved to:{Environment.NewLine}{dlg.FileName}", caption: "Saved", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+			// We catch specific exceptions that may occur during the file writing process, such as IOException and UnauthorizedAccessException. For each exception, we log the error and show an appropriate error message to the user, including the reason for the failure.
 		}
-		// We catch specific exceptions that may occur during the file writing process, such as IOException and UnauthorizedAccessException. For each exception, we log the error and show an appropriate error message to the user, including the reason for the failure.
 		catch (IOException ex)
 		{
 			logger.Error(exception: ex, message: $"Failed to save the file:{Environment.NewLine}{dlg.FileName}{Environment.NewLine}{Environment.NewLine}Reason: {ex.Message}");
@@ -324,7 +305,7 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 				_families = families;
 				PopulateTreeView();
 				toolStripButtonSaveListAllFamilies.Enabled = toolStripButtonSaveListSelectedFamily.Enabled = toolStripButtonGoToObject.Enabled = _families.Count > 0;
-			}, cancellationToken: cancellationToken);
+			}, cancellationToken: cancellationToken).ConfigureAwait(continueOnCapturedContext: false);
 		}
 		// We catch OperationCanceledException to handle the case where the detection was cancelled by the user. In this case, we simply ignore the exception since cancellation is an expected outcome.
 		catch (OperationCanceledException CancelEx)
@@ -336,7 +317,7 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 		{
 			logger.Error(exception: ex, message: "An unexpected error occurred during asteroid family detection.");
 			// An unexpected error occurred during detection. We show an error message to the user with details about the exception.
-			await InvokeAsync(callback: () => ShowErrorMessage(message: $"An error occurred during family detection: {ex.Message}"), cancellationToken: cancellationToken);
+			await InvokeAsync(callback: () => ShowErrorMessage(message: $"An error occurred during family detection: {ex.Message}"), cancellationToken: cancellationToken).ConfigureAwait(continueOnCapturedContext: false);
 		}
 		// In the finally block, we ensure that we clean up resources and reset the UI state regardless of whether the detection completed successfully, was cancelled, or encountered an error. We dispose of the cancellation token source to release resources and set it to null. We also re-enable the Start button and disable the Cancel button to allow the user to start a new detection if desired.
 		finally
@@ -349,7 +330,7 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 			{
 				toolStripButtonStartSearch.Enabled = true;
 				toolStripButtonCancel.Enabled = false;
-			}, cancellationToken: cancellationToken);
+			}, cancellationToken: cancellationToken).ConfigureAwait(continueOnCapturedContext: false);
 		}
 	}
 
@@ -364,7 +345,7 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 		for (int i = 0; i < _families.Count; i++)
 		{
 			TreeNode node = new(text: _families[index: i].Name) { Tag = i };
-			treeViewFamilies.Nodes.Add(node);
+			_ = treeViewFamilies.Nodes.Add(node: node);
 		}
 		// After adding all nodes, we call EndUpdate to allow the tree view to repaint with the new nodes.
 		treeViewFamilies.EndUpdate();
@@ -387,7 +368,7 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 			for (int i = 0; i < listViewMembers.Columns.Count; i++)
 			{
 				string headerText = listViewMembers.Columns[index: i].Text;
-				if (headerText.StartsWith(value: "▲ ") || headerText.StartsWith(value: "▼ "))
+				if (headerText.StartsWith(value: "▲ ", comparisonType: StringComparison.InvariantCulture) || headerText.StartsWith(value: "▼ ", comparisonType: StringComparison.InvariantCulture))
 				{
 					listViewMembers.Columns[index: i].Text = headerText[2..];
 				}
@@ -470,13 +451,13 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 		// We retrieve the PlanetoidEntry for the requested item index from the selected family's member list. We then create a new ListViewItem with the planetoid's index as the main text and add subitems for the name, semi-major axis, eccentricity, inclination, mean anomaly, argument of perihelion, and longitude of ascending node. Each numerical value is formatted to four decimal places using invariant culture to ensure consistent formatting regardless of the user's locale.
 		PlanetoidEntry p = _selectedFamily.Members[index: e.ItemIndex];
 		ListViewItem item = new(text: p.Index);
-		item.SubItems.Add(text: p.Name);
-		item.SubItems.Add(text: p.SemiMajorAxis.ToString(format: "F4", provider: CultureInfo.InvariantCulture));
-		item.SubItems.Add(text: p.Eccentricity.ToString(format: "F4", provider: CultureInfo.InvariantCulture));
-		item.SubItems.Add(text: p.Inclination.ToString(format: "F4", provider: CultureInfo.InvariantCulture));
-		item.SubItems.Add(text: p.MeanAnomaly.ToString(format: "F4", provider: CultureInfo.InvariantCulture));
-		item.SubItems.Add(text: p.ArgPeri.ToString(format: "F4", provider: CultureInfo.InvariantCulture));
-		item.SubItems.Add(text: p.LongAscNode.ToString(format: "F4", provider: CultureInfo.InvariantCulture));
+		_ = item.SubItems.Add(text: p.Name);
+		_ = item.SubItems.Add(text: p.SemiMajorAxis.ToString(format: "F4", provider: CultureInfo.InvariantCulture));
+		_ = item.SubItems.Add(text: p.Eccentricity.ToString(format: "F4", provider: CultureInfo.InvariantCulture));
+		_ = item.SubItems.Add(text: p.Inclination.ToString(format: "F4", provider: CultureInfo.InvariantCulture));
+		_ = item.SubItems.Add(text: p.MeanAnomaly.ToString(format: "F4", provider: CultureInfo.InvariantCulture));
+		_ = item.SubItems.Add(text: p.ArgPeri.ToString(format: "F4", provider: CultureInfo.InvariantCulture));
+		_ = item.SubItems.Add(text: p.LongAscNode.ToString(format: "F4", provider: CultureInfo.InvariantCulture));
 		e.Item = item;
 	}
 
@@ -495,7 +476,7 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 		if (_planetoids.Count == 0)
 		{
 			logger.Warn(message: "No planetoid data available for family detection.");
-			KryptonMessageBox.Show(owner: this, text: "No planetoid data available.", caption: "Information", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+			_ = KryptonMessageBox.Show(owner: this, text: "No planetoid data available.", caption: "Information", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 			return;
 		}
 		// Disable the Start button and enable the Cancel button while detection is in progress. Also disable save buttons until results are available.
@@ -530,7 +511,7 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 			TaskbarProgress.SetValue(windowHandle: Handle, progressValue: (ulong)percent, progressMax: 100);
 		});
 		// Start the detection process on a background thread to keep the UI responsive.
-		await Task.Run(function: () => PerformDetectionAsync(tolA: tolA, tolE: tolE, tolI: tolI, minMembers: minMembers, progress: progress, cancellationToken: _cancellationTokenSource.Token));
+		await Task.Run(function: () => PerformDetectionAsync(tolA: tolA, tolE: tolE, tolI: tolI, minMembers: minMembers, progress: progress, cancellationToken: _cancellationTokenSource.Token)).ConfigureAwait(continueOnCapturedContext: true);
 	}
 
 	/// <summary>Cancels the ongoing detection when the Cancel button is clicked.</summary>
@@ -562,7 +543,7 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 			logger.Warn(message: "No family selected for saving. Please select a family from the tree view before attempting to save.");
 			return;
 		}
-		await SaveFamiliesToFileAsync(families: [_selectedFamily]);
+		await SaveFamiliesToFileAsync(families: [_selectedFamily]).ConfigureAwait(continueOnCapturedContext: true);
 	}
 
 	/// <summary>Saves all detected families to a single text file.</summary>
@@ -579,7 +560,7 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 			return;
 		}
 		// We call the SaveFamiliesToFile method with the entire list of detected families to save them all to a single text file.
-		await SaveFamiliesToFileAsync(families: _families);
+		await SaveFamiliesToFileAsync(families: _families).ConfigureAwait(continueOnCapturedContext: true);
 	}
 
 	/// <summary>Handles the Click event of the 'Go to object' toolbar button.</summary>
@@ -625,7 +606,7 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 		{
 			// Remove any existing sort indicator from the header text
 			string headerText = listViewMembers.Columns[index: i].Text;
-			if (headerText.StartsWith(value: "▲ ") || headerText.StartsWith(value: "▼ "))
+			if (headerText.StartsWith(value: "▲ ", comparisonType: StringComparison.InvariantCulture) || headerText.StartsWith(value: "▼ ", comparisonType: StringComparison.InvariantCulture))
 			{
 				headerText = headerText[2..];
 			}

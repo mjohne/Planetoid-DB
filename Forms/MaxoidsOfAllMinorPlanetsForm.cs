@@ -27,9 +27,9 @@ namespace Planetoid_DB;
 
 /// <summary>Form for displaying the Maximum Orbit Intersection Distance (MAXOID) of all minor planets relative to each of the eight solar system planets.</summary>
 /// <remarks>This form iterates over all planetoids in the database and computes their MAXOIDs with respect to all eight planets. Results are presented in a ListView where each row corresponds to one planetoid and the eight MAXOID columns correspond to Mercury through Neptune. The user can start and cancel the calculation at any time and track progress via the integrated progress bar.</remarks>
-// You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
-[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-public partial class MaxoidsOfAllMinorPlanetsForm : BaseKryptonForm
+// You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
+[DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
+internal partial class MaxoidsOfAllMinorPlanetsForm : BaseKryptonForm
 {
 	#region Export override properties
 
@@ -111,8 +111,8 @@ public partial class MaxoidsOfAllMinorPlanetsForm : BaseKryptonForm
 
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>This method is primarily intended for debugging purposes.</remarks>
-	private string GetDebuggerDisplay() => ToString();
+	/// <remarks>This property is primarily intended for debugging purposes.</remarks>
+	private string DebuggerDisplay => ToString();
 
 	/// <summary>Selects the currently highlighted planetoid in the main form and navigates to its record in the owner form, if applicable.</summary>
 	/// <returns><see langword="true"/> if navigation was performed; otherwise, <see langword="false"/>.</returns>
@@ -232,17 +232,23 @@ public partial class MaxoidsOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>Column 0 (Planetoid) is sorted as a string; all other columns (MAXOID values) are sorted numerically.</remarks>
 	private void SortResults()
 	{
+		// If no sort column is selected, do not perform any sorting
 		int col = sortColumn;
 		bool ascending = sortOrder == SortOrder.Ascending;
+		// Sort the results based on the selected column and order
 		if (col == ColumnIndexPlanetoid)
 		{
+			// Sort by Planetoid name (case-insensitive)
 			_results = ascending
 				? [.. _results.OrderBy(keySelector: static r => r.PlanetoidName, comparer: StringComparer.OrdinalIgnoreCase)]
 				: [.. _results.OrderByDescending(keySelector: static r => r.PlanetoidName, comparer: StringComparer.OrdinalIgnoreCase)];
 		}
+		// Sort by MAXOID values for the selected planet column (1-8)
 		else if (col is >= 1 and <= PlanetCount)
 		{
+			// Convert the column index to a zero-based planet index (0-7)
 			int planetIndex = col - 1;
+			// Sort by the MAXOID value for the selected planet
 			_results = ascending
 				? [.. _results.OrderBy(keySelector: r => r.Maxoids[planetIndex])]
 				: [.. _results.OrderByDescending(keySelector: r => r.Maxoids[planetIndex])];
@@ -257,8 +263,10 @@ public partial class MaxoidsOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <param name="sender">Event source (the form).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 	/// <remarks>Clears the status bar when the form is loaded.</remarks>
-	private void MaxoidsOfAllMinorPlanetsForm_Load(object sender, EventArgs e) =>
+	private void MaxoidsOfAllMinorPlanetsForm_Load(object sender, EventArgs e)
+	{
 		ClearStatusBar(label: labelInformation);
+	}
 
 	/// <summary>Handles the FormClosing event. Cancels any running calculation and disposes the cancellation token source.</summary>
 	/// <param name="sender">Event source (the form).</param>
@@ -300,7 +308,7 @@ public partial class MaxoidsOfAllMinorPlanetsForm : BaseKryptonForm
 		string[] subItems = new string[PlanetCount];
 		for (int i = 0; i < PlanetCount; i++)
 		{
-			subItems[i] = result.Maxoids[i].ToString(format: "F6");
+			subItems[i] = result.Maxoids[i].ToString(format: "F6", provider: CultureInfo.InvariantCulture);
 		}
 		item.SubItems.AddRange(items: subItems);
 		e.Item = item;
@@ -357,7 +365,7 @@ public partial class MaxoidsOfAllMinorPlanetsForm : BaseKryptonForm
 					}
 				}
 				logger.Info(message: $"MAXOID calculation completed. Total results: {localResults.Count}");
-			}, cancellationToken: token);
+			}, cancellationToken: token).ConfigureAwait(continueOnCapturedContext: true);
 		}
 		// Catch the OperationCanceledException to handle user cancellation gracefully
 		catch (OperationCanceledException ex)
@@ -501,7 +509,7 @@ public partial class MaxoidsOfAllMinorPlanetsForm : BaseKryptonForm
 	private void ListView_DoubleClick(object sender, EventArgs e)
 	{
 		logger.Info(message: "ListView item double-clicked.");
-		SelectedPlanetoidInMainForm();
+		_ = SelectedPlanetoidInMainForm();
 	}
 
 	#endregion

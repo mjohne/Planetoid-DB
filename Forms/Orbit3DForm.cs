@@ -19,7 +19,10 @@ using OpenTK.GLControl;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Windowing.Common;
 
+using Planetoid_DB.Forms;
+
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 
 using BlendingFactor = OpenTK.Graphics.OpenGL.BlendingFactor;  // Explicit alias to resolve ambiguity
@@ -33,12 +36,13 @@ using PrimitiveType = OpenTK.Graphics.OpenGL.PrimitiveType;  // Explicit alias t
 namespace Planetoid_DB;
 
 /// <summary>Displays a 3D orbital visualization of a selected minor planet relative to the eight solar system planets.</summary>
-/// <remarks><para>The form renders the orbit of the selected planetoid and all eight solar system planets as 3D ellipses in the ecliptic coordinate frame using OpenTK/OpenGL. The Sun is represented as a yellow point at the origin.</para>
 /// <para>Interaction: left-drag to rotate the view, right-drag to pan, scroll wheel to zoom in/out.</para>
 /// <para>The part of the planetoid's orbit that lies below the ecliptic plane (ecliptic Z &lt; 0) is highlighted with a semi-transparent violet color and a projected shadow on the ecliptic plane.</para>
 /// <para>Current positions of the Sun, planets and the planetoid are computed from the current UTC date/time and the provided Keplerian orbital elements propagated via mean motion.</para></remarks>
-[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-public partial class Orbit3DForm : BaseKryptonForm
+/// <remarks><para>The form renders the orbit of the selected planetoid and all eight solar system planets as 3D ellipses in the ecliptic coordinate frame using OpenTK/OpenGL. The Sun is represented as a yellow point at the origin.</para>
+// You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
+[DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
+internal partial class Orbit3DForm : BaseKryptonForm
 {
 	/// <summary>NLog logger instance.</summary>
 	/// <remarks>This logger is used for logging informational messages and debugging output from the form.</remarks>
@@ -121,7 +125,8 @@ public partial class Orbit3DForm : BaseKryptonForm
 	private bool _glReady;
 
 	/// <summary>The embedded OpenTK GLControl that provides the OpenGL rendering surface.</summary>
-	/// <remarks>This field stores the embedded OpenTK GLControl that provides the OpenGL rendering surface.</remarks>
+	/// <remarks>This field stores the embedded OpenTK GLControl that provides the OpenGL rendering surface. Its lifetime is owned by <c>panelGl.Controls</c>, which disposes child controls when the form is disposed.</remarks>
+	[SuppressMessage(category: "Usage", checkId: "CA2213:Disposable fields should be disposed", Justification = "The GLControl is owned and disposed by panelGl.Controls.")]
 	private GLControl _glControl = null!;
 
 	/// <summary>Cached orbit point arrays for each of the eight solar system planets, computed once on load.</summary>
@@ -170,15 +175,7 @@ public partial class Orbit3DForm : BaseKryptonForm
 	/// <param name="meanAnomalyDeg">Mean anomaly at the reference epoch in degrees.</param>
 	/// <param name="epochMpcorb">MPCORB packed epoch string (e.g. "K254Q").</param>
 	/// <remarks>All orbital elements are stored for use during rendering. The OpenGL context is created programmatically in <see cref="Orbit3DForm_Load"/> after the designer components have been initialized.</remarks>
-	public Orbit3DForm(
-		string planetoidName,
-		double semiMajorAxis,
-		double eccentricity,
-		double inclinationDeg,
-		double longitudeAscendingNodeDeg,
-		double argumentPerihelionDeg,
-		double meanAnomalyDeg,
-		string epochMpcorb)
+	public Orbit3DForm(string planetoidName, double semiMajorAxis, double eccentricity, double inclinationDeg, double longitudeAscendingNodeDeg, double argumentPerihelionDeg, double meanAnomalyDeg, string epochMpcorb)
 	{
 		InitializeComponent();
 		_planetoidName = planetoidName;
@@ -208,7 +205,8 @@ public partial class Orbit3DForm : BaseKryptonForm
 
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	private string GetDebuggerDisplay() => ToString();
+	/// <remarks>This property is used by the debugger to display the state of the <see cref="Orbit3DForm"/> instance in a concise format. It currently returns the same string as <c>ToString()</c>, but can be customized to include more specific information if needed.</remarks>
+	private string DebuggerDisplay => ToString();
 
 	/// <summary>Creates and configures the embedded <see cref="GLControl"/> and adds it to the GL panel.</summary>
 	/// <remarks>The control is created with an OpenGL compatibility-profile context so that the immediate-mode GL functions (glBegin/glEnd) used for rendering are available.</remarks>
@@ -420,7 +418,11 @@ public partial class Orbit3DForm : BaseKryptonForm
 	/// <param name="ey">Ecliptic Y in AU.</param>
 	/// <param name="ez">Ecliptic Z in AU (positive = above ecliptic plane).</param>
 	/// <returns>OpenGL (glX, glY, glZ) floats.</returns>
-	private static (float Gx, float Gy, float Gz) EclToGl(double ex, double ey, double ez) => ((float)ex, (float)ez, (float)-ey);
+	private static (float Gx, float Gy, float Gz) EclToGl(double ex, double ey, double ez)
+	{
+		// OpenGL coordinate system: X=right, Y=up, Z=toward viewer
+		return ((float)ex, (float)ez, (float)-ey);
+	}
 
 	// ---- OpenGL rendering ----
 
@@ -739,7 +741,16 @@ public partial class Orbit3DForm : BaseKryptonForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">Paint event arguments.</param>
 	/// <remarks>Triggers rendering of the 3D scene whenever the GL control needs to be repainted.</remarks>
-	private void GlControl_Paint(object? sender, PaintEventArgs e) => RenderScene();
+	private void GlControl_Paint(object? sender, PaintEventArgs e)
+	{
+		// Only render if the OpenGL context is ready; otherwise, skip to avoid exceptions.
+		if (!_glReady)
+		{
+			logger.Warn(message: "OpenGL context is not ready; skipping paint event.");
+			return;
+		}
+		RenderScene();
+	}
 
 	/// <summary>Handles the <see cref="Control.Resize"/> event of the GL control to update the viewport.</summary>
 	/// <param name="sender">The event source.</param>
@@ -749,7 +760,7 @@ public partial class Orbit3DForm : BaseKryptonForm
 	{
 		if (!_glReady)
 		{
-			logger.Error(message: "OpenGL context is not ready; skipping resize handling.");
+			logger.Warn(message: "OpenGL context is not ready; skipping resize handling.");
 			return;
 		}
 		_glControl.MakeCurrent();

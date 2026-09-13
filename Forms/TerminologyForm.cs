@@ -13,28 +13,36 @@
  * See LICENSE file in the project root for license information.
  */
 
+using NLog;
+
 using Planetoid_DB.Forms;
 
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Globalization;
 
 namespace Planetoid_DB;
 
 /// <summary>Represents a form that displays terminology information.</summary>
 /// <remarks>This form provides a user interface for viewing and managing terminology information.</remarks>
-// You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
-[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-public partial class TerminologyForm : BaseKryptonForm
+// You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
+[DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
+internal partial class TerminologyForm : BaseKryptonForm
 {
-	private TerminologyElement _selectedElement = TerminologyElement.IndexNumber;
+	/// <summary>NLog logger instance.</summary>
+	/// <remarks>This logger is used throughout the form to log important events and errors.</remarks>
+	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
 	#region constructor
 
 	/// <summary>Initializes a new instance of the <see cref="TerminologyForm"/> class.</summary>
 	/// <remarks>This constructor initializes the form components. </remarks>
-	public TerminologyForm() =>
+	public TerminologyForm()
+	{
+		logger.Info(message: "Initializing TerminologyForm.");
 		// Initialize the form components
 		InitializeComponent();
+	}
 
 	#endregion
 
@@ -43,7 +51,7 @@ public partial class TerminologyForm : BaseKryptonForm
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
 	/// <remarks>This method is used to provide a visual representation of the object in the debugger.</remarks>
-	private string GetDebuggerDisplay() => ToString();
+	private string DebuggerDisplay => ToString();
 
 	/// <summary>Gets the status label to be used for displaying information.</summary>
 	/// <remarks>Derived classes should override this property to provide the specific label.</remarks>
@@ -56,7 +64,7 @@ public partial class TerminologyForm : BaseKryptonForm
 		// Construct the resource key based on the selected element
 		string resourceKey = $"terminology_{SelectedElement}";
 		// Attempt to retrieve the corresponding string from the resource manager
-		string? text = I18nStrings.ResourceManager.GetString(name: resourceKey);
+		string? text = I18nStrings.ResourceManager.GetString(name: resourceKey, culture: CultureInfo.CurrentUICulture);
 		// Fallback to IndexNumber if not found to avoid empty screen
 		webBrowser.DocumentText = text ?? I18nStrings.terminology_IndexNumber;
 	}
@@ -68,16 +76,16 @@ public partial class TerminologyForm : BaseKryptonForm
 	public TerminologyElement SelectedElement
 	{
 		// Gets or sets the currently selected terminology element. Automatically updates the display when set.
-		get => _selectedElement;
+		get;
 		set
 		{
 			// Guard Clause: Prevents unnecessary updates if the selected element is already set to the specified value.
-			if (_selectedElement == value)
+			if (field == value)
 			{
 				return;
 			}
 			// Update the selected element and refresh the browser content
-			_selectedElement = value;
+			field = value;
 			UpdateBrowserContent();
 			// Update the list box selection to reflect the new selected element
 			int newIndex = (int)value;
@@ -86,7 +94,7 @@ public partial class TerminologyForm : BaseKryptonForm
 				listBox.SelectedIndex = newIndex;
 			}
 		}
-	}
+	} = TerminologyElement.IndexNumber;
 
 	#endregion
 
@@ -98,6 +106,7 @@ public partial class TerminologyForm : BaseKryptonForm
 	/// <remarks>This event is triggered when the form has finished loading.</remarks>
 	private void TerminologyForm_Load(object sender, EventArgs e)
 	{
+		logger.Info(message: "TerminologyForm loaded.");
 		// Initial update of the browser content
 		UpdateBrowserContent();
 		// Clear the status bar text

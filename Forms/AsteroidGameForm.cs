@@ -18,7 +18,10 @@ using NLog;
 using OpenTK.GLControl;
 using OpenTK.Windowing.Common;
 
+using Planetoid_DB.Forms;
+
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 
 using BlendingFactor = OpenTK.Graphics.OpenGL.BlendingFactor;  // Explicit alias to resolve ambiguity
 using EnableCap = OpenTK.Graphics.OpenGL.EnableCap;  // Explicit alias to resolve ambiguity
@@ -34,8 +37,9 @@ namespace Planetoid_DB;
 /// <remarks><para>The form implements the classic Asteroids game where the player controls a triangular ship and must destroy asteroids by shooting them. Larger asteroids break into smaller pieces when hit.</para>
 /// <para>Controls: Arrow keys to rotate and thrust, Space to shoot, Enter to start a new game.</para>
 /// <para>The game uses OpenGL for rendering and implements simple 2D physics for movement and collision detection.</para></remarks>
-[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-public partial class AsteroidGameForm : BaseKryptonForm
+// You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
+[DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
+internal partial class AsteroidGameForm : BaseKryptonForm
 {
 	/// <summary>NLog logger instance.</summary>
 	/// <remarks>This logger is used for logging informational messages and debugging output from the form.</remarks>
@@ -141,138 +145,6 @@ public partial class AsteroidGameForm : BaseKryptonForm
 	/// <remarks>This constant controls the maximum speed of large asteroids. Smaller asteroids are proportionally faster based on their size. Reduce this value to slow all asteroids down; increase it to make them faster.</remarks>
 	private const float AsteroidMaxSpeed = 2f;
 
-	#region Nested Types
-
-	/// <summary>Represents the game state.</summary>
-	/// <remarks>The game can be in one of three states: Ready (waiting for the player to start), Playing (active gameplay), or GameOver (the player has lost all lives). The state affects what is rendered on the screen and how input is handled. For example, in the Ready state, the game may display a title screen and wait for the player to press Enter to start, while in the GameOver state, it may display a game over message and the final score.</remarks>
-	private enum GameState
-	{
-		/// <summary>Game is ready to start.</summary>
-		/// <remarks>In this state, the game displays a title screen and waits for the player to press Enter to start a new game. No gameplay occurs in this state, and the ship, asteroids, and bullets are not active.</remarks>
-		Ready,
-		/// <summary>Game is currently being played.</summary>
-		/// <remarks>In this state, the game is active and the player can control the ship, shoot bullets, and interact with asteroids. The game logic updates the positions of all objects, checks for collisions, and handles scoring and lives. The player can lose lives by colliding with asteroids, and the game transitions to GameOver when all lives are lost.</remarks>
-		Playing,
-		/// <summary>Game is over.</summary>
-		/// <remarks>In this state, the player has lost all lives. The game displays a game over message and the final score. The player can press Enter to restart the game, which will transition back to the Ready state and reset all game variables.</remarks>
-		GameOver
-	}
-
-	/// <summary>Represents the player's ship.</summary>
-	/// <remarks>The ship is represented as a simple triangle that can rotate, thrust forward, and shoot bullets. It has properties for its position, velocity, angle, and invulnerability status. The ship can be damaged by colliding with asteroids, which causes it to lose lives and respawn with temporary invulnerability.</remarks>
-	private class Ship
-	{
-		/// <summary>Ship position X coordinate.</summary>
-		/// <remarks>The X coordinate of the ship's position in the game world. The ship's position is updated each frame based on its velocity, and it wraps around the edges of the world. The initial position is typically set to the center of the world when the game starts or when the ship respawns after losing a life.</remarks>
-		public float X { get; set; }
-
-		/// <summary>Ship position Y coordinate.</summary>
-		/// <remarks>The Y coordinate of the ship's position in the game world. Similar to the X coordinate, it is updated based on the ship's velocity and wraps around the edges of the world. The initial Y position is also set to the center of the world at the start of the game or upon respawn.</remarks>
-		public float Y { get; set; }
-
-		/// <summary>Ship velocity X component.</summary>
-		/// <remarks>The X component of the ship's velocity. This value is updated when the player applies thrust and is affected by drag. The velocity determines how the ship moves across the screen, and it is clamped to a maximum speed to prevent it from accelerating indefinitely.</remarks>
-		public float VelocityX { get; set; }
-
-		/// <summary>Ship velocity Y component.</summary>
-		/// <remarks>The Y component of the ship's velocity. Similar to the X component, it is updated based on player input and drag, and it determines the ship's movement in the vertical direction. The velocity is also clamped to a maximum speed for balanced gameplay.</remarks>
-		public float VelocityY { get; set; }
-
-		/// <summary>Ship rotation angle in degrees (0 = pointing up).</summary>
-		/// <remarks>The angle of the ship in degrees. This value determines the direction the ship is facing and is used to calculate the direction of thrust and bullets. The angle is updated based on player input, allowing the ship to rotate left or right.</remarks>
-		public float Angle { get; set; }
-
-		/// <summary>Ship size (radius for collision detection).</summary>
-		/// <remarks>The size of the ship, which is used for collision detection with asteroids. This value represents the radius of the ship's collision circle. A larger size makes it easier for the player to collide with asteroids, while a smaller size requires more precise maneuvering to avoid collisions. The visual representation of the ship may be a triangle, but for simplicity in collision detection, it is treated as a circle with this radius.</remarks>
-		public const float Size = 1.5f;
-
-		/// <summary>Whether the ship is currently invulnerable (after respawn).</summary>
-		/// <remarks>When the ship respawns after losing a life, it becomes temporarily invulnerable to give the player a chance to get back into the game. During this time, the ship cannot be damaged by asteroids. The invulnerability status is typically indicated visually (e.g., flashing or semi-transparent) to let the player know they are safe for a short period.</remarks>
-		public bool Invulnerable { get; set; }
-
-		/// <summary>Time remaining for invulnerability in seconds.</summary>
-		/// <remarks>This value counts down from a set duration (e.g., 3 seconds) when the ship respawns. Once it reaches zero, the ship's invulnerability status is set to false, and it can be damaged by asteroids again. This timer is updated each frame during the game update logic.</remarks>
-		public float InvulnerabilityTime { get; set; }
-	}
-
-	/// <summary>Represents an asteroid.</summary>
-	/// <remarks>The asteroid is represented as a circle with a certain radius based on its size. It has properties for its position, velocity, angle, rotation speed, and size. Asteroids move across the screen and can collide with the ship and bullets. When hit by a bullet, larger asteroids break into smaller pieces, while small asteroids are destroyed completely.</remarks>
-	private class Asteroid
-	{
-		/// <summary>Asteroid position X coordinate.</summary>		  
-		/// <remarks>The X coordinate of the asteroid's position on the screen. This value is updated each frame based on the asteroid's velocity and is used for rendering and collision detection.</remarks>
-		public float X { get; set; }
-
-		/// <summary>Asteroid position Y coordinate.</summary>
-		/// <remarks>The Y coordinate of the asteroid's position on the screen. Similar to the X coordinate, it is updated based on the asteroid's velocity and is used for rendering and collision detection.</remarks>
-		public float Y { get; set; }
-
-		/// <summary>Asteroid velocity X component.</summary>
-		/// <remarks>The X component of the asteroid's velocity. This value determines how fast the asteroid moves horizontally across the screen. The velocity is randomized when the asteroid is spawned, with smaller asteroids typically having higher velocities than larger ones.</remarks>
-		public float VelocityX { get; set; }
-
-		/// <summary>Asteroid velocity Y component.</summary>
-		/// <remarks>The Y component of the asteroid's velocity. Similar to the X component, it determines the vertical movement of the asteroid. The velocity is also randomized at spawn and contributes to the overall movement pattern of the asteroid on the screen.</remarks>
-		public float VelocityY { get; set; }
-
-		/// <summary>Asteroid rotation angle in degrees.</summary>
-		/// <remarks>The angle of the asteroid in degrees. This value is used to rotate the asteroid when rendering, giving it a more dynamic and natural appearance. The angle is updated each frame based on the asteroid's rotation speed.</remarks>
-		public float Angle { get; set; }
-
-		/// <summary>Asteroid rotation speed in degrees per frame.</summary>
-		/// <remarks>The speed at which the asteroid rotates. A positive value means the asteroid rotates clockwise, while a negative value means it rotates counterclockwise. The rotation speed is randomized when the asteroid is spawned, adding variety to the movement and appearance of asteroids in the game.</remarks>
-		public float RotationSpeed { get; set; }
-
-		/// <summary>Asteroid size (0 = large, 1 = medium, 2 = small).</summary>
-		/// <remarks>The size of the asteroid, which determines its radius for collision detection and its score value when destroyed. Larger asteroids have a size of 0, medium asteroids have a size of 1, and small asteroids have a size of 2. When a large asteroid is hit by a bullet, it breaks into two medium asteroids, and when a medium asteroid is hit, it breaks into two small asteroids. Small asteroids are destroyed completely when hit.</remarks>
-		public int Size { get; set; }
-
-		/// <summary>Gets the collision radius for this asteroid based on its size.</summary>
-		/// <remarks>The collision radius is determined by the asteroid's size. Larger asteroids have a larger radius, making them easier to hit, while smaller asteroids have a smaller radius, making them harder to hit.</remarks>
-		public float Radius => Size switch
-		{
-			0 => 3.5f,  // Large
-			1 => 2.0f,  // Medium
-			_ => 1.0f   // Small
-		};
-
-		/// <summary>Gets the score value for destroying this asteroid.</summary>
-		/// <remarks>The score value is determined by the asteroid's size. Larger asteroids yield fewer points, while smaller asteroids yield more points, reflecting the increased difficulty in destroying them.</remarks>
-		public int ScoreValue => Size switch
-		{
-			0 => 20,   // Large
-			1 => 50,   // Medium
-			_ => 100   // Small
-		};
-	}
-
-	/// <summary>Represents a bullet.</summary>
-	/// <remarks>The bullet is represented as a small point that moves in a straight line from the ship's position at the time of firing. It has properties for its position, velocity, and remaining lifetime. Bullets are removed from the game when they exceed their lifetime or when they collide with an asteroid.</remarks>
-	private class Bullet
-	{
-		/// <summary>Bullet position X coordinate.</summary>
-		/// <remarks>The X coordinate of the bullet's position in the game world. This value is updated each frame based on the bullet's velocity, and it wraps around the edges of the world. The initial position of the bullet is typically set to the tip of the ship when fired, and its velocity is determined by the ship's current velocity plus a component in the direction the ship is facing.</remarks>
-		public float X { get; set; }
-
-		/// <summary>Bullet position Y coordinate.</summary>
-		/// <remarks>The Y coordinate of the bullet's position in the game world. Similar to the X coordinate, it is updated based on the bullet's velocity and wraps around the edges of the world. The initial Y position is also set to the tip of the ship when fired, and its velocity is influenced by the ship's current velocity and direction.</remarks>
-		public float Y { get; set; }
-
-		/// <summary>Bullet velocity X component.</summary>
-		/// <remarks>The X component of the bullet's velocity. This value is calculated when the bullet is fired, based on the ship's current velocity and the direction the ship is facing. The bullet's velocity determines how fast it moves across the screen, and it is typically faster than the ship's maximum speed to allow for effective shooting.</remarks>
-		public float VelocityX { get; set; }
-
-		/// <summary>Bullet velocity Y component.</summary>
-		/// <remarks>The Y component of the bullet's velocity. Similar to the X component, it is calculated based on the ship's velocity and direction at the time of firing. The bullet's velocity in both X and Y directions determines its trajectory across the screen, and it is designed to allow the player to hit asteroids effectively while providing a sense of speed and responsiveness.</remarks>
-		public float VelocityY { get; set; }
-
-		/// <summary>Bullet lifetime remaining in seconds.</summary>
-		/// <remarks>The remaining lifetime of the bullet in seconds. This value decreases over time and determines how long the bullet remains active in the game. When the lifetime reaches zero, the bullet is removed from the game.</remarks>
-		public float Lifetime { get; set; } = BulletLifetime;
-	}
-
-	#endregion
-
 	#region Constructor
 
 	/// <summary>Initializes a new instance of the <see cref="AsteroidGameForm"/> class.</summary>
@@ -292,7 +164,8 @@ public partial class AsteroidGameForm : BaseKryptonForm
 
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	private string GetDebuggerDisplay() => ToString();
+	/// <remarks>This property is used by the debugger to display a concise representation of the <see cref="AsteroidGameForm"/> instance. It calls the ToString() method, which can be overridden to provide a custom string representation of the form's state, such as the current game state, score, and number of lives remaining.</remarks>
+	private string DebuggerDisplay => ToString();
 
 	/// <summary>Creates and configures the embedded <see cref="GLControl"/> and adds it to the GL panel.</summary>
 	/// <remarks>The control requests an OpenGL 2.1 context because the renderer uses immediate-mode GL functions such as glBegin/glEnd.</remarks>
@@ -365,6 +238,7 @@ public partial class AsteroidGameForm : BaseKryptonForm
 	/// <param name="x">X position (null for random).</param>
 	/// <param name="y">Y position (null for random).</param>
 	/// <remarks><para>This method creates a new asteroid with the specified size and either a random position or a given position. The asteroid's velocity and rotation speed are randomized based on its size, with smaller asteroids generally moving faster. If no position is provided, the method ensures that the asteroid does not spawn too close to the player's ship to prevent immediate collisions at the start of the game.</para></remarks>
+	[SuppressMessage(category: "Security", checkId: "CA5394:Do not use insecure randomness", Justification = "Random values are used only for non-security-related asteroid game mechanics.")]
 	private void SpawnAsteroid(int size, float? x, float? y)
 	{
 		// Create a new asteroid with randomized velocity and rotation speed based on its size. The position is either random or specified by the parameters.
@@ -1197,9 +1071,11 @@ public partial class AsteroidGameForm : BaseKryptonForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">Event arguments.</param>
 	/// <remarks>Stops the game timer when the form is closing.</remarks>
-	private void AsteroidGameForm_FormClosing(object? sender, FormClosingEventArgs e) =>
+	private void AsteroidGameForm_FormClosing(object? sender, FormClosingEventArgs e)
+	{
 		// Stop the game timer when the form is closing
 		_gameTimer.Stop();
+	}
 
 	/// <summary>Intercepts arrow and space keys before WinForms navigation handling so they always reach the game logic.</summary>
 	/// <param name="msg">The Windows message.</param>
@@ -1217,8 +1093,10 @@ public partial class AsteroidGameForm : BaseKryptonForm
 			case Keys.Up:
 			case Keys.Down:
 			case Keys.Space:
-				_pressedKeys.Add(item: keyCode);
+				_ = _pressedKeys.Add(item: keyCode);
 				return true;
+			default:
+				break;
 		}
 		// For all other keys, call the base implementation to allow normal processing. This ensures that keys that are not specifically handled by our game logic will still be processed by the form as usual, allowing for standard behavior such as navigating between controls or triggering other events.
 		return base.ProcessCmdKey(ref msg, keyData);
@@ -1231,7 +1109,7 @@ public partial class AsteroidGameForm : BaseKryptonForm
 	{
 		// Call the base implementation to ensure that any default key handling is performed. This is important for maintaining standard behavior for keys that are not specifically handled by our game logic, and it allows the form to process other key events as needed. After calling the base method, we add the pressed key to the _pressedKeys set to track its state in the game logic, and we check if the Enter key was pressed to potentially start or restart the game based on the current game state.
 		base.OnKeyDown(e: e);
-		_pressedKeys.Add(item: e.KeyCode);
+		_ = _pressedKeys.Add(item: e.KeyCode);
 		if (e.KeyCode == Keys.Enter)
 		{
 			if (_gameState is GameState.Ready or GameState.GameOver)
@@ -1248,7 +1126,7 @@ public partial class AsteroidGameForm : BaseKryptonForm
 	{
 		// Call the base implementation to ensure that any default key handling is performed. This allows the form to process key releases as needed for keys that are not specifically handled by our game logic. After calling the base method, we remove the released key from the _pressedKeys set to update its state in the game logic, ensuring that we accurately track which keys are currently pressed and which have been released.
 		base.OnKeyUp(e: e);
-		_pressedKeys.Remove(item: e.KeyCode);
+		_ = _pressedKeys.Remove(item: e.KeyCode);
 	}
 
 	/// <summary>Handles the <see cref="Control.KeyDown"/> event of the GL control.</summary>
@@ -1258,7 +1136,7 @@ public partial class AsteroidGameForm : BaseKryptonForm
 	private void GlControl_KeyDown(object? sender, KeyEventArgs e)
 	{
 		// Add the pressed key to the _pressedKeys set to track its state in the game logic. This allows us to respond to key presses such as moving the ship or firing bullets when the GL control has focus. Additionally, if the Enter key is pressed while the game is in the Ready or GameOver state, we call InitializeGame() to start or restart the game. Setting e.Handled to true indicates that we have processed this key event and prevents it from being handled further by other controls or default behavior.
-		_pressedKeys.Add(item: e.KeyCode);
+		_ = _pressedKeys.Add(item: e.KeyCode);
 		if (e.KeyCode == Keys.Enter && _gameState is GameState.Ready or GameState.GameOver)
 		{
 			InitializeGame();
@@ -1273,7 +1151,7 @@ public partial class AsteroidGameForm : BaseKryptonForm
 	private void GlControl_KeyUp(object? sender, KeyEventArgs e)
 	{
 		// Remove the released key from the _pressedKeys set to update its state in the game logic. This ensures that we accurately track which keys are currently pressed and which have been released when the GL control has focus. Setting e.Handled to true indicates that we have processed this key event and prevents it from being handled further by other controls or default behavior.
-		_pressedKeys.Remove(item: e.KeyCode);
+		_ = _pressedKeys.Remove(item: e.KeyCode);
 		e.Handled = true;
 	}
 
@@ -1285,7 +1163,17 @@ public partial class AsteroidGameForm : BaseKryptonForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">Paint event arguments.</param>
 	/// <remarks>Triggers rendering of the game scene whenever the GL control needs to be repainted.</remarks>
-	private void GlControl_Paint(object? sender, PaintEventArgs e) => RenderScene();
+	private void GlControl_Paint(object? sender, PaintEventArgs e)
+	{
+		// If the OpenGL context is not ready, we cannot render the scene, so we return early. This check prevents potential errors that could occur if we try to make OpenGL calls before the context has been properly initialized. If the context is ready, we make it current and call RenderScene() to draw the game scene. This method is invoked whenever the GL control needs to be repainted, such as after a resize or when Invalidate() is called.
+		if (!_glReady)
+		{
+			logger.Warn(message: "GlControl_Paint: OpenGL context not ready, skipping paint handling.");
+			return;
+		}
+		_glControl.MakeCurrent();
+		RenderScene();
+	}
 
 	/// <summary>Handles the <see cref="Control.Resize"/> event of the GL control to update the viewport.</summary>
 	/// <param name="sender">The event source.</param>

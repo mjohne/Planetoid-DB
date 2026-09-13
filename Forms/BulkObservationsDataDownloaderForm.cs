@@ -22,14 +22,16 @@ using Planetoid_DB.Helpers;
 using Planetoid_DB.Resources;
 
 using System.Diagnostics;
+using System.Globalization;
 using System.Text.RegularExpressions;
 
 namespace Planetoid_DB;
 
 /// <summary>Form for bulk-downloading MPC observations data files for a range of minor planets.</summary>
 /// <remarks>The form iterates over all planetoid database records from the configured minimum to the maximum index, fetches the observations HTML page for each, extracts the download link, and saves the data file to <c>%USERPROFILE%\Planetoid-DB\Observations\Data</c>. The download can be started, paused, resumed and cancelled at any time using the toolbar buttons.</remarks>
-[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-public partial class BulkObservationsDataDownloaderForm : BaseKryptonForm
+// You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
+[DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
+internal partial class BulkObservationsDataDownloaderForm : BaseKryptonForm
 {
 	#region Export override properties
 
@@ -150,8 +152,8 @@ public partial class BulkObservationsDataDownloaderForm : BaseKryptonForm
 
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>This method is used to provide a visual representation of the object in the debugger.</remarks>
-	private string GetDebuggerDisplay() => ToString();
+	/// <remarks>This property is used to provide a visual representation of the object in the debugger.</remarks>
+	private string DebuggerDisplay => ToString();
 
 	/// <summary>Sets the minimum index value for the range spinner.</summary>
 	/// <param name="minimum">The minimum 1-based planetoid index (usually 1).</param>
@@ -256,7 +258,7 @@ public partial class BulkObservationsDataDownloaderForm : BaseKryptonForm
 		labelStatusValue.Text = status;
 		labelFileCountValue.Text = $"{downloaded}/{total}";
 		labelFileSizeValue.Text = $"{_currentFileSize:N0} / {_totalBytesDownloaded:N0} {I18nStrings.BytesText}";
-		labelErrorCountValue.Text = _errorCount.ToString();
+		labelErrorCountValue.Text = _errorCount.ToString(provider: CultureInfo.CurrentCulture);
 	}
 
 	/// <summary>Resets all status labels and the progress bar to their initial idle state.</summary>
@@ -299,7 +301,7 @@ public partial class BulkObservationsDataDownloaderForm : BaseKryptonForm
 		string targetDirectory = Path.Combine(
 			Environment.GetFolderPath(folder: Environment.SpecialFolder.UserProfile),
 			ObservationsDataSubPath.Replace(oldChar: '/', newChar: Path.DirectorySeparatorChar));
-		Directory.CreateDirectory(path: targetDirectory);
+		_ = Directory.CreateDirectory(path: targetDirectory);
 		// Start the elapsed-time stopwatch
 		_elapsedStopwatch.Restart();
 		_uiTimer.Start();
@@ -345,8 +347,10 @@ public partial class BulkObservationsDataDownloaderForm : BaseKryptonForm
 					string statusMsg = $"Loading page: {pageUrl}";
 					UpdateStatusLabels(status: statusMsg, downloaded: downloaded, total: total);
 					logger.Debug(message: statusMsg);
-					// Fetch the HTML page
-					string html = await _httpClient.GetStringAsync(requestUri: pageUrl, cancellationToken: token).ConfigureAwait(continueOnCapturedContext: true);
+					// Fetch the HTML page for the planetoid
+					Uri pageUri = new(pageUrl, UriKind.Absolute);
+					// Use GetStringAsync to retrieve the HTML content as a string
+					string html = await _httpClient.GetStringAsync(requestUri: pageUri, cancellationToken: token).ConfigureAwait(continueOnCapturedContext: true);
 					// Locate the Observations section heading
 					int observationsHeadingIndex = html.IndexOf(value: "<h2>Observations</h2>", comparisonType: StringComparison.Ordinal);
 					if (observationsHeadingIndex < 0)
@@ -382,22 +386,28 @@ public partial class BulkObservationsDataDownloaderForm : BaseKryptonForm
 						token.ThrowIfCancellationRequested();
 					}
 					// Download the file and save it to disk
-					using HttpResponseMessage response = await _httpClient.GetAsync(requestUri: absoluteUrl, completionOption: HttpCompletionOption.ResponseHeadersRead, cancellationToken: token).ConfigureAwait(continueOnCapturedContext: true);
+					Uri downloadUri = new(absoluteUrl, UriKind.Absolute);
+					// Use GetAsync with ResponseHeadersRead to start streaming the content without buffering the entire response
+					using HttpResponseMessage response = await _httpClient.GetAsync(requestUri: downloadUri, completionOption: HttpCompletionOption.ResponseHeadersRead, cancellationToken: token).ConfigureAwait(continueOnCapturedContext: true);
 					_ = response.EnsureSuccessStatusCode();
 					// Track file size for the status display
 					_currentFileSize = response.Content.Headers.ContentLength ?? 0;
-					await using Stream contentStream = await response.Content.ReadAsStreamAsync(cancellationToken: token).ConfigureAwait(continueOnCapturedContext: true);
-					await using FileStream fileStream = new(path: localFilePath, mode: FileMode.Create, access: FileAccess.Write, share: FileShare.None, bufferSize: 8192, useAsync: true);
-					string savingStatus = $"Saving file: {localFilePath}";
-					UpdateStatusLabels(status: savingStatus, downloaded: downloaded, total: total);
-					logger.Debug(message: savingStatus);
-					await contentStream.CopyToAsync(destination: fileStream, cancellationToken: token).ConfigureAwait(continueOnCapturedContext: true);
-					// Accumulate the total bytes after saving
-					_totalBytesDownloaded += _currentFileSize > 0 ? _currentFileSize : fileStream.Length;
-					// Increment the success counter and refresh progress
-					downloaded++;
-					UpdateProgress(downloaded: downloaded, total: total);
-					UpdateStatusLabels(status: $"Saved: {fileName}", downloaded: downloaded, total: total);
+					Stream contentStream = await response.Content.ReadAsStreamAsync(cancellationToken: token).ConfigureAwait(continueOnCapturedContext: true);
+					FileStream fileStream = new(path: localFilePath, mode: FileMode.Create, access: FileAccess.Write, share: FileShare.None, bufferSize: 8192, useAsync: true);
+					// Use await using to ensure streams are disposed properly
+					await using (contentStream.ConfigureAwait(continueOnCapturedContext: true)) await using (fileStream.ConfigureAwait(continueOnCapturedContext: true))
+					{
+						string savingStatus = $"Saving file: {localFilePath}";
+						UpdateStatusLabels(status: savingStatus, downloaded: downloaded, total: total);
+						logger.Debug(message: savingStatus);
+						await contentStream.CopyToAsync(destination: fileStream, cancellationToken: token).ConfigureAwait(continueOnCapturedContext: true);
+
+						// Accumulate the total bytes after saving
+						_totalBytesDownloaded += _currentFileSize > 0 ? _currentFileSize : fileStream.Length;
+						downloaded++;
+						UpdateProgress(downloaded: downloaded, total: total);
+						UpdateStatusLabels(status: $"Saved: {fileName}", downloaded: downloaded, total: total);
+					}
 				}
 				// A single file failure must not abort the entire session; log, count, and continue
 				catch (OperationCanceledException ex)
@@ -493,7 +503,7 @@ public partial class BulkObservationsDataDownloaderForm : BaseKryptonForm
 		_cancellationTokenSource?.Cancel();
 		// Resume any awaiting pause so the download task can observe the cancellation
 		_isPaused = false;
-		_resumeTcs?.TrySetResult(result: true);
+		_ = _resumeTcs?.TrySetResult(result: true);
 		// Stop the UI timer
 		_uiTimer.Stop();
 	}
@@ -531,7 +541,7 @@ public partial class BulkObservationsDataDownloaderForm : BaseKryptonForm
 			TaskCompletionSource<bool>? tcs = _resumeTcs;
 			_resumeTcs = null;
 			logger.Info(message: "Resuming download.");
-			tcs?.TrySetResult(result: true);
+			_ = tcs?.TrySetResult(result: true);
 			buttonStart.Text = "&Pause";
 			buttonStart.Image = FatcowIcons16px.fatcow_control_pause_16px;
 			SetStatusBar(label: labelInformation, text: "Download resumed.");
@@ -611,7 +621,7 @@ public partial class BulkObservationsDataDownloaderForm : BaseKryptonForm
 			_isPaused = false;
 			TaskCompletionSource<bool>? tcs = _resumeTcs;
 			_resumeTcs = null;
-			tcs?.TrySetResult(result: true);
+			_ = tcs?.TrySetResult(result: true);
 		}
 		_cancellationTokenSource?.Cancel();
 		buttonCancel.Enabled = false;

@@ -27,9 +27,9 @@ namespace Planetoid_DB;
 
 /// <summary>Form for displaying the Minimum Orbit Intersection Distance (MOID) of all minor planets relative to each of the eight solar system planets.</summary>
 /// <remarks>This form iterates over all planetoids in the database and computes their MOIDs with respect to all eight planets. Results are presented in a ListView where each row corresponds to one planetoid and the eight MOID columns correspond to Mercury through Neptune. The user can start and cancel the calculation at any time and track progress via the integrated progress bar.</remarks>
-// You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
-[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-public partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
+// You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
+[DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
+internal partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 {
 	#region Export override properties
 
@@ -118,8 +118,8 @@ public partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>This method is primarily intended for debugging purposes.</remarks>
-	private string GetDebuggerDisplay() => ToString();
+	/// <remarks>This property is primarily intended for debugging purposes.</remarks>
+	private string DebuggerDisplay => ToString();
 
 	/// <summary>Selects the currently highlighted planetoid in the main form and navigates to its record in the owner form, if applicable.</summary>
 	/// <returns><see langword="true"/> if navigation was performed; otherwise, <see langword="false"/>.</returns>
@@ -155,7 +155,10 @@ public partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 
 	/// <summary>Updates the enabled state of the "Go to object" button.</summary>
 	/// <remarks>The button is enabled only when a result row is selected.</remarks>
-	private void UpdateGoToObjectButtonState() => toolStripButtonGoToObject.Enabled = listView.SelectedIndices.Count > 0;
+	private void UpdateGoToObjectButtonState()
+	{
+		toolStripButtonGoToObject.Enabled = listView.SelectedIndices.Count > 0;
+	}
 
 	/// <summary>Updates the progress bar value and text label.</summary>
 	/// <param name="percent">Progress value from 0 to 100.</param>
@@ -271,7 +274,10 @@ public partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <param name="sender">Event source (the form).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 	/// <remarks>Clears the status bar when the form is loaded.</remarks>
-	private void MoidsOfAllMinorPlanetsForm_Load(object sender, EventArgs e) => ClearStatusBar(label: labelInformation);
+	private void MoidsOfAllMinorPlanetsForm_Load(object sender, EventArgs e)
+	{
+		ClearStatusBar(label: labelInformation);
+	}
 
 	/// <summary>Handles the FormClosing event. Cancels any running calculation.</summary>
 	/// <param name="sender">Event source (the form).</param>
@@ -308,7 +314,7 @@ public partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 		// Add the MOID values for each planet as subitems
 		for (int i = 0; i < PlanetCount; i++)
 		{
-			item.SubItems.Add(text: result.Moids[i].ToString(provider: CultureInfo.InvariantCulture));
+			_ = item.SubItems.Add(text: result.Moids[i].ToString(provider: CultureInfo.InvariantCulture));
 		}
 		// Assign the constructed ListViewItem to the event args
 		e.Item = item;
@@ -400,7 +406,7 @@ public partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 				logger.Info(message: $"MOID calculation completed. Total results: {threadSafeResults.Count}");
 				// Return the aggregated results from all threads
 				return threadSafeResults;
-			}, token);
+			}, token).ConfigureAwait(continueOnCapturedContext: true);
 			// Update the main results list on the UI thread after successful completion
 			_results = localResults;
 		}
@@ -529,7 +535,10 @@ public partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
 	/// <remarks>Enables the "Go to object" button when a row is selected.</remarks>
-	private void ListView_SelectedIndexChanged(object sender, EventArgs e) => UpdateGoToObjectButtonState();
+	private void ListView_SelectedIndexChanged(object sender, EventArgs e)
+	{
+		UpdateGoToObjectButtonState();
+	}
 
 	#endregion
 
@@ -542,7 +551,7 @@ public partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 	private void ListView_DoubleClick(object sender, EventArgs e)
 	{
 		logger.Info(message: "ListView item double-clicked. Navigating to selected planetoid in main form.");
-		SelectedPlanetoidInMainForm();
+		_ = SelectedPlanetoidInMainForm();
 	}
 
 	#endregion

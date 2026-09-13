@@ -17,6 +17,7 @@ using Krypton.Toolkit;
 
 using NLog;
 
+using Planetoid_DB.Forms;
 using Planetoid_DB.Helpers;
 
 using System.Diagnostics;
@@ -27,9 +28,9 @@ namespace Planetoid_DB;
 
 /// <summary>Form for displaying derived orbit elements.</summary>
 /// <remarks>This form provides a user interface for displaying derived orbit elements.</remarks>
-// You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
-[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-public partial class DerivedOrbitElementsForm : BaseKryptonForm
+// You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
+[DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
+internal partial class DerivedOrbitElementsForm : BaseKryptonForm
 {
 	#region Export override properties
 
@@ -56,8 +57,8 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 	protected override ToolStripStatusLabel? StatusLabel => labelInformation;
 
 	/// <summary>List of derived orbit elements.</summary>
-	/// <remarks>This field is used to store the list of derived orbit elements.</remarks>
-	private List<object> derivedOrbitElements = [];
+	/// <remarks>This field stores the derived orbit elements used to populate the form.</remarks>
+	private IReadOnlyList<object> derivedOrbitElements = [];
 
 	/// <summary>Array of labels corresponding to the derived orbit elements.</summary>
 	/// <remarks>This array is used to store references to the labels that display the derived orbit elements.</remarks>
@@ -99,13 +100,16 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>This method is used to provide a visual representation of the object in the debugger.</remarks>
-	private string GetDebuggerDisplay() => ToString();
+	/// <remarks>This property is used to provide a visual representation of the object in the debugger.</remarks>
+	private string DebuggerDisplay => ToString();
 
-	/// <summary>Sets the internal list of derived orbit elements used by the form. The provided list is stored by reference and will be used to populate the UI when the form loads.</summary>
-	/// <param name="list">The list of derived orbit elements to be used by the form.</param>
-	/// <remarks>This method is used to set the internal list of derived orbit elements for the form.</remarks>
-	public void SetDatabase(List<object> list) => derivedOrbitElements = list;
+	/// <summary>Sets the derived orbit elements used by the form.</summary>
+	/// <param name="list">The read-only list of derived orbit elements to be used by the form.</param>
+	/// <remarks>The provided list is stored by reference and used to populate the UI when the form loads.</remarks>
+	public void SetDatabase(IReadOnlyList<object> list)
+	{
+		derivedOrbitElements = list ?? throw new ArgumentNullException(paramName: nameof(list));
+	}
 
 	/// <summary>Tries to parse an integer from the input string.</summary>
 	/// <param name="input">The input string to parse.</param>

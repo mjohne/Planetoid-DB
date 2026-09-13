@@ -22,6 +22,7 @@ using Planetoid_DB.Helpers;
 using Planetoid_DB.Properties;
 
 using System.Diagnostics;
+using System.Globalization;
 using System.IO.Compression;
 using System.Net;
 
@@ -29,9 +30,9 @@ namespace Planetoid_DB;
 
 /// <summary>Form to handle downloading updates for the application.</summary>
 /// <remarks>This form provides a user interface for downloading and installing updates.</remarks>
-// You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
-[DebuggerDisplay(value: $"{{{nameof(GetDebuggerDisplay)}(),nq}}")]
-public partial class DatabaseDownloaderForm : BaseKryptonForm
+// You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
+[DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
+internal partial class DatabaseDownloaderForm : BaseKryptonForm
 {
 	/// <summary>NLog logger instance for the class.</summary>
 	/// <remarks>This logger is used to log messages for the form.</remarks>
@@ -108,7 +109,7 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 		// Call the base class implementation of OnShown
 		base.OnShown(e: e);
 		// Start the download workflow asynchronously
-		await StartDownloadAsync();
+		await StartDownloadAsync().ConfigureAwait(continueOnCapturedContext: true);
 	}
 
 	/// <summary>Overrides the OnFormClosing method to cancel any ongoing download operation when the form is closing.</summary>
@@ -129,8 +130,8 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>This method is used to provide a visual representation of the object in the debugger.</remarks>
-	private string GetDebuggerDisplay() => ToString();
+	/// <remarks>This property is used to provide a visual representation of the object in the debugger.</remarks>
+	private string DebuggerDisplay => ToString();
 
 	/// <summary>Extracts the filename from the given URL and returns the full destination path within the temporary file directory.</summary>
 	/// <param name="url">The absolute URL from which to extract the filename.</param>
@@ -163,15 +164,28 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 	/// <remarks>The method streams the compressed input to the output file using <see cref="GZipStream"/>. It throws exceptions (e.g. <see cref="IOException"/>, <see cref="InvalidDataException"/>) to the caller.</remarks>
 	protected static async Task ExtractGzipFileAsync(string gzipFilePath, string outputFilePath, CancellationToken token)
 	{
+		// Log the extraction operation for debugging purposes
 		logger.Info(message: $"Extracting GZIP file: {gzipFilePath} to {outputFilePath}");
-		// Open the gzip file and create a new file stream for the output file
-		await using FileStream sourceStream = new(path: gzipFilePath, mode: FileMode.Open, access: FileAccess.Read, share: FileShare.Read, bufferSize: 4096, options: FileOptions.Asynchronous);
-		// Create a new file stream for the output file
-		await using FileStream targetStream = new(path: outputFilePath, mode: FileMode.Create, access: FileAccess.Write, share: FileShare.None, bufferSize: 4096, options: FileOptions.Asynchronous);
-		// Create a new GZipStream for decompression
-		await using GZipStream decompressionStream = new(stream: sourceStream, mode: CompressionMode.Decompress);
-		// Copy the decompressed data to the output file stream
-		await decompressionStream.CopyToAsync(destination: targetStream, cancellationToken: token);
+		// Open the source GZIP file for reading with asynchronous options
+		FileStream sourceStream = new(path: gzipFilePath, mode: FileMode.Open, access: FileAccess.Read, share: FileShare.Read, bufferSize: 4096, options: FileOptions.Asynchronous);
+		// Use 'await using' to ensure that the source stream is disposed of properly after use
+		await using (sourceStream.ConfigureAwait(continueOnCapturedContext: false))
+		{
+			// Open the target output file for writing with asynchronous options
+			FileStream targetStream = new(path: outputFilePath, mode: FileMode.Create, access: FileAccess.Write, share: FileShare.None, bufferSize: 4096, options: FileOptions.Asynchronous);
+			// Use 'await using' to ensure that the target stream is disposed of properly after use
+			await using (targetStream.ConfigureAwait(continueOnCapturedContext: false))
+			{
+				// Create a GZipStream for decompression, wrapping the source stream
+				GZipStream decompressionStream = new(stream: sourceStream, mode: CompressionMode.Decompress);
+				// Use 'await using' to ensure that the decompression stream is disposed of properly after use
+				await using (decompressionStream.ConfigureAwait(continueOnCapturedContext: false))
+				{
+					// Copy the decompressed data to the target stream asynchronously, supporting cancellation
+					await decompressionStream.CopyToAsync(destination: targetStream, cancellationToken: token).ConfigureAwait(continueOnCapturedContext: false);
+				}
+			}
+		}
 	}
 
 	/// <summary>Asynchronously determines whether an active internet connection is available by sending a HEAD request to the specified URL.</summary>
@@ -192,7 +206,7 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 			using HttpResponseMessage response = await client.SendAsync(
 				request: request,
 				completionOption: HttpCompletionOption.ResponseHeadersRead,
-				cancellationToken: cts.Token);
+				cancellationToken: cts.Token).ConfigureAwait(continueOnCapturedContext: false);
 			// Return true if the response status code indicates success (2xx); otherwise, return false
 			return response.IsSuccessStatusCode;
 		}
@@ -242,7 +256,8 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 	private async Task StartDownloadAsync()
 	{
 		// Check for internet connectivity before starting the download
-		bool isServerReachable = await HasInternetAsync(client: httpClient, url: url);
+		bool isServerReachable = await HasInternetAsync(client: httpClient, url: url)
+			.ConfigureAwait(continueOnCapturedContext: true);
 		// If the server is not reachable, log an error, show a message box and return early
 		if (!isServerReachable)
 		{
@@ -274,7 +289,8 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 			// Create a progress reporter that calls UpdateProgress on the UI thread
 			Progress<DownloadProgressInfo> progress = new(handler: UpdateProgress);
 			// Start the download operation asynchronously
-			await DownloadFileAsync(fileUrl: url, destinationPath: _filenameTemp, progress: progress, token: token);
+			await DownloadFileAsync(fileUrl: url, destinationPath: _filenameTemp, progress: progress, token: token)
+				.ConfigureAwait(continueOnCapturedContext: true);
 			// After download, check if the file is a GZIP archive and extract it; otherwise, move the file to the destination path
 			if (Path.GetExtension(path: url).Equals(value: ".gz", comparisonType: StringComparison.OrdinalIgnoreCase))
 			{
@@ -282,7 +298,8 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 				labelStatusValue.Text = "Extracting...";
 				kryptonProgressBarDownload.Style = ProgressBarStyle.Marquee;
 				// Extract the GZIP file to the specified output path
-				await ExtractGzipFileAsync(gzipFilePath: _filenameTemp, outputFilePath: extractFilePath, token: token);
+				await ExtractGzipFileAsync(gzipFilePath: _filenameTemp, outputFilePath: extractFilePath, token: token)
+					.ConfigureAwait(continueOnCapturedContext: true);
 			}
 			// If the file is not a GZIP archive, move it to the destination path derived from the URL
 			else
@@ -297,7 +314,7 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 			}
 			// Update the status label to indicate that the download is completed, show a message box to the user, and log the successful completion
 			labelStatusValue.Text = "Download completed";
-			KryptonMessageBox.Show(owner: this, text: "Download completed successfully!", caption: "Finished", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+			_ = KryptonMessageBox.Show(owner: this, text: "Download completed successfully!", caption: "Finished", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 			logger.Info(message: "Download and extraction completed successfully.");
 			// Set the dialog result to OK to indicate success
 			DialogResult = DialogResult.OK;
@@ -306,7 +323,7 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 		catch (OperationCanceledException)
 		{
 			labelStatusValue.Text = "Download canceled";
-			KryptonMessageBox.Show(owner: this, text: "Download canceled!", caption: "Canceled", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+			_ = KryptonMessageBox.Show(owner: this, text: "Download canceled!", caption: "Canceled", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 			logger.Warn(message: "Download canceled by user.");
 		}
 		// Handle any other exceptions that occur during the download or extraction process: update the status label, show a message box with the error, and log the exception details
@@ -357,57 +374,74 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 		// Update the status label to indicate that the download is in progress
 		labelStatusValue.Text = "Downloading...";
 		// Send an HTTP GET request to the specified file URL, requesting only the headers initially to get content length and last modified date
-		using HttpResponseMessage response = await httpClient.GetAsync(requestUri: fileUrl, completionOption: HttpCompletionOption.ResponseHeadersRead, cancellationToken: token);
+		using HttpResponseMessage response = await httpClient.GetAsync(
+			requestUri: new Uri(uriString: fileUrl, uriKind: UriKind.Absolute),
+			completionOption: HttpCompletionOption.ResponseHeadersRead,
+			cancellationToken: token)
+			.ConfigureAwait(continueOnCapturedContext: true);
 		// Ensure that the HTTP response indicates success; if not, throw an exception
-		response.EnsureSuccessStatusCode();
+		_ = response.EnsureSuccessStatusCode();
 		// Get the total bytes from the Content-Length header, if available
 		long? totalBytes = response.Content.Headers.ContentLength;
 		// Get the last modified date from the Last-Modified header, if available
 		DateTime? lastMod = response.Content.Headers.LastModified?.UtcDateTime;
 		// Update the UI labels with the last modified date, source URL, and total size
-		labelDateValue.Text = lastMod.HasValue ? lastMod.ToString() : "-";
+		labelDateValue.Text = lastMod.HasValue ? lastMod.Value.ToString(CultureInfo.InvariantCulture) : "-";
 		labelSourceValue.Text = fileUrl;
 		labelSizeValue.Text = totalBytes.HasValue ? $"{totalBytes:N0} {I18nStrings.BytesText}" : "Unknown";
-		// Create a stream to read the content of the response and a file stream to write to the destination path
-		await using Stream contentStream = await response.Content.ReadAsStreamAsync(cancellationToken: token);
-		await using FileStream fileStream = new(path: destinationPath, mode: FileMode.Create, access: FileAccess.Write, share: FileShare.None, bufferSize: 8192, useAsync: true);
-		// Create a buffer to hold chunks of data read from the content stream
-		byte[] buffer = new byte[8192];
-		long totalRead = 0;
-		int bytesRead;
-		// Create two stopwatches: one for updating the progress and one for measuring download speed
-		Stopwatch updateStopwatch = Stopwatch.StartNew();
-		Stopwatch downloadStopwatch = Stopwatch.StartNew();
-		// Read from the content stream in a loop until there are no more bytes to read
-		while ((bytesRead = await contentStream.ReadAsync(buffer: buffer, cancellationToken: token)) > 0)
+		// Read the content stream from the HTTP response asynchronously
+		Stream contentStream = await response.Content.ReadAsStreamAsync(cancellationToken: token).ConfigureAwait(continueOnCapturedContext: false);
+		// Use 'await using' to ensure that the content stream is disposed of properly after use
+		await using (contentStream.ConfigureAwait(continueOnCapturedContext: false))
 		{
-			// Write the read bytes to the file stream asynchronously
-			await fileStream.WriteAsync(buffer: buffer.AsMemory(start: 0, length: bytesRead), cancellationToken: token);
-			// Update the total number of bytes read so far
-			totalRead += bytesRead;
-			// Report progress if the total bytes is known and either 100 milliseconds have passed or the download is complete
-			if (totalBytes.HasValue && (updateStopwatch.ElapsedMilliseconds > 100 || totalRead == totalBytes))
+			// Create a file stream to write the downloaded content to the specified destination path
+			FileStream fileStream = new(path: destinationPath, mode: FileMode.Create, access: FileAccess.Write, share: FileShare.None, bufferSize: 8192, useAsync: true);
+			// Use 'await using' to ensure that the file stream is disposed of properly after use
+			await using (fileStream.ConfigureAwait(continueOnCapturedContext: false))
 			{
-				// Calculate the elapsed time in seconds and the download speed in bytes per second
-				double elapsedSeconds = downloadStopwatch.Elapsed.TotalSeconds;
-				double bytesPerSecond = elapsedSeconds > 0 ? totalRead / elapsedSeconds : 0;
-				// Estimate the remaining time based on the download speed and total bytes
-				TimeSpan estimated = bytesPerSecond > 0
-					? TimeSpan.FromSeconds(value: (totalBytes.Value - totalRead) / bytesPerSecond)
-					: TimeSpan.Zero;
-				// Report the current download progress to the UI
-				progress.Report(value: new DownloadProgressInfo(
-					CurrentBytes: totalRead,
-					TotalBytes: totalBytes.Value,
-					BytesPerSecond: bytesPerSecond,
-					Elapsed: downloadStopwatch.Elapsed,
-					Estimated: estimated));
-				// Restart the update stopwatch to measure the next interval for progress reporting
-				updateStopwatch.Restart();
+				// Create a buffer to hold chunks of data read from the content stream
+				byte[] buffer = new byte[8192];
+				long totalRead = 0;
+				int bytesRead;
+				// Create two stopwatches: one for updating the progress and one for measuring download speed
+				Stopwatch updateStopwatch = Stopwatch.StartNew();
+				Stopwatch downloadStopwatch = Stopwatch.StartNew();
+				// Read from the content stream in a loop until there are no more bytes to read
+				while ((bytesRead = await contentStream.ReadAsync(buffer: buffer, cancellationToken: token)
+					.ConfigureAwait(continueOnCapturedContext: false)) > 0)
+				{
+					// Write the read bytes to the file stream asynchronously
+					await fileStream.WriteAsync(
+						buffer: buffer.AsMemory(start: 0, length: bytesRead),
+						cancellationToken: token).ConfigureAwait(continueOnCapturedContext: false);
+
+					// Update the total number of bytes read so far
+					totalRead += bytesRead;
+					// Report progress if the total bytes is known and either 100 milliseconds have passed or the download is complete
+					if (totalBytes.HasValue && (updateStopwatch.ElapsedMilliseconds > 100 || totalRead == totalBytes))
+					{
+						// Calculate the elapsed time in seconds and the download speed in bytes per second
+						double elapsedSeconds = downloadStopwatch.Elapsed.TotalSeconds;
+						double bytesPerSecond = elapsedSeconds > 0 ? totalRead / elapsedSeconds : 0;
+						// Estimate the remaining time based on the download speed and total bytes
+						TimeSpan estimated = bytesPerSecond > 0
+							? TimeSpan.FromSeconds(value: (totalBytes.Value - totalRead) / bytesPerSecond)
+							: TimeSpan.Zero;
+						// Report the current download progress to the UI
+						progress.Report(value: new DownloadProgressInfo(
+							CurrentBytes: totalRead,
+							TotalBytes: totalBytes.Value,
+							BytesPerSecond: bytesPerSecond,
+							Elapsed: downloadStopwatch.Elapsed,
+							Estimated: estimated));
+						// Restart the update stopwatch to measure the next interval for progress reporting
+						updateStopwatch.Restart();
+					}
+				}
+				// Flush the file stream to ensure all data is written to disk
+				await fileStream.FlushAsync(cancellationToken: token).ConfigureAwait(continueOnCapturedContext: false);
 			}
 		}
-		// Flush the file stream to ensure all data is written to disk
-		await fileStream.FlushAsync(cancellationToken: token);
 	}
 
 	#endregion
@@ -421,7 +455,7 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 	private async void ButtonDownload_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Download button clicked. Starting download workflow.");
-		await StartDownloadAsync();
+		await StartDownloadAsync().ConfigureAwait(continueOnCapturedContext: false);
 	}
 
 	/// <summary>Click handler for the Cancel button. Cancels the active download operation if one is running.</summary>
