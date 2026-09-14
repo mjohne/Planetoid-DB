@@ -79,12 +79,14 @@ internal class XcalExporter : IOrbitDataExporter
 		<?xml version="1.0" encoding="UTF-8"?>
 		<icalendar xmlns="urn:ietf:params:xml:ns:icalendar-2.0">
 			<vcalendar>
-				<version>
-					<text>2.0</text>
-				</version>
-				<prodid>
-					<text>Planetoid-DB - Orbit Data Export</text>
-				</prodid>
+				<properties>
+					<version>
+						<text>2.0</text>
+					</version>
+					<prodid>
+						<text>Planetoid-DB - Orbit Data Export</text>
+					</prodid>
+				</properties>
 				<components>
 					<vevent>
 						<uid>
