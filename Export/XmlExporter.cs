@@ -18,13 +18,13 @@ using NLog;
 using Planetoid_DB.Helpers;
 
 using System.Diagnostics;
-using System.Globalization;
 using System.Text;
+using System.Xml;
 
 namespace Planetoid_DB.Export;
 
-/// <summary>Represents a XML exporter for exporting database information to a XML file.</summary>
-/// <remarks>This class implements the IOrbitDataExporter interface and provides functionality to export database information to a XML file format.</remarks>
+/// <summary>Represents an XML exporter for exporting database information to an XML file.</summary>
+/// <remarks>This class implements the IOrbitDataExporter interface and provides functionality to export database information to an XML file format.</remarks>
 // You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
 [DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
 internal class XmlExporter : IOrbitDataExporter
@@ -33,8 +33,8 @@ internal class XmlExporter : IOrbitDataExporter
 	/// <remarks>This logger is used to log messages for the class.</remarks>
 	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
-	/// <summary>Initializes a new instance of the XmlExporter class.</summary>
-	/// <remarks>This constructor initializes a new instance of the XmlExporter class.</remarks>
+	/// <summary>Gets the file extension for XML exports.</summary>
+	/// <remarks>This property provides the extension used when exporting database information to XML files.</remarks>
 	public string Extension => "xml";
 
 	/// <summary>Gets the file filter string for the save file dialog.</summary>
@@ -50,30 +50,35 @@ internal class XmlExporter : IOrbitDataExporter
 	/// <remarks>This property is used to provide a visual representation of the object in the debugger.</remarks>
 	private string DebuggerDisplay => ToString() ?? string.Empty;
 
-	/// <summary>Exports the selected data to a XML file.</summary>
+	/// <summary>Exports the selected data to an XML file.</summary>
 	/// <param name="filePath">The path of the file to export to.</param>
 	/// <param name="exportTitle">The title of the export.</param>
 	/// <param name="selectedData">The data to be exported.</param>
-	/// <remarks>This method exports the selected data to a XML file at the specified file path.</remarks>
+	/// <remarks>This method exports the selected data to an XML file at the specified file path.</remarks>
 	public void Export(string filePath, string exportTitle, Dictionary<string, string> selectedData)
 	{
 		// Log the export operation
 		logger.Info(message: $"Exporting data to XML file: {filePath}");
-		// Create a StringBuilder to build the content of the XML file
-		StringBuilder sb = new();
-		// Append the XML content to the StringBuilder
-		_ = sb.AppendLine(value: "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>");
-		_ = sb.AppendLine(value: "<MinorPlanet xmlns=\"https://github.com/mjohne/Planetoid-DB\">");
-		// Append each key-value pair from the selected data to the StringBuilder
+		XmlWriterSettings settings = new()
+		{
+			Encoding = new UTF8Encoding(encoderShouldEmitUTF8Identifier: false),
+			Indent = true
+		};
+
+		using XmlWriter writer = XmlWriter.Create(outputFileName: filePath, settings: settings);
+		writer.WriteStartDocument();
+		writer.WriteStartElement(localName: "MinorPlanet", ns: "https://github.com/mjohne/Planetoid-DB");
+		writer.WriteElementString(localName: "Title", value: exportTitle);
 		foreach (KeyValuePair<string, string> kvp in selectedData)
 		{
-			// Append the key and value in the format "Key: Value" to the StringBuilder
-			_ = sb.AppendLine(provider: CultureInfo.InvariantCulture, handler: $"\t<{kvp.Key} value=\"{kvp.Value}\"/>");
+			writer.WriteStartElement(localName: "Field");
+			writer.WriteAttributeString(localName: "name", value: kvp.Key);
+			writer.WriteAttributeString(localName: "value", value: kvp.Value);
+			writer.WriteEndElement();
 		}
-		// Append the closing tag for the XML content
-		_ = sb.Append(value: "</MinorPlanet>");
-		// Write the content of the StringBuilder to the specified file path
-		File.WriteAllText(path: filePath, contents: sb.ToString());
+
+		writer.WriteEndElement();
+		writer.WriteEndDocument();
 		// Log that the data was exported successfully
 		logger.Info(message: $"Data exported successfully to XML file: {filePath}");
 	}
