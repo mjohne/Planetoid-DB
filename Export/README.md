@@ -52,6 +52,8 @@ IOrbitDataExporter
 | `XcalExporter` | xCalendar | `.xcal` | Generates xCalendar XML output for structured representation and exchange of calendar information. |
 | `XmlExporter` | XML | `.xml` | Generates structured XML output for interoperability and machine processing. |
 
+The **Typical extension** column shows the user-facing filename suffix with a leading dot. In code, exporter `Extension` values are returned without the leading dot and are used directly for `SaveFileDialog.DefaultExt`.
+
 ## Architecture
 
 The export classes belong to the `Planetoid_DB.Export` namespace, while the common interface is located in `Planetoid_DB.Helpers`.
@@ -100,7 +102,7 @@ internal interface IOrbitDataExporter
 
 ### `Extension`
 
-Returns the file extension associated with the exporter.
+Returns the file extension associated with the exporter. Implementations return the extension **without** a leading dot because the value is passed directly to `SaveFileDialog.DefaultExt`.
 
 Example:
 
