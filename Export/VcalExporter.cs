@@ -2,7 +2,7 @@
  * File:        VcalExporter.cs
  * Project:     Planetoid-DB
  * Namespace:   Planetoid_DB.Export
- * Description: Exports database information to a vCalender file.
+ * Description: Exports database information to a vCalendar file.
  *
  * Author:      Michael Johne
  * Company:     Mijo Software
@@ -32,8 +32,8 @@ internal class VcalExporter : IOrbitDataExporter
 	/// <remarks>This logger is used to log messages for the class.</remarks>
 	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
-	/// <summary>Initializes a new instance of the VcalExporter class.</summary>
-	/// <remarks>This constructor initializes a new instance of the VcalExporter class.</remarks>
+	/// <summary>Gets the file extension for exported files.</summary>
+	/// <remarks>This property returns the file extension used for vCalendar exports.</remarks>
 	public string Extension => "vcal";
 
 	/// <summary>Gets the file filter string for the save file dialog.</summary>
@@ -70,7 +70,7 @@ internal class VcalExporter : IOrbitDataExporter
 		_ = sb.AppendLine(value: $"DTSTAMP:{DateTime.UtcNow:yyyyMMddTHHmmssZ}");
 		_ = sb.AppendLine(value: $"SUMMARY:Observation/Data for {exportTitle}");
 		// Add the description with key-value pairs from the selected data
-		string description = string.Join(separator: "\n", values: selectedData.Select(selector: static x => $"{x.Key}: {x.Value}"));
+		string description = string.Join(separator: "\\n", values: selectedData.Select(selector: static x => $"{x.Key}: {x.Value}"));
 		_ = sb.AppendLine(value: $"DESCRIPTION:{description}");
 		// Add the end of the event and calendar
 		_ = sb.AppendLine(value: "END:VEVENT");
