@@ -1,12 +1,12 @@
 # Forms
 
-The `Forms` directory contains the Windows Forms user interface of **Planetoid-DB**. It brings together the main application window, data browsing and filtering dialogs, astronomical analysis tools, database maintenance functions, visualizations, export/print dialogs, and supporting information windows.
+The `Forms` directory contains the Windows Forms user interface of **Planetoid-DB**. It brings together the main application window, data browsing and filtering dialogs, astronomical analysis tools, database maintenance functions, visualisations, export/print dialogs, and supporting information windows.
 
 The forms are implemented as C# WinForms classes and are generally accompanied by a Visual Studio designer file (`*.Designer.cs`) and, where required, a resource file (`*.resx`). The directory also contains `BaseKryptonForm.cs`, which provides the common form foundation used by the application's themed dialogs.
 
 ## Purpose
 
-The `Forms` layer is responsible for the presentation and user interaction of Planetoid-DB. It connects the application's controls and dialogs with the underlying data, astronomical calculations, database services, configuration, logging, and visualization components.
+The `Forms` layer is responsible for the presentation and user interaction of Planetoid-DB. It connects the application's controls and dialogs with the underlying data, astronomical calculations, database services, configuration, logging, and visualisation components.
 
 The forms can broadly be grouped into the following areas:
 
@@ -14,7 +14,7 @@ The forms can broadly be grouped into the following areas:
 * **Database and data management** – database inspection, downloading, validation, comparison, archive management and record-oriented views.
 * **Search and filtering** – object search, filtering, table modes and readable-designation lists.
 * **Orbital analysis** – derived orbital elements, orbital-element grouping, Tisserand parameters, orbital resonances, MOID/MAOID-related analyses and asteroid-family analysis.
-* **Visualization** – 2D/3D orbit views, 3D semi-major-axis/eccentricity/inclination diagrams, scatter plots and other analytical displays.
+* **Visualisation** – 2D/3D orbit views, 3D semi-major-axis/eccentricity/inclination diagrams, scatter plots and other analytical displays.
 * **Observations and ephemerides** – observation browsing, bulk observation downloads, error reporting and ephemeris functions.
 * **Output** – data-sheet printing and exporting.
 * **Utilities and documentation** – application information, terminology, license, settings import/export and related dialogs.
@@ -54,7 +54,7 @@ The forms can broadly be grouped into the following areas:
 | `ObservationsForm`                        | Displays and manages observational data associated with objects.                                            |
 | `ObservatoryCodesForm`                    | Provides access to MPC observatory codes and related information.                                           |
 | `Orbit2DSideViewForm`                     | Provides a two-dimensional side view of an orbit.                                                           |
-| `Orbit3DForm`                             | Provides a three-dimensional orbital visualization.                                                         |
+| `Orbit3DForm`                             | Provides a three-dimensional orbital visualisation.                                                         |
 | `OrbitalResonancesOfOneMinorPlanetForm`   | Analyzes orbital resonances for a single minor planet.                                                      |
 | `OrbitalResonancesOfAllMinorPlanetsForm`  | Performs orbital-resonance analysis across the catalogue.                                                   |
 | `OrbitElementsGroupingForm`               | Groups or categorizes objects according to orbital elements.                                                |
@@ -93,7 +93,7 @@ Contains the application-specific behaviour of the form, including:
 * user interaction
 * validation
 * calls to database and astronomy services
-* orchestration of calculations and visualizations
+* orchestration of calculations and visualisations
 
 ### `*.Designer.cs`
 
@@ -101,7 +101,7 @@ Contains Visual Studio-generated control declarations and initialization code. T
 
 ### `*.resx`
 
-Contains Windows Forms resources such as localized strings, icons, images and other designer-managed resources where required.
+Contains Windows Forms resources such as localised strings, icons, images and other designer-managed resources where required.
 
 ## Architectural Role
 
