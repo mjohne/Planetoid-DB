@@ -33,8 +33,8 @@ internal class WordExporter : IOrbitDataExporter
 	/// <remarks>This logger is used to log messages for the class.</remarks>
 	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
-	/// <summary>Initializes a new instance of the WordExporter class.</summary>
-	/// <remarks>This constructor initializes a new instance of the WordExporter class.</remarks>
+	/// <summary>Gets the file extension for Word exports.</summary>
+	/// <remarks>This property provides the extension used when exporting database information to Word documents.</remarks>
 	public string Extension => "docx";
 
 	/// <summary>Gets the file filter string for the save file dialog.</summary>
@@ -64,7 +64,7 @@ internal class WordExporter : IOrbitDataExporter
 				.Replace(oldValue: "'", newValue: "&apos;", comparisonType: StringComparison.Ordinal);
 	}
 
-	/// <summary>Exports the selected data to a text file.</summary>
+	/// <summary>Exports the selected data to a Word document.</summary>
 	/// <param name="filePath">The path of the file to export to.</param>
 	/// <param name="exportTitle">The title of the export.</param>
 	/// <param name="selectedData">The data to be exported.</param>
@@ -75,6 +75,12 @@ internal class WordExporter : IOrbitDataExporter
 		logger.Info(message: $"Exporting data to Word file: {filePath}");
 		// Create a StringBuilder to build the content of the Word file
 		StringBuilder sb = new();
+		if (!string.IsNullOrEmpty(value: exportTitle))
+		{
+			_ = sb.Append(value: "<w:p><w:r><w:t xml:space=\"preserve\">");
+			_ = sb.Append(value: EscapeXml(value: exportTitle));
+			_ = sb.Append(value: "</w:t></w:r></w:p>");
+		}
 		// Append the Word content to the StringBuilder
 		foreach (KeyValuePair<string, string> kvp in selectedData)
 		{
