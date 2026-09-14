@@ -32,8 +32,8 @@ internal class RtfExporter : IOrbitDataExporter
 	/// <remarks>This logger is used to log messages for the class.</remarks>
 	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
-	/// <summary>Initializes a new instance of the RtfExporter class.</summary>
-	/// <remarks>This constructor initializes a new instance of the RtfExporter class.</remarks>
+	/// <summary>Gets the file extension associated with the export format.</summary>
+	/// <remarks>This property returns the file extension without a leading dot.</remarks>
 	public string Extension => "rtf";
 
 	/// <summary>Gets the file filter string for the save file dialog.</summary>
@@ -68,12 +68,13 @@ internal class RtfExporter : IOrbitDataExporter
 	/// <remarks>This method exports the selected data to a RTF file at the specified file path.</remarks>
 	public void Export(string filePath, string exportTitle, Dictionary<string, string> selectedData)
 	{
+		Encoding ansiEncoding = Encoding.Default;
 		// Log the export operation
 		logger.Info(message: $"Exporting data to RTF file: {filePath}");
 		// Create a StringBuilder to build the content of the RTF file
 		StringBuilder sb = new();
 		// Append the RTF content to the StringBuilder
-		_ = sb.AppendLine(value: "{\\rtf1\\ansi\\deff0");
+		_ = sb.AppendLine(value: $"{{\\rtf1\\ansi\\ansicpg{ansiEncoding.CodePage}\\deff0");
 		_ = sb.AppendLine(value: $"\\b {EscapeRtf(value: $"{exportTitle}")}\\b0\\par");
 		_ = sb.AppendLine(value: "\\par");
 		// Append each key-value pair from the selected data to the StringBuilder
@@ -85,7 +86,7 @@ internal class RtfExporter : IOrbitDataExporter
 		// Append the closing brace for the RTF content
 		_ = sb.Append(value: '}');
 		// Write the content of the StringBuilder to the specified file path
-		File.WriteAllText(path: filePath, contents: sb.ToString());
+		File.WriteAllText(path: filePath, contents: sb.ToString(), encoding: ansiEncoding);
 		// Log that the data was exported successfully
 		logger.Info(message: $"Data exported successfully to RTF file: {filePath}");
 	}
