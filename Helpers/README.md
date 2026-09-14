@@ -75,7 +75,7 @@ These classes allow the calculation logic to be reused by several forms instead 
 
 `PlanetoidRecord` represents the application-side data structure for a planetoid/minor-planet record.
 
-It acts as an important data-transfer/model object between catalogue data, UI components, calculations, and export functionality. fileciteturn10file9
+It acts as an important data-transfer/model object between catalogue data, UI components, calculations, and export functionality.
 
 ### 3. Statistical Calculations
 
@@ -140,7 +140,7 @@ The `ListViewExporter` implementation is one of the larger helper components in 
 
 `DownloadProgressInfo` provides a data structure for transferring download-progress information between asynchronous download operations and the UI.
 
-This is particularly useful for operations where a catalogue or observation data is downloaded while a WinForms progress indicator is updated. fileciteturn10file5
+This is particularly useful for operations where a catalogue or observation data is downloaded while a WinForms progress indicator is updated.
 
 `TaskbarProgress` extends progress feedback to the Windows taskbar, allowing long-running operations to expose their current state outside the application window.
 
