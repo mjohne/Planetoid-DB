@@ -2,7 +2,7 @@
  * File:        PostscriptExporter.cs
  * Project:     Planetoid-DB
  * Namespace:   Planetoid_DB.Export
- * Description: Exports database information to a EPUB file.
+ * Description: Exports database information to a PostScript file.
  *
  * Author:      Michael Johne
  * Company:     Mijo Software
@@ -22,7 +22,7 @@ using System.Text;
 
 namespace Planetoid_DB.Export;
 
-/// <summary>Represents a Postscript exporter for exporting database information to a Word file.</summary>
+/// <summary>Represents a Postscript exporter for exporting database information to a Postscript file.</summary>
 /// <remarks>This class implements the IOrbitDataExporter interface and provides functionality to export database information to a Postscript file format.</remarks>
 // You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
 [DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
@@ -32,8 +32,8 @@ internal class PostscriptExporter : IOrbitDataExporter
 	/// <remarks>This logger is used to log messages for the class.</remarks>
 	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
-	/// <summary>Initializes a new instance of the PostscriptExporter class.</summary>
-	/// <remarks>This constructor initializes a new instance of the PostscriptExporter class.</remarks>
+	/// <summary>Gets the Postscript file extension.</summary>
+	/// <remarks>This property provides the file extension used for Postscript exports.</remarks>
 	public string Extension => "ps";
 
 	/// <summary>Gets the file filter string for the save file dialog.</summary>
