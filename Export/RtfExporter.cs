@@ -57,6 +57,7 @@ internal class RtfExporter : IOrbitDataExporter
 	/// <remarks>This method exports the selected data to a RTF file at the specified file path.</remarks>
 	public void Export(string filePath, string exportTitle, Dictionary<string, string> selectedData)
 	{
+		Encoding.RegisterProvider(provider: CodePagesEncodingProvider.Instance);
 		Encoding ansiEncoding = Encoding.GetEncoding(codepage: CultureInfo.CurrentCulture.TextInfo.ANSICodePage);
 		// Log the export operation
 		logger.Info(message: $"Exporting data to RTF file: {filePath}");
