@@ -22,7 +22,7 @@ using System.Text;
 
 namespace Planetoid_DB.Export;
 
-/// <summary>Represents a SQL exporter for exporting database information to a Word file.</summary>
+/// <summary>Represents a SQL exporter for exporting database information to a SQL file.</summary>
 /// <remarks>This class implements the IOrbitDataExporter interface and provides functionality to export database information to a SQL file format.</remarks>
 // You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
 [DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
@@ -32,8 +32,8 @@ internal class SqlExporter : IOrbitDataExporter
 	/// <remarks>This logger is used to log messages for the class.</remarks>
 	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
-	/// <summary>Initializes a new instance of the SqlExporter class.</summary>
-	/// <remarks>This constructor initializes a new instance of the SqlExporter class.</remarks>
+	/// <summary>Gets the file extension for SQL exports.</summary>
+	/// <remarks>This property provides the extension used when exporting database information to SQL files.</remarks>
 	public string Extension => "sql";
 
 	/// <summary>Gets the file filter string for the save file dialog.</summary>
@@ -63,18 +63,23 @@ internal class SqlExporter : IOrbitDataExporter
 		// Append the SQL content to the StringBuilder
 		_ = sb.AppendLine(value: "INSERT INTO MinorPlanets (");
 		// Append the SQL content to the StringBuilder
+		int columnIndex = 0;
 		foreach (KeyValuePair<string, string> kvp in selectedData)
 		{
 			// Append the column name to the SQL content
-			_ = sb.AppendLine(value: $"{kvp.Key},");
+			string suffix = columnIndex < selectedData.Count - 1 ? "," : string.Empty;
+			_ = sb.AppendLine(value: $"{kvp.Key}{suffix}");
+			columnIndex++;
 		}
 		// Append the closing parenthesis for the column names
 		_ = sb.AppendLine(value: ") VALUES (");
+		int valueIndex = 0;
 		foreach (KeyValuePair<string, string> kvp in selectedData)
 		{
+			string suffix = valueIndex < selectedData.Count - 1 ? "," : string.Empty;
 			if (string.IsNullOrEmpty(value: kvp.Value))
 			{
-				_ = sb.AppendLine(value: "NULL,");
+				_ = sb.AppendLine(value: $"NULL{suffix}");
 			}
 			// Otherwise, escape any single quotes in the value and represent it as a string in SQL
 			else
@@ -84,8 +89,10 @@ internal class SqlExporter : IOrbitDataExporter
 					.Replace(oldValue: "\r\n", newValue: " ", comparisonType: StringComparison.Ordinal)
 					.Replace(oldValue: "\n", newValue: " ", comparisonType: StringComparison.Ordinal)
 					.Replace(oldValue: "\r", newValue: " ", comparisonType: StringComparison.Ordinal);
-				_ = sb.AppendLine(value: $"'{escapedValue}',");
+				_ = sb.AppendLine(value: $"'{escapedValue}'{suffix}");
 			}
+
+			valueIndex++;
 		}
 		// Append the closing parenthesis for the values
 		_ = sb.AppendLine(value: ");");
