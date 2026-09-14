@@ -23,8 +23,8 @@ using System.Text;
 
 namespace Planetoid_DB.Export;
 
-/// <summary>Represents a EPUB exporter for exporting database information to a Word file.</summary>
-/// <remarks>This class implements the IOrbitDataExporter interface and provides functionality to export database information to a EPUB file format.</remarks>
+/// <summary>Represents an EPUB exporter for exporting database information to an EPUB file.</summary>
+/// <remarks>This class implements the IOrbitDataExporter interface and provides functionality to export database information in the EPUB file format.</remarks>
 // You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
 [DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
 internal class EpubExporter : IOrbitDataExporter
@@ -33,8 +33,8 @@ internal class EpubExporter : IOrbitDataExporter
 	/// <remarks>This logger is used to log messages for the class.</remarks>
 	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
-	/// <summary>Initializes a new instance of the EpubExporter class.</summary>
-	/// <remarks>This constructor initializes a new instance of the EpubExporter class.</remarks>
+	/// <summary>Gets the file extension used for EPUB exports.</summary>
+	/// <remarks>This property returns the file extension without a leading period.</remarks>
 	public string Extension => "epub";
 
 	/// <summary>Gets the file filter string for the save file dialog.</summary>
@@ -64,11 +64,11 @@ internal class EpubExporter : IOrbitDataExporter
 				.Replace(oldValue: "'", newValue: "&apos;", comparisonType: StringComparison.Ordinal);
 	}
 
-	/// <summary>Exports the selected data to a text file.</summary>
+	/// <summary>Exports the selected data to an EPUB file.</summary>
 	/// <param name="filePath">The path of the file to export to.</param>
 	/// <param name="exportTitle">The title of the export.</param>
 	/// <param name="selectedData">The data to be exported.</param>
-	/// <remarks>This method exports the selected data to a EPUB file at the specified file path.</remarks>
+	/// <remarks>This method exports the selected data to an EPUB file at the specified file path.</remarks>
 	public void Export(string filePath, string exportTitle, Dictionary<string, string> selectedData)
 	{
 		// Log the export operation
@@ -165,9 +165,6 @@ internal class EpubExporter : IOrbitDataExporter
 		AddEntry(entryName: "OEBPS/content.opf", content: contentOpf);
 		AddEntry(entryName: "OEBPS/nav.xhtml", content: navXhtml);
 		AddEntry(entryName: "OEBPS/content.xhtml", content: contentXhtml);
-
-		// Write the content of the StringBuilder to the specified file path
-		//File.WriteAllText(path: filePath, contents: sb.ToString());
 
 		// Log that the data was exported successfully
 		logger.Info(message: $"Data exported successfully to EPUB file: {filePath}");
