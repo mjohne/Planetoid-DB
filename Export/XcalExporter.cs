@@ -2,7 +2,7 @@
  * File:        XcalExporter.cs
  * Project:     Planetoid-DB
  * Namespace:   Planetoid_DB.Export
- * Description: Exports database information to a xCalender file.
+ * Description: Exports database information to an xCalendar file.
  *
  * Author:      Michael Johne
  * Company:     Mijo Software
@@ -32,8 +32,8 @@ internal class XcalExporter : IOrbitDataExporter
 	/// <remarks>This logger is used to log messages for the class.</remarks>
 	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
-	/// <summary>Initializes a new instance of the XcalExporter class.</summary>
-	/// <remarks>This constructor initializes a new instance of the XcalExporter class.</remarks>
+	/// <summary>Gets the file extension used for xCalendar exports.</summary>
+	/// <remarks>This property provides the default file extension without a leading dot.</remarks>
 	public string Extension => "xcal";
 
 	/// <summary>Gets the file filter string for the save file dialog.</summary>
@@ -75,29 +75,32 @@ internal class XcalExporter : IOrbitDataExporter
 		// Create a StringBuilder to build the content of the xCalendar file
 		StringBuilder sb = new();
 		// Add xCalendar headers and event details
-		string headerXCal = """
+		string headerXCal = $"""
 		<?xml version="1.0" encoding="UTF-8"?>
 		<icalendar xmlns="urn:ietf:params:xml:ns:icalendar-2.0">
 			<vcalendar>
-				<version>
-					<text>2.0</text>
-				</version>
-				<prodid>
-					<text>Planetoid-DB - Orbit Data Export</text>
-				</prodid>
+				<properties>
+					<version>
+						<text>2.0</text>
+					</version>
+					<prodid>
+						<text>Planetoid-DB - Orbit Data Export</text>
+					</prodid>
+				</properties>
 				<components>
 					<vevent>
-						<uid>
-							<text>{Guid.NewGuid()}@planetoid-db.de</text>
-						</uid>
-						<dtstamp>
-							<text>{DateTime.UtcNow:yyyyMMddTHHmmssZ}</text>
-						</dtstamp>
-						<summary>
-							<text>Observation - Data for {exportTitle}</text>
-						</summary>
-						<description>
-							<text>
+						<properties>
+							<uid>
+								<text>{Guid.NewGuid()}@planetoid-db.de</text>
+							</uid>
+							<dtstamp>
+								<date-time>{DateTime.UtcNow:yyyyMMddTHHmmssZ}</date-time>
+							</dtstamp>
+							<summary>
+								<text>Observation - Data for {EscapeXml(value: exportTitle)}</text>
+							</summary>
+							<description>
+								<text>
 		""";
 		_ = sb.Append(value: headerXCal);
 		// Add the description with key-value pairs from the selected data
@@ -105,8 +108,9 @@ internal class XcalExporter : IOrbitDataExporter
 		_ = sb.Append(value: description);
 		// Add the end of the event and calendar
 		string footerXCal = """
-							</text>
-						</description>
+								</text>
+							</description>
+						</properties>
 					</vevent>
 				</components>
 			</vcalendar>
