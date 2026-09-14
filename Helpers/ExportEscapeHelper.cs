@@ -142,7 +142,7 @@ internal static class ExportEscapeHelper
 	/// <summary>Escapes RTF special characters.</summary>
 	/// <param name="input">The raw input string.</param>
 	/// <returns>The escaped string suitable for RTF output.</returns>
-	/// <remarks>In RTF, the backslash, braces, and control characters need to be escaped. Non-ASCII characters can be represented using Unicode escape sequences. This method checks if the input string is null or empty and returns an empty string in that case; otherwise, it iterates through each character in the input string and appends either the escaped version or the original character to a StringBuilder, which is then returned as the fully escaped string. Backslashes and braces are escaped with a preceding backslash, newlines are replaced with the \par control word, and non-ASCII characters are represented using \uN? where N is the Unicode code point of the character.</remarks>
+	/// <remarks>In RTF, the backslash, braces, and control characters need to be escaped. Non-ASCII characters can be represented using Unicode escape sequences. This method checks if the input string is null or empty and returns an empty string in that case; otherwise, it iterates through each character in the input string and appends either the escaped version or the original character to a StringBuilder, which is then returned as the fully escaped string. Backslashes and braces are escaped with a preceding backslash, newlines are replaced with the \par control word, and non-ASCII text is emitted using signed UTF-16 \uN? escapes so surrogate pairs remain valid in RTF output.</remarks>
 	public static string EscapeRtf(string? input)
 	{
 		// If the input string is null or empty, return an empty string to avoid processing.
@@ -152,8 +152,9 @@ internal static class ExportEscapeHelper
 		}
 		// Use a StringBuilder for efficient string concatenation when escaping characters.
 		StringBuilder builder = new(capacity: input.Length + 10);
-		foreach (char ch in input)
+		for (int index = 0; index < input.Length; index++)
 		{
+			char ch = input[index];
 			// Escape backslash and braces with a backslash. For newlines, use the \par control word. For other non-ASCII characters, use Unicode escape sequences.
 			switch (ch)
 			{
@@ -164,7 +165,22 @@ internal static class ExportEscapeHelper
 				case '\r': break;
 				case '\n': _ = builder.Append(value: "\\par "); break;
 				default:
-					_ = ch > 127 ? builder.Append(value: $"\\u{(int)ch}?") : builder.Append(value: ch);
+					if (ch > 127)
+					{
+						if (char.IsHighSurrogate(c: ch) && (index + 1) < input.Length && char.IsLowSurrogate(c: input[index + 1]))
+						{
+							_ = builder.Append(value: $"\\u{unchecked((short)ch)}?\\u{unchecked((short)input[index + 1])}?");
+							index++;
+						}
+						else
+						{
+							_ = builder.Append(value: $"\\u{unchecked((short)ch)}?");
+						}
+					}
+					else
+					{
+						_ = builder.Append(value: ch);
+					}
 					break;
 			}
 		}
