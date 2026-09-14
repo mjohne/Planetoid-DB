@@ -89,17 +89,18 @@ internal class XcalExporter : IOrbitDataExporter
 				</properties>
 				<components>
 					<vevent>
-						<uid>
-							<text>{Guid.NewGuid()}@planetoid-db.de</text>
-						</uid>
-						<dtstamp>
-							<text>{DateTime.UtcNow:yyyyMMddTHHmmssZ}</text>
-						</dtstamp>
-						<summary>
-							<text>Observation - Data for {EscapeXml(value: exportTitle)}</text>
-						</summary>
-						<description>
-							<text>
+						<properties>
+							<uid>
+								<text>{Guid.NewGuid()}@planetoid-db.de</text>
+							</uid>
+							<dtstamp>
+								<date-time>{DateTime.UtcNow:yyyyMMddTHHmmssZ}</date-time>
+							</dtstamp>
+							<summary>
+								<text>Observation - Data for {EscapeXml(value: exportTitle)}</text>
+							</summary>
+							<description>
+								<text>
 		""";
 		_ = sb.Append(value: headerXCal);
 		// Add the description with key-value pairs from the selected data
@@ -107,8 +108,9 @@ internal class XcalExporter : IOrbitDataExporter
 		_ = sb.Append(value: description);
 		// Add the end of the event and calendar
 		string footerXCal = """
-							</text>
-						</description>
+								</text>
+							</description>
+						</properties>
 					</vevent>
 				</components>
 			</vcalendar>
