@@ -21,7 +21,7 @@ namespace Planetoid_DB.Helpers;
 internal interface IOrbitDataExporter
 {
 	/// <summary>Gets the file extension associated with the export format.</summary>
-	/// <remarks>This property returns the file extension (e.g., ".csv", ".json") that corresponds to the export format.</remarks>
+	/// <remarks>This property returns the file extension (e.g., "csv", "json") without a leading dot.</remarks>
 	string Extension { get; }
 
 	/// <summary>Gets the filter string used for file dialogs when selecting files for export.</summary>
