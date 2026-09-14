@@ -22,7 +22,7 @@ using System.Text;
 
 namespace Planetoid_DB.Export;
 
-/// <summary>Represents a PDF exporter for exporting database information to a Word file.</summary>
+/// <summary>Represents a PDF exporter for exporting database information to a PDF file.</summary>
 /// <remarks>This class implements the IOrbitDataExporter interface and provides functionality to export database information to a PDF file format.</remarks>
 // You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
 [DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
@@ -68,7 +68,7 @@ internal class PdfExporter : IOrbitDataExporter
 		return escaped.ToString();
 	}
 
-	/// <summary>Exports the selected data to a text file.</summary>
+	/// <summary>Exports the selected data to a PDF file.</summary>
 	/// <param name="filePath">The path of the file to export to.</param>
 	/// <param name="exportTitle">The title of the export.</param>
 	/// <param name="selectedData">The data to be exported.</param>
@@ -95,13 +95,14 @@ internal class PdfExporter : IOrbitDataExporter
 		_ = sb.Append(value: "ET");
 		// Convert the PDF content to a byte array using ASCII encoding
 		Encoding asciiEncoding = Encoding.ASCII;
-		byte[] contentBytes = asciiEncoding.GetBytes(s: sb.ToString());
+		string contentStream = $"{sb}\n";
+		byte[] contentBytes = asciiEncoding.GetBytes(s: contentStream);
 		// Define the PDF objects for the catalog, pages, page, font, and content stream
 		string object1 = "1 0 obj\n<< /Type /Catalog /Pages 2 0 R >>\nendobj\n";
 		string object2 = "2 0 obj\n<< /Type /Pages /Kids [3 0 R] /Count 1 >>\nendobj\n";
 		string object3 = "3 0 obj\n<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 4 0 R >> >> /Contents 5 0 R >>\nendobj\n";
 		string object4 = "4 0 obj\n<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>\nendobj\n";
-		string object5 = $"5 0 obj\n<< /Length {contentBytes.Length} >>\nstream\n{sb}\nendstream\nendobj\n";
+		string object5 = $"5 0 obj\n<< /Length {contentBytes.Length} >>\nstream\n{contentStream}endstream\nendobj\n";
 		// Create a MemoryStream to hold the PDF content and write the PDF header, objects, cross-reference table, trailer, and EOF marker to the stream
 		using MemoryStream memoryStream = new();
 		// Define a local method to write ASCII-encoded strings to the MemoryStream
@@ -133,7 +134,6 @@ internal class PdfExporter : IOrbitDataExporter
 		// Iterate through the recorded byte offsets of the PDF objects and write each offset to the cross-reference table in the required format
 		for (int i = 1; i <= 5; i++)
 		{
-			_ = offsets[index: i];
 			WriteAscii(value: $"{offsets[index: i]:0000000000} 00000 n \n");
 		}
 		// Write the trailer, startxref, and EOF marker to the MemoryStream to complete the PDF file structure
