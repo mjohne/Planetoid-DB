@@ -26,7 +26,7 @@ internal partial class RecordsTop10Form
 	/// <param name="StringValue">Original string value as shown from source data.</param>
 	/// <param name="NumericValue">Numeric value used for ranking and comparison.</param>
 	/// <remarks>This record struct is used to represent a single entry in the top-ten list of planetoids, encapsulating the designation, string representation, and numeric value for sorting and display purposes.</remarks>
-	[DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
+	[DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
 	private readonly record struct TopRecordEntry(string Designation, string StringValue, double NumericValue)
 	{
 		/// <summary>Gets a string representation of the top record entry for debugging purposes.</summary>
