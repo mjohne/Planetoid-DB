@@ -2,7 +2,7 @@
  * File:        OdsExporter.cs
  * Project:     Planetoid-DB
  * Namespace:   Planetoid_DB.Export
- * Description: Exports database information to a ODS file.
+ * Description: Exports database information to an ODS file.
  *
  * Author:      Michael Johne
  * Company:     Mijo Software
@@ -23,8 +23,8 @@ using System.Text;
 
 namespace Planetoid_DB.Export;
 
-/// <summary>Represents a ODS exporter for exporting database information to a Word file.</summary>
-/// <remarks>This class implements the IOrbitDataExporter interface and provides functionality to export database information to a ODS file format.</remarks>
+/// <summary>Represents an ODS exporter for exporting database information to an ODS file.</summary>
+/// <remarks>This class implements the IOrbitDataExporter interface and provides functionality to export database information to an ODS file format.</remarks>
 // You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
 [DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
 internal class OdsExporter : IOrbitDataExporter
@@ -64,11 +64,11 @@ internal class OdsExporter : IOrbitDataExporter
 				.Replace(oldValue: "'", newValue: "&apos;", comparisonType: StringComparison.Ordinal);
 	}
 
-	/// <summary>Exports the selected data to a text file.</summary>
+	/// <summary>Exports the selected data to an ODS file.</summary>
 	/// <param name="filePath">The path of the file to export to.</param>
 	/// <param name="exportTitle">The title of the export.</param>
 	/// <param name="selectedData">The data to be exported.</param>
-	/// <remarks>This method exports the selected data to a ODS file at the specified file path.</remarks>
+	/// <remarks>This method exports the selected data to an ODS file at the specified file path.</remarks>
 	public void Export(string filePath, string exportTitle, Dictionary<string, string> selectedData)
 	{
 		// Log the export operation
@@ -143,26 +143,28 @@ internal class OdsExporter : IOrbitDataExporter
 				<manifest:file-entry manifest:full-path="META-INF/manifest.xml" manifest:media-type="text/xml"/>
 			</manifest:manifest>
 			""";
-		// Create a new FileStream to write the ODS file content to the specified file
-		using FileStream fileStream = new(path: filePath, mode: FileMode.Create, access: FileAccess.Write, share: FileShare.None);
-		// Create a new ZipArchive to create the ODS file as a ZIP file containing the necessary XML parts
-		using ZipArchive archive = new(stream: fileStream, mode: ZipArchiveMode.Create);
-		// Helper method to add an entry to the ZIP archive with the specified name, content, and compression level
-		void AddEntry(string entryName, string content, CompressionLevel compressionLevel = CompressionLevel.Optimal)
 		{
-			ZipArchiveEntry entry = archive.CreateEntry(entryName: entryName, compressionLevel: compressionLevel);
-			using StreamWriter writer = new(stream: entry.Open(), encoding: new UTF8Encoding(encoderShouldEmitUTF8Identifier: false));
-			writer.Write(value: content);
+			// Create a new FileStream to write the ODS file content to the specified file
+			using FileStream fileStream = new(path: filePath, mode: FileMode.Create, access: FileAccess.Write, share: FileShare.None);
+			// Create a new ZipArchive to create the ODS file as a ZIP file containing the necessary XML parts
+			using ZipArchive archive = new(stream: fileStream, mode: ZipArchiveMode.Create);
+			// Helper method to add an entry to the ZIP archive with the specified name, content, and compression level
+			void AddEntry(string entryName, string content, CompressionLevel compressionLevel = CompressionLevel.Optimal)
+			{
+				ZipArchiveEntry entry = archive.CreateEntry(entryName: entryName, compressionLevel: compressionLevel);
+				using StreamWriter writer = new(stream: entry.Open(), encoding: new UTF8Encoding(encoderShouldEmitUTF8Identifier: false));
+				writer.Write(value: content);
+			}
+			// Add the necessary XML parts to the ZIP archive to create a valid ODS file
+			AddEntry(entryName: "mimetype", content: "application/vnd.oasis.opendocument.spreadsheet", compressionLevel: CompressionLevel.NoCompression);
+			AddEntry(entryName: "content.xml", content: contentXml);
+			AddEntry(entryName: "styles.xml", content: stylesXml);
+			AddEntry(entryName: "meta.xml", content: metaXml);
+			AddEntry(entryName: "settings.xml", content: settingsXml);
+			AddEntry(entryName: "META-INF/manifest.xml", content: manifestXml);
+			// Write the content of the StringBuilder to the specified file path
+			//File.WriteAllText(path: filePath, contents: sb.ToString());
 		}
-		// Add the necessary XML parts to the ZIP archive to create a valid ODS file
-		AddEntry(entryName: "mimetype", content: "application/vnd.oasis.opendocument.spreadsheet", compressionLevel: CompressionLevel.NoCompression);
-		AddEntry(entryName: "content.xml", content: contentXml);
-		AddEntry(entryName: "styles.xml", content: stylesXml);
-		AddEntry(entryName: "meta.xml", content: metaXml);
-		AddEntry(entryName: "settings.xml", content: settingsXml);
-		AddEntry(entryName: "META-INF/manifest.xml", content: manifestXml);
-		// Write the content of the StringBuilder to the specified file path
-		//File.WriteAllText(path: filePath, contents: sb.ToString());
 
 		// Log that the data was exported successfully
 		logger.Info(message: $"Data exported successfully to ODS file: {filePath}");

@@ -147,26 +147,28 @@ internal class OdtExporter : IOrbitDataExporter
 				<manifest:file-entry manifest:full-path="META-INF/manifest.xml" manifest:media-type="text/xml"/>
 			</manifest:manifest>
 			""";
-		// Create a new FileStream to write the ODT document content to the specified file
-		using FileStream fileStream = new(path: filePath, mode: FileMode.Create, access: FileAccess.Write, share: FileShare.None);
-		// Create a new ZipArchive to create the ODT document as a ZIP file containing the necessary XML parts
-		using ZipArchive archive = new(stream: fileStream, mode: ZipArchiveMode.Create);
-		// Helper method to add an entry to the ZIP archive with the specified name, content, and compression level
-		void AddEntry(string entryName, string content, CompressionLevel compressionLevel = CompressionLevel.Optimal)
 		{
-			ZipArchiveEntry entry = archive.CreateEntry(entryName, compressionLevel);
-			using StreamWriter writer = new(stream: entry.Open(), encoding: new UTF8Encoding(encoderShouldEmitUTF8Identifier: false));
-			writer.Write(value: content);
+			// Create a new FileStream to write the ODT document content to the specified file
+			using FileStream fileStream = new(path: filePath, mode: FileMode.Create, access: FileAccess.Write, share: FileShare.None);
+			// Create a new ZipArchive to create the ODT document as a ZIP file containing the necessary XML parts
+			using ZipArchive archive = new(stream: fileStream, mode: ZipArchiveMode.Create);
+			// Helper method to add an entry to the ZIP archive with the specified name, content, and compression level
+			void AddEntry(string entryName, string content, CompressionLevel compressionLevel = CompressionLevel.Optimal)
+			{
+				ZipArchiveEntry entry = archive.CreateEntry(entryName, compressionLevel);
+				using StreamWriter writer = new(stream: entry.Open(), encoding: new UTF8Encoding(encoderShouldEmitUTF8Identifier: false));
+				writer.Write(value: content);
+			}
+			// Add the necessary XML parts to the ZIP archive to create a valid ODT document
+			AddEntry(entryName: "mimetype", content: "application/vnd.oasis.opendocument.text", compressionLevel: CompressionLevel.NoCompression);
+			AddEntry(entryName: "content.xml", content: contentXml);
+			AddEntry(entryName: "styles.xml", content: stylesXml);
+			AddEntry(entryName: "meta.xml", content: metaXml);
+			AddEntry(entryName: "settings.xml", content: settingsXml);
+			AddEntry(entryName: "META-INF/manifest.xml", content: manifestXml);
+			// Write the content of the StringBuilder to the specified file path
+			//File.WriteAllText(path: filePath, contents: sb.ToString());
 		}
-		// Add the necessary XML parts to the ZIP archive to create a valid ODT document
-		AddEntry(entryName: "mimetype", content: "application/vnd.oasis.opendocument.text", compressionLevel: CompressionLevel.NoCompression);
-		AddEntry(entryName: "content.xml", content: contentXml);
-		AddEntry(entryName: "styles.xml", content: stylesXml);
-		AddEntry(entryName: "meta.xml", content: metaXml);
-		AddEntry(entryName: "settings.xml", content: settingsXml);
-		AddEntry(entryName: "META-INF/manifest.xml", content: manifestXml);
-		// Write the content of the StringBuilder to the specified file path
-		//File.WriteAllText(path: filePath, contents: sb.ToString());
 
 		// Log that the data was exported successfully
 		logger.Info(message: $"Data exported successfully to ODT file: {filePath}");
