@@ -2,7 +2,7 @@
  * File:        OdtExporter.cs
  * Project:     Planetoid-DB
  * Namespace:   Planetoid_DB.Export
- * Description: Exports database information to a ODT file.
+ * Description: Exports database information to an ODT file.
  *
  * Author:      Michael Johne
  * Company:     Mijo Software
@@ -23,8 +23,8 @@ using System.Text;
 
 namespace Planetoid_DB.Export;
 
-/// <summary>Represents a ODT exporter for exporting database information to a Word file.</summary>
-/// <remarks>This class implements the IOrbitDataExporter interface and provides functionality to export database information to a ODT file format.</remarks>
+/// <summary>Represents an ODT exporter for exporting database information to an OpenDocument Text file.</summary>
+/// <remarks>This class implements the <see cref="IOrbitDataExporter"/> interface and provides functionality to export database information to the ODT file format.</remarks>
 // You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
 [DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
 internal class OdtExporter : IOrbitDataExporter
@@ -33,8 +33,8 @@ internal class OdtExporter : IOrbitDataExporter
 	/// <remarks>This logger is used to log messages for the class.</remarks>
 	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
-	/// <summary>Initializes a new instance of the OdtExporter class.</summary>
-	/// <remarks>This constructor initializes a new instance of the odtExporter class.</remarks>
+	/// <summary>Gets the file extension for ODT exports.</summary>
+	/// <remarks>This property provides the extension used when exporting database information to ODT files.</remarks>
 	public string Extension => "odt";
 
 	/// <summary>Gets the file filter string for the save file dialog.</summary>
@@ -64,17 +64,21 @@ internal class OdtExporter : IOrbitDataExporter
 				.Replace(oldValue: "'", newValue: "&apos;", comparisonType: StringComparison.Ordinal);
 	}
 
-	/// <summary>Exports the selected data to a text file.</summary>
+	/// <summary>Exports the selected data to an ODT file.</summary>
 	/// <param name="filePath">The path of the file to export to.</param>
 	/// <param name="exportTitle">The title of the export.</param>
 	/// <param name="selectedData">The data to be exported.</param>
-	/// <remarks>This method exports the selected data to a ODT file at the specified file path.</remarks>
+	/// <remarks>This method exports the selected data to an ODT file at the specified file path.</remarks>
 	public void Export(string filePath, string exportTitle, Dictionary<string, string> selectedData)
 	{
 		// Log the export operation
 		logger.Info(message: $"Exporting data to ODT file: {filePath}");
 		// Create a StringBuilder to build the content of the ODT file
 		StringBuilder sb = new();
+		if (!string.IsNullOrWhiteSpace(value: exportTitle))
+		{
+			_ = sb.Append(value: $"<text:p><text:span text:style-name=\"T1\">{EscapeXml(value: exportTitle)}</text:span></text:p>");
+		}
 		// Append the ODT content to the StringBuilder
 		foreach (KeyValuePair<string, string> kvp in selectedData)
 		{
