@@ -23,8 +23,8 @@ using System.Text;
 
 namespace Planetoid_DB.Export;
 
-/// <summary>Represents a Excel exporter for exporting database information to a Word file.</summary>
-/// <remarks>This class implements the IOrbitDataExporter interface and provides functionality to export database information to a Excel file format.</remarks>
+/// <summary>Represents an Excel exporter for exporting database information to an Excel file.</summary>
+/// <remarks>This class implements the IOrbitDataExporter interface and provides functionality to export database information to an Excel file format.</remarks>
 // You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
 [DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
 internal class ExcelExporter : IOrbitDataExporter
@@ -64,7 +64,7 @@ internal class ExcelExporter : IOrbitDataExporter
 				.Replace(oldValue: "'", newValue: "&apos;", comparisonType: StringComparison.Ordinal);
 	}
 
-	/// <summary>Exports the selected data to a text file.</summary>
+	/// <summary>Exports the selected data to an Excel file.</summary>
 	/// <param name="filePath">The path of the file to export to.</param>
 	/// <param name="exportTitle">The title of the export.</param>
 	/// <param name="selectedData">The data to be exported.</param>
@@ -76,7 +76,7 @@ internal class ExcelExporter : IOrbitDataExporter
 		// Create a StringBuilder to build the content of the Excel file
 		StringBuilder sb = new();
 		// Append the selected orbital elements to the rows of the Excel sheet
-		int excelRow = 2;
+		int excelRow = 1;
 		// Append the Excel content to the StringBuilder
 		foreach (KeyValuePair<string, string> kvp in selectedData)
 		{
