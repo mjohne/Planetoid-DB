@@ -6,7 +6,7 @@
 005|Meudon
 006|Fabra Observatory, Barcelona
 007|Paris
-008|Algiers-Bouzaréah
+008|Algiers-Bouzareah
 009|Berne-Uecht
 010|Caussols
 011|Wetzikon
@@ -14,19 +14,19 @@
 013|Leiden
 014|Marseilles
 015|Utrecht
-016|Besançon
+016|Besancon
 017|Hoher List
-018|Düsseldorf-Bilk
-019|Neuchâtel
+018|Dusseldorf-Bilk
+019|Neuchatel
 020|Nice
 021|Karlsruhe
 022|Pino Torinese
 023|Wiesbaden
-024|Heidelberg-Königstuhl
+024|Heidelberg-Konigstuhl
 025|Stuttgart
 026|Berne-Zimmerwald
 027|Milan
-028|Würzburg
+028|Wurzburg
 029|Hamburg-Bergedorf
 030|Arcetri Observatory, Florence
 031|Sonneberg
@@ -44,20 +44,20 @@
 043|Asiago Astrophysical Observatory, Padua
 044|Capodimonte Observatory, Naples
 045|Vienna (since 1879)
-046|Kleť Observatory, České Budějovice
-047|Poznań
-048|Hradec Králové
+046|Klet Observatory, Ceske Budejovice
+047|Poznan
+048|Hradec Kralove
 049|Uppsala-Kvistaberg
 050|Stockholm (before 1931)
 051|Royal Observatory, Cape of Good Hope
-052|Stockholm-Saltsjöbaden
+052|Stockholm-Saltsjobaden
 053|Konkoly Observatory, Budapest (since 1933)
 054|Brorfelde
 055|Cracow
-056|Skalnaté Pleso
+056|Skalnate Pleso
 057|Belgrade
 058|Kaliningrad
-059|Lomnický Štít
+059|Lomnicky Stit
 060|Warsaw-Ostrowik
 061|Uzhhorod
 062|Turku
@@ -80,7 +80,7 @@
 079|Radcliffe Observatory, Pretoria
 080|Istanbul
 081|Leiden Station, Johannesburg
-082|St. Pölten
+082|St. Polten
 083|Holosiivskyi district-Kyiv
 084|Pulkovo
 085|Kyiv
@@ -98,13 +98,13 @@
 097|Wise Observatory, Mitzpeh Ramon
 098|Asiago Observatory, Cima Ekar, 182 cm Copernicus
 099|Lahti
-100|Ähtäri
+100|Ahtari
 101|Kharkiv
 102|Zvenigorod
 103|Ljubljana
 104|San Marcello Pistoiese
 105|Moscow
-106|Črni Vrh
+106|Crni Vrh
 107|Cavezzo
 108|Montelupo
 109|Algiers-Kouba
@@ -118,7 +118,7 @@
 117|Sendling
 118|Astronomical and Geophysical Observatory, Modra
 119|Abastuman
-120|Višnjan
+120|Visnjan
 121|Kharkiv University, Chuhuivskyi district Station
 122|Pises Observatory
 123|Byurakan
@@ -165,22 +165,22 @@
 164|St. Michel sur Meurthe
 165|Piera Observatory, Barcelona
 166|Upice
-167|Bülach Observatory
+167|Bulach Observatory
 168|Kourovskaya
 169|Airali Observatory
 170|Observatorio de Begues
 171|Flarestar Observatory, San Gwann
 172|Onnens
-173|St. Clotilde, Réunion
-174|Nyrölä Observatory, Jyväskylä
+173|St. Clotilde, Reunion
+174|Nyrola Observatory, Jyvaskyla
 175|F.-X. Bagnoud Observatory, St-Luc
-176|Observatorio Astronómico de Consell
+176|Observatorio Astronomico de Consell
 177|Le Cres
 178|Collonges
 179|Monte Generoso
 180|Mauguio
 181|Observatoire des Makes, Saint-Louis
-182|St. Paul, Réunion
+182|St. Paul, Reunion
 183|Starlab Observatory, Karachay-Cherkessia
 184|Valmeca Observatory, Puimichel
 185|Observatoire Astronomique Jurassien-Vicques
@@ -214,7 +214,7 @@
 213|Observatorio Montcabre
 214|Garching Observatory
 215|Buchloe
-216|Observatoire des Côte de Meuse
+216|Observatoire des Cote de Meuse
 217|Assah
 218|Hyderabad
 219|Japal-Rangapur
@@ -244,7 +244,7 @@
 243|Umbrella Observatory, Fredenbeck
 244|Geocentric Occultation Observation
 245|Spitzer Space Telescope
-246|Kleť Observatory-KLENOT
+246|Klet Observatory-KLENOT
 247|Roving Observer
 248|Hipparcos
 249|SOHO
@@ -274,13 +274,13 @@
 273|Euclid
 274|James Webb Space Telescope
 275|Non-geocentric Occultation Observation
-276|Płońsk
+276|Plonsk
 277|Royal Observatory, Blackford Hill, Edinburgh
 278|Peking, Transit of Venus site
 279|Seeberg Observatory, Gotha (1787-1857)
 280|Lilienthal
 281|Bologna
-282|Nîmes
+282|Nimes
 283|Bremen
 284|Driesen
 285|Flammarion Observatory, Juvisy
@@ -301,7 +301,7 @@
 300|Bisei Spaceguard Center-BATTeRS
 301|Mont Megantic
 302|University of the Andes station
-303|OAN de Llano del Hato, Mérida
+303|OAN de Llano del Hato, Merida
 304|Las Campanas Observatory
 305|Purple Mountain, Hainan Island station
 306|Observatorio Taya Beixo, Barquisimeto
@@ -309,7 +309,11 @@
 308|Usuda Deep Space Center, 64-m, Nagano
 309|Cerro Paranal
 310|Minor Planet Center Test Code
+311|NOAA GOES-19
 312|Tsingtao field station, Xisha Islands
+313|NASA Parker Solar Probe
+314|NOAA SOLAR-1
+315|ESA Solar Orbiter
 318|Quinns Rock
 319|Perth Observatory, Perth-Lowell Telescope
 320|Chiro Observatory
@@ -321,6 +325,7 @@
 330|Purple Mountain Observatory, Nanking
 333|Desert Eagle Observatory
 334|Tsingtao
+335|PUNCH
 336|Lucy
 337|Sheshan
 338|Psyche
@@ -446,7 +451,7 @@
 458|Guadarrama Observatory
 459|Smith River Observatory, Danbury
 460|Area 52 Observatory, Nashville
-461|University of Szeged, Piszkéstető Stn. (Konkoly)
+461|University of Szeged, Piszkesteto Stn. (Konkoly)
 462|Mount Belleview Observatory
 463|Sommers-Bausch Observatory, Boulder
 464|Toby Point Observatory, Narragansett
@@ -476,7 +481,7 @@
 488|Newcastle-upon-Tyne
 489|Hemingford Abbots
 490|Wimborne Minster
-491|Centro Astronómico de Yebes
+491|Centro Astronomico de Yebes
 492|Mickleover
 493|Calar Alto
 494|Stakenbridge
@@ -513,9 +518,9 @@
 525|Marburg
 526|Kiel
 527|Altona
-528|Göttingen
+528|Gottingen
 529|Christiania
-530|Lübeck
+530|Lubeck
 531|Collegio Romano, Rome
 532|Munich
 533|Padua
@@ -524,7 +529,7 @@
 536|Berlin-Babelsberg
 537|Urania Observatory, Berlin
 538|Pola
-539|Kremsmünster
+539|Kremsmunster
 540|Linz
 541|Prague
 542|Falkensee
@@ -538,15 +543,15 @@
 550|Schwerin
 551|Hurbanovo
 552|Osservatorio S. Vittore, Bologna
-553|Chorzów
+553|Chorzow
 554|Burgsolms Observatory, Wetzlar
-555|Cracow-Fort Skała
+555|Cracow-Fort Skala
 556|Reintal, near Munich
-557|Ondřejov
+557|Ondrejov
 558|Warsaw
 559|Serra La Nave
 560|Madonna di Dossobuono
-561|Piszkéstető Stn. (Konkoly)
+561|Piszkesteto Stn. (Konkoly)
 562|Figl Observatory, Vienna
 563|Seewalchen
 564|Herrsching
@@ -584,7 +589,7 @@
 596|Colleverde di Guidonia
 597|Springe
 598|Loiano
-599|Campo Imperatore--CINEOS
+599|Campo Imperatore-CINEOS
 600|TLC Observatory, Bologna
 601|Engelhardt Observatory, Dresden
 602|Urania Observatory, Vienna
@@ -600,20 +605,20 @@
 612|Lenkerbeck
 613|Heisingen
 614|Soisy-sur-Seine
-615|St. Véran
+615|St. Veran
 616|Brno
-617|Arbonne la Forêt
+617|Arbonne la Foret
 618|Martigues
 619|Sabadell
-620|Observatorio Astronómico de Mallorca
+620|Observatorio Astronomico de Mallorca
 621|Bergisch Gladbach
 622|Oberwichtrach
-623|Liège
+623|Liege
 624|Dertingen
 625|Kihei-AMOS Remote Maui Experimental Site
 626|Geel
 627|Blauvac
-628|Mülheim-Ruhr
+628|Mulheim-Ruhr
 629|Szeged Observatory
 630|Osenbach
 631|Hamburg-Georgswerder
@@ -688,7 +693,7 @@
 700|Chinle
 701|Junk Bond Observatory, Sierra Vista
 702|Joint Obs. for cometary research, Socorro
-703|Catalina Sky Survey
+703|University of Arizona Catalina Sky Survey
 704|Lincoln Laboratory ETS, New Mexico
 705|Apache Point
 706|Salida
@@ -741,7 +746,7 @@
 753|Washburn Observatory, Madison
 754|Yerkes Observatory, Williams Bay
 755|Optec Observatory
-756|Dearborn Observatory, Evanston (bef. July~1939)
+756|Dearborn Observatory, Evanston (bef. July 1939)
 757|High Point
 758|BCC Observatory, Cocoa
 759|Nashville
@@ -753,7 +758,7 @@
 765|Cincinnati
 766|Michigan State University Obs., East Lansing
 767|Ann Arbor
-768|Dearborn Observatory, Evanston (aft. Oct.~1939)
+768|Dearborn Observatory, Evanston (aft. Oct. 1939)
 769|McMillin Observatory, Columbus
 770|Crescent Moon Observatory, Columbus
 771|Boyeros Observatory, Havana
@@ -791,13 +796,13 @@
 803|Taunton
 804|Santiago-San Bernardo
 805|Santiago-Cerro El Roble
-806|Santiago-Cerro Calán
+806|Santiago-Cerro Calan
 807|Cerro Tololo Observatory, La Serena
 808|El Leoncito
 809|European Southern Observatory, La Silla
 810|Wallace Observatory, Westford
 811|Maria Mitchell Observatory, Nantucket
-812|Viña del Mar
+812|Vina del Mar
 813|Santiago-Quinta Normal (1862-1920)
 814|North Scituate
 815|Santiago-Santa Lucia (1849-1861)
@@ -806,13 +811,13 @@
 818|Gemeaux Observatory, Laval
 819|Val-des-Bois
 820|Tarija
-821|Córdoba-Bosque Alegre
-822|Córdoba
+821|Cordoba-Bosque Alegre
+822|Cordoba
 823|Fitchburg
 824|Lake Clear
 825|Granville
 826|Plessissville
-827|Saint-Félicien
+827|Saint-Felicien
 828|Assonet
 829|Complejo Astronomico El Leoncito
 830|Hudson
@@ -846,7 +851,7 @@
 858|Tebbutt Observatory, Edgewood
 859|Wykrota Observatory-CEAMIG
 860|Valinhos
-861|Barão Geraldo
+861|Barao Geraldo
 862|Saku
 863|Furukawa
 864|Kumamoto
@@ -855,11 +860,11 @@
 867|Saji Observatory
 868|Hidaka Observatory
 869|Tosa
-870|Campiñas
+870|Campinas
 871|Akou
 872|Tokushima
 873|Kurashiki Observatory
-874|Observatório do Pico dos Dias, Itajubá
+874|Observatorio do Pico dos Dias, Itajuba
 875|Yorii
 876|Honjo
 877|Okutama
@@ -909,7 +914,7 @@
 921|SW Institute for Space Research, Cloudcroft
 922|Timberland Observatory, Decatur
 923|The Bradstreet Observatory, St. Davids
-924|Observatoire du Cégep de Trois-Rivières
+924|Observatoire du Cegep de Trois-Rivieres
 925|Palominas Observatory
 926|Tenagra II Observatory, Nogales
 927|Madison-YRS
@@ -950,7 +955,7 @@
 962|Gandia
 963|Werrington
 964|Southend Bradfield
-965|Observação Astronomica no Algarve, Portimão
+965|Observacao Astronomica no Algarve, Portimao
 966|Church Stretton
 967|Greens Norton
 968|Haverhill
@@ -991,11 +996,11 @@ A02|Masia Cal Maciarol Modul 8
 A03|Torredembarra
 A04|Saint-Caprais
 A05|Belesta
-A06|Mataró
+A06|Mataro
 A07|Gretz-Armainvilliers
 A08|Malibert
 A09|Quincampoix
-A10|Observatorio Astronómico de Conbera
+A10|Observatorio Astronomico de Corbera
 A11|Wormhout
 A12|Stazione Astronomica di Sozzago
 A13|Observatoire Naef, Ependes
@@ -1004,8 +1009,8 @@ A15|Josef Bresser Sternwarte, Borken
 A16|Tentlingen
 A17|Guidestar Observatory, Weinheim
 A18|Herne
-A19|Köln
-A20|Sögel
+A19|Koln
+A20|Sogel
 A21|Irmtraut
 A22|Starkenburg Sternwarte-SOHAS
 A23|Weinheim
@@ -1034,7 +1039,7 @@ A45|Karrenkneul
 A46|Lelekovice
 A47|Matera
 A48|Povegliano Veronese
-A49|Uppsala-Ångström
+A49|Uppsala-Angstrom
 A50|Andrushivka Astronomical Observatory
 A51|Danzig
 A52|Etyek
@@ -1104,10 +1109,10 @@ B15|Inastars Observatory, Potsdam (since 2006)
 B16|1st Moscow Gymnasium Observatory, Lipki
 B17|AZT-8 Yevpatoriya
 B18|Terskol
-B19|Observatorio Iluro, Mataró
+B19|Observatorio Iluro, Mataro
 B20|Observatorio Carmelita, Tiana
 B21|Gaisberg Observatory, Schaerding
-B22|Observatorio d'Àger
+B22|Observatorio d'Ager
 B23|Fiamene
 B24|Cesson
 B25|Catania
@@ -1141,8 +1146,8 @@ B52|Observatorio El Far
 B53|Casal Lumbroso, Rome
 B54|Ager
 B55|Comeglians
-B56|Observatorio Sant Pere, Mataró
-B57|Laietania Observatory, Parets del Vallès
+B56|Observatorio Sant Pere, Mataro
+B57|Laietania Observatory, Parets del Valles
 B58|Polaris Observatory, Budapest
 B59|Borken
 B60|Deep Sky Observatorium, Bad Bentheim
@@ -1161,20 +1166,20 @@ B72|Soerth Observatory
 B73|Mauren Valley Observatory, Holzgerlingen
 B74|Santa Maria de Montmagastrell
 B75|Stazione Astronomica Betelgeuse, Magnago
-B76|Sternwarte Schönfeld, Dresden
+B76|Sternwarte Schonfeld, Dresden
 B77|Schafmatt Observatory, Aarau
 B78|Astrophoton Observatory, Audorf
 B79|Marana Observatory
 B80|Osservatorio Astronomico Campomaggiore
 B81|Caimari
 B82|Maidbronn
-B83|Gières
+B83|Gieres
 B84|Cyclops Observatory, Oostkapelle
 B85|Beilen Observatory
 B86|Sternwarte Hagen
 B87|Banyoles
 B88|Bigmuskie Observatory, Mombercelli
-B89|Observatori Astronòmic de Tiana
+B89|Observatori Astronomic de Tiana
 B90|Malina River Observatory, Povoletto
 B91|Bollwiller
 B92|Chinon
@@ -1192,21 +1197,21 @@ C03|Clayhole Observatory, Jokela
 C04|Kramatorsk
 C05|Konigsleiten
 C06|Krasnoyarsk
-C07|Anysllum Observatory, Àger
+C07|Anysllum Observatory, Ager
 C08|Fiby
 C09|Rouet
 C10|Maisoncelles
-C11|City Observatory, Slaný
+C11|City Observatory, Slany
 C12|Berta Observatory, Sabadell
 C13|Como
 C14|Sky Vistas Observatory, Eichgraben
 C15|ISON-Ussuriysk Observatory
-C16|Isarwinkel Observatory, Bad Tölz
-C17|Observatorio Joan Roget, Àger
+C16|Isarwinkel Observatory, Bad Tolz
+C17|Pingu, Ager
 C18|Frasnes-Lez-Anvaing
 C19|ROSA Observatory, Vaucluse
 C20|Kislovodsk Mtn. Astronomical Stn., Pulkovo Obs.
-C21|Observatorio Via Lactea, Àger
+C21|Observatorio Via Lactea, Ager
 C22|Oberwiesenthal
 C23|Olmen
 C24|Seveso
@@ -1214,7 +1219,7 @@ C25|Pulkovo Observatory Station, Campo Imperatore
 C26|Levendaal Observatory, Leiden
 C27|Pallerols
 C28|Wellinghofen
-C29|Observatori Astronómic de Les Planes de Son
+C29|Observatori Astronomic de Les Planes de Son
 C30|Petrozavodsk University Obs., Sheltozero Stn.
 C31|Sternwarte Neanderhoehe Hochdahl e.V., Erkrath
 C32|Ka-Dar Observatory, TAU Station, Nizhny Arkhyz
@@ -1223,7 +1228,7 @@ C34|Baja Astronomical Observatory
 C35|Terrassa
 C36|Starry Wanderer Observatory, Baran'
 C37|Stowupland
-C38|Varuna Observatory, Cuorgnè
+C38|Varuna Observatory, Cuorgne
 C39|Nijmegen
 C40|Kuban State University Astrophysical Observatory
 C41|MASTER-II Observatory, Kislovodsk
@@ -1250,18 +1255,18 @@ C61|Chelles
 C62|Eurac Observatory, Bolzano
 C63|Giuseppe Piazzi Observatory, Ponte in Valtellina
 C64|Puchenstuben
-C65|Observatori Astronòmic del Montsec
+C65|Observatori Astronomic del Montsec
 C66|Observatorio El Cielo de Consell
 C67|Gnevsdorf
 C68|Ellinogermaniki Agogi Observatory, Pallini
-C69|Bayerwald Sternwarte, Neuhütte
+C69|Bayerwald Sternwarte, Neuhuette
 C70|Uiterstegracht Station, Leiden
 C71|Sant Marti Sesgueioles
 C72|Palestrina
-C73|Galați Observatory
-C74|Observatorio El Teatrillo de Lyra, Àger
+C73|Galati Observatory
+C74|Observatorio El Teatrillo de Lyra, Ager
 C75|Whitestar Observatory, Borgobello
-C76|Observatorio Estels, Àger
+C76|Observatorio Estels, Ager
 C77|Bernezzo Observatory
 C78|Martin S. Kraar Observatory, Rehovot
 C79|Roser Observatory, Blanes
@@ -1294,7 +1299,7 @@ D05|ISON-Terskol Observatory
 D06|Associazione Tuscolana di Astronomia, Domatore
 D07|Wegberg
 D08|Ghezz Observatory, Leontica
-D09|Observatory Grömme, Maasmechelen
+D09|Observatory Gromme, Maasmechelen
 D10|Gaertringen
 D11|Bastidan Observatory
 D12|Filzi School Observatory, Laives
@@ -1348,7 +1353,7 @@ D59|MARIAMIR, Saint-Jeannet
 D60|Sparky's Stars, Masseris
 D61|Suntopia Marina, Sumoto
 D62|Miyaki-Argenteus
-D63|G. Pascoli Observatory, Barga (since June~2023)
+D63|G. Pascoli Observatory, Barga (since June 2023)
 D64|Fucama, Casalincontrada
 D65|G. Beltrame, Arcugnano Vicenza
 D66|Civico Osservatorio Astronomico di Rozzano
@@ -1477,7 +1482,7 @@ G38|Observatorio La Senda, Cabanillas del Campo
 G39|ROAD, San Pedro de Atacama
 G40|Slooh.com Canary Islands Observatory
 G41|Insperity Observatory, Humble
-G42|Observatorio Astronómico UAdeC, Saltillo
+G42|Observatorio Astronomico UAdeC, Saltillo
 G43|Observatorio Buenaventura Suarez, San Luis
 G44|Observatorio Longa Vista, Sao Paulo
 G45|Space Surveillance Telescope, Atom Site
@@ -1531,7 +1536,7 @@ G92|Jarnac Observatory, Vail
 G93|Sonoita Research Observatory, Sonoita
 G94|Sonoran Skies Observatory, St. David
 G95|Hereford Arizona Observatory, Hereford
-G96|Mt. Lemmon Survey
+G96|University of Arizona Mt. Lemmon Survey
 G97|Astronomical League Alpha Observatory, Portal
 G98|Calvin-Rehoboth Observatory, Rehoboth
 G99|NF Observatory, Silver City
@@ -1613,7 +1618,7 @@ H74|Bar J Observatory, New Smyrna Beach
 H75|Indian Hill North Observatory, Huntsburg
 H76|Oakridge Observatory, Miami
 H77|Buehler Observatory
-H78|University of Nariño Observatory, Pasto
+H78|University of Narino Observatory, Pasto
 H79|York University Observatory, Toronto
 H80|Halsted Observatory, Princeton
 H81|Hartung-Boothroyd Observatory, Ithaca
@@ -1631,7 +1636,7 @@ H92|Arcturus Observatory
 H93|Berkeley Heights
 H94|Cedar Knolls
 H95|NJIT Observatory, Newark
-H96|Observatoire des Pléïades, Mandeville
+H96|Observatoire des Pleiades, Mandeville
 H97|Talcott Mountain Science Center, Avon
 H98|Dark Rosanne Obs., Middlefield
 H99|Sunhill Observatory, Newton
@@ -1655,13 +1660,13 @@ I16|IAA-AI Atacama, San Pedro de Atacama
 I17|Thomas G. Cupillari Observatory, Fleetville
 I18|Fan Mountain Observatory, Covesville
 I19|Observatorio El Gato Gris, Tanti
-I20|Observatorio Astronomico Salvador, Río Cuarto
-I21|El Condor Observatory, Córdoba
+I20|Observatorio Astronomico Salvador, Rio Cuarto
+I21|El Condor Observatory, Cordoba
 I22|Abbey Ridge Observatory, Stillwater Lake
 I23|Frosty Cold Observatory, Mash Harbor
 I24|Lake of the Woods Observatory, Locust Grove
 I25|ECCCO Observatory, Bosque Alegre
-I26|Observatorio Kappa Crucis, Córdoba
+I26|Observatorio Kappa Crucis, Cordoba
 I27|Barred Owl Observatory, Carp
 I28|Starhoo Observatory, Lakeville
 I29|Middlesex School Observatory, Concord
@@ -1671,7 +1676,7 @@ I32|Observatorio Beta Orionis, Rosario
 I33|SOAR, Cerro Pachon
 I34|Morgantown
 I35|Sidoli
-I36|Observatorio Los Campitos, Cañuela
+I36|Observatorio Los Campitos, Canuelas
 I37|Astrodomi Observatory, Santa Rita
 I38|Observatorio Los Algarrobos, Salto
 I39|Observatorio Cruz del Sur, San Justo
@@ -1682,7 +1687,7 @@ I43|Tarleton State University Obs., Stephenville
 I44|Northwest Florida State College, Niceville
 I45|W Crusis Astronomical Observatory, San Justo
 I46|The Cottage Observatory, Altoona
-I47|Pierre Auger Observatory, Malargüe
+I47|Pierre Auger Observatory, Malargue
 I48|Observatorio El Catalejo, Santa Rosa
 I49|Sunflower Observatory, Santa Fe
 I50|P2 Observatory, Mayhill
@@ -1691,13 +1696,13 @@ I52|Steward Observatory, Mt. Lemmon Station
 I53|Armilla
 I54|Observatorio Las Vaguadas, Badajoz
 I55|Valencia
-I56|Observatorio Astronómico John Beckman, Almería
+I56|Observatorio Astronomico John Beckman, Almeria
 I57|Elche
-I58|Bétera
+I58|Betera
 I59|Observatorio Fuente de los matos, Muriedas
 I60|Guernanderf
 I61|Ourense
-I62|Observatorio Helios Ontígola
+I62|Observatorio Helios Ontigola
 I63|Cygnus Observatory, New Airesford
 I64|Maidenhead
 I65|Yunquera
@@ -1713,11 +1718,11 @@ I74|Baxter Garden Observatory, Salisbury
 I75|Observatorio Los Caracoles, Castello
 I76|Observatorio Tesla, Valdemorillo
 I77|CEAMIG-REA Observatory, Belo Horizonte
-I78|Observatorio Principia, Málaga
+I78|Observatorio Principia, Malaga
 I79|AstroCamp, Nerpio
 I80|Rose Cottage Observatory, Keighley
 I81|Tarbatness Observatory, Portmahomack
-I82|Güímar
+I82|Guimar
 I83|Cherryvalley Observatory, Rathmolyon
 I84|Cerro del Viento, Badajoz
 I85|Las Negras
@@ -1742,7 +1747,7 @@ J03|Gothers Observatory, St. Dennis
 J04|ESA Optical Ground Station, Tenerife
 J05|Bootes Observatory, Boecillo
 J06|Trent Astronomical Observatory, Clifton
-J07|Observatorio SPAG Monfragüe, Palazuelo-Empalme
+J07|Observatorio SPAG Monfrague, Palazuelo-Empalme
 J08|Observatorio Zonalunar, Puzol
 J09|Balbriggan
 J10|Alicante
@@ -1773,12 +1778,12 @@ J34|La Fecha
 J35|Tucci Observatory, Martos
 J36|Observatorio DiezALaOnce, Illana
 J37|Huelva
-J38|Observatorio La Vara, Valdés
+J38|Observatorio La Vara, Valdes
 J39|Ingenio
-J40|Málaga
+J40|Malaga
 J41|Raheny
 J42|Puzol
-J43|Oukaïmeden Observatory, Marrakech
+J43|Oukaimeden Observatory, Marrakech
 J44|Observatorio Iturrieta, Alava
 J45|Observatorio Montana Cabreja, Vega de San Mateo
 J46|Observatorio Montana Blanca, Tias
@@ -1792,7 +1797,7 @@ J53|Posadas
 J54|Bradford Robotic Telescope
 J55|Los Altos de Arguineguin Observatory
 J56|Observatorio La Avejerilla
-J57|Centro Astronómico Alto Turia, Valencia
+J57|Centro Astronomico Alto Turia 1
 J58|Brynllefrith Observatory, Llantwit Fardre
 J59|Observatorio Linceo, Santander
 J60|Tocororo Observatory, Arquillinos
@@ -1805,7 +1810,7 @@ J66|Kinver
 J67|Observatorio La Puebla de Vallbona
 J68|Tweenhills Observatory, Hartpury
 J69|North Observatory, Clanfield
-J70|Obs. Astronómico Vega del Thader, El Palmar
+J70|Obs. Astronomico Vega del Thader, El Palmar
 J71|Willow Bank Observatory
 J72|Valle del Sol
 J73|Quainton
@@ -1822,7 +1827,7 @@ J83|Olive Farm Observatory, Hoghton
 J84|South Observatory, Clanfield
 J85|Makerstoun
 J86|Sierra Nevada Observatory
-J87|La Cañada
+J87|La Canada
 J88|Strawberry Field Obs., Southampton
 J89|Tres Cantos Observatory
 J90|West Challow
@@ -1844,28 +1849,28 @@ K05|Eden Observatory, Banham
 K06|Observatorio Montagut, Can Sola
 K07|Observatoire de Gravelle, St. Maurice
 K08|Observatorio Lledoner, Vallirana
-K09|Lliçà d'Amunt
+K09|Llica d'Amunt
 K10|Micro Palomar, Reilhanette
 K11|Observatoire de Pommier
 K12|Obsevatorio Astronomico de Marratxi
 K13|Albireo Observatory, Inca
 K14|Observatorio de Sencelles
-K15|Murviel-lès-Montpellier
+K15|Murviel-les-Montpellier
 K16|Reilhanette
 K17|Observatoire des Valentines, Bex
-K18|Hésingue
+K18|Hesingue
 K19|PASTIS Observatory, Banon
-K20|Danastro Observatory, Romerée
-K21|Saint-Saturnin-lès-Avignon
+K20|Danastro Observatory, Romeree
+K21|Saint-Saturnin-les-Avignon
 K22|Les Barres Observatory, Lamanon
 K23|Gorgonzola
 K24|Schmelz
 K25|Haute Provence Sud, Saint-Michel-l'Observatoire
 K26|Contern
-K27|St-Martin Observatory, Amathay Vésigneux
+K27|St-Martin Observatory, Amathay Vesigneux
 K28|Sternwarte Eckdorf
 K29|Stellarium Gornergrat
-K30|Lüscherz
+K30|Luscherz
 K31|Osservatorio Astronomico di Bellino
 K32|Maritime Alps Observatory, Cuneo
 K33|San Defendente
@@ -1894,11 +1899,11 @@ K55|Wallhausen
 K56|Osservatorio di Foligno
 K57|Fiore Observatory
 K58|Gevelsberg
-K59|Elsterland Observatory, Jeßnigk
+K59|Elsterland Observatory, Jessnigk
 K60|Lindby
 K61|Rokycany Observatory
 K62|Teplice Observatory
-K63|G. Pascoli Observatory, Barga (before June~2023)
+K63|G. Pascoli Observatory, Barga (before June 2023)
 K64|Waizenreuth
 K65|Cesena
 K66|Osservatorio Astronomico di Anzio
@@ -1923,7 +1928,7 @@ K84|Felliscopio Observatory, Fellicarolo
 K85|Kelmis
 K86|Brescia
 K87|Dettelbach Vineyard Observatory
-K88|GINOP-KHK, Piszkéstető
+K88|GINOP-KHK, Piszkesteto
 K89|Digital Stargate Observatory, Manciano
 K90|Sopot Astronomical Observatory
 K91|Sutherland-LCO A
@@ -1936,14 +1941,14 @@ K97|Freconrupt
 K98|6ROADS Observatory 1, Wojnowko
 K99|Derenivka Observatory
 L00|East Rome Observatory, Rome
-L01|Višnjan Observatory, Tican
+L01|Visnjan Observatory, Tican
 L02|NOAK Observatory, Stavraki
 L03|SGT Observatory, Gaflenz
 L04|ROASTERR-1 Observatory, Cluj-Napoca
 L05|Dridri Observatory, Franciacorta
 L06|Sormano 2 Observatory, Bellagio Via Lattea
 L07|Osservatorio Salvatore di Giacomo, Agerola
-L08|Metsähovi Optical Telescope, Metsahovi
+L08|Metsahovi Optical Telescope, Metsahovi
 L09|Sutherland-LCO Aqawan A #1
 L10|Kryoneri Observatory
 L11|Sandvreten Observatory
@@ -1951,16 +1956,16 @@ L12|Koksijde
 L13|Stardust Observatory, Brasov
 L14|Planetarium de Vaulx-en-Velin Observatory
 L15|St. George Observatory, Ploiesti
-L16|Stardreams Observatory, Vălenii de Munte
-L17|Observatori Astronòmic Albanyà
+L16|Stardreams Observatory, Valenii de Munte
+L17|Observatori Astronomic Albanya
 L18|QOS Observatory, Zalistsi
 L19|Osservatorio Felsina AAB, Montepastore
-L20|AG\\_Sarajevo Observatory, Sarajevo
-L21|Ostrov Observatory, Constanța
-L22|Bârlad Observatory
+L20|AG_Sarajevo Observatory, Sarajevo
+L21|Ostrov Observatory, Constanta
+L22|Barlad Observatory
 L23|Schela Observatory
 L24|Gauteng
-L25|Smolęcin
+L25|Smolecin
 L26|Sanderphil Urban Observatory, Civitavecchia
 L27|29PREMOTE Observatory, Dauban
 L28|ISON-Castelgrande Observatory
@@ -1971,8 +1976,8 @@ L32|Korea Microlensing Telescope Network-SAAO
 L33|Ananiv
 L34|Galhassin Robotic Telescope, Isnello
 L35|DreamSky Observatory, Lisnyky
-L36|Ondřejov--BlueEye600 Telescope
-L37|Observatorio Alnitak, El Puerto de Santa María
+L36|Ondrejov--BlueEye600 Telescope
+L37|Observatorio Alnitak, El Puerto de Santa Maria
 L38|Gartensternwarte Schafsweide, Sehlde
 L39|Osservatorio Spica, Signa
 L40|Sternwarte Saarbruecken Rastpfuhl
@@ -2130,8 +2135,8 @@ N83|LW-1, NAOC-Korla
 N85|Megrez-NAOC
 N86|Xingming Observatory-KATS, Nanshan
 N87|Nanshan Station, Xinjiang Observatory
-N88|Xingming Observatory {#}3, Nanshan
-N89|Xingming Observatory {#}2, Nanshan
+N88|Xingming Observatory #3, Nanshan
+N89|Xingming Observatory #2, Nanshan
 N94|Altay Astronomical Observatory
 O02|Galaxy Tibet YBJ Observatory,Yangbajing
 O17|Purple Mountain Observatory, Lenghu-1
@@ -2211,8 +2216,8 @@ Q54|Harlingten Telescope, Greenhill Observatory
 Q55|SkyMapper, Siding Spring
 Q56|Heaven's Mirror Observatory, Yass
 Q57|Korea Microlensing Telescope Network-SSO
-Q58|Siding Spring-LCO Clamshell {#}1
-Q59|Siding Spring-LCO Clamshell {#}2
+Q58|Siding Spring-LCO Clamshell #1
+Q59|Siding Spring-LCO Clamshell #2
 Q60|ISON-SSO Observatory, Siding Spring
 Q61|PROMPT, Siding Spring
 Q62|iTelescope Observatory, Siding Spring
@@ -2222,26 +2227,35 @@ Q65|Warrumbungle Observatory
 Q66|Siding Spring-Janess-G, JAXA
 Q67|JBL Observatory, Bathurst
 Q68|Blue Mountains Observatory, Leura
-Q69|Hazelbrook Observatory, Hazelbrook
+Q69|Hazelbrook
 Q70|Glenlee Observatory, Glenlee
 Q71|SNX-NET, Siding Spring
 Q73|Buckthorn, Thornton
 Q78|Woogaroo Observatory, Forest Lake
 Q79|Samford Valley Observatory
-Q80|Birkdale Observatory, Birkdale
+Q80|Birkdale
 Q81|Caloundra West
 R13|GOTO North
 R14|VillaDeMazoElHoyo
 R16|Tafuriaste, La Orotava
 R17|ATLAS-TDO
+R18|Two-meter Twin Telescope, TTT4
 R20|LaMelira, Las Palmas de Gran Canaria
+R39|Dobsonian Power, Algarve
+R40|STB Astro Observatory, Setubal
+R41|UAM, Madrid
+R42|Observatorio Astronomico del Moncayo
+R43|TransAstra TKO at e-EYE
 R44|Metis Trevinca Skies
 R45|Tycho Brahe, Trevinca
+R46|Lovell (76-m, Jodrell Bank)
+R47|Madrid DSS-63 (70-m)
+R48|Centro Astronomico Alto Turia 2
 R49|Observatorio Villuercas-Navezuelas, Navezuelas
 R50|Obsservatorio astronomico Orion
 R51|Astrogredos Observatory, Arenas de San Pedro
 R52|Observatorio IES Al-Baytar, Benalmadena
-R53|Pinos, Alhaurín de la Torre
+R53|Pinos, Alhaurin de la Torre
 R54|Petit Cosquet, Bangor
 R55|ALFA CENTAURI, LAS MESAS
 R56|Scott Street Observatory, Lake Tekapo
@@ -2269,30 +2283,36 @@ R77|Observatoire de l'etoile qui rit
 R78|Crystal Lake Observatory, Ngutunui
 R79|Observatoire Hubert Reeves, Mars
 R80|Observatoire International de Beauvert
+R81|Obs Vallespir, Sabadell
 R83|Observatoire Banon La Tuilerie, Banon
 R85|Telescope Leonard de Vinci, GAPRA, Antibes
 R86|Mont-Soleil, Saint-Imier
-R87|Observatoire de la Côte d'Azur, Nice
+R87|Observatoire de la Cote d'Azur
 R88|La Porte des Etoiles, Corgemont
 R92|Osterholz-Scharmbeck
 R93|Sanse Observatory, San Sebastiano Curone
 R95|Fiammetta Observatory, La Spezia
+R96|Osservatorio Pierino Zambonini
 R97|Baudenbach
 R99|Giuliano Betti Observatory, Firenze
+S03|Stierlingwald, Buermoos
 S04|Osservatorio Astronomico Narciso Spuntoni
+S05|Sternwarte Burghausen
+S06|ASTRIS Osservatorio Astronomico Claudio Del Sole
+S15|Namibia1/HAKOS, Hakos, Namibia, Hakos
 S16|ASI Matera Flyeye
 S24|Szilard Leo Observatory, Bujak
 S30|Zenit, Hajduboszormeny
 S42|Institute of Space Science Magurele
 S43|StarBlazer Observatory, Bucharest
 S47|Alfastar - Astroclubul Bucuresti
-S61|Mykolaiv, 0.3m $f$/5 Telescope
+S61|Mykolaiv, 0.3m f/5 Telescope
 S86|Alamri astronomical observatory
 S89|FASTAU, Astrofarm Astroverts
 S93|INASAN-Kislovodsk Observatory
 T02|SNX-NET, Wailuku
-T03|Haleakala-LCO Clamshell {#}3
-T04|Haleakala-LCO OGG B {#}2
+T03|Haleakala-LCO Clamshell #3
+T04|Haleakala-LCO OGG B #2
 T05|ATLAS-HKO, Haleakala
 T07|ATLAS-MLO Auxiliary Camera, Mauna Loa
 T08|ATLAS-MLO, Mauna Loa
@@ -2316,6 +2336,7 @@ U62|TransAstra TKO at SkiesAway
 U63|Burnt Tree Hill Observatory, Cle Elum
 U64|CWU-Lind Observatory, Ellensburg
 U65|CWU Observatory, Ellensburg
+U66|June Lake Overlook
 U67|Jack C. Davis Observatory, Carson City
 U68|JPL SynTrack Robotic Telescope, Auberry
 U69|iTelescope SRO Observatory, Auberry
@@ -2334,6 +2355,7 @@ U81|CS3-Trojan Station, Landers
 U82|CS3-Palmer Divide Station, Landers
 U83|Mount Laguna Observatory
 U86|BOOTES-5, Bajo California
+U91|BURSST, Beryl
 U92|Astrottica Network USA2, Pie Town
 U93|Skygems Dreamscope Utah, Beryl Junction
 U94|iTelescope Observatory, Beryl Junction
@@ -2380,16 +2402,16 @@ V34|Baker Observatory, Black Forest
 V35|Deep Sky Observatory Collaborative, Pier 5
 V36|The Ranch Observatory, Lakewood
 V37|McDonald Observatory-LCO ELP
-V38|McDonald Observatory-LCO ELP Aqawan A {#}1
+V38|McDonald Observatory-LCO ELP Aqawan A #1
 V39|McDonald Observatory-LCO ELP B
 V40|Divine Creation Observatory, Fort Davis
 V41|Rapid City
 V42|Dimension Point, Mayhill
 V43|Chiricahua Skies Observatory, Sunizona
 V44|Coyote Watcher, Pie Town
-V45|McDonald Observatory-LCO ELP Aqawan B {#}1
+V45|McDonald Observatory-LCO ELP Aqawan B #1
 V46|Walnut Park Observatory, Los Alamos
-V47|McDonald Observatory-LCO ELP Aqawan B {#}2
+V47|McDonald Observatory-LCO ELP Aqawan B #2
 V48|TransAstra at Winer
 V54|Observatoire LAURIER, El Marques
 V55|The Gikem Observatory, Rockwood
@@ -2419,12 +2441,14 @@ W08|Jimginny Observatory, Naperville
 W09|Willowed Plains Observatory, Manteno
 W11|Northwest Indiana Robotic Telescope, Lowell
 W13|Star Quarry Observatory, Bedford
-W14|Harvest Observatory, Bedford
+W14|Harvest
 W15|Wayne Observatory, Franklin
 W16|Pleasant Groves Observatory
 W17|Arrowhead, Sheridan
 W18|Red Fox Observatory, Pendleton
-W19|Kalamazoo Observatory, Kalamazoo
+W19|Kalamazoo
+W20|Moeller Observatory, Manchester
+W21|Spots Observatory, Bethesda
 W22|WestRock Observatory, Columbus
 W23|Hevonen Farm Observatory, Oxford
 W24|Shamrock Banks Observatory, Clare
@@ -2473,7 +2497,7 @@ W66|SVH Observatory, Blairstown
 W67|Paul Robinson Observatory, Voorhees State Park
 W68|ATLAS Chile, Rio Hurtado
 W69|OLPH Observatory, Brooklyn
-W70|Loose Goose Observatory, Saint-Jérome
+W70|Loose Goose Observatory, Saint-Jerome
 W71|Rand II Observatory, Lake Placid
 W72|Trumbull Observatory, Trumbull
 W73|Observatorio Astronomico de Moquegua, Carumas
@@ -2482,7 +2506,7 @@ W75|SPECULOOS-South Observatory, Paranal
 W76|CHILESCOPE Observatory, Rio Hurtado
 W77|Skyledge Observatory, Killingworth
 W78|Clay Telescope, Harvard University
-W79|Cerro Tololo-LCO Aqawan B {#}1
+W79|Cerro Tololo-LCO Aqawan B #1
 W80|Westwood
 W81|Nebula Knoll Observatory, East Wakefield
 W82|Mendel Observatory, Merrimack College
@@ -2492,7 +2516,7 @@ W85|Cerro Tololo-LCO A
 W86|Cerro Tololo-LCO B
 W87|Cerro Tololo-LCO C
 W88|Slooh.com Chile Observatory, La Dehesa
-W89|Cerro Tololo-LCO Aqawan A {#}1
+W89|Cerro Tololo-LCO Aqawan A #1
 W90|Phillips Exeter Academy Grainger Observatory
 W91|VHS-VISTA, Cerro Paranal
 W92|MASTER-OAFA Observatory, San Juan
@@ -2517,7 +2541,7 @@ X10|OVTLN, San Pedro de Atacama
 X11|VLT Survey Telescope, Paranal
 X12|Observatorio Los Cabezones
 X13|Observatorio Remoto Bosque Alegre
-X14|Observatorio Orbis Tertius, Córdoba
+X14|Observatorio Orbis Tertius, Cordoba
 X15|ABYO, San Pedro de Atacama
 X16|Astronomia Sigma Octante, Cochabamba
 X17|BlackGEM
@@ -2531,6 +2555,7 @@ X24|Observatorio Desierto Cosmico, Atacama
 X25|UBC Southern Observatory
 X26|NAOS, Alta Gracia
 X27|SARA-CT
+X28|CHILE1/ODC, Atacama
 X29|Observatorio Astronomico Municipal de Funes
 X31|Galileo Galilei Observatory, Oro Verde
 X33|OARU, Manaus
@@ -2539,11 +2564,12 @@ X39|Observatorio Antares, Pilar
 X40|Cielos de Banfield, Banfield
 X41|Observatorio Proton-Proton, Longchamps
 X50|Observatorio Astronomico de Montevideo
-X57|Polo Astronômico CMF,Foz do Iguaçu
+X57|Polo Astronomico CMF,Foz do Iguacu
 X60|Guaraciaba Observatory
 X70|Observatorio OATU, Tupi Paulista
+X71|OASMiS, Sao Miguel da Serra
 X72|Waccobs, Sao Leopoldo
-X74|Observatório Campo dos Amarais
+X74|Observatorio Campo dos Amarais
 X76|SUN Observatory, Redencao
 X77|Centro Astron. Nevoeiro, Antonio Olinto
 X86|Ottoservatorio, Tatui
@@ -2553,17 +2579,19 @@ X89|Rocca Observatory, Brasilia
 X90|Carina Observatory, Brasilia
 X91|Orion-Colesanti observatory, Mairinque
 X93|Munhoz Observatory
+X98|Observatorio Pedra Preta, Itajuba
 Y00|SONEAR Observatory, Oliveira
 Y01|SONEAR 2 Observatory, Belo Horizonte
 Y05|SONEAR Wykrota-CEAMIG, Serra da Piedade
 Y16|ROCG, Campos dos Goytacazes
+Y20|Omega Centauri Observatory, Cariacica
 Y28|OASI, Nova Itacuruba
 Y40|Discovery Observatory, Caruaru
-Y63|SNX-NET, Oukaïmeden
+Y63|SNX-NET, Oukaimeden
 Y64|Transient Survey Telescope (TST), Teide
 Y65|Two-meter Twin Telescope, TTT1
 Y66|Two-meter Twin Telescope, TTT2
-Y67|High Atlas Window to the Kosmos,Oukaïmeden
+Y67|High Atlas Window to the Kosmos,Oukaimeden
 Y68|Two-meter Twin Telescope, TTT3
 Y70|ApolloIV5, Fregenal de la Sierra
 Y71|Makroskooppi, Fregenal de la Sierra
@@ -2576,7 +2604,7 @@ Y80|Brenehuen, Grand-Champ
 Y81|Forthimage, Edinburgh
 Y82|LPMR Observatory, Broad Chalke
 Y83|Observatorio Arcosur, Zaragoza
-Y84|Observatoire de Bretagne, France
+Y84|Observatoire de Bretagne
 Y85|Magalofes Observatory, Fene
 Y86|Observatorio de Seron
 Y87|Trevinca Skies-Amalthea, Trevinca
@@ -2593,8 +2621,8 @@ Y97|Bommes Observatory, Bommes
 Y98|Southside Observatory, Steeple Aston
 Y99|Observatorio del Lucero del Alba
 Z00|BOOTES-1, Mazagon
-Z01|OWL-Net, Oukaïmeden
-Z02|HAO observatory, Oukaïmeden
+Z01|OWL-Net, Oukaimeden
+Z02|HAO observatory, Oukaimeden
 Z03|Rio Cofio, Robledo de Chavela
 Z04|MAO, Ain Laqsab
 Z05|Observatorio Horus, Cartama
@@ -2605,15 +2633,15 @@ Z09|Old Orchard Observatory, Fiddington
 Z10|PGC, Fregenal de la Sierra
 Z11|Appledorne Observatory, Farnsfield
 Z12|La Romaneta, Monovar
-Z13|Observatorio AGP GUAM 4, Málaga
+Z13|Observatorio AGP GUAM 4, Malaga
 Z14|ART, Fregenal de la Sierra
 Z15|Southwater
 Z16|Asociacion Astronomica de Cartagena
-Z17|Tenerife-LCO Aqawan A {#}2
+Z17|Tenerife-LCO Aqawan A #2
 Z18|Gran Telescopio Canarias, Roque de los Muchachos
 Z19|La Palma-TNG
 Z20|La Palma-MERCATOR
-Z21|Tenerife-LCO Aqawan A {#}1
+Z21|Tenerife-LCO Aqawan A #1
 Z22|MASTER-IAC Observatory, Tenerife
 Z23|Nordic Optical Telescope, La Palma
 Z24|Tenerife Observatory-LCO B, Tenerife
@@ -2635,21 +2663,21 @@ Z39|Observatorio Costa Teguise
 Z40|El Manzanillo Observatory, Puerto de la Torre
 Z41|Irydeo Observatory, Camarma de Esteruelas
 Z42|Rushay Farm Observatory, Sturminster Newton
-Z43|Landehen Observatory, Landehen
-Z44|Observatorio Terminus, A Coruña
+Z43|Landehen
+Z44|Observatorio Terminus, A Coruna
 Z45|Cosmos Observatory, Marbella
 Z46|Cardiff
-Z47|Runcorn Observatory, Runcorn
+Z47|Runcorn
 Z48|Northolt Branch Observatory 2, Shepherd's Bush
-Z49|Alston Observatory, Alston
+Z49|Alston Observatory
 Z50|Mazariegos
 Z51|Anunaki Observatory, Rivas Vaciamadrid
 Z52|The Studios Observatory, Grantham
-Z53|TRAPPIST-North, Oukaïmeden
+Z53|TRAPPIST-North, Oukaimeden
 Z54|Greenmoor Observatory, Woodcote
-Z55|Uraniborg Observatory, \'{E}cija
+Z55|Uraniborg Observatory, Ecija
 Z56|Knocknaboola
-Z57|Observatorio Zuben, Alhaurín de la Torre
+Z57|Observatorio Zuben, Alhaurin de la Torre
 Z58|ESA TBT Cebreros Observatory
 Z59|Chelford Observatory
 Z60|Observatorio Zaldibia
@@ -2660,7 +2688,7 @@ Z64|Observatorio el Miron del Cielo
 Z65|Observatorio Astronomico Corgas
 Z66|DeSS Deimos Sky Survey, Niefla Mountain
 Z67|Dunboyne Castle Observatory
-Z68|Observatorio Torreáguila, Barbaño
+Z68|Observatorio Torreaguila, Barbano
 Z69|Observatorio Mazagon Huelva
 Z70|Ponferrada
 Z71|Observatorio Norba Caesarina, Aldea Moret
@@ -2672,7 +2700,7 @@ Z76|Observatorio Carda, Villaviciosa
 Z77|Osuna
 Z78|Arroyo Observatory, Arroyo Hurtado
 Z79|Calar Alto TNO Survey
-Z80|Northolt Branch Observatory, Northolt
+Z80|Northolt Branch Observatory
 Z81|Observatorio Estrella de Mar
 Z82|BOOTES-2 Observatory, Algarrobo
 Z83|Chicharronian 3C Observatory, Tres Cantos
@@ -2690,5 +2718,5 @@ Z94|Kempshott
 Z95|Astronomia Para Todos Remote Observatory
 Z96|Observatorio Cesaraugusto
 Z97|OPERA Observatory, Saint Palais
-Z98|Observatorio TRZ, Bétera
+Z98|Observatorio TRZ, Betera
 Z99|Clixby Observatory, Cleethorpes
