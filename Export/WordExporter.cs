@@ -135,24 +135,26 @@ internal class WordExporter : IOrbitDataExporter
 				</w:body>
 			</w:document>
 			""";
-		// Create a new FileStream to write the Word document content to the specified file
-		using FileStream fileStream = new(path: filePath, mode: FileMode.Create, access: FileAccess.Write, share: FileShare.None);
-		// Create a new ZipArchive to create the Word document as a ZIP file containing the necessary XML parts
-		using ZipArchive archive = new(stream: fileStream, mode: ZipArchiveMode.Create);
-		// Helper method to add an entry to the ZIP archive with the specified name and content
-		void AddEntry(string entryName, string content)
 		{
-			ZipArchiveEntry entry = archive.CreateEntry(entryName: entryName, compressionLevel: CompressionLevel.Optimal);
-			using StreamWriter writer = new(stream: entry.Open(), encoding: new UTF8Encoding(encoderShouldEmitUTF8Identifier: false));
-			writer.Write(value: content);
-		}
-		// Add the necessary XML parts to the ZIP archive to create a valid Word document
-		AddEntry(entryName: "[Content_Types].xml", content: contentTypesXml);
-		AddEntry(entryName: "_rels/.rels", content: rootRelsXml);
-		AddEntry(entryName: "word/document.xml", content: documentXml);
+			// Create a new FileStream to write the Word document content to the specified file
+			using FileStream fileStream = new(path: filePath, mode: FileMode.Create, access: FileAccess.Write, share: FileShare.None);
+			// Create a new ZipArchive to create the Word document as a ZIP file containing the necessary XML parts
+			using ZipArchive archive = new(stream: fileStream, mode: ZipArchiveMode.Create);
+			// Helper method to add an entry to the ZIP archive with the specified name and content
+			void AddEntry(string entryName, string content)
+			{
+				ZipArchiveEntry entry = archive.CreateEntry(entryName: entryName, compressionLevel: CompressionLevel.Optimal);
+				using StreamWriter writer = new(stream: entry.Open(), encoding: new UTF8Encoding(encoderShouldEmitUTF8Identifier: false));
+				writer.Write(value: content);
+			}
+			// Add the necessary XML parts to the ZIP archive to create a valid Word document
+			AddEntry(entryName: "[Content_Types].xml", content: contentTypesXml);
+			AddEntry(entryName: "_rels/.rels", content: rootRelsXml);
+			AddEntry(entryName: "word/document.xml", content: documentXml);
 
-		// Write the content of the StringBuilder to the specified file path
-		//File.WriteAllText(path: filePath, contents: sb.ToString());
+			// Write the content of the StringBuilder to the specified file path
+			//File.WriteAllText(path: filePath, contents: sb.ToString());
+		}
 
 		// Log that the data was exported successfully
 		logger.Info(message: $"Data exported successfully to Word file: {filePath}");

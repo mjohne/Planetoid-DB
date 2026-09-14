@@ -23,7 +23,7 @@ using System.Text;
 
 namespace Planetoid_DB.Export;
 
-/// <summary>Represents a ODS exporter for exporting database information to a Word file.</summary>
+/// <summary>Represents an ODS exporter for exporting database information to an ODS file.</summary>
 /// <remarks>This class implements the IOrbitDataExporter interface and provides functionality to export database information to a ODS file format.</remarks>
 // You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
 [DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
@@ -64,7 +64,7 @@ internal class OdsExporter : IOrbitDataExporter
 				.Replace(oldValue: "'", newValue: "&apos;", comparisonType: StringComparison.Ordinal);
 	}
 
-	/// <summary>Exports the selected data to a text file.</summary>
+	/// <summary>Exports the selected data to an ODS file.</summary>
 	/// <param name="filePath">The path of the file to export to.</param>
 	/// <param name="exportTitle">The title of the export.</param>
 	/// <param name="selectedData">The data to be exported.</param>
