@@ -4,9 +4,9 @@
 * Updated CHANGELOG for version 0.9.28.91 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1134
 * Set package ecosystem to 'nuget' in dependabot config by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1135
 * Fixed comments in `.gitattributes` for clarity by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1136
-* Updated export files due new analysis levels by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1137
-* Updated helper files due new analysis levels by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1138
-* Updated `Winform` files due new analysis levels by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1139
+* Updated export files due to the new analysis levels by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1137
+* Updated helper files due to the new analysis levels by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1138
+* Updated `WinForms` files due to the new analysis levels by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1139
 * Added `.editorconfig` to suppress formatting warnings by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1140
 * Updated `.gitignore` to exclude C# Dev Kit files by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1141
 * Revised Copilot instructions for clarity and detail by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1142
