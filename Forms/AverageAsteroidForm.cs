@@ -425,8 +425,8 @@ internal partial class AverageAsteroidForm : BaseKryptonForm
 		SetCalculationRunning(running: true);
 		// Start the asynchronous calculation of averages and handle any unexpected exceptions that may occur during the process
 		try
-await CalculateAveragesAsync(ct: _calculationCts.Token).ConfigureAwait(continueOnCapturedContext: true);
-			await CalculateAveragesAsync(ct: _calculationCts.Token).ConfigureAwait(continueOnCapturedContext: false);
+		{
+			await CalculateAveragesAsync(ct: _calculationCts.Token).ConfigureAwait(continueOnCapturedContext: true);
 		}
 		catch (Exception ex)
 		{

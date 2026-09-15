@@ -1388,6 +1388,18 @@ public partial class PlanetoidDbForm
 		_ = formAEIDiagram.ShowDialog(owner: this);
 	}
 
+	/// <summary>Handles the click event by opening a modal dialog displaying the animated orrery of all planetoids and planets.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">An EventArgs that contains the event data.</param>
+	/// <remarks>This method shows the orrery form, passing the full planetoid database so that all objects can be visualized.</remarks>
+	private void Orrery_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: "Showing orrery form");
+		using OrreyForm formOrrery = new(planetoids: planetoidsDatabase);
+		formOrrery.TopMost = TopMost;
+		_ = formOrrery.ShowDialog(owner: this);
+	}
+
 	/// <summary>Handles the click event for the Average Asteroid menu item. Shows the average asteroid form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
