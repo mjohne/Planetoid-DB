@@ -190,6 +190,7 @@ partial class PlanetoidDbForm
 		toolStripMenuItemOrbit2DTopView = new ToolStripMenuItem();
 		toolStripMenuItemOrbit2DSideView = new ToolStripMenuItem();
 		toolStripMenuItemOrbit3DView = new ToolStripMenuItem();
+		toolStripMenuItemOrrery = new ToolStripMenuItem();
 		toolStripDropDownButtonOrbit = new ToolStripDropDownButton();
 		toolStripMenuItemDerivedOrbitElements = new ToolStripMenuItem();
 		toolStripMenuItemOrbitElementsGrouping = new ToolStripMenuItem();
@@ -2939,7 +2940,7 @@ partial class PlanetoidDbForm
 		contextMenuOrbit.AccessibleRole = AccessibleRole.MenuPopup;
 		contextMenuOrbit.AllowClickThrough = true;
 		contextMenuOrbit.Font = new Font("Segoe UI", 9F);
-		contextMenuOrbit.Items.AddRange(new ToolStripItem[] { toolStripMenuItemOrbit2DTopView, toolStripMenuItemOrbit2DSideView, toolStripMenuItemOrbit3DView });
+		contextMenuOrbit.Items.AddRange(new ToolStripItem[] { toolStripMenuItemOrbit2DTopView, toolStripMenuItemOrbit2DSideView, toolStripMenuItemOrbit3DView, toolStripMenuItemOrrery });
 		contextMenuOrbit.Name = "contextMenuOrbit";
 		contextMenuOrbit.OwnerItem = toolStripMenuItemOrbit;
 		contextMenuOrbit.Size = new Size(140, 70);
@@ -2986,7 +2987,20 @@ partial class PlanetoidDbForm
 		toolStripMenuItemOrbit3DView.Click += (this.Orbit3DView_Click);
 		toolStripMenuItemOrbit3DView.MouseEnter += (this.Control_Enter);
 		toolStripMenuItemOrbit3DView.MouseLeave += (this.Control_Leave);
-		// 
+		//
+		// toolStripMenuItemOrrery
+		//
+		toolStripMenuItemOrrery.AccessibleDescription = "Shows the animated orrery of all planetoids and planets";
+		toolStripMenuItemOrrery.AccessibleName = "Orrery";
+		toolStripMenuItemOrrery.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemOrrery.AutoToolTip = true;
+		toolStripMenuItemOrrery.Name = "toolStripMenuItemOrrery";
+		toolStripMenuItemOrrery.Size = new Size(139, 22);
+		toolStripMenuItemOrrery.Text = "Orrery";
+		toolStripMenuItemOrrery.Click += (this.Orrery_Click);
+		toolStripMenuItemOrrery.MouseEnter += (this.Control_Enter);
+		toolStripMenuItemOrrery.MouseLeave += (this.Control_Leave);
+		//
 		// toolStripDropDownButtonOrbit
 		// 
 		toolStripDropDownButtonOrbit.AccessibleDescription = "Shows orbit visualization";
@@ -9996,6 +10010,7 @@ partial class PlanetoidDbForm
 	private ToolStripMenuItem toolStripMenuItemOrbit2DTopView;
 	private ToolStripMenuItem toolStripMenuItemOrbit2DSideView;
 	private ToolStripMenuItem toolStripMenuItemOrbit3DView;
+	private ToolStripMenuItem toolStripMenuItemOrrery;
 	private ToolStripMenuItem toolStripMenuItemScatterPlots;
 	private ToolStripMenuItem toolStripMenuItemAverageAsteroid;
 	private ToolStripMenuItem toolStripMenuItemAEIDiagram3D;
