@@ -150,17 +150,17 @@ internal partial class Orbit3DForm : BaseKryptonForm
 	private const double EarthMeanMotion = 0.9856076686;
 
 	/// <summary>Planet orbital elements at J2000.0 from the Astronomical Almanac / NASA Horizons. Fields: Name, SemiMajorAxis (AU), Eccentricity, Inclination (°), LongAscNode (°), ArgPeri (°), MeanAnomaly0 (°), OpenGL color.</summary>
-	/// <remarks>The mean anomaly column gives the value at the J2000.0 epoch (JD 2451545.0). The mean motion for each planet is computed from Kepler's third law: n = 0.9856076686 / a^1.5 deg/day.</remarks>
+	/// <remarks>The argument of perihelion and mean anomaly values are derived from the standard longitude-of-perihelion and mean-longitude elements for J2000.0. The mean motion for each planet is computed from Kepler's third law: n = 0.9856076686 / a^1.5 deg/day.</remarks>
 	private static readonly (string Name, double A, double E, double I, double Om, double Peri, double M0, Color Col)[] Planets =
 	[
-		("Mercury",  0.38709927, 0.20563593,  7.00497902,  48.33076593,  77.45779628, 252.25032350, Color.FromArgb(red: 0xC0, green: 0xC0, blue: 0xC8)),
-		("Venus",    0.72333566, 0.00677672,  3.39467605,  76.67984255, 131.60246718, 181.97909950, Color.FromArgb(red: 0xE8, green: 0xD0, blue: 0x90)),
-		("Earth",    1.00000261, 0.01671123,  0.00001531,   0.0,        102.93768193, 100.46457166, Color.FromArgb(red: 0x40, green: 0x90, blue: 0xFF)),
-		("Mars",     1.52371034, 0.09339410,  1.84969142,  49.55953891, -23.94362959,  -4.55343205, Color.FromArgb(red: 0xE0, green: 0x60, blue: 0x30)),
-		("Jupiter",  5.20288700, 0.04838624,  1.30439695, 100.47390909,  14.72847983,  34.39644051, Color.FromArgb(red: 0xE8, green: 0xC0, blue: 0x88)),
-		("Saturn",   9.53667594, 0.05386179,  2.48599187, 113.66242448,  92.59887831,  49.95424423, Color.FromArgb(red: 0xD8, green: 0xC8, blue: 0x70)),
-		("Uranus",  19.18916464, 0.04725744,  0.77263783,  74.01692503, 170.95427630, 313.23810451, Color.FromArgb(red: 0x80, green: 0xE0, blue: 0xE8)),
-		("Neptune", 30.06992276, 0.00859048,  1.77004347, 131.78422574,  44.96476227, -55.12002969, Color.FromArgb(red: 0x30, green: 0x50, blue: 0xD0)),
+		("Mercury",  0.38709927, 0.20563593,  7.00497902,  48.33076593,  29.12703035, 174.79252722, Color.FromArgb(red: 0xC0, green: 0xC0, blue: 0xC8)),
+		("Venus",    0.72333566, 0.00677672,  3.39467605,  76.67984255,  54.92262463,  50.37663232, Color.FromArgb(red: 0xE8, green: 0xD0, blue: 0x90)),
+		("Earth",    1.00000261, 0.01671123,  0.00001531,   0.0,        102.93768193,  -2.47311027, Color.FromArgb(red: 0x40, green: 0x90, blue: 0xFF)),
+		("Mars",     1.52371034, 0.09339410,  1.84969142,  49.55953891, -73.50316850,  19.39019754, Color.FromArgb(red: 0xE0, green: 0x60, blue: 0x30)),
+		("Jupiter",  5.20288700, 0.04838624,  1.30439695, 100.47390909, -85.74542926,  19.66796068, Color.FromArgb(red: 0xE8, green: 0xC0, blue: 0x88)),
+		("Saturn",   9.53667594, 0.05386179,  2.48599187, 113.66242448, -21.06354617, -42.64463408, Color.FromArgb(red: 0xD8, green: 0xC8, blue: 0x70)),
+		("Uranus",  19.18916464, 0.04725744,  0.77263783,  74.01692503,  96.93735127, 142.28382821, Color.FromArgb(red: 0x80, green: 0xE0, blue: 0xE8)),
+		("Neptune", 30.06992276, 0.00859048,  1.77004347, 131.78422574, -86.81946347, -100.08479196, Color.FromArgb(red: 0x30, green: 0x50, blue: 0xD0)),
 	];
 
 	#region Constructor
