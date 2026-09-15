@@ -70,6 +70,10 @@ internal partial class OrreyForm : BaseKryptonForm
 	/// <remarks>When the selected range exceeds this count, only the current position markers are drawn (no orbit lines) to avoid overwhelming the renderer.</remarks>
 	private const int MaxOrbitLines = 2000;
 
+	/// <summary>Maximum number of planetoid markers rendered and considered for hover picking.</summary>
+	/// <remarks>This separate cap keeps per-frame position updates and hover detection responsive for very large catalog selections.</remarks>
+	private const int MaxRenderedPlanetoids = 2000;
+
 	// ---- Orbital element source ----
 
 	/// <summary>MPCORB column offsets and lengths used for fixed-width parsing.</summary>
@@ -80,21 +84,22 @@ internal partial class OrreyForm : BaseKryptonForm
 	private const int LongAscNodeStart = 48, LongAscNodeLen = 9;
 	private const int InclinationStart = 59, InclinationLen = 9;
 	private const int EccentricityStart = 70, EccentricityLen = 9;
+	private const int MeanMotionStart = 80, MeanMotionLen = 11;
 	private const int SemiMajorAxisStart = 92, SemiMajorAxisLen = 11;
 	private const int DesignationStart = 166, DesignationLen = 28;
 
 	/// <summary>Planet orbital elements at J2000.0 from the Astronomical Almanac / NASA Horizons. Fields: Name, SemiMajorAxis (AU), Eccentricity, Inclination (°), LongAscNode (°), ArgPeri (°), MeanAnomaly0 (°), OpenGL color.</summary>
-	/// <remarks>The mean anomaly column gives the value at the J2000.0 epoch (JD 2451545.0).</remarks>
+	/// <remarks>The argument of perihelion and mean anomaly values are derived from the standard longitude-of-perihelion and mean-longitude elements for J2000.0.</remarks>
 	private static readonly (string Name, double A, double E, double I, double Om, double Peri, double M0, Color Col)[] Planets =
 	[
-		("Mercury",  0.38709927, 0.20563593,  7.00497902,  48.33076593,  77.45779628, 252.25032350, Color.FromArgb(red: 0xC0, green: 0xC0, blue: 0xC8)),
-		("Venus",    0.72333566, 0.00677672,  3.39467605,  76.67984255, 131.60246718, 181.97909950, Color.FromArgb(red: 0xE8, green: 0xD0, blue: 0x90)),
-		("Earth",    1.00000261, 0.01671123,  0.00001531,   0.0,        102.93768193, 100.46457166, Color.FromArgb(red: 0x40, green: 0x90, blue: 0xFF)),
-		("Mars",     1.52371034, 0.09339410,  1.84969142,  49.55953891, -23.94362959,  -4.55343205, Color.FromArgb(red: 0xE0, green: 0x60, blue: 0x30)),
-		("Jupiter",  5.20288700, 0.04838624,  1.30439695, 100.47390909,  14.72847983,  34.39644051, Color.FromArgb(red: 0xE8, green: 0xC0, blue: 0x88)),
-		("Saturn",   9.53667594, 0.05386179,  2.48599187, 113.66242448,  92.59887831,  49.95424423, Color.FromArgb(red: 0xD8, green: 0xC8, blue: 0x70)),
-		("Uranus",  19.18916464, 0.04725744,  0.77263783,  74.01692503, 170.95427630, 313.23810451, Color.FromArgb(red: 0x80, green: 0xE0, blue: 0xE8)),
-		("Neptune", 30.06992276, 0.00859048,  1.77004347, 131.78422574,  44.96476227, -55.12002969, Color.FromArgb(red: 0x30, green: 0x50, blue: 0xD0)),
+		("Mercury",  0.38709927, 0.20563593,  7.00497902,  48.33076593,  29.12703035, 174.79252722, Color.FromArgb(red: 0xC0, green: 0xC0, blue: 0xC8)),
+		("Venus",    0.72333566, 0.00677672,  3.39467605,  76.67984255,  54.92262463,  50.37663232, Color.FromArgb(red: 0xE8, green: 0xD0, blue: 0x90)),
+		("Earth",    1.00000261, 0.01671123,  0.00001531,   0.0,        102.93768193,  -2.47311027, Color.FromArgb(red: 0x40, green: 0x90, blue: 0xFF)),
+		("Mars",     1.52371034, 0.09339410,  1.84969142,  49.55953891, -73.50316850,  19.39019754, Color.FromArgb(red: 0xE0, green: 0x60, blue: 0x30)),
+		("Jupiter",  5.20288700, 0.04838624,  1.30439695, 100.47390909, -85.74542926,  19.66796068, Color.FromArgb(red: 0xE8, green: 0xC0, blue: 0x88)),
+		("Saturn",   9.53667594, 0.05386179,  2.48599187, 113.66242448, -21.06354617, -42.64463408, Color.FromArgb(red: 0xD8, green: 0xC8, blue: 0x70)),
+		("Uranus",  19.18916464, 0.04725744,  0.77263783,  74.01692503,  96.93735127, 142.28382821, Color.FromArgb(red: 0x80, green: 0xE0, blue: 0xE8)),
+		("Neptune", 30.06992276, 0.00859048,  1.77004347, 131.78422574, -86.81946347, -100.08479196, Color.FromArgb(red: 0x30, green: 0x50, blue: 0xD0)),
 	];
 
 	/// <summary>Represents the Keplerian orbital elements of a single planetoid parsed from an MPCORB record.</summary>
@@ -105,8 +110,22 @@ internal partial class OrreyForm : BaseKryptonForm
 	/// <param name="Om">Longitude of the ascending node in degrees.</param>
 	/// <param name="Peri">Argument of perihelion in degrees.</param>
 	/// <param name="M0">Mean anomaly at the epoch in degrees.</param>
+	/// <param name="MeanMotion">Mean daily motion in degrees per day, or <see langword="null"/> when the MPCORB field is unavailable.</param>
 	/// <param name="EpochJd">Julian Date of the reference epoch.</param>
-	private readonly record struct PlanetoidElements(string Name, double A, double E, double I, double Om, double Peri, double M0, double EpochJd);
+	private readonly record struct PlanetoidElements(string Name, double A, double E, double I, double Om, double Peri, double M0, double? MeanMotion, double EpochJd);
+
+	/// <summary>Represents a body position cached for the current simulation instant.</summary>
+	/// <param name="Name">Display name of the body.</param>
+	/// <param name="Color">Marker color used during rendering.</param>
+	/// <param name="Ex">Heliocentric ecliptic X coordinate in AU.</param>
+	/// <param name="Ey">Heliocentric ecliptic Y coordinate in AU.</param>
+	/// <param name="Ez">Heliocentric ecliptic Z coordinate in AU.</param>
+	private readonly record struct RenderedBody(string Name, Color Color, double Ex, double Ey, double Ez);
+
+	/// <summary>Represents the parsed range data produced on a background thread.</summary>
+	/// <param name="Planetoids">Parsed planetoids in the selected range.</param>
+	/// <param name="CachedPlanetoidOrbits">Cached orbit polylines for the selected planetoids, when enabled.</param>
+	private readonly record struct RangeBuildResult(PlanetoidElements[] Planetoids, (double X, double Y, double Z)[][]? CachedPlanetoidOrbits);
 
 	/// <summary>The raw MPCORB record lines supplied to the form.</summary>
 	/// <remarks>These lines are parsed on load into <see cref="_planetoids"/>.</remarks>
@@ -123,6 +142,15 @@ internal partial class OrreyForm : BaseKryptonForm
 	/// <summary>Cached orbit point arrays for the currently selected planetoids.</summary>
 	/// <remarks>Only populated when the selected count does not exceed <see cref="MaxOrbitLines"/>.</remarks>
 	private (double X, double Y, double Z)[][]? _cachedPlanetoidOrbits;
+
+	/// <summary>Cached current-position markers for the eight planets at the active simulation time.</summary>
+	private RenderedBody[] _cachedPlanetBodies = [];
+
+	/// <summary>Cached current-position markers for the rendered subset of planetoids at the active simulation time.</summary>
+	private RenderedBody[] _cachedPlanetoidBodies = [];
+
+	/// <summary>Julian Date corresponding to the currently cached marker positions.</summary>
+	private double _cachedBodyPositionsJd = double.NaN;
 
 	// ---- Simulation state ----
 
@@ -178,6 +206,12 @@ internal partial class OrreyForm : BaseKryptonForm
 
 	/// <summary>Whether the OpenGL context is initialized and ready for rendering.</summary>
 	private bool _glReady;
+
+	/// <summary>Whether the initial range selection has finished loading and can be rendered.</summary>
+	private bool _rangeSelectionReady;
+
+	/// <summary>Monotonic version used to discard outdated background range rebuild results.</summary>
+	private int _rangeBuildVersion;
 
 	/// <summary>The embedded OpenTK GLControl that provides the OpenGL rendering surface.</summary>
 	/// <remarks>Its lifetime is owned by <c>panelGl.Controls</c>, which disposes child controls when the form is disposed.</remarks>
@@ -300,21 +334,32 @@ internal partial class OrreyForm : BaseKryptonForm
 		{
 			return false;
 		}
+		double? meanMotion = TryParseValue(line: line, start: MeanMotionStart, len: MeanMotionLen, value: out double parsedMeanMotion)
+			&& double.IsFinite(d: parsedMeanMotion)
+			? parsedMeanMotion
+			: null;
 		string epochPacked = line.Length >= EpochStart + EpochLen ? line.Substring(startIndex: EpochStart, length: EpochLen).Trim() : string.Empty;
-		double epochJd = MpcorbEpochToJd(packed: epochPacked);
-		elements = new PlanetoidElements(Name: ParseDesignation(line: line), A: a, E: e, I: i, Om: om, Peri: peri, M0: m0, EpochJd: epochJd);
+		if (!TryMpcorbEpochToJd(packed: epochPacked, julianDate: out double epochJd))
+		{
+			return false;
+		}
+		elements = new PlanetoidElements(Name: ParseDesignation(line: line), A: a, E: e, I: i, Om: om, Peri: peri, M0: m0, MeanMotion: meanMotion, EpochJd: epochJd);
 		return true;
 	}
 
 	/// <summary>Rebuilds <see cref="_planetoids"/> and their cached orbit paths for the currently selected index range.</summary>
-	/// <remarks>The start and end index values are one-based and clamped to the available record count. Orbit lines are only cached when the selected count does not exceed <see cref="MaxOrbitLines"/>.</remarks>
-	private void RebuildRange()
+	/// <remarks>The start and end index values are one-based and clamped to the available record count. Parsing runs on a background thread so large MPCORB selections do not block the UI thread.</remarks>
+	private async Task RebuildRangeAsync()
 	{
 		int total = _sourceLines.Count;
-		_planetoids.Clear();
 		if (total == 0)
 		{
+			_planetoids.Clear();
 			_cachedPlanetoidOrbits = null;
+			InvalidateBodyCache();
+			ClearHoverTarget(redraw: false);
+			_rangeSelectionReady = true;
+			UpdateStatusLabel();
 			return;
 		}
 		int start = (int)Math.Clamp(value: numericStartIndex.Value, min: 1, max: total);
@@ -323,27 +368,75 @@ internal partial class OrreyForm : BaseKryptonForm
 		{
 			(start, end) = (end, start);
 		}
+		int rangeBuildVersion = ++_rangeBuildVersion;
+		if (!_initialized)
+		{
+			_rangeSelectionReady = false;
+		}
+		SetRangeControlsEnabled(isEnabled: false);
+		SetStatusBar(label: labelInformation, text: $"Loading planetoids {start:N0}-{end:N0}…");
+		try
+		{
+			RangeBuildResult result = await Task.Run(
+				function: () => BuildRange(start: start, end: end)).ConfigureAwait(continueOnCapturedContext: true);
+			if (rangeBuildVersion != _rangeBuildVersion || IsDisposed)
+			{
+				return;
+			}
+			_planetoids.Clear();
+			_planetoids.AddRange(collection: result.Planetoids);
+			_cachedPlanetoidOrbits = result.CachedPlanetoidOrbits;
+			InvalidateBodyCache();
+			ClearHoverTarget(redraw: false);
+			_rangeSelectionReady = true;
+			UpdateStatusLabel();
+			if (_glReady)
+			{
+				_glControl.Invalidate();
+			}
+		}
+		finally
+		{
+			if (rangeBuildVersion == _rangeBuildVersion && !IsDisposed)
+			{
+				SetRangeControlsEnabled(isEnabled: true);
+			}
+		}
+	}
+
+	/// <summary>Builds the selected planetoid range and any associated orbit caches.</summary>
+	/// <param name="start">One-based start index of the selected range.</param>
+	/// <param name="end">One-based end index of the selected range.</param>
+	/// <returns>The parsed planetoids and any orbit caches for the selected range.</returns>
+	private RangeBuildResult BuildRange(int start, int end)
+	{
+		List<PlanetoidElements> planetoids = new(capacity: end - start + 1);
 		for (int idx = start - 1; idx < end; idx++)
 		{
 			if (TryParsePlanetoid(line: _sourceLines[idx], out PlanetoidElements elements))
 			{
-				_planetoids.Add(item: elements);
+				planetoids.Add(item: elements);
 			}
 		}
-		if (_planetoids.Count <= MaxOrbitLines)
+		(double X, double Y, double Z)[][]? cachedPlanetoidOrbits = null;
+		if (planetoids.Count <= MaxOrbitLines)
 		{
-			_cachedPlanetoidOrbits = new (double X, double Y, double Z)[_planetoids.Count][];
-			for (int idx = 0; idx < _planetoids.Count; idx++)
+			cachedPlanetoidOrbits = new (double X, double Y, double Z)[planetoids.Count][];
+			for (int idx = 0; idx < planetoids.Count; idx++)
 			{
-				PlanetoidElements p = _planetoids[index: idx];
-				_cachedPlanetoidOrbits[idx] = ComputeOrbitPoints(a: p.A, e: p.E, iDeg: p.I, omDeg: p.Om, periDeg: p.Peri);
+				PlanetoidElements p = planetoids[index: idx];
+				cachedPlanetoidOrbits[idx] = ComputeOrbitPoints(a: p.A, e: p.E, iDeg: p.I, omDeg: p.Om, periDeg: p.Peri);
 			}
 		}
-		else
-		{
-			_cachedPlanetoidOrbits = null;
-		}
-		UpdateStatusLabel();
+		return new RangeBuildResult(Planetoids: [.. planetoids], CachedPlanetoidOrbits: cachedPlanetoidOrbits);
+	}
+
+	/// <summary>Enables or disables the range spinner controls while a background rebuild is active.</summary>
+	/// <param name="isEnabled"><see langword="true"/> to enable the controls; otherwise <see langword="false"/>.</param>
+	private void SetRangeControlsEnabled(bool isEnabled)
+	{
+		numericStartIndex.Enabled = isEnabled;
+		numericEndIndex.Enabled = isEnabled;
 	}
 
 	// ---- Orbital mechanics ----
@@ -427,25 +520,27 @@ internal partial class OrreyForm : BaseKryptonForm
 		return pts;
 	}
 
-	/// <summary>Decodes a five-character MPCORB packed epoch string to a Julian Date.</summary>
+	/// <summary>Attempts to decode a five-character MPCORB packed epoch string to a Julian Date.</summary>
 	/// <param name="packed">Packed epoch string (e.g. "K254Q" = 2025-Apr-26).</param>
-	/// <returns>The corresponding Julian Date, or <see cref="J2000Jd"/> if the string is invalid.</returns>
-	private static double MpcorbEpochToJd(string packed)
+	/// <param name="julianDate">When this method returns, contains the corresponding Julian Date when parsing succeeds.</param>
+	/// <returns><see langword="true"/> if the packed epoch was valid; otherwise <see langword="false"/>.</returns>
+	private static bool TryMpcorbEpochToJd(string packed, out double julianDate)
 	{
-		if (packed.Length < 5)
+		julianDate = default;
+		if (packed.Length != 5)
 		{
-			return J2000Jd;
+			return false;
 		}
 		int century = packed[index: 0] switch
 		{
 			'I' => 1800,
 			'J' => 1900,
 			'K' => 2000,
-			_ => 2000,
+			_ => 0,
 		};
-		if (!int.TryParse(s: packed[1..3], result: out int yearOffset))
+		if (century == 0 || !int.TryParse(s: packed[1..3], result: out int yearOffset))
 		{
-			return J2000Jd;
+			return false;
 		}
 		int year = century + yearOffset;
 		int month = packed[index: 3] switch
@@ -454,7 +549,7 @@ internal partial class OrreyForm : BaseKryptonForm
 			'A' => 10,
 			'B' => 11,
 			'C' => 12,
-			_ => 1,
+			_ => 0,
 		};
 		int day = packed[index: 4] switch
 		{
@@ -462,26 +557,28 @@ internal partial class OrreyForm : BaseKryptonForm
 			>= 'A' and <= 'V' => packed[index: 4] - 'A' + 10,
 			_ => 0,
 		};
-		if (day is < 1 or > 31)
+		if (month is < 1 or > 12 || day is < 1 or > 31 || day > DateTime.DaysInMonth(year: year, month: month))
 		{
-			return J2000Jd;
+			return false;
 		}
 		int a = (14 - month) / 12;
 		int y = year + 4800 - a;
 		int m = month + (12 * a) - 3;
 		int jdn = day + (((153 * m) + 2) / 5) + (365 * y) + (y / 4) - (y / 100) + (y / 400) - 32045;
-		return jdn - 0.5;
+		julianDate = jdn - 0.5;
+		return true;
 	}
 
 	/// <summary>Computes the current mean anomaly (degrees) of a body given its mean anomaly at a reference epoch.</summary>
 	/// <param name="m0Deg">Mean anomaly at the reference epoch in degrees.</param>
-	/// <param name="semiMajorAxisAu">Semi-major axis in AU (used to compute mean motion via Kepler's third law).</param>
+	/// <param name="semiMajorAxisAu">Semi-major axis in AU (used to compute mean motion via Kepler's third law when <paramref name="meanMotionDegPerDay"/> is unavailable).</param>
 	/// <param name="epochJd">Julian Date of the reference epoch.</param>
 	/// <param name="nowJd">Julian Date of the current time.</param>
+	/// <param name="meanMotionDegPerDay">Optional mean daily motion in degrees per day.</param>
 	/// <returns>Current mean anomaly in degrees, normalized to [0°, 360°).</returns>
-	private static double CurrentMeanAnomaly(double m0Deg, double semiMajorAxisAu, double epochJd, double nowJd)
+	private static double CurrentMeanAnomaly(double m0Deg, double semiMajorAxisAu, double epochJd, double nowJd, double? meanMotionDegPerDay = null)
 	{
-		double n = EarthMeanMotion / Math.Pow(x: semiMajorAxisAu, y: 1.5);
+		double n = meanMotionDegPerDay ?? (EarthMeanMotion / Math.Pow(x: semiMajorAxisAu, y: 1.5));
 		double m = m0Deg + (n * (nowJd - epochJd));
 		return ((m % 360.0) + 360.0) % 360.0;
 	}
@@ -512,6 +609,59 @@ internal partial class OrreyForm : BaseKryptonForm
 	/// <param name="ez">Ecliptic Z in AU (positive = above ecliptic plane).</param>
 	/// <returns>OpenGL (glX, glY, glZ) floats.</returns>
 	private static (float Gx, float Gy, float Gz) EclToGl(double ex, double ey, double ez) => ((float)ex, (float)ez, (float)-ey);
+
+	/// <summary>Invalidates the cached current body positions so they are recomputed for the next render or hover lookup.</summary>
+	private void InvalidateBodyCache()
+	{
+		_cachedPlanetBodies = [];
+		_cachedPlanetoidBodies = [];
+		_cachedBodyPositionsJd = double.NaN;
+	}
+
+	/// <summary>Clears the hover target and optionally redraws the OpenGL control.</summary>
+	/// <param name="redraw"><see langword="true"/> to invalidate the control when the hover text changed; otherwise <see langword="false"/>.</param>
+	private void ClearHoverTarget(bool redraw = true)
+	{
+		if (_hoverName is null)
+		{
+			return;
+		}
+		_hoverName = null;
+		if (redraw && _glReady)
+		{
+			_glControl.Invalidate();
+		}
+	}
+
+	/// <summary>Ensures that the current body-position cache matches the requested simulation time.</summary>
+	/// <param name="nowJd">Julian Date of the active simulation instant.</param>
+	private void EnsureBodyCache(double nowJd)
+	{
+		if (_cachedPlanetBodies.Length == Planets.Length
+			&& _cachedPlanetoidBodies.Length == Math.Min(val1: _planetoids.Count, val2: MaxRenderedPlanetoids)
+			&& Math.Abs(value: _cachedBodyPositionsJd - nowJd) < 1e-12)
+		{
+			return;
+		}
+		_cachedPlanetBodies = new RenderedBody[Planets.Length];
+		for (int idx = 0; idx < Planets.Length; idx++)
+		{
+			(string name, double a, double e, double i, double om, double peri, double m0, Color color) = Planets[idx];
+			double mNow = CurrentMeanAnomaly(m0Deg: m0, semiMajorAxisAu: a, epochJd: J2000Jd, nowJd: nowJd);
+			(double ex, double ey, double ez) = OrbElemToEcliptic(a: a, e: e, iDeg: i, omDeg: om, periDeg: peri, mDeg: mNow);
+			_cachedPlanetBodies[idx] = new RenderedBody(Name: name, Color: color, Ex: ex, Ey: ey, Ez: ez);
+		}
+		int renderedPlanetoidCount = Math.Min(val1: _planetoids.Count, val2: MaxRenderedPlanetoids);
+		_cachedPlanetoidBodies = new RenderedBody[renderedPlanetoidCount];
+		for (int idx = 0; idx < renderedPlanetoidCount; idx++)
+		{
+			PlanetoidElements p = _planetoids[index: idx];
+			double mNow = CurrentMeanAnomaly(m0Deg: p.M0, semiMajorAxisAu: p.A, epochJd: p.EpochJd, nowJd: nowJd, meanMotionDegPerDay: p.MeanMotion);
+			(double ex, double ey, double ez) = OrbElemToEcliptic(a: p.A, e: p.E, iDeg: p.I, omDeg: p.Om, periDeg: p.Peri, mDeg: mNow);
+			_cachedPlanetoidBodies[idx] = new RenderedBody(Name: p.Name, Color: Color.Orange, Ex: ex, Ey: ey, Ez: ez);
+		}
+		_cachedBodyPositionsJd = nowJd;
+	}
 
 	// ---- OpenGL rendering ----
 
@@ -566,15 +716,21 @@ internal partial class OrreyForm : BaseKryptonForm
 		GL.Enable(cap: EnableCap.LineSmooth);
 		GL.Hint(target: HintTarget.LineSmoothHint, mode: HintMode.Nicest);
 		GL.Enable(cap: EnableCap.PointSmooth);
+		if (!_rangeSelectionReady)
+		{
+			_glControl.SwapBuffers();
+			return;
+		}
 		SetupProjection();
 		ApplyCameraTransform();
 		double nowJd = DateTimeToJd(dt: _simulationTime);
+		EnsureBodyCache(nowJd: nowJd);
 		DrawEclipticGrid();
 		DrawPlanetOrbits(cachedOrbits: _cachedPlanetOrbits!);
 		DrawPlanetoidOrbits();
 		DrawSun();
-		DrawPlanetCurrentPositions(nowJd: nowJd);
-		DrawPlanetoidCurrentPositions(nowJd: nowJd);
+		DrawPlanetCurrentPositions();
+		DrawPlanetoidCurrentPositions();
 		_glControl.SwapBuffers();
 		if (overlayGraphics is not null && _hoverName is not null)
 		{
@@ -670,16 +826,13 @@ internal partial class OrreyForm : BaseKryptonForm
 	}
 
 	/// <summary>Draws the current position of each of the eight planets as a colored point marker.</summary>
-	/// <param name="nowJd">Current Julian Date.</param>
-	private static void DrawPlanetCurrentPositions(double nowJd)
+	private void DrawPlanetCurrentPositions()
 	{
 		GL.PointSize(size: 6f);
-		foreach ((string _, double a, double e, double i, double om, double peri, double m0, Color col) in Planets)
+		foreach (RenderedBody body in _cachedPlanetBodies)
 		{
-			double mNow = CurrentMeanAnomaly(m0Deg: m0, semiMajorAxisAu: a, epochJd: J2000Jd, nowJd: nowJd);
-			(double ex, double ey, double ez) = OrbElemToEcliptic(a: a, e: e, iDeg: i, omDeg: om, periDeg: peri, mDeg: mNow);
-			(float gx, float gy, float gz) = EclToGl(ex: ex, ey: ey, ez: ez);
-			GL.Color3(red: col.R / 255f, green: col.G / 255f, blue: col.B / 255f);
+			(float gx, float gy, float gz) = EclToGl(ex: body.Ex, ey: body.Ey, ez: body.Ez);
+			GL.Color3(red: body.Color.R / 255f, green: body.Color.G / 255f, blue: body.Color.B / 255f);
 			GL.Begin(mode: PrimitiveType.Points);
 			GL.Vertex3(x: gx, y: gy, z: gz);
 			GL.End();
@@ -687,18 +840,15 @@ internal partial class OrreyForm : BaseKryptonForm
 		GL.PointSize(size: 1f);
 	}
 
-	/// <summary>Draws the current position of each selected planetoid as a small orange point marker.</summary>
-	/// <param name="nowJd">Current Julian Date.</param>
-	private void DrawPlanetoidCurrentPositions(double nowJd)
+	/// <summary>Draws the current position of each rendered planetoid as a small orange point marker.</summary>
+	private void DrawPlanetoidCurrentPositions()
 	{
 		GL.PointSize(size: 4f);
 		GL.Color3(red: 1.0f, green: 0.45f, blue: 0.10f);
 		GL.Begin(mode: PrimitiveType.Points);
-		foreach (PlanetoidElements p in _planetoids)
+		foreach (RenderedBody body in _cachedPlanetoidBodies)
 		{
-			double mNow = CurrentMeanAnomaly(m0Deg: p.M0, semiMajorAxisAu: p.A, epochJd: p.EpochJd, nowJd: nowJd);
-			(double ex, double ey, double ez) = OrbElemToEcliptic(a: p.A, e: p.E, iDeg: p.I, omDeg: p.Om, periDeg: p.Peri, mDeg: mNow);
-			(float gx, float gy, float gz) = EclToGl(ex: ex, ey: ey, ez: ez);
+			(float gx, float gy, float gz) = EclToGl(ex: body.Ex, ey: body.Ey, ez: body.Ez);
 			GL.Vertex3(x: gx, y: gy, z: gz);
 		}
 		GL.End();
@@ -770,35 +920,36 @@ internal partial class OrreyForm : BaseKryptonForm
 	/// <returns>The name of the closest body under the cursor, or <see langword="null"/> when none is within the pick radius.</returns>
 	private string? PickBodyAt(Point cursor)
 	{
+		if (!_rangeSelectionReady)
+		{
+			return null;
+		}
 		const float pickRadius = 8f;
 		float bestDistSq = pickRadius * pickRadius;
 		string? best = null;
 		double nowJd = DateTimeToJd(dt: _simulationTime);
-		foreach ((string name, double a, double e, double i, double om, double peri, double m0, Color _) in Planets)
+		EnsureBodyCache(nowJd: nowJd);
+		foreach (RenderedBody body in _cachedPlanetBodies)
 		{
-			double mNow = CurrentMeanAnomaly(m0Deg: m0, semiMajorAxisAu: a, epochJd: J2000Jd, nowJd: nowJd);
-			(double ex, double ey, double ez) = OrbElemToEcliptic(a: a, e: e, iDeg: i, omDeg: om, periDeg: peri, mDeg: mNow);
-			if (ProjectToScreen(ex: ex, ey: ey, ez: ez, out PointF s))
+			if (ProjectToScreen(ex: body.Ex, ey: body.Ey, ez: body.Ez, out PointF s))
 			{
 				float dsq = ((s.X - cursor.X) * (s.X - cursor.X)) + ((s.Y - cursor.Y) * (s.Y - cursor.Y));
 				if (dsq < bestDistSq)
 				{
 					bestDistSq = dsq;
-					best = name;
+					best = body.Name;
 				}
 			}
 		}
-		foreach (PlanetoidElements p in _planetoids)
+		foreach (RenderedBody body in _cachedPlanetoidBodies)
 		{
-			double mNow = CurrentMeanAnomaly(m0Deg: p.M0, semiMajorAxisAu: p.A, epochJd: p.EpochJd, nowJd: nowJd);
-			(double ex, double ey, double ez) = OrbElemToEcliptic(a: p.A, e: p.E, iDeg: p.I, omDeg: p.Om, periDeg: p.Peri, mDeg: mNow);
-			if (ProjectToScreen(ex: ex, ey: ey, ez: ez, out PointF s))
+			if (ProjectToScreen(ex: body.Ex, ey: body.Ey, ez: body.Ez, out PointF s))
 			{
 				float dsq = ((s.X - cursor.X) * (s.X - cursor.X)) + ((s.Y - cursor.Y) * (s.Y - cursor.Y));
 				if (dsq < bestDistSq)
 				{
 					bestDistSq = dsq;
-					best = p.Name;
+					best = body.Name;
 				}
 			}
 		}
@@ -809,10 +960,10 @@ internal partial class OrreyForm : BaseKryptonForm
 	/// <remarks>The status bar displays the number of selected planetoids, the simulated instant, and basic interaction instructions.</remarks>
 	private void UpdateStatusLabel()
 	{
-		labelInformation.Text =
+		SetStatusBar(label: labelInformation, text:
 			$"Orrery — {_planetoids.Count} planetoids + 8 planets · " +
 			$"{_simulationTime.ToString(format: "yyyy-MM-dd HH:mm:ss", provider: CultureInfo.InvariantCulture)} UTC · " +
-			$"Left-drag: rotate · Right-drag: pan · Scroll: zoom";
+			$"Left-drag: rotate · Right-drag: pan · Scroll: zoom");
 	}
 
 	/// <summary>Synchronizes the date/time control with the current simulation time without re-triggering its change handler.</summary>
@@ -842,7 +993,7 @@ internal partial class OrreyForm : BaseKryptonForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">Event arguments.</param>
 	/// <remarks>Creates the <see cref="GLControl"/>, initializes the OpenGL context, configures the range spinners, and triggers the first render.</remarks>
-	private void OrreyForm_Load(object? sender, EventArgs e)
+	private async void OrreyForm_Load(object? sender, EventArgs e)
 	{
 		ClearStatusBar(label: labelInformation);
 		int total = _sourceLines.Count;
@@ -862,7 +1013,11 @@ internal partial class OrreyForm : BaseKryptonForm
 			_glReady = true;
 			_simulationTime = DateTime.UtcNow;
 			SyncDateTimePicker();
-			RebuildRange();
+			await RebuildRangeAsync().ConfigureAwait(continueOnCapturedContext: true);
+			if (IsDisposed)
+			{
+				return;
+			}
 			_initialized = true;
 			_glControl.Invalidate();
 		}
@@ -900,14 +1055,13 @@ internal partial class OrreyForm : BaseKryptonForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">Event arguments.</param>
 	/// <remarks>Ignored until the form has finished loading to avoid rebuilding during initialization.</remarks>
-	private void NumericIndex_ValueChanged(object? sender, EventArgs e)
+	private async void NumericIndex_ValueChanged(object? sender, EventArgs e)
 	{
 		if (!_initialized)
 		{
 			return;
 		}
-		RebuildRange();
-		_glControl.Invalidate();
+		await RebuildRangeAsync().ConfigureAwait(continueOnCapturedContext: true);
 	}
 
 	/// <summary>Handles the play/pause button click by toggling the animation.</summary>
@@ -938,6 +1092,8 @@ internal partial class OrreyForm : BaseKryptonForm
 	private void ButtonReset_Click(object? sender, EventArgs e)
 	{
 		_simulationTime = DateTime.UtcNow;
+		InvalidateBodyCache();
+		ClearHoverTarget(redraw: false);
 		trackBarSpeed.Value = 0;
 		if (_isPlaying)
 		{
@@ -968,6 +1124,8 @@ internal partial class OrreyForm : BaseKryptonForm
 			return;
 		}
 		_simulationTime = DateTime.SpecifyKind(value: dateTimePicker.Value, kind: DateTimeKind.Utc);
+		InvalidateBodyCache();
+		ClearHoverTarget(redraw: false);
 		UpdateStatusLabel();
 		if (_glReady)
 		{
@@ -997,6 +1155,8 @@ internal partial class OrreyForm : BaseKryptonForm
 			ButtonPlayPause_Click(sender: this, e: EventArgs.Empty);
 			return;
 		}
+		InvalidateBodyCache();
+		ClearHoverTarget(redraw: false);
 		SyncDateTimePicker();
 		UpdateStatusLabel();
 		if (_glReady)
@@ -1033,6 +1193,7 @@ internal partial class OrreyForm : BaseKryptonForm
 		{
 			return;
 		}
+		ClearHoverTarget(redraw: false);
 		_glControl.MakeCurrent();
 		SetupProjection();
 		_glControl.Invalidate();
@@ -1086,12 +1247,14 @@ internal partial class OrreyForm : BaseKryptonForm
 			_yaw += dx * 0.5f;
 			_pitch += dy * 0.5f;
 			_pitch = Math.Clamp(value: _pitch, min: -89f, max: 89f);
+			ClearHoverTarget(redraw: false);
 			_glControl.Invalidate();
 		}
 		else if (_rightDown)
 		{
 			_panX += dx * _zoom * 0.001f;
 			_panY -= dy * _zoom * 0.001f;
+			ClearHoverTarget(redraw: false);
 			_glControl.Invalidate();
 		}
 		else
@@ -1113,6 +1276,7 @@ internal partial class OrreyForm : BaseKryptonForm
 	{
 		_zoom -= e.Delta * 0.02f;
 		_zoom = Math.Clamp(value: _zoom, min: 0.5f, max: 200f);
+		ClearHoverTarget(redraw: false);
 		_glControl.Invalidate();
 	}
 
@@ -1122,11 +1286,7 @@ internal partial class OrreyForm : BaseKryptonForm
 	/// <remarks>Invalidates the control so the tooltip is removed from the display.</remarks>
 	private void GlControl_MouseLeave(object? sender, EventArgs e)
 	{
-		if (_hoverName is not null)
-		{
-			_hoverName = null;
-			_glControl.Invalidate();
-		}
+		ClearHoverTarget();
 	}
 
 	#endregion

@@ -2943,7 +2943,7 @@ partial class PlanetoidDbForm
 		contextMenuOrbit.Items.AddRange(new ToolStripItem[] { toolStripMenuItemOrbit2DTopView, toolStripMenuItemOrbit2DSideView, toolStripMenuItemOrbit3DView, toolStripMenuItemOrrery });
 		contextMenuOrbit.Name = "contextMenuOrbit";
 		contextMenuOrbit.OwnerItem = toolStripMenuItemOrbit;
-		contextMenuOrbit.Size = new Size(140, 70);
+		contextMenuOrbit.Size = new Size(140, 92);
 		contextMenuOrbit.TabStop = true;
 		contextMenuOrbit.Text = "Orbit";
 		contextMenuOrbit.MouseEnter += (this.Control_Enter);
