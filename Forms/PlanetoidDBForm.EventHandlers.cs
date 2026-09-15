@@ -1395,7 +1395,7 @@ public partial class PlanetoidDbForm
 	private void Orrery_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Showing orrery form");
-		using OrreyForm formOrrery = new(planetoids: planetoidsDatabase);
+		using OrreryForm formOrrery = new(planetoids: planetoidsDatabase);
 		formOrrery.TopMost = TopMost;
 		_ = formOrrery.ShowDialog(owner: this);
 	}

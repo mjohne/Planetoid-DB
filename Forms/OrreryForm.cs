@@ -1,5 +1,5 @@
 /*
- * File:        OrreyForm.cs
+ * File:        OrreryForm.cs
  * Project:     Planetoid-DB
  * Namespace:   Planetoid_DB
  * Description: Displays an animated orrery (planetary machine) of all planetoids and the eight solar system planets around the Sun.
@@ -42,7 +42,7 @@ namespace Planetoid_DB;
 /// <para>Interaction: left-drag to rotate the view, right-drag to pan, scroll wheel to zoom in/out. Hover over a body to see its name.</para></remarks>
 // You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class.
 [DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
-internal partial class OrreyForm : BaseKryptonForm
+internal partial class OrreryForm : BaseKryptonForm
 {
 	/// <summary>NLog logger instance.</summary>
 	/// <remarks>This logger is used for logging informational messages and debugging output from the form.</remarks>
@@ -232,16 +232,16 @@ internal partial class OrreyForm : BaseKryptonForm
 
 	#region Constructor
 
-	/// <summary>Initializes a new instance of the <see cref="OrreyForm"/> class.</summary>
+	/// <summary>Initializes a new instance of the <see cref="OrreryForm"/> class.</summary>
 	/// <param name="planetoids">The raw MPCORB record lines to visualize.</param>
-	/// <remarks>The orbital elements are parsed and the OpenGL context is created in <see cref="OrreyForm_Load"/> after the designer components have been initialized.</remarks>
-	public OrreyForm(IReadOnlyList<string> planetoids)
+	/// <remarks>The orbital elements are parsed and the OpenGL context is created in <see cref="OrreryForm_Load"/> after the designer components have been initialized.</remarks>
+	public OrreryForm(IReadOnlyList<string> planetoids)
 	{
 		_sourceLines = planetoids ?? [];
 		InitializeComponent();
 		_animationTimer = new System.Windows.Forms.Timer(container: components!) { Interval = 33 };
 		_animationTimer.Tick += AnimationTimer_Tick;
-		logger.Info(message: "OrreyForm initialized with {0} source planetoid records.", args: _sourceLines.Count);
+		logger.Info(message: "OrreryForm initialized with {0} source planetoid records.", args: _sourceLines.Count);
 	}
 
 	#endregion
@@ -250,7 +250,7 @@ internal partial class OrreyForm : BaseKryptonForm
 
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>This property is used by the debugger to display the state of the <see cref="OrreyForm"/> instance in a concise format.</remarks>
+	/// <remarks>This property is used by the debugger to display the state of the <see cref="OrreryForm"/> instance in a concise format.</remarks>
 	private string DebuggerDisplay => ToString();
 
 	/// <summary>Creates and configures the embedded <see cref="GLControl"/> and adds it to the GL panel.</summary>
@@ -993,7 +993,7 @@ internal partial class OrreyForm : BaseKryptonForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">Event arguments.</param>
 	/// <remarks>Creates the <see cref="GLControl"/>, initializes the OpenGL context, configures the range spinners, and triggers the first render.</remarks>
-	private async void OrreyForm_Load(object? sender, EventArgs e)
+	private async void OrreryForm_Load(object? sender, EventArgs e)
 	{
 		ClearStatusBar(label: labelInformation);
 		int total = _sourceLines.Count;
@@ -1023,7 +1023,7 @@ internal partial class OrreyForm : BaseKryptonForm
 		}
 		catch (Exception ex)
 		{
-			logger.Error(exception: ex, message: "OrreyForm: failed to initialize OpenGL context: {0}", args: ex);
+			logger.Error(exception: ex, message: "OrreryForm: failed to initialize OpenGL context: {0}", args: ex);
 			ShowErrorMessage(message: $"Failed to initialize orrery rendering: {ex.Message}");
 		}
 	}

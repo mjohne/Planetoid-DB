@@ -1,9 +1,9 @@
 /*
- * File:        OrreyForm.Designer.cs
+ * File:        OrreryForm.Designer.cs
  * Project:     Planetoid-DB
  * Namespace:   Planetoid_DB
  * Description: Provides the designer-generated user interface for the orrery (planetary machine) form.
- * Remarks:     This file contains the Windows Forms designer-generated code for the OrreyForm. Do not modify this file manually.
+ * Remarks:     This file contains the Windows Forms designer-generated code for the OrreryForm. Do not modify this file manually.
  *
  * Author:      Michael Johne
  * Company:     Mijo Software
@@ -25,13 +25,13 @@ namespace Planetoid_DB;
 
 /// <summary>Provides the designer-generated user interface for the orrery (planetary machine) form.</summary>
 /// <remarks>The form contains a <see cref="System.Windows.Forms.Panel"/> that hosts the OpenGL rendering surface, a toolbar with animation controls, and a <see cref="KryptonStatusStrip"/> with an informational status label below.</remarks>
-partial class OrreyForm
+partial class OrreryForm
 {
 	/// <summary>Required designer variable.</summary>
 	/// <remarks>This field stores the components used by the form.</remarks>
 	private IContainer components = null;
 
-	/// <summary>Releases all resources used by the <see cref="OrreyForm"/>.</summary>
+	/// <summary>Releases all resources used by the <see cref="OrreryForm"/>.</summary>
 	/// <param name="disposing">True if managed resources should be disposed; otherwise false.</param>
 	/// <remarks>This method is called by the runtime to release resources used by the form.</remarks>
 	protected override void Dispose(bool disposing)
@@ -45,12 +45,12 @@ partial class OrreyForm
 		base.Dispose(disposing);
 	}
 
-	/// <summary>Initializes the components of the <see cref="OrreyForm"/>.</summary>
+	/// <summary>Initializes the components of the <see cref="OrreryForm"/>.</summary>
 	/// <remarks>This method sets up the controls and their properties for the orrery form.</remarks>
 	private void InitializeComponent()
 	{
 		components = new Container();
-		ComponentResourceManager resources = new ComponentResourceManager(typeof(OrreyForm));
+		ComponentResourceManager resources = new ComponentResourceManager(typeof(OrreryForm));
 		toolStripContainer = new ToolStripContainer();
 		kryptonStatusStrip = new KryptonStatusStrip();
 		labelInformation = new ToolStripStatusLabel();
@@ -307,7 +307,7 @@ partial class OrreyForm
 		//
 		kryptonManager.GlobalPaletteMode = PaletteMode.Global;
 		//
-		// OrreyForm
+		// OrreryForm
 		//
 		AccessibleDescription = "Displays an animated orrery of all planetoids and the eight solar system planets around the Sun";
 		AccessibleName = "Orrery form";
@@ -320,11 +320,11 @@ partial class OrreyForm
 		Icon = (Icon)resources.GetObject("$this.Icon");
 		MaximizeBox = false;
 		MinimizeBox = false;
-		Name = "OrreyForm";
+		Name = "OrreryForm";
 		SizeGripStyle = SizeGripStyle.Hide;
 		StartPosition = FormStartPosition.CenterScreen;
 		Text = "Orrery";
-		Load += OrreyForm_Load;
+		Load += OrreryForm_Load;
 		toolStripContainer.BottomToolStripPanel.ResumeLayout(false);
 		toolStripContainer.BottomToolStripPanel.PerformLayout();
 		toolStripContainer.ContentPanel.ResumeLayout(false);
