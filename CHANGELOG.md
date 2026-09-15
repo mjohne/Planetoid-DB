@@ -1,3 +1,44 @@
+## Planetoid-DB 0.9.29.92
+
+* Updated image link in `README.md` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1133
+* Updated CHANGELOG for version 0.9.28.91 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1134
+* Set package ecosystem to 'nuget' in dependabot config by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1135
+* Fixed comments in `.gitattributes` for clarity by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1136
+* Updated export files due to the new analysis levels by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1137
+* Updated helper files due to the new analysis levels by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1138
+* Updated `WinForms` files due to the new analysis levels by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1139
+* Added `.editorconfig` to suppress formatting warnings by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1140
+* Updated `.gitignore` to exclude C# Dev Kit files by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1141
+* Revised Copilot instructions for clarity and detail by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1142
+* Added `RecordsTop10Form` and `TopRecordEntry` struct by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1143
+* Added `OrbitalResonancesOfAllMinorPlanetsForm.ResonanceResult.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1144
+* Updated internal resource `ObservatoryCodes.txt` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1146
+* Fixed `XmlExporter` review comments: docs accuracy and safe XML output by @mjohne with @Copilot in https://github.com/mjohne/Planetoid-DB/pull/1148
+* Aligned Forms README spelling with review feedback by @mjohne with @Copilot in https://github.com/mjohne/Planetoid-DB/pull/1149
+* Clarified exporter extension semantics in Export README by @mjohne with @Copilot in https://github.com/mjohne/Planetoid-DB/pull/1150
+* Cleaned up PR review artifacts in Helpers README by @mjohne with @Copilot in https://github.com/mjohne/Planetoid-DB/pull/1151
+* Aligned Word exporter output with review feedback by @mjohne with @Copilot in https://github.com/mjohne/Planetoid-DB/pull/1153
+* Fixed Excel exporter docs and first-row offset by @mjohne with @Copilot in https://github.com/mjohne/Planetoid-DB/pull/1155
+* Fixed ODT exporter review comments by @mjohne with @Copilot in https://github.com/mjohne/Planetoid-DB/pull/1154
+* Fixed `PdfExporter` review findings: stream length correctness and documentation accuracy by @mjohne with @Copilot in https://github.com/mjohne/Planetoid-DB/pull/1158
+* Fixed `SQL` exporter documentation and invalid trailing commas in generated `INSERT` statements by @mjohne with @Copilot in https://github.com/mjohne/Planetoid-DB/pull/1157
+* Addressed exporter review thread fixes by @mjohne with @Copilot in https://github.com/mjohne/Planetoid-DB/pull/1156
+* Aligned RTF export encoding with declared ANSI header by @mjohne with @Copilot in https://github.com/mjohne/Planetoid-DB/pull/1152
+* Fixed `xCalendar` exporter review feedback by @mjohne with @Copilot in https://github.com/mjohne/Planetoid-DB/pull/1159
+* Aligned `PostscriptExporter` documentation with implementation by @mjohne with @Copilot in https://github.com/mjohne/Planetoid-DB/pull/1160
+* Fixed vCalendar exporter review thread issues in `VcalExporter` by @mjohne with @Copilot in https://github.com/mjohne/Planetoid-DB/pull/1161
+* Fixed `MobiExporter` review feedback: correct `XML` summary and remove dead commented code by @mjohne with @Copilot in https://github.com/mjohne/Planetoid-DB/pull/1162
+* Corrected `EPUB` exporter review-thread documentation issues by @mjohne with @Copilot in https://github.com/mjohne/Planetoid-DB/pull/1163
+* Added mouse enter/leave events to context menu items by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1164
+* Created `OrreryForm` for planet animation by @mjohne with @Claude in https://github.com/mjohne/Planetoid-DB/pull/1166
+* Rename `OrreyForm` to `OrreryForm` by @mjohne with @Copilot in https://github.com/mjohne/Planetoid-DB/pull/1168
+* Revised planet orbital elements and update values by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1170
+* Updated `NLog` version to 6.2.0 in `AppInfoForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1171
+* Updated to version 0.9.29.92 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1172
+
+**Full Changelog**: https://github.com/mjohne/Planetoid-DB/compare/0.9.28.91.1131.4043...0.9.29.92.1172.4578
+
+
 ## Planetoid-DB 0.9.28.91
 
 * Hidden `SizeGripStyle` in window properties of `PlanetoidDB` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1082
