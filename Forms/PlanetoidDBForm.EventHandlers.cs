@@ -1400,6 +1400,18 @@ public partial class PlanetoidDbForm
 		_ = formOrrery.ShowDialog(owner: this);
 	}
 
+	/// <summary>Handles the click event by opening a modal dialog displaying planetary orbital and physical properties.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">An <see cref="EventArgs"/> that contains the event data.</param>
+	/// <remarks>This method shows the planetary information form.</remarks>
+	private void PlanetaryInformation_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: "Showing planetary information form");
+		using PlanetaryInformationForm formPlanetaryInformation = new();
+		formPlanetaryInformation.TopMost = TopMost;
+		_ = formPlanetaryInformation.ShowDialog(owner: this);
+	}
+
 	/// <summary>Handles the click event for the Average Asteroid menu item. Shows the average asteroid form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
