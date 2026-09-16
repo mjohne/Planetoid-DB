@@ -52,6 +52,7 @@ internal partial class PlanetaryInformationForm : BaseKryptonForm
 	{
 		// Initialize the form components
 		InitializeComponent();
+		kryptonStatusStrip.Dock = DockStyle.Bottom;
 	}
 
 	#endregion
@@ -91,7 +92,7 @@ internal partial class PlanetaryInformationForm : BaseKryptonForm
 		/// <summary>Gets the sidereal orbital period in Julian years.</summary>
 		public required double SiderealPeriodYears { get; init; }
 
-		/// <summary>Gets the synodic period as seen from Earth in Earth days (0 for Earth).</summary>
+		/// <summary>Gets the synodic period as seen from Earth in Earth days.</summary>
 		public required double SynodicPeriodDays { get; init; }
 
 		/// <summary>Gets the equatorial diameter in kilometres.</summary>
@@ -145,6 +146,10 @@ internal partial class PlanetaryInformationForm : BaseKryptonForm
 	/// <summary>Number of seconds in a Julian year.</summary>
 	/// <remarks>Used to convert sidereal orbital periods from years to seconds when required.</remarks>
 	private const double SecondsPerJulianYear = 365.25 * 86400.0;
+
+	/// <summary>Julian Date of the J2000.0 epoch (2000 January 1.5 TT).</summary>
+	/// <remarks>Used as the reference epoch for propagating mean anomaly values to the current date.</remarks>
+	private const double J2000Jd = 2451545.0;
 
 	/// <summary>Returns the reference dataset used to populate the ListView.</summary>
 	/// <returns>An array containing the base parameters of the eight planets in the canonical order Mercury..Neptune.</returns>
@@ -211,7 +216,7 @@ internal partial class PlanetaryInformationForm : BaseKryptonForm
 			ArgumentPerihelionDeg = 114.20783,
 			MeanAnomalyDeg = 357.5291,
 			SiderealPeriodYears = 1.0000174,
-			SynodicPeriodDays = 0.0,
+			SynodicPeriodDays = double.NaN,
 			EquatorialDiameterKm = 12756.2,
 			Flattening = 0.0033528,
 			MassKg = 5.97237e24,
@@ -403,6 +408,37 @@ internal partial class PlanetaryInformationForm : BaseKryptonForm
 		return v;
 	}
 
+	/// <summary>Computes the mean anomaly at the current epoch from a reference epoch value.</summary>
+	/// <param name="meanAnomalyAtEpochDeg">Mean anomaly at the reference epoch in degrees.</param>
+	/// <param name="siderealPeriodYears">Sidereal orbital period in Julian years.</param>
+	/// <param name="epochJd">Julian Date of the reference epoch.</param>
+	/// <param name="nowJd">Julian Date at which to evaluate the current mean anomaly.</param>
+	/// <returns>The propagated mean anomaly in degrees normalized to the range <c>[0, 360)</c>.</returns>
+	/// <remarks>Uses a constant mean motion computed from the sidereal period.</remarks>
+	private static double CurrentMeanAnomalyDeg(double meanAnomalyAtEpochDeg, double siderealPeriodYears, double epochJd, double nowJd)
+	{
+		double meanMotionDegPerDay = 360.0 / (siderealPeriodYears * 365.25);
+		return NormalizeDegrees(degrees: meanAnomalyAtEpochDeg + (meanMotionDegPerDay * (nowJd - epochJd)));
+	}
+
+	/// <summary>Converts a <see cref="DateTime"/> value to a Julian Date.</summary>
+	/// <param name="dateTime">The date/time to convert (UTC recommended).</param>
+	/// <returns>The Julian Date corresponding to <paramref name="dateTime"/>.</returns>
+	private static double DateTimeToJulianDate(DateTime dateTime)
+	{
+		int year = dateTime.Year;
+		int month = dateTime.Month;
+		double day = dateTime.Day + ((dateTime.Hour + ((dateTime.Minute + (dateTime.Second / 60.0)) / 60.0)) / 24.0);
+		if (month <= 2)
+		{
+			year--;
+			month += 12;
+		}
+		int a = year / 100;
+		int b = 2 - a + (a / 4);
+		return (int)(365.25 * (year + 4716)) + (int)(30.6001 * (month + 1)) + day + b - 1524.5;
+	}
+
 	/// <summary>Formats a double value using the current culture with a fixed number of significant digits.</summary>
 	/// <param name="value">The value to format.</param>
 	/// <param name="format">The .NET numeric format string (for example <c>"G6"</c> or <c>"0.###"</c>).</param>
@@ -415,7 +451,7 @@ internal partial class PlanetaryInformationForm : BaseKryptonForm
 	/// <param name="p">The planet base parameters.</param>
 	/// <returns>An array of formatted strings, one per property row, in the same order as <see cref="GetPropertyLabels"/>.</returns>
 	/// <remarks>All derived quantities (semi-minor axis, orbital area, perihelion/aphelion distances and velocities, pole diameter, descending node longitude, argument of aphelion, eccentric and true anomaly) are computed from the base parameters using standard Keplerian and geometric formulas.</remarks>
-	private static string[] ComputePlanetValues(PlanetData p)
+	private static string[] ComputePlanetValues(PlanetData p, double nowJd)
 	{
 		// Orbital geometry (in km, computed from AU)
 		double aKm = p.SemiMajorAxisAu * AuInKm;
@@ -428,8 +464,13 @@ internal partial class PlanetaryInformationForm : BaseKryptonForm
 		double orbitDiameterKm = 2.0 * aKm;
 		double orbitAreaKm2 = Math.PI * aKm * bKm;
 
-		// Anomalies at the reference epoch (J2000-based mean anomaly is used as "current" value)
-		double meanAnomalyRad = p.MeanAnomalyDeg * Math.PI / 180.0;
+		// Anomalies at the current epoch (propagated from J2000)
+		double currentMeanAnomalyDeg = CurrentMeanAnomalyDeg(
+			meanAnomalyAtEpochDeg: p.MeanAnomalyDeg,
+			siderealPeriodYears: p.SiderealPeriodYears,
+			epochJd: J2000Jd,
+			nowJd: nowJd);
+		double meanAnomalyRad = currentMeanAnomalyDeg * Math.PI / 180.0;
 		double eccentricAnomalyRad = SolveKepler(meanAnomalyRad: meanAnomalyRad, eccentricity: p.Eccentricity);
 		double trueAnomalyRad = TrueAnomalyFromEccentric(eccentricAnomalyRad: eccentricAnomalyRad, eccentricity: p.Eccentricity);
 		double eccentricAnomalyDeg = eccentricAnomalyRad * 180.0 / Math.PI;
@@ -440,7 +481,8 @@ internal partial class PlanetaryInformationForm : BaseKryptonForm
 		double argumentAphelionDeg = NormalizeDegrees(degrees: p.ArgumentPerihelionDeg + 180.0);
 
 		// Orbital velocities via vis-viva (km/s)
-		double meanOrbitalVelocityKmPerS = Math.Sqrt(d: SunGmKm3PerS2 / aKm);
+		double orbitalPerimeterKm = DerivedElements.CalculateOrbitalPerimeter(semiMajorAxis: p.SemiMajorAxisAu, numericalEccentricity: p.Eccentricity) * AuInKm;
+		double meanOrbitalVelocityKmPerS = orbitalPerimeterKm / (p.SiderealPeriodYears * SecondsPerJulianYear);
 		double perihelionVelocityKmPerS = Math.Sqrt(d: SunGmKm3PerS2 * ((2.0 / perihelionKm) - (1.0 / aKm)));
 		double aphelionVelocityKmPerS = Math.Sqrt(d: SunGmKm3PerS2 * ((2.0 / aphelionKm) - (1.0 / aKm)));
 
@@ -463,7 +505,7 @@ internal partial class PlanetaryInformationForm : BaseKryptonForm
 			Fmt(value: orbitDiameterKm / AuInKm, format: "G6"),                   // Bahndurchmesser (AU)
 			Fmt(value: orbitAreaKm2, format: "G6"),                               // Bahnfläche (km²)
 			Fmt(value: p.InclinationDeg, format: "G6"),                           // Neigung der Bahnebene (°)
-			Fmt(value: NormalizeDegrees(degrees: p.MeanAnomalyDeg), format: "G6"),// Mittlere Anomalie (°)
+			Fmt(value: currentMeanAnomalyDeg, format: "G6"),                      // Mittlere Anomalie (°)
 			Fmt(value: NormalizeDegrees(degrees: eccentricAnomalyDeg), format: "G6"),// Exzentrische Anomalie (°)
 			Fmt(value: NormalizeDegrees(degrees: trueAnomalyDeg), format: "G6"), // Wahre Anomalie (°)
 			Fmt(value: NormalizeDegrees(degrees: p.LongitudeAscendingNodeDeg), format: "G6"), // Länge des aufsteigenden Knotens (°)
@@ -497,45 +539,45 @@ internal partial class PlanetaryInformationForm : BaseKryptonForm
 	/// <remarks>Labels include the physical unit in parentheses where applicable. The order of entries in this array must match the order of the values returned by <see cref="ComputePlanetValues"/>.</remarks>
 	private static string[] GetPropertyLabels() =>
 	[
-		"Große Halbachse (AU)",
-		"Kleine Halbachse (AU)",
-		"Große Achse (AU)",
-		"Kleine Achse (AU)",
-		"Periheldistanz (AU)",
-		"Apheldistanz (AU)",
+		"Semi-major axis (AU)",
+		"Semi-minor axis (AU)",
+		"Major axis (AU)",
+		"Minor axis (AU)",
+		"Perihelion distance (AU)",
+		"Aphelion distance (AU)",
 		"Semi-latus rectum (AU)",
 		"Latus rectum (AU)",
-		"Numerische Exzentrizität",
-		"Lineare Exzentrizität (AU)",
-		"Bahndurchmesser (AU)",
-		"Bahnfläche (km²)",
-		"Neigung der Bahnebene (°)",
-		"Mittlere Anomalie (°)",
-		"Exzentrische Anomalie (°)",
-		"Wahre Anomalie (°)",
-		"Länge des aufsteigenden Knotens (°)",
-		"Länge des absteigenden Knotens (°)",
-		"Argument des Perihels (°)",
-		"Argument des Aphels (°)",
-		"Siderische Umlaufzeit (a)",
-		"Synodische Umlaufzeit (d)",
-		"Kleinste Bahngeschwindigkeit (km/s)",
-		"Mittlere Bahngeschwindigkeit (km/s)",
-		"Größte Bahngeschwindigkeit (km/s)",
-		"Äquatordurchmesser (km)",
-		"Poldurchmesser (km)",
-		"Abplattung",
-		"Masse (kg)",
-		"Volumen (km³)",
-		"Mittlere Dichte (kg/m³)",
-		"Fallbeschleunigung (m/s²)",
-		"Fluchtgeschwindigkeit (km/s)",
-		"Rotationsperiode (d)",
-		"Rotationsgeschwindigkeit am Äquator (m/s)",
-		"Neigung der Rotationsachse (°)",
-		"Geometrische Albedo",
-		"Maximale scheinbare Helligkeit (mag)",
-		"Absolute Helligkeit (mag)"
+		"Numerical eccentricity",
+		"Linear eccentricity (AU)",
+		"Orbit diameter (AU)",
+		"Orbit area (km²)",
+		"Orbital inclination (°)",
+		"Mean anomaly (°)",
+		"Eccentric anomaly (°)",
+		"True anomaly (°)",
+		"Longitude of ascending node (°)",
+		"Longitude of descending node (°)",
+		"Argument of perihelion (°)",
+		"Argument of aphelion (°)",
+		"Sidereal period (a)",
+		"Synodic period (d)",
+		"Minimum orbital velocity (km/s)",
+		"Mean orbital velocity (km/s)",
+		"Maximum orbital velocity (km/s)",
+		"Equatorial diameter (km)",
+		"Polar diameter (km)",
+		"Flattening",
+		"Mass (kg)",
+		"Volume (km³)",
+		"Mean density (kg/m³)",
+		"Surface gravity (m/s²)",
+		"Escape velocity (km/s)",
+		"Rotation period (d)",
+		"Equatorial rotation velocity (m/s)",
+		"Axial tilt (°)",
+		"Geometric albedo",
+		"Maximum apparent magnitude (mag)",
+		"Absolute magnitude (mag)"
 	];
 
 	/// <summary>Populates the ListView with one row per property and one column per planet.</summary>
@@ -554,9 +596,10 @@ internal partial class PlanetaryInformationForm : BaseKryptonForm
 			PlanetData[] planets = GetPlanets();
 			string[] labels = GetPropertyLabels();
 			string[][] columns = new string[planets.Length][];
+			double nowJd = DateTimeToJulianDate(dateTime: DateTime.UtcNow);
 			for (int i = 0; i < planets.Length; i++)
 			{
-				columns[i] = ComputePlanetValues(p: planets[i]);
+				columns[i] = ComputePlanetValues(p: planets[i], nowJd: nowJd);
 			}
 			// Build one ListViewItem per property row
 			List<ListViewItem> items = new(capacity: labels.Length);
