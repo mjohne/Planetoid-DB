@@ -419,13 +419,13 @@ internal partial class ScatterplotsForm : BaseKryptonForm
 			return [.. points];
 		}
 		// Calculate the step size to sample points evenly across the full list.
-		int step = (int)Math.Ceiling((double)points.Count / maxPreviewPoints);
+		int step = (int)Math.Ceiling(a: (double)points.Count / maxPreviewPoints);
 		// Create a new list to hold the sampled preview points.
 		List<ScatterPoint> previewPoints = new(capacity: maxPreviewPoints);
 		// Sample points at regular intervals based on the calculated step size.
 		for (int i = 0; i < points.Count; i += step)
 		{
-			previewPoints.Add(item: points[i]);
+			previewPoints.Add(item: points[index: i]);
 		}
 		// Ensure the last point is included in the preview if it wasn't already added.
 		return previewPoints;
@@ -437,7 +437,7 @@ internal partial class ScatterplotsForm : BaseKryptonForm
 	/// <remarks>The method formats a numeric value using the invariant culture to ensure consistent formatting regardless of the user's locale.</remarks>
 	private static string FormatNumericValue(double value)
 	{
-		return value.ToString(format: "0.####", provider: CultureInfo.InvariantCulture);
+		return value.ToString(format: "0.####", provider: CultureInfo.CurrentCulture);
 	}
 
 	/// <summary>Attempts to parse a floating-point slice from a raw MPCORB record.</summary>
@@ -454,7 +454,7 @@ internal partial class ScatterplotsForm : BaseKryptonForm
 		return line.Length >= startIndex + length && double.TryParse(
 			s: line.Substring(startIndex: startIndex, length: length).Trim(),
 			style: NumberStyles.Float,
-			provider: CultureInfo.InvariantCulture,
+			provider: CultureInfo.CurrentCulture,
 			result: out value);
 	}
 

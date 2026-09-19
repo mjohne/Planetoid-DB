@@ -52,7 +52,8 @@ public partial class PlanetoidDbForm
 		// Set the checked state of the check for database updates on startup menu item based on the user settings
 		toolStripMenuItemCheckingDatabaseUpdatesOnStartup.Checked = Settings.Default.userCheckingDatabaseUpdatesOnStartup;
 		// Set the checked state of the load database on startup menu items based on the user settings
-		toolStripMenuItemLoadAdditionalDatabasesOnStartup.Enabled = Settings.Default.userEnableExperimentalFeatures; // TODO: Remove this line when the other databases are implemented
+		toolStripMenuItemLoadAdditionalDatabasesOnStartup.Enabled = Settings.Default.userEnableExperimentalFeatures;
+		// TODO: Remove this line when the other databases are implemented
 		toolStripMenuItemLoadDatabaseOnStartupMpcorbJson.Checked = Settings.Default.userLoadAdditionalDatabaseOnStartupMpcorbJson;
 		toolStripMenuItemLoadDatabaseOnStartupAstorbDat.Checked = Settings.Default.userLoadAdditionalDatabaseOnStartupAstorbDat;
 		toolStripMenuItemLoadDatabaseOnStartupAllnumCat.Checked = Settings.Default.userLoadAdditionalDatabaseOnStartupAllnumCat;
@@ -319,7 +320,7 @@ public partial class PlanetoidDbForm
 		// Log the completion of the database loading process
 		logger.Info(message: "Database loading completed");
 		// Set the initial value of the goto index text box
-		toolStripTextBoxGotoIndex.Text = 1.ToString(provider: CultureInfo.InvariantCulture);
+		toolStripTextBoxGotoIndex.Text = 1.ToString(provider: CultureInfo.CurrentCulture);
 		// Set the current position to the first record
 		currentPosition = 0;
 		// Set the step position to 100

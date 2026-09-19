@@ -65,7 +65,7 @@ internal class YamlExporter : IOrbitDataExporter
 		foreach (KeyValuePair<string, string> kvp in selectedData)
 		{
 			// Append the key and value in the format "Key: Value" to the StringBuilder
-			_ = sb.AppendLine(provider: CultureInfo.InvariantCulture, handler: $"{kvp.Key}: {kvp.Value}");
+			_ = sb.AppendLine(provider: CultureInfo.CurrentCulture, handler: $"{kvp.Key}: {kvp.Value}");
 		}
 		// Write the content of the StringBuilder to the specified file path
 		File.WriteAllText(path: filePath, contents: sb.ToString());

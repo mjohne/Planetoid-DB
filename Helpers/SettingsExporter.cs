@@ -389,7 +389,7 @@ internal static class SettingsExporter
 			return value;
 		}
 		// Single-quoted YAML: internal single quotes are doubled.
-		return $"'{value.Replace(oldValue: "'", newValue: "''", comparisonType: StringComparison.InvariantCulture)}'";
+		return $"'{value.Replace(oldValue: "'", newValue: "''", comparisonType: StringComparison.CurrentCulture)}'";
 	}
 
 	#endregion

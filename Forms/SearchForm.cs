@@ -594,7 +594,7 @@ internal partial class SearchForm : BaseKryptonForm
 			// Remove existing sort indicators from the header text
 			string headerText = listViewResults.Columns[index: i].Text;
 			// Check for existing indicators and remove them
-			if (headerText.StartsWith(value: "▲ ", comparisonType: StringComparison.InvariantCulture) || headerText.StartsWith(value: "▼ ", comparisonType: StringComparison.InvariantCulture))
+			if (headerText.StartsWith(value: "▲ ", comparisonType: StringComparison.CurrentCulture) || headerText.StartsWith(value: "▼ ", comparisonType: StringComparison.CurrentCulture))
 			{
 				headerText = headerText[2..];
 			}

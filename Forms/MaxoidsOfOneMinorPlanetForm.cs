@@ -106,9 +106,9 @@ internal partial class MaxoidsOfOneMinorPlanetForm : BaseKryptonForm
 		_orbitalElements = elements ?? throw new ArgumentNullException(paramName: nameof(elements));
 	}
 
-	/// <summary>Updates the UI labels with the calculated data using InvariantCulture.</summary>
+	/// <summary>Updates the UI labels with the calculated data using CurrentCulture.</summary>
 	/// <param name="maxoids">The list of MAXOID results for each planet.</param>
-	/// <remarks>This method updates the text of the labels for each planet with the corresponding MAXOID value formatted to eight decimal places. It uses InvariantCulture to ensure consistent formatting regardless of the system's locale.</remarks>
+	/// <remarks>This method updates the text of the labels for each planet with the corresponding MAXOID value formatted to eight decimal places. It uses CurrentCulture to ensure consistent formatting regardless of the system's locale.</remarks>
 	private void UpdatePlanetLabels(List<MaxoidCalculator.MaxoidResult> maxoids)
 	{
 		// Ensure that we have results for all eight planets before updating the labels
@@ -117,8 +117,8 @@ internal partial class MaxoidsOfOneMinorPlanetForm : BaseKryptonForm
 			logger.Warn(message: "Insufficient MAXOID results to update planet labels. Expected 8, but got {0}.", maxoids.Count);
 			return;
 		}
-		// Use InvariantCulture for consistent formatting of the MAXOID values
-		CultureInfo culture = CultureInfo.InvariantCulture;
+		// Use CurrentCulture for consistent formatting of the MAXOID values
+		CultureInfo culture = CultureInfo.CurrentCulture;
 		// Update each label with the corresponding MAXOID value formatted to eight decimal places
 		labelMercuryData.Text = maxoids[0].MaxoidAu.ToString(provider: culture);
 		labelVenusData.Text = maxoids[1].MaxoidAu.ToString(provider: culture);

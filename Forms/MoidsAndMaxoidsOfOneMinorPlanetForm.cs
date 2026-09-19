@@ -136,14 +136,14 @@ internal partial class MoidsAndMaxoidsOfOneMinorPlanetForm : BaseKryptonForm
 			// Populate the data labels (one per planet row, index 0 = Mercury … 7 = Neptune)
 			if (moids.Count >= 8)
 			{
-				labelMercuryMoidData.Text = moids[index: 0].MoidAu.ToString(format: "F8", provider: CultureInfo.InvariantCulture);
-				labelVenusMoidData.Text = moids[index: 1].MoidAu.ToString(format: "F8", provider: CultureInfo.InvariantCulture);
-				labelEarthMoidData.Text = moids[index: 2].MoidAu.ToString(format: "F8", provider: CultureInfo.InvariantCulture);
-				labelMarsMoidData.Text = moids[index: 3].MoidAu.ToString(format: "F8", provider: CultureInfo.InvariantCulture);
-				labelJupiterMoidData.Text = moids[index: 4].MoidAu.ToString(format: "F8", provider: CultureInfo.InvariantCulture);
-				labelSaturnMoidData.Text = moids[index: 5].MoidAu.ToString(format: "F8", provider: CultureInfo.InvariantCulture);
-				labelUranusMoidData.Text = moids[index: 6].MoidAu.ToString(format: "F8", provider: CultureInfo.InvariantCulture);
-				labelNeptuneMoidData.Text = moids[index: 7].MoidAu.ToString(format: "F8", provider: CultureInfo.InvariantCulture);
+				labelMercuryMoidData.Text = moids[index: 0].MoidAu.ToString(format: "F8", provider: CultureInfo.CurrentCulture);
+				labelVenusMoidData.Text = moids[index: 1].MoidAu.ToString(format: "F8", provider: CultureInfo.CurrentCulture);
+				labelEarthMoidData.Text = moids[index: 2].MoidAu.ToString(format: "F8", provider: CultureInfo.CurrentCulture);
+				labelMarsMoidData.Text = moids[index: 3].MoidAu.ToString(format: "F8", provider: CultureInfo.CurrentCulture);
+				labelJupiterMoidData.Text = moids[index: 4].MoidAu.ToString(format: "F8", provider: CultureInfo.CurrentCulture);
+				labelSaturnMoidData.Text = moids[index: 5].MoidAu.ToString(format: "F8", provider: CultureInfo.CurrentCulture);
+				labelUranusMoidData.Text = moids[index: 6].MoidAu.ToString(format: "F8", provider: CultureInfo.CurrentCulture);
+				labelNeptuneMoidData.Text = moids[index: 7].MoidAu.ToString(format: "F8", provider: CultureInfo.CurrentCulture);
 			}
 			// Calculate MAXOIDs for all 8 planets
 			List<MaxoidCalculator.MaxoidResult> maxoids = MaxoidCalculator.CalculateMaxoids(
@@ -155,14 +155,14 @@ internal partial class MoidsAndMaxoidsOfOneMinorPlanetForm : BaseKryptonForm
 			// Populate the data labels (one per planet row, index 0 = Mercury … 7 = Neptune)
 			if (maxoids.Count >= 8)
 			{
-				labelMercuryMaxoidData.Text = maxoids[index: 0].MaxoidAu.ToString(format: "F8", provider: CultureInfo.InvariantCulture);
-				labelVenusMaxoidData.Text = maxoids[index: 1].MaxoidAu.ToString(format: "F8", provider: CultureInfo.InvariantCulture);
-				labelEarthMaxoidData.Text = maxoids[index: 2].MaxoidAu.ToString(format: "F8", provider: CultureInfo.InvariantCulture);
-				labelMarsMaxoidData.Text = maxoids[index: 3].MaxoidAu.ToString(format: "F8", provider: CultureInfo.InvariantCulture);
-				labelJupiterMaxoidData.Text = maxoids[index: 4].MaxoidAu.ToString(format: "F8", provider: CultureInfo.InvariantCulture);
-				labelSaturnMaxoidData.Text = maxoids[index: 5].MaxoidAu.ToString(format: "F8", provider: CultureInfo.InvariantCulture);
-				labelUranusMaxoidData.Text = maxoids[index: 6].MaxoidAu.ToString(format: "F8", provider: CultureInfo.InvariantCulture);
-				labelNeptuneMaxoidData.Text = maxoids[index: 7].MaxoidAu.ToString(format: "F8", provider: CultureInfo.InvariantCulture);
+				labelMercuryMaxoidData.Text = maxoids[index: 0].MaxoidAu.ToString(format: "F8", provider: CultureInfo.CurrentCulture);
+				labelVenusMaxoidData.Text = maxoids[index: 1].MaxoidAu.ToString(format: "F8", provider: CultureInfo.CurrentCulture);
+				labelEarthMaxoidData.Text = maxoids[index: 2].MaxoidAu.ToString(format: "F8", provider: CultureInfo.CurrentCulture);
+				labelMarsMaxoidData.Text = maxoids[index: 3].MaxoidAu.ToString(format: "F8", provider: CultureInfo.CurrentCulture);
+				labelJupiterMaxoidData.Text = maxoids[index: 4].MaxoidAu.ToString(format: "F8", provider: CultureInfo.CurrentCulture);
+				labelSaturnMaxoidData.Text = maxoids[index: 5].MaxoidAu.ToString(format: "F8", provider: CultureInfo.CurrentCulture);
+				labelUranusMaxoidData.Text = maxoids[index: 6].MaxoidAu.ToString(format: "F8", provider: CultureInfo.CurrentCulture);
+				labelNeptuneMaxoidData.Text = maxoids[index: 7].MaxoidAu.ToString(format: "F8", provider: CultureInfo.CurrentCulture);
 			}
 		}
 		// Handle any exceptions that may occur during MOID and MAXOID calculation and display an error message

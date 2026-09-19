@@ -106,7 +106,7 @@ internal partial class AverageAsteroidForm : BaseKryptonForm
 			Cursor.Current = Cursors.WaitCursor;
 			ResetProgress();
 			// Use invariant culture for consistent parsing of numeric values from the database entries
-			IFormatProvider provider = CultureInfo.InvariantCulture;
+			IFormatProvider provider = CultureInfo.CurrentCulture;
 			int total = planetoidsDatabase.Count;
 			// Initialize lists to hold the values for each orbital element and astrophysical property
 			List<double> meanAnomalies = [];
@@ -382,7 +382,7 @@ internal partial class AverageAsteroidForm : BaseKryptonForm
 	private static string FormatValue(double value)
 	{
 		// Check for NaN or Infinity and return "N/A" if so; otherwise, format the value with 6 decimal places using invariant culture
-		return double.IsNaN(d: value) || double.IsInfinity(d: value) ? "N/A" : value.ToString(format: "F6", provider: CultureInfo.InvariantCulture);
+		return double.IsNaN(d: value) || double.IsInfinity(d: value) ? "N/A" : value.ToString(format: "F6", provider: CultureInfo.CurrentCulture);
 	}
 
 	#endregion
@@ -479,7 +479,7 @@ internal partial class AverageAsteroidForm : BaseKryptonForm
 		{
 			// Remove any existing sort indicators from the column header text
 			string headerText = listView.Columns[index: i].Text;
-			if (headerText.StartsWith(value: "▲ ", comparisonType: StringComparison.InvariantCulture) || headerText.StartsWith(value: "▼ ", comparisonType: StringComparison.InvariantCulture))
+			if (headerText.StartsWith(value: "▲ ", comparisonType: StringComparison.CurrentCulture) || headerText.StartsWith(value: "▼ ", comparisonType: StringComparison.CurrentCulture))
 			{
 				headerText = headerText[2..];
 			}

@@ -58,7 +58,7 @@ internal sealed class BulkObservationsDownloadErrorsForm : BaseKryptonForm
 		// Populate ListView with error entries
 		foreach (BulkObservationsDownloadErrorEntry entry in entries)
 		{
-			string timestampText = entry.Timestamp.ToString(format: "yyyy-MM-dd HH:mm:ss", provider: CultureInfo.InvariantCulture);
+			string timestampText = entry.Timestamp.ToString(format: "yyyy-MM-dd HH:mm:ss", provider: CultureInfo.CurrentCulture);
 			string errorText = $"{entry.ErrorType}: {entry.ErrorDescription}";
 			ListViewItem item = new(text: timestampText);
 			_ = item.SubItems.Add(text: entry.Url);

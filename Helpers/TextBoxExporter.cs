@@ -841,7 +841,7 @@ internal static partial class TextBoxExporter
 			writer.WriteLine(value: "/Root 1 0 R");
 			writer.WriteLine(value: ">>");
 			writer.WriteLine(value: "startxref");
-			writer.WriteLine(value: xrefOffset.ToString(provider: CultureInfo.InvariantCulture));
+			writer.WriteLine(value: xrefOffset.ToString(provider: CultureInfo.CurrentCulture));
 			writer.WriteLine(value: "%%EOF");
 			// If the save operation completes successfully, show a success message to the user.
 			ExportFeedbackHelper.ShowSuccess();
@@ -911,7 +911,7 @@ internal static partial class TextBoxExporter
 			// The program-used element is set to "Planetoid-DB", which indicates the program that was used to create the FB2 document. This element is included in the document-info section and provides information about the software used to generate the document.
 			xmlWriter.WriteElementString(localName: "program-used", ns: fb2Ns, value: "Planetoid-DB");
 			// The date element is set to the current date, which indicates when the FB2 document was created. This element is included in the document-info section and provides information about the creation date of the document.
-			string fb2DateString = DateTime.Now.ToString(format: "yyyy-MM-dd", provider: CultureInfo.InvariantCulture);
+			string fb2DateString = DateTime.Now.ToString(format: "yyyy-MM-dd", provider: CultureInfo.CurrentCulture);
 			// The date element includes a value attribute that contains the date in the format "yyyy-MM-dd". The text content of the date element also contains the same date string. This provides both a machine-readable value and a human-readable representation of the creation date in the FB2 document.
 			xmlWriter.WriteStartElement(localName: "date", ns: fb2Ns);
 			// The value attribute of the date element is set to the current date in the format "yyyy-MM-dd". This provides a machine-readable representation of the creation date in the FB2 document, which can be used by readers to display or sort documents based on their creation dates.
@@ -1517,7 +1517,7 @@ internal static partial class TextBoxExporter
 	/// <remarks>YAML single-quoted scalars preserve backslashes literally and only require escaping of embedded single quotes by doubling them. This method wraps the input value in single quotes and replaces any single quote characters with two single quotes to ensure the resulting YAML scalar is well-formed and preserves the original text content.</remarks>
 	private static string EscapeYamlSingleQuotedScalar(string? value)
 	{
-		return $"'{(value ?? string.Empty).Replace(oldValue: "'", newValue: "''", comparisonType: StringComparison.InvariantCulture)}'";
+		return $"'{(value ?? string.Empty).Replace(oldValue: "'", newValue: "''", comparisonType: StringComparison.CurrentCulture)}'";
 	}
 
 	/// <summary>Saves the contents of the specified TextBox as a YAML file with the given title.</summary>
@@ -1624,7 +1624,7 @@ internal static partial class TextBoxExporter
 			// Write an INSERT INTO statement for each line from the TextBox. Single quotes in the data are escaped by doubling them.
 			foreach (string line in textBox.Lines)
 			{
-				string escaped = line.Replace(oldValue: "'", newValue: "''", comparisonType: StringComparison.InvariantCulture);
+				string escaped = line.Replace(oldValue: "'", newValue: "''", comparisonType: StringComparison.CurrentCulture);
 				writer.WriteLine(value: $"INSERT INTO [{tableName}] ([Content]) VALUES ('{escaped}');");
 			}
 			writer.WriteLine(value: "COMMIT;");

@@ -109,7 +109,7 @@ internal partial class LogViewerForm : BaseKryptonForm
 	/// <remarks>This method ensures consistent formatting of timestamps in the ListView.</remarks>
 	private static string FormatTimestamp(DateTime timestamp)
 	{
-		return timestamp.ToString(format: "yyyy-MM-dd HH:mm:ss.fff", provider: CultureInfo.InvariantCulture);
+		return timestamp.ToString(format: "yyyy-MM-dd HH:mm:ss.fff", provider: CultureInfo.CurrentCulture);
 	}
 
 	/// <summary>Creates a <see cref="ListViewItem"/> from a <see cref="LogEventInfo"/> for virtual-mode display.</summary>
@@ -313,7 +313,7 @@ internal partial class LogViewerForm : BaseKryptonForm
 			// Remove existing sort indicators from the header text
 			string headerText = listView.Columns[index: i].Text;
 			// Check for existing indicators and remove them
-			if (headerText.StartsWith(value: "▲ ", comparisonType: StringComparison.InvariantCulture) || headerText.StartsWith(value: "▼ ", comparisonType: StringComparison.InvariantCulture))
+			if (headerText.StartsWith(value: "▲ ", comparisonType: StringComparison.CurrentCulture) || headerText.StartsWith(value: "▼ ", comparisonType: StringComparison.CurrentCulture))
 			{
 				headerText = headerText[2..];
 			}

@@ -63,7 +63,7 @@ internal static class ExportEscapeHelper
 	public static string EscapeMarkdownCell(string? input)
 	{
 		// In Markdown tables, the pipe character '|' is used as a column separator, so it must be escaped if it appears in cell content.
-		return string.IsNullOrEmpty(value: input) ? string.Empty : input.Replace(oldValue: "|", newValue: "\\|", comparisonType: StringComparison.InvariantCulture);
+		return string.IsNullOrEmpty(value: input) ? string.Empty : input.Replace(oldValue: "|", newValue: "\\|", comparisonType: StringComparison.CurrentCulture);
 	}
 
 	/// <summary>Escapes Typst table cell characters.</summary>
@@ -200,7 +200,7 @@ internal static class ExportEscapeHelper
 			return "\"\"";
 		}
 		// Replace any internal double quotes with two double quotes to escape them, and wrap the entire field in double quotes.
-		return $"\"{input.Replace("\"", "\"\"", StringComparison.InvariantCulture)}\"";
+		return $"\"{input.Replace("\"", "\"\"", StringComparison.CurrentCulture)}\"";
 	}
 
 	/// <summary>Escapes a TOML string value.</summary>

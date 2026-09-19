@@ -110,7 +110,7 @@ internal partial class FilterForm : BaseKryptonForm
 		return line.Length >= startIndex + length && double.TryParse(
 			s: line.Substring(startIndex: startIndex, length: length).Trim(),
 			style: NumberStyles.Float,
-			provider: CultureInfo.InvariantCulture,
+			provider: CultureInfo.CurrentCulture,
 			result: out value);
 	}
 

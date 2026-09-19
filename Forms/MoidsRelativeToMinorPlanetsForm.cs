@@ -131,31 +131,31 @@ internal partial class MoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 			return false;
 		}
 		// Semi-major axis: positions 92-102
-		if (!double.TryParse(s: line.Substring(startIndex: 92, length: 11).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out semiMajorAxis) || semiMajorAxis <= 0)
+		if (!double.TryParse(s: line.Substring(startIndex: 92, length: 11).Trim(), style: NumberStyles.Float, provider: CultureInfo.CurrentCulture, result: out semiMajorAxis) || semiMajorAxis <= 0)
 		{
 			logger.Warn(message: $"Invalid semi-major axis in line: '{line}'");
 			return false;
 		}
 		// Eccentricity: positions 70-78
-		if (!double.TryParse(s: line.Substring(startIndex: 70, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out eccentricity))
+		if (!double.TryParse(s: line.Substring(startIndex: 70, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.CurrentCulture, result: out eccentricity))
 		{
 			logger.Warn(message: $"Invalid eccentricity in line: '{line}'");
 			return false;
 		}
 		// Inclination: positions 59-67
-		if (!double.TryParse(s: line.Substring(startIndex: 59, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out inclinationDeg))
+		if (!double.TryParse(s: line.Substring(startIndex: 59, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.CurrentCulture, result: out inclinationDeg))
 		{
 			logger.Warn(message: $"Invalid inclination in line: '{line}'");
 			return false;
 		}
 		// Longitude of ascending node: positions 48-56
-		if (!double.TryParse(s: line.Substring(startIndex: 48, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out longitudeAscendingNodeDeg))
+		if (!double.TryParse(s: line.Substring(startIndex: 48, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.CurrentCulture, result: out longitudeAscendingNodeDeg))
 		{
 			logger.Warn(message: $"Invalid longitude of ascending node in line: '{line}'");
 			return false;
 		}
 		// Argument of perihelion: positions 37-45
-		if (!double.TryParse(s: line.Substring(startIndex: 37, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out argumentPerihelionDeg))
+		if (!double.TryParse(s: line.Substring(startIndex: 37, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.CurrentCulture, result: out argumentPerihelionDeg))
 		{
 			logger.Warn(message: $"Invalid argument of perihelion in line: '{line}'");
 			return false;
@@ -234,7 +234,7 @@ internal partial class MoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 				semiMajorAxis2: sma2, eccentricity2: e2, inclinationDeg2: i2,
 				longitudeAscendingNodeDeg2: omega2, argumentPerihelionDeg2: w2);
 			// Display the MOID in AU formatted to 8 decimal places
-			kryptonLabelMoidValue.Text = moid.ToString(format: "F8", provider: CultureInfo.InvariantCulture);
+			kryptonLabelMoidValue.Text = moid.ToString(format: "F8", provider: CultureInfo.CurrentCulture);
 		}
 		catch (Exception ex)
 		{

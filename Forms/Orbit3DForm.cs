@@ -190,12 +190,12 @@ internal partial class Orbit3DForm : BaseKryptonForm
 			message: "Orbit3DForm initialized for '{0}' (a={1} AU, e={2}, i={3}°, Ω={4}°, ω={5}°, M={6}°, epoch={7}).",
 			args: [
 				planetoidName,
-				semiMajorAxis.ToString(format: "F6", provider: CultureInfo.InvariantCulture),
-				eccentricity.ToString(format: "F6", provider: CultureInfo.InvariantCulture),
-				inclinationDeg.ToString(format: "F4", provider: CultureInfo.InvariantCulture),
-				longitudeAscendingNodeDeg.ToString(format: "F4", provider: CultureInfo.InvariantCulture),
-				argumentPerihelionDeg.ToString(format: "F4", provider: CultureInfo.InvariantCulture),
-				meanAnomalyDeg.ToString(format: "F4", provider: CultureInfo.InvariantCulture),
+				semiMajorAxis.ToString(format: "F6", provider: CultureInfo.CurrentCulture),
+				eccentricity.ToString(format: "F6", provider: CultureInfo.CurrentCulture),
+				inclinationDeg.ToString(format: "F4", provider: CultureInfo.CurrentCulture),
+				longitudeAscendingNodeDeg.ToString(format: "F4", provider: CultureInfo.CurrentCulture),
+				argumentPerihelionDeg.ToString(format: "F4", provider: CultureInfo.CurrentCulture),
+				meanAnomalyDeg.ToString(format: "F4", provider: CultureInfo.CurrentCulture),
 				epochMpcorb]);
 	}
 
@@ -674,12 +674,12 @@ internal partial class Orbit3DForm : BaseKryptonForm
 	{
 		labelInformation.Text =
 			$"3D: {_planetoidName} — " +
-			$"a={_semiMajorAxis.ToString(format: "F4", provider: CultureInfo.InvariantCulture)} AU, " +
-			$"e={_eccentricity.ToString(format: "F6", provider: CultureInfo.InvariantCulture)}, " +
-			$"i={_inclinationDeg.ToString(format: "F2", provider: CultureInfo.InvariantCulture)}°, " +
-			$"Ω={_longitudeAscendingNodeDeg.ToString(format: "F2", provider: CultureInfo.InvariantCulture)}°, " +
-			$"ω={_argumentPerihelionDeg.ToString(format: "F2", provider: CultureInfo.InvariantCulture)}°, " +
-			$"M={_meanAnomalyDeg.ToString(format: "F2", provider: CultureInfo.InvariantCulture)}° | " +
+			$"a={_semiMajorAxis.ToString(format: "F4", provider: CultureInfo.CurrentCulture)} AU, " +
+			$"e={_eccentricity.ToString(format: "F6", provider: CultureInfo.CurrentCulture)}, " +
+			$"i={_inclinationDeg.ToString(format: "F2", provider: CultureInfo.CurrentCulture)}°, " +
+			$"Ω={_longitudeAscendingNodeDeg.ToString(format: "F2", provider: CultureInfo.CurrentCulture)}°, " +
+			$"ω={_argumentPerihelionDeg.ToString(format: "F2", provider: CultureInfo.CurrentCulture)}°, " +
+			$"M={_meanAnomalyDeg.ToString(format: "F2", provider: CultureInfo.CurrentCulture)}° | " +
 			$"Left-drag: rotate · Right-drag: pan · Scroll: zoom";
 	}
 

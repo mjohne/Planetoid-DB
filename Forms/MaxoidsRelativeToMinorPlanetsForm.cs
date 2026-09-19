@@ -128,35 +128,35 @@ internal partial class MaxoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 			return false;
 		}
 		// Semi-major axis: positions 92-102
-		if (!double.TryParse(s: line.Substring(startIndex: 92, length: 11).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out semiMajorAxis) || semiMajorAxis <= 0)
+		if (!double.TryParse(s: line.Substring(startIndex: 92, length: 11).Trim(), style: NumberStyles.Float, provider: CultureInfo.CurrentCulture, result: out semiMajorAxis) || semiMajorAxis <= 0)
 		{
 			logger.Warn(message: $"Failed to parse semi-major axis: '{line.Substring(startIndex: 92, length: 11).Trim()}'");
 			ShowErrorMessage(message: $"Failed to parse semi-major axis: '{line.Substring(startIndex: 92, length: 11).Trim()}'");
 			return false;
 		}
 		// Eccentricity: positions 70-78
-		if (!double.TryParse(s: line.Substring(startIndex: 70, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out eccentricity))
+		if (!double.TryParse(s: line.Substring(startIndex: 70, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.CurrentCulture, result: out eccentricity))
 		{
 			logger.Warn(message: $"Failed to parse eccentricity: '{line.Substring(startIndex: 70, length: 9).Trim()}'");
 			ShowErrorMessage(message: $"Failed to parse eccentricity: '{line.Substring(startIndex: 70, length: 9).Trim()}'");
 			return false;
 		}
 		// Inclination: positions 59-67
-		if (!double.TryParse(s: line.Substring(startIndex: 59, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out inclinationDeg))
+		if (!double.TryParse(s: line.Substring(startIndex: 59, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.CurrentCulture, result: out inclinationDeg))
 		{
 			logger.Warn(message: $"Failed to parse inclination: '{line.Substring(startIndex: 59, length: 9).Trim()}'");
 			ShowErrorMessage(message: $"Failed to parse inclination: '{line.Substring(startIndex: 59, length: 9).Trim()}'");
 			return false;
 		}
 		// Longitude of ascending node: positions 48-56
-		if (!double.TryParse(s: line.Substring(startIndex: 48, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out longitudeAscendingNodeDeg))
+		if (!double.TryParse(s: line.Substring(startIndex: 48, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.CurrentCulture, result: out longitudeAscendingNodeDeg))
 		{
 			logger.Warn(message: $"Failed to parse longitude of ascending node: '{line.Substring(startIndex: 48, length: 9).Trim()}'");
 			ShowErrorMessage(message: $"Failed to parse longitude of ascending node: '{line.Substring(startIndex: 48, length: 9).Trim()}'");
 			return false;
 		}
 		// Argument of perihelion: positions 37-45
-		if (!double.TryParse(s: line.Substring(startIndex: 37, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out argumentPerihelionDeg))
+		if (!double.TryParse(s: line.Substring(startIndex: 37, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.CurrentCulture, result: out argumentPerihelionDeg))
 		{
 			logger.Warn(message: $"Failed to parse argument of perihelion: '{line.Substring(startIndex: 37, length: 9).Trim()}'");
 			ShowErrorMessage(message: $"Failed to parse argument of perihelion: '{line.Substring(startIndex: 37, length: 9).Trim()}'");
@@ -236,7 +236,7 @@ internal partial class MaxoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 				semiMajorAxis2: sma2, eccentricity2: e2, inclinationDeg2: i2,
 				longitudeAscendingNodeDeg2: omega2, argumentPerihelionDeg2: w2);
 			// Display the MAXOID in AU formatted to 8 decimal places
-			kryptonLabelMaxoidValue.Text = maxoid.ToString(provider: CultureInfo.InvariantCulture);
+			kryptonLabelMaxoidValue.Text = maxoid.ToString(provider: CultureInfo.CurrentCulture);
 		}
 		catch (Exception ex)
 		{

@@ -386,7 +386,7 @@ internal partial class DatabaseDownloaderForm : BaseKryptonForm
 		// Get the last modified date from the Last-Modified header, if available
 		DateTime? lastMod = response.Content.Headers.LastModified?.UtcDateTime;
 		// Update the UI labels with the last modified date, source URL, and total size
-		labelDateValue.Text = lastMod.HasValue ? lastMod.Value.ToString(CultureInfo.InvariantCulture) : "-";
+		labelDateValue.Text = lastMod.HasValue ? lastMod.Value.ToString(CultureInfo.CurrentCulture) : "-";
 		labelSourceValue.Text = fileUrl;
 		labelSizeValue.Text = totalBytes.HasValue ? $"{totalBytes:N0} {I18nStrings.BytesText}" : "Unknown";
 		// Read the content stream from the HTTP response asynchronously

@@ -97,7 +97,7 @@ internal partial class Orbit2DTopViewForm : BaseKryptonForm
 		// Log the initialization of the form with the provided parameters for debugging purposes.
 		logger.Info(
 			message: "Orbit2DTopViewForm initialized for planetoid '{0}' (a={1} AU, e={2}, ω={3}°).",
-			args: [_planetoidName, _semiMajorAxis.ToString(format: "F6", provider: CultureInfo.InvariantCulture), _eccentricity.ToString(format: "F6", provider: CultureInfo.InvariantCulture), _argumentPerihelionDeg.ToString(format: "F4", provider: CultureInfo.InvariantCulture)]);
+			args: [_planetoidName, _semiMajorAxis.ToString(format: "F6", provider: CultureInfo.CurrentCulture), _eccentricity.ToString(format: "F6", provider: CultureInfo.CurrentCulture), _argumentPerihelionDeg.ToString(format: "F4", provider: CultureInfo.CurrentCulture)]);
 	}
 
 	#endregion
@@ -181,9 +181,9 @@ internal partial class Orbit2DTopViewForm : BaseKryptonForm
 		formsPlotOrbits.Refresh();
 		// Update the status bar with key parameters.
 		labelInformation.Text =
-			$"{_planetoidName} — a = {_semiMajorAxis.ToString(format: "F4", provider: CultureInfo.InvariantCulture)} AU, " +
-			$"e = {_eccentricity.ToString(format: "F6", provider: CultureInfo.InvariantCulture)}, " +
-			$"ω = {_argumentPerihelionDeg.ToString(format: "F2", provider: CultureInfo.InvariantCulture)}°";
+			$"{_planetoidName} — a = {_semiMajorAxis.ToString(format: "F4", provider: CultureInfo.CurrentCulture)} AU, " +
+			$"e = {_eccentricity.ToString(format: "F6", provider: CultureInfo.CurrentCulture)}, " +
+			$"ω = {_argumentPerihelionDeg.ToString(format: "F2", provider: CultureInfo.CurrentCulture)}°";
 	}
 
 	/// <summary>Adds a single orbit ellipse to the plot, correctly positioned with the Sun at the focal point.</summary>

@@ -254,7 +254,7 @@ public partial class PlanetoidDbForm
 		foreach (char c in encoded)
 		{
 			// Find the index of the character in the Base-62 character set
-			int digit = base62Chars.IndexOf(value: c, comparisonType: StringComparison.InvariantCulture);
+			int digit = base62Chars.IndexOf(value: c, comparisonType: StringComparison.CurrentCulture);
 			if (digit == -1)
 			{
 				// If the character is not found in the Base-62 set, throw a format exception
@@ -346,7 +346,7 @@ public partial class PlanetoidDbForm
 			_ => throw new FormatException(message: $"Invalid day character '{dayChar}' in packed epoch '{packedEpoch}'")
 		};
 		// Return the unpacked date as a string in yyyy-MM-dd format
-		return new DateOnly(year: year, month: month, day: day).ToString(format: "yyyy-MM-dd", provider: CultureInfo.InvariantCulture);
+		return new DateOnly(year: year, month: month, day: day).ToString(format: "yyyy-MM-dd", provider: CultureInfo.CurrentCulture);
 	}
 
 	/// <summary>Decodes the readable designation from the label and displays the unpacked form in a KryptonMessageBox.</summary>
@@ -398,7 +398,7 @@ public partial class PlanetoidDbForm
 			throw new FormatException(message: "Designation string must not be empty.");
 		}
 		// Already unpacked if it contains a space (e.g. "1995 XA")
-		if (packed.Contains(value: ' ', comparisonType: StringComparison.InvariantCulture))
+		if (packed.Contains(value: ' ', comparisonType: StringComparison.CurrentCulture))
 		{
 			return packed;
 		}
@@ -457,7 +457,7 @@ public partial class PlanetoidDbForm
 			}
 			int subscript = (tens * 10) + (subscriptOnes - '0');
 			// Build the unpacked designation
-			string subscriptStr = subscript == 0 ? string.Empty : subscript.ToString(provider: CultureInfo.InvariantCulture);
+			string subscriptStr = subscript == 0 ? string.Empty : subscript.ToString(provider: CultureInfo.CurrentCulture);
 			return $"{year} {halfMonthLetter}{orderLetter}{subscriptStr}";
 		}
 		// Numbered asteroid designations: 5 chars
@@ -473,7 +473,7 @@ public partial class PlanetoidDbForm
 			{
 				if (int.TryParse(s: packed, result: out int number))
 				{
-					return number.ToString(provider: CultureInfo.InvariantCulture);
+					return number.ToString(provider: CultureInfo.CurrentCulture);
 				}
 			}
 			// Alphanumeric prefix (A-Z or a-z) + 4 digits
@@ -483,7 +483,7 @@ public partial class PlanetoidDbForm
 				if (int.TryParse(s: packed.AsSpan(start: 1, length: 4), result: out int suffix))
 				{
 					int asteroidNumber = (prefixValue * 10000) + suffix;
-					return asteroidNumber.ToString(provider: CultureInfo.InvariantCulture);
+					return asteroidNumber.ToString(provider: CultureInfo.CurrentCulture);
 				}
 			}
 			// Tilde prefix encodes very large asteroid numbers (> 619999) in base-62 — not decoded here

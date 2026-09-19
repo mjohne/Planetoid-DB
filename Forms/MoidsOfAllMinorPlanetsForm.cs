@@ -188,31 +188,31 @@ internal partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 			return false;
 		}
 		// Extract and parse semi-major axis (positions 92-102)
-		if (!double.TryParse(line.Slice(start: 92, length: 11).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double semiMajorAxis) || semiMajorAxis <= 0)
+		if (!double.TryParse(line.Slice(start: 92, length: 11).Trim(), style: NumberStyles.Float, provider: CultureInfo.CurrentCulture, result: out double semiMajorAxis) || semiMajorAxis <= 0)
 		{
 			logger.Warn(message: $"Invalid semi-major axis in line: {line}");
 			return false;
 		}
 		// Extract and parse eccentricity (positions 70-78)
-		if (!double.TryParse(line.Slice(start: 70, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double eccentricity))
+		if (!double.TryParse(line.Slice(start: 70, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.CurrentCulture, result: out double eccentricity))
 		{
 			logger.Warn(message: $"Invalid eccentricity in line: {line}");
 			return false;
 		}
 		// Extract and parse inclination (positions 59-67)
-		if (!double.TryParse(line.Slice(start: 59, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double inclinationDeg))
+		if (!double.TryParse(line.Slice(start: 59, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.CurrentCulture, result: out double inclinationDeg))
 		{
 			logger.Warn(message: $"Invalid inclination in line: {line}");
 			return false;
 		}
 		// Extract and parse longitude of ascending node (positions 48-56)
-		if (!double.TryParse(line.Slice(start: 48, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double longitudeAscendingNodeDeg))
+		if (!double.TryParse(line.Slice(start: 48, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.CurrentCulture, result: out double longitudeAscendingNodeDeg))
 		{
 			logger.Warn(message: $"Invalid longitude of ascending node in line: {line}");
 			return false;
 		}
 		// Extract and parse argument of perihelion (positions 37-45)
-		if (!double.TryParse(line.Slice(start: 37, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double argumentPerihelionDeg))
+		if (!double.TryParse(line.Slice(start: 37, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.CurrentCulture, result: out double argumentPerihelionDeg))
 		{
 			logger.Warn(message: $"Invalid argument of perihelion in line: {line}");
 			return false;
@@ -314,7 +314,7 @@ internal partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 		// Add the MOID values for each planet as subitems
 		for (int i = 0; i < PlanetCount; i++)
 		{
-			_ = item.SubItems.Add(text: result.Moids[i].ToString(provider: CultureInfo.InvariantCulture));
+			_ = item.SubItems.Add(text: result.Moids[i].ToString(provider: CultureInfo.CurrentCulture));
 		}
 		// Assign the constructed ListViewItem to the event args
 		e.Item = item;
