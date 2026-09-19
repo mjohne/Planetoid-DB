@@ -154,7 +154,7 @@ internal partial class PlanetaryInformationForm : BaseKryptonForm
 	/// <summary>Returns the reference dataset used to populate the ListView.</summary>
 	/// <returns>An array containing the base parameters of the eight planets in the canonical order Mercury..Neptune.</returns>
 	/// <remarks>Values are taken from the NASA Planetary Fact Sheet and the IAU J2000 mean orbital elements. Angles are in degrees; distances in AU or km; masses in kg; velocities in km/s or m/s as documented on each property.</remarks>
-	private static PlanetData[] GetPlanets() =>
+	private static PlanetData[] Planets =>
 	[
 		new PlanetData
 		{
@@ -444,12 +444,15 @@ internal partial class PlanetaryInformationForm : BaseKryptonForm
 	/// <param name="format">The .NET numeric format string (for example <c>"G6"</c> or <c>"0.###"</c>).</param>
 	/// <returns>The formatted string, or an empty string when <paramref name="value"/> is <see cref="double.NaN"/>.</returns>
 	/// <remarks>Uses <see cref="CultureInfo.CurrentCulture"/> so displayed numbers respect the user's locale.</remarks>
-	private static string Fmt(double value, string format = "G6") =>
-		double.IsNaN(d: value) ? string.Empty : value.ToString(format: format, provider: CultureInfo.CurrentCulture);
+	private static string Format(double value, string format = "G6")
+	{
+		return double.IsNaN(d: value) ? string.Empty : value.ToString(format: format, provider: CultureInfo.CurrentCulture);
+	}
 
 	/// <summary>Computes the derived property values for a single planet.</summary>
 	/// <param name="p">The planet base parameters.</param>
-	/// <returns>An array of formatted strings, one per property row, in the same order as <see cref="GetPropertyLabels"/>.</returns>
+	/// <param name="nowJd">The current Julian date.</param>
+	/// <returns>An array of formatted strings, one per property row, in the same order as <see cref="PropertyLabels"/>.</returns>
 	/// <remarks>All derived quantities (semi-minor axis, orbital area, perihelion/aphelion distances and velocities, pole diameter, descending node longitude, argument of aphelion, eccentric and true anomaly) are computed from the base parameters using standard Keplerian and geometric formulas.</remarks>
 	private static string[] ComputePlanetValues(PlanetData p, double nowJd)
 	{
@@ -492,52 +495,91 @@ internal partial class PlanetaryInformationForm : BaseKryptonForm
 		// Build display rows in the exact order of GetPropertyLabels()
 		return
 		[
-			Fmt(value: p.SemiMajorAxisAu, format: "G6"),                          // Große Halbachse (AU)
-			Fmt(value: bKm / AuInKm, format: "G6"),                               // Kleine Halbachse (AU)
-			Fmt(value: 2.0 * p.SemiMajorAxisAu, format: "G6"),                    // Große Achse (AU)
-			Fmt(value: 2.0 * bKm / AuInKm, format: "G6"),                         // Kleine Achse (AU)
-			Fmt(value: perihelionKm / AuInKm, format: "G6"),                      // Periheldistanz (AU)
-			Fmt(value: aphelionKm / AuInKm, format: "G6"),                        // Apheldistanz (AU)
-			Fmt(value: semiLatusRectumKm / AuInKm, format: "G6"),                 // Semi-latus rectum (AU)
-			Fmt(value: latusRectumKm / AuInKm, format: "G6"),                     // Latus rectum (AU)
-			Fmt(value: p.Eccentricity, format: "G6"),                             // Numerische Exzentrizität
-			Fmt(value: linearEccentricityKm / AuInKm, format: "G6"),              // Lineare Exzentrizität (AU)
-			Fmt(value: orbitDiameterKm / AuInKm, format: "G6"),                   // Bahndurchmesser (AU)
-			Fmt(value: orbitAreaKm2, format: "G6"),                               // Bahnfläche (km²)
-			Fmt(value: p.InclinationDeg, format: "G6"),                           // Neigung der Bahnebene (°)
-			Fmt(value: currentMeanAnomalyDeg, format: "G6"),                      // Mittlere Anomalie (°)
-			Fmt(value: NormalizeDegrees(degrees: eccentricAnomalyDeg), format: "G6"),// Exzentrische Anomalie (°)
-			Fmt(value: NormalizeDegrees(degrees: trueAnomalyDeg), format: "G6"), // Wahre Anomalie (°)
-			Fmt(value: NormalizeDegrees(degrees: p.LongitudeAscendingNodeDeg), format: "G6"), // Länge des aufsteigenden Knotens (°)
-			Fmt(value: longitudeDescendingNodeDeg, format: "G6"),                 // Länge des absteigenden Knotens (°)
-			Fmt(value: NormalizeDegrees(degrees: p.ArgumentPerihelionDeg), format: "G6"),    // Argument des Perihels (°)
-			Fmt(value: argumentAphelionDeg, format: "G6"),                        // Argument des Aphels (°)
-			Fmt(value: p.SiderealPeriodYears, format: "G6"),                      // Siderische Umlaufzeit (a)
-			Fmt(value: p.SynodicPeriodDays, format: "G6"),                        // Synodische Umlaufzeit (d)
-			Fmt(value: aphelionVelocityKmPerS, format: "G6"),                     // Kleinste Bahngeschwindigkeit (km/s)
-			Fmt(value: meanOrbitalVelocityKmPerS, format: "G6"),                  // Mittlere Bahngeschwindigkeit (km/s)
-			Fmt(value: perihelionVelocityKmPerS, format: "G6"),                   // Größte Bahngeschwindigkeit (km/s)
-			Fmt(value: p.EquatorialDiameterKm, format: "G6"),                     // Äquatordurchmesser (km)
-			Fmt(value: polarDiameterKm, format: "G6"),                            // Poldurchmesser (km)
-			Fmt(value: p.Flattening, format: "G6"),                               // Abplattung
-			Fmt(value: p.MassKg, format: "G6"),                                   // Masse (kg)
-			Fmt(value: p.VolumeKm3, format: "G6"),                                // Volumen (km³)
-			Fmt(value: p.DensityKgPerM3, format: "G6"),                           // Mittlere Dichte (kg/m³)
-			Fmt(value: p.SurfaceGravityMPerS2, format: "G6"),                     // Fallbeschleunigung (m/s²)
-			Fmt(value: p.EscapeVelocityKmPerS, format: "G6"),                     // Fluchtgeschwindigkeit (km/s)
-			Fmt(value: p.RotationPeriodDays, format: "G6"),                       // Rotationsperiode (d)
-			Fmt(value: p.EquatorialRotationVelocityMPerS, format: "G6"),          // Rotationsgeschwindigkeit am Äquator (m/s)
-			Fmt(value: p.AxialTiltDeg, format: "G6"),                             // Neigung der Rotationsachse (°)
-			Fmt(value: p.GeometricAlbedo, format: "G6"),                          // Geometrische Albedo
-			Fmt(value: p.MaxApparentMagnitude, format: "G6"),                     // Maximale scheinbare Helligkeit (mag)
-			Fmt(value: p.AbsoluteMagnitude, format: "G6")                         // Absolute Helligkeit (mag)
+			// Semi-major axis (AU)
+			Format(value: p.SemiMajorAxisAu, format: "G6"),
+			// Semi-minor axis (AU)
+			Format(value: bKm / AuInKm, format: "G6"),
+			// Mayor axis (AU)
+			Format(value: 2.0 * p.SemiMajorAxisAu, format: "G6"),
+			// Minor axis (AU)
+			Format(value: 2.0 * bKm / AuInKm, format: "G6"),
+			// Perihelion distance (AU)
+			Format(value: perihelionKm / AuInKm, format: "G6"),
+			// Aphelion distance (AU)
+			Format(value: aphelionKm / AuInKm, format: "G6"),
+			// Semi-latus rectum (AU)
+			Format(value: semiLatusRectumKm / AuInKm, format: "G6"),
+			// Latus rectum (AU)
+			Format(value: latusRectumKm / AuInKm, format: "G6"),
+			// Numeric eccentricity
+			Format(value: p.Eccentricity, format: "G6"),
+			// Linear ecceentricity (AU)
+			Format(value: linearEccentricityKm / AuInKm, format: "G6"),
+			// Orbital diameter (AU)
+			Format(value: orbitDiameterKm / AuInKm, format: "G6"),
+			// Orbital area (km²)
+			Format(value: orbitAreaKm2, format: "G6"),
+			// Orbital inclination (°)
+			Format(value: p.InclinationDeg, format: "G6"),
+			// Mean anomaly (°)
+			Format(value: currentMeanAnomalyDeg, format: "G6"),
+			// Eccentric anomaly (°)
+			Format(value: NormalizeDegrees(degrees: eccentricAnomalyDeg), format: "G6"),
+			// True anomaly (°)
+			Format(value: NormalizeDegrees(degrees: trueAnomalyDeg), format: "G6"),
+			// Longitude of the ascending node (°)
+			Format(value: NormalizeDegrees(degrees: p.LongitudeAscendingNodeDeg), format: "G6"),
+			// Longitude of the descending node (°)
+			Format(value: longitudeDescendingNodeDeg, format: "G6"),
+			// Argument of perihelion (°)
+			Format(value: NormalizeDegrees(degrees: p.ArgumentPerihelionDeg), format: "G6"),
+			// Argument of aphelion (°)
+			Format(value: argumentAphelionDeg, format: "G6"),
+			// Sidereal period (year)
+			Format(value: p.SiderealPeriodYears, format: "G6"),
+			// synodic period (days)
+			Format(value: p.SynodicPeriodDays, format: "G6"),
+			// Minimum orbital velocity (km/s)
+			Format(value: aphelionVelocityKmPerS, format: "G6"),
+			// Mean orbital velocity (km/s)
+			Format(value: meanOrbitalVelocityKmPerS, format: "G6"),
+			// Ainimum orbital velocity (km/s)
+			Format(value: perihelionVelocityKmPerS, format: "G6"),
+			// Equatorial diameter (km)
+			Format(value: p.EquatorialDiameterKm, format: "G6"),
+			// Polar diameter (km)
+			Format(value: polarDiameterKm, format: "G6"),
+			// Flattening
+			Format(value: p.Flattening, format: "G6"),
+			// Mass (kg)
+			Format(value: p.MassKg, format: "G6"),
+			// Volume (km³)
+			Format(value: p.VolumeKm3, format: "G6"),
+			// Mean density (kg/m³)
+			Format(value: p.DensityKgPerM3, format: "G6"),
+			// Surface gravity (m/s²)
+			Format(value: p.SurfaceGravityMPerS2, format: "G6"),
+			// Escape velocity (km/s)
+			Format(value: p.EscapeVelocityKmPerS, format: "G6"),
+			// Rotation period (days)
+			Format(value: p.RotationPeriodDays, format: "G6"),
+			// Equatorial rotation velocity (m/s)
+			Format(value: p.EquatorialRotationVelocityMPerS, format: "G6"),
+			// Axial tilt (°)
+			Format(value: p.AxialTiltDeg, format: "G6"),
+			// geometric albedo
+			Format(value: p.GeometricAlbedo, format: "G6"),
+			// Maximal apparent magnitude (mag)
+			Format(value: p.MaxApparentMagnitude, format: "G6"),
+			// Absolute magnitude (mag)
+			Format(value: p.AbsoluteMagnitude, format: "G6")
 		];
 	}
 
 	/// <summary>Returns the display labels for each property row.</summary>
 	/// <returns>An array of localized labels, one per property row, matching the order used by <see cref="ComputePlanetValues"/>.</returns>
 	/// <remarks>Labels include the physical unit in parentheses where applicable. The order of entries in this array must match the order of the values returned by <see cref="ComputePlanetValues"/>.</remarks>
-	private static string[] GetPropertyLabels() =>
+	private static string[] PropertyLabels =>
 	[
 		"Semi-major axis (AU)",
 		"Semi-minor axis (AU)",
@@ -593,8 +635,8 @@ internal partial class PlanetaryInformationForm : BaseKryptonForm
 			listView.BeginUpdate();
 			listView.Items.Clear();
 			// Compute all planet columns up-front so we can transpose to per-property rows
-			PlanetData[] planets = GetPlanets();
-			string[] labels = GetPropertyLabels();
+			PlanetData[] planets = Planets;
+			string[] labels = PropertyLabels;
 			string[][] columns = new string[planets.Length][];
 			double nowJd = DateTimeToJulianDate(dateTime: DateTime.UtcNow);
 			for (int i = 0; i < planets.Length; i++)
@@ -670,7 +712,7 @@ internal partial class PlanetaryInformationForm : BaseKryptonForm
 		for (int i = 0; i < listView.Columns.Count; i++)
 		{
 			string headerText = listView.Columns[index: i].Text;
-			if (headerText.StartsWith(value: "▲ ", comparisonType: StringComparison.InvariantCulture) || headerText.StartsWith(value: "▼ ", comparisonType: StringComparison.InvariantCulture))
+			if (headerText.StartsWith(value: "▲ ", comparisonType: StringComparison.CurrentCulture) || headerText.StartsWith(value: "▼ ", comparisonType: StringComparison.CurrentCulture))
 			{
 				headerText = headerText[2..];
 			}
