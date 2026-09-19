@@ -177,35 +177,35 @@ internal partial class MaxoidsOfAllMinorPlanetsForm : BaseKryptonForm
 		}
 		// Extract and parse the semi-major axis (positions 92-102)
 		string semiMajorAxisText = line.Substring(startIndex: 92, length: 11).Trim();
-		if (!double.TryParse(s: semiMajorAxisText, style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double semiMajorAxis) || semiMajorAxis <= 0)
+		if (!double.TryParse(s: semiMajorAxisText, style: NumberStyles.Float, provider: CultureInfo.CurrentCulture, result: out double semiMajorAxis) || semiMajorAxis <= 0)
 		{
 			logger.Warn(message: $"Skipping line due to invalid semi-major axis: {semiMajorAxisText}");
 			return;
 		}
 		// Extract and parse the eccentricity (positions 70-78)
 		string eccentricityText = line.Substring(startIndex: 70, length: 9).Trim();
-		if (!double.TryParse(s: eccentricityText, style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double eccentricity))
+		if (!double.TryParse(s: eccentricityText, style: NumberStyles.Float, provider: CultureInfo.CurrentCulture, result: out double eccentricity))
 		{
 			logger.Warn(message: $"Skipping line due to invalid eccentricity: {eccentricityText}");
 			return;
 		}
 		// Extract and parse the inclination to the ecliptic (positions 59-67)
 		string inclinationText = line.Substring(startIndex: 59, length: 9).Trim();
-		if (!double.TryParse(s: inclinationText, style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double inclinationDeg))
+		if (!double.TryParse(s: inclinationText, style: NumberStyles.Float, provider: CultureInfo.CurrentCulture, result: out double inclinationDeg))
 		{
 			logger.Warn(message: $"Skipping line due to invalid inclination: {inclinationText}");
 			return;
 		}
 		// Extract and parse the longitude of the ascending node (positions 48-56)
 		string longitudeText = line.Substring(startIndex: 48, length: 9).Trim();
-		if (!double.TryParse(s: longitudeText, style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double longitudeAscendingNodeDeg))
+		if (!double.TryParse(s: longitudeText, style: NumberStyles.Float, provider: CultureInfo.CurrentCulture, result: out double longitudeAscendingNodeDeg))
 		{
 			logger.Warn(message: $"Skipping line due to invalid longitude of ascending node: {longitudeText}");
 			return;
 		}
 		// Extract and parse the argument of perihelion (positions 37-45)
 		string argumentText = line.Substring(startIndex: 37, length: 9).Trim();
-		if (!double.TryParse(s: argumentText, style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double argumentPerihelionDeg))
+		if (!double.TryParse(s: argumentText, style: NumberStyles.Float, provider: CultureInfo.CurrentCulture, result: out double argumentPerihelionDeg))
 		{
 			logger.Warn(message: $"Skipping line due to invalid argument of perihelion: {argumentText}");
 			return;
@@ -308,7 +308,7 @@ internal partial class MaxoidsOfAllMinorPlanetsForm : BaseKryptonForm
 		string[] subItems = new string[PlanetCount];
 		for (int i = 0; i < PlanetCount; i++)
 		{
-			subItems[i] = result.Maxoids[i].ToString(format: "F6", provider: CultureInfo.InvariantCulture);
+			subItems[i] = result.Maxoids[i].ToString(format: "F6", provider: CultureInfo.CurrentCulture);
 		}
 		item.SubItems.AddRange(items: subItems);
 		e.Item = item;

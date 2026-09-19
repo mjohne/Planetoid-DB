@@ -189,7 +189,7 @@ internal partial class ObservatoryCodesForm : BaseKryptonForm
 		for (int i = 0; i < listView.Columns.Count; i++)
 		{
 			string headerText = listView.Columns[index: i].Text;
-			if (headerText.StartsWith(value: "▲ ", comparisonType: StringComparison.InvariantCulture) || headerText.StartsWith(value: "▼ ", comparisonType: StringComparison.InvariantCulture))
+			if (headerText.StartsWith(value: "▲ ", comparisonType: StringComparison.CurrentCulture) || headerText.StartsWith(value: "▼ ", comparisonType: StringComparison.CurrentCulture))
 			{
 				headerText = headerText[2..];
 			}

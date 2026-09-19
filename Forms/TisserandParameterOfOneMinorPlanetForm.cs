@@ -135,14 +135,14 @@ public partial class TisserandParameterOfOneMinorPlanetForm : BaseKryptonForm
 			// Populate the data labels (one per planet row, index 0 = Mercury … 7 = Neptune)
 			if (tisserandResults.Length >= 8)
 			{
-				labelMercuryData.Text = tisserandResults[0].TisserandValue.ToString(format: "F6", provider: CultureInfo.InvariantCulture);
-				labelVenusData.Text = tisserandResults[1].TisserandValue.ToString(format: "F6", provider: CultureInfo.InvariantCulture);
-				labelEarthData.Text = tisserandResults[2].TisserandValue.ToString(format: "F6", provider: CultureInfo.InvariantCulture);
-				labelMarsData.Text = tisserandResults[3].TisserandValue.ToString(format: "F6", provider: CultureInfo.InvariantCulture);
-				labelJupiterData.Text = tisserandResults[4].TisserandValue.ToString(format: "F6", provider: CultureInfo.InvariantCulture);
-				labelSaturnData.Text = tisserandResults[5].TisserandValue.ToString(format: "F6", provider: CultureInfo.InvariantCulture);
-				labelUranusData.Text = tisserandResults[6].TisserandValue.ToString(format: "F6", provider: CultureInfo.InvariantCulture);
-				labelNeptuneData.Text = tisserandResults[7].TisserandValue.ToString(format: "F6", provider: CultureInfo.InvariantCulture);
+				labelMercuryData.Text = tisserandResults[0].TisserandValue.ToString(format: "F6", provider: CultureInfo.CurrentCulture);
+				labelVenusData.Text = tisserandResults[1].TisserandValue.ToString(format: "F6", provider: CultureInfo.CurrentCulture);
+				labelEarthData.Text = tisserandResults[2].TisserandValue.ToString(format: "F6", provider: CultureInfo.CurrentCulture);
+				labelMarsData.Text = tisserandResults[3].TisserandValue.ToString(format: "F6", provider: CultureInfo.CurrentCulture);
+				labelJupiterData.Text = tisserandResults[4].TisserandValue.ToString(format: "F6", provider: CultureInfo.CurrentCulture);
+				labelSaturnData.Text = tisserandResults[5].TisserandValue.ToString(format: "F6", provider: CultureInfo.CurrentCulture);
+				labelUranusData.Text = tisserandResults[6].TisserandValue.ToString(format: "F6", provider: CultureInfo.CurrentCulture);
+				labelNeptuneData.Text = tisserandResults[7].TisserandValue.ToString(format: "F6", provider: CultureInfo.CurrentCulture);
 			}
 		}
 		// Log any exceptions that occur during the calculation and show an error message to the user

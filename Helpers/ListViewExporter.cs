@@ -236,7 +236,7 @@ internal static partial class ListViewExporter
 			foreach (string[] row in GetRows(listView: listView, virtualRowProvider: virtualRowProvider))
 			{
 				// Escape pipe characters in the cell data to prevent breaking the AsciiDoc table syntax, since '|' is used as a column separator. The escaping is done by replacing '|' with '\|', which is the standard way to escape a pipe in AsciiDoc.
-				string[] escaped = [.. row.Select(selector: static v => v.Replace(oldValue: "|", newValue: "\\|", comparisonType: StringComparison.InvariantCulture))];
+				string[] escaped = [.. row.Select(selector: static v => v.Replace(oldValue: "|", newValue: "\\|", comparisonType: StringComparison.CurrentCulture))];
 				writer.WriteLine(value: "|" + string.Join(separator: "|", values: escaped));
 			}
 			writer.WriteLine(value: "|===");
@@ -310,7 +310,7 @@ internal static partial class ListViewExporter
 				{
 					string cell = c < row.Length ? row[c] : string.Empty;
 					// Escape pipe characters in the cell data to prevent breaking the Textile table syntax, since '|' is used as a column separator. The escaping is done by replacing '|' with '&#124;', which is the HTML entity for the pipe character.
-					cell = cell.Replace(oldValue: "|", newValue: "&#124;", comparisonType: StringComparison.InvariantCulture);
+					cell = cell.Replace(oldValue: "|", newValue: "&#124;", comparisonType: StringComparison.CurrentCulture);
 					return $" {cell.PadRight(totalWidth: widths[c] - 1)}";
 				}))}|";
 				writer.WriteLine(value: dataRow);
@@ -351,7 +351,7 @@ internal static partial class ListViewExporter
 			foreach (string[] row in GetRows(listView: listView, virtualRowProvider: virtualRowProvider))
 			{
 				// Escape pipe characters in the cell data to prevent breaking the Textile table syntax, since '|' is used as a column separator. The escaping is done by replacing '|' with '&#124;', which is the HTML entity for the pipe character.
-				string[] escaped = [.. row.Select(selector: static v => v.Replace(oldValue: "|", newValue: "&#124;", comparisonType: StringComparison.InvariantCulture))];
+				string[] escaped = [.. row.Select(selector: static v => v.Replace(oldValue: "|", newValue: "&#124;", comparisonType: StringComparison.CurrentCulture))];
 				writer.WriteLine(value: "| " + string.Join(separator: " | ", values: escaped) + " |");
 			}
 			// Log a success message indicating that the Textile file was saved successfully.
@@ -394,7 +394,7 @@ internal static partial class ListViewExporter
 			// Write each row of data as a Typst table row, escaping double quotes in the cell data to prevent breaking the Typst syntax. Each cell is enclosed in double quotes, and rows are separated by commas.
 			foreach (string[] row in rows)
 			{
-				string[] escaped = [.. row.Select(selector: static v => v.Replace(oldValue: "\"", newValue: "\\\"", comparisonType: StringComparison.InvariantCulture))];
+				string[] escaped = [.. row.Select(selector: static v => v.Replace(oldValue: "\"", newValue: "\\\"", comparisonType: StringComparison.CurrentCulture))];
 				writer.WriteLine(value: "    [" + string.Join(separator: ", ", values: escaped.Select(selector: static v => $"\"{v}\"")) + "],");
 			}
 			writer.WriteLine(value: "  ]");
@@ -1183,7 +1183,7 @@ internal static partial class ListViewExporter
 			xmlWriter.WriteAttributeString(localName: "frame", value: "all");
 			xmlWriter.WriteElementString(localName: "title", value: title);
 			xmlWriter.WriteStartElement(localName: "tgroup", ns: "http://docbook.org/ns/docbook");
-			xmlWriter.WriteAttributeString(localName: "cols", value: headers.Length.ToString(provider: System.Globalization.CultureInfo.InvariantCulture));
+			xmlWriter.WriteAttributeString(localName: "cols", value: headers.Length.ToString(provider: System.Globalization.CultureInfo.CurrentCulture));
 			for (int c = 0; c < headers.Length; c++)
 			{
 				// Write the column specifications for the DocBook table. Each column is defined with a "colspec" element, and the "colname" attribute is set to a unique name based on the column index (e.g., "c1", "c2", etc.). This defines the structure of the table and allows for proper formatting when processed by DocBook tools.
@@ -1288,7 +1288,7 @@ internal static partial class ListViewExporter
 			// Use a StreamWriter to write the output file in YAML format with UTF-8 encoding. The 'append: false' parameter ensures that the file is overwritten if it already exists. The YAML document has a root object containing a "title" property and a "rows" property. The "rows" property is an array of objects, where each object represents a row in the ListView and has properties corresponding to the column headers. Special characters in the headers and cell data are escaped by replacing double quotes with escaped double quotes to ensure that the YAML document is well-formed.
 			using StreamWriter writer = new(path: fileName, append: false, encoding: Encoding.UTF8);
 			writer.WriteLine(value: "---");
-			writer.WriteLine(value: $"title: \"{title.Replace(oldValue: "\"", newValue: "\\\"", comparisonType: StringComparison.InvariantCulture)}\"");
+			writer.WriteLine(value: $"title: \"{title.Replace(oldValue: "\"", newValue: "\\\"", comparisonType: StringComparison.CurrentCulture)}\"");
 			writer.WriteLine(value: $"created_at: \"{DateTime.UtcNow:O}\"");
 			writer.WriteLine(value: "rows:");
 			foreach (string[] row in GetRows(listView: listView, virtualRowProvider: virtualRowProvider))
@@ -1393,7 +1393,7 @@ internal static partial class ListViewExporter
 				string values = string.Join(separator: ", ", values: Enumerable.Range(start: 0, count: headers.Length).Select(selector: c =>
 				{
 					string cell = c < row.Length ? row[c] : string.Empty;
-					return $"'{cell.Replace(oldValue: "'", newValue: "''", comparisonType: StringComparison.InvariantCulture)}'";
+					return $"'{cell.Replace(oldValue: "'", newValue: "''", comparisonType: StringComparison.CurrentCulture)}'";
 				}));
 				writer.WriteLine(value: $"INSERT INTO [{tableName}] ({colList}) VALUES ({values});");
 			}
@@ -2056,7 +2056,7 @@ internal static partial class ListViewExporter
 			xmlWriter.WriteElementString(localName: "last-name", value: string.Empty);
 			xmlWriter.WriteEndElement();
 			xmlWriter.WriteElementString(localName: "program-used", value: "Planetoid-DB");
-			string fb2DateString = DateTime.Now.ToString(format: "yyyy-MM-dd", provider: CultureInfo.InvariantCulture);
+			string fb2DateString = DateTime.Now.ToString(format: "yyyy-MM-dd", provider: CultureInfo.CurrentCulture);
 			xmlWriter.WriteStartElement(localName: "date");
 			xmlWriter.WriteAttributeString(localName: "value", value: fb2DateString);
 			xmlWriter.WriteString(text: fb2DateString);

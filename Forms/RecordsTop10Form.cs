@@ -263,13 +263,13 @@ internal partial class RecordsTop10Form : BaseKryptonForm
 		}
 		// Determine if the selected element is an integer field (Number of Oppositions or Number of Observations) based on the selected index. This is important because we need to use different parsing logic for integer fields versus floating-point fields. The method uses int.TryParse for integer fields and double.TryParse for floating-point fields, both with invariant culture to ensure consistent parsing regardless of the user's locale settings.
 		bool isIntegerField = selectedElementIndex is 9 or 10;
-		if (isIntegerField && int.TryParse(s: stringValue, style: NumberStyles.Integer, provider: CultureInfo.InvariantCulture, result: out int intValue))
+		if (isIntegerField && int.TryParse(s: stringValue, style: NumberStyles.Integer, provider: CultureInfo.CurrentCulture, result: out int intValue))
 		{
 			numericValue = intValue;
 			return true;
 		}
 		// For non-integer fields, we attempt to parse the string value as a double. If parsing succeeds, we return true and set numericValue to the parsed double value. If parsing fails, we set numericValue to 0 and return false to indicate that extraction and parsing did not succeed.
-		if (!isIntegerField && double.TryParse(s: stringValue, style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double doubleValue))
+		if (!isIntegerField && double.TryParse(s: stringValue, style: NumberStyles.Float, provider: CultureInfo.CurrentCulture, result: out double doubleValue))
 		{
 			numericValue = doubleValue;
 			return true;

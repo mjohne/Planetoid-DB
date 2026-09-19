@@ -241,7 +241,7 @@ internal partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 		}
 		// Extract the semi-major axis from the fixed-width field in the MPCORB record; the semi-major axis is located at characters 92-102 (11 characters total) and is parsed as a double; if parsing fails or if the value is non-positive, the line is skipped without logging an error, as this may be common for records with missing or invalid data
 		string semiMajorAxisText = line.Substring(startIndex: 92, length: 11).Trim();
-		if (!double.TryParse(s: semiMajorAxisText, style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double semiMajorAxis) || semiMajorAxis <= 0)
+		if (!double.TryParse(s: semiMajorAxisText, style: NumberStyles.Float, provider: CultureInfo.CurrentCulture, result: out double semiMajorAxis) || semiMajorAxis <= 0)
 		{
 			logger.Error(message: $"Skipping line due to invalid semi-major axis: {line}");
 			return;
@@ -318,11 +318,11 @@ internal partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 		item.SubItems.AddRange(items:
 		[
 			result.Resonance.PlanetName,
-			result.Resonance.PlanetPeriod.ToString(format: "F6", provider: CultureInfo.InvariantCulture),
-			result.Resonance.PlanetoidPeriod.ToString(format: "F6", provider: CultureInfo.InvariantCulture),
-			result.Resonance.Ratio.ToString(format: "F6", provider: CultureInfo.InvariantCulture),
+			result.Resonance.PlanetPeriod.ToString(format: "F6", provider: CultureInfo.CurrentCulture),
+			result.Resonance.PlanetoidPeriod.ToString(format: "F6", provider: CultureInfo.CurrentCulture),
+			result.Resonance.Ratio.ToString(format: "F6", provider: CultureInfo.CurrentCulture),
 			$"{result.Resonance.ResonanceP}:{result.Resonance.ResonanceQ}",
-			result.Resonance.DeviationPercent.ToString(format: "F2", provider: CultureInfo.InvariantCulture),
+			result.Resonance.DeviationPercent.ToString(format: "F2", provider: CultureInfo.CurrentCulture),
 			isResonance
 		]);
 		// Set the text color of the entire row based on whether the result is a near-resonance; if the deviation percent is below the threshold, the text is colored green to indicate a near-resonance, otherwise it is colored red to indicate that it is not a near-resonance
@@ -522,11 +522,11 @@ internal partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 		{
 			result.PlanetoidName,
 			result.Resonance.PlanetName,
-			result.Resonance.PlanetPeriod.ToString(format: "F6", provider: CultureInfo.InvariantCulture),
-			result.Resonance.PlanetoidPeriod.ToString(format: "F6", provider: CultureInfo.InvariantCulture),
-			result.Resonance.Ratio.ToString(format: "F6", provider: CultureInfo.InvariantCulture),
+			result.Resonance.PlanetPeriod.ToString(format: "F6", provider: CultureInfo.CurrentCulture),
+			result.Resonance.PlanetoidPeriod.ToString(format: "F6", provider: CultureInfo.CurrentCulture),
+			result.Resonance.Ratio.ToString(format: "F6", provider: CultureInfo.CurrentCulture),
 			$"{result.Resonance.ResonanceP}:{result.Resonance.ResonanceQ}",
-			result.Resonance.DeviationPercent.ToString(format: "F2", provider: CultureInfo.InvariantCulture),
+			result.Resonance.DeviationPercent.ToString(format: "F2", provider: CultureInfo.CurrentCulture),
 			isResonance
 		});
 		logger.Info(message: $"Copying selected row to clipboard: {text}");

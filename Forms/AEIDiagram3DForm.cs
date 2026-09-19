@@ -104,7 +104,7 @@ internal partial class AEIDiagram3DForm : BaseKryptonForm
 	private static bool TryParseValue(string line, int start, int len, out double value)
 	{
 		value = default;
-		return line.Length >= start + len && double.TryParse(s: line.Substring(startIndex: start, length: len).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out value);
+		return line.Length >= start + len && double.TryParse(s: line.Substring(startIndex: start, length: len).Trim(), style: NumberStyles.Float, provider: CultureInfo.CurrentCulture, result: out value);
 	}
 
 	private static bool TryParseAeiPoint(string line, out AeiPoint point)

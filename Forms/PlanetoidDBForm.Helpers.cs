@@ -743,7 +743,7 @@ public partial class PlanetoidDbForm
 		// Trim leading and trailing whitespace
 		result = result.Trim();
 		// Replace all remaining spaces with nothing (remove spaces)
-		result = result.Replace(oldValue: " ", newValue: "", comparisonType: StringComparison.InvariantCulture);
+		result = result.Replace(oldValue: " ", newValue: "", comparisonType: StringComparison.CurrentCulture);
 		return result;
 	}
 
@@ -827,7 +827,7 @@ public partial class PlanetoidDbForm
 	private void ShowOrbitalResonances()
 	{
 		// Try to parse the semi-major axis from the label text using invariant culture to ensure consistent parsing regardless of the user's locale settings
-		IFormatProvider provider = CultureInfo.InvariantCulture;
+		IFormatProvider provider = CultureInfo.CurrentCulture;
 		// If parsing fails, log an error and show an error message to the user, then return early to avoid opening the form with invalid data
 		if (!double.TryParse(s: labelMpcorbSemiMajorAxisData.Text, style: NumberStyles.Any, provider: provider, result: out double semiMajorAxis))
 		{
@@ -1147,7 +1147,7 @@ public partial class PlanetoidDbForm
 			return;
 		}
 		// Parse the mean anomaly at the epoch from the corresponding label on the form
-		IFormatProvider provider = CultureInfo.InvariantCulture;
+		IFormatProvider provider = CultureInfo.CurrentCulture;
 		// If parsing fails, log the error and show an error message to the user, then return early to avoid opening the form with invalid data
 		if (!double.TryParse(s: labelMpcorbMeanAnomalyAtTheEpochData.Text, style: NumberStyles.Any, provider: provider, result: out double meanAnomalyDeg))
 		{
@@ -1627,7 +1627,7 @@ public partial class PlanetoidDbForm
 		// Create a list to hold the orbital and derived elements
 		List<string> elements = [];
 		// Use the invariant culture for consistent parsing of numeric values
-		IFormatProvider provider = CultureInfo.InvariantCulture;
+		IFormatProvider provider = CultureInfo.CurrentCulture;
 		// Parse the necessary orbital elements from the UI labels, using TryParse to handle potential parsing errors gracefully
 		_ = double.TryParse(s: labelMpcorbSemiMajorAxisData.Text, style: NumberStyles.Any, provider: provider, result: out double semiMajorAxis);
 		_ = double.TryParse(s: labelMpcorbOrbitalEccentricityData.Text, style: NumberStyles.Any, provider: provider, result: out double numericalEccentricity);
@@ -1713,7 +1713,7 @@ public partial class PlanetoidDbForm
 		// Create a new list to store the derived orbit elements
 		List<string> derivedOrbitElements = [];
 		// Create a specific culture for formatting
-		IFormatProvider provider = CultureInfo.InvariantCulture;
+		IFormatProvider provider = CultureInfo.CurrentCulture;
 		double semiMajorAxis = double.Parse(s: labelMpcorbSemiMajorAxisData.Text, provider: provider);
 		double numericalEccentricity = double.Parse(s: labelMpcorbOrbitalEccentricityData.Text, provider: provider);
 		double meanAnomaly = double.Parse(s: labelMpcorbMeanAnomalyAtTheEpochData.Text, provider: provider);
@@ -1937,7 +1937,7 @@ public partial class PlanetoidDbForm
 			// Read all lines from the ASTORB.DAT file and add them to the database list
 			astorbDatabase.AddRange(collection: File.ReadAllLines(path: filenameAstorbDat));
 			// Get the last write time of the ASTORB.DAT file for display in the tab
-			string fileDate = File.GetLastWriteTime(path: filenameAstorbDat).ToString(format: "yyyy-MM-dd", provider: CultureInfo.InvariantCulture);
+			string fileDate = File.GetLastWriteTime(path: filenameAstorbDat).ToString(format: "yyyy-MM-dd", provider: CultureInfo.CurrentCulture);
 			kryptonPageAstorbDat.Text = $"ASTORB.DAT ({fileDate})";
 			logger.Info(message: $"ASTORB.DAT loaded: {astorbDatabase.Count} lines, dated {fileDate}.");
 		}
@@ -2120,7 +2120,7 @@ public partial class PlanetoidDbForm
 			// Read lines from the ALLNUM.CAT file lazily, skip the 6 header lines, and add data lines to the list
 			allnumCatDatabase.AddRange(collection: File.ReadLines(path: filenameAllnumCat).Skip(count: 6));
 			// Get the last write time of the ALLNUM.CAT file for display in the tab
-			string fileDate = File.GetLastWriteTime(path: filenameAllnumCat).ToString(format: "yyyy-MM-dd", provider: CultureInfo.InvariantCulture);
+			string fileDate = File.GetLastWriteTime(path: filenameAllnumCat).ToString(format: "yyyy-MM-dd", provider: CultureInfo.CurrentCulture);
 			kryptonPageAllnumCat.Text = $"ALLNUM.CAT ({fileDate})";
 			logger.Info(message: $"ALLNUM.CAT loaded: {allnumCatDatabase.Count} lines, dated {fileDate}.");
 		}
@@ -2250,7 +2250,7 @@ public partial class PlanetoidDbForm
 			// Read lines from the SINGOPP.CAT file lazily, skip the 6 header lines, and add data lines to the list
 			singoppCatDatabase.AddRange(collection: File.ReadLines(path: filenameSingoppCat).Skip(count: 6));
 			// Get the last write time of the SINGOPP.CAT file for display in the tab
-			string fileDate = File.GetLastWriteTime(path: filenameSingoppCat).ToString(format: "yyyy-MM-dd", provider: CultureInfo.InvariantCulture);
+			string fileDate = File.GetLastWriteTime(path: filenameSingoppCat).ToString(format: "yyyy-MM-dd", provider: CultureInfo.CurrentCulture);
 			kryptonPageSingoppCat.Text = $"SINGOPP.CAT ({fileDate})";
 			logger.Info(message: $"SINGOPP.CAT loaded: {singoppCatDatabase.Count} lines, dated {fileDate}.");
 		}
@@ -2381,7 +2381,7 @@ public partial class PlanetoidDbForm
 			// Read lines from the UFITOBS.CAT file lazily, skip the 6 header lines, and add data lines to the list
 			ufitobsCatDatabase.AddRange(collection: File.ReadLines(path: filenameUfitobsCat).Skip(count: 6));
 			// Get the last write time of the UFITOBS.CAT file for display in the tab
-			string fileDate = File.GetLastWriteTime(path: filenameUfitobsCat).ToString(format: "yyyy-MM-dd", provider: CultureInfo.InvariantCulture);
+			string fileDate = File.GetLastWriteTime(path: filenameUfitobsCat).ToString(format: "yyyy-MM-dd", provider: CultureInfo.CurrentCulture);
 			kryptonPageUfitobsCat.Text = $"UFITOBS.CAT ({fileDate})";
 			logger.Info(message: $"UFITOBS.CAT loaded: {ufitobsCatDatabase.Count} lines, dated {fileDate}.");
 		}
@@ -2530,7 +2530,7 @@ public partial class PlanetoidDbForm
 				}
 			}
 			// Get the last write time of the MPCORB.JSON file for display in the tab
-			string fileDate = File.GetLastWriteTime(path: filenameMpcorbJson).ToString(format: "yyyy-MM-dd", provider: CultureInfo.InvariantCulture);
+			string fileDate = File.GetLastWriteTime(path: filenameMpcorbJson).ToString(format: "yyyy-MM-dd", provider: CultureInfo.CurrentCulture);
 			kryptonPageMpcorbJson.Text = $"MPCORB.JSON ({fileDate})";
 			logger.Info(message: $"MPCORB.JSON loaded: {mpcorbJsonDatabase.Count} entries, dated {fileDate}.");
 		}

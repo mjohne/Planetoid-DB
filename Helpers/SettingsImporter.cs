@@ -132,20 +132,20 @@ internal static class SettingsImporter
 	/// <param name="typeName">The CLR short type name (e.g. "Boolean", "Int32").</param>
 	/// <param name="propertyType">The actual <see cref="Type"/> of the settings property.</param>
 	/// <returns>The converted object, or <see langword="null"/> if <see cref="Convert.ChangeType(object, Type, IFormatProvider)"/> returns <see langword="null"/>.</returns>
-	/// <remarks>All numeric conversions use <see cref="CultureInfo.InvariantCulture"/>. Unsupported types fall back to <see cref="Convert.ChangeType(object, Type, IFormatProvider)"/>. Throws if the input string is not in a format compatible with the target type.</remarks>
+	/// <remarks>All numeric conversions use <see cref="CultureInfo.CurrentCulture"/>. Unsupported types fall back to <see cref="Convert.ChangeType(object, Type, IFormatProvider)"/>. Throws if the input string is not in a format compatible with the target type.</remarks>
 	private static object? ConvertValue(string value, string typeName, Type propertyType)
 	{
 		// Use a switch expression to convert the string value to the appropriate CLR type based on the type name.
 		return typeName switch
 		{
 			"Boolean" => bool.Parse(value: value),
-			"Int32" => int.Parse(s: value, provider: CultureInfo.InvariantCulture),
-			"Int64" => long.Parse(s: value, provider: CultureInfo.InvariantCulture),
-			"Double" => double.Parse(s: value, provider: CultureInfo.InvariantCulture),
-			"Single" => float.Parse(s: value, provider: CultureInfo.InvariantCulture),
-			"Decimal" => decimal.Parse(s: value, provider: CultureInfo.InvariantCulture),
+			"Int32" => int.Parse(s: value, provider: CultureInfo.CurrentCulture),
+			"Int64" => long.Parse(s: value, provider: CultureInfo.CurrentCulture),
+			"Double" => double.Parse(s: value, provider: CultureInfo.CurrentCulture),
+			"Single" => float.Parse(s: value, provider: CultureInfo.CurrentCulture),
+			"Decimal" => decimal.Parse(s: value, provider: CultureInfo.CurrentCulture),
 			"String" => value,
-			_ => Convert.ChangeType(value: value, conversionType: propertyType, provider: CultureInfo.InvariantCulture),
+			_ => Convert.ChangeType(value: value, conversionType: propertyType, provider: CultureInfo.CurrentCulture),
 		};
 	}
 
@@ -334,14 +334,14 @@ internal static class SettingsImporter
 					// Possible type hint: "; Type: <TypeName>"
 					string comment = line[1..].Trim();
 					// Check if the comment line starts with "Type:" (case-insensitive) to extract the type hint.
-					if (comment.StartsWith(value: "Type:", comparisonType: StringComparison.InvariantCulture))
+					if (comment.StartsWith(value: "Type:", comparisonType: StringComparison.CurrentCulture))
 					{
 						currentTypeName = comment[5..].Trim();
 					}
 					continue;
 				}
 				// Check if the line contains an equals sign, indicating a key-value pair.
-				int eqIndex = line.IndexOf(value: '=', comparisonType: StringComparison.InvariantCulture);
+				int eqIndex = line.IndexOf(value: '=', comparisonType: StringComparison.CurrentCulture);
 				// If there is no equals sign or it is at the start of the line, skip this line.
 				if (eqIndex <= 0)
 				{
@@ -694,7 +694,7 @@ internal static class SettingsImporter
 	private static string JsonUnescape(string value)
 	{
 		// If the string does not contain any backslashes, return it as-is for efficiency.
-		if (!value.Contains(value: '\\', comparisonType: StringComparison.InvariantCulture))
+		if (!value.Contains(value: '\\', comparisonType: StringComparison.CurrentCulture))
 		{
 			return value;
 		}
@@ -768,7 +768,7 @@ internal static class SettingsImporter
 					continue;
 				}
 				// Check if the line starts a new entry with "- name:".
-				if (line.StartsWith(value: "- name:", comparisonType: StringComparison.InvariantCulture))
+				if (line.StartsWith(value: "- name:", comparisonType: StringComparison.CurrentCulture))
 				{
 					// Save previous entry if complete
 					if (inEntry && !string.IsNullOrEmpty(value: name))
@@ -783,17 +783,17 @@ internal static class SettingsImporter
 					inEntry = true;
 				}
 				// Check if the line contains the "type:" key for the current entry.
-				else if (inEntry && line.StartsWith(value: "  type:", comparisonType: StringComparison.InvariantCulture))
+				else if (inEntry && line.StartsWith(value: "  type:", comparisonType: StringComparison.CurrentCulture))
 				{
 					typeName = YamlUnquote(scalar: ParseYamlValue(line: line, key: "type"));
 				}
 				// Check if the line contains the "scope:" key for the current entry.
-				else if (inEntry && line.StartsWith(value: "  scope:", comparisonType: StringComparison.InvariantCulture))
+				else if (inEntry && line.StartsWith(value: "  scope:", comparisonType: StringComparison.CurrentCulture))
 				{
 					scope = YamlUnquote(scalar: ParseYamlValue(line: line, key: "scope"));
 				}
 				// Check if the line contains the "value:" key for the current entry.
-				else if (inEntry && line.StartsWith(value: "  value:", comparisonType: StringComparison.InvariantCulture))
+				else if (inEntry && line.StartsWith(value: "  value:", comparisonType: StringComparison.CurrentCulture))
 				{
 					value = YamlUnquote(scalar: ParseYamlValue(line: line, key: "value"));
 				}
@@ -839,7 +839,7 @@ internal static class SettingsImporter
 		if (scalar.Length >= 2 && scalar[0] == '\'' && scalar[^1] == '\'')
 		{
 			// Single-quoted scalar — unescape '' → '
-			return scalar[1..^1].Replace(oldValue: "''", newValue: "'", comparisonType: StringComparison.InvariantCulture);
+			return scalar[1..^1].Replace(oldValue: "''", newValue: "'", comparisonType: StringComparison.CurrentCulture);
 		}
 		// Otherwise, return the scalar as-is.
 		return scalar;

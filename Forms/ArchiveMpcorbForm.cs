@@ -115,7 +115,7 @@ internal partial class ArchiveMpcorbForm : BaseKryptonForm
 	{
 		// Determine the timestamp for the default file name based on the online last modified date or the current time if the online date is not available
 		DateTime date = _onlineLastModified ?? DateTime.UtcNow;
-		string timestamp = date.ToString(format: "yyyyMMddHHmmss", provider: CultureInfo.InvariantCulture);
+		string timestamp = date.ToString(format: "yyyyMMddHHmmss", provider: CultureInfo.CurrentCulture);
 		// Determine the file extension based on the selected compression format
 		extension = format switch
 		{
@@ -159,7 +159,6 @@ internal partial class ArchiveMpcorbForm : BaseKryptonForm
 			using HttpRequestMessage request = new(method: HttpMethod.Head, requestUri: new Uri(uriString: uriString));
 			// Send the request and get the response
 			using HttpResponseMessage response = await _httpClient.SendAsync(request: request).ConfigureAwait(continueOnCapturedContext: true);
-
 			// If the response is successful and the Last-Modified header is present, return the last modified date in UTC
 			if (response.IsSuccessStatusCode && response.Content.Headers.LastModified.HasValue)
 			{
@@ -471,8 +470,8 @@ internal partial class ArchiveMpcorbForm : BaseKryptonForm
 		{
 			logger.Warn(exception: CancelEx, message: "Archiving operation was cancelled by the user.");
 			labelInformation.Text = "Archiving cancelled.";
-await Task.Delay(millisecondsDelay: 100).ConfigureAwait(continueOnCapturedContext: true);
-			await Task.Delay(millisecondsDelay: 100).ConfigureAwait(continueOnCapturedContext: false);
+			// Give Streams time to release locks before trying to delete
+			await Task.Delay(millisecondsDelay: 100).ConfigureAwait(continueOnCapturedContext: true);
 			// If the target file exists after cancellation, attempt to delete it to clean up any partial archive. Log a warning if the deletion fails.
 			if (File.Exists(path: targetFile))
 			{

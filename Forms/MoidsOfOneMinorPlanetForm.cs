@@ -136,14 +136,14 @@ internal partial class MoidsOfOneMinorPlanetForm : BaseKryptonForm
 			// Populate the data labels (one per planet row, index 0 = Mercury … 7 = Neptune)
 			if (moids.Count >= 8)
 			{
-				labelMercuryData.Text = moids[index: 0].MoidAu.ToString(provider: CultureInfo.InvariantCulture);
-				labelVenusData.Text = moids[index: 1].MoidAu.ToString(provider: CultureInfo.InvariantCulture);
-				labelEarthData.Text = moids[index: 2].MoidAu.ToString(provider: CultureInfo.InvariantCulture);
-				labelMarsData.Text = moids[index: 3].MoidAu.ToString(provider: CultureInfo.InvariantCulture);
-				labelJupiterData.Text = moids[index: 4].MoidAu.ToString(provider: CultureInfo.InvariantCulture);
-				labelSaturnData.Text = moids[index: 5].MoidAu.ToString(provider: CultureInfo.InvariantCulture);
-				labelUranusData.Text = moids[index: 6].MoidAu.ToString(provider: CultureInfo.InvariantCulture);
-				labelNeptuneData.Text = moids[index: 7].MoidAu.ToString(provider: CultureInfo.InvariantCulture);
+				labelMercuryData.Text = moids[index: 0].MoidAu.ToString(provider: CultureInfo.CurrentCulture);
+				labelVenusData.Text = moids[index: 1].MoidAu.ToString(provider: CultureInfo.CurrentCulture);
+				labelEarthData.Text = moids[index: 2].MoidAu.ToString(provider: CultureInfo.CurrentCulture);
+				labelMarsData.Text = moids[index: 3].MoidAu.ToString(provider: CultureInfo.CurrentCulture);
+				labelJupiterData.Text = moids[index: 4].MoidAu.ToString(provider: CultureInfo.CurrentCulture);
+				labelSaturnData.Text = moids[index: 5].MoidAu.ToString(provider: CultureInfo.CurrentCulture);
+				labelUranusData.Text = moids[index: 6].MoidAu.ToString(provider: CultureInfo.CurrentCulture);
+				labelNeptuneData.Text = moids[index: 7].MoidAu.ToString(provider: CultureInfo.CurrentCulture);
 			}
 		}
 		// Handle any exceptions that may occur during MOID calculation and display an error message

@@ -127,11 +127,11 @@ internal partial class OrbitalResonancesOfOneMinorPlanetForm : BaseKryptonForm
 			ListViewItem item = new(text: resonance.PlanetName);
 			item.SubItems.AddRange(items:
 			[
-				resonance.PlanetPeriod.ToString(format: "F6", provider: CultureInfo.InvariantCulture),
-				resonance.PlanetoidPeriod.ToString(format: "F6", provider: CultureInfo.InvariantCulture),
-				resonance.Ratio.ToString(format: "F6", provider: CultureInfo.InvariantCulture),
+				resonance.PlanetPeriod.ToString(format: "F6", provider: CultureInfo.CurrentCulture),
+				resonance.PlanetoidPeriod.ToString(format: "F6", provider: CultureInfo.CurrentCulture),
+				resonance.Ratio.ToString(format: "F6", provider: CultureInfo.CurrentCulture),
 				$"{resonance.ResonanceP}:{resonance.ResonanceQ}",
-				resonance.DeviationPercent.ToString(format: "F2", provider: CultureInfo.InvariantCulture),
+				resonance.DeviationPercent.ToString(format: "F2", provider: CultureInfo.CurrentCulture),
 				isResonance
 			]);
 			// Set the UseItemStyleForSubItems property to true to allow coloring of sub-items; set the text color based on resonance status (green for resonances, red for non-resonances, black for unknown)
@@ -202,7 +202,7 @@ internal partial class OrbitalResonancesOfOneMinorPlanetForm : BaseKryptonForm
 			// Remove existing sort indicators from the header text
 			string headerText = listView.Columns[index: i].Text;
 			// Check for existing indicators and remove them
-			if (headerText.StartsWith(value: "▲ ", comparisonType: StringComparison.InvariantCulture) || headerText.StartsWith(value: "▼ ", comparisonType: StringComparison.InvariantCulture))
+			if (headerText.StartsWith(value: "▲ ", comparisonType: StringComparison.CurrentCulture) || headerText.StartsWith(value: "▼ ", comparisonType: StringComparison.CurrentCulture))
 			{
 				headerText = headerText[2..];
 			}

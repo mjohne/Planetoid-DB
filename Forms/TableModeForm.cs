@@ -224,17 +224,17 @@ internal partial class TableModeForm : BaseKryptonForm
 			string valX = GetValueByColumn(p: x, columnIndex: columnIndex);
 			string valY = GetValueByColumn(p: y, columnIndex: columnIndex);
 			// Sort numerically (Important for index, magnitude, etc.)
-			// We use NumberStyles.Any and InvariantCulture to safely parse American number formats (with a dot).
+			// We use NumberStyles.Any and CurrentCulture to safely parse American number formats (with a dot).
 			bool isNumX = double.TryParse(
 				s: valX,
 				style: NumberStyles.Any,
-				provider: CultureInfo.InvariantCulture,
+				provider: CultureInfo.CurrentCulture,
 				result: out double numX
 			);
 			bool isNumY = double.TryParse(
 				s: valY,
 				style: NumberStyles.Any,
-				provider: CultureInfo.InvariantCulture,
+				provider: CultureInfo.CurrentCulture,
 				result: out double numY
 			);
 			// If both values are numeric, perform numeric comparison

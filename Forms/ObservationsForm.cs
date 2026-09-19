@@ -364,8 +364,8 @@ internal partial class ObservationsForm : BaseKryptonForm
 				string durationStats = string.Empty;
 				if (firstDate.Length >= 10 &&
 					lastDate.Length >= 10 &&
-					DateTime.TryParseExact(s: firstDate[..10], format: "yyyy MM dd", provider: CultureInfo.InvariantCulture, style: DateTimeStyles.None, result: out DateTime firstDateTime) &&
-					DateTime.TryParseExact(s: lastDate[..10], format: "yyyy MM dd", provider: CultureInfo.InvariantCulture, style: DateTimeStyles.None, result: out DateTime lastDateTime))
+					DateTime.TryParseExact(s: firstDate[..10], format: "yyyy MM dd", provider: CultureInfo.CurrentCulture, style: DateTimeStyles.None, result: out DateTime firstDateTime) &&
+					DateTime.TryParseExact(s: lastDate[..10], format: "yyyy MM dd", provider: CultureInfo.CurrentCulture, style: DateTimeStyles.None, result: out DateTime lastDateTime))
 				{
 					// Duration counts all days from the first to the last observation date, inclusive
 					int observationDuration = (int)(lastDateTime - firstDateTime).TotalDays + 1;
@@ -492,7 +492,7 @@ internal partial class ObservationsForm : BaseKryptonForm
 			// Get the current header text for the column, removing any existing sort indicators
 			string headerText = listView.Columns[index: i].Text;
 			// Remove existing sort indicators (▲ or ▼) from the header text
-			if (headerText.StartsWith(value: "▲ ", comparisonType: StringComparison.InvariantCulture) || headerText.StartsWith(value: "▼ ", comparisonType: StringComparison.InvariantCulture))
+			if (headerText.StartsWith(value: "▲ ", comparisonType: StringComparison.CurrentCulture) || headerText.StartsWith(value: "▼ ", comparisonType: StringComparison.CurrentCulture))
 			{
 				headerText = headerText[2..];
 			}

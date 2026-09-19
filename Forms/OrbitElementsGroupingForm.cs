@@ -203,13 +203,13 @@ internal partial class OrbitElementsGroupingForm : BaseKryptonForm
 					string index = line[..7].Trim();
 					string designation = line.Length >= 194 ? line.Substring(startIndex: 166, length: 28).Trim() : "";
 					// Attempt to parse the orbital elements from the line. If all elements are successfully parsed, a new PlanetoidData object is created and added to the parsedData list in a thread-safe manner using a lock.
-					if (double.TryParse(s: line.Substring(startIndex: 26, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double meanAnomaly) &&
-						double.TryParse(s: line.Substring(startIndex: 37, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double argPeri) &&
-						double.TryParse(s: line.Substring(startIndex: 48, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double longAscNode) &&
-						double.TryParse(s: line.Substring(startIndex: 59, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double incl) &&
-						double.TryParse(s: line.Substring(startIndex: 70, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double orbEcc) &&
-						double.TryParse(s: line.Substring(startIndex: 80, length: 11).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double motion) &&
-						double.TryParse(s: line.Substring(startIndex: 92, length: 11).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double semiMajorAxis))
+					if (double.TryParse(s: line.Substring(startIndex: 26, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.CurrentCulture, result: out double meanAnomaly) &&
+						double.TryParse(s: line.Substring(startIndex: 37, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.CurrentCulture, result: out double argPeri) &&
+						double.TryParse(s: line.Substring(startIndex: 48, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.CurrentCulture, result: out double longAscNode) &&
+						double.TryParse(s: line.Substring(startIndex: 59, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.CurrentCulture, result: out double incl) &&
+						double.TryParse(s: line.Substring(startIndex: 70, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.CurrentCulture, result: out double orbEcc) &&
+						double.TryParse(s: line.Substring(startIndex: 80, length: 11).Trim(), style: NumberStyles.Float, provider: CultureInfo.CurrentCulture, result: out double motion) &&
+						double.TryParse(s: line.Substring(startIndex: 92, length: 11).Trim(), style: NumberStyles.Float, provider: CultureInfo.CurrentCulture, result: out double semiMajorAxis))
 					{
 						// If all elements are successfully parsed, create a new PlanetoidData object with the index, designation, and elements, and add it to the parsedData list in a thread-safe manner using a lock.
 						double[] elements = [meanAnomaly, argPeri, longAscNode, incl, orbEcc, motion, semiMajorAxis];
@@ -362,7 +362,7 @@ internal partial class OrbitElementsGroupingForm : BaseKryptonForm
 			{
 				toolStripButtonStart.Enabled = true;
 				toolStripButtonCancel.Enabled = false;
-			}, cancellationToken: CancellationToken.None).ConfigureAwait(continueOnCapturedContext: false);
+			}, cancellationToken: CancellationToken.None).ConfigureAwait(continueOnCapturedContext: true);
 		}
 	}
 
@@ -427,7 +427,6 @@ internal partial class OrbitElementsGroupingForm : BaseKryptonForm
 		try
 		{
 			await Task.Run(function: () => PerformGroupingAsync(elementsCount: elementsCount, tolerancePercent: tolerancePercent, progress: progress, messageProgress: messageProgress, cancellationToken: _cancellationTokenSource.Token), cancellationToken: _cancellationTokenSource.Token).ConfigureAwait(continueOnCapturedContext: true);
-
 		}
 		// Handle cancellation of the operation gracefully by catching the OperationCanceledException. When cancellation is requested, an informational message is logged to indicate that the grouping task was canceled.
 		catch (OperationCanceledException ex)

@@ -293,7 +293,7 @@ internal partial class DistributionsForm : BaseKryptonForm
 			// Add subitems for the start, end, and count values of the histogram bin. The numeric values are formatted for display using the invariant culture to ensure consistent formatting regardless of the user's locale.
 			_ = item.SubItems.Add(text: FormatNumericValue(value: result.Start));
 			_ = item.SubItems.Add(text: FormatNumericValue(value: result.End));
-			_ = item.SubItems.Add(text: result.Count.ToString(format: "N0", provider: CultureInfo.InvariantCulture));
+			_ = item.SubItems.Add(text: result.Count.ToString(format: "N0", provider: CultureInfo.CurrentCulture));
 			// Add the configured item to the ListView to display it in the tabular view.
 			_ = listViewResults.Items.Add(value: item);
 		}
@@ -342,7 +342,7 @@ internal partial class DistributionsForm : BaseKryptonForm
 			// The NumericAutomatic tick generator is customized to format the tick labels as powers of ten minus one when log scale is enabled. If the tick value is greater than or equal to zero, it is formatted as 10 raised to the power of the tick value minus one; otherwise, an empty string is returned to avoid displaying negative ticks on a logarithmic scale.
 			ScottPlot.TickGenerators.NumericAutomatic logTickGen = new()
 			{
-				LabelFormatter = static v => v >= 0 ? (Math.Pow(x: 10, y: v) - 1).ToString(format: "N0", provider: CultureInfo.InvariantCulture) : string.Empty
+				LabelFormatter = static v => v >= 0 ? (Math.Pow(x: 10, y: v) - 1).ToString(format: "N0", provider: CultureInfo.CurrentCulture) : string.Empty
 			};
 			// Apply the custom logarithmic tick generator to the left (y) axis to format the tick labels appropriately when log scale is enabled.
 			formsPlotHistogram.Plot.Axes.Left.TickGenerator = logTickGen;
@@ -458,7 +458,7 @@ internal partial class DistributionsForm : BaseKryptonForm
 	/// <remarks>The method formats a numeric value using the invariant culture to ensure consistent formatting regardless of the user's locale. The format string "0.####" is used to display up to four decimal places without trailing zeros, providing a clean and readable representation of the value for display in the chart and ListView.</remarks>
 	private static string FormatNumericValue(double value)
 	{
-		return value.ToString(format: "0.####", provider: CultureInfo.InvariantCulture);
+		return value.ToString(format: "0.####", provider: CultureInfo.CurrentCulture);
 	}
 
 	/// <summary>Attempts to parse a floating-point slice from a raw MPCORB record.</summary>
@@ -476,7 +476,7 @@ internal partial class DistributionsForm : BaseKryptonForm
 		return line.Length >= startIndex + length && double.TryParse(
 			s: line.Substring(startIndex: startIndex, length: length).Trim(),
 			style: NumberStyles.Float,
-			provider: CultureInfo.InvariantCulture,
+			provider: CultureInfo.CurrentCulture,
 			result: out value);
 	}
 
