@@ -2809,7 +2809,7 @@ public partial class PlanetoidDbForm
 			return;
 		}
 		// Iterate through each bookmark entry and create a corresponding menu item
-		foreach (var entry in bookmarks)
+		foreach (BookmarkEntry entry in bookmarks)
 		{
 			ToolStripMenuItem item = new()
 			{
@@ -2822,7 +2822,7 @@ public partial class PlanetoidDbForm
 			};
 			item.Click += onClickHandler;
 			item.MouseEnter += Control_Enter;
-			parentItem.DropDownItems.Add(value: item);
+			_ = parentItem.DropDownItems.Add(value: item);
 		}
 	}
 

@@ -218,7 +218,6 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	{
 		// Initialize the form components
 		InitializeComponent();
-		AddPlanetaryInformationEntryPoint();
 		// Set the version text to the current assembly version
 		TextExtra = $"{Assembly.GetExecutingAssembly().GetName().Version}";
 		// Apply comprehensive flicker reduction for the TableLayoutPanel
@@ -234,7 +233,6 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	{
 		// Initialize the form components
 		InitializeComponent();
-		AddPlanetaryInformationEntryPoint();
 		TextExtra = AssemblyInfo.AssemblyVersion;
 		MpcOrbDatFilePath = mpcorbDatFilePath;
 		// Apply comprehensive flicker reduction for the TableLayoutPanel
@@ -255,26 +253,6 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		DoubleBufferingHelper.EnableDoubleBuffering(control: tableLayoutPanelAllnumCatData, includeChildLabels: true);
 		DoubleBufferingHelper.EnableDoubleBuffering(control: tableLayoutPanelSingoppCatData, includeChildLabels: true);
 		DoubleBufferingHelper.EnableDoubleBuffering(control: tableLayoutPanelUfitobsCatData, includeChildLabels: true);
-	}
-
-	/// <summary>Adds a user-facing menu entry for opening the planetary information dialog.</summary>
-	/// <remarks>The item is added to the shared orbit context menu, so it appears in both the menu bar and toolbar orbit drop-down.</remarks>
-	private void AddPlanetaryInformationEntryPoint()
-	{
-		ToolStripMenuItem menuItemPlanetaryInformation = new()
-		{
-			AccessibleDescription = "Shows orbital and physical properties of the eight planets",
-			AccessibleName = "Planetary information",
-			AccessibleRole = AccessibleRole.MenuItem,
-			AutoToolTip = true,
-			Name = "toolStripMenuItemPlanetaryInformation",
-			Size = new Size(224, 22),
-			Text = "Planetary information"
-		};
-		menuItemPlanetaryInformation.Click += PlanetaryInformation_Click;
-		menuItemPlanetaryInformation.MouseEnter += Control_Enter;
-		menuItemPlanetaryInformation.MouseLeave += Control_Leave;
-		_ = contextMenuOrbit.Items.Add(value: menuItemPlanetaryInformation);
 	}
 
 	#endregion
