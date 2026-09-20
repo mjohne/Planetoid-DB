@@ -1,3 +1,22 @@
+## Planetoid-DB 0.9.30.93
+
+* Updated image link in `README.md` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1174
+* Updated CHANGELOG for version 0.9.29.92 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1175
+* Added `PlanetaryInformationForm` with sortable planet properties `ListView` by @mjohne with @Claude in https://github.com/mjohne/Planetoid-DB/pull/1177
+* Refactored `PlanetaryInformationForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1179
+* Refactored `LogViewerForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1180
+* Replaced `InvariantCulture` with `CurrentCulture` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1181
+* Updated `NLog` to version 6.2.1 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1182
+* Added missing event handlers and tooltip to the menu item "External data pages" by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1184
+* Refactored `PlanetoidDBForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1185
+* Updated `NLog` version to 6.2.1 in `AppInfoForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1186
+* Fixed `<remark>` tag in `Orbit3DForm` documentation comment by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1187
+* Updated internal database `demoset-10000.txt` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1188
+* Updated `GlobalSuppressions.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1189
+
+**Full Changelog**: https://github.com/mjohne/Planetoid-DB/compare/0.9.29.92.1172.4578...0.9.30.93.1189.4704
+
+
 ## Planetoid-DB 0.9.29.92
 
 * Updated image link in `README.md` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1133
