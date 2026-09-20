@@ -1,4 +1,4 @@
-/*
+﻿/*
  * File:        AppInfoForm.Designer.cs
  * Project:     Planetoid-DB
  * Namespace:   Planetoid_DB
@@ -1209,7 +1209,7 @@ partial class AppInfoForm
 		kryptonLabelVersionNlog.ToolTipValues.EnableToolTips = true;
 		kryptonLabelVersionNlog.ToolTipValues.Heading = "NLog version";
 		kryptonLabelVersionNlog.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		kryptonLabelVersionNlog.Values.Text = "Version: 6.2.0";
+		kryptonLabelVersionNlog.Values.Text = "Version: 6.2.1";
 		kryptonLabelVersionNlog.DoubleClick += CopyToClipboard_DoubleClick;
 		kryptonLabelVersionNlog.Enter += Control_Enter;
 		kryptonLabelVersionNlog.Leave += Control_Leave;
