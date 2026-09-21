@@ -827,7 +827,7 @@ public partial class PlanetoidDbForm
 	private void ShowOrbitalResonances()
 	{
 		// Try to parse the semi-major axis from the label text using invariant culture to ensure consistent parsing regardless of the user's locale settings
-		IFormatProvider provider = CultureInfo.CurrentCulture;
+		IFormatProvider provider = CultureInfo.InvariantCulture;
 		// If parsing fails, log an error and show an error message to the user, then return early to avoid opening the form with invalid data
 		if (!double.TryParse(s: labelMpcorbSemiMajorAxisData.Text, style: NumberStyles.Any, provider: provider, result: out double semiMajorAxis))
 		{
@@ -1147,7 +1147,7 @@ public partial class PlanetoidDbForm
 			return;
 		}
 		// Parse the mean anomaly at the epoch from the corresponding label on the form
-		IFormatProvider provider = CultureInfo.CurrentCulture;
+		IFormatProvider provider = CultureInfo.InvariantCulture;
 		// If parsing fails, log the error and show an error message to the user, then return early to avoid opening the form with invalid data
 		if (!double.TryParse(s: labelMpcorbMeanAnomalyAtTheEpochData.Text, style: NumberStyles.Any, provider: provider, result: out double meanAnomalyDeg))
 		{
@@ -1627,7 +1627,7 @@ public partial class PlanetoidDbForm
 		// Create a list to hold the orbital and derived elements
 		List<string> elements = [];
 		// Use the invariant culture for consistent parsing of numeric values
-		IFormatProvider provider = CultureInfo.CurrentCulture;
+		IFormatProvider provider = CultureInfo.InvariantCulture;
 		// Parse the necessary orbital elements from the UI labels, using TryParse to handle potential parsing errors gracefully
 		_ = double.TryParse(s: labelMpcorbSemiMajorAxisData.Text, style: NumberStyles.Any, provider: provider, result: out double semiMajorAxis);
 		_ = double.TryParse(s: labelMpcorbOrbitalEccentricityData.Text, style: NumberStyles.Any, provider: provider, result: out double numericalEccentricity);
@@ -1713,7 +1713,7 @@ public partial class PlanetoidDbForm
 		// Create a new list to store the derived orbit elements
 		List<string> derivedOrbitElements = [];
 		// Create a specific culture for formatting
-		IFormatProvider provider = CultureInfo.CurrentCulture;
+		IFormatProvider provider = CultureInfo.InvariantCulture;
 		double semiMajorAxis = double.Parse(s: labelMpcorbSemiMajorAxisData.Text, provider: provider);
 		double numericalEccentricity = double.Parse(s: labelMpcorbOrbitalEccentricityData.Text, provider: provider);
 		double meanAnomaly = double.Parse(s: labelMpcorbMeanAnomalyAtTheEpochData.Text, provider: provider);

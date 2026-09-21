@@ -106,7 +106,7 @@ internal partial class AverageAsteroidForm : BaseKryptonForm
 			Cursor.Current = Cursors.WaitCursor;
 			ResetProgress();
 			// Use invariant culture for consistent parsing of numeric values from the database entries
-			IFormatProvider provider = CultureInfo.CurrentCulture;
+			IFormatProvider provider = CultureInfo.InvariantCulture;
 			int total = planetoidsDatabase.Count;
 			// Initialize lists to hold the values for each orbital element and astrophysical property
 			List<double> meanAnomalies = [];

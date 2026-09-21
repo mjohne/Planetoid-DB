@@ -86,8 +86,8 @@ internal partial class AsteroidFamiliesForm : BaseKryptonForm
 	{
 		// We determine a default file name based on whether there is a single family or multiple families. If there is one family, we use its name (truncated at the first '(' if present) and replace spaces with underscores. If there are multiple families, we use a generic name "AsteroidFamilies".
 		string defaultFileName = families.Count == 1
-			? (families[index: 0].Name.Contains(value: '(', comparisonType: StringComparison.CurrentCulture)
-				? families[index: 0].Name[..families[index: 0].Name.IndexOf(value: '(', comparisonType: StringComparison.CurrentCulture)].Trim().Replace(oldChar: ' ', newChar: '_')
+			? (families[index: 0].Name.Contains(value: '(', comparisonType: StringComparison.InvariantCulture)
+				? families[index: 0].Name[..families[index: 0].Name.IndexOf(value: '(', comparisonType: StringComparison.InvariantCulture)].Trim().Replace(oldChar: ' ', newChar: '_')
 				: families[index: 0].Name.Replace(oldChar: ' ', newChar: '_'))
 			: "AsteroidFamilies";
 		// We create a SaveFileDialog to allow the user to choose where to save the file. We set the filter to allow text files and all files, set the default extension to "txt", and set the initial file name and title based on the number of families being saved.
@@ -228,12 +228,12 @@ internal partial class AsteroidFamiliesForm : BaseKryptonForm
 					string name = line.Length >= 194 ? line.Substring(startIndex: 166, length: 28).Trim() : string.Empty;
 					// We attempt to parse the orbital elements using invariant culture to ensure consistent number formatting. If parsing succeeds, we create a PlanetoidEntry and add it to the list.
 					ReadOnlySpan<char> span = line.AsSpan();
-					if (double.TryParse(s: span.Slice(start: 92, length: 11).Trim(), style: NumberStyles.Float, provider: CultureInfo.CurrentCulture, result: out double a) &&
-						double.TryParse(s: span.Slice(start: 70, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.CurrentCulture, result: out double ecc) &&
-						double.TryParse(s: span.Slice(start: 59, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.CurrentCulture, result: out double incl) &&
-						double.TryParse(s: span.Slice(start: 26, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.CurrentCulture, result: out double meanAnomaly) &&
-						double.TryParse(s: span.Slice(start: 37, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.CurrentCulture, result: out double argPeri) &&
-						double.TryParse(s: span.Slice(start: 48, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.CurrentCulture, result: out double longAscNode))
+					if (double.TryParse(s: span.Slice(start: 92, length: 11).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double a) &&
+						double.TryParse(s: span.Slice(start: 70, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double ecc) &&
+						double.TryParse(s: span.Slice(start: 59, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double incl) &&
+						double.TryParse(s: span.Slice(start: 26, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double meanAnomaly) &&
+						double.TryParse(s: span.Slice(start: 37, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double argPeri) &&
+						double.TryParse(s: span.Slice(start: 48, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double longAscNode))
 					{
 						// If all parsing operations succeed, we create a new PlanetoidEntry with the extracted values and add it to the parsedData list.
 						parsedData.Add(item: new PlanetoidEntry(Index: index, Name: name, SemiMajorAxis: a, Eccentricity: ecc, Inclination: incl, MeanAnomaly: meanAnomaly, ArgPeri: argPeri, LongAscNode: longAscNode));

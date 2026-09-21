@@ -224,19 +224,9 @@ internal partial class TableModeForm : BaseKryptonForm
 			string valX = GetValueByColumn(p: x, columnIndex: columnIndex);
 			string valY = GetValueByColumn(p: y, columnIndex: columnIndex);
 			// Sort numerically (Important for index, magnitude, etc.)
-			// We use NumberStyles.Any and CurrentCulture to safely parse American number formats (with a dot).
-			bool isNumX = double.TryParse(
-				s: valX,
-				style: NumberStyles.Any,
-				provider: CultureInfo.CurrentCulture,
-				result: out double numX
-			);
-			bool isNumY = double.TryParse(
-				s: valY,
-				style: NumberStyles.Any,
-				provider: CultureInfo.CurrentCulture,
-				result: out double numY
-			);
+			// We use NumberStyles.Any and InvariantCulture to safely parse American number formats (with a dot).
+			bool isNumX = double.TryParse(s: valX, style: NumberStyles.Any, provider: CultureInfo.InvariantCulture, result: out double numX);
+			bool isNumY = double.TryParse(s: valY, style: NumberStyles.Any, provider: CultureInfo.InvariantCulture, result: out double numY);
 			// If both values are numeric, perform numeric comparison
 			if (isNumX && isNumY)
 			{
@@ -476,7 +466,6 @@ internal partial class TableModeForm : BaseKryptonForm
 				// Prepare the internal cache for the ListView
 				// and store the parsed data in the display cache
 				displayCache = parsedData;
-
 				// Ensure columns are set up before the ListView becomes visible and requests items
 				if (listView.Columns.Count == 0)
 				{

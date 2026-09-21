@@ -295,7 +295,7 @@ internal partial class OrreryForm : BaseKryptonForm
 	{
 		value = default;
 		return line.Length >= start + len
-			&& double.TryParse(s: line.Substring(startIndex: start, length: len).Trim(), style: NumberStyles.Float, provider: CultureInfo.CurrentCulture, result: out value);
+			&& double.TryParse(s: line.Substring(startIndex: start, length: len).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out value);
 	}
 
 	/// <summary>Extracts the readable designation of a planetoid from an MPCORB record line.</summary>

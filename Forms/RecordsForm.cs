@@ -207,62 +207,62 @@ internal partial class RecordsForm : BaseKryptonForm
 		string designation = record.DesignationName;
 		// Check each orbital element in turn. If parsing succeeds, compare against the current record and report if it's a new record. The element index corresponds to the order defined in the recordValues array and label arrays.		
 		// Mean Anomaly at the Epoch
-		if (double.TryParse(s: record.MeanAnomaly, style: NumberStyles.Float, provider: CultureInfo.CurrentCulture, result: out double meanAnomaly))
+		if (double.TryParse(s: record.MeanAnomaly, style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double meanAnomaly))
 		{
 			CheckAndReportRecord(elementIndex: 0, value: meanAnomaly, stringValue: record.MeanAnomaly, designation: designation, isAscending: isAscending, percent: percent);
 		}
 		// Argument of the Perihelion
-		if (double.TryParse(s: record.ArgPeri, style: NumberStyles.Float, provider: CultureInfo.CurrentCulture, result: out double argPeri))
+		if (double.TryParse(s: record.ArgPeri, style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double argPeri))
 		{
 			CheckAndReportRecord(elementIndex: 1, value: argPeri, stringValue: record.ArgPeri, designation: designation, isAscending: isAscending, percent: percent);
 		}
 		// Longitude of the Ascending Node
-		if (double.TryParse(s: record.LongAscNode, style: NumberStyles.Float, provider: CultureInfo.CurrentCulture, result: out double longAscNode))
+		if (double.TryParse(s: record.LongAscNode, style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double longAscNode))
 		{
 			CheckAndReportRecord(elementIndex: 2, value: longAscNode, stringValue: record.LongAscNode, designation: designation, isAscending: isAscending, percent: percent);
 		}
 		// Inclination to the Ecliptic
-		if (double.TryParse(s: record.Incl, style: NumberStyles.Float, provider: CultureInfo.CurrentCulture, result: out double incl))
+		if (double.TryParse(s: record.Incl, style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double incl))
 		{
 			CheckAndReportRecord(elementIndex: 3, value: incl, stringValue: record.Incl, designation: designation, isAscending: isAscending, percent: percent);
 		}
 		// Orbital Eccentricity
-		if (double.TryParse(s: record.OrbEcc, style: NumberStyles.Float, provider: CultureInfo.CurrentCulture, result: out double orbEcc))
+		if (double.TryParse(s: record.OrbEcc, style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double orbEcc))
 		{
 			CheckAndReportRecord(elementIndex: 4, value: orbEcc, stringValue: record.OrbEcc, designation: designation, isAscending: isAscending, percent: percent);
 		}
 		// Mean Daily Motion
-		if (double.TryParse(s: record.Motion, style: NumberStyles.Float, provider: CultureInfo.CurrentCulture, result: out double motion))
+		if (double.TryParse(s: record.Motion, style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double motion))
 		{
 			CheckAndReportRecord(elementIndex: 5, value: motion, stringValue: record.Motion, designation: designation, isAscending: isAscending, percent: percent);
 		}
 		// Semi-Major Axis
-		if (double.TryParse(s: record.SemiMajorAxis, style: NumberStyles.Float, provider: CultureInfo.CurrentCulture, result: out double semiMajorAxis))
+		if (double.TryParse(s: record.SemiMajorAxis, style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double semiMajorAxis))
 		{
 			CheckAndReportRecord(elementIndex: 6, value: semiMajorAxis, stringValue: record.SemiMajorAxis, designation: designation, isAscending: isAscending, percent: percent);
 		}
 		// Absolute Magnitude (H)
-		if (double.TryParse(s: record.MagAbs, style: NumberStyles.Float, provider: CultureInfo.CurrentCulture, result: out double magAbs))
+		if (double.TryParse(s: record.MagAbs, style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double magAbs))
 		{
 			CheckAndReportRecord(elementIndex: 7, value: magAbs, stringValue: record.MagAbs, designation: designation, isAscending: isAscending, percent: percent);
 		}
 		// Slope Parameter (G)
-		if (double.TryParse(s: record.SlopeParam, style: NumberStyles.Float, provider: CultureInfo.CurrentCulture, result: out double slopeParam))
+		if (double.TryParse(s: record.SlopeParam, style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double slopeParam))
 		{
 			CheckAndReportRecord(elementIndex: 8, value: slopeParam, stringValue: record.SlopeParam, designation: designation, isAscending: isAscending, percent: percent);
 		}
 		// Number of Oppositions
-		if (int.TryParse(s: record.NumberOpposition, style: NumberStyles.Integer, provider: CultureInfo.CurrentCulture, result: out int numOpposition))
+		if (int.TryParse(s: record.NumberOpposition, style: NumberStyles.Integer, provider: CultureInfo.InvariantCulture, result: out int numOpposition))
 		{
 			CheckAndReportRecord(elementIndex: 9, value: numOpposition, stringValue: record.NumberOpposition, designation: designation, isAscending: isAscending, percent: percent);
 		}
 		// Number of Observations
-		if (int.TryParse(s: record.NumberObservation, style: NumberStyles.Integer, provider: CultureInfo.CurrentCulture, result: out int numObservation))
+		if (int.TryParse(s: record.NumberObservation, style: NumberStyles.Integer, provider: CultureInfo.InvariantCulture, result: out int numObservation))
 		{
 			CheckAndReportRecord(elementIndex: 10, value: numObservation, stringValue: record.NumberObservation, designation: designation, isAscending: isAscending, percent: percent);
 		}
 		// RMS Residual (Observation Span is intentionally skipped)
-		if (double.TryParse(s: record.RmsResidual, style: NumberStyles.Float, provider: CultureInfo.CurrentCulture, result: out double rmsResidual))
+		if (double.TryParse(s: record.RmsResidual, style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double rmsResidual))
 		{
 			CheckAndReportRecord(elementIndex: 11, value: rmsResidual, stringValue: record.RmsResidual, designation: designation, isAscending: isAscending, percent: percent);
 		}

@@ -140,19 +140,19 @@ internal partial class TisserandParameterOfAllMinorPlanetsForm : BaseKryptonForm
 		}
 		// Extract and parse the semi-major axis (positions 92-102)
 		string semiMajorAxisText = line.Substring(startIndex: 92, length: 11).Trim();
-		if (!double.TryParse(s: semiMajorAxisText, style: NumberStyles.Float, provider: CultureInfo.CurrentCulture, result: out double semiMajorAxis) || semiMajorAxis <= 0)
+		if (!double.TryParse(s: semiMajorAxisText, style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double semiMajorAxis) || semiMajorAxis <= 0)
 		{
 			return;
 		}
 		// Extract and parse the eccentricity (positions 70-78)
 		string eccentricityText = line.Substring(startIndex: 70, length: 9).Trim();
-		if (!double.TryParse(s: eccentricityText, style: NumberStyles.Float, provider: CultureInfo.CurrentCulture, result: out double eccentricity))
+		if (!double.TryParse(s: eccentricityText, style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double eccentricity))
 		{
 			return;
 		}
 		// Extract and parse the inclination to the ecliptic (positions 59-67)
 		string inclinationText = line.Substring(startIndex: 59, length: 9).Trim();
-		if (!double.TryParse(s: inclinationText, style: NumberStyles.Float, provider: CultureInfo.CurrentCulture, result: out double inclinationDeg))
+		if (!double.TryParse(s: inclinationText, style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double inclinationDeg))
 		{
 			return;
 		}
