@@ -476,7 +476,7 @@ internal partial class DistributionsForm : BaseKryptonForm
 		return line.Length >= startIndex + length && double.TryParse(
 			s: line.Substring(startIndex: startIndex, length: length).Trim(),
 			style: NumberStyles.Float,
-			provider: CultureInfo.CurrentCulture,
+			provider: CultureInfo.InvariantCulture,
 			result: out value);
 	}
 
