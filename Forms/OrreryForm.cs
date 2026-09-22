@@ -250,7 +250,7 @@ internal partial class OrreryForm : BaseKryptonForm
 	{
 		_sourceLines = planetoids ?? [];
 		InitializeComponent();
-		using System.Windows.Forms.Timer _ = _animationTimer = new System.Windows.Forms.Timer(container: components!) { Interval = 33 };
+		_animationTimer = new System.Windows.Forms.Timer(container: components!) { Interval = 33 };
 		_animationTimer.Tick += AnimationTimer_Tick;
 		logger.Info(message: "OrreryForm initialized with {0} source planetoid records.", args: _sourceLines.Count);
 	}
@@ -274,7 +274,7 @@ internal partial class OrreryForm : BaseKryptonForm
 			Profile = ContextProfile.Any,
 			APIVersion = new Version(major: 2, minor: 1),
 		};
-		using GLControl _ = _glControl = new GLControl(glControlSettings: settings)
+		_glControl = new GLControl(glControlSettings: settings)
 		{
 			Dock = DockStyle.Fill,
 			AccessibleDescription = "OpenGL rendering surface for the orrery",
