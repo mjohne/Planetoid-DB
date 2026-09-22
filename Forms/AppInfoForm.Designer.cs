@@ -72,12 +72,6 @@ partial class AppInfoForm
 		kryptonLinkLabelEmail = new KryptonLinkLabel();
 		kryptonPageComponents = new KryptonPage();
 		kryptonNavigatorComponents = new KryptonNavigator();
-		kryptonPageComponentApplicationIcon = new KryptonPage();
-		kryptonLabelLicenseFlaticon = new KryptonLabel();
-		kryptonLinkLabelFlaticon = new KryptonLinkLabel();
-		kryptonLabelAuthorFlaticon = new KryptonLabel();
-		kryptonTextBoxLicenseFlaticon = new KryptonTextBox();
-		kryptonLabelIconHeadingFlaticon = new KryptonLabel();
 		kryptonPageIconsetFatcow = new KryptonPage();
 		kryptonTextBoxLicenseFatcow = new KryptonTextBox();
 		kryptonLabelHeadingFatcowIcons = new KryptonLabel();
@@ -131,8 +125,6 @@ partial class AppInfoForm
 		((ISupportInitialize)kryptonPageComponents).BeginInit();
 		kryptonPageComponents.SuspendLayout();
 		((ISupportInitialize)kryptonNavigatorComponents).BeginInit();
-		((ISupportInitialize)kryptonPageComponentApplicationIcon).BeginInit();
-		kryptonPageComponentApplicationIcon.SuspendLayout();
 		((ISupportInitialize)kryptonPageIconsetFatcow).BeginInit();
 		kryptonPageIconsetFatcow.SuspendLayout();
 		((ISupportInitialize)kryptonPageComponentKryptonSuite).BeginInit();
@@ -653,7 +645,7 @@ partial class AppInfoForm
 		kryptonNavigatorComponents.NavigatorMode = NavigatorMode.BarTabGroup;
 		kryptonNavigatorComponents.Owner = this;
 		kryptonNavigatorComponents.PageBackStyle = PaletteBackStyle.PanelClient;
-		kryptonNavigatorComponents.Pages.AddRange(new KryptonPage[] { kryptonPageComponentApplicationIcon, kryptonPageIconsetFatcow, kryptonPageComponentKryptonSuite, kryptonPageComponentNLog, kryptonPageComponentScottPlot, kryptonPageComponentOpenTK });
+		kryptonNavigatorComponents.Pages.AddRange(new KryptonPage[] { kryptonPageIconsetFatcow, kryptonPageComponentKryptonSuite, kryptonPageComponentNLog, kryptonPageComponentScottPlot, kryptonPageComponentOpenTK });
 		kryptonNavigatorComponents.SelectedIndex = 0;
 		kryptonNavigatorComponents.Size = new Size(498, 256);
 		kryptonNavigatorComponents.TabIndex = 0;
@@ -664,145 +656,6 @@ partial class AppInfoForm
 		kryptonNavigatorComponents.Leave += Control_Leave;
 		kryptonNavigatorComponents.MouseEnter += Control_Enter;
 		kryptonNavigatorComponents.MouseLeave += Control_Leave;
-		// 
-		// kryptonPageComponentApplicationIcon
-		// 
-		kryptonPageComponentApplicationIcon.AccessibleDescription = "Shows page with application icon information";
-		kryptonPageComponentApplicationIcon.AccessibleName = "Application icon page";
-		kryptonPageComponentApplicationIcon.AccessibleRole = AccessibleRole.PageTab;
-		kryptonPageComponentApplicationIcon.AutoHiddenSlideSize = new Size(200, 200);
-		kryptonPageComponentApplicationIcon.Controls.Add(kryptonLabelLicenseFlaticon);
-		kryptonPageComponentApplicationIcon.Controls.Add(kryptonLinkLabelFlaticon);
-		kryptonPageComponentApplicationIcon.Controls.Add(kryptonLabelAuthorFlaticon);
-		kryptonPageComponentApplicationIcon.Controls.Add(kryptonTextBoxLicenseFlaticon);
-		kryptonPageComponentApplicationIcon.Controls.Add(kryptonLabelIconHeadingFlaticon);
-		kryptonPageComponentApplicationIcon.Flags = 65534;
-		kryptonPageComponentApplicationIcon.LastVisibleSet = true;
-		kryptonPageComponentApplicationIcon.MinimumSize = new Size(50, 50);
-		kryptonPageComponentApplicationIcon.Name = "kryptonPageComponentApplicationIcon";
-		kryptonPageComponentApplicationIcon.Size = new Size(496, 229);
-		kryptonPageComponentApplicationIcon.Text = "Application &icon";
-		kryptonPageComponentApplicationIcon.TextDescription = "Application icon";
-		kryptonPageComponentApplicationIcon.TextTitle = "Application icon";
-		kryptonPageComponentApplicationIcon.ToolTipTitle = "Application icon";
-		kryptonPageComponentApplicationIcon.UniqueName = "kryptonPageComponentApplicationIcon";
-		kryptonPageComponentApplicationIcon.Enter += Control_Enter;
-		kryptonPageComponentApplicationIcon.Leave += Control_Leave;
-		kryptonPageComponentApplicationIcon.MouseEnter += Control_Enter;
-		kryptonPageComponentApplicationIcon.MouseLeave += Control_Leave;
-		// 
-		// kryptonLabelLicenseFlaticon
-		// 
-		kryptonLabelLicenseFlaticon.AccessibleDescription = "Shows the Flaticon license";
-		kryptonLabelLicenseFlaticon.AccessibleName = "Flaticon license";
-		kryptonLabelLicenseFlaticon.AccessibleRole = AccessibleRole.StaticText;
-		kryptonLabelLicenseFlaticon.ContextMenuStrip = contextMenuStripCopyToClipboard;
-		kryptonLabelLicenseFlaticon.Location = new Point(3, 29);
-		kryptonLabelLicenseFlaticon.Name = "kryptonLabelLicenseFlaticon";
-		kryptonLabelLicenseFlaticon.Size = new Size(139, 20);
-		kryptonLabelLicenseFlaticon.TabIndex = 2;
-		kryptonLabelLicenseFlaticon.ToolTipValues.Description = "Shows the Flaticon license.\r\nDouble-click or right-click to copy the information to the clipboard.";
-		kryptonLabelLicenseFlaticon.ToolTipValues.EnableToolTips = true;
-		kryptonLabelLicenseFlaticon.ToolTipValues.Heading = "Flaticon license";
-		kryptonLabelLicenseFlaticon.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		kryptonLabelLicenseFlaticon.Values.Text = "License: Flaticon license";
-		kryptonLabelLicenseFlaticon.DoubleClick += CopyToClipboard_DoubleClick;
-		kryptonLabelLicenseFlaticon.Enter += Control_Enter;
-		kryptonLabelLicenseFlaticon.Leave += Control_Leave;
-		kryptonLabelLicenseFlaticon.MouseDown += Control_MouseDown;
-		kryptonLabelLicenseFlaticon.MouseEnter += Control_Enter;
-		kryptonLabelLicenseFlaticon.MouseLeave += Control_Leave;
-		// 
-		// kryptonLinkLabelFlaticon
-		// 
-		kryptonLinkLabelFlaticon.AccessibleDescription = "Opens the Flaticon website";
-		kryptonLinkLabelFlaticon.AccessibleName = "Flaticon website";
-		kryptonLinkLabelFlaticon.AccessibleRole = AccessibleRole.Link;
-		kryptonLinkLabelFlaticon.ContextMenuStrip = contextMenuStripCopyToClipboard;
-		kryptonLinkLabelFlaticon.LinkBehavior = KryptonLinkBehavior.HoverUnderline;
-		kryptonLinkLabelFlaticon.Location = new Point(169, 3);
-		kryptonLinkLabelFlaticon.Name = "kryptonLinkLabelFlaticon";
-		kryptonLinkLabelFlaticon.Size = new Size(318, 20);
-		kryptonLinkLabelFlaticon.TabIndex = 1;
-		kryptonLinkLabelFlaticon.ToolTipValues.Description = "Opens the Flaticon page.\r\nRight-click to copy the information to the clipboard.";
-		kryptonLinkLabelFlaticon.ToolTipValues.EnableToolTips = true;
-		kryptonLinkLabelFlaticon.ToolTipValues.Heading = "Flaticon website";
-		kryptonLinkLabelFlaticon.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		kryptonLinkLabelFlaticon.Values.Image = FatcowIcons16px.fatcow_world_16px;
-		kryptonLinkLabelFlaticon.Values.Text = "https://www.flaticon.com/free-icon/asteroid_1086068";
-		kryptonLinkLabelFlaticon.LinkClicked += KryptonLinkLabelFlaticon_LinkClick;
-		kryptonLinkLabelFlaticon.Enter += Control_Enter;
-		kryptonLinkLabelFlaticon.Leave += Control_Leave;
-		kryptonLinkLabelFlaticon.MouseDown += Control_MouseDown;
-		kryptonLinkLabelFlaticon.MouseEnter += Control_Enter;
-		kryptonLinkLabelFlaticon.MouseLeave += Control_Leave;
-		// 
-		// kryptonLabelAuthorFlaticon
-		// 
-		kryptonLabelAuthorFlaticon.AccessibleDescription = "Shows the Flaticon authors";
-		kryptonLabelAuthorFlaticon.AccessibleName = "Flaticon authors";
-		kryptonLabelAuthorFlaticon.AccessibleRole = AccessibleRole.StaticText;
-		kryptonLabelAuthorFlaticon.ContextMenuStrip = contextMenuStripCopyToClipboard;
-		kryptonLabelAuthorFlaticon.Location = new Point(384, 29);
-		kryptonLabelAuthorFlaticon.Name = "kryptonLabelAuthorFlaticon";
-		kryptonLabelAuthorFlaticon.Size = new Size(100, 20);
-		kryptonLabelAuthorFlaticon.TabIndex = 3;
-		kryptonLabelAuthorFlaticon.ToolTipValues.Description = "Shows the Flaticon authors.\r\nDouble-click or right-click to copy the information to the clipboard.";
-		kryptonLabelAuthorFlaticon.ToolTipValues.EnableToolTips = true;
-		kryptonLabelAuthorFlaticon.ToolTipValues.Heading = "Flaticon authors";
-		kryptonLabelAuthorFlaticon.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		kryptonLabelAuthorFlaticon.Values.Text = "Authors: monkik";
-		kryptonLabelAuthorFlaticon.DoubleClick += CopyToClipboard_DoubleClick;
-		kryptonLabelAuthorFlaticon.Enter += Control_Enter;
-		kryptonLabelAuthorFlaticon.Leave += Control_Leave;
-		kryptonLabelAuthorFlaticon.MouseDown += Control_MouseDown;
-		kryptonLabelAuthorFlaticon.MouseEnter += Control_Enter;
-		kryptonLabelAuthorFlaticon.MouseLeave += Control_Leave;
-		// 
-		// kryptonTextBoxLicenseFlaticon
-		// 
-		kryptonTextBoxLicenseFlaticon.AccessibleDescription = "Shows the Flaticon license";
-		kryptonTextBoxLicenseFlaticon.AccessibleName = "Flaticon license";
-		kryptonTextBoxLicenseFlaticon.AccessibleRole = AccessibleRole.Text;
-		kryptonTextBoxLicenseFlaticon.Location = new Point(6, 58);
-		kryptonTextBoxLicenseFlaticon.Multiline = true;
-		kryptonTextBoxLicenseFlaticon.Name = "kryptonTextBoxLicenseFlaticon";
-		kryptonTextBoxLicenseFlaticon.ScrollBars = ScrollBars.Vertical;
-		kryptonTextBoxLicenseFlaticon.Size = new Size(484, 163);
-		kryptonTextBoxLicenseFlaticon.TabIndex = 4;
-		kryptonTextBoxLicenseFlaticon.Text = resources.GetString("kryptonTextBoxLicenseFlaticon.Text");
-		kryptonTextBoxLicenseFlaticon.ToolTipValues.Description = "Shows the Flaticon license";
-		kryptonTextBoxLicenseFlaticon.ToolTipValues.EnableToolTips = true;
-		kryptonTextBoxLicenseFlaticon.ToolTipValues.Heading = "Flaticon";
-		kryptonTextBoxLicenseFlaticon.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		kryptonTextBoxLicenseFlaticon.Enter += Control_Enter;
-		kryptonTextBoxLicenseFlaticon.Leave += Control_Leave;
-		kryptonTextBoxLicenseFlaticon.MouseDown += Control_MouseDown;
-		kryptonTextBoxLicenseFlaticon.MouseEnter += Control_Enter;
-		kryptonTextBoxLicenseFlaticon.MouseLeave += Control_Leave;
-		// 
-		// kryptonLabelIconHeadingFlaticon
-		// 
-		kryptonLabelIconHeadingFlaticon.AccessibleDescription = "Heading for the application icon section";
-		kryptonLabelIconHeadingFlaticon.AccessibleName = "Application Icon heading";
-		kryptonLabelIconHeadingFlaticon.AccessibleRole = AccessibleRole.StaticText;
-		kryptonLabelIconHeadingFlaticon.ContextMenuStrip = contextMenuStripCopyToClipboard;
-		kryptonLabelIconHeadingFlaticon.LabelStyle = LabelStyle.BoldControl;
-		kryptonLabelIconHeadingFlaticon.Location = new Point(3, 3);
-		kryptonLabelIconHeadingFlaticon.Name = "kryptonLabelIconHeadingFlaticon";
-		kryptonLabelIconHeadingFlaticon.Size = new Size(106, 20);
-		kryptonLabelIconHeadingFlaticon.TabIndex = 0;
-		kryptonLabelIconHeadingFlaticon.ToolTipValues.Description = "Heading for the application icon section.\r\nDouble-click or right-click to copy the information to the clipboard.";
-		kryptonLabelIconHeadingFlaticon.ToolTipValues.EnableToolTips = true;
-		kryptonLabelIconHeadingFlaticon.ToolTipValues.Heading = "Application Icon";
-		kryptonLabelIconHeadingFlaticon.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		kryptonLabelIconHeadingFlaticon.Values.Text = "Application Icon";
-		kryptonLabelIconHeadingFlaticon.DoubleClick += CopyToClipboard_DoubleClick;
-		kryptonLabelIconHeadingFlaticon.Enter += Control_Enter;
-		kryptonLabelIconHeadingFlaticon.Leave += Control_Leave;
-		kryptonLabelIconHeadingFlaticon.MouseDown += Control_MouseDown;
-		kryptonLabelIconHeadingFlaticon.MouseEnter += Control_Enter;
-		kryptonLabelIconHeadingFlaticon.MouseLeave += Control_Leave;
 		// 
 		// kryptonPageIconsetFatcow
 		// 
@@ -1703,9 +1556,6 @@ partial class AppInfoForm
 		((ISupportInitialize)kryptonPageComponents).EndInit();
 		kryptonPageComponents.ResumeLayout(false);
 		((ISupportInitialize)kryptonNavigatorComponents).EndInit();
-		((ISupportInitialize)kryptonPageComponentApplicationIcon).EndInit();
-		kryptonPageComponentApplicationIcon.ResumeLayout(false);
-		kryptonPageComponentApplicationIcon.PerformLayout();
 		((ISupportInitialize)kryptonPageIconsetFatcow).EndInit();
 		kryptonPageIconsetFatcow.ResumeLayout(false);
 		kryptonPageIconsetFatcow.PerformLayout();
@@ -1744,7 +1594,6 @@ partial class AppInfoForm
 	private KryptonNavigator kryptonNavigatorInfo;
 	private KryptonPage kryptonPageAbout;
 	private KryptonPage kryptonPageComponents;
-	private KryptonLabel kryptonLabelIconHeadingFlaticon;
 	private KryptonLabel kryptonLabelHeadingKryptonSuite;
 	private KryptonLabel kryptonLabelVersionKryptonSuite;
 	private KryptonLabel kryptonLabelAuthorsKryptonSuite;
@@ -1766,14 +1615,9 @@ partial class AppInfoForm
 	private ContextMenuStrip contextMenuStripCopyToClipboard;
 	private ToolStripMenuItem toolStripMenuItemCopyToClipboard;
 	private KryptonNavigator kryptonNavigatorComponents;
-	private KryptonPage kryptonPageComponentApplicationIcon;
 	private KryptonPage kryptonPageIconsetFatcow;
 	private KryptonPage kryptonPageComponentKryptonSuite;
 	private KryptonPage kryptonPageComponentNLog;
-	private KryptonTextBox kryptonTextBoxLicenseFlaticon;
-	private KryptonLabel kryptonLabelLicenseFlaticon;
-	private KryptonLinkLabel kryptonLinkLabelFlaticon;
-	private KryptonLabel kryptonLabelAuthorFlaticon;
 	private KryptonTextBox kryptonTextBoxLicenseFatcow;
 	private KryptonTextBox kryptonTextBoxLicenseKryptonSuite;
 	private KryptonTextBox kryptonTextBoxLicenseNlog;
