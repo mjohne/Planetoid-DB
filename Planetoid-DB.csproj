@@ -8,7 +8,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Platforms>AnyCPU;ARM32;ARM64;x64;x86</Platforms>
     <StartupObject>Planetoid_DB.Program</StartupObject>
-    <ApplicationIcon>Resources\Planetoid-DB-3.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\Planetoid-DB-4.ico</ApplicationIcon>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <Version>0.9.30.93</Version>
     <Company>Mijo Software</Company>
@@ -832,7 +832,7 @@ Public License instead of this License.  But first, please read
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Resources\Planetoid-DB-3.ico" />
+    <Content Include="Resources\Planetoid-DB-4.ico" />
   </ItemGroup>
 
   <ItemGroup>

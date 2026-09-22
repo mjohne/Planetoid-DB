@@ -250,16 +250,6 @@ internal partial class AppInfoForm : BaseKryptonForm
 		OpenWebsite(fileName: Settings.Default.systemHomepage);
 	}
 
-	/// <summary>Handles the LinkClicked event of the Flaticon link label and opens the associated website.</summary>
-	/// <remarks>Use this event handler to navigate to the website specified by the link label's text when the label's LinkClicked event is raised.</remarks>
-	/// <param name="sender">The source of the event, typically the link label control that was clicked.</param>
-	/// <param name="e">An EventArgs object that contains the event data.</param>
-	private void KryptonLinkLabelFlaticon_LinkClick(object sender, EventArgs e)
-	{
-		logger.Info(message: $"Opening Flaticon website: {kryptonLinkLabelFlaticon.Text}");
-		OpenWebsite(fileName: kryptonLinkLabelFlaticon.Text);
-	}
-
 	/// <summary>Handles the LinkClicked event for the Krypton Suite link label and opens the associated website.</summary>
 	/// <remarks>Use this event handler to navigate to the website specified by the link label's text when the label's LinkClicked event is raised.</remarks>
 	/// <param name="sender">The source of the event, typically the link label control that was clicked.</param>
