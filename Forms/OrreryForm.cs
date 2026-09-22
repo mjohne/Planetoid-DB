@@ -66,6 +66,36 @@ internal partial class OrreryForm : BaseKryptonForm
 	/// <remarks>This constant defines the mean daily motion of the Earth in degrees per day, used for orbital calculations.</remarks>
 	private const double EarthMeanMotion = 0.9856076686;
 
+	/// <summary>Solar gravitational parameter in AU³/day², derived from the JPL DE440 value of GM<sub>Sun</sub>.</summary>
+	private const double SolarMuAu3PerDay2 = 0.0002959122082841195;
+
+	/// <summary>Seconds per mean solar day.</summary>
+	private const double SecondsPerDay = 86400.0;
+
+	/// <summary>Approximate TT−UTC offset used for the interactive simulation.</summary>
+	/// <remarks>The MPCORB epoch is specified in TT. The current TT−UTC offset is used here because future leap seconds are not predictable.</remarks>
+	private const double TtMinusUtcSeconds = 69.184;
+
+	/// <summary>Maximum numerical integration step for planetary perturbations.</summary>
+	/// <remarks>The actual step is additionally limited to roughly 1/120 of the body's orbital period, with a tighter limit for inner orbits.</remarks>
+	private const double MaxPerturbationStepDays = 4.0;
+
+	/// <summary>Maximum number of integration steps accepted for a single propagation request before the request is rejected as pathological.</summary>
+	private const int MaxPerturbationSteps = 200000;
+
+	/// <summary>Planetary gravitational parameters in AU³/day², using the JPL DE440 system GM values.</summary>
+	private static readonly double[] PlanetMuAu3PerDay2 =
+	[
+		4.9125001948001294e-11,  // Mercury
+		7.2434523326441190e-10,  // Venus
+		8.8876924467066020e-10,  // Earth-Moon system
+		9.5495488297801950e-11,  // Mars system
+		2.8253458252257923e-07,  // Jupiter system
+		8.4597059933762900e-08,  // Saturn system
+		1.2920265649682404e-08,  // Uranus system
+		1.5243573478851052e-08,  // Neptune system
+	];
+
 	/// <summary>Maximum number of planetoids whose full orbit path is cached and drawn to keep rendering responsive.</summary>
 	/// <remarks>When the selected range exceeds this count, only the current position markers are drawn (no orbit lines) to avoid overwhelming the renderer.</remarks>
 	private const int MaxOrbitLines = 2000;
@@ -92,40 +122,15 @@ internal partial class OrreryForm : BaseKryptonForm
 	/// <remarks>The argument of perihelion and mean anomaly values are derived from the standard longitude-of-perihelion and mean-longitude elements for J2000.0.</remarks>
 	private static readonly (string Name, double A, double E, double I, double Om, double Peri, double M0, Color Col)[] Planets =
 	[
-		("Mercury",  0.38709927, 0.20563593,  7.00497902,  48.33076593,  29.12703035, 174.79252722, Color.FromArgb(red: 0xC0, green: 0xC0, blue: 0xC8)),
-		("Venus",    0.72333566, 0.00677672,  3.39467605,  76.67984255,  54.92262463,  50.37663232, Color.FromArgb(red: 0xE8, green: 0xD0, blue: 0x90)),
-		("Earth",    1.00000261, 0.01671123,  0.00001531,   0.0,        102.93768193,  -2.47311027, Color.FromArgb(red: 0x40, green: 0x90, blue: 0xFF)),
-		("Mars",     1.52371034, 0.09339410,  1.84969142,  49.55953891, -73.50316850,  19.39019754, Color.FromArgb(red: 0xE0, green: 0x60, blue: 0x30)),
-		("Jupiter",  5.20288700, 0.04838624,  1.30439695, 100.47390909, -85.74542926,  19.66796068, Color.FromArgb(red: 0xE8, green: 0xC0, blue: 0x88)),
-		("Saturn",   9.53667594, 0.05386179,  2.48599187, 113.66242448, -21.06354617, -42.64463408, Color.FromArgb(red: 0xD8, green: 0xC8, blue: 0x70)),
-		("Uranus",  19.18916464, 0.04725744,  0.77263783,  74.01692503,  96.93735127, 142.28382821, Color.FromArgb(red: 0x80, green: 0xE0, blue: 0xE8)),
-		("Neptune", 30.06992276, 0.00859048,  1.77004347, 131.78422574, -86.81946347, -100.08479196, Color.FromArgb(red: 0x30, green: 0x50, blue: 0xD0)),
+		(Name: "Mercury",  0.38709927, 0.20563593,  7.00497902,  48.33076593,  29.12703035, 174.79252722, Color.FromArgb(red: 0xC0, green: 0xC0, blue: 0xC8)),
+		(Name: "Venus",    0.72333566, 0.00677672,  3.39467605,  76.67984255,  54.92262463,  50.37663232, Color.FromArgb(red: 0xE8, green: 0xD0, blue: 0x90)),
+		(Name: "Earth",    1.00000261, 0.01671123,  0.00001531,   0.0,        102.93768193,  -2.47311027, Color.FromArgb(red: 0x40, green: 0x90, blue: 0xFF)),
+		(Name: "Mars",     1.52371034, 0.09339410,  1.84969142,  49.55953891, -73.50316850,  19.39019754, Color.FromArgb(red: 0xE0, green: 0x60, blue: 0x30)),
+		(Name: "Jupiter",  5.20288700, 0.04838624,  1.30439695, 100.47390909, -85.74542926,  19.66796068, Color.FromArgb(red: 0xE8, green: 0xC0, blue: 0x88)),
+		(Name: "Saturn",   9.53667594, 0.05386179,  2.48599187, 113.66242448, -21.06354617, -42.64463408, Color.FromArgb(red: 0xD8, green: 0xC8, blue: 0x70)),
+		(Name: "Uranus",  19.18916464, 0.04725744,  0.77263783,  74.01692503,  96.93735127, 142.28382821, Color.FromArgb(red: 0x80, green: 0xE0, blue: 0xE8)),
+		(Name: "Neptune", 30.06992276, 0.00859048,  1.77004347, 131.78422574, -86.81946347, -100.08479196, Color.FromArgb(red: 0x30, green: 0x50, blue: 0xD0)),
 	];
-
-	/// <summary>Represents the Keplerian orbital elements of a single planetoid parsed from an MPCORB record.</summary>
-	/// <param name="Name">Readable designation of the planetoid.</param>
-	/// <param name="A">Semi-major axis in AU.</param>
-	/// <param name="E">Eccentricity.</param>
-	/// <param name="I">Inclination in degrees.</param>
-	/// <param name="Om">Longitude of the ascending node in degrees.</param>
-	/// <param name="Peri">Argument of perihelion in degrees.</param>
-	/// <param name="M0">Mean anomaly at the epoch in degrees.</param>
-	/// <param name="MeanMotion">Mean daily motion in degrees per day, or <see langword="null"/> when the MPCORB field is unavailable.</param>
-	/// <param name="EpochJd">Julian Date of the reference epoch.</param>
-	private readonly record struct PlanetoidElements(string Name, double A, double E, double I, double Om, double Peri, double M0, double? MeanMotion, double EpochJd);
-
-	/// <summary>Represents a body position cached for the current simulation instant.</summary>
-	/// <param name="Name">Display name of the body.</param>
-	/// <param name="Color">Marker color used during rendering.</param>
-	/// <param name="Ex">Heliocentric ecliptic X coordinate in AU.</param>
-	/// <param name="Ey">Heliocentric ecliptic Y coordinate in AU.</param>
-	/// <param name="Ez">Heliocentric ecliptic Z coordinate in AU.</param>
-	private readonly record struct RenderedBody(string Name, Color Color, double Ex, double Ey, double Ez);
-
-	/// <summary>Represents the parsed range data produced on a background thread.</summary>
-	/// <param name="Planetoids">Parsed planetoids in the selected range.</param>
-	/// <param name="CachedPlanetoidOrbits">Cached orbit polylines for the selected planetoids, when enabled.</param>
-	private readonly record struct RangeBuildResult(PlanetoidElements[] Planetoids, (double X, double Y, double Z)[][]? CachedPlanetoidOrbits);
 
 	/// <summary>The raw MPCORB record lines supplied to the form.</summary>
 	/// <remarks>These lines are parsed on load into <see cref="_planetoids"/>.</remarks>
@@ -148,6 +153,12 @@ internal partial class OrreryForm : BaseKryptonForm
 
 	/// <summary>Cached current-position markers for the rendered subset of planetoids at the active simulation time.</summary>
 	private RenderedBody[] _cachedPlanetoidBodies = [];
+
+	/// <summary>Numerically propagated heliocentric states for the currently rendered planetoids.</summary>	
+	private StateVector[] _propagatedPlanetoidStates = [];
+
+	/// <summary>Julian Date (TT) corresponding to <see cref="_propagatedPlanetoidStates"/>.</summary>
+	private double _propagatedPlanetoidStatesJdTt = double.NaN;
 
 	/// <summary>Julian Date corresponding to the currently cached marker positions.</summary>
 	private double _cachedBodyPositionsJd = double.NaN;
@@ -239,7 +250,7 @@ internal partial class OrreryForm : BaseKryptonForm
 	{
 		_sourceLines = planetoids ?? [];
 		InitializeComponent();
-		_animationTimer = new System.Windows.Forms.Timer(container: components!) { Interval = 33 };
+		using System.Windows.Forms.Timer _ = _animationTimer = new System.Windows.Forms.Timer(container: components!) { Interval = 33 };
 		_animationTimer.Tick += AnimationTimer_Tick;
 		logger.Info(message: "OrreryForm initialized with {0} source planetoid records.", args: _sourceLines.Count);
 	}
@@ -263,7 +274,7 @@ internal partial class OrreryForm : BaseKryptonForm
 			Profile = ContextProfile.Any,
 			APIVersion = new Version(major: 2, minor: 1),
 		};
-		_glControl = new GLControl(glControlSettings: settings)
+		using GLControl _ = _glControl = new GLControl(glControlSettings: settings)
 		{
 			Dock = DockStyle.Fill,
 			AccessibleDescription = "OpenGL rendering surface for the orrery",
@@ -294,8 +305,7 @@ internal partial class OrreryForm : BaseKryptonForm
 	private static bool TryParseValue(string line, int start, int len, out double value)
 	{
 		value = default;
-		return line.Length >= start + len
-			&& double.TryParse(s: line.Substring(startIndex: start, length: len).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out value);
+		return line.Length >= start + len && double.TryParse(s: line.Substring(startIndex: start, length: len).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out value);
 	}
 
 	/// <summary>Extracts the readable designation of a planetoid from an MPCORB record line.</summary>
@@ -377,8 +387,7 @@ internal partial class OrreryForm : BaseKryptonForm
 		SetStatusBar(label: labelInformation, text: $"Loading planetoids {start:N0}-{end:N0}…");
 		try
 		{
-			RangeBuildResult result = await Task.Run(
-				function: () => BuildRange(start: start, end: end)).ConfigureAwait(continueOnCapturedContext: true);
+			RangeBuildResult result = await Task.Run(function: () => BuildRange(start: start, end: end)).ConfigureAwait(continueOnCapturedContext: true);
 			if (rangeBuildVersion != _rangeBuildVersion || IsDisposed)
 			{
 				return;
@@ -386,6 +395,8 @@ internal partial class OrreryForm : BaseKryptonForm
 			_planetoids.Clear();
 			_planetoids.AddRange(collection: result.Planetoids);
 			_cachedPlanetoidOrbits = result.CachedPlanetoidOrbits;
+			_propagatedPlanetoidStates = [];
+			_propagatedPlanetoidStatesJdTt = double.NaN;
 			InvalidateBodyCache();
 			ClearHoverTarget(redraw: false);
 			_rangeSelectionReady = true;
@@ -413,7 +424,7 @@ internal partial class OrreryForm : BaseKryptonForm
 		List<PlanetoidElements> planetoids = new(capacity: end - start + 1);
 		for (int idx = start - 1; idx < end; idx++)
 		{
-			if (TryParsePlanetoid(line: _sourceLines[idx], out PlanetoidElements elements))
+			if (TryParsePlanetoid(line: _sourceLines[index: idx], out PlanetoidElements elements))
 			{
 				planetoids.Add(item: elements);
 			}
@@ -441,24 +452,48 @@ internal partial class OrreryForm : BaseKryptonForm
 
 	// ---- Orbital mechanics ----
 
-	/// <summary>Solves Kepler's equation <c>M = E − e·sin(E)</c> for the eccentric anomaly <c>E</c> using Newton–Raphson iteration.</summary>
+	/// <summary>Solves Kepler's equation <c>M = E − e·sin(E)</c> for the eccentric anomaly <c>E</c> using a safeguarded Newton iteration.</summary>
 	/// <param name="meanAnomalyRad">Mean anomaly in radians.</param>
 	/// <param name="eccentricity">Orbital eccentricity (0 ≤ e &lt; 1).</param>
 	/// <returns>Eccentric anomaly in radians.</returns>
 	private static double SolveKepler(double meanAnomalyRad, double eccentricity)
 	{
 		double ecc = eccentricity;
-		double m = meanAnomalyRad;
-		double bigE = m;
-		for (int i = 0; i < 50; i++)
+		if (!double.IsFinite(d: meanAnomalyRad) || !double.IsFinite(d: ecc) || ecc < 0.0 || ecc >= 1.0)
 		{
-			double deltaE = (m - bigE + (ecc * Math.Sin(a: bigE))) / (1.0 - (ecc * Math.Cos(d: bigE)));
-			bigE += deltaE;
-			if (Math.Abs(value: deltaE) < 1e-12)
-			{
-				break;
-			}
+			throw new ArgumentOutOfRangeException(paramName: nameof(eccentricity));
 		}
+
+		// Reduce M before evaluating sin/cos. This prevents loss of accuracy when this helper is reused with an unreduced mean anomaly.
+		double twoPi = 2.0 * Math.PI;
+		double m = ((meanAnomalyRad % twoPi) + twoPi) % twoPi;
+		if (m > Math.PI)
+		{
+			m -= twoPi;
+		}
+
+		// M is already a good initial guess for normal asteroid eccentricities. For highly eccentric orbits, π·sign(M) is safer.
+		double bigE = ecc < 0.8
+			? m
+			: Math.CopySign(Math.PI, m == 0.0 ? 1.0 : m);
+
+		for (int iteration = 0; iteration < 50; iteration++)
+		{
+			double sinE = Math.Sin(a: bigE);
+			double cosE = Math.Cos(d: bigE);
+			double f = bigE - (ecc * sinE) - m;
+			double fp = 1.0 - (ecc * cosE);
+			double deltaE = f / fp;
+			double nextE = bigE - deltaE;
+
+			if (Math.Abs(value: deltaE) < 1e-13)
+			{
+				return nextE;
+			}
+
+			bigE = nextE;
+		}
+
 		return bigE;
 	}
 
@@ -470,18 +505,19 @@ internal partial class OrreryForm : BaseKryptonForm
 	/// <param name="periDeg">Argument of perihelion in degrees.</param>
 	/// <param name="mDeg">Mean anomaly in degrees.</param>
 	/// <returns>A tuple of (x, y, z) ecliptic coordinates in AU, where the Z axis points toward the ecliptic north pole.</returns>
-	private static (double X, double Y, double Z) OrbElemToEcliptic(
-		double a, double e, double iDeg, double omDeg, double periDeg, double mDeg)
+	private static (double X, double Y, double Z) OrbElemToEcliptic(double a, double e, double iDeg, double omDeg, double periDeg, double mDeg)
 	{
 		double ecc = e;
 		double mRad = mDeg * Math.PI / 180.0;
 		double bigE = SolveKepler(meanAnomalyRad: mRad, eccentricity: ecc);
-		double nu = 2.0 * Math.Atan2(
-			y: Math.Sqrt(d: 1.0 + ecc) * Math.Sin(a: bigE / 2.0),
-			x: Math.Sqrt(d: 1.0 - ecc) * Math.Cos(d: bigE / 2.0));
-		double r = a * (1.0 - (ecc * Math.Cos(d: bigE)));
-		double xOrbital = r * Math.Cos(d: nu);
-		double yOrbital = r * Math.Sin(a: nu);
+
+		// Direct eccentric-anomaly coordinates avoid the extra true-anomaly conversion and are numerically cleaner near perihelion.
+		double cosE = Math.Cos(d: bigE);
+		double sinE = Math.Sin(a: bigE);
+		double sqrtOneMinusE2 = Math.Sqrt(d: 1.0 - (ecc * ecc));
+		double xOrbital = a * (cosE - ecc);
+		double yOrbital = a * sqrtOneMinusE2 * sinE;
+
 		double iRad = iDeg * Math.PI / 180.0;
 		double omRad = omDeg * Math.PI / 180.0;
 		double periRad = periDeg * Math.PI / 180.0;
@@ -497,7 +533,146 @@ internal partial class OrreryForm : BaseKryptonForm
 				 + (((-sinOm * sinPeri) + (cosOm * cosPeri * cosI)) * yOrbital);
 		double z = (sinPeri * sinI * xOrbital)
 				 + (cosPeri * sinI * yOrbital);
-		return (x, y, z);
+		return (X: x, Y: y, Z: z);
+	}
+
+	/// <summary>Converts Keplerian elements at an epoch into a heliocentric Cartesian state vector.</summary>
+	private static StateVector OrbElemToStateVector(
+		double a, double e, double iDeg, double omDeg, double periDeg, double mDeg)
+	{
+		double ecc = e;
+		double mRad = mDeg * Math.PI / 180.0;
+		double bigE = SolveKepler(meanAnomalyRad: mRad, eccentricity: ecc);
+		double cosE = Math.Cos(d: bigE);
+		double sinE = Math.Sin(a: bigE);
+		double sqrtOneMinusE2 = Math.Sqrt(d: 1.0 - (ecc * ecc));
+		double r = a * (1.0 - (ecc * cosE));
+
+		// Perifocal position and velocity for the two-body problem.
+		double xOrbital = a * (cosE - ecc);
+		double yOrbital = a * sqrtOneMinusE2 * sinE;
+		double velocityFactor = Math.Sqrt(d: SolarMuAu3PerDay2 * a) / r;
+		double vxOrbital = -velocityFactor * sinE;
+		double vyOrbital = velocityFactor * sqrtOneMinusE2 * cosE;
+
+		double iRad = iDeg * Math.PI / 180.0;
+		double omRad = omDeg * Math.PI / 180.0;
+		double periRad = periDeg * Math.PI / 180.0;
+		double cosOm = Math.Cos(d: omRad);
+		double sinOm = Math.Sin(a: omRad);
+		double cosI = Math.Cos(d: iRad);
+		double sinI = Math.Sin(a: iRad);
+		double cosPeri = Math.Cos(d: periRad);
+		double sinPeri = Math.Sin(a: periRad);
+
+		double r11 = (cosOm * cosPeri) - (sinOm * sinPeri * cosI);
+		double r12 = (-cosOm * sinPeri) - (sinOm * cosPeri * cosI);
+		double r21 = (sinOm * cosPeri) + (cosOm * sinPeri * cosI);
+		double r22 = (-sinOm * sinPeri) + (cosOm * cosPeri * cosI);
+		double r31 = sinPeri * sinI;
+		double r32 = cosPeri * sinI;
+
+		return new StateVector(
+			X: (r11 * xOrbital) + (r12 * yOrbital),
+			Y: (r21 * xOrbital) + (r22 * yOrbital),
+			Z: (r31 * xOrbital) + (r32 * yOrbital),
+			Vx: (r11 * vxOrbital) + (r12 * vyOrbital),
+			Vy: (r21 * vxOrbital) + (r22 * vyOrbital),
+			Vz: (r31 * vxOrbital) + (r32 * vyOrbital));
+	}
+
+	/// <summary>Returns a planet's analytic heliocentric state vector at a given Julian date.</summary>
+	private static StateVector PlanetPositionAtJd(int planetIndex, double jdTt)
+	{
+		(string Name, double A, double E, double I, double Om, double Peri, double M0, Color Col) planet = Planets[planetIndex];
+		double mNow = CurrentMeanAnomaly(m0Deg: planet.M0, semiMajorAxisAu: planet.A, epochJd: J2000Jd, nowJd: jdTt);
+		return OrbElemToStateVector(a: planet.A, e: planet.E, iDeg: planet.I, omDeg: planet.Om, periDeg: planet.Peri, mDeg: mNow);
+	}
+
+	/// <summary>Computes heliocentric gravitational acceleration including the indirect term from all eight planets.</summary>
+	private static (double Ax, double Ay, double Az) ComputePerturbedAcceleration(StateVector state, double jdTt)
+	{
+		double r2 = (state.X * state.X) + (state.Y * state.Y) + (state.Z * state.Z);
+		double r = Math.Sqrt(d: r2);
+		double invR3 = 1.0 / (r2 * r);
+		double ax = -SolarMuAu3PerDay2 * state.X * invR3;
+		double ay = -SolarMuAu3PerDay2 * state.Y * invR3;
+		double az = -SolarMuAu3PerDay2 * state.Z * invR3;
+
+		for (int idx = 0; idx < Planets.Length; idx++)
+		{
+			StateVector planet = PlanetPositionAtJd(planetIndex: idx, jdTt: jdTt);
+			double dx = planet.X - state.X;
+			double dy = planet.Y - state.Y;
+			double dz = planet.Z - state.Z;
+			double delta2 = (dx * dx) + (dy * dy) + (dz * dz);
+			double delta = Math.Sqrt(d: delta2);
+			if (delta < 1e-7)
+			{
+				// Point-mass dynamics becomes singular at a collision. This guard prevents a numerical blow-up in the UI.
+				delta = 1e-7;
+				delta2 = delta * delta;
+			}
+			double invDelta3 = 1.0 / (delta2 * delta);
+			double planetR2 = (planet.X * planet.X) + (planet.Y * planet.Y) + (planet.Z * planet.Z);
+			double planetR = Math.Sqrt(d: planetR2);
+			double invPlanetR3 = 1.0 / (planetR2 * planetR);
+			double mu = PlanetMuAu3PerDay2[idx];
+			ax += mu * ((dx * invDelta3) - (planet.X * invPlanetR3));
+			ay += mu * ((dy * invDelta3) - (planet.Y * invPlanetR3));
+			az += mu * ((dz * invDelta3) - (planet.Z * invPlanetR3));
+		}
+
+		return (Ax: ax, Ay: ay, Az: az);
+	}
+
+	/// <summary>Performs one fourth-order Runge-Kutta integration step.</summary>
+	private static StateVector RungeKutta4Step(StateVector state, double jdTt, double h)
+	{
+		(double ax1, double ay1, double az1) = ComputePerturbedAcceleration(state: state, jdTt: jdTt);
+		StateVector s2 = new(X: state.X + (0.5 * h * state.Vx), Y: state.Y + (0.5 * h * state.Vy), Z: state.Z + (0.5 * h * state.Vz),
+			Vx: state.Vx + (0.5 * h * ax1), Vy: state.Vy + (0.5 * h * ay1), Vz: state.Vz + (0.5 * h * az1));
+		(double ax2, double ay2, double az2) = ComputePerturbedAcceleration(state: s2, jdTt: jdTt + (0.5 * h));
+		StateVector s3 = new(X: state.X + (0.5 * h * s2.Vx), Y: state.Y + (0.5 * h * s2.Vy), Z: state.Z + (0.5 * h * s2.Vz),
+			Vx: state.Vx + (0.5 * h * ax2), Vy: state.Vy + (0.5 * h * ay2), Vz: state.Vz + (0.5 * h * az2));
+		(double ax3, double ay3, double az3) = ComputePerturbedAcceleration(state: s3, jdTt: jdTt + (0.5 * h));
+		StateVector s4 = new(X: state.X + (h * s3.Vx), Y: state.Y + (h * s3.Vy), Z: state.Z + (h * s3.Vz),
+			state.Vx + (h * ax3), state.Vy + (h * ay3), state.Vz + (h * az3));
+		(double ax4, double ay4, double az4) = ComputePerturbedAcceleration(state: s4, jdTt: jdTt + h);
+
+		return new StateVector(
+			X: state.X + (h / 6.0 * (state.Vx + (2.0 * s2.Vx) + (2.0 * s3.Vx) + s4.Vx)),
+			Y: state.Y + (h / 6.0 * (state.Vy + (2.0 * s2.Vy) + (2.0 * s3.Vy) + s4.Vy)),
+			Z: state.Z + (h / 6.0 * (state.Vz + (2.0 * s2.Vz) + (2.0 * s3.Vz) + s4.Vz)),
+			Vx: state.Vx + (h / 6.0 * (ax1 + (2.0 * ax2) + (2.0 * ax3) + ax4)),
+			Vy: state.Vy + (h / 6.0 * (ay1 + (2.0 * ay2) + (2.0 * ay3) + ay4)),
+			Vz: state.Vz + (h / 6.0 * (az1 + (2.0 * az2) + (2.0 * az3) + az4)));
+	}
+
+	/// <summary>Propagates a planetoid state vector through the Sun plus eight-planet gravitational model.</summary>
+	private static StateVector PropagatePerturbedState(StateVector initialState, double startJdTt, double endJdTt, double orbitalPeriodDays)
+	{
+		double totalDays = endJdTt - startJdTt;
+		if (Math.Abs(value: totalDays) < 1e-12)
+		{
+			return initialState;
+		}
+
+		double stepDays = Math.Clamp(value: orbitalPeriodDays / 120.0, min: 0.05, max: MaxPerturbationStepDays);
+		int stepCount = (int)Math.Ceiling(a: Math.Abs(value: totalDays) / stepDays);
+		if (stepCount > MaxPerturbationSteps)
+		{
+			stepCount = MaxPerturbationSteps;
+		}
+		double h = totalDays / stepCount;
+		StateVector state = initialState;
+		double jd = startJdTt;
+		for (int step = 0; step < stepCount; step++)
+		{
+			state = RungeKutta4Step(state: state, jdTt: jd, h: h);
+			jd += h;
+		}
+		return state;
 	}
 
 	/// <summary>Computes an array of heliocentric ecliptic positions that trace one full orbit of a body.</summary>
@@ -508,8 +683,7 @@ internal partial class OrreryForm : BaseKryptonForm
 	/// <param name="periDeg">Argument of perihelion in degrees.</param>
 	/// <param name="steps">Number of equal-mean-anomaly steps (default <see cref="OrbitSteps"/>).</param>
 	/// <returns>An array of <paramref name="steps"/>+1 ecliptic-coordinate tuples that close the orbit.</returns>
-	private static (double X, double Y, double Z)[] ComputeOrbitPoints(
-		double a, double e, double iDeg, double omDeg, double periDeg, int steps = OrbitSteps)
+	private static (double X, double Y, double Z)[] ComputeOrbitPoints(double a, double e, double iDeg, double omDeg, double periDeg, int steps = OrbitSteps)
 	{
 		(double X, double Y, double Z)[] pts = new (double X, double Y, double Z)[steps + 1];
 		for (int k = 0; k <= steps; k++)
@@ -569,7 +743,7 @@ internal partial class OrreryForm : BaseKryptonForm
 		return true;
 	}
 
-	/// <summary>Computes the current mean anomaly (degrees) of a body given its mean anomaly at a reference epoch.</summary>
+	/// <summary>Computes the current mean anomaly (degrees) for the analytic two-body fallback model.</summary>
 	/// <param name="m0Deg">Mean anomaly at the reference epoch in degrees.</param>
 	/// <param name="semiMajorAxisAu">Semi-major axis in AU (used to compute mean motion via Kepler's third law when <paramref name="meanMotionDegPerDay"/> is unavailable).</param>
 	/// <param name="epochJd">Julian Date of the reference epoch.</param>
@@ -608,7 +782,10 @@ internal partial class OrreryForm : BaseKryptonForm
 	/// <param name="ey">Ecliptic Y in AU.</param>
 	/// <param name="ez">Ecliptic Z in AU (positive = above ecliptic plane).</param>
 	/// <returns>OpenGL (glX, glY, glZ) floats.</returns>
-	private static (float Gx, float Gy, float Gz) EclToGl(double ex, double ey, double ez) => ((float)ex, (float)ez, (float)-ey);
+	private static (float Gx, float Gy, float Gz) EclToGl(double ex, double ey, double ez)
+	{
+		return (Gx: (float)ex, Gy: (float)ez, Gz: (float)-ey);
+	}
 
 	/// <summary>Invalidates the cached current body positions so they are recomputed for the next render or hover lookup.</summary>
 	private void InvalidateBodyCache()
@@ -634,31 +811,71 @@ internal partial class OrreryForm : BaseKryptonForm
 	}
 
 	/// <summary>Ensures that the current body-position cache matches the requested simulation time.</summary>
-	/// <param name="nowJd">Julian Date of the active simulation instant.</param>
+	/// <param name="nowJd">Julian Date of the active simulation instant, in UTC.</param>
 	private void EnsureBodyCache(double nowJd)
 	{
+		double nowJdTt = nowJd + (TtMinusUtcSeconds / SecondsPerDay);
+		int renderedPlanetoidCount = Math.Min(val1: _planetoids.Count, val2: MaxRenderedPlanetoids);
 		if (_cachedPlanetBodies.Length == Planets.Length
-			&& _cachedPlanetoidBodies.Length == Math.Min(val1: _planetoids.Count, val2: MaxRenderedPlanetoids)
+			&& _cachedPlanetoidBodies.Length == renderedPlanetoidCount
 			&& Math.Abs(value: _cachedBodyPositionsJd - nowJd) < 1e-12)
 		{
 			return;
 		}
+
 		_cachedPlanetBodies = new RenderedBody[Planets.Length];
 		for (int idx = 0; idx < Planets.Length; idx++)
 		{
 			(string name, double a, double e, double i, double om, double peri, double m0, Color color) = Planets[idx];
-			double mNow = CurrentMeanAnomaly(m0Deg: m0, semiMajorAxisAu: a, epochJd: J2000Jd, nowJd: nowJd);
+			double mNow = CurrentMeanAnomaly(m0Deg: m0, semiMajorAxisAu: a, epochJd: J2000Jd, nowJd: nowJdTt);
 			(double ex, double ey, double ez) = OrbElemToEcliptic(a: a, e: e, iDeg: i, omDeg: om, periDeg: peri, mDeg: mNow);
 			_cachedPlanetBodies[idx] = new RenderedBody(Name: name, Color: color, Ex: ex, Ey: ey, Ez: ez);
 		}
-		int renderedPlanetoidCount = Math.Min(val1: _planetoids.Count, val2: MaxRenderedPlanetoids);
+
 		_cachedPlanetoidBodies = new RenderedBody[renderedPlanetoidCount];
+
+		if (_propagatedPlanetoidStates.Length != renderedPlanetoidCount || !double.IsFinite(d: _propagatedPlanetoidStatesJdTt))
+		{
+			_propagatedPlanetoidStates = new StateVector[renderedPlanetoidCount];
+			_propagatedPlanetoidStatesJdTt = double.NaN;
+			for (int idx = 0; idx < renderedPlanetoidCount; idx++)
+			{
+				PlanetoidElements p = _planetoids[index: idx];
+				StateVector initial = OrbElemToStateVector(a: p.A, e: p.E, iDeg: p.I, omDeg: p.Om, periDeg: p.Peri, mDeg: p.M0);
+				double periodDays = p.MeanMotion.HasValue && p.MeanMotion.Value > 0.0
+					? 360.0 / p.MeanMotion.Value
+					: 2.0 * Math.PI * Math.Sqrt(d: p.A * p.A * p.A / SolarMuAu3PerDay2);
+				_propagatedPlanetoidStates[idx] = PropagatePerturbedState(
+					initialState: initial,
+					startJdTt: p.EpochJd,
+					endJdTt: nowJdTt,
+					orbitalPeriodDays: periodDays);
+			}
+			_propagatedPlanetoidStatesJdTt = nowJdTt;
+		}
+		else if (Math.Abs(value: _propagatedPlanetoidStatesJdTt - nowJdTt) >= 1e-12)
+		{
+			double deltaT = nowJdTt - _propagatedPlanetoidStatesJdTt;
+			for (int idx = 0; idx < renderedPlanetoidCount; idx++)
+			{
+				PlanetoidElements p = _planetoids[index: idx];
+				double periodDays = p.MeanMotion.HasValue && p.MeanMotion.Value > 0.0
+					? 360.0 / p.MeanMotion.Value
+					: 2.0 * Math.PI * Math.Sqrt(d: p.A * p.A * p.A / SolarMuAu3PerDay2);
+				_propagatedPlanetoidStates[idx] = PropagatePerturbedState(
+					initialState: _propagatedPlanetoidStates[idx],
+					startJdTt: _propagatedPlanetoidStatesJdTt,
+					endJdTt: _propagatedPlanetoidStatesJdTt + deltaT,
+					orbitalPeriodDays: periodDays);
+			}
+			_propagatedPlanetoidStatesJdTt = nowJdTt;
+		}
+
 		for (int idx = 0; idx < renderedPlanetoidCount; idx++)
 		{
 			PlanetoidElements p = _planetoids[index: idx];
-			double mNow = CurrentMeanAnomaly(m0Deg: p.M0, semiMajorAxisAu: p.A, epochJd: p.EpochJd, nowJd: nowJd, meanMotionDegPerDay: p.MeanMotion);
-			(double ex, double ey, double ez) = OrbElemToEcliptic(a: p.A, e: p.E, iDeg: p.I, omDeg: p.Om, periDeg: p.Peri, mDeg: mNow);
-			_cachedPlanetoidBodies[idx] = new RenderedBody(Name: p.Name, Color: Color.Orange, Ex: ex, Ey: ey, Ez: ez);
+			StateVector state = _propagatedPlanetoidStates[idx];
+			_cachedPlanetoidBodies[idx] = new RenderedBody(Name: p.Name, Color: Color.Orange, Ex: state.X, Ey: state.Y, Ez: state.Z);
 		}
 		_cachedBodyPositionsJd = nowJd;
 	}
@@ -889,12 +1106,12 @@ internal partial class OrreryForm : BaseKryptonForm
 		float pitchRad = _pitch * (float)Math.PI / 180f;
 		// Rotate about Y (yaw), then about X (pitch), matching GL.Rotate(pitch) then GL.Rotate(yaw) order applied to the point.
 		float cosY = (float)Math.Cos(d: yawRad), sinY = (float)Math.Sin(a: yawRad);
-		float x1 = gx * cosY + gz * sinY;
-		float z1 = -gx * sinY + gz * cosY;
+		float x1 = (gx * cosY) + (gz * sinY);
+		float z1 = (-gx * sinY) + (gz * cosY);
 		float y1 = gy;
 		float cosP = (float)Math.Cos(d: pitchRad), sinP = (float)Math.Sin(a: pitchRad);
-		float y2 = y1 * cosP - z1 * sinP;
-		float z2 = y1 * sinP + z1 * cosP;
+		float y2 = (y1 * cosP) - (z1 * sinP);
+		float z2 = (y1 * sinP) + (z1 * cosP);
 		float x2 = x1;
 		// Translate by camera
 		float camX = x2 + _panX;
@@ -909,7 +1126,7 @@ internal partial class OrreryForm : BaseKryptonForm
 		double aspect = (double)w / h;
 		double fovY = 45.0 * Math.PI / 180.0;
 		double f = 1.0 / Math.Tan(a: fovY / 2.0);
-		double ndcX = (f / aspect) * camX / -camZ;
+		double ndcX = f / aspect * camX / -camZ;
 		double ndcY = f * camY / -camZ;
 		screen = new PointF(x: (float)((ndcX + 1.0) * 0.5 * w), y: (float)((1.0 - ndcY) * 0.5 * h));
 		return true;
@@ -1111,7 +1328,10 @@ internal partial class OrreryForm : BaseKryptonForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">Event arguments.</param>
 	/// <remarks>A value of zero pauses time flow while the animation is running; negative values move backward in time.</remarks>
-	private void TrackBarSpeed_ValueChanged(object? sender, EventArgs e) => UpdateStatusLabel();
+	private void TrackBarSpeed_ValueChanged(object? sender, EventArgs e)
+	{
+		UpdateStatusLabel();
+	}
 
 	/// <summary>Handles changes to the date/time control by setting the simulation instant.</summary>
 	/// <param name="sender">The event source.</param>
