@@ -60,12 +60,6 @@ internal partial class ScatterplotsForm : BaseKryptonForm
 	/// <summary>Stores the Y-axis definition used for the currently displayed results.</summary>
 	private ScatterDefinition? _currentYDefinition;
 
-	/// <summary>Represents one plotted scatter-plot data point.</summary>
-	/// <param name="X">The X-axis value of the data point.</param>
-	/// <param name="Y">The Y-axis value of the data point.</param>
-	/// <remarks>Each data point corresponds to one planetoid whose X and Y values were both successfully parsed.</remarks>
-	private readonly record struct ScatterPoint(double X, double Y);
-
 	#region Constructor
 
 	/// <summary>Initializes a new instance of the <see cref="ScatterplotsForm"/> class.</summary>
