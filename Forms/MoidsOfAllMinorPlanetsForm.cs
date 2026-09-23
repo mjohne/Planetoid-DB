@@ -55,12 +55,6 @@ internal partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>Overrides the base class property to return the form-specific status label.</remarks>
 	protected override ToolStripStatusLabel? StatusLabel => labelInformation;
 
-	/// <summary>Represents one row in the MOID results list: the planetoid name and one MOID value per planet.</summary>
-	/// <param name="PlanetoidName">The designation of the minor planet.</param>
-	/// <param name="Moids">Array of eight MOID values in AU, one per planet in order Mercury–Neptune.</param>
-	/// <remarks>The <paramref name="Moids"/> array always has exactly eight elements corresponding to the eight solar system planets: Mercury (0), Venus (1), Earth (2), Mars (3), Jupiter (4), Saturn (5), Uranus (6), Neptune (7).</remarks>
-	private readonly record struct MoidRowResult(string PlanetoidName, double[] Moids);
-
 	/// <summary>Number of planets whose MOIDs are computed (Mercury through Neptune).</summary>
 	/// <remarks>This constant matches the number of planets in <see cref="MoidCalculator"/>.</remarks>
 	private const int PlanetCount = 8;
