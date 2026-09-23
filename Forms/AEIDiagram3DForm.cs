@@ -59,9 +59,6 @@ internal partial class AEIDiagram3DForm : BaseKryptonForm
 	private bool _leftDown;
 	private bool _rightDown;
 	private int _excludedPoints;
-
-	private readonly record struct AeiPoint(double A, double E, double I);
-	private readonly record struct RenderPoint(float X, float Y, float Z);
 	private readonly Font _overlayFont = new(familyName: "Segoe UI", emSize: 9f, style: FontStyle.Bold);
 
 	/// <summary>Initializes a new instance of the <see cref="AEIDiagram3DForm"/> class.</summary>
@@ -375,7 +372,7 @@ internal partial class AEIDiagram3DForm : BaseKryptonForm
 			{
 				Progress<int> progress = new(handler: UpdateProgress);
 				Progress<List<AeiPoint>> live = new(handler: batch => { _rawPoints.AddRange(collection: batch); RebuildRenderPointsAndInvalidate(); });
-				List<AeiPoint> final = await Task.Run(function: () => BuildPointData(live: _buttonLive.Checked, progress: progress, liveResults: live, token: _cts.Token), cancellationToken: _cts.Token);
+				List<AeiPoint> final = await Task.Run(function: () => BuildPointData(live: _buttonLive.Checked, progress: progress, liveResults: live, token: _cts.Token), cancellationToken: _cts.Token).ConfigureAwait(continueOnCapturedContext: true);
 				_rawPoints = final;
 				RebuildRenderPointsAndInvalidate();
 				UpdateProgress(percent: 100);
@@ -429,13 +426,22 @@ internal partial class AEIDiagram3DForm : BaseKryptonForm
 	}
 
 	/// <summary>Handles logarithmic-scale toggle changes and redraws the scene.</summary>
-	private void ToolStripButtonLog_CheckedChanged(object? sender, EventArgs e) => RebuildRenderPointsAndInvalidate();
+	private void ToolStripButtonLog_CheckedChanged(object? sender, EventArgs e)
+	{
+		RebuildRenderPointsAndInvalidate();
+	}
 
 	/// <summary>Handles axis-scale value changes and redraws the scene immediately.</summary>
-	private void ToolStripNumericScale_ValueChanged(object? sender, EventArgs e) => RebuildRenderPointsAndInvalidate();
+	private void ToolStripNumericScale_ValueChanged(object? sender, EventArgs e)
+	{
+		RebuildRenderPointsAndInvalidate();
+	}
 
 	/// <summary>Handles GL paint events and renders the scene.</summary>
-	private void GlControl_Paint(object? sender, PaintEventArgs e) => RenderScene(overlayGraphics: e.Graphics);
+	private void GlControl_Paint(object? sender, PaintEventArgs e)
+	{
+		RenderScene(overlayGraphics: e.Graphics);
+	}
 
 	/// <summary>Handles GL resize events and updates the projection.</summary>
 	private void GlControl_Resize(object? sender, EventArgs e)
