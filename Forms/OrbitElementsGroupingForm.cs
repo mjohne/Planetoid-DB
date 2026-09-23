@@ -63,13 +63,6 @@ internal partial class OrbitElementsGroupingForm : BaseKryptonForm
 	/// <remarks>This field holds a reference to a CancellationTokenSource, which can be used to signal cancellation to one or more tasks. If null, no cancellation source is currently assigned.</remarks>
 	private CancellationTokenSource? _cancellationTokenSource;
 
-	/// <summary>Represents immutable data for a planetoid, including its identifier, name, and associated orbital elements.</summary>
-	/// <param name="Index">The unique identifier or catalog index for the planetoid.</param>
-	/// <param name="Name">The name of the planetoid.</param>
-	/// <param name="Elements">An array of double values representing the orbital elements of the planetoid. The array must not be null.</param>
-	/// <remarks>This record is used to store and manage the relevant data for each planetoid during the grouping process. The Elements array typically includes values such as mean anomaly, argument of perihelion, longitude of ascending node, inclination, orbital eccentricity, motion, and semi-major axis.</remarks>
-	private record PlanetoidData(string Index, string Name, double[] Elements);
-
 	#region Constructor
 
 	/// <summary>Initializes a new instance of the <see cref="OrbitElementsGroupingForm"/> class.</summary>
