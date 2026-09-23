@@ -72,14 +72,6 @@ internal partial class RecordsForm : BaseKryptonForm
 	/// <remarks>These string values are displayed in the UI as-is, preserving the original format from the main application.</remarks>
 	private readonly string[] recordStringValues = new string[12];
 
-	/// <summary>Holds a progress update for a single orbital element record, used to marshal label updates from the background thread to the UI thread via <see cref="BackgroundWorker.ReportProgress(int, object)"/>.</summary>
-	/// <param name="ElementIndex">Zero-based index of the orbital element.</param>
-	/// <param name="Value">The new record value (as double for comparison).</param>
-	/// <param name="StringValue">The original string value from the database to display in the UI.</param>
-	/// <param name="Designation">The readable designation of the record-holder asteroid.</param>
-	/// <remarks>This struct is used to pass progress updates from the background worker to the UI thread.</remarks>
-	private readonly record struct RecordProgressUpdate(int ElementIndex, double Value, string StringValue, string Designation);
-
 	#region constructor
 
 	/// <summary>Initializes a new instance of the <see cref="RecordsForm"/> class.</summary>
