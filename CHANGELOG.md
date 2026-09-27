@@ -1,3 +1,28 @@
+## Planetoid-DB 0.9.31.94
+
+* Updated `README.md` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1191
+* Updated `CHANGELOG.md` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1192
+* Fixed incorrect parsing of `CurrentInfo.CurrentCulture` in conjunction with `double.TryParse` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1194
+* Added new application icon by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1196
+* Created `ATTRIBUTIONS.md` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1197
+* Deleted `THIRD_PARTY_NOTICES.md` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1198
+* Refactored `OrreryForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1200
+* Added `TaskbarProgressState` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1201
+* Added `DerivedElements.OrbitalResonance` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1202
+* Added `TisserandParameterOfAllMinorPlanetsForm.TisserandRowResult` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1203
+* Added `ScatterplotsForm.ScatterPoint` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1204
+* Added `RecordsForm.RecordProgressUpdate` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1205
+* Added `OrbitElementsGroupingForm.PlanetoidData` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1206
+* Added `MoidsOfAllMinorPlanetsForm.MoidRowResult` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1207
+* Added `DatabaseDifferencesForm.DifferenceResult` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1208
+* Added `AEIDiagram3DForm.AeiPoint` and `AEIDiagram3DForm.RenderPoint` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1209
+* Updated internal database `demoset-10000.txt` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1210
+* Updated `GlobalSuppressions.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1211
+* Updated to version 0.9.31.94 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1212
+
+**Full Changelog**: https://github.com/mjohne/Planetoid-DB/compare/0.9.30.93.1189.4704...0.9.31.94.1212.4874
+
+
 ## Planetoid-DB 0.9.30.93
 
 * Updated image link in `README.md` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1174
