@@ -4,7 +4,13 @@
     <_LastSelectedProfileId>D:\Programming\Visual Studio 2026\Planetoid-DB\Properties\PublishProfiles\ClickOnceProfile_win-arm64.pubxml</_LastSelectedProfileId>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Update="Forms\AEIDiagram3DForm.AeiPoint.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Forms\AEIDiagram3DForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\AEIDiagram3DForm.RenderPoint.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Forms\AppInfoForm.cs">
@@ -50,6 +56,9 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Forms\DatabaseDifferencesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\DatabaseDifferencesForm.DifferenceResult.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Forms\DatabaseInformationForm.cs">
@@ -115,6 +124,9 @@
     <Compile Update="Forms\MoidsOfAllMinorPlanetsForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Forms\MoidsOfAllMinorPlanetsForm.MoidRowResult.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Forms\MoidsOfOneMinorPlanetForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -148,7 +160,22 @@
     <Compile Update="Forms\Orbit2DSideViewForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Forms\OrbitElementsGroupingForm.PlanetoidData.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Forms\OrreryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\OrreryForm.PlanetoidElements.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\OrreryForm.RangeBuildResult.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\OrreryForm.RenderedBody.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\OrreryForm.StateVector.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Forms\PlanetaryInformationForm.cs">
@@ -178,6 +205,9 @@
     <Compile Update="Forms\RecordsForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Forms\RecordsForm.RecordProgressUpdate.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Forms\RecordsTop10Form.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -188,6 +218,9 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Forms\ScatterplotsForm.ScatterDefinition.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\ScatterplotsForm.ScatterPoint.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Forms\SearchForm.cs">
@@ -221,6 +254,9 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Forms\TisserandParameterOfAllMinorPlanetsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\TisserandParameterOfAllMinorPlanetsForm.TisserandRowResult.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Forms\TisserandParameterOfOneMinorPlanetForm.cs">
