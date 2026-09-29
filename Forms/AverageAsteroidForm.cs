@@ -180,51 +180,51 @@ internal partial class AverageAsteroidForm : BaseKryptonForm
 							// Use ReadOnlySpan<char> to avoid unnecessary string allocations during parsing
 							ReadOnlySpan<char> entrySpan = entry.AsSpan();
 							// Parse each value using TryParse to avoid exceptions on invalid formats; store the parsed value in the corresponding local array slot
-							if (double.TryParse(s: entrySpan.Slice(start: 26, length: 9).Trim(), style: NumberStyles.Any, provider: provider, result: out double valM))
+							if (double.TryParse(s: entrySpan.Slice(start: 26, length: 9).Trim(), style: NumberStyles.Float, provider: provider, result: out double valM))
 							{
 								localM[i] = valM; // Mean anomaly at the epoch
 							}
-							if (double.TryParse(s: entrySpan.Slice(start: 37, length: 9).Trim(), style: NumberStyles.Any, provider: provider, result: out double valOmega))
+							if (double.TryParse(s: entrySpan.Slice(start: 37, length: 9).Trim(), style: NumberStyles.Float, provider: provider, result: out double valOmega))
 							{
 								localOmega[i] = valOmega; // Argument of perihelion
 							}
-							if (double.TryParse(s: entrySpan.Slice(start: 48, length: 9).Trim(), style: NumberStyles.Any, provider: provider, result: out double valOmegaBig))
+							if (double.TryParse(s: entrySpan.Slice(start: 48, length: 9).Trim(), style: NumberStyles.Float, provider: provider, result: out double valOmegaBig))
 							{
 								localOmegaBig[i] = valOmegaBig; // Longitude of ascending node
 							}
-							if (double.TryParse(s: entrySpan.Slice(start: 59, length: 9).Trim(), style: NumberStyles.Any, provider: provider, result: out double valI))
+							if (double.TryParse(s: entrySpan.Slice(start: 59, length: 9).Trim(), style: NumberStyles.Float, provider: provider, result: out double valI))
 							{
 								localI[i] = valI; // Inclination
 							}
-							if (double.TryParse(s: entrySpan.Slice(start: 70, length: 9).Trim(), style: NumberStyles.Any, provider: provider, result: out double valE))
+							if (double.TryParse(s: entrySpan.Slice(start: 70, length: 9).Trim(), style: NumberStyles.Float, provider: provider, result: out double valE))
 							{
 								localE[i] = valE; // Eccentricity
 							}
-							if (double.TryParse(s: entrySpan.Slice(start: 80, length: 11).Trim(), style: NumberStyles.Any, provider: provider, result: out double valN))
+							if (double.TryParse(s: entrySpan.Slice(start: 80, length: 11).Trim(), style: NumberStyles.Float, provider: provider, result: out double valN))
 							{
 								localN[i] = valN; // Mean daily motion
 							}
-							if (double.TryParse(s: entrySpan.Slice(start: 92, length: 11).Trim(), style: NumberStyles.Any, provider: provider, result: out double valA))
+							if (double.TryParse(s: entrySpan.Slice(start: 92, length: 11).Trim(), style: NumberStyles.Float, provider: provider, result: out double valA))
 							{
 								localA[i] = valA; // Semi-major axis
 							}
-							if (double.TryParse(s: entrySpan.Slice(start: 8, length: 5).Trim(), style: NumberStyles.Any, provider: provider, result: out double valH))
+							if (double.TryParse(s: entrySpan.Slice(start: 8, length: 5).Trim(), style: NumberStyles.Float, provider: provider, result: out double valH))
 							{
 								localH[i] = valH; // Absolute magnitude
 							}
-							if (double.TryParse(s: entrySpan.Slice(start: 14, length: 5).Trim(), style: NumberStyles.Any, provider: provider, result: out double valG))
+							if (double.TryParse(s: entrySpan.Slice(start: 14, length: 5).Trim(), style: NumberStyles.Float, provider: provider, result: out double valG))
 							{
 								localG[i] = valG; // Slope parameter
 							}
-							if (double.TryParse(s: entrySpan.Slice(start: 117, length: 6).Trim(), style: NumberStyles.Any, provider: provider, result: out double valNObs))
+							if (double.TryParse(s: entrySpan.Slice(start: 117, length: 6).Trim(), style: NumberStyles.Float, provider: provider, result: out double valNObs))
 							{
 								localNObs[i] = valNObs; // Number of observations
 							}
-							if (double.TryParse(s: entrySpan.Slice(start: 123, length: 4).Trim(), style: NumberStyles.Any, provider: provider, result: out double valNOpp))
+							if (double.TryParse(s: entrySpan.Slice(start: 123, length: 4).Trim(), style: NumberStyles.Float, provider: provider, result: out double valNOpp))
 							{
 								localNOpp[i] = valNOpp; // Number of oppositions
 							}
-							if (double.TryParse(s: entrySpan.Slice(start: 137, length: 5).Trim(), style: NumberStyles.Any, provider: provider, result: out double valRms))
+							if (double.TryParse(s: entrySpan.Slice(start: 137, length: 5).Trim(), style: NumberStyles.Float, provider: provider, result: out double valRms))
 							{
 								localRms[i] = valRms; // Root mean square error
 							}
@@ -381,7 +381,7 @@ internal partial class AverageAsteroidForm : BaseKryptonForm
 	/// <remarks>This method formats values with appropriate precision for display.</remarks>
 	private static string FormatValue(double value)
 	{
-		// Check for NaN or Infinity and return "N/A" if so; otherwise, format the value with 6 decimal places using invariant culture
+		// Check for NaN or Infinity and return "N/A" if so; otherwise, format the value with 6 decimal places using the current culture
 		return double.IsNaN(d: value) || double.IsInfinity(d: value) ? "N/A" : value.ToString(format: "F6", provider: CultureInfo.CurrentCulture);
 	}
 
