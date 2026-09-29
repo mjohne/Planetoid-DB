@@ -35,7 +35,7 @@
 * Added missing event handlers and tooltip to the menu item "External data pages" by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1184
 * Refactored `PlanetoidDBForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1185
 * Updated `NLog` version to 6.2.1 in `AppInfoForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1186
-* Fixed `<remark>` tag in `Orbit3DForm` documentation comment by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1187
+* Fixed `<remarks>` tag in `Orbit3DForm` documentation comment by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1187
 * Updated internal database `demoset-10000.txt` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1188
 * Updated `GlobalSuppressions.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1189
 
