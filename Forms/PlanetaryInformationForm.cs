@@ -28,6 +28,22 @@ namespace Planetoid_DB;
 [DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
 internal partial class PlanetaryInformationForm : BaseKryptonForm
 {
+	#region Export override properties
+
+	/// <summary>Gets the ListView control used for export operations.</summary>
+	/// <remarks>Overrides the base export source to use this form's planetary information list.</remarks>
+	protected override ListView? ExportListView => listView;
+
+	/// <summary>Gets the title used for exported data.</summary>
+	/// <remarks>Overrides the base export title for this form's content.</remarks>
+	protected override string ExportTitle => "Planetary Information";
+
+	/// <summary>Gets the file name prefix used for exported files.</summary>
+	/// <remarks>Overrides the default export file prefix for this form.</remarks>
+	protected override string ExportFilePrefix => "Planetary-Information";
+
+	#endregion
+
 	/// <summary>NLog logger instance for the class.</summary>
 	/// <remarks>This logger is used to log messages and errors for the form.</remarks>
 	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
@@ -499,7 +515,7 @@ internal partial class PlanetaryInformationForm : BaseKryptonForm
 			Format(value: p.SemiMajorAxisAu, format: "G6"),
 			// Semi-minor axis (AU)
 			Format(value: bKm / AuInKm, format: "G6"),
-			// Mayor axis (AU)
+			// Major axis (AU)
 			Format(value: 2.0 * p.SemiMajorAxisAu, format: "G6"),
 			// Minor axis (AU)
 			Format(value: 2.0 * bKm / AuInKm, format: "G6"),
@@ -513,7 +529,7 @@ internal partial class PlanetaryInformationForm : BaseKryptonForm
 			Format(value: latusRectumKm / AuInKm, format: "G6"),
 			// Numeric eccentricity
 			Format(value: p.Eccentricity, format: "G6"),
-			// Linear ecceentricity (AU)
+			// Linear eccentricity (AU)
 			Format(value: linearEccentricityKm / AuInKm, format: "G6"),
 			// Orbital diameter (AU)
 			Format(value: orbitDiameterKm / AuInKm, format: "G6"),
@@ -543,7 +559,7 @@ internal partial class PlanetaryInformationForm : BaseKryptonForm
 			Format(value: aphelionVelocityKmPerS, format: "G6"),
 			// Mean orbital velocity (km/s)
 			Format(value: meanOrbitalVelocityKmPerS, format: "G6"),
-			// Ainimum orbital velocity (km/s)
+			// Maximum orbital velocity (km/s)
 			Format(value: perihelionVelocityKmPerS, format: "G6"),
 			// Equatorial diameter (km)
 			Format(value: p.EquatorialDiameterKm, format: "G6"),
