@@ -1418,5 +1418,95 @@ namespace Planetoid_DB {
 				return ResourceManager.GetString("BookmarkNoEntries", resourceCulture);
 			}
 		}
+
+		/// <summary>Gets the localized accessibility description for the 3D orbital diagram.</summary>
+		internal static string AeiDiagram3DCanvasAccessibleDescription
+		{
+			get
+			{
+				return ResourceManager.GetString("AeiDiagram3DCanvasAccessibleDescription", resourceCulture);
+			}
+		}
+
+		/// <summary>Gets the localized accessibility name for the 3D orbital diagram.</summary>
+		internal static string AeiDiagram3DCanvasAccessibleName
+		{
+			get
+			{
+				return ResourceManager.GetString("AeiDiagram3DCanvasAccessibleName", resourceCulture);
+			}
+		}
+
+		/// <summary>Gets the localized text shown when no planetoid data is available.</summary>
+		internal static string NoPlanetoidDataAvailableText
+		{
+			get
+			{
+				return ResourceManager.GetString("NoPlanetoidDataAvailableText", resourceCulture);
+			}
+		}
+
+		/// <summary>Gets the localized text shown when generation is canceled.</summary>
+		internal static string GenerationCanceledText
+		{
+			get
+			{
+				return ResourceManager.GetString("GenerationCanceledText", resourceCulture);
+			}
+		}
+
+		/// <summary>Gets the localized accessibility description for the orrery canvas.</summary>
+		internal static string OrreryCanvasAccessibleDescription
+		{
+			get
+			{
+				return ResourceManager.GetString("OrreryCanvasAccessibleDescription", resourceCulture);
+			}
+		}
+
+		/// <summary>Gets the localized accessibility name for the orrery canvas.</summary>
+		internal static string OrreryCanvasAccessibleName
+		{
+			get
+			{
+				return ResourceManager.GetString("OrreryCanvasAccessibleName", resourceCulture);
+			}
+		}
+
+		/// <summary>Gets the localized text for the pause button.</summary>
+		internal static string PauseButtonText
+		{
+			get
+			{
+				return ResourceManager.GetString("PauseButtonText", resourceCulture);
+			}
+		}
+
+		/// <summary>Gets the localized text for the play button.</summary>
+		internal static string PlayButtonText
+		{
+			get
+			{
+				return ResourceManager.GetString("PlayButtonText", resourceCulture);
+			}
+		}
+
+		/// <summary>Gets the localized text for the resume button.</summary>
+		internal static string ResumeButtonText
+		{
+			get
+			{
+				return ResourceManager.GetString("ResumeButtonText", resourceCulture);
+			}
+		}
+
+		/// <summary>Gets the localized text for the start button.</summary>
+		internal static string StartButtonText
+		{
+			get
+			{
+				return ResourceManager.GetString("StartButtonText", resourceCulture);
+			}
+		}
 	}
 }

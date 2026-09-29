@@ -81,8 +81,8 @@ internal partial class AEIDiagram3DForm : BaseKryptonForm
 		_glControl = new GLControl(glControlSettings: settings)
 		{
 			Dock = DockStyle.Fill,
-			AccessibleName = "Orbital diagram 3D OpenGL canvas",
-			AccessibleDescription = "Displays the three-dimensional a, e, i point cloud with camera controls.",
+			AccessibleName = I18nStrings.AeiDiagram3DCanvasAccessibleName,
+			AccessibleDescription = I18nStrings.AeiDiagram3DCanvasAccessibleDescription,
 			AccessibleRole = AccessibleRole.Graphic
 		};
 		_glControl.Enter += Control_Enter;
@@ -166,17 +166,17 @@ internal partial class AEIDiagram3DForm : BaseKryptonForm
 		_buttonCancel.Enabled = isRunning;
 		if (!isRunning)
 		{
-			_buttonStartPause.Text = "&Start";
+			_buttonStartPause.Text = I18nStrings.StartButtonText;
 			_buttonStartPause.Image = FatcowIcons16px.fatcow_control_play_blue_16px;
 		}
 		else if (_isPaused)
 		{
-			_buttonStartPause.Text = "&Resume";
+			_buttonStartPause.Text = I18nStrings.ResumeButtonText;
 			_buttonStartPause.Image = FatcowIcons16px.fatcow_control_play_blue_16px;
 		}
 		else
 		{
-			_buttonStartPause.Text = "&Pause";
+			_buttonStartPause.Text = I18nStrings.PauseButtonText;
 			_buttonStartPause.Image = FatcowIcons16px.fatcow_control_pause_blue_16px;
 		}
 	}
@@ -355,7 +355,7 @@ internal partial class AEIDiagram3DForm : BaseKryptonForm
 		{
 			if (_planetoids.Count == 0)
 			{
-				_ = KryptonMessageBox.Show(owner: this, text: "No planetoid data available.", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+				_ = KryptonMessageBox.Show(owner: this, text: I18nStrings.NoPlanetoidDataAvailableText, caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 				return;
 			}
 			_rawPoints = [];
@@ -381,7 +381,7 @@ internal partial class AEIDiagram3DForm : BaseKryptonForm
 			{
 				if (!IsDisposed && !Disposing)
 				{
-					labelInformation.Text = "Generation canceled. Press Start to run again.";
+					labelInformation.Text = I18nStrings.GenerationCanceledText;
 				}
 			}
 			finally

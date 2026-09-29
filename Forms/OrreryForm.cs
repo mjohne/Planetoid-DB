@@ -250,6 +250,7 @@ internal partial class OrreryForm : BaseKryptonForm
 	{
 		_sourceLines = planetoids ?? [];
 		InitializeComponent();
+		buttonPlayPause.Text = I18nStrings.PlayButtonText;
 		_animationTimer = new System.Windows.Forms.Timer(container: components!) { Interval = 33 };
 		_animationTimer.Tick += AnimationTimer_Tick;
 		logger.Info(message: "OrreryForm initialized with {0} source planetoid records.", args: _sourceLines.Count);
@@ -277,8 +278,8 @@ internal partial class OrreryForm : BaseKryptonForm
 		_glControl = new GLControl(glControlSettings: settings)
 		{
 			Dock = DockStyle.Fill,
-			AccessibleDescription = "OpenGL rendering surface for the orrery",
-			AccessibleName = "Orrery rendering surface",
+			AccessibleDescription = I18nStrings.OrreryCanvasAccessibleDescription,
+			AccessibleName = I18nStrings.OrreryCanvasAccessibleName,
 			AccessibleRole = AccessibleRole.Client,
 		};
 		_glControl.Paint += GlControl_Paint;
@@ -1291,13 +1292,13 @@ internal partial class OrreryForm : BaseKryptonForm
 		if (_isPlaying)
 		{
 			_animationTimer.Start();
-			buttonPlayPause.Text = "&Pause";
+			buttonPlayPause.Text = I18nStrings.PauseButtonText;
 			buttonPlayPause.Image = Resources.FatcowIcons16px.fatcow_control_pause_blue_16px;
 		}
 		else
 		{
 			_animationTimer.Stop();
-			buttonPlayPause.Text = "&Play";
+			buttonPlayPause.Text = I18nStrings.PlayButtonText;
 			buttonPlayPause.Image = Resources.FatcowIcons16px.fatcow_control_play_blue_16px;
 		}
 	}
