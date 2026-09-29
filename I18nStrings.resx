@@ -361,4 +361,34 @@
   <data name="BookmarkNoEntries" xml:space="preserve">
     <value>(No bookmarks)</value>
   </data>
+  <data name="AeiDiagram3DCanvasAccessibleDescription" xml:space="preserve">
+    <value>Displays the three-dimensional a, e, i point cloud with camera controls.</value>
+  </data>
+  <data name="AeiDiagram3DCanvasAccessibleName" xml:space="preserve">
+    <value>Orbital diagram 3D OpenGL canvas</value>
+  </data>
+  <data name="NoPlanetoidDataAvailableText" xml:space="preserve">
+    <value>No planetoid data available.</value>
+  </data>
+  <data name="GenerationCanceledText" xml:space="preserve">
+    <value>Generation canceled. Press Start to run again.</value>
+  </data>
+  <data name="OrreryCanvasAccessibleDescription" xml:space="preserve">
+    <value>OpenGL rendering surface for the orrery</value>
+  </data>
+  <data name="OrreryCanvasAccessibleName" xml:space="preserve">
+    <value>Orrery rendering surface</value>
+  </data>
+  <data name="PauseButtonText" xml:space="preserve">
+    <value>&amp;Pause</value>
+  </data>
+  <data name="PlayButtonText" xml:space="preserve">
+    <value>&amp;Play</value>
+  </data>
+  <data name="ResumeButtonText" xml:space="preserve">
+    <value>&amp;Resume</value>
+  </data>
+  <data name="StartButtonText" xml:space="preserve">
+    <value>&amp;Start</value>
+  </data>
 </root>
