@@ -21,13 +21,10 @@ namespace Planetoid_DB;
 /// <remarks>This form is used to visualize the three-dimensional a, e, i point cloud for all known planetoids, providing interactive camera controls for rotation, zoom, and pan.</remarks>
 internal partial class AEIDiagram3DForm
 {
-	/// <summary>
-	/// 
-	/// </summary>
-	/// <param name="X"></param>
-	/// <param name="Y"></param>
-	/// <param name="Z"></param>
-	/// <remarks></remarks>
+	/// <summary>Represents one point's scaled coordinates in the 3D diagram's render space.</summary>
+	/// <param name="X">The scaled render-space X coordinate.</param>
+	/// <param name="Y">The scaled render-space Y coordinate.</param>
+	/// <param name="Z">The scaled render-space Z coordinate.</param>
 	// You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
 	[DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
 	private readonly record struct RenderPoint(float X, float Y, float Z)
