@@ -51,8 +51,8 @@ internal class ListViewItemComparer(int column, SortOrder order) : System.Collec
 		string textX = column < itemX.SubItems.Count ? itemX.SubItems[column].Text : string.Empty;
 		string textY = column < itemY.SubItems.Count ? itemY.SubItems[column].Text : string.Empty;
 		// Attempt to parse both texts as numbers using the current culture for accurate numeric comparison
-		bool isNumX = double.TryParse(s: textX, style: NumberStyles.Any, provider: CultureInfo.InvariantCulture, result: out double numX);
-		bool isNumY = double.TryParse(s: textY, style: NumberStyles.Any, provider: CultureInfo.InvariantCulture, result: out double numY);
+		bool isNumX = double.TryParse(s: textX, style: NumberStyles.Any, provider: CultureInfo.CurrentCulture, result: out double numX);
+		bool isNumY = double.TryParse(s: textY, style: NumberStyles.Any, provider: CultureInfo.CurrentCulture, result: out double numY);
 		// Compare numeric/text category first to keep numeric values grouped before text values (regardless of sort direction).
 		int categoryResult = (isNumX ? 0 : 1).CompareTo(isNumY ? 0 : 1);
 		if (categoryResult != 0)
