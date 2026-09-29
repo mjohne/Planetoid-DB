@@ -2830,6 +2830,7 @@ partial class PlanetoidDbForm
 		toolStripMenuItemPlanetaryInformation.Image = FatcowIcons16px.fatcow_earth_night_16px;
 		toolStripMenuItemPlanetaryInformation.Name = "toolStripMenuItemPlanetaryInformation";
 		toolStripMenuItemPlanetaryInformation.ShortcutKeyDisplayString = "Strg+P";
+		toolStripMenuItemPlanetaryInformation.ShortcutKeys = (Keys)(Keys.Control) | (Keys.P);
 		toolStripMenuItemPlanetaryInformation.Size = new Size(232, 22);
 		toolStripMenuItemPlanetaryInformation.Text = "&Planetary information";
 		toolStripMenuItemPlanetaryInformation.Click += (this.PlanetaryInformation_Click);
