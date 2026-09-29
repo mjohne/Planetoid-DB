@@ -31,7 +31,7 @@ internal partial class DerivedElements
 	/// <param name="ResonanceQ">The q value in the integer resonance ratio p:q.</param>
 	/// <param name="DeviationPercent">The percentage deviation of the actual ratio from the integer ratio.</param>
 	/// <remarks>This record is used to represent an orbital resonance between a planetoid and a solar system planet.</remarks>
-	[DebuggerDisplay($"{{{nameof(DebuggerDisplay)},nq}}")]
+	[DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
 	internal record OrbitalResonance(string PlanetName, double PlanetPeriod, double PlanetoidPeriod, double Ratio, int ResonanceP, int ResonanceQ, double DeviationPercent)
 	{
 		/// <summary>Returns a string representation of the orbital resonance for debugging purposes.</summary>
