@@ -26,7 +26,7 @@ internal partial class DatabaseDifferencesForm
 	/// <param name="Designation">The designation or label associated with the item being compared, providing context for the comparison.</param>
 	/// <param name="Difference">The difference observed between the compared items, detailing the nature of the discrepancy.</param>
 	/// <remarks>This record struct is used to encapsulate the result of a comparison between two items, including their index, designation, and the observed difference.</remarks>
-	[DebuggerDisplay($"{{{nameof(DebuggerDisplay)},nq}}")]
+	[DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
 	private record struct DifferenceResult(string Index, string Designation, string Difference)
 	{
 		/// <summary>Returns a short debugger display string for this instance.</summary>
