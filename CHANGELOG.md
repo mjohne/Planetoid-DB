@@ -2,7 +2,7 @@
 
 * Updated `README.md` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1191
 * Updated `CHANGELOG.md` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1192
-* Fixed incorrect parsing of `CurrentInfo.CurrentCulture` in conjunction with `double.TryParse` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1194
+* Fixed incorrect parsing of `CultureInfo.CurrentCulture` in conjunction with `double.TryParse` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1194
 * Added new application icon by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1196
 * Created `ATTRIBUTIONS.md` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1197
 * Deleted `THIRD_PARTY_NOTICES.md` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1198
