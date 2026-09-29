@@ -250,6 +250,7 @@ internal partial class OrreryForm : BaseKryptonForm
 	{
 		_sourceLines = planetoids ?? [];
 		InitializeComponent();
+		buttonPlayPause.Text = I18nStrings.PlayButtonText;
 		_animationTimer = new System.Windows.Forms.Timer(container: components!) { Interval = 33 };
 		_animationTimer.Tick += AnimationTimer_Tick;
 		logger.Info(message: "OrreryForm initialized with {0} source planetoid records.", args: _sourceLines.Count);
