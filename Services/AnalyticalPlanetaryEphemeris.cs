@@ -23,6 +23,12 @@ namespace Planetoid_DB.Services;
 /// </remarks>
 internal sealed class AnalyticalPlanetaryEphemeris : IPlanetaryEphemeris
 {
+	/// <summary>The first supported Julian date (1800-01-01T00:00:00 TDB).</summary>
+	private const double EarliestSupportedJulianDateTdb = 2378496.5;
+
+	/// <summary>The last supported Julian date (2051-01-01T00:00:00 TDB, exclusive).</summary>
+	private const double LatestSupportedJulianDateTdb = 2470172.5;
+
 	/// <summary>Keplerian elements and rates per Julian century: a [AU], e, I [°], L [°], ϖ [°], Ω [°].</summary>
 	private static readonly Dictionary<SolarSystemBody, double[]> Elements = new()
 	{
@@ -42,6 +48,10 @@ internal sealed class AnalyticalPlanetaryEphemeris : IPlanetaryEphemeris
 	/// <inheritdoc/>
 	public Vector3D GetHeliocentricPosition(SolarSystemBody body, double julianDateTdb)
 	{
+		if (!double.IsFinite(d: julianDateTdb) || julianDateTdb < EarliestSupportedJulianDateTdb || julianDateTdb >= LatestSupportedJulianDateTdb)
+		{
+			throw new ArgumentOutOfRangeException(paramName: nameof(julianDateTdb), actualValue: julianDateTdb, message: "The analytical ephemeris is valid only from 1800 through 2050.");
+		}
 		switch (body)
 		{
 			case SolarSystemBody.Sun:

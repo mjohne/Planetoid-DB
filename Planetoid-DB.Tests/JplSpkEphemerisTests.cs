@@ -115,6 +115,18 @@ public sealed class JplSpkEphemerisTests : IDisposable
 		_ = Assert.Throws<ArgumentOutOfRangeException>(testCode: () => ephemeris.GetHeliocentricPosition(body: SolarSystemBody.Mars, julianDateTdb: AstronomicalConstants.JulianDateJ2000));
 	}
 
+	/// <summary>The later segment is selected at an exact shared segment boundary.</summary>
+	[Fact]
+	public void GetHeliocentricPosition_AtSegmentBoundary_LaterSegmentTakesPrecedence()
+	{
+		double au = AstronomicalConstants.AstronomicalUnitKm;
+		WriteSpk((10, 0, new double[9]), (3, 0, [au, 0, 0, 0, 0, 0, 0, 0, 0]), (3, 0, [2.0 * au, 0, 0, 0, 0, 0, 0, 0, 0]));
+		using JplSpkEphemeris ephemeris = new(path);
+		double boundary = Math.BitDecrement(x: AstronomicalConstants.JulianDateJ2000 + (Radius / AstronomicalConstants.SecondsPerDay));
+		Vector3D position = ephemeris.GetHeliocentricPosition(body: SolarSystemBody.EarthMoonBarycenter, julianDateTdb: boundary);
+		Assert.Equal(expected: 2.0, actual: position.X, precision: 9);
+	}
+
 	/// <summary>Files that are not SPK files are rejected.</summary>
 	[Fact]
 	public void Constructor_NotAnSpkFile_Throws()
@@ -122,5 +134,25 @@ public sealed class JplSpkEphemerisTests : IDisposable
 		File.WriteAllBytes(path: path, bytes: new byte[2048]);
 		_ = Assert.Throws<InvalidDataException>(testCode: () => new JplSpkEphemeris(path));
 		_ = Assert.Throws<ArgumentException>(testCode: () => new JplSpkEphemeris());
+	}
+
+	/// <summary>Malformed summary record counts are rejected as invalid data.</summary>
+	/// <param name="summaryCount">The malformed summary count.</param>
+	[Theory]
+	[InlineData(-1.0)]
+	[InlineData(1.5)]
+	[InlineData(26.0)]
+	[InlineData(double.NaN)]
+	public void Constructor_InvalidSummaryCount_Throws(double summaryCount)
+	{
+		WriteSpk((10, 0, new double[9]));
+		using (FileStream stream = new(path, FileMode.Open, FileAccess.Write, FileShare.None))
+		{
+			stream.Position = 1024 + 16;
+			Span<byte> bytes = stackalloc byte[sizeof(double)];
+			BinaryPrimitives.WriteDoubleLittleEndian(destination: bytes, value: summaryCount);
+			stream.Write(buffer: bytes);
+		}
+		_ = Assert.Throws<InvalidDataException>(testCode: () => new JplSpkEphemeris(path));
 	}
 }

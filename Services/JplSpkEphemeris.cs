@@ -177,7 +177,13 @@ internal sealed class JplSpkEphemeris : IPlanetaryEphemeris, IDisposable
 		{
 			byte[] summaryRecord = ReadBytes(stream: stream, offset: (long)(record - 1) * RecordLength, count: RecordLength);
 			int next = (int)BitConverter.ToDouble(value: summaryRecord, startIndex: 0);
-			int count = (int)BitConverter.ToDouble(value: summaryRecord, startIndex: 16);
+			double summaryCount = BitConverter.ToDouble(value: summaryRecord, startIndex: 16);
+			int maximumSummaryCount = (RecordLength - 24) / (summaryDoubles * sizeof(double));
+			if (!double.IsFinite(d: summaryCount) || summaryCount < 0 || summaryCount > maximumSummaryCount || summaryCount != Math.Truncate(d: summaryCount))
+			{
+				throw new InvalidDataException(message: $"The SPK summary record has an invalid summary count ({summaryCount}).");
+			}
+			int count = (int)summaryCount;
 			for (int i = 0; i < count; i++)
 			{
 				int offset = 24 + (i * summaryDoubles * 8);

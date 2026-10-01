@@ -55,7 +55,7 @@ internal static class VisibilityCalculator
 	/// <remarks>An unknown magnitude only passes if no real limiting magnitude (≥ 99 mag) is configured.</remarks>
 	public static bool IsVisible(double objectAltitudeDegrees, double sunAltitudeDegrees, double apparentMagnitude, double moonSeparationDegrees, VisibilityCriteria criteria)
 	{
-		bool aboveHorizon = objectAltitudeDegrees > criteria.MinimumObjectAltitudeDegrees;
+		bool aboveHorizon = objectAltitudeDegrees >= criteria.MinimumObjectAltitudeDegrees;
 		bool darkSky = sunAltitudeDegrees <= criteria.MaximumSunAltitudeDegrees;
 		bool brightEnough = double.IsNaN(d: apparentMagnitude) ? criteria.LimitingMagnitude >= 99.0 : apparentMagnitude <= criteria.LimitingMagnitude;
 		bool farFromMoon = moonSeparationDegrees >= criteria.MinimumMoonSeparationDegrees;

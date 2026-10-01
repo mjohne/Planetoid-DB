@@ -110,6 +110,39 @@ public sealed class EphemerisServiceTests
 		Assert.True(condition: Math.Abs(value: twoBody.DeclinationDegrees - perturbed.DeclinationDegrees) < 0.05);
 	}
 
+	/// <summary>Long-span perturbations produce positions measurably different from two-body propagation in both directions.</summary>
+	[Fact]
+	public void Calculate_PerturbedModel_LongSpanDiffersFromTwoBody()
+	{
+		foreach (string date in new[] { "2015-05-05T00:00:00Z", "2035-05-05T00:00:00Z" })
+		{
+			DateTimeOffset time = TestData.Utc(text: date);
+			EphemerisEntry twoBody = Calculate(times: [time], model: PropagationModel.TwoBody)[0];
+			EphemerisEntry perturbed = Calculate(times: [time], model: PropagationModel.Perturbed)[0];
+			double deltaRightAscensionDegrees = Math.Abs(value: twoBody.RightAscensionHours - perturbed.RightAscensionHours) * 15.0;
+			deltaRightAscensionDegrees = Math.Min(val1: deltaRightAscensionDegrees, val2: 360.0 - deltaRightAscensionDegrees);
+			double deltaDeclinationDegrees = Math.Abs(value: twoBody.DeclinationDegrees - perturbed.DeclinationDegrees);
+			Assert.True(condition: Math.Sqrt((deltaRightAscensionDegrees * deltaRightAscensionDegrees) + (deltaDeclinationDegrees * deltaDeclinationDegrees)) > 0.001,
+				userMessage: $"The perturbed and two-body models unexpectedly agree on {date}.");
+		}
+	}
+
+	/// <summary>The analytical planetary ephemeris rejects dates outside its fitted interval.</summary>
+	[Fact]
+	public void AnalyticalEphemeris_DateOutsideValidityRange_Throws()
+	{
+		AnalyticalPlanetaryEphemeris ephemeris = new();
+		_ = Assert.Throws<ArgumentOutOfRangeException>(testCode: () => ephemeris.GetHeliocentricPosition(
+			body: SolarSystemBody.Earth,
+			julianDateTdb: 2378496.499));
+		_ = Assert.Throws<ArgumentOutOfRangeException>(testCode: () => ephemeris.GetHeliocentricPosition(
+			body: SolarSystemBody.Earth,
+			julianDateTdb: 2470172.5));
+		_ = Assert.Throws<ArgumentOutOfRangeException>(testCode: () => ephemeris.GetHeliocentricPosition(
+			body: SolarSystemBody.Sun,
+			julianDateTdb: double.NaN));
+	}
+
 	/// <summary>A cancelled calculation throws <see cref="OperationCanceledException"/>.</summary>
 	/// <returns>A task representing the asynchronous test.</returns>
 	[Fact]
@@ -166,6 +199,7 @@ public sealed class EphemerisServiceTests
 	{
 		VisibilityCriteria criteria = new(MinimumObjectAltitudeDegrees: 20.0, MaximumSunAltitudeDegrees: -12.0, LimitingMagnitude: 15.0, MinimumMoonSeparationDegrees: 10.0);
 		Assert.True(condition: VisibilityCalculator.IsVisible(objectAltitudeDegrees: 30.0, sunAltitudeDegrees: -20.0, apparentMagnitude: 12.0, moonSeparationDegrees: 40.0, criteria: criteria));
+		Assert.True(condition: VisibilityCalculator.IsVisible(objectAltitudeDegrees: criteria.MinimumObjectAltitudeDegrees, sunAltitudeDegrees: -20.0, apparentMagnitude: 12.0, moonSeparationDegrees: 40.0, criteria: criteria));
 		Assert.False(condition: VisibilityCalculator.IsVisible(objectAltitudeDegrees: -5.0, sunAltitudeDegrees: -20.0, apparentMagnitude: 12.0, moonSeparationDegrees: 40.0, criteria: criteria));
 		Assert.False(condition: VisibilityCalculator.IsVisible(objectAltitudeDegrees: 30.0, sunAltitudeDegrees: -6.0, apparentMagnitude: 12.0, moonSeparationDegrees: 40.0, criteria: criteria));
 		Assert.False(condition: VisibilityCalculator.IsVisible(objectAltitudeDegrees: 30.0, sunAltitudeDegrees: -20.0, apparentMagnitude: 16.0, moonSeparationDegrees: 40.0, criteria: criteria));

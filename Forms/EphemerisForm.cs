@@ -99,6 +99,9 @@ internal partial class EphemerisForm : BaseKryptonForm
 	/// <summary>The cancellation source of the running calculation.</summary>
 	private CancellationTokenSource? cancellationTokenSource;
 
+	/// <summary>Whether the form should close after a running calculation has stopped.</summary>
+	private bool closeAfterCalculation;
+
 	/// <summary>The optionally loaded JPL SPK ephemeris (DE440/DE441).</summary>
 	private JplSpkEphemeris? jplEphemeris;
 
@@ -359,8 +362,13 @@ internal partial class EphemerisForm : BaseKryptonForm
 	/// <param name="e">The event data.</param>
 	protected override void OnFormClosing(FormClosingEventArgs e)
 	{
-		cancellationTokenSource?.Cancel();
 		base.OnFormClosing(e: e);
+		if (!e.Cancel && cancellationTokenSource is not null)
+		{
+			closeAfterCalculation = true;
+			cancellationTokenSource.Cancel();
+			e.Cancel = true;
+		}
 	}
 
 	/// <summary>Releases the loaded JPL ephemeris when the form is closed.</summary>
@@ -467,6 +475,11 @@ internal partial class EphemerisForm : BaseKryptonForm
 			if (!IsDisposed)
 			{
 				SetRunningState(running: false);
+				if (closeAfterCalculation)
+				{
+					closeAfterCalculation = false;
+					Close();
+				}
 			}
 		}
 	}
