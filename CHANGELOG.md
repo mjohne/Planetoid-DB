@@ -1,5 +1,6 @@
 ## Planetoid-DB 0.9.31.94
 
+* Added ephemeris calculation (RA/Dec, Az/Alt, visibility, time series, chart, CSV export, optional JPL DE440/DE441 ephemeris, perturbed orbit propagation) and a unit test project (Fixes #265)
 * Updated `README.md` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1191
 * Updated `CHANGELOG.md` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1192
 * Fixed incorrect parsing of `CultureInfo.CurrentCulture` in conjunction with `double.TryParse` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1194

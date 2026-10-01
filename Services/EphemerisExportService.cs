@@ -22,7 +22,7 @@ namespace Planetoid_DB.Services;
 internal static class EphemerisExportService
 {
 	/// <summary>The CSV header with explicit units and reference frames.</summary>
-	public const string CsvHeader = "Time (UTC, ISO 8601),RA (h, ICRF/J2000),RA (hms),Dec (deg, ICRF/J2000),Dec (dms),Azimuth (deg, N=0 E=90),Altitude (deg),Delta (AU),r (AU),Phase angle (deg),Elongation (deg),V (mag),Sun altitude (deg),Moon distance (deg),Visible";
+	public const string CsvHeader = "Time (UTC; ISO 8601),RA (h; ICRF/J2000),RA (hms),Dec (deg; ICRF/J2000),Dec (dms),Azimuth (deg; N=0 E=90),Altitude (deg),Delta (AU),r (AU),Phase angle (deg),Elongation (deg),V (mag),Sun altitude (deg),Moon distance (deg),Visible";
 
 	/// <summary>Formats a right ascension as sexagesimal hours (<c>HH MM SS.SS</c>).</summary>
 	/// <param name="hours">The right ascension in hours.</param>
