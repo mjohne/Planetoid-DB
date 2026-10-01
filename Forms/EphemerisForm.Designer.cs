@@ -64,7 +64,6 @@ partial class EphemerisForm
 		dateTimePickerEphemeridesEnd = new KryptonDateTimePicker();
 		labelEphemeridesBegin = new KryptonLabel();
 		dateTimePickerEphemeridesBegin = new KryptonDateTimePicker();
-		backgroundWorker = new BackgroundWorker();
 		kryptonManager = new KryptonManager(components);
 		kryptonStatusStrip.SuspendLayout();
 		toolStripContainer.BottomToolStripPanel.SuspendLayout();
@@ -342,14 +341,6 @@ partial class EphemerisForm
 		dateTimePickerEphemeridesBegin.MouseEnter += Control_Enter;
 		dateTimePickerEphemeridesBegin.MouseLeave += Control_Leave;
 		// 
-		// backgroundWorker
-		// 
-		backgroundWorker.WorkerReportsProgress = true;
-		backgroundWorker.WorkerSupportsCancellation = true;
-		backgroundWorker.DoWork += BackgroundWorker_DoWork;
-		backgroundWorker.ProgressChanged += BackgroundWorker_ProgressChanged;
-		backgroundWorker.RunWorkerCompleted += BackgroundWorker_RunWorkerCompleted;
-		// 
 		// kryptonManager
 		// 
 		kryptonManager.GlobalPaletteMode = PaletteMode.Global;
@@ -397,7 +388,6 @@ partial class EphemerisForm
 	private ToolStripContainer toolStripContainer;
 	private KryptonPanel kryptonPanelMain;
 	private KryptonDateTimePicker dateTimePickerEphemeridesBegin;
-	private BackgroundWorker backgroundWorker;
 	private KryptonLabel labelEphemeridesEnd;
 	private KryptonDateTimePicker dateTimePickerEphemeridesEnd;
 	private KryptonLabel labelEphemeridesBegin;
