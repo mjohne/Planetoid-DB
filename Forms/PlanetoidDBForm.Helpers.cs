@@ -1068,6 +1068,40 @@ public partial class PlanetoidDbForm
 		_ = formMaxoidsOfAll.ShowDialog(owner: this);
 	}
 
+	/// <summary>Adds the "Ephemerides" entry to the observations menu.</summary>
+	/// <remarks>The entry opens the <see cref="EphemerisForm"/> for the currently displayed minor planet.</remarks>
+	private void AddEphemerisMenuItem()
+	{
+		ToolStripMenuItem toolStripMenuItemEphemerides = new()
+		{
+			AccessibleDescription = "Calculates the ephemerides and visibility of the current minor planet",
+			AccessibleName = "Ephemerides",
+			AccessibleRole = AccessibleRole.MenuItem,
+			AutoToolTip = true,
+			Name = "toolStripMenuItemEphemerides",
+			Text = "&Ephemerides..."
+		};
+		toolStripMenuItemEphemerides.Click += (_, _) => ShowEphemerides();
+		toolStripMenuItemEphemerides.MouseEnter += Control_Enter;
+		toolStripMenuItemEphemerides.MouseLeave += Control_Leave;
+		_ = toolStripMenuItemObservations.DropDownItems.Add(value: toolStripMenuItemEphemerides);
+	}
+
+	/// <summary>Shows the ephemeris form for the currently displayed minor planet.</summary>
+	/// <remarks>Passes the raw MPCORB record of the current minor planet to the form.</remarks>
+	private void ShowEphemerides()
+	{
+		if (currentPosition < 0 || currentPosition >= planetoidsDatabase.Count)
+		{
+			logger.Warn(message: "No minor planet selected for the ephemeris calculation.");
+			return;
+		}
+		logger.Info(message: "Opening ephemeris form for the current minor planet.");
+		using EphemerisForm formEphemeris = new(mpcorbRecord: planetoidsDatabase[currentPosition]);
+		formEphemeris.TopMost = TopMost;
+		_ = formEphemeris.ShowDialog(owner: this);
+	}
+
 	/// <summary>Shows the histogram form. Opens the form to display histograms of orbital elements and properties of all minor planets.</summary>
 	/// <remarks>Passes the full planetoids database to the form so it can create histograms of various properties.</remarks>
 	private void ShowHistogram()
