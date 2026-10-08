@@ -13,6 +13,7 @@
 * Added `ScatterplotsForm.ScatterPoint` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1204
 * Added `RecordsForm.RecordProgressUpdate` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1205
 * Added `OrbitElementsGroupingForm.PlanetoidData` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1206
+* Added ephemeris calculation (`EphemerisForm`, `EphemerisService`, JPL DE440/DE441 support, visibility, CSV export) and unit tests (fixes #265) by @Claude
 * Added `MoidsOfAllMinorPlanetsForm.MoidRowResult` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1207
 * Added `DatabaseDifferencesForm.DifferenceResult` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1208
 * Added `AEIDiagram3DForm.AeiPoint` and `AEIDiagram3DForm.RenderPoint` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1209

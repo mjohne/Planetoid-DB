@@ -822,6 +822,9 @@ Public License instead of this License.  But first, please read
 
   <ItemGroup>
     <Compile Remove="PlanetoidDBForm.CalculateDerivatedElements.cs" />
+    <Compile Remove="Tests\**" />
+    <EmbeddedResource Remove="Tests\**" />
+    <None Remove="Tests\**" />
   </ItemGroup>
 
   <ItemGroup>
