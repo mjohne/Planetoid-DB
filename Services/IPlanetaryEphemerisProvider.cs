@@ -1,0 +1,41 @@
+/*
+ * File:        IPlanetaryEphemerisProvider.cs
+ * Project:     Planetoid-DB
+ * Namespace:   Planetoid_DB.Services
+ * Description: Defines a source of positions of the major solar system bodies.
+ *
+ * Author:      Michael Johne
+ * Company:     Mijo Software
+ *
+ * Copyright (c) 2026 Michael Johne
+ *
+ * Licensed under the GNU General Public License v3.0.
+ * See LICENSE file in the project root for license information.
+ */
+
+namespace Planetoid_DB.Services;
+
+/// <summary>Defines a source of positions of the major solar system bodies (e.g. JPL DE440/DE441 or an analytical theory).</summary>
+/// <remarks>All positions are expressed in astronomical units [AU] in the ICRF/J2000 equatorial frame; times are Julian dates in TDB.</remarks>
+internal interface IPlanetaryEphemerisProvider
+{
+	/// <summary>Gets a human-readable name of the ephemeris (e.g. "JPL DE440").</summary>
+	string Name { get; }
+
+	/// <summary>Gets the first Julian date (TDB) covered by the ephemeris.</summary>
+	double StartJulianDate { get; }
+
+	/// <summary>Gets the last Julian date (TDB) covered by the ephemeris.</summary>
+	double EndJulianDate { get; }
+
+	/// <summary>Gets the heliocentric position of a body.</summary>
+	/// <param name="body">The body.</param>
+	/// <param name="julianDateTdb">The Julian date (TDB) [d].</param>
+	/// <returns>The heliocentric position [AU], ICRF/J2000 equatorial.</returns>
+	Vector3d GetHeliocentricPosition(SolarSystemBody body, double julianDateTdb);
+
+	/// <summary>Gets the geocentric position of the Moon.</summary>
+	/// <param name="julianDateTdb">The Julian date (TDB) [d].</param>
+	/// <returns>The geocentric position of the Moon [AU], ICRF/J2000 equatorial.</returns>
+	Vector3d GetGeocentricMoonPosition(double julianDateTdb);
+}

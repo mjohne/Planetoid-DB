@@ -1608,6 +1608,16 @@ public partial class PlanetoidDbForm
 		ShowTisserandParameters();
 	}
 
+	/// <summary>Handles the click event for the ToolStripMenuItemEphemerides. Shows the ephemerides form.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method is used to show the ephemerides form for the currently selected minor planet.</remarks>
+	private void Ephemerides_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: "Showing ephemerides form");
+		ShowEphemerides();
+	}
+
 	/// <summary>Handles the click event for the ToolStripMenuItemTisserandParametersOfAllMinorPlanets. Shows the Tisserand parameters of all minor planets form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>

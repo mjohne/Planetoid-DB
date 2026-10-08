@@ -211,6 +211,7 @@ partial class PlanetoidDbForm
 		toolStripMenuItemTisserandParameterOfOneMinorPlanet = new ToolStripMenuItem();
 		toolStripMenuItemTisserandParameterOfAllMinorPlanets = new ToolStripMenuItem();
 		toolStripMenuItemOrbitalResonances = new ToolStripMenuItem();
+		toolStripMenuItemEphemerides = new ToolStripMenuItem();
 		toolStripMenuItemOrbitalResonancesOfOneMinorPlanet = new ToolStripMenuItem();
 		toolStripMenuItemOrbitalResonancesOfAllMinorPlanets = new ToolStripMenuItem();
 		toolStripMenuItemObservations = new ToolStripMenuItem();
@@ -3216,7 +3217,7 @@ partial class PlanetoidDbForm
 		toolStripMenuItemGroupDynamics.AccessibleName = "Dynamics";
 		toolStripMenuItemGroupDynamics.AccessibleRole = AccessibleRole.MenuPopup;
 		toolStripMenuItemGroupDynamics.AutoToolTip = true;
-		toolStripMenuItemGroupDynamics.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemTisserandParameters, toolStripMenuItemOrbitalResonances });
+		toolStripMenuItemGroupDynamics.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemTisserandParameters, toolStripMenuItemOrbitalResonances, toolStripMenuItemEphemerides });
 		toolStripMenuItemGroupDynamics.Name = "toolStripMenuItemGroupDynamics";
 		toolStripMenuItemGroupDynamics.Size = new Size(183, 22);
 		toolStripMenuItemGroupDynamics.Text = "&Dynamics";
@@ -3261,6 +3262,19 @@ partial class PlanetoidDbForm
 		toolStripMenuItemTisserandParameterOfAllMinorPlanets.Click += (this.TisserandParametersOfAllMinorPlanets_Click);
 		toolStripMenuItemTisserandParameterOfAllMinorPlanets.MouseEnter += (this.Control_Enter);
 		toolStripMenuItemTisserandParameterOfAllMinorPlanets.MouseLeave += (this.Control_Leave);
+		// 
+		// toolStripMenuItemEphemerides
+		// 
+		toolStripMenuItemEphemerides.AccessibleDescription = "Calculates the ephemerides of the current minor planet";
+		toolStripMenuItemEphemerides.AccessibleName = "Ephemerides";
+		toolStripMenuItemEphemerides.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemEphemerides.AutoToolTip = true;
+		toolStripMenuItemEphemerides.Name = "toolStripMenuItemEphemerides";
+		toolStripMenuItemEphemerides.Size = new Size(288, 22);
+		toolStripMenuItemEphemerides.Text = "&Ephemerides";
+		toolStripMenuItemEphemerides.Click += (this.Ephemerides_Click);
+		toolStripMenuItemEphemerides.MouseEnter += (this.Control_Enter);
+		toolStripMenuItemEphemerides.MouseLeave += (this.Control_Leave);
 		// 
 		// toolStripMenuItemOrbitalResonances
 		// 
@@ -9839,6 +9853,7 @@ partial class PlanetoidDbForm
 	private ToolStripMenuItem toolStripMenuItemMoidsRelativeToMinorPlanets;
 	private ToolStripMenuItem toolStripMenuItemMaxoidsRelativeToMinorPlanets;
 	private ToolStripMenuItem toolStripMenuItemOrbitalResonances;
+	private ToolStripMenuItem toolStripMenuItemEphemerides;
 	private ToolStripMenuItem toolStripMenuItemOrbitalResonancesOfOneMinorPlanet;
 	private ToolStripMenuItem toolStripMenuItemOrbitalResonancesOfAllMinorPlanets;
 	private ToolStripMenuItem toolStripMenuItemObservations;

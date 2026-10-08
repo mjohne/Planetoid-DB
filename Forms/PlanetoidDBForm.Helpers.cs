@@ -1169,6 +1169,23 @@ public partial class PlanetoidDbForm
 		_ = formOrbit3D.ShowDialog(owner: this);
 	}
 
+	/// <summary>Shows the ephemerides form for the current planetoid.</summary>
+	/// <remarks>Passes the raw MPCORB record of the current planetoid to the <see cref="EphemerisForm"/>.</remarks>
+	private void ShowEphemerides()
+	{
+		// Create a new instance of the EphemerisForm
+		using EphemerisForm formEphemeris = new();
+		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
+		formEphemeris.TopMost = TopMost;
+		// Pass the raw MPCORB record of the current planetoid to the form
+		string? rawRecord = currentPosition >= 0 && currentPosition < planetoidsDatabase.Count
+			? planetoidsDatabase[index: currentPosition]?.ToString()
+			: null;
+		formEphemeris.SetPlanetoidRecord(rawRecord: rawRecord);
+		// Show the ephemerides form as a modal dialog
+		_ = formEphemeris.ShowDialog(owner: this);
+	}
+
 	/// <summary>Shows the Tisserand parameters form for the current planetoid.</summary>
 	/// <remarks>Parses the semi-major axis, eccentricity, and inclination from the UI labels and opens the <see cref="TisserandParameterOfOneMinorPlanetForm"/>.</remarks>
 	private void ShowTisserandParameters()
