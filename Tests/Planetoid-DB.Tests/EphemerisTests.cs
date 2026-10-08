@@ -342,14 +342,19 @@ public sealed class EphemerisTests
 		try
 		{
 			CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo(name: "de-DE");
-			EphemerisEntry entry = new(Time: new DateTimeOffset(year: 2025, month: 1, day: 1, hour: 23, minute: 0, second: 0, offset: TimeSpan.FromHours(hours: 1)), RightAscensionHours: 12.5, DeclinationDegrees: -10.25, AzimuthDegrees: 180.5, AltitudeDegrees: -1.5, DistanceAu: 1.25, ApparentMagnitude: double.NaN, IsVisible: false);
+			EphemerisEntry entry = new(Time: new DateTimeOffset(year: 2025, month: 1, day: 1, hour: 23, minute: 0, second: 0, offset: TimeSpan.FromHours(hours: 1)), RightAscensionHours: 12.5, DeclinationDegrees: -10.25, AzimuthDegrees: 180.5, AltitudeDegrees: -1.5, DistanceAu: 1.25, ApparentMagnitude: double.NaN, IsVisible: false, AstrometricRightAscensionHours: 7.5, AstrometricDeclinationDegrees: 23.25);
 			string csv = EphemerisExportService.ToCsv(entries: [entry], designation: "(1) Ceres", observer: TestData.Greenwich);
 			string[] lines = csv.Split(separator: Environment.NewLine, options: StringSplitOptions.RemoveEmptyEntries);
+			string[] fields = lines[3].Split(separator: ',');
 			Assert.Equal(expected: "# Object: (1) Ceres", actual: lines[0]);
 			Assert.Equal(expected: EphemerisExportService.CsvHeader, actual: lines[2]);
 			Assert.StartsWith(expectedStartString: "2025-01-01T22:00:00Z,12.500000,12h 30m 00.00s,-10.25000,", actualString: lines[3]);
 			Assert.EndsWith(expectedEndString: ",,,,,,no", actualString: lines[3]);
-			Assert.Equal(expected: 19, actual: lines[3].Split(separator: ',').Length);
+			Assert.Equal(expected: "7.500000", actual: fields[5]);
+			Assert.Equal(expected: "07h 30m 00.00s", actual: fields[6]);
+			Assert.Equal(expected: "23.25000", actual: fields[7]);
+			Assert.Equal(expected: "+23° 15′ 00.0″", actual: fields[8]);
+			Assert.Equal(expected: 19, actual: fields.Length);
 		}
 		finally
 		{
