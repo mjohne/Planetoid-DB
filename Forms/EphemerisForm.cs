@@ -131,7 +131,7 @@ internal partial class EphemerisForm : BaseKryptonForm
 	private void CreateColumns()
 	{
 		listView.Columns.Clear();
-		string[] headers = ["Time (UTC)", "RA (h m s)", "Dec (° ′ ″)", "Azimuth (°)", "Altitude (°)", "Distance Δ (AU)", "Sun dist. r (AU)", "Mag. (mag)", "Phase (°)", "Elongation (°)", "Sun alt. (°)", "Moon dist. (°)", "Visible"];
+		string[] headers = ["Time (UTC)", "RA J2000 (h m s)", "Dec J2000 (° ′ ″)", "RA of date (h m s)", "Dec of date (° ′ ″)", "Azimuth (°)", "Altitude (°)", "Distance Δ (AU)", "Sun dist. r (AU)", "Mag. (mag)", "Phase (°)", "Elongation (°)", "Sun alt. (°)", "Moon dist. (°)", "Visible"];
 		foreach (string header in headers)
 		{
 			_ = listView.Columns.Add(text: header, width: header.Length > 12 ? 110 : 90);
@@ -156,6 +156,8 @@ internal partial class EphemerisForm : BaseKryptonForm
 				items[i] = new ListViewItem(items:
 				[
 					e.Time.UtcDateTime.ToString(format: "yyyy-MM-dd HH:mm", provider: ic),
+					CoordinateTransformationService.FormatRightAscension(hours: e.AstrometricRightAscensionHours),
+					CoordinateTransformationService.FormatDeclination(degrees: e.AstrometricDeclinationDegrees),
 					CoordinateTransformationService.FormatRightAscension(hours: e.RightAscensionHours),
 					CoordinateTransformationService.FormatDeclination(degrees: e.DeclinationDegrees),
 					e.AzimuthDegrees.ToString(format: "0.00", provider: ic),
@@ -334,6 +336,11 @@ internal partial class EphemerisForm : BaseKryptonForm
 			Progress<int> progress = new(handler: SetProgress);
 			lastResult = await service.CalculateAsync(elements: elements, times: times, observer: observer, criteria: criteria, options: options, progress: progress, cancellationToken: cts.Token);
 			lastObserver = observer;
+			if (lastResult.Count > 0 && logger.IsDebugEnabled)
+			{
+				EphemerisEntry first = lastResult[0];
+				logger.Debug(message: string.Create(provider: CultureInfo.InvariantCulture, handler: $"Ephemeris {elements.Designation} at {first.Time.UtcDateTime:O} (JD UTC {TimeScales.ToJulianDateUtc(time: first.Time):0.000000}, {PlanetaryEphemeris.Name}): RA/Dec J2000 {first.AstrometricRightAscensionHours:0.000000} h / {first.AstrometricDeclinationDegrees:0.00000}°, RA/Dec of date {first.RightAscensionHours:0.000000} h / {first.DeclinationDegrees:0.00000}°, Δ {first.DistanceAu:0.000000} AU, r {first.HeliocentricDistanceAu:0.000000} AU"));
+			}
 			ShowResult(entries: lastResult);
 			int visibleCount = lastResult.Count(predicate: static entry => entry.IsVisible);
 			string displayNote = lastResult.Count > MaximumDisplayedResultPoints ? $" The first {MaximumDisplayedResultPoints} are shown in the list." : string.Empty;

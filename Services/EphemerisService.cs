@@ -20,6 +20,8 @@ namespace Planetoid_DB.Services;
 /// <para>Pipeline per time point: UTC → TT/TDB, numerical propagation of the MPCORB osculating elements (Sun + planetary perturbations
 /// + relativistic correction), light-time correction, topocentric parallax (WGS84), annual and diurnal aberration,
 /// precession (IAU 1976) and nutation (IAU 1980) to the true equator of date, horizontal coordinates and optional refraction.</para>
+/// <para>Both the apparent place (true equator and equinox of date) and the astrometric place (ICRF/J2000, as used by the
+/// MPC ephemeris service) are returned. Their difference is dominated by precession (≈ 50″ per year since J2000).</para>
 /// <para>All input and output times are UTC. UT1 is approximated by UTC (|UT1 − UTC| &lt; 0.9 s).</para>
 /// </remarks>
 /// <param name="planetaryEphemeris">The planetary ephemeris (JPL DE440/DE441 or analytical fallback).</param>
@@ -224,7 +226,10 @@ internal sealed class EphemerisService(IPlanetaryEphemerisProvider planetaryEphe
 			topocentric = objectAtEmission - observerHeliocentric;
 		}
 
-		// Apparent place of the object
+		// Astrometric place (ICRF/J2000, as published by the MPC ephemeris service)
+		(double astrometricRa, double astrometricDec) = CoordinateTransformationService.ToRightAscensionDeclination(vector: topocentric);
+
+		// Apparent place of the object (true equator and equinox of date)
 		Vector3d apparent = CoordinateTransformationService.ApplyAberration(direction: topocentric, observerVelocity: observerVelocity);
 		(double ra, double dec) = CoordinateTransformationService.ToRightAscensionDeclination(vector: trueOfDate * apparent);
 		(double azimuth, double altitude) = CoordinateTransformationService.EquatorialToHorizontal(hourAngleDegrees: last - (ra * 15.0), declinationDegrees: dec, latitudeDegrees: observer.LatitudeDegrees);
@@ -269,7 +274,9 @@ internal sealed class EphemerisService(IPlanetaryEphemerisProvider planetaryEphe
 			MoonSeparationDegrees: moonSeparation,
 			PhaseAngleDegrees: phaseAngle,
 			ElongationDegrees: elongation,
-			GeometricAltitudeDegrees: geometricAltitude);
+			GeometricAltitudeDegrees: geometricAltitude,
+			AstrometricRightAscensionHours: astrometricRa,
+			AstrometricDeclinationDegrees: astrometricDec);
 	}
 
 	/// <summary>Computes the position of the object a short time <paramref name="tau"/> before the state epoch (second-order Taylor series).</summary>
