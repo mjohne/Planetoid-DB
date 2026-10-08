@@ -57,6 +57,9 @@ internal partial class EphemerisForm : BaseKryptonForm
 	/// <summary>The observer location captured for the last calculation.</summary>
 	private ObserverLocation? lastObserver;
 
+	/// <summary>Indicates that the form should close after a running calculation has stopped.</summary>
+	private bool closeAfterCalculation;
+
 	/// <summary>The maximum number of result rows displayed in the list.</summary>
 	private const int MaximumDisplayedResultPoints = 2000;
 
@@ -257,6 +260,7 @@ internal partial class EphemerisForm : BaseKryptonForm
 	private void EphemerisForm_Load(object sender, EventArgs e)
 	{
 		ClearStatusBar(label: labelInformation);
+		formsPlot.AccessibleDescription = "Shows the altitude of the object over time (UTC)";
 		DateTime today = DateTime.UtcNow.Date;
 		dateTimePickerEphemeridesBegin.Value = today;
 		dateTimePickerEphemeridesEnd.Value = today.AddDays(value: 30);
@@ -275,8 +279,14 @@ internal partial class EphemerisForm : BaseKryptonForm
 	/// <param name="e">The <see cref="FormClosingEventArgs"/> instance that contains the event data.</param>
 	private void EphemerisForm_FormClosing(object? sender, FormClosingEventArgs e)
 	{
-		cancellationTokenSource?.Cancel();
-		if (cancellationTokenSource is null)
+		if (cancellationTokenSource is not null)
+		{
+			e.Cancel = true;
+			closeAfterCalculation = true;
+			cancellationTokenSource.Cancel();
+			return;
+		}
+		else
 		{
 			jplEphemeris?.Dispose();
 			jplEphemeris = null;
@@ -347,7 +357,12 @@ internal partial class EphemerisForm : BaseKryptonForm
 		finally
 		{
 			cancellationTokenSource = null;
-			if (!IsDisposed && !Disposing)
+			if (closeAfterCalculation)
+			{
+				closeAfterCalculation = false;
+				Close();
+			}
+			else if (!IsDisposed && !Disposing)
 			{
 				SetRunningState(running: false);
 			}

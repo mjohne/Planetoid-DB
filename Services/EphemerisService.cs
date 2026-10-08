@@ -79,8 +79,7 @@ internal sealed class EphemerisService(IPlanetaryEphemerisProvider planetaryEphe
 		}
 		if (timeZone.IsAmbiguousTime(dateTime: unspecified))
 		{
-			TimeSpan standardOffset = timeZone.GetAmbiguousTimeOffsets(dateTime: unspecified).Min();
-			return new DateTimeOffset(dateTime: DateTime.SpecifyKind(value: unspecified - standardOffset, kind: DateTimeKind.Utc), offset: TimeSpan.Zero);
+			return new DateTimeOffset(dateTime: DateTime.SpecifyKind(value: TimeZoneInfo.ConvertTimeToUtc(dateTime: unspecified, sourceTimeZone: timeZone), kind: DateTimeKind.Utc), offset: TimeSpan.Zero);
 		}
 		return new DateTimeOffset(dateTime: TimeZoneInfo.ConvertTimeToUtc(dateTime: unspecified, sourceTimeZone: timeZone), offset: TimeSpan.Zero);
 	}
@@ -229,6 +228,7 @@ internal sealed class EphemerisService(IPlanetaryEphemerisProvider planetaryEphe
 		Vector3d apparent = CoordinateTransformationService.ApplyAberration(direction: topocentric, observerVelocity: observerVelocity);
 		(double ra, double dec) = CoordinateTransformationService.ToRightAscensionDeclination(vector: trueOfDate * apparent);
 		(double azimuth, double altitude) = CoordinateTransformationService.EquatorialToHorizontal(hourAngleDegrees: last - (ra * 15.0), declinationDegrees: dec, latitudeDegrees: observer.LatitudeDegrees);
+		double geometricAltitude = altitude;
 		if (options.ApplyRefraction)
 		{
 			altitude += CoordinateTransformationService.RefractionDegrees(trueAltitudeDegrees: altitude);
@@ -253,7 +253,7 @@ internal sealed class EphemerisService(IPlanetaryEphemerisProvider planetaryEphe
 		double phaseAngle = VisibilityCalculator.PhaseAngleDegrees(heliocentricDistanceAu: heliocentricDistance, observerDistanceAu: distance, sunObserverDistanceAu: observerHeliocentric.Length);
 		double elongation = (-observerHeliocentric).AngleToDegrees(other: topocentric);
 		double magnitude = VisibilityCalculator.ApparentMagnitude(absoluteMagnitude: elements.AbsoluteMagnitude, slopeParameter: elements.SlopeParameter, heliocentricDistanceAu: heliocentricDistance, observerDistanceAu: distance, phaseAngleDegrees: phaseAngle);
-		bool visible = VisibilityCalculator.IsVisible(altitudeDegrees: altitude, sunAltitudeDegrees: sunAltitude, apparentMagnitude: magnitude, moonSeparationDegrees: moonSeparation, criteria: criteria);
+		bool visible = geometricAltitude > 0.0 && VisibilityCalculator.IsVisible(altitudeDegrees: altitude, sunAltitudeDegrees: sunAltitude, apparentMagnitude: magnitude, moonSeparationDegrees: moonSeparation, criteria: criteria);
 
 		return new EphemerisEntry(
 			Time: utc,
@@ -268,7 +268,8 @@ internal sealed class EphemerisService(IPlanetaryEphemerisProvider planetaryEphe
 			SunAltitudeDegrees: sunAltitude,
 			MoonSeparationDegrees: moonSeparation,
 			PhaseAngleDegrees: phaseAngle,
-			ElongationDegrees: elongation);
+			ElongationDegrees: elongation,
+			GeometricAltitudeDegrees: geometricAltitude);
 	}
 
 	/// <summary>Computes the position of the object a short time <paramref name="tau"/> before the state epoch (second-order Taylor series).</summary>

@@ -92,7 +92,10 @@ internal sealed class JplDevelopmentEphemeris : IPlanetaryEphemerisProvider, IDi
 				}
 			}
 			int deNumber = BinaryPrimitives.ReadInt32LittleEndian(source: h[2840..]);
-			if (deNumber is < 100 or > 1000 || constantCount is < 0 or > 1000 || blockLengthDays <= 0.0 || EndJulianDate <= StartJulianDate ||
+			if (deNumber is < 100 or > 1000 || constantCount is < 0 or > 1000 ||
+				!double.IsFinite(d: StartJulianDate) || !double.IsFinite(d: EndJulianDate) || !double.IsFinite(d: blockLengthDays) ||
+				!double.IsFinite(d: kilometersPerAu) || !double.IsFinite(d: earthMoonRatio) ||
+				blockLengthDays <= 0.0 || EndJulianDate <= StartJulianDate ||
 				kilometersPerAu is < 1.4e8 or > 1.6e8 || earthMoonRatio is < 80.0 or > 82.0)
 			{
 				throw new InvalidDataException(message: "The file is not a valid little-endian JPL DE binary file.");

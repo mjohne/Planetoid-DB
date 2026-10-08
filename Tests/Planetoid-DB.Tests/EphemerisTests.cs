@@ -70,6 +70,27 @@ public sealed class EphemerisTests
 		}
 	}
 
+	/// <summary>Verifies asynchronous CSV export matches the synchronous formatter and honors cancellation.</summary>
+	[Fact]
+	public async Task CsvExportAsync_MatchesFormatterAndSupportsCancellation()
+	{
+		EphemerisEntry entry = new(Time: DateTimeOffset.UnixEpoch, RightAscensionHours: 12.5, DeclinationDegrees: -10.25, AzimuthDegrees: 180.5, AltitudeDegrees: -1.5, DistanceAu: 1.25, ApparentMagnitude: 8.0, IsVisible: false);
+		string filePath = Path.Combine(path1: Path.GetTempPath(), path2: $"{Guid.NewGuid():N}.csv");
+		try
+		{
+			await EphemerisExportService.ExportCsvAsync(filePath: filePath, entries: [entry], designation: "(1) Ceres", observer: TestData.Greenwich);
+			Assert.Equal(expected: EphemerisExportService.ToCsv(entries: [entry], designation: "(1) Ceres", observer: TestData.Greenwich), actual: await File.ReadAllTextAsync(path: filePath));
+
+			using CancellationTokenSource cts = new();
+			await cts.CancelAsync();
+			await Assert.ThrowsAnyAsync<OperationCanceledException>(testCode: () => EphemerisExportService.ExportCsvAsync(filePath: filePath, entries: [entry], cancellationToken: cts.Token));
+		}
+		finally
+		{
+			File.Delete(path: filePath);
+		}
+	}
+
 	/// <summary>Verifies the plausibility of the ephemeris of Ceres.</summary>
 	[Fact]
 	public async Task Ephemeris_Ceres_IsPlausible()
@@ -203,9 +224,15 @@ public sealed class EphemerisTests
 	public void Ephemeris_BelowHorizonEntries_AreNotVisible()
 	{
 		DateTimeOffset start = new(year: 2025, month: 6, day: 1, hour: 0, minute: 0, second: 0, offset: TimeSpan.Zero);
-		IReadOnlyList<DateTimeOffset> grid = EphemerisService.CreateTimeGrid(start: start, end: start.AddDays(days: 1), step: TimeSpan.FromHours(hours: 1));
-		IReadOnlyList<EphemerisEntry> result = service.Calculate(elements: TestData.Ceres(), times: grid, observer: TestData.Greenwich, criteria: new VisibilityCriteria(MinimumAltitudeDegrees: -90.0, MaximumSunAltitudeDegrees: 90.0));
+		IReadOnlyList<DateTimeOffset> grid = EphemerisService.CreateTimeGrid(start: start, end: start.AddDays(days: 1), step: TimeSpan.FromMinutes(minutes: 10));
+		IReadOnlyList<EphemerisEntry> result = service.Calculate(
+			elements: TestData.Ceres(),
+			times: grid,
+			observer: TestData.Greenwich,
+			criteria: new VisibilityCriteria(MinimumAltitudeDegrees: -90.0, MaximumSunAltitudeDegrees: 90.0),
+			options: new EphemerisOptions(IncludePlanetaryPerturbations: false, ApplyRefraction: true));
 		Assert.Contains(collection: result, filter: static e => !e.IsAboveHorizon);
+		Assert.Contains(collection: result, filter: static e => e.GeometricAltitudeDegrees < 0.0 && e.AltitudeDegrees > 0.0);
 		Assert.All(collection: result.Where(predicate: static e => !e.IsAboveHorizon), action: static e => Assert.False(condition: e.IsVisible));
 		Assert.All(collection: result.Where(predicate: static e => e.IsAboveHorizon), action: static e => Assert.True(condition: e.IsVisible));
 	}
@@ -254,6 +281,16 @@ public sealed class EphemerisTests
 		Assert.Equal(expected: new DateTimeOffset(year: 2025, month: 3, day: 30, hour: 1, minute: 30, second: 0, offset: TimeSpan.Zero), actual: EphemerisService.LocalToUtc(localTime: new DateTime(year: 2025, month: 3, day: 30, hour: 2, minute: 30, second: 0), timeZone: cet));
 		// 2025-10-26 02:30 occurs twice; standard time (+1 h) is used
 		Assert.Equal(expected: new DateTimeOffset(year: 2025, month: 10, day: 26, hour: 1, minute: 30, second: 0, offset: TimeSpan.Zero), actual: EphemerisService.LocalToUtc(localTime: new DateTime(year: 2025, month: 10, day: 26, hour: 2, minute: 30, second: 0), timeZone: cet));
+	}
+
+	/// <summary>Verifies an ambiguous time with a negative daylight delta uses standard time.</summary>
+	[Fact]
+	public void TimeZone_NegativeDaylightDeltaUsesStandardTime()
+	{
+		TimeZoneInfo zone = CreateNegativeDaylightDeltaTimeZone();
+		DateTime localTime = new(year: 2025, month: 3, day: 30, hour: 1, minute: 30, second: 0);
+
+		Assert.Equal(expected: new DateTimeOffset(year: 2025, month: 3, day: 30, hour: 0, minute: 30, second: 0, offset: TimeSpan.Zero), actual: EphemerisService.LocalToUtc(localTime: localTime, timeZone: zone));
 	}
 
 	/// <summary>Verifies that the ephemeris does not depend on the offset of the input time.</summary>
@@ -328,5 +365,15 @@ public sealed class EphemerisTests
 		TimeZoneInfo.TransitionTime end = TimeZoneInfo.TransitionTime.CreateFloatingDateRule(timeOfDay: new DateTime(year: 1, month: 1, day: 1, hour: 3, minute: 0, second: 0), month: 10, week: 5, dayOfWeek: DayOfWeek.Sunday);
 		TimeZoneInfo.AdjustmentRule rule = TimeZoneInfo.AdjustmentRule.CreateAdjustmentRule(dateStart: DateTime.MinValue.Date, dateEnd: DateTime.MaxValue.Date, daylightDelta: TimeSpan.FromHours(hours: 1), daylightTransitionStart: start, daylightTransitionEnd: end);
 		return TimeZoneInfo.CreateCustomTimeZone(id: "Test CET", baseUtcOffset: TimeSpan.FromHours(hours: 1), displayName: "Test CET", standardDisplayName: "CET", daylightDisplayName: "CEST", adjustmentRules: [rule]);
+	}
+
+	/// <summary>Creates a time zone with a negative daylight-saving offset change.</summary>
+	/// <returns>The custom time zone.</returns>
+	private static TimeZoneInfo CreateNegativeDaylightDeltaTimeZone()
+	{
+		TimeZoneInfo.TransitionTime start = TimeZoneInfo.TransitionTime.CreateFloatingDateRule(timeOfDay: new DateTime(year: 1, month: 1, day: 1, hour: 2, minute: 0, second: 0), month: 3, week: 5, dayOfWeek: DayOfWeek.Sunday);
+		TimeZoneInfo.TransitionTime end = TimeZoneInfo.TransitionTime.CreateFloatingDateRule(timeOfDay: new DateTime(year: 1, month: 1, day: 1, hour: 3, minute: 0, second: 0), month: 10, week: 5, dayOfWeek: DayOfWeek.Sunday);
+		TimeZoneInfo.AdjustmentRule rule = TimeZoneInfo.AdjustmentRule.CreateAdjustmentRule(dateStart: DateTime.MinValue.Date, dateEnd: DateTime.MaxValue.Date, daylightDelta: TimeSpan.FromHours(hours: -1), daylightTransitionStart: start, daylightTransitionEnd: end);
+		return TimeZoneInfo.CreateCustomTimeZone(id: "Test Negative DST", baseUtcOffset: TimeSpan.FromHours(hours: 1), displayName: "Test Negative DST", standardDisplayName: "STD", daylightDisplayName: "DST", adjustmentRules: [rule]);
 	}
 }
