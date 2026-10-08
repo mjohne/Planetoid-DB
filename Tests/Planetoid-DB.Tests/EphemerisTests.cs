@@ -342,14 +342,19 @@ public sealed class EphemerisTests
 		try
 		{
 			CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo(name: "de-DE");
-			EphemerisEntry entry = new(Time: new DateTimeOffset(year: 2025, month: 1, day: 1, hour: 23, minute: 0, second: 0, offset: TimeSpan.FromHours(hours: 1)), RightAscensionHours: 12.5, DeclinationDegrees: -10.25, AzimuthDegrees: 180.5, AltitudeDegrees: -1.5, DistanceAu: 1.25, ApparentMagnitude: double.NaN, IsVisible: false);
+			EphemerisEntry entry = new(Time: new DateTimeOffset(year: 2025, month: 1, day: 1, hour: 23, minute: 0, second: 0, offset: TimeSpan.FromHours(hours: 1)), RightAscensionHours: 12.5, DeclinationDegrees: -10.25, AzimuthDegrees: 180.5, AltitudeDegrees: -1.5, DistanceAu: 1.25, ApparentMagnitude: double.NaN, IsVisible: false, AstrometricRightAscensionHours: 7.5, AstrometricDeclinationDegrees: 23.25);
 			string csv = EphemerisExportService.ToCsv(entries: [entry], designation: "(1) Ceres", observer: TestData.Greenwich);
 			string[] lines = csv.Split(separator: Environment.NewLine, options: StringSplitOptions.RemoveEmptyEntries);
+			string[] fields = lines[3].Split(separator: ',');
 			Assert.Equal(expected: "# Object: (1) Ceres", actual: lines[0]);
 			Assert.Equal(expected: EphemerisExportService.CsvHeader, actual: lines[2]);
 			Assert.StartsWith(expectedStartString: "2025-01-01T22:00:00Z,12.500000,12h 30m 00.00s,-10.25000,", actualString: lines[3]);
 			Assert.EndsWith(expectedEndString: ",,,,,,no", actualString: lines[3]);
-			Assert.Equal(expected: 15, actual: lines[3].Split(separator: ',').Length);
+			Assert.Equal(expected: "7.500000", actual: fields[5]);
+			Assert.Equal(expected: "07h 30m 00.00s", actual: fields[6]);
+			Assert.Equal(expected: "23.25000", actual: fields[7]);
+			Assert.Equal(expected: "+23° 15′ 00.0″", actual: fields[8]);
+			Assert.Equal(expected: 19, actual: fields.Length);
 		}
 		finally
 		{
@@ -375,5 +380,22 @@ public sealed class EphemerisTests
 		TimeZoneInfo.TransitionTime end = TimeZoneInfo.TransitionTime.CreateFloatingDateRule(timeOfDay: new DateTime(year: 1, month: 1, day: 1, hour: 3, minute: 0, second: 0), month: 10, week: 5, dayOfWeek: DayOfWeek.Sunday);
 		TimeZoneInfo.AdjustmentRule rule = TimeZoneInfo.AdjustmentRule.CreateAdjustmentRule(dateStart: DateTime.MinValue.Date, dateEnd: DateTime.MaxValue.Date, daylightDelta: TimeSpan.FromHours(hours: -1), daylightTransitionStart: start, daylightTransitionEnd: end);
 		return TimeZoneInfo.CreateCustomTimeZone(id: "Test Negative DST", baseUtcOffset: TimeSpan.FromHours(hours: 1), displayName: "Test Negative DST", standardDisplayName: "STD", daylightDisplayName: "DST", adjustmentRules: [rule]);
+	}
+
+	/// <summary>Verifies that the astrometric J2000 place of Ceres agrees with the MPC ephemeris service (issue #1234).</summary>
+	/// <remarks>MPC, 2026-10-08 00:00 UTC: RA = 07h 16m 26.4s, Dec = +23° 19′ 35″ (J2000). The apparent place of date differs mainly by precession.</remarks>
+	[Fact]
+	public void Ceres_AstrometricJ2000_MatchesMinorPlanetCenter()
+	{
+		DateTimeOffset time = new(year: 2026, month: 10, day: 8, hour: 0, minute: 0, second: 0, offset: TimeSpan.Zero);
+		EphemerisEntry entry = service.Calculate(elements: TestData.Ceres(), times: [time], observer: TestData.Greenwich)[0];
+		double expectedRa = 7.0 + (16.0 / 60.0) + (26.4 / 3600.0);
+		double expectedDec = 23.0 + (19.0 / 60.0) + (35.0 / 3600.0);
+		double cosDec = Math.Cos(d: expectedDec * Math.PI / 180.0);
+		Assert.InRange(actual: Math.Abs(value: entry.AstrometricRightAscensionHours - expectedRa) * 15.0 * cosDec * 3600.0, low: 0.0, high: 60.0);
+		Assert.InRange(actual: Math.Abs(value: entry.AstrometricDeclinationDegrees - expectedDec) * 3600.0, low: 0.0, high: 60.0);
+		// Precession over ~26.8 years shifts the apparent place by about +97 s in RA and −3′ in Dec
+		Assert.InRange(actual: (entry.RightAscensionHours - entry.AstrometricRightAscensionHours) * 3600.0, low: 90.0, high: 105.0);
+		Assert.InRange(actual: (entry.DeclinationDegrees - entry.AstrometricDeclinationDegrees) * 60.0, low: -3.5, high: -2.5);
 	}
 }

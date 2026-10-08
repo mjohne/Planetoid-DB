@@ -30,6 +30,8 @@ namespace Planetoid_DB.Services;
 /// <param name="PhaseAngleDegrees">Phase angle Sun–object–observer in degrees.</param>
 /// <param name="ElongationDegrees">Solar elongation of the object in degrees.</param>
 /// <param name="GeometricAltitudeDegrees">Geometric altitude before atmospheric refraction, if available.</param>
+/// <param name="AstrometricRightAscensionHours">Astrometric topocentric right ascension in hours (ICRF/J2000, light-time corrected, without aberration, precession and nutation), as published by the Minor Planet Center.</param>
+/// <param name="AstrometricDeclinationDegrees">Astrometric topocentric declination in degrees (ICRF/J2000, light-time corrected, without aberration, precession and nutation), as published by the Minor Planet Center.</param>
 internal sealed record EphemerisEntry(
 	DateTimeOffset Time,
 	double RightAscensionHours,
@@ -44,7 +46,9 @@ internal sealed record EphemerisEntry(
 	double MoonSeparationDegrees = double.NaN,
 	double PhaseAngleDegrees = double.NaN,
 	double ElongationDegrees = double.NaN,
-	double GeometricAltitudeDegrees = double.NaN)
+	double GeometricAltitudeDegrees = double.NaN,
+	double AstrometricRightAscensionHours = double.NaN,
+	double AstrometricDeclinationDegrees = double.NaN)
 {
 	/// <summary>Gets a value indicating whether the object is above the (true) horizon.</summary>
 	public bool IsAboveHorizon => (double.IsNaN(d: GeometricAltitudeDegrees) ? AltitudeDegrees : GeometricAltitudeDegrees) > 0.0;

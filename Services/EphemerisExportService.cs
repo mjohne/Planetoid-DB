@@ -22,7 +22,7 @@ namespace Planetoid_DB.Services;
 internal static class EphemerisExportService
 {
 	/// <summary>The CSV header with units.</summary>
-	public const string CsvHeader = "Time (UTC, ISO 8601),RA (h),RA (hms),Dec (deg),Dec (dms),Azimuth (deg),Altitude (deg),Distance (AU),Heliocentric distance (AU),Magnitude (mag),Phase angle (deg),Elongation (deg),Sun altitude (deg),Moon separation (deg),Visible";
+	public const string CsvHeader = "Time (UTC, ISO 8601),RA of date (h),RA of date (hms),Dec of date (deg),Dec of date (dms),RA J2000 (h),RA J2000 (hms),Dec J2000 (deg),Dec J2000 (dms),Azimuth (deg),Altitude (deg),Distance (AU),Heliocentric distance (AU),Magnitude (mag),Phase angle (deg),Elongation (deg),Sun altitude (deg),Moon separation (deg),Visible";
 
 	/// <summary>Creates the CSV text of an ephemeris.</summary>
 	/// <param name="entries">The ephemeris entries.</param>
@@ -88,11 +88,17 @@ internal static class EphemerisExportService
 	/// <returns>The formatted text.</returns>
 	private static string Format(double value, string format) => double.IsFinite(d: value) ? value.ToString(format: format, provider: CultureInfo.InvariantCulture) : string.Empty;
 
+	/// <summary>Formats a value with a custom formatter; <see cref="double.NaN"/> becomes an empty field.</summary>
+	/// <param name="value">The value.</param>
+	/// <param name="formatter">The formatter applied to finite values.</param>
+	/// <returns>The formatted text.</returns>
+	private static string FormatOrEmpty(double value, Func<double, string> formatter) => double.IsFinite(d: value) ? formatter(arg: value) : string.Empty;
+
 	/// <summary>Formats one CSV row.</summary>
 	/// <param name="entry">The ephemeris entry.</param>
 	/// <param name="provider">The formatting culture.</param>
 	/// <returns>The CSV row.</returns>
 	private static string FormatCsvLine(EphemerisEntry entry, IFormatProvider provider) =>
 		string.Create(provider: provider, handler:
-			$"{entry.Time.ToUniversalTime().UtcDateTime:yyyy-MM-ddTHH:mm:ssZ},{entry.RightAscensionHours:0.000000},{CoordinateTransformationService.FormatRightAscension(hours: entry.RightAscensionHours)},{entry.DeclinationDegrees:0.00000},{CoordinateTransformationService.FormatDeclination(degrees: entry.DeclinationDegrees)},{entry.AzimuthDegrees:0.0000},{entry.AltitudeDegrees:0.0000},{entry.DistanceAu:0.0000000},{entry.HeliocentricDistanceAu:0.0000000},{Format(value: entry.ApparentMagnitude, format: "0.00")},{Format(value: entry.PhaseAngleDegrees, format: "0.00")},{Format(value: entry.ElongationDegrees, format: "0.00")},{Format(value: entry.SunAltitudeDegrees, format: "0.00")},{Format(value: entry.MoonSeparationDegrees, format: "0.00")},{(entry.IsVisible ? "yes" : "no")}");
+			$"{entry.Time.ToUniversalTime().UtcDateTime:yyyy-MM-ddTHH:mm:ssZ},{entry.RightAscensionHours:0.000000},{CoordinateTransformationService.FormatRightAscension(hours: entry.RightAscensionHours)},{entry.DeclinationDegrees:0.00000},{CoordinateTransformationService.FormatDeclination(degrees: entry.DeclinationDegrees)},{Format(value: entry.AstrometricRightAscensionHours, format: "0.000000")},{FormatOrEmpty(value: entry.AstrometricRightAscensionHours, formatter: CoordinateTransformationService.FormatRightAscension)},{Format(value: entry.AstrometricDeclinationDegrees, format: "0.00000")},{FormatOrEmpty(value: entry.AstrometricDeclinationDegrees, formatter: CoordinateTransformationService.FormatDeclination)},{entry.AzimuthDegrees:0.0000},{entry.AltitudeDegrees:0.0000},{entry.DistanceAu:0.0000000},{entry.HeliocentricDistanceAu:0.0000000},{Format(value: entry.ApparentMagnitude, format: "0.00")},{Format(value: entry.PhaseAngleDegrees, format: "0.00")},{Format(value: entry.ElongationDegrees, format: "0.00")},{Format(value: entry.SunAltitudeDegrees, format: "0.00")},{Format(value: entry.MoonSeparationDegrees, format: "0.00")},{(entry.IsVisible ? "yes" : "no")}");
 }
