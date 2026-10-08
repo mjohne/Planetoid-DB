@@ -18,12 +18,14 @@ using Krypton.Toolkit;
 
 using Planetoid_DB.Resources;
 
+using ScottPlot.WinForms;
+
 using System.ComponentModel;
 
 namespace Planetoid_DB;
 
 /// <summary>Represents a Windows Form that provides a user interface for calculating ephemerides based on user-specified parameters.</summary>
-/// <remarks>EphemerisForm allows users to input the start and end dates, as well as the step size in days, for ephemerides calculations. The form displays calculation progress and results, and is designed to be used as a dialog within the application. Controls are organized to facilitate easy entry of parameters and review of results.</remarks>
+/// <remarks>EphemerisForm allows users to input the time range (UTC), the step size, the observer location and visibility criteria for ephemerides calculations. The form displays calculation progress and results, and is designed to be used as a dialog within the application. Controls are organized to facilitate easy entry of parameters and review of results.</remarks>
 partial class EphemerisForm
 {
 	/// <summary>Required designer variable.</summary>
@@ -54,17 +56,37 @@ partial class EphemerisForm
 		labelInformation = new ToolStripStatusLabel();
 		toolStripContainer = new ToolStripContainer();
 		kryptonPanelMain = new KryptonPanel();
-		buttonCalculate = new KryptonButton();
-		listView = new KryptonListView();
-		labelPercent = new KryptonLabel();
-		progressBar = new KryptonProgressBar();
-		labelEphemeridesStepsInDays = new KryptonLabel();
-		numericUpDownStepsInDays = new KryptonNumericUpDown();
-		labelEphemeridesEnd = new KryptonLabel();
-		dateTimePickerEphemeridesEnd = new KryptonDateTimePicker();
 		labelEphemeridesBegin = new KryptonLabel();
 		dateTimePickerEphemeridesBegin = new KryptonDateTimePicker();
-		backgroundWorker = new BackgroundWorker();
+		labelEphemeridesEnd = new KryptonLabel();
+		dateTimePickerEphemeridesEnd = new KryptonDateTimePicker();
+		labelEphemeridesStepsInDays = new KryptonLabel();
+		numericUpDownStepsInDays = new KryptonNumericUpDown();
+		labelLatitude = new KryptonLabel();
+		numericUpDownLatitude = new KryptonNumericUpDown();
+		labelLongitude = new KryptonLabel();
+		numericUpDownLongitude = new KryptonNumericUpDown();
+		labelElevation = new KryptonLabel();
+		numericUpDownElevation = new KryptonNumericUpDown();
+		labelMinimumAltitude = new KryptonLabel();
+		numericUpDownMinimumAltitude = new KryptonNumericUpDown();
+		labelMaximumSunAltitude = new KryptonLabel();
+		numericUpDownMaximumSunAltitude = new KryptonNumericUpDown();
+		checkBoxFaintestMagnitude = new KryptonCheckBox();
+		numericUpDownFaintestMagnitude = new KryptonNumericUpDown();
+		labelMinimumMoonSeparation = new KryptonLabel();
+		numericUpDownMinimumMoonSeparation = new KryptonNumericUpDown();
+		checkBoxPerturbations = new KryptonCheckBox();
+		checkBoxRefraction = new KryptonCheckBox();
+		labelEphemerisSource = new KryptonLabel();
+		buttonLoadEphemerisFile = new KryptonButton();
+		buttonCalculate = new KryptonButton();
+		buttonCancel = new KryptonButton();
+		buttonExport = new KryptonButton();
+		progressBar = new KryptonProgressBar();
+		labelPercent = new KryptonLabel();
+		listView = new KryptonListView();
+		formsPlot = new FormsPlot();
 		kryptonManager = new KryptonManager(components);
 		kryptonStatusStrip.SuspendLayout();
 		toolStripContainer.BottomToolStripPanel.SuspendLayout();
@@ -89,7 +111,7 @@ partial class EphemerisForm
 		kryptonStatusStrip.ProgressBars = null;
 		kryptonStatusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
 		kryptonStatusStrip.ShowItemToolTips = true;
-		kryptonStatusStrip.Size = new Size(406, 22);
+		kryptonStatusStrip.Size = new Size(800, 22);
 		kryptonStatusStrip.TabIndex = 0;
 		kryptonStatusStrip.TabStop = true;
 		kryptonStatusStrip.Text = "Status bar";
@@ -125,7 +147,7 @@ partial class EphemerisForm
 		toolStripContainer.ContentPanel.AccessibleRole = AccessibleRole.Pane;
 		toolStripContainer.ContentPanel.Controls.Add(kryptonPanelMain);
 		toolStripContainer.ContentPanel.Margin = new Padding(4, 3, 4, 3);
-		toolStripContainer.ContentPanel.Size = new Size(406, 431);
+		toolStripContainer.ContentPanel.Size = new Size(800, 618);
 		toolStripContainer.Dock = DockStyle.Fill;
 		// 
 		// toolStripContainer.LeftToolStripPanel
@@ -141,7 +163,7 @@ partial class EphemerisForm
 		toolStripContainer.RightToolStripPanel.AccessibleDescription = "Just a panel";
 		toolStripContainer.RightToolStripPanel.AccessibleName = "Right panel";
 		toolStripContainer.RightToolStripPanel.AccessibleRole = AccessibleRole.Pane;
-		toolStripContainer.Size = new Size(406, 453);
+		toolStripContainer.Size = new Size(800, 640);
 		toolStripContainer.TabIndex = 11;
 		toolStripContainer.Text = "toolStripContainer";
 		// 
@@ -157,32 +179,504 @@ partial class EphemerisForm
 		kryptonPanelMain.AccessibleDescription = "Groups the data";
 		kryptonPanelMain.AccessibleName = "Panel";
 		kryptonPanelMain.AccessibleRole = AccessibleRole.Pane;
-		kryptonPanelMain.Controls.Add(buttonCalculate);
+		kryptonPanelMain.Controls.Add(formsPlot);
 		kryptonPanelMain.Controls.Add(listView);
 		kryptonPanelMain.Controls.Add(labelPercent);
 		kryptonPanelMain.Controls.Add(progressBar);
-		kryptonPanelMain.Controls.Add(labelEphemeridesStepsInDays);
+		kryptonPanelMain.Controls.Add(buttonExport);
+		kryptonPanelMain.Controls.Add(buttonCancel);
+		kryptonPanelMain.Controls.Add(buttonCalculate);
+		kryptonPanelMain.Controls.Add(buttonLoadEphemerisFile);
+		kryptonPanelMain.Controls.Add(labelEphemerisSource);
+		kryptonPanelMain.Controls.Add(checkBoxRefraction);
+		kryptonPanelMain.Controls.Add(checkBoxPerturbations);
+		kryptonPanelMain.Controls.Add(numericUpDownMinimumMoonSeparation);
+		kryptonPanelMain.Controls.Add(labelMinimumMoonSeparation);
+		kryptonPanelMain.Controls.Add(numericUpDownFaintestMagnitude);
+		kryptonPanelMain.Controls.Add(checkBoxFaintestMagnitude);
+		kryptonPanelMain.Controls.Add(numericUpDownMaximumSunAltitude);
+		kryptonPanelMain.Controls.Add(labelMaximumSunAltitude);
+		kryptonPanelMain.Controls.Add(numericUpDownMinimumAltitude);
+		kryptonPanelMain.Controls.Add(labelMinimumAltitude);
+		kryptonPanelMain.Controls.Add(numericUpDownElevation);
+		kryptonPanelMain.Controls.Add(labelElevation);
+		kryptonPanelMain.Controls.Add(numericUpDownLongitude);
+		kryptonPanelMain.Controls.Add(labelLongitude);
+		kryptonPanelMain.Controls.Add(numericUpDownLatitude);
+		kryptonPanelMain.Controls.Add(labelLatitude);
 		kryptonPanelMain.Controls.Add(numericUpDownStepsInDays);
-		kryptonPanelMain.Controls.Add(labelEphemeridesEnd);
+		kryptonPanelMain.Controls.Add(labelEphemeridesStepsInDays);
 		kryptonPanelMain.Controls.Add(dateTimePickerEphemeridesEnd);
-		kryptonPanelMain.Controls.Add(labelEphemeridesBegin);
+		kryptonPanelMain.Controls.Add(labelEphemeridesEnd);
 		kryptonPanelMain.Controls.Add(dateTimePickerEphemeridesBegin);
+		kryptonPanelMain.Controls.Add(labelEphemeridesBegin);
 		kryptonPanelMain.Dock = DockStyle.Fill;
 		kryptonPanelMain.Location = new Point(0, 0);
 		kryptonPanelMain.Name = "kryptonPanelMain";
-		kryptonPanelMain.Size = new Size(406, 431);
+		kryptonPanelMain.Size = new Size(800, 618);
 		kryptonPanelMain.TabIndex = 0;
 		kryptonPanelMain.TabStop = true;
+		// 
+		// labelEphemeridesBegin
+		// 
+		labelEphemeridesBegin.AccessibleDescription = "Sets the begin of the ephemerides in UTC";
+		labelEphemeridesBegin.AccessibleName = "Ephemerides begin (UTC)";
+		labelEphemeridesBegin.AccessibleRole = AccessibleRole.StaticText;
+		labelEphemeridesBegin.Location = new Point(14, 14);
+		labelEphemeridesBegin.Name = "labelEphemeridesBegin";
+		labelEphemeridesBegin.Size = new Size(175, 20);
+		labelEphemeridesBegin.TabIndex = 0;
+		labelEphemeridesBegin.ToolTipValues.EnableToolTips = true;
+		labelEphemeridesBegin.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelEphemeridesBegin.Values.Text = "Ephemerides &begin (UTC):";
+		labelEphemeridesBegin.Enter += Control_Enter;
+		labelEphemeridesBegin.Leave += Control_Leave;
+		labelEphemeridesBegin.MouseEnter += Control_Enter;
+		labelEphemeridesBegin.MouseLeave += Control_Leave;
+		// 
+		// labelEphemeridesEnd
+		// 
+		labelEphemeridesEnd.AccessibleDescription = "Sets the end of the ephemerides in UTC";
+		labelEphemeridesEnd.AccessibleName = "Ephemerides end (UTC)";
+		labelEphemeridesEnd.AccessibleRole = AccessibleRole.StaticText;
+		labelEphemeridesEnd.Location = new Point(14, 45);
+		labelEphemeridesEnd.Name = "labelEphemeridesEnd";
+		labelEphemeridesEnd.Size = new Size(175, 20);
+		labelEphemeridesEnd.TabIndex = 2;
+		labelEphemeridesEnd.ToolTipValues.EnableToolTips = true;
+		labelEphemeridesEnd.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelEphemeridesEnd.Values.Text = "Ephemerides &end (UTC):";
+		labelEphemeridesEnd.Enter += Control_Enter;
+		labelEphemeridesEnd.Leave += Control_Leave;
+		labelEphemeridesEnd.MouseEnter += Control_Enter;
+		labelEphemeridesEnd.MouseLeave += Control_Leave;
+		// 
+		// labelEphemeridesStepsInDays
+		// 
+		labelEphemeridesStepsInDays.AccessibleDescription = "Sets the step size in days (decimal values allowed, e.g. 0.0416667 = 1 hour)";
+		labelEphemeridesStepsInDays.AccessibleName = "Step size (days)";
+		labelEphemeridesStepsInDays.AccessibleRole = AccessibleRole.StaticText;
+		labelEphemeridesStepsInDays.Location = new Point(14, 76);
+		labelEphemeridesStepsInDays.Name = "labelEphemeridesStepsInDays";
+		labelEphemeridesStepsInDays.Size = new Size(175, 20);
+		labelEphemeridesStepsInDays.TabIndex = 4;
+		labelEphemeridesStepsInDays.ToolTipValues.EnableToolTips = true;
+		labelEphemeridesStepsInDays.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelEphemeridesStepsInDays.Values.Text = "&Step size (days):";
+		labelEphemeridesStepsInDays.Enter += Control_Enter;
+		labelEphemeridesStepsInDays.Leave += Control_Leave;
+		labelEphemeridesStepsInDays.MouseEnter += Control_Enter;
+		labelEphemeridesStepsInDays.MouseLeave += Control_Leave;
+		// 
+		// labelLatitude
+		// 
+		labelLatitude.AccessibleDescription = "Sets the geographic latitude of the observer in degrees (north positive)";
+		labelLatitude.AccessibleName = "Latitude (°, north +)";
+		labelLatitude.AccessibleRole = AccessibleRole.StaticText;
+		labelLatitude.Location = new Point(14, 107);
+		labelLatitude.Name = "labelLatitude";
+		labelLatitude.Size = new Size(175, 20);
+		labelLatitude.TabIndex = 6;
+		labelLatitude.ToolTipValues.EnableToolTips = true;
+		labelLatitude.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelLatitude.Values.Text = "&Latitude (°, north +):";
+		labelLatitude.Enter += Control_Enter;
+		labelLatitude.Leave += Control_Leave;
+		labelLatitude.MouseEnter += Control_Enter;
+		labelLatitude.MouseLeave += Control_Leave;
+		// 
+		// labelLongitude
+		// 
+		labelLongitude.AccessibleDescription = "Sets the geographic longitude of the observer in degrees (east positive)";
+		labelLongitude.AccessibleName = "Longitude (°, east +)";
+		labelLongitude.AccessibleRole = AccessibleRole.StaticText;
+		labelLongitude.Location = new Point(14, 138);
+		labelLongitude.Name = "labelLongitude";
+		labelLongitude.Size = new Size(175, 20);
+		labelLongitude.TabIndex = 8;
+		labelLongitude.ToolTipValues.EnableToolTips = true;
+		labelLongitude.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelLongitude.Values.Text = "L&ongitude (°, east +):";
+		labelLongitude.Enter += Control_Enter;
+		labelLongitude.Leave += Control_Leave;
+		labelLongitude.MouseEnter += Control_Enter;
+		labelLongitude.MouseLeave += Control_Leave;
+		// 
+		// labelElevation
+		// 
+		labelElevation.AccessibleDescription = "Sets the elevation of the observer above the WGS84 ellipsoid in meters";
+		labelElevation.AccessibleName = "Elevation (m)";
+		labelElevation.AccessibleRole = AccessibleRole.StaticText;
+		labelElevation.Location = new Point(14, 169);
+		labelElevation.Name = "labelElevation";
+		labelElevation.Size = new Size(175, 20);
+		labelElevation.TabIndex = 10;
+		labelElevation.ToolTipValues.EnableToolTips = true;
+		labelElevation.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelElevation.Values.Text = "Ele&vation (m):";
+		labelElevation.Enter += Control_Enter;
+		labelElevation.Leave += Control_Leave;
+		labelElevation.MouseEnter += Control_Enter;
+		labelElevation.MouseLeave += Control_Leave;
+		// 
+		// labelMinimumAltitude
+		// 
+		labelMinimumAltitude.AccessibleDescription = "Sets the minimum altitude of the object above the horizon in degrees";
+		labelMinimumAltitude.AccessibleName = "Min. altitude (°)";
+		labelMinimumAltitude.AccessibleRole = AccessibleRole.StaticText;
+		labelMinimumAltitude.Location = new Point(370, 14);
+		labelMinimumAltitude.Name = "labelMinimumAltitude";
+		labelMinimumAltitude.Size = new Size(185, 20);
+		labelMinimumAltitude.TabIndex = 12;
+		labelMinimumAltitude.ToolTipValues.EnableToolTips = true;
+		labelMinimumAltitude.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelMinimumAltitude.Values.Text = "&Min. altitude (°):";
+		labelMinimumAltitude.Enter += Control_Enter;
+		labelMinimumAltitude.Leave += Control_Leave;
+		labelMinimumAltitude.MouseEnter += Control_Enter;
+		labelMinimumAltitude.MouseLeave += Control_Leave;
+		// 
+		// labelMaximumSunAltitude
+		// 
+		labelMaximumSunAltitude.AccessibleDescription = "Sets the maximum altitude of the Sun in degrees (e.g. -12 = nautical twilight)";
+		labelMaximumSunAltitude.AccessibleName = "Max. sun altitude (°)";
+		labelMaximumSunAltitude.AccessibleRole = AccessibleRole.StaticText;
+		labelMaximumSunAltitude.Location = new Point(370, 45);
+		labelMaximumSunAltitude.Name = "labelMaximumSunAltitude";
+		labelMaximumSunAltitude.Size = new Size(185, 20);
+		labelMaximumSunAltitude.TabIndex = 14;
+		labelMaximumSunAltitude.ToolTipValues.EnableToolTips = true;
+		labelMaximumSunAltitude.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelMaximumSunAltitude.Values.Text = "Max. s&un altitude (°):";
+		labelMaximumSunAltitude.Enter += Control_Enter;
+		labelMaximumSunAltitude.Leave += Control_Leave;
+		labelMaximumSunAltitude.MouseEnter += Control_Enter;
+		labelMaximumSunAltitude.MouseLeave += Control_Leave;
+		// 
+		// labelMinimumMoonSeparation
+		// 
+		labelMinimumMoonSeparation.AccessibleDescription = "Sets the minimum angular distance between object and Moon in degrees";
+		labelMinimumMoonSeparation.AccessibleName = "Min. moon distance (°)";
+		labelMinimumMoonSeparation.AccessibleRole = AccessibleRole.StaticText;
+		labelMinimumMoonSeparation.Location = new Point(370, 107);
+		labelMinimumMoonSeparation.Name = "labelMinimumMoonSeparation";
+		labelMinimumMoonSeparation.Size = new Size(185, 20);
+		labelMinimumMoonSeparation.TabIndex = 18;
+		labelMinimumMoonSeparation.ToolTipValues.EnableToolTips = true;
+		labelMinimumMoonSeparation.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelMinimumMoonSeparation.Values.Text = "Min. moo&n distance (°):";
+		labelMinimumMoonSeparation.Enter += Control_Enter;
+		labelMinimumMoonSeparation.Leave += Control_Leave;
+		labelMinimumMoonSeparation.MouseEnter += Control_Enter;
+		labelMinimumMoonSeparation.MouseLeave += Control_Leave;
+		// 
+		// labelEphemerisSource
+		// 
+		labelEphemerisSource.AccessibleDescription = "Shows the planetary ephemeris used for the calculation";
+		labelEphemerisSource.AccessibleName = "Planetary ephemeris: analytical";
+		labelEphemerisSource.AccessibleRole = AccessibleRole.StaticText;
+		labelEphemerisSource.Location = new Point(370, 169);
+		labelEphemerisSource.Name = "labelEphemerisSource";
+		labelEphemerisSource.Size = new Size(400, 20);
+		labelEphemerisSource.TabIndex = 22;
+		labelEphemerisSource.ToolTipValues.EnableToolTips = true;
+		labelEphemerisSource.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelEphemerisSource.Values.Text = "Planetary ephemeris: analytical";
+		labelEphemerisSource.Enter += Control_Enter;
+		labelEphemerisSource.Leave += Control_Leave;
+		labelEphemerisSource.MouseEnter += Control_Enter;
+		labelEphemerisSource.MouseLeave += Control_Leave;
+		// 
+		// dateTimePickerEphemeridesBegin
+		// 
+		dateTimePickerEphemeridesBegin.AccessibleDescription = "Sets the begin of the ephemerides in UTC";
+		dateTimePickerEphemeridesBegin.AccessibleName = "Ephemerides begin (UTC)";
+		dateTimePickerEphemeridesBegin.AccessibleRole = AccessibleRole.DropList;
+		dateTimePickerEphemeridesBegin.Location = new Point(190, 13);
+		dateTimePickerEphemeridesBegin.Name = "dateTimePickerEphemeridesBegin";
+		dateTimePickerEphemeridesBegin.Size = new Size(160, 21);
+		dateTimePickerEphemeridesBegin.TabIndex = 1;
+		dateTimePickerEphemeridesBegin.CustomFormat = "yyyy-MM-dd HH:mm";
+		dateTimePickerEphemeridesBegin.Format = DateTimePickerFormat.Custom;
+		dateTimePickerEphemeridesBegin.ToolTipValues.EnableToolTips = true;
+		dateTimePickerEphemeridesBegin.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		dateTimePickerEphemeridesBegin.Enter += Control_Enter;
+		dateTimePickerEphemeridesBegin.Leave += Control_Leave;
+		dateTimePickerEphemeridesBegin.MouseEnter += Control_Enter;
+		dateTimePickerEphemeridesBegin.MouseLeave += Control_Leave;
+		// 
+		// dateTimePickerEphemeridesEnd
+		// 
+		dateTimePickerEphemeridesEnd.AccessibleDescription = "Sets the end of the ephemerides in UTC";
+		dateTimePickerEphemeridesEnd.AccessibleName = "Ephemerides end (UTC)";
+		dateTimePickerEphemeridesEnd.AccessibleRole = AccessibleRole.DropList;
+		dateTimePickerEphemeridesEnd.Location = new Point(190, 44);
+		dateTimePickerEphemeridesEnd.Name = "dateTimePickerEphemeridesEnd";
+		dateTimePickerEphemeridesEnd.Size = new Size(160, 21);
+		dateTimePickerEphemeridesEnd.TabIndex = 3;
+		dateTimePickerEphemeridesEnd.CustomFormat = "yyyy-MM-dd HH:mm";
+		dateTimePickerEphemeridesEnd.Format = DateTimePickerFormat.Custom;
+		dateTimePickerEphemeridesEnd.ToolTipValues.EnableToolTips = true;
+		dateTimePickerEphemeridesEnd.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		dateTimePickerEphemeridesEnd.Enter += Control_Enter;
+		dateTimePickerEphemeridesEnd.Leave += Control_Leave;
+		dateTimePickerEphemeridesEnd.MouseEnter += Control_Enter;
+		dateTimePickerEphemeridesEnd.MouseLeave += Control_Leave;
+		// 
+		// numericUpDownStepsInDays
+		// 
+		numericUpDownStepsInDays.AccessibleDescription = "Sets the step size in days";
+		numericUpDownStepsInDays.AccessibleName = "Sets the step size";
+		numericUpDownStepsInDays.AccessibleRole = AccessibleRole.SpinButton;
+		numericUpDownStepsInDays.Location = new Point(190, 76);
+		numericUpDownStepsInDays.Name = "numericUpDownStepsInDays";
+		numericUpDownStepsInDays.Size = new Size(160, 22);
+		numericUpDownStepsInDays.TabIndex = 5;
+		numericUpDownStepsInDays.DecimalPlaces = 4;
+		numericUpDownStepsInDays.Increment = new decimal(new int[] { 1, 0, 0, 0 });
+		numericUpDownStepsInDays.Maximum = new decimal(new int[] { 3650, 0, 0, 0 });
+		numericUpDownStepsInDays.Minimum = new decimal(new int[] { 1, 0, 0, 262144 });
+		numericUpDownStepsInDays.ToolTipValues.EnableToolTips = true;
+		numericUpDownStepsInDays.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		numericUpDownStepsInDays.Value = new decimal(new int[] { 1, 0, 0, 0 });
+		numericUpDownStepsInDays.Enter += Control_Enter;
+		numericUpDownStepsInDays.Leave += Control_Leave;
+		numericUpDownStepsInDays.MouseEnter += Control_Enter;
+		numericUpDownStepsInDays.MouseLeave += Control_Leave;
+		// 
+		// numericUpDownLatitude
+		// 
+		numericUpDownLatitude.AccessibleDescription = "Sets the geographic latitude of the observer in degrees (north positive)";
+		numericUpDownLatitude.AccessibleName = "Sets the geographic latitude of the observer";
+		numericUpDownLatitude.AccessibleRole = AccessibleRole.SpinButton;
+		numericUpDownLatitude.Location = new Point(190, 107);
+		numericUpDownLatitude.Name = "numericUpDownLatitude";
+		numericUpDownLatitude.Size = new Size(160, 22);
+		numericUpDownLatitude.TabIndex = 7;
+		numericUpDownLatitude.DecimalPlaces = 4;
+		numericUpDownLatitude.Increment = new decimal(new int[] { 1, 0, 0, 65536 });
+		numericUpDownLatitude.Maximum = new decimal(new int[] { 90, 0, 0, 0 });
+		numericUpDownLatitude.Minimum = new decimal(new int[] { 90, 0, 0, -2147483648 });
+		numericUpDownLatitude.ToolTipValues.EnableToolTips = true;
+		numericUpDownLatitude.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		numericUpDownLatitude.Value = new decimal(new int[] { 514772, 0, 0, 262144 });
+		numericUpDownLatitude.Enter += Control_Enter;
+		numericUpDownLatitude.Leave += Control_Leave;
+		numericUpDownLatitude.MouseEnter += Control_Enter;
+		numericUpDownLatitude.MouseLeave += Control_Leave;
+		// 
+		// numericUpDownLongitude
+		// 
+		numericUpDownLongitude.AccessibleDescription = "Sets the geographic longitude of the observer in degrees (east positive)";
+		numericUpDownLongitude.AccessibleName = "Sets the geographic longitude of the observer";
+		numericUpDownLongitude.AccessibleRole = AccessibleRole.SpinButton;
+		numericUpDownLongitude.Location = new Point(190, 138);
+		numericUpDownLongitude.Name = "numericUpDownLongitude";
+		numericUpDownLongitude.Size = new Size(160, 22);
+		numericUpDownLongitude.TabIndex = 9;
+		numericUpDownLongitude.DecimalPlaces = 4;
+		numericUpDownLongitude.Increment = new decimal(new int[] { 1, 0, 0, 65536 });
+		numericUpDownLongitude.Maximum = new decimal(new int[] { 180, 0, 0, 0 });
+		numericUpDownLongitude.Minimum = new decimal(new int[] { 180, 0, 0, -2147483648 });
+		numericUpDownLongitude.ToolTipValues.EnableToolTips = true;
+		numericUpDownLongitude.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		numericUpDownLongitude.Value = new decimal(new int[] { 0, 0, 0, 0 });
+		numericUpDownLongitude.Enter += Control_Enter;
+		numericUpDownLongitude.Leave += Control_Leave;
+		numericUpDownLongitude.MouseEnter += Control_Enter;
+		numericUpDownLongitude.MouseLeave += Control_Leave;
+		// 
+		// numericUpDownElevation
+		// 
+		numericUpDownElevation.AccessibleDescription = "Sets the elevation of the observer in meters";
+		numericUpDownElevation.AccessibleName = "Sets the elevation of the observer";
+		numericUpDownElevation.AccessibleRole = AccessibleRole.SpinButton;
+		numericUpDownElevation.Location = new Point(190, 169);
+		numericUpDownElevation.Name = "numericUpDownElevation";
+		numericUpDownElevation.Size = new Size(160, 22);
+		numericUpDownElevation.TabIndex = 11;
+		numericUpDownElevation.DecimalPlaces = 0;
+		numericUpDownElevation.Increment = new decimal(new int[] { 10, 0, 0, 0 });
+		numericUpDownElevation.Maximum = new decimal(new int[] { 10000, 0, 0, 0 });
+		numericUpDownElevation.Minimum = new decimal(new int[] { 500, 0, 0, -2147483648 });
+		numericUpDownElevation.ToolTipValues.EnableToolTips = true;
+		numericUpDownElevation.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		numericUpDownElevation.Value = new decimal(new int[] { 0, 0, 0, 0 });
+		numericUpDownElevation.Enter += Control_Enter;
+		numericUpDownElevation.Leave += Control_Leave;
+		numericUpDownElevation.MouseEnter += Control_Enter;
+		numericUpDownElevation.MouseLeave += Control_Leave;
+		// 
+		// numericUpDownMinimumAltitude
+		// 
+		numericUpDownMinimumAltitude.AccessibleDescription = "Sets the minimum altitude of the object above the horizon in degrees";
+		numericUpDownMinimumAltitude.AccessibleName = "Sets the minimum altitude of the object above the horizon";
+		numericUpDownMinimumAltitude.AccessibleRole = AccessibleRole.SpinButton;
+		numericUpDownMinimumAltitude.Location = new Point(560, 14);
+		numericUpDownMinimumAltitude.Name = "numericUpDownMinimumAltitude";
+		numericUpDownMinimumAltitude.Size = new Size(120, 22);
+		numericUpDownMinimumAltitude.TabIndex = 13;
+		numericUpDownMinimumAltitude.DecimalPlaces = 1;
+		numericUpDownMinimumAltitude.Increment = new decimal(new int[] { 1, 0, 0, 0 });
+		numericUpDownMinimumAltitude.Maximum = new decimal(new int[] { 90, 0, 0, 0 });
+		numericUpDownMinimumAltitude.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
+		numericUpDownMinimumAltitude.ToolTipValues.EnableToolTips = true;
+		numericUpDownMinimumAltitude.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		numericUpDownMinimumAltitude.Value = new decimal(new int[] { 10, 0, 0, 0 });
+		numericUpDownMinimumAltitude.Enter += Control_Enter;
+		numericUpDownMinimumAltitude.Leave += Control_Leave;
+		numericUpDownMinimumAltitude.MouseEnter += Control_Enter;
+		numericUpDownMinimumAltitude.MouseLeave += Control_Leave;
+		// 
+		// numericUpDownMaximumSunAltitude
+		// 
+		numericUpDownMaximumSunAltitude.AccessibleDescription = "Sets the maximum altitude of the Sun in degrees";
+		numericUpDownMaximumSunAltitude.AccessibleName = "Sets the maximum altitude of the Sun";
+		numericUpDownMaximumSunAltitude.AccessibleRole = AccessibleRole.SpinButton;
+		numericUpDownMaximumSunAltitude.Location = new Point(560, 45);
+		numericUpDownMaximumSunAltitude.Name = "numericUpDownMaximumSunAltitude";
+		numericUpDownMaximumSunAltitude.Size = new Size(120, 22);
+		numericUpDownMaximumSunAltitude.TabIndex = 15;
+		numericUpDownMaximumSunAltitude.DecimalPlaces = 1;
+		numericUpDownMaximumSunAltitude.Increment = new decimal(new int[] { 1, 0, 0, 0 });
+		numericUpDownMaximumSunAltitude.Maximum = new decimal(new int[] { 90, 0, 0, 0 });
+		numericUpDownMaximumSunAltitude.Minimum = new decimal(new int[] { 90, 0, 0, -2147483648 });
+		numericUpDownMaximumSunAltitude.ToolTipValues.EnableToolTips = true;
+		numericUpDownMaximumSunAltitude.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		numericUpDownMaximumSunAltitude.Value = new decimal(new int[] { 12, 0, 0, -2147483648 });
+		numericUpDownMaximumSunAltitude.Enter += Control_Enter;
+		numericUpDownMaximumSunAltitude.Leave += Control_Leave;
+		numericUpDownMaximumSunAltitude.MouseEnter += Control_Enter;
+		numericUpDownMaximumSunAltitude.MouseLeave += Control_Leave;
+		// 
+		// numericUpDownFaintestMagnitude
+		// 
+		numericUpDownFaintestMagnitude.AccessibleDescription = "Sets the faintest apparent magnitude that is still regarded as visible";
+		numericUpDownFaintestMagnitude.AccessibleName = "Sets the faintest apparent magnitude that is still regarded as visible";
+		numericUpDownFaintestMagnitude.AccessibleRole = AccessibleRole.SpinButton;
+		numericUpDownFaintestMagnitude.Location = new Point(560, 76);
+		numericUpDownFaintestMagnitude.Name = "numericUpDownFaintestMagnitude";
+		numericUpDownFaintestMagnitude.Size = new Size(120, 22);
+		numericUpDownFaintestMagnitude.TabIndex = 17;
+		numericUpDownFaintestMagnitude.DecimalPlaces = 1;
+		numericUpDownFaintestMagnitude.Increment = new decimal(new int[] { 5, 0, 0, 65536 });
+		numericUpDownFaintestMagnitude.Maximum = new decimal(new int[] { 35, 0, 0, 0 });
+		numericUpDownFaintestMagnitude.Minimum = new decimal(new int[] { 30, 0, 0, -2147483648 });
+		numericUpDownFaintestMagnitude.ToolTipValues.EnableToolTips = true;
+		numericUpDownFaintestMagnitude.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		numericUpDownFaintestMagnitude.Value = new decimal(new int[] { 20, 0, 0, 0 });
+		numericUpDownFaintestMagnitude.Enter += Control_Enter;
+		numericUpDownFaintestMagnitude.Leave += Control_Leave;
+		numericUpDownFaintestMagnitude.MouseEnter += Control_Enter;
+		numericUpDownFaintestMagnitude.MouseLeave += Control_Leave;
+		// 
+		// numericUpDownMinimumMoonSeparation
+		// 
+		numericUpDownMinimumMoonSeparation.AccessibleDescription = "Sets the minimum angular distance between object and Moon in degrees";
+		numericUpDownMinimumMoonSeparation.AccessibleName = "Sets the minimum angular distance between object and Moon";
+		numericUpDownMinimumMoonSeparation.AccessibleRole = AccessibleRole.SpinButton;
+		numericUpDownMinimumMoonSeparation.Location = new Point(560, 107);
+		numericUpDownMinimumMoonSeparation.Name = "numericUpDownMinimumMoonSeparation";
+		numericUpDownMinimumMoonSeparation.Size = new Size(120, 22);
+		numericUpDownMinimumMoonSeparation.TabIndex = 19;
+		numericUpDownMinimumMoonSeparation.DecimalPlaces = 1;
+		numericUpDownMinimumMoonSeparation.Increment = new decimal(new int[] { 1, 0, 0, 0 });
+		numericUpDownMinimumMoonSeparation.Maximum = new decimal(new int[] { 180, 0, 0, 0 });
+		numericUpDownMinimumMoonSeparation.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
+		numericUpDownMinimumMoonSeparation.ToolTipValues.EnableToolTips = true;
+		numericUpDownMinimumMoonSeparation.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		numericUpDownMinimumMoonSeparation.Value = new decimal(new int[] { 0, 0, 0, 0 });
+		numericUpDownMinimumMoonSeparation.Enter += Control_Enter;
+		numericUpDownMinimumMoonSeparation.Leave += Control_Leave;
+		numericUpDownMinimumMoonSeparation.MouseEnter += Control_Enter;
+		numericUpDownMinimumMoonSeparation.MouseLeave += Control_Leave;
+		// 
+		// checkBoxFaintestMagnitude
+		// 
+		checkBoxFaintestMagnitude.AccessibleDescription = "Enables the brightness criterion (faintest apparent magnitude)";
+		checkBoxFaintestMagnitude.AccessibleName = "Faintest mag.";
+		checkBoxFaintestMagnitude.AccessibleRole = AccessibleRole.CheckButton;
+		checkBoxFaintestMagnitude.Location = new Point(370, 77);
+		checkBoxFaintestMagnitude.Name = "checkBoxFaintestMagnitude";
+		checkBoxFaintestMagnitude.Size = new Size(185, 20);
+		checkBoxFaintestMagnitude.TabIndex = 16;
+		checkBoxFaintestMagnitude.Checked = true;
+		checkBoxFaintestMagnitude.CheckState = CheckState.Checked;
+		checkBoxFaintestMagnitude.ToolTipValues.EnableToolTips = true;
+		checkBoxFaintestMagnitude.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		checkBoxFaintestMagnitude.Values.Text = "&Faintest mag.:";
+		checkBoxFaintestMagnitude.Enter += Control_Enter;
+		checkBoxFaintestMagnitude.Leave += Control_Leave;
+		checkBoxFaintestMagnitude.MouseEnter += Control_Enter;
+		checkBoxFaintestMagnitude.MouseLeave += Control_Leave;
+		// 
+		// checkBoxPerturbations
+		// 
+		checkBoxPerturbations.AccessibleDescription = "Integrates the orbit numerically including planetary perturbations and general relativity";
+		checkBoxPerturbations.AccessibleName = "Planetary perturbations";
+		checkBoxPerturbations.AccessibleRole = AccessibleRole.CheckButton;
+		checkBoxPerturbations.Location = new Point(370, 138);
+		checkBoxPerturbations.Name = "checkBoxPerturbations";
+		checkBoxPerturbations.Size = new Size(185, 20);
+		checkBoxPerturbations.TabIndex = 20;
+		checkBoxPerturbations.Checked = true;
+		checkBoxPerturbations.CheckState = CheckState.Checked;
+		checkBoxPerturbations.ToolTipValues.EnableToolTips = true;
+		checkBoxPerturbations.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		checkBoxPerturbations.Values.Text = "Planetary &perturbations";
+		checkBoxPerturbations.Enter += Control_Enter;
+		checkBoxPerturbations.Leave += Control_Leave;
+		checkBoxPerturbations.MouseEnter += Control_Enter;
+		checkBoxPerturbations.MouseLeave += Control_Leave;
+		// 
+		// checkBoxRefraction
+		// 
+		checkBoxRefraction.AccessibleDescription = "Applies the atmospheric refraction to the altitudes";
+		checkBoxRefraction.AccessibleName = "Atmospheric refraction";
+		checkBoxRefraction.AccessibleRole = AccessibleRole.CheckButton;
+		checkBoxRefraction.Location = new Point(560, 138);
+		checkBoxRefraction.Name = "checkBoxRefraction";
+		checkBoxRefraction.Size = new Size(180, 20);
+		checkBoxRefraction.TabIndex = 21;
+		checkBoxRefraction.Checked = true;
+		checkBoxRefraction.CheckState = CheckState.Checked;
+		checkBoxRefraction.ToolTipValues.EnableToolTips = true;
+		checkBoxRefraction.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		checkBoxRefraction.Values.Text = "Atmospheric &refraction";
+		checkBoxRefraction.Enter += Control_Enter;
+		checkBoxRefraction.Leave += Control_Leave;
+		checkBoxRefraction.MouseEnter += Control_Enter;
+		checkBoxRefraction.MouseLeave += Control_Leave;
+		// 
+		// buttonLoadEphemerisFile
+		// 
+		buttonLoadEphemerisFile.AccessibleDescription = "Loads a JPL DE440/DE441 binary ephemeris file (e.g. linux_p1550p2650.440) for highest accuracy";
+		buttonLoadEphemerisFile.AccessibleName = "Load DE440/441";
+		buttonLoadEphemerisFile.AccessibleRole = AccessibleRole.PushButton;
+		buttonLoadEphemerisFile.Location = new Point(14, 200);
+		buttonLoadEphemerisFile.Name = "buttonLoadEphemerisFile";
+		buttonLoadEphemerisFile.Size = new Size(150, 29);
+		buttonLoadEphemerisFile.TabIndex = 23;
+		buttonLoadEphemerisFile.ToolTipValues.EnableToolTips = true;
+		buttonLoadEphemerisFile.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		buttonLoadEphemerisFile.Values.DropDownArrowColor = Color.Empty;
+		buttonLoadEphemerisFile.Values.Image = FatcowIcons16px.fatcow_folder_16px;
+		buttonLoadEphemerisFile.Values.Text = "Load &DE440/441...";
+		buttonLoadEphemerisFile.Click += ButtonLoadEphemerisFile_Click;
+		buttonLoadEphemerisFile.Enter += Control_Enter;
+		buttonLoadEphemerisFile.Leave += Control_Leave;
+		buttonLoadEphemerisFile.MouseEnter += Control_Enter;
+		buttonLoadEphemerisFile.MouseLeave += Control_Leave;
 		// 
 		// buttonCalculate
 		// 
 		buttonCalculate.AccessibleDescription = "Calculates the ephemerides";
-		buttonCalculate.AccessibleName = "Calculate the ephemerides";
+		buttonCalculate.AccessibleName = "Calculate";
 		buttonCalculate.AccessibleRole = AccessibleRole.PushButton;
-		buttonCalculate.Location = new Point(287, 115);
+		buttonCalculate.Location = new Point(400, 200);
 		buttonCalculate.Name = "buttonCalculate";
-		buttonCalculate.Size = new Size(105, 29);
-		buttonCalculate.TabIndex = 6;
+		buttonCalculate.Size = new Size(110, 29);
+		buttonCalculate.TabIndex = 24;
 		buttonCalculate.ToolTipValues.EnableToolTips = true;
 		buttonCalculate.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 		buttonCalculate.Values.DropDownArrowColor = Color.Empty;
@@ -194,161 +688,120 @@ partial class EphemerisForm
 		buttonCalculate.MouseEnter += Control_Enter;
 		buttonCalculate.MouseLeave += Control_Leave;
 		// 
-		// listView
+		// buttonCancel
 		// 
-		listView.AccessibleDescription = "Shows the search results";
-		listView.AccessibleName = "Search results";
-		listView.AccessibleRole = AccessibleRole.List;
-		listView.HideSelection = false;
-		listView.Location = new Point(14, 203);
-		listView.MultiSelect = false;
-		listView.Name = "listView";
-		listView.ShowItemToolTips = true;
-		listView.Size = new Size(378, 209);
-		listView.TabIndex = 9;
-		listView.ToolTipValues.EnableToolTips = true;
-		listView.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		listView.Enter += Control_Enter;
-		listView.Leave += Control_Leave;
-		listView.MouseEnter += Control_Enter;
-		listView.MouseLeave += Control_Leave;
+		buttonCancel.AccessibleDescription = "Cancels the running calculation";
+		buttonCancel.AccessibleName = "Cancel";
+		buttonCancel.AccessibleRole = AccessibleRole.PushButton;
+		buttonCancel.Location = new Point(520, 200);
+		buttonCancel.Name = "buttonCancel";
+		buttonCancel.Size = new Size(110, 29);
+		buttonCancel.TabIndex = 25;
+		buttonCancel.Enabled = false;
+		buttonCancel.ToolTipValues.EnableToolTips = true;
+		buttonCancel.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		buttonCancel.Values.DropDownArrowColor = Color.Empty;
+		buttonCancel.Values.Image = FatcowIcons16px.fatcow_cancel_16px;
+		buttonCancel.Values.Text = "C&ancel";
+		buttonCancel.Click += ButtonCancel_Click;
+		buttonCancel.Enter += Control_Enter;
+		buttonCancel.Leave += Control_Leave;
+		buttonCancel.MouseEnter += Control_Enter;
+		buttonCancel.MouseLeave += Control_Leave;
 		// 
-		// labelPercent
+		// buttonExport
 		// 
-		labelPercent.AccessibleDescription = "Shows the percent status of the search";
-		labelPercent.AccessibleName = "Percent status of the search";
-		labelPercent.AccessibleRole = AccessibleRole.StaticText;
-		labelPercent.Location = new Point(341, 162);
-		labelPercent.Name = "labelPercent";
-		labelPercent.Size = new Size(44, 20);
-		labelPercent.TabIndex = 8;
-		labelPercent.ToolTipValues.EnableToolTips = true;
-		labelPercent.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelPercent.Values.Text = "100 %";
-		labelPercent.Enter += Control_Enter;
-		labelPercent.Leave += Control_Leave;
-		labelPercent.MouseEnter += Control_Enter;
-		labelPercent.MouseLeave += Control_Leave;
+		buttonExport.AccessibleDescription = "Exports the ephemerides as CSV (invariant culture, UTC)";
+		buttonExport.AccessibleName = "Export CSV";
+		buttonExport.AccessibleRole = AccessibleRole.PushButton;
+		buttonExport.Location = new Point(640, 200);
+		buttonExport.Name = "buttonExport";
+		buttonExport.Size = new Size(130, 29);
+		buttonExport.TabIndex = 26;
+		buttonExport.Enabled = false;
+		buttonExport.ToolTipValues.EnableToolTips = true;
+		buttonExport.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		buttonExport.Values.DropDownArrowColor = Color.Empty;
+		buttonExport.Values.Image = FatcowIcons16px.fatcow_table_export_16px;
+		buttonExport.Values.Text = "E&xport CSV...";
+		buttonExport.Click += ButtonExport_Click;
+		buttonExport.Enter += Control_Enter;
+		buttonExport.Leave += Control_Leave;
+		buttonExport.MouseEnter += Control_Enter;
+		buttonExport.MouseLeave += Control_Leave;
 		// 
 		// progressBar
 		// 
-		progressBar.AccessibleDescription = "Shows the progress status of the search";
+		progressBar.AccessibleDescription = "Shows the progress of the calculation";
 		progressBar.AccessibleName = "Progress bar";
 		progressBar.AccessibleRole = AccessibleRole.ProgressBar;
-		progressBar.Location = new Point(14, 165);
+		progressBar.Location = new Point(14, 240);
 		progressBar.Name = "progressBar";
-		progressBar.Size = new Size(320, 20);
-		progressBar.TabIndex = 7;
+		progressBar.Size = new Size(700, 20);
+		progressBar.TabIndex = 27;
+		progressBar.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
 		progressBar.TextBackdropColor = Color.Empty;
 		progressBar.TextShadowColor = Color.Empty;
 		progressBar.Values.Text = "";
 		progressBar.MouseEnter += Control_Enter;
 		progressBar.MouseLeave += Control_Leave;
 		// 
-		// labelEphemeridesStepsInDays
+		// labelPercent
 		// 
-		labelEphemeridesStepsInDays.AccessibleRole = AccessibleRole.StaticText;
-		labelEphemeridesStepsInDays.Location = new Point(14, 78);
-		labelEphemeridesStepsInDays.Name = "labelEphemeridesStepsInDays";
-		labelEphemeridesStepsInDays.Size = new Size(82, 20);
-		labelEphemeridesStepsInDays.TabIndex = 4;
-		labelEphemeridesStepsInDays.ToolTipValues.EnableToolTips = true;
-		labelEphemeridesStepsInDays.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelEphemeridesStepsInDays.Values.Text = "&Steps in days";
-		labelEphemeridesStepsInDays.Enter += Control_Enter;
-		labelEphemeridesStepsInDays.Leave += Control_Leave;
-		labelEphemeridesStepsInDays.MouseEnter += Control_Enter;
-		labelEphemeridesStepsInDays.MouseLeave += Control_Leave;
+		labelPercent.AccessibleDescription = "Shows the progress of the calculation in percent";
+		labelPercent.AccessibleName = "Percent status of the calculation";
+		labelPercent.AccessibleRole = AccessibleRole.StaticText;
+		labelPercent.Location = new Point(730, 240);
+		labelPercent.Name = "labelPercent";
+		labelPercent.Size = new Size(56, 20);
+		labelPercent.TabIndex = 28;
+		labelPercent.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+		labelPercent.ToolTipValues.EnableToolTips = true;
+		labelPercent.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelPercent.Values.Text = "0 %";
+		labelPercent.Enter += Control_Enter;
+		labelPercent.Leave += Control_Leave;
+		labelPercent.MouseEnter += Control_Enter;
+		labelPercent.MouseLeave += Control_Leave;
 		// 
-		// numericUpDownStepsInDays
+		// listView
 		// 
-		numericUpDownStepsInDays.AccessibleDescription = "Choose the steps in days";
-		numericUpDownStepsInDays.AccessibleName = "Steps in days";
-		numericUpDownStepsInDays.AccessibleRole = AccessibleRole.SpinButton;
-		numericUpDownStepsInDays.Increment = new decimal(new int[] { 1, 0, 0, 0 });
-		numericUpDownStepsInDays.Location = new Point(159, 76);
-		numericUpDownStepsInDays.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
-		numericUpDownStepsInDays.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
-		numericUpDownStepsInDays.Name = "numericUpDownStepsInDays";
-		numericUpDownStepsInDays.Size = new Size(92, 22);
-		numericUpDownStepsInDays.TabIndex = 5;
-		numericUpDownStepsInDays.ToolTipValues.EnableToolTips = true;
-		numericUpDownStepsInDays.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		numericUpDownStepsInDays.Value = new decimal(new int[] { 0, 0, 0, 0 });
-		numericUpDownStepsInDays.Enter += Control_Enter;
-		numericUpDownStepsInDays.Leave += Control_Leave;
-		numericUpDownStepsInDays.MouseEnter += Control_Enter;
-		numericUpDownStepsInDays.MouseLeave += Control_Leave;
+		listView.AccessibleDescription = "Shows the calculated ephemerides (times in UTC); visible entries are highlighted";
+		listView.AccessibleName = "Ephemerides";
+		listView.AccessibleRole = AccessibleRole.List;
+		listView.Location = new Point(14, 270);
+		listView.Name = "listView";
+		listView.Size = new Size(772, 190);
+		listView.TabIndex = 29;
+		listView.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+		listView.FullRowSelect = true;
+		listView.GridLines = true;
+		listView.HideSelection = false;
+		listView.MultiSelect = false;
+		listView.ShowItemToolTips = true;
+		listView.ToolTipValues.EnableToolTips = true;
+		listView.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		listView.View = View.Details;
+		listView.Enter += Control_Enter;
+		listView.Leave += Control_Leave;
+		listView.MouseEnter += Control_Enter;
+		listView.MouseLeave += Control_Leave;
 		// 
-		// labelEphemeridesEnd
+		// formsPlot
 		// 
-		labelEphemeridesEnd.AccessibleDescription = "Sets the end of the ephemerides";
-		labelEphemeridesEnd.AccessibleName = "Ephemerides end";
-		labelEphemeridesEnd.AccessibleRole = AccessibleRole.StaticText;
-		labelEphemeridesEnd.Location = new Point(14, 45);
-		labelEphemeridesEnd.Name = "labelEphemeridesEnd";
-		labelEphemeridesEnd.Size = new Size(108, 20);
-		labelEphemeridesEnd.TabIndex = 2;
-		labelEphemeridesEnd.ToolTipValues.EnableToolTips = true;
-		labelEphemeridesEnd.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelEphemeridesEnd.Values.Text = "Ephemerides &end:";
-		labelEphemeridesEnd.Enter += Control_Enter;
-		labelEphemeridesEnd.Leave += Control_Leave;
-		labelEphemeridesEnd.MouseEnter += Control_Enter;
-		labelEphemeridesEnd.MouseLeave += Control_Leave;
-		// 
-		// dateTimePickerEphemeridesEnd
-		// 
-		dateTimePickerEphemeridesEnd.AccessibleRole = AccessibleRole.DropList;
-		dateTimePickerEphemeridesEnd.Location = new Point(159, 44);
-		dateTimePickerEphemeridesEnd.Name = "dateTimePickerEphemeridesEnd";
-		dateTimePickerEphemeridesEnd.Size = new Size(173, 21);
-		dateTimePickerEphemeridesEnd.TabIndex = 3;
-		dateTimePickerEphemeridesEnd.ToolTipValues.EnableToolTips = true;
-		dateTimePickerEphemeridesEnd.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		dateTimePickerEphemeridesEnd.Enter += Control_Enter;
-		dateTimePickerEphemeridesEnd.Leave += Control_Leave;
-		dateTimePickerEphemeridesEnd.MouseEnter += Control_Enter;
-		dateTimePickerEphemeridesEnd.MouseLeave += Control_Leave;
-		// 
-		// labelEphemeridesBegin
-		// 
-		labelEphemeridesBegin.AccessibleDescription = "Sets the begin of the ephemerides";
-		labelEphemeridesBegin.AccessibleName = "Ephemerides begin";
-		labelEphemeridesBegin.AccessibleRole = AccessibleRole.StaticText;
-		labelEphemeridesBegin.Location = new Point(14, 14);
-		labelEphemeridesBegin.Name = "labelEphemeridesBegin";
-		labelEphemeridesBegin.Size = new Size(118, 20);
-		labelEphemeridesBegin.TabIndex = 0;
-		labelEphemeridesBegin.ToolTipValues.EnableToolTips = true;
-		labelEphemeridesBegin.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelEphemeridesBegin.Values.Text = "Ephemerides &begin:";
-		labelEphemeridesBegin.Enter += Control_Enter;
-		labelEphemeridesBegin.Leave += Control_Leave;
-		labelEphemeridesBegin.MouseEnter += Control_Enter;
-		labelEphemeridesBegin.MouseLeave += Control_Leave;
-		// 
-		// dateTimePickerEphemeridesBegin
-		// 
-		dateTimePickerEphemeridesBegin.AccessibleRole = AccessibleRole.DropList;
-		dateTimePickerEphemeridesBegin.Location = new Point(159, 13);
-		dateTimePickerEphemeridesBegin.Name = "dateTimePickerEphemeridesBegin";
-		dateTimePickerEphemeridesBegin.Size = new Size(173, 21);
-		dateTimePickerEphemeridesBegin.TabIndex = 1;
-		dateTimePickerEphemeridesBegin.ToolTipValues.EnableToolTips = true;
-		dateTimePickerEphemeridesBegin.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		dateTimePickerEphemeridesBegin.Enter += Control_Enter;
-		dateTimePickerEphemeridesBegin.Leave += Control_Leave;
-		dateTimePickerEphemeridesBegin.MouseEnter += Control_Enter;
-		dateTimePickerEphemeridesBegin.MouseLeave += Control_Leave;
-		// 
-		// backgroundWorker
-		// 
-		backgroundWorker.WorkerReportsProgress = true;
-		backgroundWorker.WorkerSupportsCancellation = true;
-		backgroundWorker.DoWork += BackgroundWorker_DoWork;
-		backgroundWorker.ProgressChanged += BackgroundWorker_ProgressChanged;
-		backgroundWorker.RunWorkerCompleted += BackgroundWorker_RunWorkerCompleted;
+		formsPlot.AccessibleDescription = "Shows the altitude and the apparent magnitude of the object over time (UTC)";
+		formsPlot.AccessibleName = "Altitude chart";
+		formsPlot.AccessibleRole = AccessibleRole.Chart;
+		formsPlot.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+		formsPlot.DisplayScale = 1F;
+		formsPlot.Location = new Point(14, 466);
+		formsPlot.Name = "formsPlot";
+		formsPlot.Size = new Size(772, 146);
+		formsPlot.TabIndex = 30;
+		formsPlot.Enter += Control_Enter;
+		formsPlot.Leave += Control_Leave;
+		formsPlot.MouseEnter += Control_Enter;
+		formsPlot.MouseLeave += Control_Leave;
 		// 
 		// kryptonManager
 		// 
@@ -363,8 +816,9 @@ partial class EphemerisForm
 		AccessibleRole = AccessibleRole.Dialog;
 		AutoScaleDimensions = new SizeF(7F, 15F);
 		AutoScaleMode = AutoScaleMode.Font;
-		ClientSize = new Size(406, 453);
+		ClientSize = new Size(800, 640);
 		ControlBox = false;
+		MinimumSize = new Size(816, 600);
 		Controls.Add(toolStripContainer);
 		FormBorderStyle = FormBorderStyle.SizableToolWindow;
 		Icon = (Icon)resources.GetObject("$this.Icon");
@@ -387,7 +841,6 @@ partial class EphemerisForm
 		kryptonPanelMain.ResumeLayout(false);
 		kryptonPanelMain.PerformLayout();
 		ResumeLayout(false);
-
 	}
 
 	#endregion
@@ -396,16 +849,36 @@ partial class EphemerisForm
 	private ToolStripStatusLabel labelInformation;
 	private ToolStripContainer toolStripContainer;
 	private KryptonPanel kryptonPanelMain;
+	private KryptonLabel labelEphemeridesBegin;
 	private KryptonDateTimePicker dateTimePickerEphemeridesBegin;
-	private BackgroundWorker backgroundWorker;
 	private KryptonLabel labelEphemeridesEnd;
 	private KryptonDateTimePicker dateTimePickerEphemeridesEnd;
-	private KryptonLabel labelEphemeridesBegin;
-	private KryptonNumericUpDown numericUpDownStepsInDays;
 	private KryptonLabel labelEphemeridesStepsInDays;
-	private KryptonLabel labelPercent;
-	private KryptonProgressBar progressBar;
+	private KryptonNumericUpDown numericUpDownStepsInDays;
+	private KryptonLabel labelLatitude;
+	private KryptonNumericUpDown numericUpDownLatitude;
+	private KryptonLabel labelLongitude;
+	private KryptonNumericUpDown numericUpDownLongitude;
+	private KryptonLabel labelElevation;
+	private KryptonNumericUpDown numericUpDownElevation;
+	private KryptonLabel labelMinimumAltitude;
+	private KryptonNumericUpDown numericUpDownMinimumAltitude;
+	private KryptonLabel labelMaximumSunAltitude;
+	private KryptonNumericUpDown numericUpDownMaximumSunAltitude;
+	private KryptonCheckBox checkBoxFaintestMagnitude;
+	private KryptonNumericUpDown numericUpDownFaintestMagnitude;
+	private KryptonLabel labelMinimumMoonSeparation;
+	private KryptonNumericUpDown numericUpDownMinimumMoonSeparation;
+	private KryptonCheckBox checkBoxPerturbations;
+	private KryptonCheckBox checkBoxRefraction;
+	private KryptonLabel labelEphemerisSource;
+	private KryptonButton buttonLoadEphemerisFile;
 	private KryptonButton buttonCalculate;
+	private KryptonButton buttonCancel;
+	private KryptonButton buttonExport;
+	private KryptonProgressBar progressBar;
+	private KryptonLabel labelPercent;
 	private KryptonListView listView;
+	private FormsPlot formsPlot;
 	private KryptonManager kryptonManager;
 }
