@@ -42,6 +42,19 @@ public sealed class EphemerisTests
 		Assert.Equal(expected: 2461041.5, actual: TimeScales.ToJulianDate(dateTime: new DateTime(year: 2026, month: 1, day: 1, hour: 0, minute: 0, second: 0, kind: DateTimeKind.Utc)), precision: 9);
 	}
 
+	/// <summary>Verifies the Espenak–Meeus ΔT polynomial transitions in the historical ranges.</summary>
+	[Theory]
+	[InlineData(1600, 120.0)]
+	[InlineData(1700, 8.83)]
+	[InlineData(1800, 13.72)]
+	[InlineData(1860, 7.62)]
+	[InlineData(1900, -2.79)]
+	public void DeltaT_HistoricalRanges(int year, double expectedSeconds)
+	{
+		DateTime utc = new(year: year, month: 1, day: 1, hour: 0, minute: 0, second: 0, kind: DateTimeKind.Utc);
+		Assert.InRange(actual: TimeScales.TtMinusUtcSeconds(utc: utc), low: expectedSeconds - 1.0, high: expectedSeconds + 1.0);
+	}
+
 	/// <summary>Verifies that the ephemeris across midnight is continuous.</summary>
 	[Fact]
 	public void Ephemeris_IsContinuousAcrossMidnight()
@@ -74,6 +87,45 @@ public sealed class EphemerisTests
 			Assert.InRange(actual: e.ApparentMagnitude, low: 6.0, high: 10.0);
 			Assert.Equal(expected: TimeSpan.Zero, actual: e.Time.Offset);
 		});
+	}
+
+	/// <summary>Verifies perturbation propagation is independent of request order and starts at the elements' epoch.</summary>
+	[Fact]
+	public void Ephemeris_PerturbedRequestsPropagateOutwardFromEpoch()
+	{
+		DateTimeOffset[] times =
+		[
+			new(year: 2000, month: 1, day: 1, hour: 0, minute: 0, second: 0, offset: TimeSpan.Zero),
+			new(year: 2024, month: 1, day: 1, hour: 0, minute: 0, second: 0, offset: TimeSpan.Zero),
+			new(year: 2025, month: 6, day: 1, hour: 0, minute: 0, second: 0, offset: TimeSpan.Zero)
+		];
+		IReadOnlyList<EphemerisEntry> combined = service.Calculate(elements: TestData.Ceres(), times: times, observer: TestData.Greenwich);
+
+		for (int i = 0; i < times.Length; i++)
+		{
+			EphemerisEntry individual = Assert.Single(collection: service.Calculate(elements: TestData.Ceres(), times: [times[i]], observer: TestData.Greenwich));
+			Assert.Equal(expected: individual.RightAscensionHours, actual: combined[i].RightAscensionHours, precision: 8);
+			Assert.Equal(expected: individual.DeclinationDegrees, actual: combined[i].DeclinationDegrees, precision: 8);
+			Assert.Equal(expected: individual.DistanceAu, actual: combined[i].DistanceAu, precision: 8);
+		}
+	}
+
+	/// <summary>Verifies that a refracted altitude does not change whether the geometric position is above the horizon.</summary>
+	[Fact]
+	public void EphemerisEntry_UsesGeometricAltitudeForHorizon()
+	{
+		EphemerisEntry entry = new(
+			Time: DateTimeOffset.UnixEpoch,
+			RightAscensionHours: 0.0,
+			DeclinationDegrees: 0.0,
+			AzimuthDegrees: 0.0,
+			AltitudeDegrees: 0.06,
+			DistanceAu: 1.0,
+			ApparentMagnitude: 10.0,
+			IsVisible: false,
+			GeometricAltitudeDegrees: -0.5);
+
+		Assert.False(condition: entry.IsAboveHorizon);
 	}
 
 	/// <summary>Verifies that a pre-canceled token cancels the calculation.</summary>
@@ -224,6 +276,25 @@ public sealed class EphemerisTests
 		_ = Assert.Throws<ArgumentOutOfRangeException>(testCode: () => EphemerisService.CreateTimeGrid(start: start, end: start.AddDays(days: 1), step: TimeSpan.Zero));
 		_ = Assert.Throws<ArgumentOutOfRangeException>(testCode: () => EphemerisService.CreateTimeGrid(start: start, end: start.AddDays(days: -1), step: TimeSpan.FromHours(hours: 1)));
 		_ = Assert.Throws<ArgumentOutOfRangeException>(testCode: () => EphemerisService.CreateTimeGrid(start: start, end: start.AddYears(years: 100), step: TimeSpan.FromMinutes(minutes: 1)));
+	}
+
+	/// <summary>Verifies that observer longitude follows the documented range.</summary>
+	[Theory]
+	[InlineData(-180.0)]
+	[InlineData(180.0)]
+	public void ObserverLongitude_InRange_IsAccepted(double longitude)
+	{
+		new ObserverLocation(LatitudeDegrees: 0.0, LongitudeDegrees: longitude).Validate();
+	}
+
+	/// <summary>Verifies that observer longitude outside [−180°, +180°] is rejected.</summary>
+	[Theory]
+	[InlineData(-180.01)]
+	[InlineData(180.01)]
+	[InlineData(360.0)]
+	public void ObserverLongitude_OutOfRange_Throws(double longitude)
+	{
+		_ = Assert.Throws<ArgumentOutOfRangeException>(testCode: () => new ObserverLocation(LatitudeDegrees: 0.0, LongitudeDegrees: longitude).Validate());
 	}
 
 	/// <summary>Verifies that the CSV export is culture-independent.</summary>

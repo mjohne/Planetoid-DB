@@ -54,6 +54,12 @@ internal partial class EphemerisForm : BaseKryptonForm
 	/// <summary>The result of the last calculation.</summary>
 	private IReadOnlyList<EphemerisEntry> lastResult = [];
 
+	/// <summary>The observer location captured for the last calculation.</summary>
+	private ObserverLocation? lastObserver;
+
+	/// <summary>The maximum number of result rows displayed in the list.</summary>
+	private const int MaximumDisplayedResultPoints = 2000;
+
 	/// <summary>Gets the status label to be used for displaying information.</summary>
 	/// <remarks>Derived classes should override this property to provide the specific label.</remarks>
 	protected override ToolStripStatusLabel? StatusLabel => labelInformation;
@@ -139,8 +145,9 @@ internal partial class EphemerisForm : BaseKryptonForm
 		try
 		{
 			listView.Items.Clear();
-			ListViewItem[] items = new ListViewItem[entries.Count];
-			for (int i = 0; i < entries.Count; i++)
+			int displayedCount = Math.Min(val1: entries.Count, val2: MaximumDisplayedResultPoints);
+			ListViewItem[] items = new ListViewItem[displayedCount];
+			for (int i = 0; i < displayedCount; i++)
 			{
 				EphemerisEntry e = entries[i];
 				items[i] = new ListViewItem(items:
@@ -306,6 +313,7 @@ internal partial class EphemerisForm : BaseKryptonForm
 		using CancellationTokenSource cts = new();
 		cancellationTokenSource = cts;
 		lastResult = [];
+		lastObserver = null;
 		SetRunningState(running: true);
 		SetProgress(percent: 0);
 		SetStatusBar(label: labelInformation, text: string.Create(provider: CultureInfo.InvariantCulture, handler: $"Calculating {times.Count} positions..."));
@@ -315,9 +323,11 @@ internal partial class EphemerisForm : BaseKryptonForm
 			EphemerisService service = new(planetaryEphemeris: PlanetaryEphemeris);
 			Progress<int> progress = new(handler: SetProgress);
 			lastResult = await service.CalculateAsync(elements: elements, times: times, observer: observer, criteria: criteria, options: options, progress: progress, cancellationToken: cts.Token);
+			lastObserver = observer;
 			ShowResult(entries: lastResult);
 			int visibleCount = lastResult.Count(predicate: static entry => entry.IsVisible);
-			SetStatusBar(label: labelInformation, text: string.Create(provider: CultureInfo.InvariantCulture, handler: $"{lastResult.Count} positions calculated in {stopwatch.Elapsed.TotalSeconds:0.0} s; visible: {visibleCount}."));
+			string displayNote = lastResult.Count > MaximumDisplayedResultPoints ? $" The first {MaximumDisplayedResultPoints} are shown in the list." : string.Empty;
+			SetStatusBar(label: labelInformation, text: string.Create(provider: CultureInfo.InvariantCulture, handler: $"{lastResult.Count} positions calculated in {stopwatch.Elapsed.TotalSeconds:0.0} s; visible: {visibleCount}.{displayNote}"));
 		}
 		catch (OperationCanceledException)
 		{
@@ -360,7 +370,7 @@ internal partial class EphemerisForm : BaseKryptonForm
 	/// <remarks>Exports the last result as CSV with invariant culture and UTC timestamps.</remarks>
 	private async void ButtonExport_Click(object sender, EventArgs e)
 	{
-		if (lastResult.Count == 0)
+		if (lastResult.Count == 0 || lastObserver is null)
 		{
 			return;
 		}
@@ -376,11 +386,7 @@ internal partial class EphemerisForm : BaseKryptonForm
 		}
 		try
 		{
-			ObserverLocation observer = new(
-				LatitudeDegrees: (double)numericUpDownLatitude.Value,
-				LongitudeDegrees: (double)numericUpDownLongitude.Value,
-				ElevationMeters: (double)numericUpDownElevation.Value);
-			await EphemerisExportService.ExportCsvAsync(filePath: saveFileDialog.FileName, entries: lastResult, designation: elements?.Designation, observer: observer);
+			await EphemerisExportService.ExportCsvAsync(filePath: saveFileDialog.FileName, entries: lastResult, designation: elements?.Designation, observer: lastObserver);
 			SetStatusBar(label: labelInformation, text: $"Exported to {saveFileDialog.FileName}");
 		}
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)

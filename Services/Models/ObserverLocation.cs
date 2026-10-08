@@ -29,9 +29,9 @@ internal sealed record ObserverLocation(double LatitudeDegrees, double Longitude
 		{
 			throw new ArgumentOutOfRangeException(paramName: nameof(LatitudeDegrees), actualValue: LatitudeDegrees, message: "Latitude must be between −90° and +90°.");
 		}
-		if (!double.IsFinite(d: LongitudeDegrees) || LongitudeDegrees is < -180.0 or > 360.0)
+		if (!double.IsFinite(d: LongitudeDegrees) || LongitudeDegrees is < -180.0 or > 180.0)
 		{
-			throw new ArgumentOutOfRangeException(paramName: nameof(LongitudeDegrees), actualValue: LongitudeDegrees, message: "Longitude must be between −180° and +360°.");
+			throw new ArgumentOutOfRangeException(paramName: nameof(LongitudeDegrees), actualValue: LongitudeDegrees, message: "Longitude must be between −180° and +180°.");
 		}
 		if (!double.IsFinite(d: ElevationMeters) || ElevationMeters is < -500.0 or > 10000.0)
 		{

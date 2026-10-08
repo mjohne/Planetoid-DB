@@ -72,12 +72,12 @@ internal sealed class JplDevelopmentEphemeris : IPlanetaryEphemerisProvider, IDi
 		try
 		{
 			byte[] header = new byte[FixedHeaderSize + (6 * 1000) + 24];
-			int read = stream.ReadAtLeast(buffer: header, minimumBytes: FixedHeaderSize, throwOnEndOfStream: false);
-			if (read < FixedHeaderSize)
+			int read = stream.ReadAtLeast(buffer: header, minimumBytes: header.Length, throwOnEndOfStream: false);
+			if (read < header.Length)
 			{
-				throw new InvalidDataException(message: "The file is too short to be a JPL DE binary file.");
+				throw new InvalidDataException(message: "The file header is incomplete.");
 			}
-			Span<byte> h = header.AsSpan(start: 0, length: read);
+			ReadOnlySpan<byte> h = header;
 			StartJulianDate = BinaryPrimitives.ReadDoubleLittleEndian(source: h[2652..]);
 			EndJulianDate = BinaryPrimitives.ReadDoubleLittleEndian(source: h[2660..]);
 			blockLengthDays = BinaryPrimitives.ReadDoubleLittleEndian(source: h[2668..]);

@@ -128,6 +128,46 @@ internal static class TimeScales
 	private static double DeltaTBefore1972(double decimalYear)
 	{
 		double y = decimalYear;
+		if (y < -500)
+		{
+			double u = (y - 1820) / 100;
+			return -20 + (32 * u * u);
+		}
+		if (y < 500)
+		{
+			double u = y / 100;
+			return 10583.6 - (1014.41 * u) + (33.78311 * Math.Pow(x: u, y: 2)) - (5.952053 * Math.Pow(x: u, y: 3))
+				- (0.1798452 * Math.Pow(x: u, y: 4)) + (0.022174192 * Math.Pow(x: u, y: 5)) + (0.0090316521 * Math.Pow(x: u, y: 6));
+		}
+		if (y < 1600)
+		{
+			double u = (y - 1000) / 100;
+			return 1574.2 - (556.01 * u) + (71.23472 * Math.Pow(x: u, y: 2)) + (0.319781 * Math.Pow(x: u, y: 3))
+				- (0.8503463 * Math.Pow(x: u, y: 4)) - (0.005050998 * Math.Pow(x: u, y: 5)) + (0.0083572073 * Math.Pow(x: u, y: 6));
+		}
+		if (y < 1700)
+		{
+			double t = y - 1600;
+			return 120 - (0.9808 * t) - (0.01532 * t * t) + (t * t * t / 7129);
+		}
+		if (y < 1800)
+		{
+			double t = y - 1700;
+			return 8.83 + (0.1603 * t) - (0.0059285 * t * t) + (0.00013336 * t * t * t) - (Math.Pow(x: t, y: 4) / 1174000);
+		}
+		if (y < 1860)
+		{
+			double t = y - 1800;
+			return 13.72 - (0.332447 * t) + (0.0068612 * Math.Pow(x: t, y: 2)) + (0.0041116 * Math.Pow(x: t, y: 3))
+				- (0.00037436 * Math.Pow(x: t, y: 4)) + (0.0000121272 * Math.Pow(x: t, y: 5))
+				- (0.0000001699 * Math.Pow(x: t, y: 6)) + (0.000000000875 * Math.Pow(x: t, y: 7));
+		}
+		if (y < 1900)
+		{
+			double t = y - 1860;
+			return 7.62 + (0.5737 * t) - (0.251754 * Math.Pow(x: t, y: 2)) + (0.01680668 * Math.Pow(x: t, y: 3))
+				- (0.0004473624 * Math.Pow(x: t, y: 4)) + (Math.Pow(x: t, y: 5) / 233174);
+		}
 		if (y >= 1961)
 		{
 			double t = y - 1975;
@@ -148,7 +188,6 @@ internal static class TimeScales
 			double t = y - 1900;
 			return -2.79 + (1.494119 * t) - (0.0598939 * t * t) + (0.0061966 * t * t * t) - (0.000197 * t * t * t * t);
 		}
-		double u = (y - 1820) / 100;
-		return -20 + (32 * u * u);
+		throw new InvalidOperationException("The ΔT model does not cover the requested year.");
 	}
 }

@@ -134,16 +134,19 @@ internal sealed class EphemerisService(IPlanetaryEphemerisProvider planetaryEphe
 		criteria ??= VisibilityCriteria.Default;
 		options ??= EphemerisOptions.Default;
 		double epochTdb = TimeScales.TtToTdb(julianDateTt: elements.EpochJulianDateTt);
-		foreach (DateTimeOffset time in times)
+		double[] julianDatesTdb = new double[times.Count];
+		for (int i = 0; i < times.Count; i++)
 		{
+			DateTimeOffset time = times[i];
 			double jd = TimeScales.ToJulianDateUtc(time: time);
 			if (jd < PlanetaryEphemeris.StartJulianDate + 1.0 || jd > PlanetaryEphemeris.EndJulianDate - 1.0)
 			{
 				throw new ArgumentOutOfRangeException(paramName: nameof(times), message: $"The time {time.UtcDateTime:O} is outside the range of the planetary ephemeris '{PlanetaryEphemeris.Name}'.");
 			}
+			julianDatesTdb[i] = TimeScales.TtToTdb(julianDateTt: TimeScales.ToJulianDateTt(time: time));
 		}
-		// Integrate chronologically, starting from the epoch of the elements, to reuse the integration between neighboring points
-		int[] order = [.. Enumerable.Range(start: 0, count: times.Count).OrderBy(keySelector: i => times[i].UtcTicks)];
+		// Integrate each direction outward from the epoch to reuse the integration between neighboring points
+		int[] order = [.. Enumerable.Range(start: 0, count: times.Count).OrderBy(keySelector: i => Math.Abs(value: julianDatesTdb[i] - epochTdb))];
 		EphemerisEntry[] result = new EphemerisEntry[times.Count];
 		StateVector epochState = OrbitPropagationService.GetTwoBodyState(elements: elements, julianDateTdb: epochTdb);
 		StateVector? forward = null;
@@ -154,7 +157,7 @@ internal sealed class EphemerisService(IPlanetaryEphemerisProvider planetaryEphe
 			cancellationToken.ThrowIfCancellationRequested();
 			int index = order[k];
 			DateTimeOffset utc = times[index].ToUniversalTime();
-			double jdTdb = TimeScales.TtToTdb(julianDateTt: TimeScales.ToJulianDateTt(time: utc));
+			double jdTdb = julianDatesTdb[index];
 			StateVector state;
 			if (!options.IncludePlanetaryPerturbations)
 			{
@@ -167,8 +170,7 @@ internal sealed class EphemerisService(IPlanetaryEphemerisProvider planetaryEphe
 			}
 			else
 			{
-				// Points before the epoch are visited in increasing order; integrate from the epoch backward for the first one,
-				// afterwards forward from the previous point (towards the epoch)
+				// Earlier points are visited nearest to the epoch first and propagated progressively farther backward
 				backward = propagator.Propagate(state: backward ?? epochState, targetJulianDateTdb: jdTdb, cancellationToken: cancellationToken);
 				state = backward.Value;
 			}

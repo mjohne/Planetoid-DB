@@ -1178,7 +1178,10 @@ public partial class PlanetoidDbForm
 		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 		formEphemeris.TopMost = TopMost;
 		// Pass the raw MPCORB record of the current planetoid to the form
-		formEphemeris.SetPlanetoidRecord(rawRecord: planetoidsDatabase[index: currentPosition]?.ToString());
+		string? rawRecord = currentPosition >= 0 && currentPosition < planetoidsDatabase.Count
+			? planetoidsDatabase[index: currentPosition]?.ToString()
+			: null;
+		formEphemeris.SetPlanetoidRecord(rawRecord: rawRecord);
 		// Show the ephemerides form as a modal dialog
 		_ = formEphemeris.ShowDialog(owner: this);
 	}
