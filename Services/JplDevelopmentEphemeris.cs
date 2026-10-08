@@ -106,7 +106,12 @@ internal sealed class JplDevelopmentEphemeris : IPlanetaryEphemerisProvider, IDi
 			for (int i = 0; i < 12; i++)
 			{
 				int components = i == 11 ? 2 : 3;
-				maxEnd = Math.Max(val1: maxEnd, val2: pointers[i, 0] - 1 + (pointers[i, 1] * components * pointers[i, 2]));
+				int pointerEnd = ReadPointerEnd(h: h, offset: 2696 + (i * 12), components: components);
+				if (i <= SunIndex && pointerEnd == 0)
+				{
+					throw new InvalidDataException(message: "The coefficient layout of the JPL DE file is invalid.");
+				}
+				maxEnd = Math.Max(val1: maxEnd, val2: pointerEnd);
 			}
 			// Lunar librations (third pointer triple stored after the DE number)
 			maxEnd = Math.Max(val1: maxEnd, val2: ReadPointerEnd(h: h, offset: 2844, components: 3));
