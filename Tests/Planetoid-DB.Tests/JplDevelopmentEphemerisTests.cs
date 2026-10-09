@@ -164,7 +164,7 @@ public sealed class JplDevelopmentEphemerisTests
 			// The third pointer is 1, which we write to the header.
 			WriteInt32(file, offset: pointerOffset + 8, value: 1);
 		}
-		// The record size is 440 doubles, which we write to the header.
+		// Store the DE number used to identify this fixture as DE440.
 		WriteInt32(file, offset: 2840, value: 440);
 		// The extended constant table starts at offset 2856, and we write three constants for testing.
 		int extendedPointerOffset = 2856 + 6;
