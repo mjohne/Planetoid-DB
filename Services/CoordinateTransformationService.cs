@@ -51,7 +51,7 @@ internal static class CoordinateTransformationService
 	/// <summary>Computes the precession matrix (IAU 1976) from J2000.0 to the mean equator and equinox of date.</summary>
 	/// <param name="julianDateTt">The Julian date (TT) [d].</param>
 	/// <returns>The rotation matrix.</returns>
-	/// <remarks>Accuracy about 0.1″ over ±2000 years from J2000.0.</remarks>
+	/// <remarks>Computes the precession matrix (IAU 1976) from J2000.0 to the mean equator and equinox of date. The precession angles are computed in radians using the IAU 1976 model, and the resulting rotation matrix is returned as a product of rotation matrices.</remarks>
 	public static Matrix3d PrecessionMatrix(double julianDateTt)
 	{
 		// Compute the precession angles in radians using the IAU 1976 model
@@ -66,7 +66,7 @@ internal static class CoordinateTransformationService
 	/// <summary>Computes the mean obliquity of the ecliptic (IAU 1980).</summary>
 	/// <param name="julianDateTt">The Julian date (TT) [d].</param>
 	/// <returns>The mean obliquity [rad].</returns>
-	/// <remarks>Accuracy about 0.01″ over ±2000 years from J2000.0.</remarks>
+	/// <remarks>Computes the mean obliquity of the ecliptic (IAU 1980) using the polynomial expression in arcseconds, and converts it to radians.</remarks>
 	public static double MeanObliquityRadians(double julianDateTt)
 	{
 		// Compute the mean obliquity in arcseconds using the IAU 1980 model
@@ -80,7 +80,7 @@ internal static class CoordinateTransformationService
 	/// <summary>Computes the nutation in longitude and obliquity (IAU 1980, principal terms).</summary>
 	/// <param name="julianDateTt">The Julian date (TT) [d].</param>
 	/// <returns>Δψ and Δε [rad].</returns>
-	/// <remarks>Accuracy about 0.5″ in Δψ and 0.1″ in Δε.</remarks>
+	/// <remarks>Computes the nutation in longitude and obliquity (IAU 1980, principal terms) and converts the results from arcseconds to radians.</remarks>
 	public static (double DeltaPsiRadians, double DeltaEpsilonRadians) Nutation(double julianDateTt)
 	{
 		// Convert degrees to radians
@@ -118,7 +118,7 @@ internal static class CoordinateTransformationService
 	/// <summary>Computes the Greenwich mean sidereal time (IAU 1982).</summary>
 	/// <param name="julianDateUt1">The Julian date (UT1 ≈ UTC) [d].</param>
 	/// <returns>GMST [°] in [0°, 360°).</returns>
-	/// <remarks>Accuracy about 0.1″ over ±2000 years from J2000.0.</remarks>
+	/// <remarks>Computes the Greenwich mean sidereal time (IAU 1982) in degrees using the given Julian date (UT1 ≈ UTC).</remarks>
 	public static double GreenwichMeanSiderealTimeDegrees(double julianDateUt1)
 	{
 		// Time in days since J2000.0
@@ -133,7 +133,7 @@ internal static class CoordinateTransformationService
 	/// <param name="julianDateUt1">The Julian date (UT1 ≈ UTC) [d].</param>
 	/// <param name="julianDateTt">The Julian date (TT) [d].</param>
 	/// <returns>GAST [°] in [0°, 360°).</returns>
-	/// <remarks>Accuracy about 0.5″ over ±2000 years from J2000.0.</remarks>
+	/// <remarks>Computes the Greenwich apparent sidereal time (IAU 1982) in degrees using the given Julian dates (UT1 ≈ UTC and TT).</remarks>
 	public static double GreenwichApparentSiderealTimeDegrees(double julianDateUt1, double julianDateTt)
 	{
 		// Compute nutation in longitude (Δψ) and obliquity (Δε)

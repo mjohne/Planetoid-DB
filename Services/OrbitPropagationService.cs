@@ -157,7 +157,7 @@ internal sealed class OrbitPropagationService(IPlanetaryEphemerisProvider planet
 	{
 		// Conversion factor from degrees to radians
 		const double d2r = AstronomicalConstants.DegreesToRadians;
-		// Convert the mean anomaly from degrees to radians
+		// Store the eccentricity in a local variable for use in the calculations
 		double e = eccentricity;
 		// Solve Kepler's equation to find the eccentric anomaly [rad] from the mean anomaly [rad] and eccentricity
 		double eccentricAnomaly = SolveKepler(meanAnomalyRadians: meanAnomalyDegrees * d2r, eccentricity: e);
