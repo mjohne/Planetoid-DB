@@ -138,6 +138,12 @@ public sealed class ExporterTests : IDisposable
 		XNamespace ns = "https://github.com/mjohne/Planetoid-DB";
 
 		Assert.Contains(expected: "Test export", collection: document.Descendants(name: ns + "Title").Select(selector: static e => e.Value));
-		Assert.Equal(expected: SampleData.Count, actual: document.Descendants(name: ns + "Field").Count());
+		Dictionary<string, string> exportedData = document.Descendants(name: ns + "Field")
+			.ToDictionary(
+				keySelector: static field => field.Attribute(name: "name")?.Value ?? string.Empty,
+				elementSelector: static field => field.Attribute(name: "value")?.Value ?? string.Empty,
+				comparer: StringComparer.Ordinal);
+
+		Assert.Equal(expected: SampleData, actual: exportedData);
 	}
 }

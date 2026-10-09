@@ -88,8 +88,22 @@ public sealed class CalculatorHelperTests
 	[InlineData(1.0, 1.0)]
 	[InlineData(1.0, -0.1)]
 	[InlineData(0.0, 0.5)]
+	[InlineData(double.NaN, 0.5)]
+	[InlineData(double.PositiveInfinity, 0.5)]
+	[InlineData(1.0, double.NaN)]
+	[InlineData(1.0, double.PositiveInfinity)]
 	public void Tisserand_RejectsInvalidInputs(double semiMajorAxis, double eccentricity)
 	{
 		_ = Assert.Throws<ArgumentOutOfRangeException>(() => TisserandParameterCalculator.CalculateTisserandParameters(semiMajorAxis: semiMajorAxis, eccentricity: eccentricity, inclinationDeg: 0.0));
+	}
+
+	/// <summary>Verifies non-finite inclinations are rejected.</summary>
+	[Theory]
+	[InlineData(double.NaN)]
+	[InlineData(double.PositiveInfinity)]
+	[InlineData(double.NegativeInfinity)]
+	public void Tisserand_RejectsNonFiniteInclination(double inclinationDeg)
+	{
+		_ = Assert.Throws<ArgumentOutOfRangeException>(() => TisserandParameterCalculator.CalculateTisserandParameters(semiMajorAxis: 1.0, eccentricity: 0.5, inclinationDeg: inclinationDeg));
 	}
 }

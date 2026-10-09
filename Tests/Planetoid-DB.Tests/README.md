@@ -11,7 +11,7 @@ The project tests the services without the WinForms application. Instead of refe
 <Compile Include="..\..\Helpers\PlanetoidRecord.cs" Link="Helpers\PlanetoidRecord.cs" />
 ```
 
-In addition, the UI-independent helpers (`ExportEscapeHelper`, `IOrbitDataExporter`, `AverageCalculator`, `DerivedElements`, `TisserandParameterCalculator`) and all exporters in [`Export`](../../Export/README.md) are linked the same way. The exporters require the `NLog` package, which is referenced by the test project. WinForms forms cannot be compiled for plain `net10.0` and are therefore not covered.
+In addition, the UI-independent helpers (`ExportEscapeHelper`, `IOrbitDataExporter`, `AverageCalculator`, `DerivedElements`, `TisserandParameterCalculator`) and all exporters in [`Export`](../../Export/README.md) are linked the same way. The exporters require the `NLog` package, which is referenced by the test project. WinForms forms cannot be compiled for plain `net10.0` and are therefore not covered; [issue #1241](https://github.com/mjohne/Planetoid-DB/issues/1241) remains open to track those tests.
 
 This allows the tests to target plain `net10.0` and run on Windows, Linux, and macOS.
 
