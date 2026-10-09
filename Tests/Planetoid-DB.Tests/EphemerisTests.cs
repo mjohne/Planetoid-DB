@@ -304,9 +304,8 @@ public sealed class EphemerisTests
 		Assert.False(condition: VisibilityCalculator.IsVisible(altitudeDegrees: 20.0, sunAltitudeDegrees: -30.0, apparentMagnitude: 8.0, moonSeparationDegrees: 90.0, criteria: strict));
 		// An object with moon separation below the minimum should not be visible.
 		Assert.False(condition: VisibilityCalculator.IsVisible(altitudeDegrees: 20.0, sunAltitudeDegrees: -30.0, apparentMagnitude: 6.0, moonSeparationDegrees: 10.0, criteria: strict));
-		// An object with NaN apparent magnitude should not be visible.
+		// An object with NaN apparent magnitude should be visible because the magnitude criterion is skipped.
 		Assert.True(condition: VisibilityCalculator.IsVisible(altitudeDegrees: 20.0, sunAltitudeDegrees: -30.0, apparentMagnitude: double.NaN, moonSeparationDegrees: 90.0, criteria: strict));
-		// An object with NaN moon separation should not be visible.
 	}
 
 	/// <summary>Verifies that calculated entries below the horizon are never flagged as visible.</summary>

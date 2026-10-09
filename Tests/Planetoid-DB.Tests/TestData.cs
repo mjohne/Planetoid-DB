@@ -25,7 +25,7 @@ internal static class TestData
 	/// <remarks>This method is internal to the test assembly and is not intended for public use.</remarks>
 	private static string BuildLine(params (int Start, int Width, string Text)[] fields)
 	{
-		// The MPCORB line is 202 characters long, with the last 8 characters reserved for the epoch date.
+		// The MPCORB line is 202 characters long, with the last 8 characters reserved for the last-observation date.
 		char[] line = new string(c: ' ', count: 202).ToCharArray();
 		// The last field (name) is left-aligned, while all other fields are right-aligned.
 		foreach ((int start, int width, string text) in fields)

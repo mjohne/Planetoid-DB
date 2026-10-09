@@ -104,9 +104,9 @@ public sealed class JplDevelopmentEphemerisTests
 		WriteDouble(file, offset: dataRecordOffset, value: startJulianDate);
 		// The third pointer is 1, which we write to the header.
 		WriteDouble(file, offset: dataRecordOffset + sizeof(double), value: startJulianDate + 1.0);
-		// The record size is 440 doubles, which we write to the header.
+		// The X coefficient for the Earth–Moon barycenter is set to one AU in kilometers.
 		WriteDouble(file, offset: dataRecordOffset + (8 * sizeof(double)), value: kilometersPerAu);
-		// The extended constant table starts at offset 2856, and we write three constants for testing.
+		// The X coefficient for the geocentric Moon is set to 0.1 AU in kilometers.
 		WriteDouble(file, offset: dataRecordOffset + (29 * sizeof(double)), value: kilometersPerAu * 0.1);
 		string filePath = Path.Combine(path1: Path.GetTempPath(), path2: $"{Guid.NewGuid():N}.440");
 		// Write the synthetic DE440 file to a temporary file and test the JPL development ephemeris reader.
