@@ -17,7 +17,7 @@
     <PackageIcon>PlanetoidDB3.png</PackageIcon>
     <PackageProjectUrl>https://mjohne.github.io/Planetoid-DB/</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <RepositoryUrl>https://github.com/Mijo-Software/Planetoid-DB</RepositoryUrl>
+    <RepositoryUrl>https://github.com/mjohne/Planetoid-DB/</RepositoryUrl>
     <PackageTags>csharp;astronomy;mpc;minor-planets;planetoid;minor-planet-center</PackageTags>
     <NeutralLanguage>en</NeutralLanguage>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
