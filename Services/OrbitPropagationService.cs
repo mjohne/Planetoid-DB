@@ -45,6 +45,7 @@ internal sealed class OrbitPropagationService(IPlanetaryEphemerisProvider planet
 	/// <param name="julianDateTdb">The Julian date (TDB) [d].</param>
 	/// <returns>The heliocentric state vector, ICRF/J2000 equatorial.</returns>
 	/// <exception cref="ArgumentOutOfRangeException">Thrown when the semi-major axis or either Julian date is invalid.</exception>
+	/// <exception cref="ArgumentException">Thrown when another orbital element is invalid.</exception>
 	/// <remarks>The MPC epoch is given in TT; the difference TT−TDB (&lt; 2 ms) is negligible for the mean anomaly.</remarks>
 	public static StateVector GetTwoBodyState(MinorPlanetOrbitalElements elements, double julianDateTdb)
 	{
@@ -65,6 +66,7 @@ internal sealed class OrbitPropagationService(IPlanetaryEphemerisProvider planet
 		{
 			throw new ArgumentOutOfRangeException(paramName: nameof(elements), actualValue: elements.EpochJulianDateTt, message: "The orbital epoch must be finite.");
 		}
+		elements.Validate();
 		// Compute the mean motion [°/d] from the semi-major axis [AU] using Kepler's third law
 		double meanMotionDegPerDay = AstronomicalConstants.GaussianGravitationalConstant / (a * Math.Sqrt(d: a)) * AstronomicalConstants.RadiansToDegrees;
 		// Compute the mean anomaly at the target time [°] by propagating from the epoch using the mean motion. The MPC epoch is given in TT; the difference TT−TDB (< 2 ms) is negligible for the mean anomaly.

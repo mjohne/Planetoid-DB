@@ -45,6 +45,30 @@ public sealed class OrbitPropagationTests
 			julianDateTdb: 2451545.0));
 	}
 
+	/// <summary>Verifies two-body propagation rejects invalid orbital elements.</summary>
+	[Fact]
+	public void GetTwoBodyState_RejectsInvalidOrbitalElements()
+	{
+		MinorPlanetOrbitalElements elements = TestData.Ceres();
+		MinorPlanetOrbitalElements[] invalidElements =
+		[
+			elements with { MeanAnomalyDegrees = double.NaN },
+			elements with { ArgumentOfPerihelionDegrees = double.PositiveInfinity },
+			elements with { LongitudeOfAscendingNodeDegrees = double.NaN },
+			elements with { Eccentricity = double.NaN },
+			elements with { Eccentricity = -0.1 },
+			elements with { Eccentricity = 1.0 },
+			elements with { InclinationDegrees = double.NaN },
+			elements with { InclinationDegrees = -0.1 },
+			elements with { InclinationDegrees = 180.1 }
+		];
+
+		foreach (MinorPlanetOrbitalElements invalidElement in invalidElements)
+		{
+			Assert.Throws<ArgumentException>(() => OrbitPropagationService.GetTwoBodyState(elements: invalidElement, julianDateTdb: 2451545.0));
+		}
+	}
+
 	/// <summary>Verifies perturbed propagation rejects non-finite initial and target Julian dates.</summary>
 	[Theory]
 	[InlineData(double.NaN)]
