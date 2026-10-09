@@ -26,7 +26,7 @@ namespace Planetoid_DB.Services;
 internal sealed class AnalyticalPlanetaryEphemeris : IPlanetaryEphemerisProvider
 {
 	/// <summary>Mean elements and their rates per Julian century: a [AU], e, I [°], L [°], ϖ [°], Ω [°].</summary>
-	/// <remarks>Source: Standish, E.M., "Approximate Positions of the Planets", JPL IOM 42-196, 2021; see https://ssd.jpl.nasa.gov/planets/approx_pos.html.</remarks>
+	/// <remarks>Source: Standish, E.M., "Keplerian Elements for Approximate Positions of the Major Planets", JPL IOM 312.F-98-048, 24 November 1998; see <see href="https://ssd.jpl.nasa.gov/planets/approx_pos.html">JPL's approximate positions documentation</see>.</remarks>
 	private static readonly Dictionary<SolarSystemBody, double[]> Elements = new()
 	{
 		[key: SolarSystemBody.Mercury] = [0.38709927, 0.00000037, 0.20563593, 0.00001906, 7.00497902, -0.00594749, 252.25032350, 149472.67411175, 77.45779628, 0.16047689, 48.33076593, -0.12534081],
