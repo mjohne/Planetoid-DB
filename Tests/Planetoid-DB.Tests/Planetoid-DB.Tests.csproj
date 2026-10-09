@@ -13,10 +13,18 @@
     <!-- The services are UI-independent and are compiled directly into the test assembly -->
     <Compile Include="..\..\Services\**\*.cs" Link="Services\%(RecursiveDir)%(Filename)%(Extension)" />
     <Compile Include="..\..\Helpers\PlanetoidRecord.cs" Link="Helpers\PlanetoidRecord.cs" />
+    <!-- UI-independent helpers and exporters -->
+    <Compile Include="..\..\Helpers\IOrbitDataExporter.cs" Link="Helpers\IOrbitDataExporter.cs" />
+    <Compile Include="..\..\Helpers\ExportEscapeHelper.cs" Link="Helpers\ExportEscapeHelper.cs" />
+    <Compile Include="..\..\Helpers\AverageCalculator.cs" Link="Helpers\AverageCalculator.cs" />
+    <Compile Include="..\..\Helpers\DerivedElements*.cs" Link="Helpers\%(Filename)%(Extension)" />
+    <Compile Include="..\..\Helpers\TisserandParameterCalculator*.cs" Link="Helpers\%(Filename)%(Extension)" />
+    <Compile Include="..\..\Export\*.cs" Link="Export\%(Filename)%(Extension)" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <PackageReference Include="NLog" Version="6.2.1" />
     <PackageReference Include="xunit" Version="2.9.3" />
     <PackageReference Include="xunit.runner.visualstudio" Version="3.1.4" />
   </ItemGroup>
