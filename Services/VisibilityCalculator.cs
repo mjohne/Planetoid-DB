@@ -78,7 +78,7 @@ internal static class VisibilityCalculator
 		// Validate arguments
 		ArgumentNullException.ThrowIfNull(argument: criteria);
 		// The object must always be above the horizon, in addition to the requested minimum altitude
-		// The Sun must be below the requested maximum altitude (e.g. -6° for astronomical twilight)
+		// The Sun must be below the requested maximum altitude (e.g. -18° for astronomical twilight)
 		// The apparent magnitude must be less than or equal to the requested faintest magnitude (if known)
 		// The angular distance to the Moon must be greater than or equal to the requested minimum separation
 		return altitudeDegrees > 0.0
