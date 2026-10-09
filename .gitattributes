@@ -11,6 +11,7 @@
 *.slnx text eol=crlf
 *.resx text eol=crlf
 *.user text eol=crlf
+Services/AnalyticalPlanetaryEphemeris.cs -text
 
 ###############################################################################
 # Set default behavior for command prompt diff.
