@@ -10,9 +10,9 @@ Publish profiles store the configuration for `dotnet publish` and the Visual Stu
 
 | Profile | Runtime | Deployment | Description |
 |---|---|---|---|
-| `FolderProfile_win-x64.pubxml` | `win-x64` | Folder | Framework-dependent build for 64-bit Windows. |
-| `FolderProfile_win-x86.pubxml` | `win-x86` | Folder | Framework-dependent build for 32-bit Windows. |
-| `FolderProfile_win-arm64.pubxml` | `win-arm64` | Folder | Framework-dependent build for Windows on ARM64. |
+| `FolderProfile_win-x64.pubxml` | `win-x64` | Folder | Framework-dependent single-file build for 64-bit Windows. |
+| `FolderProfile_win-x86.pubxml` | `win-x86` | Folder | Framework-dependent single-file build for 32-bit Windows. |
+| `FolderProfile_win-arm64.pubxml` | `win-arm64` | Folder | Framework-dependent single-file build for Windows on ARM64. |
 | `FolderProfile_win-x64_standalone.pubxml` | `win-x64` | Folder | Self-contained single-file build for 64-bit Windows. |
 | `FolderProfile_win-x86_standalone.pubxml` | `win-x86` | Folder | Self-contained single-file build for 32-bit Windows. |
 | `FolderProfile_win-arm64_standalone.pubxml` | `win-arm64` | Folder | Self-contained single-file build for Windows on ARM64. |
@@ -20,7 +20,7 @@ Publish profiles store the configuration for `dotnet publish` and the Visual Stu
 | `ClickOnceProfile_win-x86.pubxml` | `win-x86` | ClickOnce | ClickOnce deployment for 32-bit Windows. |
 | `ClickOnceProfile_win-arm64.pubxml` | `win-arm64` | ClickOnce | ClickOnce deployment for Windows on ARM64. |
 
-The `_standalone` profiles set `SelfContained`, `PublishSingleFile`, and `IncludeNativeLibrariesForSelfExtract`, so the .NET runtime does not need to be installed on the target machine.
+All Folder profiles set `PublishSingleFile` and `IncludeNativeLibrariesForSelfExtract`. The `_standalone` profiles additionally set `SelfContained` to `true`, so the .NET runtime does not need to be installed on the target machine.
 
 ## Usage
 
@@ -30,7 +30,7 @@ From Visual Studio, select **Build → Publish** and choose a profile, or use th
 dotnet publish Planetoid-DB.csproj -p:PublishProfile=FolderProfile_win-x64_standalone
 ```
 
-The output is written to the `PublishDir` defined in the profile (below `bin\Release\net10.0-windows\publish\`).
+For Folder profiles, the single-file output is written to the `PublishDir` defined in the profile (below `bin\Release\net10.0-windows\publish\`).
 
 ## Notes
 

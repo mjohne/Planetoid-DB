@@ -8,8 +8,8 @@ When the user requests an explanation of a value (for example from the main form
 
 ## How It Works
 
-1. Each HTML file is registered as a file-based string resource in `I18nStrings.resx` (e.g. `Resources\TerminologyDocs\terminology_SemiMajorAxis.html`).
-2. The generated `I18nStrings` class exposes each document as a string property, e.g. `I18nStrings.terminology_SemiMajorAxis`.
+1. HTML files that are available through `TerminologyForm` are registered as file-based string resources in `I18nStrings.resx` (e.g. `Resources\TerminologyDocs\terminology_SemiMajorAxis.html`).
+2. The generated `I18nStrings` class exposes each registered document as a string property, e.g. `I18nStrings.terminology_SemiMajorAxis`.
 3. `TerminologyForm` builds the resource key `terminology_<Element>` and loads the document; if no matching document exists, it falls back to `terminology_IndexNumber`.
 
 ## Naming Convention
@@ -18,9 +18,9 @@ When the user requests an explanation of a value (for example from the main form
 terminology_<ElementName>.html
 ```
 
-`<ElementName>` is written in PascalCase and must match the element name used by `TerminologyForm`.
+To load a document through `TerminologyForm`, `<ElementName>` must be written in PascalCase and match an element name used by the form.
 
-## Available Documents
+## Documents in This Directory
 
 | Category | Documents |
 |---|---|
@@ -32,7 +32,7 @@ terminology_<ElementName>.html
 | Anomalies and periods | `EccentricAnomaly`, `TrueAnomaly`, `OrbitalPeriod`, `StandardGravitationalParameter` |
 | Orbital speeds | `AphelionOrbitalSpeed`, `PerihelionOrbitalSpeed`, `MajorOrbitalSpeed`, `MinorOrbitalSpeed`, `MeanOrbitalSpeed` |
 
-Each entry corresponds to a file `terminology_<Name>.html`.
+Each entry corresponds to a file `terminology_<Name>.html`. Only documents registered in `I18nStrings.resx` and represented by an element in `TerminologyForm` can be loaded by the form.
 
 ## Adding a New Document
 
