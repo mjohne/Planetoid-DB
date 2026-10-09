@@ -406,7 +406,7 @@ public sealed class EphemerisTests
 	{
 		// Create a time zone with a negative daylight delta.
 		TimeZoneInfo zone = CreateNegativeDaylightDeltaTimeZone();
-		// 2025-03-30 01:30 is ambiguous; standard time (offset 0) is used
+		// 2025-03-30 01:30 is ambiguous; standard time (offset +1 hour) is used.
 		DateTime localTime = new(year: 2025, month: 3, day: 30, hour: 1, minute: 30, second: 0);
 		// The expected UTC time is 2025-03-30 00:30:00Z (standard time).
 		Assert.Equal(expected: new DateTimeOffset(year: 2025, month: 3, day: 30, hour: 0, minute: 30, second: 0, offset: TimeSpan.Zero), actual: EphemerisService.LocalToUtc(localTime: localTime, timeZone: zone));
