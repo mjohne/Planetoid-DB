@@ -26,7 +26,7 @@ namespace Planetoid_DB.Services;
 internal sealed class AnalyticalPlanetaryEphemeris : IPlanetaryEphemerisProvider
 {
 	/// <summary>Mean elements and their rates per Julian century: a [AU], e, I [°], L [°], ϖ [°], Ω [°].</summary>
-	/// <remarks>Source: Standish, E.M., "JPL Planetary and Lunar Ephemerides, DE440/DE441", JPL IOM 42-196, 2021.</remarks>
+	/// <remarks>Source: Standish, E.M., "Approximate Positions of the Planets", JPL IOM 42-196, 2021; see https://ssd.jpl.nasa.gov/planets/approx_pos.html.</remarks>
 	private static readonly Dictionary<SolarSystemBody, double[]> Elements = new()
 	{
 		[key: SolarSystemBody.Mercury] = [0.38709927, 0.00000037, 0.20563593, 0.00001906, 7.00497902, -0.00594749, 252.25032350, 149472.67411175, 77.45779628, 0.16047689, 48.33076593, -0.12534081],
@@ -94,7 +94,7 @@ internal sealed class AnalyticalPlanetaryEphemeris : IPlanetaryEphemerisProvider
 		return AstronomicalConstants.EclipticToEquatorialJ2000 * ecliptic;
 	}
 
-	/// <inheritdoc/>
+	/// <summary>Computes the geocentric position of the Moon using a low-precision lunar theory based on the Astronomical Almanac.</summary>
 	/// <remarks>Low-precision lunar theory of the Astronomical Almanac (accuracy ≈ 0.3° in longitude, 0.2° in latitude).</remarks>
 	public Vector3d GetGeocentricMoonPosition(double julianDateTdb)
 	{
