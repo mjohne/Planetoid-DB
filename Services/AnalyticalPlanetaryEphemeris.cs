@@ -39,8 +39,8 @@ internal sealed class AnalyticalPlanetaryEphemeris : IPlanetaryEphemerisProvider
 		[key: SolarSystemBody.Neptune] = [30.06992276, 0.00026291, 0.00859048, 0.00005105, 1.77004347, 0.00035372, -55.12002969, 218.45945325, 44.96476227, -0.32241464, 131.78422574, -0.00508664]
 	};
 
-	/// <summary>
-	/// Gets a human-readable name of the ephemeris.</summary>	/// <remarks>This name is used for display purposes and may include information about the source or method of the ephemeris.</remarks>
+	/// <summary>Gets a human-readable name of the ephemeris.</summary>
+	/// <remarks>This name is used for display purposes and may include information about the source or method of the ephemeris.</remarks>
 	public string Name => "Analytical (JPL mean elements, 1800–2050)";
 
 	/// <summary>Gets the first Julian date (TDB) covered by the ephemeris.</summary>
@@ -94,7 +94,7 @@ internal sealed class AnalyticalPlanetaryEphemeris : IPlanetaryEphemerisProvider
 		return AstronomicalConstants.EclipticToEquatorialJ2000 * ecliptic;
 	}
 
-	/// <summary>Gets the geocentric position of the Moon at a given Julian date (TDB).</summary>
+	/// <inheritdoc/>
 	/// <remarks>Low-precision lunar theory of the Astronomical Almanac (accuracy ≈ 0.3° in longitude, 0.2° in latitude).</remarks>
 	public Vector3d GetGeocentricMoonPosition(double julianDateTdb)
 	{

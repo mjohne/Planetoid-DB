@@ -141,7 +141,7 @@ internal sealed class JplDevelopmentEphemeris : IPlanetaryEphemerisProvider, IDi
 			// Loop through the 12 items to find the maximum end index of the coefficients
 			for (int i = 0; i < 12; i++)
 			{
-				// For the Sun (index 11), there are only 2 components (X, Y), while for other bodies there are 3 components (X, Y, Z)
+				// Nutations (index 11) have 2 components, while the other items have 3 components
 				int components = i == 11 ? 2 : 3;
 				// Read the end index of the coefficients for the current item from the header
 				int pointerEnd = ReadPointerEnd(h: h, offset: 2696 + (i * 12), components: components);
@@ -154,7 +154,7 @@ internal sealed class JplDevelopmentEphemeris : IPlanetaryEphemerisProvider, IDi
 				maxEnd = Math.Max(val1: maxEnd, val2: pointerEnd);
 			}
 			// Lunar librations (third pointer triple stored after the DE number)
-			// Read the end index of the nutation coefficients (3 components) from the header and update maxEnd
+			// Read the end index of the lunar-libration coefficients (3 components) from the header and update maxEnd
 			maxEnd = Math.Max(val1: maxEnd, val2: ReadPointerEnd(h: h, offset: 2844, components: 3));
 			// Lunar librations (fourth pointer triple stored after the DE number)
 			int extraOffset = FixedHeaderSize + (Math.Max(val1: 0, val2: constantCount - 400) * 6);

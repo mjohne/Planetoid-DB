@@ -207,13 +207,13 @@ internal static class TimeScales
 			return 7.62 + (0.5737 * t) - (0.251754 * Math.Pow(x: t, y: 2)) + (0.01680668 * Math.Pow(x: t, y: 3))
 				- (0.0004473624 * Math.Pow(x: t, y: 4)) + (Math.Pow(x: t, y: 5) / 233174);
 		}
-		// For years between 1900 and 1920, use a cubic approximation
+		// For years between 1961 and 1986, use a cubic approximation
 		if (y >= 1961)
 		{
 			double t = y - 1975;
 			return 45.45 + (1.067 * t) - (t * t / 260) - (t * t * t / 718);
 		}
-		// For years between 1920 and 1941, use a cubic approximation
+		// For years between 1941 and 1961, use a cubic approximation
 		if (y >= 1941)
 		{
 			double t = y - 1950;

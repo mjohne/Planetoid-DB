@@ -1,7 +1,7 @@
 /*
  * File:        StateVector.cs
  * Project:     Planetoid-DB
- * Namespace:   Planetoid_DB.Services.Models
+ * Namespace:   Planetoid_DB.Services
  * Description: Represents a heliocentric state vector in the ICRF/J2000 equatorial frame.
  *
  * Author:      Michael Johne

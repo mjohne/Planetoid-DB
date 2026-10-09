@@ -39,7 +39,7 @@ internal readonly record struct Matrix3d(double M11, double M12, double M13, dou
 	/// <summary>Creates a frame rotation about the X axis.</summary>
 	/// <param name="angleRadians">The rotation angle in radians.</param>
 	/// <returns>The rotation matrix R1(angle).</returns>
-	/// <remarks>The rotation matrix R1(angle) rotates a vector counterclockwise about the X axis by the specified angle.</remarks>
+	/// <remarks>The matrix represents a passive frame rotation about the X axis by the specified angle.</remarks>
 	public static Matrix3d RotationX(double angleRadians)
 	{
 		(double s, double c) = Math.SinCos(x: angleRadians);
@@ -49,7 +49,7 @@ internal readonly record struct Matrix3d(double M11, double M12, double M13, dou
 	/// <summary>Creates a frame rotation about the Y axis.</summary>
 	/// <param name="angleRadians">The rotation angle in radians.</param>
 	/// <returns>The rotation matrix R2(angle).</returns>
-	/// <remarks>The rotation matrix R2(angle) rotates a vector counterclockwise about the Y axis by the specified angle.</remarks>
+	/// <remarks>The matrix represents a passive frame rotation about the Y axis by the specified angle.</remarks>
 	public static Matrix3d RotationY(double angleRadians)
 	{
 		(double s, double c) = Math.SinCos(x: angleRadians);
@@ -59,7 +59,7 @@ internal readonly record struct Matrix3d(double M11, double M12, double M13, dou
 	/// <summary>Creates a frame rotation about the Z axis.</summary>
 	/// <param name="angleRadians">The rotation angle in radians.</param>
 	/// <returns>The rotation matrix R3(angle).</returns>
-	/// <remarks>The rotation matrix R3(angle) rotates a vector counterclockwise about the Z axis by the specified angle.</remarks>
+	/// <remarks>The matrix represents a passive frame rotation about the Z axis by the specified angle.</remarks>
 	public static Matrix3d RotationZ(double angleRadians)
 	{
 		(double s, double c) = Math.SinCos(x: angleRadians);

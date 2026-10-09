@@ -87,7 +87,7 @@ internal readonly record struct Vector3d(double X, double Y, double Z)
 	/// <param name="a">The vector.</param>
 	/// <param name="s">The scalar divisor.</param>
 	/// <returns>The scaled vector.</returns>
-	/// <remarks>The division is performed component-wise: (X / s, Y / s, Z / s). Throws <see cref="DivideByZeroException"/> if <paramref name="s"/> is zero.</remarks>
+	/// <remarks>The division is performed component-wise: (X / s, Y / s, Z / s). A zero divisor produces IEEE 754 infinity or <see cref="double.NaN"/> values without throwing an exception.</remarks>
 	public static Vector3d operator /(Vector3d a, double s)
 	{
 		return new(X: a.X / s, Y: a.Y / s, Z: a.Z / s);

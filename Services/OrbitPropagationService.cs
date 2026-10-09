@@ -44,6 +44,7 @@ internal sealed class OrbitPropagationService(IPlanetaryEphemerisProvider planet
 	/// <param name="elements">The orbital elements.</param>
 	/// <param name="julianDateTdb">The Julian date (TDB) [d].</param>
 	/// <returns>The heliocentric state vector, ICRF/J2000 equatorial.</returns>
+	/// <exception cref="ArgumentOutOfRangeException">Thrown when the semi-major axis or either Julian date is invalid.</exception>
 	/// <remarks>The MPC epoch is given in TT; the difference TT−TDB (&lt; 2 ms) is negligible for the mean anomaly.</remarks>
 	public static StateVector GetTwoBodyState(MinorPlanetOrbitalElements elements, double julianDateTdb)
 	{
@@ -51,10 +52,18 @@ internal sealed class OrbitPropagationService(IPlanetaryEphemerisProvider planet
 		ArgumentNullException.ThrowIfNull(argument: elements);
 		// Validate the input elements and throw an exception if the semi-major axis is not positive
 		double a = elements.SemiMajorAxisAu;
-		if (a <= 0.0)
+		if (!double.IsFinite(d: a) || a <= 0.0)
 		{
-			// Validate the input elements and throw an exception if the semi-major axis is not positive
-			throw new ArgumentOutOfRangeException(paramName: nameof(elements), actualValue: a, message: "The semi-major axis must be positive.");
+			// Validate the input elements and throw an exception if the semi-major axis is not finite and positive
+			throw new ArgumentOutOfRangeException(paramName: nameof(elements), actualValue: a, message: "The semi-major axis must be finite and positive.");
+		}
+		if (!double.IsFinite(d: julianDateTdb))
+		{
+			throw new ArgumentOutOfRangeException(paramName: nameof(julianDateTdb), actualValue: julianDateTdb, message: "The Julian date must be finite.");
+		}
+		if (!double.IsFinite(d: elements.EpochJulianDateTt))
+		{
+			throw new ArgumentOutOfRangeException(paramName: nameof(elements), actualValue: elements.EpochJulianDateTt, message: "The orbital epoch must be finite.");
 		}
 		// Compute the mean motion [°/d] from the semi-major axis [AU] using Kepler's third law
 		double meanMotionDegPerDay = AstronomicalConstants.GaussianGravitationalConstant / (a * Math.Sqrt(d: a)) * AstronomicalConstants.RadiansToDegrees;
@@ -79,15 +88,22 @@ internal sealed class OrbitPropagationService(IPlanetaryEphemerisProvider planet
 	/// <param name="targetJulianDateTdb">The target Julian date (TDB) [d]; may be before or after the initial epoch.</param>
 	/// <param name="cancellationToken">A token to cancel long integrations.</param>
 	/// <returns>The propagated state.</returns>
+	/// <exception cref="ArgumentOutOfRangeException">Thrown when either Julian date is non-finite.</exception>
 	/// <exception cref="OperationCanceledException">Thrown when the operation is canceled.</exception>
 	/// <remarks>This method uses a classical fourth-order Runge–Kutta integration with adaptive step size, including the direct and indirect gravitational perturbations of Mercury to Neptune (Earth–Moon barycenter) taken from the configured <see cref="IPlanetaryEphemerisProvider"/>, and the post-Newtonian (Schwarzschild) correction of the Sun. The integration stops when the target time is reached within a tolerance of 1e-9 days (~0.086 ms).</remarks>
 	public StateVector Propagate(StateVector state, double targetJulianDateTdb, CancellationToken cancellationToken = default)
 	{
-		// Validate the input state and throw an exception if it is null
+		// Validate both dates before calculating the remaining time
+		if (!double.IsFinite(d: state.JulianDateTdb))
+		{
+			throw new ArgumentOutOfRangeException(paramName: nameof(state), actualValue: state.JulianDateTdb, message: "The initial Julian date must be finite.");
+		}
+		if (!double.IsFinite(d: targetJulianDateTdb))
+		{
+			throw new ArgumentOutOfRangeException(paramName: nameof(targetJulianDateTdb), actualValue: targetJulianDateTdb, message: "The target Julian date must be finite.");
+		}
 		StateVector current = state;
-		// Validate the input state and throw an exception if the Julian date is not finite
 		int iterations = 0;
-		// Validate the input state and throw an exception if the Julian date is not finite
 		while (Math.Abs(value: targetJulianDateTdb - current.JulianDateTdb) > 1e-9)
 		{
 			// Check for cancellation every 256 iterations to avoid excessive overhead
