@@ -13,6 +13,8 @@
  * See LICENSE file in the project root for license information.
  */
 
+using System.Diagnostics;
+
 namespace Planetoid_DB.Services;
 
 /// <summary>Represents a 3×3 matrix used for coordinate frame rotations.</summary>
@@ -26,14 +28,18 @@ namespace Planetoid_DB.Services;
 /// <param name="M32">Row 3, column 2.</param>
 /// <param name="M33">Row 3, column 3.</param>
 /// <remarks>The rotation helpers follow the frame-rotation convention R1/R2/R3 of the Explanatory Supplement to the Astronomical Almanac.</remarks>
+// You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
+[DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
 internal readonly record struct Matrix3d(double M11, double M12, double M13, double M21, double M22, double M23, double M31, double M32, double M33)
 {
 	/// <summary>Gets the identity matrix.</summary>
+	/// <remarks>The identity matrix is a special matrix that does not change a vector when multiplied by it.</remarks>
 	public static Matrix3d Identity => new(M11: 1, M12: 0, M13: 0, M21: 0, M22: 1, M23: 0, M31: 0, M32: 0, M33: 1);
 
 	/// <summary>Creates a frame rotation about the X axis.</summary>
 	/// <param name="angleRadians">The rotation angle in radians.</param>
 	/// <returns>The rotation matrix R1(angle).</returns>
+	/// <remarks>The rotation matrix R1(angle) rotates a vector counterclockwise about the X axis by the specified angle.</remarks>
 	public static Matrix3d RotationX(double angleRadians)
 	{
 		(double s, double c) = Math.SinCos(x: angleRadians);
@@ -43,6 +49,7 @@ internal readonly record struct Matrix3d(double M11, double M12, double M13, dou
 	/// <summary>Creates a frame rotation about the Y axis.</summary>
 	/// <param name="angleRadians">The rotation angle in radians.</param>
 	/// <returns>The rotation matrix R2(angle).</returns>
+	/// <remarks>The rotation matrix R2(angle) rotates a vector counterclockwise about the Y axis by the specified angle.</remarks>
 	public static Matrix3d RotationY(double angleRadians)
 	{
 		(double s, double c) = Math.SinCos(x: angleRadians);
@@ -52,6 +59,7 @@ internal readonly record struct Matrix3d(double M11, double M12, double M13, dou
 	/// <summary>Creates a frame rotation about the Z axis.</summary>
 	/// <param name="angleRadians">The rotation angle in radians.</param>
 	/// <returns>The rotation matrix R3(angle).</returns>
+	/// <remarks>The rotation matrix R3(angle) rotates a vector counterclockwise about the Z axis by the specified angle.</remarks>
 	public static Matrix3d RotationZ(double angleRadians)
 	{
 		(double s, double c) = Math.SinCos(x: angleRadians);
@@ -62,7 +70,10 @@ internal readonly record struct Matrix3d(double M11, double M12, double M13, dou
 	/// <param name="a">The left matrix.</param>
 	/// <param name="b">The right matrix.</param>
 	/// <returns>The product <paramref name="a"/> · <paramref name="b"/>.</returns>
-	public static Matrix3d operator *(Matrix3d a, Matrix3d b) => new(
+	/// <remarks>Matrix multiplication is not commutative; the order of the operands matters.</remarks>
+	public static Matrix3d operator *(Matrix3d a, Matrix3d b)
+	{
+		return new(
 		M11: (a.M11 * b.M11) + (a.M12 * b.M21) + (a.M13 * b.M31),
 		M12: (a.M11 * b.M12) + (a.M12 * b.M22) + (a.M13 * b.M32),
 		M13: (a.M11 * b.M13) + (a.M12 * b.M23) + (a.M13 * b.M33),
@@ -72,17 +83,31 @@ internal readonly record struct Matrix3d(double M11, double M12, double M13, dou
 		M31: (a.M31 * b.M11) + (a.M32 * b.M21) + (a.M33 * b.M31),
 		M32: (a.M31 * b.M12) + (a.M32 * b.M22) + (a.M33 * b.M32),
 		M33: (a.M31 * b.M13) + (a.M32 * b.M23) + (a.M33 * b.M33));
+	}
 
 	/// <summary>Applies the matrix to a vector.</summary>
 	/// <param name="m">The matrix.</param>
 	/// <param name="v">The vector.</param>
 	/// <returns>The transformed vector.</returns>
-	public static Vector3d operator *(Matrix3d m, Vector3d v) => new(
+	/// <remarks>This operation applies the rotation represented by the matrix to the vector.</remarks>
+	public static Vector3d operator *(Matrix3d m, Vector3d v)
+	{
+		return new(
 		X: (m.M11 * v.X) + (m.M12 * v.Y) + (m.M13 * v.Z),
 		Y: (m.M21 * v.X) + (m.M22 * v.Y) + (m.M23 * v.Z),
 		Z: (m.M31 * v.X) + (m.M32 * v.Y) + (m.M33 * v.Z));
+	}
 
 	/// <summary>Returns the transposed matrix (the inverse for a rotation matrix).</summary>
 	/// <returns>The transposed matrix.</returns>
-	public Matrix3d Transpose() => new(M11: M11, M12: M21, M13: M31, M21: M12, M22: M22, M23: M32, M31: M13, M32: M23, M33: M33);
+	/// <remarks>For a rotation matrix, the transpose is equivalent to the inverse.</remarks>
+	public Matrix3d Transpose()
+	{
+		return new(M11: M11, M12: M21, M13: M31, M21: M12, M22: M22, M23: M32, M31: M13, M32: M23, M33: M33);
+	}
+
+	/// <summary>Gets a string representation of the instance for debugging purposes.</summary>
+	/// <returns>A string representation of the instance.</returns>
+	/// <remarks>This property is used by the <see cref="DebuggerDisplayAttribute"/> to provide a concise summary of the instance in the debugger.</remarks>
+	private string DebuggerDisplay => ToString();
 }

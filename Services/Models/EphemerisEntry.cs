@@ -13,6 +13,8 @@
  * See LICENSE file in the project root for license information.
  */
 
+using System.Diagnostics;
+
 namespace Planetoid_DB.Services;
 
 /// <summary>Represents the calculated position of a minor planet at a specific time.</summary>
@@ -32,6 +34,9 @@ namespace Planetoid_DB.Services;
 /// <param name="GeometricAltitudeDegrees">Geometric altitude before atmospheric refraction, if available.</param>
 /// <param name="AstrometricRightAscensionHours">Astrometric topocentric right ascension in hours (ICRF/J2000, light-time corrected, without aberration, precession and nutation), as published by the Minor Planet Center.</param>
 /// <param name="AstrometricDeclinationDegrees">Astrometric topocentric declination in degrees (ICRF/J2000, light-time corrected, without aberration, precession and nutation), as published by the Minor Planet Center.</param>
+/// <remarks>The <see cref="EphemerisEntry"/> record encapsulates the calculated position and visibility information of a minor planet at a specific instant in time, including both topocentric and heliocentric coordinates, apparent magnitude, and various angular measurements relevant to observational astronomy.</remarks>
+// You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
+[DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
 internal sealed record EphemerisEntry(
 	DateTimeOffset Time,
 	double RightAscensionHours,
@@ -50,6 +55,12 @@ internal sealed record EphemerisEntry(
 	double AstrometricRightAscensionHours = double.NaN,
 	double AstrometricDeclinationDegrees = double.NaN)
 {
-	/// <summary>Gets a value indicating whether the object is above the (true) horizon.</summary>
+	/// <summary>Gets a value indicating whether the object is above the (true) horizon, based on the geometric altitude if available, otherwise the apparent altitude.</summary>
+	/// <remarks>This property uses the geometric altitude if available; otherwise, it falls back to the apparent altitude.</remarks>
 	public bool IsAboveHorizon => (double.IsNaN(d: GeometricAltitudeDegrees) ? AltitudeDegrees : GeometricAltitudeDegrees) > 0.0;
+
+	/// <summary>Gets a string representation of the instance for debugging purposes.</summary>
+	/// <returns>A string representation of the instance.</returns>
+	/// <remarks>This property is used by the <see cref="DebuggerDisplayAttribute"/> to provide a concise summary of the instance in the debugger.</remarks>
+	private string DebuggerDisplay => ToString();
 }
