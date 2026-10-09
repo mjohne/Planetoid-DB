@@ -28,7 +28,7 @@ In the WinForms designer, select the image from the `FatcowIcons16px` project re
 
 ## License
 
-The FatCow icons are published by FatCow Web Hosting under the Creative Commons Attribution 3.0 license. Attribution must be retained when the icons are redistributed.
+The FatCow icons are published by FatCow Web Hosting under the Creative Commons Attribution 3.0 license. Attribution must be retained when the icons are redistributed. See [ATTRIBUTIONS.md](../../ATTRIBUTIONS.md) and [LICENSES/CC-BY-3.0.txt](../../LICENSES/CC-BY-3.0.txt).
 
 ## Development Guidelines
 

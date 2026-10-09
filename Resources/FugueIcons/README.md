@@ -28,7 +28,7 @@ In the WinForms designer, select the image from the `FugueIcons16px` project res
 
 ## License
 
-The Fugue Icons by Yusuke Kamiyamane are published under the Creative Commons Attribution 3.0 license. Attribution must be retained when the icons are redistributed.
+The Fugue Icons by Yusuke Kamiyamane are published under the Creative Commons Attribution 3.0 license. Attribution must be retained when the icons are redistributed. See [ATTRIBUTIONS.md](../../ATTRIBUTIONS.md) and [LICENSES/CC-BY-3.0.txt](../../LICENSES/CC-BY-3.0.txt).
 
 ## Development Guidelines
 
