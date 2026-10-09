@@ -62,7 +62,7 @@ internal static class TestData
 	{
 		// Parse the MPCORB record and assert that parsing was successful.
 		Assert.True(condition: MpcorbElementsParser.TryParse(rawLine: CeresRecord, elements: out MinorPlanetOrbitalElements? elements, error: out string? error), userMessage: error);
-		// Assert that the elements are not null.
+		// A successful parse guarantees that elements is non-null.
 		return elements;
 	}
 }
