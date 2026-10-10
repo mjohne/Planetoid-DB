@@ -23,6 +23,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Net.Http;
 using System.Text.Json;
+using System.Threading;
 
 namespace Planetoid_DB;
 
@@ -40,9 +41,12 @@ internal partial class WorldMapForm : BaseKryptonForm
 	/// <remarks>Nominatim requires an identifying User-Agent header.</remarks>
 	private static readonly HttpClient httpClient = CreateHttpClient();
 
+	/// <summary>Cancellation source for work that should stop when the form closes.</summary>
+	private readonly CancellationTokenSource cancellationTokenSource = new();
+
 	/// <summary>HTML page hosting the Leaflet map.</summary>
 	/// <remarks>Map clicks are posted back to the host as JSON messages with <c>lat</c> and <c>lng</c> properties. The host calls <c>setMarker(lat, lng, zoomTo)</c> to place a marker.</remarks>
-	private const string MapHtml = """
+	private static readonly string MapHtml = $$"""
 		<!DOCTYPE html>
 		<html>
 		<head>
@@ -58,7 +62,7 @@ internal partial class WorldMapForm : BaseKryptonForm
 		var map = L.map('map', { worldCopyJump: true }).setView([20, 0], 2);
 		L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 			maxZoom: 19,
-			attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+			attribution: '{{I18nStrings.WorldMapAttribution}}'
 		}).addTo(map);
 		var marker = null;
 		function setMarker(lat, lng, zoomTo) {
@@ -66,6 +70,7 @@ internal partial class WorldMapForm : BaseKryptonForm
 			else { marker.setLatLng([lat, lng]); }
 			if (zoomTo) { map.setView([lat, lng], Math.max(map.getZoom(), 12)); }
 		}
+
 		map.on('click', function (e) {
 			var ll = e.latlng.wrap();
 			setMarker(ll.lat, ll.lng, false);
@@ -131,19 +136,19 @@ internal partial class WorldMapForm : BaseKryptonForm
 		Longitude = longitude;
 		HasSelection = true;
 		buttonApply.Enabled = true;
-		labelCoordinates.Text = string.Create(provider: CultureInfo.InvariantCulture, handler: $"Lat: {latitude:0.000000}, Lon: {longitude:0.000000}");
+		labelCoordinates.Text = string.Format(CultureInfo.CurrentCulture, I18nStrings.WorldMapCoordinatesFormat, latitude, longitude);
 	}
 
 	/// <summary>Searches a location with Nominatim.</summary>
 	/// <param name="query">The free-form search text.</param>
 	/// <returns>The coordinates of the best match, or <see langword="null"/> if nothing was found.</returns>
 	/// <remarks>The request is performed asynchronously.</remarks>
-	private static async Task<(decimal Latitude, decimal Longitude)?> GeocodeAsync(string query)
+	private static async Task<(decimal Latitude, decimal Longitude)?> GeocodeAsync(string query, CancellationToken cancellationToken)
 	{
 		string url = "https://nominatim.openstreetmap.org/search?format=jsonv2&limit=1&q=" + Uri.EscapeDataString(stringToEscape: query);
-		using HttpResponseMessage response = await httpClient.GetAsync(requestUri: url).ConfigureAwait(continueOnCapturedContext: true);
+		using HttpResponseMessage response = await httpClient.GetAsync(requestUri: url, cancellationToken: cancellationToken).ConfigureAwait(continueOnCapturedContext: true);
 		response.EnsureSuccessStatusCode();
-		string json = await response.Content.ReadAsStringAsync().ConfigureAwait(continueOnCapturedContext: true);
+		string json = await response.Content.ReadAsStringAsync(cancellationToken: cancellationToken).ConfigureAwait(continueOnCapturedContext: true);
 		using JsonDocument document = JsonDocument.Parse(json: json);
 		if (document.RootElement.ValueKind != JsonValueKind.Array || document.RootElement.GetArrayLength() == 0)
 		{
@@ -162,6 +167,10 @@ internal partial class WorldMapForm : BaseKryptonForm
 	/// <remarks>On success the marker is placed, the view is moved and the coordinates are stored.</remarks>
 	private async Task PerformSearchAsync()
 	{
+		if (IsDisposed || cancellationTokenSource.IsCancellationRequested || buttonSearch.Enabled is false)
+		{
+			return;
+		}
 		string query = textBoxSearch.Text.Trim();
 		if (query.Length == 0 || webView.CoreWebView2 is null)
 		{
@@ -170,24 +179,34 @@ internal partial class WorldMapForm : BaseKryptonForm
 		buttonSearch.Enabled = false;
 		try
 		{
-			(decimal Latitude, decimal Longitude)? result = await GeocodeAsync(query: query);
+			(decimal Latitude, decimal Longitude)? result = await GeocodeAsync(query: query, cancellationToken: cancellationTokenSource.Token);
+			if (IsDisposed || cancellationTokenSource.IsCancellationRequested)
+			{
+				return;
+			}
 			if (result is null)
 			{
-				labelInformation.Text = "No results found.";
+				labelInformation.Text = I18nStrings.WorldMapNoResults;
 				return;
 			}
 			SetSelection(latitude: result.Value.Latitude, longitude: result.Value.Longitude);
 			string script = string.Create(provider: CultureInfo.InvariantCulture, handler: $"setMarker({result.Value.Latitude}, {result.Value.Longitude}, true);");
 			await webView.CoreWebView2.ExecuteScriptAsync(javaScript: script);
 		}
+		catch (Exception) when (IsDisposed || cancellationTokenSource.IsCancellationRequested)
+		{
+		}
 		catch (Exception ex) when (ex is HttpRequestException or TaskCanceledException or JsonException or KeyNotFoundException)
 		{
 			logger.Error(exception: ex, message: "Location search failed.");
-			labelInformation.Text = "The search failed. Please check your internet connection.";
+			labelInformation.Text = I18nStrings.WorldMapSearchFailed;
 		}
 		finally
 		{
-			buttonSearch.Enabled = true;
+			if (!IsDisposed && !cancellationTokenSource.IsCancellationRequested)
+			{
+				buttonSearch.Enabled = true;
+			}
 		}
 	}
 
@@ -204,14 +223,47 @@ internal partial class WorldMapForm : BaseKryptonForm
 		try
 		{
 			await webView.EnsureCoreWebView2Async();
+			if (IsDisposed)
+			{
+				return;
+			}
+			webView.CoreWebView2.NavigationStarting += CoreWebView2_NavigationStarting;
 			webView.CoreWebView2.WebMessageReceived += CoreWebView2_WebMessageReceived;
 			webView.CoreWebView2.Settings.AreDefaultContextMenusEnabled = false;
 			webView.NavigateToString(htmlContent: MapHtml);
 		}
 		catch (Exception ex)
 		{
+			if (IsDisposed)
+			{
+				return;
+			}
 			logger.Error(exception: ex, message: "WebView2 could not be initialized.");
-			labelInformation.Text = "The WebView2 runtime is not available.";
+			labelInformation.Text = I18nStrings.WorldMapInitializationFailed;
+		}
+	}
+
+	/// <summary>Opens web links externally and prevents navigation away from the map.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The navigation event data.</param>
+	private void CoreWebView2_NavigationStarting(object? sender, CoreWebView2NavigationStartingEventArgs e)
+	{
+		if (Uri.TryCreate(uriString: e.Uri, uriKind: UriKind.Absolute, result: out Uri? uri)
+			&& uri.Scheme is "http" or "https")
+		{
+			e.Cancel = true;
+			try
+			{
+				_ = Process.Start(startInfo: new ProcessStartInfo(uri.AbsoluteUri) { UseShellExecute = true });
+			}
+			catch (Exception ex)
+			{
+				logger.Warn(exception: ex, message: "Could not open external link.");
+			}
+		}
+		else if (e.Uri != "about:blank")
+		{
+			e.Cancel = true;
 		}
 	}
 
@@ -275,6 +327,14 @@ internal partial class WorldMapForm : BaseKryptonForm
 			e.SuppressKeyPress = true;
 			await PerformSearchAsync();
 		}
+	}
+
+	/// <summary>Cancels pending work when the form is closing.</summary>
+	/// <param name="e">The event data.</param>
+	protected override void OnFormClosing(FormClosingEventArgs e)
+	{
+		cancellationTokenSource.Cancel();
+		base.OnFormClosing(e);
 	}
 
 	#endregion

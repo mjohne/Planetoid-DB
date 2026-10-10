@@ -144,6 +144,54 @@
   <data name="VersionTemplate" xml:space="preserve">
     <value>Version: {0}</value>
   </data>
+  <data name="WorldMapAccessibleDescription" xml:space="preserve">
+    <value>World map: drag to pan, scroll to zoom, click to set a marker.</value>
+  </data>
+  <data name="WorldMapApplyAccessibleDescription" xml:space="preserve">
+    <value>Returns the selected coordinates and closes the window.</value>
+  </data>
+  <data name="WorldMapApplyText" xml:space="preserve">
+    <value>&amp;OK</value>
+  </data>
+  <data name="WorldMapAttribution" xml:space="preserve">
+    <value>&amp;copy; &lt;a href="https://www.openstreetmap.org/copyright"&gt;OpenStreetMap&lt;/a&gt; contributors</value>
+  </data>
+  <data name="WorldMapCancelAccessibleDescription" xml:space="preserve">
+    <value>Closes the window without returning coordinates.</value>
+  </data>
+  <data name="WorldMapCancelText" xml:space="preserve">
+    <value>&amp;Cancel</value>
+  </data>
+  <data name="WorldMapCoordinatesAccessibleDescription" xml:space="preserve">
+    <value>Shows the currently selected geographic coordinates.</value>
+  </data>
+  <data name="WorldMapCoordinatesFormat" xml:space="preserve">
+    <value>Lat: {0:0.000000}, Lon: {1:0.000000}</value>
+  </data>
+  <data name="WorldMapInitializationFailed" xml:space="preserve">
+    <value>The map could not be initialized. Please try again.</value>
+  </data>
+  <data name="WorldMapNoPositionSelected" xml:space="preserve">
+    <value>No position selected</value>
+  </data>
+  <data name="WorldMapNoResults" xml:space="preserve">
+    <value>No results found.</value>
+  </data>
+  <data name="WorldMapSearchAccessibleDescription" xml:space="preserve">
+    <value>Searches the entered location and sets a marker on the map.</value>
+  </data>
+  <data name="WorldMapSearchFailed" xml:space="preserve">
+    <value>The search failed. Please check your internet connection.</value>
+  </data>
+  <data name="WorldMapSearchQueryAccessibleDescription" xml:space="preserve">
+    <value>Enter a place, street, country or postal code to search for.</value>
+  </data>
+  <data name="WorldMapSearchText" xml:space="preserve">
+    <value>&amp;Search</value>
+  </data>
+  <data name="WorldMapTitle" xml:space="preserve">
+    <value>World map</value>
+  </data>
   <data name="Www" xml:space="preserve">
     <value>www</value>
   </data>

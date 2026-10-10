@@ -1389,6 +1389,86 @@ namespace Planetoid_DB {
 			}
 		}
 
+		/// <summary>Looks up a localized string similar to World map: drag to pan, scroll to zoom, click to set a marker.</summary>
+		internal static string WorldMapAccessibleDescription {
+			get { return ResourceManager.GetString("WorldMapAccessibleDescription", resourceCulture); }
+		}
+
+		/// <summary>Looks up a localized string similar to Returns the selected coordinates and closes the window.</summary>
+		internal static string WorldMapApplyAccessibleDescription {
+			get { return ResourceManager.GetString("WorldMapApplyAccessibleDescription", resourceCulture); }
+		}
+
+		/// <summary>Looks up a localized string similar to &amp;OK.</summary>
+		internal static string WorldMapApplyText {
+			get { return ResourceManager.GetString("WorldMapApplyText", resourceCulture); }
+		}
+
+		/// <summary>Looks up a localized string similar to the OpenStreetMap attribution HTML.</summary>
+		internal static string WorldMapAttribution {
+			get { return ResourceManager.GetString("WorldMapAttribution", resourceCulture); }
+		}
+
+		/// <summary>Looks up a localized string similar to Closes the window without returning coordinates.</summary>
+		internal static string WorldMapCancelAccessibleDescription {
+			get { return ResourceManager.GetString("WorldMapCancelAccessibleDescription", resourceCulture); }
+		}
+
+		/// <summary>Looks up a localized string similar to &amp;Cancel.</summary>
+		internal static string WorldMapCancelText {
+			get { return ResourceManager.GetString("WorldMapCancelText", resourceCulture); }
+		}
+
+		/// <summary>Looks up a localized string similar to Shows the currently selected geographic coordinates.</summary>
+		internal static string WorldMapCoordinatesAccessibleDescription {
+			get { return ResourceManager.GetString("WorldMapCoordinatesAccessibleDescription", resourceCulture); }
+		}
+
+		/// <summary>Looks up a localized string similar to Lat: {0:0.000000}, Lon: {1:0.000000}.</summary>
+		internal static string WorldMapCoordinatesFormat {
+			get { return ResourceManager.GetString("WorldMapCoordinatesFormat", resourceCulture); }
+		}
+
+		/// <summary>Looks up a localized string similar to The map could not be initialized.</summary>
+		internal static string WorldMapInitializationFailed {
+			get { return ResourceManager.GetString("WorldMapInitializationFailed", resourceCulture); }
+		}
+
+		/// <summary>Looks up a localized string similar to No position selected.</summary>
+		internal static string WorldMapNoPositionSelected {
+			get { return ResourceManager.GetString("WorldMapNoPositionSelected", resourceCulture); }
+		}
+
+		/// <summary>Looks up a localized string similar to No results found.</summary>
+		internal static string WorldMapNoResults {
+			get { return ResourceManager.GetString("WorldMapNoResults", resourceCulture); }
+		}
+
+		/// <summary>Looks up a localized string similar to Searches the entered location and sets a marker on the map.</summary>
+		internal static string WorldMapSearchAccessibleDescription {
+			get { return ResourceManager.GetString("WorldMapSearchAccessibleDescription", resourceCulture); }
+		}
+
+		/// <summary>Looks up a localized string similar to The search failed.</summary>
+		internal static string WorldMapSearchFailed {
+			get { return ResourceManager.GetString("WorldMapSearchFailed", resourceCulture); }
+		}
+
+		/// <summary>Looks up a localized string similar to Enter a place, street, country or postal code to search for.</summary>
+		internal static string WorldMapSearchQueryAccessibleDescription {
+			get { return ResourceManager.GetString("WorldMapSearchQueryAccessibleDescription", resourceCulture); }
+		}
+
+		/// <summary>Looks up a localized string similar to &amp;Search.</summary>
+		internal static string WorldMapSearchText {
+			get { return ResourceManager.GetString("WorldMapSearchText", resourceCulture); }
+		}
+
+		/// <summary>Looks up a localized string similar to World map.</summary>
+		internal static string WorldMapTitle {
+			get { return ResourceManager.GetString("WorldMapTitle", resourceCulture); }
+		}
+
 		/// <summary>
 		///   Sucht eine lokalisierte Zeichenfolge, die www ähnelt.
 		/// </summary>

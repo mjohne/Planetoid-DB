@@ -98,21 +98,21 @@ partial class WorldMapForm
 		//
 		// buttonApply
 		//
-		buttonApply.AccessibleDescription = "Returns the selected coordinates and closes the window.";
+		buttonApply.AccessibleDescription = I18nStrings.WorldMapApplyAccessibleDescription;
 		buttonApply.DisplayStyle = ToolStripItemDisplayStyle.Text;
 		buttonApply.Enabled = false;
 		buttonApply.Name = "buttonApply";
-		buttonApply.Text = "&OK";
+		buttonApply.Text = I18nStrings.WorldMapApplyText;
 		buttonApply.Click += ButtonApply_Click;
 		buttonApply.MouseEnter += Control_Enter;
 		buttonApply.MouseLeave += Control_Leave;
 		//
 		// buttonCancel
 		//
-		buttonCancel.AccessibleDescription = "Closes the window without returning coordinates.";
+		buttonCancel.AccessibleDescription = I18nStrings.WorldMapCancelAccessibleDescription;
 		buttonCancel.DisplayStyle = ToolStripItemDisplayStyle.Text;
 		buttonCancel.Name = "buttonCancel";
-		buttonCancel.Text = "&Cancel";
+		buttonCancel.Text = I18nStrings.WorldMapCancelText;
 		buttonCancel.Click += ButtonCancel_Click;
 		buttonCancel.MouseEnter += Control_Enter;
 		buttonCancel.MouseLeave += Control_Leave;
@@ -123,7 +123,7 @@ partial class WorldMapForm
 		//
 		// textBoxSearch
 		//
-		textBoxSearch.AccessibleDescription = "Enter a place, street, country or postal code to search for.";
+		textBoxSearch.AccessibleDescription = I18nStrings.WorldMapSearchQueryAccessibleDescription;
 		textBoxSearch.AutoSize = false;
 		textBoxSearch.Name = "textBoxSearch";
 		textBoxSearch.Size = new Size(260, 25);
@@ -133,10 +133,10 @@ partial class WorldMapForm
 		//
 		// buttonSearch
 		//
-		buttonSearch.AccessibleDescription = "Searches the entered location and sets a marker on the map.";
+		buttonSearch.AccessibleDescription = I18nStrings.WorldMapSearchAccessibleDescription;
 		buttonSearch.DisplayStyle = ToolStripItemDisplayStyle.Text;
 		buttonSearch.Name = "buttonSearch";
-		buttonSearch.Text = "&Search";
+		buttonSearch.Text = I18nStrings.WorldMapSearchText;
 		buttonSearch.Click += ButtonSearch_Click;
 		buttonSearch.MouseEnter += Control_Enter;
 		buttonSearch.MouseLeave += Control_Leave;
@@ -147,9 +147,9 @@ partial class WorldMapForm
 		//
 		// labelCoordinates
 		//
-		labelCoordinates.AccessibleDescription = "Shows the currently selected geographic coordinates.";
+		labelCoordinates.AccessibleDescription = I18nStrings.WorldMapCoordinatesAccessibleDescription;
 		labelCoordinates.Name = "labelCoordinates";
-		labelCoordinates.Text = "No position selected";
+		labelCoordinates.Text = I18nStrings.WorldMapNoPositionSelected;
 		labelCoordinates.MouseEnter += Control_Enter;
 		labelCoordinates.MouseLeave += Control_Leave;
 		//
@@ -161,7 +161,7 @@ partial class WorldMapForm
 		webView.Dock = DockStyle.Fill;
 		webView.Name = "webView";
 		webView.ZoomFactor = 1D;
-		webView.AccessibleDescription = "World map: drag to pan, scroll to zoom, click to set a marker.";
+		webView.AccessibleDescription = I18nStrings.WorldMapAccessibleDescription;
 		webView.MouseEnter += Control_Enter;
 		webView.MouseLeave += Control_Leave;
 		//
@@ -174,7 +174,7 @@ partial class WorldMapForm
 		Name = "WorldMapForm";
 		ShowIcon = false;
 		StartPosition = FormStartPosition.CenterParent;
-		Text = "World map";
+		Text = I18nStrings.WorldMapTitle;
 		Load += WorldMapForm_Load;
 		toolStripContainer.BottomToolStripPanel.ResumeLayout(false);
 		toolStripContainer.BottomToolStripPanel.PerformLayout();
