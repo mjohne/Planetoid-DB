@@ -24,26 +24,6 @@ namespace Planetoid_DB;
 /// <remarks>This form hosts a toolbar, a WebView2 control and a status bar inside a ToolStripContainer.</remarks>
 partial class WorldMapForm
 {
-	/// <summary>Required designer variable.</summary>
-	/// <remarks>This field stores the components used by the form.</remarks>
-	private IContainer components = null;
-
-	/// <summary>Clean up any resources being used.</summary>
-	/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-	/// <remarks>This method disposes of the resources used by the form.</remarks>
-	protected override void Dispose(bool disposing)
-	{
-		// Dispose of the resources used by the form, including any ongoing ephemerides calculation.
-		if (disposing && (components != null))
-		{
-			cancellationTokenSource?.Cancel();
-			cancellationTokenSource?.Dispose();
-			components.Dispose();
-		}
-		// Call the base class Dispose method to ensure proper cleanup.
-		base.Dispose(disposing);
-	}
-
 	#region Windows Form Designer generated code
 
 	/// <summary>Required method for Designer support - do not modify
@@ -64,7 +44,6 @@ partial class WorldMapForm
 		buttonSearch = new ToolStripButton();
 		toolStripSeparator2 = new ToolStripSeparator();
 		labelCoordinates = new ToolStripLabel();
-		toolStripStatusLabel1 = new ToolStripStatusLabel();
 		toolStripContainer.BottomToolStripPanel.SuspendLayout();
 		toolStripContainer.ContentPanel.SuspendLayout();
 		toolStripContainer.TopToolStripPanel.SuspendLayout();
@@ -98,7 +77,7 @@ partial class WorldMapForm
 		// statusStrip
 		// 
 		statusStrip.Dock = DockStyle.None;
-		statusStrip.Items.AddRange(new ToolStripItem[] { labelInformation, toolStripStatusLabel1 });
+		statusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
 		statusStrip.Location = new Point(0, 0);
 		statusStrip.Name = "statusStrip";
 		statusStrip.Size = new Size(1000, 22);
@@ -197,18 +176,6 @@ partial class WorldMapForm
 		labelCoordinates.Text = I18nStrings.WorldMapNoPositionSelected;
 		labelCoordinates.MouseEnter += Control_Enter;
 		labelCoordinates.MouseLeave += Control_Leave;
-		// 
-		// toolStripStatusLabel1
-		// 
-		toolStripStatusLabel1.AccessibleDescription = "Shows some information";
-		toolStripStatusLabel1.AccessibleName = "Some information";
-		toolStripStatusLabel1.AccessibleRole = AccessibleRole.StaticText;
-		toolStripStatusLabel1.AutoToolTip = true;
-		toolStripStatusLabel1.Image = Resources.FatcowIcons16px.fatcow_lightbulb_16px;
-		toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-		toolStripStatusLabel1.Size = new Size(144, 17);
-		toolStripStatusLabel1.Text = "some information here";
-		// 
 		// WorldMapForm
 		// 
 		AccessibleDescription = "Shows the world map";
@@ -227,7 +194,7 @@ partial class WorldMapForm
 		Name = "WorldMapForm";
 		SizeGripStyle = SizeGripStyle.Hide;
 		StartPosition = FormStartPosition.CenterParent;
-		Text = "World map";
+		Text = I18nStrings.WorldMapTitle;
 		Load += WorldMapForm_Load;
 		toolStripContainer.BottomToolStripPanel.ResumeLayout(false);
 		toolStripContainer.BottomToolStripPanel.PerformLayout();
@@ -258,5 +225,4 @@ partial class WorldMapForm
 	private ToolStripSeparator toolStripSeparator2;
 	private ToolStripLabel labelCoordinates;
 	private WebView2 webView;
-	private ToolStripStatusLabel toolStripStatusLabel1;
 }

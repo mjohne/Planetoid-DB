@@ -44,6 +44,8 @@ internal partial class WorldMapForm : BaseKryptonForm
 	/// <remarks>This is used to cancel any ongoing geocoding requests when the form is closing.</remarks>
 	private readonly CancellationTokenSource cancellationTokenSource = new();
 
+	private bool cancellationTokenSourceDisposed;
+
 	/// <summary>Format string for displaying coordinates in the status bar.</summary>
 	/// <remarks>This format string is parsed from the localized resource string <see cref="I18nStrings.WorldMapCoordinatesFormat"/>.</remarks>
 	private static readonly CompositeFormat coordinatesFormat = CompositeFormat.Parse(format: I18nStrings.WorldMapCoordinatesFormat);
@@ -113,6 +115,20 @@ internal partial class WorldMapForm : BaseKryptonForm
 		logger.Info(message: "WorldMapForm initialized.");
 	}
 
+	/// <summary>Disposes the form and cancels any pending geocoding request.</summary>
+	/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+	protected override void Dispose(bool disposing)
+	{
+		if (disposing && !cancellationTokenSourceDisposed)
+		{
+			cancellationTokenSourceDisposed = true;
+			cancellationTokenSource.Cancel();
+			cancellationTokenSource.Dispose();
+		}
+
+		base.Dispose(disposing);
+	}
+
 	#endregion
 
 	#region Helpers
@@ -145,8 +161,7 @@ internal partial class WorldMapForm : BaseKryptonForm
 	/// <remarks>Enables the OK button and shows the coordinates in the toolbar.</remarks>
 	private void SetSelection(decimal latitude, decimal longitude)
 	{
-		// Log the selected position
-		logger.Info(message: $"Position selected: Latitude={latitude}, Longitude={longitude}");
+		logger.Info(message: "Position selected.");
 		// Store the selected coordinates
 		Latitude = latitude;
 		Longitude = longitude;
@@ -164,8 +179,7 @@ internal partial class WorldMapForm : BaseKryptonForm
 	/// <remarks>The request is performed asynchronously.</remarks>
 	private static async Task<(decimal Latitude, decimal Longitude)?> GeocodeAsync(string query, CancellationToken cancellationToken)
 	{
-		// Log the geocoding query
-		logger.Info(message: $"Geocoding query: {query}");
+		logger.Info(message: "Geocoding query started.");
 		// Construct the request URI for the Nominatim API with the query and proper encoding
 		Uri requestUri = new("https://nominatim.openstreetmap.org/search?format=jsonv2&limit=1&q=" + Uri.EscapeDataString(stringToEscape: query));
 		// Perform the HTTP GET request asynchronously
@@ -174,8 +188,7 @@ internal partial class WorldMapForm : BaseKryptonForm
 		_ = response.EnsureSuccessStatusCode();
 		// Read the response content as a string asynchronously
 		string json = await response.Content.ReadAsStringAsync(cancellationToken: cancellationToken).ConfigureAwait(continueOnCapturedContext: true);
-		// Log the received JSON response
-		logger.Info(message: $"Received JSON response: {json}");
+		logger.Info(message: "Geocoding response received.");
 		// Parse the JSON response and extract the coordinates
 		using JsonDocument document = JsonDocument.Parse(json: json);
 		// Check if the root element is an array and has at least one element
@@ -191,8 +204,7 @@ internal partial class WorldMapForm : BaseKryptonForm
 		if (decimal.TryParse(s: first.GetProperty(propertyName: "lat").GetString(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out decimal lat)
 			&& decimal.TryParse(s: first.GetProperty(propertyName: "lon").GetString(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out decimal lon))
 		{
-			// Log the successfully parsed coordinates
-			logger.Info(message: $"Parsed coordinates: Latitude={lat}, Longitude={lon}");
+			logger.Info(message: "Geocoding coordinates parsed.");
 			return (lat, lon);
 		}
 		else
@@ -229,8 +241,7 @@ internal partial class WorldMapForm : BaseKryptonForm
 		buttonSearch.Enabled = false;
 		// Clear any previous information messages
 		labelInformation.Text = string.Empty;
-		// Log that the location search is being performed with the specified query
-		logger.Info(message: $"Performing location search for query: {query}");
+		logger.Info(message: "Performing location search.");
 		// Perform the geocoding asynchronously and handle exceptions
 		try
 		{
@@ -252,14 +263,12 @@ internal partial class WorldMapForm : BaseKryptonForm
 				labelInformation.Text = I18nStrings.WorldMapNoResults;
 				return;
 			}
-			// Log that a result was found and the selection is being set
-			logger.Info(message: $"Location search result found: Latitude={result.Value.Latitude}, Longitude={result.Value.Longitude}. Setting selection.");
+			logger.Info(message: "Location search result found. Setting selection.");
 			// Set the selected position and update the UI
 			SetSelection(latitude: result.Value.Latitude, longitude: result.Value.Longitude);
 			// Create the JavaScript code to set the marker on the map with the found coordinates
 			string script = string.Create(provider: CultureInfo.InvariantCulture, handler: $"setMarker({result.Value.Latitude}, {result.Value.Longitude}, true);");
-			// Log the JavaScript code that will be executed in the WebView2 control
-			logger.Info(message: $"Executing JavaScript in WebView2: {script}");
+			logger.Info(message: "Executing map marker update in WebView2.");
 			// Execute the JavaScript code in the WebView2 control to place the marker and adjust the view
 			_ = await webView.CoreWebView2.ExecuteScriptAsync(javaScript: script).ConfigureAwait(continueOnCapturedContext: true);
 		}
@@ -395,8 +404,7 @@ internal partial class WorldMapForm : BaseKryptonForm
 	/// <remarks>The message is a JSON object with <c>lat</c> and <c>lng</c> numbers.</remarks>
 	private void CoreWebView2_WebMessageReceived(object? sender, CoreWebView2WebMessageReceivedEventArgs e)
 	{
-		// Log the received web message from the map page
-		logger.Info(message: $"Received web message from the map page: {e.WebMessageAsJson}");
+		logger.Info(message: "Received web message from the map page.");
 		// Attempt to parse the JSON message and extract the latitude and longitude
 		try
 		{
@@ -405,8 +413,7 @@ internal partial class WorldMapForm : BaseKryptonForm
 			// Extract the latitude and longitude properties from the JSON document
 			decimal lat = document.RootElement.GetProperty(propertyName: "lat").GetDecimal();
 			decimal lng = document.RootElement.GetProperty(propertyName: "lng").GetDecimal();
-			// Log the extracted latitude and longitude values
-			logger.Info(message: $"Extracted coordinates from web message: Latitude={lat}, Longitude={lng}");
+			logger.Info(message: "Coordinates extracted from web message.");
 			// Store the selected position and update the UI, clamping the values to valid ranges
 			SetSelection(latitude: Math.Clamp(value: lat, min: -90m, max: 90m), longitude: Math.Clamp(value: lng, min: -180m, max: 180m));
 		}
