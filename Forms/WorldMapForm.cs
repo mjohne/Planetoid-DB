@@ -469,8 +469,6 @@ internal partial class WorldMapForm : BaseKryptonForm
 	/// <remarks>The key press is handled to avoid a system beep.</remarks>
 	private async void TextBoxSearch_KeyDown(object? sender, KeyEventArgs e)
 	{
-		// Log that a key was pressed in the search box and check if it is the Enter key
-		logger.Info(message: $"Key pressed in search box: {e.KeyCode}");
 		// Check if the pressed key is Enter
 		if (e.KeyCode == Keys.Enter)
 		{

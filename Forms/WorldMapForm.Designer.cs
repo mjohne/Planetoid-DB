@@ -178,8 +178,8 @@ partial class WorldMapForm
 		labelCoordinates.MouseLeave += Control_Leave;
 		// WorldMapForm
 		// 
-		AccessibleDescription = "Shows the world map";
-		AccessibleName = "World map";
+		AccessibleDescription = I18nStrings.WorldMapAccessibleDescription;
+		AccessibleName = I18nStrings.WorldMapTitle;
 		AccessibleRole = AccessibleRole.Dialog;
 		AutoScaleDimensions = new SizeF(7F, 15F);
 		AutoScaleMode = AutoScaleMode.Font;
