@@ -176,6 +176,7 @@ partial class WorldMapForm
 		labelCoordinates.Text = I18nStrings.WorldMapNoPositionSelected;
 		labelCoordinates.MouseEnter += Control_Enter;
 		labelCoordinates.MouseLeave += Control_Leave;
+		// 
 		// WorldMapForm
 		// 
 		AccessibleDescription = I18nStrings.WorldMapAccessibleDescription;
@@ -194,7 +195,8 @@ partial class WorldMapForm
 		Name = "WorldMapForm";
 		SizeGripStyle = SizeGripStyle.Hide;
 		StartPosition = FormStartPosition.CenterParent;
-		Text = I18nStrings.WorldMapTitle;
+		Text = "World map";
+		FormClosing += OnFormClosing;
 		Load += WorldMapForm_Load;
 		toolStripContainer.BottomToolStripPanel.ResumeLayout(false);
 		toolStripContainer.BottomToolStripPanel.PerformLayout();

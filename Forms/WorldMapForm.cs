@@ -117,8 +117,12 @@ internal partial class WorldMapForm : BaseKryptonForm
 
 	/// <summary>Disposes the form and cancels any pending geocoding request.</summary>
 	/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+	/// <remarks>Overrides the base class Dispose method to ensure that the cancellation token source is properly disposed.</remarks>
 	protected override void Dispose(bool disposing)
 	{
+		// Log that the form is being disposed and whether managed resources are being disposed
+		logger.Info(message: $"Disposing WorldMapForm. Disposing managed resources: {disposing}.");
+		// Dispose the cancellation token source if disposing is true and it has not already been disposed
 		if (disposing && !cancellationTokenSourceDisposed)
 		{
 			cancellationTokenSourceDisposed = true;
@@ -483,9 +487,10 @@ internal partial class WorldMapForm : BaseKryptonForm
 	}
 
 	/// <summary>Cancels pending work when the form is closing.</summary>
+	/// <param name="sender">The event source.</param>
 	/// <param name="e">The event data.</param>
 	/// <remarks>Cancels the <see cref="CancellationTokenSource"/> to stop any ongoing geocoding requests.</remarks>
-	protected override void OnFormClosing(FormClosingEventArgs e)
+	private void OnFormClosing(object sender, FormClosingEventArgs e)
 	{
 		// Log that the form is closing and any pending work will be canceled
 		logger.Info(message: "WorldMapForm is closing. Canceling any pending work.");
