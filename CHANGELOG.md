@@ -6,6 +6,7 @@
 * Added new application icon by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1196
 * Created `ATTRIBUTIONS.md` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1197
 * Deleted `THIRD_PARTY_NOTICES.md` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1198
+* Added `WorldMapForm` (Leaflet/OpenStreetMap in WebView2) to pick geographic coordinates by @claude in https://github.com/mjohne/Planetoid-DB/pull/1244
 * Refactored `OrreryForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1200
 * Added `TaskbarProgressState` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1201
 * Added `DerivedElements.OrbitalResonance` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1202
