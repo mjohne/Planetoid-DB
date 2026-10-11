@@ -207,6 +207,7 @@ partial class PlanetoidDbForm
 		toolStripMenuItemMaxoidsRelativeToMinorPlanets = new ToolStripMenuItem();
 		toolStripMenuItemMoidsAndMaxoidsOfOneMinorPlanet = new ToolStripMenuItem();
 		toolStripMenuItemGroupDynamics = new ToolStripMenuItem();
+		toolStripMenuItemGroupEphemeridesAndPositions = new ToolStripMenuItem();
 		toolStripMenuItemTisserandParameters = new ToolStripMenuItem();
 		toolStripMenuItemTisserandParameterOfOneMinorPlanet = new ToolStripMenuItem();
 		toolStripMenuItemTisserandParameterOfAllMinorPlanets = new ToolStripMenuItem();
@@ -2774,7 +2775,7 @@ partial class PlanetoidDbForm
 		toolStripMenuItemTools.AccessibleName = "Tools";
 		toolStripMenuItemTools.AccessibleRole = AccessibleRole.MenuPopup;
 		toolStripMenuItemTools.AutoToolTip = true;
-		toolStripMenuItemTools.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemGroupDataAndStatistics, toolStripMenuItemGroupOrbitalAnalysis, toolStripMenuItemGroupProximityMetrics, toolStripMenuItemGroupDynamics, toolStripMenuItemObservations, toolStripSeparatorToolsGroups, toolStripMenuItemTerminology });
+		toolStripMenuItemTools.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemGroupDataAndStatistics, toolStripMenuItemGroupOrbitalAnalysis, toolStripMenuItemOrbit, toolStripMenuItemGroupProximityMetrics, toolStripMenuItemGroupDynamics, toolStripMenuItemGroupEphemeridesAndPositions, toolStripMenuItemObservations, toolStripSeparatorToolsGroups, toolStripMenuItemTerminology });
 		toolStripMenuItemTools.Name = "toolStripMenuItemTools";
 		toolStripMenuItemTools.Size = new Size(46, 24);
 		toolStripMenuItemTools.Text = "&Tools";
@@ -2787,7 +2788,7 @@ partial class PlanetoidDbForm
 		toolStripMenuItemGroupDataAndStatistics.AccessibleName = "Data & Statistics";
 		toolStripMenuItemGroupDataAndStatistics.AccessibleRole = AccessibleRole.MenuPopup;
 		toolStripMenuItemGroupDataAndStatistics.AutoToolTip = true;
-		toolStripMenuItemGroupDataAndStatistics.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemDatabaseInformation, toolStripMenuItemTableMode, toolStripMenuItemRecords, toolStripMenuItemPlanetaryInformation, toolStripMenuItemAverageAsteroid, toolStripSeparator20, toolStripMenuItemDistributions, toolStripMenuItemScatterPlots, toolStripMenuItemAEIDiagram3D });
+		toolStripMenuItemGroupDataAndStatistics.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemDatabaseInformation, toolStripMenuItemTableMode, toolStripMenuItemRecords, toolStripSeparator20, toolStripMenuItemDistributions, toolStripMenuItemScatterPlots, toolStripMenuItemAEIDiagram3D }); 
 		toolStripMenuItemGroupDataAndStatistics.Name = "toolStripMenuItemGroupDataAndStatistics";
 		toolStripMenuItemGroupDataAndStatistics.Size = new Size(183, 22);
 		toolStripMenuItemGroupDataAndStatistics.Text = "Data && &Statistics";
@@ -2900,7 +2901,7 @@ partial class PlanetoidDbForm
 		toolStripMenuItemGroupOrbitalAnalysis.AccessibleName = "Orbital Analysis";
 		toolStripMenuItemGroupOrbitalAnalysis.AccessibleRole = AccessibleRole.MenuPopup;
 		toolStripMenuItemGroupOrbitalAnalysis.AutoToolTip = true;
-		toolStripMenuItemGroupOrbitalAnalysis.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemFilter, toolStripMenuItemOrbit, toolStripMenuItemDerivedOrbitElements, toolStripMenuItemOrbitElementsGrouping, toolStripMenuItemAsteroidFamiliesDetection });
+		toolStripMenuItemGroupOrbitalAnalysis.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemFilter, toolStripMenuItemDerivedOrbitElements, toolStripMenuItemOrbitElementsGrouping, toolStripMenuItemAsteroidFamiliesDetection });
 		toolStripMenuItemGroupOrbitalAnalysis.Name = "toolStripMenuItemGroupOrbitalAnalysis";
 		toolStripMenuItemGroupOrbitalAnalysis.Size = new Size(183, 22);
 		toolStripMenuItemGroupOrbitalAnalysis.Text = "&Orbital Analysis";
@@ -3219,12 +3220,25 @@ partial class PlanetoidDbForm
 		toolStripMenuItemGroupDynamics.AccessibleName = "Dynamics";
 		toolStripMenuItemGroupDynamics.AccessibleRole = AccessibleRole.MenuPopup;
 		toolStripMenuItemGroupDynamics.AutoToolTip = true;
-		toolStripMenuItemGroupDynamics.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemTisserandParameters, toolStripMenuItemOrbitalResonances, toolStripMenuItemEphemerides });
+		toolStripMenuItemGroupDynamics.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemTisserandParameters, toolStripMenuItemOrbitalResonances });
 		toolStripMenuItemGroupDynamics.Name = "toolStripMenuItemGroupDynamics";
 		toolStripMenuItemGroupDynamics.Size = new Size(183, 22);
 		toolStripMenuItemGroupDynamics.Text = "&Dynamics";
 		toolStripMenuItemGroupDynamics.MouseEnter += (this.Control_Enter);
 		toolStripMenuItemGroupDynamics.MouseLeave += (this.Control_Leave);
+		//
+		// toolStripMenuItemGroupEphemeridesAndPositions
+		//
+		toolStripMenuItemGroupEphemeridesAndPositions.AccessibleDescription = "Ephemerides and positional information";
+		toolStripMenuItemGroupEphemeridesAndPositions.AccessibleName = "Ephemerides and Positions";
+		toolStripMenuItemGroupEphemeridesAndPositions.AccessibleRole = AccessibleRole.MenuPopup;
+		toolStripMenuItemGroupEphemeridesAndPositions.AutoToolTip = true;
+		toolStripMenuItemGroupEphemeridesAndPositions.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemEphemerides, toolStripMenuItemPlanetaryInformation, toolStripMenuItemAverageAsteroid });
+		toolStripMenuItemGroupEphemeridesAndPositions.Name = "toolStripMenuItemGroupEphemeridesAndPositions";
+		toolStripMenuItemGroupEphemeridesAndPositions.Size = new Size(183, 22);
+		toolStripMenuItemGroupEphemeridesAndPositions.Text = "&Ephemerides && Positions";
+		toolStripMenuItemGroupEphemeridesAndPositions.MouseEnter += (this.Control_Enter);
+		toolStripMenuItemGroupEphemeridesAndPositions.MouseLeave += (this.Control_Leave);
 		// 
 		// toolStripMenuItemTisserandParameters
 		// 
@@ -10162,4 +10176,5 @@ partial class PlanetoidDbForm
 	private ToolStripSeparator toolStripSeparator20;
 	private ToolStripMenuItem toolStripMenuItemMp3CAtOca;
 	private ToolStripMenuItem toolStripMenuItemMp3CAtLe;
+	private ToolStripMenuItem toolStripMenuItemGroupEphemeridesAndPositions;
 }
