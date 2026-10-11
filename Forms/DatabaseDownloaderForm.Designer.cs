@@ -148,10 +148,10 @@ partial class DatabaseDownloaderForm
 		tableLayoutPanel.Controls.Add(labelStatusText, 0, 0);
 		tableLayoutPanel.Controls.Add(labelSizeValue, 1, 3);
 		tableLayoutPanel.Controls.Add(labelSizeText, 0, 3);
-		tableLayoutPanel.Controls.Add(labelDateValue, 1, 1);
-		tableLayoutPanel.Controls.Add(labelSourceValue, 1, 2);
-		tableLayoutPanel.Controls.Add(labelDateText, 0, 1);
-		tableLayoutPanel.Controls.Add(labelSourceText, 0, 2);
+		tableLayoutPanel.Controls.Add(labelSourceValue, 1, 1);
+		tableLayoutPanel.Controls.Add(labelDateValue, 1, 2);
+		tableLayoutPanel.Controls.Add(labelSourceText, 0, 1);
+		tableLayoutPanel.Controls.Add(labelDateText, 0, 2);
 		tableLayoutPanel.Controls.Add(labelStatusValue, 1, 0);
 		tableLayoutPanel.Controls.Add(labelDownloadSpeed, 0, 6);
 		tableLayoutPanel.Controls.Add(labelDownloadSpeedValue, 1, 6);
