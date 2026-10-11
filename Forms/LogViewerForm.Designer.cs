@@ -153,6 +153,7 @@ partial class LogViewerForm
 		listView.AccessibleRole = AccessibleRole.List;
 		listView.AllowColumnReorder = true;
 		listView.Columns.AddRange(new ColumnHeader[] { columnHeaderDateTime, columnHeaderLevel, columnHeaderExceptionType, columnHeaderMessage });
+		listView.ContextMenuStrip = contextMenuSaveToFile;
 		listView.Dock = DockStyle.Fill;
 		listView.Font = new Font("Segoe UI", 9F);
 		listView.FullRowSelect = true;
@@ -200,6 +201,7 @@ partial class LogViewerForm
 		kryptonStatusStrip.AccessibleRole = AccessibleRole.StatusBar;
 		kryptonStatusStrip.AllowClickThrough = true;
 		kryptonStatusStrip.AllowItemReorder = true;
+		kryptonStatusStrip.Dock = DockStyle.None;
 		kryptonStatusStrip.Font = new Font("Segoe UI", 9F);
 		kryptonStatusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
 		kryptonStatusStrip.Location = new Point(0, 0);
@@ -971,6 +973,7 @@ partial class LogViewerForm
 		AutoScaleDimensions = new SizeF(7F, 15F);
 		AutoScaleMode = AutoScaleMode.Font;
 		ClientSize = new Size(654, 431);
+		ControlBox = false;
 		Controls.Add(toolStripContainer);
 		FormBorderStyle = FormBorderStyle.SizableToolWindow;
 		Icon = (Icon)resources.GetObject("$this.Icon");

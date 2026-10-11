@@ -1,0 +1,26 @@
+<Project>
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
+    <NoWarn>$(NoWarn);NU1507</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageVersion Include="Krypton.Docking" Version="105.26.7.201" />
+    <PackageVersion Include="Krypton.Navigator" Version="105.26.7.201" />
+    <PackageVersion Include="Krypton.Ribbon" Version="105.26.7.201" />
+    <PackageVersion Include="Krypton.Toolkit" Version="105.26.7.201" />
+    <PackageVersion Include="Krypton.Toolkit.Suite.Extended.Ultimate" Version="95.25.5.145" />
+    <PackageVersion Include="Krypton.Workspace" Version="105.26.7.201" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.10.1" />
+    <PackageVersion Include="NLog" Version="6.2.1" />
+    <PackageVersion Include="Microsoft.Web.WebView2" Version="1.0.4258.31" />
+    <PackageVersion Include="OpenTK" Version="4.9.4" />
+    <PackageVersion Include="OpenTK.GLControl" Version="4.0.2" />
+    <PackageVersion Include="ScottPlot" Version="5.1.59" />
+    <PackageVersion Include="ScottPlot.WinForms" Version="5.1.59" />
+    <PackageVersion Include="System.Data.SQLite" Version="2.0.4" />
+    <PackageVersion Include="xunit" Version="2.9.3" />
+    <PackageVersion Include="xunit.runner.visualstudio" Version="4.0.1" />
+    <PackageVersion Include="xunit.v3" Version="4.0.2" />
+  </ItemGroup>
+</Project>
