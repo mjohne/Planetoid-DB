@@ -439,4 +439,18 @@
   <data name="StartButtonText" xml:space="preserve">
     <value>&amp;Start</value>
   </data>
+  <data name="EphemerisTitleFormat" xml:space="preserve">
+    <value>Ephemerides: {0}</value>
+    <comment>{0} is the minor planet designation.</comment>
+  </data>
+  <data name="EphemerisInvalidRecordTitle" xml:space="preserve">
+    <value>Ephemerides: invalid MPCORB record</value>
+  </data>
+  <data name="EphemerisFileDialogFilter" xml:space="preserve">
+    <value>JPL DE binary files (*.440;*.441)|*.440;*.441|All files (*.*)|*.*</value>
+    <comment>Translate the descriptions only; preserve the pipe separators and file patterns.</comment>
+  </data>
+  <data name="EphemerisFileDialogTitle" xml:space="preserve">
+    <value>Load JPL DE440/DE441 binary ephemeris</value>
+  </data>
 </root>
