@@ -15,7 +15,7 @@
 * Removed invalid `ScatterPoint` debugger attribute by @mjohne with @Copilot in https://github.com/mjohne/Planetoid-DB/pull/1226
 * Corrected `DifferenceResult` debugger display by @mjohne with @Copilot in https://github.com/mjohne/Planetoid-DB/pull/1227
 * Updated `DebuggerDisplay` attribute syntax by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1228
-* Document AEI diagram point records by @mjohne with @Copilot in https://github.com/mjohne/Planetoid-DB/pull/1229
+* Documented AEI diagram point records by @mjohne with @Copilot in https://github.com/mjohne/Planetoid-DB/pull/1229
 * Localized diagram accessibility and playback strings by @mjohne with @Copilot in https://github.com/mjohne/Planetoid-DB/pull/1230
 * Corrected culture type in changelog by @mjohne with @Copilot in https://github.com/mjohne/Planetoid-DB/pull/1231
 * Added ephemeris calculation for minor planets (RA/Dec, Alt/Az, visibility, CSV/chart) by @mjohne with @Claude in https://github.com/mjohne/Planetoid-DB/pull/1233
