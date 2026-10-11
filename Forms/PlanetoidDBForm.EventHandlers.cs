@@ -1748,6 +1748,25 @@ public partial class PlanetoidDbForm
 		OpenWebsite(fileName: $"https://neotools.neo.s2p.esa.int/ovt?object={ProcessDesignationForUrl(input: labelMpcorbReadableDesignationData.Text)}");
 	}
 
+	/// <summary>Handles the Click event for the MP3C at University of Leicester menu item, opening the corresponding MP3C at University of Leicester data page in a web browser.</summary>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
+	/// <remarks>This method constructs a URL to the MP3C at University of Leicester data page based on the current designation and opens it in the default web browser. Use this handler to provide quick access to detailed asteroid information from the application.</remarks>
+	private void OpenDataPageMp3CAtLe_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: $"Opening MP3C at University of Leicester page for object {labelMpcorbIndexData.Text}");
+		OpenWebsite(fileName: $"https://mp3c.le.ac.uk/bodies/{ProcessDesignationForUrl2(input: labelMpcorbReadableDesignationData.Text)}");
+	}
+
+	/// <summary>Handles the Click event for the MP3C at Observatoire de la Côte d'Azur menu item, opening the corresponding MP3C at Observatoire de la Côte d'Azur data page in a web browser.</summary>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
+	/// <remarks>This method constructs a URL to the MP3C at Observatoire de la Côte d'Azur data page based on the current designation and opens it in the default web browser. Use this handler to provide quick access to detailed asteroid information from the application.</remarks>
+	private void OpenDataPageMp3CAtOca_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: $"Opening MP3C at Observatoire de la Côte d'Azur page for object {labelMpcorbIndexData.Text}");
+		OpenWebsite(fileName: $"https://mp3c.oca.eu/bodies/{ProcessDesignationForUrl2(input: labelMpcorbReadableDesignationData.Text)}");
+	}
 
 	/// <summary>Handles the Click event for the menu item that opens all relevant data pages for the selected object in the default web browser.</summary>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
@@ -1766,6 +1785,8 @@ public partial class PlanetoidDbForm
 		OpenDataPageNearEarthObjectCoordinationCentre_Click(sender: sender, e: e);
 		OpenDataPageSsoCard_Click(sender: sender, e: e);
 		OpenDataPageNeoToolsOvt_Click(sender: sender, e: e);
+		OpenDataPageMp3CAtOca_Click(sender: sender, e: e);
+		OpenDataPageMp3CAtLe_Click(sender: sender, e: e);
 	}
 
 	/// <summary>Handles the Click event for the label that displays MPCORB flag data and initiates decoding of the flags.</summary>

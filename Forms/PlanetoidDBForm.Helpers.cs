@@ -97,6 +97,8 @@ public partial class PlanetoidDbForm
 		// Ask the user if they want to restart the application after downloading the database and show a message box with the option to restart or not
 		if (KryptonMessageBox.Show(owner: this, text: I18nStrings.DownloadCompleteAndRestartQuestionText, caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.YesNo, icon: KryptonMessageBoxIcon.Question, defaultButton: KryptonMessageBoxDefaultButton.Button1) == DialogResult.Yes)
 		{
+			// Log the user's choice to restart the application
+			logger.Info(message: "User chose to restart the application after downloading the database.");
 			// Restart the application
 			Restart();
 		}
@@ -744,6 +746,26 @@ public partial class PlanetoidDbForm
 		result = result.Trim();
 		// Replace all remaining spaces with nothing (remove spaces)
 		result = result.Replace(oldValue: " ", newValue: "", comparisonType: StringComparison.CurrentCulture);
+		return result;
+	}
+
+	/// <summary>Processes a designation string by removing parenthetical content, trimming whitespace, and removing spaces.</summary>
+	/// <param name="input">The input designation string to process.</param>
+	/// <returns>The processed string with parenthetical content removed, trimmed, and spaces removed.</returns>
+	/// <remarks>This method is useful for preparing designation strings for URL queries. For example, "(449127) 2013 AS15" becomes "2013%20AS15".</remarks>
+	private static string ProcessDesignationForUrl2(string input)
+	{
+		// Validate input
+		if (string.IsNullOrWhiteSpace(value: input))
+		{
+			return string.Empty;
+		}
+		// Remove all content within parentheses (including the parentheses)
+		string result = Regex.Replace(input: input, pattern: @"\([^)]*\)", replacement: string.Empty);
+		// Trim leading and trailing whitespace
+		result = result.Trim();
+		// Replace all remaining spaces with %20 (URL encoding for space)
+		result = result.Replace(oldValue: " ", newValue: "%20", comparisonType: StringComparison.CurrentCulture);
 		return result;
 	}
 
