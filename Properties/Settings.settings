@@ -26,6 +26,12 @@
     <Setting Name="systemAstorbDatGzUrl" Type="System.String" Scope="Application">
       <Value Profile="(Default)">https://ftp.lowell.edu/pub/elgb/astorb.dat.gz</Value>
     </Setting>
+    <Setting Name="systemJplDe440Url" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">https://ssd.jpl.nasa.gov/ftp/eph/planets/Linux/linux_p1550p2650.440</Value>
+    </Setting>
+    <Setting Name="systemJplDe441Url" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">https://ssd.jpl.nasa.gov/ftp/eph/planets/Linux/linux_m13000p17000.441</Value>
+    </Setting>
     <Setting Name="systemFilenameMpcorbDat" Type="System.String" Scope="Application">
       <Value Profile="(Default)">mpcorb.dat</Value>
     </Setting>

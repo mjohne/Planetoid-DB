@@ -43,6 +43,7 @@ internal static class ExportFeedbackHelper
 	/// <remarks>Displays a message box to the user confirming the file was saved successfully.</remarks>
 	public static void ShowSuccess()
 	{
+		// Show a success message box to the user
 		_ = KryptonMessageBox.Show(
 			text: I18nStrings.FileSavedSuccessfully,
 			caption: I18nStrings.InformationCaption,
@@ -57,7 +58,9 @@ internal static class ExportFeedbackHelper
 	/// <remarks>Logs the error with details about the format and file path, and displays an error message box to the user.</remarks>
 	public static void ShowError(Exception ex, string format, string filePath)
 	{
+		// Log the error with details about the format and file path
 		logger.Error(exception: ex, message: $"Error saving as {format} to '{filePath}'.");
+		// Show an error message box to the user with the exception message
 		ShowErrorMessage(message: $"Error saving as {format}: {ex.Message}");
 	}
 
@@ -66,6 +69,7 @@ internal static class ExportFeedbackHelper
 	/// <remarks>Displays a message box to the user confirming how many settings were imported.</remarks>
 	public static void ShowImportSuccess(int count)
 	{
+		// Show a success message box to the user
 		_ = KryptonMessageBox.Show(
 			text: $"{count} setting(s) imported successfully.",
 			caption: I18nStrings.InformationCaption,
@@ -80,7 +84,9 @@ internal static class ExportFeedbackHelper
 	/// <remarks>Logs the error with details about the format and file path, and displays an error message box to the user.</remarks>
 	public static void ShowImportError(Exception ex, string format, string filePath)
 	{
+		// Log the error with details about the format and file path
 		logger.Error(exception: ex, message: $"Error importing from {format} file '{filePath}'.");
+		// Show an error message box to the user with the exception message
 		ShowErrorMessage(message: $"Error importing from {format}: {ex.Message}");
 	}
 }

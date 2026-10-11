@@ -32,18 +32,6 @@ partial class EphemerisForm
 	/// <remarks>This field stores the components used by the form.</remarks>
 	private IContainer components = null;
 
-	/// <summary>Clean up any resources being used.</summary>
-	/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-	/// <remarks>This method is called by the runtime to release resources used by the form.</remarks>
-	protected override void Dispose(bool disposing)
-	{
-		if (disposing && (components != null))
-		{
-			components.Dispose();
-		}
-		base.Dispose(disposing);
-	}
-
 	#region Windows Form Designer generated code
 
 	/// <summary>Required method for Designer support - do not modify the contents of this method with the code editor.</summary>
@@ -56,37 +44,82 @@ partial class EphemerisForm
 		labelInformation = new ToolStripStatusLabel();
 		toolStripContainer = new ToolStripContainer();
 		kryptonPanelMain = new KryptonPanel();
-		labelEphemeridesBegin = new KryptonLabel();
-		dateTimePickerEphemeridesBegin = new KryptonDateTimePicker();
-		labelEphemeridesEnd = new KryptonLabel();
-		dateTimePickerEphemeridesEnd = new KryptonDateTimePicker();
-		labelEphemeridesStepsInDays = new KryptonLabel();
-		numericUpDownStepsInDays = new KryptonNumericUpDown();
-		labelLatitude = new KryptonLabel();
-		numericUpDownLatitude = new KryptonNumericUpDown();
-		labelLongitude = new KryptonLabel();
-		numericUpDownLongitude = new KryptonNumericUpDown();
-		labelElevation = new KryptonLabel();
-		numericUpDownElevation = new KryptonNumericUpDown();
-		labelMinimumAltitude = new KryptonLabel();
-		numericUpDownMinimumAltitude = new KryptonNumericUpDown();
-		labelMaximumSunAltitude = new KryptonLabel();
-		numericUpDownMaximumSunAltitude = new KryptonNumericUpDown();
-		checkBoxFaintestMagnitude = new KryptonCheckBox();
-		numericUpDownFaintestMagnitude = new KryptonNumericUpDown();
-		labelMinimumMoonSeparation = new KryptonLabel();
-		numericUpDownMinimumMoonSeparation = new KryptonNumericUpDown();
-		checkBoxPerturbations = new KryptonCheckBox();
-		checkBoxRefraction = new KryptonCheckBox();
-		labelEphemerisSource = new KryptonLabel();
-		buttonLoadEphemerisFile = new KryptonButton();
-		buttonCalculate = new KryptonButton();
-		buttonCancel = new KryptonButton();
-		buttonExport = new KryptonButton();
-		progressBar = new KryptonProgressBar();
-		labelPercent = new KryptonLabel();
+		kryptonDropButtonSaveList = new KryptonDropButton();
+		contextMenuSaveToFile = new ContextMenuStrip(components);
+		toolStripMenuItemTextFiles = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsText = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsLatex = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsMarkdown = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsAsciiDoc = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsReStructuredText = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsTextile = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsTypst = new ToolStripMenuItem();
+		toolStripMenuItemWriterDocuments = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsWord = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsOdt = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsRtf = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsAbiword = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsWps = new ToolStripMenuItem();
+		toolStripMenuItemSpreadsheetDocuments = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsExcel = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsOds = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsCsv = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsTsv = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsPsv = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsEt = new ToolStripMenuItem();
+		toolStripMenuItemXmlDocuments = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsHtml = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsXml = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsDocBook = new ToolStripMenuItem();
+		toolStripMenuItemConfigurationFiles = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsJson = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsToml = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsYaml = new ToolStripMenuItem();
+		toolStripMenuItemDatabaseScripts = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsSql = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsSqlite = new ToolStripMenuItem();
+		toolStripMenuItemPortableDocuments = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsPdf = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsPostScript = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsEpub = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsMobi = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsXps = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsFictionBook2 = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsChm = new ToolStripMenuItem();
+		kryptonDropButtonLoadEphemerisFile = new KryptonDropButton();
+		contextMenuStripJplDe440De441 = new ContextMenuStrip(components);
+		toolStripMenuItemDownloadDe440 = new ToolStripMenuItem();
+		toolStripMenuItemDownloadDe441 = new ToolStripMenuItem();
+		toolStripSeparator1 = new ToolStripSeparator();
+		toolStripMenuItemOpenJplDeEphemerisDownloadPage = new ToolStripMenuItem();
+		kryptonButtonOpenWorldMap = new KryptonButton();
 		listView = new KryptonListView();
-		formsPlot = new FormsPlot();
+		progressBar = new KryptonProgressBar();
+		buttonCancel = new KryptonButton();
+		buttonCalculate = new KryptonButton();
+		labelEphemerisSource = new KryptonLabel();
+		checkBoxRefraction = new KryptonCheckBox();
+		checkBoxPerturbations = new KryptonCheckBox();
+		numericUpDownMinimumMoonSeparation = new KryptonNumericUpDown();
+		labelMinimumMoonSeparation = new KryptonLabel();
+		numericUpDownFaintestMagnitude = new KryptonNumericUpDown();
+		checkBoxFaintestMagnitude = new KryptonCheckBox();
+		numericUpDownMaximumSunAltitude = new KryptonNumericUpDown();
+		labelMaximumSunAltitude = new KryptonLabel();
+		numericUpDownMinimumAltitude = new KryptonNumericUpDown();
+		labelMinimumAltitude = new KryptonLabel();
+		numericUpDownElevation = new KryptonNumericUpDown();
+		labelElevation = new KryptonLabel();
+		numericUpDownLongitude = new KryptonNumericUpDown();
+		labelLongitude = new KryptonLabel();
+		numericUpDownLatitude = new KryptonNumericUpDown();
+		labelLatitude = new KryptonLabel();
+		numericUpDownStepsInDays = new KryptonNumericUpDown();
+		labelEphemeridesStepsInDays = new KryptonLabel();
+		dateTimePickerEphemeridesEnd = new KryptonDateTimePicker();
+		labelEphemeridesEnd = new KryptonLabel();
+		dateTimePickerEphemeridesBegin = new KryptonDateTimePicker();
+		labelEphemeridesBegin = new KryptonLabel();
 		kryptonManager = new KryptonManager(components);
 		kryptonStatusStrip.SuspendLayout();
 		toolStripContainer.BottomToolStripPanel.SuspendLayout();
@@ -94,6 +127,8 @@ partial class EphemerisForm
 		toolStripContainer.SuspendLayout();
 		((ISupportInitialize)kryptonPanelMain).BeginInit();
 		kryptonPanelMain.SuspendLayout();
+		contextMenuSaveToFile.SuspendLayout();
+		contextMenuStripJplDe440De441.SuspendLayout();
 		SuspendLayout();
 		// 
 		// kryptonStatusStrip
@@ -179,14 +214,13 @@ partial class EphemerisForm
 		kryptonPanelMain.AccessibleDescription = "Groups the data";
 		kryptonPanelMain.AccessibleName = "Panel";
 		kryptonPanelMain.AccessibleRole = AccessibleRole.Pane;
-		kryptonPanelMain.Controls.Add(formsPlot);
+		kryptonPanelMain.Controls.Add(kryptonDropButtonSaveList);
+		kryptonPanelMain.Controls.Add(kryptonDropButtonLoadEphemerisFile);
+		kryptonPanelMain.Controls.Add(kryptonButtonOpenWorldMap);
 		kryptonPanelMain.Controls.Add(listView);
-		kryptonPanelMain.Controls.Add(labelPercent);
 		kryptonPanelMain.Controls.Add(progressBar);
-		kryptonPanelMain.Controls.Add(buttonExport);
 		kryptonPanelMain.Controls.Add(buttonCancel);
 		kryptonPanelMain.Controls.Add(buttonCalculate);
-		kryptonPanelMain.Controls.Add(buttonLoadEphemerisFile);
 		kryptonPanelMain.Controls.Add(labelEphemerisSource);
 		kryptonPanelMain.Controls.Add(checkBoxRefraction);
 		kryptonPanelMain.Controls.Add(checkBoxPerturbations);
@@ -217,488 +251,770 @@ partial class EphemerisForm
 		kryptonPanelMain.TabIndex = 0;
 		kryptonPanelMain.TabStop = true;
 		// 
-		// labelEphemeridesBegin
+		// kryptonDropButtonSaveList
 		// 
-		labelEphemeridesBegin.AccessibleDescription = "Sets the begin of the ephemerides in UTC";
-		labelEphemeridesBegin.AccessibleName = "Ephemerides begin (UTC)";
-		labelEphemeridesBegin.AccessibleRole = AccessibleRole.StaticText;
-		labelEphemeridesBegin.Location = new Point(14, 14);
-		labelEphemeridesBegin.Name = "labelEphemeridesBegin";
-		labelEphemeridesBegin.Size = new Size(175, 20);
-		labelEphemeridesBegin.TabIndex = 0;
-		labelEphemeridesBegin.ToolTipValues.EnableToolTips = true;
-		labelEphemeridesBegin.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelEphemeridesBegin.Values.Text = "Ephemerides &begin (UTC):";
-		labelEphemeridesBegin.Enter += Control_Enter;
-		labelEphemeridesBegin.Leave += Control_Leave;
-		labelEphemeridesBegin.MouseEnter += Control_Enter;
-		labelEphemeridesBegin.MouseLeave += Control_Leave;
+		kryptonDropButtonSaveList.AccessibleDescription = "Saves the list as file";
+		kryptonDropButtonSaveList.AccessibleName = "Save list";
+		kryptonDropButtonSaveList.AccessibleRole = AccessibleRole.ButtonDropDown;
+		kryptonDropButtonSaveList.ContextMenuStrip = contextMenuSaveToFile;
+		kryptonDropButtonSaveList.Location = new Point(574, 200);
+		kryptonDropButtonSaveList.Name = "kryptonDropButtonSaveList";
+		kryptonDropButtonSaveList.Size = new Size(110, 29);
+		kryptonDropButtonSaveList.Splitter = false;
+		kryptonDropButtonSaveList.TabIndex = 27;
+		kryptonDropButtonSaveList.ToolTipValues.Description = "Saves the list as file";
+		kryptonDropButtonSaveList.ToolTipValues.EnableToolTips = true;
+		kryptonDropButtonSaveList.ToolTipValues.Heading = "Save list";
+		kryptonDropButtonSaveList.ToolTipValues.ShowIntervalDelay = 500;
+		kryptonDropButtonSaveList.Values.DropDownArrowColor = Color.Empty;
+		kryptonDropButtonSaveList.Values.Image = FatcowIcons16px.fatcow_diskette_16px;
+		kryptonDropButtonSaveList.Values.Text = "Save list";
+		kryptonDropButtonSaveList.Enter += Control_Enter;
+		kryptonDropButtonSaveList.Leave += Control_Leave;
+		kryptonDropButtonSaveList.MouseEnter += Control_Enter;
+		kryptonDropButtonSaveList.MouseLeave += Control_Leave;
 		// 
-		// labelEphemeridesEnd
+		// contextMenuSaveToFile
 		// 
-		labelEphemeridesEnd.AccessibleDescription = "Sets the end of the ephemerides in UTC";
-		labelEphemeridesEnd.AccessibleName = "Ephemerides end (UTC)";
-		labelEphemeridesEnd.AccessibleRole = AccessibleRole.StaticText;
-		labelEphemeridesEnd.Location = new Point(14, 45);
-		labelEphemeridesEnd.Name = "labelEphemeridesEnd";
-		labelEphemeridesEnd.Size = new Size(175, 20);
-		labelEphemeridesEnd.TabIndex = 2;
-		labelEphemeridesEnd.ToolTipValues.EnableToolTips = true;
-		labelEphemeridesEnd.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelEphemeridesEnd.Values.Text = "Ephemerides &end (UTC):";
-		labelEphemeridesEnd.Enter += Control_Enter;
-		labelEphemeridesEnd.Leave += Control_Leave;
-		labelEphemeridesEnd.MouseEnter += Control_Enter;
-		labelEphemeridesEnd.MouseLeave += Control_Leave;
+		contextMenuSaveToFile.AccessibleDescription = "Save the list as file";
+		contextMenuSaveToFile.AccessibleName = "Save list";
+		contextMenuSaveToFile.AccessibleRole = AccessibleRole.MenuPopup;
+		contextMenuSaveToFile.AllowClickThrough = true;
+		contextMenuSaveToFile.Font = new Font("Segoe UI", 9F);
+		contextMenuSaveToFile.Items.AddRange(new ToolStripItem[] { toolStripMenuItemTextFiles, toolStripMenuItemWriterDocuments, toolStripMenuItemSpreadsheetDocuments, toolStripMenuItemXmlDocuments, toolStripMenuItemConfigurationFiles, toolStripMenuItemDatabaseScripts, toolStripMenuItemPortableDocuments });
+		contextMenuSaveToFile.Name = "contextMenuSaveList";
+		contextMenuSaveToFile.Size = new Size(202, 158);
+		contextMenuSaveToFile.TabStop = true;
+		contextMenuSaveToFile.Text = "&Save list";
+		contextMenuSaveToFile.Enter += Control_Enter;
+		contextMenuSaveToFile.Leave += Control_Leave;
+		contextMenuSaveToFile.MouseEnter += Control_Enter;
+		contextMenuSaveToFile.MouseLeave += Control_Leave;
 		// 
-		// labelEphemeridesStepsInDays
+		// toolStripMenuItemTextFiles
 		// 
-		labelEphemeridesStepsInDays.AccessibleDescription = "Sets the step size in days (decimal values allowed, e.g. 0.0416667 = 1 hour)";
-		labelEphemeridesStepsInDays.AccessibleName = "Step size (days)";
-		labelEphemeridesStepsInDays.AccessibleRole = AccessibleRole.StaticText;
-		labelEphemeridesStepsInDays.Location = new Point(14, 76);
-		labelEphemeridesStepsInDays.Name = "labelEphemeridesStepsInDays";
-		labelEphemeridesStepsInDays.Size = new Size(175, 20);
-		labelEphemeridesStepsInDays.TabIndex = 4;
-		labelEphemeridesStepsInDays.ToolTipValues.EnableToolTips = true;
-		labelEphemeridesStepsInDays.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelEphemeridesStepsInDays.Values.Text = "&Step size (days):";
-		labelEphemeridesStepsInDays.Enter += Control_Enter;
-		labelEphemeridesStepsInDays.Leave += Control_Leave;
-		labelEphemeridesStepsInDays.MouseEnter += Control_Enter;
-		labelEphemeridesStepsInDays.MouseLeave += Control_Leave;
+		toolStripMenuItemTextFiles.AccessibleDescription = "Saves the list as text file";
+		toolStripMenuItemTextFiles.AccessibleName = "Save as text file";
+		toolStripMenuItemTextFiles.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemTextFiles.AutoToolTip = true;
+		toolStripMenuItemTextFiles.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsText, toolStripMenuItemSaveAsLatex, toolStripMenuItemSaveAsMarkdown, toolStripMenuItemSaveAsAsciiDoc, toolStripMenuItemSaveAsReStructuredText, toolStripMenuItemSaveAsTextile, toolStripMenuItemSaveAsTypst });
+		toolStripMenuItemTextFiles.Image = FatcowIcons16px.fatcow_file_extension_txt_16px;
+		toolStripMenuItemTextFiles.Name = "toolStripMenuItemTextFiles";
+		toolStripMenuItemTextFiles.Size = new Size(201, 22);
+		toolStripMenuItemTextFiles.Text = "&Text files";
+		toolStripMenuItemTextFiles.MouseEnter += Control_Enter;
+		toolStripMenuItemTextFiles.MouseLeave += Control_Leave;
 		// 
-		// labelLatitude
+		// toolStripMenuItemSaveAsText
 		// 
-		labelLatitude.AccessibleDescription = "Sets the geographic latitude of the observer in degrees (north positive)";
-		labelLatitude.AccessibleName = "Latitude (°, north +)";
-		labelLatitude.AccessibleRole = AccessibleRole.StaticText;
-		labelLatitude.Location = new Point(14, 107);
-		labelLatitude.Name = "labelLatitude";
-		labelLatitude.Size = new Size(175, 20);
-		labelLatitude.TabIndex = 6;
-		labelLatitude.ToolTipValues.EnableToolTips = true;
-		labelLatitude.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelLatitude.Values.Text = "&Latitude (°, north +):";
-		labelLatitude.Enter += Control_Enter;
-		labelLatitude.Leave += Control_Leave;
-		labelLatitude.MouseEnter += Control_Enter;
-		labelLatitude.MouseLeave += Control_Leave;
+		toolStripMenuItemSaveAsText.AccessibleDescription = "Saves the list as text file";
+		toolStripMenuItemSaveAsText.AccessibleName = "Save as text";
+		toolStripMenuItemSaveAsText.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsText.AutoToolTip = true;
+		toolStripMenuItemSaveAsText.Image = FatcowIcons16px.fatcow_page_white_text_16px;
+		toolStripMenuItemSaveAsText.Name = "toolStripMenuItemSaveAsText";
+		toolStripMenuItemSaveAsText.Size = new Size(201, 22);
+		toolStripMenuItemSaveAsText.Text = "Save as &text";
+		toolStripMenuItemSaveAsText.Click += SaveAsText_Click;
+		toolStripMenuItemSaveAsText.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsText.MouseLeave += Control_Leave;
 		// 
-		// labelLongitude
+		// toolStripMenuItemSaveAsLatex
 		// 
-		labelLongitude.AccessibleDescription = "Sets the geographic longitude of the observer in degrees (east positive)";
-		labelLongitude.AccessibleName = "Longitude (°, east +)";
-		labelLongitude.AccessibleRole = AccessibleRole.StaticText;
-		labelLongitude.Location = new Point(14, 138);
-		labelLongitude.Name = "labelLongitude";
-		labelLongitude.Size = new Size(175, 20);
-		labelLongitude.TabIndex = 8;
-		labelLongitude.ToolTipValues.EnableToolTips = true;
-		labelLongitude.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelLongitude.Values.Text = "L&ongitude (°, east +):";
-		labelLongitude.Enter += Control_Enter;
-		labelLongitude.Leave += Control_Leave;
-		labelLongitude.MouseEnter += Control_Enter;
-		labelLongitude.MouseLeave += Control_Leave;
+		toolStripMenuItemSaveAsLatex.AccessibleDescription = "Saves the list as Latex file";
+		toolStripMenuItemSaveAsLatex.AccessibleName = "Save as Latex";
+		toolStripMenuItemSaveAsLatex.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsLatex.AutoToolTip = true;
+		toolStripMenuItemSaveAsLatex.Image = FatcowIcons16px.fatcow_page_white_text_16px;
+		toolStripMenuItemSaveAsLatex.Name = "toolStripMenuItemSaveAsLatex";
+		toolStripMenuItemSaveAsLatex.Size = new Size(201, 22);
+		toolStripMenuItemSaveAsLatex.Text = "Save as &Latex";
+		toolStripMenuItemSaveAsLatex.Click += SaveAsLatex_Click;
+		toolStripMenuItemSaveAsLatex.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsLatex.MouseLeave += Control_Leave;
 		// 
-		// labelElevation
+		// toolStripMenuItemSaveAsMarkdown
 		// 
-		labelElevation.AccessibleDescription = "Sets the elevation of the observer above the WGS84 ellipsoid in meters";
-		labelElevation.AccessibleName = "Elevation (m)";
-		labelElevation.AccessibleRole = AccessibleRole.StaticText;
-		labelElevation.Location = new Point(14, 169);
-		labelElevation.Name = "labelElevation";
-		labelElevation.Size = new Size(175, 20);
-		labelElevation.TabIndex = 10;
-		labelElevation.ToolTipValues.EnableToolTips = true;
-		labelElevation.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelElevation.Values.Text = "Ele&vation (m):";
-		labelElevation.Enter += Control_Enter;
-		labelElevation.Leave += Control_Leave;
-		labelElevation.MouseEnter += Control_Enter;
-		labelElevation.MouseLeave += Control_Leave;
+		toolStripMenuItemSaveAsMarkdown.AccessibleDescription = "Saves the list as Markdown file";
+		toolStripMenuItemSaveAsMarkdown.AccessibleName = "Save as Markdown";
+		toolStripMenuItemSaveAsMarkdown.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsMarkdown.AutoToolTip = true;
+		toolStripMenuItemSaveAsMarkdown.Image = FatcowIcons16px.fatcow_page_white_text_16px;
+		toolStripMenuItemSaveAsMarkdown.Name = "toolStripMenuItemSaveAsMarkdown";
+		toolStripMenuItemSaveAsMarkdown.Size = new Size(201, 22);
+		toolStripMenuItemSaveAsMarkdown.Text = "Save as &Markdown";
+		toolStripMenuItemSaveAsMarkdown.Click += SaveAsMarkdown_Click;
+		toolStripMenuItemSaveAsMarkdown.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsMarkdown.MouseLeave += Control_Leave;
 		// 
-		// labelMinimumAltitude
+		// toolStripMenuItemSaveAsAsciiDoc
 		// 
-		labelMinimumAltitude.AccessibleDescription = "Sets the minimum altitude of the object above the horizon in degrees";
-		labelMinimumAltitude.AccessibleName = "Min. altitude (°)";
-		labelMinimumAltitude.AccessibleRole = AccessibleRole.StaticText;
-		labelMinimumAltitude.Location = new Point(370, 14);
-		labelMinimumAltitude.Name = "labelMinimumAltitude";
-		labelMinimumAltitude.Size = new Size(185, 20);
-		labelMinimumAltitude.TabIndex = 12;
-		labelMinimumAltitude.ToolTipValues.EnableToolTips = true;
-		labelMinimumAltitude.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelMinimumAltitude.Values.Text = "&Min. altitude (°):";
-		labelMinimumAltitude.Enter += Control_Enter;
-		labelMinimumAltitude.Leave += Control_Leave;
-		labelMinimumAltitude.MouseEnter += Control_Enter;
-		labelMinimumAltitude.MouseLeave += Control_Leave;
+		toolStripMenuItemSaveAsAsciiDoc.AccessibleDescription = "Saves the list as AsciiDoc file";
+		toolStripMenuItemSaveAsAsciiDoc.AccessibleName = "Save as AsciiDoc";
+		toolStripMenuItemSaveAsAsciiDoc.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsAsciiDoc.AutoToolTip = true;
+		toolStripMenuItemSaveAsAsciiDoc.Image = FatcowIcons16px.fatcow_page_white_text_16px;
+		toolStripMenuItemSaveAsAsciiDoc.Name = "toolStripMenuItemSaveAsAsciiDoc";
+		toolStripMenuItemSaveAsAsciiDoc.Size = new Size(201, 22);
+		toolStripMenuItemSaveAsAsciiDoc.Text = "Save as &AsciiDoc";
+		toolStripMenuItemSaveAsAsciiDoc.Click += SaveAsAsciiDoc_Click;
+		toolStripMenuItemSaveAsAsciiDoc.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsAsciiDoc.MouseLeave += Control_Leave;
 		// 
-		// labelMaximumSunAltitude
+		// toolStripMenuItemSaveAsReStructuredText
 		// 
-		labelMaximumSunAltitude.AccessibleDescription = "Sets the maximum altitude of the Sun in degrees (e.g. -12 = nautical twilight)";
-		labelMaximumSunAltitude.AccessibleName = "Max. sun altitude (°)";
-		labelMaximumSunAltitude.AccessibleRole = AccessibleRole.StaticText;
-		labelMaximumSunAltitude.Location = new Point(370, 45);
-		labelMaximumSunAltitude.Name = "labelMaximumSunAltitude";
-		labelMaximumSunAltitude.Size = new Size(185, 20);
-		labelMaximumSunAltitude.TabIndex = 14;
-		labelMaximumSunAltitude.ToolTipValues.EnableToolTips = true;
-		labelMaximumSunAltitude.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelMaximumSunAltitude.Values.Text = "Max. s&un altitude (°):";
-		labelMaximumSunAltitude.Enter += Control_Enter;
-		labelMaximumSunAltitude.Leave += Control_Leave;
-		labelMaximumSunAltitude.MouseEnter += Control_Enter;
-		labelMaximumSunAltitude.MouseLeave += Control_Leave;
+		toolStripMenuItemSaveAsReStructuredText.AccessibleDescription = "Saves the list as reStructuredText file";
+		toolStripMenuItemSaveAsReStructuredText.AccessibleName = "Save as reStructuredText";
+		toolStripMenuItemSaveAsReStructuredText.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsReStructuredText.AutoToolTip = true;
+		toolStripMenuItemSaveAsReStructuredText.Image = FatcowIcons16px.fatcow_page_white_text_16px;
+		toolStripMenuItemSaveAsReStructuredText.Name = "toolStripMenuItemSaveAsReStructuredText";
+		toolStripMenuItemSaveAsReStructuredText.Size = new Size(201, 22);
+		toolStripMenuItemSaveAsReStructuredText.Text = "Save as &reStructuredText";
+		toolStripMenuItemSaveAsReStructuredText.Click += SaveAsReStructuredText_Click;
+		toolStripMenuItemSaveAsReStructuredText.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsReStructuredText.MouseLeave += Control_Leave;
 		// 
-		// labelMinimumMoonSeparation
+		// toolStripMenuItemSaveAsTextile
 		// 
-		labelMinimumMoonSeparation.AccessibleDescription = "Sets the minimum angular distance between object and Moon in degrees";
-		labelMinimumMoonSeparation.AccessibleName = "Min. moon distance (°)";
-		labelMinimumMoonSeparation.AccessibleRole = AccessibleRole.StaticText;
-		labelMinimumMoonSeparation.Location = new Point(370, 107);
-		labelMinimumMoonSeparation.Name = "labelMinimumMoonSeparation";
-		labelMinimumMoonSeparation.Size = new Size(185, 20);
-		labelMinimumMoonSeparation.TabIndex = 18;
-		labelMinimumMoonSeparation.ToolTipValues.EnableToolTips = true;
-		labelMinimumMoonSeparation.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelMinimumMoonSeparation.Values.Text = "Min. moo&n distance (°):";
-		labelMinimumMoonSeparation.Enter += Control_Enter;
-		labelMinimumMoonSeparation.Leave += Control_Leave;
-		labelMinimumMoonSeparation.MouseEnter += Control_Enter;
-		labelMinimumMoonSeparation.MouseLeave += Control_Leave;
+		toolStripMenuItemSaveAsTextile.AccessibleDescription = "Saves the list as Textile file";
+		toolStripMenuItemSaveAsTextile.AccessibleName = "Save as Textile";
+		toolStripMenuItemSaveAsTextile.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsTextile.AutoToolTip = true;
+		toolStripMenuItemSaveAsTextile.Image = FatcowIcons16px.fatcow_page_white_text_16px;
+		toolStripMenuItemSaveAsTextile.Name = "toolStripMenuItemSaveAsTextile";
+		toolStripMenuItemSaveAsTextile.Size = new Size(201, 22);
+		toolStripMenuItemSaveAsTextile.Text = "Save as Te&xtile";
+		toolStripMenuItemSaveAsTextile.Click += SaveAsTextile_Click;
+		toolStripMenuItemSaveAsTextile.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsTextile.MouseLeave += Control_Leave;
 		// 
-		// labelEphemerisSource
+		// toolStripMenuItemSaveAsTypst
 		// 
-		labelEphemerisSource.AccessibleDescription = "Shows the planetary ephemeris used for the calculation";
-		labelEphemerisSource.AccessibleName = "Planetary ephemeris: analytical";
-		labelEphemerisSource.AccessibleRole = AccessibleRole.StaticText;
-		labelEphemerisSource.Location = new Point(370, 169);
-		labelEphemerisSource.Name = "labelEphemerisSource";
-		labelEphemerisSource.Size = new Size(400, 20);
-		labelEphemerisSource.TabIndex = 22;
-		labelEphemerisSource.ToolTipValues.EnableToolTips = true;
-		labelEphemerisSource.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelEphemerisSource.Values.Text = "Planetary ephemeris: analytical";
-		labelEphemerisSource.Enter += Control_Enter;
-		labelEphemerisSource.Leave += Control_Leave;
-		labelEphemerisSource.MouseEnter += Control_Enter;
-		labelEphemerisSource.MouseLeave += Control_Leave;
+		toolStripMenuItemSaveAsTypst.AccessibleDescription = "Saves the list as Typst file";
+		toolStripMenuItemSaveAsTypst.AccessibleName = "Save as Typst";
+		toolStripMenuItemSaveAsTypst.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsTypst.AutoToolTip = true;
+		toolStripMenuItemSaveAsTypst.Image = FatcowIcons16px.fatcow_page_white_text_16px;
+		toolStripMenuItemSaveAsTypst.Name = "toolStripMenuItemSaveAsTypst";
+		toolStripMenuItemSaveAsTypst.Size = new Size(201, 22);
+		toolStripMenuItemSaveAsTypst.Text = "Save as T&ypst";
+		toolStripMenuItemSaveAsTypst.Click += SaveAsTypst_Click;
+		toolStripMenuItemSaveAsTypst.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsTypst.MouseLeave += Control_Leave;
 		// 
-		// dateTimePickerEphemeridesBegin
+		// toolStripMenuItemWriterDocuments
 		// 
-		dateTimePickerEphemeridesBegin.AccessibleDescription = "Sets the begin of the ephemerides in UTC";
-		dateTimePickerEphemeridesBegin.AccessibleName = "Ephemerides begin (UTC)";
-		dateTimePickerEphemeridesBegin.AccessibleRole = AccessibleRole.DropList;
-		dateTimePickerEphemeridesBegin.Location = new Point(190, 13);
-		dateTimePickerEphemeridesBegin.Name = "dateTimePickerEphemeridesBegin";
-		dateTimePickerEphemeridesBegin.Size = new Size(160, 21);
-		dateTimePickerEphemeridesBegin.TabIndex = 1;
-		dateTimePickerEphemeridesBegin.CustomFormat = "yyyy-MM-dd HH:mm";
-		dateTimePickerEphemeridesBegin.Format = DateTimePickerFormat.Custom;
-		dateTimePickerEphemeridesBegin.ToolTipValues.EnableToolTips = true;
-		dateTimePickerEphemeridesBegin.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		dateTimePickerEphemeridesBegin.Enter += Control_Enter;
-		dateTimePickerEphemeridesBegin.Leave += Control_Leave;
-		dateTimePickerEphemeridesBegin.MouseEnter += Control_Enter;
-		dateTimePickerEphemeridesBegin.MouseLeave += Control_Leave;
+		toolStripMenuItemWriterDocuments.AccessibleDescription = "Saves the list as writer document";
+		toolStripMenuItemWriterDocuments.AccessibleName = "Save as writer document";
+		toolStripMenuItemWriterDocuments.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemWriterDocuments.AutoToolTip = true;
+		toolStripMenuItemWriterDocuments.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsWord, toolStripMenuItemSaveAsOdt, toolStripMenuItemSaveAsRtf, toolStripMenuItemSaveAsAbiword, toolStripMenuItemSaveAsWps });
+		toolStripMenuItemWriterDocuments.Image = FatcowIcons16px.fatcow_file_extension_doc_16px;
+		toolStripMenuItemWriterDocuments.Name = "toolStripMenuItemWriterDocuments";
+		toolStripMenuItemWriterDocuments.Size = new Size(201, 22);
+		toolStripMenuItemWriterDocuments.Text = "&Writer documents";
+		toolStripMenuItemWriterDocuments.MouseEnter += Control_Enter;
+		toolStripMenuItemWriterDocuments.MouseLeave += Control_Leave;
 		// 
-		// dateTimePickerEphemeridesEnd
+		// toolStripMenuItemSaveAsWord
 		// 
-		dateTimePickerEphemeridesEnd.AccessibleDescription = "Sets the end of the ephemerides in UTC";
-		dateTimePickerEphemeridesEnd.AccessibleName = "Ephemerides end (UTC)";
-		dateTimePickerEphemeridesEnd.AccessibleRole = AccessibleRole.DropList;
-		dateTimePickerEphemeridesEnd.Location = new Point(190, 44);
-		dateTimePickerEphemeridesEnd.Name = "dateTimePickerEphemeridesEnd";
-		dateTimePickerEphemeridesEnd.Size = new Size(160, 21);
-		dateTimePickerEphemeridesEnd.TabIndex = 3;
-		dateTimePickerEphemeridesEnd.CustomFormat = "yyyy-MM-dd HH:mm";
-		dateTimePickerEphemeridesEnd.Format = DateTimePickerFormat.Custom;
-		dateTimePickerEphemeridesEnd.ToolTipValues.EnableToolTips = true;
-		dateTimePickerEphemeridesEnd.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		dateTimePickerEphemeridesEnd.Enter += Control_Enter;
-		dateTimePickerEphemeridesEnd.Leave += Control_Leave;
-		dateTimePickerEphemeridesEnd.MouseEnter += Control_Enter;
-		dateTimePickerEphemeridesEnd.MouseLeave += Control_Leave;
+		toolStripMenuItemSaveAsWord.AccessibleDescription = "Saves the list as Word file";
+		toolStripMenuItemSaveAsWord.AccessibleName = "Save as Word";
+		toolStripMenuItemSaveAsWord.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsWord.AutoToolTip = true;
+		toolStripMenuItemSaveAsWord.Image = FatcowIcons16px.fatcow_page_white_word_16px;
+		toolStripMenuItemSaveAsWord.Name = "toolStripMenuItemSaveAsWord";
+		toolStripMenuItemSaveAsWord.Size = new Size(257, 22);
+		toolStripMenuItemSaveAsWord.Text = "Save as &Word Text (DOCX)";
+		toolStripMenuItemSaveAsWord.Click += SaveAsWord_Click;
+		toolStripMenuItemSaveAsWord.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsWord.MouseLeave += Control_Leave;
 		// 
-		// numericUpDownStepsInDays
+		// toolStripMenuItemSaveAsOdt
 		// 
-		numericUpDownStepsInDays.AccessibleDescription = "Sets the step size in days";
-		numericUpDownStepsInDays.AccessibleName = "Sets the step size";
-		numericUpDownStepsInDays.AccessibleRole = AccessibleRole.SpinButton;
-		numericUpDownStepsInDays.Location = new Point(190, 76);
-		numericUpDownStepsInDays.Name = "numericUpDownStepsInDays";
-		numericUpDownStepsInDays.Size = new Size(160, 22);
-		numericUpDownStepsInDays.TabIndex = 5;
-		numericUpDownStepsInDays.DecimalPlaces = 4;
-		numericUpDownStepsInDays.Increment = new decimal(new int[] { 1, 0, 0, 0 });
-		numericUpDownStepsInDays.Maximum = new decimal(new int[] { 3650, 0, 0, 0 });
-		numericUpDownStepsInDays.Minimum = new decimal(new int[] { 1, 0, 0, 262144 });
-		numericUpDownStepsInDays.ToolTipValues.EnableToolTips = true;
-		numericUpDownStepsInDays.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		numericUpDownStepsInDays.Value = new decimal(new int[] { 1, 0, 0, 0 });
-		numericUpDownStepsInDays.Enter += Control_Enter;
-		numericUpDownStepsInDays.Leave += Control_Leave;
-		numericUpDownStepsInDays.MouseEnter += Control_Enter;
-		numericUpDownStepsInDays.MouseLeave += Control_Leave;
+		toolStripMenuItemSaveAsOdt.AccessibleDescription = "Saves the list as ODT file";
+		toolStripMenuItemSaveAsOdt.AccessibleName = "Save as ODT";
+		toolStripMenuItemSaveAsOdt.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsOdt.AutoToolTip = true;
+		toolStripMenuItemSaveAsOdt.Image = FatcowIcons16px.fatcow_page_white_word_16px;
+		toolStripMenuItemSaveAsOdt.Name = "toolStripMenuItemSaveAsOdt";
+		toolStripMenuItemSaveAsOdt.Size = new Size(257, 22);
+		toolStripMenuItemSaveAsOdt.Text = "Save as &OpenDocument Text (ODT)";
+		toolStripMenuItemSaveAsOdt.Click += SaveAsOdt_Click;
+		toolStripMenuItemSaveAsOdt.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsOdt.MouseLeave += Control_Leave;
 		// 
-		// numericUpDownLatitude
+		// toolStripMenuItemSaveAsRtf
 		// 
-		numericUpDownLatitude.AccessibleDescription = "Sets the geographic latitude of the observer in degrees (north positive)";
-		numericUpDownLatitude.AccessibleName = "Sets the geographic latitude of the observer";
-		numericUpDownLatitude.AccessibleRole = AccessibleRole.SpinButton;
-		numericUpDownLatitude.Location = new Point(190, 107);
-		numericUpDownLatitude.Name = "numericUpDownLatitude";
-		numericUpDownLatitude.Size = new Size(160, 22);
-		numericUpDownLatitude.TabIndex = 7;
-		numericUpDownLatitude.DecimalPlaces = 4;
-		numericUpDownLatitude.Increment = new decimal(new int[] { 1, 0, 0, 65536 });
-		numericUpDownLatitude.Maximum = new decimal(new int[] { 90, 0, 0, 0 });
-		numericUpDownLatitude.Minimum = new decimal(new int[] { 90, 0, 0, -2147483648 });
-		numericUpDownLatitude.ToolTipValues.EnableToolTips = true;
-		numericUpDownLatitude.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		numericUpDownLatitude.Value = new decimal(new int[] { 514772, 0, 0, 262144 });
-		numericUpDownLatitude.Enter += Control_Enter;
-		numericUpDownLatitude.Leave += Control_Leave;
-		numericUpDownLatitude.MouseEnter += Control_Enter;
-		numericUpDownLatitude.MouseLeave += Control_Leave;
+		toolStripMenuItemSaveAsRtf.AccessibleDescription = "Saves the list as RTF file";
+		toolStripMenuItemSaveAsRtf.AccessibleName = "Save as RTF";
+		toolStripMenuItemSaveAsRtf.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsRtf.AutoToolTip = true;
+		toolStripMenuItemSaveAsRtf.Image = FatcowIcons16px.fatcow_page_white_word_16px;
+		toolStripMenuItemSaveAsRtf.Name = "toolStripMenuItemSaveAsRtf";
+		toolStripMenuItemSaveAsRtf.Size = new Size(257, 22);
+		toolStripMenuItemSaveAsRtf.Text = "Save as &Rich Text Format (RTF)";
+		toolStripMenuItemSaveAsRtf.Click += SaveAsRtf_Click;
+		toolStripMenuItemSaveAsRtf.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsRtf.MouseLeave += Control_Leave;
 		// 
-		// numericUpDownLongitude
+		// toolStripMenuItemSaveAsAbiword
 		// 
-		numericUpDownLongitude.AccessibleDescription = "Sets the geographic longitude of the observer in degrees (east positive)";
-		numericUpDownLongitude.AccessibleName = "Sets the geographic longitude of the observer";
-		numericUpDownLongitude.AccessibleRole = AccessibleRole.SpinButton;
-		numericUpDownLongitude.Location = new Point(190, 138);
-		numericUpDownLongitude.Name = "numericUpDownLongitude";
-		numericUpDownLongitude.Size = new Size(160, 22);
-		numericUpDownLongitude.TabIndex = 9;
-		numericUpDownLongitude.DecimalPlaces = 4;
-		numericUpDownLongitude.Increment = new decimal(new int[] { 1, 0, 0, 65536 });
-		numericUpDownLongitude.Maximum = new decimal(new int[] { 180, 0, 0, 0 });
-		numericUpDownLongitude.Minimum = new decimal(new int[] { 180, 0, 0, -2147483648 });
-		numericUpDownLongitude.ToolTipValues.EnableToolTips = true;
-		numericUpDownLongitude.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		numericUpDownLongitude.Value = new decimal(new int[] { 0, 0, 0, 0 });
-		numericUpDownLongitude.Enter += Control_Enter;
-		numericUpDownLongitude.Leave += Control_Leave;
-		numericUpDownLongitude.MouseEnter += Control_Enter;
-		numericUpDownLongitude.MouseLeave += Control_Leave;
+		toolStripMenuItemSaveAsAbiword.AccessibleDescription = "Saves the list as Abiword file";
+		toolStripMenuItemSaveAsAbiword.AccessibleName = "Save as Abiword";
+		toolStripMenuItemSaveAsAbiword.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsAbiword.AutoToolTip = true;
+		toolStripMenuItemSaveAsAbiword.Image = FatcowIcons16px.fatcow_page_white_word_16px;
+		toolStripMenuItemSaveAsAbiword.Name = "toolStripMenuItemSaveAsAbiword";
+		toolStripMenuItemSaveAsAbiword.Size = new Size(257, 22);
+		toolStripMenuItemSaveAsAbiword.Text = "Save as &Abiword file (ABW)";
+		toolStripMenuItemSaveAsAbiword.Click += SaveAsAbiword_Click;
+		toolStripMenuItemSaveAsAbiword.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsAbiword.MouseLeave += Control_Leave;
 		// 
-		// numericUpDownElevation
+		// toolStripMenuItemSaveAsWps
 		// 
-		numericUpDownElevation.AccessibleDescription = "Sets the elevation of the observer in meters";
-		numericUpDownElevation.AccessibleName = "Sets the elevation of the observer";
-		numericUpDownElevation.AccessibleRole = AccessibleRole.SpinButton;
-		numericUpDownElevation.Location = new Point(190, 169);
-		numericUpDownElevation.Name = "numericUpDownElevation";
-		numericUpDownElevation.Size = new Size(160, 22);
-		numericUpDownElevation.TabIndex = 11;
-		numericUpDownElevation.DecimalPlaces = 0;
-		numericUpDownElevation.Increment = new decimal(new int[] { 10, 0, 0, 0 });
-		numericUpDownElevation.Maximum = new decimal(new int[] { 10000, 0, 0, 0 });
-		numericUpDownElevation.Minimum = new decimal(new int[] { 500, 0, 0, -2147483648 });
-		numericUpDownElevation.ToolTipValues.EnableToolTips = true;
-		numericUpDownElevation.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		numericUpDownElevation.Value = new decimal(new int[] { 0, 0, 0, 0 });
-		numericUpDownElevation.Enter += Control_Enter;
-		numericUpDownElevation.Leave += Control_Leave;
-		numericUpDownElevation.MouseEnter += Control_Enter;
-		numericUpDownElevation.MouseLeave += Control_Leave;
+		toolStripMenuItemSaveAsWps.AccessibleDescription = "Saves the list as WPS file";
+		toolStripMenuItemSaveAsWps.AccessibleName = "Save as WPS";
+		toolStripMenuItemSaveAsWps.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsWps.AutoToolTip = true;
+		toolStripMenuItemSaveAsWps.Image = FatcowIcons16px.fatcow_page_white_word_16px;
+		toolStripMenuItemSaveAsWps.Name = "toolStripMenuItemSaveAsWps";
+		toolStripMenuItemSaveAsWps.Size = new Size(257, 22);
+		toolStripMenuItemSaveAsWps.Text = "Save as W&PS Office Writer (WPS)";
+		toolStripMenuItemSaveAsWps.Click += SaveAsWps_Click;
+		toolStripMenuItemSaveAsWps.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsWps.MouseLeave += Control_Leave;
 		// 
-		// numericUpDownMinimumAltitude
+		// toolStripMenuItemSpreadsheetDocuments
 		// 
-		numericUpDownMinimumAltitude.AccessibleDescription = "Sets the minimum altitude of the object above the horizon in degrees";
-		numericUpDownMinimumAltitude.AccessibleName = "Sets the minimum altitude of the object above the horizon";
-		numericUpDownMinimumAltitude.AccessibleRole = AccessibleRole.SpinButton;
-		numericUpDownMinimumAltitude.Location = new Point(560, 14);
-		numericUpDownMinimumAltitude.Name = "numericUpDownMinimumAltitude";
-		numericUpDownMinimumAltitude.Size = new Size(120, 22);
-		numericUpDownMinimumAltitude.TabIndex = 13;
-		numericUpDownMinimumAltitude.DecimalPlaces = 1;
-		numericUpDownMinimumAltitude.Increment = new decimal(new int[] { 1, 0, 0, 0 });
-		numericUpDownMinimumAltitude.Maximum = new decimal(new int[] { 90, 0, 0, 0 });
-		numericUpDownMinimumAltitude.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
-		numericUpDownMinimumAltitude.ToolTipValues.EnableToolTips = true;
-		numericUpDownMinimumAltitude.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		numericUpDownMinimumAltitude.Value = new decimal(new int[] { 10, 0, 0, 0 });
-		numericUpDownMinimumAltitude.Enter += Control_Enter;
-		numericUpDownMinimumAltitude.Leave += Control_Leave;
-		numericUpDownMinimumAltitude.MouseEnter += Control_Enter;
-		numericUpDownMinimumAltitude.MouseLeave += Control_Leave;
+		toolStripMenuItemSpreadsheetDocuments.AccessibleDescription = "Saves the list as spreadsheet document";
+		toolStripMenuItemSpreadsheetDocuments.AccessibleName = "Save as spreadsheet document";
+		toolStripMenuItemSpreadsheetDocuments.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSpreadsheetDocuments.AutoToolTip = true;
+		toolStripMenuItemSpreadsheetDocuments.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsExcel, toolStripMenuItemSaveAsOds, toolStripMenuItemSaveAsCsv, toolStripMenuItemSaveAsTsv, toolStripMenuItemSaveAsPsv, toolStripMenuItemSaveAsEt });
+		toolStripMenuItemSpreadsheetDocuments.Image = FatcowIcons16px.fatcow_file_extension_xls_16px;
+		toolStripMenuItemSpreadsheetDocuments.Name = "toolStripMenuItemSpreadsheetDocuments";
+		toolStripMenuItemSpreadsheetDocuments.Size = new Size(201, 22);
+		toolStripMenuItemSpreadsheetDocuments.Text = "&Spreadsheet documents";
+		toolStripMenuItemSpreadsheetDocuments.MouseEnter += Control_Enter;
+		toolStripMenuItemSpreadsheetDocuments.MouseLeave += Control_Leave;
 		// 
-		// numericUpDownMaximumSunAltitude
+		// toolStripMenuItemSaveAsExcel
 		// 
-		numericUpDownMaximumSunAltitude.AccessibleDescription = "Sets the maximum altitude of the Sun in degrees";
-		numericUpDownMaximumSunAltitude.AccessibleName = "Sets the maximum altitude of the Sun";
-		numericUpDownMaximumSunAltitude.AccessibleRole = AccessibleRole.SpinButton;
-		numericUpDownMaximumSunAltitude.Location = new Point(560, 45);
-		numericUpDownMaximumSunAltitude.Name = "numericUpDownMaximumSunAltitude";
-		numericUpDownMaximumSunAltitude.Size = new Size(120, 22);
-		numericUpDownMaximumSunAltitude.TabIndex = 15;
-		numericUpDownMaximumSunAltitude.DecimalPlaces = 1;
-		numericUpDownMaximumSunAltitude.Increment = new decimal(new int[] { 1, 0, 0, 0 });
-		numericUpDownMaximumSunAltitude.Maximum = new decimal(new int[] { 90, 0, 0, 0 });
-		numericUpDownMaximumSunAltitude.Minimum = new decimal(new int[] { 90, 0, 0, -2147483648 });
-		numericUpDownMaximumSunAltitude.ToolTipValues.EnableToolTips = true;
-		numericUpDownMaximumSunAltitude.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		numericUpDownMaximumSunAltitude.Value = new decimal(new int[] { 12, 0, 0, -2147483648 });
-		numericUpDownMaximumSunAltitude.Enter += Control_Enter;
-		numericUpDownMaximumSunAltitude.Leave += Control_Leave;
-		numericUpDownMaximumSunAltitude.MouseEnter += Control_Enter;
-		numericUpDownMaximumSunAltitude.MouseLeave += Control_Leave;
+		toolStripMenuItemSaveAsExcel.AccessibleDescription = "Saves the list as Excel file";
+		toolStripMenuItemSaveAsExcel.AccessibleName = "Save as Excel";
+		toolStripMenuItemSaveAsExcel.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsExcel.AutoToolTip = true;
+		toolStripMenuItemSaveAsExcel.Image = FatcowIcons16px.fatcow_page_white_excel_16px;
+		toolStripMenuItemSaveAsExcel.Name = "toolStripMenuItemSaveAsExcel";
+		toolStripMenuItemSaveAsExcel.Size = new Size(301, 22);
+		toolStripMenuItemSaveAsExcel.Text = "Save as &Excel Spreadsheet (XLSX)";
+		toolStripMenuItemSaveAsExcel.Click += SaveAsExcel_Click;
+		toolStripMenuItemSaveAsExcel.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsExcel.MouseLeave += Control_Leave;
 		// 
-		// numericUpDownFaintestMagnitude
+		// toolStripMenuItemSaveAsOds
 		// 
-		numericUpDownFaintestMagnitude.AccessibleDescription = "Sets the faintest apparent magnitude that is still regarded as visible";
-		numericUpDownFaintestMagnitude.AccessibleName = "Sets the faintest apparent magnitude that is still regarded as visible";
-		numericUpDownFaintestMagnitude.AccessibleRole = AccessibleRole.SpinButton;
-		numericUpDownFaintestMagnitude.Location = new Point(560, 76);
-		numericUpDownFaintestMagnitude.Name = "numericUpDownFaintestMagnitude";
-		numericUpDownFaintestMagnitude.Size = new Size(120, 22);
-		numericUpDownFaintestMagnitude.TabIndex = 17;
-		numericUpDownFaintestMagnitude.DecimalPlaces = 1;
-		numericUpDownFaintestMagnitude.Increment = new decimal(new int[] { 5, 0, 0, 65536 });
-		numericUpDownFaintestMagnitude.Maximum = new decimal(new int[] { 35, 0, 0, 0 });
-		numericUpDownFaintestMagnitude.Minimum = new decimal(new int[] { 30, 0, 0, -2147483648 });
-		numericUpDownFaintestMagnitude.ToolTipValues.EnableToolTips = true;
-		numericUpDownFaintestMagnitude.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		numericUpDownFaintestMagnitude.Value = new decimal(new int[] { 20, 0, 0, 0 });
-		numericUpDownFaintestMagnitude.Enter += Control_Enter;
-		numericUpDownFaintestMagnitude.Leave += Control_Leave;
-		numericUpDownFaintestMagnitude.MouseEnter += Control_Enter;
-		numericUpDownFaintestMagnitude.MouseLeave += Control_Leave;
+		toolStripMenuItemSaveAsOds.AccessibleDescription = "Saves the list as ODS file";
+		toolStripMenuItemSaveAsOds.AccessibleName = "Save as ODS";
+		toolStripMenuItemSaveAsOds.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsOds.AutoToolTip = true;
+		toolStripMenuItemSaveAsOds.Image = FatcowIcons16px.fatcow_page_white_excel_16px;
+		toolStripMenuItemSaveAsOds.Name = "toolStripMenuItemSaveAsOds";
+		toolStripMenuItemSaveAsOds.Size = new Size(301, 22);
+		toolStripMenuItemSaveAsOds.Text = "Save as &OpenDocument Spreadsheet (ODS)";
+		toolStripMenuItemSaveAsOds.Click += SaveAsOds_Click;
+		toolStripMenuItemSaveAsOds.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsOds.MouseLeave += Control_Leave;
 		// 
-		// numericUpDownMinimumMoonSeparation
+		// toolStripMenuItemSaveAsCsv
 		// 
-		numericUpDownMinimumMoonSeparation.AccessibleDescription = "Sets the minimum angular distance between object and Moon in degrees";
-		numericUpDownMinimumMoonSeparation.AccessibleName = "Sets the minimum angular distance between object and Moon";
-		numericUpDownMinimumMoonSeparation.AccessibleRole = AccessibleRole.SpinButton;
-		numericUpDownMinimumMoonSeparation.Location = new Point(560, 107);
-		numericUpDownMinimumMoonSeparation.Name = "numericUpDownMinimumMoonSeparation";
-		numericUpDownMinimumMoonSeparation.Size = new Size(120, 22);
-		numericUpDownMinimumMoonSeparation.TabIndex = 19;
-		numericUpDownMinimumMoonSeparation.DecimalPlaces = 1;
-		numericUpDownMinimumMoonSeparation.Increment = new decimal(new int[] { 1, 0, 0, 0 });
-		numericUpDownMinimumMoonSeparation.Maximum = new decimal(new int[] { 180, 0, 0, 0 });
-		numericUpDownMinimumMoonSeparation.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
-		numericUpDownMinimumMoonSeparation.ToolTipValues.EnableToolTips = true;
-		numericUpDownMinimumMoonSeparation.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		numericUpDownMinimumMoonSeparation.Value = new decimal(new int[] { 0, 0, 0, 0 });
-		numericUpDownMinimumMoonSeparation.Enter += Control_Enter;
-		numericUpDownMinimumMoonSeparation.Leave += Control_Leave;
-		numericUpDownMinimumMoonSeparation.MouseEnter += Control_Enter;
-		numericUpDownMinimumMoonSeparation.MouseLeave += Control_Leave;
+		toolStripMenuItemSaveAsCsv.AccessibleDescription = "Saves the list as CSV file";
+		toolStripMenuItemSaveAsCsv.AccessibleName = "Save as CSV";
+		toolStripMenuItemSaveAsCsv.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsCsv.AutoToolTip = true;
+		toolStripMenuItemSaveAsCsv.Image = FatcowIcons16px.fatcow_page_white_excel_16px;
+		toolStripMenuItemSaveAsCsv.Name = "toolStripMenuItemSaveAsCsv";
+		toolStripMenuItemSaveAsCsv.Size = new Size(301, 22);
+		toolStripMenuItemSaveAsCsv.Text = "Save as &Comma separated value (CSV)";
+		toolStripMenuItemSaveAsCsv.Click += SaveAsCsv_Click;
+		toolStripMenuItemSaveAsCsv.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsCsv.MouseLeave += Control_Leave;
 		// 
-		// checkBoxFaintestMagnitude
+		// toolStripMenuItemSaveAsTsv
 		// 
-		checkBoxFaintestMagnitude.AccessibleDescription = "Enables the brightness criterion (faintest apparent magnitude)";
-		checkBoxFaintestMagnitude.AccessibleName = "Faintest mag.";
-		checkBoxFaintestMagnitude.AccessibleRole = AccessibleRole.CheckButton;
-		checkBoxFaintestMagnitude.Location = new Point(370, 77);
-		checkBoxFaintestMagnitude.Name = "checkBoxFaintestMagnitude";
-		checkBoxFaintestMagnitude.Size = new Size(185, 20);
-		checkBoxFaintestMagnitude.TabIndex = 16;
-		checkBoxFaintestMagnitude.Checked = true;
-		checkBoxFaintestMagnitude.CheckState = CheckState.Checked;
-		checkBoxFaintestMagnitude.ToolTipValues.EnableToolTips = true;
-		checkBoxFaintestMagnitude.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		checkBoxFaintestMagnitude.Values.Text = "&Faintest mag.:";
-		checkBoxFaintestMagnitude.Enter += Control_Enter;
-		checkBoxFaintestMagnitude.Leave += Control_Leave;
-		checkBoxFaintestMagnitude.MouseEnter += Control_Enter;
-		checkBoxFaintestMagnitude.MouseLeave += Control_Leave;
+		toolStripMenuItemSaveAsTsv.AccessibleDescription = "Saves the list as TSV file";
+		toolStripMenuItemSaveAsTsv.AccessibleName = "Save as TSV";
+		toolStripMenuItemSaveAsTsv.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsTsv.AutoToolTip = true;
+		toolStripMenuItemSaveAsTsv.Image = FatcowIcons16px.fatcow_page_white_excel_16px;
+		toolStripMenuItemSaveAsTsv.Name = "toolStripMenuItemSaveAsTsv";
+		toolStripMenuItemSaveAsTsv.Size = new Size(301, 22);
+		toolStripMenuItemSaveAsTsv.Text = "Save as &Tabulator separated value (TSV)";
+		toolStripMenuItemSaveAsTsv.Click += SaveAsTsv_Click;
+		toolStripMenuItemSaveAsTsv.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsTsv.MouseLeave += Control_Leave;
 		// 
-		// checkBoxPerturbations
+		// toolStripMenuItemSaveAsPsv
 		// 
-		checkBoxPerturbations.AccessibleDescription = "Integrates the orbit numerically including planetary perturbations and general relativity";
-		checkBoxPerturbations.AccessibleName = "Planetary perturbations";
-		checkBoxPerturbations.AccessibleRole = AccessibleRole.CheckButton;
-		checkBoxPerturbations.Location = new Point(370, 138);
-		checkBoxPerturbations.Name = "checkBoxPerturbations";
-		checkBoxPerturbations.Size = new Size(185, 20);
-		checkBoxPerturbations.TabIndex = 20;
-		checkBoxPerturbations.Checked = true;
-		checkBoxPerturbations.CheckState = CheckState.Checked;
-		checkBoxPerturbations.ToolTipValues.EnableToolTips = true;
-		checkBoxPerturbations.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		checkBoxPerturbations.Values.Text = "Planetary &perturbations";
-		checkBoxPerturbations.Enter += Control_Enter;
-		checkBoxPerturbations.Leave += Control_Leave;
-		checkBoxPerturbations.MouseEnter += Control_Enter;
-		checkBoxPerturbations.MouseLeave += Control_Leave;
+		toolStripMenuItemSaveAsPsv.AccessibleDescription = "Saves the list as PSV file";
+		toolStripMenuItemSaveAsPsv.AccessibleName = "Save as PSV";
+		toolStripMenuItemSaveAsPsv.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsPsv.AutoToolTip = true;
+		toolStripMenuItemSaveAsPsv.Image = FatcowIcons16px.fatcow_page_white_excel_16px;
+		toolStripMenuItemSaveAsPsv.Name = "toolStripMenuItemSaveAsPsv";
+		toolStripMenuItemSaveAsPsv.Size = new Size(301, 22);
+		toolStripMenuItemSaveAsPsv.Text = "Save as &Pipe separated value (PSV)";
+		toolStripMenuItemSaveAsPsv.Click += SaveAsPsv_Click;
+		toolStripMenuItemSaveAsPsv.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsPsv.MouseLeave += Control_Leave;
 		// 
-		// checkBoxRefraction
+		// toolStripMenuItemSaveAsEt
 		// 
-		checkBoxRefraction.AccessibleDescription = "Applies the atmospheric refraction to the altitudes";
-		checkBoxRefraction.AccessibleName = "Atmospheric refraction";
-		checkBoxRefraction.AccessibleRole = AccessibleRole.CheckButton;
-		checkBoxRefraction.Location = new Point(560, 138);
-		checkBoxRefraction.Name = "checkBoxRefraction";
-		checkBoxRefraction.Size = new Size(180, 20);
-		checkBoxRefraction.TabIndex = 21;
-		checkBoxRefraction.Checked = true;
-		checkBoxRefraction.CheckState = CheckState.Checked;
-		checkBoxRefraction.ToolTipValues.EnableToolTips = true;
-		checkBoxRefraction.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		checkBoxRefraction.Values.Text = "Atmospheric &refraction";
-		checkBoxRefraction.Enter += Control_Enter;
-		checkBoxRefraction.Leave += Control_Leave;
-		checkBoxRefraction.MouseEnter += Control_Enter;
-		checkBoxRefraction.MouseLeave += Control_Leave;
+		toolStripMenuItemSaveAsEt.AccessibleDescription = "Saves the list as ET";
+		toolStripMenuItemSaveAsEt.AccessibleName = "Save as ET";
+		toolStripMenuItemSaveAsEt.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsEt.AutoToolTip = true;
+		toolStripMenuItemSaveAsEt.Image = FatcowIcons16px.fatcow_page_white_excel_16px;
+		toolStripMenuItemSaveAsEt.Name = "toolStripMenuItemSaveAsEt";
+		toolStripMenuItemSaveAsEt.Size = new Size(301, 22);
+		toolStripMenuItemSaveAsEt.Text = "Save as &WPS Office Spreadsheet (ET)";
+		toolStripMenuItemSaveAsEt.Click += SaveAsEt_Click;
+		toolStripMenuItemSaveAsEt.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsEt.MouseLeave += Control_Leave;
 		// 
-		// buttonLoadEphemerisFile
+		// toolStripMenuItemXmlDocuments
 		// 
-		buttonLoadEphemerisFile.AccessibleDescription = "Loads a JPL DE440/DE441 binary ephemeris file (e.g. linux_p1550p2650.440) for highest accuracy";
-		buttonLoadEphemerisFile.AccessibleName = "Load DE440/441";
-		buttonLoadEphemerisFile.AccessibleRole = AccessibleRole.PushButton;
-		buttonLoadEphemerisFile.Location = new Point(14, 200);
-		buttonLoadEphemerisFile.Name = "buttonLoadEphemerisFile";
-		buttonLoadEphemerisFile.Size = new Size(150, 29);
-		buttonLoadEphemerisFile.TabIndex = 23;
-		buttonLoadEphemerisFile.ToolTipValues.EnableToolTips = true;
-		buttonLoadEphemerisFile.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		buttonLoadEphemerisFile.Values.DropDownArrowColor = Color.Empty;
-		buttonLoadEphemerisFile.Values.Image = FatcowIcons16px.fatcow_folder_16px;
-		buttonLoadEphemerisFile.Values.Text = "Load &DE440/441...";
-		buttonLoadEphemerisFile.Click += ButtonLoadEphemerisFile_Click;
-		buttonLoadEphemerisFile.Enter += Control_Enter;
-		buttonLoadEphemerisFile.Leave += Control_Leave;
-		buttonLoadEphemerisFile.MouseEnter += Control_Enter;
-		buttonLoadEphemerisFile.MouseLeave += Control_Leave;
+		toolStripMenuItemXmlDocuments.AccessibleDescription = "Saves the list as XML documents";
+		toolStripMenuItemXmlDocuments.AccessibleName = "Save as XML documents";
+		toolStripMenuItemXmlDocuments.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemXmlDocuments.AutoToolTip = true;
+		toolStripMenuItemXmlDocuments.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsHtml, toolStripMenuItemSaveAsXml, toolStripMenuItemSaveAsDocBook });
+		toolStripMenuItemXmlDocuments.Image = FatcowIcons16px.fatcow_file_extension_bin_16px;
+		toolStripMenuItemXmlDocuments.Name = "toolStripMenuItemXmlDocuments";
+		toolStripMenuItemXmlDocuments.Size = new Size(201, 22);
+		toolStripMenuItemXmlDocuments.Text = "&XML documents";
+		toolStripMenuItemXmlDocuments.MouseEnter += Control_Enter;
+		toolStripMenuItemXmlDocuments.MouseLeave += Control_Leave;
 		// 
-		// buttonCalculate
+		// toolStripMenuItemSaveAsHtml
 		// 
-		buttonCalculate.AccessibleDescription = "Calculates the ephemerides";
-		buttonCalculate.AccessibleName = "Calculate";
-		buttonCalculate.AccessibleRole = AccessibleRole.PushButton;
-		buttonCalculate.Location = new Point(400, 200);
-		buttonCalculate.Name = "buttonCalculate";
-		buttonCalculate.Size = new Size(110, 29);
-		buttonCalculate.TabIndex = 24;
-		buttonCalculate.ToolTipValues.EnableToolTips = true;
-		buttonCalculate.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		buttonCalculate.Values.DropDownArrowColor = Color.Empty;
-		buttonCalculate.Values.Image = FatcowIcons16px.fatcow_calculator_16px;
-		buttonCalculate.Values.Text = "&Calculate";
-		buttonCalculate.Click += ButtonCalculate_Click;
-		buttonCalculate.Enter += Control_Enter;
-		buttonCalculate.Leave += Control_Leave;
-		buttonCalculate.MouseEnter += Control_Enter;
-		buttonCalculate.MouseLeave += Control_Leave;
+		toolStripMenuItemSaveAsHtml.AccessibleDescription = "Saves the list as HTML file";
+		toolStripMenuItemSaveAsHtml.AccessibleName = "Save as HTML";
+		toolStripMenuItemSaveAsHtml.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsHtml.AutoToolTip = true;
+		toolStripMenuItemSaveAsHtml.Image = FatcowIcons16px.fatcow_page_white_code_16px;
+		toolStripMenuItemSaveAsHtml.Name = "toolStripMenuItemSaveAsHtml";
+		toolStripMenuItemSaveAsHtml.Size = new Size(163, 22);
+		toolStripMenuItemSaveAsHtml.Text = "Save as &HTML";
+		toolStripMenuItemSaveAsHtml.Click += SaveAsHtml_Click;
+		toolStripMenuItemSaveAsHtml.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsHtml.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSaveAsXml
+		// 
+		toolStripMenuItemSaveAsXml.AccessibleDescription = "Saves the list as XML file";
+		toolStripMenuItemSaveAsXml.AccessibleName = "Save as XML";
+		toolStripMenuItemSaveAsXml.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsXml.AutoToolTip = true;
+		toolStripMenuItemSaveAsXml.Image = FatcowIcons16px.fatcow_page_white_code_16px;
+		toolStripMenuItemSaveAsXml.Name = "toolStripMenuItemSaveAsXml";
+		toolStripMenuItemSaveAsXml.Size = new Size(163, 22);
+		toolStripMenuItemSaveAsXml.Text = "Save as &XML";
+		toolStripMenuItemSaveAsXml.Click += SaveAsXml_Click;
+		toolStripMenuItemSaveAsXml.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsXml.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSaveAsDocBook
+		// 
+		toolStripMenuItemSaveAsDocBook.AccessibleDescription = "Saves the list as DocBook file";
+		toolStripMenuItemSaveAsDocBook.AccessibleName = "Save as DocBook";
+		toolStripMenuItemSaveAsDocBook.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsDocBook.AutoToolTip = true;
+		toolStripMenuItemSaveAsDocBook.Image = FatcowIcons16px.fatcow_page_white_code_16px;
+		toolStripMenuItemSaveAsDocBook.Name = "toolStripMenuItemSaveAsDocBook";
+		toolStripMenuItemSaveAsDocBook.Size = new Size(163, 22);
+		toolStripMenuItemSaveAsDocBook.Text = "Save as &DocBook";
+		toolStripMenuItemSaveAsDocBook.Click += SaveAsDocBook_Click;
+		toolStripMenuItemSaveAsDocBook.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsDocBook.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemConfigurationFiles
+		// 
+		toolStripMenuItemConfigurationFiles.AccessibleDescription = "Saves the list as configuration file";
+		toolStripMenuItemConfigurationFiles.AccessibleName = "Save as configuration file";
+		toolStripMenuItemConfigurationFiles.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemConfigurationFiles.AutoToolTip = true;
+		toolStripMenuItemConfigurationFiles.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsJson, toolStripMenuItemSaveAsToml, toolStripMenuItemSaveAsYaml });
+		toolStripMenuItemConfigurationFiles.Image = FatcowIcons16px.fatcow_file_extension_bat_16px;
+		toolStripMenuItemConfigurationFiles.Name = "toolStripMenuItemConfigurationFiles";
+		toolStripMenuItemConfigurationFiles.Size = new Size(201, 22);
+		toolStripMenuItemConfigurationFiles.Text = "&Configuration files";
+		toolStripMenuItemConfigurationFiles.MouseEnter += Control_Enter;
+		toolStripMenuItemConfigurationFiles.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSaveAsJson
+		// 
+		toolStripMenuItemSaveAsJson.AccessibleDescription = "Saves the list as JSON file";
+		toolStripMenuItemSaveAsJson.AccessibleName = "Save as JSON";
+		toolStripMenuItemSaveAsJson.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsJson.AutoToolTip = true;
+		toolStripMenuItemSaveAsJson.Image = FatcowIcons16px.fatcow_page_white_code_red_16px;
+		toolStripMenuItemSaveAsJson.Name = "toolStripMenuItemSaveAsJson";
+		toolStripMenuItemSaveAsJson.Size = new Size(146, 22);
+		toolStripMenuItemSaveAsJson.Text = "Save as &JSON";
+		toolStripMenuItemSaveAsJson.Click += SaveAsJson_Click;
+		toolStripMenuItemSaveAsJson.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsJson.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSaveAsToml
+		// 
+		toolStripMenuItemSaveAsToml.AccessibleDescription = "Saves the list as TOML file";
+		toolStripMenuItemSaveAsToml.AccessibleName = "Save as TOML";
+		toolStripMenuItemSaveAsToml.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsToml.AutoToolTip = true;
+		toolStripMenuItemSaveAsToml.Image = FatcowIcons16px.fatcow_page_white_code_red_16px;
+		toolStripMenuItemSaveAsToml.Name = "toolStripMenuItemSaveAsToml";
+		toolStripMenuItemSaveAsToml.Size = new Size(146, 22);
+		toolStripMenuItemSaveAsToml.Text = "Save as &TOML";
+		toolStripMenuItemSaveAsToml.Click += SaveAsToml_Click;
+		toolStripMenuItemSaveAsToml.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsToml.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSaveAsYaml
+		// 
+		toolStripMenuItemSaveAsYaml.AccessibleDescription = "Saves the list as YAML file";
+		toolStripMenuItemSaveAsYaml.AccessibleName = "Save as YAML";
+		toolStripMenuItemSaveAsYaml.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsYaml.AutoToolTip = true;
+		toolStripMenuItemSaveAsYaml.Image = FatcowIcons16px.fatcow_page_white_code_red_16px;
+		toolStripMenuItemSaveAsYaml.Name = "toolStripMenuItemSaveAsYaml";
+		toolStripMenuItemSaveAsYaml.Size = new Size(146, 22);
+		toolStripMenuItemSaveAsYaml.Text = "Save as &YAML";
+		toolStripMenuItemSaveAsYaml.Click += SaveAsYaml_Click;
+		toolStripMenuItemSaveAsYaml.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsYaml.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemDatabaseScripts
+		// 
+		toolStripMenuItemDatabaseScripts.AccessibleDescription = "Saves the list as database script";
+		toolStripMenuItemDatabaseScripts.AccessibleName = "Save as database script";
+		toolStripMenuItemDatabaseScripts.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemDatabaseScripts.AutoToolTip = true;
+		toolStripMenuItemDatabaseScripts.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsSql, toolStripMenuItemSaveAsSqlite });
+		toolStripMenuItemDatabaseScripts.Image = FatcowIcons16px.fatcow_file_extension_ptb_16px;
+		toolStripMenuItemDatabaseScripts.Name = "toolStripMenuItemDatabaseScripts";
+		toolStripMenuItemDatabaseScripts.Size = new Size(201, 22);
+		toolStripMenuItemDatabaseScripts.Text = "&Database scripts";
+		toolStripMenuItemDatabaseScripts.MouseEnter += Control_Enter;
+		toolStripMenuItemDatabaseScripts.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSaveAsSql
+		// 
+		toolStripMenuItemSaveAsSql.AccessibleDescription = "Saves the list as SQL script";
+		toolStripMenuItemSaveAsSql.AccessibleName = "Save as SQL";
+		toolStripMenuItemSaveAsSql.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsSql.AutoToolTip = true;
+		toolStripMenuItemSaveAsSql.Image = FatcowIcons16px.fatcow_page_white_database_16px;
+		toolStripMenuItemSaveAsSql.Name = "toolStripMenuItemSaveAsSql";
+		toolStripMenuItemSaveAsSql.Size = new Size(168, 22);
+		toolStripMenuItemSaveAsSql.Text = "Save as &SQL script";
+		toolStripMenuItemSaveAsSql.Click += SaveAsSql_Click;
+		toolStripMenuItemSaveAsSql.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsSql.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSaveAsSqlite
+		// 
+		toolStripMenuItemSaveAsSqlite.AccessibleDescription = "Saves the list as SQLite file";
+		toolStripMenuItemSaveAsSqlite.AccessibleName = "Save as SQLite";
+		toolStripMenuItemSaveAsSqlite.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsSqlite.AutoToolTip = true;
+		toolStripMenuItemSaveAsSqlite.Image = FatcowIcons16px.fatcow_page_white_database_16px;
+		toolStripMenuItemSaveAsSqlite.Name = "toolStripMenuItemSaveAsSqlite";
+		toolStripMenuItemSaveAsSqlite.Size = new Size(168, 22);
+		toolStripMenuItemSaveAsSqlite.Text = "Save as SQ&Lite";
+		toolStripMenuItemSaveAsSqlite.Click += SaveAsSqlite_Click;
+		toolStripMenuItemSaveAsSqlite.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsSqlite.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemPortableDocuments
+		// 
+		toolStripMenuItemPortableDocuments.AccessibleDescription = "Saves the list as portable document";
+		toolStripMenuItemPortableDocuments.AccessibleName = "Save as portable document";
+		toolStripMenuItemPortableDocuments.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemPortableDocuments.AutoToolTip = true;
+		toolStripMenuItemPortableDocuments.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsPdf, toolStripMenuItemSaveAsPostScript, toolStripMenuItemSaveAsEpub, toolStripMenuItemSaveAsMobi, toolStripMenuItemSaveAsXps, toolStripMenuItemSaveAsFictionBook2, toolStripMenuItemSaveAsChm });
+		toolStripMenuItemPortableDocuments.Image = FatcowIcons16px.fatcow_file_extension_pdf_16px;
+		toolStripMenuItemPortableDocuments.Name = "toolStripMenuItemPortableDocuments";
+		toolStripMenuItemPortableDocuments.Size = new Size(201, 22);
+		toolStripMenuItemPortableDocuments.Text = "&Portable documents";
+		toolStripMenuItemPortableDocuments.MouseEnter += Control_Enter;
+		toolStripMenuItemPortableDocuments.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSaveAsPdf
+		// 
+		toolStripMenuItemSaveAsPdf.AccessibleDescription = "Saves the list as PDF file";
+		toolStripMenuItemSaveAsPdf.AccessibleName = "Save as PDF";
+		toolStripMenuItemSaveAsPdf.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsPdf.AutoToolTip = true;
+		toolStripMenuItemSaveAsPdf.Image = FatcowIcons16px.fatcow_page_white_acrobat_16px;
+		toolStripMenuItemSaveAsPdf.Name = "toolStripMenuItemSaveAsPdf";
+		toolStripMenuItemSaveAsPdf.Size = new Size(214, 22);
+		toolStripMenuItemSaveAsPdf.Text = "Save as &PDF";
+		toolStripMenuItemSaveAsPdf.Click += SaveAsPdf_Click;
+		toolStripMenuItemSaveAsPdf.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsPdf.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSaveAsPostScript
+		// 
+		toolStripMenuItemSaveAsPostScript.AccessibleDescription = "Saves the list as PostScript file";
+		toolStripMenuItemSaveAsPostScript.AccessibleName = "Save as PostScript";
+		toolStripMenuItemSaveAsPostScript.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsPostScript.AutoToolTip = true;
+		toolStripMenuItemSaveAsPostScript.Image = FatcowIcons16px.fatcow_page_white_acrobat_16px;
+		toolStripMenuItemSaveAsPostScript.Name = "toolStripMenuItemSaveAsPostScript";
+		toolStripMenuItemSaveAsPostScript.Size = new Size(214, 22);
+		toolStripMenuItemSaveAsPostScript.Text = "Save as Post&Script (PS)";
+		toolStripMenuItemSaveAsPostScript.Click += SaveAsPostScript_Click;
+		toolStripMenuItemSaveAsPostScript.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsPostScript.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSaveAsEpub
+		// 
+		toolStripMenuItemSaveAsEpub.AccessibleDescription = "Saves the list as EPUB file";
+		toolStripMenuItemSaveAsEpub.AccessibleName = "Save as EPUB";
+		toolStripMenuItemSaveAsEpub.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsEpub.AutoToolTip = true;
+		toolStripMenuItemSaveAsEpub.Image = FatcowIcons16px.fatcow_page_white_acrobat_16px;
+		toolStripMenuItemSaveAsEpub.Name = "toolStripMenuItemSaveAsEpub";
+		toolStripMenuItemSaveAsEpub.Size = new Size(214, 22);
+		toolStripMenuItemSaveAsEpub.Text = "Save as &EPUB";
+		toolStripMenuItemSaveAsEpub.Click += SaveAsEpub_Click;
+		toolStripMenuItemSaveAsEpub.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsEpub.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSaveAsMobi
+		// 
+		toolStripMenuItemSaveAsMobi.AccessibleDescription = "Saves the list as MOBI file";
+		toolStripMenuItemSaveAsMobi.AccessibleName = "Save as MOBI";
+		toolStripMenuItemSaveAsMobi.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsMobi.AutoToolTip = true;
+		toolStripMenuItemSaveAsMobi.Image = FatcowIcons16px.fatcow_page_white_acrobat_16px;
+		toolStripMenuItemSaveAsMobi.Name = "toolStripMenuItemSaveAsMobi";
+		toolStripMenuItemSaveAsMobi.Size = new Size(214, 22);
+		toolStripMenuItemSaveAsMobi.Text = "Save as &MOBI";
+		toolStripMenuItemSaveAsMobi.Click += SaveAsMobi_Click;
+		toolStripMenuItemSaveAsMobi.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsMobi.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSaveAsXps
+		// 
+		toolStripMenuItemSaveAsXps.AccessibleDescription = "Saves the list as XPS file";
+		toolStripMenuItemSaveAsXps.AccessibleName = "Save as XPS";
+		toolStripMenuItemSaveAsXps.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsXps.AutoToolTip = true;
+		toolStripMenuItemSaveAsXps.Image = FatcowIcons16px.fatcow_page_white_acrobat_16px;
+		toolStripMenuItemSaveAsXps.Name = "toolStripMenuItemSaveAsXps";
+		toolStripMenuItemSaveAsXps.Size = new Size(214, 22);
+		toolStripMenuItemSaveAsXps.Text = "Save as &XPS";
+		toolStripMenuItemSaveAsXps.Click += SaveAsXps_Click;
+		toolStripMenuItemSaveAsXps.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsXps.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSaveAsFictionBook2
+		// 
+		toolStripMenuItemSaveAsFictionBook2.AccessibleDescription = "Saves the list as FictionBook2 file";
+		toolStripMenuItemSaveAsFictionBook2.AccessibleName = "Save as FB2";
+		toolStripMenuItemSaveAsFictionBook2.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsFictionBook2.AutoToolTip = true;
+		toolStripMenuItemSaveAsFictionBook2.Image = FatcowIcons16px.fatcow_page_white_acrobat_16px;
+		toolStripMenuItemSaveAsFictionBook2.Name = "toolStripMenuItemSaveAsFictionBook2";
+		toolStripMenuItemSaveAsFictionBook2.Size = new Size(214, 22);
+		toolStripMenuItemSaveAsFictionBook2.Text = "Save as &FictionBook2 (FB2)";
+		toolStripMenuItemSaveAsFictionBook2.Click += SaveAsFictionBook2_Click;
+		toolStripMenuItemSaveAsFictionBook2.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsFictionBook2.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSaveAsChm
+		// 
+		toolStripMenuItemSaveAsChm.AccessibleDescription = "Saves the list as CHM file";
+		toolStripMenuItemSaveAsChm.AccessibleName = "Save as CHM";
+		toolStripMenuItemSaveAsChm.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsChm.AutoToolTip = true;
+		toolStripMenuItemSaveAsChm.Image = FatcowIcons16px.fatcow_page_white_acrobat_16px;
+		toolStripMenuItemSaveAsChm.Name = "toolStripMenuItemSaveAsChm";
+		toolStripMenuItemSaveAsChm.Size = new Size(214, 22);
+		toolStripMenuItemSaveAsChm.Text = "Save as &CHM";
+		toolStripMenuItemSaveAsChm.Click += SaveAsChm_Click;
+		toolStripMenuItemSaveAsChm.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsChm.MouseLeave += Control_Leave;
+		// 
+		// kryptonDropButtonLoadEphemerisFile
+		// 
+		kryptonDropButtonLoadEphemerisFile.AccessibleDescription = "Loads a JPL DE440/DE441 binary ephemeris file (e.g. linux_p1550p2650.440) for highest accuracy";
+		kryptonDropButtonLoadEphemerisFile.AccessibleName = "Load DE440/441";
+		kryptonDropButtonLoadEphemerisFile.AccessibleRole = AccessibleRole.PushButton;
+		kryptonDropButtonLoadEphemerisFile.ContextMenuStrip = contextMenuStripJplDe440De441;
+		kryptonDropButtonLoadEphemerisFile.Location = new Point(14, 201);
+		kryptonDropButtonLoadEphemerisFile.Name = "kryptonDropButtonLoadEphemerisFile";
+		kryptonDropButtonLoadEphemerisFile.Size = new Size(151, 28);
+		kryptonDropButtonLoadEphemerisFile.TabIndex = 23;
+		kryptonDropButtonLoadEphemerisFile.ToolTipValues.Description = "Loads a JPL DE440/DE441 binary ephemeris file (e.g. linux_p1550p2650.440) for highest accuracy";
+		kryptonDropButtonLoadEphemerisFile.ToolTipValues.Heading = "Load DE440/441";
+		kryptonDropButtonLoadEphemerisFile.Values.DropDownArrowColor = Color.Empty;
+		kryptonDropButtonLoadEphemerisFile.Values.Image = FatcowIcons16px.fatcow_folder_16px;
+		kryptonDropButtonLoadEphemerisFile.Values.Text = "Load &DE440/441";
+		kryptonDropButtonLoadEphemerisFile.Click += ButtonLoadEphemerisFile_Click;
+		kryptonDropButtonLoadEphemerisFile.MouseEnter += Control_Enter;
+		kryptonDropButtonLoadEphemerisFile.MouseLeave += Control_Leave;
+		// 
+		// contextMenuStripJplDe440De441
+		// 
+		contextMenuStripJplDe440De441.AccessibleDescription = "Downloads the binary JPL DE 440/441 files";
+		contextMenuStripJplDe440De441.AccessibleName = "Download JPL DE 440/441";
+		contextMenuStripJplDe440De441.AccessibleRole = AccessibleRole.MenuPopup;
+		contextMenuStripJplDe440De441.Font = new Font("Segoe UI", 9F);
+		contextMenuStripJplDe440De441.Items.AddRange(new ToolStripItem[] { toolStripMenuItemDownloadDe440, toolStripMenuItemDownloadDe441, toolStripSeparator1, toolStripMenuItemOpenJplDeEphemerisDownloadPage });
+		contextMenuStripJplDe440De441.Name = "contextMenuStripJplDe440De441";
+		contextMenuStripJplDe440De441.Size = new Size(344, 76);
+		contextMenuStripJplDe440De441.TabStop = true;
+		contextMenuStripJplDe440De441.Text = "Download JPL DE 440/441";
+		contextMenuStripJplDe440De441.Enter += Control_Enter;
+		contextMenuStripJplDe440De441.Leave += Control_Leave;
+		contextMenuStripJplDe440De441.MouseEnter += Control_Enter;
+		contextMenuStripJplDe440De441.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemDownloadDe440
+		// 
+		toolStripMenuItemDownloadDe440.AccessibleDescription = "Downloads the JPL DE440 file";
+		toolStripMenuItemDownloadDe440.AccessibleName = "Download DE440";
+		toolStripMenuItemDownloadDe440.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemDownloadDe440.AutoToolTip = true;
+		toolStripMenuItemDownloadDe440.Image = FatcowIcons16px.fatcow_package_go_16px;
+		toolStripMenuItemDownloadDe440.Name = "toolStripMenuItemDownloadDe440";
+		toolStripMenuItemDownloadDe440.Size = new Size(343, 22);
+		toolStripMenuItemDownloadDe440.Text = "Download DE440 (linux_p1550p2650.440, 107 MB)";
+		toolStripMenuItemDownloadDe440.Click += ToolStripMenuItemDownloadDe440_Click;
+		toolStripMenuItemDownloadDe440.MouseEnter += Control_Enter;
+		toolStripMenuItemDownloadDe440.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemDownloadDe441
+		// 
+		toolStripMenuItemDownloadDe441.AccessibleDescription = "Downloads the JPL DE441 file";
+		toolStripMenuItemDownloadDe441.AccessibleName = "Download DE441";
+		toolStripMenuItemDownloadDe441.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemDownloadDe441.AutoToolTip = true;
+		toolStripMenuItemDownloadDe441.Image = FatcowIcons16px.fatcow_package_go_16px;
+		toolStripMenuItemDownloadDe441.Name = "toolStripMenuItemDownloadDe441";
+		toolStripMenuItemDownloadDe441.Size = new Size(343, 22);
+		toolStripMenuItemDownloadDe441.Text = "Download DE441 (linux_m13000p17000.441; 2.6 GB)";
+		toolStripMenuItemDownloadDe441.Click += ToolStripMenuItemDownloadDe441_Click;
+		toolStripMenuItemDownloadDe441.MouseEnter += Control_Enter;
+		toolStripMenuItemDownloadDe441.MouseLeave += Control_Leave;
+		// 
+		// toolStripSeparator1
+		// 
+		toolStripSeparator1.AccessibleDescription = "Just a separator";
+		toolStripSeparator1.AccessibleName = "Separator";
+		toolStripSeparator1.AccessibleRole = AccessibleRole.Separator;
+		toolStripSeparator1.Name = "toolStripSeparator1";
+		toolStripSeparator1.Size = new Size(340, 6);
+		toolStripSeparator1.MouseEnter += Control_Enter;
+		toolStripSeparator1.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemOpenJplDeEphemerisDownloadPage
+		// 
+		toolStripMenuItemOpenJplDeEphemerisDownloadPage.AccessibleDescription = "Open the JPL DE ephemeris download page";
+		toolStripMenuItemOpenJplDeEphemerisDownloadPage.AccessibleName = "JPL DE ephemeris download page";
+		toolStripMenuItemOpenJplDeEphemerisDownloadPage.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemOpenJplDeEphemerisDownloadPage.AutoToolTip = true;
+		toolStripMenuItemOpenJplDeEphemerisDownloadPage.Image = FatcowIcons16px.fatcow_external_16px;
+		toolStripMenuItemOpenJplDeEphemerisDownloadPage.Name = "toolStripMenuItemOpenJplDeEphemerisDownloadPage";
+		toolStripMenuItemOpenJplDeEphemerisDownloadPage.Size = new Size(343, 22);
+		toolStripMenuItemOpenJplDeEphemerisDownloadPage.Text = "JPL DE ephemeris download page";
+		toolStripMenuItemOpenJplDeEphemerisDownloadPage.Click += ToolStripMenuItemOpenJplDeWebPage_Click;
+		toolStripMenuItemOpenJplDeEphemerisDownloadPage.MouseEnter += Control_Enter;
+		toolStripMenuItemOpenJplDeEphemerisDownloadPage.MouseLeave += Control_Leave;
+		// 
+		// kryptonButtonOpenWorldMap
+		// 
+		kryptonButtonOpenWorldMap.AccessibleDescription = "Opens the world map";
+		kryptonButtonOpenWorldMap.AccessibleName = "World map";
+		kryptonButtonOpenWorldMap.AccessibleRole = AccessibleRole.PushButton;
+		kryptonButtonOpenWorldMap.Enabled = false;
+		kryptonButtonOpenWorldMap.Location = new Point(253, 200);
+		kryptonButtonOpenWorldMap.Name = "kryptonButtonOpenWorldMap";
+		kryptonButtonOpenWorldMap.Size = new Size(97, 29);
+		kryptonButtonOpenWorldMap.TabIndex = 24;
+		kryptonButtonOpenWorldMap.ToolTipValues.Description = "Opens the world map";
+		kryptonButtonOpenWorldMap.ToolTipValues.EnableToolTips = true;
+		kryptonButtonOpenWorldMap.ToolTipValues.Heading = "World map";
+		kryptonButtonOpenWorldMap.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		kryptonButtonOpenWorldMap.Values.DropDownArrowColor = Color.Empty;
+		kryptonButtonOpenWorldMap.Values.Image = FatcowIcons16px.fatcow_map_16px;
+		kryptonButtonOpenWorldMap.Values.Text = "World map";
+		kryptonButtonOpenWorldMap.Click += KryptonButtonOpenWorldMap_Click;
+		kryptonButtonOpenWorldMap.MouseEnter += Control_Enter;
+		kryptonButtonOpenWorldMap.MouseLeave += Control_Leave;
+		// 
+		// listView
+		// 
+		listView.AccessibleDescription = "Shows the calculated ephemerides (times in UTC); visible entries are highlighted";
+		listView.AccessibleName = "Ephemerides";
+		listView.AccessibleRole = AccessibleRole.List;
+		listView.AllowColumnReorder = true;
+		listView.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+		listView.ContextMenuStrip = contextMenuSaveToFile;
+		listView.FullRowSelect = true;
+		listView.GridLines = true;
+		listView.HideSelection = false;
+		listView.Location = new Point(14, 270);
+		listView.MultiSelect = false;
+		listView.Name = "listView";
+		listView.ShowItemToolTips = true;
+		listView.Size = new Size(772, 345);
+		listView.TabIndex = 29;
+		listView.ToolTipValues.Description = "Shows the calculated ephemerides (times in UTC); visible entries are highlighted";
+		listView.ToolTipValues.EnableToolTips = true;
+		listView.ToolTipValues.Heading = "Ephemerides";
+		listView.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		listView.View = View.Details;
+		listView.Enter += Control_Enter;
+		listView.Leave += Control_Leave;
+		listView.MouseEnter += Control_Enter;
+		listView.MouseLeave += Control_Leave;
+		// 
+		// progressBar
+		// 
+		progressBar.AccessibleDescription = "Shows the progress of the calculation";
+		progressBar.AccessibleName = "Progress bar";
+		progressBar.AccessibleRole = AccessibleRole.ProgressBar;
+		progressBar.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+		progressBar.Location = new Point(14, 240);
+		progressBar.Name = "progressBar";
+		progressBar.Size = new Size(772, 20);
+		progressBar.TabIndex = 28;
+		progressBar.TextBackdropColor = Color.Empty;
+		progressBar.TextShadowColor = Color.Empty;
+		progressBar.Values.Text = "";
+		progressBar.MouseEnter += Control_Enter;
+		progressBar.MouseLeave += Control_Leave;
 		// 
 		// buttonCancel
 		// 
 		buttonCancel.AccessibleDescription = "Cancels the running calculation";
 		buttonCancel.AccessibleName = "Cancel";
 		buttonCancel.AccessibleRole = AccessibleRole.PushButton;
-		buttonCancel.Location = new Point(520, 200);
-		buttonCancel.Name = "buttonCancel";
-		buttonCancel.Size = new Size(110, 29);
-		buttonCancel.TabIndex = 25;
 		buttonCancel.Enabled = false;
+		buttonCancel.Location = new Point(473, 200);
+		buttonCancel.Name = "buttonCancel";
+		buttonCancel.Size = new Size(95, 29);
+		buttonCancel.TabIndex = 26;
+		buttonCancel.ToolTipValues.Description = "Cancels the running calculation";
 		buttonCancel.ToolTipValues.EnableToolTips = true;
+		buttonCancel.ToolTipValues.Heading = "Cancel";
 		buttonCancel.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 		buttonCancel.Values.DropDownArrowColor = Color.Empty;
 		buttonCancel.Values.Image = FatcowIcons16px.fatcow_cancel_16px;
@@ -709,99 +1025,510 @@ partial class EphemerisForm
 		buttonCancel.MouseEnter += Control_Enter;
 		buttonCancel.MouseLeave += Control_Leave;
 		// 
-		// buttonExport
+		// buttonCalculate
 		// 
-		buttonExport.AccessibleDescription = "Exports the ephemerides as CSV (invariant culture, UTC)";
-		buttonExport.AccessibleName = "Export CSV";
-		buttonExport.AccessibleRole = AccessibleRole.PushButton;
-		buttonExport.Location = new Point(640, 200);
-		buttonExport.Name = "buttonExport";
-		buttonExport.Size = new Size(130, 29);
-		buttonExport.TabIndex = 26;
-		buttonExport.Enabled = false;
-		buttonExport.ToolTipValues.EnableToolTips = true;
-		buttonExport.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		buttonExport.Values.DropDownArrowColor = Color.Empty;
-		buttonExport.Values.Image = FatcowIcons16px.fatcow_table_export_16px;
-		buttonExport.Values.Text = "E&xport CSV...";
-		buttonExport.Click += ButtonExport_Click;
-		buttonExport.Enter += Control_Enter;
-		buttonExport.Leave += Control_Leave;
-		buttonExport.MouseEnter += Control_Enter;
-		buttonExport.MouseLeave += Control_Leave;
+		buttonCalculate.AccessibleDescription = "Calculates the ephemerides";
+		buttonCalculate.AccessibleName = "Calculate";
+		buttonCalculate.AccessibleRole = AccessibleRole.PushButton;
+		buttonCalculate.Location = new Point(370, 200);
+		buttonCalculate.Name = "buttonCalculate";
+		buttonCalculate.Size = new Size(97, 29);
+		buttonCalculate.TabIndex = 25;
+		buttonCalculate.ToolTipValues.Description = "Calculates the ephemerides";
+		buttonCalculate.ToolTipValues.EnableToolTips = true;
+		buttonCalculate.ToolTipValues.Heading = "Calculate";
+		buttonCalculate.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		buttonCalculate.Values.DropDownArrowColor = Color.Empty;
+		buttonCalculate.Values.Image = FatcowIcons16px.fatcow_calculator_16px;
+		buttonCalculate.Values.Text = "&Calculate";
+		buttonCalculate.Click += ButtonCalculate_Click;
+		buttonCalculate.Enter += Control_Enter;
+		buttonCalculate.Leave += Control_Leave;
+		buttonCalculate.MouseEnter += Control_Enter;
+		buttonCalculate.MouseLeave += Control_Leave;
 		// 
-		// progressBar
+		// labelEphemerisSource
 		// 
-		progressBar.AccessibleDescription = "Shows the progress of the calculation";
-		progressBar.AccessibleName = "Progress bar";
-		progressBar.AccessibleRole = AccessibleRole.ProgressBar;
-		progressBar.Location = new Point(14, 240);
-		progressBar.Name = "progressBar";
-		progressBar.Size = new Size(700, 20);
-		progressBar.TabIndex = 27;
-		progressBar.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-		progressBar.TextBackdropColor = Color.Empty;
-		progressBar.TextShadowColor = Color.Empty;
-		progressBar.Values.Text = "";
-		progressBar.MouseEnter += Control_Enter;
-		progressBar.MouseLeave += Control_Leave;
+		labelEphemerisSource.AccessibleDescription = "Shows the planetary ephemeris used for the calculation";
+		labelEphemerisSource.AccessibleName = "Planetary ephemeris: analytical";
+		labelEphemerisSource.AccessibleRole = AccessibleRole.StaticText;
+		labelEphemerisSource.Location = new Point(370, 169);
+		labelEphemerisSource.Name = "labelEphemerisSource";
+		labelEphemerisSource.Size = new Size(178, 20);
+		labelEphemerisSource.TabIndex = 22;
+		labelEphemerisSource.ToolTipValues.Description = "Shows the planetary ephemeris used for the calculation";
+		labelEphemerisSource.ToolTipValues.EnableToolTips = true;
+		labelEphemerisSource.ToolTipValues.Heading = "Planetary ephemeris: analytical";
+		labelEphemerisSource.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelEphemerisSource.Values.Text = "Planetary ephemeris: analytical";
+		labelEphemerisSource.Enter += Control_Enter;
+		labelEphemerisSource.Leave += Control_Leave;
+		labelEphemerisSource.MouseEnter += Control_Enter;
+		labelEphemerisSource.MouseLeave += Control_Leave;
 		// 
-		// labelPercent
+		// checkBoxRefraction
 		// 
-		labelPercent.AccessibleDescription = "Shows the progress of the calculation in percent";
-		labelPercent.AccessibleName = "Percent status of the calculation";
-		labelPercent.AccessibleRole = AccessibleRole.StaticText;
-		labelPercent.Location = new Point(730, 240);
-		labelPercent.Name = "labelPercent";
-		labelPercent.Size = new Size(56, 20);
-		labelPercent.TabIndex = 28;
-		labelPercent.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-		labelPercent.ToolTipValues.EnableToolTips = true;
-		labelPercent.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelPercent.Values.Text = "0 %";
-		labelPercent.Enter += Control_Enter;
-		labelPercent.Leave += Control_Leave;
-		labelPercent.MouseEnter += Control_Enter;
-		labelPercent.MouseLeave += Control_Leave;
+		checkBoxRefraction.AccessibleDescription = "Applies the atmospheric refraction to the altitudes";
+		checkBoxRefraction.AccessibleName = "Atmospheric refraction";
+		checkBoxRefraction.AccessibleRole = AccessibleRole.CheckButton;
+		checkBoxRefraction.Checked = true;
+		checkBoxRefraction.CheckState = CheckState.Checked;
+		checkBoxRefraction.Location = new Point(560, 138);
+		checkBoxRefraction.Name = "checkBoxRefraction";
+		checkBoxRefraction.Size = new Size(148, 20);
+		checkBoxRefraction.TabIndex = 21;
+		checkBoxRefraction.ToolTipValues.Description = "Applies the atmospheric refraction to the altitudes";
+		checkBoxRefraction.ToolTipValues.EnableToolTips = true;
+		checkBoxRefraction.ToolTipValues.Heading = "Atmospheric refraction";
+		checkBoxRefraction.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		checkBoxRefraction.Values.Text = "Atmospheric &refraction";
+		checkBoxRefraction.Enter += Control_Enter;
+		checkBoxRefraction.Leave += Control_Leave;
+		checkBoxRefraction.MouseEnter += Control_Enter;
+		checkBoxRefraction.MouseLeave += Control_Leave;
 		// 
-		// listView
+		// checkBoxPerturbations
 		// 
-		listView.AccessibleDescription = "Shows the calculated ephemerides (times in UTC); visible entries are highlighted";
-		listView.AccessibleName = "Ephemerides";
-		listView.AccessibleRole = AccessibleRole.List;
-		listView.Location = new Point(14, 270);
-		listView.Name = "listView";
-		listView.Size = new Size(772, 190);
-		listView.TabIndex = 29;
-		listView.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-		listView.FullRowSelect = true;
-		listView.GridLines = true;
-		listView.HideSelection = false;
-		listView.MultiSelect = false;
-		listView.ShowItemToolTips = true;
-		listView.ToolTipValues.EnableToolTips = true;
-		listView.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		listView.View = View.Details;
-		listView.Enter += Control_Enter;
-		listView.Leave += Control_Leave;
-		listView.MouseEnter += Control_Enter;
-		listView.MouseLeave += Control_Leave;
+		checkBoxPerturbations.AccessibleDescription = "Integrates the orbit numerically including planetary perturbations and general relativity";
+		checkBoxPerturbations.AccessibleName = "Planetary perturbations";
+		checkBoxPerturbations.AccessibleRole = AccessibleRole.CheckButton;
+		checkBoxPerturbations.Checked = true;
+		checkBoxPerturbations.CheckState = CheckState.Checked;
+		checkBoxPerturbations.Location = new Point(370, 138);
+		checkBoxPerturbations.Name = "checkBoxPerturbations";
+		checkBoxPerturbations.Size = new Size(151, 20);
+		checkBoxPerturbations.TabIndex = 20;
+		checkBoxPerturbations.ToolTipValues.Description = "Integrates the orbit numerically including planetary perturbations and general relativity";
+		checkBoxPerturbations.ToolTipValues.EnableToolTips = true;
+		checkBoxPerturbations.ToolTipValues.Heading = "Planetary perturbations";
+		checkBoxPerturbations.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		checkBoxPerturbations.Values.Text = "Planetary &perturbations";
+		checkBoxPerturbations.Enter += Control_Enter;
+		checkBoxPerturbations.Leave += Control_Leave;
+		checkBoxPerturbations.MouseEnter += Control_Enter;
+		checkBoxPerturbations.MouseLeave += Control_Leave;
 		// 
-		// formsPlot
+		// numericUpDownMinimumMoonSeparation
 		// 
-		formsPlot.AccessibleDescription = "Shows the altitude and the apparent magnitude of the object over time (UTC)";
-		formsPlot.AccessibleName = "Altitude chart";
-		formsPlot.AccessibleRole = AccessibleRole.Chart;
-		formsPlot.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-		formsPlot.DisplayScale = 1F;
-		formsPlot.Location = new Point(14, 466);
-		formsPlot.Name = "formsPlot";
-		formsPlot.Size = new Size(772, 146);
-		formsPlot.TabIndex = 30;
-		formsPlot.Enter += Control_Enter;
-		formsPlot.Leave += Control_Leave;
-		formsPlot.MouseEnter += Control_Enter;
-		formsPlot.MouseLeave += Control_Leave;
+		numericUpDownMinimumMoonSeparation.AccessibleDescription = "Sets the minimum angular distance between object and Moon in degrees";
+		numericUpDownMinimumMoonSeparation.AccessibleName = "Minimum angular distance between object and Moon";
+		numericUpDownMinimumMoonSeparation.AccessibleRole = AccessibleRole.SpinButton;
+		numericUpDownMinimumMoonSeparation.AllowDecimals = true;
+		numericUpDownMinimumMoonSeparation.DecimalPlaces = 1;
+		numericUpDownMinimumMoonSeparation.Increment = new decimal(new int[] { 1, 0, 0, 0 });
+		numericUpDownMinimumMoonSeparation.Location = new Point(560, 107);
+		numericUpDownMinimumMoonSeparation.Maximum = new decimal(new int[] { 180, 0, 0, 0 });
+		numericUpDownMinimumMoonSeparation.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
+		numericUpDownMinimumMoonSeparation.Name = "numericUpDownMinimumMoonSeparation";
+		numericUpDownMinimumMoonSeparation.Size = new Size(120, 22);
+		numericUpDownMinimumMoonSeparation.TabIndex = 19;
+		numericUpDownMinimumMoonSeparation.ToolTipValues.Description = "Sets the minimum angular distance between object and Moon in degrees";
+		numericUpDownMinimumMoonSeparation.ToolTipValues.EnableToolTips = true;
+		numericUpDownMinimumMoonSeparation.ToolTipValues.Heading = "Minimum angular distance between object and Moon";
+		numericUpDownMinimumMoonSeparation.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		numericUpDownMinimumMoonSeparation.Value = new decimal(new int[] { 0, 0, 0, 0 });
+		numericUpDownMinimumMoonSeparation.Enter += Control_Enter;
+		numericUpDownMinimumMoonSeparation.Leave += Control_Leave;
+		numericUpDownMinimumMoonSeparation.MouseEnter += Control_Enter;
+		numericUpDownMinimumMoonSeparation.MouseLeave += Control_Leave;
+		// 
+		// labelMinimumMoonSeparation
+		// 
+		labelMinimumMoonSeparation.AccessibleDescription = "Sets the minimum angular distance between object and Moon in degrees";
+		labelMinimumMoonSeparation.AccessibleName = "Min. moon distance (°)";
+		labelMinimumMoonSeparation.AccessibleRole = AccessibleRole.StaticText;
+		labelMinimumMoonSeparation.Location = new Point(370, 107);
+		labelMinimumMoonSeparation.Name = "labelMinimumMoonSeparation";
+		labelMinimumMoonSeparation.Size = new Size(137, 20);
+		labelMinimumMoonSeparation.TabIndex = 18;
+		labelMinimumMoonSeparation.ToolTipValues.Description = "Sets the minimum angular distance between object and Moon in degrees";
+		labelMinimumMoonSeparation.ToolTipValues.EnableToolTips = true;
+		labelMinimumMoonSeparation.ToolTipValues.Heading = "Min. moon distance (°)";
+		labelMinimumMoonSeparation.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelMinimumMoonSeparation.Values.Text = "Min. moo&n distance (°):";
+		labelMinimumMoonSeparation.Enter += Control_Enter;
+		labelMinimumMoonSeparation.Leave += Control_Leave;
+		labelMinimumMoonSeparation.MouseEnter += Control_Enter;
+		labelMinimumMoonSeparation.MouseLeave += Control_Leave;
+		// 
+		// numericUpDownFaintestMagnitude
+		// 
+		numericUpDownFaintestMagnitude.AccessibleDescription = "Sets the faintest apparent magnitude that is still regarded as visible";
+		numericUpDownFaintestMagnitude.AccessibleName = "Faintest apparent magnitude that is still regarded as visible";
+		numericUpDownFaintestMagnitude.AccessibleRole = AccessibleRole.SpinButton;
+		numericUpDownFaintestMagnitude.AllowDecimals = true;
+		numericUpDownFaintestMagnitude.DecimalPlaces = 1;
+		numericUpDownFaintestMagnitude.Increment = new decimal(new int[] { 5, 0, 0, 65536 });
+		numericUpDownFaintestMagnitude.Location = new Point(560, 76);
+		numericUpDownFaintestMagnitude.Maximum = new decimal(new int[] { 35, 0, 0, 0 });
+		numericUpDownFaintestMagnitude.Minimum = new decimal(new int[] { 30, 0, 0, int.MinValue });
+		numericUpDownFaintestMagnitude.Name = "numericUpDownFaintestMagnitude";
+		numericUpDownFaintestMagnitude.Size = new Size(120, 22);
+		numericUpDownFaintestMagnitude.TabIndex = 17;
+		numericUpDownFaintestMagnitude.ToolTipValues.Description = "Sets the faintest apparent magnitude that is still regarded as visible";
+		numericUpDownFaintestMagnitude.ToolTipValues.EnableToolTips = true;
+		numericUpDownFaintestMagnitude.ToolTipValues.Heading = "Faintest apparent magnitude that is still regarded as visible";
+		numericUpDownFaintestMagnitude.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		numericUpDownFaintestMagnitude.Value = new decimal(new int[] { 20, 0, 0, 0 });
+		numericUpDownFaintestMagnitude.Enter += Control_Enter;
+		numericUpDownFaintestMagnitude.Leave += Control_Leave;
+		numericUpDownFaintestMagnitude.MouseEnter += Control_Enter;
+		numericUpDownFaintestMagnitude.MouseLeave += Control_Leave;
+		// 
+		// checkBoxFaintestMagnitude
+		// 
+		checkBoxFaintestMagnitude.AccessibleDescription = "Enables the brightness criterion (faintest apparent magnitude)";
+		checkBoxFaintestMagnitude.AccessibleName = "Faintest mag.";
+		checkBoxFaintestMagnitude.AccessibleRole = AccessibleRole.CheckButton;
+		checkBoxFaintestMagnitude.Checked = true;
+		checkBoxFaintestMagnitude.CheckState = CheckState.Checked;
+		checkBoxFaintestMagnitude.Location = new Point(370, 77);
+		checkBoxFaintestMagnitude.Name = "checkBoxFaintestMagnitude";
+		checkBoxFaintestMagnitude.Size = new Size(99, 20);
+		checkBoxFaintestMagnitude.TabIndex = 16;
+		checkBoxFaintestMagnitude.ToolTipValues.Description = "Enables the brightness criterion (faintest apparent magnitude)";
+		checkBoxFaintestMagnitude.ToolTipValues.EnableToolTips = true;
+		checkBoxFaintestMagnitude.ToolTipValues.Heading = "Faintest mag.";
+		checkBoxFaintestMagnitude.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		checkBoxFaintestMagnitude.Values.Text = "&Faintest mag.:";
+		checkBoxFaintestMagnitude.Enter += Control_Enter;
+		checkBoxFaintestMagnitude.Leave += Control_Leave;
+		checkBoxFaintestMagnitude.MouseEnter += Control_Enter;
+		checkBoxFaintestMagnitude.MouseLeave += Control_Leave;
+		// 
+		// numericUpDownMaximumSunAltitude
+		// 
+		numericUpDownMaximumSunAltitude.AccessibleDescription = "Sets the maximum altitude of the Sun in degrees";
+		numericUpDownMaximumSunAltitude.AccessibleName = "Maximum altitude of the Sun";
+		numericUpDownMaximumSunAltitude.AccessibleRole = AccessibleRole.SpinButton;
+		numericUpDownMaximumSunAltitude.AllowDecimals = true;
+		numericUpDownMaximumSunAltitude.DecimalPlaces = 1;
+		numericUpDownMaximumSunAltitude.Increment = new decimal(new int[] { 1, 0, 0, 0 });
+		numericUpDownMaximumSunAltitude.Location = new Point(560, 45);
+		numericUpDownMaximumSunAltitude.Maximum = new decimal(new int[] { 90, 0, 0, 0 });
+		numericUpDownMaximumSunAltitude.Minimum = new decimal(new int[] { 90, 0, 0, int.MinValue });
+		numericUpDownMaximumSunAltitude.Name = "numericUpDownMaximumSunAltitude";
+		numericUpDownMaximumSunAltitude.Size = new Size(120, 22);
+		numericUpDownMaximumSunAltitude.TabIndex = 15;
+		numericUpDownMaximumSunAltitude.ToolTipValues.Description = "Sets the maximum altitude of the Sun in degrees";
+		numericUpDownMaximumSunAltitude.ToolTipValues.EnableToolTips = true;
+		numericUpDownMaximumSunAltitude.ToolTipValues.Heading = "Maximum altitude of the Sun";
+		numericUpDownMaximumSunAltitude.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		numericUpDownMaximumSunAltitude.Value = new decimal(new int[] { 12, 0, 0, int.MinValue });
+		numericUpDownMaximumSunAltitude.Enter += Control_Enter;
+		numericUpDownMaximumSunAltitude.Leave += Control_Leave;
+		numericUpDownMaximumSunAltitude.MouseEnter += Control_Enter;
+		numericUpDownMaximumSunAltitude.MouseLeave += Control_Leave;
+		// 
+		// labelMaximumSunAltitude
+		// 
+		labelMaximumSunAltitude.AccessibleDescription = "Sets the maximum altitude of the Sun in degrees (e.g. -12 = nautical twilight)";
+		labelMaximumSunAltitude.AccessibleName = "Max. sun altitude (°)";
+		labelMaximumSunAltitude.AccessibleRole = AccessibleRole.StaticText;
+		labelMaximumSunAltitude.Location = new Point(370, 45);
+		labelMaximumSunAltitude.Name = "labelMaximumSunAltitude";
+		labelMaximumSunAltitude.Size = new Size(122, 20);
+		labelMaximumSunAltitude.TabIndex = 14;
+		labelMaximumSunAltitude.ToolTipValues.Description = "Sets the maximum altitude of the Sun in degrees (e.g. -12 = nautical twilight)";
+		labelMaximumSunAltitude.ToolTipValues.EnableToolTips = true;
+		labelMaximumSunAltitude.ToolTipValues.Heading = "Max. sun altitude (°)";
+		labelMaximumSunAltitude.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelMaximumSunAltitude.Values.Text = "Max. s&un altitude (°):";
+		labelMaximumSunAltitude.Enter += Control_Enter;
+		labelMaximumSunAltitude.Leave += Control_Leave;
+		labelMaximumSunAltitude.MouseEnter += Control_Enter;
+		labelMaximumSunAltitude.MouseLeave += Control_Leave;
+		// 
+		// numericUpDownMinimumAltitude
+		// 
+		numericUpDownMinimumAltitude.AccessibleDescription = "Sets the minimum altitude of the object above the horizon in degrees";
+		numericUpDownMinimumAltitude.AccessibleName = "Minimum altitude of the object above the horizon";
+		numericUpDownMinimumAltitude.AccessibleRole = AccessibleRole.SpinButton;
+		numericUpDownMinimumAltitude.AllowDecimals = true;
+		numericUpDownMinimumAltitude.DecimalPlaces = 1;
+		numericUpDownMinimumAltitude.Increment = new decimal(new int[] { 1, 0, 0, 0 });
+		numericUpDownMinimumAltitude.Location = new Point(560, 14);
+		numericUpDownMinimumAltitude.Maximum = new decimal(new int[] { 90, 0, 0, 0 });
+		numericUpDownMinimumAltitude.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
+		numericUpDownMinimumAltitude.Name = "numericUpDownMinimumAltitude";
+		numericUpDownMinimumAltitude.Size = new Size(120, 22);
+		numericUpDownMinimumAltitude.TabIndex = 13;
+		numericUpDownMinimumAltitude.ToolTipValues.Description = "Sets the minimum altitude of the object above the horizon in degrees";
+		numericUpDownMinimumAltitude.ToolTipValues.EnableToolTips = true;
+		numericUpDownMinimumAltitude.ToolTipValues.Heading = "Minimum altitude of the object above the horizon";
+		numericUpDownMinimumAltitude.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		numericUpDownMinimumAltitude.Value = new decimal(new int[] { 10, 0, 0, 0 });
+		numericUpDownMinimumAltitude.Enter += Control_Enter;
+		numericUpDownMinimumAltitude.Leave += Control_Leave;
+		numericUpDownMinimumAltitude.MouseEnter += Control_Enter;
+		numericUpDownMinimumAltitude.MouseLeave += Control_Leave;
+		// 
+		// labelMinimumAltitude
+		// 
+		labelMinimumAltitude.AccessibleDescription = "Sets the minimum altitude of the object above the horizon in degrees";
+		labelMinimumAltitude.AccessibleName = "Min. altitude (°)";
+		labelMinimumAltitude.AccessibleRole = AccessibleRole.StaticText;
+		labelMinimumAltitude.Location = new Point(370, 14);
+		labelMinimumAltitude.Name = "labelMinimumAltitude";
+		labelMinimumAltitude.Size = new Size(97, 20);
+		labelMinimumAltitude.TabIndex = 12;
+		labelMinimumAltitude.ToolTipValues.Description = "Sets the minimum altitude of the object above the horizon in degrees";
+		labelMinimumAltitude.ToolTipValues.EnableToolTips = true;
+		labelMinimumAltitude.ToolTipValues.Heading = "Min. altitude (°)";
+		labelMinimumAltitude.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelMinimumAltitude.Values.Text = "&Min. altitude (°):";
+		labelMinimumAltitude.Enter += Control_Enter;
+		labelMinimumAltitude.Leave += Control_Leave;
+		labelMinimumAltitude.MouseEnter += Control_Enter;
+		labelMinimumAltitude.MouseLeave += Control_Leave;
+		// 
+		// numericUpDownElevation
+		// 
+		numericUpDownElevation.AccessibleDescription = "Sets the elevation of the observer in meters";
+		numericUpDownElevation.AccessibleName = "Elevation of the observer";
+		numericUpDownElevation.AccessibleRole = AccessibleRole.SpinButton;
+		numericUpDownElevation.Increment = new decimal(new int[] { 10, 0, 0, 0 });
+		numericUpDownElevation.Location = new Point(190, 169);
+		numericUpDownElevation.Maximum = new decimal(new int[] { 10000, 0, 0, 0 });
+		numericUpDownElevation.Minimum = new decimal(new int[] { 500, 0, 0, int.MinValue });
+		numericUpDownElevation.Name = "numericUpDownElevation";
+		numericUpDownElevation.Size = new Size(160, 22);
+		numericUpDownElevation.TabIndex = 11;
+		numericUpDownElevation.ToolTipValues.Description = "Sets the elevation of the observer in meters";
+		numericUpDownElevation.ToolTipValues.EnableToolTips = true;
+		numericUpDownElevation.ToolTipValues.Heading = "Elevation of the observer";
+		numericUpDownElevation.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		numericUpDownElevation.Value = new decimal(new int[] { 0, 0, 0, 0 });
+		numericUpDownElevation.Enter += Control_Enter;
+		numericUpDownElevation.Leave += Control_Leave;
+		numericUpDownElevation.MouseEnter += Control_Enter;
+		numericUpDownElevation.MouseLeave += Control_Leave;
+		// 
+		// labelElevation
+		// 
+		labelElevation.AccessibleDescription = "Sets the elevation of the observer above the WGS84 ellipsoid in meters";
+		labelElevation.AccessibleName = "Elevation (m)";
+		labelElevation.AccessibleRole = AccessibleRole.StaticText;
+		labelElevation.Location = new Point(14, 169);
+		labelElevation.Name = "labelElevation";
+		labelElevation.Size = new Size(84, 20);
+		labelElevation.TabIndex = 10;
+		labelElevation.ToolTipValues.Description = "Sets the elevation of the observer above the WGS84 ellipsoid in meters";
+		labelElevation.ToolTipValues.EnableToolTips = true;
+		labelElevation.ToolTipValues.Heading = "Elevation (m)";
+		labelElevation.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelElevation.Values.Text = "Ele&vation (m):";
+		labelElevation.Enter += Control_Enter;
+		labelElevation.Leave += Control_Leave;
+		labelElevation.MouseEnter += Control_Enter;
+		labelElevation.MouseLeave += Control_Leave;
+		// 
+		// numericUpDownLongitude
+		// 
+		numericUpDownLongitude.AccessibleDescription = "Sets the geographic longitude of the observer in degrees (east positive)";
+		numericUpDownLongitude.AccessibleName = "Geographic longitude of the observer";
+		numericUpDownLongitude.AccessibleRole = AccessibleRole.SpinButton;
+		numericUpDownLongitude.AllowDecimals = true;
+		numericUpDownLongitude.DecimalPlaces = 4;
+		numericUpDownLongitude.Increment = new decimal(new int[] { 1, 0, 0, 65536 });
+		numericUpDownLongitude.Location = new Point(190, 138);
+		numericUpDownLongitude.Maximum = new decimal(new int[] { 180, 0, 0, 0 });
+		numericUpDownLongitude.Minimum = new decimal(new int[] { 180, 0, 0, int.MinValue });
+		numericUpDownLongitude.Name = "numericUpDownLongitude";
+		numericUpDownLongitude.Size = new Size(160, 22);
+		numericUpDownLongitude.TabIndex = 9;
+		numericUpDownLongitude.ToolTipValues.Description = "Sets the geographic longitude of the observer in degrees (east positive)";
+		numericUpDownLongitude.ToolTipValues.EnableToolTips = true;
+		numericUpDownLongitude.ToolTipValues.Heading = "Geographic longitude of the observer";
+		numericUpDownLongitude.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		numericUpDownLongitude.Value = new decimal(new int[] { 0, 0, 0, 0 });
+		numericUpDownLongitude.Enter += Control_Enter;
+		numericUpDownLongitude.Leave += Control_Leave;
+		numericUpDownLongitude.MouseEnter += Control_Enter;
+		numericUpDownLongitude.MouseLeave += Control_Leave;
+		// 
+		// labelLongitude
+		// 
+		labelLongitude.AccessibleDescription = "Sets the geographic longitude of the observer in degrees (east positive)";
+		labelLongitude.AccessibleName = "Longitude (°, east +)";
+		labelLongitude.AccessibleRole = AccessibleRole.StaticText;
+		labelLongitude.Location = new Point(14, 138);
+		labelLongitude.Name = "labelLongitude";
+		labelLongitude.Size = new Size(124, 20);
+		labelLongitude.TabIndex = 8;
+		labelLongitude.ToolTipValues.Description = "Sets the geographic longitude of the observer in degrees (east positive)";
+		labelLongitude.ToolTipValues.EnableToolTips = true;
+		labelLongitude.ToolTipValues.Heading = "Longitude (°, east +)";
+		labelLongitude.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelLongitude.Values.Text = "L&ongitude (°, east +):";
+		labelLongitude.Enter += Control_Enter;
+		labelLongitude.Leave += Control_Leave;
+		labelLongitude.MouseEnter += Control_Enter;
+		labelLongitude.MouseLeave += Control_Leave;
+		// 
+		// numericUpDownLatitude
+		// 
+		numericUpDownLatitude.AccessibleDescription = "Sets the geographic latitude of the observer in degrees (north positive)";
+		numericUpDownLatitude.AccessibleName = "Geographic latitude of the observer";
+		numericUpDownLatitude.AccessibleRole = AccessibleRole.SpinButton;
+		numericUpDownLatitude.AllowDecimals = true;
+		numericUpDownLatitude.DecimalPlaces = 4;
+		numericUpDownLatitude.Increment = new decimal(new int[] { 1, 0, 0, 65536 });
+		numericUpDownLatitude.Location = new Point(190, 107);
+		numericUpDownLatitude.Maximum = new decimal(new int[] { 90, 0, 0, 0 });
+		numericUpDownLatitude.Minimum = new decimal(new int[] { 90, 0, 0, int.MinValue });
+		numericUpDownLatitude.Name = "numericUpDownLatitude";
+		numericUpDownLatitude.Size = new Size(160, 22);
+		numericUpDownLatitude.TabIndex = 7;
+		numericUpDownLatitude.ToolTipValues.Description = "Sets the geographic latitude of the observer in degrees (north positive)";
+		numericUpDownLatitude.ToolTipValues.EnableToolTips = true;
+		numericUpDownLatitude.ToolTipValues.Heading = "Geographic latitude of the observer";
+		numericUpDownLatitude.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		numericUpDownLatitude.Value = new decimal(new int[] { 514772, 0, 0, 262144 });
+		numericUpDownLatitude.Enter += Control_Enter;
+		numericUpDownLatitude.Leave += Control_Leave;
+		numericUpDownLatitude.MouseEnter += Control_Enter;
+		numericUpDownLatitude.MouseLeave += Control_Leave;
+		// 
+		// labelLatitude
+		// 
+		labelLatitude.AccessibleDescription = "Sets the geographic latitude of the observer in degrees (north positive)";
+		labelLatitude.AccessibleName = "Latitude (°, north +)";
+		labelLatitude.AccessibleRole = AccessibleRole.StaticText;
+		labelLatitude.Location = new Point(14, 107);
+		labelLatitude.Name = "labelLatitude";
+		labelLatitude.Size = new Size(121, 20);
+		labelLatitude.TabIndex = 6;
+		labelLatitude.ToolTipValues.Description = "Sets the geographic latitude of the observer in degrees (north positive)";
+		labelLatitude.ToolTipValues.EnableToolTips = true;
+		labelLatitude.ToolTipValues.Heading = "Latitude (°, north +)";
+		labelLatitude.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelLatitude.Values.Text = "&Latitude (°, north +):";
+		labelLatitude.Enter += Control_Enter;
+		labelLatitude.Leave += Control_Leave;
+		labelLatitude.MouseEnter += Control_Enter;
+		labelLatitude.MouseLeave += Control_Leave;
+		// 
+		// numericUpDownStepsInDays
+		// 
+		numericUpDownStepsInDays.AccessibleDescription = "Sets the step size in days";
+		numericUpDownStepsInDays.AccessibleName = "Step size";
+		numericUpDownStepsInDays.AccessibleRole = AccessibleRole.SpinButton;
+		numericUpDownStepsInDays.AllowDecimals = true;
+		numericUpDownStepsInDays.DecimalPlaces = 4;
+		numericUpDownStepsInDays.Increment = new decimal(new int[] { 1, 0, 0, 0 });
+		numericUpDownStepsInDays.Location = new Point(190, 76);
+		numericUpDownStepsInDays.Maximum = new decimal(new int[] { 3650, 0, 0, 0 });
+		numericUpDownStepsInDays.Minimum = new decimal(new int[] { 1, 0, 0, 262144 });
+		numericUpDownStepsInDays.Name = "numericUpDownStepsInDays";
+		numericUpDownStepsInDays.Size = new Size(160, 22);
+		numericUpDownStepsInDays.TabIndex = 5;
+		numericUpDownStepsInDays.ToolTipValues.Description = "Sets the step size in days";
+		numericUpDownStepsInDays.ToolTipValues.EnableToolTips = true;
+		numericUpDownStepsInDays.ToolTipValues.Heading = "Step size";
+		numericUpDownStepsInDays.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		numericUpDownStepsInDays.Value = new decimal(new int[] { 1, 0, 0, 0 });
+		numericUpDownStepsInDays.Enter += Control_Enter;
+		numericUpDownStepsInDays.Leave += Control_Leave;
+		numericUpDownStepsInDays.MouseEnter += Control_Enter;
+		numericUpDownStepsInDays.MouseLeave += Control_Leave;
+		// 
+		// labelEphemeridesStepsInDays
+		// 
+		labelEphemeridesStepsInDays.AccessibleDescription = "Sets the step size in days (decimal values allowed, e.g. 0.0416667 = 1 hour)";
+		labelEphemeridesStepsInDays.AccessibleName = "Step size (days)";
+		labelEphemeridesStepsInDays.AccessibleRole = AccessibleRole.StaticText;
+		labelEphemeridesStepsInDays.Location = new Point(14, 76);
+		labelEphemeridesStepsInDays.Name = "labelEphemeridesStepsInDays";
+		labelEphemeridesStepsInDays.Size = new Size(97, 20);
+		labelEphemeridesStepsInDays.TabIndex = 4;
+		labelEphemeridesStepsInDays.ToolTipValues.Description = "Sets the step size in days (decimal values allowed, e.g. 0.0416667 = 1 hour)";
+		labelEphemeridesStepsInDays.ToolTipValues.EnableToolTips = true;
+		labelEphemeridesStepsInDays.ToolTipValues.Heading = "Step size (days)";
+		labelEphemeridesStepsInDays.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelEphemeridesStepsInDays.Values.Text = "&Step size (days):";
+		labelEphemeridesStepsInDays.Enter += Control_Enter;
+		labelEphemeridesStepsInDays.Leave += Control_Leave;
+		labelEphemeridesStepsInDays.MouseEnter += Control_Enter;
+		labelEphemeridesStepsInDays.MouseLeave += Control_Leave;
+		// 
+		// dateTimePickerEphemeridesEnd
+		// 
+		dateTimePickerEphemeridesEnd.AccessibleDescription = "Sets the end of the ephemerides in UTC";
+		dateTimePickerEphemeridesEnd.AccessibleName = "Ephemerides end (UTC)";
+		dateTimePickerEphemeridesEnd.AccessibleRole = AccessibleRole.DropList;
+		dateTimePickerEphemeridesEnd.CustomFormat = "yyyy-MM-dd HH:mm";
+		dateTimePickerEphemeridesEnd.Format = DateTimePickerFormat.Custom;
+		dateTimePickerEphemeridesEnd.Location = new Point(190, 44);
+		dateTimePickerEphemeridesEnd.Name = "dateTimePickerEphemeridesEnd";
+		dateTimePickerEphemeridesEnd.Size = new Size(160, 21);
+		dateTimePickerEphemeridesEnd.TabIndex = 3;
+		dateTimePickerEphemeridesEnd.ToolTipValues.Description = "Sets the end of the ephemerides in UTC";
+		dateTimePickerEphemeridesEnd.ToolTipValues.EnableToolTips = true;
+		dateTimePickerEphemeridesEnd.ToolTipValues.Heading = "Ephemerides end (UTC)";
+		dateTimePickerEphemeridesEnd.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		dateTimePickerEphemeridesEnd.Enter += Control_Enter;
+		dateTimePickerEphemeridesEnd.Leave += Control_Leave;
+		dateTimePickerEphemeridesEnd.MouseEnter += Control_Enter;
+		dateTimePickerEphemeridesEnd.MouseLeave += Control_Leave;
+		// 
+		// labelEphemeridesEnd
+		// 
+		labelEphemeridesEnd.AccessibleDescription = "Sets the end of the ephemerides in UTC";
+		labelEphemeridesEnd.AccessibleName = "Ephemerides end (UTC)";
+		labelEphemeridesEnd.AccessibleRole = AccessibleRole.StaticText;
+		labelEphemeridesEnd.Location = new Point(14, 45);
+		labelEphemeridesEnd.Name = "labelEphemeridesEnd";
+		labelEphemeridesEnd.Size = new Size(141, 20);
+		labelEphemeridesEnd.TabIndex = 2;
+		labelEphemeridesEnd.ToolTipValues.Description = "Sets the end of the ephemerides in UTC";
+		labelEphemeridesEnd.ToolTipValues.EnableToolTips = true;
+		labelEphemeridesEnd.ToolTipValues.Heading = "Ephemerides end (UTC)";
+		labelEphemeridesEnd.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelEphemeridesEnd.Values.Text = "Ephemerides &end (UTC):";
+		labelEphemeridesEnd.Enter += Control_Enter;
+		labelEphemeridesEnd.Leave += Control_Leave;
+		labelEphemeridesEnd.MouseEnter += Control_Enter;
+		labelEphemeridesEnd.MouseLeave += Control_Leave;
+		// 
+		// dateTimePickerEphemeridesBegin
+		// 
+		dateTimePickerEphemeridesBegin.AccessibleDescription = "Sets the begin of the ephemerides in UTC";
+		dateTimePickerEphemeridesBegin.AccessibleName = "Ephemerides begin (UTC)";
+		dateTimePickerEphemeridesBegin.AccessibleRole = AccessibleRole.DropList;
+		dateTimePickerEphemeridesBegin.CustomFormat = "yyyy-MM-dd HH:mm";
+		dateTimePickerEphemeridesBegin.Format = DateTimePickerFormat.Custom;
+		dateTimePickerEphemeridesBegin.Location = new Point(190, 13);
+		dateTimePickerEphemeridesBegin.Name = "dateTimePickerEphemeridesBegin";
+		dateTimePickerEphemeridesBegin.Size = new Size(160, 21);
+		dateTimePickerEphemeridesBegin.TabIndex = 1;
+		dateTimePickerEphemeridesBegin.ToolTipValues.Description = "Sets the begin of the ephemerides in UTC";
+		dateTimePickerEphemeridesBegin.ToolTipValues.EnableToolTips = true;
+		dateTimePickerEphemeridesBegin.ToolTipValues.Heading = "Ephemerides begin (UTC)";
+		dateTimePickerEphemeridesBegin.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		dateTimePickerEphemeridesBegin.Enter += Control_Enter;
+		dateTimePickerEphemeridesBegin.Leave += Control_Leave;
+		dateTimePickerEphemeridesBegin.MouseEnter += Control_Enter;
+		dateTimePickerEphemeridesBegin.MouseLeave += Control_Leave;
+		// 
+		// labelEphemeridesBegin
+		// 
+		labelEphemeridesBegin.AccessibleDescription = "Sets the begin of the ephemerides in UTC";
+		labelEphemeridesBegin.AccessibleName = "Ephemerides begin (UTC)";
+		labelEphemeridesBegin.AccessibleRole = AccessibleRole.StaticText;
+		labelEphemeridesBegin.Location = new Point(14, 14);
+		labelEphemeridesBegin.Name = "labelEphemeridesBegin";
+		labelEphemeridesBegin.Size = new Size(151, 20);
+		labelEphemeridesBegin.TabIndex = 0;
+		labelEphemeridesBegin.ToolTipValues.Description = "Sets the begin of the ephemerides in UTC";
+		labelEphemeridesBegin.ToolTipValues.EnableToolTips = true;
+		labelEphemeridesBegin.ToolTipValues.Heading = "Ephemerides begin (UTC)";
+		labelEphemeridesBegin.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelEphemeridesBegin.Values.Text = "Ephemerides &begin (UTC):";
+		labelEphemeridesBegin.Enter += Control_Enter;
+		labelEphemeridesBegin.Leave += Control_Leave;
+		labelEphemeridesBegin.MouseEnter += Control_Enter;
+		labelEphemeridesBegin.MouseLeave += Control_Leave;
 		// 
 		// kryptonManager
 		// 
@@ -818,13 +1545,13 @@ partial class EphemerisForm
 		AutoScaleMode = AutoScaleMode.Font;
 		ClientSize = new Size(800, 640);
 		ControlBox = false;
-		MinimumSize = new Size(816, 600);
 		Controls.Add(toolStripContainer);
 		FormBorderStyle = FormBorderStyle.SizableToolWindow;
 		Icon = (Icon)resources.GetObject("$this.Icon");
 		Margin = new Padding(4, 3, 4, 3);
 		MaximizeBox = false;
 		MinimizeBox = false;
+		MinimumSize = new Size(816, 600);
 		Name = "EphemerisForm";
 		SizeGripStyle = SizeGripStyle.Hide;
 		StartPosition = FormStartPosition.CenterScreen;
@@ -840,6 +1567,8 @@ partial class EphemerisForm
 		((ISupportInitialize)kryptonPanelMain).EndInit();
 		kryptonPanelMain.ResumeLayout(false);
 		kryptonPanelMain.PerformLayout();
+		contextMenuSaveToFile.ResumeLayout(false);
+		contextMenuStripJplDe440De441.ResumeLayout(false);
 		ResumeLayout(false);
 	}
 
@@ -872,13 +1601,58 @@ partial class EphemerisForm
 	private KryptonCheckBox checkBoxPerturbations;
 	private KryptonCheckBox checkBoxRefraction;
 	private KryptonLabel labelEphemerisSource;
-	private KryptonButton buttonLoadEphemerisFile;
 	private KryptonButton buttonCalculate;
 	private KryptonButton buttonCancel;
-	private KryptonButton buttonExport;
 	private KryptonProgressBar progressBar;
-	private KryptonLabel labelPercent;
 	private KryptonListView listView;
-	private FormsPlot formsPlot;
 	private KryptonManager kryptonManager;
+	private KryptonButton kryptonButtonOpenWorldMap;
+	private ContextMenuStrip contextMenuStripJplDe440De441;
+	private ToolStripMenuItem toolStripMenuItemDownloadDe440;
+	private ToolStripMenuItem toolStripMenuItemDownloadDe441;
+	private KryptonDropButton kryptonDropButtonLoadEphemerisFile;
+	private ToolStripSeparator toolStripSeparator1;
+	private ToolStripMenuItem toolStripMenuItemOpenJplDeEphemerisDownloadPage;
+	private ContextMenuStrip contextMenuSaveToFile;
+	private ToolStripMenuItem toolStripMenuItemTextFiles;
+	private ToolStripMenuItem toolStripMenuItemSaveAsText;
+	private ToolStripMenuItem toolStripMenuItemSaveAsLatex;
+	private ToolStripMenuItem toolStripMenuItemSaveAsMarkdown;
+	private ToolStripMenuItem toolStripMenuItemSaveAsAsciiDoc;
+	private ToolStripMenuItem toolStripMenuItemSaveAsReStructuredText;
+	private ToolStripMenuItem toolStripMenuItemSaveAsTextile;
+	private ToolStripMenuItem toolStripMenuItemSaveAsTypst;
+	private ToolStripMenuItem toolStripMenuItemWriterDocuments;
+	private ToolStripMenuItem toolStripMenuItemSaveAsWord;
+	private ToolStripMenuItem toolStripMenuItemSaveAsOdt;
+	private ToolStripMenuItem toolStripMenuItemSaveAsRtf;
+	private ToolStripMenuItem toolStripMenuItemSaveAsAbiword;
+	private ToolStripMenuItem toolStripMenuItemSaveAsWps;
+	private ToolStripMenuItem toolStripMenuItemSpreadsheetDocuments;
+	private ToolStripMenuItem toolStripMenuItemSaveAsExcel;
+	private ToolStripMenuItem toolStripMenuItemSaveAsOds;
+	private ToolStripMenuItem toolStripMenuItemSaveAsCsv;
+	private ToolStripMenuItem toolStripMenuItemSaveAsTsv;
+	private ToolStripMenuItem toolStripMenuItemSaveAsPsv;
+	private ToolStripMenuItem toolStripMenuItemSaveAsEt;
+	private ToolStripMenuItem toolStripMenuItemXmlDocuments;
+	private ToolStripMenuItem toolStripMenuItemSaveAsHtml;
+	private ToolStripMenuItem toolStripMenuItemSaveAsXml;
+	private ToolStripMenuItem toolStripMenuItemSaveAsDocBook;
+	private ToolStripMenuItem toolStripMenuItemConfigurationFiles;
+	private ToolStripMenuItem toolStripMenuItemSaveAsJson;
+	private ToolStripMenuItem toolStripMenuItemSaveAsToml;
+	private ToolStripMenuItem toolStripMenuItemSaveAsYaml;
+	private ToolStripMenuItem toolStripMenuItemDatabaseScripts;
+	private ToolStripMenuItem toolStripMenuItemSaveAsSql;
+	private ToolStripMenuItem toolStripMenuItemSaveAsSqlite;
+	private ToolStripMenuItem toolStripMenuItemPortableDocuments;
+	private ToolStripMenuItem toolStripMenuItemSaveAsPdf;
+	private ToolStripMenuItem toolStripMenuItemSaveAsPostScript;
+	private ToolStripMenuItem toolStripMenuItemSaveAsEpub;
+	private ToolStripMenuItem toolStripMenuItemSaveAsMobi;
+	private ToolStripMenuItem toolStripMenuItemSaveAsXps;
+	private ToolStripMenuItem toolStripMenuItemSaveAsFictionBook2;
+	private ToolStripMenuItem toolStripMenuItemSaveAsChm;
+	private KryptonDropButton kryptonDropButtonSaveList;
 }

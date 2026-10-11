@@ -106,6 +106,24 @@ namespace Planetoid_DB.Properties {
                 return ((string)(this["systemAstorbDatGzUrl"]));
             }
         }
+
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://ssd.jpl.nasa.gov/ftp/eph/planets/Linux/linux_p1550p2650.440")]
+        public string systemJplDe440Url {
+            get {
+                return ((string)(this["systemJplDe440Url"]));
+            }
+        }
+
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://ssd.jpl.nasa.gov/ftp/eph/planets/Linux/linux_m13000p17000.441")]
+        public string systemJplDe441Url {
+            get {
+                return ((string)(this["systemJplDe441Url"]));
+            }
+        }
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
