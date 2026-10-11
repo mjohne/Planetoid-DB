@@ -29,7 +29,7 @@ using System.Net.NetworkInformation;
 namespace Planetoid_DB;
 
 /// <summary>Represents a form for calculating and displaying ephemerides of a minor planet.</summary>
-/// <remarks>The user chooses a time range (UTC), a step size, the observer location and visibility criteria. The calculation runs asynchronously via <see cref="EphemerisService"/> and can be canceled; the results are shown in a list and an altitude chart and can be exported as CSV.</remarks>
+/// <remarks>The user chooses a time range (UTC), a step size, the observer location and visibility criteria. The calculation runs asynchronously via <see cref="EphemerisService"/> and can be canceled; results are shown in a list and can be exported in multiple formats.</remarks>
 [DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
 internal partial class EphemerisForm : BaseKryptonForm
 {
@@ -65,6 +65,10 @@ internal partial class EphemerisForm : BaseKryptonForm
 	/// <remarks>This flag is set when the user attempts to close the form while a calculation is running; the form will close after the calculation completes or is canceled.</remarks>
 	private bool closeAfterCalculation;
 
+	/// <summary>The virtual list view used to export every calculated ephemeris entry.</summary>
+	/// <remarks>This list view is separate from the display list so the display limit does not truncate exports.</remarks>
+	private readonly ListView exportListView = new() { VirtualMode = true };
+
 	/// <summary>The maximum number of result rows displayed in the list.</summary>
 	/// <remarks>This constant defines the maximum number of ephemeris entries that will be displayed in the list view; if more entries are calculated, only the first 2000 are shown.</remarks>
 	private const int MaximumDisplayedResultPoints = 2000;
@@ -72,6 +76,18 @@ internal partial class EphemerisForm : BaseKryptonForm
 	/// <summary>Gets the status label to be used for displaying information.</summary>
 	/// <remarks>Derived classes should override this property to provide the specific label.</remarks>
 	protected override ToolStripStatusLabel? StatusLabel => labelInformation;
+
+	/// <summary>Gets the list view used as the source for ephemeris exports.</summary>
+	/// <remarks>The virtual list view exposes the complete, unrounded result set.</remarks>
+	protected override ListView? ExportListView => exportListView;
+
+	/// <summary>Gets the title used for exported ephemeris data.</summary>
+	/// <remarks>Overrides the base export title for this form's results.</remarks>
+	protected override string ExportTitle => "Ephemerides";
+
+	/// <summary>Gets the virtual row provider used to export ephemeris results.</summary>
+	/// <remarks>Returns values from the complete calculation result rather than the capped display list.</remarks>
+	protected override Func<int, ListViewItem>? ExportVirtualRowProvider => GetExportListViewItem;
 
 	#region constructor
 
@@ -85,6 +101,24 @@ internal partial class EphemerisForm : BaseKryptonForm
 	}
 
 	#endregion
+
+	/// <summary>Disposes resources owned by the form.</summary>
+	/// <param name="disposing"><see langword="true"/> to dispose managed resources; otherwise, <see langword="false"/>.</param>
+	/// <remarks>Cancels any running calculation and disposes the loaded ephemeris and export list.</remarks>
+	protected override void Dispose(bool disposing)
+	{
+		if (disposing)
+		{
+			cancellationTokenSource?.Cancel();
+			cancellationTokenSource?.Dispose();
+			cancellationTokenSource = null;
+			jplEphemeris?.Dispose();
+			jplEphemeris = null;
+			exportListView.Dispose();
+			components?.Dispose();
+		}
+		base.Dispose(disposing);
+	}
 
 	#region helper methods
 
@@ -131,6 +165,8 @@ internal partial class EphemerisForm : BaseKryptonForm
 		kryptonDropButtonLoadEphemerisFile.Enabled = !running;
 		buttonCancel.Enabled = running;
 		kryptonDropButtonSaveList.Enabled = !running && lastResult.Count > 0;
+		kryptonButtonOpenWorldMap.Enabled = !running;
+		contextMenuSaveToFile.Enabled = !running && lastResult.Count > 0;
 	}
 
 	/// <summary>Sets the progress bar and the percent label.</summary>
@@ -152,6 +188,7 @@ internal partial class EphemerisForm : BaseKryptonForm
 		logger.Info(message: "Creating list view columns for ephemerides");
 		// Clear any existing columns in the list view
 		listView.Columns.Clear();
+		exportListView.Columns.Clear();
 		// Define the headers for the list view columns
 		string[] headers = ["Time (UTC)", "RA J2000 (h m s)", "Dec J2000 (° ′ ″)", "RA of date (h m s)", "Dec of date (° ′ ″)", "Azimuth (°)", "Altitude (°)", "Distance Δ (AU)", "Sun dist. r (AU)", "Mag. (mag)", "Phase (°)", "Elongation (°)", "Sun alt. (°)", "Moon dist. (°)", "Visible"];
 		// Add each header to the list view with appropriate width based on the header length
@@ -160,7 +197,39 @@ internal partial class EphemerisForm : BaseKryptonForm
 			// Add the column to the list view; use a wider width for longer headers
 			_ = listView.Columns.Add(text: header, width: header.Length > 12 ? 110 : 90);
 		}
+		string[] exportHeaders = ["Time (UTC, ISO 8601)", "RA J2000 (h)", "Dec J2000 (°)", "RA of date (h)", "Dec of date (°)", "Azimuth (°)", "Altitude (°)", "Distance Δ (AU)", "Sun dist. r (AU)", "Mag. (mag)", "Phase (°)", "Elongation (°)", "Sun alt. (°)", "Moon dist. (°)", "Visible"];
+		foreach (string header in exportHeaders)
+		{
+			_ = exportListView.Columns.Add(text: header);
+		}
 		logger.Info(message: "List view columns created successfully");
+	}
+
+	/// <summary>Creates an export row from the complete ephemeris result.</summary>
+	/// <param name="index">The index of the result to export.</param>
+	/// <returns>A list view item containing the result's full-precision values.</returns>
+	private ListViewItem GetExportListViewItem(int index)
+	{
+		EphemerisEntry entry = lastResult[index];
+		CultureInfo invariantCulture = CultureInfo.InvariantCulture;
+		return new ListViewItem(items:
+		[
+			entry.Time.UtcDateTime.ToString(format: "O", provider: invariantCulture),
+			entry.AstrometricRightAscensionHours.ToString(format: "R", provider: invariantCulture),
+			entry.AstrometricDeclinationDegrees.ToString(format: "R", provider: invariantCulture),
+			entry.RightAscensionHours.ToString(format: "R", provider: invariantCulture),
+			entry.DeclinationDegrees.ToString(format: "R", provider: invariantCulture),
+			entry.AzimuthDegrees.ToString(format: "R", provider: invariantCulture),
+			entry.AltitudeDegrees.ToString(format: "R", provider: invariantCulture),
+			entry.DistanceAu.ToString(format: "R", provider: invariantCulture),
+			entry.HeliocentricDistanceAu.ToString(format: "R", provider: invariantCulture),
+			double.IsFinite(d: entry.ApparentMagnitude) ? entry.ApparentMagnitude.ToString(format: "R", provider: invariantCulture) : "–",
+			entry.PhaseAngleDegrees.ToString(format: "R", provider: invariantCulture),
+			entry.ElongationDegrees.ToString(format: "R", provider: invariantCulture),
+			entry.SunAltitudeDegrees.ToString(format: "R", provider: invariantCulture),
+			entry.MoonSeparationDegrees.ToString(format: "R", provider: invariantCulture),
+			entry.IsVisible ? "yes" : "no"
+		]);
 	}
 
 	/// <summary>Shows the result in the list view.</summary>
@@ -179,6 +248,7 @@ internal partial class EphemerisForm : BaseKryptonForm
 			logger.Info(message: "Updating list view with ephemeris results");
 			// Clear the existing items in the list view to prepare for new entries
 			listView.Items.Clear();
+			exportListView.VirtualListSize = entries.Count;
 			// Determine the number of entries to display, limited by the maximum allowed
 			int displayedCount = Math.Min(val1: entries.Count, val2: MaximumDisplayedResultPoints);
 			// Create an array of ListViewItem objects to hold the entries to be displayed
@@ -387,6 +457,7 @@ internal partial class EphemerisForm : BaseKryptonForm
 		cancellationTokenSource = cts;
 		// Clear the last result since a new calculation is starting
 		lastResult = [];
+		exportListView.VirtualListSize = 0;
 		// Clear the last observer since a new calculation is starting
 		lastObserver = null;
 		// Update the UI to indicate that a calculation is running
@@ -576,7 +647,7 @@ internal partial class EphemerisForm : BaseKryptonForm
 	/// </summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>This method checks for network availability before proceeding with the download. If the network is available, it opens a CheckDatabaseForm to handle the download and verification of the JPL DE 440 data.</remarks>
+	/// <remarks>This method checks for network availability before proceeding with the download. If the network is available, it opens a <see cref="DatabaseDownloaderForm"/> to download the JPL DE 440 data.</remarks>
 	private void ToolStripMenuItemDownloadDe440_Click(object sender, EventArgs e)
 	{
 		// Log the menu item click event for debugging purposes
@@ -608,7 +679,7 @@ internal partial class EphemerisForm : BaseKryptonForm
 	/// </summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>This method checks for network availability before proceeding with the download. If the network is available, it opens a CheckDatabaseForm to handle the download and verification of the JPL DE 441 data.</remarks>
+	/// <remarks>This method checks for network availability before proceeding with the download. If the network is available, it opens a <see cref="DatabaseDownloaderForm"/> to download the JPL DE 441 data.</remarks>
 	private void ToolStripMenuItemDownloadDe441_Click(object sender, EventArgs e)
 	{
 		// Log the menu item click event for debugging purposes
@@ -635,6 +706,9 @@ internal partial class EphemerisForm : BaseKryptonForm
 		}
 	}
 
+	/// <summary>Handles the Click event to open the JPL DE ephemeris download page.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	private void ToolStripMenuItemOpenJplDeWebPage_Click(object sender, EventArgs e)
 	{
 		// Log the menu item click event for debugging purposes

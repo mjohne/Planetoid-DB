@@ -32,29 +32,6 @@ partial class EphemerisForm
 	/// <remarks>This field stores the components used by the form.</remarks>
 	private IContainer components = null;
 
-	/// <summary>Clean up any resources being used.</summary>
-	/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-	/// <remarks>This method is called by the runtime to release resources used by the form.</remarks>
-	protected override void Dispose(bool disposing)
-	{
-		// Dispose of managed resources if disposing is true.
-		if (disposing)
-		{
-			// Cancel any ongoing ephemerides calculation and dispose of the cancellation token source.
-			cancellationTokenSource?.Cancel();
-			cancellationTokenSource?.Dispose();
-			// Set the cancellation token source to null to avoid further use.
-			cancellationTokenSource = null;
-			// Dispose of the JPL ephemeris object if it is not null.
-			jplEphemeris?.Dispose();
-			jplEphemeris = null;
-			// Dispose of the components container if it is not null.
-			components?.Dispose();
-		}
-		// Call the base class Dispose method to release unmanaged resources.
-		base.Dispose(disposing);
-	}
-
 	#region Windows Form Designer generated code
 
 	/// <summary>Required method for Designer support - do not modify the contents of this method with the code editor.</summary>
