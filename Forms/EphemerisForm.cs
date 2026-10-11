@@ -57,10 +57,6 @@ internal partial class EphemerisForm : BaseKryptonForm
 	/// <remarks>This property holds the ephemeris entries calculated in the last successful calculation.</remarks>
 	private IReadOnlyList<EphemerisEntry> lastResult = [];
 
-	/// <summary>The observer location captured for the last calculation.</summary>
-	/// <remarks>This property holds the observer location used in the last successful calculation.</remarks>
-	private ObserverLocation? lastObserver;
-
 	/// <summary>Indicates that the form should close after a running calculation has stopped.</summary>
 	/// <remarks>This flag is set when the user attempts to close the form while a calculation is running; the form will close after the calculation completes or is canceled.</remarks>
 	private bool closeAfterCalculation;
@@ -102,24 +98,6 @@ internal partial class EphemerisForm : BaseKryptonForm
 
 	#endregion
 
-	/// <summary>Disposes resources owned by the form.</summary>
-	/// <param name="disposing"><see langword="true"/> to dispose managed resources; otherwise, <see langword="false"/>.</param>
-	/// <remarks>Cancels any running calculation and disposes the loaded ephemeris and export list.</remarks>
-	protected override void Dispose(bool disposing)
-	{
-		if (disposing)
-		{
-			cancellationTokenSource?.Cancel();
-			cancellationTokenSource?.Dispose();
-			cancellationTokenSource = null;
-			jplEphemeris?.Dispose();
-			jplEphemeris = null;
-			exportListView.Dispose();
-			components?.Dispose();
-		}
-		base.Dispose(disposing);
-	}
-
 	#region helper methods
 
 	/// <summary>Gets a short debugger display string for this instance.</summary>
@@ -148,6 +126,24 @@ internal partial class EphemerisForm : BaseKryptonForm
 			logger.Warn(message: $"Invalid MPCORB record for ephemerides: {error}");
 			Text = "Ephemerides: invalid MPCORB record";
 		}
+	}
+
+	/// <summary>Disposes resources owned by the form.</summary>
+	/// <param name="disposing"><see langword="true"/> to dispose managed resources; otherwise, <see langword="false"/>.</param>
+	/// <remarks>Cancels any running calculation and disposes the loaded ephemeris and export list.</remarks>
+	protected override void Dispose(bool disposing)
+	{
+		if (disposing)
+		{
+			cancellationTokenSource?.Cancel();
+			cancellationTokenSource?.Dispose();
+			cancellationTokenSource = null;
+			jplEphemeris?.Dispose();
+			jplEphemeris = null;
+			exportListView?.Dispose();
+			components?.Dispose();
+		}
+		base.Dispose(disposing);
 	}
 
 	/// <summary>Gets the planetary ephemeris currently in use.</summary>
@@ -458,8 +454,6 @@ internal partial class EphemerisForm : BaseKryptonForm
 		// Clear the last result since a new calculation is starting
 		lastResult = [];
 		exportListView.VirtualListSize = 0;
-		// Clear the last observer since a new calculation is starting
-		lastObserver = null;
 		// Update the UI to indicate that a calculation is running
 		SetRunningState(running: true);
 		// Reset the progress bar and percent label to 0% at the start of the calculation
@@ -483,8 +477,6 @@ internal partial class EphemerisForm : BaseKryptonForm
 			stopwatch.Stop();
 			// Log the completion of the ephemeris calculation for debugging purposes
 			logger.Info(message: $"Completed ephemeris calculation for {elements.Designation} with {times.Count} positions.");
-			// Store the observer location used for the calculation for potential export
-			lastObserver = observer;
 			// If there are results and debug logging is enabled, log the first result for detailed information
 			if (lastResult.Count > 0 && logger.IsDebugEnabled)
 			{
@@ -640,8 +632,6 @@ internal partial class EphemerisForm : BaseKryptonForm
 		}
 	}
 
-	#endregion
-
 	/// <summary>
 	/// Handles the Click event of the ToolStripMenuItemDownloadDe440 menu item, which initiates the download of the JPL DE 440 ephemeris data.
 	/// </summary>
@@ -716,4 +706,6 @@ internal partial class EphemerisForm : BaseKryptonForm
 		// Open the JPL DE ephemeris download page in the default web browser
 		OpenWebsite(fileName: $"https://ssd.jpl.nasa.gov/ftp/eph/planets/Linux/");
 	}
+
+	#endregion
 }
