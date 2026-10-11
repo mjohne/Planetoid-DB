@@ -18,7 +18,8 @@
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
     <AnalysisLevel>preview-all</AnalysisLevel>
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
     <Version>0.9.31.94</Version>
     <Authors>Michael Johne @ Mijo Software</Authors>
@@ -736,7 +737,7 @@ Public License instead of this License.  But first, please read
     </None>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.10.1" />
     <PackageReference Include="NLog" Version="6.2.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="3.1.4">
       <PrivateAssets>all</PrivateAssets>
