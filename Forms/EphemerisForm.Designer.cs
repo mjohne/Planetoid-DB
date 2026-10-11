@@ -165,8 +165,8 @@ partial class EphemerisForm
 		// toolStripContainer
 		// 
 		toolStripContainer.AccessibleDescription = "Groups the data";
-		toolStripContainer.AccessibleName = "panel";
-		toolStripContainer.AccessibleRole = AccessibleRole.Pane;
+		toolStripContainer.AccessibleName = "Panel";
+		toolStripContainer.AccessibleRole = AccessibleRole.Grouping;
 		// 
 		// toolStripContainer.BottomToolStripPanel
 		// 
@@ -943,7 +943,6 @@ partial class EphemerisForm
 		kryptonButtonOpenWorldMap.AccessibleDescription = "Opens the world map";
 		kryptonButtonOpenWorldMap.AccessibleName = "World map";
 		kryptonButtonOpenWorldMap.AccessibleRole = AccessibleRole.PushButton;
-		kryptonButtonOpenWorldMap.Enabled = false;
 		kryptonButtonOpenWorldMap.Location = new Point(253, 200);
 		kryptonButtonOpenWorldMap.Name = "kryptonButtonOpenWorldMap";
 		kryptonButtonOpenWorldMap.Size = new Size(97, 29);

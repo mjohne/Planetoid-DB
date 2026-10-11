@@ -108,7 +108,7 @@ partial class FilterForm
 		labelInformation = new ToolStripStatusLabel();
 		kryptonManager = new KryptonManager(components);
 		toolStripContainer = new ToolStripContainer();
-		kryptonToolStripIcons = new KryptonToolStrip();
+		kryptonToolStrip = new KryptonToolStrip();
 		toolStripButtonApply = new ToolStripButton();
 		toolStripButtonCancel = new ToolStripButton();
 		toolStripButtonReset = new ToolStripButton();
@@ -120,7 +120,7 @@ partial class FilterForm
 		toolStripContainer.ContentPanel.SuspendLayout();
 		toolStripContainer.TopToolStripPanel.SuspendLayout();
 		toolStripContainer.SuspendLayout();
-		kryptonToolStripIcons.SuspendLayout();
+		kryptonToolStrip.SuspendLayout();
 		SuspendLayout();
 		// 
 		// kryptonPanelMain
@@ -1541,25 +1541,25 @@ partial class FilterForm
 		toolStripContainer.TopToolStripPanel.AccessibleDescription = "Just a panel";
 		toolStripContainer.TopToolStripPanel.AccessibleName = "Top panel";
 		toolStripContainer.TopToolStripPanel.AccessibleRole = AccessibleRole.Pane;
-		toolStripContainer.TopToolStripPanel.Controls.Add(kryptonToolStripIcons);
+		toolStripContainer.TopToolStripPanel.Controls.Add(kryptonToolStrip);
 		// 
-		// kryptonToolStripIcons
+		// kryptonToolStrip
 		// 
-		kryptonToolStripIcons.AccessibleDescription = "Toolbar of main functions";
-		kryptonToolStripIcons.AccessibleName = "Toolbar of main functions";
-		kryptonToolStripIcons.AccessibleRole = AccessibleRole.ToolBar;
-		kryptonToolStripIcons.AllowClickThrough = true;
-		kryptonToolStripIcons.AllowItemReorder = true;
-		kryptonToolStripIcons.Dock = DockStyle.None;
-		kryptonToolStripIcons.Font = new Font("Segoe UI", 9F);
-		kryptonToolStripIcons.Items.AddRange(new ToolStripItem[] { toolStripButtonApply, toolStripButtonCancel, toolStripButtonReset });
-		kryptonToolStripIcons.Location = new Point(0, 0);
-		kryptonToolStripIcons.Name = "kryptonToolStripIcons";
-		kryptonToolStripIcons.Size = new Size(514, 25);
-		kryptonToolStripIcons.Stretch = true;
-		kryptonToolStripIcons.TabIndex = 0;
-		kryptonToolStripIcons.TabStop = true;
-		kryptonToolStripIcons.Text = "Toolbar of main functions";
+		kryptonToolStrip.AccessibleDescription = "Toolbar of main functions";
+		kryptonToolStrip.AccessibleName = "Toolbar of main functions";
+		kryptonToolStrip.AccessibleRole = AccessibleRole.ToolBar;
+		kryptonToolStrip.AllowClickThrough = true;
+		kryptonToolStrip.AllowItemReorder = true;
+		kryptonToolStrip.Dock = DockStyle.None;
+		kryptonToolStrip.Font = new Font("Segoe UI", 9F);
+		kryptonToolStrip.Items.AddRange(new ToolStripItem[] { toolStripButtonApply, toolStripButtonCancel, toolStripButtonReset });
+		kryptonToolStrip.Location = new Point(0, 0);
+		kryptonToolStrip.Name = "kryptonToolStrip";
+		kryptonToolStrip.Size = new Size(514, 25);
+		kryptonToolStrip.Stretch = true;
+		kryptonToolStrip.TabIndex = 0;
+		kryptonToolStrip.TabStop = true;
+		kryptonToolStrip.Text = "Toolbar of main functions";
 		// 
 		// toolStripButtonApply
 		// 
@@ -1636,8 +1636,8 @@ partial class FilterForm
 		toolStripContainer.TopToolStripPanel.PerformLayout();
 		toolStripContainer.ResumeLayout(false);
 		toolStripContainer.PerformLayout();
-		kryptonToolStripIcons.ResumeLayout(false);
-		kryptonToolStripIcons.PerformLayout();
+		kryptonToolStrip.ResumeLayout(false);
+		kryptonToolStrip.PerformLayout();
 		ResumeLayout(false);
 
 	}
@@ -1701,7 +1701,7 @@ partial class FilterForm
 	private ToolStripStatusLabel labelInformation;
 	private KryptonManager kryptonManager;
 	private ToolStripContainer toolStripContainer;
-	private KryptonToolStrip kryptonToolStripIcons;
+	private KryptonToolStrip kryptonToolStrip;
 	private ToolStripButton toolStripButtonApply;
 	private ToolStripButton toolStripButtonCancel;
 	private ToolStripButton toolStripButtonReset;
