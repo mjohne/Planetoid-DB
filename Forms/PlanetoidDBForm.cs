@@ -20,7 +20,6 @@ using Planetoid_DB.Helpers;
 using Planetoid_DB.Properties;
 
 using System.Diagnostics;
-using System.Reflection;
 
 namespace Planetoid_DB;
 
@@ -219,7 +218,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		// Initialize the form components
 		InitializeComponent();
 		// Set the version text to the current assembly version
-		TextExtra = $"{Assembly.GetExecutingAssembly().GetName().Version}";
+		TextExtra = AssemblyInfo.AssemblyVersion;
 		// Apply comprehensive flicker reduction for the TableLayoutPanel
 		OptimizeTableLayoutPanelForFlickerReduction();
 		// Log the initialization without an MPCORB.DAT file path
