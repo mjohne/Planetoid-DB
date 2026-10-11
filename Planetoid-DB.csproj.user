@@ -88,7 +88,7 @@
     <Compile Update="Forms\FilterForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Forms\DatabaseDownloaderForm.cs">
+    <Compile Update="Forms\DownloaderForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Forms\DistributionsForm.cs">
@@ -260,6 +260,9 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Forms\TisserandParameterOfOneMinorPlanetForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\WorldMapForm.cs">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>

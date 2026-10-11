@@ -12,7 +12,7 @@ namespace Planetoid_DB.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "18.9.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "18.10.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -104,24 +104,6 @@ namespace Planetoid_DB.Properties {
         public string systemAstorbDatGzUrl {
             get {
                 return ((string)(this["systemAstorbDatGzUrl"]));
-            }
-        }
-
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("https://ssd.jpl.nasa.gov/ftp/eph/planets/Linux/linux_p1550p2650.440")]
-        public string systemJplDe440Url {
-            get {
-                return ((string)(this["systemJplDe440Url"]));
-            }
-        }
-
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("https://ssd.jpl.nasa.gov/ftp/eph/planets/Linux/linux_m13000p17000.441")]
-        public string systemJplDe441Url {
-            get {
-                return ((string)(this["systemJplDe441Url"]));
             }
         }
         
@@ -596,6 +578,48 @@ namespace Planetoid_DB.Properties {
             }
             set {
                 this["userCheckingDatabaseUpdatesOnStartup"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://ssd.jpl.nasa.gov/ftp/eph/planets/Linux/de440/linux_p1550p2650.440")]
+        public string systemJplDe440Url {
+            get {
+                return ((string)(this["systemJplDe440Url"]));
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string userJplDe440Url {
+            get {
+                return ((string)(this["userJplDe440Url"]));
+            }
+            set {
+                this["userJplDe440Url"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://ssd.jpl.nasa.gov/ftp/eph/planets/Linux/de441/linux_m13000p17000.441")]
+        public string systemJplDe441Url {
+            get {
+                return ((string)(this["systemJplDe441Url"]));
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string userJplDe441Url {
+            get {
+                return ((string)(this["userJplDe441Url"]));
+            }
+            set {
+                this["userJplDe441Url"] = value;
             }
         }
     }
