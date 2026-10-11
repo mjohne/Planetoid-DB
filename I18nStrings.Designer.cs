@@ -165,6 +165,42 @@ namespace Planetoid_DB {
 		}
 		
 		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die JPL DE binary files (*.440;*.441)|*.440;*.441|All files (*.*)|*.* ähnelt.
+		/// </summary>
+		internal static string EphemerisFileDialogFilter {
+			get {
+				return ResourceManager.GetString("EphemerisFileDialogFilter", resourceCulture);
+			}
+		}
+
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die Load JPL DE440/DE441 binary ephemeris ähnelt.
+		/// </summary>
+		internal static string EphemerisFileDialogTitle {
+			get {
+				return ResourceManager.GetString("EphemerisFileDialogTitle", resourceCulture);
+			}
+		}
+
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die Ephemerides: invalid MPCORB record ähnelt.
+		/// </summary>
+		internal static string EphemerisInvalidRecordTitle {
+			get {
+				return ResourceManager.GetString("EphemerisInvalidRecordTitle", resourceCulture);
+			}
+		}
+
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die Ephemerides: {0} ähnelt.
+		/// </summary>
+		internal static string EphemerisTitleFormat {
+			get {
+				return ResourceManager.GetString("EphemerisTitleFormat", resourceCulture);
+			}
+		}
+
+		/// <summary>
 		///   Sucht eine lokalisierte Zeichenfolge, die Error ähnelt.
 		/// </summary>
 		internal static string ErrorCaption {

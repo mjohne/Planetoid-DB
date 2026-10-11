@@ -117,14 +117,14 @@ internal partial class EphemerisForm : BaseKryptonForm
 		{
 			// Valid MPCORB record; store the parsed elements and update the form title
 			elements = parsed;
-			Text = $"Ephemerides: {parsed.Designation}";
+			Text = string.Format(provider: CultureInfo.CurrentCulture, format: I18nStrings.EphemerisTitleFormat, arg0: parsed.Designation);
 		}
 		// Invalid MPCORB record; clear the elements and log a warning
 		else
 		{
 			elements = null;
 			logger.Warn(message: $"Invalid MPCORB record for ephemerides: {error}");
-			Text = "Ephemerides: invalid MPCORB record";
+			Text = I18nStrings.EphemerisInvalidRecordTitle;
 		}
 	}
 
@@ -571,8 +571,8 @@ internal partial class EphemerisForm : BaseKryptonForm
 		// Show an OpenFileDialog to allow the user to choose the JPL DE binary file to load
 		using OpenFileDialog openFileDialog = new()
 		{
-			Filter = "JPL DE binary files (*.440;*.441)|*.440;*.441|All files (*.*)|*.*",
-			Title = "Load JPL DE440/DE441 binary ephemeris"
+			Filter = I18nStrings.EphemerisFileDialogFilter,
+			Title = I18nStrings.EphemerisFileDialogTitle
 		};
 		// If the user cancels the OpenFileDialog, return without loading a file
 		if (openFileDialog.ShowDialog(owner: this) != DialogResult.OK)
