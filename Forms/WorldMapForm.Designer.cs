@@ -130,7 +130,6 @@ partial class WorldMapForm
 		labelInformation.Image = Resources.FatcowIcons16px.fatcow_lightbulb_16px;
 		labelInformation.Name = "labelInformation";
 		labelInformation.Size = new Size(144, 17);
-		labelInformation.Text = "some information here";
 		// 
 		// webView
 		// 
@@ -153,7 +152,7 @@ partial class WorldMapForm
 		// 
 		kryptonToolStrip.AccessibleDescription = "Toolbar of main functions";
 		kryptonToolStrip.AccessibleName = "Toolbar of main functions";
-		kryptonToolStrip.AccessibleRole = AccessibleRole.ToolTip;
+		kryptonToolStrip.AccessibleRole = AccessibleRole.ToolBar;
 		kryptonToolStrip.AllowClickThrough = true;
 		kryptonToolStrip.AllowItemReorder = true;
 		kryptonToolStrip.Dock = DockStyle.None;
@@ -240,7 +239,7 @@ partial class WorldMapForm
 		// 
 		labelCoordinates.AccessibleDescription = I18nStrings.WorldMapCoordinatesAccessibleDescription;
 		labelCoordinates.AccessibleName = "Coordinates";
-		labelCoordinates.AccessibleRole = AccessibleRole.PushButton;
+		labelCoordinates.AccessibleRole = AccessibleRole.StaticText;
 		labelCoordinates.Image = Resources.FatcowIcons16px.fatcow_location_pin_16px;
 		labelCoordinates.Name = "labelCoordinates";
 		labelCoordinates.Size = new Size(131, 22);

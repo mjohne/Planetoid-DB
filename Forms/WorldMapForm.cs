@@ -127,11 +127,15 @@ internal partial class WorldMapForm : BaseKryptonForm
 		// Log that the form is being disposed and whether managed resources are being disposed
 		logger.Info(message: $"Disposing WorldMapForm. Disposing managed resources: {disposing}.");
 		// Dispose the cancellation token source if disposing is true and it has not already been disposed
-		if (disposing && !cancellationTokenSourceDisposed)
+		if (disposing)
 		{
-			cancellationTokenSourceDisposed = true;
-			cancellationTokenSource.Cancel();
-			cancellationTokenSource.Dispose();
+			if (!cancellationTokenSourceDisposed)
+			{
+				cancellationTokenSourceDisposed = true;
+				cancellationTokenSource.Cancel();
+				cancellationTokenSource.Dispose();
+			}
+			components?.Dispose();
 		}
 
 		base.Dispose(disposing);
@@ -325,6 +329,7 @@ internal partial class WorldMapForm : BaseKryptonForm
 	/// <remarks>Shows an error message in the status bar if the WebView2 runtime is unavailable.</remarks>
 	private async void WorldMapForm_Load(object? sender, EventArgs e)
 	{
+		labelInformation.Text = string.Empty;
 		// Log that the form is loading and WebView2 initialization is starting
 		logger.Info(message: "WorldMapForm loading. Initializing WebView2.");
 		// Attempt to ensure that the WebView2 control is initialized and ready
@@ -376,8 +381,6 @@ internal partial class WorldMapForm : BaseKryptonForm
 	/// <remarks>Map HTML loaded through <see cref="CoreWebView2.NavigateToString(string)"/> has no HTTP referer by default.</remarks>
 	private void CoreWebView2_WebResourceRequested(object? sender, CoreWebView2WebResourceRequestedEventArgs e)
 	{
-		// Log that a web resource request has been intercepted for OpenStreetMap tiles
-		logger.Info(message: "Intercepted web resource request for OpenStreetMap tiles. Adding Referer header.");
 		// Set the Referer header to comply with OpenStreetMap tile usage policy
 		e.Request.Headers.SetHeader(name: "Referer", value: OpenStreetMapReferer);
 	}
