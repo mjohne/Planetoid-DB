@@ -34,7 +34,7 @@ The forms can broadly be grouped into the following areas:
 | `BulkObservationsDownloadErrorsForm`      | Displays errors encountered during bulk observation downloads.                                              |
 | `CheckDatabaseForm`                       | Checks the database/data source for consistency or validity.                                                |
 | `DatabaseDifferencesForm`                 | Compares database versions or data sets and displays differences.                                           |
-| `DatabaseDownloaderForm`                  | Downloads an astronomical catalogue/data file for use by Planetoid-DB.                                      |
+| `DownloaderForm`                          | Downloads an astronomical catalogue/data file for use by Planetoid-DB.                                      |
 | `DatabaseInformationForm`                 | Displays information and statistics about the current database/data source.                                 |
 | `DerivedOrbitElementsForm`                | Displays and works with derived orbital elements and related calculations.                                  |
 | `DistributionsForm`                       | Displays distributions of selected astronomical parameters.                                                 |
@@ -151,7 +151,7 @@ PlanetoidDBForm
     └── PrintDataSheetForm
 ```
 
-Database-oriented functions are centered around forms such as `DatabaseDownloaderForm`, `CheckDatabaseForm`, `DatabaseInformationForm`, `DatabaseDifferencesForm` and `ArchiveMpcorbForm`.
+Database-oriented functions are centered around forms such as `DownloaderForm`, `CheckDatabaseForm`, `DatabaseInformationForm`, `DatabaseDifferencesForm` and `ArchiveMpcorbForm`.
 
 Astronomical analysis is distributed across specialized forms such as `AsteroidFamiliesForm`, `MoidsOfOneMinorPlanetForm`, `MoidsOfAllMinorPlanetsForm`, `MaxoidsOfOneMinorPlanetForm`, `OrbitalResonancesOfOneMinorPlanetForm`, `TisserandParameterOfOneMinorPlanetForm` and `OrbitElementsGroupingForm`.
 

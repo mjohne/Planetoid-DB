@@ -1,5 +1,5 @@
 /*
- * File:        DatabaseDownloaderForm.cs
+ * File:        DownloaderForm.cs
  * Project:     Planetoid-DB
  * Namespace:   Planetoid_DB
  * Description: Form to handle downloading updates for the application.
@@ -98,7 +98,7 @@ internal partial class DownloaderForm : BaseKryptonForm
 		extractFilePath = Path.Combine(
 			Path.GetDirectoryName(path: _filenameTemp) ?? string.Empty,
 			Path.GetFileNameWithoutExtension(path: localPath));
-		logger.Info(message: "DatabaseDownloaderForm initialized. Url={Url}, TempFile={TempFile}, ExtractFile={ExtractFile}", argument1: url, argument2: _filenameTemp, argument3: extractFilePath);
+		logger.Info(message: "DownloaderForm initialized. Url={Url}, TempFile={TempFile}, ExtractFile={ExtractFile}", argument1: url, argument2: _filenameTemp, argument3: extractFilePath);
 	}
 
 	/// <summary>Overrides the OnShown method to start the download workflow when the form is displayed.</summary>
