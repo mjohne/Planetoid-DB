@@ -46,6 +46,10 @@ internal partial class WorldMapForm : BaseKryptonForm
 
 	private bool cancellationTokenSourceDisposed;
 
+	/// <summary>Referer sent with OpenStreetMap tile requests.</summary>
+	/// <remarks>This is required by the OpenStreetMap tile usage policy.</remarks>
+	private const string OpenStreetMapReferer = "https://mjohne.github.io/Planetoid-DB/";
+
 	/// <summary>Format string for displaying coordinates in the status bar.</summary>
 	/// <remarks>This format string is parsed from the localized resource string <see cref="I18nStrings.WorldMapCoordinatesFormat"/>.</remarks>
 	private static readonly CompositeFormat coordinatesFormat = CompositeFormat.Parse(format: I18nStrings.WorldMapCoordinatesFormat);
@@ -123,11 +127,15 @@ internal partial class WorldMapForm : BaseKryptonForm
 		// Log that the form is being disposed and whether managed resources are being disposed
 		logger.Info(message: $"Disposing WorldMapForm. Disposing managed resources: {disposing}.");
 		// Dispose the cancellation token source if disposing is true and it has not already been disposed
-		if (disposing && !cancellationTokenSourceDisposed)
+		if (disposing)
 		{
-			cancellationTokenSourceDisposed = true;
-			cancellationTokenSource.Cancel();
-			cancellationTokenSource.Dispose();
+			if (!cancellationTokenSourceDisposed)
+			{
+				cancellationTokenSourceDisposed = true;
+				cancellationTokenSource.Cancel();
+				cancellationTokenSource.Dispose();
+			}
+			components?.Dispose();
 		}
 
 		base.Dispose(disposing);
@@ -321,6 +329,7 @@ internal partial class WorldMapForm : BaseKryptonForm
 	/// <remarks>Shows an error message in the status bar if the WebView2 runtime is unavailable.</remarks>
 	private async void WorldMapForm_Load(object? sender, EventArgs e)
 	{
+		labelInformation.Text = string.Empty;
 		// Log that the form is loading and WebView2 initialization is starting
 		logger.Info(message: "WorldMapForm loading. Initializing WebView2.");
 		// Attempt to ensure that the WebView2 control is initialized and ready
@@ -340,6 +349,8 @@ internal partial class WorldMapForm : BaseKryptonForm
 			// Attach event handlers for navigation starting and web message received events
 			webView.CoreWebView2.NavigationStarting += CoreWebView2_NavigationStarting;
 			webView.CoreWebView2.WebMessageReceived += CoreWebView2_WebMessageReceived;
+			webView.CoreWebView2.AddWebResourceRequestedFilter(uri: "https://tile.openstreetmap.org/*", ResourceContext: CoreWebView2WebResourceContext.Image);
+			webView.CoreWebView2.WebResourceRequested += CoreWebView2_WebResourceRequested;
 			// Disable the default context menus in the WebView2 control to prevent right-click actions
 			webView.CoreWebView2.Settings.AreDefaultContextMenusEnabled = false;
 			// Log that the map HTML content is being loaded into the WebView2 control
@@ -364,41 +375,54 @@ internal partial class WorldMapForm : BaseKryptonForm
 		}
 	}
 
-	/// <summary>Opens web links externally and prevents navigation away from the map.</summary>
+	/// <summary>Adds the application referer to OpenStreetMap tile requests.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The requested web resource.</param>
+	/// <remarks>Map HTML loaded through <see cref="CoreWebView2.NavigateToString(string)"/> has no HTTP referer by default.</remarks>
+	private void CoreWebView2_WebResourceRequested(object? sender, CoreWebView2WebResourceRequestedEventArgs e)
+	{
+		// Set the Referer header to comply with OpenStreetMap tile usage policy
+		e.Request.Headers.SetHeader(name: "Referer", value: OpenStreetMapReferer);
+	}
+
+	/// <summary>Opens user-selected web links externally without blocking internal WebView2 navigation.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The navigation event data.</param>
-	/// <remarks>Links with <c>http</c> or <c>https</c> schemes are opened in the default browser; all other navigation is canceled except for <c>about:blank</c>.</remarks>
+	/// <remarks>Programmatic navigation is required for <see cref="CoreWebView2.NavigateToString(string)"/> and is therefore not canceled.</remarks>
 	private void CoreWebView2_NavigationStarting(object? sender, CoreWebView2NavigationStartingEventArgs e)
 	{
-		// Log the navigation attempt with the target URI
-		logger.Info(message: $"Navigation attempt to URI: {e.Uri}");
-		// Check if the URI is a valid absolute URI with http or https scheme
-		if (Uri.TryCreate(uriString: e.Uri, uriKind: UriKind.Absolute, result: out Uri? uri) && uri.Scheme is "http" or "https")
+		// Log that a navigation is starting and indicate whether it was user-initiated
+		logger.Info(message: $"Navigation starting to {e.Uri}. User initiated: {e.IsUserInitiated}");
+		// Do not interfere with the initial navigation created by NavigateToString.
+		if (!e.IsUserInitiated)
 		{
-			// Log that the external link will be opened in the default browser and navigation will be canceled
-			logger.Info(message: $"Opening external link in default browser: {uri.AbsoluteUri}. Navigation will be canceled.");
-			// Cancel the navigation to prevent leaving the map page
-			e.Cancel = true;
-			// Attempt to open the external link in the default browser
-			try
-			{
-				// Use Process.Start with UseShellExecute to open the link in the default browser
-				_ = Process.Start(startInfo: new ProcessStartInfo(uri.AbsoluteUri) { UseShellExecute = true });
-			}
-			// Catch any exceptions that occur while trying to open the external link
-			catch (Exception ex)
-			{
-				// Log a warning that the external link could not be opened
-				logger.Warn(exception: ex, message: "Could not open external link.");
-			}
+			// Log that programmatic navigation has been detected and will be allowed to proceed
+			logger.Info(message: "Programmatic navigation detected. Allowing navigation to proceed.");
+			return;
 		}
-		// Check if the URI is not "about:blank"; if so, cancel the navigation to prevent leaving the map page
-		else if (e.Uri != "about:blank")
+		// Keep the embedded map page open and open clicked HTTP links in the default browser.
+		e.Cancel = true;
+		// Log that a user-initiated navigation has been intercepted and will be opened externally
+		logger.Info(message: $"User-initiated navigation intercepted. Opening external link: {e.Uri}");
+		// Attempt to create a Uri from the navigation URI and check if it is an absolute HTTP or HTTPS URL
+		if (!Uri.TryCreate(uriString: e.Uri, uriKind: UriKind.Absolute, result: out Uri? uri) || uri.Scheme is not ("http" or "https"))
 		{
-			// Log a warning that navigation to the specified URI is not allowed and will be canceled
-			logger.Warn(message: $"Navigation to URI '{e.Uri}' is not allowed. Navigation will be canceled.");
-			// Cancel the navigation to prevent leaving the map page
-			e.Cancel = true;
+			// Log a warning that the URI scheme is invalid or unsupported for external links
+			logger.Warn(message: $"Invalid or unsupported URI scheme for external link: {e.Uri}");
+			return;
+		}
+		// Attempt to start the default browser to open the external link
+		try
+		{
+			// Log that the external link will be opened in the default browser
+			logger.Info(message: $"Opening external link in default browser: {uri.AbsoluteUri}");
+			// Use Process.Start with UseShellExecute to open the link in the default browser
+			_ = Process.Start(startInfo: new ProcessStartInfo(uri.AbsoluteUri) { UseShellExecute = true });
+		}
+		catch (Exception ex)
+		{
+			// Log a warning that the external link could not be opened
+			logger.Warn(exception: ex, message: "Could not open external link.");
 		}
 	}
 
@@ -481,6 +505,8 @@ internal partial class WorldMapForm : BaseKryptonForm
 			// Mark the key event as handled and suppress the key press to avoid a system beep
 			e.Handled = true;
 			e.SuppressKeyPress = true;
+			// Log that the location search is starting asynchronously
+			logger.Info(message: "Starting location search asynchronously.");
 			// Start the location search asynchronously
 			await PerformSearchAsync().ConfigureAwait(continueOnCapturedContext: true);
 		}
@@ -496,8 +522,6 @@ internal partial class WorldMapForm : BaseKryptonForm
 		logger.Info(message: "WorldMapForm is closing. Canceling any pending work.");
 		// Cancel the cancellation token source to stop any ongoing geocoding requests
 		cancellationTokenSource.Cancel();
-		// Call the base class implementation to ensure proper form closing behavior
-		base.OnFormClosing(e: e);
 	}
 
 	#endregion
