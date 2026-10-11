@@ -1,0 +1,473 @@
+/*
+ * File:        DatabaseDownloaderForm.cs
+ * Project:     Planetoid-DB
+ * Namespace:   Planetoid_DB
+ * Description: Form to handle downloading updates for the application.
+ *
+ * Author:      Michael Johne
+ * Company:     Mijo Software
+ * 
+ * Copyright (c) 2026 Michael Johne
+ *
+ * Licensed under the GNU General Public License v3.0.
+ * See LICENSE file in the project root for license information.
+ */
+
+using Krypton.Toolkit;
+
+using NLog;
+
+using Planetoid_DB.Forms;
+using Planetoid_DB.Helpers;
+using Planetoid_DB.Properties;
+
+using System.Diagnostics;
+using System.Globalization;
+using System.IO.Compression;
+using System.Net;
+
+namespace Planetoid_DB;
+
+/// <summary>Form to handle downloading updates for the application.</summary>
+/// <remarks>This form provides a user interface for downloading and installing updates.</remarks>
+// You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
+[DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
+internal partial class DownloaderForm : BaseKryptonForm
+{
+	/// <summary>NLog logger instance for the class.</summary>
+	/// <remarks>This logger is used to log messages for the form.</remarks>
+	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+
+	/// <summary>Shared <see cref="HttpClient"/> used for HTTP requests. Initialized in the constructor. Reuse to avoid socket exhaustion.</summary>
+	/// <remarks>This HttpClient instance is reused for all HTTP requests to improve performance.</remarks>
+	private static readonly HttpClient httpClient = new(handler: new HttpClientHandler
+	{
+		AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate,
+		CheckCertificateRevocationList = true
+	})
+	{
+		Timeout = TimeSpan.FromMinutes(value: 10)
+	};
+
+	/// <summary>Temporary filename (including path) used to store the downloaded gzip file.</summary>
+	/// <remarks>This temporary file is used to store the downloaded gzip file before extraction.</remarks>
+	private readonly string _filenameTemp = Settings.Default.systemFilenameTemp;
+
+	/// <summary>Source URL to download the file from. Provided by the caller when the form is created.</summary>
+	/// <remarks>This URL is used to initiate the download process.</remarks>
+	private readonly string url;
+
+	/// <summary>Output path (filename without extension) where the downloaded archive will be extracted.</summary>
+	/// <remarks>This path is derived from the URL and is used to extract the contents of the downloaded archive.</remarks>
+	private readonly string extractFilePath;
+
+	/// <summary>Cancellation token source used to cancel an ongoing download operation. May be null when no download is active.</summary>
+	/// <remarks>This token is used to cancel the download operation if needed.</remarks>
+	private CancellationTokenSource? cancellationTokenSource;
+
+	/// <summary>Gets the status label to be used for displaying information.</summary>
+	/// <remarks>Derived classes should override this property to provide the specific label.</remarks>
+	protected override ToolStripStatusLabel? StatusLabel => labelInformation;
+
+	#region constructor
+
+	/// <summary>Initializes a new instance of the <see cref="DownloaderForm"/> class. Prepares HTTP client and UI, stores the download <paramref name="url"/>, derives the extraction path and starts the download workflow.</summary>
+	/// <param name="url">The URL to download the file from. The filename part is used to derive the extraction path.</param>
+	/// <remarks>This constructor performs UI initialization and immediately begins the download by calling <see cref="StartDownloadAsync"/>. It must be called from the UI thread.</remarks>
+	public DownloaderForm(string url)
+	{
+		InitializeComponent();
+		// Enable double buffering for the TableLayoutPanel to prevent flickering
+		DoubleBufferingHelper.EnableDoubleBuffering(control: tableLayoutPanel);
+		// Validate and store the URL
+		if (string.IsNullOrWhiteSpace(value: url))
+		{
+			// Throw an exception if the URL is null or empty
+			logger.Fatal(message: $"URL cannot be null or empty: {url}");
+			throw new ArgumentException(message: "URL cannot be null or empty.", paramName: nameof(url));
+		}
+		// Derive the extraction file path from the URL and temporary filename
+		if (!Uri.TryCreate(uriString: url, uriKind: UriKind.Absolute, result: out Uri? parsedUri))
+		{
+			logger.Fatal(message: $"URL is not in a valid format: {url}");
+			throw new ArgumentException(message: "URL is not in a valid format.", paramName: nameof(url));
+		}
+		this.url = url;
+		string localPath = parsedUri.LocalPath;
+		// Combine the directory of the temporary filename with the filename without extension from the URL to derive the extraction path
+		extractFilePath = Path.Combine(
+			Path.GetDirectoryName(path: _filenameTemp) ?? string.Empty,
+			Path.GetFileNameWithoutExtension(path: localPath));
+		logger.Info(message: "DatabaseDownloaderForm initialized. Url={Url}, TempFile={TempFile}, ExtractFile={ExtractFile}", argument1: url, argument2: _filenameTemp, argument3: extractFilePath);
+	}
+
+	/// <summary>Overrides the OnShown method to start the download workflow when the form is displayed.</summary>
+	/// <param name="e">An <see cref="EventArgs"/> that contains the event data.</param>
+	/// <remarks>This method is called when the form is first shown. It initiates the download process by calling <see cref="StartDownloadAsync"/>.</remarks>
+	protected override async void OnShown(EventArgs e)
+	{
+		// Call the base class implementation of OnShown
+		base.OnShown(e: e);
+		// Start the download workflow asynchronously
+		await StartDownloadAsync().ConfigureAwait(continueOnCapturedContext: true);
+	}
+
+	/// <summary>Overrides the OnFormClosing method to cancel any ongoing download operation when the form is closing.</summary>
+	/// <param name="e">A <see cref="FormClosingEventArgs"/> that contains the event data.</param>
+	/// <remarks>This method is called when the form is closing. It cancels any active download operation by calling <see cref="CancellationTokenSource.Cancel()"/> on the <see cref="cancellationTokenSource"/>.</remarks>
+	protected override void OnFormClosing(FormClosingEventArgs e)
+	{
+		logger.Info(message: "Form is closing. Canceling any ongoing download operation.");
+		// Cancel any ongoing download operation if the cancellation token source is not null
+		cancellationTokenSource?.Cancel();
+		// Call the base class implementation of OnFormClosing
+		base.OnFormClosing(e: e);
+	}
+
+	#endregion
+
+	#region helper methods
+
+	/// <summary>Returns a short debugger display string for this instance.</summary>
+	/// <returns>A string representation of the current instance for use in the debugger.</returns>
+	/// <remarks>This property is used to provide a visual representation of the object in the debugger.</remarks>
+	private string DebuggerDisplay => ToString();
+
+	/// <summary>Extracts the filename from the given URL and returns the full destination path within the temporary file directory.</summary>
+	/// <param name="url">The absolute URL from which to extract the filename.</param>
+	/// <returns>The full destination path combining the temporary file directory and the filename from the URL, or <see langword="null"/> if the URL is invalid or contains no filename.</returns>
+	/// <remarks>Uses <see cref="Uri.LocalPath"/> to extract the filename. The result is combined with the directory of <see cref="_filenameTemp"/>.</remarks>
+	private string? GetFileFromUrl(string url)
+	{
+		// Validate the URL and extract the filename
+		if (!Uri.TryCreate(uriString: url, uriKind: UriKind.Absolute, result: out Uri? parsedUri))
+		{
+			logger.Warn(message: $"URL is not in a valid format: {url}");
+			return null;
+		}
+		// Extract the filename from the URL's local path
+		string fileName = Path.GetFileName(path: parsedUri.LocalPath);
+		// If the filename is null or whitespace, return null
+		if (string.IsNullOrWhiteSpace(value: fileName))
+		{
+			logger.Warn(message: $"URL does not contain a valid filename: {url}");
+			return null;
+		}
+		// Combine the filename with the directory of the temporary file and return the full path
+		return Path.Combine(path1: Path.GetDirectoryName(path: _filenameTemp) ?? string.Empty, path2: fileName);
+	}
+
+	/// <summary>Extracts a GZIP-compressed file to the specified output file.</summary>
+	/// <param name="gzipFilePath">Full path to the source .gz file.</param>
+	/// <param name="outputFilePath">Full path where the decompressed file will be written.</param>
+	/// <param name="token">A cancellation token to cancel the operation.</param>
+	/// <remarks>The method streams the compressed input to the output file using <see cref="GZipStream"/>. It throws exceptions (e.g. <see cref="IOException"/>, <see cref="InvalidDataException"/>) to the caller.</remarks>
+	protected static async Task ExtractGzipFileAsync(string gzipFilePath, string outputFilePath, CancellationToken token)
+	{
+		// Log the extraction operation for debugging purposes
+		logger.Info(message: $"Extracting GZIP file: {gzipFilePath} to {outputFilePath}");
+		// Open the source GZIP file for reading with asynchronous options
+		FileStream sourceStream = new(path: gzipFilePath, mode: FileMode.Open, access: FileAccess.Read, share: FileShare.Read, bufferSize: 4096, options: FileOptions.Asynchronous);
+		// Use 'await using' to ensure that the source stream is disposed of properly after use
+		await using (sourceStream.ConfigureAwait(continueOnCapturedContext: false))
+		{
+			// Open the target output file for writing with asynchronous options
+			FileStream targetStream = new(path: outputFilePath, mode: FileMode.Create, access: FileAccess.Write, share: FileShare.None, bufferSize: 4096, options: FileOptions.Asynchronous);
+			// Use 'await using' to ensure that the target stream is disposed of properly after use
+			await using (targetStream.ConfigureAwait(continueOnCapturedContext: false))
+			{
+				// Create a GZipStream for decompression, wrapping the source stream
+				GZipStream decompressionStream = new(stream: sourceStream, mode: CompressionMode.Decompress);
+				// Use 'await using' to ensure that the decompression stream is disposed of properly after use
+				await using (decompressionStream.ConfigureAwait(continueOnCapturedContext: false))
+				{
+					// Copy the decompressed data to the target stream asynchronously, supporting cancellation
+					await decompressionStream.CopyToAsync(destination: targetStream, cancellationToken: token).ConfigureAwait(continueOnCapturedContext: false);
+				}
+			}
+		}
+	}
+
+	/// <summary>Asynchronously determines whether an active internet connection is available by sending a HEAD request to the specified URL.</summary>
+	/// <remarks>This method uses a HEAD request to minimize bandwidth usage and applies a timeout of 5 seconds. If an exception occurs during the request, the method returns <see langword="false"/>.</remarks>
+	/// <param name="client">The HttpClient instance used to send the request. This must be initialized before calling the method and should not be null.</param>
+	/// <param name="url">The URL to which the connectivity check is sent. This must be a valid, non-null URI string.</param>
+	/// <returns>A task that represents the asynchronous operation. The task result is <see langword="true"/> if the response indicates success; otherwise, <see langword="false"/>.</returns>
+	private static async Task<bool> HasInternetAsync(HttpClient client, string url)
+	{
+		// Use a 5-second timeout for the connectivity check
+		try
+		{
+			// Use a HEAD request instead of GET to save bandwidth
+			using HttpRequestMessage request = new(method: HttpMethod.Head, requestUri: url);
+			// Timeout 5 seconds
+			using CancellationTokenSource cts = new(delay: TimeSpan.FromSeconds(seconds: 5));
+			// Send the request and get the response
+			using HttpResponseMessage response = await client.SendAsync(
+				request: request,
+				completionOption: HttpCompletionOption.ResponseHeadersRead,
+				cancellationToken: cts.Token).ConfigureAwait(continueOnCapturedContext: false);
+			// Return true if the response status code indicates success (2xx); otherwise, return false
+			return response.IsSuccessStatusCode;
+		}
+		// If any exception occurs (e.g., HttpRequestException, TaskCanceledException), log a warning and return false
+		catch (Exception ex)
+		{
+			logger.Warn(message: $"Exception occurred while checking internet connectivity: {ex.Message}");
+			return false;
+		}
+	}
+
+	/// <summary>Updates the progress bar and related labels based on the provided <see cref="DownloadProgressInfo"/>. This method is called from the download workflow to reflect the current download status in the UI.</summary>
+	/// <param name="info">The download progress information.</param>
+	/// <remarks>This method updates the progress bar, download speed label, and time label based on the current download progress.</remarks>
+	private void UpdateProgress(DownloadProgressInfo info)
+	{
+		// If the total bytes is zero or negative, or if the form is disposed, do not update the UI
+		if (info.TotalBytes <= 0 || IsDisposed)
+		{
+			logger.Warn(message: "Invalid total bytes or form is disposed. Skipping progress update.");
+			return;
+		}
+		// Calculate the percentage of the download completed
+		int percentage = (int)(info.CurrentBytes * 100 / info.TotalBytes);
+		percentage = Math.Clamp(value: percentage, min: 0, max: 100);
+		// Update the progress bar only if the percentage has changed
+		if (kryptonProgressBarDownload.Value != percentage)
+		{
+			kryptonProgressBarDownload.Value = percentage;
+			kryptonProgressBarDownload.Text = $"{percentage}%";
+			// Update the Windows taskbar progress indicator if the form handle is created
+			if (IsHandleCreated)
+			{
+				TaskbarProgress.SetValue(windowHandle: Handle, progressValue: (ulong)Math.Min(percentage, 100), progressMax: 100);
+			}
+		}
+		// Update the download speed label with formatted bytes per second or "..." if not available
+		labelDownloadSpeedValue.Text = info.BytesPerSecond > 0 ? $"{info.BytesPerSecond:N0} {I18nStrings.BytesText}/s" : "...";
+		// Update the time label with elapsed and estimated time in hh:mm:ss format
+		labelTimeValue.Text = info.Estimated > TimeSpan.Zero
+			? $"{info.Elapsed:hh\\:mm\\:ss} / {info.Estimated:hh\\:mm\\:ss}"
+			: $"{info.Elapsed:hh\\:mm\\:ss}";
+		labelSizeValue.Text = $"{info.CurrentBytes:N0} / {info.TotalBytes:N0} {I18nStrings.BytesText}";
+	}
+
+	/// <summary>Starts the download workflow: validates network and input, disables/enables UI controls, downloads the file, extracts the GZIP archive and notifies the user.</summary>
+	/// <remarks>This method is an async Task entry point intended for UI usage. It uses an internal <see cref="CancellationTokenSource"/> to support cancellation, updates form controls (buttons, labels, progress bar) and handles exceptions internally (shows message boxes). No exceptions are propagated to the caller.</remarks>
+	private async Task StartDownloadAsync()
+	{
+		// Check for internet connectivity before starting the download
+		bool isServerReachable = await HasInternetAsync(client: httpClient, url: url)
+			.ConfigureAwait(continueOnCapturedContext: true);
+		// If the server is not reachable, log an error, show a message box and return early
+		if (!isServerReachable)
+		{
+			logger.Error(message: "No internet connection available.");
+			ShowErrorMessage(message: I18nStrings.NoInternetConnectionText);
+			return;
+		}
+		// Validate that the temporary filename is set; if not, show an error message and return early
+		if (string.IsNullOrWhiteSpace(value: _filenameTemp))
+		{
+			logger.Warn(message: "Temporary filename is not set. Cannot proceed with download.");
+			ShowErrorMessage(message: "Please select a save location!");
+			return;
+		}
+		// Log the start of the download operation with the URL and temporary filename
+		logger.Info(message: "Starting download. Url={Url}, TempFile={TempFile}", argument1: url, argument2: _filenameTemp);
+		// Disable the Download button and enable the Cancel button, reset progress bar and labels, and create a new CancellationTokenSource
+		try
+		{
+			// Disable the Download button and enable the Cancel button
+			toolStripButtonDownload.Enabled = false;
+			toolStripButtonCancel.Enabled = true;
+			// Reset progress bar and labels
+			kryptonProgressBarDownload.Value = 0;
+			kryptonProgressBarDownload.Text = "0%";
+			// Create a new CancellationTokenSource for this download operation
+			cancellationTokenSource = new CancellationTokenSource();
+			CancellationToken token = cancellationTokenSource.Token;
+			// Create a progress reporter that calls UpdateProgress on the UI thread
+			Progress<DownloadProgressInfo> progress = new(handler: UpdateProgress);
+			// Start the download operation asynchronously
+			await DownloadFileAsync(fileUrl: url, destinationPath: _filenameTemp, progress: progress, token: token)
+				.ConfigureAwait(continueOnCapturedContext: true);
+			// After download, check if the file is a GZIP archive and extract it; otherwise, move the file to the destination path
+			if (Path.GetExtension(path: url).Equals(value: ".gz", comparisonType: StringComparison.OrdinalIgnoreCase))
+			{
+				// If the downloaded file is a GZIP archive, update the status label and progress bar style, then extract it
+				labelStatusValue.Text = "Extracting...";
+				kryptonProgressBarDownload.Style = ProgressBarStyle.Marquee;
+				// Extract the GZIP file to the specified output path
+				await ExtractGzipFileAsync(gzipFilePath: _filenameTemp, outputFilePath: extractFilePath, token: token)
+					.ConfigureAwait(continueOnCapturedContext: true);
+			}
+			// If the file is not a GZIP archive, move it to the destination path derived from the URL
+			else
+			{
+				// Determine the destination file path based on the URL or use the extractFilePath as a fallback
+				string destFilePath = GetFileFromUrl(url: url) ?? extractFilePath;
+				// Move the downloaded file to the destination path only if it's different from the temporary filename (case-insensitive comparison)
+				if (!string.Equals(a: _filenameTemp, b: destFilePath, comparisonType: StringComparison.OrdinalIgnoreCase))
+				{
+					File.Move(sourceFileName: _filenameTemp, destFileName: destFilePath, overwrite: true);
+				}
+			}
+			// Update the status label to indicate that the download is completed, show a message box to the user, and log the successful completion
+			labelStatusValue.Text = "Download completed";
+			_ = KryptonMessageBox.Show(owner: this, text: "Download completed successfully!", caption: "Finished", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+			logger.Info(message: "Download and extraction completed successfully.");
+			// Set the dialog result to OK to indicate success
+			DialogResult = DialogResult.OK;
+		}
+		// Handle cancellation by the user: update the status label, show a message box, and log the cancellation
+		catch (OperationCanceledException)
+		{
+			labelStatusValue.Text = "Download canceled";
+			_ = KryptonMessageBox.Show(owner: this, text: "Download canceled!", caption: "Canceled", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+			logger.Warn(message: "Download canceled by user.");
+		}
+		// Handle any other exceptions that occur during the download or extraction process: update the status label, show a message box with the error, and log the exception details
+		catch (Exception ex)
+		{
+			labelStatusValue.Text = "Download error";
+			ShowErrorMessage(message: $"Error during download: {ex.Message}");
+			logger.Error(exception: ex, message: "Download failed. Url={Url}, TempFile={TempFile}", url, _filenameTemp);
+		}
+		// In the finally block, clean up resources and reset the UI controls regardless of success, cancellation, or error
+		finally
+		{
+			// Attempt to delete the temporary file if it exists, logging a warning if deletion fails
+			if (File.Exists(path: _filenameTemp))
+			{
+				try { File.Delete(path: _filenameTemp); }
+				catch (Exception ex) { logger.Warn(exception: ex, message: "Failed to delete temporary file."); }
+			}
+			// Reset the UI controls to their initial state if the form is not disposed
+			if (!IsDisposed)
+			{
+				toolStripButtonDownload.Enabled = true;
+				toolStripButtonCancel.Enabled = false;
+				labelDateValue.Text = "-";
+				labelSizeValue.Text = "-";
+				labelSourceValue.Text = "-";
+				labelTimeValue.Text = "-";
+				labelDownloadSpeedValue.Text = "-";
+				kryptonProgressBarDownload.Value = 0;
+				kryptonProgressBarDownload.Text = "0%";
+				kryptonProgressBarDownload.Style = ProgressBarStyle.Blocks;
+			}
+			// Dispose of the cancellation token source and set it to null to free resources
+			cancellationTokenSource?.Dispose();
+			cancellationTokenSource = null;
+		}
+	}
+
+	/// <summary>Asynchronously downloads a file from the specified URL to the given destination path, reporting progress and supporting cancellation.</summary>
+	/// <param name="fileUrl">The URL of the file to download.</param>
+	/// <param name="destinationPath">The local path where the downloaded file will be saved.</param>
+	/// <param name="progress">An object to report download progress.</param>
+	/// <param name="token">A cancellation token to cancel the download operation.</param>
+	/// <returns>A task representing the asynchronous download operation.</returns>
+	/// <remarks>This method updates the UI with the download progress and handles cancellation.</remarks>
+	private async Task DownloadFileAsync(string fileUrl, string destinationPath, IProgress<DownloadProgressInfo> progress, CancellationToken token)
+	{
+		// Update the status label to indicate that the download is in progress
+		labelStatusValue.Text = "Downloading...";
+		// Send an HTTP GET request to the specified file URL, requesting only the headers initially to get content length and last modified date
+		using HttpResponseMessage response = await httpClient.GetAsync(
+			requestUri: new Uri(uriString: fileUrl, uriKind: UriKind.Absolute),
+			completionOption: HttpCompletionOption.ResponseHeadersRead,
+			cancellationToken: token)
+			.ConfigureAwait(continueOnCapturedContext: true);
+		// Ensure that the HTTP response indicates success; if not, throw an exception
+		_ = response.EnsureSuccessStatusCode();
+		// Get the total bytes from the Content-Length header, if available
+		long? totalBytes = response.Content.Headers.ContentLength;
+		// Get the last modified date from the Last-Modified header, if available
+		DateTime? lastMod = response.Content.Headers.LastModified?.UtcDateTime;
+		// Update the UI labels with the last modified date, source URL, and total size
+		labelDateValue.Text = lastMod.HasValue ? lastMod.Value.ToString(CultureInfo.CurrentCulture) : "-";
+		labelSourceValue.Text = fileUrl;
+		labelSizeValue.Text = totalBytes.HasValue ? $"{totalBytes:N0} {I18nStrings.BytesText}" : "Unknown";
+		// Read the content stream from the HTTP response asynchronously
+		Stream contentStream = await response.Content.ReadAsStreamAsync(cancellationToken: token).ConfigureAwait(continueOnCapturedContext: false);
+		// Use 'await using' to ensure that the content stream is disposed of properly after use
+		await using (contentStream.ConfigureAwait(continueOnCapturedContext: false))
+		{
+			// Create a file stream to write the downloaded content to the specified destination path
+			FileStream fileStream = new(path: destinationPath, mode: FileMode.Create, access: FileAccess.Write, share: FileShare.None, bufferSize: 8192, useAsync: true);
+			// Use 'await using' to ensure that the file stream is disposed of properly after use
+			await using (fileStream.ConfigureAwait(continueOnCapturedContext: false))
+			{
+				// Create a buffer to hold chunks of data read from the content stream
+				byte[] buffer = new byte[8192];
+				long totalRead = 0;
+				int bytesRead;
+				// Create two stopwatches: one for updating the progress and one for measuring download speed
+				Stopwatch updateStopwatch = Stopwatch.StartNew();
+				Stopwatch downloadStopwatch = Stopwatch.StartNew();
+				// Read from the content stream in a loop until there are no more bytes to read
+				while ((bytesRead = await contentStream.ReadAsync(buffer: buffer, cancellationToken: token)
+					.ConfigureAwait(continueOnCapturedContext: false)) > 0)
+				{
+					// Write the read bytes to the file stream asynchronously
+					await fileStream.WriteAsync(
+						buffer: buffer.AsMemory(start: 0, length: bytesRead),
+						cancellationToken: token).ConfigureAwait(continueOnCapturedContext: false);
+
+					// Update the total number of bytes read so far
+					totalRead += bytesRead;
+					// Report progress if the total bytes is known and either 100 milliseconds have passed or the download is complete
+					if (totalBytes.HasValue && (updateStopwatch.ElapsedMilliseconds > 100 || totalRead == totalBytes))
+					{
+						// Calculate the elapsed time in seconds and the download speed in bytes per second
+						double elapsedSeconds = downloadStopwatch.Elapsed.TotalSeconds;
+						double bytesPerSecond = elapsedSeconds > 0 ? totalRead / elapsedSeconds : 0;
+						// Estimate the remaining time based on the download speed and total bytes
+						TimeSpan estimated = bytesPerSecond > 0
+							? TimeSpan.FromSeconds(value: (totalBytes.Value - totalRead) / bytesPerSecond)
+							: TimeSpan.Zero;
+						// Report the current download progress to the UI
+						progress.Report(value: new DownloadProgressInfo(
+							CurrentBytes: totalRead,
+							TotalBytes: totalBytes.Value,
+							BytesPerSecond: bytesPerSecond,
+							Elapsed: downloadStopwatch.Elapsed,
+							Estimated: estimated));
+						// Restart the update stopwatch to measure the next interval for progress reporting
+						updateStopwatch.Restart();
+					}
+				}
+				// Flush the file stream to ensure all data is written to disk
+				await fileStream.FlushAsync(cancellationToken: token).ConfigureAwait(continueOnCapturedContext: false);
+			}
+		}
+	}
+
+	#endregion
+
+	#region Click event handlers
+
+	/// <summary>Click handler for the Download button. Starts the download process.</summary>
+	/// <param name="sender">The event source (the Download button).</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method is called when the Download button is clicked.</remarks>
+	private async void ButtonDownload_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: "Download button clicked. Starting download workflow.");
+		await StartDownloadAsync().ConfigureAwait(continueOnCapturedContext: false);
+	}
+
+	/// <summary>Click handler for the Cancel button. Cancels the active download operation if one is running.</summary>
+	/// <param name="sender">The event source (the Cancel button).</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method is called when the Cancel button is clicked.</remarks>
+	private void ButtonCancel_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: "Cancel button clicked. Canceling download workflow.");
+		cancellationTokenSource?.Cancel();
+	}
+
+	#endregion
+}

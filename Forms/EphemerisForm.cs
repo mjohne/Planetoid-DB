@@ -637,7 +637,7 @@ internal partial class EphemerisForm : BaseKryptonForm
 	/// </summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>This method checks for network availability before proceeding with the download. If the network is available, it opens a <see cref="DatabaseDownloaderForm"/> to download the JPL DE 440 data.</remarks>
+	/// <remarks>This method checks for network availability before proceeding with the download. If the network is available, it opens a <see cref="DownloaderForm"/> to download the JPL DE 440 data.</remarks>
 	private void ToolStripMenuItemDownloadDe440_Click(object sender, EventArgs e)
 	{
 		// Log the menu item click event for debugging purposes
@@ -651,7 +651,7 @@ internal partial class EphemerisForm : BaseKryptonForm
 			return;
 		}
 		// Create and display the database downloader form with the specified download URL
-		using DatabaseDownloaderForm downloaderForm = new(url: Settings.Default.systemJplDe440Url);
+		using DownloaderForm downloaderForm = new(url: Settings.Default.systemJplDe440Url);
 		// Set the TopMost property of the downloader form to match the main form's TopMost property
 		downloaderForm.TopMost = TopMost;
 		// Show the downloader form as a modal dialog and check the result
@@ -669,7 +669,7 @@ internal partial class EphemerisForm : BaseKryptonForm
 	/// </summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>This method checks for network availability before proceeding with the download. If the network is available, it opens a <see cref="DatabaseDownloaderForm"/> to download the JPL DE 441 data.</remarks>
+	/// <remarks>This method checks for network availability before proceeding with the download. If the network is available, it opens a <see cref="DownloaderForm"/> to download the JPL DE 441 data.</remarks>
 	private void ToolStripMenuItemDownloadDe441_Click(object sender, EventArgs e)
 	{
 		// Log the menu item click event for debugging purposes
@@ -683,7 +683,7 @@ internal partial class EphemerisForm : BaseKryptonForm
 			return;
 		}
 		// Create and display the database downloader form with the specified download URL
-		using DatabaseDownloaderForm downloaderForm = new(url: Settings.Default.systemJplDe441Url);
+		using DownloaderForm downloaderForm = new(url: Settings.Default.systemJplDe441Url);
 		// Set the TopMost property of the downloader form to match the main form's TopMost property
 		downloaderForm.TopMost = TopMost;
 		// Show the downloader form as a modal dialog and check the result

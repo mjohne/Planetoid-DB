@@ -195,7 +195,7 @@ internal partial class PreloadForm : BaseKryptonForm
 		// Log the URL being used for downloading MPCORB.DAT
 		logger.Info(message: $"Using MPCORB.DAT download URL: '{mpcorbUrl}'");
 		// Open the download form for MPCORB.DAT
-		using DatabaseDownloaderForm formDownloaderForMpcorbDat = new(url: mpcorbUrl);
+		using DownloaderForm formDownloaderForMpcorbDat = new(url: mpcorbUrl);
 		// Show the form as a dialog
 		if (formDownloaderForMpcorbDat.ShowDialog(owner: this) == DialogResult.OK)
 		{

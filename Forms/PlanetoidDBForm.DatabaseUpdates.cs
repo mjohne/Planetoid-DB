@@ -263,6 +263,8 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method checks for network availability, displays the downloader form, and handles the post-download workflow, including disabling relevant UI elements and prompting for application restart.</remarks>
 	private void ShowDatabaseDownloader(string downloadUrl, ToolStripItem updateAvailableMenuItem, ToolStripItem? updateStatusItem = null)
 	{
+		// Log the action of showing the database downloader form for the specified URL
+		logger.Info(message: "Showing database downloader form for URL: {0}", args: [downloadUrl]);
 		// Check if the network is available before proceeding with the download
 		if (!NetworkInterface.GetIsNetworkAvailable())
 		{
@@ -274,13 +276,15 @@ public partial class PlanetoidDbForm
 			return;
 		}
 		// Create and display the database downloader form with the specified download URL
-		using DatabaseDownloaderForm downloaderForm = new(url: downloadUrl);
+		using DownloaderForm downloaderForm = new(url: downloadUrl);
 		// Set the TopMost property of the downloader form to match the main form's TopMost property
 		downloaderForm.TopMost = TopMost;
 		// Show the downloader form as a modal dialog and check the result
 		if (downloaderForm.ShowDialog(owner: this) != DialogResult.OK)
 		{
-			// If the user cancels or closes the downloader form without completing the download, exit the method early
+			// If the download was not successful or was canceled by the user, log a warning message
+			logger.Warn(message: "Database download was not successful or was canceled by the user.");
+			// Exit the method early since the download did not complete successfully
 			return;
 		}
 		// If the download was successful, disable the update menu item and the optional status indicator
