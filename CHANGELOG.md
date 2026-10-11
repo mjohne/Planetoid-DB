@@ -1,3 +1,52 @@
+## Planetoid-DB 0.9.32.95
+
+* Updated `README.md` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1214
+* Updated `CHANGELOG.md` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1215
+* Enabled exports from `PlanetaryInformationForm` by @mjohne with @Copilot in https://github.com/mjohne/Planetoid-DB/pull/1216
+* Restored the Log Viewer close button by @mjohne with @Copilot in https://github.com/mjohne/Planetoid-DB/pull/1217
+* Kept MPCORB parsing culture-invariant by @mjohne with @Copilot in https://github.com/mjohne/Planetoid-DB/pull/1218
+* Registered Ctrl+P shortcut for `PlanetaryInformationForm` by @mjohne with @Copilot in https://github.com/mjohne/Planetoid-DB/pull/1219
+* Corrected `XML` tag name in changelog by @mjohne with @Copilot in https://github.com/mjohne/Planetoid-DB/pull/1220
+* Parsed `ListView` numbers using the current culture by @mjohne with @Copilot in https://github.com/mjohne/Planetoid-DB/pull/1221
+* Preserved Orrery animation timer lifetime by @mjohne with @Copilot in https://github.com/mjohne/Planetoid-DB/pull/1222
+* Corrected orbital resonance debugger display by @mjohne with @Copilot in https://github.com/mjohne/Planetoid-DB/pull/1223
+* Updated `DebuggerDisplay` attribute syntax by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1224
+* Corrected Tisserand result debugger documentation by @mjohne with @Copilot in https://github.com/mjohne/Planetoid-DB/pull/1225
+* Removed invalid `ScatterPoint` debugger attribute by @mjohne with @Copilot in https://github.com/mjohne/Planetoid-DB/pull/1226
+* Corrected `DifferenceResult` debugger display by @mjohne with @Copilot in https://github.com/mjohne/Planetoid-DB/pull/1227
+* Updated `DebuggerDisplay` attribute syntax by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1228
+* Documented AEI diagram point records by @mjohne with @Copilot in https://github.com/mjohne/Planetoid-DB/pull/1229
+* Localized diagram accessibility and playback strings by @mjohne with @Copilot in https://github.com/mjohne/Planetoid-DB/pull/1230
+* Corrected culture type in changelog by @mjohne with @Copilot in https://github.com/mjohne/Planetoid-DB/pull/1231
+* Added ephemeris calculation for minor planets (RA/Dec, Alt/Az, visibility, CSV/chart) by @mjohne with @Claude in https://github.com/mjohne/Planetoid-DB/pull/1233
+* Shown astrometric J2000 RA/Dec next to apparent RA/Dec so ephemerides can be compared with the MPC by @mjohne with @Claude in https://github.com/mjohne/Planetoid-DB/pull/1235
+* Updated repository url by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1236
+* Refactored `Services` and `Services/Models` files by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1237
+* Fixed some typos by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1238
+* Added missing `README.md` files for Services, Tests, Properties and Resources by @mjohne with @Claude in https://github.com/mjohne/Planetoid-DB/pull/1240
+* Added unit tests for export helpers, exporters and calculators by @mjohne with @Claude in https://github.com/mjohne/Planetoid-DB/pull/1242
+* Refactored `Planetoid-DB.Tests` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1243
+* Added `WorldMapForm`: pan/zoom world map that returns clicked or searched coordinates by @mjohne with @Claude in https://github.com/mjohne/Planetoid-DB/pull/1245
+* Refactored `WorldMapForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1246
+* Bumped `xunit.v3` from 3.2.2 to 4.0.2 by @dependabot[bot] in https://github.com/mjohne/Planetoid-DB/pull/1251
+* Bumped `xunit.runner.visualstudio` from 3.1.4 to 4.0.1 by @dependabot[bot] in https://github.com/mjohne/Planetoid-DB/pull/1250
+* Bumped `Microsoft.Web.WebView2` from 1.0.3485.44 to 1.0.4258.31 by @dependabot[bot] in https://github.com/mjohne/Planetoid-DB/pull/1249
+* Bumped `Microsoft.NET.Test.Sdk` from 17.14.1 to 18.10.1 by @dependabot[bot] in https://github.com/mjohne/Planetoid-DB/pull/1248
+* Added MP3C data page entries by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1253
+* Refactored `EphemerisForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1254
+* Deleted `Services/EphemerisExportService.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1255
+* Reordered items in `TableLayoutContainer` of the downloader by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1256
+* Supplemented the used file size to the downloader by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1257
+* Renamed `DatabaseDownloaderForm` to `DownloaderForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1258
+* Reordered subitems in menu item `Tools` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1259
+* Refactored `WorldMapForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1260
+* Updated `GlobalSuppressions.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1261
+* Updated to version 0.9.32.95 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1262
+* Updated publish profiles by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1263
+
+**Full Changelog**: https://github.com/mjohne/Planetoid-DB/compare/0.9.31.94.1212.4874...0.9.32.95.1263.5085
+
+
 ## Planetoid-DB 0.9.31.94
 
 * Updated `README.md` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1191
@@ -6,7 +55,6 @@
 * Added new application icon by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1196
 * Created `ATTRIBUTIONS.md` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1197
 * Deleted `THIRD_PARTY_NOTICES.md` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1198
-* Added `WorldMapForm` (Leaflet/OpenStreetMap in WebView2) to pick geographic coordinates by @claude in https://github.com/mjohne/Planetoid-DB/pull/1245
 * Refactored `OrreryForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1200
 * Added `TaskbarProgressState` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1201
 * Added `DerivedElements.OrbitalResonance` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1202
@@ -14,8 +62,6 @@
 * Added `ScatterplotsForm.ScatterPoint` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1204
 * Added `RecordsForm.RecordProgressUpdate` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1205
 * Added `OrbitElementsGroupingForm.PlanetoidData` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1206
-* Added ephemeris calculation (`EphemerisForm`, `EphemerisService`, JPL DE440/DE441 support, visibility, CSV export) and unit tests (fixes #265) by @Claude
-* Fixed apparent ephemeris discrepancy against the MPC: added astrometric J2000 RA/Dec (as published by the MPC) next to the apparent RA/Dec of date in the list and CSV export, plus debug logging (fixes #1234) by @Claude
 * Added `MoidsOfAllMinorPlanetsForm.MoidRowResult` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1207
 * Added `DatabaseDifferencesForm.DifferenceResult` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1208
 * Added `AEIDiagram3DForm.AeiPoint` and `AEIDiagram3DForm.RenderPoint` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1209
