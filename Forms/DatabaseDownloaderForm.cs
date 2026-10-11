@@ -249,6 +249,7 @@ internal partial class DatabaseDownloaderForm : BaseKryptonForm
 		labelTimeValue.Text = info.Estimated > TimeSpan.Zero
 			? $"{info.Elapsed:hh\\:mm\\:ss} / {info.Estimated:hh\\:mm\\:ss}"
 			: $"{info.Elapsed:hh\\:mm\\:ss}";
+		labelSizeValue.Text = $"{info.CurrentBytes:N0} / {info.TotalBytes:N0} {I18nStrings.BytesText}";
 	}
 
 	/// <summary>Starts the download workflow: validates network and input, disables/enables UI controls, downloads the file, extracts the GZIP archive and notifies the user.</summary>
