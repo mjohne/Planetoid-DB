@@ -25,6 +25,7 @@ using Planetoid_DB.Services;
 using System.Diagnostics;
 using System.Globalization;
 using System.Net.NetworkInformation;
+using System.Text;
 
 namespace Planetoid_DB;
 
@@ -36,6 +37,10 @@ internal partial class EphemerisForm : BaseKryptonForm
 	/// <summary>NLog logger instance for the class.</summary>
 	/// <remarks>This logger is used to log messages for the form.</remarks>
 	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+
+	/// <summary>A <see cref="CompositeFormat"/> instance for formatting the ephemeris window title.</summary>
+	/// <remarks>This field avoids repeatedly parsing the localized title format.</remarks>
+	private static readonly CompositeFormat ephemerisTitleFormat = CompositeFormat.Parse(format: I18nStrings.EphemerisTitleFormat);
 
 	/// <summary>The analytical planetary ephemeris used when no JPL file is loaded.</summary>
 	/// <remarks>This ephemeris is used as a fallback when no JPL DE440/DE441 file is available.</remarks>
@@ -117,7 +122,7 @@ internal partial class EphemerisForm : BaseKryptonForm
 		{
 			// Valid MPCORB record; store the parsed elements and update the form title
 			elements = parsed;
-			Text = string.Format(provider: CultureInfo.CurrentCulture, format: I18nStrings.EphemerisTitleFormat, arg0: parsed.Designation);
+			Text = string.Format(provider: CultureInfo.CurrentCulture, format: ephemerisTitleFormat, arg0: parsed.Designation);
 		}
 		// Invalid MPCORB record; clear the elements and log a warning
 		else
@@ -133,8 +138,12 @@ internal partial class EphemerisForm : BaseKryptonForm
 	/// <remarks>Cancels any running calculation and disposes the loaded ephemeris and export list.</remarks>
 	protected override void Dispose(bool disposing)
 	{
+		// Log the disposal of the form for debugging purposes
 		if (disposing)
 		{
+			// Log the disposal of managed resources
+			logger.Info(message: "Disposing managed resources.");
+			// Cancel any running calculation and dispose of the cancellation token source
 			cancellationTokenSource?.Cancel();
 			cancellationTokenSource?.Dispose();
 			cancellationTokenSource = null;
@@ -155,6 +164,7 @@ internal partial class EphemerisForm : BaseKryptonForm
 	/// <remarks>This method updates the enabled state of the buttons based on whether a calculation is in progress and whether valid orbital elements are available.</remarks>
 	private void SetRunningState(bool running)
 	{
+		// Log the change in running state for debugging purposes
 		logger.Info(message: $"Setting running state to {running}");
 		// Enable or disable buttons based on the running state and the presence of valid elements
 		buttonCalculate.Enabled = !running && elements is not null;
