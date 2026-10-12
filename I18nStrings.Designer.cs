@@ -1535,6 +1535,78 @@ namespace Planetoid_DB {
 			}
 		}
 
+		/// <summary>Gets the message shown when a misplaced bookmark was corrected. Format: {0} designation, {1} old position, {2} new position.</summary>
+		internal static string BookmarkRelocated
+		{
+			get
+			{
+				return ResourceManager.GetString("BookmarkRelocated", resourceCulture);
+			}
+		}
+
+		/// <summary>Gets the message shown when an invalid bookmark was deleted. Format: {0} designation.</summary>
+		internal static string BookmarkRemoved
+		{
+			get
+			{
+				return ResourceManager.GetString("BookmarkRemoved", resourceCulture);
+			}
+		}
+
+		/// <summary>Gets the localized label for the bookmark audit menu command.</summary>
+		internal static string BookmarkAuditMenuItem
+		{
+			get
+			{
+				return ResourceManager.GetString("BookmarkAuditMenuItem", resourceCulture);
+			}
+		}
+
+		/// <summary>Gets the message shown when there are no bookmarks to audit.</summary>
+		internal static string BookmarkAuditNoBookmarks
+		{
+			get
+			{
+				return ResourceManager.GetString("BookmarkAuditNoBookmarks", resourceCulture);
+			}
+		}
+
+		/// <summary>Gets the bookmark audit summary. Format: {0} relocated, {1} removed, {2} unverifiable.</summary>
+		internal static string BookmarkAuditSummary
+		{
+			get
+			{
+				return ResourceManager.GetString("BookmarkAuditSummary", resourceCulture);
+			}
+		}
+
+		/// <summary>Gets the message shown when bookmarks cannot be checked because a database is unavailable. Format: {0} database, {1} bookmark count.</summary>
+		internal static string BookmarkAuditDatabaseUnavailable
+		{
+			get
+			{
+				return ResourceManager.GetString("BookmarkAuditDatabaseUnavailable", resourceCulture);
+			}
+		}
+
+		/// <summary>Gets the message shown when a bookmark has no stored designation. Format: {0} position.</summary>
+		internal static string BookmarkAuditMissingDesignation
+		{
+			get
+			{
+				return ResourceManager.GetString("BookmarkAuditMissingDesignation", resourceCulture);
+			}
+		}
+
+		/// <summary>Gets the message shown when a duplicate bookmark is removed during relocation. Format: {0} designation.</summary>
+		internal static string BookmarkAuditDuplicateRemoved
+		{
+			get
+			{
+				return ResourceManager.GetString("BookmarkAuditDuplicateRemoved", resourceCulture);
+			}
+		}
+
 		/// <summary>Gets the localized accessibility description for the 3D orbital diagram.</summary>
 		internal static string AeiDiagram3DCanvasAccessibleDescription
 		{
