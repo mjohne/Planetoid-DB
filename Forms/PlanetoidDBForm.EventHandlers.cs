@@ -17,10 +17,12 @@ using Krypton.Toolkit;
 
 using NLog;
 
+using Planetoid_DB.Helpers;
 using Planetoid_DB.Properties;
 
 using System.ComponentModel;
 using System.Globalization;
+using System.Text;
 
 namespace Planetoid_DB;
 
@@ -28,6 +30,11 @@ namespace Planetoid_DB;
 /// <remarks>This file contains all event handlers including form lifecycle events, Click handlers, BackgroundWorker events, Timer events, and UI interaction handlers.</remarks>
 public partial class PlanetoidDbForm
 {
+	/// <summary>A <see cref="CompositeFormat"/> instance for formatting the bookmark audit summary.</summary>
+	/// <remarks>This field is used to format messages for the bookmark audit summary.</remarks>
+	private static readonly CompositeFormat bookmarkAuditSummary = CompositeFormat.Parse(format: I18nStrings.BookmarkAuditSummary);
+
+
 	#region form event handlers
 
 	/// <summary>Handles the Load event of the PlanetoidDBForm.</summary>
@@ -475,6 +482,9 @@ public partial class PlanetoidDbForm
 	///	<remarks>This method is used to navigate to a specific index in the data.</remarks>
 	private void GoToIndex_Click(object? sender, EventArgs? e)
 	{
+		// Log the navigation action with the specified index
+		logger.Info(message: $"Navigating to index: {toolStripTextBoxGotoIndex.Text}");
+		// Initialize the position variable to store the parsed index
 		int pos = 0;
 		// Try to parse the index from the ToolStripTextBoxGotoIndex
 		try
@@ -501,6 +511,8 @@ public partial class PlanetoidDbForm
 		}
 		else
 		{
+			// Log the navigation action with the specified index
+			logger.Info(message: $"Navigating to index: {pos}");
 			// Record the current position in the navigation history before navigating
 			PushNavigationHistory(previousPosition: currentPosition);
 			// Navigate to the specified index
@@ -1980,6 +1992,95 @@ public partial class PlanetoidDbForm
 		// Update the user setting based on the checked state of the menu item
 		Settings.Default.userCheckingDatabaseUpdatesOnStartup = toolStripMenuItemCheckingDatabaseUpdatesOnStartup.Checked;
 		Settings.Default.Save();
+	}
+
+	/// <summary>Checks and corrects saved bookmarks in all supported planetoid databases.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">Event data.</param>
+	/// <remarks>This method audits all saved bookmarks against the current state of the loaded databases. It attempts to relocate bookmarks that have moved, removes bookmarks that no longer exist, and reports any bookmarks that could not be verified due to missing databases. A summary report is displayed to the user after the audit.</remarks>
+	private void BookmarkAudit_Click(object? sender, EventArgs e)
+	{
+		// Log the start of the bookmark audit process
+		logger.Info(message: "Starting bookmark audit...");
+		if (bookmarksMpcorbJson.Count > 0 && mpcorbJsonDatabase.Count == 0)
+		{
+			// If there are bookmarks for MPCORB.JSON but the database is not loaded, log the situation and load the database
+			logger.Info(message: "MPCORB.JSON bookmarks found but database not loaded. Loading MPCORB.JSON database...");
+			// Load the MPCORB.JSON database into memory
+			LoadMpcorbJsonDatabase();
+		}
+		if (bookmarksAstorbDat.Count > 0 && astorbDatabase.Count == 0)
+		{
+			// If there are bookmarks for ASTORB.DAT but the database is not loaded, log the situation and load the database
+			logger.Info(message: "ASTORB.DAT bookmarks found but database not loaded. Loading ASTORB.DAT database...");
+			// Load the ASTORB.DAT database into memory
+			LoadAstorbDatabase();
+		}
+		if (bookmarksAllnumCat.Count > 0 && allnumCatDatabase.Count == 0)
+		{
+			// If there are bookmarks for ALLNUM.CAT but the database is not loaded, log the situation and load the database
+			logger.Info(message: "ALLNUM.CAT bookmarks found but database not loaded. Loading ALLNUM.CAT database...");
+			// Load the ALLNUM.CAT database into memory
+			LoadAllnumCatDatabase();
+		}
+		if (bookmarksSingoppCat.Count > 0 && singoppCatDatabase.Count == 0)
+		{
+			// If there are bookmarks for SINGOPP.CAT but the database is not loaded, log the situation and load the database
+			logger.Info(message: "SINGOPP.CAT bookmarks found but database not loaded. Loading SINGOPP.CAT database...");
+			// Load the SINGOPP.CAT database into memory
+			LoadSingoppCatDatabase();
+		}
+		if (bookmarksUfitobsCat.Count > 0 && ufitobsCatDatabase.Count == 0)
+		{
+			// If there are bookmarks for UFITOBS.CAT but the database is not loaded, log the situation and load the database
+			logger.Info(message: "UFITOBS.CAT bookmarks found but database not loaded. Loading UFITOBS.CAT database...");
+			// Load the UFITOBS.CAT database into memory
+			LoadUfitobsCatDatabase();
+		}
+		// Calculate the total number of bookmarks across all databases
+		int totalBookmarks = bookmarksMpcorbDat.Count + bookmarksMpcorbJson.Count + bookmarksAstorbDat.Count
+			+ bookmarksAllnumCat.Count + bookmarksSingoppCat.Count + bookmarksUfitobsCat.Count;
+		// If there are no bookmarks to audit, inform the user and exit early
+		if (totalBookmarks == 0)
+		{
+			// Log that no bookmarks were found for auditing
+			logger.Info(message: "No bookmarks found for audit.");
+			// Show an informational message box to the user indicating that there are no bookmarks to audit
+			_ = KryptonMessageBox.Show(owner: this, text: I18nStrings.BookmarkAuditNoBookmarks, caption: I18nStrings.BookmarkAuditMenuItem, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+			return;
+		}
+		// Log the total number of bookmarks that will be audited across all databases
+		logger.Info(message: $"Auditing {totalBookmarks} bookmarks across all databases...");
+		// Initialize the audit report and counters for relocated, removed, and unverifiable bookmarks
+		List<string> report = [];
+		int relocated = 0;
+		int removed = 0;
+		int unableToVerify = 0;
+		// Audit bookmarks for each database and collect the results
+		AuditBookmarkEntries(bookmarks: bookmarksMpcorbDat, databaseLabel: "MPCORB.DAT", databaseCount: planetoidsDatabase.Count, validate: ValidateMpcorbDatBookmark, report: report, relocated: ref relocated, removed: ref removed, unableToVerify: ref unableToVerify);
+		AuditBookmarkEntries(bookmarks: bookmarksMpcorbJson, databaseLabel: "MPCORB.JSON", databaseCount: mpcorbJsonDatabase.Count, validate: ValidateMpcorbJsonBookmark, report: report, relocated: ref relocated, removed: ref removed, unableToVerify: ref unableToVerify);
+		AuditBookmarkEntries(bookmarks: bookmarksAstorbDat, databaseLabel: "ASTORB.DAT", databaseCount: astorbDatabase.Count, validate: ValidateAstorbDatBookmark, report: report, relocated: ref relocated, removed: ref removed, unableToVerify: ref unableToVerify);
+		AuditBookmarkEntries(bookmarks: bookmarksAllnumCat, databaseLabel: "ALLNUM.CAT", databaseCount: allnumCatDatabase.Count, validate: ValidateAllnumCatBookmark, report: report, relocated: ref relocated, removed: ref removed, unableToVerify: ref unableToVerify);
+		AuditBookmarkEntries(bookmarks: bookmarksSingoppCat, databaseLabel: "SINGOPP.CAT", databaseCount: singoppCatDatabase.Count, validate: ValidateSingoppCatBookmark, report: report, relocated: ref relocated, removed: ref removed, unableToVerify: ref unableToVerify);
+		AuditBookmarkEntries(bookmarks: bookmarksUfitobsCat, databaseLabel: "UFITOBS.CAT", databaseCount: ufitobsCatDatabase.Count, validate: ValidateUfitobsCatBookmark, report: report, relocated: ref relocated, removed: ref removed, unableToVerify: ref unableToVerify);
+		// Log the results of the audit
+		logger.Info(message: $"Bookmark audit completed. Relocated: {relocated}, Removed: {removed}, Unable to verify: {unableToVerify}.");
+		// Persist any changes to bookmarks back to disk
+		BookmarkStore.Save(databaseFilename: filenameMpcorbDat, entries: bookmarksMpcorbDat);
+		BookmarkStore.Save(databaseFilename: filenameMpcorbJson, entries: bookmarksMpcorbJson);
+		BookmarkStore.Save(databaseFilename: filenameAstorbDat, entries: bookmarksAstorbDat);
+		BookmarkStore.Save(databaseFilename: filenameAllnumCat, entries: bookmarksAllnumCat);
+		BookmarkStore.Save(databaseFilename: filenameSingoppCat, entries: bookmarksSingoppCat);
+		BookmarkStore.Save(databaseFilename: filenameUfitobsCat, entries: bookmarksUfitobsCat);
+		// Update the bookmark button state to reflect any changes made during the audit
+		UpdateBookmarkButtonState();
+		// Update the bookmark menu toggle state
+		UpdateBookmarkMenuToggleState();
+		// Prepare the summary message for the user, including counts of relocated, removed, and unverifiable bookmarks
+		string summary = string.Format(provider: CultureInfo.CurrentCulture, format: bookmarkAuditSummary, arg0: relocated, arg1: removed, arg2: unableToVerify);
+		string message = report.Count == 0 ? summary : $"{summary}{Environment.NewLine}{Environment.NewLine}{string.Join(separator: Environment.NewLine, values: report)}";
+		// Show the summary message to the user, using a warning icon if any bookmarks were removed, otherwise an information icon
+		_ = KryptonMessageBox.Show(owner: this, text: message, caption: I18nStrings.BookmarkAuditMenuItem, buttons: KryptonMessageBoxButtons.OK, icon: removed > 0 ? KryptonMessageBoxIcon.Warning : KryptonMessageBoxIcon.Information);
 	}
 
 	#endregion

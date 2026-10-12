@@ -217,7 +217,6 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	{
 		// Initialize the form components
 		InitializeComponent();
-		ConfigureBookmarkAuditMenu();
 		// Set the version text to the current assembly version
 		TextExtra = AssemblyInfo.AssemblyVersion;
 		// Apply comprehensive flicker reduction for the TableLayoutPanel
@@ -233,7 +232,6 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	{
 		// Initialize the form components
 		InitializeComponent();
-		ConfigureBookmarkAuditMenu();
 		TextExtra = AssemblyInfo.AssemblyVersion;
 		MpcOrbDatFilePath = mpcorbDatFilePath;
 		// Apply comprehensive flicker reduction for the TableLayoutPanel
