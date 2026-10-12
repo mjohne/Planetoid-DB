@@ -1425,6 +1425,21 @@ namespace Planetoid_DB {
 			}
 		}
 
+		/// <summary>Looks up a localized string similar to Downloads the latest observatory codes.</summary>
+		internal static string ObservatoryCodesDownloadLatestAccessibleDescription {
+			get { return ResourceManager.GetString("ObservatoryCodesDownloadLatestAccessibleDescription", resourceCulture); }
+		}
+
+		/// <summary>Looks up a localized string similar to Download the latest observatory codes.</summary>
+		internal static string ObservatoryCodesDownloadLatestAccessibleName {
+			get { return ResourceManager.GetString("ObservatoryCodesDownloadLatestAccessibleName", resourceCulture); }
+		}
+
+		/// <summary>Looks up a localized string similar to Download the latest observatory codes.</summary>
+		internal static string ObservatoryCodesDownloadLatestText {
+			get { return ResourceManager.GetString("ObservatoryCodesDownloadLatestText", resourceCulture); }
+		}
+
 		/// <summary>Looks up a localized string similar to World map: drag to pan, scroll to zoom, click to set a marker.</summary>
 		internal static string WorldMapAccessibleDescription {
 			get { return ResourceManager.GetString("WorldMapAccessibleDescription", resourceCulture); }

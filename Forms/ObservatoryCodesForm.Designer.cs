@@ -890,13 +890,13 @@ partial class ObservatoryCodesForm
 		// 
 		// toolStripButtonDownloadLatestObsCodes
 		// 
-		toolStripButtonDownloadLatestObsCodes.AccessibleDescription = "Downloads the latest observatory codes";
-		toolStripButtonDownloadLatestObsCodes.AccessibleName = "Download the latest observatory codes";
+		toolStripButtonDownloadLatestObsCodes.AccessibleDescription = I18nStrings.ObservatoryCodesDownloadLatestAccessibleDescription;
+		toolStripButtonDownloadLatestObsCodes.AccessibleName = I18nStrings.ObservatoryCodesDownloadLatestAccessibleName;
 		toolStripButtonDownloadLatestObsCodes.Image = FatcowIcons16px.fatcow_table_go_16px;
 		toolStripButtonDownloadLatestObsCodes.ImageTransparentColor = Color.Magenta;
 		toolStripButtonDownloadLatestObsCodes.Name = "toolStripButtonDownloadLatestObsCodes";
 		toolStripButtonDownloadLatestObsCodes.Size = new Size(231, 22);
-		toolStripButtonDownloadLatestObsCodes.Text = "Download the latest observatory codes";
+		toolStripButtonDownloadLatestObsCodes.Text = I18nStrings.ObservatoryCodesDownloadLatestText;
 		toolStripButtonDownloadLatestObsCodes.Click += ToolStripButtonDownloadLatestObsCodes_Click;
 		toolStripButtonDownloadLatestObsCodes.MouseEnter += Control_Enter;
 		toolStripButtonDownloadLatestObsCodes.MouseLeave += Control_Leave;
