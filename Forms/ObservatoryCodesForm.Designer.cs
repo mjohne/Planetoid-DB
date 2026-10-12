@@ -103,7 +103,7 @@ partial class ObservatoryCodesForm
 		toolStripContainer = new ToolStripContainer();
 		kryptonToolStripMain = new KryptonToolStrip();
 		toolStripButtonInfoAboutObsCodes = new ToolStripButton();
-		toolStripButtonDownloadLatestObsCods = new ToolStripButton();
+		toolStripButtonDownloadLatestObsCodes = new ToolStripButton();
 		((ISupportInitialize)kryptonPanelMain).BeginInit();
 		kryptonPanelMain.SuspendLayout();
 		contextMenuSaveToFile.SuspendLayout();
@@ -865,7 +865,7 @@ partial class ObservatoryCodesForm
 		kryptonToolStripMain.AllowItemReorder = true;
 		kryptonToolStripMain.Dock = DockStyle.None;
 		kryptonToolStripMain.Font = new Font("Segoe UI", 9F);
-		kryptonToolStripMain.Items.AddRange(new ToolStripItem[] { toolStripDropDownButtonSaveListInToolbar, toolStripButtonInfoAboutObsCodes, toolStripButtonDownloadLatestObsCods });
+		kryptonToolStripMain.Items.AddRange(new ToolStripItem[] { toolStripDropDownButtonSaveListInToolbar, toolStripButtonInfoAboutObsCodes, toolStripButtonDownloadLatestObsCodes });
 		kryptonToolStripMain.Location = new Point(0, 0);
 		kryptonToolStripMain.Name = "kryptonToolStripMain";
 		kryptonToolStripMain.Size = new Size(523, 25);
@@ -888,18 +888,18 @@ partial class ObservatoryCodesForm
 		toolStripButtonInfoAboutObsCodes.MouseEnter += Control_Enter;
 		toolStripButtonInfoAboutObsCodes.MouseLeave += Control_Leave;
 		// 
-		// toolStripButtonDownloadLatestObsCods
+		// toolStripButtonDownloadLatestObsCodes
 		// 
-		toolStripButtonDownloadLatestObsCods.AccessibleDescription = "Downloads the latest observatory codes";
-		toolStripButtonDownloadLatestObsCods.AccessibleName = "Download the latest observatory codes";
-		toolStripButtonDownloadLatestObsCods.Image = FatcowIcons16px.fatcow_table_go_16px;
-		toolStripButtonDownloadLatestObsCods.ImageTransparentColor = Color.Magenta;
-		toolStripButtonDownloadLatestObsCods.Name = "toolStripButtonDownloadLatestObsCods";
-		toolStripButtonDownloadLatestObsCods.Size = new Size(231, 22);
-		toolStripButtonDownloadLatestObsCods.Text = "Download the latest observatory codes";
-		toolStripButtonDownloadLatestObsCods.Click += ToolStripButtonDownloadLatestObsCods_Click;
-		toolStripButtonDownloadLatestObsCods.MouseEnter += Control_Enter;
-		toolStripButtonDownloadLatestObsCods.MouseLeave += Control_Leave;
+		toolStripButtonDownloadLatestObsCodes.AccessibleDescription = "Downloads the latest observatory codes";
+		toolStripButtonDownloadLatestObsCodes.AccessibleName = "Download the latest observatory codes";
+		toolStripButtonDownloadLatestObsCodes.Image = FatcowIcons16px.fatcow_table_go_16px;
+		toolStripButtonDownloadLatestObsCodes.ImageTransparentColor = Color.Magenta;
+		toolStripButtonDownloadLatestObsCodes.Name = "toolStripButtonDownloadLatestObsCodes";
+		toolStripButtonDownloadLatestObsCodes.Size = new Size(231, 22);
+		toolStripButtonDownloadLatestObsCodes.Text = "Download the latest observatory codes";
+		toolStripButtonDownloadLatestObsCodes.Click += ToolStripButtonDownloadLatestObsCodes_Click;
+		toolStripButtonDownloadLatestObsCodes.MouseEnter += Control_Enter;
+		toolStripButtonDownloadLatestObsCodes.MouseLeave += Control_Leave;
 		// 
 		// ObservatoryCodesForm
 		// 
@@ -993,5 +993,5 @@ partial class ObservatoryCodesForm
 	private ToolStripDropDownButton toolStripDropDownButtonSaveListInToolbar;
 	private ToolStripButton toolStripButtonInfoAboutObsCodes;
 	private ToolStripMenuItem toolStripMenuItemSaveAsTypst;
-	private ToolStripButton toolStripButtonDownloadLatestObsCods;
+	private ToolStripButton toolStripButtonDownloadLatestObsCodes;
 }

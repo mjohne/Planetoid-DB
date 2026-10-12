@@ -244,7 +244,10 @@ internal partial class ObservatoryCodesForm : BaseKryptonForm
 			icon: KryptonMessageBoxIcon.Information);
 	}
 
-	private void ToolStripButtonDownloadLatestObsCods_Click(object sender, EventArgs e)
+	/// <summary>Handles the Click event of the ToolStripButton that downloads the latest observatory codes.</summary>
+	/// <param name="sender">The source of the event, typically the ToolStripButton that was clicked.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	private void ToolStripButtonDownloadLatestObsCodes_Click(object sender, EventArgs e)
 	{
 		// Log the menu item click event for debugging purposes
 		logger.Info(message: "Download Observatory Codes menu item clicked; checking network availability for observatory codes download.");
@@ -257,7 +260,10 @@ internal partial class ObservatoryCodesForm : BaseKryptonForm
 			return;
 		}
 		// Create and display the database downloader form with the specified download URL
-		using DownloaderForm downloaderForm = new(url: Settings.Default.systemObsCodesUrl);
+		string downloadUrl = string.IsNullOrWhiteSpace(Settings.Default.userObsCodesUrl)
+			? Settings.Default.systemObsCodesUrl
+			: Settings.Default.userObsCodesUrl;
+		using DownloaderForm downloaderForm = new(url: downloadUrl);
 		// Set the TopMost property of the downloader form to match the main form's TopMost property
 		downloaderForm.TopMost = TopMost;
 		// Show the downloader form as a modal dialog and check the result
