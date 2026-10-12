@@ -477,4 +477,13 @@
   <data name="EphemerisFileDialogTitle" xml:space="preserve">
     <value>Load JPL DE440/DE441 binary ephemeris</value>
   </data>
+  <data name="ObservatoryCodesDownloadLatestAccessibleDescription" xml:space="preserve">
+    <value>Downloads the latest observatory codes</value>
+  </data>
+  <data name="ObservatoryCodesDownloadLatestAccessibleName" xml:space="preserve">
+    <value>Download the latest observatory codes</value>
+  </data>
+  <data name="ObservatoryCodesDownloadLatestText" xml:space="preserve">
+    <value>Download the latest observatory codes</value>
+  </data>
 </root>

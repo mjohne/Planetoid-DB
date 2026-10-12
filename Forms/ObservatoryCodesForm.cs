@@ -19,8 +19,10 @@ using NLog;
 
 using Planetoid_DB.Forms;
 using Planetoid_DB.Helpers;
+using Planetoid_DB.Properties;
 
 using System.Diagnostics;
+using System.Net.NetworkInformation;
 
 namespace Planetoid_DB;
 
@@ -85,6 +87,8 @@ internal partial class ObservatoryCodesForm : BaseKryptonForm
 	/// <remarks>This method reads the <c>ObservatoryCodes</c> resource line by line, splits each entry by the pipe character, and populates the ListView with the code and location. It uses BeginUpdate/EndUpdate for performance when adding many items.</remarks>
 	private void LoadObservatoryCodesList()
 	{
+		// Log the start of the loading process
+		logger.Info(message: "Loading observatory codes into ListView.");
 		// Clear the status bar
 		ClearStatusBar(label: labelInformation);
 		// Populate the ListView
@@ -107,7 +111,7 @@ internal partial class ObservatoryCodesForm : BaseKryptonForm
 			while ((line = reader.ReadLine()) != null)
 			{
 				// Skip empty lines
-				if (string.IsNullOrWhiteSpace(line))
+				if (string.IsNullOrWhiteSpace(value: line))
 				{
 					continue;
 				}
@@ -142,6 +146,8 @@ internal partial class ObservatoryCodesForm : BaseKryptonForm
 		// Ensure that the cursor is reset and the ListView is updated even if an error occurs
 		finally
 		{
+			// Log the completion of the loading process
+			logger.Info(message: "Finished loading observatory codes into ListView.");
 			// End the update of the ListView and reset the cursor
 			listView.EndUpdate();
 			Cursor.Current = Cursors.Default;
@@ -158,6 +164,7 @@ internal partial class ObservatoryCodesForm : BaseKryptonForm
 	/// <remarks>Clears the status bar and loads the observatory codes into the ListView.</remarks>
 	private void ObservatoryCodesForm_Load(object sender, EventArgs e)
 	{
+		// Log that the form has been loaded
 		logger.Info(message: "ObservatoryCodesForm loaded.");
 		// Clear the status bar and load the observatory codes into the ListView
 		LoadObservatoryCodesList();
@@ -173,6 +180,8 @@ internal partial class ObservatoryCodesForm : BaseKryptonForm
 	/// <remarks>This method determines the sort order and initiates the sorting process for the selected column.</remarks>
 	private void ListView_ColumnClick(object sender, ColumnClickEventArgs e)
 	{
+		// Log the column click event for sorting
+		logger.Info(message: $"Column {e.Column} clicked for sorting.");
 		// If there are no items in the ListView, do not attempt to sort
 		if (listView.Items.Count == 0)
 		{
@@ -193,19 +202,26 @@ internal partial class ObservatoryCodesForm : BaseKryptonForm
 			{
 				headerText = headerText[2..];
 			}
+			// Add an indicator to the sorted column header
 			if (i == sortColumn)
 			{
+				// Use an arrow to indicate the sort order in the column header
 				string indicator = sortOrder == SortOrder.Ascending ? "▲" : "▼";
+				// Update the column header text with the sort indicator
 				listView.Columns[index: i].Text = $"{indicator} {headerText}";
 			}
+			// Reset the header text for unsorted columns
 			else
 			{
+				// Remove any sort indicator from the header text of unsorted columns
 				listView.Columns[index: i].Text = headerText;
 			}
 		}
 		// Apply the sort
 		listView.ListViewItemSorter = new ListViewItemComparer(column: e.Column, order: sortOrder);
 		listView.Sort();
+		// Log the completion of the sorting operation
+		logger.Info(message: $"ListView sorted by column {e.Column} in {sortOrder} order.");
 	}
 
 	#endregion
@@ -218,6 +234,7 @@ internal partial class ObservatoryCodesForm : BaseKryptonForm
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	private void ToolStripButtonInfoAboutObsCodes_Click(object sender, EventArgs e)
 	{
+		// Log the action of displaying information about observatory codes
 		logger.Info(message: "Displaying information about observatory codes.");
 		// Show a message box with information about observatory codes and a link to the Minor Planet Center website
 		_ = KryptonMessageBox.Show(owner: this,
@@ -226,6 +243,39 @@ internal partial class ObservatoryCodesForm : BaseKryptonForm
 			buttons: KryptonMessageBoxButtons.OK,
 			icon: KryptonMessageBoxIcon.Information);
 	}
+
+	/// <summary>Handles the Click event of the ToolStripButton that downloads the latest observatory codes.</summary>
+	/// <param name="sender">The source of the event, typically the ToolStripButton that was clicked.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	private void ToolStripButtonDownloadLatestObsCodes_Click(object sender, EventArgs e)
+	{
+		// Log the menu item click event for debugging purposes
+		logger.Info(message: "Download Observatory Codes menu item clicked; checking network availability for observatory codes download.");
+		// Check if the network is available before proceeding with the download
+		if (!NetworkInterface.GetIsNetworkAvailable())
+		{
+			// Show an error message indicating that there is no internet connection
+			ShowErrorMessage(message: I18nStrings.NoInternetConnectionText);
+			// Exit the method early since the download cannot proceed without an internet connection
+			return;
+		}
+		// Create and display the database downloader form with the specified download URL
+		string downloadUrl = string.IsNullOrWhiteSpace(Settings.Default.userObsCodesUrl)
+			? Settings.Default.systemObsCodesUrl
+			: Settings.Default.userObsCodesUrl;
+		using DownloaderForm downloaderForm = new(url: downloadUrl);
+		// Set the TopMost property of the downloader form to match the main form's TopMost property
+		downloaderForm.TopMost = TopMost;
+		// Show the downloader form as a modal dialog and check the result
+		if (downloaderForm.ShowDialog(owner: this) != DialogResult.OK)
+		{
+			// Log that the user canceled the download and no action was taken
+			logger.Info(message: "User canceled the observatory codes download; no action taken.");
+			// Exit the method early since the user canceled the download
+			return;
+		}
+	}
+
 
 	#endregion
 }
