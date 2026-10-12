@@ -2996,32 +2996,43 @@ public partial class PlanetoidDbForm
 		PopulateBookmarkDropDown(parentItem: toolStripMenuItemBookmarkListUfitobsCat, bookmarks: bookmarksUfitobsCat, onClickHandler: BookmarkNavigateUfitobsCat_Click);
 	}
 
-	/// <summary>Checks that an MPCORB.DAT bookmark still points to the planetoid with the stored readable designation and corrects or deletes it otherwise.</summary>
+	/// <summary>Extracts the identifier used for bookmark validation from a fixed-width record line without logging.</summary>
+	/// <param name="line">The raw database line.</param>
+	/// <param name="start">The zero-based start column of the identifier.</param>
+	/// <param name="length">The length of the identifier field.</param>
+	/// <returns>The trimmed identifier, or an empty string if the line is too short.</returns>
+	private static string ExtractBookmarkIdentifier(string? line, int start, int length)
+	{
+		return string.IsNullOrEmpty(value: line) || line.Length < start + length ? string.Empty : line.AsSpan(start: start, length: length).Trim().ToString();
+	}
+
+	/// <summary>Checks that a bookmark still points to the planetoid with the stored designation and corrects or deletes it otherwise.</summary>
 	/// <param name="entry">The bookmark entry to validate; its <see cref="BookmarkEntry.Position"/> is updated when the planetoid has moved.</param>
+	/// <param name="bookmarks">The in-memory bookmark list that contains <paramref name="entry"/>.</param>
+	/// <param name="databaseFilename">The database file name used to persist the bookmark list.</param>
+	/// <param name="databaseLabel">The database name used in log messages.</param>
+	/// <param name="count">The number of records in the database.</param>
+	/// <param name="getDesignation">Returns the designation stored at a given zero-based position, or an empty string if unavailable.</param>
 	/// <returns><c>true</c> if the bookmark is valid (possibly after correction) and navigation may proceed; <c>false</c> if the bookmark was deleted.</returns>
 	/// <remarks>If the designation at the stored position differs, the whole database is searched for the designation. When found, the bookmark is relocated; otherwise it is removed. The user is informed in both cases.</remarks>
-	private bool ValidateMpcorbDatBookmark(BookmarkEntry entry)
+	private bool ValidateBookmark(BookmarkEntry entry, List<BookmarkEntry> bookmarks, string databaseFilename, string databaseLabel, int count, Func<int, string> getDesignation)
 	{
 		// Bookmarks without a stored designation cannot be verified
 		if (string.IsNullOrWhiteSpace(value: entry.Name))
 		{
 			return true;
 		}
+		string name = entry.Name.Trim();
 		// Position still holds the expected designation
-		if (string.Equals(a: GetMpcorbDatDesignationAt(position: entry.Position), b: entry.Name, comparisonType: StringComparison.Ordinal))
+		if (entry.Position >= 0 && entry.Position < count && string.Equals(a: getDesignation(entry.Position), b: name, comparisonType: StringComparison.Ordinal))
 		{
 			return true;
 		}
 		// Search the complete database for the stored designation
 		int newPosition = -1;
-		for (int i = 0; i < planetoidsDatabase.Count; i++)
+		for (int i = 0; i < count; i++)
 		{
-			string? line = planetoidsDatabase[i];
-			if (string.IsNullOrEmpty(line) || line.Length < 194)
-			{
-				continue;
-			}
-			if (line.AsSpan(start: 166, length: 28).Trim().SequenceEqual(other: entry.Name.AsSpan().Trim()))
+			if (string.Equals(a: getDesignation(i), b: name, comparisonType: StringComparison.Ordinal))
 			{
 				newPosition = i;
 				break;
@@ -3031,21 +3042,72 @@ public partial class PlanetoidDbForm
 		{
 			int oldPosition = entry.Position;
 			// Drop any other bookmark already stored at the new position to avoid duplicates
-			_ = bookmarksMpcorbDat.RemoveAll(match: b => !ReferenceEquals(objA: b, objB: entry) && b.Position == newPosition);
+			_ = bookmarks.RemoveAll(match: b => !ReferenceEquals(objA: b, objB: entry) && b.Position == newPosition);
 			entry.Position = newPosition;
-			BookmarkStore.Save(databaseFilename: filenameMpcorbDat, entries: bookmarksMpcorbDat);
-			logger.Info(message: $"MPCORB.DAT bookmark '{entry.Name}' relocated from position {oldPosition} to {newPosition}.");
-			_ = KryptonMessageBox.Show(owner: this, text: string.Format(provider: CultureInfo.CurrentCulture, format: I18nStrings.BookmarkRelocated, arg0: entry.Name, arg1: oldPosition, arg2: newPosition), caption: "Bookmark", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+			BookmarkStore.Save(databaseFilename: databaseFilename, entries: bookmarks);
+			logger.Info(message: $"{databaseLabel} bookmark '{name}' relocated from position {oldPosition} to {newPosition}.");
+			_ = KryptonMessageBox.Show(owner: this, text: string.Format(provider: CultureInfo.CurrentCulture, format: I18nStrings.BookmarkRelocated, arg0: name, arg1: oldPosition, arg2: newPosition), caption: "Bookmark", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 			return true;
 		}
 		// Designation no longer exists: delete the bookmark
-		_ = bookmarksMpcorbDat.Remove(item: entry);
-		BookmarkStore.Save(databaseFilename: filenameMpcorbDat, entries: bookmarksMpcorbDat);
+		_ = bookmarks.Remove(item: entry);
+		BookmarkStore.Save(databaseFilename: databaseFilename, entries: bookmarks);
 		UpdateBookmarkButtonState();
 		UpdateBookmarkMenuToggleState();
-		logger.Warn(message: $"MPCORB.DAT bookmark '{entry.Name}' not found in database and was deleted.");
-		_ = KryptonMessageBox.Show(owner: this, text: string.Format(provider: CultureInfo.CurrentCulture, format: I18nStrings.BookmarkRemoved, arg0: entry.Name), caption: "Bookmark", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Warning);
+		logger.Warn(message: $"{databaseLabel} bookmark '{name}' not found in database and was deleted.");
+		_ = KryptonMessageBox.Show(owner: this, text: string.Format(provider: CultureInfo.CurrentCulture, format: I18nStrings.BookmarkRemoved, arg0: name), caption: "Bookmark", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Warning);
 		return false;
+	}
+
+	/// <summary>Validates an MPCORB.DAT bookmark by its readable designation (columns 167-194).</summary>
+	/// <param name="entry">The bookmark entry to validate.</param>
+	/// <returns><c>true</c> if navigation may proceed; otherwise <c>false</c>.</returns>
+	private bool ValidateMpcorbDatBookmark(BookmarkEntry entry)
+	{
+		return ValidateBookmark(entry: entry, bookmarks: bookmarksMpcorbDat, databaseFilename: filenameMpcorbDat, databaseLabel: "MPCORB.DAT", count: planetoidsDatabase.Count, getDesignation: i => ExtractBookmarkIdentifier(line: planetoidsDatabase[i], start: 166, length: 28));
+	}
+
+	/// <summary>Validates an MPCORB.JSON bookmark by its <c>readable_des</c> property.</summary>
+	/// <param name="entry">The bookmark entry to validate.</param>
+	/// <returns><c>true</c> if navigation may proceed; otherwise <c>false</c>.</returns>
+	private bool ValidateMpcorbJsonBookmark(BookmarkEntry entry)
+	{
+		return ValidateBookmark(entry: entry, bookmarks: bookmarksMpcorbJson, databaseFilename: filenameMpcorbJson, databaseLabel: "MPCORB.JSON", count: mpcorbJsonDatabase.Count, getDesignation: i =>
+			mpcorbJsonDatabase[index: i].TryGetProperty(propertyName: "readable_des", value: out System.Text.Json.JsonElement prop) && prop.ValueKind != System.Text.Json.JsonValueKind.Null
+				? (prop.ToString() ?? string.Empty).Trim()
+				: string.Empty);
+	}
+
+	/// <summary>Validates an ASTORB.DAT bookmark by its number, name and provisional designation (columns 1-44).</summary>
+	/// <param name="entry">The bookmark entry to validate.</param>
+	/// <returns><c>true</c> if navigation may proceed; otherwise <c>false</c>.</returns>
+	private bool ValidateAstorbDatBookmark(BookmarkEntry entry)
+	{
+		return ValidateBookmark(entry: entry, bookmarks: bookmarksAstorbDat, databaseFilename: filenameAstorbDat, databaseLabel: "ASTORB.DAT", count: astorbDatabase.Count, getDesignation: i => ExtractBookmarkIdentifier(line: astorbDatabase[index: i]?.ToString(), start: 0, length: 44));
+	}
+
+	/// <summary>Validates an ALLNUM.CAT bookmark by its name (columns 1-14).</summary>
+	/// <param name="entry">The bookmark entry to validate.</param>
+	/// <returns><c>true</c> if navigation may proceed; otherwise <c>false</c>.</returns>
+	private bool ValidateAllnumCatBookmark(BookmarkEntry entry)
+	{
+		return ValidateBookmark(entry: entry, bookmarks: bookmarksAllnumCat, databaseFilename: filenameAllnumCat, databaseLabel: "ALLNUM.CAT", count: allnumCatDatabase.Count, getDesignation: i => ExtractBookmarkIdentifier(line: allnumCatDatabase[index: i]?.ToString(), start: 0, length: 14));
+	}
+
+	/// <summary>Validates a SINGOPP.CAT bookmark by its name (columns 1-14).</summary>
+	/// <param name="entry">The bookmark entry to validate.</param>
+	/// <returns><c>true</c> if navigation may proceed; otherwise <c>false</c>.</returns>
+	private bool ValidateSingoppCatBookmark(BookmarkEntry entry)
+	{
+		return ValidateBookmark(entry: entry, bookmarks: bookmarksSingoppCat, databaseFilename: filenameSingoppCat, databaseLabel: "SINGOPP.CAT", count: singoppCatDatabase.Count, getDesignation: i => ExtractBookmarkIdentifier(line: singoppCatDatabase[index: i]?.ToString(), start: 0, length: 14));
+	}
+
+	/// <summary>Validates a UFITOBS.CAT bookmark by its name (columns 1-14).</summary>
+	/// <param name="entry">The bookmark entry to validate.</param>
+	/// <returns><c>true</c> if navigation may proceed; otherwise <c>false</c>.</returns>
+	private bool ValidateUfitobsCatBookmark(BookmarkEntry entry)
+	{
+		return ValidateBookmark(entry: entry, bookmarks: bookmarksUfitobsCat, databaseFilename: filenameUfitobsCat, databaseLabel: "UFITOBS.CAT", count: ufitobsCatDatabase.Count, getDesignation: i => ExtractBookmarkIdentifier(line: ufitobsCatDatabase[index: i]?.ToString(), start: 0, length: 14));
 	}
 
 	/// <summary>Navigates to the MPCORB.DAT record stored in the clicked bookmark item.</summary>
@@ -3095,6 +3157,11 @@ public partial class PlanetoidDbForm
 		// Ensure the sender is a ToolStripMenuItem with a BookmarkEntry in its Tag
 		if (sender is ToolStripMenuItem { Tag: BookmarkEntry entry })
 		{
+			// Verify the bookmark still points to the right planetoid; correct or delete it otherwise
+			if (!ValidateMpcorbJsonBookmark(entry: entry))
+			{
+				return;
+			}
 			// Save the current position to the navigation history before navigating to the bookmarked position
 			PushNavigationHistory(previousPosition: currentPosition);
 			// Update the current MPCORB.JSON position to the bookmarked position and navigate to it
@@ -3129,6 +3196,11 @@ public partial class PlanetoidDbForm
 		// Ensure the sender is a ToolStripMenuItem with a BookmarkEntry in its Tag
 		if (sender is ToolStripMenuItem { Tag: BookmarkEntry entry })
 		{
+			// Verify the bookmark still points to the right planetoid; correct or delete it otherwise
+			if (!ValidateAstorbDatBookmark(entry: entry))
+			{
+				return;
+			}
 			// Save the current position to the navigation history before navigating to the bookmarked position
 			PushNavigationHistory(previousPosition: currentPosition);
 			// Update the current ASTORB.DAT position to the bookmarked position and navigate to it
@@ -3163,6 +3235,11 @@ public partial class PlanetoidDbForm
 		// Ensure the sender is a ToolStripMenuItem with a BookmarkEntry in its Tag
 		if (sender is ToolStripMenuItem { Tag: BookmarkEntry entry })
 		{
+			// Verify the bookmark still points to the right planetoid; correct or delete it otherwise
+			if (!ValidateAllnumCatBookmark(entry: entry))
+			{
+				return;
+			}
 			// Save the current position to the navigation history before navigating to the bookmarked position
 			PushNavigationHistory(previousPosition: currentPosition);
 			// Update the current ALLNUM.CAT position to the bookmarked position and navigate to it
@@ -3197,6 +3274,11 @@ public partial class PlanetoidDbForm
 		// Ensure the sender is a ToolStripMenuItem with a BookmarkEntry in its Tag
 		if (sender is ToolStripMenuItem { Tag: BookmarkEntry entry })
 		{
+			// Verify the bookmark still points to the right planetoid; correct or delete it otherwise
+			if (!ValidateSingoppCatBookmark(entry: entry))
+			{
+				return;
+			}
 			// Save the current position to the navigation history before navigating to the bookmarked position
 			PushNavigationHistory(previousPosition: currentPosition);
 			// Update the current SINGOPP.CAT position to the bookmarked position and navigate to it
@@ -3231,6 +3313,11 @@ public partial class PlanetoidDbForm
 		// Ensure the sender is a ToolStripMenuItem with a BookmarkEntry in its Tag
 		if (sender is ToolStripMenuItem { Tag: BookmarkEntry entry })
 		{
+			// Verify the bookmark still points to the right planetoid; correct or delete it otherwise
+			if (!ValidateUfitobsCatBookmark(entry: entry))
+			{
+				return;
+			}
 			// Save the current position to the navigation history before navigating to the bookmarked position
 			PushNavigationHistory(previousPosition: currentPosition);
 			// Update the current UFITOBS.CAT position to the bookmarked position and navigate to it
