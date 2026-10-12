@@ -23,6 +23,7 @@ using Planetoid_DB.Resources;
 using System.Diagnostics;
 using System.Globalization;
 using System.Net.NetworkInformation;
+using System.Text;
 using System.Text.RegularExpressions;
 
 using static Planetoid_DB.TerminologyForm;
@@ -47,6 +48,22 @@ public partial class PlanetoidDbForm
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
 	/// <remarks>This property is used to provide a custom display string for the debugger.</remarks>
 	private string DebuggerDisplay => ToString();
+
+	/// <summary>A <see cref="CompositeFormat"/> instance for formatting unavailable bookmark databases.</summary>
+	/// <remarks>This field is used to format bookmark audit messages for unavailable databases.</remarks>
+	private static readonly CompositeFormat bookmarkAuditDatabaseUnavailableFormat = CompositeFormat.Parse(format: I18nStrings.BookmarkAuditDatabaseUnavailable);
+
+	/// <summary>A <see cref="CompositeFormat"/> instance for formatting missing bookmark designations.</summary>
+	/// <remarks>This field is used to format bookmark audit messages for entries without a designation.</remarks>
+	private static readonly CompositeFormat bookmarkAuditMissingDesignationFormat = CompositeFormat.Parse(format: I18nStrings.BookmarkAuditMissingDesignation);
+
+	/// <summary>A <see cref="CompositeFormat"/> instance for formatting removed duplicate bookmarks.</summary>
+	/// <remarks>This field is used to format bookmark audit messages for removed duplicates.</remarks>
+	private static readonly CompositeFormat bookmarkAuditDuplicateRemovedFormat = CompositeFormat.Parse(format: I18nStrings.BookmarkAuditDuplicateRemoved);
+
+	/// <summary>A <see cref="CompositeFormat"/> instance for formatting removed bookmarks.</summary>
+	/// <remarks>This field is used to format messages for bookmarks that have been removed.</remarks>
+	private static readonly CompositeFormat bookmarkRemovedFormat = CompositeFormat.Parse(format: I18nStrings.BookmarkRemoved);
 
 	/// <summary>Tries to parse an integer from the input string.</summary>
 	/// <param name="input">The input string to parse.</param>
@@ -2728,74 +2745,6 @@ public partial class PlanetoidDbForm
 		logger.Info(message: "All bookmarks loaded from disk.");
 	}
 
-	/// <summary>Adds the bookmark audit command to the Bookmark menu.</summary>
-	private void ConfigureBookmarkAuditMenu()
-	{
-		ToolStripMenuItem auditItem = new(text: I18nStrings.BookmarkAuditMenuItem)
-		{
-			AccessibleDescription = I18nStrings.BookmarkAuditMenuItem,
-			AccessibleName = I18nStrings.BookmarkAuditMenuItem,
-			AccessibleRole = AccessibleRole.MenuItem,
-			AutoToolTip = true,
-			Name = "toolStripMenuItemBookmarkAudit"
-		};
-		auditItem.Click += BookmarkAudit_Click;
-		toolStripMenuItemBookmark.DropDownItems.Insert(index: 1, value: new ToolStripSeparator());
-		toolStripMenuItemBookmark.DropDownItems.Insert(index: 1, value: auditItem);
-	}
-
-	/// <summary>Checks and corrects saved bookmarks in all supported planetoid databases.</summary>
-	/// <param name="sender">The event source.</param>
-	/// <param name="e">Event data.</param>
-	private void BookmarkAudit_Click(object? sender, EventArgs e)
-	{
-		if (bookmarksMpcorbJson.Count > 0 && mpcorbJsonDatabase.Count == 0)
-		{
-			LoadMpcorbJsonDatabase();
-		}
-		if (bookmarksAstorbDat.Count > 0 && astorbDatabase.Count == 0)
-		{
-			LoadAstorbDatabase();
-		}
-		if (bookmarksAllnumCat.Count > 0 && allnumCatDatabase.Count == 0)
-		{
-			LoadAllnumCatDatabase();
-		}
-		if (bookmarksSingoppCat.Count > 0 && singoppCatDatabase.Count == 0)
-		{
-			LoadSingoppCatDatabase();
-		}
-		if (bookmarksUfitobsCat.Count > 0 && ufitobsCatDatabase.Count == 0)
-		{
-			LoadUfitobsCatDatabase();
-		}
-
-		int totalBookmarks = bookmarksMpcorbDat.Count + bookmarksMpcorbJson.Count + bookmarksAstorbDat.Count
-			+ bookmarksAllnumCat.Count + bookmarksSingoppCat.Count + bookmarksUfitobsCat.Count;
-		if (totalBookmarks == 0)
-		{
-			_ = KryptonMessageBox.Show(owner: this, text: I18nStrings.BookmarkAuditNoBookmarks, caption: I18nStrings.BookmarkAuditMenuItem, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
-			return;
-		}
-
-		List<string> report = [];
-		int relocated = 0;
-		int removed = 0;
-		int unableToVerify = 0;
-		AuditBookmarkEntries(bookmarks: bookmarksMpcorbDat, databaseLabel: "MPCORB.DAT", databaseCount: planetoidsDatabase.Count, validate: ValidateMpcorbDatBookmark, report: report, relocated: ref relocated, removed: ref removed, unableToVerify: ref unableToVerify);
-		AuditBookmarkEntries(bookmarks: bookmarksMpcorbJson, databaseLabel: "MPCORB.JSON", databaseCount: mpcorbJsonDatabase.Count, validate: ValidateMpcorbJsonBookmark, report: report, relocated: ref relocated, removed: ref removed, unableToVerify: ref unableToVerify);
-		AuditBookmarkEntries(bookmarks: bookmarksAstorbDat, databaseLabel: "ASTORB.DAT", databaseCount: astorbDatabase.Count, validate: ValidateAstorbDatBookmark, report: report, relocated: ref relocated, removed: ref removed, unableToVerify: ref unableToVerify);
-		AuditBookmarkEntries(bookmarks: bookmarksAllnumCat, databaseLabel: "ALLNUM.CAT", databaseCount: allnumCatDatabase.Count, validate: ValidateAllnumCatBookmark, report: report, relocated: ref relocated, removed: ref removed, unableToVerify: ref unableToVerify);
-		AuditBookmarkEntries(bookmarks: bookmarksSingoppCat, databaseLabel: "SINGOPP.CAT", databaseCount: singoppCatDatabase.Count, validate: ValidateSingoppCatBookmark, report: report, relocated: ref relocated, removed: ref removed, unableToVerify: ref unableToVerify);
-		AuditBookmarkEntries(bookmarks: bookmarksUfitobsCat, databaseLabel: "UFITOBS.CAT", databaseCount: ufitobsCatDatabase.Count, validate: ValidateUfitobsCatBookmark, report: report, relocated: ref relocated, removed: ref removed, unableToVerify: ref unableToVerify);
-
-		UpdateBookmarkButtonState();
-		UpdateBookmarkMenuToggleState();
-		string summary = string.Format(provider: CultureInfo.CurrentCulture, format: I18nStrings.BookmarkAuditSummary, arg0: relocated, arg1: removed, arg2: unableToVerify);
-		string message = report.Count == 0 ? summary : $"{summary}{Environment.NewLine}{Environment.NewLine}{string.Join(separator: Environment.NewLine, values: report)}";
-		_ = KryptonMessageBox.Show(owner: this, text: message, caption: I18nStrings.BookmarkAuditMenuItem, buttons: KryptonMessageBoxButtons.OK, icon: removed > 0 ? KryptonMessageBoxIcon.Warning : KryptonMessageBoxIcon.Information);
-	}
-
 	/// <summary>Validates every bookmark in one database and appends any outcome to the audit report.</summary>
 	/// <param name="bookmarks">The bookmarks to validate.</param>
 	/// <param name="databaseLabel">The database name used in the report.</param>
@@ -2805,32 +2754,52 @@ public partial class PlanetoidDbForm
 	/// <param name="relocated">The number of relocated bookmarks.</param>
 	/// <param name="removed">The number of removed bookmarks.</param>
 	/// <param name="unableToVerify">The number of bookmarks that could not be checked.</param>
-	private void AuditBookmarkEntries(List<BookmarkEntry> bookmarks, string databaseLabel, int databaseCount, Func<BookmarkEntry, List<string>?, bool> validate, List<string> report, ref int relocated, ref int removed, ref int unableToVerify)
+	/// <remarks>This method iterates through the provided list of bookmarks, applies the database-specific validation function to each, and updates the report and counters accordingly. It handles cases where the database is unavailable or bookmarks are invalid.</remarks>
+	private static void AuditBookmarkEntries(List<BookmarkEntry> bookmarks, string databaseLabel, int databaseCount, Func<BookmarkEntry, List<string>?, bool> validate, List<string> report, ref int relocated, ref int removed, ref int unableToVerify)
 	{
+		// Log the start of auditing for the specific database
+		logger.Info(message: $"Auditing {bookmarks.Count} bookmarks in database '{databaseLabel}' with {databaseCount} records.");
+		// If there are no bookmarks to audit, log and return early
 		if (bookmarks.Count == 0)
 		{
+			// Log a warning that no bookmarks were found for this database and skip the audit
+			logger.Warn(message: $"No bookmarks found for database '{databaseLabel}'. Skipping audit.");
 			return;
 		}
+		// If the database is unavailable (count is zero), mark all bookmarks as unable to verify and add a report entry
 		if (databaseCount == 0)
 		{
+			// Log a warning that the database is unavailable and all bookmarks will be marked as unable to verify
+			logger.Warn(message: $"Database '{databaseLabel}' is unavailable. Marking all {bookmarks.Count} bookmarks as unable to verify.");
+			// Increment the unableToVerify counter by the number of bookmarks in this database
 			unableToVerify += bookmarks.Count;
-			report.Add(item: string.Format(provider: CultureInfo.CurrentCulture, format: I18nStrings.BookmarkAuditDatabaseUnavailable, arg0: databaseLabel, arg1: bookmarks.Count));
+			// Add a report entry indicating that the database is unavailable and the number of bookmarks affected
+			report.Add(item: string.Format(provider: CultureInfo.CurrentCulture, format: bookmarkAuditDatabaseUnavailableFormat, arg0: databaseLabel, arg1: bookmarks.Count));
 			return;
 		}
+		// Iterate through a copy of the bookmarks list to avoid modification issues during iteration
 		foreach (BookmarkEntry entry in bookmarks.ToArray())
 		{
+			// Check if the bookmark entry is still present in the list; if not, skip it
 			if (!bookmarks.Contains(item: entry))
 			{
+				// Skip the entry if it has been removed from the bookmarks list
 				continue;
 			}
+			// Store the original position and count of bookmarks before validation
 			int oldPosition = entry.Position;
+			// Store the original count of bookmarks to calculate how many were removed after validation
 			int oldCount = bookmarks.Count;
-			bool isValid = validate(entry, report);
+			// Validate the bookmark entry using the provided database-specific validation function
+			bool isValid = validate(arg1: entry, arg2: report);
+			// Update the removed counter based on how many bookmarks were removed during validation
 			removed += oldCount - bookmarks.Count;
+			// If the bookmark is valid and its position has changed, increment the relocated counter
 			if (isValid && entry.Position != oldPosition)
 			{
 				relocated++;
 			}
+			// If the bookmark is valid but its name is empty or whitespace, increment the unableToVerify counter
 			else if (isValid && string.IsNullOrWhiteSpace(value: entry.Name))
 			{
 				unableToVerify++;
@@ -3052,6 +3021,8 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is called when the user opens the MPCORB.DAT bookmark drop-down menu. It populates the drop-down with the current list of bookmarks for MPCORB.DAT, creating a menu item for each bookmark entry and associating it with the appropriate click event handler.</remarks>
 	internal void BookmarkListMpcorbDat_DropDownOpening(object? sender, EventArgs e)
 	{
+		// Log the action of populating the MPCORB.DAT bookmark drop-down
+		logger.Info(message: "Populating MPCORB.DAT bookmark drop-down...");
 		// Call the helper method to populate the drop-down with the current bookmarks for MPCORB.DAT
 		PopulateBookmarkDropDown(parentItem: toolStripMenuItemBookmarkListMpcorbDat, bookmarks: bookmarksMpcorbDat, onClickHandler: BookmarkNavigateMpcorbDat_Click);
 	}
@@ -3062,6 +3033,8 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is called when the user opens the MPCORB.JSON bookmark drop-down menu. It populates the drop-down with the current list of bookmarks for MPCORB.JSON, creating a menu item for each bookmark entry and associating it with the appropriate click event handler.</remarks>
 	internal void BookmarkListMpcorbJson_DropDownOpening(object? sender, EventArgs e)
 	{
+		// Log the action of populating the MPCORB.JSON bookmark drop-down
+		logger.Info(message: "Populating MPCORB.JSON bookmark drop-down...");
 		// Call the helper method to populate the drop-down with the current bookmarks for MPCORB.JSON
 		PopulateBookmarkDropDown(parentItem: toolStripMenuItemBookmarkListMpcorbJson, bookmarks: bookmarksMpcorbJson, onClickHandler: BookmarkNavigateMpcorbJson_Click);
 	}
@@ -3072,6 +3045,8 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is called when the user opens the ASTORB.DAT bookmark drop-down menu. It populates the drop-down with the current list of bookmarks for ASTORB.DAT, creating a menu item for each bookmark entry and associating it with the appropriate click event handler.</remarks>
 	internal void BookmarkListAstorbDat_DropDownOpening(object? sender, EventArgs e)
 	{
+		// Log the action of populating the ASTORB.DAT bookmark drop-down
+		logger.Info(message: "Populating ASTORB.DAT bookmark drop-down...");
 		// Call the helper method to populate the drop-down with the current bookmarks for ASTORB.DAT
 		PopulateBookmarkDropDown(parentItem: toolStripMenuItemBookmarkListAstorbDat, bookmarks: bookmarksAstorbDat, onClickHandler: BookmarkNavigateAstorbDat_Click);
 	}
@@ -3082,6 +3057,8 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is called when the user opens the ALLNUM.CAT bookmark drop-down menu. It populates the drop-down with the current list of bookmarks for ALLNUM.CAT, creating a menu item for each bookmark entry and associating it with the appropriate click event handler.</remarks>
 	internal void BookmarkListAllnumCat_DropDownOpening(object? sender, EventArgs e)
 	{
+		// Log the action of populating the ALLNUM.CAT bookmark drop-down
+		logger.Info(message: "Populating ALLNUM.CAT bookmark drop-down...");
 		// Call the helper method to populate the drop-down with the current bookmarks for ALLNUM.CAT
 		PopulateBookmarkDropDown(parentItem: toolStripMenuItemBookmarkListAllnumCat, bookmarks: bookmarksAllnumCat, onClickHandler: BookmarkNavigateAllnumCat_Click);
 	}
@@ -3092,6 +3069,8 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is called when the user opens the SINGOPP.CAT bookmark drop-down menu. It populates the drop-down with the current list of bookmarks for SINGOPP.CAT, creating a menu item for each bookmark entry and associating it with the appropriate click event handler.</remarks>
 	internal void BookmarkListSingoppCat_DropDownOpening(object? sender, EventArgs e)
 	{
+		// Log the action of populating the SINGOPP.CAT bookmark drop-down
+		logger.Info(message: "Populating SINGOPP.CAT bookmark drop-down...");
 		// Call the helper method to populate the drop-down with the current bookmarks for SINGOPP.CAT
 		PopulateBookmarkDropDown(parentItem: toolStripMenuItemBookmarkListSingoppCat, bookmarks: bookmarksSingoppCat, onClickHandler: BookmarkNavigateSingoppCat_Click);
 	}
@@ -3102,6 +3081,8 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is called when the user opens the UFITOBS.CAT bookmark drop-down menu. It populates the drop-down with the current list of bookmarks for UFITOBS.CAT, creating a menu item for each bookmark entry and associating it with the appropriate click event handler.</remarks>
 	internal void BookmarkListUfitobsCat_DropDownOpening(object? sender, EventArgs e)
 	{
+		// Log the action of populating the UFITOBS.CAT bookmark drop-down
+		logger.Info(message: "Populating UFITOBS.CAT bookmark drop-down...");
 		// Call the helper method to populate the drop-down with the current bookmarks for UFITOBS.CAT
 		PopulateBookmarkDropDown(parentItem: toolStripMenuItemBookmarkListUfitobsCat, bookmarks: bookmarksUfitobsCat, onClickHandler: BookmarkNavigateUfitobsCat_Click);
 	}
@@ -3123,86 +3104,142 @@ public partial class PlanetoidDbForm
 	/// <param name="databaseLabel">The database name used in log messages.</param>
 	/// <param name="count">The number of records in the database.</param>
 	/// <param name="getDesignation">Returns the designation stored at a given zero-based position, or an empty string if unavailable.</param>
+	/// <param name="auditReport">Optional list to collect audit messages.</param>
 	/// <returns><c>true</c> if the bookmark is valid (possibly after correction) and navigation may proceed; <c>false</c> if the bookmark was deleted.</returns>
 	/// <remarks>If the designation at the stored position differs, the whole database is searched for the designation. When found, the bookmark is relocated; otherwise it is removed. The user is informed in both cases.</remarks>
 	private bool ValidateBookmark(BookmarkEntry entry, List<BookmarkEntry> bookmarks, string databaseFilename, string databaseLabel, int count, Func<int, string> getDesignation, List<string>? auditReport = null)
 	{
+		// Log the validation attempt for the specific bookmark entry
+		logger.Info(message: $"Validating bookmark '{entry.Name}' at position {entry.Position} in database '{databaseLabel}' with {count} records.");
 		// Bookmarks without a stored designation cannot be verified
 		if (string.IsNullOrWhiteSpace(value: entry.Name))
 		{
-			auditReport?.Add(item: $"{databaseLabel}: {string.Format(provider: CultureInfo.CurrentCulture, format: I18nStrings.BookmarkAuditMissingDesignation, arg0: entry.Position)}");
+			// Log a warning that the bookmark has no stored designation and cannot be verified
+			logger.Warn(message: $"Bookmark at position {entry.Position} in database '{databaseLabel}' has no stored designation and cannot be verified.");
+			auditReport?.Add(item: $"{databaseLabel}: {string.Format(provider: CultureInfo.CurrentCulture, format: bookmarkAuditMissingDesignationFormat, arg0: entry.Position)}");
 			return true;
 		}
 		string name = entry.Name.Trim();
 		// Position still holds the expected designation
 		if (entry.Position >= 0 && entry.Position < count && string.Equals(a: getDesignation(entry.Position), b: name, comparisonType: StringComparison.Ordinal))
 		{
+			// Log that the bookmark is valid and no action is needed
+			logger.Info(message: $"Bookmark '{name}' at position {entry.Position} in database '{databaseLabel}' is valid.");
+			// No action needed; the bookmark is valid
 			return true;
 		}
+		// Log that the bookmark position is no longer valid and a search will be performed
+		logger.Info(message: $"Bookmark '{name}' at position {entry.Position} in database '{databaseLabel}' is no longer valid. Searching the complete database for the stored designation...");
 		// Search the complete database for the stored designation
 		int newPosition = -1;
 		for (int i = 0; i < count; i++)
 		{
+			// Compare the designation at the current index with the stored bookmark name
 			if (string.Equals(a: getDesignation(i), b: name, comparisonType: StringComparison.Ordinal))
 			{
+				// Log that the stored designation was found at a new position
+				logger.Info(message: $"Stored designation '{name}' found at new position {i} in database '{databaseLabel}'.");
+				// Update the new position to the found index and break out of the loop
 				newPosition = i;
 				break;
 			}
 		}
+		// If the stored designation was found at a new position, update the bookmark entry and persist changes
 		if (newPosition >= 0)
 		{
+			// Store the old position for logging purposes
 			int oldPosition = entry.Position;
 			// Drop any other bookmark already stored at the new position to avoid duplicates
-			int duplicateBookmarksRemoved = bookmarks.RemoveAll(match: b => !ReferenceEquals(objA: b, objB: entry) && b.Position == newPosition);
+			int duplicateBookmarksRemoved = bookmarks.RemoveAll(match: b => !ReferenceEquals(objA: b, objB: entry) && b.Position == newPosition && string.Equals(a: b.Name?.Trim(), b: name, comparisonType: StringComparison.Ordinal));
+			// Log the number of duplicate bookmarks removed, if any, to maintain uniqueness
+			logger.Info(message: $"Relocating bookmark '{name}' from position {oldPosition} to new position {newPosition} in database '{databaseLabel}'. Duplicate bookmarks removed: {duplicateBookmarksRemoved}.");
+			// Add an audit report entry indicating that the bookmark was relocated
 			if (duplicateBookmarksRemoved > 0)
 			{
-				auditReport?.Add(item: $"{databaseLabel}: {string.Format(provider: CultureInfo.CurrentCulture, format: I18nStrings.BookmarkAuditDuplicateRemoved, arg0: name)}");
+				// Log that duplicate bookmarks were removed to maintain uniqueness
+				logger.Warn(message: $"{duplicateBookmarksRemoved} duplicate bookmark(s) removed at new position {newPosition} in database '{databaseLabel}' to maintain uniqueness.");
+				// Add an audit report entry indicating that duplicate bookmarks were removed
+				auditReport?.Add(item: $"{databaseLabel}: {string.Format(provider: CultureInfo.CurrentCulture, format: bookmarkAuditDuplicateRemovedFormat, arg0: name)}");
 			}
+			// Update the bookmark entry's position to the new valid position
 			entry.Position = newPosition;
+			// Persist the updated bookmarks to disk
 			BookmarkStore.Save(databaseFilename: databaseFilename, entries: bookmarks);
+			// Log that the bookmark was relocated
 			logger.Info(message: $"{databaseLabel} bookmark '{name}' relocated from position {oldPosition} to {newPosition}.");
-			string message = string.Format(provider: CultureInfo.CurrentCulture, format: I18nStrings.BookmarkRelocated, arg0: name, arg1: oldPosition, arg2: newPosition);
+			// Prepare a message to inform the user that the bookmark was relocated
+			string message = string.Format(provider: CultureInfo.CurrentCulture, format: bookmarkAuditDuplicateRemovedFormat, arg0: name, arg1: oldPosition, arg2: newPosition);
+			// Show the message to the user or add it to the audit report if provided
 			if (auditReport is null)
 			{
+				// Log that a message box will be displayed to inform the user of the bookmark relocation
+				logger.Info(message: $"Displaying message box to inform user of bookmark relocation: {message}");
+				// Show a message box to inform the user that the bookmark was relocated
 				_ = KryptonMessageBox.Show(owner: this, text: message, caption: "Bookmark", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 			}
+			// If an audit report is provided, add the relocation message to it instead of showing a message box
 			else
 			{
+				// Log that the message will be added to the audit report
+				logger.Info(message: $"Adding bookmark relocation message to audit report: {message}");
+				// Add the message to the audit report
 				auditReport.Add(item: $"{databaseLabel}: {message}");
 			}
+			// Update the bookmark button and menu toggle states to reflect any changes
 			return true;
 		}
 		// Designation no longer exists: delete the bookmark
 		_ = bookmarks.Remove(item: entry);
+		// Persist the updated bookmarks to disk after removal
 		BookmarkStore.Save(databaseFilename: databaseFilename, entries: bookmarks);
+		// Update the bookmark button and menu toggle states to reflect the removal
 		UpdateBookmarkButtonState();
 		UpdateBookmarkMenuToggleState();
+		// Log that the bookmark was not found and has been deleted
 		logger.Warn(message: $"{databaseLabel} bookmark '{name}' not found in database and was deleted.");
-		string removalMessage = string.Format(provider: CultureInfo.CurrentCulture, format: I18nStrings.BookmarkRemoved, arg0: name);
+		// Prepare a message to inform the user that the bookmark was removed
+		string removalMessage = string.Format(provider: CultureInfo.CurrentCulture, format: bookmarkRemovedFormat, arg0: name);
+		// Show the message to the user or add it to the audit report if provided
 		if (auditReport is null)
 		{
+			// Log that a message box will be displayed to inform the user of the bookmark removal
+			logger.Info(message: $"Displaying message box to inform user of bookmark removal: {removalMessage}");
+			// Show a message box to inform the user that the bookmark was removed
 			_ = KryptonMessageBox.Show(owner: this, text: removalMessage, caption: "Bookmark", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Warning);
 		}
+		// If an audit report is provided, add the removal message to it instead of showing a message box
 		else
 		{
+			// Log that the message will be added to the audit report
+			logger.Info(message: $"Adding bookmark removal message to audit report: {removalMessage}");
+			// Add the message to the audit report
 			auditReport.Add(item: $"{databaseLabel}: {removalMessage}");
 		}
+		// Return false to indicate that the bookmark was deleted and navigation should not proceed
 		return false;
 	}
 
 	/// <summary>Validates an MPCORB.DAT bookmark by its readable designation (columns 167-194).</summary>
 	/// <param name="entry">The bookmark entry to validate.</param>
+	/// <param name="auditReport">Optional list to collect audit messages.</param>
 	/// <returns><c>true</c> if navigation may proceed; otherwise <c>false</c>.</returns>
 	private bool ValidateMpcorbDatBookmark(BookmarkEntry entry, List<string>? auditReport = null)
 	{
-		return ValidateBookmark(entry: entry, bookmarks: bookmarksMpcorbDat, databaseFilename: filenameMpcorbDat, databaseLabel: "MPCORB.DAT", count: planetoidsDatabase.Count, getDesignation: i => ExtractBookmarkIdentifier(line: planetoidsDatabase[i], start: 166, length: 28), auditReport: auditReport);
+		// Log that the MPCORB.DAT bookmark is being validated
+		logger.Info(message: $"Validating MPCORB.DAT bookmark '{entry.Name}' at position {entry.Position}.");
+		// Use the generic ValidateBookmark method with parameters specific to MPCORB.DAT
+		return ValidateBookmark(entry: entry, bookmarks: bookmarksMpcorbDat, databaseFilename: filenameMpcorbDat, databaseLabel: "MPCORB.DAT", count: planetoidsDatabase.Count, getDesignation: i => ExtractBookmarkIdentifier(line: planetoidsDatabase[index: i], start: 166, length: 28), auditReport: auditReport);
 	}
 
 	/// <summary>Validates an MPCORB.JSON bookmark by its <c>readable_des</c> property.</summary>
 	/// <param name="entry">The bookmark entry to validate.</param>
+	/// <param name="auditReport">Optional list to collect audit messages.</param>
 	/// <returns><c>true</c> if navigation may proceed; otherwise <c>false</c>.</returns>
 	private bool ValidateMpcorbJsonBookmark(BookmarkEntry entry, List<string>? auditReport = null)
 	{
+		// Log that the MPCORB.JSON bookmark is being validated
+		logger.Info(message: $"Validating MPCORB.JSON bookmark '{entry.Name}' at position {entry.Position}.");
+		// Use the generic ValidateBookmark method with parameters specific to MPCORB.JSON
 		return ValidateBookmark(entry: entry, bookmarks: bookmarksMpcorbJson, databaseFilename: filenameMpcorbJson, databaseLabel: "MPCORB.JSON", count: mpcorbJsonDatabase.Count, getDesignation: i =>
 			mpcorbJsonDatabase[index: i].TryGetProperty(propertyName: "readable_des", value: out System.Text.Json.JsonElement prop) && prop.ValueKind != System.Text.Json.JsonValueKind.Null
 				? (prop.ToString() ?? string.Empty).Trim()
@@ -3211,33 +3248,49 @@ public partial class PlanetoidDbForm
 
 	/// <summary>Validates an ASTORB.DAT bookmark by its number, name and provisional designation (columns 1-44).</summary>
 	/// <param name="entry">The bookmark entry to validate.</param>
+	/// <param name="auditReport">Optional list to collect audit messages.</param>
 	/// <returns><c>true</c> if navigation may proceed; otherwise <c>false</c>.</returns>
 	private bool ValidateAstorbDatBookmark(BookmarkEntry entry, List<string>? auditReport = null)
 	{
+		// Log that the ASTORB.DAT bookmark is being validated
+		logger.Info(message: $"Validating ASTORB.DAT bookmark '{entry.Name}' at position {entry.Position}.");
+		// Use the generic ValidateBookmark method with parameters specific to ASTORB.DAT
 		return ValidateBookmark(entry: entry, bookmarks: bookmarksAstorbDat, databaseFilename: filenameAstorbDat, databaseLabel: "ASTORB.DAT", count: astorbDatabase.Count, getDesignation: i => ExtractBookmarkIdentifier(line: astorbDatabase[index: i]?.ToString(), start: 0, length: 44), auditReport: auditReport);
 	}
 
 	/// <summary>Validates an ALLNUM.CAT bookmark by its name (columns 1-14).</summary>
 	/// <param name="entry">The bookmark entry to validate.</param>
+	/// <param name="auditReport">Optional list to collect audit messages.</param>
 	/// <returns><c>true</c> if navigation may proceed; otherwise <c>false</c>.</returns>
 	private bool ValidateAllnumCatBookmark(BookmarkEntry entry, List<string>? auditReport = null)
 	{
+		// Log that the ALLNUM.CAT bookmark is being validated
+		logger.Info(message: $"Validating ALLNUM.CAT bookmark '{entry.Name}' at position {entry.Position}.");
+		// Use the generic ValidateBookmark method with parameters specific to ALLNUM.CAT
 		return ValidateBookmark(entry: entry, bookmarks: bookmarksAllnumCat, databaseFilename: filenameAllnumCat, databaseLabel: "ALLNUM.CAT", count: allnumCatDatabase.Count, getDesignation: i => ExtractBookmarkIdentifier(line: allnumCatDatabase[index: i]?.ToString(), start: 0, length: 14), auditReport: auditReport);
 	}
 
 	/// <summary>Validates a SINGOPP.CAT bookmark by its name (columns 1-14).</summary>
-	/// <param name="entry">The bookmark entry to validate.</param>
+	/// <param name="entry">The bookmark entry to validate.</param>				  
+	/// <param name="auditReport">Optional list to collect audit messages.</param>
 	/// <returns><c>true</c> if navigation may proceed; otherwise <c>false</c>.</returns>
 	private bool ValidateSingoppCatBookmark(BookmarkEntry entry, List<string>? auditReport = null)
 	{
+		// Log that the SINGOPP.CAT bookmark is being validated
+		logger.Info(message: $"Validating SINGOPP.CAT bookmark '{entry.Name}' at position {entry.Position}.");
+		// Use the generic ValidateBookmark method with parameters specific to SINGOPP.CAT
 		return ValidateBookmark(entry: entry, bookmarks: bookmarksSingoppCat, databaseFilename: filenameSingoppCat, databaseLabel: "SINGOPP.CAT", count: singoppCatDatabase.Count, getDesignation: i => ExtractBookmarkIdentifier(line: singoppCatDatabase[index: i]?.ToString(), start: 0, length: 14), auditReport: auditReport);
 	}
 
 	/// <summary>Validates a UFITOBS.CAT bookmark by its name (columns 1-14).</summary>
 	/// <param name="entry">The bookmark entry to validate.</param>
+	/// <param name="auditReport">Optional list to collect audit messages.</param>
 	/// <returns><c>true</c> if navigation may proceed; otherwise <c>false</c>.</returns>
 	private bool ValidateUfitobsCatBookmark(BookmarkEntry entry, List<string>? auditReport = null)
 	{
+		// Log that the UFITOBS.CAT bookmark is being validated
+		logger.Info(message: $"Validating UFITOBS.CAT bookmark '{entry.Name}' at position {entry.Position}.");
+		// Use the generic ValidateBookmark method with parameters specific to UFITOBS.CAT
 		return ValidateBookmark(entry: entry, bookmarks: bookmarksUfitobsCat, databaseFilename: filenameUfitobsCat, databaseLabel: "UFITOBS.CAT", count: ufitobsCatDatabase.Count, getDesignation: i => ExtractBookmarkIdentifier(line: ufitobsCatDatabase[index: i]?.ToString(), start: 0, length: 14), auditReport: auditReport);
 	}
 
@@ -3253,6 +3306,9 @@ public partial class PlanetoidDbForm
 			// Verify the bookmark still points to the right planetoid; correct or delete it otherwise
 			if (!ValidateMpcorbDatBookmark(entry: entry))
 			{
+				// Log a warning that the bookmark navigation cannot proceed due to validation failure
+				logger.Warn(message: "Bookmark navigation failed: bookmark validation failed.");
+				// Exit the method early since the bookmark is invalid or has been deleted
 				return;
 			}
 			// Save the current position to the navigation history before navigating to the bookmarked position
@@ -3270,8 +3326,10 @@ public partial class PlanetoidDbForm
 			// Update the bookmark button and menu toggle states to reflect the new position
 			UpdateBookmarkButtonState();
 			UpdateBookmarkMenuToggleState();
+			// Log the navigation action for auditing purposes
 			logger.Info(message: $"Navigated to MPCORB.DAT bookmark at position {currentPosition}.");
 		}
+		// If the sender is not a valid ToolStripMenuItem with a BookmarkEntry, log a warning
 		else
 		{
 			// Log a warning if the sender is not a valid ToolStripMenuItem with a BookmarkEntry
@@ -3291,6 +3349,9 @@ public partial class PlanetoidDbForm
 			// Verify the bookmark still points to the right planetoid; correct or delete it otherwise
 			if (!ValidateMpcorbJsonBookmark(entry: entry))
 			{
+				// Log a warning that the bookmark navigation cannot proceed due to validation failure
+				logger.Warn(message: "Bookmark navigation failed: bookmark validation failed.");
+				// Exit the method early since the bookmark is invalid or has been deleted
 				return;
 			}
 			// Save the current position to the navigation history before navigating to the bookmarked position
@@ -3311,6 +3372,7 @@ public partial class PlanetoidDbForm
 			// Log the navigation action for auditing purposes
 			logger.Info(message: $"Navigated to MPCORB.JSON bookmark at position {currentMpcorbJsonPosition}.");
 		}
+		// If the sender is not a valid ToolStripMenuItem with a BookmarkEntry, log a warning
 		else
 		{
 			// Log a warning if the sender is not a valid ToolStripMenuItem with a BookmarkEntry
