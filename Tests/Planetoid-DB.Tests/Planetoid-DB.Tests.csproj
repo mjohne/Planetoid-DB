@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net10.0</TargetFramework>
+    <TargetFramework>net10.0-windows</TargetFramework>
     <RootNamespace>Planetoid_DB.Tests</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
@@ -724,6 +724,9 @@ Public License instead of this License.  But first, please read
     <Compile Include="..\..\Export\*.cs" Link="Export\%(Filename)%(Extension)" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Remove="..\..\Services\EphemerisExportService.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Planetoid-DB-4.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -737,14 +740,14 @@ Public License instead of this License.  But first, please read
     </None>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.10.1" />
-    <PackageReference Include="NLog" Version="6.2.1" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="4.0.1">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="xunit.v3" Version="4.0.2" />
-  </ItemGroup>
+  <PackageReference Include="Microsoft.NET.Test.Sdk" />
+  <PackageReference Include="NLog" />
+  <PackageReference Include="xunit.runner.visualstudio">
+    <PrivateAssets>all</PrivateAssets>
+    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+  </PackageReference>
+  <PackageReference Include="xunit.v3" />
+</ItemGroup>
   <ItemGroup>
     <Using Include="Xunit" />
     <Using Include="Planetoid_DB.Services" />
