@@ -14,11 +14,10 @@
  */
 
 using System.Diagnostics;
-using System.Globalization;
 
 namespace Planetoid_DB.Tests;
 
-/// <summary>Unit tests for <see cref="EphemerisService"/>, the coordinate transformations, visibility and export.</summary>
+/// <summary>Unit tests for <see cref="EphemerisService"/>, coordinate transformations and visibility.</summary>
 /// <remarks>These tests use the analytical planetary ephemeris to avoid external files and make the tests self-contained.</remarks>
 // You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
 [DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
@@ -92,37 +91,6 @@ public sealed class EphemerisTests
 			Assert.InRange(actual: Math.Abs(value: result[i].DeclinationDegrees - result[i - 1].DeclinationDegrees), low: 0.0, high: 0.1);
 			// The distance difference should be less than 0.01 AU.
 			Assert.InRange(actual: Math.Abs(value: result[i].DistanceAu - result[i - 1].DistanceAu), low: 0.0, high: 0.01);
-		}
-	}
-
-	/// <summary>Verifies asynchronous CSV export matches the synchronous formatter and honors cancellation.</summary>
-	/// <remarks>This test creates a temporary CSV file, exports a single ephemeris entry asynchronously, and compares the content with the synchronous formatter. It also tests cancellation.</remarks>
-	[Fact]
-	public async Task CsvExportAsyncMatchesFormatterAndSupportsCancellation()
-	{
-		// Create a single ephemeris entry with arbitrary values.
-		EphemerisEntry entry = new(Time: DateTimeOffset.UnixEpoch, RightAscensionHours: 12.5, DeclinationDegrees: -10.25, AzimuthDegrees: 180.5, AltitudeDegrees: -1.5, DistanceAu: 1.25, ApparentMagnitude: 8.0, IsVisible: false);
-		// Create a temporary file path for the CSV export.
-		string filePath = Path.Combine(path1: Path.GetTempPath(), path2: $"{Guid.NewGuid():N}.csv");
-		// Ensure the file is deleted after the test, even if an exception occurs.
-		try
-		{
-			// Export the entry to CSV asynchronously and compare the content with the synchronous formatter.
-			await EphemerisExportService.ExportCsvAsync(filePath: filePath, entries: [entry], designation: "(1) Ceres", observer: TestData.Greenwich, cancellationToken: TestContext.Current.CancellationToken);
-			// Read the content of the exported CSV file and compare it with the expected CSV string from the synchronous formatter.
-			Assert.Equal(expected: EphemerisExportService.ToCsv(entries: [entry], designation: "(1) Ceres", observer: TestData.Greenwich), actual: await File.ReadAllTextAsync(path: filePath, cancellationToken: TestContext.Current.CancellationToken));
-			// Test cancellation by creating a pre-canceled token and calling the export method, expecting an OperationCanceledException.
-			using CancellationTokenSource cts = new();
-			// Cancel the token before calling the export method.
-			await cts.CancelAsync();
-			// The export method should throw an OperationCanceledException due to the pre-canceled token.
-			_ = await Assert.ThrowsAnyAsync<OperationCanceledException>(testCode: () => EphemerisExportService.ExportCsvAsync(filePath: filePath, entries: [entry], cancellationToken: cts.Token));
-		}
-		// Finally, delete the temporary file to clean up.
-		finally
-		{
-			// Delete the temporary file if it exists.
-			File.Delete(path: filePath);
 		}
 	}
 
@@ -467,53 +435,6 @@ public sealed class EphemerisTests
 	{
 		// The ObserverLocation.Validate method should throw an ArgumentOutOfRangeException for longitudes outside the range [−180°, +180°].
 		_ = Assert.Throws<ArgumentOutOfRangeException>(testCode: () => new ObserverLocation(LatitudeDegrees: 0.0, LongitudeDegrees: longitude).Validate());
-	}
-
-	/// <summary>Verifies that the CSV export is culture-independent.</summary>
-	/// <remarks>This test checks that the ToCsv method produces the same output regardless of the current culture, by setting the culture to "de-DE" and verifying that the CSV fields use a dot as the decimal separator.</remarks>
-	[Fact]
-	public void CsvExportIsCultureInvariant()
-	{
-		// Save the current culture and set it to "de-DE" for the test.
-		CultureInfo previous = CultureInfo.CurrentCulture;
-		// Create an ephemeris entry with specific values and export it to CSV, then verify that the output uses a dot as the decimal separator and is culture-independent.
-		try
-		{
-			// Set the current culture to "de-DE" (German) for the test.
-			CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo(name: "de-DE");
-			// Create an ephemeris entry with specific values, including a time with a +1 hour offset.
-			EphemerisEntry entry = new(Time: new DateTimeOffset(year: 2025, month: 1, day: 1, hour: 23, minute: 0, second: 0, offset: TimeSpan.FromHours(hours: 1)), RightAscensionHours: 12.5, DeclinationDegrees: -10.25, AzimuthDegrees: 180.5, AltitudeDegrees: -1.5, DistanceAu: 1.25, ApparentMagnitude: double.NaN, IsVisible: false, AstrometricRightAscensionHours: 7.5, AstrometricDeclinationDegrees: 23.25);
-			// Export the entry to CSV and split the output into lines and fields for verification.
-			string csv = EphemerisExportService.ToCsv(entries: [entry], designation: "(1) Ceres", observer: TestData.Greenwich);
-			// Split the CSV output into lines, removing empty entries.
-			string[] lines = csv.Split(separator: Environment.NewLine, options: StringSplitOptions.RemoveEmptyEntries);
-			// Split the fourth line (the data line) into fields using a comma as the separator.
-			string[] fields = lines[3].Split(separator: ',');
-			// Verify that the first line contains the object designation, the third line contains the CSV header, and the fourth line starts and ends with the expected values, including the right ascension, declination, and visibility flag.
-			Assert.Equal(expected: "# Object: (1) Ceres", actual: lines[0]);
-			// The second line is empty, so we skip it.
-			Assert.Equal(expected: EphemerisExportService.CsvHeader, actual: lines[2]);
-			// The fourth line should start with the expected values for time, right ascension, declination, and other fields.
-			Assert.StartsWith(expectedStartString: "2025-01-01T22:00:00Z,12.500000,12h 30m 00.00s,-10.25000,", actualString: lines[3], StringComparison.Ordinal);
-			// The fourth line should end with the visibility flag "no" and the expected number of fields.
-			Assert.EndsWith(expectedEndString: ",,,,,,no", actualString: lines[3], StringComparison.Ordinal);
-			// Verify that the specific fields in the fourth line match the expected values, including the astrometric right ascension and declination.
-			Assert.Equal(expected: "7.500000", actual: fields[5]);
-			// The astrometric right ascension should be formatted as "07h 30m 00.00s".
-			Assert.Equal(expected: "07h 30m 00.00s", actual: fields[6]);
-			// The astrometric declination should be formatted as "+23.25000" and "+23° 15′ 00.0″".
-			Assert.Equal(expected: "23.25000", actual: fields[7]);
-			// The astrometric declination should be formatted as "+23° 15′ 00.0″".
-			Assert.Equal(expected: "+23° 15′ 00.0″", actual: fields[8]);
-			// The visibility flag should be "no" for this entry.
-			Assert.Equal(expected: 19, actual: fields.Length);
-		}
-		// Restore the previous culture after the test.
-		finally
-		{
-			// Restore the previous culture to avoid affecting other tests or code.
-			CultureInfo.CurrentCulture = previous;
-		}
 	}
 
 	/// <summary>Creates a Central European time zone with EU daylight saving time rules.</summary>

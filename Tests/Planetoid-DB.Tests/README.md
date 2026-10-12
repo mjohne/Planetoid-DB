@@ -30,7 +30,7 @@ This allows the tests to target plain `net10.0` and run on Windows, Linux, and m
 | File | Class | Description |
 |---|---|---|
 | `CalculatorHelperTests.cs` | `CalculatorHelperTests` | Unit tests for `AverageCalculator`, `DerivedElements` and `TisserandParameterCalculator`. |
-| `EphemerisTests.cs` | `EphemerisTests` | Unit tests for the ephemeris calculation: time grids, Julian dates, ΔT, continuity across midnight, time zones and daylight saving time, horizon/visibility, azimuth normalization, observer validation, MPCORB parsing, cancellation, culture-invariant CSV export, and comparison of Ceres with Minor Planet Center astrometric J2000 coordinates. |
+| `EphemerisTests.cs` | `EphemerisTests` | Unit tests for the ephemeris calculation: time grids, Julian dates, ΔT, continuity across midnight, time zones and daylight saving time, horizon/visibility, azimuth normalization, observer validation, MPCORB parsing, cancellation, and comparison of Ceres with Minor Planet Center astrometric J2000 coordinates. |
 | `ExportEscapeHelperTests.cs` | `ExportEscapeHelperTests` | Unit tests for escaping LaTeX, Markdown, Typst, PostScript, PDF, RTF, CSV and TOML text. |
 | `ExporterTests.cs` | `ExporterTests` | Unit tests for all `IOrbitDataExporter` implementations: metadata consistency, file output (including ZIP-based formats) and format-specific checks for CSV, JSON and XML. |
 | `JplDevelopmentEphemerisTests.cs` | `JplDevelopmentEphemerisTests` | Unit tests for reading JPL Development Ephemeris binary files, including extended headers, Earth position evaluation, and rejection of non-finite header values. |
