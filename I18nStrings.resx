@@ -415,6 +415,24 @@
   <data name="BookmarkRemoved" xml:space="preserve">
     <value>The planetoid '{0}' could no longer be found in the database. The bookmark has been deleted.</value>
   </data>
+  <data name="BookmarkAuditMenuItem" xml:space="preserve">
+    <value>Check bookmark positions</value>
+  </data>
+  <data name="BookmarkAuditNoBookmarks" xml:space="preserve">
+    <value>There are no saved bookmarks to check.</value>
+  </data>
+  <data name="BookmarkAuditSummary" xml:space="preserve">
+    <value>Bookmark check complete. Relocated: {0}; removed: {1}; unable to verify: {2}.</value>
+  </data>
+  <data name="BookmarkAuditDatabaseUnavailable" xml:space="preserve">
+    <value>{0}: the database is not loaded or contains no records; {1} bookmark(s) could not be checked.</value>
+  </data>
+  <data name="BookmarkAuditMissingDesignation" xml:space="preserve">
+    <value>Bookmark at position {0} has no saved designation and could not be verified.</value>
+  </data>
+  <data name="BookmarkAuditDuplicateRemoved" xml:space="preserve">
+    <value>Duplicate bookmark for '{0}' at its corrected position was removed.</value>
+  </data>
   <data name="AeiDiagram3DCanvasAccessibleDescription" xml:space="preserve">
     <value>Displays the three-dimensional a, e, i point cloud with camera controls.</value>
   </data>
