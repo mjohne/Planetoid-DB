@@ -409,6 +409,12 @@
   <data name="BookmarkNoEntries" xml:space="preserve">
     <value>(No bookmarks)</value>
   </data>
+  <data name="BookmarkRelocated" xml:space="preserve">
+    <value>The bookmark for '{0}' pointed to a wrong location. It has been corrected from position {1} to position {2}.</value>
+  </data>
+  <data name="BookmarkRemoved" xml:space="preserve">
+    <value>The planetoid '{0}' could no longer be found in the database. The bookmark has been deleted.</value>
+  </data>
   <data name="AeiDiagram3DCanvasAccessibleDescription" xml:space="preserve">
     <value>Displays the three-dimensional a, e, i point cloud with camera controls.</value>
   </data>

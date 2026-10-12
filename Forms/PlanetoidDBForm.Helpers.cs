@@ -2996,6 +2996,58 @@ public partial class PlanetoidDbForm
 		PopulateBookmarkDropDown(parentItem: toolStripMenuItemBookmarkListUfitobsCat, bookmarks: bookmarksUfitobsCat, onClickHandler: BookmarkNavigateUfitobsCat_Click);
 	}
 
+	/// <summary>Checks that an MPCORB.DAT bookmark still points to the planetoid with the stored readable designation and corrects or deletes it otherwise.</summary>
+	/// <param name="entry">The bookmark entry to validate; its <see cref="BookmarkEntry.Position"/> is updated when the planetoid has moved.</param>
+	/// <returns><c>true</c> if the bookmark is valid (possibly after correction) and navigation may proceed; <c>false</c> if the bookmark was deleted.</returns>
+	/// <remarks>If the designation at the stored position differs, the whole database is searched for the designation. When found, the bookmark is relocated; otherwise it is removed. The user is informed in both cases.</remarks>
+	private bool ValidateMpcorbDatBookmark(BookmarkEntry entry)
+	{
+		// Bookmarks without a stored designation cannot be verified
+		if (string.IsNullOrWhiteSpace(value: entry.Name))
+		{
+			return true;
+		}
+		// Position still holds the expected designation
+		if (string.Equals(a: GetMpcorbDatDesignationAt(position: entry.Position), b: entry.Name, comparisonType: StringComparison.Ordinal))
+		{
+			return true;
+		}
+		// Search the complete database for the stored designation
+		int newPosition = -1;
+		for (int i = 0; i < planetoidsDatabase.Count; i++)
+		{
+			string? line = planetoidsDatabase[i];
+			if (string.IsNullOrEmpty(line) || line.Length < 194)
+			{
+				continue;
+			}
+			if (line.AsSpan(start: 166, length: 28).Trim().SequenceEqual(other: entry.Name.AsSpan().Trim()))
+			{
+				newPosition = i;
+				break;
+			}
+		}
+		if (newPosition >= 0)
+		{
+			int oldPosition = entry.Position;
+			// Drop any other bookmark already stored at the new position to avoid duplicates
+			_ = bookmarksMpcorbDat.RemoveAll(match: b => !ReferenceEquals(objA: b, objB: entry) && b.Position == newPosition);
+			entry.Position = newPosition;
+			BookmarkStore.Save(databaseFilename: filenameMpcorbDat, entries: bookmarksMpcorbDat);
+			logger.Info(message: $"MPCORB.DAT bookmark '{entry.Name}' relocated from position {oldPosition} to {newPosition}.");
+			_ = KryptonMessageBox.Show(owner: this, text: string.Format(provider: CultureInfo.CurrentCulture, format: I18nStrings.BookmarkRelocated, arg0: entry.Name, arg1: oldPosition, arg2: newPosition), caption: "Bookmark", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+			return true;
+		}
+		// Designation no longer exists: delete the bookmark
+		_ = bookmarksMpcorbDat.Remove(item: entry);
+		BookmarkStore.Save(databaseFilename: filenameMpcorbDat, entries: bookmarksMpcorbDat);
+		UpdateBookmarkButtonState();
+		UpdateBookmarkMenuToggleState();
+		logger.Warn(message: $"MPCORB.DAT bookmark '{entry.Name}' not found in database and was deleted.");
+		_ = KryptonMessageBox.Show(owner: this, text: string.Format(provider: CultureInfo.CurrentCulture, format: I18nStrings.BookmarkRemoved, arg0: entry.Name), caption: "Bookmark", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Warning);
+		return false;
+	}
+
 	/// <summary>Navigates to the MPCORB.DAT record stored in the clicked bookmark item.</summary>
 	/// <param name="sender">The clicked menu item whose <see cref="ToolStripItem.Tag"/> is a <see cref="BookmarkEntry"/>.</param>
 	/// <param name="e">Event data.</param>
@@ -3005,6 +3057,11 @@ public partial class PlanetoidDbForm
 		// Ensure the sender is a ToolStripMenuItem with a BookmarkEntry in its Tag
 		if (sender is ToolStripMenuItem { Tag: BookmarkEntry entry })
 		{
+			// Verify the bookmark still points to the right planetoid; correct or delete it otherwise
+			if (!ValidateMpcorbDatBookmark(entry: entry))
+			{
+				return;
+			}
 			// Save the current position to the navigation history before navigating to the bookmarked position
 			PushNavigationHistory(previousPosition: currentPosition);
 			// Update the current position to the bookmarked position and navigate to it

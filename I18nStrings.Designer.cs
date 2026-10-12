@@ -1535,6 +1535,24 @@ namespace Planetoid_DB {
 			}
 		}
 
+		/// <summary>Gets the message shown when a misplaced bookmark was corrected. Format: {0} designation, {1} old position, {2} new position.</summary>
+		internal static string BookmarkRelocated
+		{
+			get
+			{
+				return ResourceManager.GetString("BookmarkRelocated", resourceCulture);
+			}
+		}
+
+		/// <summary>Gets the message shown when an invalid bookmark was deleted. Format: {0} designation.</summary>
+		internal static string BookmarkRemoved
+		{
+			get
+			{
+				return ResourceManager.GetString("BookmarkRemoved", resourceCulture);
+			}
+		}
+
 		/// <summary>Gets the localized accessibility description for the 3D orbital diagram.</summary>
 		internal static string AeiDiagram3DCanvasAccessibleDescription
 		{
