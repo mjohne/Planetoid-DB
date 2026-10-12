@@ -244,9 +244,10 @@ internal partial class ObservatoryCodesForm : BaseKryptonForm
 			icon: KryptonMessageBoxIcon.Information);
 	}
 
-	/// <summary>Handles the Click event of the ToolStripButton that downloads the latest observatory codes.</summary>
+	/// <summary>Handles the Click event of the ToolStripButton that initiates the download of the latest observatory codes.</summary>
 	/// <param name="sender">The source of the event, typically the ToolStripButton that was clicked.</param>
-	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
+	/// <remarks>This method checks for network availability before opening a downloader form to fetch the latest observatory codes from the specified URL.</remarks>
 	private void ToolStripButtonDownloadLatestObsCodes_Click(object sender, EventArgs e)
 	{
 		// Log the menu item click event for debugging purposes
@@ -254,16 +255,19 @@ internal partial class ObservatoryCodesForm : BaseKryptonForm
 		// Check if the network is available before proceeding with the download
 		if (!NetworkInterface.GetIsNetworkAvailable())
 		{
+			// Log that there is no internet connection
+			logger.Warn(message: "No internet connection available; cannot download observatory codes.");
 			// Show an error message indicating that there is no internet connection
 			ShowErrorMessage(message: I18nStrings.NoInternetConnectionText);
 			// Exit the method early since the download cannot proceed without an internet connection
 			return;
 		}
-		// Create and display the database downloader form with the specified download URL
-		string downloadUrl = string.IsNullOrWhiteSpace(Settings.Default.userObsCodesUrl)
+		// Determine the URL to use for downloading observatory codes, preferring user-defined settings over system defaults
+		string obsCodesUrl = string.IsNullOrWhiteSpace(value: Settings.Default.userObsCodesUrl)
 			? Settings.Default.systemObsCodesUrl
 			: Settings.Default.userObsCodesUrl;
-		using DownloaderForm downloaderForm = new(url: downloadUrl);
+		// Create and display the database downloader form with the specified download URL
+		using DownloaderForm downloaderForm = new(url: obsCodesUrl);
 		// Set the TopMost property of the downloader form to match the main form's TopMost property
 		downloaderForm.TopMost = TopMost;
 		// Show the downloader form as a modal dialog and check the result
@@ -275,7 +279,6 @@ internal partial class ObservatoryCodesForm : BaseKryptonForm
 			return;
 		}
 	}
-
 
 	#endregion
 }
