@@ -23,7 +23,7 @@ using System.ComponentModel;
 namespace Planetoid_DB;
 
 /// <summary>Represents a Windows Form that displays the list of observatory codes and their corresponding locations.</summary>
-/// <remarks>This form provides a ListView with 2 columns showing the observatory code and the location name and a status bar for additional information.</remarks>
+/// <remarks>This form provides a ListView with 8 columns showing observatory codes and location data, plus a status bar for additional information.</remarks>
 partial class ObservatoryCodesForm
 {
 	/// <summary>Required designer variable.</summary>
@@ -53,6 +53,12 @@ partial class ObservatoryCodesForm
 		kryptonPanelMain = new KryptonPanel();
 		listView = new ListView();
 		columnHeaderObservatoryCode = new ColumnHeader();
+		columnHeaderLongitude = new ColumnHeader();
+		columnHeaderLatitude = new ColumnHeader();
+		columnHeaderAltitude = new ColumnHeader();
+		columnHeaderRhoCosPhi = new ColumnHeader();
+		columnHeaderRhoSinPhi = new ColumnHeader();
+		columnHeaderState = new ColumnHeader();
 		columnHeaderLocation = new ColumnHeader();
 		contextMenuSaveToFile = new ContextMenuStrip(components);
 		toolStripMenuItemTextFiles = new ToolStripMenuItem();
@@ -102,8 +108,8 @@ partial class ObservatoryCodesForm
 		kryptonManager = new KryptonManager(components);
 		toolStripContainer = new ToolStripContainer();
 		kryptonToolStripMain = new KryptonToolStrip();
-		toolStripButtonInfoAboutObsCodes = new ToolStripButton();
 		toolStripButtonDownloadLatestObsCodes = new ToolStripButton();
+		toolStripButtonOpenMpcObsCodesPage = new ToolStripButton();
 		((ISupportInitialize)kryptonPanelMain).BeginInit();
 		kryptonPanelMain.SuspendLayout();
 		contextMenuSaveToFile.SuspendLayout();
@@ -125,7 +131,7 @@ partial class ObservatoryCodesForm
 		kryptonPanelMain.Location = new Point(0, 0);
 		kryptonPanelMain.Name = "kryptonPanelMain";
 		kryptonPanelMain.PanelBackStyle = PaletteBackStyle.FormMain;
-		kryptonPanelMain.Size = new Size(523, 357);
+		kryptonPanelMain.Size = new Size(735, 357);
 		kryptonPanelMain.TabIndex = 0;
 		kryptonPanelMain.TabStop = true;
 		kryptonPanelMain.Text = "Mainpanel";
@@ -140,7 +146,7 @@ partial class ObservatoryCodesForm
 		listView.AccessibleName = "Observatory codes list";
 		listView.AccessibleRole = AccessibleRole.List;
 		listView.AllowColumnReorder = true;
-		listView.Columns.AddRange(new ColumnHeader[] { columnHeaderObservatoryCode, columnHeaderLocation });
+		listView.Columns.AddRange(new ColumnHeader[] { columnHeaderObservatoryCode, columnHeaderLongitude, columnHeaderLatitude, columnHeaderAltitude, columnHeaderRhoCosPhi, columnHeaderRhoSinPhi, columnHeaderState, columnHeaderLocation });
 		listView.ContextMenuStrip = contextMenuSaveToFile;
 		listView.Dock = DockStyle.Fill;
 		listView.Font = new Font("Segoe UI", 9F);
@@ -149,20 +155,51 @@ partial class ObservatoryCodesForm
 		listView.Location = new Point(0, 0);
 		listView.Name = "listView";
 		listView.ShowItemToolTips = true;
-		listView.Size = new Size(523, 357);
+		listView.Size = new Size(735, 357);
 		listView.TabIndex = 0;
 		listView.UseCompatibleStateImageBehavior = false;
 		listView.View = View.Details;
 		listView.ColumnClick += ListView_ColumnClick;
 		listView.Enter += Control_Enter;
 		listView.Leave += Control_Leave;
+		listView.MouseDoubleClick += ListView_MouseDoubleClick;
 		listView.MouseEnter += Control_Enter;
 		listView.MouseLeave += Control_Leave;
 		// 
 		// columnHeaderObservatoryCode
 		// 
-		columnHeaderObservatoryCode.Text = "Observatory Code";
-		columnHeaderObservatoryCode.Width = 120;
+		columnHeaderObservatoryCode.Text = "Obs. code";
+		columnHeaderObservatoryCode.Width = 70;
+		// 
+		// columnHeaderLongitude
+		// 
+		columnHeaderLongitude.Text = I18nStrings.ObservatoryCodesColumnLongitude;
+		columnHeaderLongitude.Width = 70;
+		// 
+		// columnHeaderLatitude
+		// 
+		columnHeaderLatitude.Text = I18nStrings.ObservatoryCodesColumnLatitude;
+		columnHeaderLatitude.Width = 70;
+		// 
+		// columnHeaderAltitude
+		// 
+		columnHeaderAltitude.Text = I18nStrings.ObservatoryCodesColumnAltitude;
+		columnHeaderAltitude.Width = 70;
+		// 
+		// columnHeaderRhoCosPhi
+		// 
+		columnHeaderRhoCosPhi.Text = I18nStrings.ObservatoryCodesColumnRhoCosPhi;
+		columnHeaderRhoCosPhi.Width = 70;
+		// 
+		// columnHeaderRhoSinPhi
+		// 
+		columnHeaderRhoSinPhi.Text = I18nStrings.ObservatoryCodesColumnRhoSinPhi;
+		columnHeaderRhoSinPhi.Width = 70;
+		// 
+		// columnHeaderState
+		// 
+		columnHeaderState.Text = I18nStrings.ObservatoryCodesColumnState;
+		columnHeaderState.Width = 100;
 		// 
 		// columnHeaderLocation
 		// 
@@ -787,7 +824,7 @@ partial class ObservatoryCodesForm
 		kryptonStatusStrip.ProgressBars = null;
 		kryptonStatusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
 		kryptonStatusStrip.ShowItemToolTips = true;
-		kryptonStatusStrip.Size = new Size(523, 22);
+		kryptonStatusStrip.Size = new Size(735, 22);
 		kryptonStatusStrip.TabIndex = 0;
 		kryptonStatusStrip.TabStop = true;
 		kryptonStatusStrip.Text = "Status bar";
@@ -829,7 +866,7 @@ partial class ObservatoryCodesForm
 		toolStripContainer.ContentPanel.AccessibleRole = AccessibleRole.Pane;
 		toolStripContainer.ContentPanel.Controls.Add(kryptonPanelMain);
 		toolStripContainer.ContentPanel.Margin = new Padding(4, 3, 4, 3);
-		toolStripContainer.ContentPanel.Size = new Size(523, 357);
+		toolStripContainer.ContentPanel.Size = new Size(735, 357);
 		toolStripContainer.Dock = DockStyle.Fill;
 		// 
 		// toolStripContainer.LeftToolStripPanel
@@ -845,7 +882,7 @@ partial class ObservatoryCodesForm
 		toolStripContainer.RightToolStripPanel.AccessibleDescription = "Just a panel";
 		toolStripContainer.RightToolStripPanel.AccessibleName = "Right panel";
 		toolStripContainer.RightToolStripPanel.AccessibleRole = AccessibleRole.Pane;
-		toolStripContainer.Size = new Size(523, 404);
+		toolStripContainer.Size = new Size(735, 404);
 		toolStripContainer.TabIndex = 0;
 		toolStripContainer.Text = "toolStripContainer";
 		// 
@@ -865,28 +902,14 @@ partial class ObservatoryCodesForm
 		kryptonToolStripMain.AllowItemReorder = true;
 		kryptonToolStripMain.Dock = DockStyle.None;
 		kryptonToolStripMain.Font = new Font("Segoe UI", 9F);
-		kryptonToolStripMain.Items.AddRange(new ToolStripItem[] { toolStripDropDownButtonSaveListInToolbar, toolStripButtonInfoAboutObsCodes, toolStripButtonDownloadLatestObsCodes });
+		kryptonToolStripMain.Items.AddRange(new ToolStripItem[] { toolStripDropDownButtonSaveListInToolbar, toolStripButtonDownloadLatestObsCodes, toolStripButtonOpenMpcObsCodesPage });
 		kryptonToolStripMain.Location = new Point(0, 0);
 		kryptonToolStripMain.Name = "kryptonToolStripMain";
-		kryptonToolStripMain.Size = new Size(523, 25);
+		kryptonToolStripMain.Size = new Size(735, 25);
 		kryptonToolStripMain.Stretch = true;
 		kryptonToolStripMain.TabIndex = 0;
 		kryptonToolStripMain.TabStop = true;
 		kryptonToolStripMain.Text = "Toolbar";
-		// 
-		// toolStripButtonInfoAboutObsCodes
-		// 
-		toolStripButtonInfoAboutObsCodes.AccessibleDescription = "Shows some info about observatory codes";
-		toolStripButtonInfoAboutObsCodes.AccessibleName = "Info about observatory codes";
-		toolStripButtonInfoAboutObsCodes.AccessibleRole = AccessibleRole.PushButton;
-		toolStripButtonInfoAboutObsCodes.Image = FatcowIcons16px.fatcow_information_16px;
-		toolStripButtonInfoAboutObsCodes.ImageTransparentColor = Color.Magenta;
-		toolStripButtonInfoAboutObsCodes.Name = "toolStripButtonInfoAboutObsCodes";
-		toolStripButtonInfoAboutObsCodes.Size = new Size(181, 22);
-		toolStripButtonInfoAboutObsCodes.Text = "Info about observatory codes";
-		toolStripButtonInfoAboutObsCodes.Click += ToolStripButtonInfoAboutObsCodes_Click;
-		toolStripButtonInfoAboutObsCodes.MouseEnter += Control_Enter;
-		toolStripButtonInfoAboutObsCodes.MouseLeave += Control_Leave;
 		// 
 		// toolStripButtonDownloadLatestObsCodes
 		// 
@@ -895,11 +918,25 @@ partial class ObservatoryCodesForm
 		toolStripButtonDownloadLatestObsCodes.Image = FatcowIcons16px.fatcow_table_go_16px;
 		toolStripButtonDownloadLatestObsCodes.ImageTransparentColor = Color.Magenta;
 		toolStripButtonDownloadLatestObsCodes.Name = "toolStripButtonDownloadLatestObsCodes";
-		toolStripButtonDownloadLatestObsCodes.Size = new Size(231, 22);
-		toolStripButtonDownloadLatestObsCodes.Text = I18nStrings.ObservatoryCodesDownloadLatestText;
+		toolStripButtonDownloadLatestObsCodes.Size = new Size(81, 22);
+		toolStripButtonDownloadLatestObsCodes.Text = "Download";
 		toolStripButtonDownloadLatestObsCodes.Click += ToolStripButtonDownloadLatestObsCodes_Click;
 		toolStripButtonDownloadLatestObsCodes.MouseEnter += Control_Enter;
 		toolStripButtonDownloadLatestObsCodes.MouseLeave += Control_Leave;
+		// 
+		// toolStripButtonOpenMpcObsCodesPage
+		// 
+		toolStripButtonOpenMpcObsCodesPage.AccessibleDescription = "Opens the MPC observatory codes page";
+		toolStripButtonOpenMpcObsCodesPage.AccessibleName = "Open the MPC observatory codes page";
+		toolStripButtonOpenMpcObsCodesPage.AccessibleRole = AccessibleRole.PushButton;
+		toolStripButtonOpenMpcObsCodesPage.Image = FatcowIcons16px.fatcow_external_16px;
+		toolStripButtonOpenMpcObsCodesPage.ImageTransparentColor = Color.Magenta;
+		toolStripButtonOpenMpcObsCodesPage.Name = "toolStripButtonOpenMpcObsCodesPage";
+		toolStripButtonOpenMpcObsCodesPage.Size = new Size(115, 22);
+		toolStripButtonOpenMpcObsCodesPage.Text = "MPC  obs. codes";
+		toolStripButtonOpenMpcObsCodesPage.Click += ToolStripButtonOpenMpcObsCodesPage_Click;
+		toolStripButtonOpenMpcObsCodesPage.MouseEnter += Control_Enter;
+		toolStripButtonOpenMpcObsCodesPage.MouseLeave += Control_Leave;
 		// 
 		// ObservatoryCodesForm
 		// 
@@ -908,7 +945,7 @@ partial class ObservatoryCodesForm
 		AccessibleRole = AccessibleRole.Dialog;
 		AutoScaleDimensions = new SizeF(7F, 15F);
 		AutoScaleMode = AutoScaleMode.Font;
-		ClientSize = new Size(523, 404);
+		ClientSize = new Size(735, 404);
 		ControlBox = false;
 		Controls.Add(toolStripContainer);
 		FormBorderStyle = FormBorderStyle.SizableToolWindow;
@@ -991,7 +1028,13 @@ partial class ObservatoryCodesForm
 	private ToolStripDropDownButton toolStripDropDownButtonSaveList;
 	private KryptonToolStrip kryptonToolStripMain;
 	private ToolStripDropDownButton toolStripDropDownButtonSaveListInToolbar;
-	private ToolStripButton toolStripButtonInfoAboutObsCodes;
 	private ToolStripMenuItem toolStripMenuItemSaveAsTypst;
 	private ToolStripButton toolStripButtonDownloadLatestObsCodes;
+	private ColumnHeader columnHeaderLongitude;
+	private ColumnHeader columnHeaderLatitude;
+	private ColumnHeader columnHeaderAltitude;
+	private ColumnHeader columnHeaderRhoCosPhi;
+	private ColumnHeader columnHeaderRhoSinPhi;
+	private ColumnHeader columnHeaderState;
+	private ToolStripButton toolStripButtonOpenMpcObsCodesPage;
 }
