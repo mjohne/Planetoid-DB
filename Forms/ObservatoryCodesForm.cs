@@ -327,6 +327,10 @@ internal partial class ObservatoryCodesForm : BaseKryptonForm
 		CopyToClipboard(text: text);
 	}
 
+	/// <summary>Handles the Mark on map button click.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The event data.</param>
+	/// <remarks>Opens the world map at the selected observatory when its coordinates are valid.</remarks>
 	private void ToolStripButtonMarkOnMap_Click(object sender, EventArgs e)
 	{
 		// Log the click on the button
