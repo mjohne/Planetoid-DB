@@ -129,7 +129,7 @@ partial class WorldMapForm
 		labelInformation.AutoToolTip = true;
 		labelInformation.Image = Resources.FatcowIcons16px.fatcow_lightbulb_16px;
 		labelInformation.Name = "labelInformation";
-		labelInformation.Size = new Size(144, 17);
+		labelInformation.Size = new Size(16, 17);
 		// 
 		// webView
 		// 
@@ -244,6 +244,7 @@ partial class WorldMapForm
 		labelCoordinates.Name = "labelCoordinates";
 		labelCoordinates.Size = new Size(131, 22);
 		labelCoordinates.Text = I18nStrings.WorldMapNoPositionSelected;
+		labelCoordinates.DoubleClick += LabelCoordinates_DoubleClick;
 		labelCoordinates.MouseEnter += Control_Enter;
 		labelCoordinates.MouseLeave += Control_Leave;
 		// 

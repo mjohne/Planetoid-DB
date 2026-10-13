@@ -414,8 +414,6 @@ internal partial class WorldMapForm : BaseKryptonForm
 		{
 			// Log a warning that no predefined marker will be set due to missing position, navigation failure, or form disposal
 			logger.Warn(message: "No predefined marker to set or navigation failed or form disposed. Skipping marker setup.");
-			// Show a warning message to the user indicating that the marker could not be set
-			ShowWarnMessage("Error", "Could not set the predefined marker on the map. The map may not be fully loaded or an error occurred.");
 			return;
 		}
 		// Build the script with invariant culture so that decimal separators are always dots
@@ -603,6 +601,18 @@ internal partial class WorldMapForm : BaseKryptonForm
 		logger.Info(message: "WorldMapForm is closing. Canceling any pending work.");
 		// Cancel the cancellation token source to stop any ongoing geocoding requests
 		cancellationTokenSource.Cancel();
+	}
+
+	/// <summary>Copies the coordinates to the clipboard when the label is double-clicked.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The event data.</param>
+	/// <remarks>Uses an empty string if the label text is null.</remarks>
+	private void LabelCoordinates_DoubleClick(object sender, EventArgs e)
+	{
+		// Log that the coordinates label was double-clicked and the coordinates will be copied to the clipboard
+		logger.Info(message: "Coordinates label double-clicked. Copying coordinates to clipboard.");
+		// Copy the coordinates text to the clipboard, using an empty string if the label text is null
+		CopyToClipboard(text: labelCoordinates.Text ?? string.Empty);
 	}
 
 	#endregion
