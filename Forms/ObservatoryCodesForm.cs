@@ -296,40 +296,6 @@ internal partial class ObservatoryCodesForm : BaseKryptonForm
 		OpenWebsite(fileName: obsCodesPageUrl);
 	}
 
-	/// <summary>Handles the MouseDoubleClick event on the ListView to copy the value of the double-clicked cell to the Windows clipboard.</summary>
-	/// <param name="sender">Event source (the ListView).</param>
-	/// <param name="e">The <see cref="MouseEventArgs"/> instance that contains the event data.</param>
-	/// <remarks>Uses <see cref="ListView.HitTest(Point)"/> to identify the exact sub-item under the mouse pointer and copies its text via <see cref="BaseKryptonForm.CopyToClipboard(string)"/>.</remarks>
-	private void ListView_MouseDoubleClick(object sender, MouseEventArgs e)
-	{
-		// Log the mouse double-click event with the coordinates of the click
-		logger.Info(message: $"Mouse double-click event at coordinates ({e.X}, {e.Y}) on ListView; attempting to copy cell value to clipboard.");
-		// Hit-test to determine which cell (sub-item) was clicked
-		ListViewHitTestInfo hit = listView.HitTest(x: e.X, y: e.Y);
-		// If the hit test did not return a valid item or sub-item, exit early
-		if (hit.Item is null || hit.SubItem is null)
-		{
-			// Log a warning that the double-click event was ignored due to no valid item or sub-item being found
-			logger.Warn(message: "Mouse double-click event ignored; no valid ListView item or sub-item was found at the clicked location.");
-			// Exit the method early since there is nothing to copy
-			return;
-		}
-		// Retrieve the text of the sub-item that was double-clicked
-		string text = hit.SubItem.Text;
-		// If the text is null or empty, exit early without copying
-		if (string.IsNullOrEmpty(value: text))
-		{
-			// Log a warning that the double-click event was ignored due to the sub-item having no text
-			logger.Warn(message: "Mouse double-click event ignored; the clicked ListView sub-item has no text to copy.");
-			// Exit the method early since there is no text to copy
-			return;
-		}
-		// Log the action of copying the text to the clipboard
-		logger.Info(message: $"Copying observatory information cell to clipboard: {text}");
-		// Copy the text of the double-clicked cell to the Windows clipboard
-		CopyToClipboard(text: text);
-	}
-
 	/// <summary>Handles the Mark on map button click.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The event data.</param>
@@ -390,14 +356,19 @@ internal partial class ObservatoryCodesForm : BaseKryptonForm
 	/// <remarks>Collects the coordinates of all rows with valid longitude and latitude and opens the world map with one labeled marker per observatory code.</remarks>
 	private void ToolStripMenuItemMarkAllOnMap_Click(object sender, EventArgs e)
 	{
+		// Log the click on the button
 		logger.Info(message: "Mark all on map menu item clicked.");
+		// Require at least one row
 		List<(decimal Latitude, decimal Longitude, string Label)> markers = new(capacity: listView.Items.Count);
+		// Iterate through all items in the ListView to collect valid coordinates
 		foreach (ListViewItem item in listView.Items)
 		{
 			// The ListView values were formatted with the current culture when loading
 			if (!decimal.TryParse(s: item.SubItems[index: 1].Text, style: NumberStyles.Float, provider: CultureInfo.CurrentCulture, result: out decimal longitude)
 				|| !decimal.TryParse(s: item.SubItems[index: 2].Text, style: NumberStyles.Float, provider: CultureInfo.CurrentCulture, result: out decimal latitude))
 			{
+				// Log a warning that the current row has no valid geographic coordinates and skip it
+				logger.Warn(message: $"Skipping observatory {item.Text} because it has no valid geographic coordinates.");
 				continue;
 			}
 			// MPC longitudes are given eastward from 0 to 360 degrees; the map expects -180 to 180
@@ -405,21 +376,30 @@ internal partial class ObservatoryCodesForm : BaseKryptonForm
 			{
 				longitude -= 360m;
 			}
-			markers.Add((latitude, longitude, item.Text));
+			// Add the observatory's coordinates and label to the markers list
+			markers.Add(item: (Latitude: latitude, Longitude: longitude, Label: item.Text));
 		}
+		// Log the number of observatories that will be marked on the map
+		logger.Info(message: $"Collected {markers.Count} observatories with valid geographic coordinates for marking on the map.");
+		// If no valid coordinates were found, show a warning and exit
 		if (markers.Count == 0)
 		{
+			// Log a warning that no valid coordinates were found and the action will be ignored
 			logger.Warn(message: "Mark all on map ignored because no row has valid geographic coordinates.");
 			_ = KryptonMessageBox.Show(owner: this,
 				text: "Mark all on map ignored because no row has valid geographic coordinates.",
 				caption: "No valid coordinates",
 				buttons: KryptonMessageBoxButtons.OK,
 				icon: KryptonMessageBoxIcon.Warning);
+			// Update the status bar to inform the user that no observatory with valid geographic coordinates was found
 			SetStatusBar(label: labelInformation, text: "No observatory with valid geographic coordinates found.");
 			return;
 		}
+		// Log the action of marking all observatories on the map
 		logger.Info(message: $"Marking {markers.Count} observatories on map.");
+		// Open the world map with markers for all observatories with valid coordinates
 		using WorldMapForm worldMapForm = new(markers: markers);
+		// Show the world map form as a modal dialog
 		_ = worldMapForm.ShowDialog(owner: this);
 	}
 

@@ -240,6 +240,7 @@ partial class WorldMapForm
 		labelCoordinates.AccessibleDescription = I18nStrings.WorldMapCoordinatesAccessibleDescription;
 		labelCoordinates.AccessibleName = "Coordinates";
 		labelCoordinates.AccessibleRole = AccessibleRole.StaticText;
+		labelCoordinates.DoubleClickEnabled = true;
 		labelCoordinates.Image = Resources.FatcowIcons16px.fatcow_location_pin_16px;
 		labelCoordinates.Name = "labelCoordinates";
 		labelCoordinates.Size = new Size(131, 22);
