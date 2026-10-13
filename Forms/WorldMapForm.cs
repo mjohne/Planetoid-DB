@@ -86,6 +86,13 @@ internal partial class WorldMapForm : BaseKryptonForm
 			setMarker(ll.lat, ll.lng, false);
 			window.chrome.webview.postMessage({ lat: ll.lat, lng: ll.lng });
 		});
+
+		document.addEventListener('keydown', function (e) {
+			if (e.key === 'Escape') {
+				e.preventDefault();
+				window.chrome.webview.postMessage({ type: 'escape' });
+			}
+		});
 		</script>
 		</body>
 		</html>
@@ -400,22 +407,36 @@ internal partial class WorldMapForm : BaseKryptonForm
 	/// <remarks>Does nothing if the form was opened without a predefined position or if the navigation failed.</remarks>
 	private async void CoreWebView2_NavigationCompleted(object? sender, CoreWebView2NavigationCompletedEventArgs e)
 	{
+		// Log that the WebView2 navigation has completed and the predefined marker check is starting
+		logger.Info(message: "WebView2 navigation completed. Checking if predefined marker should be set.");
 		// Only act when a predefined position exists and the page was loaded successfully
 		if (initialPosition is null || !e.IsSuccess || IsDisposed)
 		{
+			// Log a warning that no predefined marker will be set due to missing position, navigation failure, or form disposal
+			logger.Warn(message: "No predefined marker to set or navigation failed or form disposed. Skipping marker setup.");
+			// Show a warning message to the user indicating that the marker could not be set
+			ShowWarnMessage("Error", "Could not set the predefined marker on the map. The map may not be fully loaded or an error occurred.");
 			return;
 		}
 		// Build the script with invariant culture so that decimal separators are always dots
 		string script = string.Create(provider: CultureInfo.InvariantCulture, handler: $"setMarker({initialPosition.Value.Latitude}, {initialPosition.Value.Longitude}, true);");
+		// Log that the predefined marker will be set on the map
+		logger.Info(message: "Setting predefined marker on the map.");
+		// Execute the script to set the marker and center the map on it, handling any exceptions that may occur
 		try
 		{
+			// Log that the script to set the predefined marker is being executed
+			logger.Info(message: "Executing script to set predefined marker in WebView2.");
 			// Place the marker and center the map on it
 			_ = await webView.CoreWebView2.ExecuteScriptAsync(javaScript: script).ConfigureAwait(continueOnCapturedContext: true);
 		}
+		// Catch any exceptions that occur while trying to set the marker
 		catch (Exception ex)
 		{
 			// Log a warning that the marker could not be set
 			logger.Warn(exception: ex, message: "Could not set the predefined marker on the map.");
+			// Show a warning message to the user indicating that the marker could not be set
+			ShowWarnMessage("Error", "Could not set the predefined marker on the map. The map may not be fully loaded or an error occurred.");
 		}
 	}
 
@@ -425,6 +446,8 @@ internal partial class WorldMapForm : BaseKryptonForm
 	/// <remarks>Map HTML loaded through <see cref="CoreWebView2.NavigateToString(string)"/> has no HTTP referer by default.</remarks>
 	private void CoreWebView2_WebResourceRequested(object? sender, CoreWebView2WebResourceRequestedEventArgs e)
 	{
+		// Log that a web resource request has been intercepted and the Referer header will be set
+		logger.Info(message: $"Web resource requested: {e.Request.Uri}. Setting Referer header to comply with OpenStreetMap tile usage policy.");
 		// Set the Referer header to comply with OpenStreetMap tile usage policy
 		e.Request.Headers.SetHeader(name: "Referer", value: OpenStreetMapReferer);
 	}
@@ -463,6 +486,7 @@ internal partial class WorldMapForm : BaseKryptonForm
 			// Use Process.Start with UseShellExecute to open the link in the default browser
 			_ = Process.Start(startInfo: new ProcessStartInfo(uri.AbsoluteUri) { UseShellExecute = true });
 		}
+		// Catch any exceptions that occur while trying to open the external link
 		catch (Exception ex)
 		{
 			// Log a warning that the external link could not be opened
@@ -473,23 +497,36 @@ internal partial class WorldMapForm : BaseKryptonForm
 	/// <summary>Handles messages posted by the map page.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The message event data.</param>
-	/// <remarks>The message is a JSON object with <c>lat</c> and <c>lng</c> numbers.</remarks>
+	/// <remarks>The message contains either selected coordinates or an Escape-key notification.</remarks>
 	private void CoreWebView2_WebMessageReceived(object? sender, CoreWebView2WebMessageReceivedEventArgs e)
 	{
+		// Log that a web message has been received from the map page
 		logger.Info(message: "Received web message from the map page.");
-		// Attempt to parse the JSON message and extract the latitude and longitude
+		// Attempt to parse the JSON message and handle it accordingly
 		try
 		{
-			// Parse the JSON message received from the map page
+			// Log that the web message is being parsed as JSON
+			logger.Info(message: "Parsing web message as JSON.");
 			using JsonDocument document = JsonDocument.Parse(json: e.WebMessageAsJson);
-			// Extract the latitude and longitude properties from the JSON document
+			// Check if the message indicates that the Escape key was pressed
+			if (document.RootElement.TryGetProperty(propertyName: "type", value: out JsonElement messageType) && messageType.GetString() == "escape")
+			{
+				// Log that the Escape key was pressed and the dialog will be closed
+				logger.Info(message: "Escape key pressed in the map. Closing dialog.");
+				// Set the dialog result to Cancel and close the form
+				DialogResult = DialogResult.Cancel;
+				Close();
+				return;
+			}
+			// Extract the latitude and longitude from the JSON message
 			decimal lat = document.RootElement.GetProperty(propertyName: "lat").GetDecimal();
 			decimal lng = document.RootElement.GetProperty(propertyName: "lng").GetDecimal();
+			// Log that the coordinates have been extracted from the web message
 			logger.Info(message: "Coordinates extracted from web message.");
-			// Store the selected position and update the UI, clamping the values to valid ranges
+			// Set the selection with the extracted coordinates, clamped to valid ranges
 			SetSelection(latitude: Math.Clamp(value: lat, min: -90m, max: 90m), longitude: Math.Clamp(value: lng, min: -180m, max: 180m));
 		}
-		// Catch exceptions related to JSON parsing, missing keys, invalid operations, or format issues
+		// Catch specific exceptions related to JSON parsing, missing keys, invalid operations, or format issues
 		catch (Exception ex) when (ex is JsonException or KeyNotFoundException or InvalidOperationException or FormatException)
 		{
 			// Log a warning that an invalid message was received from the map
