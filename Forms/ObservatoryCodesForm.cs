@@ -284,6 +284,9 @@ internal partial class ObservatoryCodesForm : BaseKryptonForm
 	/// <remarks>This method logs the action and opens the specified URL in the user's default web browser.</remarks>
 	private void ToolStripButtonOpenMpcObsCodesPage_Click(object sender, EventArgs e)
 	{
+		// Log the menu item click event for debugging purposes
+		logger.Info(message: "Open MPC Observatory Codes page menu item clicked; preparing to open the page in the default web browser.");
+		// Determine the URL to use for opening the MPC Observatory Codes page, preferring user-defined settings over system defaults
 		string obsCodesPageUrl = string.IsNullOrWhiteSpace(value: Settings.Default.userMpcObsCodesPage)
 			? Settings.Default.systemMpcObsCodesPage
 			: Settings.Default.userMpcObsCodesPage;
@@ -338,8 +341,17 @@ internal partial class ObservatoryCodesForm : BaseKryptonForm
 		// Require a selected row
 		if (listView.SelectedItems.Count == 0)
 		{
+			// Log a warning that no row is selected and the action cannot proceed
 			logger.Warn(message: "Mark on map ignored because no row is selected.");
+			// Show a warning message box to the user indicating that they need to select an observatory first
+			_ = KryptonMessageBox.Show(owner: this,
+				text: $"Mark on map ignored because no row is selected.\n\nPlease select an observatory first.",
+				caption: "No row selected",
+				buttons: KryptonMessageBoxButtons.OK,
+				icon: KryptonMessageBoxIcon.Warning);
+			// Update the status bar to inform the user that they need to select an observatory first
 			SetStatusBar(label: labelInformation, text: "Please select an observatory first.");
+			// Exit the method early since there is no selected observatory to mark on the map
 			return;
 		}
 		ListViewItem item = listView.SelectedItems[index: 0];
@@ -347,8 +359,17 @@ internal partial class ObservatoryCodesForm : BaseKryptonForm
 		if (!decimal.TryParse(s: item.SubItems[index: 1].Text, style: NumberStyles.Float, provider: CultureInfo.CurrentCulture, result: out decimal longitude)
 			|| !decimal.TryParse(s: item.SubItems[index: 2].Text, style: NumberStyles.Float, provider: CultureInfo.CurrentCulture, result: out decimal latitude))
 		{
+			// Log a warning that the selected row has no valid geographic coordinates
 			logger.Warn(message: "Mark on map ignored because the selected row has no valid geographic coordinates.");
+			// Show a warning message box to the user indicating that the selected observatory has no valid coordinates
+			_ = KryptonMessageBox.Show(owner: this,
+				text: $"Mark on map ignored because the selected row has no valid geographic coordinates.\n\nPlease select an observatory with valid coordinates.",
+				caption: "Invalid coordinates",
+				buttons: KryptonMessageBoxButtons.OK,
+				icon: KryptonMessageBoxIcon.Warning);
+			// Update the status bar to inform the user that the selected observatory has no valid geographic coordinates
 			SetStatusBar(label: labelInformation, text: "The selected observatory has no valid geographic coordinates.");
+			// Exit the method early since the selected observatory cannot be marked on the map
 			return;
 		}
 		// MPC longitudes are given eastward from 0 to 360 degrees; the map expects -180 to 180
@@ -356,6 +377,8 @@ internal partial class ObservatoryCodesForm : BaseKryptonForm
 		{
 			longitude -= 360m;
 		}
+		// Log the coordinates that will be marked on the map
+		logger.Info(message: $"Marking observatory on map at coordinates: Latitude {latitude}, Longitude {longitude}");
 		// Open the world map with a marker at the observatory position
 		using WorldMapForm worldMapForm = new(latitude: latitude, longitude: longitude);
 		_ = worldMapForm.ShowDialog(owner: this);
