@@ -115,13 +115,19 @@ internal partial class ObservatoryCodesForm : BaseKryptonForm
 				{
 					continue;
 				}
-				// Split the line into parts using the pipe character as a separator, limiting to 2 parts (code and location)
-				string[] parts = line.Split(separator: '|', count: 2);
-				// If the line contains both a code and a location, create a ListViewItem and add it to the list
-				if (parts.Length == 2)
+				// Split the line into parts using the pipe character as a separator, limiting to 8 parts (code, longitude, latitude, altitude, rho cos phi, rho sin phi,state and location)
+				string[] parts = line.Split(separator: '|', count: 8);
+				// If the line contains a code, longitude, latitude, altitude, rho cos phi, rho sin phi,state and location, create a ListViewItem and add it to the list
+				if (parts.Length == 8)
 				{
-					ListViewItem item = new(parts[0]);
-					_ = item.SubItems.Add(text: parts[1]);
+					ListViewItem item = new(parts[0].Trim());
+					_ = item.SubItems.Add(text: parts[1].Trim());
+					_ = item.SubItems.Add(text: parts[2].Trim());
+					_ = item.SubItems.Add(text: parts[3].Trim());
+					_ = item.SubItems.Add(text: parts[4].Trim());
+					_ = item.SubItems.Add(text: parts[5].Trim());
+					_ = item.SubItems.Add(text: parts[6].Trim());
+					_ = item.SubItems.Add(text: parts[7].Trim());
 					items.Add(item: item);
 				}
 			}
@@ -228,22 +234,6 @@ internal partial class ObservatoryCodesForm : BaseKryptonForm
 
 	#region Click event handlers
 
-	/// <summary>Handles the Click event of the ToolStripButton that displays information about observatory codes.</summary>
-	/// <remarks>Displays a message box with information about observatory codes and a link to the Minor Planet Center website.</remarks>
-	/// <param name="sender">The source of the event, typically the ToolStripButton that was clicked.</param>
-	/// <param name="e">An EventArgs object that contains the event data.</param>
-	private void ToolStripButtonInfoAboutObsCodes_Click(object sender, EventArgs e)
-	{
-		// Log the action of displaying information about observatory codes
-		logger.Info(message: "Displaying information about observatory codes.");
-		// Show a message box with information about observatory codes and a link to the Minor Planet Center website
-		_ = KryptonMessageBox.Show(owner: this,
-			text: "This application displays a list of observatory codes and their corresponding locations.\n\nYou can find more information about Observatory Codes at the Minor Planet Center website: https://minorplanetcenter.net/iau/info/ObservatoryCodes.html.",
-			caption: "About Observatory Codes",
-			buttons: KryptonMessageBoxButtons.OK,
-			icon: KryptonMessageBoxIcon.Information);
-	}
-
 	/// <summary>Handles the Click event of the ToolStripButton that initiates the download of the latest observatory codes.</summary>
 	/// <param name="sender">The source of the event, typically the ToolStripButton that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
@@ -278,6 +268,52 @@ internal partial class ObservatoryCodesForm : BaseKryptonForm
 			// Exit the method early since the user canceled the download
 			return;
 		}
+	}
+
+	/// <summary>Handles the Click event of the ToolStripButton that opens the MPC Observatory Codes page in the default web browser.</summary>
+	/// <param name="sender">The source of the event, typically the ToolStripButton that was clicked.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
+	/// <remarks>This method logs the action and opens the specified URL in the user's default web browser.</remarks>
+	private void ToolStripButtonOpenMpcObsCodesPage_Click(object sender, EventArgs e)
+	{
+		// Log the action of opening the MPC Observatory Codes page
+		logger.Info(message: $"Opening MPC Observatory Codes page; {Settings.Default.systemMpcObsCodesPage}");
+		// Open the MPC Observatory Codes page in the default web browser
+		OpenWebsite(fileName: Settings.Default.systemMpcObsCodesPage);
+	}
+
+	/// <summary>Handles the MouseDoubleClick event on the ListView to copy the value of the double-clicked cell to the Windows clipboard.</summary>
+	/// <param name="sender">Event source (the ListView).</param>
+	/// <param name="e">The <see cref="MouseEventArgs"/> instance that contains the event data.</param>
+	/// <remarks>Uses <see cref="ListView.HitTest(Point)"/> to identify the exact sub-item under the mouse pointer and copies its text via <see cref="BaseKryptonForm.CopyToClipboard(string)"/>.</remarks>
+	private void ListView_MouseDoubleClick(object sender, MouseEventArgs e)
+	{
+		// Log the mouse double-click event with the coordinates of the click
+		logger.Info(message: $"Mouse double-click event at coordinates ({e.X}, {e.Y}) on ListView; attempting to copy cell value to clipboard.");
+		// Hit-test to determine which cell (sub-item) was clicked
+		ListViewHitTestInfo hit = listView.HitTest(x: e.X, y: e.Y);
+		// If the hit test did not return a valid item or sub-item, exit early
+		if (hit.Item is null || hit.SubItem is null)
+		{
+			// Log a warning that the double-click event was ignored due to no valid item or sub-item being found
+			logger.Warn(message: "Mouse double-click event ignored; no valid ListView item or sub-item was found at the clicked location.");
+			// Exit the method early since there is nothing to copy
+			return;
+		}
+		// Retrieve the text of the sub-item that was double-clicked
+		string text = hit.SubItem.Text;
+		// If the text is null or empty, exit early without copying
+		if (string.IsNullOrEmpty(value: text))
+		{
+			// Log a warning that the double-click event was ignored due to the sub-item having no text
+			logger.Warn(message: "Mouse double-click event ignored; the clicked ListView sub-item has no text to copy.");
+			// Exit the method early since there is no text to copy
+			return;
+		}
+		// Log the action of copying the text to the clipboard
+		logger.Info(message: $"Copying observatory information cell to clipboard: {text}");
+		// Copy the text of the double-clicked cell to the Windows clipboard
+		CopyToClipboard(text: text);
 	}
 
 	#endregion

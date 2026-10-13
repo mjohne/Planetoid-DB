@@ -643,5 +643,26 @@ namespace Planetoid_DB.Properties {
                 this["userObsCodesUrl"] = value;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://minorplanetcenter.net/iau/lists/ObsCodesF.html")]
+        public string systemMpcObsCodesPage {
+            get {
+                return ((string)(this["systemMpcObsCodesPage"]));
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string userMpcObsCodesPage {
+            get {
+                return ((string)(this["userMpcObsCodesPage"]));
+            }
+            set {
+                this["userMpcObsCodesPage"] = value;
+            }
+        }
     }
 }
