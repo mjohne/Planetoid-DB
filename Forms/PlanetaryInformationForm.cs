@@ -747,39 +747,5 @@ internal partial class PlanetaryInformationForm : BaseKryptonForm
 		listView.Sort();
 	}
 
-	/// <summary>Handles the MouseDoubleClick event on the ListView to copy the value of the double-clicked cell to the Windows clipboard.</summary>
-	/// <param name="sender">Event source (the ListView).</param>
-	/// <param name="e">The <see cref="MouseEventArgs"/> instance that contains the event data.</param>
-	/// <remarks>Uses <see cref="ListView.HitTest(Point)"/> to identify the exact sub-item under the mouse pointer and copies its text via <see cref="BaseKryptonForm.CopyToClipboard(string)"/>.</remarks>
-	private void ListView_MouseDoubleClick(object sender, MouseEventArgs e)
-	{
-		// Log the mouse double-click event with the coordinates of the click
-		logger.Info(message: $"Mouse double-click event at coordinates ({e.X}, {e.Y}) on ListView; attempting to copy cell value to clipboard.");
-		// Hit-test to determine which cell (sub-item) was clicked
-		ListViewHitTestInfo hit = listView.HitTest(x: e.X, y: e.Y);
-		// If the hit test did not return a valid item or sub-item, exit early
-		if (hit.Item is null || hit.SubItem is null)
-		{
-			// Log a warning that the double-click event was ignored due to no valid item or sub-item being found
-			logger.Warn(message: "Mouse double-click event ignored; no valid ListView item or sub-item was found at the clicked location.");
-			// Exit the method early since there is nothing to copy
-			return;
-		}
-		// Retrieve the text of the sub-item that was double-clicked
-		string text = hit.SubItem.Text;
-		// If the text is null or empty, exit early without copying
-		if (string.IsNullOrEmpty(value: text))
-		{
-			// Log a warning that the double-click event was ignored due to the sub-item having no text
-			logger.Warn(message: "Mouse double-click event ignored; the clicked ListView sub-item has no text to copy.");
-			// Exit the method early since there is no text to copy
-			return;
-		}
-		// Log the action of copying the text to the clipboard
-		logger.Info(message: $"Copying planetary information cell to clipboard: {text}");
-		// Copy the text of the double-clicked cell to the Windows clipboard
-		CopyToClipboard(text: text);
-	}
-
 	#endregion
 }

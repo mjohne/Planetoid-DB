@@ -984,6 +984,7 @@ partial class EphemerisForm
 		listView.Leave += Control_Leave;
 		listView.MouseEnter += Control_Enter;
 		listView.MouseLeave += Control_Leave;
+		listView.MouseDoubleClick += ListView_MouseDoubleClick;
 		// 
 		// progressBar
 		// 

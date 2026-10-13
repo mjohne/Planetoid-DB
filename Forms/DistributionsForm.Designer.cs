@@ -23,6 +23,10 @@ using ScottPlot.WinForms;
 
 using System.ComponentModel;
 
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+
+using ListView = System.Windows.Forms.ListView;
+
 namespace Planetoid_DB;
 
 /// <summary>Provides a user interface for counting planetoids in orbital-element ranges and displaying the result as a histogram.</summary>
@@ -287,6 +291,7 @@ partial class DistributionsForm
 		listViewResults.Leave += Control_Leave;
 		listViewResults.MouseEnter += Control_Enter;
 		listViewResults.MouseLeave += Control_Leave;
+		listViewResults.MouseDoubleClick += ListView_MouseDoubleClick;
 		// 
 		// columnHeaderRange
 		// 

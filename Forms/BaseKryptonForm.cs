@@ -209,6 +209,7 @@ public class BaseKryptonForm : KryptonForm
 			// Log any exception that occurs during the clipboard operation
 			catch (Exception ex)
 			{
+				// Log the exception and rethrow it as an InvalidOperationException
 				logger.Error(exception: ex, message: "Failed to copy text to the clipboard.");
 				throw new InvalidOperationException(message: "Failed to copy text to the clipboard.", innerException: ex);
 			}
@@ -221,6 +222,8 @@ public class BaseKryptonForm : KryptonForm
 	/// <remarks>This method is used to handle key down events for the form.</remarks>
 	private void BaseKryptonForm_KeyDown(object? sender, KeyEventArgs e)
 	{
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Close the form when Escape is pressed
 		if (e.KeyCode == Keys.Escape && !this.InvokeRequired)
 		{
@@ -248,26 +251,75 @@ public class BaseKryptonForm : KryptonForm
 	/// <remarks>If the operation fails or the input is invalid, an error message is displayed and the exception or error is logged. The method uses the system's default browser to open the URL.</remarks>
 	protected static void OpenWebsite(string fileName)
 	{
+		// Validate the input fileName parameter
 		if (string.IsNullOrWhiteSpace(value: fileName))
 		{
+			// Log the error and show an error message if the fileName is null, empty, or whitespace
 			const string message = "The parameter 'fileName' cannot be null, empty, or consist only of white-space characters.";
-			logger.Error(message);
+			logger.Error(message: message);
 			ShowErrorMessage(message: $"Error opening the website: {message}");
 			return;
 		}
+		// Attempt to open the website in the default browser
 		try
 		{
+			// Log the attempt to open the website
+			logger.Info(message: $"Attempting to open website '{fileName}' in the default browser.");
 			// Open the website in the default browser
 			using Process process = new();
+			// UseShellExecute is set to true to open the URL in the default browser
 			process.StartInfo = new ProcessStartInfo(fileName: fileName) { UseShellExecute = true };
+			// Start the process to open the website
 			_ = process.Start();
 		}
+		// Handle any exceptions that occur during the process of opening the website
 		catch (Exception ex)
 		{
 			// Log the exception and show an error message
 			logger.Error(exception: ex, message: $"Error opening website '{fileName}'.");
 			ShowErrorMessage(message: $"Error opening the website '{fileName}'. Please see the log for more details.");
 		}
+	}
+
+	/// <summary>Handles double-click events on ListView controls and copies the text of the clicked cell to the clipboard.</summary>
+	/// <param name="sender">Event source, expected to be a <see cref="ListView"/>.</param>
+	/// <param name="e">The mouse event data containing the clicked position.</param>
+	/// <remarks>Uses the event source to support any ListView hosted by a form derived from <see cref="BaseKryptonForm"/>.</remarks>
+	protected void ListView_MouseDoubleClick(object? sender, MouseEventArgs e)
+	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		// Ensure that the event was raised by a ListView
+		if (sender is not ListView listView)
+		{
+			// Log the unsupported event source
+			logger.Warn(message: "Mouse double-click event ignored because the sender is not a ListView.");
+			return;
+		}
+		// Determine the cell at the clicked position
+		ListViewHitTestInfo hit = listView.HitTest(point: e.Location);
+		// Do not copy when no cell was clicked
+		if (hit.Item is null || hit.SubItem is null)
+		{
+			// Log the missing ListView cell
+			logger.Warn(message: $"Mouse double-click event ignored because no ListView cell was found at ({e.X}, {e.Y}).");
+			return;
+		}
+		// Get the text from the clicked cell
+		string textToCopy = hit.SubItem.Text;
+		// Do not copy empty cell values
+		if (string.IsNullOrEmpty(value: textToCopy))
+		{
+			// Log the empty cell value
+			logger.Warn(message: "Mouse double-click event ignored because the clicked ListView cell has no text to copy.");
+			return;
+		}
+		// Log the copy operation
+		logger.Info(message: $"Mouse double-click event on ListView cell at ({e.X}, {e.Y}) with text '{textToCopy}' will be copied to the clipboard.");
+		// Copy the clicked cell value
+		CopyToClipboard(text: textToCopy);
 	}
 
 	#region Export virtual properties

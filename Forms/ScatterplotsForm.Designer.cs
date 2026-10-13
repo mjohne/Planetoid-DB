@@ -23,6 +23,8 @@ using ScottPlot.WinForms;
 
 using System.ComponentModel;
 
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+
 namespace Planetoid_DB;
 
 /// <summary>Provides a user interface for plotting planetoids as a scatter plot of two user-selected orbital elements or derived properties.</summary>
@@ -63,7 +65,7 @@ partial class ScatterplotsForm
 		splitContainerMain = new SplitContainer();
 		kryptonPanelChart = new KryptonPanel();
 		formsPlotScatterplot = new FormsPlot();
-		listViewResults = new ListView();
+		listViewResults = new System.Windows.Forms.ListView();
 		columnHeaderX = new ColumnHeader();
 		columnHeaderY = new ColumnHeader();
 		kryptonToolStripToolbar = new KryptonToolStrip();
@@ -289,6 +291,7 @@ partial class ScatterplotsForm
 		listViewResults.Leave += Control_Leave;
 		listViewResults.MouseEnter += Control_Enter;
 		listViewResults.MouseLeave += Control_Leave;
+		listViewResults.MouseDoubleClick += ListView_MouseDoubleClick;
 		// 
 		// columnHeaderX
 		// 
@@ -591,7 +594,7 @@ partial class ScatterplotsForm
 	private SplitContainer splitContainerMain;
 	private KryptonPanel kryptonPanelChart;
 	private FormsPlot formsPlotScatterplot;
-	private ListView listViewResults;
+	private System.Windows.Forms.ListView listViewResults;
 	private ColumnHeader columnHeaderX;
 	private ColumnHeader columnHeaderY;
 	private KryptonStatusStrip kryptonStatusStrip;
