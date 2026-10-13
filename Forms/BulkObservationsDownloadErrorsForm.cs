@@ -50,11 +50,12 @@ internal sealed class BulkObservationsDownloadErrorsForm : BaseKryptonForm
 		_listView.HideSelection = false;
 		_listView.AccessibleName = "Error list";
 		_listView.AccessibleDescription = "Shows all logged download errors with timestamp, URL and details";
-		_ = _listView.Columns.Add(text: "Datum / Uhrzeit", width: 170);
+		_ = _listView.Columns.Add(text: "Date / Time", width: 170);
 		_ = _listView.Columns.Add(text: "URL", width: 390);
-		_ = _listView.Columns.Add(text: "Fehler", width: 420);
+		_ = _listView.Columns.Add(text: "Error", width: 420);
 		_listView.MouseEnter += Control_Enter;
 		_listView.MouseLeave += Control_Leave;
+		_listView.MouseDoubleClick += ListView_MouseDoubleClick;
 		// Populate ListView with error entries
 		foreach (BulkObservationsDownloadErrorEntry entry in entries)
 		{
