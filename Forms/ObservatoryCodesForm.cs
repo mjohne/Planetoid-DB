@@ -329,6 +329,32 @@ internal partial class ObservatoryCodesForm : BaseKryptonForm
 
 	private void ToolStripButtonMarkOnMap_Click(object sender, EventArgs e)
 	{
+		// Log the click on the button
+		logger.Info(message: "Mark on map button clicked.");
+		// Require a selected row
+		if (listView.SelectedItems.Count == 0)
+		{
+			logger.Warn(message: "Mark on map ignored because no row is selected.");
+			SetStatusBar(label: labelInformation, text: "Please select an observatory first.");
+			return;
+		}
+		ListViewItem item = listView.SelectedItems[index: 0];
+		// The ListView values were formatted with the current culture when loading
+		if (!decimal.TryParse(s: item.SubItems[index: 1].Text, style: NumberStyles.Float, provider: CultureInfo.CurrentCulture, result: out decimal longitude)
+			|| !decimal.TryParse(s: item.SubItems[index: 2].Text, style: NumberStyles.Float, provider: CultureInfo.CurrentCulture, result: out decimal latitude))
+		{
+			logger.Warn(message: "Mark on map ignored because the selected row has no valid geographic coordinates.");
+			SetStatusBar(label: labelInformation, text: "The selected observatory has no valid geographic coordinates.");
+			return;
+		}
+		// MPC longitudes are given eastward from 0 to 360 degrees; the map expects -180 to 180
+		if (longitude > 180m)
+		{
+			longitude -= 360m;
+		}
+		// Open the world map with a marker at the observatory position
+		using WorldMapForm worldMapForm = new(latitude: latitude, longitude: longitude);
+		_ = worldMapForm.ShowDialog(owner: this);
 	}
 
 	#endregion
