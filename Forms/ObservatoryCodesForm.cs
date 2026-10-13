@@ -327,5 +327,9 @@ internal partial class ObservatoryCodesForm : BaseKryptonForm
 		CopyToClipboard(text: text);
 	}
 
+	private void ToolStripButtonMarkOnMap_Click(object sender, EventArgs e)
+	{
+	}
+
 	#endregion
 }

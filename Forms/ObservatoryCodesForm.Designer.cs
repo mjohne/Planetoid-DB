@@ -110,6 +110,7 @@ partial class ObservatoryCodesForm
 		kryptonToolStripMain = new KryptonToolStrip();
 		toolStripButtonDownloadLatestObsCodes = new ToolStripButton();
 		toolStripButtonOpenMpcObsCodesPage = new ToolStripButton();
+		toolStripButtonMarkOnMap = new ToolStripButton();
 		((ISupportInitialize)kryptonPanelMain).BeginInit();
 		kryptonPanelMain.SuspendLayout();
 		contextMenuSaveToFile.SuspendLayout();
@@ -902,7 +903,7 @@ partial class ObservatoryCodesForm
 		kryptonToolStripMain.AllowItemReorder = true;
 		kryptonToolStripMain.Dock = DockStyle.None;
 		kryptonToolStripMain.Font = new Font("Segoe UI", 9F);
-		kryptonToolStripMain.Items.AddRange(new ToolStripItem[] { toolStripDropDownButtonSaveListInToolbar, toolStripButtonDownloadLatestObsCodes, toolStripButtonOpenMpcObsCodesPage });
+		kryptonToolStripMain.Items.AddRange(new ToolStripItem[] { toolStripDropDownButtonSaveListInToolbar, toolStripButtonDownloadLatestObsCodes, toolStripButtonOpenMpcObsCodesPage, toolStripButtonMarkOnMap });
 		kryptonToolStripMain.Location = new Point(0, 0);
 		kryptonToolStripMain.Name = "kryptonToolStripMain";
 		kryptonToolStripMain.Size = new Size(735, 25);
@@ -937,6 +938,19 @@ partial class ObservatoryCodesForm
 		toolStripButtonOpenMpcObsCodesPage.Click += ToolStripButtonOpenMpcObsCodesPage_Click;
 		toolStripButtonOpenMpcObsCodesPage.MouseEnter += Control_Enter;
 		toolStripButtonOpenMpcObsCodesPage.MouseLeave += Control_Leave;
+		// 
+		// toolStripButtonMarkOnMap
+		// 
+		toolStripButtonMarkOnMap.AccessibleDescription = "Marks on the world map";
+		toolStripButtonMarkOnMap.AccessibleName = "Mark on the world map";
+		toolStripButtonMarkOnMap.Image = FatcowIcons16px.fatcow_map_16px;
+		toolStripButtonMarkOnMap.ImageTransparentColor = Color.Magenta;
+		toolStripButtonMarkOnMap.Name = "toolStripButtonMarkOnMap";
+		toolStripButtonMarkOnMap.Size = new Size(98, 22);
+		toolStripButtonMarkOnMap.Text = "Mark on map";
+		toolStripButtonMarkOnMap.Click += ToolStripButtonMarkOnMap_Click;
+		toolStripButtonMarkOnMap.MouseEnter += Control_Enter;
+		toolStripButtonMarkOnMap.MouseLeave += Control_Leave;
 		// 
 		// ObservatoryCodesForm
 		// 
@@ -1037,4 +1051,5 @@ partial class ObservatoryCodesForm
 	private ColumnHeader columnHeaderRhoSinPhi;
 	private ColumnHeader columnHeaderState;
 	private ToolStripButton toolStripButtonOpenMpcObsCodesPage;
+	private ToolStripButton toolStripButtonMarkOnMap;
 }
