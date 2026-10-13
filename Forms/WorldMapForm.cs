@@ -103,6 +103,10 @@ internal partial class WorldMapForm : BaseKryptonForm
 	/// <remarks>The OK button is enabled only when this value is <see langword="true"/>.</remarks>
 	public bool HasSelection { get; private set; }
 
+	/// <summary>Stores the position that is marked on the map once the map page has loaded.</summary>
+	/// <remarks>This value is <see langword="null"/> when the form was opened without a predefined position.</remarks>
+	private readonly (decimal Latitude, decimal Longitude)? initialPosition;
+
 	/// <summary>Gets the status label used for displaying information in the status bar.</summary>
 	/// <remarks>Overrides the base class property to return the form-specific status label.</remarks>
 	protected override ToolStripStatusLabel? StatusLabel => labelInformation;
@@ -117,6 +121,20 @@ internal partial class WorldMapForm : BaseKryptonForm
 		InitializeComponent();
 		// Log that the form has been initialized
 		logger.Info(message: "WorldMapForm initialized.");
+	}
+
+	/// <summary>Initializes a new instance of the <see cref="WorldMapForm"/> class and marks the given position on the map.</summary>
+	/// <param name="latitude">The latitude of the marker in degrees (-90 to 90).</param>
+	/// <param name="longitude">The longitude of the marker in degrees (-180 to 180).</param>
+	/// <remarks>The marker is set and the map is centered on it as soon as the map page has been loaded.</remarks>
+	public WorldMapForm(decimal latitude, decimal longitude) : this()
+	{
+		// Clamp the values to the valid ranges and remember the position for the map page
+		initialPosition = (Math.Clamp(value: latitude, min: -90m, max: 90m), Math.Clamp(value: longitude, min: -180m, max: 180m));
+		// Store the position as the current selection and update the UI
+		SetSelection(latitude: initialPosition.Value.Latitude, longitude: initialPosition.Value.Longitude);
+		// Log that the form was initialized with a predefined position
+		logger.Info(message: "WorldMapForm initialized with a predefined marker position.");
 	}
 
 	/// <summary>Disposes the form and cancels any pending geocoding request.</summary>
@@ -351,6 +369,7 @@ internal partial class WorldMapForm : BaseKryptonForm
 			webView.CoreWebView2.WebMessageReceived += CoreWebView2_WebMessageReceived;
 			webView.CoreWebView2.AddWebResourceRequestedFilter(uri: "https://tile.openstreetmap.org/*", ResourceContext: CoreWebView2WebResourceContext.Image);
 			webView.CoreWebView2.WebResourceRequested += CoreWebView2_WebResourceRequested;
+			webView.CoreWebView2.NavigationCompleted += CoreWebView2_NavigationCompleted;
 			// Disable the default context menus in the WebView2 control to prevent right-click actions
 			webView.CoreWebView2.Settings.AreDefaultContextMenusEnabled = false;
 			// Log that the map HTML content is being loaded into the WebView2 control
@@ -372,6 +391,31 @@ internal partial class WorldMapForm : BaseKryptonForm
 			logger.Error(exception: ex, message: "WebView2 could not be initialized.");
 			// Update the information label to indicate that the world map initialization failed
 			labelInformation.Text = I18nStrings.WorldMapInitializationFailed;
+		}
+	}
+
+	/// <summary>Sets the predefined marker once the map page has finished loading.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The navigation event data.</param>
+	/// <remarks>Does nothing if the form was opened without a predefined position or if the navigation failed.</remarks>
+	private async void CoreWebView2_NavigationCompleted(object? sender, CoreWebView2NavigationCompletedEventArgs e)
+	{
+		// Only act when a predefined position exists and the page was loaded successfully
+		if (initialPosition is null || !e.IsSuccess || IsDisposed)
+		{
+			return;
+		}
+		// Build the script with invariant culture so that decimal separators are always dots
+		string script = string.Create(provider: CultureInfo.InvariantCulture, handler: $"setMarker({initialPosition.Value.Latitude}, {initialPosition.Value.Longitude}, true);");
+		try
+		{
+			// Place the marker and center the map on it
+			_ = await webView.CoreWebView2.ExecuteScriptAsync(javaScript: script).ConfigureAwait(continueOnCapturedContext: true);
+		}
+		catch (Exception ex)
+		{
+			// Log a warning that the marker could not be set
+			logger.Warn(exception: ex, message: "Could not set the predefined marker on the map.");
 		}
 	}
 
