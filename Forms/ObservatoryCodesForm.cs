@@ -384,8 +384,43 @@ internal partial class ObservatoryCodesForm : BaseKryptonForm
 		_ = worldMapForm.ShowDialog(owner: this);
 	}
 
+	/// <summary>Handles the Click event of the menu item that marks all observatories on the world map.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>Collects the coordinates of all rows with valid longitude and latitude and opens the world map with one labeled marker per observatory code.</remarks>
 	private void ToolStripMenuItemMarkAllOnMap_Click(object sender, EventArgs e)
 	{
+		logger.Info(message: "Mark all on map menu item clicked.");
+		List<(decimal Latitude, decimal Longitude, string Label)> markers = new(capacity: listView.Items.Count);
+		foreach (ListViewItem item in listView.Items)
+		{
+			// The ListView values were formatted with the current culture when loading
+			if (!decimal.TryParse(s: item.SubItems[index: 1].Text, style: NumberStyles.Float, provider: CultureInfo.CurrentCulture, result: out decimal longitude)
+				|| !decimal.TryParse(s: item.SubItems[index: 2].Text, style: NumberStyles.Float, provider: CultureInfo.CurrentCulture, result: out decimal latitude))
+			{
+				continue;
+			}
+			// MPC longitudes are given eastward from 0 to 360 degrees; the map expects -180 to 180
+			if (longitude > 180m)
+			{
+				longitude -= 360m;
+			}
+			markers.Add((latitude, longitude, item.Text));
+		}
+		if (markers.Count == 0)
+		{
+			logger.Warn(message: "Mark all on map ignored because no row has valid geographic coordinates.");
+			_ = KryptonMessageBox.Show(owner: this,
+				text: "Mark all on map ignored because no row has valid geographic coordinates.",
+				caption: "No valid coordinates",
+				buttons: KryptonMessageBoxButtons.OK,
+				icon: KryptonMessageBoxIcon.Warning);
+			SetStatusBar(label: labelInformation, text: "No observatory with valid geographic coordinates found.");
+			return;
+		}
+		logger.Info(message: $"Marking {markers.Count} observatories on map.");
+		using WorldMapForm worldMapForm = new(markers: markers);
+		_ = worldMapForm.ShowDialog(owner: this);
 	}
 
 	#endregion
