@@ -75,10 +75,20 @@ internal partial class WorldMapForm : BaseKryptonForm
 			attribution: '{{I18nStrings.WorldMapAttribution}}'
 		}).addTo(map);
 		var marker = null;
+		var markerGroup = L.featureGroup().addTo(map);
+		var markerRenderer = L.canvas();
 		function setMarker(lat, lng, zoomTo) {
 			if (marker === null) { marker = L.marker([lat, lng]).addTo(map); }
 			else { marker.setLatLng([lat, lng]); }
 			if (zoomTo) { map.setView([lat, lng], Math.max(map.getZoom(), 12)); }
+		}
+
+		function setMarkers(items) {
+			markerGroup.clearLayers();
+			items.forEach(function (item) {
+				L.circleMarker([item.lat, item.lng], { renderer: markerRenderer, radius: 5 }).bindTooltip(item.label, { direction: 'right' }).addTo(markerGroup);
+			});
+			if (items.length > 0) { map.fitBounds(markerGroup.getBounds(), { padding: [20, 20], maxZoom: 12 }); }
 		}
 
 		map.on('click', function (e) {
@@ -114,6 +124,10 @@ internal partial class WorldMapForm : BaseKryptonForm
 	/// <remarks>This value is <see langword="null"/> when the form was opened without a predefined position.</remarks>
 	private readonly (decimal Latitude, decimal Longitude)? initialPosition;
 
+	/// <summary>Stores the labeled positions that are marked on the map once the map page has loaded.</summary>
+	/// <remarks>This value is <see langword="null"/> when the form was not opened with multiple positions.</remarks>
+	private readonly List<(decimal Latitude, decimal Longitude, string Label)>? initialMarkers;
+
 	/// <summary>Gets the status label used for displaying information in the status bar.</summary>
 	/// <remarks>Overrides the base class property to return the form-specific status label.</remarks>
 	protected override ToolStripStatusLabel? StatusLabel => labelInformation;
@@ -142,6 +156,18 @@ internal partial class WorldMapForm : BaseKryptonForm
 		SetSelection(latitude: initialPosition.Value.Latitude, longitude: initialPosition.Value.Longitude);
 		// Log that the form was initialized with a predefined position
 		logger.Info(message: "WorldMapForm initialized with a predefined marker position.");
+	}
+
+	/// <summary>Initializes a new instance of the <see cref="WorldMapForm"/> class and marks all given positions on the map.</summary>
+	/// <param name="markers">The positions to mark, each with latitude and longitude in degrees and a label.</param>
+	/// <remarks>The markers are set with their labels and the map is fitted to them as soon as the map page has been loaded. Values outside the valid ranges are clamped.</remarks>
+	public WorldMapForm(IEnumerable<(decimal Latitude, decimal Longitude, string Label)> markers) : this()
+	{
+		ArgumentNullException.ThrowIfNull(argument: markers);
+		// Clamp the values to the valid ranges and remember the positions for the map page
+		initialMarkers = [.. markers.Select(m => (Math.Clamp(value: m.Latitude, min: -90m, max: 90m), Math.Clamp(value: m.Longitude, min: -180m, max: 180m), m.Label ?? string.Empty))];
+		// Log that the form was initialized with multiple predefined positions
+		logger.Info(message: $"WorldMapForm initialized with {initialMarkers.Count} predefined marker positions.");
 	}
 
 	/// <summary>Disposes the form and cancels any pending geocoding request.</summary>
@@ -409,6 +435,23 @@ internal partial class WorldMapForm : BaseKryptonForm
 	{
 		// Log that the WebView2 navigation has completed and the predefined marker check is starting
 		logger.Info(message: "WebView2 navigation completed. Checking if predefined marker should be set.");
+		// Mark multiple positions if they were provided
+		if (initialMarkers is { Count: > 0 } && e.IsSuccess && !IsDisposed)
+		{
+			try
+			{
+				// Serialize with System.Text.Json so that labels are safely escaped for JavaScript
+				string json = JsonSerializer.Serialize(value: initialMarkers.Select(m => new { lat = m.Latitude, lng = m.Longitude, label = m.Label }));
+				logger.Info(message: "Setting multiple predefined markers on the map.");
+				_ = await webView.CoreWebView2.ExecuteScriptAsync(javaScript: $"setMarkers({json});").ConfigureAwait(continueOnCapturedContext: true);
+			}
+			catch (Exception ex)
+			{
+				logger.Warn(exception: ex, message: "Could not set the predefined markers on the map.");
+				ShowWarnMessage("Error", "Could not set the predefined markers on the map. The map may not be fully loaded or an error occurred.");
+			}
+			return;
+		}
 		// Only act when a predefined position exists and the page was loaded successfully
 		if (initialPosition is null || !e.IsSuccess || IsDisposed)
 		{
