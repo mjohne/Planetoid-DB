@@ -76,6 +76,7 @@ internal partial class WorldMapForm : BaseKryptonForm
 		}).addTo(map);
 		var marker = null;
 		var markerGroup = L.featureGroup().addTo(map);
+		var markerRenderer = L.canvas();
 		function setMarker(lat, lng, zoomTo) {
 			if (marker === null) { marker = L.marker([lat, lng]).addTo(map); }
 			else { marker.setLatLng([lat, lng]); }
@@ -85,7 +86,7 @@ internal partial class WorldMapForm : BaseKryptonForm
 		function setMarkers(items) {
 			markerGroup.clearLayers();
 			items.forEach(function (item) {
-				L.marker([item.lat, item.lng]).bindTooltip(item.label, { permanent: true, direction: 'right' }).addTo(markerGroup);
+				L.circleMarker([item.lat, item.lng], { renderer: markerRenderer, radius: 5 }).bindTooltip(item.label, { direction: 'right' }).addTo(markerGroup);
 			});
 			if (items.length > 0) { map.fitBounds(markerGroup.getBounds(), { padding: [20, 20], maxZoom: 12 }); }
 		}
