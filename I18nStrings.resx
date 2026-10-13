@@ -486,4 +486,22 @@
   <data name="ObservatoryCodesDownloadLatestText" xml:space="preserve">
     <value>Download the latest observatory codes</value>
   </data>
+  <data name="ObservatoryCodesColumnAltitude" xml:space="preserve">
+    <value>Altitude</value>
+  </data>
+  <data name="ObservatoryCodesColumnLatitude" xml:space="preserve">
+    <value>Latitude</value>
+  </data>
+  <data name="ObservatoryCodesColumnLongitude" xml:space="preserve">
+    <value>Longitude</value>
+  </data>
+  <data name="ObservatoryCodesColumnRhoCosPhi" xml:space="preserve">
+    <value>ρ⋅cos(φ')</value>
+  </data>
+  <data name="ObservatoryCodesColumnRhoSinPhi" xml:space="preserve">
+    <value>ρ⋅sin(φ')</value>
+  </data>
+  <data name="ObservatoryCodesColumnState" xml:space="preserve">
+    <value>State</value>
+  </data>
 </root>

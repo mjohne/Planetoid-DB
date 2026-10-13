@@ -1440,6 +1440,36 @@ namespace Planetoid_DB {
 			get { return ResourceManager.GetString("ObservatoryCodesDownloadLatestText", resourceCulture); }
 		}
 
+		/// <summary>Looks up a localized string similar to Altitude.</summary>
+		internal static string ObservatoryCodesColumnAltitude {
+			get { return ResourceManager.GetString("ObservatoryCodesColumnAltitude", resourceCulture); }
+		}
+
+		/// <summary>Looks up a localized string similar to Latitude.</summary>
+		internal static string ObservatoryCodesColumnLatitude {
+			get { return ResourceManager.GetString("ObservatoryCodesColumnLatitude", resourceCulture); }
+		}
+
+		/// <summary>Looks up a localized string similar to Longitude.</summary>
+		internal static string ObservatoryCodesColumnLongitude {
+			get { return ResourceManager.GetString("ObservatoryCodesColumnLongitude", resourceCulture); }
+		}
+
+		/// <summary>Looks up a localized string similar to ρ⋅cos(φ').</summary>
+		internal static string ObservatoryCodesColumnRhoCosPhi {
+			get { return ResourceManager.GetString("ObservatoryCodesColumnRhoCosPhi", resourceCulture); }
+		}
+
+		/// <summary>Looks up a localized string similar to ρ⋅sin(φ').</summary>
+		internal static string ObservatoryCodesColumnRhoSinPhi {
+			get { return ResourceManager.GetString("ObservatoryCodesColumnRhoSinPhi", resourceCulture); }
+		}
+
+		/// <summary>Looks up a localized string similar to State.</summary>
+		internal static string ObservatoryCodesColumnState {
+			get { return ResourceManager.GetString("ObservatoryCodesColumnState", resourceCulture); }
+		}
+
 		/// <summary>Looks up a localized string similar to World map: drag to pan, scroll to zoom, click to set a marker.</summary>
 		internal static string WorldMapAccessibleDescription {
 			get { return ResourceManager.GetString("WorldMapAccessibleDescription", resourceCulture); }

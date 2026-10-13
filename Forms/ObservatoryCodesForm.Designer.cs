@@ -23,7 +23,7 @@ using System.ComponentModel;
 namespace Planetoid_DB;
 
 /// <summary>Represents a Windows Form that displays the list of observatory codes and their corresponding locations.</summary>
-/// <remarks>This form provides a ListView with 2 columns showing the observatory code and the location name and a status bar for additional information.</remarks>
+/// <remarks>This form provides a ListView with 8 columns showing observatory codes and location data, plus a status bar for additional information.</remarks>
 partial class ObservatoryCodesForm
 {
 	/// <summary>Required designer variable.</summary>
@@ -173,32 +173,32 @@ partial class ObservatoryCodesForm
 		// 
 		// columnHeaderLongitude
 		// 
-		columnHeaderLongitude.Text = "Longitude";
+		columnHeaderLongitude.Text = I18nStrings.ObservatoryCodesColumnLongitude;
 		columnHeaderLongitude.Width = 70;
 		// 
 		// columnHeaderLatitude
 		// 
-		columnHeaderLatitude.Text = "Latitude";
+		columnHeaderLatitude.Text = I18nStrings.ObservatoryCodesColumnLatitude;
 		columnHeaderLatitude.Width = 70;
 		// 
 		// columnHeaderAltitude
 		// 
-		columnHeaderAltitude.Text = "Altitude";
+		columnHeaderAltitude.Text = I18nStrings.ObservatoryCodesColumnAltitude;
 		columnHeaderAltitude.Width = 70;
 		// 
 		// columnHeaderRhoCosPhi
 		// 
-		columnHeaderRhoCosPhi.Text = "ρ⋅cos(φ')";
+		columnHeaderRhoCosPhi.Text = I18nStrings.ObservatoryCodesColumnRhoCosPhi;
 		columnHeaderRhoCosPhi.Width = 70;
 		// 
 		// columnHeaderRhoSinPhi
 		// 
-		columnHeaderRhoSinPhi.Text = "ρ⋅sin(φ')";
+		columnHeaderRhoSinPhi.Text = I18nStrings.ObservatoryCodesColumnRhoSinPhi;
 		columnHeaderRhoSinPhi.Width = 70;
 		// 
 		// columnHeaderState
 		// 
-		columnHeaderState.Text = "State";
+		columnHeaderState.Text = I18nStrings.ObservatoryCodesColumnState;
 		columnHeaderState.Width = 100;
 		// 
 		// columnHeaderLocation

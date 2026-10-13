@@ -22,12 +22,13 @@ using Planetoid_DB.Helpers;
 using Planetoid_DB.Properties;
 
 using System.Diagnostics;
+using System.Globalization;
 using System.Net.NetworkInformation;
 
 namespace Planetoid_DB;
 
 /// <summary>Represents a form that displays the list of MPC observatory codes and their corresponding locations.</summary>
-/// <remarks>This form provides a two-column ListView with observatory codes and location names. All data is built-in and does not require an internet connection.</remarks>
+/// <remarks>This form provides an eight-column ListView with observatory codes and location data. All data is built-in and does not require an internet connection.</remarks>
 // You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
 [DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
 internal partial class ObservatoryCodesForm : BaseKryptonForm
@@ -120,6 +121,13 @@ internal partial class ObservatoryCodesForm : BaseKryptonForm
 				// If the line contains a code, longitude, latitude, altitude, rho cos phi, rho sin phi,state and location, create a ListViewItem and add it to the list
 				if (parts.Length == 8)
 				{
+					for (int i = 1; i <= 5; i++)
+					{
+						if (double.TryParse(s: parts[i].Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double value))
+						{
+							parts[i] = value.ToString(provider: CultureInfo.CurrentCulture);
+						}
+					}
 					ListViewItem item = new(parts[0].Trim());
 					_ = item.SubItems.Add(text: parts[1].Trim());
 					_ = item.SubItems.Add(text: parts[2].Trim());
@@ -276,10 +284,13 @@ internal partial class ObservatoryCodesForm : BaseKryptonForm
 	/// <remarks>This method logs the action and opens the specified URL in the user's default web browser.</remarks>
 	private void ToolStripButtonOpenMpcObsCodesPage_Click(object sender, EventArgs e)
 	{
+		string obsCodesPageUrl = string.IsNullOrWhiteSpace(value: Settings.Default.userMpcObsCodesPage)
+			? Settings.Default.systemMpcObsCodesPage
+			: Settings.Default.userMpcObsCodesPage;
 		// Log the action of opening the MPC Observatory Codes page
-		logger.Info(message: $"Opening MPC Observatory Codes page; {Settings.Default.systemMpcObsCodesPage}");
+		logger.Info(message: $"Opening MPC Observatory Codes page; {obsCodesPageUrl}");
 		// Open the MPC Observatory Codes page in the default web browser
-		OpenWebsite(fileName: Settings.Default.systemMpcObsCodesPage);
+		OpenWebsite(fileName: obsCodesPageUrl);
 	}
 
 	/// <summary>Handles the MouseDoubleClick event on the ListView to copy the value of the double-clicked cell to the Windows clipboard.</summary>
