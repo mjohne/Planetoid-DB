@@ -101,8 +101,8 @@ partial class ObservatoryCodesForm
 		toolStripMenuItemSaveAsXps = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsFictionBook2 = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsChm = new ToolStripMenuItem();
-		toolStripDropDownButtonSaveList = new ToolStripDropDownButton();
 		toolStripDropDownButtonSaveListInToolbar = new ToolStripDropDownButton();
+		toolStripDropDownButtonSaveList = new ToolStripDropDownButton();
 		kryptonStatusStrip = new KryptonStatusStrip();
 		labelInformation = new ToolStripStatusLabel();
 		kryptonManager = new KryptonManager(components);
@@ -110,7 +110,8 @@ partial class ObservatoryCodesForm
 		kryptonToolStripMain = new KryptonToolStrip();
 		toolStripButtonDownloadLatestObsCodes = new ToolStripButton();
 		toolStripButtonOpenMpcObsCodesPage = new ToolStripButton();
-		toolStripButtonMarkOnMap = new ToolStripButton();
+		toolStripSplitButtonMarkOnMap = new ToolStripSplitButton();
+		toolStripMenuItemMarkAllOnMap = new ToolStripMenuItem();
 		((ISupportInitialize)kryptonPanelMain).BeginInit();
 		kryptonPanelMain.SuspendLayout();
 		contextMenuSaveToFile.SuspendLayout();
@@ -216,7 +217,8 @@ partial class ObservatoryCodesForm
 		contextMenuSaveToFile.Font = new Font("Segoe UI", 9F);
 		contextMenuSaveToFile.Items.AddRange(new ToolStripItem[] { toolStripMenuItemTextFiles, toolStripMenuItemWriterDocuments, toolStripMenuItemSpreadsheetDocuments, toolStripMenuItemXmlDocuments, toolStripMenuItemConfigurationFiles, toolStripMenuItemDatabaseScripts, toolStripMenuItemPortableDocuments });
 		contextMenuSaveToFile.Name = "contextMenuSaveList";
-		contextMenuSaveToFile.OwnerItem = toolStripDropDownButtonSaveListInToolbar;
+		contextMenuSaveToFile.OwnerItem = toolStripDropDownButtonSaveList;
+		contextMenuSaveToFile.RightToLeft = RightToLeft.Inherit;
 		contextMenuSaveToFile.Size = new Size(202, 158);
 		contextMenuSaveToFile.TabStop = true;
 		contextMenuSaveToFile.Text = "&Save list";
@@ -782,20 +784,6 @@ partial class ObservatoryCodesForm
 		toolStripMenuItemSaveAsChm.MouseEnter += Control_Enter;
 		toolStripMenuItemSaveAsChm.MouseLeave += Control_Leave;
 		// 
-		// toolStripDropDownButtonSaveList
-		// 
-		toolStripDropDownButtonSaveList.AccessibleDescription = "Saves the list as file";
-		toolStripDropDownButtonSaveList.AccessibleName = "Save list";
-		toolStripDropDownButtonSaveList.AccessibleRole = AccessibleRole.ButtonDropDown;
-		toolStripDropDownButtonSaveList.DropDown = contextMenuSaveToFile;
-		toolStripDropDownButtonSaveList.Image = FatcowIcons16px.fatcow_diskette_16px;
-		toolStripDropDownButtonSaveList.ImageTransparentColor = Color.Magenta;
-		toolStripDropDownButtonSaveList.Name = "toolStripDropDownButtonSaveList";
-		toolStripDropDownButtonSaveList.Size = new Size(78, 22);
-		toolStripDropDownButtonSaveList.Text = "&Save list";
-		toolStripDropDownButtonSaveList.MouseEnter += Control_Enter;
-		toolStripDropDownButtonSaveList.MouseLeave += Control_Leave;
-		// 
 		// toolStripDropDownButtonSaveListInToolbar
 		// 
 		toolStripDropDownButtonSaveListInToolbar.AccessibleDescription = "Saves the list as file";
@@ -809,6 +797,20 @@ partial class ObservatoryCodesForm
 		toolStripDropDownButtonSaveListInToolbar.Text = "&Save list";
 		toolStripDropDownButtonSaveListInToolbar.MouseEnter += Control_Enter;
 		toolStripDropDownButtonSaveListInToolbar.MouseLeave += Control_Leave;
+		// 
+		// toolStripDropDownButtonSaveList
+		// 
+		toolStripDropDownButtonSaveList.AccessibleDescription = "Saves the list as file";
+		toolStripDropDownButtonSaveList.AccessibleName = "Save list";
+		toolStripDropDownButtonSaveList.AccessibleRole = AccessibleRole.ButtonDropDown;
+		toolStripDropDownButtonSaveList.DropDown = contextMenuSaveToFile;
+		toolStripDropDownButtonSaveList.Image = FatcowIcons16px.fatcow_diskette_16px;
+		toolStripDropDownButtonSaveList.ImageTransparentColor = Color.Magenta;
+		toolStripDropDownButtonSaveList.Name = "toolStripDropDownButtonSaveList";
+		toolStripDropDownButtonSaveList.Size = new Size(78, 22);
+		toolStripDropDownButtonSaveList.Text = "&Save list";
+		toolStripDropDownButtonSaveList.MouseEnter += Control_Enter;
+		toolStripDropDownButtonSaveList.MouseLeave += Control_Leave;
 		// 
 		// kryptonStatusStrip
 		// 
@@ -903,7 +905,7 @@ partial class ObservatoryCodesForm
 		kryptonToolStripMain.AllowItemReorder = true;
 		kryptonToolStripMain.Dock = DockStyle.None;
 		kryptonToolStripMain.Font = new Font("Segoe UI", 9F);
-		kryptonToolStripMain.Items.AddRange(new ToolStripItem[] { toolStripDropDownButtonSaveListInToolbar, toolStripButtonDownloadLatestObsCodes, toolStripButtonOpenMpcObsCodesPage, toolStripButtonMarkOnMap });
+		kryptonToolStripMain.Items.AddRange(new ToolStripItem[] { toolStripDropDownButtonSaveListInToolbar, toolStripButtonDownloadLatestObsCodes, toolStripButtonOpenMpcObsCodesPage, toolStripSplitButtonMarkOnMap });
 		kryptonToolStripMain.Location = new Point(0, 0);
 		kryptonToolStripMain.Name = "kryptonToolStripMain";
 		kryptonToolStripMain.Size = new Size(735, 25);
@@ -920,7 +922,7 @@ partial class ObservatoryCodesForm
 		toolStripButtonDownloadLatestObsCodes.ImageTransparentColor = Color.Magenta;
 		toolStripButtonDownloadLatestObsCodes.Name = "toolStripButtonDownloadLatestObsCodes";
 		toolStripButtonDownloadLatestObsCodes.Size = new Size(81, 22);
-		toolStripButtonDownloadLatestObsCodes.Text = "Download";
+		toolStripButtonDownloadLatestObsCodes.Text = "&Download";
 		toolStripButtonDownloadLatestObsCodes.Click += ToolStripButtonDownloadLatestObsCodes_Click;
 		toolStripButtonDownloadLatestObsCodes.MouseEnter += Control_Enter;
 		toolStripButtonDownloadLatestObsCodes.MouseLeave += Control_Leave;
@@ -934,23 +936,39 @@ partial class ObservatoryCodesForm
 		toolStripButtonOpenMpcObsCodesPage.ImageTransparentColor = Color.Magenta;
 		toolStripButtonOpenMpcObsCodesPage.Name = "toolStripButtonOpenMpcObsCodesPage";
 		toolStripButtonOpenMpcObsCodesPage.Size = new Size(115, 22);
-		toolStripButtonOpenMpcObsCodesPage.Text = "MPC  obs. codes";
+		toolStripButtonOpenMpcObsCodesPage.Text = "MPC  &obs. codes";
 		toolStripButtonOpenMpcObsCodesPage.Click += ToolStripButtonOpenMpcObsCodesPage_Click;
 		toolStripButtonOpenMpcObsCodesPage.MouseEnter += Control_Enter;
 		toolStripButtonOpenMpcObsCodesPage.MouseLeave += Control_Leave;
 		// 
-		// toolStripButtonMarkOnMap
+		// toolStripSplitButtonMarkOnMap
 		// 
-		toolStripButtonMarkOnMap.AccessibleDescription = "Marks on the world map";
-		toolStripButtonMarkOnMap.AccessibleName = "Mark on the world map";
-		toolStripButtonMarkOnMap.Image = FatcowIcons16px.fatcow_map_16px;
-		toolStripButtonMarkOnMap.ImageTransparentColor = Color.Magenta;
-		toolStripButtonMarkOnMap.Name = "toolStripButtonMarkOnMap";
-		toolStripButtonMarkOnMap.Size = new Size(98, 22);
-		toolStripButtonMarkOnMap.Text = "Mark on map";
-		toolStripButtonMarkOnMap.Click += ToolStripButtonMarkOnMap_Click;
-		toolStripButtonMarkOnMap.MouseEnter += Control_Enter;
-		toolStripButtonMarkOnMap.MouseLeave += Control_Leave;
+		toolStripSplitButtonMarkOnMap.AccessibleDescription = "Marks on the world map";
+		toolStripSplitButtonMarkOnMap.AccessibleName = "Mark on the world map";
+		toolStripSplitButtonMarkOnMap.AccessibleRole = AccessibleRole.SplitButton;
+		toolStripSplitButtonMarkOnMap.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemMarkAllOnMap });
+		toolStripSplitButtonMarkOnMap.Image = FatcowIcons16px.fatcow_map_16px;
+		toolStripSplitButtonMarkOnMap.ImageTransparentColor = Color.Magenta;
+		toolStripSplitButtonMarkOnMap.Name = "toolStripSplitButtonMarkOnMap";
+		toolStripSplitButtonMarkOnMap.Size = new Size(110, 22);
+		toolStripSplitButtonMarkOnMap.Text = "&Mark on map";
+		toolStripSplitButtonMarkOnMap.ButtonClick += ToolStripSplitButtonMarkOnMap_ButtonClick;
+		toolStripSplitButtonMarkOnMap.MouseEnter += Control_Enter;
+		toolStripSplitButtonMarkOnMap.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemMarkAllOnMap
+		// 
+		toolStripMenuItemMarkAllOnMap.AccessibleDescription = "Marks all on the world map";
+		toolStripMenuItemMarkAllOnMap.AccessibleName = "Mark all on the world map";
+		toolStripMenuItemMarkAllOnMap.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemMarkAllOnMap.AutoToolTip = true;
+		toolStripMenuItemMarkAllOnMap.Image = FatcowIcons16px.fatcow_map_16px;
+		toolStripMenuItemMarkAllOnMap.Name = "toolStripMenuItemMarkAllOnMap";
+		toolStripMenuItemMarkAllOnMap.Size = new Size(180, 22);
+		toolStripMenuItemMarkAllOnMap.Text = "Mark all on map";
+		toolStripMenuItemMarkAllOnMap.Click += ToolStripMenuItemMarkAllOnMap_Click;
+		toolStripMenuItemMarkAllOnMap.MouseEnter += Control_Enter;
+		toolStripMenuItemMarkAllOnMap.MouseLeave += Control_Leave;
 		// 
 		// ObservatoryCodesForm
 		// 
@@ -1051,5 +1069,6 @@ partial class ObservatoryCodesForm
 	private ColumnHeader columnHeaderRhoSinPhi;
 	private ColumnHeader columnHeaderState;
 	private ToolStripButton toolStripButtonOpenMpcObsCodesPage;
-	private ToolStripButton toolStripButtonMarkOnMap;
+	private ToolStripSplitButton toolStripSplitButtonMarkOnMap;
+	private ToolStripMenuItem toolStripMenuItemMarkAllOnMap;
 }

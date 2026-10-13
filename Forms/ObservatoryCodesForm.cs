@@ -334,7 +334,7 @@ internal partial class ObservatoryCodesForm : BaseKryptonForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The event data.</param>
 	/// <remarks>Opens the world map at the selected observatory when its coordinates are valid.</remarks>
-	private void ToolStripButtonMarkOnMap_Click(object sender, EventArgs e)
+	private void ToolStripSplitButtonMarkOnMap_ButtonClick(object sender, EventArgs e)
 	{
 		// Log the click on the button
 		logger.Info(message: "Mark on map button clicked.");
@@ -382,6 +382,10 @@ internal partial class ObservatoryCodesForm : BaseKryptonForm
 		// Open the world map with a marker at the observatory position
 		using WorldMapForm worldMapForm = new(latitude: latitude, longitude: longitude);
 		_ = worldMapForm.ShowDialog(owner: this);
+	}
+
+	private void ToolStripMenuItemMarkAllOnMap_Click(object sender, EventArgs e)
+	{
 	}
 
 	#endregion
