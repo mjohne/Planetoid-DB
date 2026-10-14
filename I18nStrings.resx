@@ -504,4 +504,16 @@
   <data name="ObservatoryCodesColumnState" xml:space="preserve">
     <value>State</value>
   </data>
+  <data name="CoordinateConversionInvalidInput" xml:space="preserve">
+    <value>Enter valid numeric coordinates. Hours also accept HH:MM:SS.</value>
+  </data>
+  <data name="CoordinateConversionMenuDescription" xml:space="preserve">
+    <value>Converts astronomical coordinates between reference systems</value>
+  </data>
+  <data name="CoordinateConversionMenuText" xml:space="preserve">
+    <value>Coordinate conversion</value>
+  </data>
+  <data name="CoordinateConversionTitle" xml:space="preserve">
+    <value>Astronomical coordinate conversion</value>
+  </data>
 </root>

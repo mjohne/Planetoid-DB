@@ -1741,5 +1741,41 @@ namespace Planetoid_DB {
 				return ResourceManager.GetString("StartButtonText", resourceCulture);
 			}
 		}
+
+		/// <summary>Gets the localized validation message for coordinate conversion input.</summary>
+		internal static string CoordinateConversionInvalidInput
+		{
+			get
+			{
+				return ResourceManager.GetString("CoordinateConversionInvalidInput", resourceCulture);
+			}
+		}
+
+		/// <summary>Gets the localized accessible description of the coordinate conversion menu item.</summary>
+		internal static string CoordinateConversionMenuDescription
+		{
+			get
+			{
+				return ResourceManager.GetString("CoordinateConversionMenuDescription", resourceCulture);
+			}
+		}
+
+		/// <summary>Gets the localized text of the coordinate conversion menu item.</summary>
+		internal static string CoordinateConversionMenuText
+		{
+			get
+			{
+				return ResourceManager.GetString("CoordinateConversionMenuText", resourceCulture);
+			}
+		}
+
+		/// <summary>Gets the localized title of the coordinate conversion form.</summary>
+		internal static string CoordinateConversionTitle
+		{
+			get
+			{
+				return ResourceManager.GetString("CoordinateConversionTitle", resourceCulture);
+			}
+		}
 	}
 }
