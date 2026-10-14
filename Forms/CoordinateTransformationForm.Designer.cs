@@ -445,6 +445,7 @@ partial class CoordinateTransformationForm
 		kryptonLabelResult.Size = new Size(725, 34);
 		kryptonLabelResult.TabIndex = 19;
 		kryptonLabelResult.Values.Text = "Result...";
+		kryptonLabelResult.ContextMenuStrip = contextMenuCopyToClipboard;
 		kryptonLabelResult.Click += CopyToClipboard_DoubleClick;
 		kryptonLabelResult.Enter += Control_Enter;
 		kryptonLabelResult.Leave += Control_Leave;
@@ -552,7 +553,6 @@ partial class CoordinateTransformationForm
 		kryptonToolStrip.TabIndex = 0;
 		kryptonToolStrip.TabStop = true;
 		kryptonToolStrip.Text = "Toolbar of main functions";
-		kryptonToolStrip.Click += ButtonConvert_Click;
 		kryptonToolStrip.Enter += Control_Enter;
 		kryptonToolStrip.Leave += Control_Leave;
 		kryptonToolStrip.MouseEnter += Control_Enter;
@@ -567,6 +567,7 @@ partial class CoordinateTransformationForm
 		toolStripButtonButtonConvert.Name = "toolStripButtonButtonConvert";
 		toolStripButtonButtonConvert.Size = new Size(69, 22);
 		toolStripButtonButtonConvert.Text = I18nStrings.CoordinateConversionButtonText;
+		toolStripButtonButtonConvert.Click += ButtonConvert_Click;
 		toolStripButtonButtonConvert.MouseEnter += Control_Enter;
 		toolStripButtonButtonConvert.MouseLeave += Control_Leave;
 		// 
