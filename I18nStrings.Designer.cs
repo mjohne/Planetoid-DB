@@ -1777,5 +1777,401 @@ namespace Planetoid_DB {
 				return ResourceManager.GetString("CoordinateConversionTitle", resourceCulture);
 			}
 		}
+
+		/// <summary>Gets the localized accessible description of the coordinate angle unit selector.</summary>
+		internal static string CoordinateConversionAngleUnitAccessibleDescription
+		{
+			get
+			{
+				return ResourceManager.GetString("CoordinateConversionAngleUnitAccessibleDescription", resourceCulture);
+			}
+		}
+
+		/// <summary>Gets the localized coordinate angle unit label.</summary>
+		internal static string CoordinateConversionAngleUnitLabel
+		{
+			get
+			{
+				return ResourceManager.GetString("CoordinateConversionAngleUnitLabel", resourceCulture);
+			}
+		}
+
+		/// <summary>Gets the localized horizontal altitude label.</summary>
+		internal static string CoordinateConversionAltitudeLabel
+		{
+			get
+			{
+				return ResourceManager.GetString("CoordinateConversionAltitudeLabel", resourceCulture);
+			}
+		}
+
+		/// <summary>Gets the localized horizontal azimuth label.</summary>
+		internal static string CoordinateConversionAzimuthLabel
+		{
+			get
+			{
+				return ResourceManager.GetString("CoordinateConversionAzimuthLabel", resourceCulture);
+			}
+		}
+
+		/// <summary>Gets the localized accessible description of the conversion button.</summary>
+		internal static string CoordinateConversionButtonAccessibleDescription
+		{
+			get
+			{
+				return ResourceManager.GetString("CoordinateConversionButtonAccessibleDescription", resourceCulture);
+			}
+		}
+
+		/// <summary>Gets the localized conversion button text.</summary>
+		internal static string CoordinateConversionButtonText
+		{
+			get
+			{
+				return ResourceManager.GetString("CoordinateConversionButtonText", resourceCulture);
+			}
+		}
+
+		/// <summary>Gets the localized accessible description of the UTC date and time selector.</summary>
+		internal static string CoordinateConversionDateTimeAccessibleDescription
+		{
+			get
+			{
+				return ResourceManager.GetString("CoordinateConversionDateTimeAccessibleDescription", resourceCulture);
+			}
+		}
+
+		/// <summary>Gets the localized UTC date and time label.</summary>
+		internal static string CoordinateConversionDateTimeLabel
+		{
+			get
+			{
+				return ResourceManager.GetString("CoordinateConversionDateTimeLabel", resourceCulture);
+			}
+		}
+
+		/// <summary>Gets the localized equatorial declination label.</summary>
+		internal static string CoordinateConversionDeclinationLabel
+		{
+			get
+			{
+				return ResourceManager.GetString("CoordinateConversionDeclinationLabel", resourceCulture);
+			}
+		}
+
+		/// <summary>Gets the localized angle unit for degrees.</summary>
+		internal static string CoordinateConversionDegreesUnit
+		{
+			get
+			{
+				return ResourceManager.GetString("CoordinateConversionDegreesUnit", resourceCulture);
+			}
+		}
+
+		/// <summary>Gets the localized ecliptic latitude label.</summary>
+		internal static string CoordinateConversionEclipticLatitudeLabel
+		{
+			get
+			{
+				return ResourceManager.GetString("CoordinateConversionEclipticLatitudeLabel", resourceCulture);
+			}
+		}
+
+		/// <summary>Gets the localized ecliptic longitude label.</summary>
+		internal static string CoordinateConversionEclipticLongitudeLabel
+		{
+			get
+			{
+				return ResourceManager.GetString("CoordinateConversionEclipticLongitudeLabel", resourceCulture);
+			}
+		}
+
+		/// <summary>Gets the localized ecliptic coordinate system name.</summary>
+		internal static string CoordinateConversionEclipticSystem
+		{
+			get
+			{
+				return ResourceManager.GetString("CoordinateConversionEclipticSystem", resourceCulture);
+			}
+		}
+
+		/// <summary>Gets the localized J2000 equatorial coordinate system name.</summary>
+		internal static string CoordinateConversionEquatorialJ2000System
+		{
+			get
+			{
+				return ResourceManager.GetString("CoordinateConversionEquatorialJ2000System", resourceCulture);
+			}
+		}
+
+		/// <summary>Gets the localized equatorial-of-date coordinate system name.</summary>
+		internal static string CoordinateConversionEquatorialOfDateSystem
+		{
+			get
+			{
+				return ResourceManager.GetString("CoordinateConversionEquatorialOfDateSystem", resourceCulture);
+			}
+		}
+
+		/// <summary>Gets the localized accessible description of the first coordinate input.</summary>
+		internal static string CoordinateConversionFirstCoordinateAccessibleDescription
+		{
+			get
+			{
+				return ResourceManager.GetString("CoordinateConversionFirstCoordinateAccessibleDescription", resourceCulture);
+			}
+		}
+
+		/// <summary>Gets the localized accessible description of the coordinate conversion form.</summary>
+		internal static string CoordinateConversionFormAccessibleDescription
+		{
+			get
+			{
+				return ResourceManager.GetString("CoordinateConversionFormAccessibleDescription", resourceCulture);
+			}
+		}
+
+		/// <summary>Gets the localized galactic latitude label.</summary>
+		internal static string CoordinateConversionGalacticLatitudeLabel
+		{
+			get
+			{
+				return ResourceManager.GetString("CoordinateConversionGalacticLatitudeLabel", resourceCulture);
+			}
+		}
+
+		/// <summary>Gets the localized galactic longitude label.</summary>
+		internal static string CoordinateConversionGalacticLongitudeLabel
+		{
+			get
+			{
+				return ResourceManager.GetString("CoordinateConversionGalacticLongitudeLabel", resourceCulture);
+			}
+		}
+
+		/// <summary>Gets the localized galactic coordinate system name.</summary>
+		internal static string CoordinateConversionGalacticSystem
+		{
+			get
+			{
+				return ResourceManager.GetString("CoordinateConversionGalacticSystem", resourceCulture);
+			}
+		}
+
+		/// <summary>Gets the localized hour-angle choice.</summary>
+		internal static string CoordinateConversionHourAngle
+		{
+			get
+			{
+				return ResourceManager.GetString("CoordinateConversionHourAngle", resourceCulture);
+			}
+		}
+
+		/// <summary>Gets the localized equatorial hour-angle label.</summary>
+		internal static string CoordinateConversionHourAngleLabel
+		{
+			get
+			{
+				return ResourceManager.GetString("CoordinateConversionHourAngleLabel", resourceCulture);
+			}
+		}
+
+		/// <summary>Gets the localized angle unit for hours.</summary>
+		internal static string CoordinateConversionHoursUnit
+		{
+			get
+			{
+				return ResourceManager.GetString("CoordinateConversionHoursUnit", resourceCulture);
+			}
+		}
+
+		/// <summary>Gets the localized horizontal coordinate system name.</summary>
+		internal static string CoordinateConversionHorizontalSystem
+		{
+			get
+			{
+				return ResourceManager.GetString("CoordinateConversionHorizontalSystem", resourceCulture);
+			}
+		}
+
+		/// <summary>Gets the localized accessible description of the input type selector.</summary>
+		internal static string CoordinateConversionInputTypeAccessibleDescription
+		{
+			get
+			{
+				return ResourceManager.GetString("CoordinateConversionInputTypeAccessibleDescription", resourceCulture);
+			}
+		}
+
+		/// <summary>Gets the localized input type label.</summary>
+		internal static string CoordinateConversionInputTypeLabel
+		{
+			get
+			{
+				return ResourceManager.GetString("CoordinateConversionInputTypeLabel", resourceCulture);
+			}
+		}
+
+		/// <summary>Gets the localized coordinate validation error.</summary>
+		internal static string CoordinateConversionInvalidCoordinates
+		{
+			get
+			{
+				return ResourceManager.GetString("CoordinateConversionInvalidCoordinates", resourceCulture);
+			}
+		}
+
+		/// <summary>Gets the localized observer coordinate validation error.</summary>
+		internal static string CoordinateConversionInvalidObserverInput
+		{
+			get
+			{
+				return ResourceManager.GetString("CoordinateConversionInvalidObserverInput", resourceCulture);
+			}
+		}
+
+		/// <summary>Gets the localized accessible description of the observer latitude input.</summary>
+		internal static string CoordinateConversionObserverLatitudeAccessibleDescription
+		{
+			get
+			{
+				return ResourceManager.GetString("CoordinateConversionObserverLatitudeAccessibleDescription", resourceCulture);
+			}
+		}
+
+		/// <summary>Gets the localized observer latitude label.</summary>
+		internal static string CoordinateConversionObserverLatitudeLabel
+		{
+			get
+			{
+				return ResourceManager.GetString("CoordinateConversionObserverLatitudeLabel", resourceCulture);
+			}
+		}
+
+		/// <summary>Gets the localized accessible description of the observer longitude input.</summary>
+		internal static string CoordinateConversionObserverLongitudeAccessibleDescription
+		{
+			get
+			{
+				return ResourceManager.GetString("CoordinateConversionObserverLongitudeAccessibleDescription", resourceCulture);
+			}
+		}
+
+		/// <summary>Gets the localized observer longitude label.</summary>
+		internal static string CoordinateConversionObserverLongitudeLabel
+		{
+			get
+			{
+				return ResourceManager.GetString("CoordinateConversionObserverLongitudeLabel", resourceCulture);
+			}
+		}
+
+		/// <summary>Gets the localized accessible description of the conversion result.</summary>
+		internal static string CoordinateConversionResultAccessibleDescription
+		{
+			get
+			{
+				return ResourceManager.GetString("CoordinateConversionResultAccessibleDescription", resourceCulture);
+			}
+		}
+
+		/// <summary>Gets the localized coordinate conversion result label.</summary>
+		internal static string CoordinateConversionResultLabel
+		{
+			get
+			{
+				return ResourceManager.GetString("CoordinateConversionResultLabel", resourceCulture);
+			}
+		}
+
+		/// <summary>Gets the localized right-ascension choice.</summary>
+		internal static string CoordinateConversionRightAscension
+		{
+			get
+			{
+				return ResourceManager.GetString("CoordinateConversionRightAscension", resourceCulture);
+			}
+		}
+
+		/// <summary>Gets the localized equatorial right-ascension label.</summary>
+		internal static string CoordinateConversionRightAscensionLabel
+		{
+			get
+			{
+				return ResourceManager.GetString("CoordinateConversionRightAscensionLabel", resourceCulture);
+			}
+		}
+
+		/// <summary>Gets the localized accessible description of the second coordinate input.</summary>
+		internal static string CoordinateConversionSecondCoordinateAccessibleDescription
+		{
+			get
+			{
+				return ResourceManager.GetString("CoordinateConversionSecondCoordinateAccessibleDescription", resourceCulture);
+			}
+		}
+
+		/// <summary>Gets the localized accessible description of the source system selector.</summary>
+		internal static string CoordinateConversionSourceAccessibleDescription
+		{
+			get
+			{
+				return ResourceManager.GetString("CoordinateConversionSourceAccessibleDescription", resourceCulture);
+			}
+		}
+
+		/// <summary>Gets the localized source coordinate system label.</summary>
+		internal static string CoordinateConversionSourceLabel
+		{
+			get
+			{
+				return ResourceManager.GetString("CoordinateConversionSourceLabel", resourceCulture);
+			}
+		}
+
+		/// <summary>Gets the localized supergalactic latitude label.</summary>
+		internal static string CoordinateConversionSupergalacticLatitudeLabel
+		{
+			get
+			{
+				return ResourceManager.GetString("CoordinateConversionSupergalacticLatitudeLabel", resourceCulture);
+			}
+		}
+
+		/// <summary>Gets the localized supergalactic longitude label.</summary>
+		internal static string CoordinateConversionSupergalacticLongitudeLabel
+		{
+			get
+			{
+				return ResourceManager.GetString("CoordinateConversionSupergalacticLongitudeLabel", resourceCulture);
+			}
+		}
+
+		/// <summary>Gets the localized supergalactic coordinate system name.</summary>
+		internal static string CoordinateConversionSupergalacticSystem
+		{
+			get
+			{
+				return ResourceManager.GetString("CoordinateConversionSupergalacticSystem", resourceCulture);
+			}
+		}
+
+		/// <summary>Gets the localized accessible description of the target system selector.</summary>
+		internal static string CoordinateConversionTargetAccessibleDescription
+		{
+			get
+			{
+				return ResourceManager.GetString("CoordinateConversionTargetAccessibleDescription", resourceCulture);
+			}
+		}
+
+		/// <summary>Gets the localized target coordinate system label.</summary>
+		internal static string CoordinateConversionTargetLabel
+		{
+			get
+			{
+				return ResourceManager.GetString("CoordinateConversionTargetLabel", resourceCulture);
+			}
+		}
 	}
 }

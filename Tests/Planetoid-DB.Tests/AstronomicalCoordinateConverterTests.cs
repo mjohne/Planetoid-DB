@@ -40,6 +40,75 @@ public sealed class AstronomicalCoordinateConverterTests
 		Assert.InRange(actual: latitude, low: -0.01, high: 0.01);
 	}
 
+	/// <summary>Verifies IAU 1976 precession against the independent spherical-coordinate formula.</summary>
+	[Fact]
+	public void J2000CoordinatesPrecessToKnownMeanEquatorOfDate()
+	{
+		(double rightAscension, double declination) = AstronomicalCoordinateConverter.Convert(
+			firstAngleDegrees: 123.456,
+			secondAngleDegrees: -21.987,
+			source: AstronomicalCoordinateSystem.EquatorialJ2000,
+			target: AstronomicalCoordinateSystem.EquatorialOfDate,
+			dateTimeUtc: new DateTime(year: 2026, month: 6, day: 15, hour: 3, minute: 30, second: 0, kind: DateTimeKind.Utc),
+			observerLatitudeDegrees: 0.0,
+			observerLongitudeDegrees: 0.0);
+
+		Assert.Equal(expected: 123.745314216, actual: rightAscension, precision: 8);
+		Assert.Equal(expected: -22.068496426, actual: declination, precision: 8);
+	}
+
+	/// <summary>Verifies the mean-ecliptic rotation at J2000.0 using the standard mean obliquity.</summary>
+	[Fact]
+	public void MeanEquatorialCoordinatesAtJ2000TransformToKnownEclipticCoordinates()
+	{
+		(double longitude, double latitude) = AstronomicalCoordinateConverter.Convert(
+			firstAngleDegrees: 90.0,
+			secondAngleDegrees: 23.4392911111111,
+			source: AstronomicalCoordinateSystem.EquatorialOfDate,
+			target: AstronomicalCoordinateSystem.Ecliptic,
+			dateTimeUtc: new DateTime(year: 2000, month: 1, day: 1, hour: 11, minute: 58, second: 55, millisecond: 816, kind: DateTimeKind.Utc),
+			observerLatitudeDegrees: 0.0,
+			observerLongitudeDegrees: 0.0);
+
+		Assert.Equal(expected: 90.0, actual: longitude, precision: 8);
+		Assert.Equal(expected: 0.0, actual: latitude, precision: 8);
+	}
+
+	/// <summary>Verifies the standard hour-angle-to-horizontal geometry at the equator.</summary>
+	[Fact]
+	public void EquatorialHourAngleTransformsToKnownHorizontalCoordinates()
+	{
+		(double azimuth, double altitude) = AstronomicalCoordinateConverter.Convert(
+			firstAngleDegrees: 90.0,
+			secondAngleDegrees: 0.0,
+			source: AstronomicalCoordinateSystem.EquatorialOfDate,
+			target: AstronomicalCoordinateSystem.Horizontal,
+			dateTimeUtc: new DateTime(year: 2026, month: 6, day: 15, hour: 3, minute: 30, second: 0, kind: DateTimeKind.Utc),
+			observerLatitudeDegrees: 0.0,
+			observerLongitudeDegrees: 0.0,
+			firstCoordinateIsHourAngle: true);
+
+		Assert.Equal(expected: 270.0, actual: azimuth, precision: 8);
+		Assert.Equal(expected: 0.0, actual: altitude, precision: 8);
+	}
+
+	/// <summary>Verifies the published J2000 position of the north supergalactic pole.</summary>
+	[Fact]
+	public void NorthSupergalacticPoleTransformsToKnownSupergalacticLatitude()
+	{
+		(double longitude, double latitude) = AstronomicalCoordinateConverter.Convert(
+			firstAngleDegrees: 283.754090343,
+			secondAngleDegrees: 15.708935529,
+			source: AstronomicalCoordinateSystem.EquatorialJ2000,
+			target: AstronomicalCoordinateSystem.Supergalactic,
+			dateTimeUtc: new DateTime(year: 2000, month: 1, day: 1, hour: 12, minute: 0, second: 0, kind: DateTimeKind.Utc),
+			observerLatitudeDegrees: 0.0,
+			observerLongitudeDegrees: 0.0);
+
+		_ = longitude;
+		Assert.InRange(actual: latitude, low: 89.999, high: 90.0);
+	}
+
 	/// <summary>Verifies coordinate round trips through every supported frame, including date-dependent and horizontal frames.</summary>
 	[Theory]
 	[InlineData(nameof(AstronomicalCoordinateSystem.EquatorialOfDate))]

@@ -516,4 +516,136 @@
   <data name="CoordinateConversionTitle" xml:space="preserve">
     <value>Astronomical coordinate conversion</value>
   </data>
+  <data name="CoordinateConversionAngleUnitAccessibleDescription" xml:space="preserve">
+    <value>Selects whether right ascension or hour angle is entered in hours or degrees.</value>
+  </data>
+  <data name="CoordinateConversionAngleUnitLabel" xml:space="preserve">
+    <value>RA / HA unit</value>
+  </data>
+  <data name="CoordinateConversionAltitudeLabel" xml:space="preserve">
+    <value>Altitude (°)</value>
+  </data>
+  <data name="CoordinateConversionAzimuthLabel" xml:space="preserve">
+    <value>Azimuth (°)</value>
+  </data>
+  <data name="CoordinateConversionButtonAccessibleDescription" xml:space="preserve">
+    <value>Converts the entered coordinates into the selected target system.</value>
+  </data>
+  <data name="CoordinateConversionButtonText" xml:space="preserve">
+    <value>Convert</value>
+  </data>
+  <data name="CoordinateConversionDateTimeAccessibleDescription" xml:space="preserve">
+    <value>Sets the UTC date and time used for the conversion.</value>
+  </data>
+  <data name="CoordinateConversionDateTimeLabel" xml:space="preserve">
+    <value>Date and time (UTC)</value>
+  </data>
+  <data name="CoordinateConversionDeclinationLabel" xml:space="preserve">
+    <value>Declination (°)</value>
+  </data>
+  <data name="CoordinateConversionDegreesUnit" xml:space="preserve">
+    <value>Degrees</value>
+  </data>
+  <data name="CoordinateConversionEclipticLatitudeLabel" xml:space="preserve">
+    <value>Ecliptic latitude (°)</value>
+  </data>
+  <data name="CoordinateConversionEclipticLongitudeLabel" xml:space="preserve">
+    <value>Ecliptic longitude (°)</value>
+  </data>
+  <data name="CoordinateConversionEclipticSystem" xml:space="preserve">
+    <value>Ecliptic (of date)</value>
+  </data>
+  <data name="CoordinateConversionEquatorialJ2000System" xml:space="preserve">
+    <value>Equatorial (J2000)</value>
+  </data>
+  <data name="CoordinateConversionEquatorialOfDateSystem" xml:space="preserve">
+    <value>Equatorial (of date)</value>
+  </data>
+  <data name="CoordinateConversionFirstCoordinateAccessibleDescription" xml:space="preserve">
+    <value>Enter the first angular coordinate in the selected source system.</value>
+  </data>
+  <data name="CoordinateConversionFormAccessibleDescription" xml:space="preserve">
+    <value>Converts coordinates between astronomical reference systems.</value>
+  </data>
+  <data name="CoordinateConversionGalacticLatitudeLabel" xml:space="preserve">
+    <value>Galactic latitude (°)</value>
+  </data>
+  <data name="CoordinateConversionGalacticLongitudeLabel" xml:space="preserve">
+    <value>Galactic longitude (°)</value>
+  </data>
+  <data name="CoordinateConversionGalacticSystem" xml:space="preserve">
+    <value>Galactic</value>
+  </data>
+  <data name="CoordinateConversionHourAngle" xml:space="preserve">
+    <value>Hour angle</value>
+  </data>
+  <data name="CoordinateConversionHourAngleLabel" xml:space="preserve">
+    <value>Hour angle (HA)</value>
+  </data>
+  <data name="CoordinateConversionHoursUnit" xml:space="preserve">
+    <value>Hours (h:m:s)</value>
+  </data>
+  <data name="CoordinateConversionHorizontalSystem" xml:space="preserve">
+    <value>Horizontal</value>
+  </data>
+  <data name="CoordinateConversionInputTypeAccessibleDescription" xml:space="preserve">
+    <value>Selects whether the first equatorial coordinate is right ascension or hour angle.</value>
+  </data>
+  <data name="CoordinateConversionInputTypeLabel" xml:space="preserve">
+    <value>Input as</value>
+  </data>
+  <data name="CoordinateConversionInvalidCoordinates" xml:space="preserve">
+    <value>Coordinates are outside the valid range or cannot be converted with the supplied observer information.</value>
+  </data>
+  <data name="CoordinateConversionInvalidObserverInput" xml:space="preserve">
+    <value>Enter valid numeric observer latitude and longitude in degrees.</value>
+  </data>
+  <data name="CoordinateConversionObserverLatitudeAccessibleDescription" xml:space="preserve">
+    <value>Enter the observer's geographic latitude in degrees, from −90 to +90.</value>
+  </data>
+  <data name="CoordinateConversionObserverLatitudeLabel" xml:space="preserve">
+    <value>Observer latitude (°)</value>
+  </data>
+  <data name="CoordinateConversionObserverLongitudeAccessibleDescription" xml:space="preserve">
+    <value>Enter the observer's longitude east of Greenwich in degrees.</value>
+  </data>
+  <data name="CoordinateConversionObserverLongitudeLabel" xml:space="preserve">
+    <value>Longitude east (°)</value>
+  </data>
+  <data name="CoordinateConversionResultAccessibleDescription" xml:space="preserve">
+    <value>Displays the converted first and second coordinates.</value>
+  </data>
+  <data name="CoordinateConversionResultLabel" xml:space="preserve">
+    <value>Result (first and second coordinate)</value>
+  </data>
+  <data name="CoordinateConversionRightAscension" xml:space="preserve">
+    <value>Right ascension</value>
+  </data>
+  <data name="CoordinateConversionRightAscensionLabel" xml:space="preserve">
+    <value>Right ascension (RA)</value>
+  </data>
+  <data name="CoordinateConversionSecondCoordinateAccessibleDescription" xml:space="preserve">
+    <value>Enter the second angular coordinate in the selected source system.</value>
+  </data>
+  <data name="CoordinateConversionSourceAccessibleDescription" xml:space="preserve">
+    <value>Select the coordinate system of the input values.</value>
+  </data>
+  <data name="CoordinateConversionSourceLabel" xml:space="preserve">
+    <value>Convert from</value>
+  </data>
+  <data name="CoordinateConversionSupergalacticLatitudeLabel" xml:space="preserve">
+    <value>Supergalactic latitude (°)</value>
+  </data>
+  <data name="CoordinateConversionSupergalacticLongitudeLabel" xml:space="preserve">
+    <value>Supergalactic longitude (°)</value>
+  </data>
+  <data name="CoordinateConversionSupergalacticSystem" xml:space="preserve">
+    <value>Supergalactic</value>
+  </data>
+  <data name="CoordinateConversionTargetAccessibleDescription" xml:space="preserve">
+    <value>Select the coordinate system for the converted values.</value>
+  </data>
+  <data name="CoordinateConversionTargetLabel" xml:space="preserve">
+    <value>Convert to</value>
+  </data>
 </root>

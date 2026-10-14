@@ -40,10 +40,44 @@ internal sealed partial class CoordinateTransformationForm : BaseKryptonForm
 	{
 		InitializeComponent();
 		Text = global::Planetoid_DB.I18nStrings.CoordinateConversionTitle;
-		comboBoxSource.Items.AddRange(items: ["Horizontal", "Equatorial (J2000)", "Equatorial (of date)", "Ecliptic (of date)", "Galactic", "Supergalactic"]);
-		comboBoxTarget.Items.AddRange(items: ["Horizontal", "Equatorial (J2000)", "Equatorial (of date)", "Ecliptic (of date)", "Galactic", "Supergalactic"]);
-		comboBoxAngleUnit.Items.AddRange(items: ["Hours (h:m:s)", "Degrees"]);
-		comboBoxFirstCoordinateType.Items.AddRange(items: ["Right ascension", "Hour angle"]);
+		comboBoxSource.Items.AddRange(items:
+		[
+			global::Planetoid_DB.I18nStrings.CoordinateConversionHorizontalSystem,
+			global::Planetoid_DB.I18nStrings.CoordinateConversionEquatorialJ2000System,
+			global::Planetoid_DB.I18nStrings.CoordinateConversionEquatorialOfDateSystem,
+			global::Planetoid_DB.I18nStrings.CoordinateConversionEclipticSystem,
+			global::Planetoid_DB.I18nStrings.CoordinateConversionGalacticSystem,
+			global::Planetoid_DB.I18nStrings.CoordinateConversionSupergalacticSystem
+		]);
+		comboBoxTarget.Items.AddRange(items:
+		[
+			global::Planetoid_DB.I18nStrings.CoordinateConversionHorizontalSystem,
+			global::Planetoid_DB.I18nStrings.CoordinateConversionEquatorialJ2000System,
+			global::Planetoid_DB.I18nStrings.CoordinateConversionEquatorialOfDateSystem,
+			global::Planetoid_DB.I18nStrings.CoordinateConversionEclipticSystem,
+			global::Planetoid_DB.I18nStrings.CoordinateConversionGalacticSystem,
+			global::Planetoid_DB.I18nStrings.CoordinateConversionSupergalacticSystem
+		]);
+		comboBoxAngleUnit.Items.AddRange(items:
+		[
+			global::Planetoid_DB.I18nStrings.CoordinateConversionHoursUnit,
+			global::Planetoid_DB.I18nStrings.CoordinateConversionDegreesUnit
+		]);
+		comboBoxFirstCoordinateType.Items.AddRange(items:
+		[
+			global::Planetoid_DB.I18nStrings.CoordinateConversionRightAscension,
+			global::Planetoid_DB.I18nStrings.CoordinateConversionHourAngle
+		]);
+		labelSource.Text = global::Planetoid_DB.I18nStrings.CoordinateConversionSourceLabel;
+		labelTarget.Text = global::Planetoid_DB.I18nStrings.CoordinateConversionTargetLabel;
+		labelFirstCoordinateType.Text = global::Planetoid_DB.I18nStrings.CoordinateConversionInputTypeLabel;
+		labelAngleUnit.Text = global::Planetoid_DB.I18nStrings.CoordinateConversionAngleUnitLabel;
+		labelDateTimeUtc.Text = global::Planetoid_DB.I18nStrings.CoordinateConversionDateTimeLabel;
+		labelObserverLatitude.Text = global::Planetoid_DB.I18nStrings.CoordinateConversionObserverLatitudeLabel;
+		labelObserverLongitude.Text = global::Planetoid_DB.I18nStrings.CoordinateConversionObserverLongitudeLabel;
+		labelResultTitle.Text = global::Planetoid_DB.I18nStrings.CoordinateConversionResultLabel;
+		buttonConvert.Text = global::Planetoid_DB.I18nStrings.CoordinateConversionButtonText;
+		SetAccessibilityMetadata();
 		comboBoxSource.SelectedIndex = (int)AstronomicalCoordinateSystem.EquatorialJ2000;
 		comboBoxTarget.SelectedIndex = (int)AstronomicalCoordinateSystem.Galactic;
 		comboBoxAngleUnit.SelectedIndex = 0;
@@ -82,6 +116,19 @@ internal sealed partial class CoordinateTransformationForm : BaseKryptonForm
 			return;
 		}
 
+		bool needsObserver = source == AstronomicalCoordinateSystem.Horizontal
+			|| target == AstronomicalCoordinateSystem.Horizontal
+			|| inputIsHourAngle;
+		double observerLatitude = 0.0;
+		double observerLongitude = 0.0;
+		if (needsObserver
+			&& (!TryParseNumber(text: textBoxObserverLatitude.Text, value: out observerLatitude)
+				|| !TryParseNumber(text: textBoxObserverLongitude.Text, value: out observerLongitude)))
+		{
+			labelResult.Text = global::Planetoid_DB.I18nStrings.CoordinateConversionInvalidObserverInput;
+			return;
+		}
+
 		try
 		{
 			(double firstAngle, double secondAngle) = AstronomicalCoordinateConverter.Convert(
@@ -90,18 +137,18 @@ internal sealed partial class CoordinateTransformationForm : BaseKryptonForm
 				source: source,
 				target: target,
 				dateTimeUtc: DateTime.SpecifyKind(value: dateTimePickerUtc.Value, kind: DateTimeKind.Utc),
-				observerLatitudeDegrees: ParseRequiredCoordinate(text: textBoxObserverLatitude.Text, fieldName: "Observer latitude"),
-				observerLongitudeDegrees: ParseRequiredCoordinate(text: textBoxObserverLongitude.Text, fieldName: "Observer longitude"),
+				observerLatitudeDegrees: observerLatitude,
+				observerLongitudeDegrees: observerLongitude,
 				firstCoordinateIsHourAngle: inputIsHourAngle);
 			labelResult.Text = FormatResult(firstAngleDegrees: firstAngle, secondAngleDegrees: secondAngle, target: target);
 		}
-		catch (ArgumentException exception)
+		catch (ArgumentException)
 		{
-			labelResult.Text = exception.Message;
+			labelResult.Text = global::Planetoid_DB.I18nStrings.CoordinateConversionInvalidCoordinates;
 		}
-		catch (FormatException exception)
+		catch (FormatException)
 		{
-			labelResult.Text = exception.Message;
+			labelResult.Text = global::Planetoid_DB.I18nStrings.CoordinateConversionInvalidCoordinates;
 		}
 	}
 
@@ -123,6 +170,8 @@ internal sealed partial class CoordinateTransformationForm : BaseKryptonForm
 		AstronomicalCoordinateSystem target = coordinateSystems[comboBoxTarget.SelectedIndex];
 		labelFirstCoordinate.Text = FirstCoordinateName(source);
 		labelSecondCoordinate.Text = SecondCoordinateName(source);
+		textBoxFirstCoordinate.AccessibleName = labelFirstCoordinate.Text;
+		textBoxSecondCoordinate.AccessibleName = labelSecondCoordinate.Text;
 		labelAngleUnit.Enabled = source is AstronomicalCoordinateSystem.EquatorialJ2000 or AstronomicalCoordinateSystem.EquatorialOfDate;
 		comboBoxAngleUnit.Enabled = labelAngleUnit.Enabled;
 		labelFirstCoordinateType.Enabled = source == AstronomicalCoordinateSystem.EquatorialOfDate;
@@ -136,16 +185,44 @@ internal sealed partial class CoordinateTransformationForm : BaseKryptonForm
 		labelResult.Text = string.Empty;
 	}
 
-	private static string FirstCoordinateName(AstronomicalCoordinateSystem system)
+	private void SetAccessibilityMetadata()
+	{
+		AccessibleName = global::Planetoid_DB.I18nStrings.CoordinateConversionTitle;
+		AccessibleDescription = global::Planetoid_DB.I18nStrings.CoordinateConversionFormAccessibleDescription;
+		AccessibleRole = AccessibleRole.Dialog;
+		SetAccessibility(control: comboBoxSource, name: global::Planetoid_DB.I18nStrings.CoordinateConversionSourceLabel, description: global::Planetoid_DB.I18nStrings.CoordinateConversionSourceAccessibleDescription, role: AccessibleRole.ComboBox);
+		SetAccessibility(control: comboBoxTarget, name: global::Planetoid_DB.I18nStrings.CoordinateConversionTargetLabel, description: global::Planetoid_DB.I18nStrings.CoordinateConversionTargetAccessibleDescription, role: AccessibleRole.ComboBox);
+		SetAccessibility(control: textBoxFirstCoordinate, name: string.Empty, description: global::Planetoid_DB.I18nStrings.CoordinateConversionFirstCoordinateAccessibleDescription, role: AccessibleRole.Text);
+		SetAccessibility(control: textBoxSecondCoordinate, name: string.Empty, description: global::Planetoid_DB.I18nStrings.CoordinateConversionSecondCoordinateAccessibleDescription, role: AccessibleRole.Text);
+		SetAccessibility(control: comboBoxFirstCoordinateType, name: global::Planetoid_DB.I18nStrings.CoordinateConversionInputTypeLabel, description: global::Planetoid_DB.I18nStrings.CoordinateConversionInputTypeAccessibleDescription, role: AccessibleRole.ComboBox);
+		SetAccessibility(control: comboBoxAngleUnit, name: global::Planetoid_DB.I18nStrings.CoordinateConversionAngleUnitLabel, description: global::Planetoid_DB.I18nStrings.CoordinateConversionAngleUnitAccessibleDescription, role: AccessibleRole.ComboBox);
+		SetAccessibility(control: dateTimePickerUtc, name: global::Planetoid_DB.I18nStrings.CoordinateConversionDateTimeLabel, description: global::Planetoid_DB.I18nStrings.CoordinateConversionDateTimeAccessibleDescription, role: AccessibleRole.SpinButton);
+		SetAccessibility(control: textBoxObserverLatitude, name: global::Planetoid_DB.I18nStrings.CoordinateConversionObserverLatitudeLabel, description: global::Planetoid_DB.I18nStrings.CoordinateConversionObserverLatitudeAccessibleDescription, role: AccessibleRole.Text);
+		SetAccessibility(control: textBoxObserverLongitude, name: global::Planetoid_DB.I18nStrings.CoordinateConversionObserverLongitudeLabel, description: global::Planetoid_DB.I18nStrings.CoordinateConversionObserverLongitudeAccessibleDescription, role: AccessibleRole.Text);
+		SetAccessibility(control: buttonConvert, name: global::Planetoid_DB.I18nStrings.CoordinateConversionButtonText, description: global::Planetoid_DB.I18nStrings.CoordinateConversionButtonAccessibleDescription, role: AccessibleRole.PushButton);
+		SetAccessibility(control: labelResult, name: global::Planetoid_DB.I18nStrings.CoordinateConversionResultLabel, description: global::Planetoid_DB.I18nStrings.CoordinateConversionResultAccessibleDescription, role: AccessibleRole.StaticText);
+	}
+
+	private static void SetAccessibility(Control control, string name, string description, AccessibleRole role)
+	{
+		control.AccessibleName = name;
+		control.AccessibleDescription = description;
+		control.AccessibleRole = role;
+	}
+
+	private string FirstCoordinateName(AstronomicalCoordinateSystem system)
 	{
 		return system switch
 		{
-			AstronomicalCoordinateSystem.Horizontal => "Azimuth (°)",
-			AstronomicalCoordinateSystem.EquatorialJ2000 or AstronomicalCoordinateSystem.EquatorialOfDate => "RA / hour angle",
-			AstronomicalCoordinateSystem.Ecliptic => "Ecliptic longitude (°)",
-			AstronomicalCoordinateSystem.Galactic => "Galactic longitude (°)",
-			AstronomicalCoordinateSystem.Supergalactic => "Supergalactic longitude (°)",
-			_ => "First coordinate"
+			AstronomicalCoordinateSystem.Horizontal => global::Planetoid_DB.I18nStrings.CoordinateConversionAzimuthLabel,
+			AstronomicalCoordinateSystem.EquatorialJ2000 => global::Planetoid_DB.I18nStrings.CoordinateConversionRightAscensionLabel,
+			AstronomicalCoordinateSystem.EquatorialOfDate => comboBoxFirstCoordinateType.SelectedIndex == 1
+				? global::Planetoid_DB.I18nStrings.CoordinateConversionHourAngleLabel
+				: global::Planetoid_DB.I18nStrings.CoordinateConversionRightAscensionLabel,
+			AstronomicalCoordinateSystem.Ecliptic => global::Planetoid_DB.I18nStrings.CoordinateConversionEclipticLongitudeLabel,
+			AstronomicalCoordinateSystem.Galactic => global::Planetoid_DB.I18nStrings.CoordinateConversionGalacticLongitudeLabel,
+			AstronomicalCoordinateSystem.Supergalactic => global::Planetoid_DB.I18nStrings.CoordinateConversionSupergalacticLongitudeLabel,
+			_ => string.Empty
 		};
 	}
 
@@ -153,12 +230,12 @@ internal sealed partial class CoordinateTransformationForm : BaseKryptonForm
 	{
 		return system switch
 		{
-			AstronomicalCoordinateSystem.Horizontal => "Altitude (°)",
-			AstronomicalCoordinateSystem.EquatorialJ2000 or AstronomicalCoordinateSystem.EquatorialOfDate => "Declination (°)",
-			AstronomicalCoordinateSystem.Ecliptic => "Ecliptic latitude (°)",
-			AstronomicalCoordinateSystem.Galactic => "Galactic latitude (°)",
-			AstronomicalCoordinateSystem.Supergalactic => "Supergalactic latitude (°)",
-			_ => "Second coordinate"
+			AstronomicalCoordinateSystem.Horizontal => global::Planetoid_DB.I18nStrings.CoordinateConversionAltitudeLabel,
+			AstronomicalCoordinateSystem.EquatorialJ2000 or AstronomicalCoordinateSystem.EquatorialOfDate => global::Planetoid_DB.I18nStrings.CoordinateConversionDeclinationLabel,
+			AstronomicalCoordinateSystem.Ecliptic => global::Planetoid_DB.I18nStrings.CoordinateConversionEclipticLatitudeLabel,
+			AstronomicalCoordinateSystem.Galactic => global::Planetoid_DB.I18nStrings.CoordinateConversionGalacticLatitudeLabel,
+			AstronomicalCoordinateSystem.Supergalactic => global::Planetoid_DB.I18nStrings.CoordinateConversionSupergalacticLatitudeLabel,
+			_ => string.Empty
 		};
 	}
 
@@ -195,13 +272,6 @@ internal sealed partial class CoordinateTransformationForm : BaseKryptonForm
 		bool parsed = double.TryParse(s: text, style: NumberStyles.Float, provider: CultureInfo.CurrentCulture, result: out value)
 			|| double.TryParse(s: text, style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out value);
 		return parsed && double.IsFinite(value);
-	}
-
-	private static double ParseRequiredCoordinate(string text, string fieldName)
-	{
-		return TryParseNumber(text: text, value: out double value)
-			? value
-			: throw new FormatException(message: $"{fieldName} must be a valid number in degrees.");
 	}
 
 	private static string FormatResult(double firstAngleDegrees, double secondAngleDegrees, AstronomicalCoordinateSystem target)
