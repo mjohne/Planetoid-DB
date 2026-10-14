@@ -11,22 +11,6 @@
 *.slnx text eol=crlf
 *.resx text eol=crlf
 *.user text eol=crlf
-Forms/AverageAsteroidForm.Designer.cs -text
-Forms/BaseKryptonForm.cs -text
-Forms/BulkObservationsDownloadErrorsForm.cs -text
-Forms/BulkObservationsDownloadErrorsForm.resx -text
-Forms/DistributionsForm.Designer.cs -text
-Forms/EphemerisForm.Designer.cs -text
-Forms/LogViewerForm.Designer.cs -text
-Forms/ObservationsForm.Designer.cs -text
-Forms/ObservatoryCodesForm.cs -text
-Forms/OrbitalResonancesOfOneMinorPlanetForm.Designer.cs -text
-Forms/PlanetaryInformationForm.cs -text
-Forms/ScatterplotsForm.Designer.cs -text
-Forms/TisserandParameterOfAllMinorPlanetsForm.Designer.cs -text
-Forms/WorldMapForm.Designer.cs -text
-Forms/WorldMapForm.cs -text
-Forms/WorldMapForm.resx -text
 Services/AnalyticalPlanetaryEphemeris.cs -text
 
 ###############################################################################
