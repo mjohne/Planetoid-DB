@@ -127,6 +127,19 @@ internal sealed partial class CoordinateTransformationForm : BaseKryptonForm
 	/// <remarks>This property is used by the debugger to display a concise description of the form's state.</remarks>
 	private string DebuggerDisplay => ToString();
 
+	/// <summary>Runs the conversion when Enter is used as the dialog's default action.</summary>
+	/// <param name="keyData">The key and modifier keys to process.</param>
+	/// <returns>True if the key was handled; otherwise, the base implementation's result.</returns>
+	protected override bool ProcessDialogKey(Keys keyData)
+	{
+		if (keyData == Keys.Enter)
+		{
+			toolStripButtonButtonConvert.PerformClick();
+			return true;
+		}
+		return base.ProcessDialogKey(keyData);
+	}
+
 	/// <summary>Converts the entered coordinates and displays the result or a validation error.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The event data.</param>
