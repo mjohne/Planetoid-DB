@@ -220,6 +220,7 @@ partial class FilterForm
 		tableLayoutPanel.RowStyles.Add(new RowStyle());
 		tableLayoutPanel.Size = new Size(514, 369);
 		tableLayoutPanel.TabIndex = 0;
+		tableLayoutPanel.TabStop = true;
 		// 
 		// labelHeaderReset
 		// 
