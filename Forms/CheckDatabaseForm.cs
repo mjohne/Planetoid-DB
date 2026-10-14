@@ -13,8 +13,6 @@
  * See LICENSE file in the project root for license information.
  */
 
-using Krypton.Toolkit;
-
 using NLog;
 
 using Planetoid_DB.Forms;
@@ -124,15 +122,15 @@ internal partial class CheckDatabaseForm : BaseKryptonForm
 	/// <param name="value">The text to copy to the clipboard.</param>
 	/// <param name="propertyName">The name of the property being copied, used for logging and messages.</param>
 	/// <remarks>This method checks if the value is null or whitespace before copying to the clipboard. If the value is invalid, it logs a warning and shows a message box.</remarks>
-	private void CopyToClipboardSafe(string value, string propertyName)
+	private static void CopyToClipboardSafe(string value, string propertyName)
 	{
 		// Check if the value is null or whitespace
-		if (string.IsNullOrWhiteSpace(value))
+		if (string.IsNullOrWhiteSpace(value: value))
 		{
 			// Log a warning and show a message box if the value is invalid
 			string message = $"No {propertyName} available to copy to clipboard.";
 			logger.Warn(message: message);
-			_ = KryptonMessageBox.Show(owner: this, text: message, caption: "Warning", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Warning);
+			ShowWarnMessage(caption: "Warning", message: message);
 			return;
 		}
 		// Copy the value to the clipboard
@@ -163,7 +161,7 @@ internal partial class CheckDatabaseForm : BaseKryptonForm
 				DateTime lastModified = response.Content.Headers.LastModified?.UtcDateTime ?? DateTime.MinValue;
 				long contentLength = response.Content.Headers.ContentLength ?? 0;
 				// Return the last modified date and content length as a tuple
-				return (lastModified, contentLength);
+				return (LastModified: lastModified, ContentLength: contentLength);
 			}
 		}
 		// Catch any HttpRequestException that occurs during the request
@@ -174,7 +172,7 @@ internal partial class CheckDatabaseForm : BaseKryptonForm
 			ShowErrorMessage(message: ex.Message);
 		}
 		// Return default values in case of error
-		return (DateTime.MinValue, 0);
+		return (LastModified: DateTime.MinValue, ContentLength: 0);
 	}
 
 	#endregion
