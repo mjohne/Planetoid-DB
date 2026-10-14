@@ -43,9 +43,6 @@ Services/AnalyticalPlanetaryEphemeris.cs -text
 #*.wixproj   merge=binary
 #*.modelproj merge=binary
 #*.sqlproj   merge=binary
-# Temporary preservation of the repository's original line endings.
-*.cs -text
-*.resx -text
 #*.wwaproj   merge=binary
 
 ###############################################################################
