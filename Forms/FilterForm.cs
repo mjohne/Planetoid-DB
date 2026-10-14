@@ -65,8 +65,7 @@ internal partial class FilterForm : BaseKryptonForm
 		// Initialize the form components
 		InitializeComponent();
 		// Center values in all numeric spin buttons
-		foreach (KryptonNumericUpDown nud in Controls.OfType<KryptonNumericUpDown>()
-			.Concat(second: tableLayoutPanel.Controls.OfType<KryptonNumericUpDown>()))
+		foreach (KryptonNumericUpDown nud in Controls.OfType<KryptonNumericUpDown>().Concat(second: tableLayoutPanel.Controls.OfType<KryptonNumericUpDown>()))
 		{
 			nud.TextAlign = HorizontalAlignment.Center;
 		}
