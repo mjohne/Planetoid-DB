@@ -217,7 +217,6 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	{
 		// Initialize the form components
 		InitializeComponent();
-		AddCoordinateTransformationMenuItem();
 		// Set the version text to the current assembly version
 		TextExtra = AssemblyInfo.AssemblyVersion;
 		// Apply comprehensive flicker reduction for the TableLayoutPanel
@@ -233,27 +232,12 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	{
 		// Initialize the form components
 		InitializeComponent();
-		AddCoordinateTransformationMenuItem();
 		TextExtra = AssemblyInfo.AssemblyVersion;
 		MpcOrbDatFilePath = mpcorbDatFilePath;
 		// Apply comprehensive flicker reduction for the TableLayoutPanel
 		OptimizeTableLayoutPanelForFlickerReduction();
 		// Log the initialization with the provided MPCORB.DAT file path
 		logger.Info(message: $"PlanetoidDbForm initialized with MPCORB.DAT file path: {mpcorbDatFilePath}");
-	}
-
-	private void AddCoordinateTransformationMenuItem()
-	{
-		ToolStripMenuItem coordinateTransformationItem = new(text: I18nStrings.CoordinateConversionMenuText)
-		{
-			Name = "toolStripMenuItemCoordinateTransformation",
-			AccessibleName = I18nStrings.CoordinateConversionMenuText,
-			AccessibleDescription = I18nStrings.CoordinateConversionMenuDescription,
-			AccessibleRole = AccessibleRole.MenuItem,
-			AutoToolTip = true
-		};
-		coordinateTransformationItem.Click += CoordinateTransformation_Click;
-		toolStripMenuItemGroupEphemeridesAndPositions.DropDownItems.Insert(index: 1, value: coordinateTransformationItem);
 	}
 
 	/// <summary>Opens the astronomical coordinate conversion form.</summary>
