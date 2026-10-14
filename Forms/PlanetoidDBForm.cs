@@ -240,15 +240,6 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		logger.Info(message: $"PlanetoidDbForm initialized with MPCORB.DAT file path: {mpcorbDatFilePath}");
 	}
 
-	/// <summary>Opens the astronomical coordinate conversion form.</summary>
-	/// <param name="sender">The event source.</param>
-	/// <param name="e">The event data.</param>
-	private void CoordinateTransformation_Click(object? sender, EventArgs e)
-	{
-		using CoordinateTransformationForm form = new();
-		_ = form.ShowDialog(owner: this);
-	}
-
 	/// <summary>Optimizes the TableLayoutPanels to eliminate flickering during label updates.</summary>
 	/// <remarks>This method enables double buffering and optimized painting styles on the MPCORB, ASTORB, ALLNUM.CAT, SINGOPP.CAT, and UFITOBS.CAT panels and all child labels.</remarks>
 	private void OptimizeTableLayoutPanelForFlickerReduction()

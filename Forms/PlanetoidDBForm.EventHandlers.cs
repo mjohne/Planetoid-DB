@@ -17,6 +17,7 @@ using Krypton.Toolkit;
 
 using NLog;
 
+using Planetoid_DB.Forms;
 using Planetoid_DB.Helpers;
 using Planetoid_DB.Properties;
 
@@ -2081,6 +2082,19 @@ public partial class PlanetoidDbForm
 		string message = report.Count == 0 ? summary : $"{summary}{Environment.NewLine}{Environment.NewLine}{string.Join(separator: Environment.NewLine, values: report)}";
 		// Show the summary message to the user, using a warning icon if any bookmarks were removed, otherwise an information icon
 		_ = KryptonMessageBox.Show(owner: this, text: message, caption: I18nStrings.BookmarkAuditMenuItem, buttons: KryptonMessageBoxButtons.OK, icon: removed > 0 ? KryptonMessageBoxIcon.Warning : KryptonMessageBoxIcon.Information);
+	}
+
+	/// <summary>Opens the astronomical coordinate conversion form.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The event data.</param>
+	/// <remarks>This method logs the action and opens the CoordinateTransformationForm as a modal dialog.</remarks>
+	private void CoordinateTransformation_Click(object? sender, EventArgs e)
+	{
+		// Log the action of opening the CoordinateTransformationForm
+		logger.Info(message: "Opening CoordinateTransformationForm for astronomical coordinate conversion.");
+		// Open the CoordinateTransformationForm as a modal dialog
+		using CoordinateTransformationForm form = new();
+		_ = form.ShowDialog(owner: this);
 	}
 
 	#endregion
