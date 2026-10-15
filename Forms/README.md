@@ -21,57 +21,63 @@ The forms can broadly be grouped into the following areas:
 
 ## Main Forms
 
-| Form                                      | Purpose                                                                                                     |
-| ----------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
-| `AEIDiagram3DForm`                        | Displays a three-dimensional orbital-parameter diagram using semi-major axis, eccentricity and inclination. |
-| `AppInfoForm`                             | Displays application information and project metadata.                                                      |
-| `ArchiveMpcorbForm`                       | Works with archived MPCORB data.                                                                            |
-| `AsteroidFamiliesForm`                    | Analyzes and displays asteroid-family information.                                                          |
-| `AsteroidGameForm`                        | Provides an interactive asteroid-themed application/game view.                                              |
-| `AverageAsteroidForm`                     | Calculates or displays average properties for asteroid data.                                                |
-| `BaseKryptonForm`                         | Shared base class for the application's Krypton-based WinForms UI.                                          |
-| `BulkObservationsDataDownloaderForm`      | Downloads observation data for multiple objects in bulk.                                                    |
-| `BulkObservationsDownloadErrorsForm`      | Displays errors encountered during bulk observation downloads.                                              |
-| `CheckDatabaseForm`                       | Checks the database/data source for consistency or validity.                                                |
-| `DatabaseDifferencesForm`                 | Compares database versions or data sets and displays differences.                                           |
-| `DownloaderForm`                          | Downloads an astronomical catalogue/data file for use by Planetoid-DB.                                      |
-| `DatabaseInformationForm`                 | Displays information and statistics about the current database/data source.                                 |
-| `DerivedOrbitElementsForm`                | Displays and works with derived orbital elements and related calculations.                                  |
-| `DistributionsForm`                       | Displays distributions of selected astronomical parameters.                                                 |
-| `EphemerisForm`                           | Displays ephemeris-related calculations and information for minor planets.                                  |
-| `ExportDataSheetForm`                     | Exports object data sheets to an external format.                                                           |
-| `FilterForm`                              | Applies filtering criteria to the displayed data set.                                                       |
-| `LicenseForm`                             | Displays license information.                                                                               |
-| `ListReadableDesignationsForm`            | Lists readable / formatted object designations.                                                             |
-| `LogViewerForm`                           | Displays application log information for diagnostics and troubleshooting.                                   |
-| `MaxoidsOfAllMinorPlanetsForm`            | Processes MAOID/maximum-approach-related results for all applicable minor planets.                          |
-| `MaxoidsOfOneMinorPlanetForm`             | Calculates and displays MAOID/maximum-approach-related results for one minor planet.                        |
-| `MaxoidsRelativeToMinorPlanetsForm`       | Analyzes maximum-approach relationships relative to selected minor planets.                                 |
-| `MoidsAndMaxoidsOfOneMinorPlanetForm`     | Combines MOID and maximum-approach analysis for one minor planet.                                           |
-| `MoidsOfAllMinorPlanetsForm`              | Processes MOID-related results for all applicable minor planets.                                            |
-| `MoidsOfOneMinorPlanetForm`               | Calculates and displays MOID-related results for one minor planet.                                          |
-| `MoidsRelativeToMinorPlanetsForm`         | Analyzes MOID relationships relative to selected minor planets.                                             |
-| `ObservationsForm`                        | Displays and manages observational data associated with objects.                                            |
-| `ObservatoryCodesForm`                    | Provides access to MPC observatory codes and related information.                                           |
-| `Orbit2DSideViewForm`                     | Provides a two-dimensional side view of an orbit.                                                           |
-| `Orbit3DForm`                             | Provides a three-dimensional orbital visualisation.                                                         |
-| `OrbitalResonancesOfOneMinorPlanetForm`   | Analyzes orbital resonances for a single minor planet.                                                      |
-| `OrbitalResonancesOfAllMinorPlanetsForm`  | Performs orbital-resonance analysis across the catalogue.                                                   |
-| `OrbitElementsGroupingForm`               | Groups or categorizes objects according to orbital elements.                                                |
-| `PlanetoidDBForm`                         | Main application window and central entry point for browsing and working with the planetoid catalogue.      |
-| `PrintDataSheetForm`                      | Provides printing functionality for object data sheets.                                                     |
-| `RecordsForm`                             | Displays catalogue records and related record information.                                                  |
-| `RecordsTop10Form`                        | Presents top-10 style record statistics or rankings.                                                        |
-| `ScatterplotsForm`                        | Displays scatter plots for investigating relationships between catalogue parameters.                        |
-| `SearchForm`                              | Searches the loaded planetoid data.                                                                         |
-| `SettingsExportForm`                      | Exports application settings.                                                                               |
-| `SettingsForm`                            | Provides access to application settings and configuration.                                                  |
-| `SettingsImportForm`                      | Imports saved application settings.                                                                         |
-| `SplashScreenForm`                        | Startup / splash screen shown while the application is initialized.                                         |
-| `TableModeForm`                           | Configures or presents an alternative table-oriented viewing mode.                                          |
-| `TerminologyForm`                         | Provides terminology and explanatory information used by the application.                                   |
-| `TisserandParameterOfAllMinorPlanetsForm` | Calculates/displays Tisserand parameters across the catalogue.                                              |
-| `TisserandParameterOfOneMinorPlanetForm`  | Calculates/displays the Tisserand parameter for one minor planet.                                           |
+| Form                                      | Purpose                                                                                                        |
+| ----------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| `AEIDiagram3DForm`                        | Displays a three-dimensional orbital-parameter diagram using semi-major axis, eccentricity and inclination.    |
+| `AppInfoForm`                             | Displays application information and project metadata.                                                         |
+| `ArchiveMpcorbForm`                       | Works with archived MPCORB data.                                                                               |
+| `AsteroidFamiliesForm`                    | Analyzes and displays asteroid-family information.                                                             |
+| `AsteroidGameForm`                        | Provides an interactive asteroid-themed application/game view.                                                 |
+| `AverageAsteroidForm`                     | Calculates or displays average properties for asteroid data.                                                   |
+| `BaseKryptonForm`                         | Shared base class for the application's Krypton-based WinForms UI.                                             |
+| `BulkObservationsDataDownloaderForm`      | Downloads observation data for multiple objects in bulk.                                                       |
+| `BulkObservationsDownloadErrorsForm`      | Displays errors encountered during bulk observation downloads.                                                 |
+| `CheckDatabaseForm`                       | Checks the database/data source for consistency or validity.                                                   |
+| `CoordinateConversionForm`                | Provides an interface for converting astronomical coordinates.                                                 |
+| `DatabaseDifferencesForm`                 | Compares database versions or data sets and displays differences.                                              |
+| `DownloaderForm`                          | Downloads an astronomical catalogue/data file for use by Planetoid-DB.                                         |
+| `DatabaseInformationForm`                 | Displays information and statistics about the current database/data source.                                    |
+| `DerivedOrbitElementsForm`                | Displays and works with derived orbital elements and related calculations.                                     |
+| `DistributionsForm`                       | Displays distributions of selected astronomical parameters.                                                    |
+| `EphemerisForm`                           | Displays ephemeris-related calculations and information for minor planets.                                     |
+| `ExportDataSheetForm`                     | Exports object data sheets to an external format.                                                              |
+| `FilterForm`                              | Applies filtering criteria to the displayed data set.                                                          |
+| `LicenseForm`                             | Displays license information.                                                                                  |
+| `ListReadableDesignationsForm`            | Lists readable / formatted object designations.                                                                |
+| `LogViewerForm`                           | Displays application log information for diagnostics and troubleshooting.                                      |
+| `MaxoidsOfAllMinorPlanetsForm`            | Processes MAOID/maximum-approach-related results for all applicable minor planets.                             |
+| `MaxoidsOfOneMinorPlanetForm`             | Calculates and displays MAOID/maximum-approach-related results for one minor planet.                           |
+| `MaxoidsRelativeToMinorPlanetsForm`       | Analyzes maximum-approach relationships relative to selected minor planets.                                    |
+| `MoidsAndMaxoidsOfOneMinorPlanetForm`     | Combines MOID and maximum-approach analysis for one minor planet.                                              |
+| `MoidsOfAllMinorPlanetsForm`              | Processes MOID-related results for all applicable minor planets.                                               |
+| `MoidsOfOneMinorPlanetForm`               | Calculates and displays MOID-related results for one minor planet.                                             |
+| `MoidsRelativeToMinorPlanetsForm`         | Analyzes MOID relationships relative to selected minor planets.                                                |
+| `ObservationsForm`                        | Displays and manages observational data associated with objects.                                               |
+| `ObservatoryCodesForm`                    | Provides access to MPC observatory codes and related information.                                              |
+| `Orbit2DSideViewForm`                     | Provides a two-dimensional side view of an orbit.                                                              |
+| `Orbit3DForm`                             | Provides a three-dimensional orbital visualisation.                                                            |
+| `OrbitalResonancesOfOneMinorPlanetForm`   | Analyzes orbital resonances for a single minor planet.                                                         |
+| `OrbitalResonancesOfAllMinorPlanetsForm`  | Performs orbital-resonance analysis across the catalogue.                                                      |
+| `OrbitElementsGroupingForm`               | Groups or categorizes objects according to orbital elements.                                                   |
+| `OrreyForm`                               | Displays a 3D orbital visualization of many selected minor planets relative to the eight solar system planets. |
+| `OrreyForm`                               | Displays a 3D orbital visualization of many selected minor planets relative to the eight solar system planets. |
+| `PlanetoidDbForm`                         | Represents the main application form for browsing and managing the Planetoid-DB database.                      |
+| `PlanetaryInformationForm`                | Represents a form that displays orbital and physical properties of the eight planets of the Solar System.      |
+| `PreloadForm`                             | A form that gets the file MPCORB.DAT.                                                                          |
+| `PrintDataSheetForm`                      | Provides printing functionality for object data sheets.                                                        |
+| `RecordsForm`                             | Displays catalogue records and related record information.                                                     |
+| `RecordsTop10Form`                        | Presents top-10 style record statistics or rankings.                                                           |
+| `ScatterplotsForm`                        | Displays scatter plots for investigating relationships between catalogue parameters.                           |
+| `SearchForm`                              | Searches the loaded planetoid data.                                                                            |
+| `SettingsExportForm`                      | Exports application settings.                                                                                  |
+| `SettingsForm`                            | Provides access to application settings and configuration.                                                     |
+| `SettingsImportForm`                      | Imports saved application settings.                                                                            |
+| `SplashScreenForm`                        | Startup / splash screen shown while the application is initialized.                                            |
+| `TableModeForm`                           | Configures or presents an alternative table-oriented viewing mode.                                             |
+| `TerminologyForm`                         | Provides terminology and explanatory information used by the application.                                      |
+| `TisserandParameterOfAllMinorPlanetsForm` | Calculates/displays Tisserand parameters across the catalogue.                                                 |
+| `TisserandParameterOfOneMinorPlanetForm`  | Calculates/displays the Tisserand parameter for one minor planet.                                              |
+| `WorldMapForm`                            | Represents a form that shows an interactive world map and returns the selected geographic coordinates.         |
 
 ## UI File Structure
 
