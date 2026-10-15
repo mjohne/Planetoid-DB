@@ -18,23 +18,6 @@ using NLog;
 
 namespace Planetoid_DB.Services;
 
-/// <summary>Identifies a supported astronomical coordinate system.</summary>
-internal enum AstronomicalCoordinateSystem
-{
-	/// <summary>Horizontal azimuth and altitude for the supplied observer and time.</summary>
-	Horizontal,
-	/// <summary>Equatorial coordinates in the fixed J2000.0 frame.</summary>
-	EquatorialJ2000,
-	/// <summary>Equatorial coordinates in the mean equator and equinox of date.</summary>
-	EquatorialOfDate,
-	/// <summary>Ecliptic coordinates in the mean ecliptic of date.</summary>
-	Ecliptic,
-	/// <summary>Galactic coordinates in the IAU-defined galactic frame.</summary>
-	Galactic,
-	/// <summary>Supergalactic coordinates in the de Vaucouleurs frame.</summary>
-	Supergalactic
-}
-
 /// <summary>Converts angular positions among common astronomical coordinate systems.</summary>
 /// <remarks>All coordinate arguments and results are in degrees. The equatorial fixed frame is J2000.0/ICRS; date-dependent frames use IAU 1976 precession and the mean obliquity of date. Sidereal time uses IAU 1982 GMST with UTC as an approximation for UT1.</remarks>
 internal static class AstronomicalCoordinateConverter
