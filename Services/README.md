@@ -12,19 +12,19 @@ Forms such as `EphemerisForm` collect user input (object, observer location, tim
 
 ## Available Services
 
-| Class | Kind | Description |
-|---|---|---|
-| `AnalyticalPlanetaryEphemeris` | `sealed class` | Provides approximate planetary positions from the JPL mean orbital elements. Used as a fallback when no JPL DE file is available. |
-| `AstronomicalConstants` | `static class` | Provides astronomical constants (e.g. AU, speed of light, gravitational parameters) used by the ephemeris services. |
-| `CoordinateTransformationService` | `static class` | Provides astronomical coordinate transformations (precession, nutation, aberration, equatorial/horizontal conversion, refraction). |
-| `EphemerisExportService` | `static class` | Exports ephemerides in a culture-independent CSV format. |
-| `EphemerisService` | `sealed class` | Calculates topocentric ephemerides (RA/Dec, azimuth/altitude, brightness, visibility) of minor planets. |
-| `IPlanetaryEphemerisProvider` | `interface` | Defines a source of positions of the major solar system bodies. |
-| `JplDevelopmentEphemeris` | `sealed class` | Reads JPL Development Ephemeris binary files (e.g. DE440, DE441). |
-| `MpcorbElementsParser` | `static class` | Converts MPCORB records into numerical orbital elements. |
-| `OrbitPropagationService` | `sealed class` | Propagates the orbit of a minor planet (two-body or with planetary perturbations). |
-| `TimeScales` | `static class` | Provides conversions between UTC, TT, TDB and Julian dates, including ΔT. |
-| `VisibilityCalculator` | `static class` | Computes brightness and visibility of a minor planet. |
+| Class                                       | Kind           | Description                                                                                                                        |
+|---------------------------------------------|----------------|------------------------------------------------------------------------------------------------------------------------------------|
+| `AnalyticalPlanetaryEphemeris`              | `sealed class` | Provides approximate planetary positions from the JPL mean orbital elements. Used as a fallback when no JPL DE file is available.  |
+| `AstronomicalConstants`                     | `static class` | Provides astronomical constants (e.g. AU, speed of light, gravitational parameters) used by the ephemeris services.                |
+| `CoordinateTransformationService`           | `static class` | Provides astronomical coordinate transformations (precession, nutation, aberration, equatorial/horizontal conversion, refraction). |
+| `EphemerisExportService`                    | `static class` | Exports ephemerides in a culture-independent CSV format.                                                                           |
+| `EphemerisService`                          | `sealed class` | Calculates topocentric ephemerides (RA/Dec, azimuth/altitude, brightness, visibility) of minor planets.                            |
+| `IPlanetaryEphemerisProvider`               | `interface`    | Defines a source of positions of the major solar system bodies.                                                                    |
+| `JplDevelopmentEphemeris`                   | `sealed class` | Reads JPL Development Ephemeris binary files (e.g. DE440, DE441).                                                                  |
+| `MpcorbElementsParser`                      | `static class` | Converts MPCORB records into numerical orbital elements.                                                                           |
+| `OrbitPropagationService`                   | `sealed class` | Propagates the orbit of a minor planet (two-body or with planetary perturbations).                                                 |
+| `TimeScales`                                | `static class` | Provides conversions between UTC, TT, TDB and Julian dates, including ΔT.                                                          |
+| `VisibilityCalculator`                      | `static class` | Computes brightness and visibility of a minor planet.                                                                              |
 
 ## Architecture
 
