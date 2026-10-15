@@ -13,6 +13,8 @@
  * See LICENSE file in the project root for license information.
  */
 
+using Krypton.Toolkit;
+
 using NLog;
 
 using Planetoid_DB.Forms;
@@ -66,9 +68,12 @@ internal partial class PlanetaryInformationForm : BaseKryptonForm
 	/// <remarks>Initializes the form components.</remarks>
 	public PlanetaryInformationForm()
 	{
+		// Log the initialization of the form instance
+		logger.Info(message: "Initializing PlanetaryInformationForm instance.");
 		// Initialize the form components
 		InitializeComponent();
-		kryptonStatusStrip.Dock = DockStyle.Bottom;
+		// Log successful initialization
+		logger.Info(message: "PlanetaryInformationForm instance initialized successfully.");
 	}
 
 	#endregion
@@ -745,6 +750,61 @@ internal partial class PlanetaryInformationForm : BaseKryptonForm
 		// Apply the sort
 		listView.ListViewItemSorter = new ListViewItemComparer(column: e.Column, order: sortOrder);
 		listView.Sort();
+	}
+
+	#endregion
+
+	#region Testing right-click context menu behavior on KryptonListView
+
+	private bool rightMouseDownOnListView;
+
+	/// <summary>Handles mouse down on the KryptonListView and tracks right-button state.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The mouse event arguments.</param>
+	/// <remarks>Sets a flag when the right mouse button is pressed down on the ListView, which is used to determine if a context menu should be shown on mouse up.</remarks>
+	private void KryptonListView_MouseDown(object? sender, MouseEventArgs e)
+	{
+		// Track whether the right mouse button was pressed down on the ListView
+		rightMouseDownOnListView = e.Button == MouseButtons.Right;
+	}
+
+	/// <summary>Handles mouse up on the KryptonListView and shows the save context menu on valid right-click release.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The mouse event arguments.</param>
+	/// <remarks>Shows the context menu if the right mouse button was pressed down on the ListView and released over an item.</remarks>
+	private void KryptonListView_MouseUp(object? sender, MouseEventArgs e)
+	{
+		// Only show the context menu if the right mouse button was pressed down on the ListView and released over an item
+		if (!rightMouseDownOnListView || e.Button != MouseButtons.Right)
+		{
+			// Reset the flag and exit if the right mouse button was not involved
+			return;
+		}
+		// Reset the flag to avoid showing the context menu multiple times
+		rightMouseDownOnListView = false;
+		// Ensure the sender is a KryptonListView before proceeding
+		if (sender is not KryptonListView listView)
+		{
+			// Log a warning if the sender is not a KryptonListView and exit
+			logger.Warn(message: "KryptonListView_MouseUp event handler called with a sender that is not a KryptonListView.");
+			return;
+		}
+		// Perform a hit test to determine if the mouse is over an item in the ListView
+		ListViewHitTestInfo hit = listView.HitTest(point: e.Location);
+		// If the hit test did not return an item, exit without showing the context menu
+		if (hit.Item is null)
+		{
+			// Log a debug message indicating that the right-click was not on an item and exit
+			logger.Debug(message: "Right-click on KryptonListView did not hit an item; context menu will not be shown.");
+			return;
+		}
+		// If the item is not already selected, select it to ensure the context menu actions apply to the correct item
+		if (!hit.Item.Selected)
+		{
+			hit.Item.Selected = true;
+		}
+		// Show the context menu at the location of the mouse click
+		contextMenuSaveToFile.Show(control: listView, position: e.Location);
 	}
 
 	#endregion

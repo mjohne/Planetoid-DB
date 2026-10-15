@@ -328,6 +328,10 @@ public class BaseKryptonForm : KryptonForm
 	/// <remarks>Override in derived forms that export from a <see cref="ListView"/>. Returns <see langword="null"/> by default.</remarks>
 	protected virtual ListView? ExportListView => null;
 
+	/// <summary>Gets the <see cref="KryptonListView"/> control used as the export source.</summary>
+	/// <remarks>Override in derived forms that export from a <see cref="KryptonListView"/>. Returns <see langword="null"/> by default.</remarks>
+	protected virtual KryptonListView? ExportKryptonListView => null;
+
 	/// <summary>Gets the <see cref="TableLayoutPanel"/> control used as the export source.</summary>
 	/// <remarks>Override in derived forms that export from a <see cref="TableLayoutPanel"/>. Returns <see langword="null"/> by default.</remarks>
 	protected virtual TableLayoutPanel? ExportTableLayoutPanel => null;

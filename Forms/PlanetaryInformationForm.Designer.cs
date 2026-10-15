@@ -145,15 +145,14 @@ partial class PlanetaryInformationForm
 		listView.Columns.AddRange(new ColumnHeader[] { columnHeaderProperty, columnHeaderMercury, columnHeaderVenus, columnHeaderEarth, columnHeaderMars, columnHeaderJupiter, columnHeaderSaturn, columnHeaderUranus, columnHeaderNeptune });
 		listView.ContextMenuStrip = contextMenuSaveToFile;
 		listView.Dock = DockStyle.Fill;
-		listView.Font = new Font("Segoe UI", 9F);
 		listView.FullRowSelect = true;
 		listView.GridLines = true;
+		listView.HideSelection = false;
 		listView.Location = new Point(0, 0);
 		listView.Name = "listView";
 		listView.ShowItemToolTips = true;
 		listView.Size = new Size(1000, 553);
 		listView.TabIndex = 0;
-		listView.UseCompatibleStateImageBehavior = false;
 		listView.View = View.Details;
 		listView.ColumnClick += ListView_ColumnClick;
 		listView.Enter += Control_Enter;
