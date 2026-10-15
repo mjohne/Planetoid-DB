@@ -8,17 +8,17 @@ The models decouple the calculation services from each other and from the user i
 
 ## Available Models
 
-| Type | Kind | Description |
-|---|---|---|
-| `EphemerisEntry` | `sealed record` | Represents the calculated position of a minor planet at a specific time (apparent and astrometric J2000 coordinates, horizontal coordinates, distances, brightness, visibility). |
-| `EphemerisOptions` | `sealed record` | Represents options controlling the physical model of an ephemeris calculation (e.g. perturbations, refraction). |
-| `Matrix3d` | `readonly record struct` | Represents a 3×3 rotation matrix used for coordinate frame transformations. |
-| `MinorPlanetOrbitalElements` | `sealed record` | Represents the osculating orbital elements of a minor planet. |
-| `ObserverLocation` | `sealed record` | Represents a geodetic observer location on the Earth (WGS84). |
-| `SolarSystemBody` | `enum` | Enumerates the major solar system bodies used by the planetary ephemeris providers. |
-| `StateVector` | `readonly record struct` | Represents a heliocentric state vector (position and velocity) in the ICRF/J2000 equatorial frame. |
-| `Vector3d` | `readonly record struct` | Represents a three-dimensional Cartesian vector with double precision. |
-| `VisibilityCriteria` | `sealed record` | Represents the criteria used to decide whether a minor planet is observable. |
+| Type                         | Kind                     | Description                                                                                                                                                                      |
+|------------------------------|--------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `EphemerisEntry`             | `sealed record`          | Represents the calculated position of a minor planet at a specific time (apparent and astrometric J2000 coordinates, horizontal coordinates, distances, brightness, visibility). |
+| `EphemerisOptions`           | `sealed record`          | Represents options controlling the physical model of an ephemeris calculation (e.g. perturbations, refraction).                                                                  |
+| `Matrix3d`                   | `readonly record struct` | Represents a 3×3 rotation matrix used for coordinate frame transformations.                                                                                                      |
+| `MinorPlanetOrbitalElements` | `sealed record`          | Represents the osculating orbital elements of a minor planet.                                                                                                                    |
+| `ObserverLocation`           | `sealed record`          | Represents a geodetic observer location on the Earth (WGS84).                                                                                                                    |
+| `SolarSystemBody`            | `enum`                   | Enumerates the major solar system bodies used by the planetary ephemeris providers.                                                                                              |
+| `StateVector`                | `readonly record struct` | Represents a heliocentric state vector (position and velocity) in the ICRF/J2000 equatorial frame.                                                                               |
+| `Vector3d`                   | `readonly record struct` | Represents a three-dimensional Cartesian vector with double precision.                                                                                                           |
+| `VisibilityCriteria`         | `sealed record`          | Represents the criteria used to decide whether a minor planet is observable.                                                                                                     |
 
 ## Data Flow
 
