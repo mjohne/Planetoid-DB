@@ -12,7 +12,7 @@
     <PackageVersion Include="Krypton.Toolkit.Suite.Extended.Ultimate" Version="95.25.5.145" />
     <PackageVersion Include="Krypton.Workspace" Version="105.26.7.201" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.11.0" />
-    <PackageVersion Include="NLog" Version="6.2.1" />
+    <PackageVersion Include="NLog" Version="6.2.2" />
     <PackageVersion Include="Microsoft.Web.WebView2" Version="1.0.4258.31" />
     <PackageVersion Include="OpenTK" Version="4.9.4" />
     <PackageVersion Include="OpenTK.GLControl" Version="4.0.2" />
