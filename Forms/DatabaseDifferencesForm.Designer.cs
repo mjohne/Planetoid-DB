@@ -1244,6 +1244,7 @@ partial class DatabaseDifferencesForm
 		SizeGripStyle = SizeGripStyle.Hide;
 		StartPosition = FormStartPosition.CenterScreen;
 		Text = "Database Differences";
+		FormClosing += DatabaseDifferencesForm_FormClosing;
 		Load += DatabaseDifferencesForm_Load;
 		((ISupportInitialize)kryptonPanelMain).EndInit();
 		kryptonPanelMain.ResumeLayout(false);

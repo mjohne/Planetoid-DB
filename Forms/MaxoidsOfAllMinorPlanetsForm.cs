@@ -100,9 +100,14 @@ internal partial class MaxoidsOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>Each element in <paramref name="planetoids"/> must be a raw MPCORB-format string.</remarks>
 	public MaxoidsOfAllMinorPlanetsForm(IReadOnlyList<string> planetoids)
 	{
+		// Log the initialization of the form
+		logger.Info(message: "Initializing MaxoidsOfAllMinorPlanetsForm.");
+		// Initialize the form's components (controls, layout, etc.) using the designer-generated method
 		InitializeComponent();
 		// Cache the planetoid records for use during the calculation; this allows the calculation method to access the raw data without needing to pass it around or access it from a shared resource
 		_planetoids = planetoids;
+		// Log the number of planetoid records that will be processed
+		logger.Info(message: $"MaxoidsOfAllMinorPlanetsForm initialized with {planetoids.Count} planetoid records.");
 	}
 
 	#endregion
@@ -265,6 +270,11 @@ internal partial class MaxoidsOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>Clears the status bar when the form is loaded.</remarks>
 	private void MaxoidsOfAllMinorPlanetsForm_Load(object sender, EventArgs e)
 	{
+		// Log that the form has loaded
+		logger.Info(message: "MaxoidsOfAllMinorPlanetsForm loaded. Clearing status bar.");
+		// Play the open sound in the background to indicate that the form has been opened
+		AudioPlayback.PlayOpenSound();
+		// Clear the status bar label to ensure no residual messages are displayed
 		ClearStatusBar(label: labelInformation);
 	}
 
@@ -274,7 +284,10 @@ internal partial class MaxoidsOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>Cancels any running calculation and disposes the cancellation token source when the form is closing.</remarks>
 	private void MaxoidsOfAllMinorPlanetsForm_FormClosing(object sender, FormClosingEventArgs e)
 	{
-		logger.Info(message: "Form is closing. Cancelling any running calculation.");
+		// Log that the form is closing
+		logger.Info(message: "MaxoidsOfAllMinorPlanetsForm is closing. Cancelling any running calculation.");
+		// Play the close sound in the background to indicate that the form is closing
+		AudioPlayback.PlayCloseSound();
 		// If a calculation is currently running, signal cancellation and dispose of the token source
 		if (_cancellationTokenSource != null)
 		{

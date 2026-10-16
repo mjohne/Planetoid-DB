@@ -16,6 +16,7 @@
 using NLog;
 
 using Planetoid_DB.Forms;
+using Planetoid_DB.Helpers;
 using Planetoid_DB.Properties;
 
 using System.ComponentModel;
@@ -50,10 +51,14 @@ internal partial class PreloadForm : BaseKryptonForm
 	/// <remarks>This constructor initializes the form components.</remarks>
 	public PreloadForm()
 	{
+		// Log the initialization of the PreloadForm
+		logger.Info(message: "Initializing PreloadForm.");
 		// Initialize the form components
 		InitializeComponent();
 		// Set the version text to the current assembly version
 		TextExtra = $"{Assembly.GetExecutingAssembly().GetName().Version}";
+		// Log the version information of the PreloadForm
+		logger.Info(message: $"PreloadForm initialized with version {TextExtra}.");
 	}
 
 	#endregion
@@ -149,7 +154,22 @@ internal partial class PreloadForm : BaseKryptonForm
 	{
 		// Log that the preload form has loaded successfully
 		logger.Info(message: "PreloadForm loaded successfully.");
+		// Play the open sound in the background to indicate that the form has been opened
+		AudioPlayback.PlayOpenSound();
+		// Clear the status bar when the form loads
 		ClearStatusBar(label: labelInformation);
+	}
+
+	/// <summary>Logs the closing of the preload form and plays the close sound.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data for the form-closing event.</param>
+	/// <remarks>This method is called when the preload form is closing.</remarks>
+	private void PreloadForm_FormClosing(object sender, FormClosingEventArgs e)
+	{
+		// Log that the form is closing
+		logger.Info(message: "PreloadForm is closing.");
+		// Play the close sound in the background to indicate that the form is closing
+		AudioPlayback.PlayCloseSound();
 	}
 
 	#endregion

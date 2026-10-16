@@ -1623,6 +1623,7 @@ partial class FilterForm
 		SizeGripStyle = SizeGripStyle.Hide;
 		StartPosition = FormStartPosition.CenterParent;
 		Text = "Filter";
+		FormClosing += FilterForm_FormClosing;
 		Load += FilterForm_Load;
 		((ISupportInitialize)kryptonPanelMain).EndInit();
 		kryptonPanelMain.ResumeLayout(false);

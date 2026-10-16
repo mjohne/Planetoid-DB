@@ -81,12 +81,12 @@ partial class ExportDataSheetForm
 		toolStripMenuItemExportAsPostScript = new ToolStripMenuItem();
 		toolStripMenuItemExportAsEpub = new ToolStripMenuItem();
 		toolStripMenuItemExportAsMobi = new ToolStripMenuItem();
+		toolStripMenuItemExportAsVcalendar = new ToolStripMenuItem();
 		toolStripMenuItemExportAsIcalendar = new ToolStripMenuItem();
+		toolStripMenuItemExportAsXcalendar = new ToolStripMenuItem();
 		toolStripSeparator1 = new ToolStripSeparator();
 		toolStripButtonMarkAll = new ToolStripButton();
 		toolStripButtonUnmarkAll = new ToolStripButton();
-		toolStripMenuItemExportAsVcalendar = new ToolStripMenuItem();
-		toolStripMenuItemExportAsXcalendar = new ToolStripMenuItem();
 		kryptonStatusStrip.SuspendLayout();
 		((ISupportInitialize)kryptonPanelMain).BeginInit();
 		kryptonPanelMain.SuspendLayout();
@@ -277,6 +277,7 @@ partial class ExportDataSheetForm
 		contextMenuExport.Font = new Font("Segoe UI", 9F);
 		contextMenuExport.Items.AddRange(new ToolStripItem[] { toolStripMenuItemExportAsText, toolStripMenuItemExportAsLatex, toolStripMenuItemExportAsMarkdown, toolStripMenuItemExportAsBbcode, toolStripMenuItemExportAsCreole, toolStripMenuItemExportAsWord, toolStripMenuItemExportAsOdt, toolStripMenuItemExportAsRtf, toolStripMenuItemExportAsExcel, toolStripMenuItemExportAsOds, toolStripMenuItemExportAsCsv, toolStripMenuItemExportAsTsv, toolStripMenuItemExportAsPsv, toolStripMenuItemExportAsHtml, toolStripMenuItemExportAsXml, toolStripMenuItemExportAsJson, toolStripMenuItemExportAsYaml, toolStripMenuItemExportAsSql, toolStripMenuItemExportAsPdf, toolStripMenuItemExportAsPostScript, toolStripMenuItemExportAsEpub, toolStripMenuItemExportAsMobi, toolStripMenuItemExportAsVcalendar, toolStripMenuItemExportAsIcalendar, toolStripMenuItemExportAsXcalendar });
 		contextMenuExport.Name = "contextMenuSaveToFile";
+		contextMenuExport.OwnerItem = toolStripDropDownButtonExport;
 		contextMenuExport.Size = new Size(183, 554);
 		contextMenuExport.TabStop = true;
 		contextMenuExport.Text = "Export";
@@ -613,6 +614,20 @@ partial class ExportDataSheetForm
 		toolStripMenuItemExportAsMobi.MouseEnter += Control_Enter;
 		toolStripMenuItemExportAsMobi.MouseLeave += Control_Leave;
 		// 
+		// toolStripMenuItemExportAsVcalendar
+		// 
+		toolStripMenuItemExportAsVcalendar.AccessibleDescription = "Exports the information as vCalender file";
+		toolStripMenuItemExportAsVcalendar.AccessibleName = "Export as vCalender";
+		toolStripMenuItemExportAsVcalendar.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemExportAsVcalendar.AutoToolTip = true;
+		toolStripMenuItemExportAsVcalendar.Image = FatcowIcons16px.fatcow_calendar_16px;
+		toolStripMenuItemExportAsVcalendar.Name = "toolStripMenuItemExportAsVcalendar";
+		toolStripMenuItemExportAsVcalendar.Size = new Size(182, 22);
+		toolStripMenuItemExportAsVcalendar.Text = "Export as vCalender";
+		toolStripMenuItemExportAsVcalendar.Click += ToolStripMenuItemExportAsVcal_Click;
+		toolStripMenuItemExportAsVcalendar.MouseEnter += Control_Enter;
+		toolStripMenuItemExportAsVcalendar.MouseLeave += Control_Leave;
+		// 
 		// toolStripMenuItemExportAsIcalendar
 		// 
 		toolStripMenuItemExportAsIcalendar.AccessibleDescription = "Exports the information as iCalender file";
@@ -627,6 +642,20 @@ partial class ExportDataSheetForm
 		toolStripMenuItemExportAsIcalendar.Click += ToolStripMenuItemExportAsIcs_Click;
 		toolStripMenuItemExportAsIcalendar.MouseEnter += Control_Enter;
 		toolStripMenuItemExportAsIcalendar.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemExportAsXcalendar
+		// 
+		toolStripMenuItemExportAsXcalendar.AccessibleDescription = "Exports the information as xCalender file";
+		toolStripMenuItemExportAsXcalendar.AccessibleName = "Export as xCalender";
+		toolStripMenuItemExportAsXcalendar.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemExportAsXcalendar.AutoToolTip = true;
+		toolStripMenuItemExportAsXcalendar.Image = FatcowIcons16px.fatcow_calendar_16px;
+		toolStripMenuItemExportAsXcalendar.Name = "toolStripMenuItemExportAsXcalendar";
+		toolStripMenuItemExportAsXcalendar.Size = new Size(182, 22);
+		toolStripMenuItemExportAsXcalendar.Text = "Export as xCalender";
+		toolStripMenuItemExportAsXcalendar.Click += ToolStripMenuItemExportAsXcal_Click;
+		toolStripMenuItemExportAsXcalendar.MouseEnter += Control_Enter;
+		toolStripMenuItemExportAsXcalendar.MouseLeave += Control_Leave;
 		// 
 		// toolStripSeparator1
 		// 
@@ -666,34 +695,6 @@ partial class ExportDataSheetForm
 		toolStripButtonUnmarkAll.MouseEnter += Control_Enter;
 		toolStripButtonUnmarkAll.MouseLeave += Control_Leave;
 		// 
-		// toolStripMenuItemExportAsVcalendar
-		// 
-		toolStripMenuItemExportAsVcalendar.AccessibleDescription = "Exports the information as vCalender file";
-		toolStripMenuItemExportAsVcalendar.AccessibleName = "Export as vCalender";
-		toolStripMenuItemExportAsVcalendar.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemExportAsVcalendar.AutoToolTip = true;
-		toolStripMenuItemExportAsVcalendar.Image = FatcowIcons16px.fatcow_calendar_16px;
-		toolStripMenuItemExportAsVcalendar.Name = "toolStripMenuItemExportAsVcalendar";
-		toolStripMenuItemExportAsVcalendar.Size = new Size(182, 22);
-		toolStripMenuItemExportAsVcalendar.Text = "Export as vCalender";
-		toolStripMenuItemExportAsVcalendar.Click += ToolStripMenuItemExportAsVcal_Click;
-		toolStripMenuItemExportAsVcalendar.MouseEnter += Control_Enter;
-		toolStripMenuItemExportAsVcalendar.MouseLeave += Control_Leave;
-		// 
-		// toolStripMenuItemExportAsXcalendar
-		// 
-		toolStripMenuItemExportAsXcalendar.AccessibleDescription = "Exports the information as xCalender file";
-		toolStripMenuItemExportAsXcalendar.AccessibleName = "Export as xCalender";
-		toolStripMenuItemExportAsXcalendar.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemExportAsXcalendar.AutoToolTip = true;
-		toolStripMenuItemExportAsXcalendar.Image = FatcowIcons16px.fatcow_calendar_16px;
-		toolStripMenuItemExportAsXcalendar.Name = "toolStripMenuItemExportAsXcalendar";
-		toolStripMenuItemExportAsXcalendar.Size = new Size(182, 22);
-		toolStripMenuItemExportAsXcalendar.Text = "Export as xCalender";
-		toolStripMenuItemExportAsXcalendar.Click += ToolStripMenuItemExportAsXcal_Click;
-		toolStripMenuItemExportAsXcalendar.MouseEnter += Control_Enter;
-		toolStripMenuItemExportAsXcalendar.MouseLeave += Control_Leave;
-		// 
 		// ExportDataSheetForm
 		// 
 		AccessibleDescription = "Exports data sheet";
@@ -713,6 +714,7 @@ partial class ExportDataSheetForm
 		SizeGripStyle = SizeGripStyle.Hide;
 		StartPosition = FormStartPosition.CenterScreen;
 		Text = "Export data sheet";
+		FormClosing += ExportDataSheetForm_FormClosing;
 		Load += ExportDataSheetForm_Load;
 		kryptonStatusStrip.ResumeLayout(false);
 		kryptonStatusStrip.PerformLayout();

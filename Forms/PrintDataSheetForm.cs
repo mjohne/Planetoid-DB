@@ -18,6 +18,7 @@ using Krypton.Toolkit;
 using NLog;
 
 using Planetoid_DB.Forms;
+using Planetoid_DB.Helpers;
 
 using System.ComponentModel;
 using System.Diagnostics;
@@ -62,6 +63,8 @@ internal partial class PrintDataSheetForm : BaseKryptonForm
 	/// <remarks>This constructor initializes the form components and sets up the print document.</remarks>
 	public PrintDataSheetForm()
 	{
+		// Log the initialization of the form
+		logger.Info(message: "Initializing PrintDataSheetForm.");
 		// Initialize the form components
 		InitializeComponent();
 		// Initialize the print document, register it for disposal with the form and subscribe to its events
@@ -73,6 +76,8 @@ internal partial class PrintDataSheetForm : BaseKryptonForm
 		// Subscribe to the PrintPage and BeginPrint events of the print document
 		printDoc.PrintPage += PrintDoc_PrintPage;
 		printDoc.BeginPrint += PrintDoc_BeginPrint;
+		// Log that the PrintDataSheetForm has been initialized successfully
+		logger.Info(message: "PrintDataSheetForm initialized successfully.");
 	}
 
 	#endregion
@@ -135,7 +140,11 @@ internal partial class PrintDataSheetForm : BaseKryptonForm
 	/// <remarks> This method is called when the form loads.</remarks>
 	private void PrintDataSheetForm_Load(object sender, EventArgs e)
 	{
-		// Clear the status bar text
+		// Log that the form has been loaded
+		logger.Info(message: "PrintDataSheetForm loaded successfully.");
+		// Play the open sound in the background to indicate that the form has been opened
+		AudioPlayback.PlayOpenSound();
+		// Clear the status bar when the form loads
 		ClearStatusBar(label: labelInformation);
 		// Disable the progress bar
 		toolStripProgressBarPrinting.Visible = false;
@@ -153,6 +162,18 @@ internal partial class PrintDataSheetForm : BaseKryptonForm
 			// Set the item checked state to true
 			checkedListBoxOrbitalElements.SetItemChecked(index: i, value: true);
 		}
+	}
+
+	/// <summary>Handles the closing of the print data sheet form.</summary>
+	/// <param name="sender">The sender of the event.</param>
+	/// <param name="e">The event data for the form-closing event.</param>
+	/// <remarks>Logs the form shutdown and plays the close sound.</remarks>
+	private void PrintDataSheetForm_FormClosing(object sender, FormClosingEventArgs e)
+	{
+		// Log that the form is closing
+		logger.Info(message: "PrintDataSheetForm is closing.");
+		// Play the close sound in the background to indicate that the form is closing
+		AudioPlayback.PlayCloseSound();
 	}
 
 	#endregion

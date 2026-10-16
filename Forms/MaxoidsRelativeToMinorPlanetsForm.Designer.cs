@@ -271,6 +271,7 @@ partial class MaxoidsRelativeToMinorPlanetsForm
 		SizeGripStyle = SizeGripStyle.Hide;
 		StartPosition = FormStartPosition.CenterParent;
 		Text = "MAXOIDs relative to minor planets";
+		FormClosing += MaxoidsRelativeToMinorPlanetsForm_FormClosing;
 		Load += MaxoidsRelativeToMinorPlanetsForm_Load;
 		((ISupportInitialize)kryptonPanelMain).EndInit();
 		kryptonPanelMain.ResumeLayout(false);

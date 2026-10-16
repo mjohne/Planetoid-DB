@@ -159,9 +159,9 @@ partial class OrbitalResonancesOfOneMinorPlanetForm
 		listView.ColumnClick += ListView_ColumnClick;
 		listView.Enter += Control_Enter;
 		listView.Leave += Control_Leave;
+		listView.MouseDoubleClick += ListView_MouseDoubleClick;
 		listView.MouseEnter += Control_Enter;
 		listView.MouseLeave += Control_Leave;
-		listView.MouseDoubleClick += ListView_MouseDoubleClick;
 		// 
 		// columnHeaderPlanet
 		// 
@@ -795,6 +795,7 @@ partial class OrbitalResonancesOfOneMinorPlanetForm
 		kryptonStatusStrip.AccessibleRole = AccessibleRole.StatusBar;
 		kryptonStatusStrip.AllowClickThrough = true;
 		kryptonStatusStrip.AllowItemReorder = true;
+		kryptonStatusStrip.Dock = DockStyle.None;
 		kryptonStatusStrip.Font = new Font("Segoe UI", 9F);
 		kryptonStatusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
 		kryptonStatusStrip.Location = new Point(0, 0);
@@ -925,6 +926,7 @@ partial class OrbitalResonancesOfOneMinorPlanetForm
 		AutoScaleDimensions = new SizeF(7F, 15F);
 		AutoScaleMode = AutoScaleMode.Font;
 		ClientSize = new Size(729, 251);
+		ControlBox = false;
 		Controls.Add(toolStripContainer);
 		FormBorderStyle = FormBorderStyle.SizableToolWindow;
 		Icon = (Icon)resources.GetObject("$this.Icon");
@@ -935,6 +937,7 @@ partial class OrbitalResonancesOfOneMinorPlanetForm
 		SizeGripStyle = SizeGripStyle.Hide;
 		StartPosition = FormStartPosition.CenterScreen;
 		Text = "Orbital resonances of one minor planet";
+		FormClosing += OrbitalResonancesOfOneMinorPlanetForm_FormClosing;
 		Load += OrbitalResonanceForm_Load;
 		((ISupportInitialize)kryptonPanelMain).EndInit();
 		kryptonPanelMain.ResumeLayout(false);

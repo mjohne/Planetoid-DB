@@ -39,8 +39,12 @@ internal partial class SplashScreenForm : BaseKryptonForm
 	/// <remarks>This constructor initializes the form components.</remarks>
 	public SplashScreenForm()
 	{
+		// Log the initialization of the splash screen form
 		logger.Info(message: "Initializing SplashScreenForm.");
+		// Initialize the form components
 		InitializeComponent();
+		// Log that the form has been initialized successfully
+		logger.Info(message: "SplashScreenForm initialized successfully.");
 	}
 
 	#endregion
@@ -84,8 +88,12 @@ internal partial class SplashScreenForm : BaseKryptonForm
 	/// <remarks>This method is called when the splash screen form loads.</remarks>
 	private void SplashScreenForm_Load(object sender, EventArgs e)
 	{
+		// Log that the form is loading
+		logger.Info(message: "SplashScreenForm is loading.");
 		// Set the version label text to the assembly version
 		labelVersion.Text = string.Format(provider: CultureInfo.CurrentCulture, format: I18nStrings.VersionTemplate, arg0: AssemblyInfo.AssemblyVersion);
+		// Play the start sound when the splash screen loads
+		AudioPlayback.PlayStartSound();
 	}
 
 	#endregion

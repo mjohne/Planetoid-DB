@@ -9,74 +9,134 @@
 //------------------------------------------------------------------------------
 
 namespace Planetoid_DB.Properties {
-    using System;
-    
-    
-    /// <summary>
-    ///   Eine stark typisierte Ressourcenklasse zum Suchen von lokalisierten Zeichenfolgen usw.
-    /// </summary>
-    // Diese Klasse wurde von der StronglyTypedResourceBuilder automatisch generiert
-    // -Klasse über ein Tool wie ResGen oder Visual Studio automatisch generiert.
-    // Um einen Member hinzuzufügen oder zu entfernen, bearbeiten Sie die .ResX-Datei und führen dann ResGen
-    // mit der /str-Option erneut aus, oder Sie erstellen Ihr VS-Projekt neu.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-    [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Resources {
-        
-        private static global::System.Resources.ResourceManager resourceMan;
-        
-        private static global::System.Globalization.CultureInfo resourceCulture;
-        
-        [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resources() {
-        }
-        
-        /// <summary>
-        ///   Gibt die zwischengespeicherte ResourceManager-Instanz zurück, die von dieser Klasse verwendet wird.
-        /// </summary>
-        [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Resources.ResourceManager ResourceManager {
-            get {
-                if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Planetoid_DB.Properties.Resources", typeof(Resources).Assembly);
-                    resourceMan = temp;
-                }
-                return resourceMan;
-            }
-        }
-        
-        /// <summary>
-        ///   Überschreibt die CurrentUICulture-Eigenschaft des aktuellen Threads für alle
-        ///   Ressourcenzuordnungen, die diese stark typisierte Ressourcenklasse verwenden.
-        /// </summary>
-        [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Globalization.CultureInfo Culture {
-            get {
-                return resourceCulture;
-            }
-            set {
-                resourceCulture = value;
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Byte[].
-        /// </summary>
-        public static byte[] demoset_10000 {
-            get {
-                object obj = ResourceManager.GetObject("demoset-10000", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.String.
-        /// </summary>
-        public static string ObservatoryCodes {
-            get {
-                return ResourceManager.GetString("ObservatoryCodes", resourceCulture);
-            }
-        }
-    }
+	using System;
+	
+	
+	/// <summary>
+	///   Eine stark typisierte Ressourcenklasse zum Suchen von lokalisierten Zeichenfolgen usw.
+	/// </summary>
+	// Diese Klasse wurde von der StronglyTypedResourceBuilder automatisch generiert
+	// -Klasse über ein Tool wie ResGen oder Visual Studio automatisch generiert.
+	// Um einen Member hinzuzufügen oder zu entfernen, bearbeiten Sie die .ResX-Datei und führen dann ResGen
+	// mit der /str-Option erneut aus, oder Sie erstellen Ihr VS-Projekt neu.
+	[global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
+	[global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+	[global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
+	public class Resources {
+		
+		private static global::System.Resources.ResourceManager resourceMan;
+		
+		private static global::System.Globalization.CultureInfo resourceCulture;
+		
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+		internal Resources() {
+		}
+		
+		/// <summary>
+		///   Gibt die zwischengespeicherte ResourceManager-Instanz zurück, die von dieser Klasse verwendet wird.
+		/// </summary>
+		[global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
+		public static global::System.Resources.ResourceManager ResourceManager {
+			get {
+				if (object.ReferenceEquals(resourceMan, null)) {
+					global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Planetoid_DB.Properties.Resources", typeof(Resources).Assembly);
+					resourceMan = temp;
+				}
+				return resourceMan;
+			}
+		}
+		
+		/// <summary>
+		///   Überschreibt die CurrentUICulture-Eigenschaft des aktuellen Threads für alle
+		///   Ressourcenzuordnungen, die diese stark typisierte Ressourcenklasse verwenden.
+		/// </summary>
+		[global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
+		public static global::System.Globalization.CultureInfo Culture {
+			get {
+				return resourceCulture;
+			}
+			set {
+				resourceCulture = value;
+			}
+		}
+		
+		/// <summary>
+		///   Sucht eine lokalisierte Ressource vom Typ System.Byte[].
+		/// </summary>
+		public static byte[] demoset_10000 {
+			get {
+				object obj = ResourceManager.GetObject("demoset-10000", resourceCulture);
+				return ((byte[])(obj));
+			}
+		}
+
+		/// <summary>
+		///   Sucht eine lokalisierte Ressource vom Typ System.IO.MemoryStream.
+		/// </summary>
+		public static System.IO.MemoryStream ui_start
+		{
+			get
+			{
+				object obj = ResourceManager.GetObject("ui-start", resourceCulture);
+				return (obj as System.IO.MemoryStream);
+			}
+		}
+
+		/// <summary>
+		///   Sucht eine lokalisierte Ressource vom Typ System.IO.MemoryStream.
+		/// </summary>
+		public static System.IO.MemoryStream ui_shutdown
+		{
+			get
+			{
+				object obj = ResourceManager.GetObject("ui-shutdown", resourceCulture);
+				return (obj as System.IO.MemoryStream);
+			}
+		}
+
+		/// <summary>
+		///   Sucht eine lokalisierte Ressource vom Typ System.IO.MemoryStream.
+		/// </summary>
+		public static System.IO.MemoryStream ui_senddata
+		{
+			get
+			{
+				object obj = ResourceManager.GetObject("ui-senddata", resourceCulture);
+				return (obj as System.IO.MemoryStream);
+			}
+		}	
+
+		/// <summary>
+		///   Sucht eine lokalisierte Ressource vom Typ System.IO.MemoryStream.
+		/// </summary>
+		public static System.IO.MemoryStream ui_open
+		{
+			get
+			{
+				object obj = ResourceManager.GetObject("ui-open", resourceCulture);
+				return (obj as System.IO.MemoryStream);
+			}
+		}
+		
+		/// <summary>
+		///   Sucht eine lokalisierte Ressource vom Typ System.IO.MemoryStream.
+		/// </summary>
+		public static System.IO.MemoryStream ui_close
+		{
+			get
+			{
+				object obj = ResourceManager.GetObject("ui-close", resourceCulture);
+				return (obj as System.IO.MemoryStream);
+			}
+		}	
+
+		/// <summary>
+		///   Sucht eine lokalisierte Ressource vom Typ System.String.
+		/// </summary>
+		public static string ObservatoryCodes {
+			get {
+				return ResourceManager.GetString("ObservatoryCodes", resourceCulture);
+			}
+		}
+	}
 }

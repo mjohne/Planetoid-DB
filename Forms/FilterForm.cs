@@ -62,6 +62,8 @@ internal partial class FilterForm : BaseKryptonForm
 	/// <remarks>This constructor initializes the form components.</remarks>
 	public FilterForm()
 	{
+		// Log the initialization of the form for debugging purposes
+		logger.Info(message: "Initializing FilterForm.");
 		// Initialize the form components
 		InitializeComponent();
 		// Center values in all numeric spin buttons
@@ -320,6 +322,10 @@ internal partial class FilterForm : BaseKryptonForm
 	private async void FilterForm_Load(object sender, EventArgs e)
 	{
 		ClearStatusBar(label: labelInformation);
+		// Log the form load event for debugging purposes
+		logger.Info(message: "FilterForm loaded");
+		// Play the open sound in the background to indicate that the form has been opened
+		AudioPlayback.PlayOpenSound();
 		// If the database is empty, skip computing min/max and just leave all spinbuttons at their default 0..100 range
 		if (planetoidsDatabase.Count <= 0)
 		{
@@ -347,6 +353,7 @@ internal partial class FilterForm : BaseKryptonForm
 				ShowErrorMessage(message: $"Unable to compute filter ranges from the current database: {ex.Message}");
 			}
 		}
+		// Catch any exceptions that occur during the computation and log them, then show an error message to the user
 		catch (Exception ex)
 		{
 			logger.Error(exception: ex, message: "Failed to compute initial filter ranges.");
@@ -358,6 +365,18 @@ internal partial class FilterForm : BaseKryptonForm
 			UseWaitCursor = false;
 			SetToolbarActionsEnabled(isEnabled: true);
 		}
+	}
+
+	/// <summary>Handles the form-closing event for the filter window.</summary>
+	/// <param name="sender">The object that raised the form-closing event.</param>
+	/// <param name="e">The event data associated with the form-closing event.</param>
+	/// <remarks>Logs the close action and plays the close sound to provide feedback when the form is dismissed.</remarks>
+	private void FilterForm_FormClosing(object sender, FormClosingEventArgs e)
+	{
+		// Log that the form is closing
+		logger.Info(message: "FilterForm is closing.");
+		// Play the close sound in the background to indicate that the form is closing
+		AudioPlayback.PlayCloseSound();
 	}
 
 	#endregion

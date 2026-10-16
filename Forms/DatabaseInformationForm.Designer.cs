@@ -1375,6 +1375,7 @@ namespace Planetoid_DB;
 		SizeGripStyle = SizeGripStyle.Hide;
 		StartPosition = FormStartPosition.CenterScreen;
 		Text = "Database information";
+		FormClosing += DatabaseInformationForm_FormClosing;
 		Load += DatabaseInformationForm_Load;
 		contextMenuCopyToClipboard.ResumeLayout(false);
 		tableLayoutPanel.ResumeLayout(false);

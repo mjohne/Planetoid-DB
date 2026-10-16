@@ -966,6 +966,7 @@ namespace Planetoid_DB;
 		Name = "SettingsForm";
 		StartPosition = FormStartPosition.CenterScreen;
 		Text = "Settings";
+		FormClosing += SettingsForm_FormClosing;
 		Load += SettingsForm_Load;
 		tabControlSettings.ResumeLayout(false);
 		tabPageGeneral.ResumeLayout(false);

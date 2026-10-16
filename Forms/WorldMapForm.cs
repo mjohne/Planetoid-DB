@@ -18,6 +18,7 @@ using Microsoft.Web.WebView2.Core;
 using NLog;
 
 using Planetoid_DB.Forms;
+using Planetoid_DB.Helpers;
 
 using System.Diagnostics;
 using System.Globalization;
@@ -138,6 +139,8 @@ internal partial class WorldMapForm : BaseKryptonForm
 	/// <remarks>Initializes the form components.</remarks>
 	public WorldMapForm()
 	{
+		// Log that the WorldMapForm is being initialized
+		logger.Info(message: "Initializing WorldMapForm.");
 		// Initialize the form components
 		InitializeComponent();
 		// Log that the form has been initialized
@@ -372,7 +375,7 @@ internal partial class WorldMapForm : BaseKryptonForm
 
 	#endregion
 
-	#region Event handlers
+	#region Form event handlers
 
 	/// <summary>Initializes WebView2 and loads the map when the form is loaded.</summary>
 	/// <param name="sender">The event source.</param>
@@ -383,6 +386,8 @@ internal partial class WorldMapForm : BaseKryptonForm
 		labelInformation.Text = string.Empty;
 		// Log that the form is loading and WebView2 initialization is starting
 		logger.Info(message: "WorldMapForm loading. Initializing WebView2.");
+		// Play the open sound in the background to indicate that the form has been opened
+		AudioPlayback.PlayOpenSound();
 		// Attempt to ensure that the WebView2 control is initialized and ready
 		try
 		{
@@ -426,6 +431,24 @@ internal partial class WorldMapForm : BaseKryptonForm
 			labelInformation.Text = I18nStrings.WorldMapInitializationFailed;
 		}
 	}
+
+	/// <summary>Cancels pending work when the form is closing.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The event data.</param>
+	/// <remarks>Cancels the <see cref="CancellationTokenSource"/> to stop any ongoing geocoding requests.</remarks>
+	private void OnFormClosing(object sender, FormClosingEventArgs e)
+	{
+		// Log that the form is closing and any pending work will be canceled
+		logger.Info(message: "WorldMapForm is closing. Canceling any pending work.");
+		// Play the close sound in the background to indicate that the form is closing
+		AudioPlayback.PlayCloseSound();
+		// Cancel the cancellation token source to stop any ongoing geocoding requests
+		cancellationTokenSource.Cancel();
+	}
+
+	#endregion
+
+	#region WebView2 event handlers
 
 	/// <summary>Sets the predefined marker once the map page has finished loading.</summary>
 	/// <param name="sender">The event source.</param>
@@ -575,6 +598,10 @@ internal partial class WorldMapForm : BaseKryptonForm
 		}
 	}
 
+	#endregion
+
+	#region Click event handlers
+
 	/// <summary>Returns the selected coordinates and closes the form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The event data.</param>
@@ -632,18 +659,6 @@ internal partial class WorldMapForm : BaseKryptonForm
 			// Start the location search asynchronously
 			await PerformSearchAsync().ConfigureAwait(continueOnCapturedContext: true);
 		}
-	}
-
-	/// <summary>Cancels pending work when the form is closing.</summary>
-	/// <param name="sender">The event source.</param>
-	/// <param name="e">The event data.</param>
-	/// <remarks>Cancels the <see cref="CancellationTokenSource"/> to stop any ongoing geocoding requests.</remarks>
-	private void OnFormClosing(object sender, FormClosingEventArgs e)
-	{
-		// Log that the form is closing and any pending work will be canceled
-		logger.Info(message: "WorldMapForm is closing. Canceling any pending work.");
-		// Cancel the cancellation token source to stop any ongoing geocoding requests
-		cancellationTokenSource.Cancel();
 	}
 
 	/// <summary>Copies the coordinates to the clipboard when the label is double-clicked.</summary>

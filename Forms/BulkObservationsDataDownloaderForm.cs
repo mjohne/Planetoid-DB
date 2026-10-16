@@ -472,6 +472,11 @@ internal partial class BulkObservationsDataDownloaderForm : BaseKryptonForm
 	/// <remarks>The spinner bounds are clamped to the number of loaded planetoid records.</remarks>
 	private void BulkObservationsDataDownloaderForm_Load(object sender, EventArgs e)
 	{
+		// Log the form load event
+		logger.Info(message: "BulkObservationsDataDownloaderForm loaded; initialising spinners and clearing status bar.");
+		// Play the open sound in the background to indicate that the form has been opened
+		AudioPlayback.PlayOpenSound();
+		// Clear the status bar on load
 		ClearStatusBar(label: labelInformation);
 		// Initialise spinner maximum to the number of loaded records (if not already set by the caller)
 		if (_planetoids.Count > 0)
@@ -484,11 +489,11 @@ internal partial class BulkObservationsDataDownloaderForm : BaseKryptonForm
 				numericUpDownMaximum.Value = count;
 				logger.Info(message: $"Spinner maximum initialized to {count}.");
 			}
-			logger.Info(message: $"Form loaded with {_planetoids.Count} planetoid records.");
+			logger.Info(message: $"BulkObservationsDataDownloaderForm loaded with {_planetoids.Count} planetoid records.");
 		}
 		else
 		{
-			logger.Warn(message: "Form loaded with no planetoid records; spinners remain at default values.");
+			logger.Warn(message: "BulkObservationsDataDownloaderForm loaded with no planetoid records; spinners remain at default values.");
 		}
 	}
 
@@ -498,7 +503,10 @@ internal partial class BulkObservationsDataDownloaderForm : BaseKryptonForm
 	/// <remarks>Ensures the background download is stopped when the form is closed. Resources are disposed in the Dispose method.</remarks>
 	private void BulkObservationsDataDownloaderForm_FormClosing(object sender, FormClosingEventArgs e)
 	{
-		logger.Info(message: "Form closing; cancelling any active download.");
+		// Log the closing event and cancel any active download
+		logger.Info(message: "BulkObservationsDataDownloaderForm closing; cancelling any active download.");
+		// Play the close sound in the background to indicate that the form is closing
+		AudioPlayback.PlayCloseSound();
 		// Signal cancellation to the running download
 		_cancellationTokenSource?.Cancel();
 		// Resume any awaiting pause so the download task can observe the cancellation

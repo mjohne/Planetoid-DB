@@ -71,8 +71,12 @@ internal partial class OrbitElementsGroupingForm : BaseKryptonForm
 	public OrbitElementsGroupingForm(IReadOnlyList<string> planetoids)
 	{
 		// Log the initialization of the form with the count of planetoids provided
+		logger.Info(message: "Initializing OrbitElementsGroupingForm with {0} planetoids.", argument: planetoids.Count);
+		// Call the method to initialize the form's components, setting up the UI elements and layout.
 		InitializeComponent();
+		// Store the provided planetoid records in the private field for later processing during grouping operations.
 		_planetoids = planetoids;
+		// Log the successful initialization of the form with the count of planetoids stored in the private field
 		logger.Info(message: "OrbitElementsGroupingForm initialized with {0} planetoids.", argument: _planetoids.Count);
 	}
 
@@ -363,10 +367,28 @@ internal partial class OrbitElementsGroupingForm : BaseKryptonForm
 
 	#region Form event handlers
 
+	/// <summary>Handles the Load event of the OrbitElementsGroupingForm to perform any necessary initialization when the form is first displayed.</summary>
+	/// <param name="e">The EventArgs object that contains the event data.</param>
+	/// <param name="sender">The source of the event, typically the form itself.</param>
+	/// <remarks>This method logs that the form is closing and plays a close sound in the background to indicate that the form is closing.</remarks>
+	private void OrbitElementsGroupingForm_Load(object sender, EventArgs e)
+	{
+		// Log that the form has been loaded
+		logger.Info(message: "OrbitElementsGroupingForm loaded successfully.");
+		// Play the open sound in the background to indicate that the form has been opened
+		AudioPlayback.PlayOpenSound();
+		// Clear the status bar when the form loads
+		ClearStatusBar(label: labelInformation);
+	}
+
 	/// <summary>Handles the FormClosing event to ensure that any ongoing operations are properly canceled and resources are released.</summary>
 	/// <remarks>Checks if a cancellation token source is available, and if so, issues a cancellation request and disposes of the token source to free resources.</remarks>
 	private void OrbitElementsGroupingForm_FormClosing(object? sender, FormClosingEventArgs e)
 	{
+		// Log that the form is closing
+		logger.Info(message: "OrbitElementsGroupingForm is closing.");
+		// Play the close sound in the background to indicate that the form is closing
+		AudioPlayback.PlayCloseSound();
 		// Check if a cancellation token source is currently assigned. If it is, call the Cancel method to signal cancellation to any ongoing operations, and dispose of the token source to free resources.
 		if (_cancellationTokenSource != null)
 		{

@@ -39,8 +39,7 @@ internal sealed partial class CoordinateTransformationForm : BaseKryptonForm
 
 	/// <summary>The list of astronomical coordinate systems available for conversion.</summary>
 	/// <remarks>This array defines the order in which the coordinate systems appear in the source and target combo boxes.</remarks>
-	private static readonly AstronomicalCoordinateSystem[] coordinateSystems =
-	[
+	private static readonly AstronomicalCoordinateSystem[] coordinateSystems = [
 		AstronomicalCoordinateSystem.Horizontal,
 		AstronomicalCoordinateSystem.EquatorialJ2000,
 		AstronomicalCoordinateSystem.EquatorialOfDate,
@@ -48,6 +47,8 @@ internal sealed partial class CoordinateTransformationForm : BaseKryptonForm
 		AstronomicalCoordinateSystem.Galactic,
 		AstronomicalCoordinateSystem.Supergalactic
 	];
+
+	#region Constructor
 
 	/// <summary>Initializes a new instance of the <see cref="CoordinateTransformationForm"/> class.</summary>
 	/// <remarks>This constructor sets up the form's controls, populates combo boxes with coordinate system options, and initializes default values for the controls.</remarks>
@@ -106,6 +107,10 @@ internal sealed partial class CoordinateTransformationForm : BaseKryptonForm
 		logger.Info(message: "CoordinateTransformationForm initialized successfully.");
 	}
 
+	#endregion
+
+	#region helpers
+
 	/// <summary>Releases the resources used by the form.</summary>
 	/// <param name="disposing"><see langword="true"/> to release managed resources; otherwise, <see langword="false"/>.</param>
 	/// <remarks>This method ensures that all components of the form are properly disposed of when the form is closed, preventing memory leaks.</remarks>
@@ -128,124 +133,22 @@ internal sealed partial class CoordinateTransformationForm : BaseKryptonForm
 	private string DebuggerDisplay => ToString();
 
 	/// <summary>Runs the conversion when Enter is used as the dialog's default action.</summary>
-
 	/// <param name="keyData">The key and modifier keys to process.</param>
-
 	/// <returns>True if the key was handled; otherwise, the base implementation's result.</returns>
-
 	protected override bool ProcessDialogKey(Keys keyData)
-
 	{
-
+		// Log the key press event for debugging purposes.
+		logger.Info($"Key pressed: {keyData}");
+		// Check if the Enter key was pressed to trigger the conversion.
 		if (keyData == Keys.Enter)
-
 		{
-
+			// Log that the Enter key was pressed and the conversion will be triggered.
+			logger.Info("Enter key pressed. Triggering conversion.");
 			toolStripButtonButtonConvert.PerformClick();
-
 			return true;
-
 		}
-
-		return base.ProcessDialogKey(keyData);
-
-	}
-
-
-
-	/// <summary>Converts the entered coordinates and displays the result or a validation error.</summary>
-	/// <param name="sender">The event source.</param>
-	/// <param name="e">The event data.</param>
-	/// <remarks>This method retrieves the selected source and target coordinate systems, parses the input coordinates, and performs the conversion. It handles validation errors and displays appropriate messages to the user.</remarks>
-	private void ButtonConvert_Click(object? sender, EventArgs e)
-	{
-		// Log the button click event for debugging purposes.
-		logger.Info("Convert button clicked.");
-		// Validate that both source and target coordinate systems are selected.
-		AstronomicalCoordinateSystem source = coordinateSystems[kryptonComboBoxSource.SelectedIndex];
-		AstronomicalCoordinateSystem target = coordinateSystems[kryptonComboBoxTarget.SelectedIndex];
-		// Determine if the input coordinate system is equatorial (J2000 or of date).
-		bool isEquatorialInput = source is AstronomicalCoordinateSystem.EquatorialJ2000 or AstronomicalCoordinateSystem.EquatorialOfDate;
-		// Determine if the first coordinate input is in hours (for right ascension or hour angle).
-		bool inputIsHours = isEquatorialInput && kryptonComboBoxAngleUnit.SelectedIndex == 0;
-		// Determine if the first coordinate input is an hour angle (only applicable for equatorial coordinates of date).
-		bool inputIsHourAngle = source == AstronomicalCoordinateSystem.EquatorialOfDate && kryptonComboBoxFirstCoordinateType.SelectedIndex == 1;
-		//
-		if (!TryParseCoordinate(text: kryptonTextBoxFirstCoordinate.Text, isHours: inputIsHours, value: out double firstCoordinate)
-			|| !TryParseCoordinate(text: kryptonTextBoxSecondCoordinate.Text, isHours: false, value: out double secondCoordinate))
-		{
-			// Log the invalid input for debugging purposes.
-			logger.Warn($"Invalid coordinate input: FirstCoordinate='{kryptonTextBoxFirstCoordinate.Text}', SecondCoordinate='{kryptonTextBoxSecondCoordinate.Text}'");
-			// Display an error message to the user indicating invalid input.
-			kryptonLabelResult.Text = I18nStrings.CoordinateConversionInvalidInput;
-			// Exit the method early due to invalid input.
-			return;
-		}
-		// Determine if observer latitude and longitude are needed for the conversion (required for horizontal coordinates or hour angle input).
-		bool needsObserver = source == AstronomicalCoordinateSystem.Horizontal
-			|| target == AstronomicalCoordinateSystem.Horizontal
-			|| inputIsHourAngle;
-		// Initialize observer latitude and longitude to default values.
-		double observerLatitude = 0.0;
-		double observerLongitude = 0.0;
-		// Validate and parse observer latitude and longitude if needed.
-		if (needsObserver
-			&& (!TryParseNumber(text: kryptonTextBoxObserverLatitude.Text, value: out observerLatitude)
-				|| !TryParseNumber(text: kryptonTextBoxObserverLongitude.Text, value: out observerLongitude)))
-		{
-			// Log the invalid observer input for debugging purposes.
-			logger.Warn($"Invalid observer input: ObserverLatitude='{kryptonTextBoxObserverLatitude.Text}', ObserverLongitude='{kryptonTextBoxObserverLongitude.Text}'");
-			// Display an error message to the user indicating invalid observer input.
-			kryptonLabelResult.Text = I18nStrings.CoordinateConversionInvalidObserverInput;
-			// Exit the method early due to invalid observer input.
-			return;
-		}
-		// Perform the coordinate conversion and handle any exceptions that may arise during the process.
-		try
-		{
-			// Log the conversion attempt for debugging purposes.
-			logger.Info($"Attempting coordinate conversion: Source={source}, Target={target}, FirstCoordinate={firstCoordinate}, SecondCoordinate={secondCoordinate}, ObserverLatitude={observerLatitude}, ObserverLongitude={observerLongitude}, DateTimeUtc={kryptonDateTimePickerUtc.Value}");
-			// Convert the coordinates using the AstronomicalCoordinateConverter service.
-			(double firstAngle, double secondAngle) = AstronomicalCoordinateConverter.Convert(
-				firstAngleDegrees: inputIsHours ? firstCoordinate * 15.0 : firstCoordinate,
-				secondAngleDegrees: secondCoordinate,
-				source: source,
-				target: target,
-				dateTimeUtc: DateTime.SpecifyKind(value: kryptonDateTimePickerUtc.Value, kind: DateTimeKind.Utc),
-				observerLatitudeDegrees: observerLatitude,
-				observerLongitudeDegrees: observerLongitude,
-				firstCoordinateIsHourAngle: inputIsHourAngle);
-			// Display the conversion result to the user.
-			kryptonLabelResult.Text = FormatResult(firstAngleDegrees: firstAngle, secondAngleDegrees: secondAngle, target: target);
-		}
-		// Catch specific exceptions related to invalid coordinates and display appropriate error messages.
-		catch (ArgumentException)
-		{
-			// Log the argument exception for debugging purposes.
-			logger.Error("ArgumentException occurred during coordinate conversion.");
-			// Display an error message to the user indicating invalid coordinates.
-			kryptonLabelResult.Text = I18nStrings.CoordinateConversionInvalidCoordinates;
-		}
-		// Catch any other exceptions that may occur during the conversion process and log them for debugging purposes.
-		catch (FormatException)
-		{
-			// Log the format exception for debugging purposes.
-			logger.Error("FormatException occurred during coordinate conversion.");
-			// Display an error message to the user indicating invalid coordinates.
-			kryptonLabelResult.Text = I18nStrings.CoordinateConversionInvalidCoordinates;
-		}
-	}
-
-	/// <summary>Updates the coordinate labels and enables hour-angle input only for equatorial coordinates of date.</summary>
-	/// <param name="sender">The event source.</param>
-	/// <param name="e">The event data.</param>
-	/// <remarks>This method is called when the user changes the selected source or target coordinate system, ensuring that the form's labels and input fields reflect the current selection.</remarks>
-	private void CoordinateSelection_Changed(object? sender, EventArgs e)
-	{
-		// Log the coordinate selection change for debugging purposes.
-		logger.Info($"Coordinate selection changed: SourceIndex={kryptonComboBoxSource.SelectedIndex}, TargetIndex={kryptonComboBoxTarget.SelectedIndex}");
-		// Update the coordinate labels and input fields based on the selected coordinate systems.
-		UpdateCoordinateLabels();
+		// Call the base implementation for other keys.
+		return base.ProcessDialogKey(keyData: keyData);
 	}
 
 	/// <summary>Updates the coordinate labels based on the selected source coordinate system and enables or disables relevant input fields.</summary>
@@ -415,4 +318,137 @@ internal sealed partial class CoordinateTransformationForm : BaseKryptonForm
 		// Format the second angle in degrees.
 		return $"{first}{Environment.NewLine}{secondAngleDegrees.ToString(format: "F8", provider: culture)}°";
 	}
+
+	#endregion
+
+	#region Form event handlers
+
+	/// <summary>Initializes the coordinate transformation form and performs startup actions.</summary>
+	/// <param name="sender">The event source that raised the load event.</param>
+	/// <param name="e">The event data associated with the load event.</param>
+	/// <remarks>This method is called when the form is loaded, allowing for any necessary initialization or startup actions, such as logging and playing sounds.</remarks>
+	private void CoordinateTransformationForm_Load(object sender, EventArgs e)
+	{
+		// Log that the form has loaded successfully
+		logger.Info(message: "CoordinateTransformationForm loaded.");
+		// Play the open sound in the background to indicate that the form has been opened
+		AudioPlayback.PlayOpenSound();
+	}
+
+	/// <summary>Handles the form closing event, logs the closure, and plays the close sound.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data for the closing event.</param>
+	/// <remarks>This method is called when the form is closing, allowing for any necessary cleanup or logging before the form is disposed of.</remarks>
+	private void CoordinateTransformationForm_FormClosing(object sender, FormClosingEventArgs e)
+	{
+		// Log that the form is closing
+		logger.Info(message: "CoordinateTransformationForm is closing.");
+		// Play the close sound in the background to indicate that the form is closing
+		AudioPlayback.PlayCloseSound();
+	}
+
+	#endregion
+
+	#region Click event handlers
+
+	/// <summary>Converts the entered coordinates and displays the result or a validation error.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The event data.</param>
+	/// <remarks>This method retrieves the selected source and target coordinate systems, parses the input coordinates, and performs the conversion. It handles validation errors and displays appropriate messages to the user.</remarks>
+	private void ButtonConvert_Click(object? sender, EventArgs e)
+	{
+		// Log the button click event for debugging purposes.
+		logger.Info("Convert button clicked.");
+		// Validate that both source and target coordinate systems are selected.
+		AstronomicalCoordinateSystem source = coordinateSystems[kryptonComboBoxSource.SelectedIndex];
+		AstronomicalCoordinateSystem target = coordinateSystems[kryptonComboBoxTarget.SelectedIndex];
+		// Determine if the input coordinate system is equatorial (J2000 or of date).
+		bool isEquatorialInput = source is AstronomicalCoordinateSystem.EquatorialJ2000 or AstronomicalCoordinateSystem.EquatorialOfDate;
+		// Determine if the first coordinate input is in hours (for right ascension or hour angle).
+		bool inputIsHours = isEquatorialInput && kryptonComboBoxAngleUnit.SelectedIndex == 0;
+		// Determine if the first coordinate input is an hour angle (only applicable for equatorial coordinates of date).
+		bool inputIsHourAngle = source == AstronomicalCoordinateSystem.EquatorialOfDate && kryptonComboBoxFirstCoordinateType.SelectedIndex == 1;
+		//
+		if (!TryParseCoordinate(text: kryptonTextBoxFirstCoordinate.Text, isHours: inputIsHours, value: out double firstCoordinate)
+			|| !TryParseCoordinate(text: kryptonTextBoxSecondCoordinate.Text, isHours: false, value: out double secondCoordinate))
+		{
+			// Log the invalid input for debugging purposes.
+			logger.Warn($"Invalid coordinate input: FirstCoordinate='{kryptonTextBoxFirstCoordinate.Text}', SecondCoordinate='{kryptonTextBoxSecondCoordinate.Text}'");
+			// Display an error message to the user indicating invalid input.
+			kryptonLabelResult.Text = I18nStrings.CoordinateConversionInvalidInput;
+			// Exit the method early due to invalid input.
+			return;
+		}
+		// Determine if observer latitude and longitude are needed for the conversion (required for horizontal coordinates or hour angle input).
+		bool needsObserver = source == AstronomicalCoordinateSystem.Horizontal
+			|| target == AstronomicalCoordinateSystem.Horizontal
+			|| inputIsHourAngle;
+		// Initialize observer latitude and longitude to default values.
+		double observerLatitude = 0.0;
+		double observerLongitude = 0.0;
+		// Validate and parse observer latitude and longitude if needed.
+		if (needsObserver
+			&& (!TryParseNumber(text: kryptonTextBoxObserverLatitude.Text, value: out observerLatitude)
+				|| !TryParseNumber(text: kryptonTextBoxObserverLongitude.Text, value: out observerLongitude)))
+		{
+			// Log the invalid observer input for debugging purposes.
+			logger.Warn($"Invalid observer input: ObserverLatitude='{kryptonTextBoxObserverLatitude.Text}', ObserverLongitude='{kryptonTextBoxObserverLongitude.Text}'");
+			// Display an error message to the user indicating invalid observer input.
+			kryptonLabelResult.Text = I18nStrings.CoordinateConversionInvalidObserverInput;
+			// Exit the method early due to invalid observer input.
+			return;
+		}
+		// Perform the coordinate conversion and handle any exceptions that may arise during the process.
+		try
+		{
+			// Log the conversion attempt for debugging purposes.
+			logger.Info($"Attempting coordinate conversion: Source={source}, Target={target}, FirstCoordinate={firstCoordinate}, SecondCoordinate={secondCoordinate}, ObserverLatitude={observerLatitude}, ObserverLongitude={observerLongitude}, DateTimeUtc={kryptonDateTimePickerUtc.Value}");
+			// Convert the coordinates using the AstronomicalCoordinateConverter service.
+			(double firstAngle, double secondAngle) = AstronomicalCoordinateConverter.Convert(
+				firstAngleDegrees: inputIsHours ? firstCoordinate * 15.0 : firstCoordinate,
+				secondAngleDegrees: secondCoordinate,
+				source: source,
+				target: target,
+				dateTimeUtc: DateTime.SpecifyKind(value: kryptonDateTimePickerUtc.Value, kind: DateTimeKind.Utc),
+				observerLatitudeDegrees: observerLatitude,
+				observerLongitudeDegrees: observerLongitude,
+				firstCoordinateIsHourAngle: inputIsHourAngle);
+			// Display the conversion result to the user.
+			kryptonLabelResult.Text = FormatResult(firstAngleDegrees: firstAngle, secondAngleDegrees: secondAngle, target: target);
+		}
+		// Catch specific exceptions related to invalid coordinates and display appropriate error messages.
+		catch (ArgumentException)
+		{
+			// Log the argument exception for debugging purposes.
+			logger.Error("ArgumentException occurred during coordinate conversion.");
+			// Display an error message to the user indicating invalid coordinates.
+			kryptonLabelResult.Text = I18nStrings.CoordinateConversionInvalidCoordinates;
+		}
+		// Catch any other exceptions that may occur during the conversion process and log them for debugging purposes.
+		catch (FormatException)
+		{
+			// Log the format exception for debugging purposes.
+			logger.Error("FormatException occurred during coordinate conversion.");
+			// Display an error message to the user indicating invalid coordinates.
+			kryptonLabelResult.Text = I18nStrings.CoordinateConversionInvalidCoordinates;
+		}
+	}
+
+	#endregion
+
+	#region ListView event handlers
+
+	/// <summary>Updates the coordinate labels and enables hour-angle input only for equatorial coordinates of date.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The event data.</param>
+	/// <remarks>This method is called when the user changes the selected source or target coordinate system, ensuring that the form's labels and input fields reflect the current selection.</remarks>
+	private void CoordinateSelection_Changed(object? sender, EventArgs e)
+	{
+		// Log the coordinate selection change for debugging purposes.
+		logger.Info($"Coordinate selection changed: SourceIndex={kryptonComboBoxSource.SelectedIndex}, TargetIndex={kryptonComboBoxTarget.SelectedIndex}");
+		// Update the coordinate labels and input fields based on the selected coordinate systems.
+		UpdateCoordinateLabels();
+	}
+
+	#endregion
 }

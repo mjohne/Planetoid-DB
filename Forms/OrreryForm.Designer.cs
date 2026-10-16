@@ -325,6 +325,7 @@ partial class OrreryForm
 		StartPosition = FormStartPosition.CenterScreen;
 		Text = "Orrery";
 		Load += OrreryForm_Load;
+		FormClosing += OrreryForm_FormClosing;
 		toolStripContainer.BottomToolStripPanel.ResumeLayout(false);
 		toolStripContainer.BottomToolStripPanel.PerformLayout();
 		toolStripContainer.ContentPanel.ResumeLayout(false);

@@ -96,9 +96,12 @@ internal partial class EphemerisForm : BaseKryptonForm
 	/// <remarks>This constructor initializes the form components.</remarks>
 	public EphemerisForm()
 	{
+		// Log the initialization of the form for debugging purposes
+		logger.Info(message: "Initializing EphemerisForm.");
 		// Initialize the form components
 		InitializeComponent();
-		FormClosing += EphemerisForm_FormClosing;
+		// Log that the form has been initialized successfully
+		logger.Info(message: "EphemerisForm initialized successfully.");
 	}
 
 	#endregion
@@ -375,6 +378,8 @@ internal partial class EphemerisForm : BaseKryptonForm
 	{
 		// Log the form load event for debugging purposes
 		logger.Info(message: "Ephemeris form loaded");
+		// Play the open sound in the background to indicate that the form has been opened
+		AudioPlayback.PlayOpenSound();
 		// Clear the status bar
 		ClearStatusBar(label: labelInformation);
 		// Set the date pickers to a 30-day range starting from today in UTC
@@ -404,6 +409,8 @@ internal partial class EphemerisForm : BaseKryptonForm
 	private void EphemerisForm_FormClosing(object? sender, FormClosingEventArgs e)
 	{
 		// Log the form closing event for debugging purposes
+		logger.Info(message: "Ephemeris form is closing");
+		// If a calculation is currently running, cancel it and set the flag to close the form after the calculation completes
 		if (cancellationTokenSource is not null)
 		{
 			// A calculation is currently running; log the cancellation and set the flag to close after calculation
@@ -418,6 +425,9 @@ internal partial class EphemerisForm : BaseKryptonForm
 		{
 			// Log the disposal of the JPL ephemeris for debugging purposes
 			logger.Info(message: "Form is closing; disposing of the JPL ephemeris if loaded.");
+			// Play the close sound in the background to indicate that the form is closing
+			AudioPlayback.PlayCloseSound();
+			// Dispose of the JPL ephemeris if it has been loaded
 			jplEphemeris?.Dispose();
 			jplEphemeris = null;
 		}

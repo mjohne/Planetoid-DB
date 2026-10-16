@@ -18,6 +18,7 @@ using Krypton.Toolkit;
 using NLog;
 
 using Planetoid_DB.Forms;
+using Planetoid_DB.Helpers;
 
 using System.Diagnostics;
 using System.Reflection;
@@ -52,8 +53,12 @@ internal partial class LicenseForm : BaseKryptonForm
 	/// <remarks>This constructor initializes the form components.</remarks>
 	public LicenseForm()
 	{
+		// Log that the LicenseForm is being initialized
+		logger.Info(message: "Initializing LicenseForm.");
 		// Initialize the form components
 		InitializeComponent();
+		// Log that the LicenseForm has been initialized successfully
+		logger.Info(message: "LicenseForm initialized successfully.");
 	}
 
 	#endregion
@@ -103,7 +108,24 @@ internal partial class LicenseForm : BaseKryptonForm
 	/// <remarks>This method is used to initialize the form and set up any necessary data.</remarks>
 	private void LicenseForm_Load(object sender, EventArgs e)
 	{
+		// Log that the LicenseForm has loaded successfully
+		logger.Info(message: "LicenseForm loaded successfully.");
+		// Play the open sound in the background to indicate that the form has been opened
+		AudioPlayback.PlayOpenSound();
+		// Clear the status bar to ensure no message is displayed on startup
 		ClearStatusBar(label: labelInformation);
+	}
+
+	/// <summary>Logs the closing event and plays the close sound when the license form closes.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data for the form-closing operation.</param>
+	/// <remarks>Logs the closing event and plays the close sound to provide closure feedback.</remarks>
+	private void LicenseForm_FormClosing(object sender, FormClosingEventArgs e)
+	{
+		// Log that the form is closing
+		logger.Info(message: "LicenseForm is closing.");
+		// Play the close sound in the background to indicate that the form is closing
+		AudioPlayback.PlayCloseSound();
 	}
 
 	#endregion

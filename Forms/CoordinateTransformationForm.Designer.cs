@@ -55,25 +55,25 @@ partial class CoordinateTransformationForm
 		kryptonTextBoxObserverLongitude = new KryptonTextBox();
 		kryptonLabelResultTitle = new KryptonLabel();
 		kryptonLabelResult = new KryptonLabel();
+		contextMenuCopyToClipboard = new ContextMenuStrip(components);
+		toolStripMenuItemCopyToClipboard = new ToolStripMenuItem();
 		kryptonStatusStrip = new KryptonStatusStrip();
 		labelInformation = new ToolStripStatusLabel();
 		toolStripContainer = new ToolStripContainer();
 		kryptonToolStrip = new KryptonToolStrip();
 		toolStripButtonButtonConvert = new ToolStripButton();
-		contextMenuCopyToClipboard = new ContextMenuStrip(components);
-		toolStripMenuItemCopyToClipboard = new ToolStripMenuItem();
 		kryptonTableLayoutPanel.SuspendLayout();
 		((ISupportInitialize)kryptonComboBoxSource).BeginInit();
 		((ISupportInitialize)kryptonComboBoxTarget).BeginInit();
 		((ISupportInitialize)kryptonComboBoxFirstCoordinateType).BeginInit();
 		((ISupportInitialize)kryptonComboBoxAngleUnit).BeginInit();
+		contextMenuCopyToClipboard.SuspendLayout();
 		kryptonStatusStrip.SuspendLayout();
 		toolStripContainer.BottomToolStripPanel.SuspendLayout();
 		toolStripContainer.ContentPanel.SuspendLayout();
 		toolStripContainer.TopToolStripPanel.SuspendLayout();
 		toolStripContainer.SuspendLayout();
 		kryptonToolStrip.SuspendLayout();
-		contextMenuCopyToClipboard.SuspendLayout();
 		SuspendLayout();
 		// 
 		// kryptonTableLayoutPanel
@@ -438,6 +438,7 @@ partial class CoordinateTransformationForm
 		kryptonLabelResult.AccessibleName = I18nStrings.CoordinateConversionResultLabel;
 		kryptonLabelResult.AccessibleRole = AccessibleRole.StaticText;
 		kryptonTableLayoutPanel.SetColumnSpan(kryptonLabelResult, 4);
+		kryptonLabelResult.ContextMenuStrip = contextMenuCopyToClipboard;
 		kryptonLabelResult.Dock = DockStyle.Fill;
 		kryptonLabelResult.LabelStyle = LabelStyle.BoldPanel;
 		kryptonLabelResult.Location = new Point(15, 183);
@@ -445,13 +446,45 @@ partial class CoordinateTransformationForm
 		kryptonLabelResult.Size = new Size(725, 34);
 		kryptonLabelResult.TabIndex = 19;
 		kryptonLabelResult.Values.Text = "Result...";
-		kryptonLabelResult.ContextMenuStrip = contextMenuCopyToClipboard;
 		kryptonLabelResult.Click += CopyToClipboard_DoubleClick;
 		kryptonLabelResult.Enter += Control_Enter;
 		kryptonLabelResult.Leave += Control_Leave;
 		kryptonLabelResult.MouseDown += Control_MouseDown;
 		kryptonLabelResult.MouseEnter += Control_Enter;
 		kryptonLabelResult.MouseLeave += Control_Leave;
+		// 
+		// contextMenuCopyToClipboard
+		// 
+		contextMenuCopyToClipboard.AccessibleDescription = "Shows the context menu for copying information to the clipboard";
+		contextMenuCopyToClipboard.AccessibleName = "Context menu for copying information to the clipboard";
+		contextMenuCopyToClipboard.AccessibleRole = AccessibleRole.MenuPopup;
+		contextMenuCopyToClipboard.AllowClickThrough = true;
+		contextMenuCopyToClipboard.Font = new Font("Segoe UI", 9F);
+		contextMenuCopyToClipboard.Items.AddRange(new ToolStripItem[] { toolStripMenuItemCopyToClipboard });
+		contextMenuCopyToClipboard.Name = "contextMenuCopyToClipboard";
+		contextMenuCopyToClipboard.Size = new Size(214, 26);
+		contextMenuCopyToClipboard.TabStop = true;
+		contextMenuCopyToClipboard.Text = "Copy to clipboard";
+		contextMenuCopyToClipboard.Enter += Control_Enter;
+		contextMenuCopyToClipboard.Leave += Control_Leave;
+		contextMenuCopyToClipboard.MouseEnter += Control_Enter;
+		contextMenuCopyToClipboard.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemCopyToClipboard
+		// 
+		toolStripMenuItemCopyToClipboard.AccessibleDescription = "Copies the text/value to the clipboard";
+		toolStripMenuItemCopyToClipboard.AccessibleName = "Copy to clipboard";
+		toolStripMenuItemCopyToClipboard.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemCopyToClipboard.AutoToolTip = true;
+		toolStripMenuItemCopyToClipboard.Image = Resources.FatcowIcons16px.fatcow_page_copy_16px;
+		toolStripMenuItemCopyToClipboard.Name = "toolStripMenuItemCopyToClipboard";
+		toolStripMenuItemCopyToClipboard.ShortcutKeyDisplayString = "Strg+C";
+		toolStripMenuItemCopyToClipboard.ShortcutKeys = Keys.Control | Keys.C;
+		toolStripMenuItemCopyToClipboard.Size = new Size(213, 22);
+		toolStripMenuItemCopyToClipboard.Text = "&Copy to clipboard";
+		toolStripMenuItemCopyToClipboard.Click += CopyToClipboard_DoubleClick;
+		toolStripMenuItemCopyToClipboard.MouseEnter += Control_Enter;
+		toolStripMenuItemCopyToClipboard.MouseLeave += Control_Leave;
 		// 
 		// kryptonStatusStrip
 		// 
@@ -571,39 +604,6 @@ partial class CoordinateTransformationForm
 		toolStripButtonButtonConvert.MouseEnter += Control_Enter;
 		toolStripButtonButtonConvert.MouseLeave += Control_Leave;
 		// 
-		// contextMenuCopyToClipboard
-		// 
-		contextMenuCopyToClipboard.AccessibleDescription = "Shows the context menu for copying information to the clipboard";
-		contextMenuCopyToClipboard.AccessibleName = "Context menu for copying information to the clipboard";
-		contextMenuCopyToClipboard.AccessibleRole = AccessibleRole.MenuPopup;
-		contextMenuCopyToClipboard.AllowClickThrough = true;
-		contextMenuCopyToClipboard.Font = new Font("Segoe UI", 9F);
-		contextMenuCopyToClipboard.Items.AddRange(new ToolStripItem[] { toolStripMenuItemCopyToClipboard });
-		contextMenuCopyToClipboard.Name = "contextMenuCopyToClipboard";
-		contextMenuCopyToClipboard.Size = new Size(214, 26);
-		contextMenuCopyToClipboard.TabStop = true;
-		contextMenuCopyToClipboard.Text = "Copy to clipboard";
-		contextMenuCopyToClipboard.Enter += Control_Enter;
-		contextMenuCopyToClipboard.Leave += Control_Leave;
-		contextMenuCopyToClipboard.MouseEnter += Control_Enter;
-		contextMenuCopyToClipboard.MouseLeave += Control_Leave;
-		// 
-		// toolStripMenuItemCopyToClipboard
-		// 
-		toolStripMenuItemCopyToClipboard.AccessibleDescription = "Copies the text/value to the clipboard";
-		toolStripMenuItemCopyToClipboard.AccessibleName = "Copy to clipboard";
-		toolStripMenuItemCopyToClipboard.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemCopyToClipboard.AutoToolTip = true;
-		toolStripMenuItemCopyToClipboard.Image = Resources.FatcowIcons16px.fatcow_page_copy_16px;
-		toolStripMenuItemCopyToClipboard.Name = "toolStripMenuItemCopyToClipboard";
-		toolStripMenuItemCopyToClipboard.ShortcutKeyDisplayString = "Strg+C";
-		toolStripMenuItemCopyToClipboard.ShortcutKeys = Keys.Control | Keys.C;
-		toolStripMenuItemCopyToClipboard.Size = new Size(213, 22);
-		toolStripMenuItemCopyToClipboard.Text = "&Copy to clipboard";
-		toolStripMenuItemCopyToClipboard.MouseEnter += Control_Enter;
-		toolStripMenuItemCopyToClipboard.MouseLeave += Control_Leave;
-		toolStripMenuItemCopyToClipboard.Click += CopyToClipboard_DoubleClick;
-		// 
 		// CoordinateTransformationForm
 		// 
 		AccessibleDescription = I18nStrings.CoordinateConversionFormAccessibleDescription;
@@ -612,7 +612,7 @@ partial class CoordinateTransformationForm
 		AutoScaleDimensions = new SizeF(7F, 15F);
 		AutoScaleMode = AutoScaleMode.Font;
 		ClientSize = new Size(755, 279);
-		ControlBox = true;
+		ControlBox = false;
 		Controls.Add(toolStripContainer);
 		FormBorderStyle = FormBorderStyle.SizableToolWindow;
 		Icon = (Icon)resources.GetObject("$this.Icon");
@@ -623,12 +623,15 @@ partial class CoordinateTransformationForm
 		SizeGripStyle = SizeGripStyle.Hide;
 		StartPosition = FormStartPosition.CenterParent;
 		Text = "Astronomical coordinate conversion";
+		FormClosing += CoordinateTransformationForm_FormClosing;
+		Load += CoordinateTransformationForm_Load;
 		kryptonTableLayoutPanel.ResumeLayout(false);
 		kryptonTableLayoutPanel.PerformLayout();
 		((ISupportInitialize)kryptonComboBoxSource).EndInit();
 		((ISupportInitialize)kryptonComboBoxTarget).EndInit();
 		((ISupportInitialize)kryptonComboBoxFirstCoordinateType).EndInit();
 		((ISupportInitialize)kryptonComboBoxAngleUnit).EndInit();
+		contextMenuCopyToClipboard.ResumeLayout(false);
 		kryptonStatusStrip.ResumeLayout(false);
 		kryptonStatusStrip.PerformLayout();
 		toolStripContainer.BottomToolStripPanel.ResumeLayout(false);
@@ -640,7 +643,6 @@ partial class CoordinateTransformationForm
 		toolStripContainer.PerformLayout();
 		kryptonToolStrip.ResumeLayout(false);
 		kryptonToolStrip.PerformLayout();
-		contextMenuCopyToClipboard.ResumeLayout(false);
 		ResumeLayout(false);
 	}
 

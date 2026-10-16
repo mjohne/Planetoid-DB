@@ -1196,6 +1196,7 @@ partial class CheckDatabaseForm
 		SizeGripStyle = SizeGripStyle.Hide;
 		StartPosition = FormStartPosition.CenterScreen;
 		Text = "Check database";
+		FormClosing += CheckDatabaseForm_FormClosing;
 		Load += CheckDatabaseForm_Load;
 		contextMenuCopyToClipboard.ResumeLayout(false);
 		tableLayoutPanel.ResumeLayout(false);

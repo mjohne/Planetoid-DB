@@ -58,14 +58,6 @@ partial class LogViewerForm
 		columnHeaderLevel = new ColumnHeader();
 		columnHeaderExceptionType = new ColumnHeader();
 		columnHeaderMessage = new ColumnHeader();
-		kryptonStatusStrip = new Krypton.Toolkit.KryptonStatusStrip();
-		labelInformation = new ToolStripStatusLabel();
-		toolStripContainer = new ToolStripContainer();
-		kryptonToolStripMain = new Krypton.Toolkit.KryptonToolStrip();
-		toolStripButtonDeleteSelected = new ToolStripButton();
-		toolStripButtonDeleteAll = new ToolStripButton();
-		toolStripSeparator1 = new ToolStripSeparator();
-		toolStripDropDownButtonSaveList = new ToolStripDropDownButton();
 		contextMenuSaveToFile = new ContextMenuStrip(components);
 		toolStripMenuItemTextFiles = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsText = new ToolStripMenuItem();
@@ -107,18 +99,26 @@ partial class LogViewerForm
 		toolStripMenuItemSaveAsXps = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsFictionBook2 = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsChm = new ToolStripMenuItem();
+		toolStripDropDownButtonSaveList = new ToolStripDropDownButton();
+		kryptonStatusStrip = new Krypton.Toolkit.KryptonStatusStrip();
+		labelInformation = new ToolStripStatusLabel();
+		toolStripContainer = new ToolStripContainer();
+		kryptonToolStripMain = new Krypton.Toolkit.KryptonToolStrip();
+		toolStripButtonDeleteSelected = new ToolStripButton();
+		toolStripButtonDeleteAll = new ToolStripButton();
+		toolStripSeparator1 = new ToolStripSeparator();
 		toolStripSeparator2 = new ToolStripSeparator();
 		toolStripLabelProgress = new ToolStripLabel();
 		kryptonProgressBar = new KryptonProgressBarToolStripItem();
 		((ISupportInitialize)kryptonPanelMain).BeginInit();
 		kryptonPanelMain.SuspendLayout();
+		contextMenuSaveToFile.SuspendLayout();
 		kryptonStatusStrip.SuspendLayout();
 		toolStripContainer.BottomToolStripPanel.SuspendLayout();
 		toolStripContainer.ContentPanel.SuspendLayout();
 		toolStripContainer.TopToolStripPanel.SuspendLayout();
 		toolStripContainer.SuspendLayout();
 		kryptonToolStripMain.SuspendLayout();
-		contextMenuSaveToFile.SuspendLayout();
 		SuspendLayout();
 		// 
 		// kryptonManager
@@ -171,9 +171,9 @@ partial class LogViewerForm
 		listView.SelectedIndexChanged += ListView_SelectedIndexChanged;
 		listView.Enter += Control_Enter;
 		listView.Leave += Control_Leave;
+		listView.MouseDoubleClick += ListView_MouseDoubleClick;
 		listView.MouseEnter += Control_Enter;
 		listView.MouseLeave += Control_Leave;
-		listView.MouseDoubleClick += ListView_MouseDoubleClick;
 		// 
 		// columnHeaderDateTime
 		// 
@@ -194,164 +194,6 @@ partial class LogViewerForm
 		// 
 		columnHeaderMessage.Text = "Message";
 		columnHeaderMessage.Width = 490;
-		// 
-		// kryptonStatusStrip
-		// 
-		kryptonStatusStrip.AccessibleDescription = "Shows some information about the log events";
-		kryptonStatusStrip.AccessibleName = "Status bar";
-		kryptonStatusStrip.AccessibleRole = AccessibleRole.StatusBar;
-		kryptonStatusStrip.AllowClickThrough = true;
-		kryptonStatusStrip.AllowItemReorder = true;
-		kryptonStatusStrip.Dock = DockStyle.None;
-		kryptonStatusStrip.Font = new Font("Segoe UI", 9F);
-		kryptonStatusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
-		kryptonStatusStrip.Location = new Point(0, 0);
-		kryptonStatusStrip.Name = "kryptonStatusStrip";
-		kryptonStatusStrip.ProgressBars = null;
-		kryptonStatusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
-		kryptonStatusStrip.ShowItemToolTips = true;
-		kryptonStatusStrip.Size = new Size(654, 22);
-		kryptonStatusStrip.TabIndex = 0;
-		kryptonStatusStrip.TabStop = true;
-		kryptonStatusStrip.Text = "Status bar";
-		kryptonStatusStrip.Enter += Control_Enter;
-		kryptonStatusStrip.Leave += Control_Leave;
-		kryptonStatusStrip.MouseEnter += Control_Enter;
-		kryptonStatusStrip.MouseLeave += Control_Leave;
-		// 
-		// labelInformation
-		// 
-		labelInformation.AccessibleDescription = "Shows information about the log events";
-		labelInformation.AccessibleName = "Log viewer information";
-		labelInformation.AccessibleRole = AccessibleRole.StaticText;
-		labelInformation.AutoToolTip = true;
-		labelInformation.Image = FatcowIcons16px.fatcow_lightbulb_16px;
-		labelInformation.Name = "labelInformation";
-		labelInformation.Size = new Size(80, 17);
-		labelInformation.Text = "Log viewer";
-		labelInformation.MouseEnter += Control_Enter;
-		labelInformation.MouseLeave += Control_Leave;
-		// 
-		// toolStripContainer
-		// 
-		toolStripContainer.AccessibleDescription = "Container to arrange the toolbars";
-		toolStripContainer.AccessibleName = "Container to arrange the toolbars";
-		toolStripContainer.AccessibleRole = AccessibleRole.Grouping;
-		// 
-		// toolStripContainer.BottomToolStripPanel
-		// 
-		toolStripContainer.BottomToolStripPanel.AccessibleDescription = "Just a panel";
-		toolStripContainer.BottomToolStripPanel.AccessibleName = "Bottom panel";
-		toolStripContainer.BottomToolStripPanel.AccessibleRole = AccessibleRole.Pane;
-		toolStripContainer.BottomToolStripPanel.Controls.Add(kryptonStatusStrip);
-		// 
-		// toolStripContainer.ContentPanel
-		// 
-		toolStripContainer.ContentPanel.AccessibleDescription = "Log events view";
-		toolStripContainer.ContentPanel.AccessibleName = "Content area";
-		toolStripContainer.ContentPanel.AccessibleRole = AccessibleRole.Pane;
-		toolStripContainer.ContentPanel.Controls.Add(kryptonPanelMain);
-		toolStripContainer.ContentPanel.Size = new Size(654, 384);
-		toolStripContainer.Dock = DockStyle.Fill;
-		// 
-		// toolStripContainer.LeftToolStripPanel
-		// 
-		toolStripContainer.LeftToolStripPanel.AccessibleDescription = "Just a panel";
-		toolStripContainer.LeftToolStripPanel.AccessibleName = "Left panel";
-		toolStripContainer.LeftToolStripPanel.AccessibleRole = AccessibleRole.Pane;
-		toolStripContainer.Location = new Point(0, 0);
-		toolStripContainer.Name = "toolStripContainer";
-		// 
-		// toolStripContainer.RightToolStripPanel
-		// 
-		toolStripContainer.RightToolStripPanel.AccessibleDescription = "Just a panel";
-		toolStripContainer.RightToolStripPanel.AccessibleName = "Right panel";
-		toolStripContainer.RightToolStripPanel.AccessibleRole = AccessibleRole.Pane;
-		toolStripContainer.Size = new Size(654, 431);
-		toolStripContainer.TabIndex = 0;
-		toolStripContainer.Text = "toolStripContainer";
-		// 
-		// toolStripContainer.TopToolStripPanel
-		// 
-		toolStripContainer.TopToolStripPanel.AccessibleDescription = "Just a panel";
-		toolStripContainer.TopToolStripPanel.AccessibleName = "Top panel";
-		toolStripContainer.TopToolStripPanel.AccessibleRole = AccessibleRole.Pane;
-		toolStripContainer.TopToolStripPanel.Controls.Add(kryptonToolStripMain);
-		// 
-		// kryptonToolStripMain
-		// 
-		kryptonToolStripMain.AccessibleDescription = "Provides the toolbar buttons";
-		kryptonToolStripMain.AccessibleName = "Toolbar";
-		kryptonToolStripMain.AccessibleRole = AccessibleRole.ToolBar;
-		kryptonToolStripMain.AllowClickThrough = true;
-		kryptonToolStripMain.AllowItemReorder = true;
-		kryptonToolStripMain.Dock = DockStyle.None;
-		kryptonToolStripMain.Font = new Font("Segoe UI", 9F);
-		kryptonToolStripMain.Items.AddRange(new ToolStripItem[] { toolStripButtonDeleteSelected, toolStripButtonDeleteAll, toolStripSeparator1, toolStripDropDownButtonSaveList, toolStripSeparator2, toolStripLabelProgress, kryptonProgressBar });
-		kryptonToolStripMain.Location = new Point(0, 0);
-		kryptonToolStripMain.Name = "kryptonToolStripMain";
-		kryptonToolStripMain.Size = new Size(654, 25);
-		kryptonToolStripMain.Stretch = true;
-		kryptonToolStripMain.TabIndex = 0;
-		kryptonToolStripMain.TabStop = true;
-		kryptonToolStripMain.Enter += Control_Enter;
-		kryptonToolStripMain.Leave += Control_Leave;
-		kryptonToolStripMain.MouseDown += Control_Enter;
-		kryptonToolStripMain.MouseEnter += Control_Enter;
-		// 
-		// toolStripButtonDeleteSelected
-		// 
-		toolStripButtonDeleteSelected.AccessibleDescription = "Deletes selected log entries from the list";
-		toolStripButtonDeleteSelected.AccessibleName = "Delete selected";
-		toolStripButtonDeleteSelected.AccessibleRole = AccessibleRole.PushButton;
-		toolStripButtonDeleteSelected.Enabled = false;
-		toolStripButtonDeleteSelected.Image = FatcowIcons16px.fatcow_bin_16px;
-		toolStripButtonDeleteSelected.ImageTransparentColor = Color.Magenta;
-		toolStripButtonDeleteSelected.Name = "toolStripButtonDeleteSelected";
-		toolStripButtonDeleteSelected.Size = new Size(106, 22);
-		toolStripButtonDeleteSelected.Text = "&Delete selected";
-		toolStripButtonDeleteSelected.Click += ToolStripButtonDeleteSelected_Click;
-		toolStripButtonDeleteSelected.MouseEnter += Control_Enter;
-		toolStripButtonDeleteSelected.MouseLeave += Control_Leave;
-		// 
-		// toolStripButtonDeleteAll
-		// 
-		toolStripButtonDeleteAll.AccessibleDescription = "Deletes all log entries from the list";
-		toolStripButtonDeleteAll.AccessibleName = "Delete all";
-		toolStripButtonDeleteAll.AccessibleRole = AccessibleRole.PushButton;
-		toolStripButtonDeleteAll.Enabled = false;
-		toolStripButtonDeleteAll.Image = FatcowIcons16px.fatcow_bin_closed_16px;
-		toolStripButtonDeleteAll.ImageTransparentColor = Color.Magenta;
-		toolStripButtonDeleteAll.Name = "toolStripButtonDeleteAll";
-		toolStripButtonDeleteAll.Size = new Size(75, 22);
-		toolStripButtonDeleteAll.Text = "Delete &all";
-		toolStripButtonDeleteAll.Click += ToolStripButtonDeleteAll_Click;
-		toolStripButtonDeleteAll.MouseEnter += Control_Enter;
-		toolStripButtonDeleteAll.MouseLeave += Control_Leave;
-		// 
-		// toolStripSeparator1
-		// 
-		toolStripSeparator1.AccessibleDescription = "Just a separator";
-		toolStripSeparator1.AccessibleName = "Just a separator";
-		toolStripSeparator1.AccessibleRole = AccessibleRole.Separator;
-		toolStripSeparator1.Name = "toolStripSeparator1";
-		toolStripSeparator1.Size = new Size(6, 25);
-		toolStripSeparator1.MouseEnter += Control_Enter;
-		toolStripSeparator1.MouseLeave += Control_Leave;
-		// 
-		// toolStripDropDownButtonSaveList
-		// 
-		toolStripDropDownButtonSaveList.AccessibleDescription = "Saves the list as file";
-		toolStripDropDownButtonSaveList.AccessibleName = "Save list";
-		toolStripDropDownButtonSaveList.AccessibleRole = AccessibleRole.ButtonDropDown;
-		toolStripDropDownButtonSaveList.DropDown = contextMenuSaveToFile;
-		toolStripDropDownButtonSaveList.Image = FatcowIcons16px.fatcow_diskette_16px;
-		toolStripDropDownButtonSaveList.ImageTransparentColor = Color.Magenta;
-		toolStripDropDownButtonSaveList.Name = "toolStripDropDownButtonSaveList";
-		toolStripDropDownButtonSaveList.Size = new Size(78, 22);
-		toolStripDropDownButtonSaveList.Text = "&Save list";
-		toolStripDropDownButtonSaveList.MouseEnter += Control_Enter;
-		toolStripDropDownButtonSaveList.MouseLeave += Control_Leave;
 		// 
 		// contextMenuSaveToFile
 		// 
@@ -931,6 +773,164 @@ partial class LogViewerForm
 		toolStripMenuItemSaveAsChm.MouseEnter += Control_Enter;
 		toolStripMenuItemSaveAsChm.MouseLeave += Control_Leave;
 		// 
+		// toolStripDropDownButtonSaveList
+		// 
+		toolStripDropDownButtonSaveList.AccessibleDescription = "Saves the list as file";
+		toolStripDropDownButtonSaveList.AccessibleName = "Save list";
+		toolStripDropDownButtonSaveList.AccessibleRole = AccessibleRole.ButtonDropDown;
+		toolStripDropDownButtonSaveList.DropDown = contextMenuSaveToFile;
+		toolStripDropDownButtonSaveList.Image = FatcowIcons16px.fatcow_diskette_16px;
+		toolStripDropDownButtonSaveList.ImageTransparentColor = Color.Magenta;
+		toolStripDropDownButtonSaveList.Name = "toolStripDropDownButtonSaveList";
+		toolStripDropDownButtonSaveList.Size = new Size(78, 22);
+		toolStripDropDownButtonSaveList.Text = "&Save list";
+		toolStripDropDownButtonSaveList.MouseEnter += Control_Enter;
+		toolStripDropDownButtonSaveList.MouseLeave += Control_Leave;
+		// 
+		// kryptonStatusStrip
+		// 
+		kryptonStatusStrip.AccessibleDescription = "Shows some information about the log events";
+		kryptonStatusStrip.AccessibleName = "Status bar";
+		kryptonStatusStrip.AccessibleRole = AccessibleRole.StatusBar;
+		kryptonStatusStrip.AllowClickThrough = true;
+		kryptonStatusStrip.AllowItemReorder = true;
+		kryptonStatusStrip.Dock = DockStyle.None;
+		kryptonStatusStrip.Font = new Font("Segoe UI", 9F);
+		kryptonStatusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
+		kryptonStatusStrip.Location = new Point(0, 0);
+		kryptonStatusStrip.Name = "kryptonStatusStrip";
+		kryptonStatusStrip.ProgressBars = null;
+		kryptonStatusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
+		kryptonStatusStrip.ShowItemToolTips = true;
+		kryptonStatusStrip.Size = new Size(654, 22);
+		kryptonStatusStrip.TabIndex = 0;
+		kryptonStatusStrip.TabStop = true;
+		kryptonStatusStrip.Text = "Status bar";
+		kryptonStatusStrip.Enter += Control_Enter;
+		kryptonStatusStrip.Leave += Control_Leave;
+		kryptonStatusStrip.MouseEnter += Control_Enter;
+		kryptonStatusStrip.MouseLeave += Control_Leave;
+		// 
+		// labelInformation
+		// 
+		labelInformation.AccessibleDescription = "Shows information about the log events";
+		labelInformation.AccessibleName = "Log viewer information";
+		labelInformation.AccessibleRole = AccessibleRole.StaticText;
+		labelInformation.AutoToolTip = true;
+		labelInformation.Image = FatcowIcons16px.fatcow_lightbulb_16px;
+		labelInformation.Name = "labelInformation";
+		labelInformation.Size = new Size(80, 17);
+		labelInformation.Text = "Log viewer";
+		labelInformation.MouseEnter += Control_Enter;
+		labelInformation.MouseLeave += Control_Leave;
+		// 
+		// toolStripContainer
+		// 
+		toolStripContainer.AccessibleDescription = "Container to arrange the toolbars";
+		toolStripContainer.AccessibleName = "Container to arrange the toolbars";
+		toolStripContainer.AccessibleRole = AccessibleRole.Grouping;
+		// 
+		// toolStripContainer.BottomToolStripPanel
+		// 
+		toolStripContainer.BottomToolStripPanel.AccessibleDescription = "Just a panel";
+		toolStripContainer.BottomToolStripPanel.AccessibleName = "Bottom panel";
+		toolStripContainer.BottomToolStripPanel.AccessibleRole = AccessibleRole.Pane;
+		toolStripContainer.BottomToolStripPanel.Controls.Add(kryptonStatusStrip);
+		// 
+		// toolStripContainer.ContentPanel
+		// 
+		toolStripContainer.ContentPanel.AccessibleDescription = "Log events view";
+		toolStripContainer.ContentPanel.AccessibleName = "Content area";
+		toolStripContainer.ContentPanel.AccessibleRole = AccessibleRole.Pane;
+		toolStripContainer.ContentPanel.Controls.Add(kryptonPanelMain);
+		toolStripContainer.ContentPanel.Size = new Size(654, 384);
+		toolStripContainer.Dock = DockStyle.Fill;
+		// 
+		// toolStripContainer.LeftToolStripPanel
+		// 
+		toolStripContainer.LeftToolStripPanel.AccessibleDescription = "Just a panel";
+		toolStripContainer.LeftToolStripPanel.AccessibleName = "Left panel";
+		toolStripContainer.LeftToolStripPanel.AccessibleRole = AccessibleRole.Pane;
+		toolStripContainer.Location = new Point(0, 0);
+		toolStripContainer.Name = "toolStripContainer";
+		// 
+		// toolStripContainer.RightToolStripPanel
+		// 
+		toolStripContainer.RightToolStripPanel.AccessibleDescription = "Just a panel";
+		toolStripContainer.RightToolStripPanel.AccessibleName = "Right panel";
+		toolStripContainer.RightToolStripPanel.AccessibleRole = AccessibleRole.Pane;
+		toolStripContainer.Size = new Size(654, 431);
+		toolStripContainer.TabIndex = 0;
+		toolStripContainer.Text = "toolStripContainer";
+		// 
+		// toolStripContainer.TopToolStripPanel
+		// 
+		toolStripContainer.TopToolStripPanel.AccessibleDescription = "Just a panel";
+		toolStripContainer.TopToolStripPanel.AccessibleName = "Top panel";
+		toolStripContainer.TopToolStripPanel.AccessibleRole = AccessibleRole.Pane;
+		toolStripContainer.TopToolStripPanel.Controls.Add(kryptonToolStripMain);
+		// 
+		// kryptonToolStripMain
+		// 
+		kryptonToolStripMain.AccessibleDescription = "Provides the toolbar buttons";
+		kryptonToolStripMain.AccessibleName = "Toolbar";
+		kryptonToolStripMain.AccessibleRole = AccessibleRole.ToolBar;
+		kryptonToolStripMain.AllowClickThrough = true;
+		kryptonToolStripMain.AllowItemReorder = true;
+		kryptonToolStripMain.Dock = DockStyle.None;
+		kryptonToolStripMain.Font = new Font("Segoe UI", 9F);
+		kryptonToolStripMain.Items.AddRange(new ToolStripItem[] { toolStripButtonDeleteSelected, toolStripButtonDeleteAll, toolStripSeparator1, toolStripDropDownButtonSaveList, toolStripSeparator2, toolStripLabelProgress, kryptonProgressBar });
+		kryptonToolStripMain.Location = new Point(0, 0);
+		kryptonToolStripMain.Name = "kryptonToolStripMain";
+		kryptonToolStripMain.Size = new Size(654, 25);
+		kryptonToolStripMain.Stretch = true;
+		kryptonToolStripMain.TabIndex = 0;
+		kryptonToolStripMain.TabStop = true;
+		kryptonToolStripMain.Enter += Control_Enter;
+		kryptonToolStripMain.Leave += Control_Leave;
+		kryptonToolStripMain.MouseDown += Control_Enter;
+		kryptonToolStripMain.MouseEnter += Control_Enter;
+		// 
+		// toolStripButtonDeleteSelected
+		// 
+		toolStripButtonDeleteSelected.AccessibleDescription = "Deletes selected log entries from the list";
+		toolStripButtonDeleteSelected.AccessibleName = "Delete selected";
+		toolStripButtonDeleteSelected.AccessibleRole = AccessibleRole.PushButton;
+		toolStripButtonDeleteSelected.Enabled = false;
+		toolStripButtonDeleteSelected.Image = FatcowIcons16px.fatcow_bin_16px;
+		toolStripButtonDeleteSelected.ImageTransparentColor = Color.Magenta;
+		toolStripButtonDeleteSelected.Name = "toolStripButtonDeleteSelected";
+		toolStripButtonDeleteSelected.Size = new Size(106, 22);
+		toolStripButtonDeleteSelected.Text = "&Delete selected";
+		toolStripButtonDeleteSelected.Click += ToolStripButtonDeleteSelected_Click;
+		toolStripButtonDeleteSelected.MouseEnter += Control_Enter;
+		toolStripButtonDeleteSelected.MouseLeave += Control_Leave;
+		// 
+		// toolStripButtonDeleteAll
+		// 
+		toolStripButtonDeleteAll.AccessibleDescription = "Deletes all log entries from the list";
+		toolStripButtonDeleteAll.AccessibleName = "Delete all";
+		toolStripButtonDeleteAll.AccessibleRole = AccessibleRole.PushButton;
+		toolStripButtonDeleteAll.Enabled = false;
+		toolStripButtonDeleteAll.Image = FatcowIcons16px.fatcow_bin_closed_16px;
+		toolStripButtonDeleteAll.ImageTransparentColor = Color.Magenta;
+		toolStripButtonDeleteAll.Name = "toolStripButtonDeleteAll";
+		toolStripButtonDeleteAll.Size = new Size(75, 22);
+		toolStripButtonDeleteAll.Text = "Delete &all";
+		toolStripButtonDeleteAll.Click += ToolStripButtonDeleteAll_Click;
+		toolStripButtonDeleteAll.MouseEnter += Control_Enter;
+		toolStripButtonDeleteAll.MouseLeave += Control_Leave;
+		// 
+		// toolStripSeparator1
+		// 
+		toolStripSeparator1.AccessibleDescription = "Just a separator";
+		toolStripSeparator1.AccessibleName = "Just a separator";
+		toolStripSeparator1.AccessibleRole = AccessibleRole.Separator;
+		toolStripSeparator1.Name = "toolStripSeparator1";
+		toolStripSeparator1.Size = new Size(6, 25);
+		toolStripSeparator1.MouseEnter += Control_Enter;
+		toolStripSeparator1.MouseLeave += Control_Leave;
+		// 
 		// toolStripSeparator2
 		// 
 		toolStripSeparator2.AccessibleDescription = "Just a separator";
@@ -984,9 +984,11 @@ partial class LogViewerForm
 		SizeGripStyle = SizeGripStyle.Hide;
 		StartPosition = FormStartPosition.CenterScreen;
 		Text = "Log Viewer";
+		FormClosing += LogViewerForm_FormClosing;
 		Load += LogViewerForm_Load;
 		((ISupportInitialize)kryptonPanelMain).EndInit();
 		kryptonPanelMain.ResumeLayout(false);
+		contextMenuSaveToFile.ResumeLayout(false);
 		kryptonStatusStrip.ResumeLayout(false);
 		kryptonStatusStrip.PerformLayout();
 		toolStripContainer.BottomToolStripPanel.ResumeLayout(false);
@@ -998,7 +1000,6 @@ partial class LogViewerForm
 		toolStripContainer.PerformLayout();
 		kryptonToolStripMain.ResumeLayout(false);
 		kryptonToolStripMain.PerformLayout();
-		contextMenuSaveToFile.ResumeLayout(false);
 		ResumeLayout(false);
 	}
 

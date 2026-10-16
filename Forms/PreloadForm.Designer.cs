@@ -57,9 +57,9 @@ partial class PreloadForm
 		kryptonStatusStrip = new KryptonStatusStrip();
 		labelInformation = new ToolStripStatusLabel();
 		kryptonPanelMain = new KryptonPanel();
+		kryptonCommandLinkButtonAppInfo = new KryptonCommandLinkButton();
 		openFileDialog = new OpenFileDialog();
 		kryptonManager = new KryptonManager(components);
-		kryptonCommandLinkButtonAppInfo = new KryptonCommandLinkButton();
 		kryptonStatusStrip.SuspendLayout();
 		((ISupportInitialize)kryptonPanelMain).BeginInit();
 		kryptonPanelMain.SuspendLayout();
@@ -225,19 +225,6 @@ partial class PreloadForm
 		kryptonPanelMain.TabIndex = 0;
 		kryptonPanelMain.TabStop = true;
 		// 
-		// openFileDialog
-		// 
-		openFileDialog.DefaultExt = "dat";
-		openFileDialog.FileName = "mpcorb.dat";
-		openFileDialog.Filter = "DAT files|*.dat|all files|*.*";
-		openFileDialog.Title = "Open MPCORB.DAT";
-		// 
-		// kryptonManager
-		// 
-		kryptonManager.GlobalPaletteMode = PaletteMode.Global;
-		kryptonManager.ToolkitStrings.MessageBoxStrings.LessDetails = "L&ess Details...";
-		kryptonManager.ToolkitStrings.MessageBoxStrings.MoreDetails = "&More Details...";
-		// 
 		// kryptonCommandLinkButtonAppInfo
 		// 
 		kryptonCommandLinkButtonAppInfo.AccessibleDescription = "Shows more information about the application";
@@ -266,6 +253,19 @@ partial class PreloadForm
 		kryptonCommandLinkButtonAppInfo.MouseEnter += Control_Enter;
 		kryptonCommandLinkButtonAppInfo.MouseLeave += Control_Leave;
 		// 
+		// openFileDialog
+		// 
+		openFileDialog.DefaultExt = "dat";
+		openFileDialog.FileName = "mpcorb.dat";
+		openFileDialog.Filter = "DAT files|*.dat|all files|*.*";
+		openFileDialog.Title = "Open MPCORB.DAT";
+		// 
+		// kryptonManager
+		// 
+		kryptonManager.GlobalPaletteMode = PaletteMode.Global;
+		kryptonManager.ToolkitStrings.MessageBoxStrings.LessDetails = "L&ess Details...";
+		kryptonManager.ToolkitStrings.MessageBoxStrings.MoreDetails = "&More Details...";
+		// 
 		// PreloadForm
 		// 
 		AccessibleDescription = "Indicates that the MPCORB.DAT file is missing";
@@ -286,6 +286,7 @@ partial class PreloadForm
 		SizeGripStyle = SizeGripStyle.Hide;
 		StartPosition = FormStartPosition.CenterScreen;
 		Text = "Planetoid-DB Preloader";
+		FormClosing += PreloadForm_FormClosing;
 		Load += PreloadForm_Load;
 		DragDrop += PreloadForm_DragDrop;
 		DragEnter += PreloadForm_DragEnter;

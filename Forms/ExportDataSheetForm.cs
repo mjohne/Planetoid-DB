@@ -50,8 +50,12 @@ internal partial class ExportDataSheetForm : BaseKryptonForm
 	/// <remarks>This constructor initializes the form components.</remarks>
 	public ExportDataSheetForm()
 	{
+		// Log that the form is being initialized
+		logger.Info(message: "Initializing ExportDataSheetForm.");
 		// Initialize the form components
 		InitializeComponent();
+		// Log that the form has been initialized successfully
+		logger.Info(message: "ExportDataSheetForm initialized successfully.");
 	}
 
 	#endregion
@@ -189,10 +193,26 @@ internal partial class ExportDataSheetForm : BaseKryptonForm
 	/// <remarks>This method is used to initialize the form and set up any necessary data.</remarks>
 	private void ExportDataSheetForm_Load(object sender, EventArgs e)
 	{
+		// Log the form load event for debugging purposes
+		logger.Info(message: "ExportDataSheetForm loaded");
+		// Play the open sound in the background to indicate that the form has been opened
+		AudioPlayback.PlayOpenSound();
 		// Clear the status bar text
 		ClearStatusBar(label: labelInformation);
 		// Update the state of the export button
 		UpdateExportButtonState();
+	}
+
+	/// <summary>Handles the form-closing event for the export data sheet dialog.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data for the form-closing operation.</param>
+	/// <remarks>This method is called when the export data sheet form is closing. It logs the closing event and plays a close sound in the background.</remarks>
+	private void ExportDataSheetForm_FormClosing(object sender, FormClosingEventArgs e)
+	{
+		// Log that the form is closing
+		logger.Info(message: "ExportDataSheetForm is closing.");
+		// Play the close sound in the background to indicate that the form is closing
+		AudioPlayback.PlayCloseSound();
 	}
 
 	#endregion

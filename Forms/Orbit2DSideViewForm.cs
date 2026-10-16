@@ -102,6 +102,11 @@ internal partial class Orbit2DSideViewForm : BaseKryptonForm
 	/// <remarks>The supplied orbital elements are used immediately on form load to render the side-view orbital diagram.</remarks>
 	public Orbit2DSideViewForm(string planetoidName, double semiMajorAxis, double eccentricity, double inclinationDeg)
 	{
+		// Log the initialization of the form with the provided parameters for debugging purposes.
+		logger.Info(
+			message: "Initializing Orbit2DSideViewForm for planetoid '{0}' with parameters: a={1} AU, e={2}, i={3}°.",
+			args: [planetoidName, semiMajorAxis.ToString(format: "F6", provider: CultureInfo.CurrentCulture), eccentricity.ToString(format: "F6", provider: CultureInfo.CurrentCulture), inclinationDeg.ToString(format: "F4", provider: CultureInfo.CurrentCulture)]);
+		// Perform standard form initialization, including setting up controls and layout.
 		InitializeComponent();
 		// Store the planetoid's orbital parameters for use during rendering.
 		_planetoidName = planetoidName;
@@ -232,11 +237,16 @@ internal partial class Orbit2DSideViewForm : BaseKryptonForm
 	/// <remarks>Clears the status bar and renders the orbital diagram when the form is first shown.</remarks>
 	private void Orbits2DSideViewForm_Load(object? sender, EventArgs e)
 	{
+		// Log that the form has been loaded
+		logger.Info(message: "Orbits2DSideViewForm loaded.");
+		// Play the open sound in the background to indicate that the form has been opened
+		AudioPlayback.PlayOpenSound();
 		// Clear the status bar before rendering to ensure any previous messages are removed.
 		ClearStatusBar(label: labelInformation);
 		// Render the orbital diagram, with error handling to catch and log any exceptions.
 		try
 		{
+			// Render the orbit plot for the selected planetoid
 			RenderOrbitPlot();
 		}
 		catch (Exception ex)
@@ -244,6 +254,18 @@ internal partial class Orbit2DSideViewForm : BaseKryptonForm
 			logger.Error(exception: ex, message: $"Failed to render side-view orbit plot for '{_planetoidName}': {ex}");
 			ShowErrorMessage(message: $"An error occurred while rendering the orbital diagram: {ex.Message}");
 		}
+	}
+
+	/// <summary>Handles the FormClosing event of the Orbit2DSideViewForm.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="FormClosingEventArgs"/> instance that contains the event data.</param>
+	/// <remarks>Logs the form closing event and plays a close sound to indicate that the form is being closed.</remarks>
+	private void Orbit2DSideViewForm_FormClosing(object sender, FormClosingEventArgs e)
+	{
+		// Log that the form is closing
+		logger.Info(message: "Orbit2DSideViewForm is closing.");
+		// Play the close sound in the background to indicate that the form is closing
+		AudioPlayback.PlayCloseSound();
 	}
 
 	#endregion

@@ -97,8 +97,12 @@ internal partial class SettingsImportForm : BaseKryptonForm
 	/// <remarks>This constructor initializes the form components.</remarks>
 	public SettingsImportForm()
 	{
+		// Log the initialization of the form
 		logger.Info(message: "Initializing SettingsImportForm.");
+		// Call the method to initialize the form's components
 		InitializeComponent();
+		// Log that the form has been initialized successfully
+		logger.Info(message: "SettingsImportForm initialized successfully.");
 	}
 
 	#endregion
@@ -111,7 +115,11 @@ internal partial class SettingsImportForm : BaseKryptonForm
 	/// <remarks>Clears the status bar when the form is first displayed.</remarks>
 	private void SettingsImportForm_Load(object sender, EventArgs e)
 	{
+		// Log that the form has been loaded
 		logger.Info(message: "SettingsImportForm loaded.");
+		// Play the open sound in the background to indicate that the form has been opened
+		AudioPlayback.PlayOpenSound();
+		// Clear the status bar to ensure no previous messages are displayed
 		ClearStatusBar(label: labelInformation);
 	}
 
@@ -121,7 +129,9 @@ internal partial class SettingsImportForm : BaseKryptonForm
 	/// <remarks>Accepts a drag operation only when the dragged data contains at least one file path.</remarks>
 	private void SettingsImportForm_DragEnter(object sender, DragEventArgs e)
 	{
+		// Log that the DragEnter event has been triggered
 		logger.Info(message: "DragEnter event triggered for settings import form.");
+		// Set the effect to Copy if the dragged data contains file paths; otherwise, set it to None
 		e.Effect = e.Data is not null && e.Data.GetDataPresent(format: DataFormats.FileDrop) ? DragDropEffects.Copy : DragDropEffects.None;
 	}
 
@@ -132,6 +142,7 @@ internal partial class SettingsImportForm : BaseKryptonForm
 	/// Only the first dropped file is processed; others are ignored.</remarks>
 	private void SettingsImportForm_DragDrop(object sender, DragEventArgs e)
 	{
+		// Log that the DragDrop event has been triggered
 		logger.Info(message: "DragDrop event triggered for settings import form.");
 		// Check if the dragged data is null
 		if (e.Data is null)
@@ -181,7 +192,7 @@ internal partial class SettingsImportForm : BaseKryptonForm
 		catch (Exception ex)
 		{
 			// Log the exception and show an error message
-			string shownExt = string.IsNullOrEmpty(ext) ? "<none>" : $".{ext}";
+			string shownExt = string.IsNullOrEmpty(value: ext) ? "<none>" : $".{ext}";
 			logger.Warn(exception: ex, message: $"Unsupported file extension for import: '{shownExt}'.");
 			ShowErrorMessage(message: $"The file extension '{shownExt}' is not supported for settings import. Supported formats: CSV, INI, XML, JSON, YAML.");
 		}
@@ -190,6 +201,18 @@ internal partial class SettingsImportForm : BaseKryptonForm
 		{
 			Cursor.Current = Cursors.Default;
 		}
+	}
+
+	/// <summary>Handles the form-closing event for the settings import form by logging the shutdown and playing the close sound.</summary>
+	/// <param name="sender">The object that raised the event.</param>
+	/// <param name="e">The event data for the form-closing operation.</param>
+	/// <remarks>This method is called when the form is about to close, and it logs the event and plays a sound to indicate that the form is closing.</remarks>
+	private void SettingsImportForm_FormClosing(object sender, FormClosingEventArgs e)
+	{
+		// Log that the form is closing
+		logger.Info(message: "SettingsImportForm is closing.");
+		// Play the close sound in the background to indicate that the form is closing
+		AudioPlayback.PlayCloseSound();
 	}
 
 	#endregion

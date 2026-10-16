@@ -164,9 +164,9 @@ partial class ObservationsForm
 		listView.ColumnClick += ListView_ColumnClick;
 		listView.Enter += Control_Enter;
 		listView.Leave += Control_Leave;
+		listView.MouseDoubleClick += ListView_MouseDoubleClick;
 		listView.MouseEnter += Control_Enter;
 		listView.MouseLeave += Control_Leave;
-		listView.MouseDoubleClick += ListView_MouseDoubleClick;
 		// 
 		// columnHeaderPackedMinorPlanetNumber
 		// 
@@ -1001,6 +1001,7 @@ partial class ObservationsForm
 		SizeGripStyle = SizeGripStyle.Hide;
 		StartPosition = FormStartPosition.CenterScreen;
 		Text = "Observations";
+		FormClosing += ObservationsForm_FormClosing;
 		Load += ObservationsForm_Load;
 		((ISupportInitialize)kryptonPanelMain).EndInit();
 		kryptonPanelMain.ResumeLayout(false);

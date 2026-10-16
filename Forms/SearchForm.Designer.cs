@@ -1182,6 +1182,7 @@ partial class SearchForm
 		SizeGripStyle = SizeGripStyle.Hide;
 		StartPosition = FormStartPosition.CenterScreen;
 		Text = "Search";
+		FormClosing += SearchForm_FormClosing;
 		Load += Search2Form_Load;
 		((System.ComponentModel.ISupportInitialize)kryptonPanelMain).EndInit();
 		kryptonPanelMain.ResumeLayout(false);

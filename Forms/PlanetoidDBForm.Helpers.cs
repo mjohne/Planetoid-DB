@@ -22,7 +22,9 @@ using Planetoid_DB.Resources;
 
 using System.Diagnostics;
 using System.Globalization;
+using System.Media;
 using System.Net.NetworkInformation;
+using System.Resources;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -34,8 +36,6 @@ namespace Planetoid_DB;
 /// <remarks>This file contains utility methods, navigation logic, dialog launchers, and data processing methods used by the main form.</remarks>
 public partial class PlanetoidDbForm
 {
-	#region helper methods
-
 	/// <summary>Gets the file path of the MPCORB.DAT file.</summary>
 	/// <remarks>This property is used to store the file path of the MPCORB.DAT file.</remarks>
 	private string MpcOrbDatFilePath { get; set; } = string.Empty;
@@ -3537,6 +3537,146 @@ public partial class PlanetoidDbForm
 	}
 
 	#endregion
+
+	#region audio files
+
+	/// <summary>Plays the send data sound in a background task.</summary>
+	/// <remarks>The resource is loaded from the application resources and played asynchronously so that the splash screen remains responsive. The sound is copied into a fresh stream and played synchronously on the worker thread so the player stays alive for the full playback duration.</remarks>
+	private static void PlaySendDataSoundInBackground()
+	{
+		// Run the sound playback in a background task to avoid blocking the UI thread
+		_ = Task.Run(static () =>
+		{
+			// Log that the background task has started
+			logger.Info(message: "Background task for send data sound playback started.");
+			try
+			{
+				// Load the send data sound resource from the application's resources
+				ResourceManager resourceManager = new(baseName: "Planetoid_DB.Properties.Resources", assembly: typeof(ObservatoryCodesForm).Assembly);
+				// Attempt to retrieve the 'ui-senddata' sound resource
+				object? resource = resourceManager.GetObject(name: "ui-senddata", culture: CultureInfo.CurrentCulture);
+				// Check if the resource was found
+				if (resource is null)
+				{
+					// Log a warning if the resource was not found and exit the method
+					logger.Warn(message: "Send data sound resource 'ui-senddata' was not found.");
+					return;
+				}
+				// Determine the type of the resource and convert it to a byte array for playback
+				byte[] resourceBytes;
+				// Use a switch statement to handle different resource types (byte array, MemoryStream, Stream)
+				switch (resource)
+				{
+					case byte[] bytes:
+						resourceBytes = bytes;
+						break;
+					case MemoryStream memoryStream:
+						memoryStream.Position = 0;
+						resourceBytes = memoryStream.ToArray();
+						break;
+					case Stream stream:
+						stream.Position = 0;
+						using (MemoryStream resourceStream = new())
+						{
+							stream.CopyTo(destination: resourceStream);
+							resourceBytes = resourceStream.ToArray();
+						}
+						break;
+					default:
+						logger.Error(message: $"Unsupported send data sound resource format: {resource.GetType().FullName}");
+						throw new InvalidOperationException(message: "Unsupported send data sound resource format.");
+				}
+				// Check if the resource bytes are empty and log a warning if they are
+				if (resourceBytes.Length == 0)
+				{
+					logger.Warn(message: "Send data sound resource 'ui-senddata' was empty.");
+					return;
+				}
+				// Create a MemoryStream from the resource bytes and play the sound synchronously
+				using MemoryStream soundStream = new(resourceBytes);
+				using SoundPlayer soundPlayer = new(soundStream);
+				soundPlayer.Load();
+				soundPlayer.PlaySync();
+				// Log that the send data sound was played successfully
+				logger.Info(message: "Send data sound played successfully.");
+			}
+			// Catch any exceptions that occur during the sound playback and log them
+			catch (Exception ex)
+			{
+				// Log the exception and continue without crashing the application
+				logger.Warn(exception: ex, message: "Failed to play the send data sound.");
+			}
+		});
+	}
+
+	/// <summary>Plays the shut down sound in a background task.</summary>
+	/// <remarks>The resource is loaded from the application resources and played asynchronously so that the splash screen remains responsive. The sound is copied into a fresh stream and played synchronously on the worker thread so the player stays alive for the full playback duration.</remarks>
+	private static void PlayShutDownSoundInBackground()
+	{
+		// Run the sound playback in a background task to avoid blocking the UI thread
+		_ = Task.Run(static () =>
+		{
+			// Log that the background task has started
+			logger.Info(message: "Background task for shut down sound playback started.");
+			try
+			{
+				// Load the shut down sound resource from the application's resources
+				ResourceManager resourceManager = new(baseName: "Planetoid_DB.Properties.Resources", assembly: typeof(ObservatoryCodesForm).Assembly);
+				// Attempt to retrieve the 'ui-shutdown' sound resource
+				object? resource = resourceManager.GetObject(name: "ui-shutdown", culture: CultureInfo.CurrentCulture);
+				// Check if the resource was found
+				if (resource is null)
+				{
+					// Log a warning if the resource was not found and exit the method
+					logger.Warn(message: "Shut down sound resource 'ui-shutdown' was not found.");
+					return;
+				}
+				// Determine the type of the resource and convert it to a byte array for playback
+				byte[] resourceBytes;
+				// Use a switch statement to handle different resource types (byte array, MemoryStream, Stream)
+				switch (resource)
+				{
+					case byte[] bytes:
+						resourceBytes = bytes;
+						break;
+					case MemoryStream memoryStream:
+						memoryStream.Position = 0;
+						resourceBytes = memoryStream.ToArray();
+						break;
+					case Stream stream:
+						stream.Position = 0;
+						using (MemoryStream resourceStream = new())
+						{
+							stream.CopyTo(destination: resourceStream);
+							resourceBytes = resourceStream.ToArray();
+						}
+						break;
+					default:
+						logger.Error(message: $"Unsupported shut down sound resource format: {resource.GetType().FullName}");
+						throw new InvalidOperationException(message: "Unsupported shut down sound resource format.");
+				}
+				// Check if the resource bytes are empty and log a warning if they are
+				if (resourceBytes.Length == 0)
+				{
+					logger.Warn(message: "Shut down sound resource 'ui-shutdown' was empty.");
+					return;
+				}
+				// Create a MemoryStream from the resource bytes and play the sound synchronously
+				using MemoryStream soundStream = new(resourceBytes);
+				using SoundPlayer soundPlayer = new(soundStream);
+				soundPlayer.Load();
+				soundPlayer.PlaySync();
+				// Log that the shut down sound was played successfully
+				logger.Info(message: "Shut down sound played successfully.");
+			}
+			// Catch any exceptions that occur during the sound playback and log them
+			catch (Exception ex)
+			{
+				// Log the exception and continue without crashing the application
+				logger.Warn(exception: ex, message: "Failed to play the shut down sound.");
+			}
+		});
+	}
 
 	#endregion
 }

@@ -170,6 +170,7 @@ partial class OrbitElementsGroupingForm : BaseKryptonForm
 		kryptonStatusStrip.AccessibleRole = AccessibleRole.StatusBar;
 		kryptonStatusStrip.AllowClickThrough = true;
 		kryptonStatusStrip.AllowItemReorder = true;
+		kryptonStatusStrip.Dock = DockStyle.None;
 		kryptonStatusStrip.Font = new Font("Segoe UI", 9F);
 		kryptonStatusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
 		kryptonStatusStrip.Location = new Point(0, 0);
@@ -1033,6 +1034,7 @@ partial class OrbitElementsGroupingForm : BaseKryptonForm
 		AutoScaleDimensions = new SizeF(7F, 15F);
 		AutoScaleMode = AutoScaleMode.Font;
 		ClientSize = new Size(617, 412);
+		ControlBox = false;
 		Controls.Add(toolStripContainer);
 		FormBorderStyle = FormBorderStyle.SizableToolWindow;
 		Icon = (Icon)resources.GetObject("$this.Icon");
@@ -1043,6 +1045,7 @@ partial class OrbitElementsGroupingForm : BaseKryptonForm
 		StartPosition = FormStartPosition.CenterScreen;
 		Text = "Planetoid Orbital Elements Grouping";
 		FormClosing += OrbitElementsGroupingForm_FormClosing;
+		Load += OrbitElementsGroupingForm_Load;
 		((ISupportInitialize)kryptonPanelMain).EndInit();
 		kryptonPanelMain.ResumeLayout(false);
 		kryptonPanelMain.PerformLayout();

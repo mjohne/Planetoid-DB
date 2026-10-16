@@ -982,9 +982,9 @@ partial class EphemerisForm
 		listView.View = View.Details;
 		listView.Enter += Control_Enter;
 		listView.Leave += Control_Leave;
+		listView.MouseDoubleClick += ListView_MouseDoubleClick;
 		listView.MouseEnter += Control_Enter;
 		listView.MouseLeave += Control_Leave;
-		listView.MouseDoubleClick += ListView_MouseDoubleClick;
 		// 
 		// progressBar
 		// 
@@ -1556,6 +1556,7 @@ partial class EphemerisForm
 		SizeGripStyle = SizeGripStyle.Hide;
 		StartPosition = FormStartPosition.CenterScreen;
 		Text = "Ephemerides";
+		FormClosing += EphemerisForm_FormClosing;
 		Load += EphemerisForm_Load;
 		kryptonStatusStrip.ResumeLayout(false);
 		kryptonStatusStrip.PerformLayout();

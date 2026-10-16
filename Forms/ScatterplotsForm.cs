@@ -67,6 +67,9 @@ internal partial class ScatterplotsForm : BaseKryptonForm
 	/// <remarks>The main form passes the necessary raw MPCORB data to this dialog so the scatter plot can be generated without directly accessing shared UI state.</remarks>
 	public ScatterplotsForm(IReadOnlyList<string> planetoids)
 	{
+		// Log the initialization of the form with the count of planetoids to be processed.
+		logger.Info(message: "Initializing ScatterplotsForm with {0} planetoids.", argument: planetoids.Count);
+		// Initialize the form's components and controls, including the ScottPlot chart and the ListView.
 		InitializeComponent();
 		// Store the supplied planetoid data for scatter-plot generation.
 		_planetoids = planetoids;
@@ -577,33 +580,23 @@ internal partial class ScatterplotsForm : BaseKryptonForm
 	/// <remarks>The running task is canceled so the form can close cleanly without leaving background work behind.</remarks>
 	private void ScatterplotsForm_FormClosing(object? sender, FormClosingEventArgs e)
 	{
-		logger.Info(message: "Form is closing. Cancelling any running scatter-plot generation task.");
+		// Log that the form is closing
+		logger.Info(message: "ScatterplotsForm is closing. Cancelling any running scatter-plot generation task.");
 		_cancellationTokenSource?.Cancel();
+		// Play the close sound in the background to indicate that the form is closing
+		AudioPlayback.PlayCloseSound();
 	}
 
-	/// <summary>Handles the RetrieveVirtualItem event of the ListView to supply items on demand.</summary>
-	/// <param name="sender">The source of the event.</param>
-	/// <param name="e">The event data containing the requested item index.</param>
-	/// <remarks>Called by the ListView in VirtualMode instead of storing all items in memory.</remarks>
-	private void ListViewResults_RetrieveVirtualItem(object? sender, RetrieveVirtualItemEventArgs e)
+	/// <summary>Handles the Load event of the form.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>Initializes the form by clearing the status bar.</remarks>
+	private void ScatterplotsForm_Load(object sender, EventArgs e)
 	{
-		// Validate the requested index to ensure it is within the bounds of the current results list.
-		if (e.ItemIndex < 0 || e.ItemIndex >= _currentResults.Count)
-		{
-			// If the index is out of bounds, provide an empty ListViewItem to avoid exceptions.
-			logger.Warn(message: "RetrieveVirtualItem called with an invalid item index {Index}. No action will be taken.", argument: e.ItemIndex);
-			e.Item = new ListViewItem();
-			return;
-		}
-		// Retrieve the ScatterPoint corresponding to the requested index and create a ListViewItem for display.
-		ScatterPoint point = _currentResults[e.ItemIndex];
-		ListViewItem item = new(text: FormatNumericValue(value: point.X) + (_currentXDefinition?.UnitSuffix ?? string.Empty))
-		{
-			ToolTipText = $"X: {FormatNumericValue(value: point.X)}{_currentXDefinition?.UnitSuffix}, Y: {FormatNumericValue(value: point.Y)}{_currentYDefinition?.UnitSuffix}"
-		};
-		// Add the Y value as a subitem, formatted with the appropriate unit suffix.
-		_ = item.SubItems.Add(text: FormatNumericValue(value: point.Y) + (_currentYDefinition?.UnitSuffix ?? string.Empty));
-		e.Item = item;
+		// Log that the form has loaded and is initializing
+		logger.Info(message: "ScatterplotsForm loaded. Initializing form and clearing status bar.");
+		// Clear the status bar when the form loads
+		ClearStatusBar(label: labelInformation);
 	}
 
 	#endregion
@@ -760,6 +753,35 @@ internal partial class ScatterplotsForm : BaseKryptonForm
 				: $"Scatter plot updated with {_currentResults.Count:N0} plotted planetoids.";
 			logger.Info(message: "Y-axis log scale changed. Scatter plot updated with {Plotted:N0} points, {Excluded:N0} excluded due to non-positive values.", argument1: _currentResults.Count - excluded, argument2: excluded);
 		}
+	}
+
+	#endregion
+
+	#region ListView event handlers
+
+	/// <summary>Handles the RetrieveVirtualItem event of the ListView to supply items on demand.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data containing the requested item index.</param>
+	/// <remarks>Called by the ListView in VirtualMode instead of storing all items in memory.</remarks>
+	private void ListViewResults_RetrieveVirtualItem(object? sender, RetrieveVirtualItemEventArgs e)
+	{
+		// Validate the requested index to ensure it is within the bounds of the current results list.
+		if (e.ItemIndex < 0 || e.ItemIndex >= _currentResults.Count)
+		{
+			// If the index is out of bounds, provide an empty ListViewItem to avoid exceptions.
+			logger.Warn(message: "RetrieveVirtualItem called with an invalid item index {Index}. No action will be taken.", argument: e.ItemIndex);
+			e.Item = new ListViewItem();
+			return;
+		}
+		// Retrieve the ScatterPoint corresponding to the requested index and create a ListViewItem for display.
+		ScatterPoint point = _currentResults[e.ItemIndex];
+		ListViewItem item = new(text: FormatNumericValue(value: point.X) + (_currentXDefinition?.UnitSuffix ?? string.Empty))
+		{
+			ToolTipText = $"X: {FormatNumericValue(value: point.X)}{_currentXDefinition?.UnitSuffix}, Y: {FormatNumericValue(value: point.Y)}{_currentYDefinition?.UnitSuffix}"
+		};
+		// Add the Y value as a subitem, formatted with the appropriate unit suffix.
+		_ = item.SubItems.Add(text: FormatNumericValue(value: point.Y) + (_currentYDefinition?.UnitSuffix ?? string.Empty));
+		e.Item = item;
 	}
 
 	#endregion

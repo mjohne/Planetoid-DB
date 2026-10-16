@@ -272,7 +272,12 @@ internal partial class ArchiveMpcorbForm : BaseKryptonForm
 	/// <remarks>This constructor sets up the form's components and prepares it for use.</remarks>
 	public ArchiveMpcorbForm()
 	{
+		// Log the initialization of the ArchiveMpcorbForm
+		logger.Info(message: "Initializing ArchiveMpcorbForm...");
+		// Call the method to initialize the form's components, setting up the user interface elements
 		InitializeComponent();
+		// Log that the ArchiveMpcorbForm has been initialized successfully
+		logger.Info(message: "ArchiveMpcorbForm initialized successfully.");
 	}
 
 	#endregion
@@ -285,6 +290,8 @@ internal partial class ArchiveMpcorbForm : BaseKryptonForm
 	/// <param name="e">The event data associated with the form load event.</param>
 	private async void ArchiveMpcorbForm_Load(object sender, EventArgs e)
 	{
+		// Log that the form has been loaded
+		logger.Info(message: "ArchiveMpcorbForm loaded.");
 		// Set default file path
 		string defaultPath = Settings.Default.systemFilenameMpcorbDat;
 		// If the default path exists, set it in the source textbox
@@ -293,8 +300,10 @@ internal partial class ArchiveMpcorbForm : BaseKryptonForm
 			// Set the default path in the source textbox
 			kryptonTextBoxSource.Text = Path.GetFullPath(path: defaultPath);
 		}
+		// If the default path does not exist, log a warning
 		else
 		{
+			// Log a warning that the default MPCORB.DAT file was not found
 			logger.Warn(message: "Default MPCORB.DAT file not found.");
 		}
 		// Update status label to indicate that the online date is being checked
@@ -302,6 +311,8 @@ internal partial class ArchiveMpcorbForm : BaseKryptonForm
 		// Attempt to retrieve the last modified date from the online source and update the status label accordingly
 		try
 		{
+			// Log that the application is attempting to retrieve the online last modified date for MPCORB.DAT.gz
+			logger.Info(message: "Retrieving online last modified date for MPCORB.DAT.gz.");
 			// Retrieve the last modified date of the online MPCORB file
 			_onlineLastModified = await GetOnlineLastModifiedAsync().ConfigureAwait(continueOnCapturedContext: false);
 			// Update the status label with the retrieved online date or indicate that it could not be retrieved
@@ -315,8 +326,22 @@ internal partial class ArchiveMpcorbForm : BaseKryptonForm
 			logger.Error(exception: ex, message: "Error checking online date");
 			ShowErrorMessage(message: $"Error checking online date: {ex.Message}");
 		}
+		// Play the open sound in the background to indicate that the form has been opened
+		AudioPlayback.PlayOpenSound();
 		// Update the target file name based on the selected format and online last modified date
 		UpdateTargetFileName();
+	}
+
+	/// <summary>Performs the close actions for the archive MPCORB form.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data for the form-closing event.</param>
+	/// <remarks>This method is called when the ArchiveMpcorbForm is closing. It logs the closing action and plays a close sound to indicate that the form is being closed.</remarks>
+	private void ArchiveMpcorbForm_FormClosing(object sender, FormClosingEventArgs e)
+	{
+		// Log that the form is closing
+		logger.Info(message: "ArchiveMpcorbForm is closing.");
+		// Play the close sound in the background to indicate that the form is closing
+		AudioPlayback.PlayCloseSound();
 	}
 
 	#endregion
