@@ -37,8 +37,9 @@ internal sealed class AudioPlayback
 
 	/// <summary>Plays an embedded WAV resource asynchronously without blocking the UI thread.</summary>
 	/// <param name="resourceName">The fully qualified manifest resource name of the WAV file.</param>
+	/// <returns>A task that represents the playback operation.</returns>
 	/// <remarks>This method uses a background task to load and play the sound, logging any errors that occur during playback.</remarks>
-	private static void PlaySoundInBackground(MemoryStream resourceName)
+	private static Task PlaySoundInBackground(MemoryStream resourceName)
 	{
 		// Check if the user has enabled UI sound playback in the application settings.
 		if (Settings.Default.userEnableUiSound)
@@ -54,7 +55,7 @@ internal sealed class AudioPlayback
 				ArgumentNullException.ThrowIfNull(argument: resourceName);
 			}
 			// Start a background task to play the sound resource.
-			_ = Task.Run(() =>
+			return Task.Run(() =>
 			{
 				// Log that the background task for sound playback has started.
 				logger.Info(message: "Background task for sound playback started.");
@@ -103,6 +104,7 @@ internal sealed class AudioPlayback
 				}
 			});
 		}
+		return Task.CompletedTask;
 	}
 
 	/// <summary>Plays the start sound resource asynchronously without blocking the UI thread.</summary>
@@ -127,12 +129,13 @@ internal sealed class AudioPlayback
 
 	/// <summary>Plays the shutdown sound resource asynchronously without blocking the UI thread.</summary>
 	/// <remarks>This method logs the request to play the shutdown sound and calls the PlaySoundInBackground method with the appropriate resource name.</remarks>
-	public static void PlayShutDownSound()
+	/// <returns>A task that represents the shutdown sound playback operation.</returns>
+	public static Task PlayShutDownSound()
 	{
 		// Log the request to play the shutdown sound resource.
 		logger.Info(message: "Request to play shutdown sound received.");
 		// Play the shutdown sound resource in the background.
-		PlaySoundInBackground(resourceName: Properties.Resources.ui_shutdown);
+		return PlaySoundInBackground(resourceName: Properties.Resources.ui_shutdown);
 	}
 
 	/// <summary>Plays the open sound resource asynchronously without blocking the UI thread.</summary>

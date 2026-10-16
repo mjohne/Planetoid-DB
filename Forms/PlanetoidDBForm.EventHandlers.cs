@@ -245,7 +245,7 @@ public partial class PlanetoidDbForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="FormClosingEventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to handle the form closing event.</remarks>
-	private void PlanetoidDBForm_FormClosing(object sender, FormClosingEventArgs e)
+	private async void PlanetoidDBForm_FormClosing(object sender, FormClosingEventArgs e)
 	{
 		// Log the FormClosing event of the form
 		logger.Info(message: "PlanetoidDBForm_FormClosing event triggered");
@@ -305,7 +305,7 @@ public partial class PlanetoidDbForm
 			// Log the attempt to play the shutdown sound
 			logger.Info(message: "Attempting to play shutdown sound.");
 			// Play the shutdown sound in the background
-			AudioPlayback.PlayShutDownSound();
+			await AudioPlayback.PlayShutDownSound();
 		}
 		// Catch any exceptions that occur during the playback of the shutdown sound and log a warning
 		catch (Exception ex)
