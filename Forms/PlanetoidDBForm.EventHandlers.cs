@@ -35,6 +35,11 @@ public partial class PlanetoidDbForm
 	/// <remarks>This field is used to format messages for the bookmark audit summary.</remarks>
 	private static readonly CompositeFormat bookmarkAuditSummary = CompositeFormat.Parse(format: I18nStrings.BookmarkAuditSummary);
 
+	/// <summary>Indicates whether shutdown sound playback has started.</summary>
+	private bool isShutdownSoundPlaybackStarted;
+
+	/// <summary>Indicates whether shutdown sound playback has completed.</summary>
+	private bool isShutdownSoundPlaybackComplete;
 
 	#region form event handlers
 
@@ -234,22 +239,59 @@ public partial class PlanetoidDbForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="FormClosingEventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to handle the form closing event.</remarks>
-	private void PlanetoidDBForm_FormClosing(object sender, FormClosingEventArgs e)
+	private async void PlanetoidDBForm_FormClosing(object sender, FormClosingEventArgs e)
 	{
+		// Keep the form open until the shutdown sound has finished playing
+		if (isShutdownSoundPlaybackComplete)
+		{
+			return;
+		}
+		e.Cancel = true;
+		if (isShutdownSoundPlaybackStarted)
+		{
+			return;
+		}
+		isShutdownSoundPlaybackStarted = true;
 		// Log the closing of the application
 		logger.Info(message: "Closing application");
 		// Save the current application settings before closing the form
-		Settings.Default.Save();
-		// Check if the file exists before attempting to delete it
-		if (File.Exists(path: filenameMpcorbTemp))
+		try
 		{
-			// Delete the temporary file if it exists
-			File.Delete(path: filenameMpcorbTemp);
-			// Log the deletion of the temporary file
-			logger.Info(message: $"Deleted temporary file: {filenameMpcorbTemp}");
+			Settings.Default.Save();
 		}
-		// Play the shutdown sound in the background
-		PlayShutDownSoundInBackground();
+		catch (Exception ex)
+		{
+			logger.Warn(exception: ex, message: "Failed to save application settings during shutdown.");
+		}
+		// Check if the file exists before attempting to delete it
+		try
+		{
+			if (File.Exists(path: filenameMpcorbTemp))
+			{
+				// Delete the temporary file if it exists
+				File.Delete(path: filenameMpcorbTemp);
+				// Log the deletion of the temporary file
+				logger.Info(message: $"Deleted temporary file: {filenameMpcorbTemp}");
+			}
+		}
+		catch (Exception ex)
+		{
+			logger.Warn(exception: ex, message: "Failed to delete the temporary file during shutdown.");
+		}
+		// Play the shutdown sound before allowing the application to exit
+		try
+		{
+			await PlayShutDownSoundInBackground();
+		}
+		catch (Exception ex)
+		{
+			logger.Warn(exception: ex, message: "Failed to play the shutdown sound.");
+		}
+		finally
+		{
+			isShutdownSoundPlaybackComplete = true;
+			Close();
+		}
 	}
 
 	#endregion

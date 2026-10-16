@@ -3611,10 +3611,10 @@ public partial class PlanetoidDbForm
 
 	/// <summary>Plays the shut down sound in a background task.</summary>
 	/// <remarks>The resource is loaded from the application resources and played asynchronously so that the splash screen remains responsive. The sound is copied into a fresh stream and played synchronously on the worker thread so the player stays alive for the full playback duration.</remarks>
-	private static void PlayShutDownSoundInBackground()
+	private static Task PlayShutDownSoundInBackground()
 	{
 		// Run the sound playback in a background task to avoid blocking the UI thread
-		_ = Task.Run(static () =>
+		return Task.Run(static () =>
 		{
 			// Log that the background task has started
 			logger.Info(message: "Background task for shut down sound playback started.");

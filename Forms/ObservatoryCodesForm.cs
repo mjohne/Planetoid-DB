@@ -73,6 +73,7 @@ internal partial class ObservatoryCodesForm : BaseKryptonForm
 	{
 		// Initialize the form components
 		InitializeComponent();
+		FormClosing += ObservatoryCodesForm_FormClosing;
 	}
 
 	#endregion

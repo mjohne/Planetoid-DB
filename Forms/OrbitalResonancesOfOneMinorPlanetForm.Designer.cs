@@ -926,7 +926,7 @@ partial class OrbitalResonancesOfOneMinorPlanetForm
 		AutoScaleDimensions = new SizeF(7F, 15F);
 		AutoScaleMode = AutoScaleMode.Font;
 		ClientSize = new Size(729, 251);
-		ControlBox = false;
+		ControlBox = true;
 		Controls.Add(toolStripContainer);
 		FormBorderStyle = FormBorderStyle.SizableToolWindow;
 		Icon = (Icon)resources.GetObject("$this.Icon");
