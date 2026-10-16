@@ -215,6 +215,8 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <remarks>This constructor initializes the form and sets the version text.</remarks>
 	public PlanetoidDbForm()
 	{
+		// Log the initialization without an MPCORB.DAT file path
+		logger.Info(message: "Initializing PlanetoidDbForm without MPCORB.DAT file path.");
 		// Initialize the form components
 		InitializeComponent();
 		// Set the version text to the current assembly version
@@ -230,6 +232,8 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <remarks>This constructor initializes the form and sets the version text.</remarks>
 	public PlanetoidDbForm(string mpcorbDatFilePath)
 	{
+		// Log the initialization with the provided MPCORB.DAT file path
+		logger.Info(message: $"Initializing PlanetoidDbForm with MPCORB.DAT file path: {mpcorbDatFilePath}");
 		// Initialize the form components
 		InitializeComponent();
 		TextExtra = AssemblyInfo.AssemblyVersion;

@@ -22,9 +22,7 @@ using Planetoid_DB.Resources;
 
 using System.Diagnostics;
 using System.Globalization;
-using System.Media;
 using System.Net.NetworkInformation;
-using System.Resources;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -1957,20 +1955,50 @@ public partial class PlanetoidDbForm
 		// Persist and log only when the setting actually changes
 		if (Settings.Default.userEnableExperimentalFeatures)
 		{
+			// Update the user settings to disable experimental features
 			Settings.Default.userEnableExperimentalFeatures = false;
 			Settings.Default.Save();
+			// Log the action of disabling experimental features
 			logger.Info(message: "Experimental features disabled.");
 		}
 		// Show a message box to inform the user about the disabled experimental features
 		if (!silent)
 		{
-			_ = KryptonMessageBox.Show(
-				owner: this,
-				text: "Experimental features have been disabled.",
-				caption: I18nStrings.InformationCaption,
-				buttons: KryptonMessageBoxButtons.OK,
-				icon: KryptonMessageBoxIcon.Information,
-				defaultButton: KryptonMessageBoxDefaultButton.Button1);
+			_ = KryptonMessageBox.Show(owner: this, text: "Experimental features have been disabled.", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information, defaultButton: KryptonMessageBoxDefaultButton.Button1);
+		}
+	}
+
+	/// <summary>Enables UI sound for the application and persists the setting when it changes.</summary>
+	/// <remarks>This method updates the user settings and logs the changes. It also updates the corresponding UI elements for the UI sound option.</remarks>
+	private void EnableUiSound()
+	{
+		// Enable UI sound in the application
+		toolStripMenuItemOptionEnableUiSound.Checked = true;
+		// Persist and log only when the setting actually changes
+		if (!Settings.Default.userEnableUiSound)
+		{
+			// Update the user settings to enable UI sound
+			Settings.Default.userEnableUiSound = true;
+			Settings.Default.Save();
+			// Log the action of enabling UI sound
+			logger.Info(message: "UI sound enabled.");
+		}
+	}
+
+	/// <summary>Disables UI sound for the application and persists the setting when it changes.</summary>
+	/// <remarks>This method updates the user settings and logs the changes. It also updates the corresponding UI elements for the UI sound option.</remarks>
+	private void DisableUiSound()
+	{
+		// Disable UI sound in the application
+		toolStripMenuItemOptionEnableUiSound.Checked = false;
+		// Persist and log only when the setting actually changes
+		if (Settings.Default.userEnableUiSound)
+		{
+			// Update the user settings to disable UI sound
+			Settings.Default.userEnableUiSound = false;
+			Settings.Default.Save();
+			// Log the action of disabling UI sound
+			logger.Info(message: "UI sound disabled.");
 		}
 	}
 
@@ -1990,17 +2018,22 @@ public partial class PlanetoidDbForm
 		// Attempt to read the ASTORB.DAT file and handle potential exceptions
 		try
 		{
+			// Log the action of loading the ASTORB.DAT file
+			logger.Info(message: $"Loading ASTORB.DAT from {filenameAstorbDat}");
 			// Read all lines from the ASTORB.DAT file and add them to the database list
 			astorbDatabase.AddRange(collection: File.ReadAllLines(path: filenameAstorbDat));
 			// Get the last write time of the ASTORB.DAT file for display in the tab
 			string fileDate = File.GetLastWriteTime(path: filenameAstorbDat).ToString(format: "yyyy-MM-dd", provider: CultureInfo.CurrentCulture);
 			kryptonPageAstorbDat.Text = $"ASTORB.DAT ({fileDate})";
+			// Log the successful loading of the ASTORB.DAT file with the number of lines and the file date
 			logger.Info(message: $"ASTORB.DAT loaded: {astorbDatabase.Count} lines, dated {fileDate}.");
 		}
 		// Handle specific exceptions related to file access and log them
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
+			// Log the error and update the tab text to indicate an error occurred while loading the file
 			logger.Error(exception: ex, message: $"Error loading ASTORB.DAT: {ex.Message}");
+			// Update the tab text to indicate an error occurred while loading the file
 			kryptonPageAstorbDat.Text = $"ASTORB.DAT ({I18nStrings.ErrorCaption})";
 		}
 	}
@@ -2013,6 +2046,9 @@ public partial class PlanetoidDbForm
 		// Handle the case where the database is empty or position is out of range
 		if (astorbDatabase.Count == 0 || position < 0 || position >= astorbDatabase.Count)
 		{
+			// Log a warning that the requested position is out of range and clear all labels
+			logger.Warn(message: $"ASTORB.DAT position {position} is out of range. Database count: {astorbDatabase.Count}");
+			// Clear all labels to avoid displaying stale data
 			ClearCurrentAstorbRecordDisplay();
 			return;
 		}
@@ -2021,6 +2057,9 @@ public partial class PlanetoidDbForm
 		// If the entry string is null or empty, clear all labels and return early
 		if (string.IsNullOrEmpty(value: entryStr))
 		{
+			// Log a warning that the entry at the specified position is null or empty
+			logger.Warn(message: $"ASTORB.DAT entry at position {position} is null or empty.");
+			// Clear all labels to avoid displaying stale data
 			ClearCurrentAstorbRecordDisplay();
 			return;
 		}
@@ -2092,11 +2131,13 @@ public partial class PlanetoidDbForm
 			labelAstorbPerihelionDistData.Text = ExtractField(span: entrySpan, start: 214, length: 9);
 			// Col 224-232 (0-based 223,9): Aphelion distance (AU)
 			labelAstorbAphelionDistData.Text = ExtractField(span: entrySpan, start: 223, length: 9);
-			logger.Debug(message: $"ASTORB record at position {position} displayed.");
+			// Log the action of displaying the ASTORB record
+			logger.Info(message: $"ASTORB record at position {position} displayed.");
 		}
 		// Handle any unexpected exceptions during the parsing and display process
 		catch (Exception ex)
 		{
+			// Log the error
 			logger.Error(message: $"Error navigating to ASTORB position {position}: {ex.Message}", exception: ex);
 		}
 		// Resume layout after updating labels
@@ -3534,148 +3575,6 @@ public partial class PlanetoidDbForm
 			// Log a warning if the sender is not a valid ToolStripMenuItem with a BookmarkEntry
 			logger.Warn(message: "Bookmark navigation failed: sender is not a valid ToolStripMenuItem with a BookmarkEntry.");
 		}
-	}
-
-	#endregion
-
-	#region audio files
-
-	/// <summary>Plays the send data sound in a background task.</summary>
-	/// <remarks>The resource is loaded from the application resources and played asynchronously so that the splash screen remains responsive. The sound is copied into a fresh stream and played synchronously on the worker thread so the player stays alive for the full playback duration.</remarks>
-	private static void PlaySendDataSoundInBackground()
-	{
-		// Run the sound playback in a background task to avoid blocking the UI thread
-		_ = Task.Run(static () =>
-		{
-			// Log that the background task has started
-			logger.Info(message: "Background task for send data sound playback started.");
-			try
-			{
-				// Load the send data sound resource from the application's resources
-				ResourceManager resourceManager = new(baseName: "Planetoid_DB.Properties.Resources", assembly: typeof(ObservatoryCodesForm).Assembly);
-				// Attempt to retrieve the 'ui-senddata' sound resource
-				object? resource = resourceManager.GetObject(name: "ui-senddata", culture: CultureInfo.CurrentCulture);
-				// Check if the resource was found
-				if (resource is null)
-				{
-					// Log a warning if the resource was not found and exit the method
-					logger.Warn(message: "Send data sound resource 'ui-senddata' was not found.");
-					return;
-				}
-				// Determine the type of the resource and convert it to a byte array for playback
-				byte[] resourceBytes;
-				// Use a switch statement to handle different resource types (byte array, MemoryStream, Stream)
-				switch (resource)
-				{
-					case byte[] bytes:
-						resourceBytes = bytes;
-						break;
-					case MemoryStream memoryStream:
-						memoryStream.Position = 0;
-						resourceBytes = memoryStream.ToArray();
-						break;
-					case Stream stream:
-						stream.Position = 0;
-						using (MemoryStream resourceStream = new())
-						{
-							stream.CopyTo(destination: resourceStream);
-							resourceBytes = resourceStream.ToArray();
-						}
-						break;
-					default:
-						logger.Error(message: $"Unsupported send data sound resource format: {resource.GetType().FullName}");
-						throw new InvalidOperationException(message: "Unsupported send data sound resource format.");
-				}
-				// Check if the resource bytes are empty and log a warning if they are
-				if (resourceBytes.Length == 0)
-				{
-					logger.Warn(message: "Send data sound resource 'ui-senddata' was empty.");
-					return;
-				}
-				// Create a MemoryStream from the resource bytes and play the sound synchronously
-				using MemoryStream soundStream = new(resourceBytes);
-				using SoundPlayer soundPlayer = new(soundStream);
-				soundPlayer.Load();
-				soundPlayer.PlaySync();
-				// Log that the send data sound was played successfully
-				logger.Info(message: "Send data sound played successfully.");
-			}
-			// Catch any exceptions that occur during the sound playback and log them
-			catch (Exception ex)
-			{
-				// Log the exception and continue without crashing the application
-				logger.Warn(exception: ex, message: "Failed to play the send data sound.");
-			}
-		});
-	}
-
-	/// <summary>Plays the shut down sound in a background task.</summary>
-	/// <remarks>The resource is loaded from the application resources and played asynchronously so that the splash screen remains responsive. The sound is copied into a fresh stream and played synchronously on the worker thread so the player stays alive for the full playback duration.</remarks>
-	private static Task PlayShutDownSoundInBackground()
-	{
-		// Run the sound playback in a background task to avoid blocking the UI thread
-		return Task.Run(static () =>
-		{
-			// Log that the background task has started
-			logger.Info(message: "Background task for shut down sound playback started.");
-			try
-			{
-				// Load the shut down sound resource from the application's resources
-				ResourceManager resourceManager = new(baseName: "Planetoid_DB.Properties.Resources", assembly: typeof(ObservatoryCodesForm).Assembly);
-				// Attempt to retrieve the 'ui-shutdown' sound resource
-				object? resource = resourceManager.GetObject(name: "ui-shutdown", culture: CultureInfo.CurrentCulture);
-				// Check if the resource was found
-				if (resource is null)
-				{
-					// Log a warning if the resource was not found and exit the method
-					logger.Warn(message: "Shut down sound resource 'ui-shutdown' was not found.");
-					return;
-				}
-				// Determine the type of the resource and convert it to a byte array for playback
-				byte[] resourceBytes;
-				// Use a switch statement to handle different resource types (byte array, MemoryStream, Stream)
-				switch (resource)
-				{
-					case byte[] bytes:
-						resourceBytes = bytes;
-						break;
-					case MemoryStream memoryStream:
-						memoryStream.Position = 0;
-						resourceBytes = memoryStream.ToArray();
-						break;
-					case Stream stream:
-						stream.Position = 0;
-						using (MemoryStream resourceStream = new())
-						{
-							stream.CopyTo(destination: resourceStream);
-							resourceBytes = resourceStream.ToArray();
-						}
-						break;
-					default:
-						logger.Error(message: $"Unsupported shut down sound resource format: {resource.GetType().FullName}");
-						throw new InvalidOperationException(message: "Unsupported shut down sound resource format.");
-				}
-				// Check if the resource bytes are empty and log a warning if they are
-				if (resourceBytes.Length == 0)
-				{
-					logger.Warn(message: "Shut down sound resource 'ui-shutdown' was empty.");
-					return;
-				}
-				// Create a MemoryStream from the resource bytes and play the sound synchronously
-				using MemoryStream soundStream = new(resourceBytes);
-				using SoundPlayer soundPlayer = new(soundStream);
-				soundPlayer.Load();
-				soundPlayer.PlaySync();
-				// Log that the shut down sound was played successfully
-				logger.Info(message: "Shut down sound played successfully.");
-			}
-			// Catch any exceptions that occur during the sound playback and log them
-			catch (Exception ex)
-			{
-				// Log the exception and continue without crashing the application
-				logger.Warn(exception: ex, message: "Failed to play the shut down sound.");
-			}
-		});
 	}
 
 	#endregion
