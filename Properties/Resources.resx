@@ -131,17 +131,22 @@
   </data>
   <data name="ui-close" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Audio\ui-close.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <comment>close sound</comment>
   </data>
   <data name="ui-open" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Audio\ui-open.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <comment>open sound</comment>
   </data>
   <data name="ui-senddata" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Audio\ui-senddata.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <comment>senddata sound</comment>
   </data>
   <data name="ui-shutdown" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Audio\ui-shutdown.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <comment>shutdown sound</comment>
   </data>
   <data name="ui-start" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Audio\ui-start.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <comment>start sound</comment>
   </data>
 </root>
