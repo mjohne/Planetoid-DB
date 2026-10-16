@@ -605,6 +605,7 @@ partial class TisserandParameterOfOneMinorPlanetForm
 		kryptonStatusStrip.AccessibleRole = AccessibleRole.StatusBar;
 		kryptonStatusStrip.AllowClickThrough = true;
 		kryptonStatusStrip.AllowItemReorder = true;
+		kryptonStatusStrip.Dock = DockStyle.None;
 		kryptonStatusStrip.Font = new Font("Segoe UI", 9F);
 		kryptonStatusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
 		kryptonStatusStrip.Location = new Point(0, 0);
@@ -1460,6 +1461,7 @@ partial class TisserandParameterOfOneMinorPlanetForm
 		SizeGripStyle = SizeGripStyle.Hide;
 		StartPosition = FormStartPosition.CenterScreen;
 		Text = "Tisserand parameters of a minor planet";
+		FormClosing += TisserandParameterOfOneMinorPlanetForm_FormClosing;
 		Load += TisserandParameterOfOneMinorPlanetForm_Load;
 		Enter += Control_Enter;
 		Leave += Control_Leave;

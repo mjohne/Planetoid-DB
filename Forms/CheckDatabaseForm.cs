@@ -16,6 +16,7 @@
 using NLog;
 
 using Planetoid_DB.Forms;
+using Planetoid_DB.Helpers;
 
 using System.Diagnostics;
 using System.Globalization;
@@ -85,6 +86,8 @@ internal partial class CheckDatabaseForm : BaseKryptonForm
 	/// <remarks>This constructor initializes the form components and configures the UI for the specified database.</remarks>
 	public CheckDatabaseForm(string url, string localFilePath, string databaseName)
 	{
+		// Log the initialization of the form with the provided parameters
+		logger.Info(message: $"Initializing CheckDatabaseForm for {databaseName} with URL: {url} and local file path: {localFilePath}");
 		// Initialize the form components
 		InitializeComponent();
 		// Store the URL and local file path for later use
@@ -106,6 +109,7 @@ internal partial class CheckDatabaseForm : BaseKryptonForm
 		labelDatabaseFileOnline.AccessibleName = $"Online {databaseName} file";
 		labelDatabaseFileOnline.ToolTipValues.Description = $"Information about the online {databaseName} file";
 		labelDatabaseFileOnline.ToolTipValues.Heading = $"Online {databaseName} file";
+		// Log that the form has been initialized
 		logger.Info(message: $"Initialized CheckDatabaseForm for {databaseName} with URL: {url} and local file path: {localFilePath}");
 	}
 
@@ -232,6 +236,18 @@ internal partial class CheckDatabaseForm : BaseKryptonForm
 			// Set the label text to indicate no update is needed
 			labelUpdateNeeded.Text = I18nStrings.NoUpdateNeededText;
 		}
+	}
+
+	/// <summary>Handles the form-closing event for the database check form.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data for the form-closing event.</param>
+	/// <remarks>This method logs that the form is closing and plays a close sound in the background to indicate that the form is closing.</remarks>
+	private void CheckDatabaseForm_FormClosing(object sender, FormClosingEventArgs e)
+	{
+		// Log that the form is closing
+		logger.Info(message: "CheckDatabaseForm is closing.");
+		// Play the close sound in the background to indicate that the form is closing
+		AudioPlayback.PlayCloseSound();
 	}
 
 	#endregion

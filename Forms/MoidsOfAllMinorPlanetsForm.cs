@@ -94,6 +94,8 @@ internal partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>Each element in <paramref name="planetoids"/> must be a raw MPCORB-format string.</remarks>
 	public MoidsOfAllMinorPlanetsForm(IReadOnlyList<string> planetoids)
 	{
+		// Log the initialization of the form with the count of planetoid records
+		logger.Info(message: $"Initializing MoidsOfAllMinorPlanetsForm with {planetoids.Count} planetoid records.");
 		// Initialize the form components and controls
 		InitializeComponent();
 		// Store the planetoid data for processing
@@ -104,6 +106,8 @@ internal partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 		{
 			_originalColumnHeaders[i] = listView.Columns[index: i].Text;
 		}
+		// Log that the form has been initialized successfully
+		logger.Info(message: "MoidsOfAllMinorPlanetsForm initialized successfully.");
 	}
 
 	#endregion
@@ -270,6 +274,11 @@ internal partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>Clears the status bar when the form is loaded.</remarks>
 	private void MoidsOfAllMinorPlanetsForm_Load(object sender, EventArgs e)
 	{
+		// Log that the form has loaded and clear the status bar
+		logger.Info(message: "MoidsOfAllMinorPlanetsForm loaded. Clearing status bar.");
+		// Play the open sound in the background to indicate that the form has been opened
+		AudioPlayback.PlayOpenSound();
+		// Clear the status bar label to ensure no residual messages are displayed
 		ClearStatusBar(label: labelInformation);
 	}
 
@@ -279,7 +288,10 @@ internal partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>Cancels any running calculation when the form is closing.</remarks>
 	private void MoidsOfAllMinorPlanetsForm_FormClosing(object sender, FormClosingEventArgs e)
 	{
-		logger.Info(message: "Form is closing. Cancelling any running calculation.");
+		// Log that the form is closing
+		logger.Info(message: "MoidsOfAllMinorPlanetsForm is closing. Cancelling any running calculation.");
+		// Play the close sound in the background to indicate that the form is closing
+		AudioPlayback.PlayCloseSound();
 		_cancellationTokenSource?.Cancel();
 	}
 

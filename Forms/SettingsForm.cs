@@ -16,6 +16,7 @@
 using NLog;
 
 using Planetoid_DB.Forms;
+using Planetoid_DB.Helpers;
 
 using System.Diagnostics;
 
@@ -41,9 +42,12 @@ internal partial class SettingsForm : BaseKryptonForm
 	/// <remarks>This constructor initializes the form components.</remarks>
 	public SettingsForm()
 	{
+		// Log the initialization of the SettingsForm
 		logger.Info(message: "Initializing SettingsForm.");
 		// Initialize the form components
 		InitializeComponent();
+		// Log that the components have been initialized
+		logger.Info(message: "SettingsForm components initialized.");
 	}
 
 	#endregion
@@ -65,10 +69,26 @@ internal partial class SettingsForm : BaseKryptonForm
 	/// <remarks>Clears the status bar and configures the initial enabled state of dependent controls.</remarks>
 	private void SettingsForm_Load(object sender, EventArgs e)
 	{
+		// Log that the form has been loaded
 		logger.Info(message: "SettingsForm loaded.");
+		// Play the open sound in the background to indicate that the form has been opened
+		AudioPlayback.PlayOpenSound();
+		// Clear the status bar to ensure no residual messages are displayed
 		ClearStatusBar(label: labelInformation);
 		// Enable the specific-item numeric up-down only when its radio button is selected
 		numericUpDownStartSpecificItem.Enabled = radioButtonStartSpecific.Checked;
+	}
+
+	/// <summary>Logs the settings form shutdown and plays the close sound while the form is closing.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data for the form-closing operation.</param>
+	/// <remarks>This event handler is triggered when the form is closing, allowing for logging and audio feedback.</remarks>
+	private void SettingsForm_FormClosing(object sender, FormClosingEventArgs e)
+	{
+		// Log that the form is closing
+		logger.Info(message: "SettingsForm is closing.");
+		// Play the close sound in the background to indicate that the form is closing
+		AudioPlayback.PlayCloseSound();
 	}
 
 	#endregion

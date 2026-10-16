@@ -77,10 +77,13 @@ internal partial class AverageAsteroidForm : BaseKryptonForm
 	/// <remarks>Each element in <paramref name="planetoids"/> must be a raw MPCORB-format string. Initializes the form components and calculates the average values.</remarks>
 	public AverageAsteroidForm(IReadOnlyList<string> planetoids)
 	{
+		// Log the initialization of the form for debugging purposes
+		logger.Info(message: "Initializing AverageAsteroidForm...");
 		// Validate input and initialize form components
 		InitializeComponent();
 		// Ensure the planetoids database is not null
 		planetoidsDatabase = planetoids ?? throw new ArgumentNullException(paramName: nameof(planetoids));
+		// Log the number of planetoids loaded into the form for informational purposes
 		logger.Info(message: $"AverageAsteroidForm initialized with {planetoidsDatabase.Count} planetoids");
 	}
 
@@ -395,6 +398,11 @@ internal partial class AverageAsteroidForm : BaseKryptonForm
 	/// <remarks>Initialises the UI state on load without starting the calculation.</remarks>
 	private void AverageAsteroidForm_Load(object? sender, EventArgs e)
 	{
+		// Log that the form has loaded and is ready to start calculations
+		logger.Info(message: "AverageAsteroidForm loaded. Ready to start calculation.");
+		// Play the open sound in the background to indicate that the form has been opened
+		AudioPlayback.PlayOpenSound();
+		// Set the initial UI state to indicate that no calculation is running
 		SetCalculationRunning(running: false);
 	}
 
@@ -404,7 +412,11 @@ internal partial class AverageAsteroidForm : BaseKryptonForm
 	/// <remarks>Signals cancellation and disposes the token source so that background work does not continue against a disposed form.</remarks>
 	private void AverageAsteroidForm_FormClosing(object? sender, FormClosingEventArgs e)
 	{
-		logger.Info(message: "Form is closing. Cancelling any running calculation.");
+		// Log that the form is closing and any running calculation is being cancelled
+		logger.Info(message: "AverageAsteroidForm is closing. Cancelling any running calculation.");
+		// Play the close sound in the background to indicate that the form is closing
+		AudioPlayback.PlayCloseSound();
+		// Signal cancellation of any ongoing calculation to prevent background work from continuing after the form is closed
 		_calculationCts?.Cancel();
 		_calculationCts?.Dispose();
 		_calculationCts = null;

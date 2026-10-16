@@ -16,6 +16,7 @@
 using NLog;
 
 using Planetoid_DB.Forms;
+using Planetoid_DB.Helpers;
 
 using System.ComponentModel;
 using System.Diagnostics;
@@ -39,9 +40,12 @@ internal partial class TerminologyForm : BaseKryptonForm
 	/// <remarks>This constructor initializes the form components. </remarks>
 	public TerminologyForm()
 	{
+		// Log the initialization of the form
 		logger.Info(message: "Initializing TerminologyForm.");
 		// Initialize the form components
 		InitializeComponent();
+		// Log that the form has been initialized successfully
+		logger.Info(message: "TerminologyForm initialized successfully.");
 	}
 
 	#endregion
@@ -106,11 +110,26 @@ internal partial class TerminologyForm : BaseKryptonForm
 	/// <remarks>This event is triggered when the form has finished loading.</remarks>
 	private void TerminologyForm_Load(object sender, EventArgs e)
 	{
+		// Log that the form has loaded
 		logger.Info(message: "TerminologyForm loaded.");
+		// Play the open sound in the background to indicate that the form has been opened
+		AudioPlayback.PlayOpenSound();
 		// Initial update of the browser content
 		UpdateBrowserContent();
 		// Clear the status bar text
 		ClearStatusBar(label: labelInformation);
+	}
+
+	/// <summary>Handles the form closing event by logging the shutdown and playing the close sound.</summary>
+	/// <param name="sender">The event source (the form).</param>
+	/// <param name="e">The <see cref="FormClosingEventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This event is triggered when the form is about to close.</remarks>
+	private void TerminologyForm_FormClosing(object sender, FormClosingEventArgs e)
+	{
+		// Log that the form is closing
+		logger.Info(message: "TerminologyForm is closing.");
+		// Play the close sound in the background to indicate that the form is closing
+		AudioPlayback.PlayCloseSound();
 	}
 
 	#endregion

@@ -76,6 +76,8 @@ internal partial class DownloaderForm : BaseKryptonForm
 	/// <remarks>This constructor performs UI initialization and immediately begins the download by calling <see cref="StartDownloadAsync"/>. It must be called from the UI thread.</remarks>
 	public DownloaderForm(string url)
 	{
+		// Log the initialization of the DownloaderForm with the provided URL for debugging purposes
+		logger.Info(message: $"Initializing DownloaderForm with URL: {url}");
 		InitializeComponent();
 		// Enable double buffering for the TableLayoutPanel to prevent flickering
 		DoubleBufferingHelper.EnableDoubleBuffering(control: tableLayoutPanel);
@@ -89,39 +91,16 @@ internal partial class DownloaderForm : BaseKryptonForm
 		// Derive the extraction file path from the URL and temporary filename
 		if (!Uri.TryCreate(uriString: url, uriKind: UriKind.Absolute, result: out Uri? parsedUri))
 		{
+			// Throw an exception if the URL is not in a valid format
 			logger.Fatal(message: $"URL is not in a valid format: {url}");
 			throw new ArgumentException(message: "URL is not in a valid format.", paramName: nameof(url));
 		}
 		this.url = url;
 		string localPath = parsedUri.LocalPath;
 		// Combine the directory of the temporary filename with the filename without extension from the URL to derive the extraction path
-		extractFilePath = Path.Combine(
-			Path.GetDirectoryName(path: _filenameTemp) ?? string.Empty,
-			Path.GetFileNameWithoutExtension(path: localPath));
+		extractFilePath = Path.Combine(Path.GetDirectoryName(path: _filenameTemp) ?? string.Empty, Path.GetFileNameWithoutExtension(path: localPath));
+		// Log the derived extraction file path for debugging purposes
 		logger.Info(message: "DownloaderForm initialized. Url={Url}, TempFile={TempFile}, ExtractFile={ExtractFile}", argument1: url, argument2: _filenameTemp, argument3: extractFilePath);
-	}
-
-	/// <summary>Overrides the OnShown method to start the download workflow when the form is displayed.</summary>
-	/// <param name="e">An <see cref="EventArgs"/> that contains the event data.</param>
-	/// <remarks>This method is called when the form is first shown. It initiates the download process by calling <see cref="StartDownloadAsync"/>.</remarks>
-	protected override async void OnShown(EventArgs e)
-	{
-		// Call the base class implementation of OnShown
-		base.OnShown(e: e);
-		// Start the download workflow asynchronously
-		await StartDownloadAsync().ConfigureAwait(continueOnCapturedContext: true);
-	}
-
-	/// <summary>Overrides the OnFormClosing method to cancel any ongoing download operation when the form is closing.</summary>
-	/// <param name="e">A <see cref="FormClosingEventArgs"/> that contains the event data.</param>
-	/// <remarks>This method is called when the form is closing. It cancels any active download operation by calling <see cref="CancellationTokenSource.Cancel()"/> on the <see cref="cancellationTokenSource"/>.</remarks>
-	protected override void OnFormClosing(FormClosingEventArgs e)
-	{
-		logger.Info(message: "Form is closing. Canceling any ongoing download operation.");
-		// Cancel any ongoing download operation if the cancellation token source is not null
-		cancellationTokenSource?.Cancel();
-		// Call the base class implementation of OnFormClosing
-		base.OnFormClosing(e: e);
 	}
 
 	#endregion
@@ -443,6 +422,57 @@ internal partial class DownloaderForm : BaseKryptonForm
 				await fileStream.FlushAsync(cancellationToken: token).ConfigureAwait(continueOnCapturedContext: false);
 			}
 		}
+	}
+
+	#endregion
+
+	#region Form event handlers
+	private void DownloaderForm_Load(object sender, EventArgs e)
+	{
+		// Log the form load event for debugging purposes
+		logger.Info(message: "DownloaderForm loaded");
+		// Play the open sound in the background to indicate that the form has been opened
+		AudioPlayback.PlayOpenSound();
+	}
+
+	/// <summary>Handles the form-closing event for the downloader form.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data for the form-closing operation.</param>
+	/// <remarks>This method is called when the form is closing. It logs the closing event and plays a close sound to indicate that the form is closing.</remarks>
+	private void DownloaderForm_FormClosing(object sender, FormClosingEventArgs e)
+	{
+		// Log that the form is closing
+		logger.Info(message: "Form is closing. Canceling any ongoing download operation.");
+		// Cancel any ongoing download operation if the cancellation token source is not null
+		cancellationTokenSource?.Cancel();
+		// Play the close sound in the background to indicate that the form is closing
+		AudioPlayback.PlayCloseSound();
+	}
+
+	/// <summary>Overrides the OnShown method to start the download workflow when the form is displayed.</summary>
+	/// <param name="e">An <see cref="EventArgs"/> that contains the event data.</param>
+	/// <remarks>This method is called when the form is first shown. It initiates the download process by calling <see cref="StartDownloadAsync"/>.</remarks>
+	protected override async void OnShown(EventArgs e)
+	{
+		// Call the base class implementation of OnShown
+		base.OnShown(e: e);
+		// Start the download workflow asynchronously
+		await StartDownloadAsync().ConfigureAwait(continueOnCapturedContext: true);
+	}
+
+	/// <summary>Overrides the OnFormClosing method to cancel any ongoing download operation when the form is closing.</summary>
+	/// <param name="e">A <see cref="FormClosingEventArgs"/> that contains the event data.</param>
+	/// <remarks>This method is called when the form is closing. It cancels any active download operation by calling <see cref="CancellationTokenSource.Cancel()"/> on the <see cref="cancellationTokenSource"/>.</remarks>
+	protected override void OnFormClosing(FormClosingEventArgs e)
+	{
+		// Log that the form is closing
+		logger.Info(message: "Form is closing. Canceling any ongoing download operation.");
+		// Cancel any ongoing download operation if the cancellation token source is not null
+		cancellationTokenSource?.Cancel();
+		// Play the close sound in the background to indicate that the form is closing
+		AudioPlayback.PlayCloseSound();
+		// Call the base class implementation of OnFormClosing
+		base.OnFormClosing(e: e);
 	}
 
 	#endregion

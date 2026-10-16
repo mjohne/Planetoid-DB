@@ -61,6 +61,8 @@ internal partial class DistributionsForm : BaseKryptonForm
 	/// <remarks>The main form passes the necessary raw MPCORB data to this dialog so the histogram can be generated without directly accessing shared UI state.</remarks>
 	public DistributionsForm(IReadOnlyList<string> planetoids)
 	{
+		// Log the initialization of the form with the count of planetoids to be processed. This provides a record of how many records are being handled when the form is created, which can be useful for debugging and performance analysis.
+		logger.Info(message: "Initializing HistogramsForm with {0} planetoids.", argument: planetoids.Count);
 		InitializeComponent();
 		// Store the supplied planetoid data for histogram generation.
 		_planetoids = planetoids;
@@ -68,6 +70,7 @@ internal partial class DistributionsForm : BaseKryptonForm
 		InitializeSelections();
 		// Initialize the progress bar and taskbar progress indicator to a known state.
 		UpdateRunningState(isRunning: false);
+		// Clear any previously displayed results to ensure the form starts with a clean state. This prepares the ListView and chart for new histogram data to be generated and displayed.
 		ResetDisplayedResults();
 		// The form is now ready for user interaction, and the logger can record any subsequent events.
 		logger.Info(message: "HistogramsForm initialized with {0} planetoids.", argument: _planetoids.Count);
@@ -589,13 +592,29 @@ internal partial class DistributionsForm : BaseKryptonForm
 
 	#region Form event handlers
 
+	/// <summary>Initializes the form when it is loaded.</summary>
+	/// <param name="sender">The object that raised the event.</param>
+	/// <param name="e">The event data associated with the form load event.</param>
+	/// <remarks>This event handler is called when the form is first loaded, and it performs any necessary initialization tasks, such as logging the load event and playing an open sound to indicate that the form has been opened.</remarks>
+	private void DistributionsForm_Load(object sender, EventArgs e)
+	{
+		// Log that the form has been loaded
+		logger.Info(message: "DistributionsForm loaded.");
+		// Play the open sound in the background to indicate that the form has been opened
+		AudioPlayback.PlayOpenSound();
+	}
+
 	/// <summary>Handles the FormClosing event to cancel any running histogram operation.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data associated with the form-closing request.</param>
 	/// <remarks>The running task is canceled so the form can close cleanly without leaving background work behind.</remarks>
 	private void DistributionsForm_FormClosing(object? sender, FormClosingEventArgs e)
 	{
-		logger.Warn(message: "Form is closing, canceling any running histogram operation.");
+		// Log a warning message indicating that the form is closing and any running histogram operation will be canceled. This provides visibility into the application's behavior and helps with debugging if needed.
+		logger.Warn(message: "DistributionsForm is closing, canceling any running histogram operation.");
+		// Play the close sound in the background to indicate that the form is closing
+		AudioPlayback.PlayCloseSound();
+		// Request cancellation of any running histogram generation task to ensure that the form can close cleanly without leaving background work behind. This allows the application to terminate gracefully and prevents potential issues with lingering tasks.
 		_cancellationTokenSource?.Cancel();
 	}
 

@@ -64,6 +64,8 @@ internal partial class AsteroidFamiliesForm : BaseKryptonForm
 	/// <remarks>This field is updated when the user clicks a column header in the member list view to toggle the sort order.</remarks>
 	private SortOrder _sortOrder = SortOrder.None;
 
+	#region Constructor
+
 	/// <summary>Initializes a new instance of the <see cref="AsteroidFamiliesForm"/> class.</summary>
 	/// <param name="planetoids">The list of raw planetoid data lines from the MPCORB database.</param>
 	public AsteroidFamiliesForm(IReadOnlyList<string> planetoids)
@@ -71,6 +73,8 @@ internal partial class AsteroidFamiliesForm : BaseKryptonForm
 		InitializeComponent();
 		_planetoids = planetoids;
 	}
+
+	#endregion
 
 	#region Helpers
 
@@ -416,13 +420,28 @@ internal partial class AsteroidFamiliesForm : BaseKryptonForm
 
 	#region Form event handlers
 
+	/// <summary>Initializes the asteroid families form when it is displayed.</summary>
+	/// <param name="sender">The source of the event that triggered the load.</param>
+	/// <param name="e">The event data associated with the load event.</param>
+	/// <remarks>This method is called when the form is loaded to perform any necessary initialization tasks, such as logging and playing an open sound.</remarks>
+	private void AsteroidFamiliesForm_Load(object sender, EventArgs e)
+	{
+		// Log that the form has been loaded
+		logger.Info(message: "AsteroidFamiliesForm loaded.");
+		// Play the open sound in the background to indicate that the form has been opened
+		AudioPlayback.PlayOpenSound();
+	}
+
 	/// <summary>Cancels any active detection and releases resources when the form is closing.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
 	/// <remarks>This method is called when the form is closing to cancel any active detection and release resources.</remarks>
 	private void AsteroidFamiliesForm_FormClosing(object? sender, FormClosingEventArgs e)
 	{
+		// We log an informational message indicating that the form is closing and that we are cancelling any active detection and releasing resources.
 		logger.Info(message: "Form is closing. Cancelling any active detection and releasing resources.");
+		// Play the close sound in the background to indicate that the form is closing
+		AudioPlayback.PlayCloseSound();
 		// If a cancellation token source exists, signal cancellation and dispose of it to release resources.
 		if (_cancellationTokenSource != null)
 		{

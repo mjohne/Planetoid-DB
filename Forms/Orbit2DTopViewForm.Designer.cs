@@ -208,6 +208,7 @@ partial class Orbit2DTopViewForm
 		SizeGripStyle = SizeGripStyle.Hide;
 		StartPosition = FormStartPosition.CenterScreen;
 		Text = "Orbit visualization";
+		FormClosing += Orbit2DTopViewForm_FormClosing;
 		Load += OrbitsForm_Load;
 		toolStripContainer.BottomToolStripPanel.ResumeLayout(false);
 		toolStripContainer.BottomToolStripPanel.PerformLayout();

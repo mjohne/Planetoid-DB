@@ -13,10 +13,10 @@
  * See LICENSE file in the project root for license information.
  */
 
-
 using NLog;
 
 using Planetoid_DB.Forms;
+using Planetoid_DB.Helpers;
 using Planetoid_DB.Properties;
 
 using System.Diagnostics;
@@ -60,6 +60,8 @@ internal partial class DatabaseInformationForm : BaseKryptonForm
 	/// <remarks>This constructor initializes the form components.</remarks>
 	public DatabaseInformationForm()
 	{
+		// Log an informational message indicating that the form is being initialized
+		logger.Info(message: "Initializing DatabaseInformationForm.");
 		// Initialize the form components
 		InitializeComponent();
 		// Log a debug message indicating that the form has been initialized
@@ -100,15 +102,16 @@ internal partial class DatabaseInformationForm : BaseKryptonForm
 	/// <remarks>This method is called when the database information form loads.</remarks>
 	private void DatabaseInformationForm_Load(object sender, EventArgs e)
 	{
+		// Log that the form has loaded and is attempting to read database file information
+		logger.Info(message: "DatabaseInformationForm loaded. Attempting to read database file information.");
 		// Path to the database file
 		string? dbFilePath = Settings.Default.systemFilenameMpcorbDat;
-
 		// Check if the file exists
 		if (string.IsNullOrWhiteSpace(value: dbFilePath))
 		{
 			// Log an error and show a message if the file does not exist
-			logger.Error(message: "Database file path is not configured (Settings.Default.systemFilenameMpcorbDat is empty).");
-			ShowErrorMessage(message: "Database file path is not configured. Please set the MPCORB.DAT file location in Settings.");
+			logger.Error(message: $"Database file not found: {dbFilePath}");
+			ShowErrorMessage(message: $"Database file not found: {dbFilePath}");
 			return;
 		}
 		// Attempt to read file information and populate the UI labels
@@ -122,10 +125,12 @@ internal partial class DatabaseInformationForm : BaseKryptonForm
 			if (!fileInfo.Exists)
 			{
 				// Log an error and show a message if the file does not exist
-				logger.Error(message: "Database file path is not configured (Settings.Default.systemFilenameMpcorbDat is empty).");
-				ShowErrorMessage(message: "Database file path is not configured. Please set the MPCORB.DAT file location in Settings.");
+				logger.Error(message: $"Database file not found: {dbFilePath}");
+				ShowErrorMessage(message: $"Database file not found: {dbFilePath}");
 				return;
 			}
+			// Play the open sound in the background to indicate that the form has been opened
+			AudioPlayback.PlayOpenSound();
 			// Get the current culture for formatting
 			CultureInfo culture = CultureInfo.CurrentCulture;
 			// Set the file information in the labels
@@ -155,6 +160,18 @@ internal partial class DatabaseInformationForm : BaseKryptonForm
 			logger.Error(exception: ex, message: $"Unexpected error reading database info for: {dbFilePath}");
 			ShowErrorMessage(message: $"An unexpected error occurred: {ex.Message}");
 		}
+	}
+
+	/// <summary>Handles the close event for the database information form.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data for the form-closing operation.</param>
+	/// <remarks>This method is called when the form is closing, and it logs the event and plays a close sound.</remarks>
+	private void DatabaseInformationForm_FormClosing(object sender, FormClosingEventArgs e)
+	{
+		// Log that the form is closing
+		logger.Info(message: "DatabaseInformationForm is closing.");
+		// Play the close sound in the background to indicate that the form is closing
+		AudioPlayback.PlayCloseSound();
 	}
 
 	#endregion

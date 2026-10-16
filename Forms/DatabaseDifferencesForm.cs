@@ -90,8 +90,11 @@ internal partial class DatabaseDifferencesForm : BaseKryptonForm
 	/// <remarks>This constructor sets up the form.</remarks>
 	public DatabaseDifferencesForm()
 	{
+		// Log the initialization of the form to provide context in the application logs
+		logger.Info(message: "Initializing DatabaseDifferencesForm.");
 		// Initialize the form's components, setting up the user interface elements and layout as defined in the designer file.
 		InitializeComponent();
+		//	Log that the form has been successfully initialized, indicating that the UI is ready for user interaction.
 		logger.Info(message: "DatabaseDifferencesForm initialized.");
 	}
 
@@ -423,23 +426,44 @@ internal partial class DatabaseDifferencesForm : BaseKryptonForm
 	/// <remarks>This method initializes the form with default file paths and updates the UI elements accordingly.</remarks>
 	private void DatabaseDifferencesForm_Load(object sender, EventArgs e)
 	{
+		// Log that the form has loaded and is initializing default file paths
+		logger.Info(message: "DatabaseDifferencesForm loaded. Initializing default file paths.");
 		// Default to the currently configured MPCORB file
 		pathFile1 = Settings.Default.systemFilenameMpcorbDat;
 		// Check if the default file exists and update the label accordingly
 		if (!File.Exists(path: pathFile1))
 		{
+			// Log a warning that the default MPCORB file was not found and reset the path to an empty string
 			logger.Warn(message: $"Default MPCORB file not found at {pathFile1}. Resetting to empty path.");
 			pathFile1 = string.Empty;
 			kryptonLabelFile1.Text = "No file selected";
 		}
 		else
 		{
+			// Log that the default MPCORB file was found and update the label with the file path
+			logger.Info(message: $"Default MPCORB file found at {pathFile1}. Updating label.");
+			// Play the open sound in the background to indicate that the form has been opened
+			AudioPlayback.PlayOpenSound();
+			// Update the label to show the path of the first file
 			kryptonLabelFile1.Text = pathFile1;
 		}
 		// Initialize the second file path and label
 		pathFile2 = string.Empty;
 		kryptonLabelFile2.Text = "No file selected";
-		logger.Warn(message: "DatabaseDifferencesForm loaded with initial file paths.");
+		// Log that the form has finished loading with the initial file paths set
+		logger.Info(message: "DatabaseDifferencesForm loaded with initial file paths.");
+	}
+
+	/// <summary>Logs the closure of the database differences form and plays the close sound.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data for the form-closing event.</param>
+	/// <remarks>This method is called when the form is closing, and it logs the closure event and plays a sound to indicate that the form is closing.</remarks>
+	private void DatabaseDifferencesForm_FormClosing(object sender, FormClosingEventArgs e)
+	{
+		// Log that the form is closing
+		logger.Info(message: "DatabaseDifferencesForm is closing.");
+		// Play the close sound in the background to indicate that the form is closing
+		AudioPlayback.PlayCloseSound();
 	}
 
 	#endregion

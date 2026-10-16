@@ -1474,6 +1474,7 @@ partial class MoidsOfOneMinorPlanetForm
 		SizeGripStyle = SizeGripStyle.Hide;
 		StartPosition = FormStartPosition.CenterParent;
 		Text = "MOIDs of a minor planet";
+		FormClosing += MoidsOfOneMinorPlanetForm_FormClosing;
 		Load += MoidsOfOneMinorPlanetForm_Load;
 		Enter += Control_Enter;
 		Leave += Control_Leave;

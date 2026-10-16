@@ -64,9 +64,14 @@ internal partial class MoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>Each element in <paramref name="planetoids"/> must be a raw MPCORB-format string.</remarks>
 	public MoidsRelativeToMinorPlanetsForm(IReadOnlyList<string> planetoids)
 	{
+		// Log the initialization with the count of planetoid records
+		logger.Info(message: $"Initializing {nameof(MoidsRelativeToMinorPlanetsForm)} with {planetoids.Count} planetoid records.");
+		// Call the designer-generated method to initialize UI components
 		InitializeComponent();
 		// Cache the planetoid records for use in the form
 		_planetoids = planetoids;
+		// Log successful initialization
+		logger.Info(message: $"{nameof(MoidsRelativeToMinorPlanetsForm)} initialized successfully.");
 	}
 
 	#endregion

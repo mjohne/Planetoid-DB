@@ -91,6 +91,7 @@ internal partial class TableModeForm : BaseKryptonForm
 	/// <remarks>This constructor initializes the form components.</remarks>
 	public TableModeForm()
 	{
+		// Log the initialization of the form
 		logger.Info(message: "Initializing TableModeForm.");
 		// Initialize the form components
 		InitializeComponent();
@@ -98,6 +99,8 @@ internal partial class TableModeForm : BaseKryptonForm
 		listView.VirtualMode = true;
 		// Initially disable the save to file button until data is loaded
 		toolStripDropDownButtonSaveToFile.Enabled = false;
+		// Log that the form has been initialized successfully
+		logger.Info(message: "TableModeForm initialized successfully.");
 	}
 
 	#endregion
@@ -287,9 +290,12 @@ internal partial class TableModeForm : BaseKryptonForm
 	/// <remarks>This method is called when the form is loaded.</remarks>
 	private void TableModeForm_Load(object sender, EventArgs e)
 	{
+		// Log that the form is loading
 		logger.Info(message: "Loading TableModeForm.");
 		// Clear the status bar text
 		ClearStatusBar(label: labelInformation);
+		// Play the open sound in the background to indicate that the form has been opened
+		AudioPlayback.PlayOpenSound();
 		// Disable the status bar, the list view and the cancel button
 		labelInformation.Enabled = listView.Visible = toolStripButtonCancel.Enabled = false;
 		// Check if the planetoids database is empty
@@ -309,7 +315,10 @@ internal partial class TableModeForm : BaseKryptonForm
 	/// <remarks>This method is called when the form begins closing, allowing pending asynchronous work to be cancelled before UI controls are disposed.</remarks>
 	private void TableModeForm_FormClosing(object sender, FormClosingEventArgs e)
 	{
+		// Log that the form is closing and request cancellation of any ongoing operations
 		logger.Info(message: "Closing TableModeForm. Requesting cancellation of any ongoing operations.");
+		// Play the close sound in the background to indicate that the form is closing
+		AudioPlayback.PlayCloseSound();
 		// Request cancellation of any ongoing operations while the UI is still alive
 		cancellationTokenSource?.Cancel();
 	}

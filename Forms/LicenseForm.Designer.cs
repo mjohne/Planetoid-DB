@@ -251,6 +251,7 @@ partial class LicenseForm
 		Name = "LicenseForm";
 		StartPosition = FormStartPosition.CenterScreen;
 		Text = "License: GPL-3.0";
+		FormClosing += LicenseForm_FormClosing;
 		Load += LicenseForm_Load;
 		((ISupportInitialize)kryptonPanelMain).EndInit();
 		kryptonPanelMain.ResumeLayout(false);

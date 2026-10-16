@@ -1474,6 +1474,7 @@ internal partial class MaxoidsOfOneMinorPlanetForm
 		SizeGripStyle = SizeGripStyle.Hide;
 		StartPosition = FormStartPosition.CenterParent;
 		Text = "MAXOIDs of a minor planet";
+		FormClosing += MaxoidsOfOneMinorPlanetForm_FormClosing;
 		Load += MaxoidsOfOneMinorPlanetForm_Load;
 		Enter += Control_Enter;
 		Leave += Control_Leave;

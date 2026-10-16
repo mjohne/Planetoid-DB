@@ -208,6 +208,7 @@ partial class Orbit2DSideViewForm
 		SizeGripStyle = SizeGripStyle.Hide;
 		StartPosition = FormStartPosition.CenterScreen;
 		Text = "Orbit 2D side view";
+		FormClosing += Orbit2DSideViewForm_FormClosing;
 		Load += Orbits2DSideViewForm_Load;
 		toolStripContainer.BottomToolStripPanel.ResumeLayout(false);
 		toolStripContainer.BottomToolStripPanel.PerformLayout();

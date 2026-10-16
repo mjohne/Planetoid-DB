@@ -97,6 +97,8 @@ internal partial class SearchForm : BaseKryptonForm
 		InitializeComponent();
 		// Set up the mapping of orbital element names to their corresponding retrieval functions from a PlanetoidRecord.
 		InitializePropertyMap();
+		// Log that the SearchForm instance has been initialized successfully.
+		logger.Info(message: "SearchForm instance initialized successfully.");
 	}
 
 	#endregion
@@ -215,6 +217,12 @@ internal partial class SearchForm : BaseKryptonForm
 	/// <remarks>Populates the checked list box with the available property names from the property map and disables actions that should remain unavailable until search results are present.</remarks>
 	private void Search2Form_Load(object sender, EventArgs e)
 	{
+		// Log that the form is loading
+		logger.Info(message: "SearchForm is loading.");
+		// Play the open sound in the background to indicate that the form has been opened
+		AudioPlayback.PlayOpenSound();
+		// Clear the status bar to ensure no residual messages are displayed
+		ClearStatusBar(label: labelInformation);
 		// Populate the checked list box with the keys from the property map, allowing the user to select which properties to include in the search or export operations.
 		foreach (string key in _propertyMap.Keys)
 		{
@@ -224,6 +232,20 @@ internal partial class SearchForm : BaseKryptonForm
 		toolStripButtonCancel.Enabled = false;
 		toolStripButtonGoToObject.Enabled = false;
 		contextMenuSaveToFile.Enabled = false;
+	}
+
+	/// <summary>
+	/// Performs the closing actions for the search form.
+	/// </summary>
+	/// <remarks>Logs the closure and plays the close sound to signal the form is closing.</remarks>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data associated with the form-closing operation.</param>
+	private void SearchForm_FormClosing(object sender, FormClosingEventArgs e)
+	{
+		// Log that the form is closing
+		logger.Info(message: "SearchForm is closing.");
+		// Play the close sound in the background to indicate that the form is closing
+		AudioPlayback.PlayCloseSound();
 	}
 
 	#endregion

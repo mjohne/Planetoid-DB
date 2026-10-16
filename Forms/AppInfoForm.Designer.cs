@@ -1537,6 +1537,7 @@ partial class AppInfoForm
 		Name = "AppInfoForm";
 		StartPosition = FormStartPosition.CenterScreen;
 		Text = "Program information";
+		FormClosing += AppInfoForm_FormClosing;
 		Load += AppInfoForm_Load;
 		Enter += Control_Enter;
 		Leave += Control_Leave;

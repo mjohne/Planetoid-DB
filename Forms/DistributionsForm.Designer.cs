@@ -289,9 +289,9 @@ partial class DistributionsForm
 		listViewResults.View = View.Details;
 		listViewResults.Enter += Control_Enter;
 		listViewResults.Leave += Control_Leave;
+		listViewResults.MouseDoubleClick += ListView_MouseDoubleClick;
 		listViewResults.MouseEnter += Control_Enter;
 		listViewResults.MouseLeave += Control_Leave;
-		listViewResults.MouseDoubleClick += ListView_MouseDoubleClick;
 		// 
 		// columnHeaderRange
 		// 
@@ -543,6 +543,7 @@ partial class DistributionsForm
 		StartPosition = FormStartPosition.CenterScreen;
 		Text = "Orbit elements histogram";
 		FormClosing += DistributionsForm_FormClosing;
+		Load += DistributionsForm_Load;
 		toolStripContainer.BottomToolStripPanel.ResumeLayout(false);
 		toolStripContainer.BottomToolStripPanel.PerformLayout();
 		toolStripContainer.ContentPanel.ResumeLayout(false);

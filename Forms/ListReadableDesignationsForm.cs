@@ -16,6 +16,7 @@
 using NLog;
 
 using Planetoid_DB.Forms;
+using Planetoid_DB.Helpers;
 
 using System.Diagnostics;
 
@@ -107,7 +108,12 @@ internal partial class ListReadableDesignationsForm : BaseKryptonForm
 	/// <remarks>This constructor initializes the form and its components.</remarks>
 	public ListReadableDesignationsForm()
 	{
+		// Log the initialization of the form
+		logger.Info(message: "Initializing ListReadableDesignationsForm.");
+		// Initialize the form components
 		InitializeComponent();
+		// Log successful initialization
+		logger.Info(message: "ListReadableDesignationsForm initialized successfully.");
 	}
 
 	#endregion
@@ -372,6 +378,8 @@ internal partial class ListReadableDesignationsForm : BaseKryptonForm
 	{
 		// Log the form load event
 		logger.Info(message: "ListReadableDesignationsForm is loading.");
+		// Play the open sound in the background to indicate that the form has been opened
+		AudioPlayback.PlayOpenSound();
 		// Clear the status bar on load
 		ClearStatusBar(label: labelInformation);
 		// Disable controls until data is available
@@ -393,14 +401,16 @@ internal partial class ListReadableDesignationsForm : BaseKryptonForm
 		logger.Info(message: $"Form loaded with planetoids database count: {planetoidsDatabase.Count}");
 	}
 
-	/// <summary>Handles the form Closed event. Cleans up resources and cancels any ongoing operations.</summary>
-	/// <param name="sender">Event source (the form).</param>
-	/// <param name="e">The <see cref="FormClosedEventArgs"/> instance that contains the event data.</param>
-	/// <remarks>This method is called when the form is closed.</remarks>
-	private void ListReadableDesignationsForm_FormClosed(object sender, FormClosedEventArgs e)
+	/// <summary>Handles the form-closing event for the readable designation list.</summary>
+	/// <param name="sender">The object that raised the event.</param>
+	/// <param name="e">The event data for the form-closing event.</param>
+	/// <remarks>Logs the closing event and plays the close sound to provide closure feedback.</remarks>
+	private void ListReadableDesignationsForm_FormClosing(object sender, FormClosingEventArgs e)
 	{
-		// Clearing the token if the window is closed during work
-		listView.Dispose();
+		// Log that the form is closing
+		logger.Info(message: "DerivedOrbitElementsForm is closing.");
+		// Play the close sound in the background to indicate that the form is closing
+		AudioPlayback.PlayCloseSound();
 	}
 
 	#endregion

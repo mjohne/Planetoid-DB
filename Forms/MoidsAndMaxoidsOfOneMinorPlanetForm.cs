@@ -79,7 +79,12 @@ internal partial class MoidsAndMaxoidsOfOneMinorPlanetForm : BaseKryptonForm
 	/// <remarks>This constructor initializes the form components.</remarks>
 	public MoidsAndMaxoidsOfOneMinorPlanetForm()
 	{
+		// Log the initialization of the form
+		logger.Info(message: "Initializing MoidsAndMaxoidsOfOneMinorPlanetForm");
+		// Initialize the form components
 		InitializeComponent();
+		// Log successful initialization
+		logger.Info(message: "MoidsAndMaxoidsOfOneMinorPlanetForm initialized successfully");
 	}
 
 	#endregion

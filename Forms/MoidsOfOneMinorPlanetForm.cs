@@ -79,7 +79,12 @@ internal partial class MoidsOfOneMinorPlanetForm : BaseKryptonForm
 	/// <remarks>This constructor initializes the form components.</remarks>
 	public MoidsOfOneMinorPlanetForm()
 	{
+		// Log the initialization of the form
+		logger.Info(message: "Initializing MoidsOfOneMinorPlanetForm.");
+		// Initialize the form components
 		InitializeComponent();
+		// Log that the form has been initialized successfully
+		logger.Info(message: "MoidsOfOneMinorPlanetForm initialized successfully.");
 	}
 
 	#endregion
@@ -122,17 +127,16 @@ internal partial class MoidsOfOneMinorPlanetForm : BaseKryptonForm
 	/// <remarks>MOID values are calculated using <see cref="MoidCalculator.CalculateMoids"/> and displayed in the second column of the <see cref="tableLayoutPanel"/>.</remarks>
 	private void MoidsOfOneMinorPlanetForm_Load(object sender, EventArgs e)
 	{
+		// Log that the form has loaded and that MOID computation is starting
+		logger.Info(message: "MoidsOfOneMinorPlanetForm loaded. Computing MOID values for the minor planet.");
+		// Play the open sound in the background to indicate that the form has been opened
+		AudioPlayback.PlayOpenSound();
 		// Clear the status bar
 		ClearStatusBar(label: labelInformation);
 		try
 		{
 			// Calculate MOIDs for all 8 planets
-			List<MoidCalculator.MoidResult> moids = MoidCalculator.CalculateMoids(
-				semiMajorAxis: semiMajorAxis,
-				eccentricity: eccentricity,
-				inclinationDeg: inclinationDeg,
-				longitudeAscendingNodeDeg: longitudeAscendingNodeDeg,
-				argumentPerihelionDeg: argumentPerihelionDeg);
+			List<MoidCalculator.MoidResult> moids = MoidCalculator.CalculateMoids(semiMajorAxis: semiMajorAxis, eccentricity: eccentricity, inclinationDeg: inclinationDeg, longitudeAscendingNodeDeg: longitudeAscendingNodeDeg, argumentPerihelionDeg: argumentPerihelionDeg);
 			// Populate the data labels (one per planet row, index 0 = Mercury … 7 = Neptune)
 			if (moids.Count >= 8)
 			{
@@ -152,6 +156,18 @@ internal partial class MoidsOfOneMinorPlanetForm : BaseKryptonForm
 			logger.Error(exception: ex, message: "Error computing MOID values");
 			ShowErrorMessage(message: $"Error computing MOID values: {ex.Message}");
 		}
+	}
+
+	/// <summary>Logs the form closure and plays the close sound.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data for the form-closing event.</param>
+	/// <remarks>This event handler is triggered when the form is closing, allowing for logging and audio feedback.</remarks>
+	private void MoidsOfOneMinorPlanetForm_FormClosing(object sender, FormClosingEventArgs e)
+	{
+		// Log that the form is closing
+		logger.Info(message: "MoidsOfOneMinorPlanetForm is closing.");
+		// Play the close sound in the background to indicate that the form is closing
+		AudioPlayback.PlayCloseSound();
 	}
 
 	#endregion

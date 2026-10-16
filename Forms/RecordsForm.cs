@@ -78,6 +78,8 @@ internal partial class RecordsForm : BaseKryptonForm
 	/// <remarks>This constructor initializes the form components and wires up BackgroundWorker events.</remarks>
 	public RecordsForm()
 	{
+		// Log that the form is being initialized
+		logger.Info(message: "Initializing RecordsForm.");
 		// Initialize the form components
 		InitializeComponent();
 		// Enable double buffering for the TableLayoutPanel to prevent flickering
@@ -88,6 +90,8 @@ internal partial class RecordsForm : BaseKryptonForm
 		backgroundWorker.ProgressChanged += BackgroundWorker_ProgressChanged;
 		backgroundWorker.RunWorkerCompleted += BackgroundWorker_RunWorkerCompleted;
 #pragma warning restore CS8622
+		// Log that the RecordsForm has been initialized successfully
+		logger.Info(message: "RecordsForm initialized successfully.");
 	}
 
 	#endregion
@@ -271,10 +275,26 @@ internal partial class RecordsForm : BaseKryptonForm
 	/// <remarks>Initializes the form by clearing the status bar.</remarks>
 	private void RecordsForm_Load(object sender, EventArgs e)
 	{
+		// Log that the form has been loaded
+		logger.Info(message: "RecordsForm loaded successfully.");
+		// Play the open sound in the background to indicate that the form has been opened
+		AudioPlayback.PlayOpenSound();
 		// Clear the status bar when the form loads
 		ClearStatusBar(label: labelInformation);
 		// Ensure the Cancel button is disabled at startup
 		toolStripButtonCancel.Enabled = false;
+	}
+
+	/// <summary>Handles the form-closing event for the records form.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data for the closing event.</param>
+	/// <remarks>This method logs the form closing and plays a close sound in the background to indicate that the form is closing.</remarks>
+	private void RecordsForm_FormClosing(object sender, FormClosingEventArgs e)
+	{
+		// Log that the form is closing
+		logger.Info(message: "RecordsForm is closing.");
+		// Play the close sound in the background to indicate that the form is closing
+		AudioPlayback.PlayCloseSound();
 	}
 
 	#endregion

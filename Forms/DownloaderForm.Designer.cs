@@ -1,9 +1,9 @@
 /*
- * File:        DownloaderForm.Designer.cs
+ * File:        DownloaderForm.Designer.cs
  * Project:     Planetoid-DB
  * Namespace:   Planetoid_DB
  * Description: Represents a Windows Form that provides a user interface for downloading files from a database and monitoring download progress.
- * Remarks:     This file contains the Windows Forms designer-generated code for the DownloaderForm. Do not modify this file manually.
+ * Remarks:     This file contains the Windows Forms designer-generated code for the DownloaderForm. Do not modify this file manually.
  *
  * Author:      Michael Johne
  * Company:     Mijo Software
@@ -1212,6 +1212,8 @@ partial class DownloaderForm
 		SizeGripStyle = SizeGripStyle.Hide;
 		StartPosition = FormStartPosition.CenterScreen;
 		Text = "Downloader";
+		FormClosing += DownloaderForm_FormClosing;
+		Load += DownloaderForm_Load;
 		tableLayoutPanel.ResumeLayout(false);
 		tableLayoutPanel.PerformLayout();
 		contextMenuSaveToFile.ResumeLayout(false);

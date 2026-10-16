@@ -251,6 +251,7 @@ partial class SettingsExportForm
 		AutoScaleDimensions = new SizeF(7F, 15F);
 		AutoScaleMode = AutoScaleMode.Font;
 		ClientSize = new Size(444, 91);
+		ControlBox = false;
 		Controls.Add(kryptonPanel);
 		Controls.Add(kryptonStatusStrip);
 		FormBorderStyle = FormBorderStyle.SizableToolWindow;
@@ -262,6 +263,7 @@ partial class SettingsExportForm
 		SizeGripStyle = SizeGripStyle.Hide;
 		StartPosition = FormStartPosition.CenterScreen;
 		Text = "Export Settings";
+		FormClosing += SettingsExportForm_FormClosing;
 		Load += SettingsExportForm_Load;
 		((ISupportInitialize)kryptonPanel).EndInit();
 		kryptonPanel.ResumeLayout(false);

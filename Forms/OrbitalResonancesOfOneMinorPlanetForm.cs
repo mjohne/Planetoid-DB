@@ -85,7 +85,12 @@ internal partial class OrbitalResonancesOfOneMinorPlanetForm : BaseKryptonForm
 	/// <remarks>This constructor initializes the form components.</remarks>
 	public OrbitalResonancesOfOneMinorPlanetForm()
 	{
+		// Log the initialization of the form for debugging purposes
+		logger.Info(message: "Initializing OrbitalResonancesOfOneMinorPlanetForm.");
+		// Initialize the form components (UI elements)
 		InitializeComponent();
+		// Log that the form has been initialized successfully
+		logger.Info(message: "OrbitalResonancesOfOneMinorPlanetForm initialized successfully.");
 	}
 
 	#endregion
@@ -153,17 +158,40 @@ internal partial class OrbitalResonancesOfOneMinorPlanetForm : BaseKryptonForm
 	/// <remarks>If an error occurs during calculation, it is logged and an error message is shown to the user.</remarks>
 	private void OrbitalResonanceForm_Load(object sender, EventArgs e)
 	{
+		// Log that the form has been loaded
+		logger.Info(message: "OrbitalResonancesOfOneMinorPlanetForm loaded successfully.");
+		// Play the open sound in the background to indicate that the form has been opened
+		AudioPlayback.PlayOpenSound();
+		// Clear the status bar when the form loads
 		ClearStatusBar(label: labelInformation);
+		// Calculate orbital resonances for the given semi-major axis and populate the list view; handle any exceptions that may occur during calculation
 		try
 		{
+			// Log the semi-major axis being used for the calculation of orbital resonances
+			logger.Info(message: $"Calculating orbital resonances for semi-major axis: {semiMajorAxis} AU");
+			// Calculate orbital resonances for the given semi-major axis and store them in the allResonances field
 			allResonances = DerivedElements.CalculateOrbitalResonances(semiMajorAxis: semiMajorAxis);
+			// Populate the list view with the calculated resonances
 			PopulateListView();
 		}
+		// Catch any exceptions that occur during the calculation of orbital resonances, log the error, and show an error message to the user
 		catch (Exception ex)
 		{
 			logger.Error(exception: ex, message: ex.Message);
 			ShowErrorMessage(message: $"Error calculating orbital resonances: {ex.Message}");
 		}
+	}
+
+	/// <summary>Handles the form closing event for the orbital resonances view.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data for the closing event.</param>
+	/// <remarks>This method logs the closing of the form and plays a close sound to indicate that the form is being closed.</remarks>
+	private void OrbitalResonancesOfOneMinorPlanetForm_FormClosing(object sender, FormClosingEventArgs e)
+	{
+		// Log that the form is closing
+		logger.Info(message: "OrbitalResonancesOfOneMinorPlanetForm is closing.");
+		// Play the close sound in the background to indicate that the form is closing
+		AudioPlayback.PlayCloseSound();
 	}
 
 	#endregion

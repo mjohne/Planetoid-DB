@@ -94,10 +94,13 @@ internal partial class TisserandParameterOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>Each element in <paramref name="planetoids"/> must be a raw MPCORB-format string.</remarks>
 	public TisserandParameterOfAllMinorPlanetsForm(IReadOnlyList<string> planetoids)
 	{
+		// Log the initialization of the form with the count of planetoid records
 		logger.Info(message: $"Initializing TisserandParameterOfAllMinorPlanetsForm with {planetoids.Count} planetoid records.");
 		InitializeComponent();
 		// Cache the planetoid records for use during the calculation; this allows the calculation method to access the raw data without needing to pass it around or access it from a shared resource
 		_planetoids = planetoids;
+		// Set the initial state of the buttons and progress bar
+		logger.Info(message: "TisserandParameterOfAllMinorPlanetsForm initialized successfully.");
 	}
 
 	#endregion
@@ -239,8 +242,12 @@ internal partial class TisserandParameterOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>Clears the status bar when the form is loaded.</remarks>
 	private void TisserandParameterOfAllMinorPlanetsForm_Load(object sender, EventArgs e)
 	{
+		// Log that the form has been loaded and clear the status bar
 		logger.Info(message: "TisserandParameterOfAllMinorPlanetsForm loaded.");
+		// Clear the status bar to ensure no residual messages are displayed from previous operations
 		ClearStatusBar(label: labelInformation);
+		// Play the open sound in the background to indicate that the form has been opened
+		AudioPlayback.PlayOpenSound();
 	}
 
 	/// <summary>Handles the FormClosing event. Cancels any running calculation and disposes the cancellation token source.</summary>
@@ -249,7 +256,10 @@ internal partial class TisserandParameterOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>Cancels any running calculation and disposes the cancellation token source when the form is closing.</remarks>
 	private void TisserandParameterOfAllMinorPlanetsForm_FormClosing(object sender, FormClosingEventArgs e)
 	{
+		// Log that the form is closing and check for any running calculations
 		logger.Info(message: "TisserandParameterOfAllMinorPlanetsForm is closing.");
+		// Play the close sound in the background to indicate that the form is closing
+		AudioPlayback.PlayCloseSound();
 		// If a calculation is currently running, signal cancellation and dispose of the token source
 		if (_cancellationTokenSource != null)
 		{

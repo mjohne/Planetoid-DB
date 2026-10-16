@@ -3122,6 +3122,7 @@ partial class DerivedOrbitElementsForm
 		SizeGripStyle = SizeGripStyle.Hide;
 		StartPosition = FormStartPosition.CenterScreen;
 		Text = "Derived orbit elements";
+		FormClosing += DerivedOrbitElementsForm_FormClosing;
 		Load += DerivedOrbitElementsForm_Load;
 		contextMenuOpenTerminology.ResumeLayout(false);
 		contextMenuCopyToClipboard.ResumeLayout(false);

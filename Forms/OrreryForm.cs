@@ -149,18 +149,23 @@ internal partial class OrreryForm : BaseKryptonForm
 	private (double X, double Y, double Z)[][]? _cachedPlanetoidOrbits;
 
 	/// <summary>Cached current-position markers for the eight planets at the active simulation time.</summary>
+	/// <remarks>These markers are updated each frame and used for rendering and hover detection.</remarks>
 	private RenderedBody[] _cachedPlanetBodies = [];
 
 	/// <summary>Cached current-position markers for the rendered subset of planetoids at the active simulation time.</summary>
+	/// <remarks>These markers are updated each frame and used for rendering and hover detection.</remarks>
 	private RenderedBody[] _cachedPlanetoidBodies = [];
 
-	/// <summary>Numerically propagated heliocentric states for the currently rendered planetoids.</summary>	
+	/// <summary>Numerically propagated heliocentric states for the currently rendered planetoids.</summary>
+	/// <remarks>These states are computed on demand when the simulation time changes and are used for rendering and hover detection.</remarks>
 	private StateVector[] _propagatedPlanetoidStates = [];
 
 	/// <summary>Julian Date (TT) corresponding to <see cref="_propagatedPlanetoidStates"/>.</summary>
+	/// <remarks>This value is used to determine whether the propagated states need to be recomputed when the simulation time changes.</remarks>
 	private double _propagatedPlanetoidStatesJdTt = double.NaN;
 
 	/// <summary>Julian Date corresponding to the currently cached marker positions.</summary>
+	/// <remarks>This value is used to determine whether the cached marker positions need to be recomputed when the simulation time changes.</remarks>
 	private double _cachedBodyPositionsJd = double.NaN;
 
 	// ---- Simulation state ----
@@ -192,36 +197,47 @@ internal partial class OrreryForm : BaseKryptonForm
 	// ---- Camera state ----
 
 	/// <summary>Horizontal rotation angle of the camera in degrees.</summary>
+	/// <remarks>This angle is measured around the vertical axis, with 0° looking along the +X axis and increasing clockwise when viewed from above.</remarks>
 	private float _yaw = 25f;
 
 	/// <summary>Vertical rotation angle of the camera in degrees.</summary>
+	/// <remarks>This angle is measured from the horizontal plane, with 0° looking along the horizontal and positive values looking down.</remarks>
 	private float _pitch = 20f;
 
 	/// <summary>Camera distance from the scene origin (zoom level) in AU.</summary>
+	/// <remarks>This value is used to compute the camera's position along its forward vector, effectively zooming in and out of the scene.</remarks>
 	private float _zoom = 35f;
 
 	/// <summary>Horizontal camera pan offset.</summary>
+	/// <remarks>This offset is applied to the camera's position in the horizontal plane, allowing the user to pan the view left and right.</remarks>
 	private float _panX;
 
 	/// <summary>Vertical camera pan offset.</summary>
+	/// <remarks>This offset is applied to the camera's position in the vertical plane, allowing the user to pan the view up and down.</remarks>
 	private float _panY;
 
 	/// <summary>Last recorded mouse cursor position for delta computation.</summary>
+	/// <remarks>This point is updated on every mouse-move event and used to compute the change in position for camera rotation and panning.</remarks>
 	private Point _lastMousePos;
 
 	/// <summary>Whether the left mouse button is currently held down.</summary>
+	/// <remarks>This flag is used to determine whether mouse movements should rotate the camera view.</remarks>
 	private bool _leftDown;
 
 	/// <summary>Whether the right mouse button is currently held down.</summary>
+	/// <remarks>This flag is used to determine whether mouse movements should pan the camera view.</remarks>
 	private bool _rightDown;
 
 	/// <summary>Whether the OpenGL context is initialized and ready for rendering.</summary>
+	/// <remarks>This flag is set to true after the GLControl has been created and its context is made current, allowing OpenGL calls to be made safely.</remarks>
 	private bool _glReady;
 
 	/// <summary>Whether the initial range selection has finished loading and can be rendered.</summary>
+	/// <remarks>This flag is set to true after the initial range rebuild completes, allowing the orrery to be drawn with the selected planetoids.</remarks>
 	private bool _rangeSelectionReady;
 
 	/// <summary>Monotonic version used to discard outdated background range rebuild results.</summary>
+	/// <remarks>This integer is incremented each time a new range rebuild is requested. When the background task completes, it checks whether its version matches the current version to determine if its results are still valid.</remarks>
 	private int _rangeBuildVersion;
 
 	/// <summary>The embedded OpenTK GLControl that provides the OpenGL rendering surface.</summary>
@@ -248,11 +264,19 @@ internal partial class OrreryForm : BaseKryptonForm
 	/// <remarks>The orbital elements are parsed and the OpenGL context is created in <see cref="OrreryForm_Load"/> after the designer components have been initialized.</remarks>
 	public OrreryForm(IReadOnlyList<string> planetoids)
 	{
+		// Log the number of source planetoid records provided to the constructor for debugging purposes.
+		logger.Info(message: "Initializing OrreryForm with {0} source planetoid records.", args: planetoids?.Count ?? 0);
+		// Store the source lines for later parsing; if null, use an empty list to avoid null reference issues.
 		_sourceLines = planetoids ?? [];
+		// Initialize the form's components (designer-generated code).
 		InitializeComponent();
+		// Set the text of the play/pause button to the localized "Play" string.
 		buttonPlayPause.Text = I18nStrings.PlayButtonText;
+		// Create the animation timer with a 33ms interval (approximately 30 frames per second).
 		_animationTimer = new System.Windows.Forms.Timer(container: components!) { Interval = 33 };
+		// Wire up the Tick event of the animation timer to the handler that advances the simulation clock.
 		_animationTimer.Tick += AnimationTimer_Tick;
+		// Log the successful initialization of the OrreryForm with the count of source planetoid records.
 		logger.Info(message: "OrreryForm initialized with {0} source planetoid records.", args: _sourceLines.Count);
 	}
 
@@ -293,6 +317,25 @@ internal partial class OrreryForm : BaseKryptonForm
 		_glControl.Leave += Control_Leave;
 		_glControl.MouseEnter += Control_Enter;
 		panelGl.Controls.Add(value: _glControl);
+	}
+
+	/// <summary>Configures a range spinner control with the given value and one-based maximum.</summary>
+	/// <param name="control">The spinner control to configure.</param>
+	/// <param name="value">The initial value.</param>
+	/// <param name="max">The maximum (record count).</param>
+	/// <remarks>The minimum is 1 unless there are no records, in which case both bounds are 0. The ValueChanged handler is wired to rebuild the selected range.</remarks>
+	private void ConfigureIndexControl(ToolStripNumericUpDown control, int value, int max)
+	{
+		control.DecimalPlaces = 0;
+		control.Increment = 1m;
+		control.Minimum = max == 0 ? 0m : 1m;
+		control.Maximum = Math.Max(val1: max, val2: control.Minimum == 0m ? 0 : 1);
+		control.Value = Math.Clamp(value: value, min: (int)control.Minimum, max: (int)control.Maximum);
+		control.Enter += Control_Enter;
+		control.Leave += Control_Leave;
+		control.MouseEnter += Control_Enter;
+		control.MouseLeave += Control_Leave;
+		control.ValueChanged += NumericIndex_ValueChanged;
 	}
 
 	// ---- Parsing ----
@@ -1213,12 +1256,22 @@ internal partial class OrreryForm : BaseKryptonForm
 	/// <remarks>Creates the <see cref="GLControl"/>, initializes the OpenGL context, configures the range spinners, and triggers the first render.</remarks>
 	private async void OrreryForm_Load(object? sender, EventArgs e)
 	{
+		// Log that the form is loading
+		logger.Info(message: "OrreryForm is loading.");
+		// Play the open sound in the background to indicate that the form has been opened
+		AudioPlayback.PlayOpenSound();
+		// Clear the status bar to remove any previous messages
 		ClearStatusBar(label: labelInformation);
+		// Configure the numeric range controls based on the number of source lines
 		int total = _sourceLines.Count;
 		ConfigureIndexControl(control: numericStartIndex, value: total == 0 ? 0 : 1, max: total);
 		ConfigureIndexControl(control: numericEndIndex, value: total, max: total);
+		// Set the initial simulation time to the current UTC instant
 		try
 		{
+			// Log that the OpenGL context is being initialized
+			logger.Info(message: "Initializing OpenGL context...");
+			// Initialize the OpenGL context and compute the cached planet orbits
 			CreateGlControl();
 			_cachedPlanetOrbits = new (double X, double Y, double Z)[Planets.Length][];
 			for (int idx = 0; idx < Planets.Length; idx++)
@@ -1232,13 +1285,20 @@ internal partial class OrreryForm : BaseKryptonForm
 			_simulationTime = DateTime.UtcNow;
 			SyncDateTimePicker();
 			await RebuildRangeAsync().ConfigureAwait(continueOnCapturedContext: true);
+			// Trigger the first render of the scene
 			if (IsDisposed)
 			{
+				// If the form has been disposed during async operations, skip rendering to avoid exceptions
+				logger.Warn(message: "OrreryForm has been disposed before the first render; skipping rendering.");
 				return;
 			}
+			// Mark the form as initialized and invalidate the GL control to trigger the first render
 			_initialized = true;
 			_glControl.Invalidate();
+			// Log that the form has loaded successfully and the OpenGL context is ready
+			logger.Info(message: "OrreryForm loaded successfully and OpenGL context initialized.");
 		}
+		// Catch any exceptions during OpenGL initialization and log the error, then show an error message to the user
 		catch (Exception ex)
 		{
 			logger.Error(exception: ex, message: "OrreryForm: failed to initialize OpenGL context: {0}", args: ex);
@@ -1246,23 +1306,16 @@ internal partial class OrreryForm : BaseKryptonForm
 		}
 	}
 
-	/// <summary>Configures a range spinner control with the given value and one-based maximum.</summary>
-	/// <param name="control">The spinner control to configure.</param>
-	/// <param name="value">The initial value.</param>
-	/// <param name="max">The maximum (record count).</param>
-	/// <remarks>The minimum is 1 unless there are no records, in which case both bounds are 0. The ValueChanged handler is wired to rebuild the selected range.</remarks>
-	private void ConfigureIndexControl(ToolStripNumericUpDown control, int value, int max)
+	/// <summary>Handles the form's FormClosing event to log the closure and play a sound.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">Form closing event arguments.</param>
+	/// <remarks>This method logs that the form is closing and plays a close sound in the background to indicate that the form is closing.</remarks>
+	private void OrreryForm_FormClosing(object sender, FormClosingEventArgs e)
 	{
-		control.DecimalPlaces = 0;
-		control.Increment = 1m;
-		control.Minimum = max == 0 ? 0m : 1m;
-		control.Maximum = Math.Max(val1: max, val2: control.Minimum == 0m ? 0 : 1);
-		control.Value = Math.Clamp(value: value, min: (int)control.Minimum, max: (int)control.Maximum);
-		control.Enter += Control_Enter;
-		control.Leave += Control_Leave;
-		control.MouseEnter += Control_Enter;
-		control.MouseLeave += Control_Leave;
-		control.ValueChanged += NumericIndex_ValueChanged;
+		// Log that the form is closing
+		logger.Info(message: "OrreryForm is closing.");
+		// Play the close sound in the background to indicate that the form is closing
+		AudioPlayback.PlayCloseSound();
 	}
 
 	#endregion

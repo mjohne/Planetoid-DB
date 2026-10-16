@@ -70,6 +70,8 @@ internal partial class DerivedOrbitElementsForm : BaseKryptonForm
 	/// <remarks>This constructor initializes the form components.</remarks>
 	public DerivedOrbitElementsForm()
 	{
+		// Log the initialization of the form for debugging purposes
+		logger.Info(message: "Initializing DerivedOrbitElementsForm");
 		// Initialize the form components
 		InitializeComponent();
 		// Enable double buffering on the table layout panel and its child labels to reduce flickering during updates
@@ -92,6 +94,8 @@ internal partial class DerivedOrbitElementsForm : BaseKryptonForm
 			labelTimeToNextAphelionData, labelSynodicPeriodData, labelTisserandParameterData,
 			labelMeanDistanceFromFocusData, labelGeometricAlbedoAdjustedDiameterData
 		];
+		// Log the number of labels mapped to derived orbit elements for debugging purposes
+		logger.Info(message: $"DerivedOrbitElementsForm initialized with {orbitDataLabels.Length} labels mapped to derived orbit elements.");
 	}
 
 	#endregion
@@ -173,6 +177,10 @@ internal partial class DerivedOrbitElementsForm : BaseKryptonForm
 	{
 		// Set the status bar text
 		ClearStatusBar(label: labelInformation);
+		// Log the form load event for debugging purposes
+		logger.Info(message: "DerivedOrbitElementsForm loaded");
+		// Play the open sound in the background to indicate that the form has been opened
+		AudioPlayback.PlayOpenSound();
 		// Validate the provided derived orbit elements data
 		if (derivedOrbitElements.Count < orbitDataLabels.Length)
 		{
@@ -186,6 +194,18 @@ internal partial class DerivedOrbitElementsForm : BaseKryptonForm
 		{
 			orbitDataLabels[i].Text = derivedOrbitElements[index: i]?.ToString() ?? string.Empty;
 		}
+	}
+
+	/// <summary>Handles the form-closing event for the derived orbit elements form.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data for the form-closing event.</param>
+	/// <remarks>This method is called when the form is closing and logs the event, as well as plays a close sound.</remarks>
+	private void DerivedOrbitElementsForm_FormClosing(object sender, FormClosingEventArgs e)
+	{
+		// Log that the form is closing
+		logger.Info(message: "DerivedOrbitElementsForm is closing.");
+		// Play the close sound in the background to indicate that the form is closing
+		AudioPlayback.PlayCloseSound();
 	}
 
 	#endregion

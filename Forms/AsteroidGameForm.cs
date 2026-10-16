@@ -19,6 +19,7 @@ using OpenTK.GLControl;
 using OpenTK.Windowing.Common;
 
 using Planetoid_DB.Forms;
+using Planetoid_DB.Helpers;
 
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
@@ -151,10 +152,13 @@ internal partial class AsteroidGameForm : BaseKryptonForm
 	/// <remarks>The OpenGL context is created programmatically in <see cref="AsteroidGameForm_Load"/> after the designer components have been initialized.</remarks>
 	public AsteroidGameForm()
 	{
+		// Log the initialization of the form for debugging purposes. This message indicates that the constructor has been called and the form is being set up.
+		logger.Info(message: "Initializing AsteroidGameForm...");
 		// The OpenGL control is created and initialized in the Load event handler to ensure that the OpenGL context is properly set up before any rendering occurs. This approach allows for better error handling and ensures that the GLControl is fully ready before we attempt to use it for rendering.
 		InitializeComponent();
 		_gameTimer.Interval = 16; // ~60 FPS
 		_gameTimer.Tick += GameTimer_Tick;
+		// Log that the form has been successfully initialized. This message indicates that the constructor has completed and the form is ready for use, with all necessary components and event handlers set up.
 		logger.Info(message: "AsteroidGameForm initialized.");
 	}
 
@@ -1047,17 +1051,23 @@ internal partial class AsteroidGameForm : BaseKryptonForm
 	/// <remarks>Creates the <see cref="GLControl"/>, initializes the OpenGL context, and triggers the first render.</remarks>
 	private void AsteroidGameForm_Load(object? sender, EventArgs e)
 	{
+		// Log that the form load event has been triggered and we are initializing the OpenGL context. This provides a clear indication in the logs that the application is starting up and preparing to render the game, which can be useful for debugging and understanding the application's lifecycle.
+		logger.Info(message: "AsteroidGameForm: Load event triggered, initializing OpenGL context.");
 		// Clear the status bar at the start of the form load
 		ClearStatusBar(label: labelInformation);
 		// Attempt to create the GLControl and initialize the OpenGL context. If successful, we set the _glReady flag to true, update the status label, invalidate the GLControl to trigger a repaint, and start the game timer. If any exceptions occur during this process (such as issues with creating the OpenGL context), we catch the exception, log an error message, and show an error message to the user indicating that game rendering could not be initialized.
 		try
 		{
+			// Log that we are attempting to create the GLControl and initialize the OpenGL context. This log entry helps track the progress of the form load process and can assist in diagnosing issues related to OpenGL initialization.
+			logger.Info(message: "AsteroidGameForm: Attempting to create GLControl and initialize OpenGL context.");
 			CreateGlControl();
 			_glControl.MakeCurrent();
 			_glReady = true;
 			UpdateStatusLabel();
 			_glControl.Invalidate();
 			_gameTimer.Start();
+			// Play the open sound in the background to indicate that the form has been opened
+			AudioPlayback.PlayOpenSound();
 		}
 		// Log any exceptions that occur during OpenGL initialization and show an error message to the user. This catch block ensures that if there are any issues with setting up the OpenGL context (such as missing drivers or incompatible hardware), the application will handle it gracefully by logging the error and informing the user, rather than crashing or behaving unpredictably.
 		catch (Exception ex)
@@ -1073,8 +1083,12 @@ internal partial class AsteroidGameForm : BaseKryptonForm
 	/// <remarks>Stops the game timer when the form is closing.</remarks>
 	private void AsteroidGameForm_FormClosing(object? sender, FormClosingEventArgs e)
 	{
+		// Log that the form is closing and the game timer is being stopped. This provides a clear indication in the logs that the application is shutting down and that we are stopping the game timer to prevent any further game updates or rendering after the form has been closed.
+		logger.Info(message: "AsteroidGameForm: FormClosing event triggered, stopping game timer.");
 		// Stop the game timer when the form is closing
 		_gameTimer.Stop();
+		// Play the close sound in the background to indicate that the form is closing
+		AudioPlayback.PlayCloseSound();
 	}
 
 	/// <summary>Intercepts arrow and space keys before WinForms navigation handling so they always reach the game logic.</summary>

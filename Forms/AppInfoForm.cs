@@ -46,8 +46,12 @@ internal partial class AppInfoForm : BaseKryptonForm
 	/// <remarks>This constructor initializes the form components.</remarks>
 	public AppInfoForm()
 	{
+		// Log the initialization of the form for debugging purposes
+		logger.Info(message: "Initializing AppInfoForm...");
 		// Initialize the form components
 		InitializeComponent();
+		// Log that the form has been successfully initialized
+		logger.Info(message: "AppInfoForm initialized.");
 	}
 
 	#endregion
@@ -227,6 +231,11 @@ internal partial class AppInfoForm : BaseKryptonForm
 	/// <remarks>This event initializes the form's UI elements with information from the assembly where available and assigns a predefined author value to the author label.</remarks>
 	private void AppInfoForm_Load(object sender, EventArgs e)
 	{
+		// Log that the form has loaded successfully
+		logger.Info(message: "AppInfoForm loaded successfully.");
+		// Play the open sound in the background to indicate that the form has been opened
+		AudioPlayback.PlayOpenSound();
+		// Populate the labels with assembly information and static author information
 		kryptonLabelTitle.Text = AssemblyInfo.AssemblyProduct;
 		kryptonLabelVersion.Text = string.Format(format: I18nStrings.VersionTemplate, arg0: AssemblyInfo.AssemblyVersion, provider: CultureInfo.CurrentCulture);
 		kryptonLabelCompany.Text = $"Company: {AssemblyInfo.AssemblyCompany}";
@@ -234,6 +243,18 @@ internal partial class AppInfoForm : BaseKryptonForm
 		kryptonLabelDescription.Text = AssemblyInfo.AssemblyDescription;
 		kryptonLabelCopyright.Text = AssemblyInfo.AssemblyCopyright;
 		ClearStatusBar(label: labelInformation);
+	}
+
+	/// <summary>Handles the form closing event for the application information dialog.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data for the closing operation.</param>
+	/// <remarks>This event handler logs the closing of the form and plays a close sound asynchronously to provide auditory feedback to the user.</remarks>
+	private void AppInfoForm_FormClosing(object sender, FormClosingEventArgs e)
+	{
+		// Log that the form is closing
+		logger.Info(message: "AppInfoForm is closing.");
+		// Play the close sound in the background to indicate that the form is closing
+		AudioPlayback.PlayCloseSound();
 	}
 
 	#endregion
@@ -356,4 +377,5 @@ internal partial class AppInfoForm : BaseKryptonForm
 	}
 
 	#endregion
+
 }

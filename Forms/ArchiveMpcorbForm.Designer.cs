@@ -583,6 +583,7 @@ partial class ArchiveMpcorbForm
 		SizeGripStyle = SizeGripStyle.Hide;
 		StartPosition = FormStartPosition.CenterScreen;
 		Text = "Archive MPCORB.DAT";
+		FormClosing += ArchiveMpcorbForm_FormClosing;
 		Load += ArchiveMpcorbForm_Load;
 		kryptonStatusStrip.ResumeLayout(false);
 		kryptonStatusStrip.PerformLayout();

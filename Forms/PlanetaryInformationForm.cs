@@ -703,8 +703,25 @@ internal partial class PlanetaryInformationForm : BaseKryptonForm
 	/// <remarks>Populates the ListView with planetary data on form load.</remarks>
 	private void PlanetaryInformationForm_Load(object sender, EventArgs e)
 	{
+		// Log that the form has been loaded
 		logger.Info(message: "PlanetaryInformationForm loaded.");
+		// Play the open sound in the background to indicate that the form has been opened
+		AudioPlayback.PlayOpenSound();
+		// Clear the status bar when the form loads
+		ClearStatusBar(label: labelInformation);
 		LoadPlanetaryInformation();
+	}
+
+	/// <summary>Logs the form closing and plays the close sound.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data for the form closing event.</param>
+	/// <remarks>Logs the closing event and plays a sound to indicate that the form is closing.</remarks>
+	private void PlanetaryInformationForm_FormClosing(object sender, FormClosingEventArgs e)
+	{
+		// Log that the form is closing
+		logger.Info(message: "PlanetaryInformationForm is closing.");
+		// Play the close sound in the background to indicate that the form is closing
+		AudioPlayback.PlayCloseSound();
 	}
 
 	#endregion
@@ -806,6 +823,5 @@ internal partial class PlanetaryInformationForm : BaseKryptonForm
 		// Show the context menu at the location of the mouse click
 		contextMenuSaveToFile.Show(control: listView, position: e.Location);
 	}
-
 	#endregion
 }

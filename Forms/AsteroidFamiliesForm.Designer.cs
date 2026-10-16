@@ -663,6 +663,7 @@ partial class AsteroidFamiliesForm
 		StartPosition = FormStartPosition.CenterScreen;
 		Text = "Asteroid Families Detection";
 		FormClosing += AsteroidFamiliesForm_FormClosing;
+		Load += AsteroidFamiliesForm_Load;
 		((ISupportInitialize)kryptonPanelMain).EndInit();
 		kryptonPanelMain.ResumeLayout(false);
 		(splitContainer.Panel1).EndInit();

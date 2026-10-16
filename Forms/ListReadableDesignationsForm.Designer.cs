@@ -1075,7 +1075,7 @@ partial class ListReadableDesignationsForm
 		SizeGripStyle = SizeGripStyle.Hide;
 		StartPosition = FormStartPosition.CenterScreen;
 		Text = "List of readable designations";
-		FormClosed += ListReadableDesignationsForm_FormClosed;
+		FormClosing += ListReadableDesignationsForm_FormClosing;
 		Load += ListReadableDesignationsForm_Load;
 		kryptonStatusStrip.ResumeLayout(false);
 		kryptonStatusStrip.PerformLayout();

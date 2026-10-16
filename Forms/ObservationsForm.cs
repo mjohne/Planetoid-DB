@@ -142,8 +142,7 @@ internal partial class ObservationsForm : BaseKryptonForm
 
 	/// <summary>Lazy-initialized lookup dictionary that maps observatory codes to their location names.</summary>
 	/// <remarks>Built once from the <c>ObservatoryCodes</c> resource on first access.</remarks>
-	private static readonly Lazy<Dictionary<string, string>> _observatoryCodeLookup =
-		new(valueFactory: BuildObservatoryCodeLookup);
+	private static readonly Lazy<Dictionary<string, string>> _observatoryCodeLookup = new(valueFactory: BuildObservatoryCodeLookup);
 
 	/// <summary>Builds the observatory code lookup dictionary from the embedded resource.</summary>
 	/// <returns>A dictionary mapping observatory code strings to their location descriptions.</returns>
@@ -206,7 +205,12 @@ internal partial class ObservationsForm : BaseKryptonForm
 	/// <remarks>This constructor initializes the form components.</remarks>
 	public ObservationsForm()
 	{
+		// Log the initialization of the ObservationsForm to provide feedback in the application logs
+		logger.Info(message: "Initializing ObservationsForm.");
+		// Call the method to initialize the form's components, setting up the user interface elements and event handlers
 		InitializeComponent();
+		// Log that the ObservationsForm has been initialized successfully, indicating that the form is ready for use
+		logger.Info(message: "ObservationsForm initialized successfully.");
 	}
 
 	#endregion
@@ -456,8 +460,24 @@ internal partial class ObservationsForm : BaseKryptonForm
 	/// <remarks>Clears the status bar and initiates the asynchronous loading of observation data.</remarks>
 	private void ObservationsForm_Load(object sender, EventArgs e)
 	{
+		// Log that the form has loaded successfully
+		logger.Info(message: "ObservationsForm loaded.");
+		// Play the open sound in the background to indicate that the form has been opened
+		AudioPlayback.PlayOpenSound();
 		// Clear the status bar and load the observatory codes when the form loads
 		LoadObservatoryCodes();
+	}
+
+	/// <summary>Handles the closing of the observations form.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data associated with the form-closing event.</param>
+	/// <remarks>This method logs the closing of the form and plays a sound to indicate that the form is closing.</remarks>
+	private void ObservationsForm_FormClosing(object sender, FormClosingEventArgs e)
+	{
+		// Log that the form is closing
+		logger.Info(message: "ObservationsForm is closing.");
+		// Play the close sound in the background to indicate that the form is closing
+		AudioPlayback.PlayCloseSound();
 	}
 
 	#endregion
