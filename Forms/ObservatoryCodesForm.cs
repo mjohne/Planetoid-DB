@@ -188,14 +188,16 @@ internal partial class ObservatoryCodesForm : BaseKryptonForm
 	}
 
 	/// <summary>Handles the form-closing logic for the observatory codes form.</summary>
-	/// <param name="sender">The event source that raised the closing event.</param>
 	/// <param name="e">The event data associated with the form-closing operation.</param>
-	/// <remarks>This method logs the closing of the form and plays a close sound in the background.</remarks>
-	private void ObservatoryCodesForm_FormClosing(object sender, FormClosingEventArgs e)
+	/// <remarks>Raises the closing event, then logs and plays the close sound unless closing was canceled.</remarks>
+	protected override void OnFormClosing(FormClosingEventArgs e)
 	{
-		// Log that the form is closing
+		base.OnFormClosing(e);
+		if (e.Cancel)
+		{
+			return;
+		}
 		logger.Info(message: "ObservatoryCodesForm is closing.");
-		// Play the close sound in the background to indicate that the form is closing
 		AudioPlayback.PlayCloseSound();
 	}
 
