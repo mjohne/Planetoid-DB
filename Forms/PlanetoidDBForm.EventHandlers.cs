@@ -49,6 +49,8 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to initialize the form and its controls.</remarks>
 	private void PlanetoidDBForm_Load(object sender, EventArgs e)
 	{
+		// Log the Load event of the form
+		logger.Info(message: "PlanetoidDBForm_Load event triggered");
 		// Clear the status bar before loading the database
 		ClearStatusBar(label: labelInformation);
 		// Reload the application settings to ensure the latest configuration is applied
@@ -60,6 +62,8 @@ public partial class PlanetoidDbForm
 			Settings.Default.userUpgradeRequired = false;
 			Settings.Default.Save();
 		}
+		// Set the checked state of the enable UI sound menu item based on the user settings
+		toolStripMenuItemOptionEnableUiSound.Checked = Settings.Default.userEnableUiSound;
 		// Set the checked state of the logging menu item based on the user settings
 		toolStripMenuItemLogging.Checked = Settings.Default.userEnableLogging;
 		// Set the checked state of the check for database updates on startup menu item based on the user settings
@@ -151,6 +155,8 @@ public partial class PlanetoidDbForm
 		//LoadAstorbDatabase();
 		// Load all bookmarks from disk into memory at startup
 		LoadAllBookmarks();
+		// Log the completion of the Load event of the form
+		logger.Info(message: "PlanetoidDBForm_Load event completed");
 	}
 
 	/// <summary>Handles the shown event of the PlanetoidDBForm.</summary>
@@ -239,16 +245,21 @@ public partial class PlanetoidDbForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="FormClosingEventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to handle the form closing event.</remarks>
-	private async void PlanetoidDBForm_FormClosing(object sender, FormClosingEventArgs e)
+	private void PlanetoidDBForm_FormClosing(object sender, FormClosingEventArgs e)
 	{
+		// Log the FormClosing event of the form
+		logger.Info(message: "PlanetoidDBForm_FormClosing event triggered");
 		// Keep the form open until the shutdown sound has finished playing
 		if (isShutdownSoundPlaybackComplete)
 		{
 			return;
 		}
+		// Cancel the form closing event to allow the shutdown sound to play
 		e.Cancel = true;
+		// Check if the shutdown sound playback has already started to avoid multiple invocations
 		if (isShutdownSoundPlaybackStarted)
 		{
+			// If the shutdown sound playback has already started, simply return to avoid multiple invocations
 			return;
 		}
 		isShutdownSoundPlaybackStarted = true;
@@ -257,15 +268,23 @@ public partial class PlanetoidDbForm
 		// Save the current application settings before closing the form
 		try
 		{
+			// Log the saving of application settings
+			logger.Info(message: "Saving application settings.");
+			// Save the current application settings
 			Settings.Default.Save();
 		}
+		// Catch any exceptions that occur during the saving of application settings and log a warning
 		catch (Exception ex)
 		{
+			// Log a warning message if saving application settings fails
 			logger.Warn(exception: ex, message: "Failed to save application settings during shutdown.");
 		}
 		// Check if the file exists before attempting to delete it
 		try
 		{
+			// Log the check for the temporary file
+			logger.Info(message: $"Checking for temporary file: {filenameMpcorbTemp}");
+			// Check if the temporary file exists
 			if (File.Exists(path: filenameMpcorbTemp))
 			{
 				// Delete the temporary file if it exists
@@ -274,17 +293,24 @@ public partial class PlanetoidDbForm
 				logger.Info(message: $"Deleted temporary file: {filenameMpcorbTemp}");
 			}
 		}
+		// Catch any exceptions that occur during the deletion of the temporary file and log a warning
 		catch (Exception ex)
 		{
+			// Log a warning message if deleting the temporary file fails
 			logger.Warn(exception: ex, message: "Failed to delete the temporary file during shutdown.");
 		}
 		// Play the shutdown sound before allowing the application to exit
 		try
 		{
-			await PlayShutDownSoundInBackground();
+			// Log the attempt to play the shutdown sound
+			logger.Info(message: "Attempting to play shutdown sound.");
+			// Play the shutdown sound in the background
+			AudioPlayback.PlayShutDownSound();
 		}
+		// Catch any exceptions that occur during the playback of the shutdown sound and log a warning
 		catch (Exception ex)
 		{
+			// Log a warning message if playing the shutdown sound fails
 			logger.Warn(exception: ex, message: "Failed to play the shutdown sound.");
 		}
 		finally
@@ -683,7 +709,7 @@ public partial class PlanetoidDbForm
 	private void OpenWebsiteMPC_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Opening MPC website: {Settings.Default.systemWebsiteMpc}");
-		PlaySendDataSoundInBackground();
+		AudioPlayback.PlaySendDataSound();
 		OpenWebsite(fileName: Settings.Default.systemWebsiteMpc);
 	}
 
@@ -694,7 +720,7 @@ public partial class PlanetoidDbForm
 	private void OpenMpcorbDatWebsite_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Opening MPCORB website: {Settings.Default.systemWebsiteMpcorb}");
-		PlaySendDataSoundInBackground();
+		AudioPlayback.PlaySendDataSound();
 		OpenWebsite(fileName: Settings.Default.systemWebsiteMpcorb);
 	}
 
@@ -838,7 +864,7 @@ public partial class PlanetoidDbForm
 	{
 		logger.Info(message: $"Opening Planetoid Database website; {Settings.Default.systemHomepage}");
 		OpenWebsite(fileName: Settings.Default.systemHomepage);
-		PlaySendDataSoundInBackground();
+		AudioPlayback.PlaySendDataSound();
 	}
 
 	/// <summary>Handles the click event for the TableMode button. Opens the table mode form.</summary>
@@ -1740,7 +1766,7 @@ public partial class PlanetoidDbForm
 	private void OpenDataPageMpcDatabase_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Opening MPC Database page for object {labelMpcorbIndexData.Text}");
-		PlaySendDataSoundInBackground();
+		AudioPlayback.PlaySendDataSound();
 		OpenWebsite(fileName: $"https://www.minorplanetcenter.net/db_search/show_object?utf8=%E2%9C%93&object_id={labelMpcorbIndexData.Text}");
 	}
 
@@ -1751,7 +1777,7 @@ public partial class PlanetoidDbForm
 	private void OpenDataPageJplSmallBodyDatabase_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Opening JPL Small-Body Database page for object {labelMpcorbIndexData.Text}");
-		PlaySendDataSoundInBackground();
+		AudioPlayback.PlaySendDataSound();
 		OpenWebsite(fileName: $"https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr={labelMpcorbIndexData.Text}&view=OPDA");
 	}
 
@@ -1762,7 +1788,7 @@ public partial class PlanetoidDbForm
 	private void OpenDataPageLowellMinorPlanetServices_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Opening Lowell Minor Planet Services page for object {labelMpcorbIndexData.Text}");
-		PlaySendDataSoundInBackground();
+		AudioPlayback.PlaySendDataSound();
 		OpenWebsite(fileName: $"https://asteroid.lowell.edu/gui/search/{ProcessDesignationForUrl(input: labelMpcorbReadableDesignationData.Text)}");
 	}
 
@@ -1773,7 +1799,7 @@ public partial class PlanetoidDbForm
 	private void OpenDataPageAsteroidsDynamicSite_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Opening Asteroids Dynamic Site page for object {labelMpcorbIndexData.Text}");
-		PlaySendDataSoundInBackground();
+		AudioPlayback.PlaySendDataSound();
 		OpenWebsite(fileName: $"https://newton.spacedys.com/astdys/index.php?pc=1.1.0&n={ProcessDesignationForUrl(input: labelMpcorbReadableDesignationData.Text)}");
 	}
 
@@ -1784,7 +1810,7 @@ public partial class PlanetoidDbForm
 	private void OpenDataPageNearEarthObjectsDynamicSite_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Opening Near-Earth Objects Dynamic Site page for object {labelMpcorbIndexData.Text}");
-		PlaySendDataSoundInBackground();
+		AudioPlayback.PlaySendDataSound();
 		OpenWebsite(fileName: $"https://newton.spacedys.com/neodys/index.php?pc=1.1.0&n={ProcessDesignationForUrl(input: labelMpcorbReadableDesignationData.Text)}");
 	}
 
@@ -1795,7 +1821,7 @@ public partial class PlanetoidDbForm
 	private void OpenDataPageNearEarthObjectCoordinationCentre_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Opening Near-Earth Object Coordination Centre page for object {labelMpcorbIndexData.Text}");
-		PlaySendDataSoundInBackground();
+		AudioPlayback.PlaySendDataSound();
 		OpenWebsite(fileName: $"https://neo.ssa.esa.int/search-for-asteroids?tab=summary&des={ProcessDesignationForUrl(input: labelMpcorbReadableDesignationData.Text)}");
 	}
 
@@ -1806,7 +1832,7 @@ public partial class PlanetoidDbForm
 	private void OpenDataPageSsoCard_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Opening SsoCard page for object {labelMpcorbIndexData.Text}");
-		PlaySendDataSoundInBackground();
+		AudioPlayback.PlaySendDataSound();
 		OpenWebsite(fileName: $"https://ssp.imcce.fr/forms/ssocard/{ProcessDesignationForUrl(input: labelMpcorbReadableDesignationData.Text)}");
 	}
 
@@ -1817,7 +1843,7 @@ public partial class PlanetoidDbForm
 	private void OpenDataPageNeoToolsOvt_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Opening NeoTools OVT page for object {labelMpcorbIndexData.Text}");
-		PlaySendDataSoundInBackground();
+		AudioPlayback.PlaySendDataSound();
 		OpenWebsite(fileName: $"https://neotools.neo.s2p.esa.int/ovt?object={ProcessDesignationForUrl(input: labelMpcorbReadableDesignationData.Text)}");
 	}
 
@@ -1828,7 +1854,7 @@ public partial class PlanetoidDbForm
 	private void OpenDataPageMp3CAtLe_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Opening MP3C at University of Leicester page for object {labelMpcorbIndexData.Text}");
-		PlaySendDataSoundInBackground();
+		AudioPlayback.PlaySendDataSound();
 		OpenWebsite(fileName: $"https://mp3c.le.ac.uk/bodies/{ProcessDesignationForUrl2(input: labelMpcorbReadableDesignationData.Text)}");
 	}
 
@@ -1839,7 +1865,7 @@ public partial class PlanetoidDbForm
 	private void OpenDataPageMp3CAtOca_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Opening MP3C at Observatoire de la Côte d'Azur page for object {labelMpcorbIndexData.Text}");
-		PlaySendDataSoundInBackground();
+		AudioPlayback.PlaySendDataSound();
 		OpenWebsite(fileName: $"https://mp3c.oca.eu/bodies/{ProcessDesignationForUrl2(input: labelMpcorbReadableDesignationData.Text)}");
 	}
 
@@ -2293,6 +2319,28 @@ public partial class PlanetoidDbForm
 		{
 			// If the experimental features menu item is not checked, disable experimental features
 			DisableExperimentalFeatures();
+		}
+	}
+
+
+	/// <summary>Handles the click event for the UI Sound menu item and toggles UI sound on or off based on the current state.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method checks the checked state of the UI Sound menu item and calls the appropriate method to enable or disable UI sound.</remarks>
+	private void ToolStripMenuItemOptionEnableUiSound_Click(object sender, EventArgs e)
+	{
+		// Log the click event and the current checked state of the UI sound menu item
+		logger.Info(message: $"UI Sound menu item clicked. Checked state: {toolStripMenuItemOptionEnableUiSound.Checked}");
+		// Toggle UI sound based on the current checked state of the menu item
+		if (toolStripMenuItemOptionEnableUiSound.Checked)
+		{
+			// If the UI sound menu item is checked, enable UI sound
+			EnableUiSound();
+		}
+		else
+		{
+			// If the UI sound menu item is not checked, disable UI sound
+			DisableUiSound();
 		}
 	}
 
