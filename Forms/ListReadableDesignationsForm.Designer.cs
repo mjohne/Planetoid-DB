@@ -1035,7 +1035,7 @@ partial class ListReadableDesignationsForm
 		// 
 		// toolStripButtonGoToObject
 		// 
-		toolStripButtonGoToObject.AccessibleDescription = "Goes to the selected planetoid";
+		toolStripButtonGoToObject.AccessibleDescription = "Goes to the selected minor planet";
 		toolStripButtonGoToObject.AccessibleName = "Go to object";
 		toolStripButtonGoToObject.AccessibleRole = AccessibleRole.PushButton;
 		toolStripButtonGoToObject.Image = FatcowIcons16px.fatcow_application_go_16px;
