@@ -28,6 +28,7 @@ internal static class DistanceConverter
 		{ DistanceUnit.MercurialUnit, 0.387098m * ASTRONOMICAL_UNIT },
 		{ DistanceUnit.VenusianUnit, 0.723332m * ASTRONOMICAL_UNIT},
 		{ DistanceUnit.LunarUnit, 384_400_000m },
+		{ DistanceUnit.MartianUnit, 1.52368055m * ASTRONOMICAL_UNIT},
 		{ DistanceUnit.JovianUnit, 5.2038m * ASTRONOMICAL_UNIT },
 		{ DistanceUnit.SaturnianUnit, 9.5826m * ASTRONOMICAL_UNIT },
 		{ DistanceUnit.UranianUnit, 19.2012m * ASTRONOMICAL_UNIT },
