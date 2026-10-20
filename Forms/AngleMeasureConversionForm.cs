@@ -29,7 +29,14 @@ internal partial class AngleMeasureConversionForm : BaseKryptonForm
 	/// <remarks>This logger is used to log messages for the form.</remarks>
 	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
-	#region Construtor
+	// Prevents the infinite loop from being triggered
+	private bool _isUpdating;
+
+	/// <summary>Gets the status label to be used for displaying information.</summary>
+	/// <remarks>Derived classes should override this property to provide the specific label.</remarks>
+	protected override ToolStripStatusLabel? StatusLabel => labelInformation;
+
+	#region Constructor
 
 	/// <summary>Initializes a new instance of the <see cref="AngleMeasureConversionForm"/> class.</summary>
 	/// <remarks>This constructor initializes the form components.</remarks>
@@ -87,108 +94,179 @@ internal partial class AngleMeasureConversionForm : BaseKryptonForm
 
 	private void RectascensionFromTimeMeasureSexagesimal_Calculate(object sender, EventArgs e)
 	{
-		SexagesimalAngle<double> sexagesimalAngle = new(
-			Degrees: (int)kryptonNumericUpDownRectascensionAngleMeasureSexagesimalDegree.Value,
-			Minutes: (int)kryptonNumericUpDownRectascensionAngleMeasureSexagesimalMinute.Value,
-			Seconds: (double)kryptonNumericUpDownRectascensionAngleMeasureSexagesimalSecond.Value);
+		if (_isUpdating)
+		{
+			return;
+		}
+		try
+		{
+			_isUpdating = true;
+			SexagesimalAngle<double> sexagesimalAngle = new(
+				Degrees: (int)kryptonNumericUpDownRectascensionAngleMeasureSexagesimalDegree.Value,
+				Minutes: (int)kryptonNumericUpDownRectascensionAngleMeasureSexagesimalMinute.Value,
+				Seconds: (double)kryptonNumericUpDownRectascensionAngleMeasureSexagesimalSecond.Value);
 
-		SexagesimalAngle<decimal> sexagesimalAngleDecimal = new(
-			Degrees: (int)kryptonNumericUpDownRectascensionAngleMeasureSexagesimalDegree.Value,
-			Minutes: (int)kryptonNumericUpDownRectascensionAngleMeasureSexagesimalMinute.Value,
-			Seconds: kryptonNumericUpDownRectascensionAngleMeasureSexagesimalSecond.Value);
+			SexagesimalAngle<decimal> sexagesimalAngleDecimal = new(
+				Degrees: (int)kryptonNumericUpDownRectascensionAngleMeasureSexagesimalDegree.Value,
+				Minutes: (int)kryptonNumericUpDownRectascensionAngleMeasureSexagesimalMinute.Value,
+				Seconds: kryptonNumericUpDownRectascensionAngleMeasureSexagesimalSecond.Value);
 
-		kryptonNumericUpDownRectascensionAngleMeasureDecimalDegree.Value = MeasureConverter.SexagesimalAngleToDecimalAngle(angle: sexagesimalAngleDecimal);
+			kryptonNumericUpDownRectascensionAngleMeasureDecimalDegree.Value = MeasureConverter.SexagesimalAngleToDecimalAngle(angle: sexagesimalAngleDecimal);
 
-		SexagesimalTime<double> sexagesimalTime = MeasureConverter.SexagesimalAngleToSexagesimalTime(angle: sexagesimalAngle);
+			SexagesimalTime<double> sexagesimalTime = MeasureConverter.SexagesimalAngleToSexagesimalTime(angle: sexagesimalAngle);
 
-		kryptonNumericUpDownRectascensionTimeMeasureSexagesimalHour.Value = sexagesimalTime.Hours;
-		kryptonNumericUpDownRectascensionTimeMeasureSexagesimalMinute.Value = sexagesimalTime.Minutes;
-		kryptonNumericUpDownRectascensionTimeMeasureSexagesimalSecond.Value = (decimal)sexagesimalTime.Seconds;
+			kryptonNumericUpDownRectascensionTimeMeasureSexagesimalHour.Value = sexagesimalTime.Hours;
+			kryptonNumericUpDownRectascensionTimeMeasureSexagesimalMinute.Value = sexagesimalTime.Minutes;
+			kryptonNumericUpDownRectascensionTimeMeasureSexagesimalSecond.Value = (decimal)sexagesimalTime.Seconds;
 
-		kryptonNumericUpDownRectascensionTimeMeasureDecimalHour.Value = MeasureConverter.SexagesimalAngleToDecimalTime(angle: sexagesimalAngleDecimal);
+			kryptonNumericUpDownRectascensionTimeMeasureDecimalHour.Value = MeasureConverter.SexagesimalAngleToDecimalTime(angle: sexagesimalAngleDecimal);
+		}
+		finally
+		{
+			_isUpdating = false;
+		}
 	}
 
 	private void RectascensionFromAngleMeasureSexagesimal_Calculate(object sender, EventArgs e)
 	{
-		kryptonNumericUpDownRectascensionTimeMeasureDecimalHour.Value = MeasureConverter.SexagesimalTimeToDecimalTime(time: new SexagesimalTime<decimal>(
-					Hours: (int)kryptonNumericUpDownRectascensionTimeMeasureSexagesimalHour.Value,
-					Minutes: (int)kryptonNumericUpDownRectascensionTimeMeasureSexagesimalMinute.Value,
-					Seconds: kryptonNumericUpDownRectascensionTimeMeasureSexagesimalSecond.Value));
+		if (_isUpdating)
+		{
+			return;
+		}
+		try
+		{
+			_isUpdating = true;
+			kryptonNumericUpDownRectascensionTimeMeasureDecimalHour.Value = MeasureConverter.SexagesimalTimeToDecimalTime(time: new SexagesimalTime<decimal>(
+						Hours: (int)kryptonNumericUpDownRectascensionTimeMeasureSexagesimalHour.Value,
+						Minutes: (int)kryptonNumericUpDownRectascensionTimeMeasureSexagesimalMinute.Value,
+						Seconds: kryptonNumericUpDownRectascensionTimeMeasureSexagesimalSecond.Value));
 
-		SexagesimalTime<double> sexagesimalTime = new(
-			Hours: (int)kryptonNumericUpDownRectascensionTimeMeasureSexagesimalHour.Value,
-			Minutes: (int)kryptonNumericUpDownRectascensionTimeMeasureSexagesimalMinute.Value,
-			Seconds: (double)kryptonNumericUpDownRectascensionTimeMeasureSexagesimalSecond.Value);
+			SexagesimalTime<double> sexagesimalTime = new(
+				Hours: (int)kryptonNumericUpDownRectascensionTimeMeasureSexagesimalHour.Value,
+				Minutes: (int)kryptonNumericUpDownRectascensionTimeMeasureSexagesimalMinute.Value,
+				Seconds: (double)kryptonNumericUpDownRectascensionTimeMeasureSexagesimalSecond.Value);
 
-		kryptonNumericUpDownRectascensionAngleMeasureSexagesimalDegree.Value = MeasureConverter.SexagesimalTimeToSexagesimalAngle(time: sexagesimalTime).Degrees;
-		kryptonNumericUpDownRectascensionAngleMeasureSexagesimalMinute.Value = MeasureConverter.SexagesimalTimeToSexagesimalAngle(time: sexagesimalTime).Minutes;
-		kryptonNumericUpDownRectascensionAngleMeasureSexagesimalSecond.Value = (decimal)MeasureConverter.SexagesimalTimeToSexagesimalAngle(time: sexagesimalTime).Seconds;
+			kryptonNumericUpDownRectascensionAngleMeasureSexagesimalDegree.Value = MeasureConverter.SexagesimalTimeToSexagesimalAngle(time: sexagesimalTime).Degrees;
+			kryptonNumericUpDownRectascensionAngleMeasureSexagesimalMinute.Value = MeasureConverter.SexagesimalTimeToSexagesimalAngle(time: sexagesimalTime).Minutes;
+			kryptonNumericUpDownRectascensionAngleMeasureSexagesimalSecond.Value = (decimal)MeasureConverter.SexagesimalTimeToSexagesimalAngle(time: sexagesimalTime).Seconds;
 
-		kryptonNumericUpDownRectascensionAngleMeasureDecimalDegree.Value = MeasureConverter.SexagesimalTimeToDecimalAngle(time: new SexagesimalTime<decimal>(
-			Hours: (int)kryptonNumericUpDownRectascensionTimeMeasureSexagesimalHour.Value,
-			Minutes: (int)kryptonNumericUpDownRectascensionTimeMeasureSexagesimalMinute.Value,
-			Seconds: kryptonNumericUpDownRectascensionTimeMeasureSexagesimalSecond.Value));
+			kryptonNumericUpDownRectascensionAngleMeasureDecimalDegree.Value = MeasureConverter.SexagesimalTimeToDecimalAngle(time: new SexagesimalTime<decimal>(
+				Hours: (int)kryptonNumericUpDownRectascensionTimeMeasureSexagesimalHour.Value,
+				Minutes: (int)kryptonNumericUpDownRectascensionTimeMeasureSexagesimalMinute.Value,
+				Seconds: kryptonNumericUpDownRectascensionTimeMeasureSexagesimalSecond.Value));
+		}
+		finally
+		{
+			_isUpdating = false;
+		}
 	}
 
 	private void RectascensionFromTimeMeasureDecimal_Calculate(object sender, EventArgs e)
 	{
-		decimal decimalHours = kryptonNumericUpDownRectascensionTimeMeasureDecimalHour.Value;
+		if (_isUpdating)
+		{
+			return;
+		}
+		try
+		{
+			_isUpdating = true;
+			decimal decimalHours = kryptonNumericUpDownRectascensionTimeMeasureDecimalHour.Value;
 
-		SexagesimalTime<decimal> sexagesimalTime = MeasureConverter.DecimalTimeToSexagesimalTime(decimalHours: decimalHours);
+			SexagesimalTime<decimal> sexagesimalTime = MeasureConverter.DecimalTimeToSexagesimalTime(decimalHours: decimalHours);
 
-		kryptonNumericUpDownRectascensionTimeMeasureSexagesimalHour.Value = sexagesimalTime.Hours;
-		kryptonNumericUpDownRectascensionTimeMeasureSexagesimalMinute.Value = sexagesimalTime.Minutes;
-		kryptonNumericUpDownRectascensionTimeMeasureSexagesimalSecond.Value = sexagesimalTime.Seconds;
+			kryptonNumericUpDownRectascensionTimeMeasureSexagesimalHour.Value = sexagesimalTime.Hours;
+			kryptonNumericUpDownRectascensionTimeMeasureSexagesimalMinute.Value = sexagesimalTime.Minutes;
+			kryptonNumericUpDownRectascensionTimeMeasureSexagesimalSecond.Value = sexagesimalTime.Seconds;
 
-		SexagesimalAngle<double> sexagesimalAngle = MeasureConverter.DecimalTimeToSexagesimalAngle(decimalHours: (double)decimalHours);
+			SexagesimalAngle<double> sexagesimalAngle = MeasureConverter.DecimalTimeToSexagesimalAngle(decimalHours: (double)decimalHours);
 
-		kryptonNumericUpDownRectascensionAngleMeasureSexagesimalDegree.Value = sexagesimalAngle.Degrees;
-		kryptonNumericUpDownRectascensionAngleMeasureSexagesimalMinute.Value = sexagesimalAngle.Minutes;
-		kryptonNumericUpDownRectascensionAngleMeasureSexagesimalSecond.Value = (decimal)sexagesimalAngle.Seconds;
+			kryptonNumericUpDownRectascensionAngleMeasureSexagesimalDegree.Value = sexagesimalAngle.Degrees;
+			kryptonNumericUpDownRectascensionAngleMeasureSexagesimalMinute.Value = sexagesimalAngle.Minutes;
+			kryptonNumericUpDownRectascensionAngleMeasureSexagesimalSecond.Value = (decimal)sexagesimalAngle.Seconds;
 
-		kryptonNumericUpDownRectascensionAngleMeasureDecimalDegree.Value = MeasureConverter.DecimalTimeToDecimalAngle(decimalHours: decimalHours);
+			kryptonNumericUpDownRectascensionAngleMeasureDecimalDegree.Value = MeasureConverter.DecimalTimeToDecimalAngle(decimalHours: decimalHours);
+		}
+		finally
+		{
+			_isUpdating = false;
+		}
 	}
 
 	private void RectascensionFromAngleMeasureDecimal_Calculate(object sender, EventArgs e)
 	{
-		decimal decimalDegrees = kryptonNumericUpDownRectascensionAngleMeasureDecimalDegree.Value;
+		if (_isUpdating)
+		{
+			return;
+		}
+		try
+		{
+			_isUpdating = true;
+			decimal decimalDegrees = kryptonNumericUpDownRectascensionAngleMeasureDecimalDegree.Value;
 
-		SexagesimalAngle<decimal> sexagesimalAngle = MeasureConverter.DecimalAngleToSexagesimalAngle(decimalDegrees: decimalDegrees);
+			SexagesimalAngle<decimal> sexagesimalAngle = MeasureConverter.DecimalAngleToSexagesimalAngle(decimalDegrees: decimalDegrees);
 
-		kryptonNumericUpDownRectascensionAngleMeasureSexagesimalDegree.Value = sexagesimalAngle.Degrees;
-		kryptonNumericUpDownRectascensionAngleMeasureSexagesimalMinute.Value = sexagesimalAngle.Minutes;
-		kryptonNumericUpDownRectascensionAngleMeasureSexagesimalSecond.Value = sexagesimalAngle.Seconds;
+			kryptonNumericUpDownRectascensionAngleMeasureSexagesimalDegree.Value = sexagesimalAngle.Degrees;
+			kryptonNumericUpDownRectascensionAngleMeasureSexagesimalMinute.Value = sexagesimalAngle.Minutes;
+			kryptonNumericUpDownRectascensionAngleMeasureSexagesimalSecond.Value = sexagesimalAngle.Seconds;
 
-		kryptonNumericUpDownRectascensionTimeMeasureDecimalHour.Value = MeasureConverter.DecimalAngleToDecimalTime(decimalDegrees: decimalDegrees);
+			kryptonNumericUpDownRectascensionTimeMeasureDecimalHour.Value = MeasureConverter.DecimalAngleToDecimalTime(decimalDegrees: decimalDegrees);
 
-		SexagesimalTime<double> sexagesimalTime = MeasureConverter.DecimalAngleToSexagesimalTime(decimalDegrees: (double)decimalDegrees);
+			SexagesimalTime<double> sexagesimalTime = MeasureConverter.DecimalAngleToSexagesimalTime(decimalDegrees: (double)decimalDegrees);
 
-		kryptonNumericUpDownRectascensionTimeMeasureSexagesimalHour.Value = sexagesimalTime.Hours;
-		kryptonNumericUpDownRectascensionTimeMeasureSexagesimalMinute.Value = sexagesimalTime.Minutes;
-		kryptonNumericUpDownRectascensionTimeMeasureSexagesimalSecond.Value = (decimal)sexagesimalTime.Seconds;
+			kryptonNumericUpDownRectascensionTimeMeasureSexagesimalHour.Value = sexagesimalTime.Hours;
+			kryptonNumericUpDownRectascensionTimeMeasureSexagesimalMinute.Value = sexagesimalTime.Minutes;
+			kryptonNumericUpDownRectascensionTimeMeasureSexagesimalSecond.Value = (decimal)sexagesimalTime.Seconds;
+		}
+		finally
+		{
+			_isUpdating = false;
+		}
 	}
 
 	private void DeclinationFromAngleMeasureSexagesimal_Calculate(object sender, EventArgs e)
 	{
-		SexagesimalAngle<decimal> sexagesimalAngle = new(
-			Degrees: (int)kryptonNumericUpDownDeclinationAngleMeasureSexagesimalDegree.Value,
-			Minutes: (int)kryptonNumericUpDownDeclinationAngleMeasureSexagesimalArcMinute.Value,
-			Seconds: kryptonNumericUpDownDeclinationAngleMeasureSexagesimalArcSecond.Value);
+		if (_isUpdating)
+		{
+			return;
+		}
+		try
+		{
+			_isUpdating = true;
+			SexagesimalAngle<decimal> sexagesimalAngle = new(
+				Degrees: (int)kryptonNumericUpDownDeclinationAngleMeasureSexagesimalDegree.Value,
+				Minutes: (int)kryptonNumericUpDownDeclinationAngleMeasureSexagesimalArcMinute.Value,
+				Seconds: kryptonNumericUpDownDeclinationAngleMeasureSexagesimalArcSecond.Value);
 
-		kryptonNumericUpDownDeclinationAngleMeasureDecimalDegree.Value = MeasureConverter.SexagesimalAngleToDecimalAngle(angle: sexagesimalAngle);
+			kryptonNumericUpDownDeclinationAngleMeasureDecimalDegree.Value = MeasureConverter.SexagesimalAngleToDecimalAngle(angle: sexagesimalAngle);
+		}
+		finally
+		{
+			_isUpdating = false;
+		}
 	}
 
 	private void DeclinationFromAngleMeasureDecimal_Calculate(object sender, EventArgs e)
 	{
-		decimal decimalDegrees = kryptonNumericUpDownDeclinationAngleMeasureDecimalDegree.Value;
+		if (_isUpdating)
+		{
+			return;
+		}
+		try
+		{
+			_isUpdating = true;
+			decimal decimalDegrees = kryptonNumericUpDownDeclinationAngleMeasureDecimalDegree.Value;
 
-		SexagesimalAngle<decimal> sexagesimalAngle = MeasureConverter.DecimalAngleToSexagesimalAngle(decimalDegrees: decimalDegrees);
+			SexagesimalAngle<decimal> sexagesimalAngle = MeasureConverter.DecimalAngleToSexagesimalAngle(decimalDegrees: decimalDegrees);
 
-		kryptonNumericUpDownDeclinationAngleMeasureSexagesimalDegree.Value = sexagesimalAngle.Degrees;
-		kryptonNumericUpDownDeclinationAngleMeasureSexagesimalArcMinute.Value = sexagesimalAngle.Minutes;
-		kryptonNumericUpDownDeclinationAngleMeasureSexagesimalArcSecond.Value = sexagesimalAngle.Seconds;
+			kryptonNumericUpDownDeclinationAngleMeasureSexagesimalDegree.Value = sexagesimalAngle.Degrees;
+			kryptonNumericUpDownDeclinationAngleMeasureSexagesimalArcMinute.Value = sexagesimalAngle.Minutes;
+			kryptonNumericUpDownDeclinationAngleMeasureSexagesimalArcSecond.Value = sexagesimalAngle.Seconds;
+		}
+		finally
+		{
+			_isUpdating = false;
+		}
 	}
 
 	#endregion
-
 }

@@ -168,6 +168,9 @@ partial class AngleMeasureConversionForm
 		// 
 		// kryptonNavigator
 		// 
+		kryptonNavigator.AccessibleDescription = "Groups the page tabs";
+		kryptonNavigator.AccessibleName = "Navigator of angle measure conversion";
+		kryptonNavigator.AccessibleRole = AccessibleRole.PageTabList;
 		kryptonNavigator.ControlKryptonFormFeatures = false;
 		kryptonNavigator.Dock = DockStyle.Fill;
 		kryptonNavigator.Location = new Point(0, 0);
@@ -284,6 +287,7 @@ partial class AngleMeasureConversionForm
 		kryptonNumericUpDownRectascensionAngleMeasureSexagesimalSecond.ToolTipValues.EnableToolTips = true;
 		kryptonNumericUpDownRectascensionAngleMeasureSexagesimalSecond.ToolTipValues.Heading = "Step size";
 		kryptonNumericUpDownRectascensionAngleMeasureSexagesimalSecond.ToolTipValues.Image = Resources.FatcowIcons16px.fatcow_information_16px;
+		kryptonNumericUpDownRectascensionAngleMeasureSexagesimalSecond.ToolTipValues.ToolTipPosition.PlacementMode = Krypton.Toolkit.PlacementMode.Right;
 		kryptonNumericUpDownRectascensionAngleMeasureSexagesimalSecond.Value = new decimal(new int[] { 0, 0, 0, 0 });
 		kryptonNumericUpDownRectascensionAngleMeasureSexagesimalSecond.ValueChanged += RectascensionFromAngleMeasureSexagesimal_Calculate;
 		// 
@@ -352,6 +356,7 @@ partial class AngleMeasureConversionForm
 		kryptonNumericUpDownRectascensionAngleMeasureSexagesimalDegree.ToolTipValues.EnableToolTips = true;
 		kryptonNumericUpDownRectascensionAngleMeasureSexagesimalDegree.ToolTipValues.Heading = "Step size";
 		kryptonNumericUpDownRectascensionAngleMeasureSexagesimalDegree.ToolTipValues.Image = Resources.FatcowIcons16px.fatcow_information_16px;
+		kryptonNumericUpDownRectascensionAngleMeasureSexagesimalDegree.ToolTipValues.ToolTipPosition.PlacementMode = Krypton.Toolkit.PlacementMode.Left;
 		kryptonNumericUpDownRectascensionAngleMeasureSexagesimalDegree.Value = new decimal(new int[] { 0, 0, 0, 0 });
 		kryptonNumericUpDownRectascensionAngleMeasureSexagesimalDegree.ValueChanged += RectascensionFromAngleMeasureSexagesimal_Calculate;
 		// 
@@ -368,6 +373,7 @@ partial class AngleMeasureConversionForm
 		kryptonLabelRectascensionTimeMeasureDecimalHour.ToolTipValues.EnableToolTips = true;
 		kryptonLabelRectascensionTimeMeasureDecimalHour.ToolTipValues.Heading = "Step size (days)";
 		kryptonLabelRectascensionTimeMeasureDecimalHour.ToolTipValues.Image = Resources.FatcowIcons16px.fatcow_information_16px;
+		kryptonLabelRectascensionTimeMeasureDecimalHour.ToolTipValues.ToolTipPosition.PlacementMode = Krypton.Toolkit.PlacementMode.Right;
 		kryptonLabelRectascensionTimeMeasureDecimalHour.Values.Text = "hour";
 		// 
 		// kryptonLabelRectascensionTimeMeasureSexagesimalSecond
@@ -383,6 +389,7 @@ partial class AngleMeasureConversionForm
 		kryptonLabelRectascensionTimeMeasureSexagesimalSecond.ToolTipValues.EnableToolTips = true;
 		kryptonLabelRectascensionTimeMeasureSexagesimalSecond.ToolTipValues.Heading = "Step size (days)";
 		kryptonLabelRectascensionTimeMeasureSexagesimalSecond.ToolTipValues.Image = Resources.FatcowIcons16px.fatcow_information_16px;
+		kryptonLabelRectascensionTimeMeasureSexagesimalSecond.ToolTipValues.ToolTipPosition.PlacementMode = Krypton.Toolkit.PlacementMode.Top;
 		kryptonLabelRectascensionTimeMeasureSexagesimalSecond.Values.Text = "s";
 		// 
 		// kryptonNumericUpDownRectascensionTimeMeasureSexagesimalSecond
@@ -401,6 +408,7 @@ partial class AngleMeasureConversionForm
 		kryptonNumericUpDownRectascensionTimeMeasureSexagesimalSecond.ToolTipValues.EnableToolTips = true;
 		kryptonNumericUpDownRectascensionTimeMeasureSexagesimalSecond.ToolTipValues.Heading = "Step size";
 		kryptonNumericUpDownRectascensionTimeMeasureSexagesimalSecond.ToolTipValues.Image = Resources.FatcowIcons16px.fatcow_information_16px;
+		kryptonNumericUpDownRectascensionTimeMeasureSexagesimalSecond.ToolTipValues.ToolTipPosition.PlacementMode = Krypton.Toolkit.PlacementMode.Top;
 		kryptonNumericUpDownRectascensionTimeMeasureSexagesimalSecond.Value = new decimal(new int[] { 0, 0, 0, 0 });
 		kryptonNumericUpDownRectascensionTimeMeasureSexagesimalSecond.ValueChanged += RectascensionFromTimeMeasureSexagesimal_Calculate;
 		// 
@@ -417,6 +425,7 @@ partial class AngleMeasureConversionForm
 		kryptonLabelRectascensionTimeMeasureSexagesimalMinute.ToolTipValues.EnableToolTips = true;
 		kryptonLabelRectascensionTimeMeasureSexagesimalMinute.ToolTipValues.Heading = "Step size (days)";
 		kryptonLabelRectascensionTimeMeasureSexagesimalMinute.ToolTipValues.Image = Resources.FatcowIcons16px.fatcow_information_16px;
+		kryptonLabelRectascensionTimeMeasureSexagesimalMinute.ToolTipValues.ToolTipPosition.PlacementMode = Krypton.Toolkit.PlacementMode.Top;
 		kryptonLabelRectascensionTimeMeasureSexagesimalMinute.Values.Text = "m";
 		// 
 		// kryptonNumericUpDownRectascensionTimeMeasureSexagesimalMinute
@@ -435,6 +444,7 @@ partial class AngleMeasureConversionForm
 		kryptonNumericUpDownRectascensionTimeMeasureSexagesimalMinute.ToolTipValues.EnableToolTips = true;
 		kryptonNumericUpDownRectascensionTimeMeasureSexagesimalMinute.ToolTipValues.Heading = "Step size";
 		kryptonNumericUpDownRectascensionTimeMeasureSexagesimalMinute.ToolTipValues.Image = Resources.FatcowIcons16px.fatcow_information_16px;
+		kryptonNumericUpDownRectascensionTimeMeasureSexagesimalMinute.ToolTipValues.ToolTipPosition.PlacementMode = Krypton.Toolkit.PlacementMode.Top;
 		kryptonNumericUpDownRectascensionTimeMeasureSexagesimalMinute.Value = new decimal(new int[] { 0, 0, 0, 0 });
 		kryptonNumericUpDownRectascensionTimeMeasureSexagesimalMinute.ValueChanged += RectascensionFromTimeMeasureSexagesimal_Calculate;
 		// 
@@ -451,6 +461,7 @@ partial class AngleMeasureConversionForm
 		kryptonLabelRectascensionTimeMeasureSexagesimalHour.ToolTipValues.EnableToolTips = true;
 		kryptonLabelRectascensionTimeMeasureSexagesimalHour.ToolTipValues.Heading = "Step size (days)";
 		kryptonLabelRectascensionTimeMeasureSexagesimalHour.ToolTipValues.Image = Resources.FatcowIcons16px.fatcow_information_16px;
+		kryptonLabelRectascensionTimeMeasureSexagesimalHour.ToolTipValues.ToolTipPosition.PlacementMode = Krypton.Toolkit.PlacementMode.Top;
 		kryptonLabelRectascensionTimeMeasureSexagesimalHour.Values.Text = "h";
 		// 
 		// kryptonNumericUpDownRectascensionTimeMeasureDecimalHour
@@ -471,6 +482,7 @@ partial class AngleMeasureConversionForm
 		kryptonNumericUpDownRectascensionTimeMeasureDecimalHour.ToolTipValues.EnableToolTips = true;
 		kryptonNumericUpDownRectascensionTimeMeasureDecimalHour.ToolTipValues.Heading = "Step size";
 		kryptonNumericUpDownRectascensionTimeMeasureDecimalHour.ToolTipValues.Image = Resources.FatcowIcons16px.fatcow_information_16px;
+		kryptonNumericUpDownRectascensionTimeMeasureDecimalHour.ToolTipValues.ToolTipPosition.PlacementMode = Krypton.Toolkit.PlacementMode.Left;
 		kryptonNumericUpDownRectascensionTimeMeasureDecimalHour.Value = new decimal(new int[] { 0, 0, 0, 0 });
 		kryptonNumericUpDownRectascensionTimeMeasureDecimalHour.ValueChanged += RectascensionFromTimeMeasureDecimal_Calculate;
 		// 
@@ -510,7 +522,7 @@ partial class AngleMeasureConversionForm
 		kryptonNumericUpDownRectascensionTimeMeasureSexagesimalHour.AccessibleName = "Step size";
 		kryptonNumericUpDownRectascensionTimeMeasureSexagesimalHour.AccessibleRole = AccessibleRole.SpinButton;
 		kryptonNumericUpDownRectascensionTimeMeasureSexagesimalHour.Increment = new decimal(new int[] { 1, 0, 0, 0 });
-		kryptonNumericUpDownRectascensionTimeMeasureSexagesimalHour.Location = new Point(172, 10);
+		kryptonNumericUpDownRectascensionTimeMeasureSexagesimalHour.Location = new Point(169, 13);
 		kryptonNumericUpDownRectascensionTimeMeasureSexagesimalHour.Maximum = new decimal(new int[] { 23, 0, 0, 0 });
 		kryptonNumericUpDownRectascensionTimeMeasureSexagesimalHour.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
 		kryptonNumericUpDownRectascensionTimeMeasureSexagesimalHour.Name = "kryptonNumericUpDownRectascensionTimeMeasureSexagesimalHour";
@@ -520,6 +532,7 @@ partial class AngleMeasureConversionForm
 		kryptonNumericUpDownRectascensionTimeMeasureSexagesimalHour.ToolTipValues.EnableToolTips = true;
 		kryptonNumericUpDownRectascensionTimeMeasureSexagesimalHour.ToolTipValues.Heading = "Step size";
 		kryptonNumericUpDownRectascensionTimeMeasureSexagesimalHour.ToolTipValues.Image = Resources.FatcowIcons16px.fatcow_information_16px;
+		kryptonNumericUpDownRectascensionTimeMeasureSexagesimalHour.ToolTipValues.ToolTipPosition.PlacementMode = Krypton.Toolkit.PlacementMode.Top;
 		kryptonNumericUpDownRectascensionTimeMeasureSexagesimalHour.Value = new decimal(new int[] { 0, 0, 0, 0 });
 		kryptonNumericUpDownRectascensionTimeMeasureSexagesimalHour.ValueChanged += RectascensionFromTimeMeasureSexagesimal_Calculate;
 		// 
@@ -629,6 +642,7 @@ partial class AngleMeasureConversionForm
 		kryptonLabelDeclinationAngleMeasureSexagesimalArcSecond.ToolTipValues.EnableToolTips = true;
 		kryptonLabelDeclinationAngleMeasureSexagesimalArcSecond.ToolTipValues.Heading = "Step size (days)";
 		kryptonLabelDeclinationAngleMeasureSexagesimalArcSecond.ToolTipValues.Image = Resources.FatcowIcons16px.fatcow_information_16px;
+		kryptonLabelDeclinationAngleMeasureSexagesimalArcSecond.ToolTipValues.ToolTipPosition.PlacementMode = Krypton.Toolkit.PlacementMode.Top;
 		kryptonLabelDeclinationAngleMeasureSexagesimalArcSecond.Values.Text = "''";
 		// 
 		// kryptonNumericUpDownDeclinationAngleMeasureSexagesimalArcSecond
@@ -647,6 +661,7 @@ partial class AngleMeasureConversionForm
 		kryptonNumericUpDownDeclinationAngleMeasureSexagesimalArcSecond.ToolTipValues.EnableToolTips = true;
 		kryptonNumericUpDownDeclinationAngleMeasureSexagesimalArcSecond.ToolTipValues.Heading = "Step size";
 		kryptonNumericUpDownDeclinationAngleMeasureSexagesimalArcSecond.ToolTipValues.Image = Resources.FatcowIcons16px.fatcow_information_16px;
+		kryptonNumericUpDownDeclinationAngleMeasureSexagesimalArcSecond.ToolTipValues.ToolTipPosition.PlacementMode = Krypton.Toolkit.PlacementMode.Top;
 		kryptonNumericUpDownDeclinationAngleMeasureSexagesimalArcSecond.Value = new decimal(new int[] { 0, 0, 0, 0 });
 		kryptonNumericUpDownDeclinationAngleMeasureSexagesimalArcSecond.ValueChanged += DeclinationFromAngleMeasureSexagesimal_Calculate;
 		// 
@@ -663,6 +678,7 @@ partial class AngleMeasureConversionForm
 		kryptonLabelDeclinationAngleMeasureSexagesimalArcMinute.ToolTipValues.EnableToolTips = true;
 		kryptonLabelDeclinationAngleMeasureSexagesimalArcMinute.ToolTipValues.Heading = "Step size (days)";
 		kryptonLabelDeclinationAngleMeasureSexagesimalArcMinute.ToolTipValues.Image = Resources.FatcowIcons16px.fatcow_information_16px;
+		kryptonLabelDeclinationAngleMeasureSexagesimalArcMinute.ToolTipValues.ToolTipPosition.PlacementMode = Krypton.Toolkit.PlacementMode.Top;
 		kryptonLabelDeclinationAngleMeasureSexagesimalArcMinute.Values.Text = "'";
 		// 
 		// kryptonNumericUpDownDeclinationAngleMeasureSexagesimalArcMinute
@@ -681,6 +697,7 @@ partial class AngleMeasureConversionForm
 		kryptonNumericUpDownDeclinationAngleMeasureSexagesimalArcMinute.ToolTipValues.EnableToolTips = true;
 		kryptonNumericUpDownDeclinationAngleMeasureSexagesimalArcMinute.ToolTipValues.Heading = "Step size";
 		kryptonNumericUpDownDeclinationAngleMeasureSexagesimalArcMinute.ToolTipValues.Image = Resources.FatcowIcons16px.fatcow_information_16px;
+		kryptonNumericUpDownDeclinationAngleMeasureSexagesimalArcMinute.ToolTipValues.ToolTipPosition.PlacementMode = Krypton.Toolkit.PlacementMode.Top;
 		kryptonNumericUpDownDeclinationAngleMeasureSexagesimalArcMinute.Value = new decimal(new int[] { 0, 0, 0, 0 });
 		kryptonNumericUpDownDeclinationAngleMeasureSexagesimalArcMinute.ValueChanged += DeclinationFromAngleMeasureSexagesimal_Calculate;
 		// 
@@ -697,6 +714,7 @@ partial class AngleMeasureConversionForm
 		kryptonLabelDeclinationAngleMeasureSexagesimalDegree.ToolTipValues.EnableToolTips = true;
 		kryptonLabelDeclinationAngleMeasureSexagesimalDegree.ToolTipValues.Heading = "Step size (days)";
 		kryptonLabelDeclinationAngleMeasureSexagesimalDegree.ToolTipValues.Image = Resources.FatcowIcons16px.fatcow_information_16px;
+		kryptonLabelDeclinationAngleMeasureSexagesimalDegree.ToolTipValues.ToolTipPosition.PlacementMode = Krypton.Toolkit.PlacementMode.Top;
 		kryptonLabelDeclinationAngleMeasureSexagesimalDegree.Values.Text = "°";
 		// 
 		// kryptonNumericUpDownDeclinationAngleMeasureSexagesimalDegree
@@ -715,6 +733,7 @@ partial class AngleMeasureConversionForm
 		kryptonNumericUpDownDeclinationAngleMeasureSexagesimalDegree.ToolTipValues.EnableToolTips = true;
 		kryptonNumericUpDownDeclinationAngleMeasureSexagesimalDegree.ToolTipValues.Heading = "Step size";
 		kryptonNumericUpDownDeclinationAngleMeasureSexagesimalDegree.ToolTipValues.Image = Resources.FatcowIcons16px.fatcow_information_16px;
+		kryptonNumericUpDownDeclinationAngleMeasureSexagesimalDegree.ToolTipValues.ToolTipPosition.PlacementMode = Krypton.Toolkit.PlacementMode.Top;
 		kryptonNumericUpDownDeclinationAngleMeasureSexagesimalDegree.Value = new decimal(new int[] { 0, 0, 0, 0 });
 		kryptonNumericUpDownDeclinationAngleMeasureSexagesimalDegree.ValueChanged += DeclinationFromAngleMeasureSexagesimal_Calculate;
 		// 
@@ -756,6 +775,8 @@ partial class AngleMeasureConversionForm
 		// 
 		// AngleMeasureConversionForm
 		// 
+		AccessibleDescription = "Converts between angle and time measure.";
+		AccessibleName = "Angle measure conversion";
 		AccessibleRole = AccessibleRole.Window;
 		AutoScaleDimensions = new SizeF(7F, 15F);
 		AutoScaleMode = AutoScaleMode.Font;
