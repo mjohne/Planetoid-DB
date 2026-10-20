@@ -25,14 +25,13 @@ internal static class DistanceConverter
 
 		// astronomical & planetary units (semi-mayor axes)
 		{ DistanceUnit.AstronomicalUnit, ASTRONOMICAL_UNIT },
-		{ DistanceUnit.MercurialUnity, 0.387098m * ASTRONOMICAL_UNIT },
+		{ DistanceUnit.MercurialUnit, 0.387098m * ASTRONOMICAL_UNIT },
 		{ DistanceUnit.VenusianUnit, 0.723332m * ASTRONOMICAL_UNIT},
 		{ DistanceUnit.LunarUnit, 384_400_000m },
 		{ DistanceUnit.JovianUnit, 5.2038m * ASTRONOMICAL_UNIT },
 		{ DistanceUnit.SaturnianUnit, 9.5826m * ASTRONOMICAL_UNIT },
 		{ DistanceUnit.UranianUnit, 19.2012m * ASTRONOMICAL_UNIT },
 		{ DistanceUnit.NeptunianUnit, 30.0471m * ASTRONOMICAL_UNIT },
-
 	};
 
 	/// <summary>Converts a value from one unit of distance to another.</summary>
