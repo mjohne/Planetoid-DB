@@ -69,12 +69,15 @@ internal partial class DownloaderForm : BaseKryptonForm
 	/// <remarks>Derived classes should override this property to provide the specific label.</remarks>
 	protected override ToolStripStatusLabel? StatusLabel => labelInformation;
 
+	private readonly bool isAutoClose;
+
 	#region constructor
 
 	/// <summary>Initializes a new instance of the <see cref="DownloaderForm"/> class. Prepares HTTP client and UI, stores the download <paramref name="url"/>, derives the extraction path and starts the download workflow.</summary>
 	/// <param name="url">The URL to download the file from. The filename part is used to derive the extraction path.</param>
+	/// <param name="autoClose"></param>
 	/// <remarks>This constructor performs UI initialization and immediately begins the download by calling <see cref="StartDownloadAsync"/>. It must be called from the UI thread.</remarks>
-	public DownloaderForm(string url)
+	public DownloaderForm(string url, bool autoClose = false)
 	{
 		// Log the initialization of the DownloaderForm with the provided URL for debugging purposes
 		logger.Info(message: $"Initializing DownloaderForm with URL: {url}");
@@ -98,7 +101,8 @@ internal partial class DownloaderForm : BaseKryptonForm
 		this.url = url;
 		string localPath = parsedUri.LocalPath;
 		// Combine the directory of the temporary filename with the filename without extension from the URL to derive the extraction path
-		extractFilePath = Path.Combine(Path.GetDirectoryName(path: _filenameTemp) ?? string.Empty, Path.GetFileNameWithoutExtension(path: localPath));
+		extractFilePath = Path.Combine(path1: Path.GetDirectoryName(path: _filenameTemp) ?? string.Empty, path2: Path.GetFileNameWithoutExtension(path: localPath));
+		isAutoClose = autoClose;
 		// Log the derived extraction file path for debugging purposes
 		logger.Info(message: "DownloaderForm initialized. Url={Url}, TempFile={TempFile}, ExtractFile={ExtractFile}", argument1: url, argument2: _filenameTemp, argument3: extractFilePath);
 	}
@@ -294,17 +298,20 @@ internal partial class DownloaderForm : BaseKryptonForm
 			}
 			// Update the status label to indicate that the download is completed, show a message box to the user, and log the successful completion
 			labelStatusValue.Text = "Download completed";
-			_ = KryptonMessageBox.Show(owner: this, text: "Download completed successfully!", caption: "Finished", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 			logger.Info(message: "Download and extraction completed successfully.");
+			if (!isAutoClose)
+			{
+				_ = KryptonMessageBox.Show(owner: this, text: "Download completed successfully!", caption: "Finished", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+			}
 			// Set the dialog result to OK to indicate success
 			DialogResult = DialogResult.OK;
 		}
 		// Handle cancellation by the user: update the status label, show a message box, and log the cancellation
 		catch (OperationCanceledException)
 		{
-			labelStatusValue.Text = "Download canceled";
+			labelStatusValue.Text = "Download cancelled";
 			_ = KryptonMessageBox.Show(owner: this, text: "Download canceled!", caption: "Canceled", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
-			logger.Warn(message: "Download canceled by user.");
+			logger.Warn(message: "Download cancelled by user.");
 		}
 		// Handle any other exceptions that occur during the download or extraction process: update the status label, show a message box with the error, and log the exception details
 		catch (Exception ex)
