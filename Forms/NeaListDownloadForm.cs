@@ -590,4 +590,109 @@ internal partial class NeaListDownloadForm : BaseKryptonForm
 	{
 		DownloadNeaList(url: "https://minorplanetcenter.net/Extended_Files/neam15_extended.json.gz", autoClose: false);
 	}
+
+	private void ToolStripMenuItemBulkDownloadsTxt_Click(object sender, EventArgs e)
+	{
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/iau/MPCORB/NEAp15.txt", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/iau/MPCORB/NEAp14.txt", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/iau/MPCORB/NEAp13.txt", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/iau/MPCORB/NEAp12.txt", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/iau/MPCORB/NEAp11.txt", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/iau/MPCORB/NEAp10.txt", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/iau/MPCORB/NEAp09.txt", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/iau/MPCORB/NEAp08.txt", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/iau/MPCORB/NEAp07.txt", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/iau/MPCORB/NEAp06.txt", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/iau/MPCORB/NEAp05.txt", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/iau/MPCORB/NEAp04.txt", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/iau/MPCORB/NEAp03.txt", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/iau/MPCORB/NEAp02.txt", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/iau/MPCORB/NEAp01.txt", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/iau/MPCORB/NEAm00.txt", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/iau/MPCORB/NEAm01.txt", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/iau/MPCORB/NEAm02.txt", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/iau/MPCORB/NEAm03.txt", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/iau/MPCORB/NEAm04.txt", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/iau/MPCORB/NEAm05.txt", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/iau/MPCORB/NEAm06.txt", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/iau/MPCORB/NEAm07.txt", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/iau/MPCORB/NEAm08.txt", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/iau/MPCORB/NEAm09.txt", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/iau/MPCORB/NEAm10.txt", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/iau/MPCORB/NEAm11.txt", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/iau/MPCORB/NEAm12.txt", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/iau/MPCORB/NEAm13.txt", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/iau/MPCORB/NEAm14.txt", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/iau/MPCORB/NEAm15.txt", autoClose: true);
+	}
+
+	private void ToolStripMenuItemBulkDownloadsExtendedDatGz_Click(object sender, EventArgs e)
+	{
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/Extended_Files/neap15_extended.dat.gz", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/Extended_Files/neap14_extended.dat.gz", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/Extended_Files/neap13_extended.dat.gz", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/Extended_Files/neap12_extended.dat.gz", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/Extended_Files/neap11_extended.dat.gz", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/Extended_Files/neap10_extended.dat.gz", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/Extended_Files/neap09_extended.dat.gz", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/Extended_Files/neap08_extended.dat.gz", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/Extended_Files/neap07_extended.dat.gz", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/Extended_Files/neap06_extended.dat.gz", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/Extended_Files/neap05_extended.dat.gz", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/Extended_Files/neap04_extended.dat.gz", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/Extended_Files/neap03_extended.dat.gz", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/Extended_Files/neap02_extended.dat.gz", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/Extended_Files/neap01_extended.dat.gz", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/Extended_Files/neam00_extended.dat.gz", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/Extended_Files/neam01_extended.dat.gz", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/Extended_Files/neam02_extended.dat.gz", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/Extended_Files/neam03_extended.dat.gz", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/Extended_Files/neam04_extended.dat.gz", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/Extended_Files/neam05_extended.dat.gz", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/Extended_Files/neam06_extended.dat.gz", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/Extended_Files/neam07_extended.dat.gz", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/Extended_Files/neam08_extended.dat.gz", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/Extended_Files/neam09_extended.dat.gz", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/Extended_Files/neam10_extended.dat.gz", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/Extended_Files/neam11_extended.dat.gz", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/Extended_Files/neam12_extended.dat.gz", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/Extended_Files/neam13_extended.dat.gz", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/Extended_Files/neam14_extended.dat.gz", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/Extended_Files/neam15_extended.dat.gz", autoClose: true);
+	}
+
+	private void ToolStripMenuItemBulkDownloadsExtendedJsonGz_Click(object sender, EventArgs e)
+	{
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/Extended_Files/neap15_extended.json.gz", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/Extended_Files/neap14_extended.json.gz", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/Extended_Files/neap13_extended.json.gz", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/Extended_Files/neap12_extended.json.gz", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/Extended_Files/neap11_extended.json.gz", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/Extended_Files/neap10_extended.json.gz", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/Extended_Files/neap09_extended.json.gz", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/Extended_Files/neap08_extended.json.gz", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/Extended_Files/neap07_extended.json.gz", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/Extended_Files/neap06_extended.json.gz", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/Extended_Files/neap05_extended.json.gz", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/Extended_Files/neap04_extended.json.gz", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/Extended_Files/neap03_extended.json.gz", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/Extended_Files/neap02_extended.json.gz", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/Extended_Files/neap01_extended.json.gz", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/Extended_Files/neam00_extended.json.gz", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/Extended_Files/neam01_extended.json.gz", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/Extended_Files/neam02_extended.json.gz", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/Extended_Files/neam03_extended.json.gz", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/Extended_Files/neam04_extended.json.gz", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/Extended_Files/neam05_extended.json.gz", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/Extended_Files/neam06_extended.json.gz", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/Extended_Files/neam07_extended.json.gz", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/Extended_Files/neam08_extended.json.gz", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/Extended_Files/neam09_extended.json.gz", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/Extended_Files/neam10_extended.json.gz", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/Extended_Files/neam11_extended.json.gz", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/Extended_Files/neam12_extended.json.gz", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/Extended_Files/neam13_extended.json.gz", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/Extended_Files/neam14_extended.json.gz", autoClose: true);
+		DownloadNeaList(url: "https://www.minorplanetcenter.net/Extended_Files/neam15_extended.json.gz", autoClose: true);
+	}
 }
