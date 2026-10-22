@@ -53,13 +53,8 @@ internal partial class DownloaderForm : BaseKryptonForm
 	/// <remarks>This temporary file is used to store the downloaded gzip file before extraction.</remarks>
 	private readonly string _filenameTemp = Settings.Default.systemFilenameTemp;
 
-	/// <summary>Source URL to download the file from. Provided by the caller when the form is created.</summary>
-	/// <remarks>This URL is used to initiate the download process.</remarks>
-	private readonly string url;
-
-	/// <summary>Output path (filename without extension) where the downloaded archive will be extracted.</summary>
-	/// <remarks>This path is derived from the URL and is used to extract the contents of the downloaded archive.</remarks>
-	private readonly string extractFilePath;
+	/// <summary>Source URLs to download the files from. Provided by the caller when the form is created.</summary>
+	private readonly string[] _urls;
 
 	/// <summary>Cancellation token source used to cancel an ongoing download operation. May be null when no download is active.</summary>
 	/// <remarks>This token is used to cancel the download operation if needed.</remarks>
@@ -74,7 +69,7 @@ internal partial class DownloaderForm : BaseKryptonForm
 	#region constructor
 
 	/// <summary>Initializes a new instance of the <see cref="DownloaderForm"/> class. Prepares HTTP client and UI, stores the download <paramref name="url"/>, derives the extraction path and starts the download workflow.</summary>
-	/// <param name="url">The URL to download the file from. The filename part is used to derive the extraction path.</param>
+	/// <param name="url">The URL to download the file from.</param>
 	/// <param name="autoClose"></param>
 	/// <remarks>This constructor performs UI initialization and immediately begins the download by calling <see cref="StartDownloadAsync"/>. It must be called from the UI thread.</remarks>
 	public DownloaderForm(string url, bool autoClose = false)
@@ -92,19 +87,42 @@ internal partial class DownloaderForm : BaseKryptonForm
 			throw new ArgumentException(message: "URL cannot be null or empty.", paramName: nameof(url));
 		}
 		// Derive the extraction file path from the URL and temporary filename
-		if (!Uri.TryCreate(uriString: url, uriKind: UriKind.Absolute, result: out Uri? parsedUri))
+		if (!Uri.TryCreate(uriString: url, uriKind: UriKind.Absolute, result: out _))
 		{
 			// Throw an exception if the URL is not in a valid format
 			logger.Fatal(message: $"URL is not in a valid format: {url}");
 			throw new ArgumentException(message: "URL is not in a valid format.", paramName: nameof(url));
 		}
-		this.url = url;
-		string localPath = parsedUri.LocalPath;
-		// Combine the directory of the temporary filename with the filename without extension from the URL to derive the extraction path
-		extractFilePath = Path.Combine(path1: Path.GetDirectoryName(path: _filenameTemp) ?? string.Empty, path2: Path.GetFileNameWithoutExtension(path: localPath));
+		_urls = [url];
 		isAutoClose = autoClose;
-		// Log the derived extraction file path for debugging purposes
-		logger.Info(message: "DownloaderForm initialized. Url={Url}, TempFile={TempFile}, ExtractFile={ExtractFile}", argument1: url, argument2: _filenameTemp, argument3: extractFilePath);
+	}
+
+	/// <summary>Initializes a new instance of the <see cref="DownloaderForm"/> class with multiple URLs.</summary>
+	/// <param name="urls">The URLs to download the file from.</param>
+	/// <param name="autoClose"></param>
+	/// <remarks>This constructor performs UI initialization and immediately begins the download by calling <see cref="StartDownloadAsync"/>. It must be called from the UI thread.</remarks>
+	public DownloaderForm(string[] urls, bool autoClose = false)
+	{
+		// Log the initialization of the DownloaderForm with the provided URL for debugging purposes
+		logger.Info(message: $"Initializing DownloaderForm with {urls?.Length ?? 0} URLs");
+		InitializeComponent();
+		// Enable double buffering for the TableLayoutPanel to prevent flickering
+		DoubleBufferingHelper.EnableDoubleBuffering(control: tableLayoutPanel);
+		if (urls == null || urls.Length == 0)
+		{
+			logger.Fatal(message: "URLs array cannot be null or empty.");
+			throw new ArgumentException(message: "URLs array cannot be null or empty.", paramName: nameof(urls));
+		}
+		foreach (string url in urls)
+		{
+			if (!Uri.TryCreate(uriString: url, uriKind: UriKind.Absolute, result: out _))
+			{
+				logger.Fatal(message: $"URL is not in a valid format: {url}");
+				throw new ArgumentException(message: $"URL is not in a valid format: {url}", paramName: nameof(urls));
+			}
+		}
+		_urls = urls;
+		isAutoClose = autoClose;
 	}
 
 	#endregion
@@ -239,16 +257,6 @@ internal partial class DownloaderForm : BaseKryptonForm
 	/// <remarks>This method is an async Task entry point intended for UI usage. It uses an internal <see cref="CancellationTokenSource"/> to support cancellation, updates form controls (buttons, labels, progress bar) and handles exceptions internally (shows message boxes). No exceptions are propagated to the caller.</remarks>
 	private async Task StartDownloadAsync()
 	{
-		// Check for internet connectivity before starting the download
-		bool isServerReachable = await HasInternetAsync(client: httpClient, url: url)
-			.ConfigureAwait(continueOnCapturedContext: true);
-		// If the server is not reachable, log an error, show a message box and return early
-		if (!isServerReachable)
-		{
-			logger.Error(message: "No internet connection available.");
-			ShowErrorMessage(message: I18nStrings.NoInternetConnectionText);
-			return;
-		}
 		// Validate that the temporary filename is set; if not, show an error message and return early
 		if (string.IsNullOrWhiteSpace(value: _filenameTemp))
 		{
@@ -256,52 +264,75 @@ internal partial class DownloaderForm : BaseKryptonForm
 			ShowErrorMessage(message: "Please select a save location!");
 			return;
 		}
-		// Log the start of the download operation with the URL and temporary filename
-		logger.Info(message: "Starting download. Url={Url}, TempFile={TempFile}", argument1: url, argument2: _filenameTemp);
-		// Disable the Download button and enable the Cancel button, reset progress bar and labels, and create a new CancellationTokenSource
+
 		try
 		{
 			// Disable the Download button and enable the Cancel button
 			toolStripButtonDownload.Enabled = false;
 			toolStripButtonCancel.Enabled = true;
-			// Reset progress bar and labels
-			kryptonProgressBarDownload.Value = 0;
-			kryptonProgressBarDownload.Text = "0%";
 			// Create a new CancellationTokenSource for this download operation
 			cancellationTokenSource = new CancellationTokenSource();
 			CancellationToken token = cancellationTokenSource.Token;
 			// Create a progress reporter that calls UpdateProgress on the UI thread
 			Progress<DownloadProgressInfo> progress = new(handler: UpdateProgress);
-			// Start the download operation asynchronously
-			await DownloadFileAsync(fileUrl: url, destinationPath: _filenameTemp, progress: progress, token: token)
-				.ConfigureAwait(continueOnCapturedContext: true);
-			// After download, check if the file is a GZIP archive and extract it; otherwise, move the file to the destination path
-			if (Path.GetExtension(path: url).Equals(value: ".gz", comparisonType: StringComparison.OrdinalIgnoreCase))
+			string title = Text;
+			int numb = 0;
+			foreach (string currentUrl in _urls)
 			{
-				// If the downloaded file is a GZIP archive, update the status label and progress bar style, then extract it
-				labelStatusValue.Text = "Extracting...";
-				kryptonProgressBarDownload.Style = ProgressBarStyle.Marquee;
-				// Extract the GZIP file to the specified output path
-				await ExtractGzipFileAsync(gzipFilePath: _filenameTemp, outputFilePath: extractFilePath, token: token)
-					.ConfigureAwait(continueOnCapturedContext: true);
-			}
-			// If the file is not a GZIP archive, move it to the destination path derived from the URL
-			else
-			{
-				// Determine the destination file path based on the URL or use the extractFilePath as a fallback
-				string destFilePath = GetFileFromUrl(url: url) ?? extractFilePath;
-				// Move the downloaded file to the destination path only if it's different from the temporary filename (case-insensitive comparison)
-				if (!string.Equals(a: _filenameTemp, b: destFilePath, comparisonType: StringComparison.OrdinalIgnoreCase))
+				// Log the start of the download operation with the URL and temporary filename
+				logger.Info(message: "Starting download. Url={Url}, TempFile={TempFile}", argument1: currentUrl, argument2: _filenameTemp);
+
+				numb++;
+				Text = $"{title} ({numb}/{_urls.Length})";
+
+				bool isServerReachable = await HasInternetAsync(client: httpClient, url: currentUrl).ConfigureAwait(continueOnCapturedContext: true);
+				if (!isServerReachable)
 				{
-					File.Move(sourceFileName: _filenameTemp, destFileName: destFilePath, overwrite: true);
+					logger.Error(message: $"No internet connection available or server unreachable for: {currentUrl}");
+					ShowErrorMessage(message: $"{I18nStrings.NoInternetConnectionText}\nURL: {currentUrl}");
+					return;
+				}
+
+				// Reset UI for the current file
+				kryptonProgressBarDownload.Value = 0;
+				kryptonProgressBarDownload.Text = "0%";
+				kryptonProgressBarDownload.Style = ProgressBarStyle.Continuous;
+
+				// Derive the extraction file path for the current URL
+				Uri parsedUri = new(uriString: currentUrl);
+				string localPath = parsedUri.LocalPath;
+				string extractFilePath = Path.Combine(path1: Path.GetDirectoryName(path: _filenameTemp) ?? string.Empty, path2: Path.GetFileNameWithoutExtension(path: localPath));
+				// Start the download operation asynchronously
+				await DownloadFileAsync(fileUrl: currentUrl, destinationPath: _filenameTemp, progress: progress, token: token).ConfigureAwait(continueOnCapturedContext: true);
+				// After download, check if the file is a GZIP archive and extract it; otherwise, move the file to the destination path
+				if (Path.GetExtension(path: currentUrl).Equals(value: ".gz", comparisonType: StringComparison.OrdinalIgnoreCase))
+				{
+					// If the downloaded file is a GZIP archive, update the status label and progress bar style, then extract it
+					labelStatusValue.Text = "Extracting...";
+					kryptonProgressBarDownload.Style = ProgressBarStyle.Marquee;
+					// Extract the GZIP file to the specified output path
+					await ExtractGzipFileAsync(gzipFilePath: _filenameTemp, outputFilePath: extractFilePath, token: token).ConfigureAwait(continueOnCapturedContext: true);
+				}
+				// If the file is not a GZIP archive, move it to the destination path derived from the URL
+				else
+				{
+					// Determine the destination file path based on the URL or use the extractFilePath as a fallback
+					string destFilePath = GetFileFromUrl(url: currentUrl) ?? extractFilePath;
+					if (!string.Equals(a: _filenameTemp, b: destFilePath, comparisonType: StringComparison.OrdinalIgnoreCase))
+					{
+						// Move the downloaded file to the destination path only if it's different from the temporary filename (case-insensitive comparison)
+						File.Move(sourceFileName: _filenameTemp, destFileName: destFilePath, overwrite: true);
+					}
 				}
 			}
 			// Update the status label to indicate that the download is completed, show a message box to the user, and log the successful completion
 			labelStatusValue.Text = "Download completed";
-			logger.Info(message: "Download and extraction completed successfully.");
+			logger.Info(message: "All downloads and extractions completed successfully.");
+
 			if (!isAutoClose)
 			{
-				_ = KryptonMessageBox.Show(owner: this, text: "Download completed successfully!", caption: "Finished", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+				_ = KryptonMessageBox.Show(owner: this, text: "Downloads completed successfully!", caption: "Finished", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+				// Set the dialog result to OK to indicate success
 			}
 			// Set the dialog result to OK to indicate success
 			DialogResult = DialogResult.OK;
@@ -318,7 +349,7 @@ internal partial class DownloaderForm : BaseKryptonForm
 		{
 			labelStatusValue.Text = "Download error";
 			ShowErrorMessage(message: $"Error during download: {ex.Message}");
-			logger.Error(exception: ex, message: "Download failed. Url={Url}, TempFile={TempFile}", url, _filenameTemp);
+			logger.Error(exception: ex, message: "Download failed.");
 		}
 		// In the finally block, clean up resources and reset the UI controls regardless of success, cancellation, or error
 		finally
