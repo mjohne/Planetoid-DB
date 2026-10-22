@@ -158,12 +158,21 @@
 			kryptonLabelNeaListTodayMinus15Days = new Krypton.Toolkit.KryptonLabel();
 			kryptonButtonDownloadNeaListTodayPlus15DaysExtDat = new Krypton.Toolkit.KryptonButton();
 			kryptonButtonDownloadNeaListTodayPlus15Days = new Krypton.Toolkit.KryptonButton();
+			kryptonToolStrip = new Krypton.Toolkit.KryptonToolStrip();
+			toolStripDropDownButtonBulkDownloadNeaLists = new ToolStripDropDownButton();
+			contextMenuStripBulkDownloads = new ContextMenuStrip(components);
+			toolStripMenuItemBulkDownloadsTxt = new ToolStripMenuItem();
+			toolStripMenuItemBulkDownloadsExtendedDatGz = new ToolStripMenuItem();
+			toolStripMenuItemBulkDownloadsExtendedJsonGz = new ToolStripMenuItem();
 			kryptonManager = new Krypton.Toolkit.KryptonManager(components);
 			toolStripContainer.BottomToolStripPanel.SuspendLayout();
 			toolStripContainer.ContentPanel.SuspendLayout();
+			toolStripContainer.TopToolStripPanel.SuspendLayout();
 			toolStripContainer.SuspendLayout();
 			kryptonStatusStrip.SuspendLayout();
 			kryptonTableLayoutPanel.SuspendLayout();
+			kryptonToolStrip.SuspendLayout();
+			contextMenuStripBulkDownloads.SuspendLayout();
 			SuspendLayout();
 			// 
 			// toolStripContainer
@@ -202,7 +211,7 @@
 			toolStripContainer.RightToolStripPanel.AccessibleDescription = "Just a panel";
 			toolStripContainer.RightToolStripPanel.AccessibleName = "Right panel";
 			toolStripContainer.RightToolStripPanel.AccessibleRole = AccessibleRole.Pane;
-			toolStripContainer.Size = new Size(731, 832);
+			toolStripContainer.Size = new Size(731, 857);
 			toolStripContainer.TabIndex = 13;
 			toolStripContainer.Text = "toolStripContainer";
 			// 
@@ -211,7 +220,7 @@
 			toolStripContainer.TopToolStripPanel.AccessibleDescription = "Just a panel";
 			toolStripContainer.TopToolStripPanel.AccessibleName = "Top panel";
 			toolStripContainer.TopToolStripPanel.AccessibleRole = AccessibleRole.Pane;
-			toolStripContainer.TopToolStripPanelVisible = false;
+			toolStripContainer.TopToolStripPanel.Controls.Add(kryptonToolStrip);
 			toolStripContainer.Enter += Control_Enter;
 			toolStripContainer.Leave += Control_Enter;
 			toolStripContainer.MouseEnter += Control_Enter;
@@ -441,7 +450,7 @@
 			kryptonButtonDownloadNeaListTodayMinus15DaysExtJson.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayMinus15DaysExtJson.Name = "kryptonButtonDownloadNeaListTodayMinus15DaysExtJson";
 			kryptonButtonDownloadNeaListTodayMinus15DaysExtJson.Size = new Size(240, 30);
-			kryptonButtonDownloadNeaListTodayMinus15DaysExtJson.TabIndex = 123;
+			kryptonButtonDownloadNeaListTodayMinus15DaysExtJson.TabIndex = 0;
 			kryptonButtonDownloadNeaListTodayMinus15DaysExtJson.ToolTipValues.Description = "Downloads NEAs today - 15 days as .EXTENDED.JSON.GZ file";
 			kryptonButtonDownloadNeaListTodayMinus15DaysExtJson.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayMinus15DaysExtJson.ToolTipValues.Heading = "NEAs today - 15 days as .EXTENDED.JSON.GZ file";
@@ -465,7 +474,7 @@
 			kryptonButtonDownloadNeaListTodayMinus15DaysExtDat.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayMinus15DaysExtDat.Name = "kryptonButtonDownloadNeaListTodayMinus15DaysExtDat";
 			kryptonButtonDownloadNeaListTodayMinus15DaysExtDat.Size = new Size(218, 30);
-			kryptonButtonDownloadNeaListTodayMinus15DaysExtDat.TabIndex = 122;
+			kryptonButtonDownloadNeaListTodayMinus15DaysExtDat.TabIndex = 123;
 			kryptonButtonDownloadNeaListTodayMinus15DaysExtDat.ToolTipValues.Description = "Downloads NEAs today - 15 days as .EXTENDED.DAT.GZ file";
 			kryptonButtonDownloadNeaListTodayMinus15DaysExtDat.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayMinus15DaysExtDat.ToolTipValues.Heading = "NEAs today - 15 days as .EXTENDED.DAT.GZ file";
@@ -489,7 +498,7 @@
 			kryptonButtonDownloadNeaListTodayMinus15Days.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayMinus15Days.Name = "kryptonButtonDownloadNeaListTodayMinus15Days";
 			kryptonButtonDownloadNeaListTodayMinus15Days.Size = new Size(143, 30);
-			kryptonButtonDownloadNeaListTodayMinus15Days.TabIndex = 121;
+			kryptonButtonDownloadNeaListTodayMinus15Days.TabIndex = 122;
 			kryptonButtonDownloadNeaListTodayMinus15Days.ToolTipValues.Description = "Downloads NEAs today - 15 days as .TXT file";
 			kryptonButtonDownloadNeaListTodayMinus15Days.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayMinus15Days.ToolTipValues.Heading = "NEAs today - 15 days as .TXT file";
@@ -585,7 +594,7 @@
 			kryptonButtonDownloadNeaListTodayMinus13DaysExtJson.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayMinus13DaysExtJson.Name = "kryptonButtonDownloadNeaListTodayMinus13DaysExtJson";
 			kryptonButtonDownloadNeaListTodayMinus13DaysExtJson.Size = new Size(240, 26);
-			kryptonButtonDownloadNeaListTodayMinus13DaysExtJson.TabIndex = 117;
+			kryptonButtonDownloadNeaListTodayMinus13DaysExtJson.TabIndex = 116;
 			kryptonButtonDownloadNeaListTodayMinus13DaysExtJson.ToolTipValues.Description = "Downloads NEAs today - 13 days as .EXTENDED.JSON.GZ file";
 			kryptonButtonDownloadNeaListTodayMinus13DaysExtJson.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayMinus13DaysExtJson.ToolTipValues.Heading = "NEAs today - 13 days as .EXTENDED.JSON.GZ file";
@@ -609,7 +618,7 @@
 			kryptonButtonDownloadNeaListTodayMinus13DaysExtDat.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayMinus13DaysExtDat.Name = "kryptonButtonDownloadNeaListTodayMinus13DaysExtDat";
 			kryptonButtonDownloadNeaListTodayMinus13DaysExtDat.Size = new Size(218, 26);
-			kryptonButtonDownloadNeaListTodayMinus13DaysExtDat.TabIndex = 116;
+			kryptonButtonDownloadNeaListTodayMinus13DaysExtDat.TabIndex = 115;
 			kryptonButtonDownloadNeaListTodayMinus13DaysExtDat.ToolTipValues.Description = "Downloads NEAs today - 13 days as .EXTENDED.DAT.GZ file";
 			kryptonButtonDownloadNeaListTodayMinus13DaysExtDat.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayMinus13DaysExtDat.ToolTipValues.Heading = "NEAs today - 13 days as .EXTENDED.DAT.GZ file";
@@ -633,7 +642,7 @@
 			kryptonButtonDownloadNeaListTodayMinus13Days.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayMinus13Days.Name = "kryptonButtonDownloadNeaListTodayMinus13Days";
 			kryptonButtonDownloadNeaListTodayMinus13Days.Size = new Size(143, 26);
-			kryptonButtonDownloadNeaListTodayMinus13Days.TabIndex = 115;
+			kryptonButtonDownloadNeaListTodayMinus13Days.TabIndex = 114;
 			kryptonButtonDownloadNeaListTodayMinus13Days.ToolTipValues.Description = "Downloads NEAs today - 13 days as .TXT file";
 			kryptonButtonDownloadNeaListTodayMinus13Days.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayMinus13Days.ToolTipValues.Heading = "NEAs today - 13 days as .TXT file";
@@ -657,7 +666,7 @@
 			kryptonButtonDownloadNeaListTodayMinus12DaysExtJson.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayMinus12DaysExtJson.Name = "kryptonButtonDownloadNeaListTodayMinus12DaysExtJson";
 			kryptonButtonDownloadNeaListTodayMinus12DaysExtJson.Size = new Size(240, 26);
-			kryptonButtonDownloadNeaListTodayMinus12DaysExtJson.TabIndex = 114;
+			kryptonButtonDownloadNeaListTodayMinus12DaysExtJson.TabIndex = 112;
 			kryptonButtonDownloadNeaListTodayMinus12DaysExtJson.ToolTipValues.Description = "Downloads NEAs today - 12 days as .EXTENDED.JSON.GZ file";
 			kryptonButtonDownloadNeaListTodayMinus12DaysExtJson.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayMinus12DaysExtJson.ToolTipValues.Heading = "NEAs today - 12 days as .EXTENDED.JSON.GZ file";
@@ -681,7 +690,7 @@
 			kryptonButtonDownloadNeaListTodayMinus12DaysExtDat.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayMinus12DaysExtDat.Name = "kryptonButtonDownloadNeaListTodayMinus12DaysExtDat";
 			kryptonButtonDownloadNeaListTodayMinus12DaysExtDat.Size = new Size(218, 26);
-			kryptonButtonDownloadNeaListTodayMinus12DaysExtDat.TabIndex = 113;
+			kryptonButtonDownloadNeaListTodayMinus12DaysExtDat.TabIndex = 111;
 			kryptonButtonDownloadNeaListTodayMinus12DaysExtDat.ToolTipValues.Description = "Downloads NEAs today - 12 days as .EXTENDED.DAT.GZ file";
 			kryptonButtonDownloadNeaListTodayMinus12DaysExtDat.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayMinus12DaysExtDat.ToolTipValues.Heading = "NEAs today - 12 days as .EXTENDED.DAT.GZ file";
@@ -705,7 +714,7 @@
 			kryptonButtonDownloadNeaListTodayMinus12Days.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayMinus12Days.Name = "kryptonButtonDownloadNeaListTodayMinus12Days";
 			kryptonButtonDownloadNeaListTodayMinus12Days.Size = new Size(143, 26);
-			kryptonButtonDownloadNeaListTodayMinus12Days.TabIndex = 112;
+			kryptonButtonDownloadNeaListTodayMinus12Days.TabIndex = 110;
 			kryptonButtonDownloadNeaListTodayMinus12Days.ToolTipValues.Description = "Downloads NEAs today - 12 days as .TXT file";
 			kryptonButtonDownloadNeaListTodayMinus12Days.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayMinus12Days.ToolTipValues.Heading = "NEAs today - 12 days as .TXT file";
@@ -729,7 +738,7 @@
 			kryptonButtonDownloadNeaListTodayMinus11DaysExtJson.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayMinus11DaysExtJson.Name = "kryptonButtonDownloadNeaListTodayMinus11DaysExtJson";
 			kryptonButtonDownloadNeaListTodayMinus11DaysExtJson.Size = new Size(240, 26);
-			kryptonButtonDownloadNeaListTodayMinus11DaysExtJson.TabIndex = 111;
+			kryptonButtonDownloadNeaListTodayMinus11DaysExtJson.TabIndex = 108;
 			kryptonButtonDownloadNeaListTodayMinus11DaysExtJson.ToolTipValues.Description = "Downloads NEAs today - 11 days as .EXTENDED.JSON.GZ file";
 			kryptonButtonDownloadNeaListTodayMinus11DaysExtJson.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayMinus11DaysExtJson.ToolTipValues.Heading = "NEAs today - 11 days as .EXTENDED.JSON.GZ file";
@@ -753,7 +762,7 @@
 			kryptonButtonDownloadNeaListTodayMinus11DaysExtDat.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayMinus11DaysExtDat.Name = "kryptonButtonDownloadNeaListTodayMinus11DaysExtDat";
 			kryptonButtonDownloadNeaListTodayMinus11DaysExtDat.Size = new Size(218, 26);
-			kryptonButtonDownloadNeaListTodayMinus11DaysExtDat.TabIndex = 110;
+			kryptonButtonDownloadNeaListTodayMinus11DaysExtDat.TabIndex = 107;
 			kryptonButtonDownloadNeaListTodayMinus11DaysExtDat.ToolTipValues.Description = "Downloads NEAs today - 11 days as .EXTENDED.DAT.GZ file";
 			kryptonButtonDownloadNeaListTodayMinus11DaysExtDat.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayMinus11DaysExtDat.ToolTipValues.Heading = "NEAs today - 11 days as .EXTENDED.DAT.GZ file";
@@ -777,7 +786,7 @@
 			kryptonButtonDownloadNeaListTodayMinus11Days.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayMinus11Days.Name = "kryptonButtonDownloadNeaListTodayMinus11Days";
 			kryptonButtonDownloadNeaListTodayMinus11Days.Size = new Size(143, 26);
-			kryptonButtonDownloadNeaListTodayMinus11Days.TabIndex = 109;
+			kryptonButtonDownloadNeaListTodayMinus11Days.TabIndex = 106;
 			kryptonButtonDownloadNeaListTodayMinus11Days.ToolTipValues.Description = "Downloads NEAs today - 11 days as .TXT file";
 			kryptonButtonDownloadNeaListTodayMinus11Days.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayMinus11Days.ToolTipValues.Heading = "NEAs today - 11 days as .TXT file";
@@ -801,7 +810,7 @@
 			kryptonButtonDownloadNeaListTodayMinus10DaysExtJson.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayMinus10DaysExtJson.Name = "kryptonButtonDownloadNeaListTodayMinus10DaysExtJson";
 			kryptonButtonDownloadNeaListTodayMinus10DaysExtJson.Size = new Size(240, 26);
-			kryptonButtonDownloadNeaListTodayMinus10DaysExtJson.TabIndex = 108;
+			kryptonButtonDownloadNeaListTodayMinus10DaysExtJson.TabIndex = 103;
 			kryptonButtonDownloadNeaListTodayMinus10DaysExtJson.ToolTipValues.Description = "Downloads NEAs today - 10 days as .EXTENDED.JSON.GZ file";
 			kryptonButtonDownloadNeaListTodayMinus10DaysExtJson.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayMinus10DaysExtJson.ToolTipValues.Heading = "NEAs today - 10 days as .EXTENDED.JSON.GZ file";
@@ -825,7 +834,7 @@
 			kryptonButtonDownloadNeaListTodayMinus10DaysExtDat.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayMinus10DaysExtDat.Name = "kryptonButtonDownloadNeaListTodayMinus10DaysExtDat";
 			kryptonButtonDownloadNeaListTodayMinus10DaysExtDat.Size = new Size(218, 26);
-			kryptonButtonDownloadNeaListTodayMinus10DaysExtDat.TabIndex = 107;
+			kryptonButtonDownloadNeaListTodayMinus10DaysExtDat.TabIndex = 102;
 			kryptonButtonDownloadNeaListTodayMinus10DaysExtDat.ToolTipValues.Description = "Downloads NEAs today - 10 days as .EXTENDED.DAT.GZ file";
 			kryptonButtonDownloadNeaListTodayMinus10DaysExtDat.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayMinus10DaysExtDat.ToolTipValues.Heading = "NEAs today - 10 days as .EXTENDED.DAT.GZ file";
@@ -849,7 +858,7 @@
 			kryptonButtonDownloadNeaListTodayMinus10Days.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayMinus10Days.Name = "kryptonButtonDownloadNeaListTodayMinus10Days";
 			kryptonButtonDownloadNeaListTodayMinus10Days.Size = new Size(143, 26);
-			kryptonButtonDownloadNeaListTodayMinus10Days.TabIndex = 106;
+			kryptonButtonDownloadNeaListTodayMinus10Days.TabIndex = 101;
 			kryptonButtonDownloadNeaListTodayMinus10Days.ToolTipValues.Description = "Downloads NEAs today - 10 days as .TXT file";
 			kryptonButtonDownloadNeaListTodayMinus10Days.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayMinus10Days.ToolTipValues.Heading = "NEAs today - 10 days as .TXT file";
@@ -873,7 +882,7 @@
 			kryptonButtonDownloadNeaListTodayMinus09DaysExtJson.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayMinus09DaysExtJson.Name = "kryptonButtonDownloadNeaListTodayMinus09DaysExtJson";
 			kryptonButtonDownloadNeaListTodayMinus09DaysExtJson.Size = new Size(240, 26);
-			kryptonButtonDownloadNeaListTodayMinus09DaysExtJson.TabIndex = 105;
+			kryptonButtonDownloadNeaListTodayMinus09DaysExtJson.TabIndex = 99;
 			kryptonButtonDownloadNeaListTodayMinus09DaysExtJson.ToolTipValues.Description = "Downloads NEAs today - 9 days as .EXTENDED.JSON.GZ file";
 			kryptonButtonDownloadNeaListTodayMinus09DaysExtJson.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayMinus09DaysExtJson.ToolTipValues.Heading = "NEAs today - 9 days as .EXTENDED.JSON.GZ file";
@@ -897,7 +906,7 @@
 			kryptonButtonDownloadNeaListTodayMinus09DaysExtDat.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayMinus09DaysExtDat.Name = "kryptonButtonDownloadNeaListTodayMinus09DaysExtDat";
 			kryptonButtonDownloadNeaListTodayMinus09DaysExtDat.Size = new Size(218, 26);
-			kryptonButtonDownloadNeaListTodayMinus09DaysExtDat.TabIndex = 104;
+			kryptonButtonDownloadNeaListTodayMinus09DaysExtDat.TabIndex = 98;
 			kryptonButtonDownloadNeaListTodayMinus09DaysExtDat.ToolTipValues.Description = "Downloads NEAs today - 9 days as .EXTENDED.DAT.GZ file";
 			kryptonButtonDownloadNeaListTodayMinus09DaysExtDat.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayMinus09DaysExtDat.ToolTipValues.Heading = "NEAs today - 9 days as .EXTENDED.DAT.GZ file";
@@ -921,7 +930,7 @@
 			kryptonButtonDownloadNeaListTodayMinus09Days.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayMinus09Days.Name = "kryptonButtonDownloadNeaListTodayMinus09Days";
 			kryptonButtonDownloadNeaListTodayMinus09Days.Size = new Size(143, 26);
-			kryptonButtonDownloadNeaListTodayMinus09Days.TabIndex = 103;
+			kryptonButtonDownloadNeaListTodayMinus09Days.TabIndex = 97;
 			kryptonButtonDownloadNeaListTodayMinus09Days.ToolTipValues.Description = "Downloads NEAs today - 9 days as .TXT file";
 			kryptonButtonDownloadNeaListTodayMinus09Days.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayMinus09Days.ToolTipValues.Heading = "NEAs today - 9 days as .TXT file";
@@ -945,7 +954,7 @@
 			kryptonButtonDownloadNeaListTodayMinus08DaysExtJson.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayMinus08DaysExtJson.Name = "kryptonButtonDownloadNeaListTodayMinus08DaysExtJson";
 			kryptonButtonDownloadNeaListTodayMinus08DaysExtJson.Size = new Size(240, 26);
-			kryptonButtonDownloadNeaListTodayMinus08DaysExtJson.TabIndex = 102;
+			kryptonButtonDownloadNeaListTodayMinus08DaysExtJson.TabIndex = 95;
 			kryptonButtonDownloadNeaListTodayMinus08DaysExtJson.ToolTipValues.Description = "Downloads NEAs today - 8 days as .EXTENDED.JSON.GZ file";
 			kryptonButtonDownloadNeaListTodayMinus08DaysExtJson.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayMinus08DaysExtJson.ToolTipValues.Heading = "NEAs today - 8 days as .EXTENDED.JSON.GZ file";
@@ -969,7 +978,7 @@
 			kryptonButtonDownloadNeaListTodayMinus08DaysExtDat.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayMinus08DaysExtDat.Name = "kryptonButtonDownloadNeaListTodayMinus08DaysExtDat";
 			kryptonButtonDownloadNeaListTodayMinus08DaysExtDat.Size = new Size(218, 26);
-			kryptonButtonDownloadNeaListTodayMinus08DaysExtDat.TabIndex = 101;
+			kryptonButtonDownloadNeaListTodayMinus08DaysExtDat.TabIndex = 94;
 			kryptonButtonDownloadNeaListTodayMinus08DaysExtDat.ToolTipValues.Description = "Downloads NEAs today + - 8 as .EXTENDED.DAT.GZ file";
 			kryptonButtonDownloadNeaListTodayMinus08DaysExtDat.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayMinus08DaysExtDat.ToolTipValues.Heading = "NEAs today - 8 days as .EXTENDED.DAT.GZ file";
@@ -993,7 +1002,7 @@
 			kryptonButtonDownloadNeaListTodayMinus08Days.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayMinus08Days.Name = "kryptonButtonDownloadNeaListTodayMinus08Days";
 			kryptonButtonDownloadNeaListTodayMinus08Days.Size = new Size(143, 26);
-			kryptonButtonDownloadNeaListTodayMinus08Days.TabIndex = 100;
+			kryptonButtonDownloadNeaListTodayMinus08Days.TabIndex = 93;
 			kryptonButtonDownloadNeaListTodayMinus08Days.ToolTipValues.Description = "Downloads NEAs today - 8 days as .TXT file";
 			kryptonButtonDownloadNeaListTodayMinus08Days.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayMinus08Days.ToolTipValues.Heading = "NEAs today - 8 days as .TXT file";
@@ -1017,7 +1026,7 @@
 			kryptonButtonDownloadNeaListTodayMinus07DaysExtJson.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayMinus07DaysExtJson.Name = "kryptonButtonDownloadNeaListTodayMinus07DaysExtJson";
 			kryptonButtonDownloadNeaListTodayMinus07DaysExtJson.Size = new Size(240, 26);
-			kryptonButtonDownloadNeaListTodayMinus07DaysExtJson.TabIndex = 99;
+			kryptonButtonDownloadNeaListTodayMinus07DaysExtJson.TabIndex = 91;
 			kryptonButtonDownloadNeaListTodayMinus07DaysExtJson.ToolTipValues.Description = "Downloads NEAs today - 7 days as .EXTENDED.JSON.GZ file";
 			kryptonButtonDownloadNeaListTodayMinus07DaysExtJson.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayMinus07DaysExtJson.ToolTipValues.Heading = "NEAs today - 7 days as .EXTENDED.JSON.GZ file";
@@ -1041,7 +1050,7 @@
 			kryptonButtonDownloadNeaListTodayMinus07DaysExtDat.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayMinus07DaysExtDat.Name = "kryptonButtonDownloadNeaListTodayMinus07DaysExtDat";
 			kryptonButtonDownloadNeaListTodayMinus07DaysExtDat.Size = new Size(218, 26);
-			kryptonButtonDownloadNeaListTodayMinus07DaysExtDat.TabIndex = 98;
+			kryptonButtonDownloadNeaListTodayMinus07DaysExtDat.TabIndex = 90;
 			kryptonButtonDownloadNeaListTodayMinus07DaysExtDat.ToolTipValues.Description = "Downloads NEAs today - 7 days as .EXTENDED.DAT.GZ file";
 			kryptonButtonDownloadNeaListTodayMinus07DaysExtDat.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayMinus07DaysExtDat.ToolTipValues.Heading = "NEAs today - 7 days as .EXTENDED.DAT.GZ file";
@@ -1065,7 +1074,7 @@
 			kryptonButtonDownloadNeaListTodayMinus07Days.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayMinus07Days.Name = "kryptonButtonDownloadNeaListTodayMinus07Days";
 			kryptonButtonDownloadNeaListTodayMinus07Days.Size = new Size(143, 26);
-			kryptonButtonDownloadNeaListTodayMinus07Days.TabIndex = 97;
+			kryptonButtonDownloadNeaListTodayMinus07Days.TabIndex = 89;
 			kryptonButtonDownloadNeaListTodayMinus07Days.ToolTipValues.Description = "Downloads NEAs today - 7 days as .TXT file";
 			kryptonButtonDownloadNeaListTodayMinus07Days.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayMinus07Days.ToolTipValues.Heading = "NEAs today - 7 days as .TXT file";
@@ -1089,7 +1098,7 @@
 			kryptonButtonDownloadNeaListTodayMinus06DaysExtJson.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayMinus06DaysExtJson.Name = "kryptonButtonDownloadNeaListTodayMinus06DaysExtJson";
 			kryptonButtonDownloadNeaListTodayMinus06DaysExtJson.Size = new Size(240, 26);
-			kryptonButtonDownloadNeaListTodayMinus06DaysExtJson.TabIndex = 96;
+			kryptonButtonDownloadNeaListTodayMinus06DaysExtJson.TabIndex = 87;
 			kryptonButtonDownloadNeaListTodayMinus06DaysExtJson.ToolTipValues.Description = "Downloads NEAs today - 6 days as .EXTENDED.JSON.GZ file";
 			kryptonButtonDownloadNeaListTodayMinus06DaysExtJson.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayMinus06DaysExtJson.ToolTipValues.Heading = "NEAs today - 6 days as .EXTENDED.JSON.GZ file";
@@ -1113,7 +1122,7 @@
 			kryptonButtonDownloadNeaListTodayMinus06DaysExtDat.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayMinus06DaysExtDat.Name = "kryptonButtonDownloadNeaListTodayMinus06DaysExtDat";
 			kryptonButtonDownloadNeaListTodayMinus06DaysExtDat.Size = new Size(218, 26);
-			kryptonButtonDownloadNeaListTodayMinus06DaysExtDat.TabIndex = 95;
+			kryptonButtonDownloadNeaListTodayMinus06DaysExtDat.TabIndex = 86;
 			kryptonButtonDownloadNeaListTodayMinus06DaysExtDat.ToolTipValues.Description = "Downloads NEAs today - 6 days as .EXTENDED.DAT.GZ file";
 			kryptonButtonDownloadNeaListTodayMinus06DaysExtDat.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayMinus06DaysExtDat.ToolTipValues.Heading = "NEAs today - 6 days as .EXTENDED.DAT.GZ file";
@@ -1137,7 +1146,7 @@
 			kryptonButtonDownloadNeaListTodayMinus06Days.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayMinus06Days.Name = "kryptonButtonDownloadNeaListTodayMinus06Days";
 			kryptonButtonDownloadNeaListTodayMinus06Days.Size = new Size(143, 26);
-			kryptonButtonDownloadNeaListTodayMinus06Days.TabIndex = 94;
+			kryptonButtonDownloadNeaListTodayMinus06Days.TabIndex = 85;
 			kryptonButtonDownloadNeaListTodayMinus06Days.ToolTipValues.Description = "Downloads NEAs today - 6 days as .TXT file";
 			kryptonButtonDownloadNeaListTodayMinus06Days.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayMinus06Days.ToolTipValues.Heading = "NEAs today - 6 days as .TXT file";
@@ -1161,7 +1170,7 @@
 			kryptonButtonDownloadNeaListTodayMinus05DaysExtJson.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayMinus05DaysExtJson.Name = "kryptonButtonDownloadNeaListTodayMinus05DaysExtJson";
 			kryptonButtonDownloadNeaListTodayMinus05DaysExtJson.Size = new Size(240, 26);
-			kryptonButtonDownloadNeaListTodayMinus05DaysExtJson.TabIndex = 93;
+			kryptonButtonDownloadNeaListTodayMinus05DaysExtJson.TabIndex = 83;
 			kryptonButtonDownloadNeaListTodayMinus05DaysExtJson.ToolTipValues.Description = "Downloads NEAs today - 5 days as .EXTENDED.JSON.GZ file";
 			kryptonButtonDownloadNeaListTodayMinus05DaysExtJson.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayMinus05DaysExtJson.ToolTipValues.Heading = "NEAs today - 5 days as .EXTENDED.JSON.GZ file";
@@ -1185,7 +1194,7 @@
 			kryptonButtonDownloadNeaListTodayMinus05DaysExtDat.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayMinus05DaysExtDat.Name = "kryptonButtonDownloadNeaListTodayMinus05DaysExtDat";
 			kryptonButtonDownloadNeaListTodayMinus05DaysExtDat.Size = new Size(218, 26);
-			kryptonButtonDownloadNeaListTodayMinus05DaysExtDat.TabIndex = 92;
+			kryptonButtonDownloadNeaListTodayMinus05DaysExtDat.TabIndex = 82;
 			kryptonButtonDownloadNeaListTodayMinus05DaysExtDat.ToolTipValues.Description = "Downloads NEAs today - 5 days as .EXTENDED.DAT.GZ file";
 			kryptonButtonDownloadNeaListTodayMinus05DaysExtDat.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayMinus05DaysExtDat.ToolTipValues.Heading = "NEAs today - 5 days as .EXTENDED.DAT.GZ file";
@@ -1209,7 +1218,7 @@
 			kryptonButtonDownloadNeaListTodayMinus05Days.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayMinus05Days.Name = "kryptonButtonDownloadNeaListTodayMinus05Days";
 			kryptonButtonDownloadNeaListTodayMinus05Days.Size = new Size(143, 26);
-			kryptonButtonDownloadNeaListTodayMinus05Days.TabIndex = 91;
+			kryptonButtonDownloadNeaListTodayMinus05Days.TabIndex = 81;
 			kryptonButtonDownloadNeaListTodayMinus05Days.ToolTipValues.Description = "Downloads NEAs today - 5 days as .TXT file";
 			kryptonButtonDownloadNeaListTodayMinus05Days.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayMinus05Days.ToolTipValues.Heading = "NEAs today - 5 days as .TXT file";
@@ -1233,7 +1242,7 @@
 			kryptonButtonDownloadNeaListTodayMinus04DaysExtJson.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayMinus04DaysExtJson.Name = "kryptonButtonDownloadNeaListTodayMinus04DaysExtJson";
 			kryptonButtonDownloadNeaListTodayMinus04DaysExtJson.Size = new Size(240, 26);
-			kryptonButtonDownloadNeaListTodayMinus04DaysExtJson.TabIndex = 90;
+			kryptonButtonDownloadNeaListTodayMinus04DaysExtJson.TabIndex = 79;
 			kryptonButtonDownloadNeaListTodayMinus04DaysExtJson.ToolTipValues.Description = "Downloads NEAs today - 4 days as .EXTENDED.JSON.GZ file";
 			kryptonButtonDownloadNeaListTodayMinus04DaysExtJson.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayMinus04DaysExtJson.ToolTipValues.Heading = "NEAs today - 4 days as .EXTENDED.JSON.GZ file";
@@ -1257,7 +1266,7 @@
 			kryptonButtonDownloadNeaListTodayMinus04DaysExtDat.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayMinus04DaysExtDat.Name = "kryptonButtonDownloadNeaListTodayMinus04DaysExtDat";
 			kryptonButtonDownloadNeaListTodayMinus04DaysExtDat.Size = new Size(218, 26);
-			kryptonButtonDownloadNeaListTodayMinus04DaysExtDat.TabIndex = 89;
+			kryptonButtonDownloadNeaListTodayMinus04DaysExtDat.TabIndex = 78;
 			kryptonButtonDownloadNeaListTodayMinus04DaysExtDat.ToolTipValues.Description = "Downloads NEAs today - 4 days as .EXTENDED.DAT.GZ file";
 			kryptonButtonDownloadNeaListTodayMinus04DaysExtDat.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayMinus04DaysExtDat.ToolTipValues.Heading = "NEAs today - 4 days as .EXTENDED.DAT.GZ file";
@@ -1281,7 +1290,7 @@
 			kryptonButtonDownloadNeaListTodayMinus04Days.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayMinus04Days.Name = "kryptonButtonDownloadNeaListTodayMinus04Days";
 			kryptonButtonDownloadNeaListTodayMinus04Days.Size = new Size(143, 26);
-			kryptonButtonDownloadNeaListTodayMinus04Days.TabIndex = 88;
+			kryptonButtonDownloadNeaListTodayMinus04Days.TabIndex = 77;
 			kryptonButtonDownloadNeaListTodayMinus04Days.ToolTipValues.Description = "Downloads NEAs today - 4 days as .TXT file";
 			kryptonButtonDownloadNeaListTodayMinus04Days.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayMinus04Days.ToolTipValues.Heading = "NEAs today - 4 days as .TXT file";
@@ -1305,7 +1314,7 @@
 			kryptonButtonDownloadNeaListTodayMinus03DaysExtJson.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayMinus03DaysExtJson.Name = "kryptonButtonDownloadNeaListTodayMinus03DaysExtJson";
 			kryptonButtonDownloadNeaListTodayMinus03DaysExtJson.Size = new Size(240, 26);
-			kryptonButtonDownloadNeaListTodayMinus03DaysExtJson.TabIndex = 87;
+			kryptonButtonDownloadNeaListTodayMinus03DaysExtJson.TabIndex = 75;
 			kryptonButtonDownloadNeaListTodayMinus03DaysExtJson.ToolTipValues.Description = "Downloads NEAs today - 3 days as .EXTENDED.JSON.GZ file";
 			kryptonButtonDownloadNeaListTodayMinus03DaysExtJson.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayMinus03DaysExtJson.ToolTipValues.Heading = "NEAs today - 3 days as .EXTENDED.JSON.GZ file";
@@ -1329,7 +1338,7 @@
 			kryptonButtonDownloadNeaListTodayMinus03DaysExtDat.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayMinus03DaysExtDat.Name = "kryptonButtonDownloadNeaListTodayMinus03DaysExtDat";
 			kryptonButtonDownloadNeaListTodayMinus03DaysExtDat.Size = new Size(218, 26);
-			kryptonButtonDownloadNeaListTodayMinus03DaysExtDat.TabIndex = 86;
+			kryptonButtonDownloadNeaListTodayMinus03DaysExtDat.TabIndex = 74;
 			kryptonButtonDownloadNeaListTodayMinus03DaysExtDat.ToolTipValues.Description = "Downloads NEAs today - 3 days as .EXTENDED.DAT.GZ file";
 			kryptonButtonDownloadNeaListTodayMinus03DaysExtDat.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayMinus03DaysExtDat.ToolTipValues.Heading = "NEAs today - 3 days as .EXTENDED.DAT.GZ file";
@@ -1353,7 +1362,7 @@
 			kryptonButtonDownloadNeaListTodayMinus03Days.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayMinus03Days.Name = "kryptonButtonDownloadNeaListTodayMinus03Days";
 			kryptonButtonDownloadNeaListTodayMinus03Days.Size = new Size(143, 26);
-			kryptonButtonDownloadNeaListTodayMinus03Days.TabIndex = 85;
+			kryptonButtonDownloadNeaListTodayMinus03Days.TabIndex = 73;
 			kryptonButtonDownloadNeaListTodayMinus03Days.ToolTipValues.Description = "Downloads NEAs today - 3 days as .TXT file";
 			kryptonButtonDownloadNeaListTodayMinus03Days.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayMinus03Days.ToolTipValues.Heading = "NEAs today - 3 days as .TXT file";
@@ -1377,7 +1386,7 @@
 			kryptonButtonDownloadNeaListTodayMinus02DaysExtJson.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayMinus02DaysExtJson.Name = "kryptonButtonDownloadNeaListTodayMinus02DaysExtJson";
 			kryptonButtonDownloadNeaListTodayMinus02DaysExtJson.Size = new Size(240, 26);
-			kryptonButtonDownloadNeaListTodayMinus02DaysExtJson.TabIndex = 84;
+			kryptonButtonDownloadNeaListTodayMinus02DaysExtJson.TabIndex = 71;
 			kryptonButtonDownloadNeaListTodayMinus02DaysExtJson.ToolTipValues.Description = "Downloads NEAs today - 2 days as .EXTENDED.JSON.GZ file";
 			kryptonButtonDownloadNeaListTodayMinus02DaysExtJson.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayMinus02DaysExtJson.ToolTipValues.Heading = "NEAs today - 2 days as .EXTENDED.JSON.GZ file";
@@ -1401,7 +1410,7 @@
 			kryptonButtonDownloadNeaListTodayMinus02DaysExtDat.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayMinus02DaysExtDat.Name = "kryptonButtonDownloadNeaListTodayMinus02DaysExtDat";
 			kryptonButtonDownloadNeaListTodayMinus02DaysExtDat.Size = new Size(218, 26);
-			kryptonButtonDownloadNeaListTodayMinus02DaysExtDat.TabIndex = 83;
+			kryptonButtonDownloadNeaListTodayMinus02DaysExtDat.TabIndex = 70;
 			kryptonButtonDownloadNeaListTodayMinus02DaysExtDat.ToolTipValues.Description = "Downloads NEAs today  - 2 days as .EXTENDED.DAT.GZ file";
 			kryptonButtonDownloadNeaListTodayMinus02DaysExtDat.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayMinus02DaysExtDat.ToolTipValues.Heading = "NEAs today  - 2 days as .EXTENDED.DAT.GZ file";
@@ -1425,7 +1434,7 @@
 			kryptonButtonDownloadNeaListTodayMinus02Days.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayMinus02Days.Name = "kryptonButtonDownloadNeaListTodayMinus02Days";
 			kryptonButtonDownloadNeaListTodayMinus02Days.Size = new Size(143, 26);
-			kryptonButtonDownloadNeaListTodayMinus02Days.TabIndex = 82;
+			kryptonButtonDownloadNeaListTodayMinus02Days.TabIndex = 69;
 			kryptonButtonDownloadNeaListTodayMinus02Days.ToolTipValues.Description = "Downloads NEAs today - 2 days as .TXT file";
 			kryptonButtonDownloadNeaListTodayMinus02Days.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayMinus02Days.ToolTipValues.Heading = "NEAs today - 2 days as .TXT file";
@@ -1449,7 +1458,7 @@
 			kryptonButtonDownloadNeaListTodayMinus01DaysExtJson.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayMinus01DaysExtJson.Name = "kryptonButtonDownloadNeaListTodayMinus01DaysExtJson";
 			kryptonButtonDownloadNeaListTodayMinus01DaysExtJson.Size = new Size(240, 26);
-			kryptonButtonDownloadNeaListTodayMinus01DaysExtJson.TabIndex = 81;
+			kryptonButtonDownloadNeaListTodayMinus01DaysExtJson.TabIndex = 67;
 			kryptonButtonDownloadNeaListTodayMinus01DaysExtJson.ToolTipValues.Description = "Downloads NEAs today - 1 day as .EXTENDED.JSON.GZ file";
 			kryptonButtonDownloadNeaListTodayMinus01DaysExtJson.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayMinus01DaysExtJson.ToolTipValues.Heading = "NEAs today - 1 day as .EXTENDED.JSON.GZ file";
@@ -1473,7 +1482,7 @@
 			kryptonButtonDownloadNeaListTodayMinus01DaysExtDat.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayMinus01DaysExtDat.Name = "kryptonButtonDownloadNeaListTodayMinus01DaysExtDat";
 			kryptonButtonDownloadNeaListTodayMinus01DaysExtDat.Size = new Size(218, 26);
-			kryptonButtonDownloadNeaListTodayMinus01DaysExtDat.TabIndex = 80;
+			kryptonButtonDownloadNeaListTodayMinus01DaysExtDat.TabIndex = 66;
 			kryptonButtonDownloadNeaListTodayMinus01DaysExtDat.ToolTipValues.Description = "Downloads NEAs today - 1 day as .EXTENDED.DAT.GZ file";
 			kryptonButtonDownloadNeaListTodayMinus01DaysExtDat.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayMinus01DaysExtDat.ToolTipValues.Heading = "NEAs today - 1 day as .EXTENDED.DAT.GZ file";
@@ -1497,7 +1506,7 @@
 			kryptonButtonDownloadNeaListTodayMinus01Days.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayMinus01Days.Name = "kryptonButtonDownloadNeaListTodayMinus01Days";
 			kryptonButtonDownloadNeaListTodayMinus01Days.Size = new Size(143, 26);
-			kryptonButtonDownloadNeaListTodayMinus01Days.TabIndex = 79;
+			kryptonButtonDownloadNeaListTodayMinus01Days.TabIndex = 65;
 			kryptonButtonDownloadNeaListTodayMinus01Days.ToolTipValues.Description = "Downloads NEAs today -1 day as .TXT file";
 			kryptonButtonDownloadNeaListTodayMinus01Days.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayMinus01Days.ToolTipValues.Heading = "NEAs today -1 day as .TXT file";
@@ -1521,7 +1530,7 @@
 			kryptonButtonDownloadNeaListTodayExtJson.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayExtJson.Name = "kryptonButtonDownloadNeaListTodayExtJson";
 			kryptonButtonDownloadNeaListTodayExtJson.Size = new Size(240, 26);
-			kryptonButtonDownloadNeaListTodayExtJson.TabIndex = 78;
+			kryptonButtonDownloadNeaListTodayExtJson.TabIndex = 63;
 			kryptonButtonDownloadNeaListTodayExtJson.ToolTipValues.Description = "Downloads NEAs today as .EXTENDED.JSON.GZ file";
 			kryptonButtonDownloadNeaListTodayExtJson.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayExtJson.ToolTipValues.Heading = "NEAs today as .EXTENDED.JSON.GZ file";
@@ -1545,7 +1554,7 @@
 			kryptonButtonDownloadNeaListTodayExtDat.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayExtDat.Name = "kryptonButtonDownloadNeaListTodayExtDat";
 			kryptonButtonDownloadNeaListTodayExtDat.Size = new Size(218, 26);
-			kryptonButtonDownloadNeaListTodayExtDat.TabIndex = 77;
+			kryptonButtonDownloadNeaListTodayExtDat.TabIndex = 62;
 			kryptonButtonDownloadNeaListTodayExtDat.ToolTipValues.Description = "Downloads NEAs today as .EXTENDED.DAT.GZ file";
 			kryptonButtonDownloadNeaListTodayExtDat.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayExtDat.ToolTipValues.Heading = "NEAs today as .EXTENDED.DAT.GZ file";
@@ -1569,7 +1578,7 @@
 			kryptonButtonDownloadNeaListToday.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListToday.Name = "kryptonButtonDownloadNeaListToday";
 			kryptonButtonDownloadNeaListToday.Size = new Size(143, 26);
-			kryptonButtonDownloadNeaListToday.TabIndex = 76;
+			kryptonButtonDownloadNeaListToday.TabIndex = 61;
 			kryptonButtonDownloadNeaListToday.ToolTipValues.Description = "Downloads NEAs today as .TXT file";
 			kryptonButtonDownloadNeaListToday.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListToday.ToolTipValues.Heading = "NEAs today as .TXT file";
@@ -1593,7 +1602,7 @@
 			kryptonButtonDownloadNeaListTodayPlus01DaysExtJson.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayPlus01DaysExtJson.Name = "kryptonButtonDownloadNeaListTodayPlus01DaysExtJson";
 			kryptonButtonDownloadNeaListTodayPlus01DaysExtJson.Size = new Size(240, 26);
-			kryptonButtonDownloadNeaListTodayPlus01DaysExtJson.TabIndex = 75;
+			kryptonButtonDownloadNeaListTodayPlus01DaysExtJson.TabIndex = 59;
 			kryptonButtonDownloadNeaListTodayPlus01DaysExtJson.ToolTipValues.Description = "Downloads NEAs today + 1 day as .EXTENDED.JSON.GZ file";
 			kryptonButtonDownloadNeaListTodayPlus01DaysExtJson.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayPlus01DaysExtJson.ToolTipValues.Heading = "NEAs today + 1 day as .EXTENDED.JSON.GZ file";
@@ -1617,7 +1626,7 @@
 			kryptonButtonDownloadNeaListTodayPlus01DaysExtDat.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayPlus01DaysExtDat.Name = "kryptonButtonDownloadNeaListTodayPlus01DaysExtDat";
 			kryptonButtonDownloadNeaListTodayPlus01DaysExtDat.Size = new Size(218, 26);
-			kryptonButtonDownloadNeaListTodayPlus01DaysExtDat.TabIndex = 74;
+			kryptonButtonDownloadNeaListTodayPlus01DaysExtDat.TabIndex = 58;
 			kryptonButtonDownloadNeaListTodayPlus01DaysExtDat.ToolTipValues.Description = "Downloads NEAs today + 1 day as .EXTENDED.DAT.GZ file";
 			kryptonButtonDownloadNeaListTodayPlus01DaysExtDat.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayPlus01DaysExtDat.ToolTipValues.Heading = "NEAs today 1 day as .EXTENDED.DAT.GZ file";
@@ -1641,7 +1650,7 @@
 			kryptonButtonDownloadNeaListTodayPlus01Days.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayPlus01Days.Name = "kryptonButtonDownloadNeaListTodayPlus01Days";
 			kryptonButtonDownloadNeaListTodayPlus01Days.Size = new Size(143, 26);
-			kryptonButtonDownloadNeaListTodayPlus01Days.TabIndex = 73;
+			kryptonButtonDownloadNeaListTodayPlus01Days.TabIndex = 57;
 			kryptonButtonDownloadNeaListTodayPlus01Days.ToolTipValues.Description = "Downloads NEAs today + 1 day as .TXT file";
 			kryptonButtonDownloadNeaListTodayPlus01Days.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayPlus01Days.ToolTipValues.Heading = "NEAs today + 1 day as .TXT file";
@@ -1665,7 +1674,7 @@
 			kryptonButtonDownloadNeaListTodayPlus02DaysExtJson.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayPlus02DaysExtJson.Name = "kryptonButtonDownloadNeaListTodayPlus02DaysExtJson";
 			kryptonButtonDownloadNeaListTodayPlus02DaysExtJson.Size = new Size(240, 26);
-			kryptonButtonDownloadNeaListTodayPlus02DaysExtJson.TabIndex = 72;
+			kryptonButtonDownloadNeaListTodayPlus02DaysExtJson.TabIndex = 55;
 			kryptonButtonDownloadNeaListTodayPlus02DaysExtJson.ToolTipValues.Description = "Downloads NEAs today + 2 days as .EXTENDED.JSON.GZ file";
 			kryptonButtonDownloadNeaListTodayPlus02DaysExtJson.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayPlus02DaysExtJson.ToolTipValues.Heading = "NEAs today + 2 days as .EXTENDED.JSON.GZ file";
@@ -1689,7 +1698,7 @@
 			kryptonButtonDownloadNeaListTodayPlus02DaysExtDat.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayPlus02DaysExtDat.Name = "kryptonButtonDownloadNeaListTodayPlus02DaysExtDat";
 			kryptonButtonDownloadNeaListTodayPlus02DaysExtDat.Size = new Size(218, 26);
-			kryptonButtonDownloadNeaListTodayPlus02DaysExtDat.TabIndex = 71;
+			kryptonButtonDownloadNeaListTodayPlus02DaysExtDat.TabIndex = 54;
 			kryptonButtonDownloadNeaListTodayPlus02DaysExtDat.ToolTipValues.Description = "Downloads NEAs today + 2 days as .EXTENDED.DAT.GZ file";
 			kryptonButtonDownloadNeaListTodayPlus02DaysExtDat.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayPlus02DaysExtDat.ToolTipValues.Heading = "NEAs today + 2 days as .EXTENDED.DAT.GZ file";
@@ -1713,7 +1722,7 @@
 			kryptonButtonDownloadNeaListTodayPlus02Days.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayPlus02Days.Name = "kryptonButtonDownloadNeaListTodayPlus02Days";
 			kryptonButtonDownloadNeaListTodayPlus02Days.Size = new Size(143, 26);
-			kryptonButtonDownloadNeaListTodayPlus02Days.TabIndex = 70;
+			kryptonButtonDownloadNeaListTodayPlus02Days.TabIndex = 53;
 			kryptonButtonDownloadNeaListTodayPlus02Days.ToolTipValues.Description = "Downloads NEAs today + 2 days as .TXT file";
 			kryptonButtonDownloadNeaListTodayPlus02Days.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayPlus02Days.ToolTipValues.Heading = "NEAs today + 2 days as .TXT file";
@@ -1737,7 +1746,7 @@
 			kryptonButtonDownloadNeaListTodayPlus03DaysExtJson.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayPlus03DaysExtJson.Name = "kryptonButtonDownloadNeaListTodayPlus03DaysExtJson";
 			kryptonButtonDownloadNeaListTodayPlus03DaysExtJson.Size = new Size(240, 26);
-			kryptonButtonDownloadNeaListTodayPlus03DaysExtJson.TabIndex = 69;
+			kryptonButtonDownloadNeaListTodayPlus03DaysExtJson.TabIndex = 51;
 			kryptonButtonDownloadNeaListTodayPlus03DaysExtJson.ToolTipValues.Description = "Downloads NEAs today + 3 days as .EXTENDED.JSON.GZ file";
 			kryptonButtonDownloadNeaListTodayPlus03DaysExtJson.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayPlus03DaysExtJson.ToolTipValues.Heading = "NEAs today + 3 days as .EXTENDED.JSON.GZ file";
@@ -1761,7 +1770,7 @@
 			kryptonButtonDownloadNeaListTodayPlus03DaysExtDat.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayPlus03DaysExtDat.Name = "kryptonButtonDownloadNeaListTodayPlus03DaysExtDat";
 			kryptonButtonDownloadNeaListTodayPlus03DaysExtDat.Size = new Size(218, 26);
-			kryptonButtonDownloadNeaListTodayPlus03DaysExtDat.TabIndex = 68;
+			kryptonButtonDownloadNeaListTodayPlus03DaysExtDat.TabIndex = 50;
 			kryptonButtonDownloadNeaListTodayPlus03DaysExtDat.ToolTipValues.Description = "Downloads NEAs today + 3 days as .EXTENDED.DAT.GZ file";
 			kryptonButtonDownloadNeaListTodayPlus03DaysExtDat.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayPlus03DaysExtDat.ToolTipValues.Heading = "NEAs today + 3 days as .EXTENDED.DAT.GZ file";
@@ -1785,7 +1794,7 @@
 			kryptonButtonDownloadNeaListTodayPlus03Days.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayPlus03Days.Name = "kryptonButtonDownloadNeaListTodayPlus03Days";
 			kryptonButtonDownloadNeaListTodayPlus03Days.Size = new Size(143, 26);
-			kryptonButtonDownloadNeaListTodayPlus03Days.TabIndex = 67;
+			kryptonButtonDownloadNeaListTodayPlus03Days.TabIndex = 49;
 			kryptonButtonDownloadNeaListTodayPlus03Days.ToolTipValues.Description = "Downloads NEAs today + 3 days as .TXT file";
 			kryptonButtonDownloadNeaListTodayPlus03Days.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayPlus03Days.ToolTipValues.Heading = "NEAs today + 3 days as .TXT file";
@@ -1809,7 +1818,7 @@
 			kryptonButtonDownloadNeaListTodayPlus04DaysExtJson.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayPlus04DaysExtJson.Name = "kryptonButtonDownloadNeaListTodayPlus04DaysExtJson";
 			kryptonButtonDownloadNeaListTodayPlus04DaysExtJson.Size = new Size(240, 26);
-			kryptonButtonDownloadNeaListTodayPlus04DaysExtJson.TabIndex = 66;
+			kryptonButtonDownloadNeaListTodayPlus04DaysExtJson.TabIndex = 47;
 			kryptonButtonDownloadNeaListTodayPlus04DaysExtJson.ToolTipValues.Description = "Downloads NEAs today + 4 days as .EXTENDED.JSON.GZ file";
 			kryptonButtonDownloadNeaListTodayPlus04DaysExtJson.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayPlus04DaysExtJson.ToolTipValues.Heading = "NEAs today + 4 days as .EXTENDED.JSON.GZ file";
@@ -1833,7 +1842,7 @@
 			kryptonButtonDownloadNeaListTodayPlus04DaysExtDat.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayPlus04DaysExtDat.Name = "kryptonButtonDownloadNeaListTodayPlus04DaysExtDat";
 			kryptonButtonDownloadNeaListTodayPlus04DaysExtDat.Size = new Size(218, 26);
-			kryptonButtonDownloadNeaListTodayPlus04DaysExtDat.TabIndex = 65;
+			kryptonButtonDownloadNeaListTodayPlus04DaysExtDat.TabIndex = 46;
 			kryptonButtonDownloadNeaListTodayPlus04DaysExtDat.ToolTipValues.Description = "Downloads NEAs today + 4 days as .EXTENDED.DAT.GZ file";
 			kryptonButtonDownloadNeaListTodayPlus04DaysExtDat.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayPlus04DaysExtDat.ToolTipValues.Heading = "NEAs today + 4 days as .EXTENDED.DAT.GZ file";
@@ -1857,7 +1866,7 @@
 			kryptonButtonDownloadNeaListTodayPlus04Days.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayPlus04Days.Name = "kryptonButtonDownloadNeaListTodayPlus04Days";
 			kryptonButtonDownloadNeaListTodayPlus04Days.Size = new Size(143, 26);
-			kryptonButtonDownloadNeaListTodayPlus04Days.TabIndex = 64;
+			kryptonButtonDownloadNeaListTodayPlus04Days.TabIndex = 45;
 			kryptonButtonDownloadNeaListTodayPlus04Days.ToolTipValues.Description = "Downloads NEAs today + 4 days as .TXT file";
 			kryptonButtonDownloadNeaListTodayPlus04Days.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayPlus04Days.ToolTipValues.Heading = "NEAs today + 4 days as .TXT file";
@@ -1881,7 +1890,7 @@
 			kryptonButtonDownloadNeaListTodayPlus05DaysExtJson.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayPlus05DaysExtJson.Name = "kryptonButtonDownloadNeaListTodayPlus05DaysExtJson";
 			kryptonButtonDownloadNeaListTodayPlus05DaysExtJson.Size = new Size(240, 26);
-			kryptonButtonDownloadNeaListTodayPlus05DaysExtJson.TabIndex = 63;
+			kryptonButtonDownloadNeaListTodayPlus05DaysExtJson.TabIndex = 43;
 			kryptonButtonDownloadNeaListTodayPlus05DaysExtJson.ToolTipValues.Description = "Downloads NEAs today + 5 days as .EXTENDED.JSON.GZ file";
 			kryptonButtonDownloadNeaListTodayPlus05DaysExtJson.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayPlus05DaysExtJson.ToolTipValues.Heading = "NEAs today + 5 days as .EXTENDED.JSON.GZ file";
@@ -1905,7 +1914,7 @@
 			kryptonButtonDownloadNeaListTodayPlus05DaysExtDat.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayPlus05DaysExtDat.Name = "kryptonButtonDownloadNeaListTodayPlus05DaysExtDat";
 			kryptonButtonDownloadNeaListTodayPlus05DaysExtDat.Size = new Size(218, 26);
-			kryptonButtonDownloadNeaListTodayPlus05DaysExtDat.TabIndex = 62;
+			kryptonButtonDownloadNeaListTodayPlus05DaysExtDat.TabIndex = 42;
 			kryptonButtonDownloadNeaListTodayPlus05DaysExtDat.ToolTipValues.Description = "Downloads NEAs today + 5 days as .EXTENDED.DAT.GZ file";
 			kryptonButtonDownloadNeaListTodayPlus05DaysExtDat.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayPlus05DaysExtDat.ToolTipValues.Heading = "NEAs today + 5 days as .EXTENDED.DAT.GZ file";
@@ -1929,7 +1938,7 @@
 			kryptonButtonDownloadNeaListTodayPlus05Days.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayPlus05Days.Name = "kryptonButtonDownloadNeaListTodayPlus05Days";
 			kryptonButtonDownloadNeaListTodayPlus05Days.Size = new Size(143, 26);
-			kryptonButtonDownloadNeaListTodayPlus05Days.TabIndex = 61;
+			kryptonButtonDownloadNeaListTodayPlus05Days.TabIndex = 41;
 			kryptonButtonDownloadNeaListTodayPlus05Days.ToolTipValues.Description = "Downloads NEAs today + 5 days as .TXT file";
 			kryptonButtonDownloadNeaListTodayPlus05Days.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayPlus05Days.ToolTipValues.Heading = "NEAs today + 5 days as .TXT file";
@@ -1953,7 +1962,7 @@
 			kryptonButtonDownloadNeaListTodayPlus06DaysExtJson.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayPlus06DaysExtJson.Name = "kryptonButtonDownloadNeaListTodayPlus06DaysExtJson";
 			kryptonButtonDownloadNeaListTodayPlus06DaysExtJson.Size = new Size(240, 26);
-			kryptonButtonDownloadNeaListTodayPlus06DaysExtJson.TabIndex = 60;
+			kryptonButtonDownloadNeaListTodayPlus06DaysExtJson.TabIndex = 39;
 			kryptonButtonDownloadNeaListTodayPlus06DaysExtJson.ToolTipValues.Description = "Downloads NEAs today + 6 days as .EXTENDED.JSON.GZ file";
 			kryptonButtonDownloadNeaListTodayPlus06DaysExtJson.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayPlus06DaysExtJson.ToolTipValues.Heading = "NEAs today + 6 days as .EXTENDED.JSON.GZ file";
@@ -1977,7 +1986,7 @@
 			kryptonButtonDownloadNeaListTodayPlus06DaysExtDat.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayPlus06DaysExtDat.Name = "kryptonButtonDownloadNeaListTodayPlus06DaysExtDat";
 			kryptonButtonDownloadNeaListTodayPlus06DaysExtDat.Size = new Size(218, 26);
-			kryptonButtonDownloadNeaListTodayPlus06DaysExtDat.TabIndex = 59;
+			kryptonButtonDownloadNeaListTodayPlus06DaysExtDat.TabIndex = 38;
 			kryptonButtonDownloadNeaListTodayPlus06DaysExtDat.ToolTipValues.Description = "Downloads NEAs today + 6 days as .EXTENDED.DAT.GZ file";
 			kryptonButtonDownloadNeaListTodayPlus06DaysExtDat.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayPlus06DaysExtDat.ToolTipValues.Heading = "NEAs today + 6 days as .EXTENDED.DAT.GZ file";
@@ -2001,7 +2010,7 @@
 			kryptonButtonDownloadNeaListTodayPlus06Days.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayPlus06Days.Name = "kryptonButtonDownloadNeaListTodayPlus06Days";
 			kryptonButtonDownloadNeaListTodayPlus06Days.Size = new Size(143, 26);
-			kryptonButtonDownloadNeaListTodayPlus06Days.TabIndex = 58;
+			kryptonButtonDownloadNeaListTodayPlus06Days.TabIndex = 37;
 			kryptonButtonDownloadNeaListTodayPlus06Days.ToolTipValues.Description = "Downloads NEAs today + 6 days as .TXT file";
 			kryptonButtonDownloadNeaListTodayPlus06Days.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayPlus06Days.ToolTipValues.Heading = "NEAs today + 6 days as .TXT file";
@@ -2025,7 +2034,7 @@
 			kryptonButtonDownloadNeaListTodayPlus07DaysExtJson.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayPlus07DaysExtJson.Name = "kryptonButtonDownloadNeaListTodayPlus07DaysExtJson";
 			kryptonButtonDownloadNeaListTodayPlus07DaysExtJson.Size = new Size(240, 26);
-			kryptonButtonDownloadNeaListTodayPlus07DaysExtJson.TabIndex = 57;
+			kryptonButtonDownloadNeaListTodayPlus07DaysExtJson.TabIndex = 35;
 			kryptonButtonDownloadNeaListTodayPlus07DaysExtJson.ToolTipValues.Description = "Downloads NEAs today + 7 days as .EXTENDED.JSON.GZ file";
 			kryptonButtonDownloadNeaListTodayPlus07DaysExtJson.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayPlus07DaysExtJson.ToolTipValues.Heading = "NEAs today + 7 days as .EXTENDED.JSON.GZ file";
@@ -2049,7 +2058,7 @@
 			kryptonButtonDownloadNeaListTodayPlus07DaysExtDat.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayPlus07DaysExtDat.Name = "kryptonButtonDownloadNeaListTodayPlus07DaysExtDat";
 			kryptonButtonDownloadNeaListTodayPlus07DaysExtDat.Size = new Size(218, 26);
-			kryptonButtonDownloadNeaListTodayPlus07DaysExtDat.TabIndex = 56;
+			kryptonButtonDownloadNeaListTodayPlus07DaysExtDat.TabIndex = 34;
 			kryptonButtonDownloadNeaListTodayPlus07DaysExtDat.ToolTipValues.Description = "Downloads NEAs today + 7 days as .EXTENDED.DAT.GZ file";
 			kryptonButtonDownloadNeaListTodayPlus07DaysExtDat.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayPlus07DaysExtDat.ToolTipValues.Heading = "NEAs today + 7 days as .EXTENDED.DAT.GZ file";
@@ -2073,7 +2082,7 @@
 			kryptonButtonDownloadNeaListTodayPlus07Days.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayPlus07Days.Name = "kryptonButtonDownloadNeaListTodayPlus07Days";
 			kryptonButtonDownloadNeaListTodayPlus07Days.Size = new Size(143, 26);
-			kryptonButtonDownloadNeaListTodayPlus07Days.TabIndex = 55;
+			kryptonButtonDownloadNeaListTodayPlus07Days.TabIndex = 33;
 			kryptonButtonDownloadNeaListTodayPlus07Days.ToolTipValues.Description = "Downloads NEAs today + 7 days as .TXT file";
 			kryptonButtonDownloadNeaListTodayPlus07Days.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayPlus07Days.ToolTipValues.Heading = "NEAs today + 7 days as .TXT file";
@@ -2097,7 +2106,7 @@
 			kryptonButtonDownloadNeaListTodayPlus08DaysExtJson.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayPlus08DaysExtJson.Name = "kryptonButtonDownloadNeaListTodayPlus08DaysExtJson";
 			kryptonButtonDownloadNeaListTodayPlus08DaysExtJson.Size = new Size(240, 26);
-			kryptonButtonDownloadNeaListTodayPlus08DaysExtJson.TabIndex = 54;
+			kryptonButtonDownloadNeaListTodayPlus08DaysExtJson.TabIndex = 31;
 			kryptonButtonDownloadNeaListTodayPlus08DaysExtJson.ToolTipValues.Description = "Downloads NEAs today + 8 days as .EXTENDED.JSON.GZ file";
 			kryptonButtonDownloadNeaListTodayPlus08DaysExtJson.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayPlus08DaysExtJson.ToolTipValues.Heading = "NEAs today + 8 days as .EXTENDED.JSON.GZ file";
@@ -2121,7 +2130,7 @@
 			kryptonButtonDownloadNeaListTodayPlus08DaysExtDat.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayPlus08DaysExtDat.Name = "kryptonButtonDownloadNeaListTodayPlus08DaysExtDat";
 			kryptonButtonDownloadNeaListTodayPlus08DaysExtDat.Size = new Size(218, 26);
-			kryptonButtonDownloadNeaListTodayPlus08DaysExtDat.TabIndex = 53;
+			kryptonButtonDownloadNeaListTodayPlus08DaysExtDat.TabIndex = 30;
 			kryptonButtonDownloadNeaListTodayPlus08DaysExtDat.ToolTipValues.Description = "Downloads NEAs today + 8 days as .EXTENDED.DAT.GZ file";
 			kryptonButtonDownloadNeaListTodayPlus08DaysExtDat.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayPlus08DaysExtDat.ToolTipValues.Heading = "NEAs today + 8 days as .EXTENDED.DAT.GZ file";
@@ -2145,7 +2154,7 @@
 			kryptonButtonDownloadNeaListTodayPlus08Days.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayPlus08Days.Name = "kryptonButtonDownloadNeaListTodayPlus08Days";
 			kryptonButtonDownloadNeaListTodayPlus08Days.Size = new Size(143, 26);
-			kryptonButtonDownloadNeaListTodayPlus08Days.TabIndex = 52;
+			kryptonButtonDownloadNeaListTodayPlus08Days.TabIndex = 29;
 			kryptonButtonDownloadNeaListTodayPlus08Days.ToolTipValues.Description = "Downloads NEAs today + 8 days as .TXT file";
 			kryptonButtonDownloadNeaListTodayPlus08Days.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayPlus08Days.ToolTipValues.Heading = "NEAs today + 8 days as .TXT file";
@@ -2169,7 +2178,7 @@
 			kryptonButtonDownloadNeaListTodayPlus09DaysExtJson.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayPlus09DaysExtJson.Name = "kryptonButtonDownloadNeaListTodayPlus09DaysExtJson";
 			kryptonButtonDownloadNeaListTodayPlus09DaysExtJson.Size = new Size(240, 26);
-			kryptonButtonDownloadNeaListTodayPlus09DaysExtJson.TabIndex = 51;
+			kryptonButtonDownloadNeaListTodayPlus09DaysExtJson.TabIndex = 27;
 			kryptonButtonDownloadNeaListTodayPlus09DaysExtJson.ToolTipValues.Description = "Downloads NEAs today + 9 days as .EXTENDED.JSON.GZ file";
 			kryptonButtonDownloadNeaListTodayPlus09DaysExtJson.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayPlus09DaysExtJson.ToolTipValues.Heading = "NEAs today + 9 days as .EXTENDED.JSON.GZ file";
@@ -2193,7 +2202,7 @@
 			kryptonButtonDownloadNeaListTodayPlus09DaysExtDat.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayPlus09DaysExtDat.Name = "kryptonButtonDownloadNeaListTodayPlus09DaysExtDat";
 			kryptonButtonDownloadNeaListTodayPlus09DaysExtDat.Size = new Size(218, 26);
-			kryptonButtonDownloadNeaListTodayPlus09DaysExtDat.TabIndex = 50;
+			kryptonButtonDownloadNeaListTodayPlus09DaysExtDat.TabIndex = 26;
 			kryptonButtonDownloadNeaListTodayPlus09DaysExtDat.ToolTipValues.Description = "Downloads NEAs today + 9 days as .EXTENDED.DAT.GZ file";
 			kryptonButtonDownloadNeaListTodayPlus09DaysExtDat.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayPlus09DaysExtDat.ToolTipValues.Heading = "NEAs today + 9 days as .EXTENDED.DAT.GZ file";
@@ -2217,7 +2226,7 @@
 			kryptonButtonDownloadNeaListTodayPlus09Days.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayPlus09Days.Name = "kryptonButtonDownloadNeaListTodayPlus09Days";
 			kryptonButtonDownloadNeaListTodayPlus09Days.Size = new Size(143, 26);
-			kryptonButtonDownloadNeaListTodayPlus09Days.TabIndex = 49;
+			kryptonButtonDownloadNeaListTodayPlus09Days.TabIndex = 25;
 			kryptonButtonDownloadNeaListTodayPlus09Days.ToolTipValues.Description = "Downloads NEAs today + 9 days as .TXT file";
 			kryptonButtonDownloadNeaListTodayPlus09Days.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayPlus09Days.ToolTipValues.Heading = "NEAs today + 9 days as .TXT file";
@@ -2241,7 +2250,7 @@
 			kryptonButtonDownloadNeaListTodayPlus10DaysExtJson.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayPlus10DaysExtJson.Name = "kryptonButtonDownloadNeaListTodayPlus10DaysExtJson";
 			kryptonButtonDownloadNeaListTodayPlus10DaysExtJson.Size = new Size(240, 26);
-			kryptonButtonDownloadNeaListTodayPlus10DaysExtJson.TabIndex = 48;
+			kryptonButtonDownloadNeaListTodayPlus10DaysExtJson.TabIndex = 23;
 			kryptonButtonDownloadNeaListTodayPlus10DaysExtJson.ToolTipValues.Description = "Downloads NEAs today + 10 days as .EXTENDED.JSON.GZ file";
 			kryptonButtonDownloadNeaListTodayPlus10DaysExtJson.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayPlus10DaysExtJson.ToolTipValues.Heading = "NEAs today + 10 days as .EXTENDED.JSON.GZ file";
@@ -2265,7 +2274,7 @@
 			kryptonButtonDownloadNeaListTodayPlus10DaysExtDat.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayPlus10DaysExtDat.Name = "kryptonButtonDownloadNeaListTodayPlus10DaysExtDat";
 			kryptonButtonDownloadNeaListTodayPlus10DaysExtDat.Size = new Size(218, 26);
-			kryptonButtonDownloadNeaListTodayPlus10DaysExtDat.TabIndex = 47;
+			kryptonButtonDownloadNeaListTodayPlus10DaysExtDat.TabIndex = 22;
 			kryptonButtonDownloadNeaListTodayPlus10DaysExtDat.ToolTipValues.Description = "Downloads NEAs today + 10 days as .EXTENDED.DAT.GZ file";
 			kryptonButtonDownloadNeaListTodayPlus10DaysExtDat.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayPlus10DaysExtDat.ToolTipValues.Heading = "NEAs today + 10 days as .EXTENDED.DAT.GZ file";
@@ -2289,7 +2298,7 @@
 			kryptonButtonDownloadNeaListTodayPlus10Days.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayPlus10Days.Name = "kryptonButtonDownloadNeaListTodayPlus10Days";
 			kryptonButtonDownloadNeaListTodayPlus10Days.Size = new Size(143, 26);
-			kryptonButtonDownloadNeaListTodayPlus10Days.TabIndex = 46;
+			kryptonButtonDownloadNeaListTodayPlus10Days.TabIndex = 21;
 			kryptonButtonDownloadNeaListTodayPlus10Days.ToolTipValues.Description = "Downloads NEAs today + 10 days as .TXT file";
 			kryptonButtonDownloadNeaListTodayPlus10Days.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayPlus10Days.ToolTipValues.Heading = "NEAs today + 10 days as .TXT file";
@@ -2313,7 +2322,7 @@
 			kryptonButtonDownloadNeaListTodayPlus11DaysExtJson.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayPlus11DaysExtJson.Name = "kryptonButtonDownloadNeaListTodayPlus11DaysExtJson";
 			kryptonButtonDownloadNeaListTodayPlus11DaysExtJson.Size = new Size(240, 26);
-			kryptonButtonDownloadNeaListTodayPlus11DaysExtJson.TabIndex = 45;
+			kryptonButtonDownloadNeaListTodayPlus11DaysExtJson.TabIndex = 19;
 			kryptonButtonDownloadNeaListTodayPlus11DaysExtJson.ToolTipValues.Description = "Downloads NEAs today + 11 days as .EXTENDED.JSON.GZ file";
 			kryptonButtonDownloadNeaListTodayPlus11DaysExtJson.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayPlus11DaysExtJson.ToolTipValues.Heading = "NEAs today + 11 days as .EXTENDED.JSON.GZ file";
@@ -2337,7 +2346,7 @@
 			kryptonButtonDownloadNeaListTodayPlus11DaysExtDat.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayPlus11DaysExtDat.Name = "kryptonButtonDownloadNeaListTodayPlus11DaysExtDat";
 			kryptonButtonDownloadNeaListTodayPlus11DaysExtDat.Size = new Size(218, 26);
-			kryptonButtonDownloadNeaListTodayPlus11DaysExtDat.TabIndex = 44;
+			kryptonButtonDownloadNeaListTodayPlus11DaysExtDat.TabIndex = 18;
 			kryptonButtonDownloadNeaListTodayPlus11DaysExtDat.ToolTipValues.Description = "Downloads NEAs today + 11 days as .EXTENDED.DAT.GZ file";
 			kryptonButtonDownloadNeaListTodayPlus11DaysExtDat.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayPlus11DaysExtDat.ToolTipValues.Heading = "NEAs today + 11 days as .EXTENDED.DAT.GZ file";
@@ -2361,7 +2370,7 @@
 			kryptonButtonDownloadNeaListTodayPlus11Days.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayPlus11Days.Name = "kryptonButtonDownloadNeaListTodayPlus11Days";
 			kryptonButtonDownloadNeaListTodayPlus11Days.Size = new Size(143, 26);
-			kryptonButtonDownloadNeaListTodayPlus11Days.TabIndex = 43;
+			kryptonButtonDownloadNeaListTodayPlus11Days.TabIndex = 17;
 			kryptonButtonDownloadNeaListTodayPlus11Days.ToolTipValues.Description = "Downloads NEAs today + 11 days as .TXT file";
 			kryptonButtonDownloadNeaListTodayPlus11Days.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayPlus11Days.ToolTipValues.Heading = "NEAs today + 11 days as .TXT file";
@@ -2385,7 +2394,7 @@
 			kryptonButtonDownloadNeaListTodayPlus12DaysExtJson.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayPlus12DaysExtJson.Name = "kryptonButtonDownloadNeaListTodayPlus12DaysExtJson";
 			kryptonButtonDownloadNeaListTodayPlus12DaysExtJson.Size = new Size(240, 26);
-			kryptonButtonDownloadNeaListTodayPlus12DaysExtJson.TabIndex = 42;
+			kryptonButtonDownloadNeaListTodayPlus12DaysExtJson.TabIndex = 15;
 			kryptonButtonDownloadNeaListTodayPlus12DaysExtJson.ToolTipValues.Description = "Downloads NEAs today + 12 days as .EXTENDED.JSON.GZ file";
 			kryptonButtonDownloadNeaListTodayPlus12DaysExtJson.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayPlus12DaysExtJson.ToolTipValues.Heading = "NEAs today + 12 days as .EXTENDED.JSON.GZ file";
@@ -2409,7 +2418,7 @@
 			kryptonButtonDownloadNeaListTodayPlus12DaysExtDat.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayPlus12DaysExtDat.Name = "kryptonButtonDownloadNeaListTodayPlus12DaysExtDat";
 			kryptonButtonDownloadNeaListTodayPlus12DaysExtDat.Size = new Size(218, 26);
-			kryptonButtonDownloadNeaListTodayPlus12DaysExtDat.TabIndex = 41;
+			kryptonButtonDownloadNeaListTodayPlus12DaysExtDat.TabIndex = 14;
 			kryptonButtonDownloadNeaListTodayPlus12DaysExtDat.ToolTipValues.Description = "Downloads NEAs today + 12 days as .EXTENDED.DAT.GZ file";
 			kryptonButtonDownloadNeaListTodayPlus12DaysExtDat.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayPlus12DaysExtDat.ToolTipValues.Heading = "NEAs today + 12 days as .EXTENDED.DAT.GZ file";
@@ -2433,7 +2442,7 @@
 			kryptonButtonDownloadNeaListTodayPlus12Days.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayPlus12Days.Name = "kryptonButtonDownloadNeaListTodayPlus12Days";
 			kryptonButtonDownloadNeaListTodayPlus12Days.Size = new Size(143, 26);
-			kryptonButtonDownloadNeaListTodayPlus12Days.TabIndex = 40;
+			kryptonButtonDownloadNeaListTodayPlus12Days.TabIndex = 13;
 			kryptonButtonDownloadNeaListTodayPlus12Days.ToolTipValues.Description = "Downloads NEAs today + 12 days as .TXT file";
 			kryptonButtonDownloadNeaListTodayPlus12Days.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayPlus12Days.ToolTipValues.Heading = "NEAs today + 12 days as .TXT file";
@@ -2457,7 +2466,7 @@
 			kryptonButtonDownloadNeaListTodayPlus13DaysExtJson.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayPlus13DaysExtJson.Name = "kryptonButtonDownloadNeaListTodayPlus13DaysExtJson";
 			kryptonButtonDownloadNeaListTodayPlus13DaysExtJson.Size = new Size(240, 26);
-			kryptonButtonDownloadNeaListTodayPlus13DaysExtJson.TabIndex = 39;
+			kryptonButtonDownloadNeaListTodayPlus13DaysExtJson.TabIndex = 11;
 			kryptonButtonDownloadNeaListTodayPlus13DaysExtJson.ToolTipValues.Description = "Downloads NEAs today + 13 days as .EXTENDED.JSON.GZ file";
 			kryptonButtonDownloadNeaListTodayPlus13DaysExtJson.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayPlus13DaysExtJson.ToolTipValues.Heading = "NEAs today + 13 days as .EXTENDED.JSON.GZ file";
@@ -2481,7 +2490,7 @@
 			kryptonButtonDownloadNeaListTodayPlus13DaysExtDat.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayPlus13DaysExtDat.Name = "kryptonButtonDownloadNeaListTodayPlus13DaysExtDat";
 			kryptonButtonDownloadNeaListTodayPlus13DaysExtDat.Size = new Size(218, 26);
-			kryptonButtonDownloadNeaListTodayPlus13DaysExtDat.TabIndex = 38;
+			kryptonButtonDownloadNeaListTodayPlus13DaysExtDat.TabIndex = 10;
 			kryptonButtonDownloadNeaListTodayPlus13DaysExtDat.ToolTipValues.Description = "Downloads NEAs today + 13 days as .EXTENDED.DAT.GZ file";
 			kryptonButtonDownloadNeaListTodayPlus13DaysExtDat.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayPlus13DaysExtDat.ToolTipValues.Heading = "NEAs today + 13 days as .EXTENDED.DAT.GZ file";
@@ -2505,7 +2514,7 @@
 			kryptonButtonDownloadNeaListTodayPlus13Days.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayPlus13Days.Name = "kryptonButtonDownloadNeaListTodayPlus13Days";
 			kryptonButtonDownloadNeaListTodayPlus13Days.Size = new Size(143, 26);
-			kryptonButtonDownloadNeaListTodayPlus13Days.TabIndex = 37;
+			kryptonButtonDownloadNeaListTodayPlus13Days.TabIndex = 9;
 			kryptonButtonDownloadNeaListTodayPlus13Days.ToolTipValues.Description = "Downloads NEAs today + 13 days as .TXT file";
 			kryptonButtonDownloadNeaListTodayPlus13Days.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayPlus13Days.ToolTipValues.Heading = "NEAs today + 13 days as .TXT file";
@@ -2529,7 +2538,7 @@
 			kryptonButtonDownloadNeaListTodayPlus14DaysExtJson.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayPlus14DaysExtJson.Name = "kryptonButtonDownloadNeaListTodayPlus14DaysExtJson";
 			kryptonButtonDownloadNeaListTodayPlus14DaysExtJson.Size = new Size(240, 26);
-			kryptonButtonDownloadNeaListTodayPlus14DaysExtJson.TabIndex = 36;
+			kryptonButtonDownloadNeaListTodayPlus14DaysExtJson.TabIndex = 7;
 			kryptonButtonDownloadNeaListTodayPlus14DaysExtJson.ToolTipValues.Description = "Downloads NEAs today + 14 days as .EXTENDED.JSON.GZ file";
 			kryptonButtonDownloadNeaListTodayPlus14DaysExtJson.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayPlus14DaysExtJson.ToolTipValues.Heading = "NEAs today + 14 days as .EXTENDED.JSON.GZ file";
@@ -2553,7 +2562,7 @@
 			kryptonButtonDownloadNeaListTodayPlus14DaysExtDat.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayPlus14DaysExtDat.Name = "kryptonButtonDownloadNeaListTodayPlus14DaysExtDat";
 			kryptonButtonDownloadNeaListTodayPlus14DaysExtDat.Size = new Size(218, 26);
-			kryptonButtonDownloadNeaListTodayPlus14DaysExtDat.TabIndex = 35;
+			kryptonButtonDownloadNeaListTodayPlus14DaysExtDat.TabIndex = 6;
 			kryptonButtonDownloadNeaListTodayPlus14DaysExtDat.ToolTipValues.Description = "Downloads NEAs today + 14 days as .EXTENDED.DAT.GZ file";
 			kryptonButtonDownloadNeaListTodayPlus14DaysExtDat.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayPlus14DaysExtDat.ToolTipValues.Heading = "NEAs today + 14 days as .EXTENDED.DAT.GZ file";
@@ -2577,7 +2586,7 @@
 			kryptonButtonDownloadNeaListTodayPlus14Days.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayPlus14Days.Name = "kryptonButtonDownloadNeaListTodayPlus14Days";
 			kryptonButtonDownloadNeaListTodayPlus14Days.Size = new Size(143, 26);
-			kryptonButtonDownloadNeaListTodayPlus14Days.TabIndex = 34;
+			kryptonButtonDownloadNeaListTodayPlus14Days.TabIndex = 5;
 			kryptonButtonDownloadNeaListTodayPlus14Days.ToolTipValues.Description = "Downloads NEAs today + 14 days as .TXT file";
 			kryptonButtonDownloadNeaListTodayPlus14Days.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayPlus14Days.ToolTipValues.Heading = "NEAs today + 14 days as .TXT file";
@@ -2601,7 +2610,7 @@
 			kryptonButtonDownloadNeaListTodayPlus15DaysExtJson.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayPlus15DaysExtJson.Name = "kryptonButtonDownloadNeaListTodayPlus15DaysExtJson";
 			kryptonButtonDownloadNeaListTodayPlus15DaysExtJson.Size = new Size(240, 26);
-			kryptonButtonDownloadNeaListTodayPlus15DaysExtJson.TabIndex = 33;
+			kryptonButtonDownloadNeaListTodayPlus15DaysExtJson.TabIndex = 3;
 			kryptonButtonDownloadNeaListTodayPlus15DaysExtJson.ToolTipValues.Description = "Downloads NEAs today + 15 days as .EXTENDED.JSON.GZ file";
 			kryptonButtonDownloadNeaListTodayPlus15DaysExtJson.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayPlus15DaysExtJson.ToolTipValues.Heading = "NEAs today + 15 days as .EXTENDED.JSON.GZ file";
@@ -2646,7 +2655,7 @@
 			kryptonLabelNeaListTodayPlus14Days.Margin = new Padding(0);
 			kryptonLabelNeaListTodayPlus14Days.Name = "kryptonLabelNeaListTodayPlus14Days";
 			kryptonLabelNeaListTodayPlus14Days.Size = new Size(130, 26);
-			kryptonLabelNeaListTodayPlus14Days.TabIndex = 1;
+			kryptonLabelNeaListTodayPlus14Days.TabIndex = 4;
 			kryptonLabelNeaListTodayPlus14Days.ToolTipValues.Description = "Downloads NEAs today + 14 days";
 			kryptonLabelNeaListTodayPlus14Days.ToolTipValues.EnableToolTips = true;
 			kryptonLabelNeaListTodayPlus14Days.ToolTipValues.Heading = "NEAs today + 14 days";
@@ -2667,7 +2676,7 @@
 			kryptonLabelNeaListTodayPlus13Days.Margin = new Padding(0);
 			kryptonLabelNeaListTodayPlus13Days.Name = "kryptonLabelNeaListTodayPlus13Days";
 			kryptonLabelNeaListTodayPlus13Days.Size = new Size(130, 26);
-			kryptonLabelNeaListTodayPlus13Days.TabIndex = 2;
+			kryptonLabelNeaListTodayPlus13Days.TabIndex = 8;
 			kryptonLabelNeaListTodayPlus13Days.ToolTipValues.Description = "Downloads NEAs today + 13 days";
 			kryptonLabelNeaListTodayPlus13Days.ToolTipValues.EnableToolTips = true;
 			kryptonLabelNeaListTodayPlus13Days.ToolTipValues.Heading = "NEAs today + 13 days";
@@ -2688,7 +2697,7 @@
 			kryptonLabelNeaListTodayPlus12Days.Margin = new Padding(0);
 			kryptonLabelNeaListTodayPlus12Days.Name = "kryptonLabelNeaListTodayPlus12Days";
 			kryptonLabelNeaListTodayPlus12Days.Size = new Size(130, 26);
-			kryptonLabelNeaListTodayPlus12Days.TabIndex = 3;
+			kryptonLabelNeaListTodayPlus12Days.TabIndex = 12;
 			kryptonLabelNeaListTodayPlus12Days.ToolTipValues.Description = "Downloads NEAs today + 12 days";
 			kryptonLabelNeaListTodayPlus12Days.ToolTipValues.EnableToolTips = true;
 			kryptonLabelNeaListTodayPlus12Days.ToolTipValues.Heading = "NEAs today + 12 days";
@@ -2709,7 +2718,7 @@
 			kryptonLabelNeaListTodayPlus11Days.Margin = new Padding(0);
 			kryptonLabelNeaListTodayPlus11Days.Name = "kryptonLabelNeaListTodayPlus11Days";
 			kryptonLabelNeaListTodayPlus11Days.Size = new Size(130, 26);
-			kryptonLabelNeaListTodayPlus11Days.TabIndex = 4;
+			kryptonLabelNeaListTodayPlus11Days.TabIndex = 16;
 			kryptonLabelNeaListTodayPlus11Days.ToolTipValues.Description = "Downloads NEAs today + 11 days";
 			kryptonLabelNeaListTodayPlus11Days.ToolTipValues.EnableToolTips = true;
 			kryptonLabelNeaListTodayPlus11Days.ToolTipValues.Heading = "NEAs today + 11 days";
@@ -2730,7 +2739,7 @@
 			kryptonLabelNeaListTodayPlus10Days.Margin = new Padding(0);
 			kryptonLabelNeaListTodayPlus10Days.Name = "kryptonLabelNeaListTodayPlus10Days";
 			kryptonLabelNeaListTodayPlus10Days.Size = new Size(130, 26);
-			kryptonLabelNeaListTodayPlus10Days.TabIndex = 5;
+			kryptonLabelNeaListTodayPlus10Days.TabIndex = 20;
 			kryptonLabelNeaListTodayPlus10Days.ToolTipValues.Description = "Downloads NEAs today + 10 days";
 			kryptonLabelNeaListTodayPlus10Days.ToolTipValues.EnableToolTips = true;
 			kryptonLabelNeaListTodayPlus10Days.ToolTipValues.Heading = "NEAs today + 10 days";
@@ -2751,7 +2760,7 @@
 			kryptonLabelNeaListTodayPlus09Days.Margin = new Padding(0);
 			kryptonLabelNeaListTodayPlus09Days.Name = "kryptonLabelNeaListTodayPlus09Days";
 			kryptonLabelNeaListTodayPlus09Days.Size = new Size(130, 26);
-			kryptonLabelNeaListTodayPlus09Days.TabIndex = 6;
+			kryptonLabelNeaListTodayPlus09Days.TabIndex = 24;
 			kryptonLabelNeaListTodayPlus09Days.ToolTipValues.Description = "Downloads NEAs today + 9 days";
 			kryptonLabelNeaListTodayPlus09Days.ToolTipValues.EnableToolTips = true;
 			kryptonLabelNeaListTodayPlus09Days.ToolTipValues.Heading = "NEAs today + 9 days";
@@ -2772,7 +2781,7 @@
 			kryptonLabelNeaListTodayPlus08Days.Margin = new Padding(0);
 			kryptonLabelNeaListTodayPlus08Days.Name = "kryptonLabelNeaListTodayPlus08Days";
 			kryptonLabelNeaListTodayPlus08Days.Size = new Size(130, 26);
-			kryptonLabelNeaListTodayPlus08Days.TabIndex = 7;
+			kryptonLabelNeaListTodayPlus08Days.TabIndex = 28;
 			kryptonLabelNeaListTodayPlus08Days.ToolTipValues.Description = "Downloads NEAs today + 8 days";
 			kryptonLabelNeaListTodayPlus08Days.ToolTipValues.EnableToolTips = true;
 			kryptonLabelNeaListTodayPlus08Days.ToolTipValues.Heading = "NEAs today + 8 days";
@@ -2793,7 +2802,7 @@
 			kryptonLabelNeaListTodayPlus07Days.Margin = new Padding(0);
 			kryptonLabelNeaListTodayPlus07Days.Name = "kryptonLabelNeaListTodayPlus07Days";
 			kryptonLabelNeaListTodayPlus07Days.Size = new Size(130, 26);
-			kryptonLabelNeaListTodayPlus07Days.TabIndex = 8;
+			kryptonLabelNeaListTodayPlus07Days.TabIndex = 32;
 			kryptonLabelNeaListTodayPlus07Days.ToolTipValues.Description = "Downloads NEAs today + 7 days";
 			kryptonLabelNeaListTodayPlus07Days.ToolTipValues.EnableToolTips = true;
 			kryptonLabelNeaListTodayPlus07Days.ToolTipValues.Heading = "NEAs today + 7 days";
@@ -2814,7 +2823,7 @@
 			kryptonLabelNeaListTodayPlus06Days.Margin = new Padding(0);
 			kryptonLabelNeaListTodayPlus06Days.Name = "kryptonLabelNeaListTodayPlus06Days";
 			kryptonLabelNeaListTodayPlus06Days.Size = new Size(130, 26);
-			kryptonLabelNeaListTodayPlus06Days.TabIndex = 9;
+			kryptonLabelNeaListTodayPlus06Days.TabIndex = 36;
 			kryptonLabelNeaListTodayPlus06Days.ToolTipValues.Description = "Downloads NEAs today + 6 days";
 			kryptonLabelNeaListTodayPlus06Days.ToolTipValues.EnableToolTips = true;
 			kryptonLabelNeaListTodayPlus06Days.ToolTipValues.Heading = "NEAs today + 6 days";
@@ -2835,7 +2844,7 @@
 			kryptonLabelNeaListTodayPlus05Days.Margin = new Padding(0);
 			kryptonLabelNeaListTodayPlus05Days.Name = "kryptonLabelNeaListTodayPlus05Days";
 			kryptonLabelNeaListTodayPlus05Days.Size = new Size(130, 26);
-			kryptonLabelNeaListTodayPlus05Days.TabIndex = 10;
+			kryptonLabelNeaListTodayPlus05Days.TabIndex = 40;
 			kryptonLabelNeaListTodayPlus05Days.ToolTipValues.Description = "Downloads NEAs today + 5 days";
 			kryptonLabelNeaListTodayPlus05Days.ToolTipValues.EnableToolTips = true;
 			kryptonLabelNeaListTodayPlus05Days.ToolTipValues.Heading = "NEAs today + 5 days";
@@ -2856,7 +2865,7 @@
 			kryptonLabelNeaListTodayPlus04Days.Margin = new Padding(0);
 			kryptonLabelNeaListTodayPlus04Days.Name = "kryptonLabelNeaListTodayPlus04Days";
 			kryptonLabelNeaListTodayPlus04Days.Size = new Size(130, 26);
-			kryptonLabelNeaListTodayPlus04Days.TabIndex = 11;
+			kryptonLabelNeaListTodayPlus04Days.TabIndex = 44;
 			kryptonLabelNeaListTodayPlus04Days.ToolTipValues.Description = "Downloads NEAs today + 4 days";
 			kryptonLabelNeaListTodayPlus04Days.ToolTipValues.EnableToolTips = true;
 			kryptonLabelNeaListTodayPlus04Days.ToolTipValues.Heading = "NEAs today + 4 days";
@@ -2877,7 +2886,7 @@
 			kryptonLabelNeaListTodayPlus03Days.Margin = new Padding(0);
 			kryptonLabelNeaListTodayPlus03Days.Name = "kryptonLabelNeaListTodayPlus03Days";
 			kryptonLabelNeaListTodayPlus03Days.Size = new Size(130, 26);
-			kryptonLabelNeaListTodayPlus03Days.TabIndex = 12;
+			kryptonLabelNeaListTodayPlus03Days.TabIndex = 48;
 			kryptonLabelNeaListTodayPlus03Days.ToolTipValues.Description = "Downloads NEAs today + 3 days";
 			kryptonLabelNeaListTodayPlus03Days.ToolTipValues.EnableToolTips = true;
 			kryptonLabelNeaListTodayPlus03Days.ToolTipValues.Heading = "NEAs today + 3 days";
@@ -2898,7 +2907,7 @@
 			kryptonLabelNeaListTodayPlus02Days.Margin = new Padding(0);
 			kryptonLabelNeaListTodayPlus02Days.Name = "kryptonLabelNeaListTodayPlus02Days";
 			kryptonLabelNeaListTodayPlus02Days.Size = new Size(130, 26);
-			kryptonLabelNeaListTodayPlus02Days.TabIndex = 13;
+			kryptonLabelNeaListTodayPlus02Days.TabIndex = 52;
 			kryptonLabelNeaListTodayPlus02Days.ToolTipValues.Description = "Downloads NEAs today + 2 days";
 			kryptonLabelNeaListTodayPlus02Days.ToolTipValues.EnableToolTips = true;
 			kryptonLabelNeaListTodayPlus02Days.ToolTipValues.Heading = "NEAs today + 2 days";
@@ -2919,7 +2928,7 @@
 			kryptonLabelNeaListTodayPlus01Days.Margin = new Padding(0);
 			kryptonLabelNeaListTodayPlus01Days.Name = "kryptonLabelNeaListTodayPlus01Days";
 			kryptonLabelNeaListTodayPlus01Days.Size = new Size(130, 26);
-			kryptonLabelNeaListTodayPlus01Days.TabIndex = 14;
+			kryptonLabelNeaListTodayPlus01Days.TabIndex = 56;
 			kryptonLabelNeaListTodayPlus01Days.ToolTipValues.Description = "Downloads NEAs today + 1 days";
 			kryptonLabelNeaListTodayPlus01Days.ToolTipValues.EnableToolTips = true;
 			kryptonLabelNeaListTodayPlus01Days.ToolTipValues.Heading = "NEAs today + 1 days";
@@ -2940,7 +2949,7 @@
 			kryptonLabelNeaListToday.Margin = new Padding(0);
 			kryptonLabelNeaListToday.Name = "kryptonLabelNeaListToday";
 			kryptonLabelNeaListToday.Size = new Size(130, 26);
-			kryptonLabelNeaListToday.TabIndex = 15;
+			kryptonLabelNeaListToday.TabIndex = 60;
 			kryptonLabelNeaListToday.ToolTipValues.Description = "Downloads NEAs today";
 			kryptonLabelNeaListToday.ToolTipValues.EnableToolTips = true;
 			kryptonLabelNeaListToday.ToolTipValues.Heading = "NEAs today";
@@ -2961,7 +2970,7 @@
 			kryptonLabelNeaListTodayMinus01Days.Margin = new Padding(0);
 			kryptonLabelNeaListTodayMinus01Days.Name = "kryptonLabelNeaListTodayMinus01Days";
 			kryptonLabelNeaListTodayMinus01Days.Size = new Size(130, 26);
-			kryptonLabelNeaListTodayMinus01Days.TabIndex = 16;
+			kryptonLabelNeaListTodayMinus01Days.TabIndex = 64;
 			kryptonLabelNeaListTodayMinus01Days.ToolTipValues.Description = "Downloads NEAs today - 1 day";
 			kryptonLabelNeaListTodayMinus01Days.ToolTipValues.EnableToolTips = true;
 			kryptonLabelNeaListTodayMinus01Days.ToolTipValues.Heading = "NEAs today - 1 day";
@@ -2982,7 +2991,7 @@
 			kryptonLabelNeaListTodayMinus02Days.Margin = new Padding(0);
 			kryptonLabelNeaListTodayMinus02Days.Name = "kryptonLabelNeaListTodayMinus02Days";
 			kryptonLabelNeaListTodayMinus02Days.Size = new Size(130, 26);
-			kryptonLabelNeaListTodayMinus02Days.TabIndex = 17;
+			kryptonLabelNeaListTodayMinus02Days.TabIndex = 68;
 			kryptonLabelNeaListTodayMinus02Days.ToolTipValues.Description = "Downloads NEAs today - 2 days";
 			kryptonLabelNeaListTodayMinus02Days.ToolTipValues.EnableToolTips = true;
 			kryptonLabelNeaListTodayMinus02Days.ToolTipValues.Heading = "NEAs today - 2 days";
@@ -3003,7 +3012,7 @@
 			kryptonLabelNeaListTodayMinus03Days.Margin = new Padding(0);
 			kryptonLabelNeaListTodayMinus03Days.Name = "kryptonLabelNeaListTodayMinus03Days";
 			kryptonLabelNeaListTodayMinus03Days.Size = new Size(130, 26);
-			kryptonLabelNeaListTodayMinus03Days.TabIndex = 18;
+			kryptonLabelNeaListTodayMinus03Days.TabIndex = 72;
 			kryptonLabelNeaListTodayMinus03Days.ToolTipValues.Description = "Downloads NEAs today - 3 days";
 			kryptonLabelNeaListTodayMinus03Days.ToolTipValues.EnableToolTips = true;
 			kryptonLabelNeaListTodayMinus03Days.ToolTipValues.Heading = "NEAs today - 3 days";
@@ -3024,7 +3033,7 @@
 			kryptonLabelNeaListTodayMinus04Days.Margin = new Padding(0);
 			kryptonLabelNeaListTodayMinus04Days.Name = "kryptonLabelNeaListTodayMinus04Days";
 			kryptonLabelNeaListTodayMinus04Days.Size = new Size(130, 26);
-			kryptonLabelNeaListTodayMinus04Days.TabIndex = 19;
+			kryptonLabelNeaListTodayMinus04Days.TabIndex = 76;
 			kryptonLabelNeaListTodayMinus04Days.ToolTipValues.Description = "Downloads NEAs today - 4 days";
 			kryptonLabelNeaListTodayMinus04Days.ToolTipValues.EnableToolTips = true;
 			kryptonLabelNeaListTodayMinus04Days.ToolTipValues.Heading = "NEAs today - 4 days";
@@ -3045,7 +3054,7 @@
 			kryptonLabelNeaListTodayMinus05Days.Margin = new Padding(0);
 			kryptonLabelNeaListTodayMinus05Days.Name = "kryptonLabelNeaListTodayMinus05Days";
 			kryptonLabelNeaListTodayMinus05Days.Size = new Size(130, 26);
-			kryptonLabelNeaListTodayMinus05Days.TabIndex = 20;
+			kryptonLabelNeaListTodayMinus05Days.TabIndex = 80;
 			kryptonLabelNeaListTodayMinus05Days.ToolTipValues.Description = "Downloads NEAs today - 5 days";
 			kryptonLabelNeaListTodayMinus05Days.ToolTipValues.EnableToolTips = true;
 			kryptonLabelNeaListTodayMinus05Days.ToolTipValues.Heading = "NEAs today - 5 days";
@@ -3066,7 +3075,7 @@
 			kryptonLabelNeaListTodayMinus06Days.Margin = new Padding(0);
 			kryptonLabelNeaListTodayMinus06Days.Name = "kryptonLabelNeaListTodayMinus06Days";
 			kryptonLabelNeaListTodayMinus06Days.Size = new Size(130, 26);
-			kryptonLabelNeaListTodayMinus06Days.TabIndex = 21;
+			kryptonLabelNeaListTodayMinus06Days.TabIndex = 84;
 			kryptonLabelNeaListTodayMinus06Days.ToolTipValues.Description = "Downloads NEAs today - 6 days";
 			kryptonLabelNeaListTodayMinus06Days.ToolTipValues.EnableToolTips = true;
 			kryptonLabelNeaListTodayMinus06Days.ToolTipValues.Heading = "NEAs today - 6 days";
@@ -3087,7 +3096,7 @@
 			kryptonLabelNeaListTodayMinus07Days.Margin = new Padding(0);
 			kryptonLabelNeaListTodayMinus07Days.Name = "kryptonLabelNeaListTodayMinus07Days";
 			kryptonLabelNeaListTodayMinus07Days.Size = new Size(130, 26);
-			kryptonLabelNeaListTodayMinus07Days.TabIndex = 22;
+			kryptonLabelNeaListTodayMinus07Days.TabIndex = 88;
 			kryptonLabelNeaListTodayMinus07Days.ToolTipValues.Description = "Downloads NEAs today - 7 days";
 			kryptonLabelNeaListTodayMinus07Days.ToolTipValues.EnableToolTips = true;
 			kryptonLabelNeaListTodayMinus07Days.ToolTipValues.Heading = "NEAs today - 7 days";
@@ -3108,7 +3117,7 @@
 			kryptonLabelNeaListTodayMinus08Days.Margin = new Padding(0);
 			kryptonLabelNeaListTodayMinus08Days.Name = "kryptonLabelNeaListTodayMinus08Days";
 			kryptonLabelNeaListTodayMinus08Days.Size = new Size(130, 26);
-			kryptonLabelNeaListTodayMinus08Days.TabIndex = 23;
+			kryptonLabelNeaListTodayMinus08Days.TabIndex = 92;
 			kryptonLabelNeaListTodayMinus08Days.ToolTipValues.Description = "Downloads NEAs today - 8 days";
 			kryptonLabelNeaListTodayMinus08Days.ToolTipValues.EnableToolTips = true;
 			kryptonLabelNeaListTodayMinus08Days.ToolTipValues.Heading = "NEAs today - 8 days";
@@ -3129,7 +3138,7 @@
 			kryptonLabelNeaListTodayMinus09Days.Margin = new Padding(0);
 			kryptonLabelNeaListTodayMinus09Days.Name = "kryptonLabelNeaListTodayMinus09Days";
 			kryptonLabelNeaListTodayMinus09Days.Size = new Size(130, 26);
-			kryptonLabelNeaListTodayMinus09Days.TabIndex = 24;
+			kryptonLabelNeaListTodayMinus09Days.TabIndex = 96;
 			kryptonLabelNeaListTodayMinus09Days.ToolTipValues.Description = "Downloads NEAs today - 9 days";
 			kryptonLabelNeaListTodayMinus09Days.ToolTipValues.EnableToolTips = true;
 			kryptonLabelNeaListTodayMinus09Days.ToolTipValues.Heading = "NEAs today - 9 days";
@@ -3150,7 +3159,7 @@
 			kryptonLabelNeaListTodayMinus10Days.Margin = new Padding(0);
 			kryptonLabelNeaListTodayMinus10Days.Name = "kryptonLabelNeaListTodayMinus10Days";
 			kryptonLabelNeaListTodayMinus10Days.Size = new Size(130, 26);
-			kryptonLabelNeaListTodayMinus10Days.TabIndex = 25;
+			kryptonLabelNeaListTodayMinus10Days.TabIndex = 100;
 			kryptonLabelNeaListTodayMinus10Days.ToolTipValues.Description = "Downloads NEAs today - 10 days";
 			kryptonLabelNeaListTodayMinus10Days.ToolTipValues.EnableToolTips = true;
 			kryptonLabelNeaListTodayMinus10Days.ToolTipValues.Heading = "NEAs today - 10 days";
@@ -3171,7 +3180,7 @@
 			kryptonLabelNeaListTodayMinus11Days.Margin = new Padding(0);
 			kryptonLabelNeaListTodayMinus11Days.Name = "kryptonLabelNeaListTodayMinus11Days";
 			kryptonLabelNeaListTodayMinus11Days.Size = new Size(130, 26);
-			kryptonLabelNeaListTodayMinus11Days.TabIndex = 26;
+			kryptonLabelNeaListTodayMinus11Days.TabIndex = 104;
 			kryptonLabelNeaListTodayMinus11Days.ToolTipValues.Description = "Downloads NEAs today - 11 days";
 			kryptonLabelNeaListTodayMinus11Days.ToolTipValues.EnableToolTips = true;
 			kryptonLabelNeaListTodayMinus11Days.ToolTipValues.Heading = "NEAs today - 11 days";
@@ -3192,7 +3201,7 @@
 			kryptonLabelNeaListTodayMinus12Days.Margin = new Padding(0);
 			kryptonLabelNeaListTodayMinus12Days.Name = "kryptonLabelNeaListTodayMinus12Days";
 			kryptonLabelNeaListTodayMinus12Days.Size = new Size(130, 26);
-			kryptonLabelNeaListTodayMinus12Days.TabIndex = 27;
+			kryptonLabelNeaListTodayMinus12Days.TabIndex = 109;
 			kryptonLabelNeaListTodayMinus12Days.ToolTipValues.Description = "Downloads NEAs today - 12 days";
 			kryptonLabelNeaListTodayMinus12Days.ToolTipValues.EnableToolTips = true;
 			kryptonLabelNeaListTodayMinus12Days.ToolTipValues.Heading = "NEAs today - 12 days";
@@ -3213,7 +3222,7 @@
 			kryptonLabelNeaListTodayMinus13Days.Margin = new Padding(0);
 			kryptonLabelNeaListTodayMinus13Days.Name = "kryptonLabelNeaListTodayMinus13Days";
 			kryptonLabelNeaListTodayMinus13Days.Size = new Size(130, 26);
-			kryptonLabelNeaListTodayMinus13Days.TabIndex = 28;
+			kryptonLabelNeaListTodayMinus13Days.TabIndex = 113;
 			kryptonLabelNeaListTodayMinus13Days.ToolTipValues.Description = "Downloads NEAs today - 13 days";
 			kryptonLabelNeaListTodayMinus13Days.ToolTipValues.EnableToolTips = true;
 			kryptonLabelNeaListTodayMinus13Days.ToolTipValues.Heading = "NEAs today - 13 days";
@@ -3234,7 +3243,7 @@
 			kryptonLabelNeaListTodayMinus14Days.Margin = new Padding(0);
 			kryptonLabelNeaListTodayMinus14Days.Name = "kryptonLabelNeaListTodayMinus14Days";
 			kryptonLabelNeaListTodayMinus14Days.Size = new Size(130, 26);
-			kryptonLabelNeaListTodayMinus14Days.TabIndex = 29;
+			kryptonLabelNeaListTodayMinus14Days.TabIndex = 117;
 			kryptonLabelNeaListTodayMinus14Days.ToolTipValues.Description = "Downloads NEAs today - 14 days";
 			kryptonLabelNeaListTodayMinus14Days.ToolTipValues.EnableToolTips = true;
 			kryptonLabelNeaListTodayMinus14Days.ToolTipValues.Heading = "NEAs today - 14 days";
@@ -3255,7 +3264,7 @@
 			kryptonLabelNeaListTodayMinus15Days.Margin = new Padding(0);
 			kryptonLabelNeaListTodayMinus15Days.Name = "kryptonLabelNeaListTodayMinus15Days";
 			kryptonLabelNeaListTodayMinus15Days.Size = new Size(130, 30);
-			kryptonLabelNeaListTodayMinus15Days.TabIndex = 30;
+			kryptonLabelNeaListTodayMinus15Days.TabIndex = 121;
 			kryptonLabelNeaListTodayMinus15Days.ToolTipValues.Description = "Downloads NEAs today - 15 days";
 			kryptonLabelNeaListTodayMinus15Days.ToolTipValues.EnableToolTips = true;
 			kryptonLabelNeaListTodayMinus15Days.ToolTipValues.Heading = "NEAs today - 15 days";
@@ -3276,7 +3285,7 @@
 			kryptonButtonDownloadNeaListTodayPlus15DaysExtDat.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayPlus15DaysExtDat.Name = "kryptonButtonDownloadNeaListTodayPlus15DaysExtDat";
 			kryptonButtonDownloadNeaListTodayPlus15DaysExtDat.Size = new Size(218, 26);
-			kryptonButtonDownloadNeaListTodayPlus15DaysExtDat.TabIndex = 32;
+			kryptonButtonDownloadNeaListTodayPlus15DaysExtDat.TabIndex = 2;
 			kryptonButtonDownloadNeaListTodayPlus15DaysExtDat.ToolTipValues.Description = "Downloads NEAs today + 15 days as .EXTENDED.DAT.GZ file";
 			kryptonButtonDownloadNeaListTodayPlus15DaysExtDat.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayPlus15DaysExtDat.ToolTipValues.Heading = "NEAs today + 15 days as .EXTENDED.DAT.GZ file";
@@ -3300,7 +3309,7 @@
 			kryptonButtonDownloadNeaListTodayPlus15Days.Margin = new Padding(0);
 			kryptonButtonDownloadNeaListTodayPlus15Days.Name = "kryptonButtonDownloadNeaListTodayPlus15Days";
 			kryptonButtonDownloadNeaListTodayPlus15Days.Size = new Size(143, 26);
-			kryptonButtonDownloadNeaListTodayPlus15Days.TabIndex = 31;
+			kryptonButtonDownloadNeaListTodayPlus15Days.TabIndex = 1;
 			kryptonButtonDownloadNeaListTodayPlus15Days.ToolTipValues.Description = "Downloads NEAs today + 15 days as .TXT file";
 			kryptonButtonDownloadNeaListTodayPlus15Days.ToolTipValues.EnableToolTips = true;
 			kryptonButtonDownloadNeaListTodayPlus15Days.ToolTipValues.Heading = "NEAs today + 15 days as .TXT file";
@@ -3313,6 +3322,94 @@
 			kryptonButtonDownloadNeaListTodayPlus15Days.Leave += Control_Leave;
 			kryptonButtonDownloadNeaListTodayPlus15Days.MouseEnter += Control_Enter;
 			kryptonButtonDownloadNeaListTodayPlus15Days.MouseLeave += Control_Leave;
+			// 
+			// kryptonToolStrip
+			// 
+			kryptonToolStrip.AccessibleDescription = "Toolbar of bulk downloads";
+			kryptonToolStrip.AccessibleName = "Toolbar of bulk downloads";
+			kryptonToolStrip.AccessibleRole = AccessibleRole.ToolTip;
+			kryptonToolStrip.AllowClickThrough = true;
+			kryptonToolStrip.AllowItemReorder = true;
+			kryptonToolStrip.Dock = DockStyle.None;
+			kryptonToolStrip.Font = new Font("Segoe UI", 9F);
+			kryptonToolStrip.Items.AddRange(new ToolStripItem[] { toolStripDropDownButtonBulkDownloadNeaLists });
+			kryptonToolStrip.Location = new Point(0, 0);
+			kryptonToolStrip.Name = "kryptonToolStrip";
+			kryptonToolStrip.Size = new Size(731, 25);
+			kryptonToolStrip.Stretch = true;
+			kryptonToolStrip.TabIndex = 0;
+			kryptonToolStrip.TabStop = true;
+			// 
+			// toolStripDropDownButtonBulkDownloadNeaLists
+			// 
+			toolStripDropDownButtonBulkDownloadNeaLists.AccessibleDescription = "Shows the bulk downloads";
+			toolStripDropDownButtonBulkDownloadNeaLists.AccessibleName = "Bulk downloads";
+			toolStripDropDownButtonBulkDownloadNeaLists.AccessibleRole = AccessibleRole.PushButton;
+			toolStripDropDownButtonBulkDownloadNeaLists.DropDown = contextMenuStripBulkDownloads;
+			toolStripDropDownButtonBulkDownloadNeaLists.Image = Resources.FatcowIcons16px.fatcow_package_16px;
+			toolStripDropDownButtonBulkDownloadNeaLists.ImageTransparentColor = Color.Magenta;
+			toolStripDropDownButtonBulkDownloadNeaLists.Name = "toolStripDropDownButtonBulkDownloadNeaLists";
+			toolStripDropDownButtonBulkDownloadNeaLists.Size = new Size(120, 22);
+			toolStripDropDownButtonBulkDownloadNeaLists.Text = "&Bulk downloads";
+			toolStripDropDownButtonBulkDownloadNeaLists.MouseEnter += Control_Enter;
+			toolStripDropDownButtonBulkDownloadNeaLists.MouseLeave += Control_Leave;
+			// 
+			// contextMenuStripBulkDownloads
+			// 
+			contextMenuStripBulkDownloads.AccessibleDescription = "Shows the bulk downloads";
+			contextMenuStripBulkDownloads.AccessibleName = "Bulk downloads";
+			contextMenuStripBulkDownloads.AccessibleRole = AccessibleRole.MenuPopup;
+			contextMenuStripBulkDownloads.AllowClickThrough = true;
+			contextMenuStripBulkDownloads.Font = new Font("Segoe UI", 9F);
+			contextMenuStripBulkDownloads.Items.AddRange(new ToolStripItem[] { toolStripMenuItemBulkDownloadsTxt, toolStripMenuItemBulkDownloadsExtendedDatGz, toolStripMenuItemBulkDownloadsExtendedJsonGz });
+			contextMenuStripBulkDownloads.Name = "contextMenuStripBulkDownloads";
+			contextMenuStripBulkDownloads.Size = new Size(183, 70);
+			contextMenuStripBulkDownloads.TabStop = true;
+			contextMenuStripBulkDownloads.Text = "&Bulk downloads";
+			contextMenuStripBulkDownloads.MouseEnter += Control_Enter;
+			contextMenuStripBulkDownloads.MouseLeave += Control_Leave;
+			// 
+			// toolStripMenuItemBulkDownloadsTxt
+			// 
+			toolStripMenuItemBulkDownloadsTxt.AccessibleDescription = "Downloads all NEA list as .TXT file";
+			toolStripMenuItemBulkDownloadsTxt.AccessibleName = "Download all NEA list as .TXT file";
+			toolStripMenuItemBulkDownloadsTxt.AccessibleRole = AccessibleRole.MenuItem;
+			toolStripMenuItemBulkDownloadsTxt.AutoToolTip = true;
+			toolStripMenuItemBulkDownloadsTxt.Image = Resources.FatcowIcons16px.fatcow_package_go_16px;
+			toolStripMenuItemBulkDownloadsTxt.Name = "toolStripMenuItemBulkDownloadsTxt";
+			toolStripMenuItemBulkDownloadsTxt.Size = new Size(182, 22);
+			toolStripMenuItemBulkDownloadsTxt.Text = ".&TXT";
+			toolStripMenuItemBulkDownloadsTxt.Click += ToolStripMenuItemBulkDownloadsTxt_Click;
+			toolStripMenuItemBulkDownloadsTxt.MouseEnter += Control_Enter;
+			toolStripMenuItemBulkDownloadsTxt.MouseLeave += Control_Leave;
+			// 
+			// toolStripMenuItemBulkDownloadsExtendedDatGz
+			// 
+			toolStripMenuItemBulkDownloadsExtendedDatGz.AccessibleDescription = "Downloads all NEA list as .EXTENDED.DAT.GZ file";
+			toolStripMenuItemBulkDownloadsExtendedDatGz.AccessibleName = "Download all NEA list as .EXTENDED.DAT.GZ file";
+			toolStripMenuItemBulkDownloadsExtendedDatGz.AccessibleRole = AccessibleRole.MenuItem;
+			toolStripMenuItemBulkDownloadsExtendedDatGz.AutoToolTip = true;
+			toolStripMenuItemBulkDownloadsExtendedDatGz.Image = Resources.FatcowIcons16px.fatcow_package_go_16px;
+			toolStripMenuItemBulkDownloadsExtendedDatGz.Name = "toolStripMenuItemBulkDownloadsExtendedDatGz";
+			toolStripMenuItemBulkDownloadsExtendedDatGz.Size = new Size(182, 22);
+			toolStripMenuItemBulkDownloadsExtendedDatGz.Text = ".EXTENDED.&DAT.GZ";
+			toolStripMenuItemBulkDownloadsExtendedDatGz.Click += ToolStripMenuItemBulkDownloadsExtendedDatGz_Click;
+			toolStripMenuItemBulkDownloadsExtendedDatGz.MouseEnter += Control_Enter;
+			toolStripMenuItemBulkDownloadsExtendedDatGz.MouseLeave += Control_Leave;
+			// 
+			// toolStripMenuItemBulkDownloadsExtendedJsonGz
+			// 
+			toolStripMenuItemBulkDownloadsExtendedJsonGz.AccessibleDescription = "Downloads all NEA list as .EXTENDED.JSON.GZ file";
+			toolStripMenuItemBulkDownloadsExtendedJsonGz.AccessibleName = "Download all NEA list as .EXTENDED.JSON.GZ file";
+			toolStripMenuItemBulkDownloadsExtendedJsonGz.AccessibleRole = AccessibleRole.MenuItem;
+			toolStripMenuItemBulkDownloadsExtendedJsonGz.AutoToolTip = true;
+			toolStripMenuItemBulkDownloadsExtendedJsonGz.Image = Resources.FatcowIcons16px.fatcow_package_go_16px;
+			toolStripMenuItemBulkDownloadsExtendedJsonGz.Name = "toolStripMenuItemBulkDownloadsExtendedJsonGz";
+			toolStripMenuItemBulkDownloadsExtendedJsonGz.Size = new Size(182, 22);
+			toolStripMenuItemBulkDownloadsExtendedJsonGz.Text = ".EXTENDED.&JSON.GZ";
+			toolStripMenuItemBulkDownloadsExtendedJsonGz.Click += ToolStripMenuItemBulkDownloadsExtendedJsonGz_Click;
+			toolStripMenuItemBulkDownloadsExtendedJsonGz.MouseEnter += Control_Enter;
+			toolStripMenuItemBulkDownloadsExtendedJsonGz.MouseLeave += Control_Leave;
 			// 
 			// kryptonManager
 			// 
@@ -3327,7 +3424,7 @@
 			AccessibleRole = AccessibleRole.Window;
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
-			ClientSize = new Size(731, 832);
+			ClientSize = new Size(731, 857);
 			ControlBox = false;
 			Controls.Add(toolStripContainer);
 			FormBorderStyle = FormBorderStyle.SizableToolWindow;
@@ -3343,12 +3440,17 @@
 			toolStripContainer.BottomToolStripPanel.ResumeLayout(false);
 			toolStripContainer.BottomToolStripPanel.PerformLayout();
 			toolStripContainer.ContentPanel.ResumeLayout(false);
+			toolStripContainer.TopToolStripPanel.ResumeLayout(false);
+			toolStripContainer.TopToolStripPanel.PerformLayout();
 			toolStripContainer.ResumeLayout(false);
 			toolStripContainer.PerformLayout();
 			kryptonStatusStrip.ResumeLayout(false);
 			kryptonStatusStrip.PerformLayout();
 			kryptonTableLayoutPanel.ResumeLayout(false);
 			kryptonTableLayoutPanel.PerformLayout();
+			kryptonToolStrip.ResumeLayout(false);
+			kryptonToolStrip.PerformLayout();
+			contextMenuStripBulkDownloads.ResumeLayout(false);
 			ResumeLayout(false);
 		}
 
@@ -3483,5 +3585,11 @@
 		private Krypton.Toolkit.KryptonButton kryptonButtonDownloadNeaListTodayMinus12DaysExtDat;
 		private Krypton.Toolkit.KryptonButton kryptonButtonDownloadNeaListTodayMinus12Days;
 		private Krypton.Toolkit.KryptonManager kryptonManager;
+		private Krypton.Toolkit.KryptonToolStrip kryptonToolStrip;
+		private ToolStripDropDownButton toolStripDropDownButtonBulkDownloadNeaLists;
+		private ContextMenuStrip contextMenuStripBulkDownloads;
+		private ToolStripMenuItem toolStripMenuItemBulkDownloadsTxt;
+		private ToolStripMenuItem toolStripMenuItemBulkDownloadsExtendedDatGz;
+		private ToolStripMenuItem toolStripMenuItemBulkDownloadsExtendedJsonGz;
 	}
 }
