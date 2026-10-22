@@ -169,7 +169,7 @@ partial class DownloaderForm
 		tableLayoutPanel.RowStyles.Add(new RowStyle());
 		tableLayoutPanel.RowStyles.Add(new RowStyle());
 		tableLayoutPanel.RowStyles.Add(new RowStyle());
-		tableLayoutPanel.Size = new Size(581, 162);
+		tableLayoutPanel.Size = new Size(581, 123);
 		tableLayoutPanel.TabIndex = 0;
 		tableLayoutPanel.Enter += Control_Enter;
 		tableLayoutPanel.Leave += Control_Leave;
@@ -741,7 +741,8 @@ partial class DownloaderForm
 		labelStatusText.AccessibleName = "Status";
 		labelStatusText.AccessibleRole = AccessibleRole.Text;
 		labelStatusText.Dock = DockStyle.Fill;
-		labelStatusText.Location = new Point(3, 3);
+		labelStatusText.Location = new Point(0, 0);
+		labelStatusText.Margin = new Padding(0);
 		labelStatusText.Name = "labelStatusText";
 		labelStatusText.Size = new Size(105, 20);
 		labelStatusText.TabIndex = 0;
@@ -763,9 +764,10 @@ partial class DownloaderForm
 		labelSizeValue.AccessibleRole = AccessibleRole.Text;
 		labelSizeValue.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelSizeValue.Dock = DockStyle.Fill;
-		labelSizeValue.Location = new Point(114, 81);
+		labelSizeValue.Location = new Point(105, 60);
+		labelSizeValue.Margin = new Padding(0);
 		labelSizeValue.Name = "labelSizeValue";
-		labelSizeValue.Size = new Size(464, 20);
+		labelSizeValue.Size = new Size(476, 20);
 		labelSizeValue.TabIndex = 7;
 		labelSizeValue.ToolTipValues.Description = "Shows the file size of the download.\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelSizeValue.ToolTipValues.EnableToolTips = true;
@@ -816,7 +818,8 @@ partial class DownloaderForm
 		labelSizeText.AccessibleName = "Size";
 		labelSizeText.AccessibleRole = AccessibleRole.Text;
 		labelSizeText.Dock = DockStyle.Fill;
-		labelSizeText.Location = new Point(3, 81);
+		labelSizeText.Location = new Point(0, 60);
+		labelSizeText.Margin = new Padding(0);
 		labelSizeText.Name = "labelSizeText";
 		labelSizeText.Size = new Size(105, 20);
 		labelSizeText.TabIndex = 6;
@@ -838,9 +841,10 @@ partial class DownloaderForm
 		labelSourceValue.AccessibleRole = AccessibleRole.Text;
 		labelSourceValue.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelSourceValue.Dock = DockStyle.Fill;
-		labelSourceValue.Location = new Point(114, 29);
+		labelSourceValue.Location = new Point(105, 20);
+		labelSourceValue.Margin = new Padding(0);
 		labelSourceValue.Name = "labelSourceValue";
-		labelSourceValue.Size = new Size(464, 20);
+		labelSourceValue.Size = new Size(476, 20);
 		labelSourceValue.TabIndex = 5;
 		labelSourceValue.ToolTipValues.Description = "Shows the download source.\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelSourceValue.ToolTipValues.EnableToolTips = true;
@@ -861,9 +865,10 @@ partial class DownloaderForm
 		labelDateValue.AccessibleRole = AccessibleRole.Text;
 		labelDateValue.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelDateValue.Dock = DockStyle.Fill;
-		labelDateValue.Location = new Point(114, 55);
+		labelDateValue.Location = new Point(105, 40);
+		labelDateValue.Margin = new Padding(0);
 		labelDateValue.Name = "labelDateValue";
-		labelDateValue.Size = new Size(464, 20);
+		labelDateValue.Size = new Size(476, 20);
 		labelDateValue.TabIndex = 3;
 		labelDateValue.ToolTipValues.Description = "Shows the last modified date of the download.\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelDateValue.ToolTipValues.EnableToolTips = true;
@@ -883,7 +888,8 @@ partial class DownloaderForm
 		labelSourceText.AccessibleName = "Source";
 		labelSourceText.AccessibleRole = AccessibleRole.Text;
 		labelSourceText.Dock = DockStyle.Fill;
-		labelSourceText.Location = new Point(3, 29);
+		labelSourceText.Location = new Point(0, 20);
+		labelSourceText.Margin = new Padding(0);
 		labelSourceText.Name = "labelSourceText";
 		labelSourceText.Size = new Size(105, 20);
 		labelSourceText.TabIndex = 4;
@@ -904,7 +910,8 @@ partial class DownloaderForm
 		labelDateText.AccessibleName = "Date";
 		labelDateText.AccessibleRole = AccessibleRole.Text;
 		labelDateText.Dock = DockStyle.Fill;
-		labelDateText.Location = new Point(3, 55);
+		labelDateText.Location = new Point(0, 40);
+		labelDateText.Margin = new Padding(0);
 		labelDateText.Name = "labelDateText";
 		labelDateText.Size = new Size(105, 20);
 		labelDateText.TabIndex = 2;
@@ -926,9 +933,10 @@ partial class DownloaderForm
 		labelStatusValue.AccessibleRole = AccessibleRole.Text;
 		labelStatusValue.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelStatusValue.Dock = DockStyle.Top;
-		labelStatusValue.Location = new Point(114, 3);
+		labelStatusValue.Location = new Point(105, 0);
+		labelStatusValue.Margin = new Padding(0);
 		labelStatusValue.Name = "labelStatusValue";
-		labelStatusValue.Size = new Size(464, 20);
+		labelStatusValue.Size = new Size(476, 20);
 		labelStatusValue.TabIndex = 1;
 		labelStatusValue.ToolTipValues.Description = "Shows the status of the download.\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelStatusValue.ToolTipValues.EnableToolTips = true;
@@ -948,9 +956,10 @@ partial class DownloaderForm
 		labelDownloadSpeed.AccessibleName = "Download speed";
 		labelDownloadSpeed.AccessibleRole = AccessibleRole.Text;
 		labelDownloadSpeed.Dock = DockStyle.Fill;
-		labelDownloadSpeed.Location = new Point(3, 133);
+		labelDownloadSpeed.Location = new Point(0, 100);
+		labelDownloadSpeed.Margin = new Padding(0);
 		labelDownloadSpeed.Name = "labelDownloadSpeed";
-		labelDownloadSpeed.Size = new Size(105, 26);
+		labelDownloadSpeed.Size = new Size(105, 23);
 		labelDownloadSpeed.TabIndex = 10;
 		labelDownloadSpeed.ToolTipValues.Description = "Shows the download speed.\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelDownloadSpeed.ToolTipValues.EnableToolTips = true;
@@ -970,9 +979,10 @@ partial class DownloaderForm
 		labelDownloadSpeedValue.AccessibleRole = AccessibleRole.Text;
 		labelDownloadSpeedValue.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelDownloadSpeedValue.Dock = DockStyle.Fill;
-		labelDownloadSpeedValue.Location = new Point(114, 133);
+		labelDownloadSpeedValue.Location = new Point(105, 100);
+		labelDownloadSpeedValue.Margin = new Padding(0);
 		labelDownloadSpeedValue.Name = "labelDownloadSpeedValue";
-		labelDownloadSpeedValue.Size = new Size(464, 26);
+		labelDownloadSpeedValue.Size = new Size(476, 23);
 		labelDownloadSpeedValue.TabIndex = 11;
 		labelDownloadSpeedValue.ToolTipValues.Description = "Shows the download speed.\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelDownloadSpeedValue.ToolTipValues.EnableToolTips = true;
@@ -993,9 +1003,10 @@ partial class DownloaderForm
 		labelTimeValue.AccessibleRole = AccessibleRole.Text;
 		labelTimeValue.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelTimeValue.Dock = DockStyle.Fill;
-		labelTimeValue.Location = new Point(114, 107);
+		labelTimeValue.Location = new Point(105, 80);
+		labelTimeValue.Margin = new Padding(0);
 		labelTimeValue.Name = "labelTimeValue";
-		labelTimeValue.Size = new Size(464, 20);
+		labelTimeValue.Size = new Size(476, 20);
 		labelTimeValue.TabIndex = 9;
 		labelTimeValue.ToolTipValues.Description = "Shows the elapsed time and estimated time of the download.\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelTimeValue.ToolTipValues.EnableToolTips = true;
@@ -1015,7 +1026,8 @@ partial class DownloaderForm
 		labelTime.AccessibleName = "Time";
 		labelTime.AccessibleRole = AccessibleRole.Text;
 		labelTime.Dock = DockStyle.Fill;
-		labelTime.Location = new Point(3, 107);
+		labelTime.Location = new Point(0, 80);
+		labelTime.Margin = new Padding(0);
 		labelTime.Name = "labelTime";
 		labelTime.Size = new Size(105, 20);
 		labelTime.TabIndex = 8;
@@ -1071,7 +1083,7 @@ partial class DownloaderForm
 		kryptoPanelMain.Location = new Point(0, 0);
 		kryptoPanelMain.Name = "kryptoPanelMain";
 		kryptoPanelMain.PanelBackStyle = Krypton.Toolkit.PaletteBackStyle.FormMain;
-		kryptoPanelMain.Size = new Size(581, 162);
+		kryptoPanelMain.Size = new Size(581, 123);
 		kryptoPanelMain.TabIndex = 9;
 		kryptoPanelMain.TabStop = true;
 		// 
@@ -1094,7 +1106,7 @@ partial class DownloaderForm
 		toolStripContainer.ContentPanel.AccessibleName = "Content panel";
 		toolStripContainer.ContentPanel.AccessibleRole = AccessibleRole.Pane;
 		toolStripContainer.ContentPanel.Controls.Add(kryptoPanelMain);
-		toolStripContainer.ContentPanel.Size = new Size(581, 162);
+		toolStripContainer.ContentPanel.Size = new Size(581, 123);
 		toolStripContainer.Dock = DockStyle.Fill;
 		// 
 		// toolStripContainer.LeftToolStripPanel
@@ -1110,7 +1122,7 @@ partial class DownloaderForm
 		toolStripContainer.RightToolStripPanel.AccessibleDescription = "Just a panel";
 		toolStripContainer.RightToolStripPanel.AccessibleName = "Right panel";
 		toolStripContainer.RightToolStripPanel.AccessibleRole = AccessibleRole.Pane;
-		toolStripContainer.Size = new Size(581, 209);
+		toolStripContainer.Size = new Size(581, 170);
 		toolStripContainer.TabIndex = 11;
 		toolStripContainer.Text = "toolStripContainer";
 		// 
@@ -1201,7 +1213,7 @@ partial class DownloaderForm
 		AccessibleRole = AccessibleRole.Dialog;
 		AutoScaleDimensions = new SizeF(7F, 15F);
 		AutoScaleMode = AutoScaleMode.Font;
-		ClientSize = new Size(581, 209);
+		ClientSize = new Size(581, 170);
 		ControlBox = false;
 		Controls.Add(toolStripContainer);
 		FormBorderStyle = FormBorderStyle.SizableToolWindow;
