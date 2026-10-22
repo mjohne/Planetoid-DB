@@ -440,6 +440,8 @@ internal partial class DownloaderForm : BaseKryptonForm
 		logger.Info(message: "DownloaderForm loaded");
 		// Play the open sound in the background to indicate that the form has been opened
 		AudioPlayback.PlayOpenSound();
+		// Clear the status bar
+		ClearStatusBar(label: labelInformation);
 	}
 
 	/// <summary>Handles the form-closing event for the downloader form.</summary>
@@ -477,7 +479,7 @@ internal partial class DownloaderForm : BaseKryptonForm
 		// Cancel any ongoing download operation if the cancellation token source is not null
 		cancellationTokenSource?.Cancel();
 		// Play the close sound in the background to indicate that the form is closing
-		AudioPlayback.PlayCloseSound();
+		//AudioPlayback.PlayCloseSound();
 		// Call the base class implementation of OnFormClosing
 		base.OnFormClosing(e: e);
 	}
