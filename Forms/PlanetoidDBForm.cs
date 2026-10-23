@@ -106,6 +106,8 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <remarks>When <c>true</c>, the navigation code must not push the new position onto the history back-stack to avoid an infinite push loop.</remarks>
 	private bool isNavigatingHistory;
 
+	private static Stopwatch stopWatch;
+
 	/// <summary>Splash screen form instance.</summary>
 	/// <remarks>This form is displayed while the application is loading.</remarks>
 	private readonly SplashScreenForm formSplashScreen = new();

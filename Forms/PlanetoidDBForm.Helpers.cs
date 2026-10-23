@@ -63,6 +63,34 @@ public partial class PlanetoidDbForm
 	/// <remarks>This field is used to format messages for bookmarks that have been removed.</remarks>
 	private static readonly CompositeFormat bookmarkRemovedFormat = CompositeFormat.Parse(format: I18nStrings.BookmarkRemoved);
 
+	private static long GetDirectorySize(string folderPath)
+	{
+		if (!Directory.Exists(path: folderPath))
+		{
+			return 0;
+		}
+
+		long size = 0;
+		DirectoryInfo dirInfo = new(path: folderPath);
+
+		foreach (FileInfo file in dirInfo.GetFiles(searchPattern: "*.*", searchOption: SearchOption.AllDirectories))
+		{
+			size += file.Length;
+		}
+		return size;
+	}
+
+	private void DiskSizeUsage()
+	{
+		string appPath = AppContext.BaseDirectory;
+		string appDataPath = Path.Combine(path1: Environment.GetFolderPath(folder: Environment.SpecialFolder.ApplicationData), path2: "Planetoid-Db");
+		long totalBytes = GetDirectorySize(folderPath: appPath);
+		long appDataBytes = GetDirectorySize(folderPath: appDataPath);
+		double totalMegabytes = totalBytes / (1024.0 * 1024.0);
+		double appDataMegabytes = appDataBytes / (1024.0 * 1024.0);
+		toolStripStatusLabelDiskSizeUsage.Text = $"{totalMegabytes:F2} MB + {appDataMegabytes:F2} MB";
+	}
+
 	/// <summary>Tries to parse an integer from the input string.</summary>
 	/// <param name="input">The input string to parse.</param>
 	/// <param name="value">The parsed integer value if successful.</param>
