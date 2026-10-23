@@ -22,6 +22,7 @@ using Planetoid_DB.Helpers;
 using Planetoid_DB.Properties;
 
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Globalization;
 using System.Text;
 
@@ -51,6 +52,9 @@ public partial class PlanetoidDbForm
 	{
 		// Log the Load event of the form
 		logger.Info(message: "PlanetoidDBForm_Load event triggered");
+		// Start the stop watch.
+		stopWatch = new Stopwatch();
+		stopWatch.Start();
 		// Clear the status bar before loading the database
 		ClearStatusBar(label: labelInformation);
 		// Reload the application settings to ensure the latest configuration is applied
@@ -155,6 +159,8 @@ public partial class PlanetoidDbForm
 		//LoadAstorbDatabase();
 		// Load all bookmarks from disk into memory at startup
 		LoadAllBookmarks();
+		// Get the amount of hard drive space used by the program
+		DiskSizeUsage();
 		// Log the completion of the Load event of the form
 		logger.Info(message: "PlanetoidDBForm_Load event completed");
 	}
@@ -245,7 +251,7 @@ public partial class PlanetoidDbForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="FormClosingEventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to handle the form closing event.</remarks>
-	private async void PlanetoidDBForm_FormClosing(object sender, FormClosingEventArgs e)
+	private void PlanetoidDBForm_FormClosing(object sender, FormClosingEventArgs e)
 	{
 		// Log the FormClosing event of the form
 		logger.Info(message: "PlanetoidDBForm_FormClosing event triggered");
@@ -305,7 +311,7 @@ public partial class PlanetoidDbForm
 			// Log the attempt to play the shutdown sound
 			logger.Info(message: "Attempting to play shutdown sound.");
 			// Play the shutdown sound in the background
-			await AudioPlayback.PlayShutDownSound();
+			_ = AudioPlayback.PlayShutDownSound();
 		}
 		// Catch any exceptions that occur during the playback of the shutdown sound and log a warning
 		catch (Exception ex)
@@ -315,6 +321,7 @@ public partial class PlanetoidDbForm
 		}
 		finally
 		{
+			stopWatch.Stop();
 			isShutdownSoundPlaybackComplete = true;
 			Close();
 		}
@@ -478,6 +485,26 @@ public partial class PlanetoidDbForm
 		PlanetoidDBForm_Shown(sender: sender, e: e);
 	}
 
+	/// <summary>Handles the tick event for showing the memory usage.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method is used to show the memory usage.</remarks>
+	private void TimerMemoryUsage_Tick(object sender, EventArgs e)
+	{
+		//DiskSizeUsage();
+		toolStripStatusLabelMemoryUsage.Text = $"{Process.GetCurrentProcess().WorkingSet64 / (1024.0 * 1024.0):F2} MB";
+	}
+
+	/// <summary>Handles the tick event for showing the time usage.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method is used to show the time usage.</remarks>
+	private void TimerTimeUsage_Tick(object sender, EventArgs e)
+	{
+		TimeSpan pastTime = stopWatch.Elapsed;
+		toolStripStatusLabelTimeUsage.Text = $"{pastTime.Hours:00}:{pastTime.Minutes:00}:{pastTime.Seconds:00}.{pastTime.Milliseconds:000}";
+	}
+
 	#endregion
 
 	#region Clear event handlers
@@ -541,6 +568,16 @@ public partial class PlanetoidDbForm
 	#endregion
 
 	#region Click & ButtonClick event Handlers
+
+	/// <summary>Handles the click event for the ToolStripStatusLabelDiskSizeUsage. Shows an information message box.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method is used to show an information message box.</remarks>
+	private void ToolStripStatusLabelDiskSizeUsage_Click(object sender, EventArgs e)
+	{
+		// Show an information message box with the specified message
+		_ = KryptonMessageBox.Show(text: "This label indicates the hard drive space occupied by the program.\n\nThe first value refers to the program directory, and the second value refers to the user directory.", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+	}
 
 	/// <summary>Handles the click event for the ToolStripMenuItemArchive. Opens the archive.</summary>
 	/// <param name="sender">The event source.</param>
@@ -1537,6 +1574,18 @@ public partial class PlanetoidDbForm
 		}
 	}
 
+	/// <summary>Handles the click event for the world map menu item. Shows the world map form.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method is used to show the world map form that displays the world map.</remarks>
+	private void WorldMap_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: "Showing world map form");
+		using WorldMapForm formWorldMap = new();
+		formWorldMap.TopMost = TopMost;
+		_ = formWorldMap.ShowDialog(owner: this);
+	}
+
 	/// <summary>Handles the click event for the ToolStripMenuItemListReadableDesignations. Lists readable designations.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
@@ -1914,7 +1963,7 @@ public partial class PlanetoidDbForm
 	/// <param name="sender">The source of the event, typically the label control that was double-clicked.</param>
 	/// <param name="e">An <see cref="EventArgs"/> object that contains the event data.</param>
 	/// <remarks>This method decodes the packed epoch when the label is double-clicked.</remarks>
-	private void LabelEpochData_DoubleClick(object sender, EventArgs e)
+	private void LabelEpochData_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Decoding packed epoch for object {labelMpcorbIndexData.Text}");
 		DecodePackedEpoch();
@@ -2172,16 +2221,55 @@ public partial class PlanetoidDbForm
 		_ = KryptonMessageBox.Show(owner: this, text: message, caption: I18nStrings.BookmarkAuditMenuItem, buttons: KryptonMessageBoxButtons.OK, icon: removed > 0 ? KryptonMessageBoxIcon.Warning : KryptonMessageBoxIcon.Information);
 	}
 
-	/// <summary>Opens the astronomical coordinate conversion form.</summary>
+	/// <summary>Opens the astronomical coordinate transformation form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The event data.</param>
-	/// <remarks>This method logs the action and opens the CoordinateTransformationForm as a modal dialog.</remarks>
+	/// <remarks>This method logs the action and opens the <see cref="CoordinateTransformationForm"/> as a modal dialog.</remarks>
 	private void CoordinateTransformation_Click(object? sender, EventArgs e)
 	{
 		// Log the action of opening the CoordinateTransformationForm
-		logger.Info(message: "Opening CoordinateTransformationForm for astronomical coordinate conversion.");
+		logger.Info(message: "Opening CoordinateTransformationForm for astronomical coordinate conversion...");
 		// Open the CoordinateTransformationForm as a modal dialog
 		using CoordinateTransformationForm form = new();
+		_ = form.ShowDialog(owner: this);
+	}
+
+	/// <summary>Opens the angle measure form.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The event data.</param>
+	/// <remarks>This method logs the action and opens the <see cref="AngleMeasureConversionForm"/> as a modal dialog.</remarks>
+	private void AngleMeasureConversion_Click(object sender, EventArgs e)
+	{
+		// Log the action of opening the AngleMeasureConversionForm
+		logger.Info(message: "Opening AngleMeasureConversionForm...");
+		// Open the AngleMeasureConversionForm as a modal dialog
+		using AngleMeasureConversionForm form = new();
+		_ = form.ShowDialog(owner: this);
+	}
+
+	/// <summary>Opens the angle measure form.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The event data.</param>
+	/// <remarks>This method logs the action and opens the <see cref="DistanceConversionForm"/> as a modal dialog.</remarks>
+	private void DistanceConversion_Click(object sender, EventArgs e)
+	{
+		// Log the action of opening the DistanceConversionForm
+		logger.Info(message: "Opening DistanceConversionForm...");
+		// Open the DistanceConversionForm as a modal dialog
+		using DistanceConversionForm form = new();
+		_ = form.ShowDialog(owner: this);
+	}
+
+	/// <summary>Opens the angle measure form.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The event data.</param>
+	/// <remarks>This method logs the action and opens the <see cref="DistanceConversionForm"/> as a modal dialog.</remarks>
+	private void NeaLists_Click(object sender, EventArgs e)
+	{
+		// Log the action of opening the NeaListDownloadForm
+		logger.Info(message: "Opening NeaListDownloadForm...");
+		// Open the NeaListDownloadForm as a modal dialog
+		using NeaListDownloadForm form = new();
 		_ = form.ShowDialog(owner: this);
 	}
 
@@ -2321,7 +2409,6 @@ public partial class PlanetoidDbForm
 			DisableExperimentalFeatures();
 		}
 	}
-
 
 	/// <summary>Handles the click event for the UI Sound menu item and toggles UI sound on or off based on the current state.</summary>
 	/// <param name="sender">The event source.</param>
