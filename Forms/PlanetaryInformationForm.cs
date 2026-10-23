@@ -823,5 +823,6 @@ internal partial class PlanetaryInformationForm : BaseKryptonForm
 		// Show the context menu at the location of the mouse click
 		contextMenuSaveToFile.Show(control: listView, position: e.Location);
 	}
+
 	#endregion
 }
