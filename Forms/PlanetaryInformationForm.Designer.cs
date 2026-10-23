@@ -215,7 +215,6 @@ partial class PlanetaryInformationForm
 		contextMenuSaveToFile.Font = new Font("Segoe UI", 9F);
 		contextMenuSaveToFile.Items.AddRange(new ToolStripItem[] { toolStripMenuItemTextFiles, toolStripMenuItemWriterDocuments, toolStripMenuItemSpreadsheetDocuments, toolStripMenuItemXmlDocuments, toolStripMenuItemConfigurationFiles, toolStripMenuItemDatabaseScripts, toolStripMenuItemPortableDocuments });
 		contextMenuSaveToFile.Name = "contextMenuSaveList";
-		contextMenuSaveToFile.OwnerItem = toolStripDropDownButtonSaveList;
 		contextMenuSaveToFile.Size = new Size(202, 158);
 		contextMenuSaveToFile.TabStop = true;
 		contextMenuSaveToFile.Text = "&Save list";
@@ -824,11 +823,14 @@ partial class PlanetaryInformationForm
 		// 
 		// labelInformation
 		// 
-		labelInformation.AccessibleDescription = "Shows information";
-		labelInformation.AccessibleName = "Information";
+		labelInformation.AccessibleDescription = "Shows some information";
+		labelInformation.AccessibleName = "Some information";
 		labelInformation.AccessibleRole = AccessibleRole.StaticText;
+		labelInformation.AutoToolTip = true;
+		labelInformation.Image = Resources.FatcowIcons16px.fatcow_lightbulb_16px;
 		labelInformation.Name = "labelInformation";
-		labelInformation.Size = new Size(0, 17);
+		labelInformation.Size = new Size(144, 17);
+		labelInformation.Text = "some information here";
 		labelInformation.MouseEnter += Control_Enter;
 		labelInformation.MouseLeave += Control_Leave;
 		// 
@@ -961,7 +963,6 @@ partial class PlanetaryInformationForm
 	private ColumnHeader columnHeaderUranus;
 	private ColumnHeader columnHeaderNeptune;
 	private KryptonStatusStrip kryptonStatusStrip;
-	private ToolStripStatusLabel labelInformation;
 	private KryptonManager kryptonManager;
 	private ContextMenuStrip contextMenuSaveToFile;
 	private ToolStripMenuItem toolStripMenuItemTextFiles;
@@ -1007,4 +1008,5 @@ partial class PlanetaryInformationForm
 	private KryptonToolStrip kryptonToolStripMain;
 	private ToolStripContainer toolStripContainer;
 	private ToolStripDropDownButton toolStripDropDownButtonSaveList;
+	private ToolStripStatusLabel labelInformation;
 }
