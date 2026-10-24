@@ -55,6 +55,10 @@ public partial class PlanetoidDbForm
 		// Start the stop watch.
 		stopWatch = new Stopwatch();
 		stopWatch.Start();
+
+		fileSystemWatcherSystemDirectory.Path = AppContext.BaseDirectory;
+		fileSystemWatcherAppDirectory.Path = Path.Combine(path1: Environment.GetFolderPath(folder: Environment.SpecialFolder.ApplicationData), path2: "Planetoid-Db");
+
 		// Clear the status bar before loading the database
 		ClearStatusBar(label: labelInformation);
 		// Reload the application settings to ensure the latest configuration is applied
@@ -321,7 +325,7 @@ public partial class PlanetoidDbForm
 		}
 		finally
 		{
-			stopWatch.Stop();
+			stopWatch?.Stop();
 			isShutdownSoundPlaybackComplete = true;
 			Close();
 		}
@@ -2334,6 +2338,21 @@ public partial class PlanetoidDbForm
 	{
 		_ = KryptonMessageBox.Show(owner: this, text: I18nStrings.EasterEgg, caption: I18nStrings.ErrorCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
+
+	#endregion
+
+	#region FileSystemWatcher event handlers
+
+	private void OnChanged(object source, FileSystemEventArgs e)
+	{
+		DiskSizeUsage();
+	}
+
+	private void OnChanged(object sender, RenamedEventArgs e)
+	{
+		DiskSizeUsage();
+	}
+
 
 	#endregion
 
