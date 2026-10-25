@@ -509,6 +509,31 @@ public partial class PlanetoidDbForm
 		toolStripStatusLabelTimeUsage.Text = $"{pastTime.Hours:00}:{pastTime.Minutes:00}:{pastTime.Seconds:00}.{pastTime.Milliseconds:000}";
 	}
 
+	/// <summary>Handles the tick event for showing the processor usage.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method is used to show the time usage.</remarks>
+	private async void TimerProcessorUsage_TickAsync(object sender, EventArgs e)
+	{
+		DateTime startTime = DateTime.UtcNow;
+		TimeSpan startCpuTime = currentProcess.TotalProcessorTime;
+		await Task.Delay(timerProcessorUsage.Interval).ConfigureAwait(true);
+
+		// Updates the process data
+		currentProcess.Refresh();
+		DateTime endTime = DateTime.UtcNow;
+		TimeSpan endCpuTime = currentProcess.TotalProcessorTime;
+
+		TimeSpan passedTime = endTime - startTime;
+		TimeSpan totalCpuTimeUsed = endCpuTime - startCpuTime;
+
+		// Calculate processor usage as a percentage (relative to all cores)
+		double cpuUsagePercentage = totalCpuTimeUsed.TotalMilliseconds / (passedTime.TotalMilliseconds * processorCount) * 100;
+
+		toolStripStatusLabelProcessorUsage.Text = $"{cpuUsagePercentage:F2} %";
+	}
+
+
 	#endregion
 
 	#region Clear event handlers

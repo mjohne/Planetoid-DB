@@ -106,6 +106,12 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <remarks>When <c>true</c>, the navigation code must not push the new position onto the history back-stack to avoid an infinite push loop.</remarks>
 	private bool isNavigatingHistory;
 
+	// Retrieves the current process of your program
+	private readonly Process currentProcess = Process.GetCurrentProcess();
+
+	// Determines the number of logical CPU cores
+	private readonly int processorCount = Environment.ProcessorCount;
+
 	private static Stopwatch? stopWatch;
 
 	/// <summary>Splash screen form instance.</summary>

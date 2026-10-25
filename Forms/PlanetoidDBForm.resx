@@ -6345,6 +6345,9 @@
     <value>861, 91</value>
   </metadata>
   <metadata name="fileSystemWatcherSystemDirectory.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>1068, 91</value>
+    <value>1083, 91</value>
+  </metadata>
+  <metadata name="timerProcessorUsage.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>1321, 91</value>
   </metadata>
 </root>
