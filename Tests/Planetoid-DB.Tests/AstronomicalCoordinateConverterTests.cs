@@ -134,11 +134,11 @@ public sealed class AstronomicalCoordinateConverterTests
 	// Theory data is provided for each intermediate frame to test round-trip conversions from J2000 coordinates: EquatorialOfDate, Ecliptic, Galactic, Supergalactic, and Horizontal.
 	[Theory]
 	// The following frames are tested for round-trip conversions from J2000 coordinates: EquatorialOfDate, Ecliptic, Galactic, Supergalactic, and Horizontal.
-	[InlineData(nameof(AstronomicalCoordinateSystem.EquatorialOfDate))]
-	[InlineData(nameof(AstronomicalCoordinateSystem.Ecliptic))]
-	[InlineData(nameof(AstronomicalCoordinateSystem.Galactic))]
-	[InlineData(nameof(AstronomicalCoordinateSystem.Supergalactic))]
-	[InlineData(nameof(AstronomicalCoordinateSystem.Horizontal))]
+	[InlineData(data: nameof(AstronomicalCoordinateSystem.EquatorialOfDate))]
+	[InlineData(data: nameof(AstronomicalCoordinateSystem.Ecliptic))]
+	[InlineData(data: nameof(AstronomicalCoordinateSystem.Galactic))]
+	[InlineData(data: nameof(AstronomicalCoordinateSystem.Supergalactic))]
+	[InlineData(data: nameof(AstronomicalCoordinateSystem.Horizontal))]
 	public void J2000CoordinatesRoundTripThroughOtherFrames(string intermediateFrame)
 	{
 		// The intermediate frame is specified as a string and parsed to the corresponding AstronomicalCoordinateSystem enum value.

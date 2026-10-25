@@ -13,6 +13,8 @@
  * See LICENSE file in the project root for license information.
  */
 
+using Planetoid_DB.Services.Models;
+
 namespace Planetoid_DB.Tests;
 
 /// <summary>Provides shared test data.</summary>
@@ -63,6 +65,7 @@ internal static class TestData
 		// Parse the MPCORB record and assert that parsing was successful.
 		Assert.True(condition: MpcorbElementsParser.TryParse(rawLine: CeresRecord, elements: out MinorPlanetOrbitalElements? elements, error: out string? error), userMessage: error);
 		// A successful parse guarantees that elements is non-null.
+
 		return elements;
 	}
 }

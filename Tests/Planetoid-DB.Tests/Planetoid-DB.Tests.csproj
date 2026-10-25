@@ -724,6 +724,9 @@ Public License instead of this License.  But first, please read
     <Compile Include="..\..\Export\*.cs" Link="Export\%(Filename)%(Extension)" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Remove="..\..\Services\AstronomicalCoordinateSystem.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Planetoid-DB-4.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -737,13 +740,20 @@ Public License instead of this License.  But first, please read
     </None>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" />
-    <PackageReference Include="NLog" />
-    <PackageReference Include="xunit.runner.visualstudio">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="xunit.v3" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+
+    <PackageReference Include="NLog" />
+
+    <PackageReference Include="xunit.runner.visualstudio">
+
+      <PrivateAssets>all</PrivateAssets>
+
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+
+    </PackageReference>
+
+    <PackageReference Include="xunit.v3" />
+
 </ItemGroup>
   <ItemGroup>
     <Using Include="Xunit" />
