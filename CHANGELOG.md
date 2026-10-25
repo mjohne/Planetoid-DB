@@ -1,3 +1,65 @@
+## Planetoid-DB 0.9.33.96
+
+* Replaced screenshot in `README.md ` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1265
+* Updated `CHANGELOG.md` for version 0.9.32.95  by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1266
+* Added localized message accessors for misplaced-bookmark correction by @mjohne with @Claude in https://github.com/mjohne/Planetoid-DB/pull/1268
+* Added audit function for all misplaced-bookmark corrections by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1269
+* Removed `PackageReference` versions for Central Package Management compatibility by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1271
+* Added downloader form to fetch the latest observatory codes by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1273
+* Updated observatory codes by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1276
+* Supplemented `ObsCodes` table with additional columns by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1277
+* Opened `WorldMapForm` with a marker from the selected observatory in `ObservatoryCodesForm` by @mjohne with @Claude in https://github.com/mjohne/Planetoid-DB/pull/1278
+* Updated `Microsoft.NET.Test.Sdk` to version 18.11.0 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1279
+* Marked all observatory codes on the world map from `ObservatoryCodesForm` by @mjohne with @Claude in https://github.com/mjohne/Planetoid-DB/pull/1281
+* Added `ListView_MouseDoubleClick` event handler to several `ListView` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1282
+* Added astronomical coordinate conversion form by @mjohne with @Copilot in https://github.com/mjohne/Planetoid-DB/pull/1284
+* Refactored `CoordinateTransformationForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1285
+* Updated `NLog` packages to version 6.2.2 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1286
+* Added ui sounds by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1287
+* Set UI sound optional by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1289
+* Added `Helpers/MeasureConverter` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1290
+* Added `AngleMeasureConversionForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1291
+* Added `DistanceConverter` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1292
+* Added `DistanceConversionForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1293
+* Added optional autoclose to `DownloaderForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1294
+* Added `NeaListDownloadForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1295
+* Added bulk downloads to `NeaListDownloadForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1296
+* Added constructor with array of strings to `DownloaderForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1297
+* Refactored bulk downloads in `NeaListDownloadForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1298
+* Updated `Microsoft.Web.WebView2` to version 1.0.4258.31 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1299
+* Refactored status bar of `PlanetaryInformationForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1300
+* Added resource consumption metrics to `PlanetoidDBForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1301
+* Added `FileSystemWatcher` for disk size usage in `PlanetoidDBForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1302
+* Updated observatory codes by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1303
+* Refactored `AngleMeasureConversionForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1307
+* Updated `GlobalSuppressions.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1308
+* Updated `Forms/README.md` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1309
+* Updated internal database `demoset-10000.txt` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1310
+* Sealed `Export` classes by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1311
+* Sealed `Forms` classes by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1312
+* Sealed `Helpers` classes by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1313
+* Unsealed `Export` classes by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1314
+* Unsealed `Forms` classes by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1315
+* Unsealed `Helpers` classes by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1316
+* Deleted `Forms/AsteroidGameForm.resx` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1317
+* Deleted `Forms/AsteroidGameForm.Asteroid.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1318
+* Deleted `Forms/AsteroidGameForm.Bullet.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1319
+* Deleted `Forms/AsteroidGameForm.Designer.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1320
+* Deleted `Forms/AsteroidGameForm.GameState.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1321
+* Deleted `Forms/AsteroidGameForm.Ship.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1322
+* Deleted `Forms/AsteroidGameForm.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1323
+* Removed `AsteroidGameForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1324
+* Updated `Services` files by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1325
+* Updated `Planetoid-DB.Tests` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1326
+* Updated `GlobalSuppressions.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1327
+* Updated to version 0.9.33.96 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1328
+* Updated `Forms/README.md` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1329
+
+**Full Changelog**: https://github.com/mjohne/Planetoid-DB/compare/0.9.32.95.1263.5085...0.9.33,96.1329.5263
+
+<img width="868" height="449" alt="Screenshot of Planetoid-DB showing a tabular view of MPCORB.DAT orbital data" src="https://github.com/user-attachments/assets/d2f96dc0-3e1b-4046-a105-2f4144ffb2bc" />
+
+
 ## Planetoid-DB 0.9.32.95
 
 * Updated `README.md` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1214
