@@ -28,21 +28,6 @@
     <Compile Update="Forms\AsteroidFamiliesForm.PlanetoidEntry.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Forms\AsteroidGameForm.Asteroid.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="Forms\AsteroidGameForm.Bullet.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="Forms\AsteroidGameForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="Forms\AsteroidGameForm.GameState.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="Forms\AsteroidGameForm.Ship.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Update="Forms\BaseKryptonForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -64,10 +49,10 @@
     <Compile Update="Forms\DatabaseDifferencesForm.DifferenceResult.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Forms\DatabaseInformationForm.cs">
+    <Compile Update="Forms\AngleMeasureConversionForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Forms\AngleMeasureConversionForm.cs">
+    <Compile Update="Forms\DatabaseInformationForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Forms\DerivedOrbitElementsForm.cs">
@@ -283,9 +268,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Forms\AEIDiagram3DForm.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Forms\AsteroidGameForm.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Update="I18nStrings.resx">
