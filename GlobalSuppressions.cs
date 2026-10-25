@@ -1,7 +1,5 @@
-﻿// This file is used by Code Analysis to maintain SuppressMessage
-// attributes that are applied to this project.
-// Project-level suppressions either have no target or are given
-// a specific target and scoped to a namespace, type, member, etc.
+﻿// This file is used by Code Analysis to maintain SuppressMessage attributes that are applied to this project.
+// Project-level suppressions either have no target or are given a specific target and scoped to a namespace, type, member, etc.
 
 using System.Diagnostics.CodeAnalysis;
 
@@ -84,9 +82,6 @@ using System.Diagnostics.CodeAnalysis;
 [assembly: SuppressMessage(category: "Design", checkId: "CA1031:Keine allgemeinen Ausnahmetypen abfangen", Justification = "<Ausstehend>", Scope = "member", Target = "~M:Planetoid_DB.AsteroidFamiliesForm.SaveFamiliesToFileAsync(System.Collections.Generic.IReadOnlyList{Planetoid_DB.AsteroidFamiliesForm.AsteroidFamily})~System.Threading.Tasks.Task")]
 [assembly: SuppressMessage(category: "Design", checkId: "CA1031:Keine allgemeinen Ausnahmetypen abfangen", Justification = "<Ausstehend>", Scope = "member", Target = "~M:Planetoid_DB.AsteroidFamiliesForm.PerformDetectionAsync(System.Double,System.Double,System.Double,System.Int32,System.IProgress{System.Int32},System.Threading.CancellationToken)~System.Threading.Tasks.Task")]
 [assembly: SuppressMessage(category: "Globalization", checkId: "CA1303:Literale nicht als lokalisierte Parameter übergeben", Justification = "<Ausstehend>", Scope = "member", Target = "~M:Planetoid_DB.AsteroidFamiliesForm.ToolStripButtonStartSearch_Click(System.Object,System.EventArgs)")]
-[assembly: SuppressMessage(category: "Globalization", checkId: "CA1303:Literale nicht als lokalisierte Parameter übergeben", Justification = "<Ausstehend>", Scope = "member", Target = "~M:Planetoid_DB.AsteroidGameForm.CreateGlControl")]
-[assembly: SuppressMessage(category: "Design", checkId: "CA1031:Keine allgemeinen Ausnahmetypen abfangen", Justification = "<Ausstehend>", Scope = "member", Target = "~M:Planetoid_DB.AsteroidGameForm.AsteroidGameForm_Load(System.Object,System.EventArgs)")]
-[assembly: SuppressMessage(category: "Style", checkId: "IDE0010:Fehlende Fälle hinzufügen", Justification = "<Ausstehend>", Scope = "member", Target = "~M:Planetoid_DB.AsteroidGameForm.ProcessCmdKey(System.Windows.Forms.Message@,System.Windows.Forms.Keys)~System.Boolean")]
 [assembly: SuppressMessage(category: "Design", checkId: "CA1031:Keine allgemeinen Ausnahmetypen abfangen", Justification = "<Ausstehend>", Scope = "member", Target = "~M:Planetoid_DB.AverageAsteroidForm.CalculateAveragesAsync(System.Threading.CancellationToken)~System.Threading.Tasks.Task")]
 [assembly: SuppressMessage(category: "Globalization", checkId: "CA1303:Literale nicht als lokalisierte Parameter übergeben", Justification = "<Ausstehend>", Scope = "member", Target = "~M:Planetoid_DB.AverageAsteroidForm.ResetProgress")]
 [assembly: SuppressMessage(category: "Design", checkId: "CA1031:Keine allgemeinen Ausnahmetypen abfangen", Justification = "<Ausstehend>", Scope = "member", Target = "~M:Planetoid_DB.AverageAsteroidForm.ToolStripButtonStart_Click(System.Object,System.EventArgs)")]
@@ -248,7 +243,6 @@ using System.Diagnostics.CodeAnalysis;
 [assembly: SuppressMessage(category: "Design", checkId: "CA1031:Keine allgemeinen Ausnahmetypen abfangen", Justification = "<Ausstehend>", Scope = "member", Target = "~M:Planetoid_DB.PlanetoidDbForm.DecodeReadableDesignation")]
 [assembly: SuppressMessage(category: "Design", checkId: "CA1031:Keine allgemeinen Ausnahmetypen abfangen", Justification = "<Ausstehend>", Scope = "member", Target = "~M:Planetoid_DB.PlanetoidDbForm.GoToIndex_Click(System.Object,System.EventArgs)")]
 [assembly: SuppressMessage(category: "Design", checkId: "CA1031:Keine allgemeinen Ausnahmetypen abfangen", Justification = "<Ausstehend>", Scope = "member", Target = "~M:Planetoid_DB.PlanetoidDbForm.AverageAsteroid_Click(System.Object,System.EventArgs)")]
-[assembly: SuppressMessage(category: "Design", checkId: "CA1031:Keine allgemeinen Ausnahmetypen abfangen", Justification = "<Ausstehend>", Scope = "member", Target = "~M:Planetoid_DB.PlanetoidDbForm.AsteroidGame_Click(System.Object,System.EventArgs)")]
 [assembly: SuppressMessage(category: "Globalization", checkId: "CA1303:Literale nicht als lokalisierte Parameter übergeben", Justification = "<Ausstehend>", Scope = "member", Target = "~M:Planetoid_DB.ListReadableDesignationsForm.ButtonCreateList_Click(System.Object,System.EventArgs)")]
 [assembly: SuppressMessage(category: "Security", checkId: "CA2100:SQL-Abfragen auf Sicherheitsrisiken überprüfen", Justification = "<Ausstehend>", Scope = "member", Target = "~M:Planetoid_DB.Helpers.ListViewExporter.SaveAsSqlite(System.Windows.Forms.ListView,System.String,System.String,System.Func{System.Int32,System.Windows.Forms.ListViewItem})")]
 [assembly: SuppressMessage(category: "Design", checkId: "CA1031:Keine allgemeinen Ausnahmetypen abfangen", Justification = "<Ausstehend>", Scope = "member", Target = "~M:Planetoid_DB.Helpers.ListViewExporter.SaveAsSqlite(System.Windows.Forms.ListView,System.String,System.String,System.Func{System.Int32,System.Windows.Forms.ListViewItem})")]
@@ -268,3 +262,4 @@ using System.Diagnostics.CodeAnalysis;
 [assembly: SuppressMessage(category: "Design", checkId: "CA1031:Keine allgemeinen Ausnahmetypen abfangen", Justification = "<Ausstehend>", Scope = "member", Target = "~M:Planetoid_DB.Helpers.AudioPlayback.PlaySoundInBackground(System.IO.MemoryStream)")]
 [assembly: SuppressMessage(category: "Design", checkId: "CA1031:Keine allgemeinen Ausnahmetypen abfangen", Justification = "<Ausstehend>", Scope = "member", Target = "~M:Planetoid_DB.PlanetoidDbForm.PlanetoidDBForm_FormClosing(System.Object,System.Windows.Forms.FormClosingEventArgs)")]
 [assembly: SuppressMessage(category: "Naming", checkId: "CA1707:Bezeichner dürfen keine Unterstriche enthalten", Justification = "<Ausstehend>", Scope = "namespace", Target = "~N:Planetoid_DB.Forms")]
+[assembly: SuppressMessage(category: "Style", checkId: "IDE0160:In namespace eines Blockbereichs konvertieren", Justification = "<Ausstehend>", Scope = "namespace", Target = "~N:Planetoid_DB.Services")]
