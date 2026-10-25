@@ -13,6 +13,8 @@
  * See LICENSE file in the project root for license information.
  */
 
+using Planetoid_DB.Services.Models;
+
 namespace Planetoid_DB.Services;
 
 /// <summary>Computes the apparent magnitude of a minor planet and evaluates visibility criteria.</summary>

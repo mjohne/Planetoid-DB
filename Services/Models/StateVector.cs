@@ -15,7 +15,7 @@
 
 using System.Diagnostics;
 
-namespace Planetoid_DB.Services;
+namespace Planetoid_DB.Services.Models;
 
 /// <summary>Represents a heliocentric state vector in the ICRF/J2000 equatorial frame.</summary>
 /// <param name="JulianDateTdb">Julian date in Barycentric Dynamical Time (TDB) [d].</param>

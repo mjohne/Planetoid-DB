@@ -13,6 +13,8 @@
  * See LICENSE file in the project root for license information.
  */
 
+using Planetoid_DB.Services.Models;
+
 namespace Planetoid_DB.Services;
 
 /// <summary>Defines a source of positions of the major solar system bodies (e.g. JPL DE440/DE441 or an analytical theory).</summary>

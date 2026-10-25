@@ -15,7 +15,7 @@
 
 using System.Diagnostics;
 
-namespace Planetoid_DB.Services;
+namespace Planetoid_DB.Services.Models;
 
 /// <summary>Represents a three-dimensional Cartesian vector with double precision.</summary>
 /// <param name="X">The X component.</param>

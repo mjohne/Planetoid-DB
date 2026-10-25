@@ -13,6 +13,8 @@
  * See LICENSE file in the project root for license information.
  */
 
+using Planetoid_DB.Services.Models;
+
 namespace Planetoid_DB.Services;
 
 /// <summary>Provides astronomical constants (IAU 2012 / JPL DE440) used by the ephemeris services.</summary>

@@ -15,7 +15,7 @@
 
 using System.Diagnostics;
 
-namespace Planetoid_DB.Services;
+namespace Planetoid_DB.Services.Models;
 
 /// <summary>Represents a 3×3 matrix used for coordinate frame rotations.</summary>
 /// <param name="M11">Row 1, column 1.</param>

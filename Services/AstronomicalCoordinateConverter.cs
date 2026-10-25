@@ -16,6 +16,8 @@
 
 using NLog;
 
+using Planetoid_DB.Services.Models;
+
 namespace Planetoid_DB.Services;
 
 /// <summary>Converts angular positions among common astronomical coordinate systems.</summary>
