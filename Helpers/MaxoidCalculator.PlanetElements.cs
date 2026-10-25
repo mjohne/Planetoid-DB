@@ -19,7 +19,7 @@ namespace Planetoid_DB.Helpers;
 
 /// <summary>Provides methods for calculating the Maximum Orbit Intersection Distance (MAXOID) between a minor planet and the eight solar system planets.</summary>
 /// <remarks>This partial class contains the <see cref="PlanetElements"/> record, which holds the Keplerian orbital elements of a solar system planet.</remarks>
-internal sealed partial class MaxoidCalculator
+internal partial class MaxoidCalculator
 {
 	/// <summary>Represents the Keplerian orbital elements of a solar system planet.</summary>
 	/// <param name="Name">The common name of the planet.</param>

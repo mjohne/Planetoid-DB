@@ -20,7 +20,7 @@ namespace Planetoid_DB.Helpers;
 /// <summary>Provides methods for calculating various orbital elements.</summary>
 /// <remarks>This class contains methods for calculating the semi-minor axis, linear eccentricity, major axis, minor axis, and other orbital elements.</remarks>
 // You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
-internal sealed partial class DerivedElements
+internal partial class DerivedElements
 {
 	/// <summary>Represents an orbital resonance between a planetoid and a solar system planet.</summary>
 	/// <param name="PlanetName">The name of the planet.</param>
