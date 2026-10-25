@@ -15,7 +15,7 @@
 
 using System.Diagnostics;
 
-namespace Planetoid_DB.Services;
+namespace Planetoid_DB.Services.Models;
 
 /// <summary>Represents a geodetic observer location on the Earth (WGS84).</summary>
 /// <param name="LatitudeDegrees">Geodetic latitude in degrees [−90°, +90°], north positive.</param>

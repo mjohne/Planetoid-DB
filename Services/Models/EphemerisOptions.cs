@@ -15,7 +15,7 @@
 
 using System.Diagnostics;
 
-namespace Planetoid_DB.Services;
+namespace Planetoid_DB.Services.Models;
 
 /// <summary>Represents options controlling the physical model of an ephemeris calculation.</summary>
 /// <param name="IncludePlanetaryPerturbations">If <c>true</c>, the orbit is numerically integrated including the gravitational perturbations of the planets and the relativistic correction of the Sun; otherwise a pure two-body (Kepler) orbit is used.</param>

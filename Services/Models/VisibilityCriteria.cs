@@ -15,7 +15,7 @@
 
 using System.Diagnostics;
 
-namespace Planetoid_DB.Services;
+namespace Planetoid_DB.Services.Models;
 
 /// <summary>Represents the criteria used to decide whether a minor planet is observable.</summary>
 /// <param name="MinimumAltitudeDegrees">Minimum altitude of the object above the horizon in degrees.</param>

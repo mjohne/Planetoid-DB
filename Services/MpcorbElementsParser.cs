@@ -14,6 +14,7 @@
  */
 
 using Planetoid_DB.Helpers;
+using Planetoid_DB.Services.Models;
 
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
@@ -183,4 +184,11 @@ internal static class MpcorbElementsParser
 		// Use invariant culture to parse the number, allowing for decimal points and scientific notation
 		return double.TryParse(s: text, style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out value) && double.IsFinite(d: value);
 	}
+
+	/*
+	internal static bool TryParse(string? rawLine, out MinorPlanetOrbitalElements? elements, out string? error)
+	{
+		throw new NotImplementedException();
+	}
+	*/
 }

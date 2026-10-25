@@ -13,7 +13,7 @@
  * See LICENSE file in the project root for license information.
  */
 
-namespace Planetoid_DB.Services;
+namespace Planetoid_DB.Services.Models;
 
 /// <summary>Enumerates the major solar system bodies used by the planetary ephemeris providers.</summary>
 internal enum SolarSystemBody

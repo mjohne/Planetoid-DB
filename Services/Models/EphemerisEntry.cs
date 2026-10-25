@@ -15,7 +15,7 @@
 
 using System.Diagnostics;
 
-namespace Planetoid_DB.Services;
+namespace Planetoid_DB.Services.Models;
 
 /// <summary>Represents the calculated position of a minor planet at a specific time.</summary>
 /// <param name="Time">The instant of the position, always expressed in UTC (offset +00:00).</param>

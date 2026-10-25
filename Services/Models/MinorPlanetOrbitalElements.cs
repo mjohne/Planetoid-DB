@@ -15,7 +15,7 @@
 
 using System.Diagnostics;
 
-namespace Planetoid_DB.Services;
+namespace Planetoid_DB.Services.Models;
 
 /// <summary>Represents the heliocentric osculating orbital elements of a minor planet (ecliptic and equinox J2000.0, as published in MPCORB).</summary>
 /// <param name="Designation">Designation or name of the minor planet.</param>
