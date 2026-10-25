@@ -612,7 +612,7 @@ partial class CoordinateTransformationForm
 		AutoScaleDimensions = new SizeF(7F, 15F);
 		AutoScaleMode = AutoScaleMode.Font;
 		ClientSize = new Size(755, 279);
-		ControlBox = true;
+		ControlBox = false;
 		Controls.Add(toolStripContainer);
 		FormBorderStyle = FormBorderStyle.SizableToolWindow;
 		Icon = (Icon)resources.GetObject("$this.Icon");
@@ -621,7 +621,7 @@ partial class CoordinateTransformationForm
 		MinimumSize = new Size(680, 295);
 		Name = "CoordinateTransformationForm";
 		SizeGripStyle = SizeGripStyle.Hide;
-		StartPosition = FormStartPosition.CenterParent;
+		StartPosition = FormStartPosition.CenterScreen;
 		Text = "Astronomical coordinate conversion";
 		FormClosing += CoordinateTransformationForm_FormClosing;
 		Load += CoordinateTransformationForm_Load;

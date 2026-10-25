@@ -27,7 +27,7 @@ namespace Planetoid_DB.Forms;
 /// <summary>Provides conversion between common astronomical coordinate systems.</summary>
 /// <remarks>Right ascension and local hour angle may be entered either as decimal degrees or as hours (decimal or HH:MM:SS). Horizontal conversions require the observer's latitude and longitude.</remarks>
 [DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
-internal sealed partial class CoordinateTransformationForm : BaseKryptonForm
+internal partial class CoordinateTransformationForm : BaseKryptonForm
 {
 	/// <summary>NLog logger instance.</summary>
 	/// <remarks>This logger is used to log messages and errors for the class.</remarks>
