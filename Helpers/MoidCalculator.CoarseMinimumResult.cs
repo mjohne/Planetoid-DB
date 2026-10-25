@@ -19,7 +19,7 @@ namespace Planetoid_DB.Helpers;
 
 /// <summary>Provides methods for calculating the Minimum Orbit Intersection Distance (MOID) between a minor planet and the eight solar system planets.</summary>
 /// <remarks>This partial class contains the <see cref="CoarseMinimumResult"/> record, which holds the results of the coarse grid search phase used as the starting point for local refinement.</remarks>
-internal sealed partial class MoidCalculator
+internal partial class MoidCalculator
 {
 	/// <summary>Represents the coarse-search minimum used as the starting point for local refinement.</summary>
 	/// <param name="MinDistanceSquared">Squared distance at the best coarse grid sample.</param>

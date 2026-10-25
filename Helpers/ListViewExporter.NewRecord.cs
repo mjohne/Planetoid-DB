@@ -19,7 +19,7 @@ namespace Planetoid_DB.Helpers;
 
 /// <summary>Provides static methods for exporting data from a ListView control.</summary>
 /// <remarks>This class is intended to support operations related to exporting ListView data, such as formatting or serializing the contents for external use. All members are static and the class cannot be instantiated.</remarks>
-internal static sealed partial class ListViewExporter
+internal static partial class ListViewExporter
 {
 	/// <summary>Represents a record containing a title and a collection of rows, where each row is a dictionary of string key-value pairs.</summary>
 	/// <param name="Title">The title associated with the record. Cannot be null.</param>
