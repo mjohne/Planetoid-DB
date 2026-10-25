@@ -272,7 +272,7 @@ partial class WorldMapForm
 		MinimumSize = new Size(640, 400);
 		Name = "WorldMapForm";
 		SizeGripStyle = SizeGripStyle.Hide;
-		StartPosition = FormStartPosition.CenterParent;
+		StartPosition = FormStartPosition.CenterScreen;
 		Text = "World map";
 		FormClosing += OnFormClosing;
 		Load += WorldMapForm_Load;
