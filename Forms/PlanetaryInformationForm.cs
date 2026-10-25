@@ -28,7 +28,7 @@ namespace Planetoid_DB;
 /// <summary>Represents a form that displays orbital and physical properties of the eight planets of the Solar System.</summary>
 /// <remarks>The form provides a <see cref="ListView"/> with one column per planet and one row per property. Column headers can be clicked to toggle ascending/descending sorting, and double-clicking a cell copies its value to the Windows clipboard.</remarks>
 [DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
-internal sealed partial class PlanetaryInformationForm : BaseKryptonForm
+internal partial class PlanetaryInformationForm : BaseKryptonForm
 {
 	#region Export override properties
 
@@ -87,7 +87,7 @@ internal sealed partial class PlanetaryInformationForm : BaseKryptonForm
 
 	/// <summary>Represents a fixed set of well-known base parameters for a single planet.</summary>
 	/// <remarks>Values are current best reference values (NASA/IAU) used to compute all derived orbital and physical properties displayed by the form.</remarks>
-	private sealed class PlanetData
+	private class PlanetData
 	{
 		/// <summary>Gets the display name of the planet.</summary>
 		public required string Name { get; init; }

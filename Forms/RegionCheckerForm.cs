@@ -29,7 +29,7 @@ namespace Planetoid_DB.Forms;
 /// <summary>Provides information on minor planets located in a specific region of the sky.</summary>
 /// <remarks>The user chooses a time range (UTC), a step size, the observer location and visibility criteria. The calculation runs asynchronously via <see cref="EphemerisService"/> and can be canceled; results are shown in a list and can be exported in multiple formats.</remarks>
 [DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
-internal sealed partial class RegionCheckerForm : BaseKryptonForm
+internal partial class RegionCheckerForm : BaseKryptonForm
 {
 	/// <summary>NLog logger instance for the class.</summary>
 	/// <remarks>This logger is used to log messages for the form.</remarks>

@@ -27,7 +27,7 @@ namespace Planetoid_DB;
 /// <remarks>This form computes and presents the MAXOID values for a minor planet using a fast, high-precision numerical algorithm equivalent to the approach used by the Minor Planet Center (MPC). The results are shown in a two-column table layout: planet name in the first column, MAXOID in AU in the second column.</remarks>
 // You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
 [DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
-internal sealed partial class MaxoidsOfOneMinorPlanetForm : BaseKryptonForm
+internal partial class MaxoidsOfOneMinorPlanetForm : BaseKryptonForm
 {
 	#region Export override properties
 

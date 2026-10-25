@@ -32,7 +32,7 @@ namespace Planetoid_DB;
 /// <summary>Represents a form for calculating and displaying ephemerides of a minor planet.</summary>
 /// <remarks>The user chooses a time range (UTC), a step size, the observer location and visibility criteria. The calculation runs asynchronously via <see cref="EphemerisService"/> and can be canceled; results are shown in a list and can be exported in multiple formats.</remarks>
 [DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
-internal sealed partial class EphemerisForm : BaseKryptonForm
+internal partial class EphemerisForm : BaseKryptonForm
 {
 	/// <summary>NLog logger instance for the class.</summary>
 	/// <remarks>This logger is used to log messages for the form.</remarks>

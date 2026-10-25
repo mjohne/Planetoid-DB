@@ -30,7 +30,7 @@ namespace Planetoid_DB;
 /// <remarks>This form retrieves the observation data for a given minor planet from the MPC website, parses the observation records, and displays them in a ListView with 8 columns.</remarks>
 // You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
 [DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
-internal sealed partial class ObservationsForm : BaseKryptonForm
+internal partial class ObservationsForm : BaseKryptonForm
 {
 	#region Export override properties
 

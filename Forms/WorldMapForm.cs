@@ -31,7 +31,7 @@ namespace Planetoid_DB;
 /// <remarks>The map is rendered with Leaflet and OpenStreetMap tiles inside a WebView2 control. Clicking the map sets a marker; places can also be searched via OpenStreetMap Nominatim. After <see cref="Form.ShowDialog()"/> returns <see cref="DialogResult.OK"/>, <see cref="Latitude"/> and <see cref="Longitude"/> contain the selected position.</remarks>
 // You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
 [DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
-internal sealed partial class WorldMapForm : BaseKryptonForm
+internal partial class WorldMapForm : BaseKryptonForm
 {
 	/// <summary>NLog logger instance.</summary>
 	/// <remarks>This logger is used throughout the form to log important events and errors.</remarks>

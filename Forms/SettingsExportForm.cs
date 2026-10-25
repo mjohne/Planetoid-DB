@@ -26,7 +26,7 @@ namespace Planetoid_DB;
 /// <remarks>The form provides five equally-sized, horizontally-arranged export buttons. Settings are collected automatically from <c>Settings.settings</c> at export time and saved with their name, data type, scope (User / Application), and current value.</remarks>
 // You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
 [DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
-internal sealed partial class SettingsExportForm : BaseKryptonForm
+internal partial class SettingsExportForm : BaseKryptonForm
 {
 	/// <summary>NLog logger instance for the class.</summary>
 	/// <remarks>This logger is used to log messages and errors for the class.</remarks>

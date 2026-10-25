@@ -20,7 +20,7 @@ namespace Planetoid_DB.Forms;
 
 /// <summary>Provides information on minor planets located in a specific region of the sky.</summary>
 /// <remarks>The user chooses a time range (UTC), a step size, the observer location and visibility criteria. The calculation runs asynchronously via <see cref="EphemerisService"/> and can be canceled; results are shown in a list and can be exported in multiple formats.</remarks>
-internal sealed partial class RegionCheckerForm
+internal partial class RegionCheckerForm
 {
 	/// <summary>Required designer variable.</summary>
 	private System.ComponentModel.IContainer components = null;

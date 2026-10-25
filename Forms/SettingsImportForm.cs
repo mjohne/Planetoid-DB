@@ -26,7 +26,7 @@ namespace Planetoid_DB;
 /// <remarks>The form provides five equally-sized, horizontally-arranged import buttons. Settings are read from the chosen file and applied to <c>Settings.Default</c> by name, data type, and value. Application-scoped settings found in the file are silently ignored. The form also accepts drag-and-drop of a settings file: the correct import method is selected automatically based on the file extension.</remarks>
 // You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
 [DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
-internal sealed partial class SettingsImportForm : BaseKryptonForm
+internal partial class SettingsImportForm : BaseKryptonForm
 {
 	/// <summary>NLog logger instance for the class.</summary>
 	/// <remarks>This logger is used to log messages and errors for the class.</remarks>

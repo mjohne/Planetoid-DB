@@ -26,7 +26,7 @@ namespace Planetoid_DB;
 /// <remarks>This form presents settings controls for window behavior, navigation preferences, database update options, and visual appearance. Logic for loading from and persisting to configuration storage is intentionally stubbed with TODO comments and will be implemented in a future iteration.</remarks>
 // You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
 [DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
-internal sealed partial class SettingsForm : BaseKryptonForm
+internal partial class SettingsForm : BaseKryptonForm
 {
 	/// <summary>Gets the status label to be used for displaying information.</summary>
 	/// <remarks>Derived classes should override this property to provide the specific label.</remarks>

@@ -19,7 +19,7 @@ namespace Planetoid_DB;
 
 /// <summary>Form for displaying the Tisserand parameter of all minor planets relative to each of the eight solar system planets.</summary>
 /// <remarks>This form iterates over all planetoids in the database and computes their Tisserand parameters with respect to all eight planets. Results are presented in a ListView where each row corresponds to one planetoid and the eight Tisserand parameter columns correspond to Mercury through Neptune. The user can start and cancel the calculation at any time and track progress via the integrated progress bar.</remarks>
-internal sealed partial class TisserandParameterOfAllMinorPlanetsForm
+internal partial class TisserandParameterOfAllMinorPlanetsForm
 {
 	/// <summary>Represents one row in the Tisserand parameter results list: the planetoid name and one Tisserand value per planet.</summary>
 	/// <param name="PlanetoidName">The designation of the minor planet.</param>

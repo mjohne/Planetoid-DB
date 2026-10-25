@@ -24,7 +24,7 @@ namespace Planetoid_DB.Forms;
 
 /// <summary>Converts between angle and time measure.</summary>
 [DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
-internal sealed partial class NeaListDownloadForm : BaseKryptonForm
+internal partial class NeaListDownloadForm : BaseKryptonForm
 {
 	/// <summary>NLog logger instance for the class.</summary>
 	/// <remarks>This logger is used to log messages for the form.</remarks>
