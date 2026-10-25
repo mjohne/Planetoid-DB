@@ -19,7 +19,7 @@ namespace Planetoid_DB.Helpers;
 
 /// <summary>Represents precomputed values for one planet used during repeated MAXOID computations.</summary>
 /// <remarks>This record is used internally by the MaxoidCalculator to store values that are expensive to compute repeatedly, improving performance during MAXOID calculations.</remarks>
-internal partial class MaxoidCalculator
+internal sealed partial class MaxoidCalculator
 {
 	/// <summary>Precomputed values for one planet used during repeated MAXOID computations.</summary>
 	/// <param name="Name">Planet name.</param>

@@ -19,7 +19,7 @@ namespace Planetoid_DB.Helpers;
 
 /// <summary>Provides methods for calculating the Maximum Orbit Intersection Distance (MAXOID) between a minor planet and the eight solar system planets.</summary>
 /// <remarks>This class contains methods to compute the MAXOID, which is the greatest geometric separation distance between the osculating orbits of a minor planet and a solar system planet, independent of their actual positions at any epoch.</remarks>
-internal partial class MaxoidCalculator
+internal sealed partial class MaxoidCalculator
 {
 	/// <summary>Represents the MAXOID result for a minor planet relative to a specific solar system planet.</summary>
 	/// <param name="PlanetName">The name of the planet.</param>

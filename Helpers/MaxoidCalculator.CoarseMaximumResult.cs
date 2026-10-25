@@ -19,7 +19,7 @@ namespace Planetoid_DB.Helpers;
 
 /// <summary>Represents the coarse-search maximum used as the starting point for local refinement in the MAXOID calculation.</summary>
 /// <remarks>This partial class contains the <see cref="CoarseMaximumResult"/> record, which holds the results of the coarse grid search phase used as the starting point for local refinement.</remarks>
-internal partial class MaxoidCalculator
+internal sealed partial class MaxoidCalculator
 {
 	/// <summary>Represents the coarse-search maximum used as the starting point for local refinement.</summary>
 	/// <param name="MaxDistanceSquared">Squared distance at the best coarse grid sample.</param>

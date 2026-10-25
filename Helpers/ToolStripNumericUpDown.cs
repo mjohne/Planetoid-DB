@@ -33,7 +33,7 @@ namespace Planetoid_DB.Helpers;
 [DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
 // Suppress the CA2000 warning for disposing objects before losing scope, as ToolStripControlHost takes ownership of and disposes the control supplied to its constructor.
 [method: SuppressMessage(category: "Reliability", checkId: "CA2000:Dispose objects before losing scope", Justification = "ToolStripControlHost takes ownership of and disposes the control supplied to its constructor.")]
-internal class ToolStripNumericUpDown() : ToolStripControlHost(c: CreateControlInstance())
+internal sealed class ToolStripNumericUpDown() : ToolStripControlHost(c: CreateControlInstance())
 {
 	/// <summary>Creates a new instance of the NumericUpDown control configured for numeric input within a specified range.</summary>
 	/// <remarks>The returned control is suitable for scenarios where a fixed-size numeric selector is required. The Minimum and Maximum properties are preset to restrict input to values between 0 and 100. The AutoSize property is disabled to allow custom sizing.</remarks>

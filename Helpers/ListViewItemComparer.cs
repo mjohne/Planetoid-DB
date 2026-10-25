@@ -24,7 +24,7 @@ namespace Planetoid_DB.Helpers;
 /// <remarks>This comparer ensures that numeric values are sorted before text values and that sorting is transitive, meaning if A &lt; B and B &lt; C, then A &lt; C.</remarks>
 // You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
 [DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
-internal class ListViewItemComparer(int column, SortOrder order) : System.Collections.IComparer
+internal sealed class ListViewItemComparer(int column, SortOrder order) : System.Collections.IComparer
 {
 	/// <summary>Compares two objects and returns a value indicating whether one is less than, equal to, or greater than the other.</summary>
 	/// <param name="x">The first object to compare.</param>
