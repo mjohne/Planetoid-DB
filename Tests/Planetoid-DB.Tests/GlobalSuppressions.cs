@@ -7,3 +7,6 @@ using System.Diagnostics.CodeAnalysis;
 [assembly: SuppressMessage(category: "Style", checkId: "IDE0160:In namespace eines Blockbereichs konvertieren", Justification = "<Ausstehend>", Scope = "namespace", Target = "~N:Planetoid_DB.Services")]
 [assembly: SuppressMessage(category: "Style", checkId: "IDE0160:In namespace eines Blockbereichs konvertieren", Justification = "<Ausstehend>", Scope = "namespace", Target = "~N:Planetoid_DB.Tests")]
 [assembly: SuppressMessage(category: "Globalization", checkId: "CA1307:\"StringComparison\" zur Verdeutlichung angeben", Justification = "<Ausstehend>", Scope = "member", Target = "~M:Planetoid_DB.Tests.ExporterTests.ExporterWritesFileContainingData(System.String)")]
+[assembly: SuppressMessage(category: "Style", checkId: "IDE0160:In namespace eines Blockbereichs konvertieren", Justification = "<Ausstehend>", Scope = "namespace", Target = "~N:Planetoid_DB.Export")]
+[assembly: SuppressMessage(category: "Style", checkId: "IDE0160:In namespace eines Blockbereichs konvertieren", Justification = "<Ausstehend>", Scope = "namespace", Target = "~N:Planetoid_DB.Services.Models")]
+[assembly: SuppressMessage(category: "Naming", checkId: "CA1707:Bezeichner dürfen keine Unterstriche enthalten", Justification = "<Ausstehend>", Scope = "namespace", Target = "~N:Planetoid_DB.Services.Models")]
