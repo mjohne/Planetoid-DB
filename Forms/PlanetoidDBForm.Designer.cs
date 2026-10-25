@@ -789,7 +789,6 @@ partial class PlanetoidDbForm
 		toolStripSeparatorHistory.AccessibleRole = AccessibleRole.Separator;
 		toolStripSeparatorHistory.Name = "toolStripSeparatorHistory";
 		toolStripSeparatorHistory.Size = new Size(6, 25);
-		toolStripSeparatorHistory.Click += (this.AsteroidGame_Click);
 		toolStripSeparatorHistory.MouseEnter += (this.Control_Enter);
 		toolStripSeparatorHistory.MouseLeave += (this.Control_Leave);
 		// 
@@ -2553,7 +2552,6 @@ partial class PlanetoidDbForm
 		toolStripSeparatorFile1.AccessibleRole = AccessibleRole.Separator;
 		toolStripSeparatorFile1.Name = "toolStripSeparatorFile1";
 		toolStripSeparatorFile1.Size = new Size(204, 6);
-		toolStripSeparatorFile1.Click += (this.AsteroidGame_Click);
 		toolStripSeparatorFile1.MouseEnter += (this.Control_Enter);
 		toolStripSeparatorFile1.MouseLeave += (this.Control_Leave);
 		// 
@@ -2592,7 +2590,6 @@ partial class PlanetoidDbForm
 		toolStripSeparator13.AccessibleRole = AccessibleRole.Separator;
 		toolStripSeparator13.Name = "toolStripSeparator13";
 		toolStripSeparator13.Size = new Size(204, 6);
-		toolStripSeparator13.Click += (this.AsteroidGame_Click);
 		toolStripSeparator13.MouseEnter += (this.Control_Enter);
 		toolStripSeparator13.MouseLeave += (this.Control_Leave);
 		// 
@@ -2686,7 +2683,6 @@ partial class PlanetoidDbForm
 		toolStripSeparatorNavigation1.AccessibleRole = AccessibleRole.Separator;
 		toolStripSeparatorNavigation1.Name = "toolStripSeparatorNavigation1";
 		toolStripSeparatorNavigation1.Size = new Size(230, 6);
-		toolStripSeparatorNavigation1.Click += (this.AsteroidGame_Click);
 		toolStripSeparatorNavigation1.MouseEnter += (this.Control_Enter);
 		toolStripSeparatorNavigation1.MouseLeave += (this.Control_Leave);
 		// 
@@ -2753,7 +2749,6 @@ partial class PlanetoidDbForm
 		toolStripSeparator11.AccessibleRole = AccessibleRole.Separator;
 		toolStripSeparator11.Name = "toolStripSeparator11";
 		toolStripSeparator11.Size = new Size(230, 6);
-		toolStripSeparator11.Click += (this.AsteroidGame_Click);
 		toolStripSeparator11.MouseEnter += (this.Control_Enter);
 		toolStripSeparator11.MouseLeave += (this.Control_Leave);
 		// 
@@ -2832,7 +2827,6 @@ partial class PlanetoidDbForm
 		toolStripSeparator20.AccessibleRole = AccessibleRole.Separator;
 		toolStripSeparator20.Name = "toolStripSeparator20";
 		toolStripSeparator20.Size = new Size(195, 6);
-		toolStripSeparator20.Click += (this.AsteroidGame_Click);
 		toolStripSeparator20.MouseEnter += (this.Control_Enter);
 		toolStripSeparator20.MouseLeave += (this.Control_Leave);
 		// 
@@ -3460,7 +3454,6 @@ partial class PlanetoidDbForm
 		toolStripSeparatorToolsGroups.AccessibleRole = AccessibleRole.Separator;
 		toolStripSeparatorToolsGroups.Name = "toolStripSeparatorToolsGroups";
 		toolStripSeparatorToolsGroups.Size = new Size(203, 6);
-		toolStripSeparatorToolsGroups.Click += (this.AsteroidGame_Click);
 		toolStripSeparatorToolsGroups.MouseEnter += (this.Control_Enter);
 		toolStripSeparatorToolsGroups.MouseLeave += (this.Control_Leave);
 		// 
@@ -3638,7 +3631,6 @@ partial class PlanetoidDbForm
 		toolStripSeparator17.AccessibleRole = AccessibleRole.Separator;
 		toolStripSeparator17.Name = "toolStripSeparator17";
 		toolStripSeparator17.Size = new Size(328, 6);
-		toolStripSeparator17.Click += (this.AsteroidGame_Click);
 		toolStripSeparator17.MouseEnter += (this.Control_Enter);
 		toolStripSeparator17.MouseLeave += (this.Control_Leave);
 		// 
@@ -3934,7 +3926,6 @@ partial class PlanetoidDbForm
 		toolStripSeparator18.AccessibleRole = AccessibleRole.Separator;
 		toolStripSeparator18.Name = "toolStripSeparator18";
 		toolStripSeparator18.Size = new Size(240, 6);
-		toolStripSeparator18.Click += (this.AsteroidGame_Click);
 		toolStripSeparator18.MouseEnter += (this.Control_Enter);
 		toolStripSeparator18.MouseLeave += (this.Control_Leave);
 		// 
@@ -4150,7 +4141,6 @@ partial class PlanetoidDbForm
 		toolStripSeparator19.Name = "toolStripSeparator19";
 		toolStripSeparator19.Size = new Size(273, 6);
 		toolStripSeparator19.Visible = false;
-		toolStripSeparator19.Click += (this.AsteroidGame_Click);
 		toolStripSeparator19.MouseEnter += (this.Control_Enter);
 		toolStripSeparator19.MouseLeave += (this.Control_Leave);
 		// 
@@ -4381,7 +4371,6 @@ partial class PlanetoidDbForm
 		toolStripSeparatorOptions.AccessibleRole = AccessibleRole.Separator;
 		toolStripSeparatorOptions.Name = "toolStripSeparatorOptions";
 		toolStripSeparatorOptions.Size = new Size(273, 6);
-		toolStripSeparatorOptions.Click += (this.AsteroidGame_Click);
 		toolStripSeparatorOptions.MouseEnter += (this.Control_Enter);
 		toolStripSeparatorOptions.MouseLeave += (this.Control_Leave);
 		// 
@@ -4684,7 +4673,6 @@ partial class PlanetoidDbForm
 		toolStripSeparatorMisc1.AccessibleRole = AccessibleRole.Separator;
 		toolStripSeparatorMisc1.Name = "toolStripSeparatorMisc1";
 		toolStripSeparatorMisc1.Size = new Size(233, 6);
-		toolStripSeparatorMisc1.Click += (this.AsteroidGame_Click);
 		toolStripSeparatorMisc1.MouseEnter += (this.Control_Enter);
 		toolStripSeparatorMisc1.MouseLeave += (this.Control_Leave);
 		// 
@@ -4739,7 +4727,6 @@ partial class PlanetoidDbForm
 		toolStripSeparator2.AccessibleName = "Just a separator";
 		toolStripSeparator2.Name = "toolStripSeparator2";
 		toolStripSeparator2.Size = new Size(233, 6);
-		toolStripSeparator2.Click += (this.AsteroidGame_Click);
 		toolStripSeparator2.MouseEnter += (this.Control_Enter);
 		toolStripSeparator2.MouseLeave += (this.Control_Leave);
 		// 
@@ -4765,7 +4752,6 @@ partial class PlanetoidDbForm
 		toolStripSeparator10.AccessibleRole = AccessibleRole.Separator;
 		toolStripSeparator10.Name = "toolStripSeparator10";
 		toolStripSeparator10.Size = new Size(292, 6);
-		toolStripSeparator10.Click += (this.AsteroidGame_Click);
 		toolStripSeparator10.MouseEnter += (this.Control_Enter);
 		toolStripSeparator10.MouseLeave += (this.Control_Leave);
 		// 
@@ -4776,7 +4762,6 @@ partial class PlanetoidDbForm
 		toolStripSeparator16.AccessibleRole = AccessibleRole.Separator;
 		toolStripSeparator16.Name = "toolStripSeparator16";
 		toolStripSeparator16.Size = new Size(292, 6);
-		toolStripSeparator16.Click += (this.AsteroidGame_Click);
 		toolStripSeparator16.MouseEnter += (this.Control_Enter);
 		toolStripSeparator16.MouseLeave += (this.Control_Leave);
 		// 
@@ -4787,7 +4772,6 @@ partial class PlanetoidDbForm
 		toolStripSeparator12.AccessibleRole = AccessibleRole.Separator;
 		toolStripSeparator12.Name = "toolStripSeparator12";
 		toolStripSeparator12.Size = new Size(292, 6);
-		toolStripSeparator12.Click += (this.AsteroidGame_Click);
 		toolStripSeparator12.MouseEnter += (this.Control_Enter);
 		toolStripSeparator12.MouseLeave += (this.Control_Leave);
 		// 
@@ -9207,7 +9191,6 @@ partial class PlanetoidDbForm
 		toolStripSeparator14.AccessibleRole = AccessibleRole.Separator;
 		toolStripSeparator14.Name = "toolStripSeparator14";
 		toolStripSeparator14.Size = new Size(6, 25);
-		toolStripSeparator14.Click += (this.AsteroidGame_Click);
 		toolStripSeparator14.MouseEnter += (this.Control_Enter);
 		toolStripSeparator14.MouseLeave += (this.Control_Leave);
 		// 
@@ -9248,7 +9231,6 @@ partial class PlanetoidDbForm
 		toolStripSeparator15.AccessibleRole = AccessibleRole.Separator;
 		toolStripSeparator15.Name = "toolStripSeparator15";
 		toolStripSeparator15.Size = new Size(6, 25);
-		toolStripSeparator15.Click += (this.AsteroidGame_Click);
 		toolStripSeparator15.MouseEnter += (this.Control_Enter);
 		toolStripSeparator15.MouseLeave += (this.Control_Leave);
 		// 
@@ -9274,7 +9256,6 @@ partial class PlanetoidDbForm
 		toolStripSeparator4.AccessibleRole = AccessibleRole.Separator;
 		toolStripSeparator4.Name = "toolStripSeparator4";
 		toolStripSeparator4.Size = new Size(6, 25);
-		toolStripSeparator4.Click += (this.AsteroidGame_Click);
 		toolStripSeparator4.MouseEnter += (this.Control_Enter);
 		toolStripSeparator4.MouseLeave += (this.Control_Leave);
 		// 
@@ -9345,7 +9326,6 @@ partial class PlanetoidDbForm
 		toolStripSeparator3.AccessibleRole = AccessibleRole.Separator;
 		toolStripSeparator3.Name = "toolStripSeparator3";
 		toolStripSeparator3.Size = new Size(6, 25);
-		toolStripSeparator3.Click += (this.AsteroidGame_Click);
 		toolStripSeparator3.MouseEnter += (this.Control_Enter);
 		toolStripSeparator3.MouseLeave += (this.Control_Leave);
 		// 
@@ -9388,7 +9368,6 @@ partial class PlanetoidDbForm
 		toolStripSeparator5.AccessibleRole = AccessibleRole.Separator;
 		toolStripSeparator5.Name = "toolStripSeparator5";
 		toolStripSeparator5.Size = new Size(6, 25);
-		toolStripSeparator5.Click += (this.AsteroidGame_Click);
 		toolStripSeparator5.MouseEnter += (this.Control_Enter);
 		toolStripSeparator5.MouseLeave += (this.Control_Leave);
 		// 
@@ -9399,7 +9378,6 @@ partial class PlanetoidDbForm
 		toolStripSeparator1.AccessibleRole = AccessibleRole.Separator;
 		toolStripSeparator1.Name = "toolStripSeparator1";
 		toolStripSeparator1.Size = new Size(6, 25);
-		toolStripSeparator1.Click += (this.AsteroidGame_Click);
 		toolStripSeparator1.MouseEnter += (this.Control_Enter);
 		toolStripSeparator1.MouseLeave += (this.Control_Leave);
 		// 
@@ -9537,7 +9515,6 @@ partial class PlanetoidDbForm
 		toolStripSeparator6.AccessibleRole = AccessibleRole.Separator;
 		toolStripSeparator6.Name = "toolStripSeparator6";
 		toolStripSeparator6.Size = new Size(6, 25);
-		toolStripSeparator6.Click += (this.AsteroidGame_Click);
 		toolStripSeparator6.MouseEnter += (this.Control_Enter);
 		toolStripSeparator6.MouseLeave += (this.Control_Leave);
 		// 
@@ -9548,7 +9525,6 @@ partial class PlanetoidDbForm
 		toolStripSeparator8.AccessibleRole = AccessibleRole.Separator;
 		toolStripSeparator8.Name = "toolStripSeparator8";
 		toolStripSeparator8.Size = new Size(6, 25);
-		toolStripSeparator8.Click += (this.AsteroidGame_Click);
 		toolStripSeparator8.MouseEnter += (this.Control_Enter);
 		toolStripSeparator8.MouseLeave += (this.Control_Leave);
 		// 
@@ -9590,7 +9566,6 @@ partial class PlanetoidDbForm
 		toolStripSeparator7.AccessibleRole = AccessibleRole.Separator;
 		toolStripSeparator7.Name = "toolStripSeparator7";
 		toolStripSeparator7.Size = new Size(6, 25);
-		toolStripSeparator7.Click += (this.AsteroidGame_Click);
 		toolStripSeparator7.MouseEnter += (this.Control_Enter);
 		toolStripSeparator7.MouseLeave += (this.Control_Leave);
 		// 
@@ -9659,7 +9634,6 @@ partial class PlanetoidDbForm
 		toolStripSeparator9.AccessibleRole = AccessibleRole.Separator;
 		toolStripSeparator9.Name = "toolStripSeparator9";
 		toolStripSeparator9.Size = new Size(6, 25);
-		toolStripSeparator9.Click += (this.AsteroidGame_Click);
 		toolStripSeparator9.MouseEnter += (this.Control_Enter);
 		toolStripSeparator9.MouseLeave += (this.Control_Leave);
 		// 
@@ -9725,7 +9699,6 @@ partial class PlanetoidDbForm
 		toolStripSeparatorOptions2.AccessibleName = "Just a separator";
 		toolStripSeparatorOptions2.Name = "toolStripSeparatorOptions2";
 		toolStripSeparatorOptions2.Size = new Size(6, 6);
-		toolStripSeparatorOptions2.Click += (this.AsteroidGame_Click);
 		toolStripSeparatorOptions2.MouseEnter += (this.Control_Enter);
 		toolStripSeparatorOptions2.MouseLeave += (this.Control_Leave);
 		// 
@@ -9735,7 +9708,6 @@ partial class PlanetoidDbForm
 		toolStripSeparatorOptions1.AccessibleName = "Just a separator";
 		toolStripSeparatorOptions1.Name = "toolStripSeparatorOptions1";
 		toolStripSeparatorOptions1.Size = new Size(6, 6);
-		toolStripSeparatorOptions1.Click += (this.AsteroidGame_Click);
 		toolStripSeparatorOptions1.MouseEnter += (this.Control_Enter);
 		toolStripSeparatorOptions1.MouseLeave += (this.Control_Leave);
 		// 
