@@ -347,7 +347,7 @@ partial class AngleMeasureConversionForm
 		kryptonNumericUpDownRectascensionAngleMeasureSexagesimalDegree.AccessibleRole = AccessibleRole.SpinButton;
 		kryptonNumericUpDownRectascensionAngleMeasureSexagesimalDegree.Increment = new decimal(new int[] { 1, 0, 0, 0 });
 		kryptonNumericUpDownRectascensionAngleMeasureSexagesimalDegree.Location = new Point(169, 68);
-		kryptonNumericUpDownRectascensionAngleMeasureSexagesimalDegree.Maximum = new decimal(new int[] { 359, 0, 0, 0 });
+		kryptonNumericUpDownRectascensionAngleMeasureSexagesimalDegree.Maximum = new decimal(new int[] { 360, 0, 0, 0 });
 		kryptonNumericUpDownRectascensionAngleMeasureSexagesimalDegree.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
 		kryptonNumericUpDownRectascensionAngleMeasureSexagesimalDegree.Name = "kryptonNumericUpDownRectascensionAngleMeasureSexagesimalDegree";
 		kryptonNumericUpDownRectascensionAngleMeasureSexagesimalDegree.Size = new Size(43, 22);
@@ -523,7 +523,7 @@ partial class AngleMeasureConversionForm
 		kryptonNumericUpDownRectascensionTimeMeasureSexagesimalHour.AccessibleRole = AccessibleRole.SpinButton;
 		kryptonNumericUpDownRectascensionTimeMeasureSexagesimalHour.Increment = new decimal(new int[] { 1, 0, 0, 0 });
 		kryptonNumericUpDownRectascensionTimeMeasureSexagesimalHour.Location = new Point(169, 13);
-		kryptonNumericUpDownRectascensionTimeMeasureSexagesimalHour.Maximum = new decimal(new int[] { 23, 0, 0, 0 });
+		kryptonNumericUpDownRectascensionTimeMeasureSexagesimalHour.Maximum = new decimal(new int[] { 24, 0, 0, 0 });
 		kryptonNumericUpDownRectascensionTimeMeasureSexagesimalHour.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
 		kryptonNumericUpDownRectascensionTimeMeasureSexagesimalHour.Name = "kryptonNumericUpDownRectascensionTimeMeasureSexagesimalHour";
 		kryptonNumericUpDownRectascensionTimeMeasureSexagesimalHour.Size = new Size(43, 22);
