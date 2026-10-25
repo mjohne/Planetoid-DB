@@ -24,6 +24,7 @@ The forms can broadly be grouped into the following areas:
 | Form                                      | Purpose                                                                                                        |
 | ----------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
 | `AEIDiagram3DForm`                        | Displays a three-dimensional orbital-parameter diagram using semi-major axis, eccentricity and inclination.    |
+| `AngleMeasureConversionForm`              | Converts between angle and time measure.                                                                       |
 | `AppInfoForm`                             | Displays application information and project metadata.                                                         |
 | `ArchiveMpcorbForm`                       | Works with archived MPCORB data.                                                                               |
 | `AsteroidFamiliesForm`                    | Analyzes and displays asteroid-family information.                                                             |
@@ -35,10 +36,11 @@ The forms can broadly be grouped into the following areas:
 | `CheckDatabaseForm`                       | Checks the database/data source for consistency or validity.                                                   |
 | `CoordinateConversionForm`                | Provides an interface for converting astronomical coordinates.                                                 |
 | `DatabaseDifferencesForm`                 | Compares database versions or data sets and displays differences.                                              |
-| `DownloaderForm`                          | Downloads an astronomical catalogue/data file for use by Planetoid-DB.                                         |
 | `DatabaseInformationForm`                 | Displays information and statistics about the current database/data source.                                    |
 | `DerivedOrbitElementsForm`                | Displays and works with derived orbital elements and related calculations.                                     |
+| `DistanceConversionForm`                  | Converts between earthly, planetary and light distances.                                                       |
 | `DistributionsForm`                       | Displays distributions of selected astronomical parameters.                                                    |
+| `DownloaderForm`                          | Downloads an astronomical catalogue/data file for use by Planetoid-DB.                                         |
 | `EphemerisForm`                           | Displays ephemeris-related calculations and information for minor planets.                                     |
 | `ExportDataSheetForm`                     | Exports object data sheets to an external format.                                                              |
 | `FilterForm`                              | Applies filtering criteria to the displayed data set.                                                          |
@@ -52,6 +54,7 @@ The forms can broadly be grouped into the following areas:
 | `MoidsOfAllMinorPlanetsForm`              | Processes MOID-related results for all applicable minor planets.                                               |
 | `MoidsOfOneMinorPlanetForm`               | Calculates and displays MOID-related results for one minor planet.                                             |
 | `MoidsRelativeToMinorPlanetsForm`         | Analyzes MOID relationships relative to selected minor planets.                                                |
+| `NeaListDownloadForm`                     | Converts between earthly, planetary and light distances.                                                       |
 | `ObservationsForm`                        | Displays and manages observational data associated with objects.                                               |
 | `ObservatoryCodesForm`                    | Provides access to MPC observatory codes and related information.                                              |
 | `Orbit2DSideViewForm`                     | Provides a two-dimensional side view of an orbit.                                                              |
@@ -59,7 +62,6 @@ The forms can broadly be grouped into the following areas:
 | `OrbitalResonancesOfOneMinorPlanetForm`   | Analyzes orbital resonances for a single minor planet.                                                         |
 | `OrbitalResonancesOfAllMinorPlanetsForm`  | Performs orbital-resonance analysis across the catalogue.                                                      |
 | `OrbitElementsGroupingForm`               | Groups or categorizes objects according to orbital elements.                                                   |
-| `OrreyForm`                               | Displays a 3D orbital visualization of many selected minor planets relative to the eight solar system planets. |
 | `OrreyForm`                               | Displays a 3D orbital visualization of many selected minor planets relative to the eight solar system planets. |
 | `PlanetoidDbForm`                         | Represents the main application form for browsing and managing the Planetoid-DB database.                      |
 | `PlanetaryInformationForm`                | Represents a form that displays orbital and physical properties of the eight planets of the Solar System.      |
