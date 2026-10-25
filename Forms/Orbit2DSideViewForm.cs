@@ -30,7 +30,7 @@ namespace Planetoid_DB;
 /// <remarks>The form renders each orbit as a straight line through the origin (Sun) where the slope of the line corresponds to the orbital inclination. The perihelion arm (length = a·(1–e)) is drawn above the ecliptic plane and the aphelion arm (length = a·(1+e)) below it. The X- and Y-axes are scaled to the extent of the planetoid's orbit; planet orbits that extend beyond this range are still rendered and can be revealed by zooming out.</remarks>
 // You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
 [DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
-internal sealed partial class Orbit2DSideViewForm : BaseKryptonForm
+internal partial class Orbit2DSideViewForm : BaseKryptonForm
 {
 	/// <summary>NLog logger instance.</summary>
 	/// <remarks>This logger records events and errors that occur during orbit visualization rendering.</remarks>

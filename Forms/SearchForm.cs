@@ -30,7 +30,7 @@ namespace Planetoid_DB;
 /// <remarks>The SearchForm enables users to perform text-based searches across multiple orbital element fields within a planetoid database. Users can select which elements to search, view results in a virtualized list, and export results to a wide range of file formats, including text, spreadsheet, and markup formats. The form manages search progress, cancellation, and error handling, and integrates with the main application to allow navigation to specific records. Thread safety is maintained for search result access, and the form provides feedback on long-running operations.</remarks>
 // You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
 [DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
-internal sealed partial class SearchForm : BaseKryptonForm
+internal partial class SearchForm : BaseKryptonForm
 {
 	#region Export override properties
 

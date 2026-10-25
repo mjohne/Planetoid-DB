@@ -19,13 +19,13 @@ namespace Planetoid_DB;
 
 /// <summary>Represents the form for detecting and displaying potential asteroid families based on orbital elements (a, e, i).</summary>
 /// <remarks>This form uses a binning algorithm to group planetoids whose semi-major axis, eccentricity, and inclination fall within user-defined tolerance ranges.</remarks>
-internal sealed partial class AsteroidFamiliesForm
+internal partial class AsteroidFamiliesForm
 {
 	/// <summary>Represents a detected asteroid family with its member list.</summary>
 	/// <remarks>This class is used to store the members of a detected asteroid family.</remarks>
 	// You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
 	[DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
-	private sealed class AsteroidFamily
+	private class AsteroidFamily
 	{
 		/// <summary>Gets or sets the display name of this family.</summary>
 		/// <remarks>This property is used to store the name of the asteroid family.</remarks>

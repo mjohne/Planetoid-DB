@@ -32,7 +32,7 @@ namespace Planetoid_DB;
 /// <remarks>The form groups planetoids into selectable ranges, renders the distribution as a ScottPlot bar chart, and mirrors the counted bins in a tabular ListView. Users can optionally request live updates while the background counting operation is running.</remarks>
 // You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
 [DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
-internal sealed partial class DistributionsForm : BaseKryptonForm
+internal partial class DistributionsForm : BaseKryptonForm
 {
 	/// <summary>NLog logger instance.</summary>
 	/// <remarks>This logger is used to record errors and cancellation events from the histogram generation workflow.</remarks>
