@@ -28,7 +28,6 @@ The forms can broadly be grouped into the following areas:
 | `AppInfoForm`                             | Displays application information and project metadata.                                                         |
 | `ArchiveMpcorbForm`                       | Works with archived MPCORB data.                                                                               |
 | `AsteroidFamiliesForm`                    | Analyzes and displays asteroid-family information.                                                             |
-| `AsteroidGameForm`                        | Provides an interactive asteroid-themed application/game view.                                                 |
 | `AverageAsteroidForm`                     | Calculates or displays average properties for asteroid data.                                                   |
 | `BaseKryptonForm`                         | Shared base class for the application's Krypton-based WinForms UI.                                             |
 | `BulkObservationsDataDownloaderForm`      | Downloads observation data for multiple objects in bulk.                                                       |
