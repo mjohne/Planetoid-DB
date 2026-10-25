@@ -19,7 +19,7 @@ namespace Planetoid_DB;
 
 /// <summary>Represents the main form for the Asteroid game, handling game logic, rendering, and user input.</summary>
 /// <remarks>This class manages the game's state, including the player's ship, asteroids, and bullets. It handles user input, updates the game logic, and renders the game scene using OpenGL.</remarks>
-internal partial class AsteroidGameForm
+internal sealed partial class AsteroidGameForm
 {
 	/// <summary>Represents a bullet.</summary>
 	/// <remarks>The bullet is represented as a small point that moves in a straight line from the ship's position at the time of firing. It has properties for its position, velocity, and remaining lifetime. Bullets are removed from the game when they exceed their lifetime or when they collide with an asteroid.</remarks>

@@ -42,7 +42,7 @@ namespace Planetoid_DB;
 /// <para>Interaction: left-drag to rotate the view, right-drag to pan, scroll wheel to zoom in/out. Hover over a body to see its name.</para></remarks>
 // You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class.
 [DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
-internal partial class OrreryForm : BaseKryptonForm
+internal sealed partial class OrreryForm : BaseKryptonForm
 {
 	/// <summary>NLog logger instance.</summary>
 	/// <remarks>This logger is used for logging informational messages and debugging output from the form.</remarks>

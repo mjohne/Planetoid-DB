@@ -27,7 +27,7 @@ namespace Planetoid_DB;
 /// <remarks>This form computes and presents the Tisserand parameter values for a minor planet using the standard three-body formula. The results are shown in a two-column table layout: planet name in the first column, Tisserand parameter value in the second column.</remarks>
 // You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
 [DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
-internal partial class TisserandParameterOfOneMinorPlanetForm : BaseKryptonForm
+internal sealed partial class TisserandParameterOfOneMinorPlanetForm : BaseKryptonForm
 {
 	#region Export override properties
 

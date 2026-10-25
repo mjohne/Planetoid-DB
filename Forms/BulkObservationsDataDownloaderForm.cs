@@ -31,7 +31,7 @@ namespace Planetoid_DB;
 /// <remarks>The form iterates over all planetoid database records from the configured minimum to the maximum index, fetches the observations HTML page for each, extracts the download link, and saves the data file to <c>%USERPROFILE%\Planetoid-DB\Observations\Data</c>. The download can be started, paused, resumed and cancelled at any time using the toolbar buttons.</remarks>
 // You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
 [DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
-internal partial class BulkObservationsDataDownloaderForm : BaseKryptonForm
+internal sealed partial class BulkObservationsDataDownloaderForm : BaseKryptonForm
 {
 	#region Export override properties
 

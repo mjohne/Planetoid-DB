@@ -30,7 +30,7 @@ namespace Planetoid_DB;
 /// <remarks>This form allows users to select two MPCORB.DAT files, compare their contents, and view the differences in a user-friendly interface. The form includes functionality for saving the comparison results in various formats and navigating to specific records in the main form based on the differences identified.</remarks>
 // You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
 [DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
-internal partial class DatabaseDifferencesForm : BaseKryptonForm
+internal sealed partial class DatabaseDifferencesForm : BaseKryptonForm
 {
 	#region Export override properties
 

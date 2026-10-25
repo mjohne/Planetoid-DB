@@ -29,7 +29,7 @@ namespace Planetoid_DB;
 /// <remarks>This form iterates over all planetoids in the database and computes their MAXOIDs with respect to all eight planets. Results are presented in a ListView where each row corresponds to one planetoid and the eight MAXOID columns correspond to Mercury through Neptune. The user can start and cancel the calculation at any time and track progress via the integrated progress bar.</remarks>
 // You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
 [DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
-internal partial class MaxoidsOfAllMinorPlanetsForm : BaseKryptonForm
+internal sealed partial class MaxoidsOfAllMinorPlanetsForm : BaseKryptonForm
 {
 	#region Export override properties
 

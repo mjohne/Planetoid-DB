@@ -43,7 +43,7 @@ namespace Planetoid_DB;
 /// <remarks><para>The form renders the orbit of the selected planetoid and all eight solar system planets as 3D ellipses in the ecliptic coordinate frame using OpenTK/OpenGL. The Sun is represented as a yellow point at the origin.</para></remarks>
 // You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
 [DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
-internal partial class Orbit3DForm : BaseKryptonForm
+internal sealed partial class Orbit3DForm : BaseKryptonForm
 {
 	/// <summary>NLog logger instance.</summary>
 	/// <remarks>This logger is used for logging informational messages and debugging output from the form.</remarks>

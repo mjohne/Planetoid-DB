@@ -30,7 +30,7 @@ namespace Planetoid_DB;
 /// <remarks>This form is used to present information about the application, such as its version, description, and copyright details.</remarks>
 // You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
 [DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
-internal partial class AppInfoForm : BaseKryptonForm
+internal sealed partial class AppInfoForm : BaseKryptonForm
 {
 	/// <summary>NLog logger instance.</summary>
 	/// <remarks>This logger is used to log messages and errors for the class.</remarks>

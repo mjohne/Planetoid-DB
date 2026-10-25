@@ -19,7 +19,7 @@ namespace Planetoid_DB.Forms;
 
 /// <summary>Form to analyze and group planetoids based on common orbital element ranges.</summary>
 /// <remarks>This form provides functionality to group planetoids based on their orbital elements, allowing for analysis of patterns and similarities.</remarks>
-internal partial class OrbitElementsGroupingForm
+internal sealed partial class OrbitElementsGroupingForm
 {
 	/// <summary>Represents immutable data for a planetoid, including its identifier, name, and associated orbital elements.</summary>
 	/// <param name="Index">The unique identifier or catalog index for the planetoid.</param>
