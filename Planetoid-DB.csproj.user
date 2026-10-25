@@ -67,10 +67,16 @@
     <Compile Update="Forms\DatabaseInformationForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Forms\AngleMeasureConversionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Forms\DerivedOrbitElementsForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Forms\AverageAsteroidForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\DistanceConversionForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Forms\DistributionsForm.HistogramBinResult.cs">
@@ -134,6 +140,9 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Forms\MoidsRelativeToMinorPlanetsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\NeaListDownloadForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Forms\ObservationsForm.cs">
@@ -215,6 +224,9 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Forms\RecordsTop10Form.TopRecordEntry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\RegionCheckerForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Forms\ScatterplotsForm.cs">

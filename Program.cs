@@ -76,7 +76,7 @@ internal static class Program
 	/// <param name="fEnable">Specifies whether the feature should be enabled or disabled.</param>
 	/// <returns>An HRESULT value indicating success or failure.</returns>
 	/// <remarks>This method sets the specified feature for the current process.</remarks>
-	[DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
+	[DefaultDllImportSearchPaths(paths: DllImportSearchPath.System32)]
 	[DllImport(dllName: "urlmon.dll")]
 	[PreserveSig]
 	[return: MarshalAs(unmanagedType: UnmanagedType.Error)]
@@ -188,15 +188,13 @@ internal static class Program
 	/// <remarks>This method disables the navigation sounds for the current process.</remarks>
 	private static void DisableNavigationSounds()
 	{
+
 		// Disable navigation sounds for the current process
 		_ = CoInternetSetFeatureEnabled(featureEntry: FeatureDisableNavigationSounds, dwFlags: SetFeatureOnProcess, fEnable: true);
 	}
 
 	/// <summary>Registers a <see cref="LogEventTarget"/> with the current NLog configuration so that every log event is also captured in <see cref="Helpers.LogEventStore"/>.</summary>
-	/// <remarks>
-	/// If NLog already has a configuration, the target is appended; otherwise a new <see cref="LoggingConfiguration"/> is created.
-	/// The method calls <see cref="LogManager.ReconfigExistingLoggers()"/> so that loggers created before this call also route events to the new target.
-	/// </remarks>
+	/// <remarks>If NLog already has a configuration, the target is appended; otherwise a new <see cref="LoggingConfiguration"/> is created. The method calls <see cref="LogManager.ReconfigExistingLoggers()"/> so that loggers created before this call also route events to the new target.</remarks>
 	private static void ConfigureLogEventStore()
 	{
 		// Get the existing NLog configuration, or create a new one if none exists
