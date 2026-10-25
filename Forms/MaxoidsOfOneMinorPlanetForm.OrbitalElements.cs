@@ -19,7 +19,7 @@ namespace Planetoid_DB;
 
 /// <summary>Represents the orbital elements of a minor planet used for MAXOID calculations.</summary>
 /// <remarks>This record is used to encapsulate the orbital parameters of a minor planet for MAXOID calculations.</remarks>
-internal partial class MaxoidsOfOneMinorPlanetForm
+internal sealed partial class MaxoidsOfOneMinorPlanetForm
 {
 	/// <summary>Represents the orbital elements of a minor planet used for MAXOID calculations.</summary>
 	/// <param name="SemiMajorAxis">The semi-major axis of the orbit in astronomical units (AU).</param>

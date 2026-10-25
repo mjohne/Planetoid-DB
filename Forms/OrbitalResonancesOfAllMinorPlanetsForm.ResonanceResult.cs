@@ -21,7 +21,7 @@ namespace Planetoid_DB;
 
 /// <summary>Represents the form for calculating and displaying orbital resonances of all minor planets relative to the 8 known solar system planets.</summary>
 /// <remarks>This class contains the logic for computing and displaying the orbital resonances of minor planets in relation to the major planets.</remarks>
-internal partial class OrbitalResonancesOfAllMinorPlanetsForm
+internal sealed partial class OrbitalResonancesOfAllMinorPlanetsForm
 {
 	/// <summary>Represents a single resonance result combining a planetoid designation with its resonance data.</summary>
 	/// <param name="PlanetoidName">The readable designation or packed index of the planetoid.</param>

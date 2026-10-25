@@ -31,7 +31,7 @@ namespace Planetoid_DB;
 /// <remarks>This form allows users to preview, print, and customize the output of orbital element data sheets. It supports marking and unmarking elements for inclusion, handles print cancellation, and provides progress feedback during printing. Use this form to facilitate user-driven printing workflows for orbital element data in a Windows Forms application.</remarks>
 // You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
 [DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
-internal partial class PrintDataSheetForm : BaseKryptonForm
+internal sealed partial class PrintDataSheetForm : BaseKryptonForm
 {
 	/// <summary>NLog logger for logging messages and errors.</summary>
 	/// <remarks>This logger is used to log messages and errors that occur within the form.</remarks>

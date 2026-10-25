@@ -30,7 +30,7 @@ namespace Planetoid_DB;
 /// <remarks>This form displays the record holder (asteroid with the highest or lowest value) for each orbital element in the database. The user can choose between maximum and minimum records, start and cancel the scan at any time.</remarks>
 // You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
 [DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
-internal partial class RecordsForm : BaseKryptonForm
+internal sealed partial class RecordsForm : BaseKryptonForm
 {
 	#region Export override properties
 

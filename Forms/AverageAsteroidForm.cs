@@ -28,7 +28,7 @@ namespace Planetoid_DB;
 /// <summary>Represents a form that displays the theoretical average planetoid calculated from all orbital elements and astrophysical values.</summary>
 /// <remarks>This form calculates and displays various types of averages (arithmetic, median, mode, geometric, harmonic, quadratic, cubic, logarithmic, Winsor, quartile, shortest half, Gastwirth-Cohen, range, "a", moving, Hölder, Lehmer) for each orbital element and astrophysical property.</remarks>
 [DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
-internal partial class AverageAsteroidForm : BaseKryptonForm
+internal sealed partial class AverageAsteroidForm : BaseKryptonForm
 {
 	#region Export override properties
 

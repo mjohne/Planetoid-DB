@@ -211,14 +211,7 @@ internal partial class AsteroidGameForm : BaseKryptonForm
 	private void InitializeGame()
 	{
 		// Initialize ship in the center of the world with no velocity and temporary invulnerability
-		_ship = new Ship
-		{
-			X = WorldWidth / 2f,
-			Y = WorldHeight / 2f,
-			Angle = 0f,
-			Invulnerable = true,
-			InvulnerabilityTime = 3f
-		};
+		_ship = new Ship(WorldWidth / 2f, WorldHeight / 2f, default, default, 0f, true, 3f);
 		// Clear existing asteroids and bullets, reset score and lives
 		_asteroids.Clear();
 		_bullets.Clear();

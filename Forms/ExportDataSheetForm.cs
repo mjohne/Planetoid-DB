@@ -30,7 +30,7 @@ namespace Planetoid_DB;
 /// <remarks>This form allows users to select orbital elements and export them in different formats.</remarks>
 // You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
 [DebuggerDisplay($"{{{nameof(DebuggerDisplay)},nq}}")]
-internal partial class ExportDataSheetForm : BaseKryptonForm
+internal sealed partial class ExportDataSheetForm : BaseKryptonForm
 {
 	/// <summary>NLog logger instance for the class.</summary>
 	/// <remarks>This logger is used to log messages for the form.</remarks>

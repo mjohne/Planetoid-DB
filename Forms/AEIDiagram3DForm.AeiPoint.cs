@@ -19,7 +19,7 @@ namespace Planetoid_DB;
 
 /// <summary>Displays a 3D a,e,i diagram for all known planetoids.</summary>
 /// <remarks>This form is used to visualize the three-dimensional a, e, i point cloud for all known planetoids, providing interactive camera controls for rotation, zoom, and pan.</remarks>
-internal partial class AEIDiagram3DForm
+internal sealed partial class AEIDiagram3DForm
 {
 	/// <summary>Represents one planetoid's semimajor axis, eccentricity, and inclination values.</summary>
 	/// <param name="A">The semimajor axis in astronomical units (AU).</param>
