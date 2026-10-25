@@ -19,7 +19,7 @@ namespace Planetoid_DB.Helpers;
 
 /// <summary>Provides methods for calculating the Minimum Orbit Intersection Distance (MOID) between a minor planet and the eight solar system planets.</summary>
 /// <remarks>This partial class contains the <see cref="PlanetComputationData"/> record, which holds precomputed values for a planet's orbit used during repeated MOID calculations. The precomputed values optimize the inner loop of the MOID calculation by avoiding repeated trigonometric and arithmetic computations for the planetary orbit during bulk processing.</remarks>
-internal partial class MoidCalculator
+internal sealed partial class MoidCalculator
 {
 	/// <summary>Precomputed values for one planet used during repeated MOID computations.</summary>
 	/// <param name="Name">Planet name.</param>

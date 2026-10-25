@@ -21,7 +21,7 @@ namespace Planetoid_DB.Helpers;
 /// <remarks>The Tisserand parameter is a quasi-conserved quantity derived from the Jacobi constant in the circular restricted three-body problem. It is defined as: <para><c>T_P = a_P / a + 2 * cos(i) * sqrt(a / a_P * (1 - e²))</c></para> where <c>a_P</c> is the semi-major axis of the reference planet, <c>a</c> is the semi-major axis of the minor planet, <c>e</c> is the eccentricity of the minor planet, and <c>i</c> is the orbital inclination of the minor planet. By convention <c>T_J</c> (relative to Jupiter) is the most commonly used form and is widely employed to classify small solar-system bodies.</remarks>
 // You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
 [DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
-internal partial class TisserandParameterCalculator
+internal sealed partial class TisserandParameterCalculator
 {
 
 	/// <summary>Mean semi-major axes of the eight solar system planets at J2000.0.</summary>
