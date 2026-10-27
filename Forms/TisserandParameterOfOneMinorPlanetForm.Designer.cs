@@ -1,7 +1,7 @@
 /*
  * File:        TisserandParameterOfOneMinorPlanetForm.Designer.cs
  * Project:     Planetoid-DB
- * Namespace:   Planetoid_DB
+ * Namespace:   Planetoid_DB.Forms
  * Description: Represents a Windows Form that displays the Tisserand parameter of a minor planet relative to each of the eight solar system planets (Mercury through Neptune).
  * Remarks:     This file contains the Windows Forms designer-generated code for the TisserandParameterOfOneMinorPlanetForm. Do not modify this file manually.
  *
@@ -72,8 +72,6 @@ partial class TisserandParameterOfOneMinorPlanetForm
 		kryptonStatusStrip = new KryptonStatusStrip();
 		labelInformation = new ToolStripStatusLabel();
 		tableLayoutPanel = new KryptonTableLayoutPanel();
-		toolStripIcons = new ToolStrip();
-		toolStripDropDownButtonSaveToFile = new ToolStripDropDownButton();
 		contextMenuSaveToFile = new ContextMenuStrip(components);
 		toolStripMenuItemTextFiles = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsText = new ToolStripMenuItem();
@@ -115,6 +113,8 @@ partial class TisserandParameterOfOneMinorPlanetForm
 		toolStripMenuItemSaveAsXps = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsFictionBook2 = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsChm = new ToolStripMenuItem();
+		toolStripDropDownButtonSaveToFile = new ToolStripDropDownButton();
+		toolStripIcons = new ToolStrip();
 		toolStripDropDownButtonCopyToClipboard = new ToolStripDropDownButton();
 		contextMenuFullCopyToClipboard = new ContextMenuStrip(components);
 		menuitemCopyToClipboardTisserandParameterRelativeToMercury = new ToolStripMenuItem();
@@ -126,6 +126,8 @@ partial class TisserandParameterOfOneMinorPlanetForm
 		menuitemCopyToClipboardTisserandParameterRelativeToUranus = new ToolStripMenuItem();
 		menuitemCopyToClipboardTisserandParameterRelativeToNeptune = new ToolStripMenuItem();
 		kryptonManager = new KryptonManager(components);
+		toolStripSeparator1 = new ToolStripSeparator();
+		toolStripButtonInfo = new ToolStripButton();
 		contextMenuCopyToClipboard.SuspendLayout();
 		toolStripContainer.BottomToolStripPanel.SuspendLayout();
 		toolStripContainer.ContentPanel.SuspendLayout();
@@ -133,8 +135,8 @@ partial class TisserandParameterOfOneMinorPlanetForm
 		toolStripContainer.SuspendLayout();
 		kryptonStatusStrip.SuspendLayout();
 		tableLayoutPanel.SuspendLayout();
-		toolStripIcons.SuspendLayout();
 		contextMenuSaveToFile.SuspendLayout();
+		toolStripIcons.SuspendLayout();
 		contextMenuFullCopyToClipboard.SuspendLayout();
 		SuspendLayout();
 		// 
@@ -567,7 +569,7 @@ partial class TisserandParameterOfOneMinorPlanetForm
 		toolStripContainer.ContentPanel.AccessibleRole = AccessibleRole.Pane;
 		toolStripContainer.ContentPanel.Controls.Add(tableLayoutPanel);
 		toolStripContainer.ContentPanel.Margin = new Padding(4, 3, 4, 3);
-		toolStripContainer.ContentPanel.Size = new Size(284, 212);
+		toolStripContainer.ContentPanel.Size = new Size(284, 214);
 		toolStripContainer.Dock = DockStyle.Fill;
 		// 
 		// toolStripContainer.LeftToolStripPanel
@@ -583,7 +585,7 @@ partial class TisserandParameterOfOneMinorPlanetForm
 		toolStripContainer.RightToolStripPanel.AccessibleDescription = "Just a panel";
 		toolStripContainer.RightToolStripPanel.AccessibleName = "Right panel";
 		toolStripContainer.RightToolStripPanel.AccessibleRole = AccessibleRole.Pane;
-		toolStripContainer.Size = new Size(284, 259);
+		toolStripContainer.Size = new Size(284, 261);
 		toolStripContainer.TabIndex = 0;
 		toolStripContainer.Text = "toolStripContainer";
 		// 
@@ -644,6 +646,7 @@ partial class TisserandParameterOfOneMinorPlanetForm
 		tableLayoutPanel.ColumnCount = 2;
 		tableLayoutPanel.ColumnStyles.Add(new ColumnStyle());
 		tableLayoutPanel.ColumnStyles.Add(new ColumnStyle());
+		tableLayoutPanel.ContextMenuStrip = contextMenuSaveToFile;
 		tableLayoutPanel.Controls.Add(labelMercuryDesc, 0, 0);
 		tableLayoutPanel.Controls.Add(labelMercuryData, 1, 0);
 		tableLayoutPanel.Controls.Add(labelVenusDesc, 0, 1);
@@ -673,50 +676,13 @@ partial class TisserandParameterOfOneMinorPlanetForm
 		tableLayoutPanel.RowStyles.Add(new RowStyle());
 		tableLayoutPanel.RowStyles.Add(new RowStyle());
 		tableLayoutPanel.RowStyles.Add(new RowStyle());
-		tableLayoutPanel.Size = new Size(284, 212);
+		tableLayoutPanel.Size = new Size(284, 214);
 		tableLayoutPanel.TabIndex = 0;
 		tableLayoutPanel.TabStop = true;
 		tableLayoutPanel.Enter += Control_Enter;
 		tableLayoutPanel.Leave += Control_Leave;
 		tableLayoutPanel.MouseEnter += Control_Enter;
 		tableLayoutPanel.MouseLeave += Control_Leave;
-		// 
-		// toolStripIcons
-		// 
-		toolStripIcons.AccessibleDescription = "Toolbar for exporting data";
-		toolStripIcons.AccessibleName = "Toolbar for exporting data";
-		toolStripIcons.AccessibleRole = AccessibleRole.ToolBar;
-		toolStripIcons.AllowClickThrough = true;
-		toolStripIcons.AllowItemReorder = true;
-		toolStripIcons.BackColor = Color.Transparent;
-		toolStripIcons.Dock = DockStyle.None;
-		toolStripIcons.Font = new Font("Segoe UI", 9F);
-		toolStripIcons.Items.AddRange(new ToolStripItem[] { toolStripDropDownButtonSaveToFile, toolStripDropDownButtonCopyToClipboard });
-		toolStripIcons.Location = new Point(0, 0);
-		toolStripIcons.Name = "toolStripIcons";
-		toolStripIcons.Size = new Size(284, 25);
-		toolStripIcons.Stretch = true;
-		toolStripIcons.TabIndex = 0;
-		toolStripIcons.TabStop = true;
-		toolStripIcons.Text = "Toolbar for exporting data";
-		toolStripIcons.Enter += Control_Enter;
-		toolStripIcons.Leave += Control_Leave;
-		toolStripIcons.MouseEnter += Control_Enter;
-		toolStripIcons.MouseLeave += Control_Leave;
-		// 
-		// toolStripDropDownButtonSaveToFile
-		// 
-		toolStripDropDownButtonSaveToFile.AccessibleDescription = "Saves information to file";
-		toolStripDropDownButtonSaveToFile.AccessibleName = "Save to file";
-		toolStripDropDownButtonSaveToFile.AccessibleRole = AccessibleRole.ButtonDropDown;
-		toolStripDropDownButtonSaveToFile.DropDown = contextMenuSaveToFile;
-		toolStripDropDownButtonSaveToFile.Image = FatcowIcons16px.fatcow_diskette_16px;
-		toolStripDropDownButtonSaveToFile.ImageTransparentColor = Color.Magenta;
-		toolStripDropDownButtonSaveToFile.Name = "toolStripDropDownButtonSaveToFile";
-		toolStripDropDownButtonSaveToFile.Size = new Size(93, 22);
-		toolStripDropDownButtonSaveToFile.Text = "&Save to file";
-		toolStripDropDownButtonSaveToFile.MouseEnter += Control_Enter;
-		toolStripDropDownButtonSaveToFile.MouseLeave += Control_Leave;
 		// 
 		// contextMenuSaveToFile
 		// 
@@ -1296,6 +1262,43 @@ partial class TisserandParameterOfOneMinorPlanetForm
 		toolStripMenuItemSaveAsChm.MouseEnter += Control_Enter;
 		toolStripMenuItemSaveAsChm.MouseLeave += Control_Leave;
 		// 
+		// toolStripDropDownButtonSaveToFile
+		// 
+		toolStripDropDownButtonSaveToFile.AccessibleDescription = "Saves information to file";
+		toolStripDropDownButtonSaveToFile.AccessibleName = "Save to file";
+		toolStripDropDownButtonSaveToFile.AccessibleRole = AccessibleRole.ButtonDropDown;
+		toolStripDropDownButtonSaveToFile.DropDown = contextMenuSaveToFile;
+		toolStripDropDownButtonSaveToFile.Image = FatcowIcons16px.fatcow_diskette_16px;
+		toolStripDropDownButtonSaveToFile.ImageTransparentColor = Color.Magenta;
+		toolStripDropDownButtonSaveToFile.Name = "toolStripDropDownButtonSaveToFile";
+		toolStripDropDownButtonSaveToFile.Size = new Size(93, 22);
+		toolStripDropDownButtonSaveToFile.Text = "&Save to file";
+		toolStripDropDownButtonSaveToFile.MouseEnter += Control_Enter;
+		toolStripDropDownButtonSaveToFile.MouseLeave += Control_Leave;
+		// 
+		// toolStripIcons
+		// 
+		toolStripIcons.AccessibleDescription = "Toolbar for exporting data";
+		toolStripIcons.AccessibleName = "Toolbar for exporting data";
+		toolStripIcons.AccessibleRole = AccessibleRole.ToolBar;
+		toolStripIcons.AllowClickThrough = true;
+		toolStripIcons.AllowItemReorder = true;
+		toolStripIcons.BackColor = Color.Transparent;
+		toolStripIcons.Dock = DockStyle.None;
+		toolStripIcons.Font = new Font("Segoe UI", 9F);
+		toolStripIcons.Items.AddRange(new ToolStripItem[] { toolStripDropDownButtonSaveToFile, toolStripDropDownButtonCopyToClipboard, toolStripSeparator1, toolStripButtonInfo });
+		toolStripIcons.Location = new Point(0, 0);
+		toolStripIcons.Name = "toolStripIcons";
+		toolStripIcons.Size = new Size(284, 25);
+		toolStripIcons.Stretch = true;
+		toolStripIcons.TabIndex = 0;
+		toolStripIcons.TabStop = true;
+		toolStripIcons.Text = "Toolbar for exporting data";
+		toolStripIcons.Enter += Control_Enter;
+		toolStripIcons.Leave += Control_Leave;
+		toolStripIcons.MouseEnter += Control_Enter;
+		toolStripIcons.MouseLeave += Control_Leave;
+		// 
 		// toolStripDropDownButtonCopyToClipboard
 		// 
 		toolStripDropDownButtonCopyToClipboard.AccessibleDescription = "Copies information to clipboard";
@@ -1377,7 +1380,7 @@ partial class TisserandParameterOfOneMinorPlanetForm
 		menuitemCopyToClipboardTisserandParameterRelativeToMars.Image = (Image)resources.GetObject("menuitemCopyToClipboardTisserandParameterRelativeToMars.Image");
 		menuitemCopyToClipboardTisserandParameterRelativeToMars.Name = "menuitemCopyToClipboardTisserandParameterRelativeToMars";
 		menuitemCopyToClipboardTisserandParameterRelativeToMars.Size = new Size(120, 22);
-		menuitemCopyToClipboardTisserandParameterRelativeToMars.Text = "&Mars";
+		menuitemCopyToClipboardTisserandParameterRelativeToMars.Text = "M&ars";
 		menuitemCopyToClipboardTisserandParameterRelativeToMars.Click += MenuitemCopyToClipboardTisserandParameterRelativeToMars_Click;
 		menuitemCopyToClipboardTisserandParameterRelativeToMars.MouseEnter += Control_Enter;
 		menuitemCopyToClipboardTisserandParameterRelativeToMars.MouseLeave += Control_Leave;
@@ -1442,14 +1445,39 @@ partial class TisserandParameterOfOneMinorPlanetForm
 		kryptonManager.ToolkitStrings.MessageBoxStrings.LessDetails = "L&ess Details...";
 		kryptonManager.ToolkitStrings.MessageBoxStrings.MoreDetails = "&More Details...";
 		// 
+		// toolStripSeparator1
+		// 
+		toolStripSeparator1.AccessibleDescription = "Just a separator";
+		toolStripSeparator1.AccessibleName = "Just a separator";
+		toolStripSeparator1.AccessibleRole = AccessibleRole.Separator;
+		toolStripSeparator1.Name = "toolStripSeparator1";
+		toolStripSeparator1.Size = new Size(6, 25);
+		toolStripSeparator1.MouseEnter += Control_Enter;
+		toolStripSeparator1.MouseLeave += Control_Leave;
+		// 
+		// toolStripButtonInfo
+		// 
+		toolStripButtonInfo.AccessibleDescription = "Shows a message box with some infomration about the Tisserand velocity";
+		toolStripButtonInfo.AccessibleName = "Info";
+		toolStripButtonInfo.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripButtonInfo.DisplayStyle = ToolStripItemDisplayStyle.Image;
+		toolStripButtonInfo.Image = FatcowIcons16px.fatcow_information_16px;
+		toolStripButtonInfo.ImageTransparentColor = Color.Magenta;
+		toolStripButtonInfo.Name = "toolStripButtonInfo";
+		toolStripButtonInfo.Size = new Size(23, 22);
+		toolStripButtonInfo.Text = "Info";
+		toolStripButtonInfo.Click += ToolStripButtonInfo_Click;
+		toolStripButtonInfo.MouseEnter += Control_Enter;
+		toolStripButtonInfo.MouseLeave += Control_Leave;
+		// 
 		// TisserandParameterOfOneMinorPlanetForm
 		// 
 		AccessibleDescription = "Shows the Tisserand parameter values of a minor planet relative to the eight solar system planets";
 		AccessibleName = "Tisserand parameters of a minor planet";
-		AccessibleRole = AccessibleRole.Dialog;
+		AccessibleRole = AccessibleRole.WhiteSpace;
 		AutoScaleDimensions = new SizeF(7F, 15F);
 		AutoScaleMode = AutoScaleMode.Font;
-		ClientSize = new Size(284, 259);
+		ClientSize = new Size(284, 261);
 		ControlBox = false;
 		Controls.Add(toolStripContainer);
 		FormBorderStyle = FormBorderStyle.SizableToolWindow;
@@ -1479,9 +1507,9 @@ partial class TisserandParameterOfOneMinorPlanetForm
 		kryptonStatusStrip.PerformLayout();
 		tableLayoutPanel.ResumeLayout(false);
 		tableLayoutPanel.PerformLayout();
+		contextMenuSaveToFile.ResumeLayout(false);
 		toolStripIcons.ResumeLayout(false);
 		toolStripIcons.PerformLayout();
-		contextMenuSaveToFile.ResumeLayout(false);
 		contextMenuFullCopyToClipboard.ResumeLayout(false);
 		ResumeLayout(false);
 	}
@@ -1575,4 +1603,6 @@ partial class TisserandParameterOfOneMinorPlanetForm
 	private ToolStripMenuItem menuitemCopyToClipboardTisserandParameterRelativeToNeptune;
 	private ToolStripDropDownButton toolStripDropDownButtonCopyToClipboard;
 	private ToolStripMenuItem toolStripMenuItemSaveAsTypst;
+	private ToolStripSeparator toolStripSeparator1;
+	private ToolStripButton toolStripButtonInfo;
 }
