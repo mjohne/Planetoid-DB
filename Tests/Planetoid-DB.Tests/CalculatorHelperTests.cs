@@ -73,7 +73,7 @@ public sealed class CalculatorHelperTests
 		Assert.Equal(expected: 1.6, actual: DerivedElements.CalculateSemiMinorAxis(semiMajorAxis: 2.0, numericalEccentricity: 0.6), precision: 12);
 		Assert.Equal(expected: 0.8, actual: DerivedElements.CalculatePerihelionDistance(semiMajorAxis: 2.0, numericalEccentricity: 0.6), precision: 12);
 		Assert.Equal(expected: 3.2, actual: DerivedElements.CalculateAphelionDistance(semiMajorAxis: 2.0, numericalEccentricity: 0.6), precision: 12);
-		Assert.Equal(expected: 8.0, actual: DerivedElements.CalculatePeriod(semiMajorAxis: 4.0), precision: 12);
+		Assert.Equal(expected: 8.0, actual: DerivedElements.CalculateSiderealOrbitalPeriod(semiMajorAxis: 4.0), precision: 12);
 	}
 
 	/// <summary>Verifies the eccentric anomaly satisfies Kepler's equation.</summary>
