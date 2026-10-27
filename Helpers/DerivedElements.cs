@@ -290,30 +290,36 @@ internal partial class DerivedElements
 		return 2 * CalculateSemiMeanAxis(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity);
 	}
 
-	/// <summary>Calculates the distance from the ellipse center to the directrix line.</summary>
+	/// <summary>Calculates the distance from the ellipse center to the directrix line in AU.</summary>
 	/// <param name="semiMajorAxis">The semi-major axis in AU.</param>
 	/// <param name="numericalEccentricity">The numerical eccentricity.</param>
-	/// <returns>The directrix distance from center in AU. Returns PositiveInfinity for circular orbits (e = 0).</returns>
-	/// <remarks>Calculated as d = a / e.</remarks>
+	/// <returns>The center-to-directrix distance in AU. Returns PositiveInfinity for circular orbits (e = 0).</returns>
+	/// <remarks>Calculated as d_center = |a| / e.</remarks>
 	public static double CalculateCenterDirectrixDistance(double semiMajorAxis, double numericalEccentricity)
 	{
-		return numericalEccentricity == 0 ? double.PositiveInfinity : semiMajorAxis / numericalEccentricity;
+		return numericalEccentricity == 0.0 ? double.PositiveInfinity : Math.Abs(value: semiMajorAxis) / numericalEccentricity;
 	}
 
-	/// <summary>Calculates the distance from the focal point (Sun) to the directrix line.</summary>
+	/// <summary>Calculates the distance from the focal point (Sun) to the directrix line in AU.</summary>
 	/// <param name="semiMajorAxis">The semi-major axis in AU.</param>
 	/// <param name="numericalEccentricity">The numerical eccentricity.</param>
-	/// <returns>The distance from focus to directrix in AU. Returns NaN for parabolic orbits (e = 1.0).</returns>
-	/// <remarks>Calculated as d_focal = p / e = a · |1 - e²| / e.</remarks>
+	/// <returns>The focus-to-directrix distance in AU. Returns PositiveInfinity for circular orbits (e = 0) and NaN for parabolic orbits (e = 1.0).</returns>
+	/// <remarks>Calculated as d_focus = p / e = |a · (1 - e²)| / e.</remarks>
 	public static double CalculateFocusDirectrixDistance(double semiMajorAxis, double numericalEccentricity)
 	{
-		double p = semiMajorAxis * (1.0 - (numericalEccentricity * numericalEccentricity));
-		double p2 = semiMajorAxis * ((numericalEccentricity * numericalEccentricity) - 1.0);
-		return numericalEccentricity switch
+		switch (numericalEccentricity)
 		{
-			1.0 => double.NaN,
-			_ => numericalEccentricity > 1.0 ? p2 / numericalEccentricity : p / numericalEccentricity
-		};
+			case 0.0:
+				return double.PositiveInfinity;
+			case 1.0:
+				// A parabola (e = 1) cannot be parameterized by semi-major axis a.
+				return double.NaN;
+			default:
+				break;
+		}
+
+		double p = CalculateSemiLatusRectum(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity);
+		return p / numericalEccentricity;
 	}
 
 	/// <summary>Calculates the current radius (distance from the focus).</summary>
