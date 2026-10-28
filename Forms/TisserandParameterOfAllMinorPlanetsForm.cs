@@ -175,10 +175,7 @@ internal partial class TisserandParameterOfAllMinorPlanetsForm : BaseKryptonForm
 			return;
 		}
 		// Calculate the Tisserand parameters for all eight planets
-		TisserandParameterCalculator.TisserandResult[] tisserandResults = TisserandParameterCalculator.CalculateTisserandParameters(
-			semiMajorAxis: semiMajorAxis,
-			eccentricity: eccentricity,
-			inclinationDeg: inclinationDeg);
+		TisserandParameterCalculator.TisserandResult[] tisserandResults = TisserandParameterCalculator.CalculateTisserandParameters(semiMajorAxis: semiMajorAxis, eccentricity: eccentricity, inclinationDeg: inclinationDeg);
 		// Build the Tisserand parameter array in planet order (Mercury … Neptune)
 		double[] tisserandValues = new double[PlanetCount];
 		for (int i = 0; i < Math.Min(val1: tisserandResults.Length, val2: PlanetCount); i++)
@@ -308,12 +305,7 @@ internal partial class TisserandParameterOfAllMinorPlanetsForm : BaseKryptonForm
 		logger.Info(message: "Start button clicked. Beginning Tisserand parameter calculation.");
 		if (_planetoids.Count == 0)
 		{
-			_ = KryptonMessageBox.Show(
-				owner: this,
-				text: "No planetoid data available.",
-				caption: I18nStrings.InformationCaption,
-				buttons: KryptonMessageBoxButtons.OK,
-				icon: KryptonMessageBoxIcon.Information);
+			_ = KryptonMessageBox.Show(owner: this, text: "No planetoid data available.", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 			return;
 		}
 		// Disable the Start button and save menu during the calculation
@@ -343,7 +335,7 @@ internal partial class TisserandParameterOfAllMinorPlanetsForm : BaseKryptonForm
 				for (int i = 0; i < total; i++)
 				{
 					token.ThrowIfCancellationRequested();
-					ProcessPlanetoidLine(line: _planetoids[i], results: localResults);
+					ProcessPlanetoidLine(line: _planetoids[index: i], results: localResults);
 					if (i % reportInterval == 0 || i == total - 1)
 					{
 						progress.Report(value: (i + 1) * 100 / total);
