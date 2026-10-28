@@ -112,6 +112,7 @@ internal partial class EncounterVelocityOfOneMinorPlanetForm : BaseKryptonForm
 	/// <remarks>Tisserand parameter values are calculated using <see cref="TisserandParameterCalculator.CalculateTisserandParameters"/> and displayed in the second column of the <see cref="tableLayoutPanel"/>.</remarks>
 	private void EncounterVelocityOfOneMinorPlanetForm_Load(object sender, EventArgs e)
 	{
+		const double orbitalEartVelocityiInKm = 29.78498;
 		// Log that the form has loaded and that encounter velocity calculations are starting
 		logger.Info(message: "EncounterVelocityOfOneMinorPlanetForm loaded. Starting encounter velocity calculations.");
 		// Clear the status bar
@@ -144,14 +145,14 @@ internal partial class EncounterVelocityOfOneMinorPlanetForm : BaseKryptonForm
 			// Populate the data labels (one per planet row, index 0 = Mercury … 7 = Neptune)
 			if (tisserandResults.Length >= 8)
 			{
-				labelMercuryData.Text = (DerivedElements.CalculateEncounterVelocityRelativeToMercury(semiMajorAxis: semiMajorAxis, numericalEccentricity: eccentricity, inclination: inclinationDeg) * 29.78498).ToString(format: "F6", provider: CultureInfo.CurrentCulture);
-				labelVenusData.Text = (DerivedElements.CalculateEncounterVelocityRelativeToVenus(semiMajorAxis: semiMajorAxis, numericalEccentricity: eccentricity, inclination: inclinationDeg) * 29.78498).ToString(format: "F6", provider: CultureInfo.CurrentCulture);
-				labelEarthData.Text = (DerivedElements.CalculateEncounterVelocityRelativeToEarth(semiMajorAxis: semiMajorAxis, numericalEccentricity: eccentricity, inclination: inclinationDeg) * 29.78498).ToString(format: "F6", provider: CultureInfo.CurrentCulture);
-				labelMarsData.Text = (DerivedElements.CalculateEncounterVelocityRelativeToMars(semiMajorAxis: semiMajorAxis, numericalEccentricity: eccentricity, inclination: inclinationDeg) * 29.78498).ToString(format: "F6", provider: CultureInfo.CurrentCulture);
-				labelJupiterData.Text = (DerivedElements.CalculateEncounterVelocityRelativeToJupiter(semiMajorAxis: semiMajorAxis, numericalEccentricity: eccentricity, inclination: inclinationDeg) * 29.78498).ToString(format: "F6", provider: CultureInfo.CurrentCulture);
-				labelSaturnData.Text = (DerivedElements.CalculateEncounterVelocityRelativeToSaturn(semiMajorAxis: semiMajorAxis, numericalEccentricity: eccentricity, inclination: inclinationDeg) * 29.78498).ToString(format: "F6", provider: CultureInfo.CurrentCulture);
-				labelUranusData.Text = (DerivedElements.CalculateEncounterVelocityRelativeToUranus(semiMajorAxis: semiMajorAxis, numericalEccentricity: eccentricity, inclination: inclinationDeg) * 29.78498).ToString(format: "F6", provider: CultureInfo.CurrentCulture);
-				labelNeptuneData.Text = (DerivedElements.CalculateEncounterVelocityRelativeToNeptune(semiMajorAxis: semiMajorAxis, numericalEccentricity: eccentricity, inclination: inclinationDeg) * 29.78498).ToString(format: "F6", provider: CultureInfo.CurrentCulture);
+				labelMercuryData.Text = (DerivedElements.CalculateEncounterVelocityRelativeToMercury(semiMajorAxis: semiMajorAxis, numericalEccentricity: eccentricity, inclination: inclinationDeg) * orbitalEartVelocityiInKm).ToString(format: "F6", provider: CultureInfo.CurrentCulture);
+				labelVenusData.Text = (DerivedElements.CalculateEncounterVelocityRelativeToVenus(semiMajorAxis: semiMajorAxis, numericalEccentricity: eccentricity, inclination: inclinationDeg) * orbitalEartVelocityiInKm).ToString(format: "F6", provider: CultureInfo.CurrentCulture);
+				labelEarthData.Text = (DerivedElements.CalculateEncounterVelocityRelativeToEarth(semiMajorAxis: semiMajorAxis, numericalEccentricity: eccentricity, inclination: inclinationDeg) * orbitalEartVelocityiInKm).ToString(format: "F6", provider: CultureInfo.CurrentCulture);
+				labelMarsData.Text = (DerivedElements.CalculateEncounterVelocityRelativeToMars(semiMajorAxis: semiMajorAxis, numericalEccentricity: eccentricity, inclination: inclinationDeg) * orbitalEartVelocityiInKm).ToString(format: "F6", provider: CultureInfo.CurrentCulture);
+				labelJupiterData.Text = (DerivedElements.CalculateEncounterVelocityRelativeToJupiter(semiMajorAxis: semiMajorAxis, numericalEccentricity: eccentricity, inclination: inclinationDeg) * orbitalEartVelocityiInKm).ToString(format: "F6", provider: CultureInfo.CurrentCulture);
+				labelSaturnData.Text = (DerivedElements.CalculateEncounterVelocityRelativeToSaturn(semiMajorAxis: semiMajorAxis, numericalEccentricity: eccentricity, inclination: inclinationDeg) * orbitalEartVelocityiInKm).ToString(format: "F6", provider: CultureInfo.CurrentCulture);
+				labelUranusData.Text = (DerivedElements.CalculateEncounterVelocityRelativeToUranus(semiMajorAxis: semiMajorAxis, numericalEccentricity: eccentricity, inclination: inclinationDeg) * orbitalEartVelocityiInKm).ToString(format: "F6", provider: CultureInfo.CurrentCulture);
+				labelNeptuneData.Text = (DerivedElements.CalculateEncounterVelocityRelativeToNeptune(semiMajorAxis: semiMajorAxis, numericalEccentricity: eccentricity, inclination: inclinationDeg) * orbitalEartVelocityiInKm).ToString(format: "F6", provider: CultureInfo.CurrentCulture);
 			}
 		}
 		// Log any exceptions that occur during the calculation and show an error message to the user
