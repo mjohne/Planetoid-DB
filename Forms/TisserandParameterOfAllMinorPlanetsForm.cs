@@ -189,17 +189,24 @@ internal partial class TisserandParameterOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>Column 0 (Planetoid) is sorted as a string; all other columns (Tisserand parameter values) are sorted numerically.</remarks>
 	private void SortResults()
 	{
+		// If no sort column is selected, do not perform any sorting
 		int col = sortColumn;
+		// If the sort order is None, do not perform any sorting
 		bool ascending = sortOrder == SortOrder.Ascending;
+		// If the results list is empty, do not perform any sorting
 		if (col == ColumnIndexPlanetoid)
 		{
+			// Sort by Planetoid name (string comparison, case-insensitive)
 			_results = ascending
 				? [.. _results.OrderBy(keySelector: static r => r.PlanetoidName, comparer: StringComparer.OrdinalIgnoreCase)]
 				: [.. _results.OrderByDescending(keySelector: static r => r.PlanetoidName, comparer: StringComparer.OrdinalIgnoreCase)];
 		}
+		// Sort by Tisserand parameter values for the selected planet column (numeric comparison)
 		else if (col is >= 1 and <= PlanetCount)
 		{
+			// Convert the column index to a zero-based index for the TisserandValues array
 			int planetIndex = col - 1;
+			// Sort by the Tisserand parameter value for the selected planet
 			_results = ascending
 				? [.. _results.OrderBy(keySelector: r => r.TisserandValues[planetIndex])]
 				: [.. _results.OrderByDescending(keySelector: r => r.TisserandValues[planetIndex])];
@@ -276,19 +283,28 @@ internal partial class TisserandParameterOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>Called by the ListView for each visible row. Must be fast and must not modify <see cref="_results"/>.</remarks>
 	private void ListView_RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)
 	{
+		// Validate the requested index to ensure it is within the bounds of the results list
 		if (e.ItemIndex < 0 || e.ItemIndex >= _results.Count)
 		{
+			// If the index is out of bounds, return an empty ListViewItem to avoid exceptions
 			e.Item = new ListViewItem();
+			// Log a warning to indicate that an out-of-bounds index was requested
+			logger.Warn(message: $"RetrieveVirtualItem called with out-of-bounds index {e.ItemIndex}. Returning empty ListViewItem.");
 			return;
 		}
+		// Create a new ListViewItem for the requested index and populate its subitems with the Tisserand parameter values
 		TisserandRowResult result = _results[e.ItemIndex];
 		ListViewItem item = new(text: result.PlanetoidName);
+		// Format the Tisserand parameter values to six decimal places and add them as subitems
 		string[] subItems = new string[PlanetCount];
+		// Loop through each planet's Tisserand value and format it for display
 		for (int i = 0; i < PlanetCount; i++)
 		{
 			subItems[i] = result.TisserandValues[i].ToString(format: "F6", provider: CultureInfo.CurrentCulture);
 		}
+		// Add the formatted subitems to the ListViewItem
 		item.SubItems.AddRange(items: subItems);
+		// Assign the constructed ListViewItem to the event args so the ListView can display it
 		e.Item = item;
 	}
 
@@ -358,10 +374,13 @@ internal partial class TisserandParameterOfAllMinorPlanetsForm : BaseKryptonForm
 		// Finally block to clean up resources and reset UI elements after the calculation completes or is cancelled
 		finally
 		{
+			// Ensure the progress bar is set to 100% if the calculation completed successfully
 			try
 			{
+				// Update the UI only if the form is still valid and not disposed
 				if (IsHandleCreated && !IsDisposed && !Disposing)
 				{
+					// Assign the local results to the main results list and update the ListView
 					_results = localResults;
 					listView.VirtualListSize = _results.Count;
 					listView.Refresh();
@@ -374,10 +393,12 @@ internal partial class TisserandParameterOfAllMinorPlanetsForm : BaseKryptonForm
 			// Catch ObjectDisposedException and InvalidOperationException that may occur if the form is closing
 			catch (ObjectDisposedException)
 			{
+				// Log a warning that the form was disposed before the calculation could complete, and skip the UI update
 				logger.Warn(message: "Form disposed before calculation could complete. Skipping UI update.");
 			}
 			catch (InvalidOperationException)
 			{
+				// Log a warning that an invalid operation occurred during form shutdown, and skip the UI update
 				logger.Warn(message: "Invalid operation during form shutdown. Skipping UI update.");
 			}
 			// Dispose of the cancellation token source to free resources
@@ -410,6 +431,7 @@ internal partial class TisserandParameterOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>When the "Go to Object" button is clicked, the corresponding planetoid is displayed in the <see cref="PlanetoidDbForm"/> without closing this form.</remarks>
 	private void ToolStripButtonGoToObject_Click(object sender, EventArgs e)
 	{
+		// Log the button click and navigate to the selected planetoid in the main form
 		logger.Info(message: "Go to Object button clicked. Navigating to selected planetoid in main form.");
 		SelectedPlanetoidInMainForm();
 		Close();
@@ -444,18 +466,18 @@ internal partial class TisserandParameterOfAllMinorPlanetsForm : BaseKryptonForm
 		// Update the column headers to reflect the current sort column and direction
 		for (int i = 0; i < listView.Columns.Count; i++)
 		{
-			string headerText = listView.Columns[i].Text;
+			string headerText = listView.Columns[index: i].Text;
 			if (headerText.StartsWith(value: "▲ ", comparisonType: StringComparison.Ordinal) || headerText.StartsWith(value: "▼ ", comparisonType: StringComparison.Ordinal))
 			{
 				headerText = headerText[SortIndicatorPrefixLength..];
 			}
-			listView.Columns[i].Text = i == sortColumn
-				? $"{(sortOrder == SortOrder.Ascending ? "▲" : "▼")} {headerText}"
-				: headerText;
+			listView.Columns[index: i].Text = i == sortColumn ? $"{(sortOrder == SortOrder.Ascending ? "▲" : "▼")} {headerText}" : headerText;
 		}
 		// Re-sort the results and refresh the ListView
 		SortResults();
 		listView.Refresh();
+		// Log the new sort order for debugging purposes
+		logger.Info(message: $"Results sorted by column {sortColumn} in {(sortOrder == SortOrder.Ascending ? "ascending" : "descending")} order.");
 	}
 
 	#endregion
@@ -468,6 +490,7 @@ internal partial class TisserandParameterOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>When an item is double-clicked, the corresponding planetoid is displayed in the <see cref="PlanetoidDbForm"/> without closing this form.</remarks>
 	private void ListView_DoubleClick(object sender, EventArgs e)
 	{
+		// Log the double-click event and navigate to the selected planetoid in the main form
 		logger.Info(message: "ListView item double-clicked. Navigating to selected planetoid in main form.");
 		SelectedPlanetoidInMainForm();
 	}
