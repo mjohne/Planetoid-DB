@@ -31,12 +31,19 @@ partial class EncounterVelocityOfAllMinorPlanetsForm
 	/// <remarks>This method is called by the runtime to release resources used by the form.</remarks>
 	protected override void Dispose(bool disposing)
 	{
-		// Dispose of the cancellation token source and components if disposing is true
+		// Dispose of managed resources if disposing is true
 		if (disposing)
 		{
 			_cancellationTokenSource?.Cancel();
 			_cancellationTokenSource?.Dispose();
 			_cancellationTokenSource = null;
+			// Clear the ListView and results list to free up memory and reset the UI state
+			if (listView != null)
+			{
+				listView.VirtualListSize = 0;
+			}
+			_results?.Clear();
+			_results = null!;
 			components?.Dispose();
 		}
 		// Call the base class Dispose method
@@ -65,25 +72,7 @@ partial class EncounterVelocityOfAllMinorPlanetsForm
 		columnHeaderSaturn = new ColumnHeader();
 		columnHeaderUranus = new ColumnHeader();
 		columnHeaderNeptune = new ColumnHeader();
-		toolStripIcons = new ToolStrip();
-		toolStripButtonStart = new ToolStripButton();
-		toolStripButtonCancel = new ToolStripButton();
-		toolStripSeparator1 = new ToolStripSeparator();
-		toolStripDropDownButtonSaveToFile = new ToolStripDropDownButton();
-		toolStripButtonGoToObject = new ToolStripButton();
-		toolStripProgress = new ToolStrip();
-		toolStripLabelProgress = new ToolStripLabel();
-		kryptonProgressBar = new Krypton.Toolkit.KryptonProgressBarToolStripItem();
-		kryptonManager = new Krypton.Toolkit.KryptonManager(components);
 		contextMenuSaveToFile = new ContextMenuStrip(components);
-		toolStripMenuItemTextFiles = new ToolStripMenuItem();
-		toolStripMenuItemSaveAsText = new ToolStripMenuItem();
-		toolStripMenuItemSaveAsLatex = new ToolStripMenuItem();
-		toolStripMenuItemSaveAsMarkdown = new ToolStripMenuItem();
-		toolStripMenuItemSaveAsAsciiDoc = new ToolStripMenuItem();
-		toolStripMenuItemSaveAsReStructuredText = new ToolStripMenuItem();
-		toolStripMenuItemSaveAsTextile = new ToolStripMenuItem();
-		toolStripMenuItemSaveAstypst = new ToolStripMenuItem();
 		toolStripMenuItemWriterDocuments = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsWord = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsOdt = new ToolStripMenuItem();
@@ -116,6 +105,25 @@ partial class EncounterVelocityOfAllMinorPlanetsForm
 		toolStripMenuItemSaveAsXps = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsFictionBook2 = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsChm = new ToolStripMenuItem();
+		toolStripMenuItemTextFiles = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsText = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsLatex = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsMarkdown = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsAsciiDoc = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsReStructuredText = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsTextile = new ToolStripMenuItem();
+		toolStripMenuItemSaveAstypst = new ToolStripMenuItem();
+		toolStripIcons = new ToolStrip();
+		toolStripButtonStart = new ToolStripButton();
+		toolStripButtonCancel = new ToolStripButton();
+		toolStripSeparator1 = new ToolStripSeparator();
+		toolStripDropDownButtonSaveToFile = new ToolStripDropDownButton();
+		toolStripButtonGoToObject = new ToolStripButton();
+		toolStripButtonFilterEncounterVelocitys = new ToolStripButton();
+		toolStripProgress = new ToolStrip();
+		toolStripLabelProgress = new ToolStripLabel();
+		kryptonProgressBar = new Krypton.Toolkit.KryptonProgressBarToolStripItem();
+		kryptonManager = new Krypton.Toolkit.KryptonManager(components);
 		toolStripContainer.BottomToolStripPanel.SuspendLayout();
 		toolStripContainer.ContentPanel.SuspendLayout();
 		toolStripContainer.TopToolStripPanel.SuspendLayout();
@@ -123,9 +131,9 @@ partial class EncounterVelocityOfAllMinorPlanetsForm
 		kryptonStatusStrip.SuspendLayout();
 		((System.ComponentModel.ISupportInitialize)kryptonPanelMain).BeginInit();
 		kryptonPanelMain.SuspendLayout();
+		contextMenuSaveToFile.SuspendLayout();
 		toolStripIcons.SuspendLayout();
 		toolStripProgress.SuspendLayout();
-		contextMenuSaveToFile.SuspendLayout();
 		SuspendLayout();
 		// 
 		// toolStripContainer
@@ -235,6 +243,7 @@ partial class EncounterVelocityOfAllMinorPlanetsForm
 		listView.AccessibleRole = AccessibleRole.List;
 		listView.AllowColumnReorder = true;
 		listView.Columns.AddRange(new ColumnHeader[] { columnHeaderPlanetoid, columnHeaderMercury, columnHeaderVenus, columnHeaderEarth, columnHeaderMars, columnHeaderJupiter, columnHeaderSaturn, columnHeaderUranus, columnHeaderNeptune });
+		listView.ContextMenuStrip = contextMenuSaveToFile;
 		listView.Dock = DockStyle.Fill;
 		listView.Font = new Font("Segoe UI", 9F);
 		listView.FullRowSelect = true;
@@ -309,155 +318,6 @@ partial class EncounterVelocityOfAllMinorPlanetsForm
 		columnHeaderNeptune.TextAlign = HorizontalAlignment.Right;
 		columnHeaderNeptune.Width = 100;
 		// 
-		// toolStripIcons
-		// 
-		toolStripIcons.AccessibleDescription = "Toolbar for starting and cancelling the Tisserand parameter calculation";
-		toolStripIcons.AccessibleName = "Toolbar for starting and cancelling";
-		toolStripIcons.AccessibleRole = AccessibleRole.ToolBar;
-		toolStripIcons.AllowClickThrough = true;
-		toolStripIcons.AllowItemReorder = true;
-		toolStripIcons.BackColor = Color.Transparent;
-		toolStripIcons.Dock = DockStyle.None;
-		toolStripIcons.Font = new Font("Segoe UI", 9F);
-		toolStripIcons.Items.AddRange(new ToolStripItem[] { toolStripButtonStart, toolStripButtonCancel, toolStripSeparator1, toolStripDropDownButtonSaveToFile, toolStripButtonGoToObject });
-		toolStripIcons.Location = new Point(0, 0);
-		toolStripIcons.Name = "toolStripIcons";
-		toolStripIcons.Size = new Size(1028, 25);
-		toolStripIcons.Stretch = true;
-		toolStripIcons.TabIndex = 0;
-		toolStripIcons.TabStop = true;
-		toolStripIcons.Text = "Toolbar for starting and cancelling";
-		toolStripIcons.Enter += Control_Enter;
-		toolStripIcons.Leave += Control_Leave;
-		toolStripIcons.MouseEnter += Control_Enter;
-		toolStripIcons.MouseLeave += Control_Leave;
-		// 
-		// toolStripButtonStart
-		// 
-		toolStripButtonStart.AccessibleDescription = "Starts the Tisserand parameter calculation for all minor planets";
-		toolStripButtonStart.AccessibleName = "Start calculation";
-		toolStripButtonStart.AccessibleRole = AccessibleRole.PushButton;
-		toolStripButtonStart.Image = FatcowIcons16px.fatcow_table_16px;
-		toolStripButtonStart.ImageTransparentColor = Color.Magenta;
-		toolStripButtonStart.Name = "toolStripButtonStart";
-		toolStripButtonStart.Size = new Size(112, 22);
-		toolStripButtonStart.Text = "S&tart calculation";
-		toolStripButtonStart.Click += ButtonStart_Click;
-		toolStripButtonStart.MouseEnter += Control_Enter;
-		toolStripButtonStart.MouseLeave += Control_Leave;
-		// 
-		// toolStripButtonCancel
-		// 
-		toolStripButtonCancel.AccessibleDescription = "Cancels the Tisserand parameter calculation";
-		toolStripButtonCancel.AccessibleName = "Cancel";
-		toolStripButtonCancel.AccessibleRole = AccessibleRole.PushButton;
-		toolStripButtonCancel.Enabled = false;
-		toolStripButtonCancel.Image = FatcowIcons16px.fatcow_cancel_16px;
-		toolStripButtonCancel.ImageTransparentColor = Color.Magenta;
-		toolStripButtonCancel.Name = "toolStripButtonCancel";
-		toolStripButtonCancel.Size = new Size(63, 22);
-		toolStripButtonCancel.Text = "&Cancel";
-		toolStripButtonCancel.Click += ButtonCancel_Click;
-		toolStripButtonCancel.MouseEnter += Control_Enter;
-		toolStripButtonCancel.MouseLeave += Control_Leave;
-		// 
-		// toolStripSeparator1
-		// 
-		toolStripSeparator1.AccessibleDescription = "Just a separator";
-		toolStripSeparator1.AccessibleName = "Just a separator";
-		toolStripSeparator1.AccessibleRole = AccessibleRole.Separator;
-		toolStripSeparator1.Name = "toolStripSeparator1";
-		toolStripSeparator1.Size = new Size(6, 25);
-		toolStripSeparator1.MouseEnter += Control_Enter;
-		toolStripSeparator1.MouseLeave += Control_Leave;
-		// 
-		// toolStripDropDownButtonSaveToFile
-		// 
-		toolStripDropDownButtonSaveToFile.AccessibleDescription = "Saves information to file";
-		toolStripDropDownButtonSaveToFile.AccessibleName = "Save to file";
-		toolStripDropDownButtonSaveToFile.AccessibleRole = AccessibleRole.ButtonDropDown;
-		toolStripDropDownButtonSaveToFile.Enabled = false;
-		toolStripDropDownButtonSaveToFile.Image = FatcowIcons16px.fatcow_diskette_16px;
-		toolStripDropDownButtonSaveToFile.ImageTransparentColor = Color.Magenta;
-		toolStripDropDownButtonSaveToFile.Name = "toolStripDropDownButtonSaveToFile";
-		toolStripDropDownButtonSaveToFile.Size = new Size(93, 22);
-		toolStripDropDownButtonSaveToFile.Text = "&Save to file";
-		toolStripDropDownButtonSaveToFile.MouseEnter += Control_Enter;
-		toolStripDropDownButtonSaveToFile.MouseLeave += Control_Leave;
-		// 
-		// toolStripButtonGoToObject
-		// 
-		toolStripButtonGoToObject.AccessibleDescription = "Goes to the selected planetoid";
-		toolStripButtonGoToObject.AccessibleName = "Go to object";
-		toolStripButtonGoToObject.AccessibleRole = AccessibleRole.PushButton;
-		toolStripButtonGoToObject.Enabled = false;
-		toolStripButtonGoToObject.Image = FatcowIcons16px.fatcow_application_go_16px;
-		toolStripButtonGoToObject.ImageTransparentColor = Color.Magenta;
-		toolStripButtonGoToObject.Name = "toolStripButtonGoToObject";
-		toolStripButtonGoToObject.Size = new Size(92, 22);
-		toolStripButtonGoToObject.Text = "&Go to object";
-		toolStripButtonGoToObject.Click += ToolStripButtonGoToObject_Click;
-		toolStripButtonGoToObject.MouseEnter += Control_Enter;
-		toolStripButtonGoToObject.MouseLeave += Control_Leave;
-		// 
-		// toolStripProgress
-		// 
-		toolStripProgress.AccessibleDescription = "Toolbar showing the calculation progress";
-		toolStripProgress.AccessibleName = "Toolbar showing the calculation progress";
-		toolStripProgress.AccessibleRole = AccessibleRole.ToolBar;
-		toolStripProgress.AllowClickThrough = true;
-		toolStripProgress.AllowItemReorder = true;
-		toolStripProgress.BackColor = Color.Transparent;
-		toolStripProgress.Dock = DockStyle.None;
-		toolStripProgress.Font = new Font("Segoe UI", 9F);
-		toolStripProgress.Items.AddRange(new ToolStripItem[] { toolStripLabelProgress, kryptonProgressBar });
-		toolStripProgress.Location = new Point(0, 25);
-		toolStripProgress.Name = "toolStripProgress";
-		toolStripProgress.Size = new Size(1028, 26);
-		toolStripProgress.Stretch = true;
-		toolStripProgress.TabIndex = 1;
-		toolStripProgress.TabStop = true;
-		toolStripProgress.Text = "Toolbar showing the calculation progress";
-		toolStripProgress.Enter += Control_Enter;
-		toolStripProgress.Leave += Control_Leave;
-		toolStripProgress.MouseEnter += Control_Enter;
-		toolStripProgress.MouseLeave += Control_Leave;
-		// 
-		// toolStripLabelProgress
-		// 
-		toolStripLabelProgress.AccessibleDescription = "Shows the progress of the Tisserand parameter calculation";
-		toolStripLabelProgress.AccessibleName = "Progress";
-		toolStripLabelProgress.AccessibleRole = AccessibleRole.StaticText;
-		toolStripLabelProgress.AutoToolTip = true;
-		toolStripLabelProgress.Name = "toolStripLabelProgress";
-		toolStripLabelProgress.Size = new Size(52, 23);
-		toolStripLabelProgress.Text = "Pro&gress";
-		toolStripLabelProgress.MouseEnter += Control_Enter;
-		toolStripLabelProgress.MouseLeave += Control_Leave;
-		// 
-		// kryptonProgressBar
-		// 
-		kryptonProgressBar.AccessibleDescription = "Shows the progress";
-		kryptonProgressBar.AccessibleName = "Progress";
-		kryptonProgressBar.AccessibleRole = AccessibleRole.ProgressBar;
-		kryptonProgressBar.AutoToolTip = true;
-		kryptonProgressBar.Name = "kryptonProgressBar";
-		kryptonProgressBar.Size = new Size(800, 23);
-		kryptonProgressBar.StateCommon.Back.Color1 = Color.Green;
-		kryptonProgressBar.StateDisabled.Back.ColorStyle = Krypton.Toolkit.PaletteColorStyle.OneNote;
-		kryptonProgressBar.StateNormal.Back.ColorStyle = Krypton.Toolkit.PaletteColorStyle.OneNote;
-		kryptonProgressBar.Values.Text = "";
-		kryptonProgressBar.Enter += Control_Enter;
-		kryptonProgressBar.Leave += Control_Leave;
-		kryptonProgressBar.MouseEnter += Control_Enter;
-		kryptonProgressBar.MouseLeave += Control_Leave;
-		// 
-		// kryptonManager
-		// 
-		kryptonManager.GlobalPaletteMode = Krypton.Toolkit.PaletteMode.Global;
-		kryptonManager.ToolkitStrings.MessageBoxStrings.LessDetails = "L&ess Details...";
-		kryptonManager.ToolkitStrings.MessageBoxStrings.MoreDetails = "&More Details...";
-		// 
 		// contextMenuSaveToFile
 		// 
 		contextMenuSaveToFile.AccessibleDescription = "Save the list as file";
@@ -474,118 +334,6 @@ partial class EncounterVelocityOfAllMinorPlanetsForm
 		contextMenuSaveToFile.Leave += Control_Leave;
 		contextMenuSaveToFile.MouseEnter += Control_Enter;
 		contextMenuSaveToFile.MouseLeave += Control_Leave;
-		// 
-		// toolStripMenuItemTextFiles
-		// 
-		toolStripMenuItemTextFiles.AccessibleDescription = "Saves the list as text file";
-		toolStripMenuItemTextFiles.AccessibleName = "Save as text file";
-		toolStripMenuItemTextFiles.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemTextFiles.AutoToolTip = true;
-		toolStripMenuItemTextFiles.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsText, toolStripMenuItemSaveAsLatex, toolStripMenuItemSaveAsMarkdown, toolStripMenuItemSaveAsAsciiDoc, toolStripMenuItemSaveAsReStructuredText, toolStripMenuItemSaveAsTextile, toolStripMenuItemSaveAstypst });
-		toolStripMenuItemTextFiles.Image = FatcowIcons16px.fatcow_file_extension_txt_16px;
-		toolStripMenuItemTextFiles.Name = "toolStripMenuItemTextFiles";
-		toolStripMenuItemTextFiles.Size = new Size(201, 22);
-		toolStripMenuItemTextFiles.Text = "&Text files";
-		toolStripMenuItemTextFiles.MouseEnter += Control_Enter;
-		toolStripMenuItemTextFiles.MouseLeave += Control_Leave;
-		// 
-		// toolStripMenuItemSaveAsText
-		// 
-		toolStripMenuItemSaveAsText.AccessibleDescription = "Saves the list as text file";
-		toolStripMenuItemSaveAsText.AccessibleName = "Save as text";
-		toolStripMenuItemSaveAsText.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemSaveAsText.AutoToolTip = true;
-		toolStripMenuItemSaveAsText.Image = FatcowIcons16px.fatcow_page_white_text_16px;
-		toolStripMenuItemSaveAsText.Name = "toolStripMenuItemSaveAsText";
-		toolStripMenuItemSaveAsText.Size = new Size(201, 22);
-		toolStripMenuItemSaveAsText.Text = "Save as &text";
-		toolStripMenuItemSaveAsText.Click += SaveAsText_Click;
-		toolStripMenuItemSaveAsText.MouseEnter += Control_Enter;
-		toolStripMenuItemSaveAsText.MouseLeave += Control_Leave;
-		// 
-		// toolStripMenuItemSaveAsLatex
-		// 
-		toolStripMenuItemSaveAsLatex.AccessibleDescription = "Saves the list as Latex file";
-		toolStripMenuItemSaveAsLatex.AccessibleName = "Save as Latex";
-		toolStripMenuItemSaveAsLatex.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemSaveAsLatex.AutoToolTip = true;
-		toolStripMenuItemSaveAsLatex.Image = FatcowIcons16px.fatcow_page_white_text_16px;
-		toolStripMenuItemSaveAsLatex.Name = "toolStripMenuItemSaveAsLatex";
-		toolStripMenuItemSaveAsLatex.Size = new Size(201, 22);
-		toolStripMenuItemSaveAsLatex.Text = "Save as &Latex";
-		toolStripMenuItemSaveAsLatex.Click += SaveAsLatex_Click;
-		toolStripMenuItemSaveAsLatex.MouseEnter += Control_Enter;
-		toolStripMenuItemSaveAsLatex.MouseLeave += Control_Leave;
-		// 
-		// toolStripMenuItemSaveAsMarkdown
-		// 
-		toolStripMenuItemSaveAsMarkdown.AccessibleDescription = "Saves the list as Markdown file";
-		toolStripMenuItemSaveAsMarkdown.AccessibleName = "Save as Markdown";
-		toolStripMenuItemSaveAsMarkdown.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemSaveAsMarkdown.AutoToolTip = true;
-		toolStripMenuItemSaveAsMarkdown.Image = FatcowIcons16px.fatcow_page_white_text_16px;
-		toolStripMenuItemSaveAsMarkdown.Name = "toolStripMenuItemSaveAsMarkdown";
-		toolStripMenuItemSaveAsMarkdown.Size = new Size(201, 22);
-		toolStripMenuItemSaveAsMarkdown.Text = "Save as &Markdown";
-		toolStripMenuItemSaveAsMarkdown.Click += SaveAsMarkdown_Click;
-		toolStripMenuItemSaveAsMarkdown.MouseEnter += Control_Enter;
-		toolStripMenuItemSaveAsMarkdown.MouseLeave += Control_Leave;
-		// 
-		// toolStripMenuItemSaveAsAsciiDoc
-		// 
-		toolStripMenuItemSaveAsAsciiDoc.AccessibleDescription = "Saves the list as AsciiDoc file";
-		toolStripMenuItemSaveAsAsciiDoc.AccessibleName = "Save as AsciiDoc";
-		toolStripMenuItemSaveAsAsciiDoc.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemSaveAsAsciiDoc.AutoToolTip = true;
-		toolStripMenuItemSaveAsAsciiDoc.Image = FatcowIcons16px.fatcow_page_white_text_16px;
-		toolStripMenuItemSaveAsAsciiDoc.Name = "toolStripMenuItemSaveAsAsciiDoc";
-		toolStripMenuItemSaveAsAsciiDoc.Size = new Size(201, 22);
-		toolStripMenuItemSaveAsAsciiDoc.Text = "Save as &AsciiDoc";
-		toolStripMenuItemSaveAsAsciiDoc.Click += SaveAsAsciiDoc_Click;
-		toolStripMenuItemSaveAsAsciiDoc.MouseEnter += Control_Enter;
-		toolStripMenuItemSaveAsAsciiDoc.MouseLeave += Control_Leave;
-		// 
-		// toolStripMenuItemSaveAsReStructuredText
-		// 
-		toolStripMenuItemSaveAsReStructuredText.AccessibleDescription = "Saves the list as reStructuredText file";
-		toolStripMenuItemSaveAsReStructuredText.AccessibleName = "Save as reStructuredText";
-		toolStripMenuItemSaveAsReStructuredText.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemSaveAsReStructuredText.AutoToolTip = true;
-		toolStripMenuItemSaveAsReStructuredText.Image = FatcowIcons16px.fatcow_page_white_text_16px;
-		toolStripMenuItemSaveAsReStructuredText.Name = "toolStripMenuItemSaveAsReStructuredText";
-		toolStripMenuItemSaveAsReStructuredText.Size = new Size(201, 22);
-		toolStripMenuItemSaveAsReStructuredText.Text = "Save as &reStructuredText";
-		toolStripMenuItemSaveAsReStructuredText.Click += SaveAsReStructuredText_Click;
-		toolStripMenuItemSaveAsReStructuredText.MouseEnter += Control_Enter;
-		toolStripMenuItemSaveAsReStructuredText.MouseLeave += Control_Leave;
-		// 
-		// toolStripMenuItemSaveAsTextile
-		// 
-		toolStripMenuItemSaveAsTextile.AccessibleDescription = "Saves the list as Textile file";
-		toolStripMenuItemSaveAsTextile.AccessibleName = "Save as Textile";
-		toolStripMenuItemSaveAsTextile.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemSaveAsTextile.AutoToolTip = true;
-		toolStripMenuItemSaveAsTextile.Image = FatcowIcons16px.fatcow_page_white_text_16px;
-		toolStripMenuItemSaveAsTextile.Name = "toolStripMenuItemSaveAsTextile";
-		toolStripMenuItemSaveAsTextile.Size = new Size(201, 22);
-		toolStripMenuItemSaveAsTextile.Text = "Save as Te&xtile";
-		toolStripMenuItemSaveAsTextile.Click += SaveAsTextile_Click;
-		toolStripMenuItemSaveAsTextile.MouseEnter += Control_Enter;
-		toolStripMenuItemSaveAsTextile.MouseLeave += Control_Leave;
-		// 
-		// toolStripMenuItemSaveAstypst
-		// 
-		toolStripMenuItemSaveAstypst.AccessibleDescription = "Saves the list as Typst file";
-		toolStripMenuItemSaveAstypst.AccessibleName = "Save as Typst";
-		toolStripMenuItemSaveAstypst.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemSaveAstypst.AutoToolTip = true;
-		toolStripMenuItemSaveAstypst.Image = FatcowIcons16px.fatcow_page_white_text_16px;
-		toolStripMenuItemSaveAstypst.Name = "toolStripMenuItemSaveAstypst";
-		toolStripMenuItemSaveAstypst.Size = new Size(201, 22);
-		toolStripMenuItemSaveAstypst.Text = "Save as T&ypst";
-		toolStripMenuItemSaveAstypst.Click += SaveAsTypst_Click;
-		toolStripMenuItemSaveAstypst.MouseEnter += Control_Enter;
-		toolStripMenuItemSaveAstypst.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemWriterDocuments
 		// 
@@ -1035,6 +783,282 @@ partial class EncounterVelocityOfAllMinorPlanetsForm
 		toolStripMenuItemSaveAsChm.MouseEnter += Control_Enter;
 		toolStripMenuItemSaveAsChm.MouseLeave += Control_Leave;
 		// 
+		// toolStripMenuItemTextFiles
+		// 
+		toolStripMenuItemTextFiles.AccessibleDescription = "Saves the list as text file";
+		toolStripMenuItemTextFiles.AccessibleName = "Save as text file";
+		toolStripMenuItemTextFiles.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemTextFiles.AutoToolTip = true;
+		toolStripMenuItemTextFiles.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsText, toolStripMenuItemSaveAsLatex, toolStripMenuItemSaveAsMarkdown, toolStripMenuItemSaveAsAsciiDoc, toolStripMenuItemSaveAsReStructuredText, toolStripMenuItemSaveAsTextile, toolStripMenuItemSaveAstypst });
+		toolStripMenuItemTextFiles.Image = FatcowIcons16px.fatcow_file_extension_txt_16px;
+		toolStripMenuItemTextFiles.Name = "toolStripMenuItemTextFiles";
+		toolStripMenuItemTextFiles.Size = new Size(201, 22);
+		toolStripMenuItemTextFiles.Text = "&Text files";
+		toolStripMenuItemTextFiles.MouseEnter += Control_Enter;
+		toolStripMenuItemTextFiles.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSaveAsText
+		// 
+		toolStripMenuItemSaveAsText.AccessibleDescription = "Saves the list as text file";
+		toolStripMenuItemSaveAsText.AccessibleName = "Save as text";
+		toolStripMenuItemSaveAsText.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsText.AutoToolTip = true;
+		toolStripMenuItemSaveAsText.Image = FatcowIcons16px.fatcow_page_white_text_16px;
+		toolStripMenuItemSaveAsText.Name = "toolStripMenuItemSaveAsText";
+		toolStripMenuItemSaveAsText.Size = new Size(201, 22);
+		toolStripMenuItemSaveAsText.Text = "Save as &text";
+		toolStripMenuItemSaveAsText.Click += SaveAsText_Click;
+		toolStripMenuItemSaveAsText.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsText.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSaveAsLatex
+		// 
+		toolStripMenuItemSaveAsLatex.AccessibleDescription = "Saves the list as Latex file";
+		toolStripMenuItemSaveAsLatex.AccessibleName = "Save as Latex";
+		toolStripMenuItemSaveAsLatex.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsLatex.AutoToolTip = true;
+		toolStripMenuItemSaveAsLatex.Image = FatcowIcons16px.fatcow_page_white_text_16px;
+		toolStripMenuItemSaveAsLatex.Name = "toolStripMenuItemSaveAsLatex";
+		toolStripMenuItemSaveAsLatex.Size = new Size(201, 22);
+		toolStripMenuItemSaveAsLatex.Text = "Save as &Latex";
+		toolStripMenuItemSaveAsLatex.Click += SaveAsLatex_Click;
+		toolStripMenuItemSaveAsLatex.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsLatex.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSaveAsMarkdown
+		// 
+		toolStripMenuItemSaveAsMarkdown.AccessibleDescription = "Saves the list as Markdown file";
+		toolStripMenuItemSaveAsMarkdown.AccessibleName = "Save as Markdown";
+		toolStripMenuItemSaveAsMarkdown.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsMarkdown.AutoToolTip = true;
+		toolStripMenuItemSaveAsMarkdown.Image = FatcowIcons16px.fatcow_page_white_text_16px;
+		toolStripMenuItemSaveAsMarkdown.Name = "toolStripMenuItemSaveAsMarkdown";
+		toolStripMenuItemSaveAsMarkdown.Size = new Size(201, 22);
+		toolStripMenuItemSaveAsMarkdown.Text = "Save as &Markdown";
+		toolStripMenuItemSaveAsMarkdown.Click += SaveAsMarkdown_Click;
+		toolStripMenuItemSaveAsMarkdown.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsMarkdown.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSaveAsAsciiDoc
+		// 
+		toolStripMenuItemSaveAsAsciiDoc.AccessibleDescription = "Saves the list as AsciiDoc file";
+		toolStripMenuItemSaveAsAsciiDoc.AccessibleName = "Save as AsciiDoc";
+		toolStripMenuItemSaveAsAsciiDoc.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsAsciiDoc.AutoToolTip = true;
+		toolStripMenuItemSaveAsAsciiDoc.Image = FatcowIcons16px.fatcow_page_white_text_16px;
+		toolStripMenuItemSaveAsAsciiDoc.Name = "toolStripMenuItemSaveAsAsciiDoc";
+		toolStripMenuItemSaveAsAsciiDoc.Size = new Size(201, 22);
+		toolStripMenuItemSaveAsAsciiDoc.Text = "Save as &AsciiDoc";
+		toolStripMenuItemSaveAsAsciiDoc.Click += SaveAsAsciiDoc_Click;
+		toolStripMenuItemSaveAsAsciiDoc.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsAsciiDoc.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSaveAsReStructuredText
+		// 
+		toolStripMenuItemSaveAsReStructuredText.AccessibleDescription = "Saves the list as reStructuredText file";
+		toolStripMenuItemSaveAsReStructuredText.AccessibleName = "Save as reStructuredText";
+		toolStripMenuItemSaveAsReStructuredText.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsReStructuredText.AutoToolTip = true;
+		toolStripMenuItemSaveAsReStructuredText.Image = FatcowIcons16px.fatcow_page_white_text_16px;
+		toolStripMenuItemSaveAsReStructuredText.Name = "toolStripMenuItemSaveAsReStructuredText";
+		toolStripMenuItemSaveAsReStructuredText.Size = new Size(201, 22);
+		toolStripMenuItemSaveAsReStructuredText.Text = "Save as &reStructuredText";
+		toolStripMenuItemSaveAsReStructuredText.Click += SaveAsReStructuredText_Click;
+		toolStripMenuItemSaveAsReStructuredText.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsReStructuredText.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSaveAsTextile
+		// 
+		toolStripMenuItemSaveAsTextile.AccessibleDescription = "Saves the list as Textile file";
+		toolStripMenuItemSaveAsTextile.AccessibleName = "Save as Textile";
+		toolStripMenuItemSaveAsTextile.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsTextile.AutoToolTip = true;
+		toolStripMenuItemSaveAsTextile.Image = FatcowIcons16px.fatcow_page_white_text_16px;
+		toolStripMenuItemSaveAsTextile.Name = "toolStripMenuItemSaveAsTextile";
+		toolStripMenuItemSaveAsTextile.Size = new Size(201, 22);
+		toolStripMenuItemSaveAsTextile.Text = "Save as Te&xtile";
+		toolStripMenuItemSaveAsTextile.Click += SaveAsTextile_Click;
+		toolStripMenuItemSaveAsTextile.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsTextile.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSaveAstypst
+		// 
+		toolStripMenuItemSaveAstypst.AccessibleDescription = "Saves the list as Typst file";
+		toolStripMenuItemSaveAstypst.AccessibleName = "Save as Typst";
+		toolStripMenuItemSaveAstypst.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAstypst.AutoToolTip = true;
+		toolStripMenuItemSaveAstypst.Image = FatcowIcons16px.fatcow_page_white_text_16px;
+		toolStripMenuItemSaveAstypst.Name = "toolStripMenuItemSaveAstypst";
+		toolStripMenuItemSaveAstypst.Size = new Size(201, 22);
+		toolStripMenuItemSaveAstypst.Text = "Save as T&ypst";
+		toolStripMenuItemSaveAstypst.Click += SaveAsTypst_Click;
+		toolStripMenuItemSaveAstypst.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAstypst.MouseLeave += Control_Leave;
+		// 
+		// toolStripIcons
+		// 
+		toolStripIcons.AccessibleDescription = "Toolbar for starting and cancelling the Tisserand parameter calculation";
+		toolStripIcons.AccessibleName = "Toolbar for starting and cancelling";
+		toolStripIcons.AccessibleRole = AccessibleRole.ToolBar;
+		toolStripIcons.AllowClickThrough = true;
+		toolStripIcons.AllowItemReorder = true;
+		toolStripIcons.BackColor = Color.Transparent;
+		toolStripIcons.Dock = DockStyle.None;
+		toolStripIcons.Font = new Font("Segoe UI", 9F);
+		toolStripIcons.Items.AddRange(new ToolStripItem[] { toolStripButtonStart, toolStripButtonCancel, toolStripSeparator1, toolStripDropDownButtonSaveToFile, toolStripButtonGoToObject, toolStripButtonFilterEncounterVelocitys });
+		toolStripIcons.Location = new Point(0, 0);
+		toolStripIcons.Name = "toolStripIcons";
+		toolStripIcons.Size = new Size(1028, 25);
+		toolStripIcons.Stretch = true;
+		toolStripIcons.TabIndex = 0;
+		toolStripIcons.TabStop = true;
+		toolStripIcons.Text = "Toolbar for starting and cancelling";
+		toolStripIcons.Enter += Control_Enter;
+		toolStripIcons.Leave += Control_Leave;
+		toolStripIcons.MouseEnter += Control_Enter;
+		toolStripIcons.MouseLeave += Control_Leave;
+		// 
+		// toolStripButtonStart
+		// 
+		toolStripButtonStart.AccessibleDescription = "Starts the Tisserand parameter calculation for all minor planets";
+		toolStripButtonStart.AccessibleName = "Start calculation";
+		toolStripButtonStart.AccessibleRole = AccessibleRole.PushButton;
+		toolStripButtonStart.Image = FatcowIcons16px.fatcow_table_16px;
+		toolStripButtonStart.ImageTransparentColor = Color.Magenta;
+		toolStripButtonStart.Name = "toolStripButtonStart";
+		toolStripButtonStart.Size = new Size(112, 22);
+		toolStripButtonStart.Text = "S&tart calculation";
+		toolStripButtonStart.Click += ButtonStart_Click;
+		toolStripButtonStart.MouseEnter += Control_Enter;
+		toolStripButtonStart.MouseLeave += Control_Leave;
+		// 
+		// toolStripButtonCancel
+		// 
+		toolStripButtonCancel.AccessibleDescription = "Cancels the Tisserand parameter calculation";
+		toolStripButtonCancel.AccessibleName = "Cancel";
+		toolStripButtonCancel.AccessibleRole = AccessibleRole.PushButton;
+		toolStripButtonCancel.Enabled = false;
+		toolStripButtonCancel.Image = FatcowIcons16px.fatcow_cancel_16px;
+		toolStripButtonCancel.ImageTransparentColor = Color.Magenta;
+		toolStripButtonCancel.Name = "toolStripButtonCancel";
+		toolStripButtonCancel.Size = new Size(63, 22);
+		toolStripButtonCancel.Text = "&Cancel";
+		toolStripButtonCancel.Click += ButtonCancel_Click;
+		toolStripButtonCancel.MouseEnter += Control_Enter;
+		toolStripButtonCancel.MouseLeave += Control_Leave;
+		// 
+		// toolStripSeparator1
+		// 
+		toolStripSeparator1.AccessibleDescription = "Just a separator";
+		toolStripSeparator1.AccessibleName = "Just a separator";
+		toolStripSeparator1.AccessibleRole = AccessibleRole.Separator;
+		toolStripSeparator1.Name = "toolStripSeparator1";
+		toolStripSeparator1.Size = new Size(6, 25);
+		toolStripSeparator1.MouseEnter += Control_Enter;
+		toolStripSeparator1.MouseLeave += Control_Leave;
+		// 
+		// toolStripDropDownButtonSaveToFile
+		// 
+		toolStripDropDownButtonSaveToFile.AccessibleDescription = "Saves information to file";
+		toolStripDropDownButtonSaveToFile.AccessibleName = "Save to file";
+		toolStripDropDownButtonSaveToFile.AccessibleRole = AccessibleRole.ButtonDropDown;
+		toolStripDropDownButtonSaveToFile.DropDown = contextMenuSaveToFile;
+		toolStripDropDownButtonSaveToFile.Enabled = false;
+		toolStripDropDownButtonSaveToFile.Image = FatcowIcons16px.fatcow_diskette_16px;
+		toolStripDropDownButtonSaveToFile.ImageTransparentColor = Color.Magenta;
+		toolStripDropDownButtonSaveToFile.Name = "toolStripDropDownButtonSaveToFile";
+		toolStripDropDownButtonSaveToFile.Size = new Size(93, 22);
+		toolStripDropDownButtonSaveToFile.Text = "&Save to file";
+		toolStripDropDownButtonSaveToFile.MouseEnter += Control_Enter;
+		toolStripDropDownButtonSaveToFile.MouseLeave += Control_Leave;
+		// 
+		// toolStripButtonGoToObject
+		// 
+		toolStripButtonGoToObject.AccessibleDescription = "Goes to the selected planetoid";
+		toolStripButtonGoToObject.AccessibleName = "Go to object";
+		toolStripButtonGoToObject.AccessibleRole = AccessibleRole.PushButton;
+		toolStripButtonGoToObject.Enabled = false;
+		toolStripButtonGoToObject.Image = FatcowIcons16px.fatcow_application_go_16px;
+		toolStripButtonGoToObject.ImageTransparentColor = Color.Magenta;
+		toolStripButtonGoToObject.Name = "toolStripButtonGoToObject";
+		toolStripButtonGoToObject.Size = new Size(92, 22);
+		toolStripButtonGoToObject.Text = "&Go to object";
+		toolStripButtonGoToObject.Click += ToolStripButtonGoToObject_Click;
+		toolStripButtonGoToObject.MouseEnter += Control_Enter;
+		toolStripButtonGoToObject.MouseLeave += Control_Leave;
+		// 
+		// toolStripButtonFilterEncounterVelocitys
+		// 
+		toolStripButtonFilterEncounterVelocitys.AccessibleDescription = "Filter to show only encounter velocitys";
+		toolStripButtonFilterEncounterVelocitys.AccessibleName = "Encounter velocitys";
+		toolStripButtonFilterEncounterVelocitys.AccessibleRole = AccessibleRole.CheckButton;
+		toolStripButtonFilterEncounterVelocitys.CheckOnClick = true;
+		toolStripButtonFilterEncounterVelocitys.Enabled = false;
+		toolStripButtonFilterEncounterVelocitys.Image = FatcowIcons16px.fatcow_filter_reapply_16px;
+		toolStripButtonFilterEncounterVelocitys.Name = "toolStripButtonFilterEncounterVelocitys";
+		toolStripButtonFilterEncounterVelocitys.Size = new Size(115, 22);
+		toolStripButtonFilterEncounterVelocitys.Text = "Filter resonances";
+		toolStripButtonFilterEncounterVelocitys.ToolTipText = "Encounter velocitys";
+		toolStripButtonFilterEncounterVelocitys.Click += ToolStripButtonFilterEncounterVelocitys_Click;
+		// 
+		// toolStripProgress
+		// 
+		toolStripProgress.AccessibleDescription = "Toolbar showing the calculation progress";
+		toolStripProgress.AccessibleName = "Toolbar showing the calculation progress";
+		toolStripProgress.AccessibleRole = AccessibleRole.ToolBar;
+		toolStripProgress.AllowClickThrough = true;
+		toolStripProgress.AllowItemReorder = true;
+		toolStripProgress.BackColor = Color.Transparent;
+		toolStripProgress.Dock = DockStyle.None;
+		toolStripProgress.Font = new Font("Segoe UI", 9F);
+		toolStripProgress.Items.AddRange(new ToolStripItem[] { toolStripLabelProgress, kryptonProgressBar });
+		toolStripProgress.Location = new Point(0, 25);
+		toolStripProgress.Name = "toolStripProgress";
+		toolStripProgress.Size = new Size(1028, 26);
+		toolStripProgress.Stretch = true;
+		toolStripProgress.TabIndex = 1;
+		toolStripProgress.TabStop = true;
+		toolStripProgress.Text = "Toolbar showing the calculation progress";
+		toolStripProgress.Enter += Control_Enter;
+		toolStripProgress.Leave += Control_Leave;
+		toolStripProgress.MouseEnter += Control_Enter;
+		toolStripProgress.MouseLeave += Control_Leave;
+		// 
+		// toolStripLabelProgress
+		// 
+		toolStripLabelProgress.AccessibleDescription = "Shows the progress of the Tisserand parameter calculation";
+		toolStripLabelProgress.AccessibleName = "Progress";
+		toolStripLabelProgress.AccessibleRole = AccessibleRole.StaticText;
+		toolStripLabelProgress.AutoToolTip = true;
+		toolStripLabelProgress.Name = "toolStripLabelProgress";
+		toolStripLabelProgress.Size = new Size(52, 23);
+		toolStripLabelProgress.Text = "Pro&gress";
+		toolStripLabelProgress.MouseEnter += Control_Enter;
+		toolStripLabelProgress.MouseLeave += Control_Leave;
+		// 
+		// kryptonProgressBar
+		// 
+		kryptonProgressBar.AccessibleDescription = "Shows the progress";
+		kryptonProgressBar.AccessibleName = "Progress";
+		kryptonProgressBar.AccessibleRole = AccessibleRole.ProgressBar;
+		kryptonProgressBar.AutoToolTip = true;
+		kryptonProgressBar.Name = "kryptonProgressBar";
+		kryptonProgressBar.Size = new Size(800, 23);
+		kryptonProgressBar.StateCommon.Back.Color1 = Color.Green;
+		kryptonProgressBar.StateDisabled.Back.ColorStyle = Krypton.Toolkit.PaletteColorStyle.OneNote;
+		kryptonProgressBar.StateNormal.Back.ColorStyle = Krypton.Toolkit.PaletteColorStyle.OneNote;
+		kryptonProgressBar.Values.Text = "";
+		kryptonProgressBar.Enter += Control_Enter;
+		kryptonProgressBar.Leave += Control_Leave;
+		kryptonProgressBar.MouseEnter += Control_Enter;
+		kryptonProgressBar.MouseLeave += Control_Leave;
+		// 
+		// kryptonManager
+		// 
+		kryptonManager.GlobalPaletteMode = Krypton.Toolkit.PaletteMode.Global;
+		kryptonManager.ToolkitStrings.MessageBoxStrings.LessDetails = "L&ess Details...";
+		kryptonManager.ToolkitStrings.MessageBoxStrings.MoreDetails = "&More Details...";
+		// 
 		// EncounterVelocityOfAllMinorPlanetsForm
 		// 
 		AccessibleDescription = "Shows the encounter velocitys of all minor planets relative to the 8 solar system planets";
@@ -1066,11 +1090,11 @@ partial class EncounterVelocityOfAllMinorPlanetsForm
 		kryptonStatusStrip.PerformLayout();
 		((System.ComponentModel.ISupportInitialize)kryptonPanelMain).EndInit();
 		kryptonPanelMain.ResumeLayout(false);
+		contextMenuSaveToFile.ResumeLayout(false);
 		toolStripIcons.ResumeLayout(false);
 		toolStripIcons.PerformLayout();
 		toolStripProgress.ResumeLayout(false);
 		toolStripProgress.PerformLayout();
-		contextMenuSaveToFile.ResumeLayout(false);
 		ResumeLayout(false);
 	}
 
@@ -1141,4 +1165,5 @@ partial class EncounterVelocityOfAllMinorPlanetsForm
 	private ToolStripMenuItem toolStripMenuItemSaveAsXps;
 	private ToolStripMenuItem toolStripMenuItemSaveAsFictionBook2;
 	private ToolStripMenuItem toolStripMenuItemSaveAsChm;
+	private ToolStripButton toolStripButtonFilterEncounterVelocitys;
 }
