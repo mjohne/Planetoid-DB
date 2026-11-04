@@ -630,9 +630,13 @@ internal partial class DerivedElements
 	/// <remarks>Calculated as T = a_main/a + 2·cos(i)·sqrt(a(1-e²)/a_main). Derived from the restricted three-body problem, conserving value during planetary close encounters.</remarks>
 	public static double CalculateTisserandParameter(double semiMajorAxisMain, double semiMajorAxis, double numericalEccentricity, double inclination)
 	{
+		// Convert the inclination from degrees to radians for the calculation.
 		double inclinationRad = double.DegreesToRadians(degrees: inclination);
+		// Calculate the Tisserand parameter using the formula: T = a_main/a + 2·cos(i)·sqrt(a(1-e²)/a_main).
 		double term1 = semiMajorAxisMain / semiMajorAxis;
+		// Calculate the second term of the Tisserand parameter formula.
 		double term2 = 2.0 * Math.Cos(d: inclinationRad) * Math.Sqrt(d: semiMajorAxis * (1.0 - (numericalEccentricity * numericalEccentricity)) / semiMajorAxisMain);
+		// Return the sum of the two terms as the Tisserand parameter.
 		return term1 + term2;
 	}
 
@@ -643,7 +647,9 @@ internal partial class DerivedElements
 	/// <returns>The Tisserand parameter relative to Mercury (dimensionless).</returns>
 	public static double CalculateMercuryTisserandParameter(double semiMajorAxis, double numericalEccentricity, double inclination)
 	{
+		// The semi-major axis of Mercury in astronomical units (AU).
 		const double mercurySemiMajorAxis = 0.38709893;
+		// Call the general Tisserand parameter calculation method with Mercury's semi-major axis and the provided parameters.
 		return CalculateTisserandParameter(semiMajorAxisMain: mercurySemiMajorAxis, semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity, inclination: inclination);
 	}
 
@@ -654,7 +660,9 @@ internal partial class DerivedElements
 	/// <returns>The Tisserand parameter relative to Venus (dimensionless).</returns>
 	public static double CalculateVenusTisserandParameter(double semiMajorAxis, double numericalEccentricity, double inclination)
 	{
+		// The semi-major axis of Venus in astronomical units (AU).
 		const double venusSemiMajorAxis = 0.72333199;
+		// Call the general Tisserand parameter calculation method with Venus's semi-major axis and the provided parameters.
 		return CalculateTisserandParameter(semiMajorAxisMain: venusSemiMajorAxis, semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity, inclination: inclination);
 	}
 
@@ -665,7 +673,9 @@ internal partial class DerivedElements
 	/// <returns>The Tisserand parameter relative to Earth (dimensionless).</returns>
 	public static double CalculateEarthTisserandParameter(double semiMajorAxis, double numericalEccentricity, double inclination)
 	{
+		// The semi-major axis of Earth in astronomical units (AU).
 		const double earthSemiMajorAxis = 1.00000011;
+		// Call the general Tisserand parameter calculation method with Earth's semi-major axis and the provided parameters.
 		return CalculateTisserandParameter(semiMajorAxisMain: earthSemiMajorAxis, semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity, inclination: inclination);
 	}
 
@@ -676,7 +686,9 @@ internal partial class DerivedElements
 	/// <returns>The Tisserand parameter relative to Mars (dimensionless).</returns>
 	public static double CalculateMarsTisserandParameter(double semiMajorAxis, double numericalEccentricity, double inclination)
 	{
+		// The semi-major axis of Mars in astronomical units (AU).
 		const double marsSemiMajorAxis = 1.52366231;
+		// Call the general Tisserand parameter calculation method with Mars's semi-major axis and the provided parameters.
 		return CalculateTisserandParameter(semiMajorAxisMain: marsSemiMajorAxis, semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity, inclination: inclination);
 	}
 
@@ -688,7 +700,9 @@ internal partial class DerivedElements
 	/// <remarks>T_J &lt; 2: Hyperbolic/cometary; 2 &lt; T_J &lt; 3: Jupiter-family comets; T_J &gt; 3: Main-belt asteroids.</remarks>
 	public static double CalculateJupiterTisserandParameter(double semiMajorAxis, double numericalEccentricity, double inclination)
 	{
+		// The semi-major axis of Jupiter in astronomical units (AU).
 		const double jupiterSemiMajorAxis = 5.20336301;
+		// Call the general Tisserand parameter calculation method with Jupiter's semi-major axis and the provided parameters.
 		return CalculateTisserandParameter(semiMajorAxisMain: jupiterSemiMajorAxis, semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity, inclination: inclination);
 	}
 
@@ -699,7 +713,9 @@ internal partial class DerivedElements
 	/// <returns>The Tisserand parameter relative to Saturn (dimensionless).</returns>
 	public static double CalculateSaturnTisserandParameter(double semiMajorAxis, double numericalEccentricity, double inclination)
 	{
+		// The semi-major axis of Saturn in astronomical units (AU).
 		const double saturnSemiMajorAxis = 9.53707032;
+		// Call the general Tisserand parameter calculation method with Saturn's semi-major axis and the provided parameters.
 		return CalculateTisserandParameter(semiMajorAxisMain: saturnSemiMajorAxis, semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity, inclination: inclination);
 	}
 
@@ -710,7 +726,9 @@ internal partial class DerivedElements
 	/// <returns>The Tisserand parameter relative to Uranus (dimensionless).</returns>
 	public static double CalculateUranusTisserandParameter(double semiMajorAxis, double numericalEccentricity, double inclination)
 	{
+		// The semi-major axis of Uranus in astronomical units (AU).
 		const double uranusSemiMajorAxis = 19.19126393;
+		// Call the general Tisserand parameter calculation method with Uranus's semi-major axis and the provided parameters.
 		return CalculateTisserandParameter(semiMajorAxisMain: uranusSemiMajorAxis, semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity, inclination: inclination);
 	}
 
@@ -721,7 +739,9 @@ internal partial class DerivedElements
 	/// <returns>The Tisserand parameter relative to Neptune (dimensionless).</returns>
 	public static double CalculateNeptuneTisserandParameter(double semiMajorAxis, double numericalEccentricity, double inclination)
 	{
+		// The semi-major axis of Neptune in astronomical units (AU).
 		const double neptuneSemiMajorAxis = 30.06896348;
+		// Call the general Tisserand parameter calculation method with Neptune's semi-major axis and the provided parameters.
 		return CalculateTisserandParameter(semiMajorAxisMain: neptuneSemiMajorAxis, semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity, inclination: inclination);
 	}
 
@@ -734,6 +754,7 @@ internal partial class DerivedElements
 	/// <remarks>Calculated as U = sqrt(3 - T), where T is the Tisserand parameter.</remarks>
 	public static double CalculateEncounterVelocity(double semiMajorAxisMain, double semiMajorAxis, double numericalEccentricity, double inclination)
 	{
+		// Calculate the Tisserand parameter for the encounter body with respect to the main body.
 		return Math.Sqrt(d: 3.0 - CalculateTisserandParameter(semiMajorAxisMain: semiMajorAxisMain, semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity, inclination: inclination));
 	}
 
@@ -744,7 +765,9 @@ internal partial class DerivedElements
 	/// <returns>The dimensionless encounter velocity relative to Mercury.</returns>
 	public static double CalculateEncounterVelocityRelativeToMercury(double semiMajorAxis, double numericalEccentricity, double inclination)
 	{
+		// The semi-major axis of Mercury in astronomical units (AU).
 		const double mercurySemiMajorAxis = 0.38709893;
+		// Call the general encounter velocity calculation method with Mercury's semi-major axis and the provided parameters.
 		return CalculateEncounterVelocity(semiMajorAxisMain: mercurySemiMajorAxis, semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity, inclination: inclination);
 	}
 
@@ -755,7 +778,9 @@ internal partial class DerivedElements
 	/// <returns>The dimensionless encounter velocity relative to Venus.</returns>
 	public static double CalculateEncounterVelocityRelativeToVenus(double semiMajorAxis, double numericalEccentricity, double inclination)
 	{
+		// The semi-major axis of Venus in astronomical units (AU).
 		const double venusSemiMajorAxis = 0.72333199;
+		// Call the general encounter velocity calculation method with Venus's semi-major axis and the provided parameters.
 		return CalculateEncounterVelocity(semiMajorAxisMain: venusSemiMajorAxis, semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity, inclination: inclination);
 	}
 
@@ -766,7 +791,9 @@ internal partial class DerivedElements
 	/// <returns>The dimensionless encounter velocity relative to Earth.</returns>
 	public static double CalculateEncounterVelocityRelativeToEarth(double semiMajorAxis, double numericalEccentricity, double inclination)
 	{
+		// The semi-major axis of Earth in astronomical units (AU).
 		const double earthSemiMajorAxis = 1.00000011;
+		// Call the general encounter velocity calculation method with Earth's semi-major axis and the provided parameters.
 		return CalculateEncounterVelocity(semiMajorAxisMain: earthSemiMajorAxis, semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity, inclination: inclination);
 	}
 
@@ -777,7 +804,9 @@ internal partial class DerivedElements
 	/// <returns>The dimensionless encounter velocity relative to Mars.</returns>
 	public static double CalculateEncounterVelocityRelativeToMars(double semiMajorAxis, double numericalEccentricity, double inclination)
 	{
+		// The semi-major axis of Mars in astronomical units (AU).
 		const double marsSemiMajorAxis = 1.52366231;
+		// Call the general encounter velocity calculation method with Mars's semi-major axis and the provided parameters.
 		return CalculateEncounterVelocity(semiMajorAxisMain: marsSemiMajorAxis, semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity, inclination: inclination);
 	}
 
@@ -788,7 +817,9 @@ internal partial class DerivedElements
 	/// <returns>The dimensionless encounter velocity relative to Jupiter.</returns>
 	public static double CalculateEncounterVelocityRelativeToJupiter(double semiMajorAxis, double numericalEccentricity, double inclination)
 	{
+		// The semi-major axis of Jupiter in astronomical units (AU).
 		const double jupiterSemiMajorAxis = 5.20336301;
+		// Call the general encounter velocity calculation method with Jupiter's semi-major axis and the provided parameters.
 		return CalculateEncounterVelocity(semiMajorAxisMain: jupiterSemiMajorAxis, semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity, inclination: inclination);
 	}
 
@@ -799,7 +830,9 @@ internal partial class DerivedElements
 	/// <returns>The dimensionless encounter velocity relative to Saturn.</returns>
 	public static double CalculateEncounterVelocityRelativeToSaturn(double semiMajorAxis, double numericalEccentricity, double inclination)
 	{
+		// The semi-major axis of Saturn in astronomical units (AU).
 		const double saturnSemiMajorAxis = 9.53707032;
+		// Call the general encounter velocity calculation method with Saturn's semi-major axis and the provided parameters.
 		return CalculateEncounterVelocity(semiMajorAxisMain: saturnSemiMajorAxis, semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity, inclination: inclination);
 	}
 
@@ -810,7 +843,9 @@ internal partial class DerivedElements
 	/// <returns>The dimensionless encounter velocity relative to Uranus.</returns>
 	public static double CalculateEncounterVelocityRelativeToUranus(double semiMajorAxis, double numericalEccentricity, double inclination)
 	{
+		// The semi-major axis of Uranus in astronomical units (AU).
 		const double uranusSemiMajorAxis = 19.19126393;
+		// Call the general encounter velocity calculation method with Uranus's semi-major axis and the provided parameters.
 		return CalculateEncounterVelocity(semiMajorAxisMain: uranusSemiMajorAxis, semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity, inclination: inclination);
 	}
 
@@ -821,7 +856,9 @@ internal partial class DerivedElements
 	/// <returns>The dimensionless encounter velocity relative to Neptune.</returns>
 	public static double CalculateEncounterVelocityRelativeToNeptune(double semiMajorAxis, double numericalEccentricity, double inclination)
 	{
+		// The semi-major axis of Neptune in astronomical units (AU).
 		const double neptuneSemiMajorAxis = 30.06896348;
+		// Call the general encounter velocity calculation method with Neptune's semi-major axis and the provided parameters.
 		return CalculateEncounterVelocity(semiMajorAxisMain: neptuneSemiMajorAxis, semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity, inclination: inclination);
 	}
 	/// <summary>Calculates the geometric albedo-adjusted diameter.</summary>
@@ -842,7 +879,9 @@ internal partial class DerivedElements
 	/// <remarks>Calculated as sqrt(1 - e²) · cos(i). Conserved parameter in Kozai-Lidov secular resonance dynamics.</remarks>
 	public static double CalculateKozaiQuantity(double numericalEccentricity, double orbitalInclination)
 	{
+		// Convert the orbital inclination from degrees to radians for the calculation.
 		double inclinationRad = double.DegreesToRadians(degrees: orbitalInclination);
+		// Calculate the Kozai quantity using the formula: sqrt(1 - e²) · cos(i), where e is the numerical eccentricity and i is the orbital inclination.
 		return Math.Sqrt(d: 1.0 - (numericalEccentricity * numericalEccentricity)) * Math.Cos(d: inclinationRad);
 	}
 
@@ -854,8 +893,11 @@ internal partial class DerivedElements
 	/// <remarks>Calculated as h = e · sin(ϖ), where ϖ = ω + Ω is the longitude of perihelion. Avoids singularities for zero inclination.</remarks>
 	public static double CalculateEquinoctialOrbitalElementH(double numericalEccentricity, double argumentPerihelion, double lengthAscendingNode)
 	{
+		// Convert the argument of perihelion and the longitude of the ascending node from degrees to radians for the calculation.
 		double argumentPerihelionRad = double.DegreesToRadians(degrees: NormalizeAngle360(degrees: argumentPerihelion));
+		// Convert the longitude of the ascending node from degrees to radians for the calculation.
 		double lengthAscendingNodeRad = double.DegreesToRadians(degrees: NormalizeAngle360(degrees: lengthAscendingNode));
+		// Calculate the equinoctial orbital element h using the formula: h = e · sin(ϖ), where ϖ = ω + Ω is the longitude of perihelion.
 		return numericalEccentricity * Math.Sin(a: argumentPerihelionRad + lengthAscendingNodeRad);
 	}
 
@@ -867,8 +909,11 @@ internal partial class DerivedElements
 	/// <remarks>Calculated as k = e · cos(ϖ), where ϖ = ω + Ω is the longitude of perihelion. Avoids singularities for zero inclination.</remarks>
 	public static double CalculateEquinoctialOrbitalElementK(double numericalEccentricity, double argumentPerihelion, double lengthAscendingNode)
 	{
+		// Convert the argument of perihelion and the longitude of the ascending node from degrees to radians for the calculation.
 		double argumentPerihelionRad = double.DegreesToRadians(degrees: NormalizeAngle360(degrees: argumentPerihelion));
+		// Convert the longitude of the ascending node from degrees to radians for the calculation.
 		double lengthAscendingNodeRad = double.DegreesToRadians(degrees: NormalizeAngle360(degrees: lengthAscendingNode));
+		// Calculate the equinoctial orbital element k using the formula: k = e · cos(ϖ), where ϖ = ω + Ω is the longitude of perihelion.
 		return numericalEccentricity * Math.Cos(d: argumentPerihelionRad + lengthAscendingNodeRad);
 	}
 
@@ -879,8 +924,11 @@ internal partial class DerivedElements
 	/// <remarks>Calculated as p = tan(i / 2) · sin(Ω). Avoids singularities for zero eccentricity.</remarks>
 	public static double CalculateEquinoctialOrbitalElementP(double orbitalInclination, double lengthAscendingNode)
 	{
+		// Convert the orbital inclination and the longitude of the ascending node from degrees to radians for the calculation.
 		double orbitalInclinationRad = double.DegreesToRadians(degrees: NormalizeAngle360(degrees: orbitalInclination));
+		// Convert the longitude of the ascending node from degrees to radians for the calculation.
 		double lengthAscendingNodeRad = double.DegreesToRadians(degrees: NormalizeAngle360(degrees: lengthAscendingNode));
+		// Calculate the equinoctial orbital element p using the formula: p = tan(i / 2) · sin(Ω), where i is the orbital inclination and Ω is the longitude of the ascending node.
 		return Math.Tan(a: orbitalInclinationRad / 2.0) * Math.Sin(a: lengthAscendingNodeRad);
 	}
 
@@ -891,9 +939,42 @@ internal partial class DerivedElements
 	/// <remarks>Calculated as q = tan(i / 2) · cos(Ω). Avoids singularities for zero eccentricity.</remarks>
 	public static double CalculateEquinoctialOrbitalElementQ(double orbitalInclination, double lengthAscendingNode)
 	{
+		// Convert the orbital inclination and the longitude of the ascending node from degrees to radians for the calculation.
 		double orbitalInclinationRad = double.DegreesToRadians(degrees: NormalizeAngle360(degrees: orbitalInclination));
+		// Convert the longitude of the ascending node from degrees to radians for the calculation.
 		double lengthAscendingNodeRad = double.DegreesToRadians(degrees: NormalizeAngle360(degrees: lengthAscendingNode));
+		// Calculate the equinoctial orbital element q using the formula: q = tan(i / 2) · cos(Ω), where i is the orbital inclination and Ω is the longitude of the ascending node.
 		return Math.Tan(a: orbitalInclinationRad / 2.0) * Math.Cos(d: lengthAscendingNodeRad);
+	}
+
+	/// <summary>Calculates the mean motion n in degrees per year.</summary>
+	/// <param name="semiMajorAxis">The semi-major axis in AU.</param>
+	/// <returns>The mean motion in deg/year.</returns>
+	/// <remarks>Calculated as n = 360° / T.</remarks>
+	public static double CalculateMeanMotion(double semiMajorAxis)
+	{
+		// The mean motion can be calculated by dividing 360 degrees by the sidereal orbital period of the object, which is determined by its semi-major axis.
+		return 360.0 / CalculateSiderealOrbitalPeriod(semiMajorAxis: semiMajorAxis);
+	}
+
+	/// <summary>Calculates the mean motion n in radians per year.</summary>
+	/// <param name="semiMajorAxis">The semi-major axis in AU.</param>
+	/// <returns>The mean motion in rad/year.</returns>
+	/// <remarks>Calculated as n = 2π / T.</remarks>
+	public static double CalculateMeanMotionRad(double semiMajorAxis)
+	{
+		// The mean motion in radians per year can be calculated by dividing 2π by the sidereal orbital period of the object, which is determined by its semi-major axis.
+		return 2.0 * Math.PI / CalculateSiderealOrbitalPeriod(semiMajorAxis: semiMajorAxis);
+	}
+
+	/// <summary>Calculates the mean daily motion n in degrees per day.</summary>
+	/// <param name="semiMajorAxis">The semi-major axis in AU.</param>
+	/// <returns>The mean daily motion in deg/day.</returns>
+	/// <remarks>Calculated as n_day = (360° / T) / 365.242188.</remarks>
+	public static double CalculateMeanDailyMotion(double semiMajorAxis)
+	{
+		// The mean daily motion can be calculated by dividing the mean motion (in degrees per year) by the sidereal Earth year in days (365.242188).
+		return CalculateMeanMotion(semiMajorAxis: semiMajorAxis) / siderealEarthYearInDays;
 	}
 
 	// <summary>Calculates the mean daily orbital motion of an ellipse.</summary>
@@ -903,46 +984,23 @@ internal partial class DerivedElements
 	/// <remarks>Calculated using the formula = p/365.242188, where p is the orbital perimenter and 365.242188 is the sidereal orbital period in 365 days, 5 hours, 48 minutes and 45 seconds.</remarks>
 	public static double CalculateMeanDailyOrbitalMotion(double semiMajorAxis, double numericalEccentricity)
 	{
+		// The mean daily orbital motion can be calculated by dividing the orbital perimeter by the sidereal Earth year in days (365.242188).
 		return CalculateOrbitalPerimeter(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity) / siderealEarthYearInDays;
-	}
-
-	/// <summary>Calculates the mean motion n in degrees per year.</summary>
-	/// <param name="semiMajorAxis">The semi-major axis in AU.</param>
-	/// <returns>The mean motion in deg/year.</returns>
-	/// <remarks>Calculated as n = 360° / T.</remarks>
-	public static double CalculateMeanMotion(double semiMajorAxis)
-	{
-		return 360.0 / CalculateSiderealOrbitalPeriod(semiMajorAxis: semiMajorAxis);
-	}
-
-	/// <summary>Calculates the mean daily motion n in degrees per day.</summary>
-	/// <param name="semiMajorAxis">The semi-major axis in AU.</param>
-	/// <returns>The mean daily motion in deg/day.</returns>
-	/// <remarks>Calculated as n_day = (360° / T) / 365.242188.</remarks>
-	public static double CalculateMeanDailyMotion(double semiMajorAxis)
-	{
-		return CalculateMeanMotion(semiMajorAxis: semiMajorAxis) / siderealEarthYearInDays;
-	}
-
-	/// <summary>Calculates the mean motion n in radians per year.</summary>
-	/// <param name="semiMajorAxis">The semi-major axis in AU.</param>
-	/// <returns>The mean motion in rad/year.</returns>
-	/// <remarks>Calculated as n = 2π / T.</remarks>
-	public static double CalculateMeanMotionRad(double semiMajorAxis)
-	{
-		return 2.0 * Math.PI / CalculateSiderealOrbitalPeriod(semiMajorAxis: semiMajorAxis);
 	}
 
 	/// <summary>Calculates the instantaneous angular velocity dν/dt at a given true anomaly.</summary>
 	/// <param name="semiMajorAxis">The semi-major axis in AU.</param>
 	/// <param name="numericalEccentricity">The numerical eccentricity.</param>
-	/// <param name="nu">The true anomaly in degrees.</param>
+	/// <param name="trueAnomaly">The true anomaly in degrees.</param>
 	/// <returns>The instantaneous angular velocity in rad/year.</returns>
 	/// <remarks>Calculated as ω = h / r².</remarks>
-	public static double CalculateAngularVelocity(double semiMajorAxis, double numericalEccentricity, double nu)
+	public static double CalculateAngularVelocity(double semiMajorAxis, double numericalEccentricity, double trueAnomaly)
 	{
-		double r = CalculateCurrentDistanceFromFocus(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity, trueAnomaly: nu);
+		// Calculate the current distance from the focus (r) at the given true anomaly using the semi-major axis and numerical eccentricity.
+		double r = CalculateCurrentDistanceFromFocus(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity, trueAnomaly: trueAnomaly);
+		// Calculate the specific angular momentum (h) using the semi-major axis and numerical eccentricity.
 		double h = CalculateSpecificAngularMomentum(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity);
+		// Calculate the instantaneous angular velocity (ω) using the formula: ω = h / r², where h is the specific angular momentum and r is the current distance from the focus.
 		return h / (r * r);
 	}
 
@@ -953,6 +1011,7 @@ internal partial class DerivedElements
 	/// <remarks>Calculated as dA/dt = h / 2. Follows Kepler's second law (constant rate of area swept per time unit).</remarks>
 	public static double CalculateArealVelocity(double semiMajorAxis, double numericalEccentricity)
 	{
+		// The areal velocity can be calculated as half of the specific angular momentum (h) of the orbit, which is determined by the semi-major axis and numerical eccentricity.
 		return CalculateSpecificAngularMomentum(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity) / 2.0;
 	}
 
@@ -963,7 +1022,9 @@ internal partial class DerivedElements
 	/// <remarks>Simplified as z_max = a · sin(i).</remarks>
 	public static double CalculateMaxEclipticDistance(double semiMajorAxis, double inclination)
 	{
+		// Convert the inclination from degrees to radians for the calculation.
 		double inclinationRad = double.DegreesToRadians(degrees: inclination);
+		// The maximum height above the ecliptic plane can be calculated as the product of the semi-major axis and the sine of the inclination.
 		return semiMajorAxis * Math.Sin(a: inclinationRad);
 	}
 
@@ -975,8 +1036,11 @@ internal partial class DerivedElements
 	/// <remarks>Calculated as b = arcsin(sin(i) · sin(ω + ν)).</remarks>
 	public static double CalculateHeliocentricLatitude(double argPeri, double trueAnom, double inclination)
 	{
+		// Convert the inclination, argument of perihelion, and true anomaly from degrees to radians for the calculation.
 		double inclinationRad = double.DegreesToRadians(degrees: inclination);
+		// Calculate the sum of the argument of perihelion and true anomaly, then convert it to radians.
 		double uRad = double.DegreesToRadians(degrees: argPeri + trueAnom);
+		// The heliocentric latitude can be calculated as the arcsine of the product of the sine of the inclination and the sine of the sum of the argument of perihelion and true anomaly.
 		return double.RadiansToDegrees(radians: Math.Asin(d: Math.Sin(a: inclinationRad) * Math.Sin(a: uRad)));
 	}
 
@@ -988,7 +1052,9 @@ internal partial class DerivedElements
 	/// <remarks>Calculated as L = Ω + ω + ν. Well-defined even for circular orbits where ω and ν individually have singularities.</remarks>
 	public static double CalculateTrueLongitude(double longitudeAscendingNode, double argumentPerihelion, double trueAnomaly)
 	{
+		// Calculate the argument of latitude u = ω + ν.
 		double argumentOfLatitude = argumentPerihelion + trueAnomaly;
+		// The true longitude L is then calculated as the sum of the longitude of the ascending node and the argument of latitude, normalized to the range [0, 360°).
 		return NormalizeAngle360(degrees: longitudeAscendingNode + argumentOfLatitude);
 	}
 
@@ -1001,12 +1067,13 @@ internal partial class DerivedElements
 	/// <remarks>Calculated as λ = Ω + atan2(sin(u)·cos(i), cos(u)), where u = ω + ν.</remarks>
 	public static double CalculateHeliocentricLongitude(double longitudeAscendingNode, double argumentPerihelion, double trueAnomaly, double inclination)
 	{
+		// Convert the longitude of the ascending node, argument of perihelion, true anomaly, and inclination from degrees to radians for the calculation.
 		double OmegaRad = double.DegreesToRadians(degrees: longitudeAscendingNode);
 		double uRad = double.DegreesToRadians(degrees: argumentPerihelion + trueAnomaly);
 		double iRad = double.DegreesToRadians(degrees: inclination);
-
+		// Calculate the longitude offset using the arctangent of the sine of the argument of latitude multiplied by the cosine of the inclination, divided by the cosine of the argument of latitude.
 		double lonOffset = Math.Atan2(Math.Sin(uRad) * Math.Cos(d: iRad), Math.Cos(d: uRad));
-
+		// The heliocentric ecliptic longitude λ is then calculated as the sum of the longitude of the ascending node and the longitude offset, normalized to the range [0, 360°).
 		return NormalizeAngle360(degrees: double.RadiansToDegrees(radians: OmegaRad + lonOffset));
 	}
 
@@ -1020,16 +1087,18 @@ internal partial class DerivedElements
 	/// <returns>The ecliptic longitude in degrees normalized to [0, 360°).</returns>
 	public static double CalculateHeliocentricLongitudeFull(double a, double e, double i, double Omega, double omega, double nu)
 	{
+		// Calculate the argument of latitude u = ω + ν.
 		double u = omega + nu;
+		// Calculate the current distance from the focus (r) at the given true anomaly (nu) using the semi-major axis (a) and numerical eccentricity (e).
 		double r = a * (1 - (e * e)) / (1 + (e * Math.Cos(d: double.DegreesToRadians(degrees: nu))));
-
+		// Convert the longitude of the ascending node (Omega), argument of latitude (u), and inclination (i) from degrees to radians for the calculation.
 		double OmegaRad = double.DegreesToRadians(degrees: Omega);
 		double uRad = double.DegreesToRadians(degrees: u);
 		double iRad = double.DegreesToRadians(degrees: i);
-
+		// Calculate the Cartesian coordinates (x, y) in the ecliptic plane using the orbital elements and the current distance (r).
 		double x = r * ((Math.Cos(d: OmegaRad) * Math.Cos(d: uRad)) - (Math.Sin(a: OmegaRad) * Math.Sin(a: uRad) * Math.Cos(d: iRad)));
 		double y = r * ((Math.Sin(a: OmegaRad) * Math.Cos(d: uRad)) + (Math.Cos(d: OmegaRad) * Math.Sin(a: uRad) * Math.Cos(d: iRad)));
-
+		// Calculate the heliocentric ecliptic longitude λ using the arctangent of y/x, converting the result from radians to degrees and normalizing it to the range [0, 360°).
 		return NormalizeAngle360(degrees: double.RadiansToDegrees(radians: Math.Atan2(y: y, x: x)));
 	}
 
@@ -1039,6 +1108,7 @@ internal partial class DerivedElements
 	/// <remarks>Calculated as C3 = -GM / a = 2 · ε (twice the specific orbital energy).</remarks>
 	public static double CalculateCharacteristicEnergy(double semiMajorAxis)
 	{
+		// The characteristic energy C3 can be calculated as -GM / a, where GM is the standard gravitational parameter of the Sun and a is the semi-major axis of the orbit.
 		return gm * -1.0 / semiMajorAxis;
 	}
 
@@ -1054,14 +1124,12 @@ internal partial class DerivedElements
 		double trueAnomalyRad = double.DegreesToRadians(degrees: trueAnomaly);
 		double e = numericalEccentricity;
 		double cosNu = Math.Cos(d: trueAnomalyRad);
-
 		// Calculate numerator: p = a * (1 - e^2)
 		double numerator = semiMajorAxis * (1.0 - (e * e));
-
 		// Calculate denominator components
 		double factor1 = Math.Pow(x: 1.0 + (e * cosNu), y: 3);
 		double factor2 = Math.Sqrt(d: 1.0 + (2.0 * e * cosNu) + (e * e));
-
+		// Return the radius of curvature R_c(ν) = p / (factor1 * factor2)
 		return numerator / (factor1 * factor2);
 	}
 
@@ -1075,10 +1143,8 @@ internal partial class DerivedElements
 	{
 		// Mass of the Sun in kg
 		const double solarMassKg = 1.98847e30;
-
 		// Minimum radius occurs at perihelion: q = a * (1 - e)
 		double perihelionDistance = semiMajorAxis * (1.0 - numericalEccentricity);
-
 		// Compute Hill radius in AU
 		return perihelionDistance * Math.Cbrt(d: massBodyKg / (3.0 * solarMassKg));
 	}
@@ -1092,7 +1158,6 @@ internal partial class DerivedElements
 	{
 		// Mass of the Sun in kg
 		const double solarMassKg = 1.98847e30;
-
 		// Compute SOI radius in AU
 		return semiMajorAxis * Math.Pow(x: massBodyKg / solarMassKg, y: 0.4);
 	}
@@ -1105,11 +1170,11 @@ internal partial class DerivedElements
 	/// <remarks>Calculated as d_Roche = 2.44 · R · (ρ_body / ρ_satellite)^(1/3).</remarks>
 	public static double CalculateFluidRocheLimit(double bodyRadiusKm, double bodyDensity, double satelliteDensity)
 	{
+		// If the satellite density is zero or negative, return positive infinity to indicate an undefined Roche limit.
 		if (satelliteDensity <= 0.0)
 		{
 			return double.PositiveInfinity;
 		}
-
 		// 2.44 is the standard coefficient for fluid/deformable bodies
 		return 2.44 * bodyRadiusKm * Math.Cbrt(d: bodyDensity / satelliteDensity);
 	}
@@ -1122,11 +1187,11 @@ internal partial class DerivedElements
 	/// <remarks>Calculated as d_Roche = 1.26 · R · (ρ_body / ρ_satellite)^(1/3).</remarks>
 	public static double CalculateRigidRocheLimit(double bodyRadiusKm, double bodyDensity, double satelliteDensity)
 	{
+		// If the satellite density is zero or negative, return positive infinity to indicate an undefined Roche limit.
 		if (satelliteDensity <= 0.0)
 		{
 			return double.PositiveInfinity;
 		}
-
 		// 1.26 is the standard coefficient for rigid/solid bodies
 		return 1.26 * bodyRadiusKm * Math.Cbrt(d: bodyDensity / satelliteDensity);
 	}
@@ -1134,8 +1199,10 @@ internal partial class DerivedElements
 	/// <summary>Gets the typical mean density for a given asteroid taxonomic type in g/cm³.</summary>
 	/// <param name="type">The asteroid taxonomic type.</param>
 	/// <returns>The estimated density in g/cm³.</returns>
+	/// <remarks>Values are approximate and based on observational data for common asteroid types.</remarks>
 	public static double GetTypicalAsteroidDensity(AsteroidType type)
 	{
+		// Return typical mean densities for common asteroid types in g/cm³. Values are approximate and based on observational data.
 		return type switch
 		{
 			AsteroidType.CType => 1.3,
@@ -1154,20 +1221,17 @@ internal partial class DerivedElements
 	/// <remarks>Assumes a spherical body where Mass = (4/3) · π · R³ · ρ.</remarks>
 	public static double CalculateMassFromDiameter(double diameterKm, double densityGPerCm3)
 	{
+		// Validate input parameters: diameter and density must be positive values.
 		if (diameterKm <= 0.0 || densityGPerCm3 <= 0.0)
 		{
 			return 0.0;
 		}
-
 		// Convert radius to meters: R = (diameter / 2) * 1000
 		double radiusMeters = diameterKm / 2.0 * 1000.0;
-
 		// Convert density from g/cm³ to kg/m³: 1 g/cm³ = 1000 kg/m³
 		double densityKgPerM3 = densityGPerCm3 * 1000.0;
-
 		// Volume of a sphere: V = (4/3) * π * r³
 		double volumeM3 = 4.0 / 3.0 * Math.PI * Math.Pow(x: radiusMeters, y: 3);
-
 		// Mass in kg = Volume in m³ * Density in kg/m³
 		return volumeM3 * densityKgPerM3;
 	}
@@ -1178,7 +1242,9 @@ internal partial class DerivedElements
 	/// <returns>The estimated mass in kilograms.</returns>
 	public static double CalculateMassFromAsteroidType(double diameterKm, AsteroidType type)
 	{
+		// Get the typical density for the specified asteroid type in g/cm³.
 		double density = GetTypicalAsteroidDensity(type: type);
+		// Calculate the mass using the diameter and the typical density.
 		return CalculateMassFromDiameter(diameterKm: diameterKm, densityGPerCm3: density);
 	}
 
@@ -1189,14 +1255,16 @@ internal partial class DerivedElements
 	/// <remarks>Calculated as g = G · m / r².</remarks>
 	public static double CalculateSurfaceGravity(double massKg, double radiusKm)
 	{
+		// Validate input parameters: radius must be positive to avoid division by zero.
 		if (radiusKm <= 0.0)
 		{
 			return 0.0;
 		}
-
-		const double gravitationalConstant = 6.67430e-11; // m³ kg⁻¹ s⁻²
+		// Gravitational constant in m³ kg⁻¹ s⁻²
+		const double gravitationalConstant = 6.67430e-11;
+		// Convert radius from kilometers to meters for the calculation.
 		double radiusMeters = radiusKm * 1000.0;
-
+		// Calculate surface gravity using the formula: g = G * m / r², where G is the gravitational constant, m is the mass, and r is the radius.
 		return gravitationalConstant * massKg / (radiusMeters * radiusMeters);
 	}
 
@@ -1207,14 +1275,16 @@ internal partial class DerivedElements
 	/// <remarks>Calculated as v_esc = sqrt(2 · G · m / r).</remarks>
 	public static double CalculateEscapeVelocity(double massKg, double radiusKm)
 	{
+		// Validate input parameters: radius must be positive to avoid division by zero.
 		if (radiusKm <= 0.0)
 		{
 			return 0.0;
 		}
-
-		const double gravitationalConstant = 6.67430e-11; // m³ kg⁻¹ s⁻²
+		// Gravitational constant in m³ kg⁻¹ s⁻²
+		const double gravitationalConstant = 6.67430e-11;
+		// Convert radius from kilometers to meters for the calculation.
 		double radiusMeters = radiusKm * 1000.0;
-
+		// Calculate escape velocity using the formula: v_esc = sqrt(2 * G * m / r), where G is the gravitational constant, m is the mass, and r is the radius.
 		return Math.Sqrt(d: 2.0 * gravitationalConstant * massKg / radiusMeters);
 	}
 
@@ -1228,16 +1298,15 @@ internal partial class DerivedElements
 		// Critical thresholds defined by NASA/JPL/IAU
 		const double moidThresholdAu = 0.05;
 		const double magnitudeThresholdH = 22.0;
-
+		// Check if the Earth MOID is within the critical threshold (0.0 to 0.05 AU)
 		bool isMoidCritical = earthMoidAu is >= 0.0 and <= moidThresholdAu;
+		// Check if the absolute magnitude H is within the critical threshold (H <= 22.0)
 		bool isMagnitudeCritical = absoluteMagnitudeH <= magnitudeThresholdH;
-
 		// Is classified as PHA if BOTH criteria are met
 		bool isPha = isMoidCritical && isMagnitudeCritical;
-
 		// Calculate estimated diameter in meters at the H = 22.0 threshold using geometric albedo = 0.14
 		double estimatedMinDiameterMeters = CalculateGeometricAlbedoAdjustedDiameter(absoluteMagnitude: absoluteMagnitudeH, geometricAlbedo: 0.14) * 1000.0;
-
+		// Return a PhaEvaluation structure containing the results of the evaluation
 		return new PhaEvaluation(IsPha: isPha, IsMoidCritical: isMoidCritical, IsMagnitudeCritical: isMagnitudeCritical, EstimatedMinDiameterMeters: estimatedMinDiameterMeters);
 	}
 
@@ -1247,6 +1316,7 @@ internal partial class DerivedElements
 	/// <returns>True if the object is a PHA; otherwise, false.</returns>
 	public static bool IsPotentiallyHazardous(double earthMoidAu, double absoluteMagnitudeH)
 	{
+		// A PHA is defined as having an Earth MOID of 0.05 AU or less and an absolute magnitude H of 22.0 or less.
 		return earthMoidAu >= 0.0 && earthMoidAu <= 0.05 && absoluteMagnitudeH <= 22.0;
 	}
 
@@ -1256,14 +1326,17 @@ internal partial class DerivedElements
 	/// <returns>The eccentric anomaly in degrees in the range [0, 360).</returns>
 	public static double CalculateEccentricAnomalyFromTrueAnomaly(double trueAnomaly, double numericalEccentricity)
 	{
+		// Convert the true anomaly from degrees to radians for the calculation.
 		double nuRad = double.DegreesToRadians(degrees: NormalizeAngle360(degrees: trueAnomaly));
+		// Store the numerical eccentricity for use in the calculation.
 		double e = numericalEccentricity;
-
-		// tan(E/2) = sqrt((1-e)/(1+e)) * tan(ν/2)
+		// Calculate the factor used in the transformation from true anomaly to eccentric anomaly.		
 		double factor = Math.Sqrt(d: (1.0 - e) / (1.0 + e));
+		// Calculate the tangent of half the eccentric anomaly using the formula: tan(E/2) = sqrt((1 - e) / (1 + e)) * tan(ν/2).
 		double tanHalfE = factor * Math.Tan(a: nuRad / 2.0);
+		// Calculate the eccentric anomaly E in radians by taking the arctangent of the tangent of half the eccentric anomaly and multiplying by 2.
 		double eRad = 2.0 * Math.Atan(d: tanHalfE);
-
+		// Convert the eccentric anomaly from radians to degrees and normalize it to the range [0, 360°).
 		return NormalizeAngle360(degrees: double.RadiansToDegrees(radians: eRad));
 	}
 
@@ -1273,12 +1346,15 @@ internal partial class DerivedElements
 	/// <returns>The mean anomaly in degrees in the range [0, 360).</returns>
 	public static double CalculateMeanAnomalyFromTrueAnomaly(double trueAnomaly, double numericalEccentricity)
 	{
+		// First, calculate the eccentric anomaly E from the true anomaly ν using the provided numerical eccentricity.
 		double eDeg = CalculateEccentricAnomalyFromTrueAnomaly(trueAnomaly: trueAnomaly, numericalEccentricity: numericalEccentricity);
+		// Convert the eccentric anomaly from degrees to radians for the calculation.
 		double eRad = double.DegreesToRadians(degrees: eDeg);
+		// Store the numerical eccentricity for use in the calculation.
 		double e = numericalEccentricity;
-
-		// Kepler's Equation: M = E - e · sin(E)
+		// Calculate the mean anomaly M in radians using the formula: M = E - e * sin(E).
 		double mRad = eRad - (e * Math.Sin(a: eRad));
+		// Convert the mean anomaly from radians to degrees and normalize it to the range [0, 360°).
 		return NormalizeAngle360(degrees: double.RadiansToDegrees(radians: mRad));
 	}
 
@@ -1293,14 +1369,12 @@ internal partial class DerivedElements
 		// Convert current and target true anomalies to mean anomalies
 		double currentM = CalculateMeanAnomalyFromTrueAnomaly(trueAnomaly: currentTrueAnomaly, numericalEccentricity: numericalEccentricity);
 		double targetM = CalculateMeanAnomalyFromTrueAnomaly(trueAnomaly: targetTrueAnomaly, numericalEccentricity: numericalEccentricity);
-
 		// Calculate angular distance in Mean Anomaly (0 to 360 degrees)
 		double deltaM = NormalizeAngle360(degrees: targetM - currentM);
-
 		// Orbital period in years (converted to days: 1 year ≈ 365.25 days)
 		double periodYears = CalculateSiderealOrbitalPeriod(semiMajorAxis: semiMajorAxis);
+		// Convert period to days
 		double periodDays = periodYears * 365.25;
-
 		// Remaining time: (ΔM / 360°) * Period
 		return deltaM / 360.0 * periodDays;
 	}
@@ -1316,14 +1390,13 @@ internal partial class DerivedElements
 	{
 		// Ascending node: u = ω + ν = 0° => ν_asc = 360° - ω
 		double targetNuAscending = NormalizeAngle360(degrees: 360.0 - argumentPerihelion);
-
 		// Descending node: u = ω + ν = 180° => ν_desc = 180° - ω
 		double targetNuDescending = NormalizeAngle360(degrees: 180.0 - argumentPerihelion);
-
+		// Calculate the time to reach each node from the current true anomaly
 		double timeToAscending = CalculateTimeToTargetAnomalyDays(currentTrueAnomaly: currentTrueAnomaly, targetTrueAnomaly: targetNuAscending, semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity);
-
+		// Calculate the time to reach the descending node
 		double timeToDescending = CalculateTimeToTargetAnomalyDays(currentTrueAnomaly: currentTrueAnomaly, targetTrueAnomaly: targetNuDescending, semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity);
-
+		// Return the results as a tuple
 		return (AscendingNodeDays: timeToAscending, DescendingNodeDays: timeToDescending);
 	}
 
@@ -1335,6 +1408,7 @@ internal partial class DerivedElements
 	/// <remarks>Calculated as T_p = EpochJD - (M / 360°) · Period · 365.25.</remarks>
 	public static double CalculatePerihelionDate(double meanAnomaly, double semiMajorAxis, double epochJd)
 	{
+		// Calculate the Julian Date of perihelion passage using the formula: T_p = EpochJD - (M / 360°) * Period * 365.25, where M is the mean anomaly in degrees, and Period is the sidereal orbital period in years.
 		return epochJd - (NormalizeAngle360(degrees: meanAnomaly) / 360.0 * CalculateSiderealOrbitalPeriod(semiMajorAxis: semiMajorAxis) * 365.25);
 	}
 
@@ -1345,10 +1419,13 @@ internal partial class DerivedElements
 	/// <returns>A tuple containing (LongitudeDegrees, LatitudeDegrees) on the ecliptic sphere.</returns>
 	public static (double Longitude, double Latitude) CalculatePerihelionPosition(double inclination, double longitudeAscendingNode, double argumentPerihelion)
 	{
+		// Convert the inclination and argument of perihelion from degrees to radians for the calculation.
 		double i = double.DegreesToRadians(degrees: inclination);
 		double w = double.DegreesToRadians(degrees: argumentPerihelion);
+		// Calculate the ecliptic longitude and latitude of perihelion using the formulas:
 		double lon = NormalizeAngle360(degrees: longitudeAscendingNode + double.RadiansToDegrees(radians: Math.Atan2(y: Math.Cos(d: i) * Math.Sin(a: w), x: Math.Cos(d: w))));
 		double lat = double.RadiansToDegrees(radians: Math.Asin(d: Math.Sin(a: i) * Math.Sin(a: w)));
+		// Return the calculated longitude and latitude as a tuple.
 		return (Longitude: lon, Latitude: lat);
 	}
 
