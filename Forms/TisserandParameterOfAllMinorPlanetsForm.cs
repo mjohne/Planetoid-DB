@@ -130,14 +130,15 @@ internal partial class TisserandParameterOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>Lines that are too short or have invalid orbital elements are silently skipped.</remarks>
 	private static void ProcessPlanetoidLine(string line, List<TisserandRowResult> results)
 	{
+		// Use ReadOnlySpan<char> for efficient substring extraction without allocations
+		ReadOnlySpan<char> span = line.AsSpan();
 		// Validate the line length to ensure it contains the required orbital element fields
 		if (line.Length < 103)
 		{
 			return;
 		}
 		// Extract and parse the semi-major axis (positions 92-102)
-		string semiMajorAxisText = line.Substring(startIndex: 92, length: 11).Trim();
-		if (!double.TryParse(s: semiMajorAxisText, style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double semiMajorAxis) || semiMajorAxis <= 0)
+		if (!double.TryParse(s: span.Slice(start: 92, length: 11).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double semiMajorAxis) || semiMajorAxis <= 0)
 		{
 			return;
 		}
@@ -154,9 +155,7 @@ internal partial class TisserandParameterOfAllMinorPlanetsForm : BaseKryptonForm
 			return;
 		}
 		// Extract the designation (readable designation or packed designation)
-		string designation = line.Length >= 194
-			? line.Substring(startIndex: 166, length: 28).Trim()
-			: line[..7].Trim();
+		string designation = line.Length >= 194 ? line.Substring(startIndex: 166, length: 28).Trim() : line[..7].Trim();
 		if (string.IsNullOrEmpty(value: designation))
 		{
 			designation = line[..7].Trim();
@@ -220,18 +219,27 @@ internal partial class TisserandParameterOfAllMinorPlanetsForm : BaseKryptonForm
 		// Ensure that an item is selected
 		if (listView.SelectedIndices.Count == 0)
 		{
+			// Log a warning if no item is selected and exit the method
+			logger.Warn(message: "No item selected in the ListView.");
 			return;
 		}
-		int index = listView.SelectedIndices[0];
+		// Get the index of the selected item in the ListView
+		int index = listView.SelectedIndices[index: 0];
+		// Validate the index to ensure it is within the bounds of the results list
 		if (index < 0 || index >= _results.Count)
 		{
+			// Log a warning if the selected index is out of bounds and exit the method
+			logger.Warn(message: $"Selected index {index} is out of bounds for results list of size {_results.Count}. No action taken.");
 			return;
 		}
-		TisserandRowResult result = _results[index];
+		// Retrieve the corresponding TisserandRowResult for the selected index
+		TisserandRowResult result = _results[index: index];
 		// If the Owner of this form is a PlanetoidDbForm, call its JumpToRecord method
 		if (Owner is PlanetoidDbForm planetoidDbForm)
 		{
+			// Log the navigation action to the main form for debugging purposes
 			logger.Info(message: $"Navigating to planetoid {result.PlanetoidName} in the main form.");
+			// Call the JumpToRecord method of the PlanetoidDbForm to display the selected planetoid
 			planetoidDbForm.JumpToRecord(index: result.PlanetoidName, designation: result.PlanetoidName);
 		}
 	}
@@ -271,6 +279,10 @@ internal partial class TisserandParameterOfAllMinorPlanetsForm : BaseKryptonForm
 			_cancellationTokenSource.Dispose();
 			_cancellationTokenSource = null;
 		}
+		// Clear the ListView and results list to free up memory and reset the UI state
+		listView.VirtualListSize = 0;
+		_results.Clear();
+		_results.TrimExcess();
 	}
 
 	#endregion
@@ -293,7 +305,7 @@ internal partial class TisserandParameterOfAllMinorPlanetsForm : BaseKryptonForm
 			return;
 		}
 		// Create a new ListViewItem for the requested index and populate its subitems with the Tisserand parameter values
-		TisserandRowResult result = _results[e.ItemIndex];
+		TisserandRowResult result = _results[index: e.ItemIndex];
 		ListViewItem item = new(text: result.PlanetoidName);
 		// Format the Tisserand parameter values to six decimal places and add them as subitems
 		string[] subItems = new string[PlanetCount];
@@ -337,7 +349,7 @@ internal partial class TisserandParameterOfAllMinorPlanetsForm : BaseKryptonForm
 		_cancellationTokenSource = new CancellationTokenSource();
 		CancellationToken token = _cancellationTokenSource.Token;
 		// Create a local list to store results from the background calculation
-		List<TisserandRowResult> localResults = [];
+		List<TisserandRowResult> localResults = new(capacity: _planetoids.Count);
 		// Create a progress reporter that updates the progress bar on the UI thread
 		IProgress<int> progress = new Progress<int>(handler: UpdateProgress);
 		try
@@ -348,15 +360,20 @@ internal partial class TisserandParameterOfAllMinorPlanetsForm : BaseKryptonForm
 			// Run the calculation on a background thread
 			await Task.Run(action: () =>
 			{
+				// Loop through each planetoid record and process it
 				for (int i = 0; i < total; i++)
 				{
+					// Check for cancellation requests and throw if the user has requested to cancel the operation
 					token.ThrowIfCancellationRequested();
+					// Process the current planetoid line and append the result to the local results list
 					ProcessPlanetoidLine(line: _planetoids[index: i], results: localResults);
+					// Report progress at the specified interval or when the last item is processed
 					if (i % reportInterval == 0 || i == total - 1)
 					{
 						progress.Report(value: (i + 1) * 100 / total);
 					}
 				}
+				// Log the completion of the calculation and the total number of results obtained
 				logger.Info(message: $"Tisserand parameter calculation completed. Total results: {localResults.Count}");
 			}, cancellationToken: token).ConfigureAwait(continueOnCapturedContext: true);
 		}
@@ -431,10 +448,20 @@ internal partial class TisserandParameterOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>When the "Go to Object" button is clicked, the corresponding planetoid is displayed in the <see cref="PlanetoidDbForm"/> without closing this form.</remarks>
 	private void ToolStripButtonGoToObject_Click(object sender, EventArgs e)
 	{
-		// Log the button click and navigate to the selected planetoid in the main form
-		logger.Info(message: "Go to Object button clicked. Navigating to selected planetoid in main form.");
-		SelectedPlanetoidInMainForm();
-		Close();
+		// Check if an item is actually selected before executing actions
+		if (listView.SelectedIndices.Count > 0)
+		{
+			// Log the action of navigating to the selected planetoid in the main form
+			logger.Info(message: "Go to Object button clicked. Navigating to selected planetoid in main form.");
+			SelectedPlanetoidInMainForm();
+			Close();
+		}
+		// If no item is selected, log a warning and do not attempt to navigate
+		else
+		{
+			// Log a warning if the "Go to Object" button was clicked without any selection
+			logger.Warn(message: "Go to Object button clicked, but no item is selected.");
+		}
 	}
 
 	#endregion
