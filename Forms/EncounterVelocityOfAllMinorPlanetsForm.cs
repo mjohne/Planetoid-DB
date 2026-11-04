@@ -64,8 +64,12 @@ internal partial class EncounterVelocityOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>Each element is one line from the MPCORB file. Passed in by the caller via the constructor.</remarks>
 	private readonly IReadOnlyList<string> _planetoids;
 
-	/// <summary>The complete list of Tisserand parameter results after the last completed calculation.</summary>
-	/// <remarks>This list is only updated on the UI thread after the background calculation finishes.</remarks>
+	/// <summary>The complete list of encounter velocity results after the last completed calculation.</summary>
+	/// <remarks>This list is only updated on the UI thread after the background calculation finishes. Filtering and sorting derive <see cref="_results"/> from this collection without modifying it, so re-filtering (e.g. when the user toggles the filter) does not require re-running the calculation.</remarks>
+	private List<RowResult> _allResults = [];
+
+	/// <summary>The current list of encounter velocity results displayed in the ListView (may be filtered).</summary>
+	/// <remarks>This list is derived from <see cref="_allResults"/> based on the current filter settings and sort order. It is updated whenever filtering or sorting is applied.</remarks>
 	private List<RowResult> _results = [];
 
 	/// <summary>Cancellation token source for the running background calculation task.</summary>
@@ -129,14 +133,15 @@ internal partial class EncounterVelocityOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>Lines that are too short or have invalid orbital elements are silently skipped.</remarks>
 	private static void ProcessPlanetoidLine(string line, List<RowResult> results)
 	{
+		// Use ReadOnlySpan<char> for efficient substring extraction without allocations
+		ReadOnlySpan<char> span = line.AsSpan();
 		// Validate the line length to ensure it contains the required orbital element fields
 		if (line.Length < 103)
 		{
 			return;
 		}
 		// Extract and parse the semi-major axis (positions 92-102)
-		string semiMajorAxisText = line.Substring(startIndex: 92, length: 11).Trim();
-		if (!double.TryParse(s: semiMajorAxisText, style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double semiMajorAxis) || semiMajorAxis <= 0)
+		if (!double.TryParse(s: span.Slice(start: 92, length: 11).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double semiMajorAxis) || semiMajorAxis <= 0)
 		{
 			return;
 		}
@@ -153,9 +158,7 @@ internal partial class EncounterVelocityOfAllMinorPlanetsForm : BaseKryptonForm
 			return;
 		}
 		// Extract the designation (readable designation or packed designation)
-		string designation = line.Length >= 194
-			? line.Substring(startIndex: 166, length: 28).Trim()
-			: line[..7].Trim();
+		string designation = line.Length >= 194 ? line.Substring(startIndex: 166, length: 28).Trim() : line[..7].Trim();
 		if (string.IsNullOrEmpty(value: designation))
 		{
 			designation = line[..7].Trim();
@@ -164,13 +167,11 @@ internal partial class EncounterVelocityOfAllMinorPlanetsForm : BaseKryptonForm
 		if (eccentricity is < 0.0 or >= 1.0)
 		{
 			logger.Warn(message: $"Invalid eccentricity {eccentricity} for planetoid {designation}. Skipping calculation.");
-			ShowErrorMessage(message: "Eccentricity must be between 0 (inclusive) and 1 (exclusive) for valid Tisserand parameters.");
 			return;
 		}
 		if (semiMajorAxis <= 0.0)
 		{
 			logger.Warn(message: $"Invalid semi-major axis {semiMajorAxis} for planetoid {designation}. Skipping calculation.");
-			ShowErrorMessage(message: "Semi-major axis must be positive for valid Tisserand parameters.");
 			return;
 		}
 		// Calculate the Tisserand parameters for all eight planets
@@ -205,26 +206,38 @@ internal partial class EncounterVelocityOfAllMinorPlanetsForm : BaseKryptonForm
 	{
 		// If no column is selected for sorting, exit early
 		int col = sortColumn;
+		if (col < 0)
+		{
+			// Log a warning that no column is selected for sorting and return without modifying the results
+			logger.Warn(message: "SortResults called with no column selected. No sorting performed.");
+			return;
+		}
 		// Determine the sort order (ascending or descending) based on the current sortOrder value
 		bool ascending = sortOrder == SortOrder.Ascending;
-		// Sort the results based on the selected column and order
-		if (col == ColumnIndexPlanetoid)
+		// Use a custom comparison to sort the results list based on the selected column and order
+		_results.Sort(comparison: (x, y) =>
 		{
-			// Sort by Planetoid name (string comparison, case-insensitive)
-			_results = ascending
-				? [.. _results.OrderBy(keySelector: static r => r.PlanetoidName, comparer: StringComparer.OrdinalIgnoreCase)]
-				: [.. _results.OrderByDescending(keySelector: static r => r.PlanetoidName, comparer: StringComparer.OrdinalIgnoreCase)];
-		}
-		// Sort by Tisserand parameter values (numeric comparison)
-		else if (col is >= 1 and <= PlanetCount)
-		{
-			// Adjust the column index to match the zero-based index of the Values array
-			int planetIndex = col - 1;
-			// Sort by the corresponding Tisserand parameter value for the selected planet
-			_results = ascending
-				? [.. _results.OrderBy(keySelector: r => r.Values[planetIndex])]
-				: [.. _results.OrderByDescending(keySelector: r => r.Values[planetIndex])];
-		}
+			// Validate that the RowResult instances are not null before comparing
+			ArgumentNullException.ThrowIfNull(argument: x);
+			ArgumentNullException.ThrowIfNull(argument: y);
+			// Initialize the comparison result to zero (equal)
+			int cmp = 0;
+			// Compare based on the selected column: Planetoid name (string) or Tisserand parameter values (numeric)
+			if (col == ColumnIndexPlanetoid)
+			{
+				// Compare planetoid names using a case-insensitive ordinal comparison
+				cmp = string.Compare(strA: x.PlanetoidName, strB: y.PlanetoidName, comparisonType: StringComparison.OrdinalIgnoreCase);
+			}
+			// Compare Tisserand parameter values for the selected planet column (1-based index)
+			else if (col is >= 1 and <= PlanetCount)
+			{
+				// Adjust the column index to match the zero-based index of the Values array
+				int planetIndex = col - 1;
+				cmp = x.Values[planetIndex].CompareTo(value: y.Values[planetIndex]);
+			}
+			// Return the comparison result, reversing it if the sort order is descending
+			return ascending ? cmp : -cmp;
+		});
 	}
 
 	/// <summary>Selects the currently highlighted planetoid in the main form and navigates to its record in the owner form, if applicable.</summary>
@@ -239,7 +252,7 @@ internal partial class EncounterVelocityOfAllMinorPlanetsForm : BaseKryptonForm
 			return;
 		}
 		// Get the index of the selected item in the ListView
-		int index = listView.SelectedIndices[0];
+		int index = listView.SelectedIndices[index: 0];
 		// Validate the index to ensure it is within the bounds of the results list
 		if (index < 0 || index >= _results.Count)
 		{
@@ -259,6 +272,35 @@ internal partial class EncounterVelocityOfAllMinorPlanetsForm : BaseKryptonForm
 		}
 	}
 
+	/// <summary>Filters the ListView results to hide rows where all encounter velocity fields contain "N/A" (no numeric values).</summary>
+	/// <remarks>When the filter button is checked, only rows that have at least one valid numeric value (for Mercury through Neptune) are displayed. Rows where ALL eight planet fields contain N/A values (NaN or negative) are hidden. When unchecked, all rows are displayed. Filtering and sorting derive <see cref="_results"/> from <see cref="_allResults"/> without modifying the original collection.</remarks>
+	private void FilterResults()
+	{
+		// Determine the filter mode based on the state of the filter button
+		bool filterEnabled = toolStripButtonFilterEncounterVelocitys.Checked;
+		// Log the current filter state for debugging purposes
+		logger.Info(message: $"Filter state: {filterEnabled}");
+		// Apply the filter to the results based on the filterEnabled flag
+		if (!filterEnabled)
+		{
+			// If the filter is disabled, show all results by copying from _allResults to _results
+			_results = [.. _allResults];
+			logger.Info(message: "Filter disabled. Showing all results.");
+		}
+		else
+		{
+			// If the filter is enabled, filter the results to hide rows where ALL fields are N/A
+			// Show only rows that have at least one valid numeric value in Values[0-7] (Mercury through Neptune)
+			// Hide rows where ALL values are N/A (NaN or negative < 0)
+			_results = [.. _allResults.Where(predicate: r =>
+				r.Values.Any(x => !double.IsNaN(x) && x >= 0))];
+			logger.Info(message: $"Filter enabled. Showing {_results.Count} rows with at least one valid value out of {_allResults.Count} total rows. Hidden: {_allResults.Count - _results.Count} rows with all N/A values.");
+		}
+		// Update the ListView with the filtered results
+		listView.VirtualListSize = _results.Count;
+		listView.Refresh();
+	}
+
 	#endregion
 
 	#region Form event handlers
@@ -273,6 +315,8 @@ internal partial class EncounterVelocityOfAllMinorPlanetsForm : BaseKryptonForm
 		logger.Info(message: "EncounterVelocityOfAllMinorPlanetsForm loaded.");
 		// Clear the status bar to ensure no residual messages are displayed from previous operations
 		ClearStatusBar(label: labelInformation);
+		// Disable the filter button initially since no results are available yet
+		toolStripButtonFilterEncounterVelocitys.Enabled = false;
 		// Play the open sound in the background to indicate that the form has been opened
 		AudioPlayback.PlayOpenSound();
 	}
@@ -294,6 +338,12 @@ internal partial class EncounterVelocityOfAllMinorPlanetsForm : BaseKryptonForm
 			_cancellationTokenSource.Dispose();
 			_cancellationTokenSource = null;
 		}
+		// Clear the ListView and results lists to free up memory and reset the UI state
+		listView.VirtualListSize = 0;
+		_allResults.Clear();
+		_allResults.TrimExcess();
+		_results.Clear();
+		_results.TrimExcess();
 	}
 
 	#endregion
@@ -316,19 +366,49 @@ internal partial class EncounterVelocityOfAllMinorPlanetsForm : BaseKryptonForm
 			return;
 		}
 		// Retrieve the corresponding RowResult for the requested index
-		RowResult result = _results[e.ItemIndex];
+		RowResult result = _results[index: e.ItemIndex];
 		// Create a new ListViewItem with the planetoid name as the main text
-		ListViewItem item = new(text: result.PlanetoidName);
-		// Create an array of subitems for the encounter velocity values, formatted to six decimal places
-		string[] subItems = new string[PlanetCount];
+		ListViewItem item = new(text: result.PlanetoidName)
+		{
+			// Set UseItemStyleForSubItems to false so subitems can have individual styling/colors
+			UseItemStyleForSubItems = false,
+			ForeColor = Color.Black
+		};
 		// Loop through each planet's encounter velocity and format it for display
 		for (int i = 0; i < PlanetCount; i++)
 		{
-			// Format the encounter velocity value to six decimal places using the current culture for consistency
-			subItems[i] = result.Values[i].ToString(format: "F6", provider: CultureInfo.CurrentCulture);
+			string text;
+			Color subItemColor = Color.Black;
+			// Check for invalid or negative encounter velocity values
+			if (double.IsNaN(result.Values[i]) || result.Values[i] < 0)
+			{
+				// Display "N/A" in gray for invalid or negative values
+				text = "N/A";
+				subItemColor = Color.Gray;
+			}
+			// Check for extremely high encounter velocity values that may indicate an error
+			else if (result.Values[i] > 1000)
+			{
+				// Log a warning for extremely high encounter velocity values
+				logger.Warn(message: $"Encounter velocity value {result.Values[i]} for planetoid {result.PlanetoidName} exceeds 1000 km/s. Marking as error.");
+				// Display "Error" in red for values that exceed the threshold
+				text = "Error";
+				subItemColor = Color.Red;
+			}
+			// For valid encounter velocity values, format them to six decimal places for display
+			else
+			{
+				// Format the encounter velocity value to six decimal places
+				text = result.Values[i].ToString(format: "F6", provider: CultureInfo.CurrentCulture);
+			}
+			// Create individual ListViewSubItem with custom ForeColor
+			ListViewItem.ListViewSubItem subItem = new(owner: item, text: text)
+			{
+				ForeColor = subItemColor
+			};
+			// Add the subitem to the ListViewItem's SubItems collection
+			_ = item.SubItems.Add(item: subItem);
 		}
-		// Add the formatted subitems to the ListViewItem
-		item.SubItems.AddRange(items: subItems);
 		// Assign the constructed ListViewItem to the event args to be displayed in the ListView
 		e.Item = item;
 	}
@@ -362,11 +442,14 @@ internal partial class EncounterVelocityOfAllMinorPlanetsForm : BaseKryptonForm
 		// Update the column headers to reflect the current sort column and direction
 		for (int i = 0; i < listView.Columns.Count; i++)
 		{
+			// Remove any existing sort indicator prefix from the column header text
 			string headerText = listView.Columns[index: i].Text;
+			// Check if the header text starts with a sort indicator (▲ or ▼) and remove it if present
 			if (headerText.StartsWith(value: "▲ ", comparisonType: StringComparison.Ordinal) || headerText.StartsWith(value: "▼ ", comparisonType: StringComparison.Ordinal))
 			{
 				headerText = headerText[SortIndicatorPrefixLength..];
 			}
+			// Update the column header text to include the sort indicator for the active sort column
 			listView.Columns[index: i].Text = i == sortColumn ? $"{(sortOrder == SortOrder.Ascending ? "▲" : "▼")} {headerText}" : headerText;
 		}
 		// Re-sort the results and refresh the ListView
@@ -399,6 +482,8 @@ internal partial class EncounterVelocityOfAllMinorPlanetsForm : BaseKryptonForm
 	{
 		// Log the start of the calculation and check if there are any planetoid records to process
 		logger.Info(message: "Start button clicked. Beginning encounter velocity calculation.");
+		// Disable the filter button during calculation to prevent user interaction
+		toolStripButtonFilterEncounterVelocitys.Enabled = false;
 		if (_planetoids.Count == 0)
 		{
 			// Log a warning if there are no planetoid records and show an informational message box to the user
@@ -411,6 +496,7 @@ internal partial class EncounterVelocityOfAllMinorPlanetsForm : BaseKryptonForm
 		toolStripButtonStart.Enabled = false;
 		toolStripButtonCancel.Enabled = true;
 		toolStripButtonGoToObject.Enabled = false;
+		_allResults = [];
 		_results = [];
 		listView.VirtualListSize = 0;
 		UpdateProgress(percent: 0);
@@ -419,7 +505,7 @@ internal partial class EncounterVelocityOfAllMinorPlanetsForm : BaseKryptonForm
 		_cancellationTokenSource = new CancellationTokenSource();
 		CancellationToken token = _cancellationTokenSource.Token;
 		// Create a local list to store results from the background calculation
-		List<RowResult> localResults = [];
+		List<RowResult> localResults = new(capacity: _planetoids.Count);
 		// Create a progress reporter that updates the progress bar on the UI thread
 		IProgress<int> progress = new Progress<int>(handler: UpdateProgress);
 		try
@@ -437,6 +523,7 @@ internal partial class EncounterVelocityOfAllMinorPlanetsForm : BaseKryptonForm
 					token.ThrowIfCancellationRequested();
 					// Process the current planetoid line and append the result to the local results list
 					ProcessPlanetoidLine(line: _planetoids[index: i], results: localResults);
+					// Report progress at the specified interval or when the last item is processed
 					if (i % reportInterval == 0 || i == total - 1)
 					{
 						progress.Report(value: (i + 1) * 100 / total);
@@ -466,8 +553,9 @@ internal partial class EncounterVelocityOfAllMinorPlanetsForm : BaseKryptonForm
 				// Only update the UI if the form is still active and not disposed
 				if (IsHandleCreated && !IsDisposed && !Disposing)
 				{
-					// Assign the local results to the main results list and update the ListView
-					_results = localResults;
+					// Assign the local results to the all results list and initialize the filtered results
+					_allResults = localResults;
+					_results = [.. _allResults];
 					listView.VirtualListSize = _results.Count;
 					listView.Refresh();
 					toolStripButtonStart.Enabled = true;
@@ -479,17 +567,28 @@ internal partial class EncounterVelocityOfAllMinorPlanetsForm : BaseKryptonForm
 			// Catch ObjectDisposedException and InvalidOperationException that may occur if the form is closing
 			catch (ObjectDisposedException)
 			{
-				// Log a warning if the form was disposed before the calculation could complete
+				// Log a warning if the form was disposed before the calculation could complete and show an error message to the user
 				logger.Warn(message: "Form disposed before calculation could complete. Skipping UI update.");
+				ShowWarnMessage(caption: I18nStrings.InformationCaption, message: "Form disposed before calculation could complete. UI update skipped.");
 			}
 			catch (InvalidOperationException)
 			{
-				// Log a warning if an invalid operation occurred during form shutdown
+				// Log a warning if an invalid operation occurred during form shutdown and show an error message to the user
 				logger.Warn(message: "Invalid operation during form shutdown. Skipping UI update.");
+				ShowWarnMessage(caption: I18nStrings.InformationCaption, message: "Invalid operation during form shutdown. UI update skipped.");
 			}
-			// Dispose of the cancellation token source to free resources
+			// Catch any other unexpected exceptions during the UI update
+			catch (Exception ex)
+			{
+				// Log the unexpected exception and show an error message to the user
+				logger.Error(exception: ex, message: $"Unexpected error during UI update: {ex.Message}");
+				ShowErrorMessage(message: $"Unexpected error during UI update: {ex.Message}");
+			}
+			// Ensure that the filter button is enabled if there are results and the cancellation token source is disposed of
 			finally
 			{
+				toolStripButtonFilterEncounterVelocitys.Enabled = _results.Count > 0;
+				toolStripButtonFilterEncounterVelocitys.Checked = false;
 				_cancellationTokenSource?.Dispose();
 				_cancellationTokenSource = null;
 			}
@@ -517,10 +616,53 @@ internal partial class EncounterVelocityOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>When the "Go to Object" button is clicked, the corresponding planetoid is displayed in the <see cref="PlanetoidDbForm"/> without closing this form.</remarks>
 	private void ToolStripButtonGoToObject_Click(object sender, EventArgs e)
 	{
-		// Log the action of navigating to the selected planetoid in the main form
-		logger.Info(message: "Go to Object button clicked. Navigating to selected planetoid in main form.");
-		SelectedPlanetoidInMainForm();
-		Close();
+		// Check if an item is actually selected before executing actions
+		if (listView.SelectedIndices.Count > 0)
+		{
+			// Log the action of navigating to the selected planetoid in the main form
+			logger.Info(message: "Go to Object button clicked. Navigating to selected planetoid in main form.");
+			SelectedPlanetoidInMainForm();
+			Close();
+		}
+		// If no item is selected, log a warning and do not attempt to navigate
+		else
+		{
+			// Log a warning if the "Go to Object" button was clicked without any selection and show an informational message to the user
+			logger.Warn(message: "Go to Object button clicked, but no item is selected.");
+			ShowWarnMessage(caption: I18nStrings.InformationCaption, message: "Please select an item to navigate to.");
+		}
+	}
+
+	/// <summary>Applies or removes the encounter velocity filter based on the filter button's checked state.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data.</param>
+	/// <remarks>When the filter button is checked, only rows with at least one valid numeric value are displayed. When unchecked, all rows are displayed.</remarks>
+	private void ToolStripButtonFilterEncounterVelocitys_Click(object sender, EventArgs e)
+	{
+		// Log the current state of the filter button and apply or remove the filter accordingly
+		logger.Info(message: $"Filter button clicked. Checked state: {toolStripButtonFilterEncounterVelocitys.Checked}");
+		if (toolStripButtonFilterEncounterVelocitys.Checked)
+		{
+			// Log the action of enabling the filter and apply the filter to the ListView
+			logger.Info(message: "Filter button checked. Applying filter to ListView.");
+			// Check if there are any results to filter; if not, log a warning and show an informational message to the user
+			if (_results.Count == 0)
+			{
+				// Log a warning if there are no results to filter and show an informational message to the user
+				logger.Warn(message: "Filter button checked, but no results are available to filter.");
+				ShowWarnMessage(caption: I18nStrings.InformationCaption, message: "No results available to filter.");
+				return;
+			}
+			// Apply the filter to the results and update the ListView
+			FilterResults();
+		}
+		// If the filter button is unchecked, remove any applied filters and show all results
+		else
+		{
+			// Log the action of disabling the filter and remove any applied filters from the ListView
+			logger.Info(message: "Filter button unchecked. Removing filter from ListView.");
+			FilterResults();
+		}
 	}
 
 	#endregion
