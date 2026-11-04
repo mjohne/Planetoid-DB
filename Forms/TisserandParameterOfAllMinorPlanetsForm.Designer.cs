@@ -35,12 +35,19 @@ partial class TisserandParameterOfAllMinorPlanetsForm
 	/// <remarks>This method is called by the runtime to release resources used by the form.</remarks>
 	protected override void Dispose(bool disposing)
 	{
-		// Dispose of the cancellation token source and components if disposing is true
+		// Dispose of managed resources if disposing is true
 		if (disposing)
 		{
 			_cancellationTokenSource?.Cancel();
 			_cancellationTokenSource?.Dispose();
 			_cancellationTokenSource = null;
+			// Clear the ListView and results list to free up memory and reset the UI state
+			if (listView != null)
+			{
+				listView.VirtualListSize = 0;
+			}
+			_results?.Clear();
+			_results = null!;
 			components?.Dispose();
 		}
 		// Call the base class Dispose method
