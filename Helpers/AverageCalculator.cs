@@ -79,7 +79,6 @@ internal static class AverageCalculator
 		{
 			return double.NaN;
 		}
-
 		int mid = sorted.Length / 2;
 		return sorted.Length % 2 == 0 ? (sorted[mid - 1] + sorted[mid]) / 2.0 : sorted[mid];
 	}
