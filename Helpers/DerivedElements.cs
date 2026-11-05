@@ -1029,17 +1029,17 @@ internal partial class DerivedElements
 	}
 
 	/// <summary>Calculates the heliocentric latitude b for a given orbital position.</summary>
-	/// <param name="argPeri">The argument of perihelion in degrees.</param>
-	/// <param name="trueAnom">The true anomaly in degrees.</param>
+	/// <param name="argumentPerihelion">The argument of perihelion in degrees.</param>
+	/// <param name="trueAnomaly">The true anomaly in degrees.</param>
 	/// <param name="inclination">The inclination in degrees.</param>
 	/// <returns>The heliocentric latitude in degrees in the range [-90°, 90°].</returns>
 	/// <remarks>Calculated as b = arcsin(sin(i) · sin(ω + ν)).</remarks>
-	public static double CalculateHeliocentricLatitude(double argPeri, double trueAnom, double inclination)
+	public static double CalculateHeliocentricLatitude(double argumentPerihelion, double trueAnomaly, double inclination)
 	{
 		// Convert the inclination, argument of perihelion, and true anomaly from degrees to radians for the calculation.
 		double inclinationRad = double.DegreesToRadians(degrees: inclination);
 		// Calculate the sum of the argument of perihelion and true anomaly, then convert it to radians.
-		double uRad = double.DegreesToRadians(degrees: argPeri + trueAnom);
+		double uRad = double.DegreesToRadians(degrees: argumentPerihelion + trueAnomaly);
 		// The heliocentric latitude can be calculated as the arcsine of the product of the sine of the inclination and the sine of the sum of the argument of perihelion and true anomaly.
 		return double.RadiansToDegrees(radians: Math.Asin(d: Math.Sin(a: inclinationRad) * Math.Sin(a: uRad)));
 	}
