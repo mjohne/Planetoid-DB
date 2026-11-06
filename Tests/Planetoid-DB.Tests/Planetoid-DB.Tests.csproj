@@ -718,6 +718,7 @@ Public License instead of this License.  But first, please read
     <Compile Include="..\..\Helpers\IOrbitDataExporter.cs" Link="Helpers\IOrbitDataExporter.cs" />
     <Compile Include="..\..\Helpers\ExportEscapeHelper.cs" Link="Helpers\ExportEscapeHelper.cs" />
     <Compile Include="..\..\Helpers\AverageCalculator.cs" Link="Helpers\AverageCalculator.cs" />
+    <Compile Include="..\..\Helpers\OrbitalArcCalculator.cs" Link="Helpers\OrbitalArcCalculator.cs" />
     <Compile Include="..\..\Helpers\DerivedElements*.cs" Link="Helpers\%(Filename)%(Extension)" />
     <Compile Include="..\..\Helpers\TisserandParameterCalculator*.cs" Link="Helpers\%(Filename)%(Extension)" />
     <Compile Include="..\..\Export\*.cs" Link="Export\%(Filename)%(Extension)" />
