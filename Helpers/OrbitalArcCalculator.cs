@@ -35,7 +35,7 @@ internal static class OrbitalArcCalculator
 
 	/// <summary>Length of the ascending-node–perihelion–descending-node arc in astronomical units (AU).</summary>
 	/// <remarks>This method calculates the length of the arc from the ascending node to the perihelion and then to the descending node, based on the semi-major axis, eccentricity, and argument of perihelion.</remarks>
-	public static double AscendingNodePerihelDescendingNodeArcLengthAU(double semiMajorAxis, double eccentricity, double argumentOfPerihelion)
+	public static double AscendingNodePerihelionDescendingNodeArcLengthAU(double semiMajorAxis, double eccentricity, double argumentOfPerihelion)
 	{
 		// Calculate the lengths of the arcs and the total circumference of the ellipse.
 		return CalculateArcs(a: semiMajorAxis, e: eccentricity, omegaDegrees: argumentOfPerihelion).perihel;
@@ -43,7 +43,7 @@ internal static class OrbitalArcCalculator
 
 	/// <summary>Angular length of the perihel-node arc in degrees. The complete ellipse circumference represents 360 degrees.</summary>
 	/// <remarks>This method calculates the angular length of the arc from the ascending node to the perihelion and then to the descending node, based on the semi-major axis, eccentricity, and argument of perihelion.</remarks>
-	public static double AscendingNodePerihelDescendingNodeArcAngle(double semiMajorAxis, double eccentricity, double argumentOfPerihelion)
+	public static double AscendingNodePerihelionDescendingNodeArcAngle(double semiMajorAxis, double eccentricity, double argumentOfPerihelion)
 	{
 		// Calculate the lengths of the arcs and the total circumference of the ellipse.
 		(double perihel, _, double circumference) = CalculateArcs(a: semiMajorAxis, e: eccentricity, omegaDegrees: argumentOfPerihelion);
@@ -53,7 +53,7 @@ internal static class OrbitalArcCalculator
 
 	/// <summary>Length of the ascending-node–aphelion–descending-node arc in astronomical units (AU).</summary>
 	/// <remarks>This method calculates the length of the arc from the ascending node to the aphelion and then to the descending node, based on the semi-major axis, eccentricity, and argument of perihelion.</remarks>
-	public static double AscendingNodeAphelDescendingNodeArcLengthAU(double semiMajorAxis, double eccentricity, double argumentOfPerihelion)
+	public static double AscendingNodeAphelionDescendingNodeArcLengthAU(double semiMajorAxis, double eccentricity, double argumentOfPerihelion)
 	{
 		// Calculate the lengths of the arcs and the total circumference of the ellipse.
 		return CalculateArcs(a: semiMajorAxis, e: eccentricity, omegaDegrees: argumentOfPerihelion).aphel;
@@ -61,7 +61,7 @@ internal static class OrbitalArcCalculator
 
 	/// <summary>Angular length of the aphel-node arc in degrees. The complete ellipse circumference represents 360 degrees.</summary>
 	/// <remarks>This method calculates the angular length of the arc from the ascending node to the aphelion and then to the descending node, based on the semi-major axis, eccentricity, and argument of perihelion.</remarks>
-	public static double AscendingNodeAphelDescendingNodeArcAngle(double semiMajorAxis, double eccentricity, double argumentOfPerihelion)
+	public static double AscendingNodeAphelionDescendingNodeArcAngle(double semiMajorAxis, double eccentricity, double argumentOfPerihelion)
 	{
 		// Calculate the lengths of the arcs and the total circumference of the ellipse.
 		(double _, double aphel, double circumference) = CalculateArcs(a: semiMajorAxis, e: eccentricity, omegaDegrees: argumentOfPerihelion);

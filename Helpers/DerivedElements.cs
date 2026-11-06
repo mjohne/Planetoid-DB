@@ -268,6 +268,17 @@ internal partial class DerivedElements
 		return Math.PI * (a + b) * (1.0 + (3.0 * h / (10.0 + Math.Sqrt(d: 4.0 - (3.0 * h)))));
 	}
 
+	/// <summary>Calculates the orbital semi-perimeter of an ellipse.</summary>
+	/// <param name="semiMajorAxis">The semi-major axis of the ellipse.</param>
+	/// <param name="numericalEccentricity">The numerical eccentricity of the ellipse.</param>
+	/// <returns>The orbital semi-perimeter of the ellipse.</returns>
+	/// <remarks>This method is used to calculate the orbital semi-perimeter of an ellipse.</remarks>
+	public static double CalculateOrbitalSemiPerimeter(double semiMajorAxis, double numericalEccentricity)
+	{
+		// The semi-perimeter of an ellipse is half of the perimeter, so we can use the CalculateOrbitalPerimeter method and divide the result by 2.
+		return CalculateOrbitalPerimeter(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity) / 2.0;
+	}
+
 	/// <summary>Calculates the semi-mean axis of an ellipse.</summary>
 	/// <param name="semiMajorAxis">The semi-major axis of the ellipse.</param>
 	/// <param name="numericalEccentricity">The numerical eccentricity of the ellipse.</param>
@@ -288,6 +299,52 @@ internal partial class DerivedElements
 	{
 		// The mean axis (a_mean) of an ellipse can be calculated using the formula: a_mean = 2 * a_m, where a_m is the semi-mean axis.
 		return 2 * CalculateSemiMeanAxis(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity);
+	}
+
+	/// <summary>Calculates the orbital arc length from the ascending node through perihelion to the descending node.</summary>
+	/// <param name="semiMajorAxis">The orbit's semi-major axis.</param>
+	/// <param name="numericalEccentricity">The orbit's numerical eccentricity.</param>
+	/// <param name="argumentOfPerihelion">The argument of perihelion.</param>
+	/// <returns>The arc length in astronomical units.</returns>
+	/// <remarks>This method calculates the length of the arc from the ascending node to the perihelion and then to the descending node, based on the semi-major axis, eccentricity, and argument of perihelion.</remarks>
+	public static double CalculateLengthOfPerihelionNodeArc(double semiMajorAxis, double numericalEccentricity, double argumentOfPerihelion)
+	{
+		// This method calculates the length of the arc from the ascending node to the perihelion and then to the descending node, based on the semi-major axis, eccentricity, and argument of perihelion.
+		return OrbitalArcCalculator.AscendingNodePerihelionDescendingNodeArcLengthAU(semiMajorAxis: semiMajorAxis, eccentricity: numericalEccentricity, argumentOfPerihelion: argumentOfPerihelion);
+	}
+
+	/// <summary>Calculates the orbital arc length from the ascending node through aphelion to the descending node.</summary>
+	/// <param name="semiMajorAxis">The orbit's semi-major axis.</param>
+	/// <param name="numericalEccentricity">The orbit's numerical eccentricity.</param>
+	/// <param name="argumentOfPerihelion">The argument of perihelion.</param>
+	/// <returns>The arc length in astronomical units.</returns>
+	/// <remarks>This method calculates the length of the arc from the ascending node to the aphelion and then to the descending node, based on the semi-major axis, eccentricity, and argument of perihelion.</remarks>
+	public static double CalculateLengthOfAphelionNodeArc(double semiMajorAxis, double numericalEccentricity, double argumentOfPerihelion)
+	{
+		// This method calculates the length of the arc from the ascending node to the aphelion and then to the descending node, based on the semi-major axis, eccentricity, and argument of perihelion.
+		return OrbitalArcCalculator.AscendingNodeAphelionDescendingNodeArcLengthAU(semiMajorAxis: semiMajorAxis, eccentricity: numericalEccentricity, argumentOfPerihelion: argumentOfPerihelion);
+	}
+
+	/// <summary>Calculates the angular arc from the ascending node through perihelion to the descending node.</summary>
+	/// <param name="semiMajorAxis">The semi-major axis of the orbit.</param>
+	/// <param name="numericalEccentricity">The numerical eccentricity of the orbit.</param>
+	/// <param name="argumentOfPerihelion">The argument of perihelion.</param>
+	/// <returns>The angular arc from the ascending node through perihelion to the descending node.</returns>
+	/// <remarks>This method calculates the angular arc from the ascending node through perihelion to the descending node, based on the semi-major axis, eccentricity, and argument of perihelion.</remarks>
+	public static double CalculateAngularOfPerihelionNodeArc(double semiMajorAxis, double numericalEccentricity, double argumentOfPerihelion)
+	{
+		return OrbitalArcCalculator.AscendingNodePerihelionDescendingNodeArcAngle(semiMajorAxis: semiMajorAxis, eccentricity: numericalEccentricity, argumentOfPerihelion: argumentOfPerihelion);
+	}
+
+	/// <summary>Calculates the angular arc from the ascending node through aphelion to the descending node.</summary>
+	/// <param name="semiMajorAxis">The semi-major axis of the orbit.</param>
+	/// <param name="numericalEccentricity">The numerical eccentricity of the orbit.</param>
+	/// <param name="argumentOfPerihelion">The argument of perihelion.</param>
+	/// <returns>The angular arc from the ascending node through aphelion to the descending node.</returns>
+	/// <remarks>This method calculates the angular arc from the ascending node through aphelion to the descending node, based on the semi-major axis, eccentricity, and argument of perihelion.</remarks>
+	public static double CalculateAngularOfAphelionNodeArc(double semiMajorAxis, double numericalEccentricity, double argumentOfPerihelion)
+	{
+		return OrbitalArcCalculator.AscendingNodeAphelionDescendingNodeArcAngle(semiMajorAxis: semiMajorAxis, eccentricity: numericalEccentricity, argumentOfPerihelion: argumentOfPerihelion);
 	}
 
 	/// <summary>Calculates the distance from the ellipse center to the directrix line in AU.</summary>
@@ -1410,6 +1467,18 @@ internal partial class DerivedElements
 	{
 		// Calculate the Julian Date of perihelion passage using the formula: T_p = EpochJD - (M / 360°) * Period * 365.25, where M is the mean anomaly in degrees, and Period is the sidereal orbital period in years.
 		return epochJd - (NormalizeAngle360(degrees: meanAnomaly) / 360.0 * CalculateSiderealOrbitalPeriod(semiMajorAxis: semiMajorAxis) * 365.25);
+	}
+
+	/// <summary>Calculates the Julian Date of the aphelion passage prior to or near the reference epoch.</summary>
+	/// <param name="meanAnomaly">The mean anomaly at epoch in degrees.</param>
+	/// <param name="semiMajorAxis">The semi-major axis in AU.</param>
+	/// <param name="epochJd">The reference epoch in Julian Days (TT).</param>
+	/// <returns>The Julian Date (TT) of aphelion passage.</returns>
+	/// <remarks>Calculated as T_a = EpochJD - ((M - 180°) / 360°) · Period · 365.25.</remarks>
+	public static double CalculateAphelionDate(double meanAnomaly, double semiMajorAxis, double epochJd)
+	{
+		// Calculate the Julian Date of aphelion passage using the formula: T_a = EpochJD - ((M - 180°) / 360°) * Period * 365.25, where M is the mean anomaly in degrees, and Period is the sidereal orbital period in years.
+		return epochJd - (NormalizeAngle360(degrees: meanAnomaly - 180.0) / 360.0 * CalculateSiderealOrbitalPeriod(semiMajorAxis: semiMajorAxis) * 365.25);
 	}
 
 	/// <summary>Calculates the exact ecliptic longitude and latitude of perihelion (J2000.0).</summary>
