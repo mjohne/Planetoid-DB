@@ -71,7 +71,7 @@ internal partial class DerivedOrbitElementsForm : BaseKryptonForm
 	public DerivedOrbitElementsForm()
 	{
 		// Log the initialization of the form for debugging purposes
-		logger.Info(message: "Initializing DerivedOrbitElementsForm");
+		logger.Info(message: "Initializing DerivedOrbitElementsForm...");
 		// Initialize the form components
 		InitializeComponent();
 		// Enable double buffering on the table layout panel and its child labels to reduce flickering during updates
@@ -79,20 +79,70 @@ internal partial class DerivedOrbitElementsForm : BaseKryptonForm
 		// Map labels in the exact expected order of the incoming database list
 		orbitDataLabels =
 		[
-			labelLinearEccentricityData, labelSemiMinorAxisData, labelMajorAxisData,
-			labelMinorAxisData, labelEccentricAnomalyData, labelTrueAnomalyData,
-			labelPerihelionDistanceData, labelAphelionDistanceData, labelLongitudeDescendingNodeData,
-			labelArgumentAphelionData, labelFocalParameterData, labelSemiLatusRectumData,
-			labelLatusRectumData, labelOrbitalPeriodData, labelOrbitalAreaData,
-			labelOrbitalPerimeterData, labelSemiMeanAxisData, labelMeanAxisData,
-			labelStandardGravitationalParameterData, labelDirectrixData, labelPerihelionVelocityData,
-			labelAphelionVelocityData, labelMeanOrbitalVelocityData, labelCurrentOrbitalVelocityData,
-			labelRadialVelocityComponentData, labelTangentialVelocityComponentData, labelSpecificOrbitalEnergyData,
-			labelSpecificAngularMomentumData, labelVisVivaEnergyData, labelLongitudeOfPerihelionData,
-			labelMeanLongitudeData, labelArgumentOfLatitudeData, labelFlightPathAngleData,
-			labelTimeSincePerihelionData, labelTimeToNextPerihelionData, labelTimeSinceAphelionData,
-			labelTimeToNextAphelionData, labelSynodicPeriodData, labelTisserandParameterData,
-			labelMeanDistanceFromFocusData, labelGeometricAlbedoAdjustedDiameterData
+			labelSemiMinorAxisData,
+			labelSemiMeanAxisData,
+			labelMajorAxisData,
+			labelMinorAxisData,
+			labelMeanAxisData,
+			labelAphelionDistanceData,
+			labelPerihelionDistanceData,
+			labelLinearEccentricityData,
+			labelSemiLatusRectumData,
+			labelLatusRectumData,
+			labelFocalParameterData,
+			labelMeanDistanceFromFocusData,
+			labelDirectrixData,
+			labelOrbitalSemiPerimeterData,
+			labelOrbitalPerimeterData,
+			labelOrbitalAreaData,
+			labelOrbitalPeriodData,
+			labelSynodicPeriodData,
+			labelEquinoctialOrbitalElementHData,
+			labelEquinoctialOrbitalElementKData,
+			labelEquinoctialOrbitalElementPData,
+			labelEquinoctialOrbitalElementQData,
+			labelLengthOfAphelionNodeArcData,
+			labelLengthOfPerihelionNodeArcData,
+			labelAscendingNodeDistanceData,
+			labelDescendingNodeDistanceData,
+			labelAphelionDateData,
+			labelPerihelionDateData,
+			labelTimeSinceAphelionData,
+			labelTimeToNextAphelionData,
+			labelTimeSincePerihelionData,
+			labelTimeToNextPerihelionData,
+			labelCurrentOrbitalVelocityData,
+			labelRadialVelocityComponentData,
+			labelTangentialVelocityComponentData,
+			labelAphelionVelocityData,
+			labelPerihelionVelocityData,
+			labelMeanOrbitalVelocityData,
+			labelAngularVelocityData,
+			labelArealVelocityData,
+			labelMeanMotionData,
+			labelMeanDailyMotionData,
+			labelMeanDailyOrbitalMotionData,
+			labelRadiusOfCurvatureData,
+			labelMaxEclipticDistanceData,
+			labelKozaiQuantityData,
+			labelLongitudeOfPerihelionData,
+			labelMeanLongitudeData,
+			labelTrueLongitudeData,
+			labelArgumentOfLatitudeData,
+			labelArgumentAphelionData,
+			labelEccentricAnomalyData,
+			labelTrueAnomalyData,
+			labelHelioCentricLatitudeData,
+			labelHelioCentricLongitudeData,
+			labelAngularOfAphelionNodeArcData,
+			labelAngularOfPerihelionNodeArcData,
+			labelLongitudeDescendingNodeData,
+			labelFlightPathAngleData,
+			labelSpecificOrbitalEnergyData,
+			labelSpecificAngularMomentumData,
+			labelCharacteristicEnergyData,
+			labelIsPotenciallyHarzardousData,
+			labelGeometricAlbedoAdjustedDiameterData
 		];
 		// Log the number of labels mapped to derived orbit elements for debugging purposes
 		logger.Info(message: $"DerivedOrbitElementsForm initialized with {orbitDataLabels.Length} labels mapped to derived orbit elements.");
@@ -152,9 +202,7 @@ internal partial class DerivedOrbitElementsForm : BaseKryptonForm
 	{
 		// Direct cast replaces the 40-line switch statement, assuming the enum values correspond to the indices.
 		// If out of range, fallback to 0 (IndexNumber).
-		TerminologyElement element = Enum.IsDefined(enumType: typeof(TerminologyElement), value: (int)index)
-			? (TerminologyElement)index
-			: TerminologyElement.IndexNumber;
+		TerminologyElement element = Enum.IsDefined(enumType: typeof(TerminologyElement), value: (int)index) ? (TerminologyElement)index : TerminologyElement.IndexNumber;
 		// Create and show the terminology form
 		using TerminologyForm formTerminology = new()
 		{
@@ -218,9 +266,12 @@ internal partial class DerivedOrbitElementsForm : BaseKryptonForm
 	/// <remarks>This method is used to store the control that triggered the event for future reference.</remarks>
 	protected override void Control_MouseDown(object sender, MouseEventArgs e)
 	{
+		// Call the base class implementation to ensure any base functionality is executed
 		if (sender is ToolStripMenuItem menuItem && menuItem.Tag is Label targetLabel)
 		{
+			// Log the action of copying text from the label to the clipboard
 			logger.Info(message: $"Copying text from label '{targetLabel.Name}' to clipboard: {targetLabel.Text}");
+			// Copy the text from the label to the clipboard
 			CopyToClipboard(text: targetLabel.Text);
 		}
 	}
@@ -414,17 +465,6 @@ internal partial class DerivedOrbitElementsForm : BaseKryptonForm
 	{
 		logger.Info(message: $"Copying mean axis data to clipboard: {labelMeanAxisData.Text}");
 		CopyToClipboard(text: labelMeanAxisData.Text);
-	}
-
-	/// <summary>Handles the click event for the CopyToClipboardStandardGravitationalParameter.
-	/// Copies the standard gravitational parameter data to the clipboard.</summary>
-	/// <param name="sender">The event source.</param>
-	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>This method is used to copy the standard gravitational parameter data to the clipboard.</remarks>
-	private void CopyToClipboardStandardGravitationalParameter_Click(object sender, EventArgs e)
-	{
-		logger.Info(message: $"Copying standard gravitational parameter data to clipboard: {labelStandardGravitationalParameterData.Text}");
-		CopyToClipboard(text: labelStandardGravitationalParameterData.Text);
 	}
 
 	#endregion
