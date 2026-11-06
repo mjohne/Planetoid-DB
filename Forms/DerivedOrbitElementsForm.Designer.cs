@@ -58,88 +58,134 @@ partial class DerivedOrbitElementsForm
 		kryptonStatusStrip = new KryptonStatusStrip();
 		labelInformation = new ToolStripStatusLabel();
 		tableLayoutPanel = new KryptonTableLayoutPanel();
-		labelPerihelionVelocityData = new KryptonLabel();
-		labelPerihelionVelocityDesc = new KryptonLabel();
-		labelGeometricAlbedoAdjustedDiameterDesc = new KryptonLabel();
-		labelMeanDistanceFromFocusDesc = new KryptonLabel();
-		labelTisserandParameterDesc = new KryptonLabel();
-		labelSynodicPeriodDesc = new KryptonLabel();
-		labelTimeToNextAphelionDesc = new KryptonLabel();
-		labelTimeSinceAphelionDesc = new KryptonLabel();
-		labelTimeToNextPerihelionDesc = new KryptonLabel();
-		labelTimeSincePerihelionDesc = new KryptonLabel();
-		labelFlightPathAngleDesc = new KryptonLabel();
-		labelArgumentOfLatitudeDesc = new KryptonLabel();
-		labelMeanLongitudeDesc = new KryptonLabel();
-		labelLongitudeOfPerihelionDesc = new KryptonLabel();
-		labelVisVivaEnergyDesc = new KryptonLabel();
-		labelSpecificAngularMomentumDesc = new KryptonLabel();
-		labelSpecificOrbitalEnergyDesc = new KryptonLabel();
-		labelTangentialVelocityComponentDesc = new KryptonLabel();
-		labelRadialVelocityComponentDesc = new KryptonLabel();
-		labelCurrentOrbitalVelocityDesc = new KryptonLabel();
-		labelMeanOrbitalVelocityDesc = new KryptonLabel();
-		labelAphelionVelocityDesc = new KryptonLabel();
-		labelGeometricAlbedoAdjustedDiameterData = new KryptonLabel();
-		labelDirectrixData = new KryptonLabel();
-		labelDirectrixDesc = new KryptonLabel();
-		labelMeanDistanceFromFocusData = new KryptonLabel();
-		labelTisserandParameterData = new KryptonLabel();
-		labelSynodicPeriodData = new KryptonLabel();
-		labelTimeToNextAphelionData = new KryptonLabel();
-		labelTimeSinceAphelionData = new KryptonLabel();
-		labelTimeToNextPerihelionData = new KryptonLabel();
-		labelTimeSincePerihelionData = new KryptonLabel();
-		labelFlightPathAngleData = new KryptonLabel();
-		labelArgumentOfLatitudeData = new KryptonLabel();
-		labelMeanLongitudeData = new KryptonLabel();
-		labelLongitudeOfPerihelionData = new KryptonLabel();
-		labelVisVivaEnergyData = new KryptonLabel();
-		labelSpecificAngularMomentumData = new KryptonLabel();
-		labelSpecificOrbitalEnergyData = new KryptonLabel();
-		labelTangentialVelocityComponentData = new KryptonLabel();
-		labelRadialVelocityComponentData = new KryptonLabel();
-		labelCurrentOrbitalVelocityData = new KryptonLabel();
-		labelMeanOrbitalVelocityData = new KryptonLabel();
-		labelAphelionVelocityData = new KryptonLabel();
-		labelLinearEccentricityData = new KryptonLabel();
-		labelLinearEccentricityDesc = new KryptonLabel();
-		labelSemiMinorAxisDesc = new KryptonLabel();
 		labelMajorAxisDesc = new KryptonLabel();
 		labelMinorAxisDesc = new KryptonLabel();
-		labelEccentricAnomalyDesc = new KryptonLabel();
-		labelTrueAnomalyDesc = new KryptonLabel();
-		labelPerihelionDistanceDesc = new KryptonLabel();
-		labelAphelionDistanceDesc = new KryptonLabel();
-		labelLongitudeOfTheDescendingNodeDesc = new KryptonLabel();
-		labelArgumentOfTheAphelionDesc = new KryptonLabel();
-		labelFocalParameterDesc = new KryptonLabel();
-		labelSemiLatusRectumDesc = new KryptonLabel();
-		labelLatusRectumDesc = new KryptonLabel();
-		labelOrbitalPeriodDesc = new KryptonLabel();
-		labelSemiMinorAxisData = new KryptonLabel();
 		labelMajorAxisData = new KryptonLabel();
 		labelMinorAxisData = new KryptonLabel();
-		labelEccentricAnomalyData = new KryptonLabel();
-		labelTrueAnomalyData = new KryptonLabel();
-		labelPerihelionDistanceData = new KryptonLabel();
-		labelAphelionDistanceData = new KryptonLabel();
-		labelLongitudeDescendingNodeData = new KryptonLabel();
-		labelArgumentAphelionData = new KryptonLabel();
-		labelFocalParameterData = new KryptonLabel();
-		labelSemiLatusRectumData = new KryptonLabel();
-		labelLatusRectumData = new KryptonLabel();
-		labelOrbitalPeriodData = new KryptonLabel();
+		labelSemiMinorAxisDesc = new KryptonLabel();
+		labelSemiMinorAxisData = new KryptonLabel();
+		labelSemiMeanAxisDesc = new KryptonLabel();
+		labelSemiMeanAxisData = new KryptonLabel();
+		labelMeanAxisDesc = new KryptonLabel();
+		labelMeanAxisData = new KryptonLabel();
+		labelPerihelionDateDesc = new KryptonLabel();
+		labelAphelionDateDesc = new KryptonLabel();
+		labelDescendingNodeDistanceDesc = new KryptonLabel();
+		labelAscendingNodeDistanceDesc = new KryptonLabel();
+		labelEquinoctialOrbitalElementQDesc = new KryptonLabel();
+		labelEquinoctialOrbitalElementPDesc = new KryptonLabel();
+		labelEquinoctialOrbitalElementKDesc = new KryptonLabel();
+		labelEquinoctialOrbitalElementHDesc = new KryptonLabel();
+		labelSynodicPeriodDesc = new KryptonLabel();
+		labelOrbitalPeriodDesc = new KryptonLabel();
 		labelOrbitalAreaDesc = new KryptonLabel();
 		labelOrbitalPerimeterDesc = new KryptonLabel();
-		labelSemiMeanAxisDesc = new KryptonLabel();
-		labelMeanAxisDesc = new KryptonLabel();
+		labelOrbitalSemiPerimeterDesc = new KryptonLabel();
+		labelDirectrixDesc = new KryptonLabel();
+		labelMeanDistanceFromFocusDesc = new KryptonLabel();
+		labelFocalParameterDesc = new KryptonLabel();
+		labelLatusRectumDesc = new KryptonLabel();
+		labelSemiLatusRectumDesc = new KryptonLabel();
+		labelLinearEccentricityDesc = new KryptonLabel();
+		labelPerihelionDateData = new KryptonLabel();
+		labelAphelionDateData = new KryptonLabel();
+		labelDescendingNodeDistanceData = new KryptonLabel();
+		labelAscendingNodeDistanceData = new KryptonLabel();
+		labelEquinoctialOrbitalElementQData = new KryptonLabel();
+		labelEquinoctialOrbitalElementPData = new KryptonLabel();
+		labelEquinoctialOrbitalElementKData = new KryptonLabel();
+		labelEquinoctialOrbitalElementHData = new KryptonLabel();
+		labelSynodicPeriodData = new KryptonLabel();
+		labelOrbitalPeriodData = new KryptonLabel();
 		labelOrbitalAreaData = new KryptonLabel();
 		labelOrbitalPerimeterData = new KryptonLabel();
-		labelSemiMeanAxisData = new KryptonLabel();
-		labelMeanAxisData = new KryptonLabel();
-		labelStandardGravitationalParameterData = new KryptonLabel();
-		labelStandardGravitationalParameterDesc = new KryptonLabel();
+		labelOrbitalSemiPerimeterData = new KryptonLabel();
+		labelDirectrixData = new KryptonLabel();
+		labelMeanDistanceFromFocusData = new KryptonLabel();
+		labelLatusRectumData = new KryptonLabel();
+		labelLinearEccentricityData = new KryptonLabel();
+		labelFocalParameterData = new KryptonLabel();
+		labelSemiLatusRectumData = new KryptonLabel();
+		labelCurrentOrbitalVelocityDesc = new KryptonLabel();
+		labelCurrentOrbitalVelocityData = new KryptonLabel();
+		labelRadialVelocityComponentDesc = new KryptonLabel();
+		labelRadialVelocityComponentData = new KryptonLabel();
+		labelTangentialVelocityComponentDesc = new KryptonLabel();
+		labelTangentialVelocityComponentData = new KryptonLabel();
+		labelAphelionVelocityDesc = new KryptonLabel();
+		labelAphelionVelocityData = new KryptonLabel();
+		labelPerihelionVelocityDesc = new KryptonLabel();
+		labelPerihelionVelocityData = new KryptonLabel();
+		labelMeanOrbitalVelocityDesc = new KryptonLabel();
+		labelMeanOrbitalVelocityData = new KryptonLabel();
+		labelMeanDailyOrbitalMotionDesc = new KryptonLabel();
+		labelMeanDailyMotionDesc = new KryptonLabel();
+		labelMeanMotionDesc = new KryptonLabel();
+		labelMeanDailyOrbitalMotionData = new KryptonLabel();
+		labelMeanDailyMotionData = new KryptonLabel();
+		labelMeanMotionData = new KryptonLabel();
+		labelAngularVelocityDesc = new KryptonLabel();
+		labelArealVelocityDesc = new KryptonLabel();
+		labelAngularVelocityData = new KryptonLabel();
+		labelArealVelocityData = new KryptonLabel();
+		labelMeanLongitudeDesc = new KryptonLabel();
+		labelLongitudeOfPerihelionDesc = new KryptonLabel();
+		labelMeanLongitudeData = new KryptonLabel();
+		labelLongitudeOfPerihelionData = new KryptonLabel();
+		labelMaxEclipticDistanceDesc = new KryptonLabel();
+		labelMaxEclipticDistanceData = new KryptonLabel();
+		labelRadiusOfCurvatureDesc = new KryptonLabel();
+		labelRadiusOfCurvatureData = new KryptonLabel();
+		labelKozaiQuantityDesc = new KryptonLabel();
+		labelKozaiQuantityData = new KryptonLabel();
+		labelArgumentOfTheAphelionDesc = new KryptonLabel();
+		labelArgumentAphelionData = new KryptonLabel();
+		labelArgumentOfLatitudeData = new KryptonLabel();
+		labelArgumentOfLatitudeDesc = new KryptonLabel();
+		labelTrueLongitudeDesc = new KryptonLabel();
+		labelTrueLongitudeData = new KryptonLabel();
+		labelSpecificOrbitalEnergyDesc = new KryptonLabel();
+		labelSpecificOrbitalEnergyData = new KryptonLabel();
+		labelSpecificAngularMomentumDesc = new KryptonLabel();
+		labelSpecificAngularMomentumData = new KryptonLabel();
+		labelCharacteristicEnergyDesc = new KryptonLabel();
+		labelCharacteristicEnergyData = new KryptonLabel();
+		labelIsPotenciallyHarzardousDesc = new KryptonLabel();
+		labelGeometricAlbedoAdjustedDiameterDesc = new KryptonLabel();
+		labelIsPotenciallyHarzardousData = new KryptonLabel();
+		labelGeometricAlbedoAdjustedDiameterData = new KryptonLabel();
+		labelHelioCentricLatitudeDesc = new KryptonLabel();
+		labelHelioCentricLatitudeData = new KryptonLabel();
+		labelHelioCentricLongitudeDesc = new KryptonLabel();
+		labelHelioCentricLongitudeData = new KryptonLabel();
+		labelAngularOfPerihelionNodeArcDesc = new KryptonLabel();
+		labelAngularOfPerihelionNodeArcData = new KryptonLabel();
+		labelAngularOfAphelionNodeArcDesc = new KryptonLabel();
+		labelAngularOfAphelionNodeArcData = new KryptonLabel();
+		labelFlightPathAngleDesc = new KryptonLabel();
+		labelLongitudeOfTheDescendingNodeDesc = new KryptonLabel();
+		labelFlightPathAngleData = new KryptonLabel();
+		labelLongitudeDescendingNodeData = new KryptonLabel();
+		labelTrueAnomalyDesc = new KryptonLabel();
+		labelEccentricAnomalyDesc = new KryptonLabel();
+		labelTrueAnomalyData = new KryptonLabel();
+		labelEccentricAnomalyData = new KryptonLabel();
+		labelPerihelionDistanceDesc = new KryptonLabel();
+		labelAphelionDistanceDesc = new KryptonLabel();
+		labelPerihelionDistanceData = new KryptonLabel();
+		labelAphelionDistanceData = new KryptonLabel();
+		labelTimeSincePerihelionDesc = new KryptonLabel();
+		labelTimeSinceAphelionDesc = new KryptonLabel();
+		labelTimeSincePerihelionData = new KryptonLabel();
+		labelTimeSinceAphelionData = new KryptonLabel();
+		labelTimeToNextPerihelionDesc = new KryptonLabel();
+		labelTimeToNextAphelionDesc = new KryptonLabel();
+		labelTimeToNextPerihelionData = new KryptonLabel();
+		labelTimeToNextAphelionData = new KryptonLabel();
+		labelLengthOfAphelionNodeArcData = new KryptonLabel();
+		labelLengthOfPerihelionNodeArcData = new KryptonLabel();
+		labelLengthOfPerihelionNodeArcDesc = new KryptonLabel();
+		labelLengthOfAphelionNodeArcDesc = new KryptonLabel();
 		toolStripIcons = new ToolStrip();
 		toolStripDropDownButtonSaveToFile = new ToolStripDropDownButton();
 		contextMenuSaveToFile = new ContextMenuStrip(components);
@@ -282,7 +328,7 @@ partial class DerivedOrbitElementsForm
 		toolStripContainer.ContentPanel.AccessibleRole = AccessibleRole.Pane;
 		toolStripContainer.ContentPanel.Controls.Add(tableLayoutPanel);
 		toolStripContainer.ContentPanel.Margin = new Padding(4, 3, 4, 3);
-		toolStripContainer.ContentPanel.Size = new Size(846, 551);
+		toolStripContainer.ContentPanel.Size = new Size(846, 836);
 		toolStripContainer.Dock = DockStyle.Fill;
 		// 
 		// toolStripContainer.LeftToolStripPanel
@@ -298,7 +344,7 @@ partial class DerivedOrbitElementsForm
 		toolStripContainer.RightToolStripPanel.AccessibleDescription = "Just a panel";
 		toolStripContainer.RightToolStripPanel.AccessibleName = "Right panel";
 		toolStripContainer.RightToolStripPanel.AccessibleRole = AccessibleRole.Pane;
-		toolStripContainer.Size = new Size(846, 598);
+		toolStripContainer.Size = new Size(846, 883);
 		toolStripContainer.TabIndex = 3;
 		toolStripContainer.Text = "toolStripContainer";
 		// 
@@ -327,7 +373,7 @@ partial class DerivedOrbitElementsForm
 		kryptonStatusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
 		kryptonStatusStrip.ShowItemToolTips = true;
 		kryptonStatusStrip.Size = new Size(846, 22);
-		kryptonStatusStrip.TabIndex = 1;
+		kryptonStatusStrip.TabIndex = 0;
 		kryptonStatusStrip.TabStop = true;
 		kryptonStatusStrip.Text = "Status bar";
 		kryptonStatusStrip.Enter += Control_Enter;
@@ -360,93 +406,139 @@ partial class DerivedOrbitElementsForm
 		tableLayoutPanel.ColumnStyles.Add(new ColumnStyle());
 		tableLayoutPanel.ColumnStyles.Add(new ColumnStyle());
 		tableLayoutPanel.ContextMenuStrip = contextMenuCopyToClipboard;
-		tableLayoutPanel.Controls.Add(labelPerihelionVelocityData, 1, 20);
-		tableLayoutPanel.Controls.Add(labelPerihelionVelocityDesc, 0, 20);
-		tableLayoutPanel.Controls.Add(labelGeometricAlbedoAdjustedDiameterDesc, 2, 19);
-		tableLayoutPanel.Controls.Add(labelMeanDistanceFromFocusDesc, 2, 18);
-		tableLayoutPanel.Controls.Add(labelTisserandParameterDesc, 2, 17);
-		tableLayoutPanel.Controls.Add(labelSynodicPeriodDesc, 2, 16);
-		tableLayoutPanel.Controls.Add(labelTimeToNextAphelionDesc, 2, 15);
-		tableLayoutPanel.Controls.Add(labelTimeSinceAphelionDesc, 2, 14);
-		tableLayoutPanel.Controls.Add(labelTimeToNextPerihelionDesc, 2, 13);
-		tableLayoutPanel.Controls.Add(labelTimeSincePerihelionDesc, 2, 12);
-		tableLayoutPanel.Controls.Add(labelFlightPathAngleDesc, 2, 11);
-		tableLayoutPanel.Controls.Add(labelArgumentOfLatitudeDesc, 2, 10);
-		tableLayoutPanel.Controls.Add(labelMeanLongitudeDesc, 2, 9);
-		tableLayoutPanel.Controls.Add(labelLongitudeOfPerihelionDesc, 2, 8);
-		tableLayoutPanel.Controls.Add(labelVisVivaEnergyDesc, 2, 7);
-		tableLayoutPanel.Controls.Add(labelSpecificAngularMomentumDesc, 2, 6);
-		tableLayoutPanel.Controls.Add(labelSpecificOrbitalEnergyDesc, 2, 5);
-		tableLayoutPanel.Controls.Add(labelTangentialVelocityComponentDesc, 2, 4);
-		tableLayoutPanel.Controls.Add(labelRadialVelocityComponentDesc, 2, 3);
-		tableLayoutPanel.Controls.Add(labelCurrentOrbitalVelocityDesc, 2, 2);
-		tableLayoutPanel.Controls.Add(labelMeanOrbitalVelocityDesc, 2, 1);
-		tableLayoutPanel.Controls.Add(labelAphelionVelocityDesc, 2, 0);
-		tableLayoutPanel.Controls.Add(labelGeometricAlbedoAdjustedDiameterData, 3, 19);
-		tableLayoutPanel.Controls.Add(labelDirectrixData, 1, 19);
-		tableLayoutPanel.Controls.Add(labelDirectrixDesc, 0, 19);
-		tableLayoutPanel.Controls.Add(labelMeanDistanceFromFocusData, 3, 18);
-		tableLayoutPanel.Controls.Add(labelTisserandParameterData, 3, 17);
-		tableLayoutPanel.Controls.Add(labelSynodicPeriodData, 3, 16);
-		tableLayoutPanel.Controls.Add(labelTimeToNextAphelionData, 3, 15);
-		tableLayoutPanel.Controls.Add(labelTimeSinceAphelionData, 3, 14);
-		tableLayoutPanel.Controls.Add(labelTimeToNextPerihelionData, 3, 13);
-		tableLayoutPanel.Controls.Add(labelTimeSincePerihelionData, 3, 12);
-		tableLayoutPanel.Controls.Add(labelFlightPathAngleData, 3, 11);
-		tableLayoutPanel.Controls.Add(labelArgumentOfLatitudeData, 3, 10);
-		tableLayoutPanel.Controls.Add(labelMeanLongitudeData, 3, 9);
-		tableLayoutPanel.Controls.Add(labelLongitudeOfPerihelionData, 3, 8);
-		tableLayoutPanel.Controls.Add(labelVisVivaEnergyData, 3, 7);
-		tableLayoutPanel.Controls.Add(labelSpecificAngularMomentumData, 3, 6);
-		tableLayoutPanel.Controls.Add(labelSpecificOrbitalEnergyData, 3, 5);
-		tableLayoutPanel.Controls.Add(labelTangentialVelocityComponentData, 3, 4);
-		tableLayoutPanel.Controls.Add(labelRadialVelocityComponentData, 3, 3);
-		tableLayoutPanel.Controls.Add(labelCurrentOrbitalVelocityData, 3, 2);
-		tableLayoutPanel.Controls.Add(labelMeanOrbitalVelocityData, 3, 1);
-		tableLayoutPanel.Controls.Add(labelAphelionVelocityData, 3, 0);
-		tableLayoutPanel.Controls.Add(labelLinearEccentricityData, 1, 0);
-		tableLayoutPanel.Controls.Add(labelLinearEccentricityDesc, 0, 0);
-		tableLayoutPanel.Controls.Add(labelSemiMinorAxisDesc, 0, 1);
 		tableLayoutPanel.Controls.Add(labelMajorAxisDesc, 0, 2);
 		tableLayoutPanel.Controls.Add(labelMinorAxisDesc, 0, 3);
-		tableLayoutPanel.Controls.Add(labelEccentricAnomalyDesc, 0, 4);
-		tableLayoutPanel.Controls.Add(labelTrueAnomalyDesc, 0, 5);
-		tableLayoutPanel.Controls.Add(labelPerihelionDistanceDesc, 0, 6);
-		tableLayoutPanel.Controls.Add(labelAphelionDistanceDesc, 0, 7);
-		tableLayoutPanel.Controls.Add(labelLongitudeOfTheDescendingNodeDesc, 0, 8);
-		tableLayoutPanel.Controls.Add(labelArgumentOfTheAphelionDesc, 0, 9);
-		tableLayoutPanel.Controls.Add(labelFocalParameterDesc, 0, 10);
-		tableLayoutPanel.Controls.Add(labelSemiLatusRectumDesc, 0, 11);
-		tableLayoutPanel.Controls.Add(labelLatusRectumDesc, 0, 12);
-		tableLayoutPanel.Controls.Add(labelOrbitalPeriodDesc, 0, 13);
-		tableLayoutPanel.Controls.Add(labelSemiMinorAxisData, 1, 1);
 		tableLayoutPanel.Controls.Add(labelMajorAxisData, 1, 2);
 		tableLayoutPanel.Controls.Add(labelMinorAxisData, 1, 3);
-		tableLayoutPanel.Controls.Add(labelEccentricAnomalyData, 1, 4);
-		tableLayoutPanel.Controls.Add(labelTrueAnomalyData, 1, 5);
-		tableLayoutPanel.Controls.Add(labelPerihelionDistanceData, 1, 6);
-		tableLayoutPanel.Controls.Add(labelAphelionDistanceData, 1, 7);
-		tableLayoutPanel.Controls.Add(labelLongitudeDescendingNodeData, 1, 8);
-		tableLayoutPanel.Controls.Add(labelArgumentAphelionData, 1, 9);
+		tableLayoutPanel.Controls.Add(labelSemiMinorAxisDesc, 0, 0);
+		tableLayoutPanel.Controls.Add(labelSemiMinorAxisData, 1, 0);
+		tableLayoutPanel.Controls.Add(labelSemiMeanAxisDesc, 0, 1);
+		tableLayoutPanel.Controls.Add(labelSemiMeanAxisData, 1, 1);
+		tableLayoutPanel.Controls.Add(labelMeanAxisDesc, 0, 4);
+		tableLayoutPanel.Controls.Add(labelMeanAxisData, 1, 4);
+		tableLayoutPanel.Controls.Add(labelPerihelionDateDesc, 0, 28);
+		tableLayoutPanel.Controls.Add(labelAphelionDateDesc, 0, 27);
+		tableLayoutPanel.Controls.Add(labelDescendingNodeDistanceDesc, 0, 26);
+		tableLayoutPanel.Controls.Add(labelAscendingNodeDistanceDesc, 0, 25);
+		tableLayoutPanel.Controls.Add(labelEquinoctialOrbitalElementQDesc, 0, 22);
+		tableLayoutPanel.Controls.Add(labelEquinoctialOrbitalElementPDesc, 0, 21);
+		tableLayoutPanel.Controls.Add(labelEquinoctialOrbitalElementKDesc, 0, 20);
+		tableLayoutPanel.Controls.Add(labelEquinoctialOrbitalElementHDesc, 0, 19);
+		tableLayoutPanel.Controls.Add(labelSynodicPeriodDesc, 0, 18);
+		tableLayoutPanel.Controls.Add(labelOrbitalPeriodDesc, 0, 17);
+		tableLayoutPanel.Controls.Add(labelOrbitalAreaDesc, 0, 16);
+		tableLayoutPanel.Controls.Add(labelOrbitalPerimeterDesc, 0, 14);
+		tableLayoutPanel.Controls.Add(labelOrbitalSemiPerimeterDesc, 0, 13);
+		tableLayoutPanel.Controls.Add(labelDirectrixDesc, 0, 12);
+		tableLayoutPanel.Controls.Add(labelMeanDistanceFromFocusDesc, 0, 11);
+		tableLayoutPanel.Controls.Add(labelFocalParameterDesc, 0, 10);
+		tableLayoutPanel.Controls.Add(labelLatusRectumDesc, 0, 9);
+		tableLayoutPanel.Controls.Add(labelSemiLatusRectumDesc, 0, 8);
+		tableLayoutPanel.Controls.Add(labelLinearEccentricityDesc, 0, 7);
+		tableLayoutPanel.Controls.Add(labelPerihelionDateData, 1, 28);
+		tableLayoutPanel.Controls.Add(labelAphelionDateData, 1, 27);
+		tableLayoutPanel.Controls.Add(labelDescendingNodeDistanceData, 1, 26);
+		tableLayoutPanel.Controls.Add(labelAscendingNodeDistanceData, 1, 25);
+		tableLayoutPanel.Controls.Add(labelEquinoctialOrbitalElementQData, 1, 22);
+		tableLayoutPanel.Controls.Add(labelEquinoctialOrbitalElementPData, 1, 21);
+		tableLayoutPanel.Controls.Add(labelEquinoctialOrbitalElementKData, 1, 20);
+		tableLayoutPanel.Controls.Add(labelEquinoctialOrbitalElementHData, 1, 19);
+		tableLayoutPanel.Controls.Add(labelSynodicPeriodData, 1, 18);
+		tableLayoutPanel.Controls.Add(labelOrbitalPeriodData, 1, 17);
+		tableLayoutPanel.Controls.Add(labelOrbitalAreaData, 1, 16);
+		tableLayoutPanel.Controls.Add(labelOrbitalPerimeterData, 1, 14);
+		tableLayoutPanel.Controls.Add(labelOrbitalSemiPerimeterData, 1, 13);
+		tableLayoutPanel.Controls.Add(labelDirectrixData, 1, 12);
+		tableLayoutPanel.Controls.Add(labelMeanDistanceFromFocusData, 1, 11);
+		tableLayoutPanel.Controls.Add(labelLatusRectumData, 1, 9);
+		tableLayoutPanel.Controls.Add(labelLinearEccentricityData, 1, 7);
 		tableLayoutPanel.Controls.Add(labelFocalParameterData, 1, 10);
-		tableLayoutPanel.Controls.Add(labelSemiLatusRectumData, 1, 11);
-		tableLayoutPanel.Controls.Add(labelLatusRectumData, 1, 12);
-		tableLayoutPanel.Controls.Add(labelOrbitalPeriodData, 1, 13);
-		tableLayoutPanel.Controls.Add(labelOrbitalAreaDesc, 0, 14);
-		tableLayoutPanel.Controls.Add(labelOrbitalPerimeterDesc, 0, 15);
-		tableLayoutPanel.Controls.Add(labelSemiMeanAxisDesc, 0, 16);
-		tableLayoutPanel.Controls.Add(labelMeanAxisDesc, 0, 17);
-		tableLayoutPanel.Controls.Add(labelOrbitalAreaData, 1, 14);
-		tableLayoutPanel.Controls.Add(labelOrbitalPerimeterData, 1, 15);
-		tableLayoutPanel.Controls.Add(labelSemiMeanAxisData, 1, 16);
-		tableLayoutPanel.Controls.Add(labelMeanAxisData, 1, 17);
-		tableLayoutPanel.Controls.Add(labelStandardGravitationalParameterData, 1, 18);
-		tableLayoutPanel.Controls.Add(labelStandardGravitationalParameterDesc, 0, 18);
+		tableLayoutPanel.Controls.Add(labelSemiLatusRectumData, 1, 8);
+		tableLayoutPanel.Controls.Add(labelCurrentOrbitalVelocityDesc, 2, 0);
+		tableLayoutPanel.Controls.Add(labelCurrentOrbitalVelocityData, 3, 0);
+		tableLayoutPanel.Controls.Add(labelRadialVelocityComponentDesc, 2, 1);
+		tableLayoutPanel.Controls.Add(labelRadialVelocityComponentData, 3, 1);
+		tableLayoutPanel.Controls.Add(labelTangentialVelocityComponentDesc, 2, 2);
+		tableLayoutPanel.Controls.Add(labelTangentialVelocityComponentData, 3, 2);
+		tableLayoutPanel.Controls.Add(labelAphelionVelocityDesc, 2, 3);
+		tableLayoutPanel.Controls.Add(labelAphelionVelocityData, 3, 3);
+		tableLayoutPanel.Controls.Add(labelPerihelionVelocityDesc, 2, 4);
+		tableLayoutPanel.Controls.Add(labelPerihelionVelocityData, 3, 4);
+		tableLayoutPanel.Controls.Add(labelMeanOrbitalVelocityDesc, 2, 5);
+		tableLayoutPanel.Controls.Add(labelMeanOrbitalVelocityData, 3, 5);
+		tableLayoutPanel.Controls.Add(labelMeanDailyOrbitalMotionDesc, 2, 10);
+		tableLayoutPanel.Controls.Add(labelMeanDailyMotionDesc, 2, 9);
+		tableLayoutPanel.Controls.Add(labelMeanMotionDesc, 2, 8);
+		tableLayoutPanel.Controls.Add(labelMeanDailyOrbitalMotionData, 3, 10);
+		tableLayoutPanel.Controls.Add(labelMeanDailyMotionData, 3, 9);
+		tableLayoutPanel.Controls.Add(labelMeanMotionData, 3, 8);
+		tableLayoutPanel.Controls.Add(labelAngularVelocityDesc, 2, 6);
+		tableLayoutPanel.Controls.Add(labelArealVelocityDesc, 2, 7);
+		tableLayoutPanel.Controls.Add(labelAngularVelocityData, 3, 6);
+		tableLayoutPanel.Controls.Add(labelArealVelocityData, 3, 7);
+		tableLayoutPanel.Controls.Add(labelMeanLongitudeDesc, 2, 16);
+		tableLayoutPanel.Controls.Add(labelLongitudeOfPerihelionDesc, 2, 14);
+		tableLayoutPanel.Controls.Add(labelMeanLongitudeData, 3, 16);
+		tableLayoutPanel.Controls.Add(labelLongitudeOfPerihelionData, 3, 14);
+		tableLayoutPanel.Controls.Add(labelMaxEclipticDistanceDesc, 2, 12);
+		tableLayoutPanel.Controls.Add(labelMaxEclipticDistanceData, 3, 12);
+		tableLayoutPanel.Controls.Add(labelRadiusOfCurvatureDesc, 2, 11);
+		tableLayoutPanel.Controls.Add(labelRadiusOfCurvatureData, 3, 11);
+		tableLayoutPanel.Controls.Add(labelKozaiQuantityDesc, 2, 13);
+		tableLayoutPanel.Controls.Add(labelKozaiQuantityData, 3, 13);
+		tableLayoutPanel.Controls.Add(labelArgumentOfTheAphelionDesc, 2, 19);
+		tableLayoutPanel.Controls.Add(labelArgumentAphelionData, 3, 19);
+		tableLayoutPanel.Controls.Add(labelArgumentOfLatitudeData, 3, 18);
+		tableLayoutPanel.Controls.Add(labelArgumentOfLatitudeDesc, 2, 18);
+		tableLayoutPanel.Controls.Add(labelTrueLongitudeDesc, 2, 17);
+		tableLayoutPanel.Controls.Add(labelTrueLongitudeData, 3, 17);
+		tableLayoutPanel.Controls.Add(labelSpecificOrbitalEnergyDesc, 2, 28);
+		tableLayoutPanel.Controls.Add(labelSpecificOrbitalEnergyData, 3, 28);
+		tableLayoutPanel.Controls.Add(labelSpecificAngularMomentumDesc, 2, 29);
+		tableLayoutPanel.Controls.Add(labelSpecificAngularMomentumData, 3, 29);
+		tableLayoutPanel.Controls.Add(labelCharacteristicEnergyDesc, 2, 30);
+		tableLayoutPanel.Controls.Add(labelCharacteristicEnergyData, 3, 30);
+		tableLayoutPanel.Controls.Add(labelIsPotenciallyHarzardousDesc, 2, 31);
+		tableLayoutPanel.Controls.Add(labelGeometricAlbedoAdjustedDiameterDesc, 2, 32);
+		tableLayoutPanel.Controls.Add(labelIsPotenciallyHarzardousData, 3, 31);
+		tableLayoutPanel.Controls.Add(labelGeometricAlbedoAdjustedDiameterData, 3, 32);
+		tableLayoutPanel.Controls.Add(labelHelioCentricLatitudeDesc, 2, 22);
+		tableLayoutPanel.Controls.Add(labelHelioCentricLatitudeData, 3, 22);
+		tableLayoutPanel.Controls.Add(labelHelioCentricLongitudeDesc, 2, 23);
+		tableLayoutPanel.Controls.Add(labelHelioCentricLongitudeData, 3, 23);
+		tableLayoutPanel.Controls.Add(labelFlightPathAngleDesc, 2, 27);
+		tableLayoutPanel.Controls.Add(labelLongitudeOfTheDescendingNodeDesc, 2, 26);
+		tableLayoutPanel.Controls.Add(labelFlightPathAngleData, 3, 27);
+		tableLayoutPanel.Controls.Add(labelLongitudeDescendingNodeData, 3, 26);
+		tableLayoutPanel.Controls.Add(labelTrueAnomalyDesc, 2, 21);
+		tableLayoutPanel.Controls.Add(labelEccentricAnomalyDesc, 2, 20);
+		tableLayoutPanel.Controls.Add(labelTrueAnomalyData, 3, 21);
+		tableLayoutPanel.Controls.Add(labelEccentricAnomalyData, 3, 20);
+		tableLayoutPanel.Controls.Add(labelPerihelionDistanceDesc, 0, 6);
+		tableLayoutPanel.Controls.Add(labelAphelionDistanceDesc, 0, 5);
+		tableLayoutPanel.Controls.Add(labelPerihelionDistanceData, 1, 6);
+		tableLayoutPanel.Controls.Add(labelAphelionDistanceData, 1, 5);
+		tableLayoutPanel.Controls.Add(labelTimeSincePerihelionDesc, 0, 31);
+		tableLayoutPanel.Controls.Add(labelTimeSinceAphelionDesc, 0, 29);
+		tableLayoutPanel.Controls.Add(labelTimeSincePerihelionData, 1, 31);
+		tableLayoutPanel.Controls.Add(labelTimeSinceAphelionData, 1, 29);
+		tableLayoutPanel.Controls.Add(labelTimeToNextPerihelionDesc, 0, 32);
+		tableLayoutPanel.Controls.Add(labelTimeToNextAphelionDesc, 0, 30);
+		tableLayoutPanel.Controls.Add(labelTimeToNextPerihelionData, 1, 32);
+		tableLayoutPanel.Controls.Add(labelTimeToNextAphelionData, 1, 30);
+		tableLayoutPanel.Controls.Add(labelLengthOfAphelionNodeArcData, 1, 23);
+		tableLayoutPanel.Controls.Add(labelLengthOfPerihelionNodeArcData, 1, 24);
+		tableLayoutPanel.Controls.Add(labelLengthOfPerihelionNodeArcDesc, 0, 24);
+		tableLayoutPanel.Controls.Add(labelLengthOfAphelionNodeArcDesc, 0, 23);
+		tableLayoutPanel.Controls.Add(labelAngularOfPerihelionNodeArcData, 3, 25);
+		tableLayoutPanel.Controls.Add(labelAngularOfAphelionNodeArcData, 3, 24);
+		tableLayoutPanel.Controls.Add(labelAngularOfPerihelionNodeArcDesc, 2, 25);
+		tableLayoutPanel.Controls.Add(labelAngularOfAphelionNodeArcDesc, 2, 24);
 		tableLayoutPanel.Dock = DockStyle.Fill;
 		tableLayoutPanel.Location = new Point(0, 0);
 		tableLayoutPanel.Name = "tableLayoutPanel";
 		tableLayoutPanel.PanelBackStyle = PaletteBackStyle.FormMain;
-		tableLayoutPanel.RowCount = 21;
+		tableLayoutPanel.RowCount = 33;
 		tableLayoutPanel.RowStyles.Add(new RowStyle());
 		tableLayoutPanel.RowStyles.Add(new RowStyle());
 		tableLayoutPanel.RowStyles.Add(new RowStyle());
@@ -468,1166 +560,26 @@ partial class DerivedOrbitElementsForm
 		tableLayoutPanel.RowStyles.Add(new RowStyle());
 		tableLayoutPanel.RowStyles.Add(new RowStyle());
 		tableLayoutPanel.RowStyles.Add(new RowStyle());
-		tableLayoutPanel.Size = new Size(846, 551);
+		tableLayoutPanel.RowStyles.Add(new RowStyle());
+		tableLayoutPanel.RowStyles.Add(new RowStyle());
+		tableLayoutPanel.RowStyles.Add(new RowStyle());
+		tableLayoutPanel.RowStyles.Add(new RowStyle());
+		tableLayoutPanel.RowStyles.Add(new RowStyle());
+		tableLayoutPanel.RowStyles.Add(new RowStyle());
+		tableLayoutPanel.RowStyles.Add(new RowStyle());
+		tableLayoutPanel.RowStyles.Add(new RowStyle());
+		tableLayoutPanel.RowStyles.Add(new RowStyle());
+		tableLayoutPanel.RowStyles.Add(new RowStyle());
+		tableLayoutPanel.RowStyles.Add(new RowStyle());
+		tableLayoutPanel.RowStyles.Add(new RowStyle());
+		tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+		tableLayoutPanel.Size = new Size(846, 836);
 		tableLayoutPanel.TabIndex = 0;
 		tableLayoutPanel.TabStop = true;
 		tableLayoutPanel.Enter += Control_Enter;
 		tableLayoutPanel.Leave += Control_Leave;
 		tableLayoutPanel.MouseEnter += Control_Enter;
 		tableLayoutPanel.MouseLeave += Control_Leave;
-		// 
-		// labelPerihelionVelocityData
-		// 
-		labelPerihelionVelocityData.AccessibleDescription = "Shows the information of \"Perihelion velocity\"";
-		labelPerihelionVelocityData.AccessibleName = "Information of \"Perihelion velocity\"";
-		labelPerihelionVelocityData.AccessibleRole = AccessibleRole.StaticText;
-		labelPerihelionVelocityData.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelPerihelionVelocityData.Dock = DockStyle.Top;
-		labelPerihelionVelocityData.Location = new Point(256, 523);
-		labelPerihelionVelocityData.Name = "labelPerihelionVelocityData";
-		labelPerihelionVelocityData.Size = new Size(59, 20);
-		labelPerihelionVelocityData.TabIndex = 110;
-		labelPerihelionVelocityData.ToolTipValues.Description = "Shows the information of \"Perihelion velocity\".\r\nDouble-click or right-click to copy the information to the clipboard.";
-		labelPerihelionVelocityData.ToolTipValues.EnableToolTips = true;
-		labelPerihelionVelocityData.ToolTipValues.Heading = "Information of \"Perihelion velocity\"";
-		labelPerihelionVelocityData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelPerihelionVelocityData.Values.Text = "..................";
-		labelPerihelionVelocityData.DoubleClick += CopyToClipboard_DoubleClick;
-		labelPerihelionVelocityData.Enter += Control_Enter;
-		labelPerihelionVelocityData.Leave += Control_Leave;
-		labelPerihelionVelocityData.MouseDown += Control_MouseDown;
-		labelPerihelionVelocityData.MouseEnter += Control_Enter;
-		labelPerihelionVelocityData.MouseLeave += Control_Leave;
-		// 
-		// labelPerihelionVelocityDesc
-		// 
-		labelPerihelionVelocityDesc.AccessibleDescription = "Shows the perihelion velocity (AU/yr)";
-		labelPerihelionVelocityDesc.AccessibleName = "Perihelion velocity (AU/yr)";
-		labelPerihelionVelocityDesc.AccessibleRole = AccessibleRole.StaticText;
-		labelPerihelionVelocityDesc.ContextMenuStrip = contextMenuOpenTerminology;
-		labelPerihelionVelocityDesc.Dock = DockStyle.Top;
-		labelPerihelionVelocityDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelPerihelionVelocityDesc.Location = new Point(3, 523);
-		labelPerihelionVelocityDesc.Name = "labelPerihelionVelocityDesc";
-		labelPerihelionVelocityDesc.Size = new Size(247, 20);
-		labelPerihelionVelocityDesc.TabIndex = 107;
-		labelPerihelionVelocityDesc.Tag = "38";
-		labelPerihelionVelocityDesc.ToolTipValues.Description = "Shows the perihelion velocity (AU/yr).\r\nDouble-click or right-click to open the terminology.";
-		labelPerihelionVelocityDesc.ToolTipValues.EnableToolTips = true;
-		labelPerihelionVelocityDesc.ToolTipValues.Heading = "Perihelion velocity (AU/yr)";
-		labelPerihelionVelocityDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelPerihelionVelocityDesc.Values.ExtraText = "AU/yr";
-		labelPerihelionVelocityDesc.Values.Text = "Perihelion velocity";
-		labelPerihelionVelocityDesc.DoubleClick += OpenTerminology_DoubleClick;
-		labelPerihelionVelocityDesc.Enter += Control_Enter;
-		labelPerihelionVelocityDesc.Leave += Control_Leave;
-		labelPerihelionVelocityDesc.MouseDown += Control_MouseDown;
-		labelPerihelionVelocityDesc.MouseEnter += Control_Enter;
-		labelPerihelionVelocityDesc.MouseLeave += Control_Leave;
-		// 
-		// labelGeometricAlbedoAdjustedDiameterDesc
-		// 
-		labelGeometricAlbedoAdjustedDiameterDesc.AccessibleDescription = "Shows the geometric albedo-adjusted diameter (km)";
-		labelGeometricAlbedoAdjustedDiameterDesc.AccessibleName = "Geometric albedo-adjusted diameter (km)";
-		labelGeometricAlbedoAdjustedDiameterDesc.AccessibleRole = AccessibleRole.StaticText;
-		labelGeometricAlbedoAdjustedDiameterDesc.ContextMenuStrip = contextMenuOpenTerminology;
-		labelGeometricAlbedoAdjustedDiameterDesc.Dock = DockStyle.Top;
-		labelGeometricAlbedoAdjustedDiameterDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelGeometricAlbedoAdjustedDiameterDesc.Location = new Point(321, 497);
-		labelGeometricAlbedoAdjustedDiameterDesc.Name = "labelGeometricAlbedoAdjustedDiameterDesc";
-		labelGeometricAlbedoAdjustedDiameterDesc.Size = new Size(246, 20);
-		labelGeometricAlbedoAdjustedDiameterDesc.TabIndex = 105;
-		labelGeometricAlbedoAdjustedDiameterDesc.Tag = "20";
-		labelGeometricAlbedoAdjustedDiameterDesc.ToolTipValues.Description = "Shows the geometric albedo-adjusted diameter (km).\r\nDouble-click or right-click to open the terminology.";
-		labelGeometricAlbedoAdjustedDiameterDesc.ToolTipValues.EnableToolTips = true;
-		labelGeometricAlbedoAdjustedDiameterDesc.ToolTipValues.Heading = "Geometric albedo-adjusted diameter (km)";
-		labelGeometricAlbedoAdjustedDiameterDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelGeometricAlbedoAdjustedDiameterDesc.Values.ExtraText = "km";
-		labelGeometricAlbedoAdjustedDiameterDesc.Values.Text = "Geometric albedo-adjusted diameter";
-		labelGeometricAlbedoAdjustedDiameterDesc.DoubleClick += OpenTerminology_DoubleClick;
-		labelGeometricAlbedoAdjustedDiameterDesc.Enter += Control_Enter;
-		labelGeometricAlbedoAdjustedDiameterDesc.Leave += Control_Leave;
-		labelGeometricAlbedoAdjustedDiameterDesc.MouseDown += Control_MouseDown;
-		labelGeometricAlbedoAdjustedDiameterDesc.MouseEnter += Control_Enter;
-		labelGeometricAlbedoAdjustedDiameterDesc.MouseLeave += Control_Leave;
-		// 
-		// labelMeanDistanceFromFocusDesc
-		// 
-		labelMeanDistanceFromFocusDesc.AccessibleDescription = "Shows the mean distance from focus (AU)";
-		labelMeanDistanceFromFocusDesc.AccessibleName = "Mean distance from focus (AU)";
-		labelMeanDistanceFromFocusDesc.AccessibleRole = AccessibleRole.StaticText;
-		labelMeanDistanceFromFocusDesc.ContextMenuStrip = contextMenuOpenTerminology;
-		labelMeanDistanceFromFocusDesc.Dock = DockStyle.Top;
-		labelMeanDistanceFromFocusDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelMeanDistanceFromFocusDesc.Location = new Point(321, 471);
-		labelMeanDistanceFromFocusDesc.Name = "labelMeanDistanceFromFocusDesc";
-		labelMeanDistanceFromFocusDesc.Size = new Size(246, 20);
-		labelMeanDistanceFromFocusDesc.TabIndex = 104;
-		labelMeanDistanceFromFocusDesc.Tag = "20";
-		labelMeanDistanceFromFocusDesc.ToolTipValues.Description = "Shows the mean distance from focus (AU).\r\nDouble-click or right-click to open the terminology.";
-		labelMeanDistanceFromFocusDesc.ToolTipValues.EnableToolTips = true;
-		labelMeanDistanceFromFocusDesc.ToolTipValues.Heading = "Mean distance from focus (AU)";
-		labelMeanDistanceFromFocusDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelMeanDistanceFromFocusDesc.Values.ExtraText = "AU";
-		labelMeanDistanceFromFocusDesc.Values.Text = "Mean distance from focus";
-		labelMeanDistanceFromFocusDesc.DoubleClick += OpenTerminology_DoubleClick;
-		labelMeanDistanceFromFocusDesc.Enter += Control_Enter;
-		labelMeanDistanceFromFocusDesc.Leave += Control_Leave;
-		labelMeanDistanceFromFocusDesc.MouseDown += Control_MouseDown;
-		labelMeanDistanceFromFocusDesc.MouseEnter += Control_Enter;
-		labelMeanDistanceFromFocusDesc.MouseLeave += Control_Leave;
-		// 
-		// labelTisserandParameterDesc
-		// 
-		labelTisserandParameterDesc.AccessibleDescription = "Shows the tisserand parameter";
-		labelTisserandParameterDesc.AccessibleName = "Tisserand parameter";
-		labelTisserandParameterDesc.AccessibleRole = AccessibleRole.StaticText;
-		labelTisserandParameterDesc.ContextMenuStrip = contextMenuOpenTerminology;
-		labelTisserandParameterDesc.Dock = DockStyle.Top;
-		labelTisserandParameterDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelTisserandParameterDesc.Location = new Point(321, 445);
-		labelTisserandParameterDesc.Name = "labelTisserandParameterDesc";
-		labelTisserandParameterDesc.Size = new Size(246, 20);
-		labelTisserandParameterDesc.TabIndex = 103;
-		labelTisserandParameterDesc.Tag = "20";
-		labelTisserandParameterDesc.ToolTipValues.Description = "Shows the Tisserand parameter.\r\nDouble-click or right-click to open the terminology.";
-		labelTisserandParameterDesc.ToolTipValues.EnableToolTips = true;
-		labelTisserandParameterDesc.ToolTipValues.Heading = "Tisserand parameter";
-		labelTisserandParameterDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelTisserandParameterDesc.Values.ExtraText = "T_jup";
-		labelTisserandParameterDesc.Values.Text = "Tisserand parameter";
-		labelTisserandParameterDesc.DoubleClick += OpenTerminology_DoubleClick;
-		labelTisserandParameterDesc.Enter += Control_Enter;
-		labelTisserandParameterDesc.Leave += Control_Leave;
-		labelTisserandParameterDesc.MouseDown += Control_MouseDown;
-		labelTisserandParameterDesc.MouseEnter += Control_Enter;
-		labelTisserandParameterDesc.MouseLeave += Control_Leave;
-		// 
-		// labelSynodicPeriodDesc
-		// 
-		labelSynodicPeriodDesc.AccessibleDescription = "Shows the synodic period (yr)";
-		labelSynodicPeriodDesc.AccessibleName = "Synodic period (yr)";
-		labelSynodicPeriodDesc.AccessibleRole = AccessibleRole.StaticText;
-		labelSynodicPeriodDesc.ContextMenuStrip = contextMenuOpenTerminology;
-		labelSynodicPeriodDesc.Dock = DockStyle.Top;
-		labelSynodicPeriodDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelSynodicPeriodDesc.Location = new Point(321, 419);
-		labelSynodicPeriodDesc.Name = "labelSynodicPeriodDesc";
-		labelSynodicPeriodDesc.Size = new Size(246, 20);
-		labelSynodicPeriodDesc.TabIndex = 102;
-		labelSynodicPeriodDesc.Tag = "20";
-		labelSynodicPeriodDesc.ToolTipValues.Description = "Shows the synodic period (yr).\r\nDouble-click or right-click to open the terminology.";
-		labelSynodicPeriodDesc.ToolTipValues.EnableToolTips = true;
-		labelSynodicPeriodDesc.ToolTipValues.Heading = "Synodic period (yr)";
-		labelSynodicPeriodDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelSynodicPeriodDesc.Values.ExtraText = "yr";
-		labelSynodicPeriodDesc.Values.Text = "Synodic period";
-		labelSynodicPeriodDesc.DoubleClick += OpenTerminology_DoubleClick;
-		labelSynodicPeriodDesc.Enter += Control_Enter;
-		labelSynodicPeriodDesc.Leave += Control_Leave;
-		labelSynodicPeriodDesc.MouseDown += Control_MouseDown;
-		labelSynodicPeriodDesc.MouseEnter += Control_Enter;
-		labelSynodicPeriodDesc.MouseLeave += Control_Leave;
-		// 
-		// labelTimeToNextAphelionDesc
-		// 
-		labelTimeToNextAphelionDesc.AccessibleDescription = "Shows the time to next aphelion (yr)";
-		labelTimeToNextAphelionDesc.AccessibleName = "Time to next aphelion (yr)";
-		labelTimeToNextAphelionDesc.AccessibleRole = AccessibleRole.StaticText;
-		labelTimeToNextAphelionDesc.ContextMenuStrip = contextMenuOpenTerminology;
-		labelTimeToNextAphelionDesc.Dock = DockStyle.Top;
-		labelTimeToNextAphelionDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelTimeToNextAphelionDesc.Location = new Point(321, 393);
-		labelTimeToNextAphelionDesc.Name = "labelTimeToNextAphelionDesc";
-		labelTimeToNextAphelionDesc.Size = new Size(246, 20);
-		labelTimeToNextAphelionDesc.TabIndex = 101;
-		labelTimeToNextAphelionDesc.Tag = "20";
-		labelTimeToNextAphelionDesc.ToolTipValues.Description = "Shows the time to next aphelion (yr).\r\nDouble-click or right-click to open the terminology.";
-		labelTimeToNextAphelionDesc.ToolTipValues.EnableToolTips = true;
-		labelTimeToNextAphelionDesc.ToolTipValues.Heading = "Time to next aphelion (yr)";
-		labelTimeToNextAphelionDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelTimeToNextAphelionDesc.Values.ExtraText = "yr";
-		labelTimeToNextAphelionDesc.Values.Text = "Time to next aphelion";
-		labelTimeToNextAphelionDesc.DoubleClick += OpenTerminology_DoubleClick;
-		labelTimeToNextAphelionDesc.Enter += Control_Enter;
-		labelTimeToNextAphelionDesc.Leave += Control_Leave;
-		labelTimeToNextAphelionDesc.MouseDown += Control_MouseDown;
-		labelTimeToNextAphelionDesc.MouseEnter += Control_Enter;
-		labelTimeToNextAphelionDesc.MouseLeave += Control_Leave;
-		// 
-		// labelTimeSinceAphelionDesc
-		// 
-		labelTimeSinceAphelionDesc.AccessibleDescription = "Shows the time since aphelion (yr)";
-		labelTimeSinceAphelionDesc.AccessibleName = "Time since aphelion (yr)";
-		labelTimeSinceAphelionDesc.AccessibleRole = AccessibleRole.StaticText;
-		labelTimeSinceAphelionDesc.ContextMenuStrip = contextMenuOpenTerminology;
-		labelTimeSinceAphelionDesc.Dock = DockStyle.Top;
-		labelTimeSinceAphelionDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelTimeSinceAphelionDesc.Location = new Point(321, 367);
-		labelTimeSinceAphelionDesc.Name = "labelTimeSinceAphelionDesc";
-		labelTimeSinceAphelionDesc.Size = new Size(246, 20);
-		labelTimeSinceAphelionDesc.TabIndex = 100;
-		labelTimeSinceAphelionDesc.Tag = "20";
-		labelTimeSinceAphelionDesc.ToolTipValues.Description = "Shows the time since aphelion (yr).\r\nDouble-click or right-click to open the terminology.";
-		labelTimeSinceAphelionDesc.ToolTipValues.EnableToolTips = true;
-		labelTimeSinceAphelionDesc.ToolTipValues.Heading = "Time since aphelion (yr)";
-		labelTimeSinceAphelionDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelTimeSinceAphelionDesc.Values.ExtraText = "yr";
-		labelTimeSinceAphelionDesc.Values.Text = "Time since aphelion";
-		labelTimeSinceAphelionDesc.DoubleClick += OpenTerminology_DoubleClick;
-		labelTimeSinceAphelionDesc.Enter += Control_Enter;
-		labelTimeSinceAphelionDesc.Leave += Control_Leave;
-		labelTimeSinceAphelionDesc.MouseDown += Control_MouseDown;
-		labelTimeSinceAphelionDesc.MouseEnter += Control_Enter;
-		labelTimeSinceAphelionDesc.MouseLeave += Control_Leave;
-		// 
-		// labelTimeToNextPerihelionDesc
-		// 
-		labelTimeToNextPerihelionDesc.AccessibleDescription = "Shows the time to next perihelion (yr)";
-		labelTimeToNextPerihelionDesc.AccessibleName = "Time to next perihelion (yr)";
-		labelTimeToNextPerihelionDesc.AccessibleRole = AccessibleRole.StaticText;
-		labelTimeToNextPerihelionDesc.ContextMenuStrip = contextMenuOpenTerminology;
-		labelTimeToNextPerihelionDesc.Dock = DockStyle.Top;
-		labelTimeToNextPerihelionDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelTimeToNextPerihelionDesc.Location = new Point(321, 341);
-		labelTimeToNextPerihelionDesc.Name = "labelTimeToNextPerihelionDesc";
-		labelTimeToNextPerihelionDesc.Size = new Size(246, 20);
-		labelTimeToNextPerihelionDesc.TabIndex = 99;
-		labelTimeToNextPerihelionDesc.Tag = "20";
-		labelTimeToNextPerihelionDesc.ToolTipValues.Description = "Shows the time to next perihelion (yr).\r\nDouble-click or right-click to open the terminology.";
-		labelTimeToNextPerihelionDesc.ToolTipValues.EnableToolTips = true;
-		labelTimeToNextPerihelionDesc.ToolTipValues.Heading = "Time to next perihelion (yr)";
-		labelTimeToNextPerihelionDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelTimeToNextPerihelionDesc.Values.ExtraText = "yr";
-		labelTimeToNextPerihelionDesc.Values.Text = "Time to next perihelion";
-		labelTimeToNextPerihelionDesc.DoubleClick += OpenTerminology_DoubleClick;
-		labelTimeToNextPerihelionDesc.Enter += Control_Enter;
-		labelTimeToNextPerihelionDesc.Leave += Control_Leave;
-		labelTimeToNextPerihelionDesc.MouseDown += Control_MouseDown;
-		labelTimeToNextPerihelionDesc.MouseEnter += Control_Enter;
-		labelTimeToNextPerihelionDesc.MouseLeave += Control_Leave;
-		// 
-		// labelTimeSincePerihelionDesc
-		// 
-		labelTimeSincePerihelionDesc.AccessibleDescription = "Shows the time since perihelion (yr)";
-		labelTimeSincePerihelionDesc.AccessibleName = "Time since perihelion (yr)";
-		labelTimeSincePerihelionDesc.AccessibleRole = AccessibleRole.StaticText;
-		labelTimeSincePerihelionDesc.ContextMenuStrip = contextMenuOpenTerminology;
-		labelTimeSincePerihelionDesc.Dock = DockStyle.Top;
-		labelTimeSincePerihelionDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelTimeSincePerihelionDesc.Location = new Point(321, 315);
-		labelTimeSincePerihelionDesc.Name = "labelTimeSincePerihelionDesc";
-		labelTimeSincePerihelionDesc.Size = new Size(246, 20);
-		labelTimeSincePerihelionDesc.TabIndex = 98;
-		labelTimeSincePerihelionDesc.Tag = "20";
-		labelTimeSincePerihelionDesc.ToolTipValues.Description = "Shows the time since perihelion (yr).\r\nDouble-click or right-click to open the terminology.";
-		labelTimeSincePerihelionDesc.ToolTipValues.EnableToolTips = true;
-		labelTimeSincePerihelionDesc.ToolTipValues.Heading = "Time since perihelion (yr)";
-		labelTimeSincePerihelionDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelTimeSincePerihelionDesc.Values.ExtraText = "yr";
-		labelTimeSincePerihelionDesc.Values.Text = "Time since perihelion";
-		labelTimeSincePerihelionDesc.DoubleClick += OpenTerminology_DoubleClick;
-		labelTimeSincePerihelionDesc.Enter += Control_Enter;
-		labelTimeSincePerihelionDesc.Leave += Control_Leave;
-		labelTimeSincePerihelionDesc.MouseDown += Control_MouseDown;
-		labelTimeSincePerihelionDesc.MouseEnter += Control_Enter;
-		labelTimeSincePerihelionDesc.MouseLeave += Control_Leave;
-		// 
-		// labelFlightPathAngleDesc
-		// 
-		labelFlightPathAngleDesc.AccessibleDescription = "Shows the flight path angle (°)";
-		labelFlightPathAngleDesc.AccessibleName = "Flight path angle (°)";
-		labelFlightPathAngleDesc.AccessibleRole = AccessibleRole.StaticText;
-		labelFlightPathAngleDesc.ContextMenuStrip = contextMenuOpenTerminology;
-		labelFlightPathAngleDesc.Dock = DockStyle.Top;
-		labelFlightPathAngleDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelFlightPathAngleDesc.Location = new Point(321, 289);
-		labelFlightPathAngleDesc.Name = "labelFlightPathAngleDesc";
-		labelFlightPathAngleDesc.Size = new Size(246, 20);
-		labelFlightPathAngleDesc.TabIndex = 97;
-		labelFlightPathAngleDesc.Tag = "20";
-		labelFlightPathAngleDesc.ToolTipValues.Description = "Shows the flight path angle (°).\r\nDouble-click or right-click to open the terminology.";
-		labelFlightPathAngleDesc.ToolTipValues.EnableToolTips = true;
-		labelFlightPathAngleDesc.ToolTipValues.Heading = "Flight path angle (°)";
-		labelFlightPathAngleDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelFlightPathAngleDesc.Values.ExtraText = "°";
-		labelFlightPathAngleDesc.Values.Text = "Flight path angle";
-		labelFlightPathAngleDesc.DoubleClick += OpenTerminology_DoubleClick;
-		labelFlightPathAngleDesc.Enter += Control_Enter;
-		labelFlightPathAngleDesc.Leave += Control_Leave;
-		labelFlightPathAngleDesc.MouseDown += Control_MouseDown;
-		labelFlightPathAngleDesc.MouseEnter += Control_Enter;
-		labelFlightPathAngleDesc.MouseLeave += Control_Leave;
-		// 
-		// labelArgumentOfLatitudeDesc
-		// 
-		labelArgumentOfLatitudeDesc.AccessibleDescription = "Shows the argument of latitude (°)";
-		labelArgumentOfLatitudeDesc.AccessibleName = "Argument of latitude (°)";
-		labelArgumentOfLatitudeDesc.AccessibleRole = AccessibleRole.StaticText;
-		labelArgumentOfLatitudeDesc.ContextMenuStrip = contextMenuOpenTerminology;
-		labelArgumentOfLatitudeDesc.Dock = DockStyle.Top;
-		labelArgumentOfLatitudeDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelArgumentOfLatitudeDesc.Location = new Point(321, 263);
-		labelArgumentOfLatitudeDesc.Name = "labelArgumentOfLatitudeDesc";
-		labelArgumentOfLatitudeDesc.Size = new Size(246, 20);
-		labelArgumentOfLatitudeDesc.TabIndex = 96;
-		labelArgumentOfLatitudeDesc.Tag = "20";
-		labelArgumentOfLatitudeDesc.ToolTipValues.Description = "Shows the argument of latitude (°).\r\nDouble-click or right-click to open the terminology.";
-		labelArgumentOfLatitudeDesc.ToolTipValues.EnableToolTips = true;
-		labelArgumentOfLatitudeDesc.ToolTipValues.Heading = "Argument of latitude (°)";
-		labelArgumentOfLatitudeDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelArgumentOfLatitudeDesc.Values.ExtraText = "°";
-		labelArgumentOfLatitudeDesc.Values.Text = "Argument of latitude";
-		labelArgumentOfLatitudeDesc.DoubleClick += OpenTerminology_DoubleClick;
-		labelArgumentOfLatitudeDesc.Enter += Control_Enter;
-		labelArgumentOfLatitudeDesc.Leave += Control_Leave;
-		labelArgumentOfLatitudeDesc.MouseDown += Control_MouseDown;
-		labelArgumentOfLatitudeDesc.MouseEnter += Control_Enter;
-		labelArgumentOfLatitudeDesc.MouseLeave += Control_Leave;
-		// 
-		// labelMeanLongitudeDesc
-		// 
-		labelMeanLongitudeDesc.AccessibleDescription = "Shows the mean longitude (°)";
-		labelMeanLongitudeDesc.AccessibleName = "Mean longitude (°)";
-		labelMeanLongitudeDesc.AccessibleRole = AccessibleRole.StaticText;
-		labelMeanLongitudeDesc.ContextMenuStrip = contextMenuOpenTerminology;
-		labelMeanLongitudeDesc.Dock = DockStyle.Top;
-		labelMeanLongitudeDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelMeanLongitudeDesc.Location = new Point(321, 237);
-		labelMeanLongitudeDesc.Name = "labelMeanLongitudeDesc";
-		labelMeanLongitudeDesc.Size = new Size(246, 20);
-		labelMeanLongitudeDesc.TabIndex = 95;
-		labelMeanLongitudeDesc.Tag = "20";
-		labelMeanLongitudeDesc.ToolTipValues.Description = "Shows the mean longitude (°).\r\nDouble-click or right-click to open the terminology.";
-		labelMeanLongitudeDesc.ToolTipValues.EnableToolTips = true;
-		labelMeanLongitudeDesc.ToolTipValues.Heading = "Mean longitude (°)";
-		labelMeanLongitudeDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelMeanLongitudeDesc.Values.ExtraText = "°";
-		labelMeanLongitudeDesc.Values.Text = "Mean longitude";
-		labelMeanLongitudeDesc.DoubleClick += OpenTerminology_DoubleClick;
-		labelMeanLongitudeDesc.Enter += Control_Enter;
-		labelMeanLongitudeDesc.Leave += Control_Leave;
-		labelMeanLongitudeDesc.MouseDown += Control_MouseDown;
-		labelMeanLongitudeDesc.MouseEnter += Control_Enter;
-		labelMeanLongitudeDesc.MouseLeave += Control_Leave;
-		// 
-		// labelLongitudeOfPerihelionDesc
-		// 
-		labelLongitudeOfPerihelionDesc.AccessibleDescription = "Shows the longitude of perihelion (°)";
-		labelLongitudeOfPerihelionDesc.AccessibleName = "Longitude of perihelion (°)";
-		labelLongitudeOfPerihelionDesc.AccessibleRole = AccessibleRole.StaticText;
-		labelLongitudeOfPerihelionDesc.ContextMenuStrip = contextMenuOpenTerminology;
-		labelLongitudeOfPerihelionDesc.Dock = DockStyle.Top;
-		labelLongitudeOfPerihelionDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelLongitudeOfPerihelionDesc.Location = new Point(321, 211);
-		labelLongitudeOfPerihelionDesc.Name = "labelLongitudeOfPerihelionDesc";
-		labelLongitudeOfPerihelionDesc.Size = new Size(246, 20);
-		labelLongitudeOfPerihelionDesc.TabIndex = 94;
-		labelLongitudeOfPerihelionDesc.Tag = "20";
-		labelLongitudeOfPerihelionDesc.ToolTipValues.Description = "Shows the longitude of perihelion (°).\r\nDouble-click or right-click to open the terminology.";
-		labelLongitudeOfPerihelionDesc.ToolTipValues.EnableToolTips = true;
-		labelLongitudeOfPerihelionDesc.ToolTipValues.Heading = "Longitude of perihelion (°)";
-		labelLongitudeOfPerihelionDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelLongitudeOfPerihelionDesc.Values.ExtraText = "°";
-		labelLongitudeOfPerihelionDesc.Values.Text = "Longitude of perihelion";
-		labelLongitudeOfPerihelionDesc.DoubleClick += OpenTerminology_DoubleClick;
-		labelLongitudeOfPerihelionDesc.Enter += Control_Enter;
-		labelLongitudeOfPerihelionDesc.Leave += Control_Leave;
-		labelLongitudeOfPerihelionDesc.MouseDown += Control_MouseDown;
-		labelLongitudeOfPerihelionDesc.MouseEnter += Control_Enter;
-		labelLongitudeOfPerihelionDesc.MouseLeave += Control_Leave;
-		// 
-		// labelVisVivaEnergyDesc
-		// 
-		labelVisVivaEnergyDesc.AccessibleDescription = "Shows the vis-viva energy (AU²/yr²)";
-		labelVisVivaEnergyDesc.AccessibleName = "Vis-viva energy (AU²/yr²)";
-		labelVisVivaEnergyDesc.AccessibleRole = AccessibleRole.StaticText;
-		labelVisVivaEnergyDesc.ContextMenuStrip = contextMenuOpenTerminology;
-		labelVisVivaEnergyDesc.Dock = DockStyle.Top;
-		labelVisVivaEnergyDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelVisVivaEnergyDesc.Location = new Point(321, 185);
-		labelVisVivaEnergyDesc.Name = "labelVisVivaEnergyDesc";
-		labelVisVivaEnergyDesc.Size = new Size(246, 20);
-		labelVisVivaEnergyDesc.TabIndex = 93;
-		labelVisVivaEnergyDesc.Tag = "20";
-		labelVisVivaEnergyDesc.ToolTipValues.Description = "Shows the vis-viva energy (AU²/yr²).\r\nDouble-click or right-click to open the terminology.";
-		labelVisVivaEnergyDesc.ToolTipValues.EnableToolTips = true;
-		labelVisVivaEnergyDesc.ToolTipValues.Heading = "Vis-viva energy (AU²/yr²)";
-		labelVisVivaEnergyDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelVisVivaEnergyDesc.Values.ExtraText = "AU²/yr²";
-		labelVisVivaEnergyDesc.Values.Text = "Vis-viva energy";
-		labelVisVivaEnergyDesc.DoubleClick += OpenTerminology_DoubleClick;
-		labelVisVivaEnergyDesc.Enter += Control_Enter;
-		labelVisVivaEnergyDesc.Leave += Control_Leave;
-		labelVisVivaEnergyDesc.MouseDown += Control_MouseDown;
-		labelVisVivaEnergyDesc.MouseEnter += Control_Enter;
-		labelVisVivaEnergyDesc.MouseLeave += Control_Leave;
-		// 
-		// labelSpecificAngularMomentumDesc
-		// 
-		labelSpecificAngularMomentumDesc.AccessibleDescription = "Shows the specific angular momentum (AU²/yr²)";
-		labelSpecificAngularMomentumDesc.AccessibleName = "Specific angular momentum (AU²/yr²)";
-		labelSpecificAngularMomentumDesc.AccessibleRole = AccessibleRole.StaticText;
-		labelSpecificAngularMomentumDesc.ContextMenuStrip = contextMenuOpenTerminology;
-		labelSpecificAngularMomentumDesc.Dock = DockStyle.Top;
-		labelSpecificAngularMomentumDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelSpecificAngularMomentumDesc.Location = new Point(321, 159);
-		labelSpecificAngularMomentumDesc.Name = "labelSpecificAngularMomentumDesc";
-		labelSpecificAngularMomentumDesc.Size = new Size(246, 20);
-		labelSpecificAngularMomentumDesc.TabIndex = 92;
-		labelSpecificAngularMomentumDesc.Tag = "20";
-		labelSpecificAngularMomentumDesc.ToolTipValues.Description = "Shows the specific angular momentum (AU²/yr²).\r\nDouble-click or right-click to open the terminology.";
-		labelSpecificAngularMomentumDesc.ToolTipValues.EnableToolTips = true;
-		labelSpecificAngularMomentumDesc.ToolTipValues.Heading = "Specific angular momentum (AU²/yr²)";
-		labelSpecificAngularMomentumDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelSpecificAngularMomentumDesc.Values.ExtraText = "AU²/yr²";
-		labelSpecificAngularMomentumDesc.Values.Text = "Specific angular momentum";
-		labelSpecificAngularMomentumDesc.DoubleClick += OpenTerminology_DoubleClick;
-		labelSpecificAngularMomentumDesc.Enter += Control_Enter;
-		labelSpecificAngularMomentumDesc.Leave += Control_Leave;
-		labelSpecificAngularMomentumDesc.MouseDown += Control_MouseDown;
-		labelSpecificAngularMomentumDesc.MouseEnter += Control_Enter;
-		labelSpecificAngularMomentumDesc.MouseLeave += Control_Leave;
-		// 
-		// labelSpecificOrbitalEnergyDesc
-		// 
-		labelSpecificOrbitalEnergyDesc.AccessibleDescription = "Shows the specific orbital energy (AU²/yr²)";
-		labelSpecificOrbitalEnergyDesc.AccessibleName = "Specific orbital energy (AU²/yr²)";
-		labelSpecificOrbitalEnergyDesc.AccessibleRole = AccessibleRole.StaticText;
-		labelSpecificOrbitalEnergyDesc.ContextMenuStrip = contextMenuOpenTerminology;
-		labelSpecificOrbitalEnergyDesc.Dock = DockStyle.Top;
-		labelSpecificOrbitalEnergyDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelSpecificOrbitalEnergyDesc.Location = new Point(321, 133);
-		labelSpecificOrbitalEnergyDesc.Name = "labelSpecificOrbitalEnergyDesc";
-		labelSpecificOrbitalEnergyDesc.Size = new Size(246, 20);
-		labelSpecificOrbitalEnergyDesc.TabIndex = 91;
-		labelSpecificOrbitalEnergyDesc.Tag = "20";
-		labelSpecificOrbitalEnergyDesc.ToolTipValues.Description = "Shows the specific orbital energy (AU²/yr²).\r\nDouble-click or right-click to open the terminology.";
-		labelSpecificOrbitalEnergyDesc.ToolTipValues.EnableToolTips = true;
-		labelSpecificOrbitalEnergyDesc.ToolTipValues.Heading = "specific orbital energy (AU²/yr²)";
-		labelSpecificOrbitalEnergyDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelSpecificOrbitalEnergyDesc.Values.ExtraText = "AU²/yr²";
-		labelSpecificOrbitalEnergyDesc.Values.Text = "Specific orbital energy";
-		labelSpecificOrbitalEnergyDesc.DoubleClick += OpenTerminology_DoubleClick;
-		labelSpecificOrbitalEnergyDesc.Enter += Control_Enter;
-		labelSpecificOrbitalEnergyDesc.Leave += Control_Leave;
-		labelSpecificOrbitalEnergyDesc.MouseDown += Control_MouseDown;
-		labelSpecificOrbitalEnergyDesc.MouseEnter += Control_Enter;
-		labelSpecificOrbitalEnergyDesc.MouseLeave += Control_Leave;
-		// 
-		// labelTangentialVelocityComponentDesc
-		// 
-		labelTangentialVelocityComponentDesc.AccessibleDescription = "Shows the tangential velocity component (AU/yr)";
-		labelTangentialVelocityComponentDesc.AccessibleName = "Tangential velocity component (AU/yr)";
-		labelTangentialVelocityComponentDesc.AccessibleRole = AccessibleRole.StaticText;
-		labelTangentialVelocityComponentDesc.ContextMenuStrip = contextMenuOpenTerminology;
-		labelTangentialVelocityComponentDesc.Dock = DockStyle.Top;
-		labelTangentialVelocityComponentDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelTangentialVelocityComponentDesc.Location = new Point(321, 107);
-		labelTangentialVelocityComponentDesc.Name = "labelTangentialVelocityComponentDesc";
-		labelTangentialVelocityComponentDesc.Size = new Size(246, 20);
-		labelTangentialVelocityComponentDesc.TabIndex = 90;
-		labelTangentialVelocityComponentDesc.Tag = "20";
-		labelTangentialVelocityComponentDesc.ToolTipValues.Description = "Shows the tangential velocity component (AU/yr).\r\nDouble-click or right-click to open the terminology.";
-		labelTangentialVelocityComponentDesc.ToolTipValues.EnableToolTips = true;
-		labelTangentialVelocityComponentDesc.ToolTipValues.Heading = "Tangential velocity component (AU/yr)";
-		labelTangentialVelocityComponentDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelTangentialVelocityComponentDesc.Values.ExtraText = "AU/yr";
-		labelTangentialVelocityComponentDesc.Values.Text = "Tangential velocity component";
-		labelTangentialVelocityComponentDesc.DoubleClick += OpenTerminology_DoubleClick;
-		labelTangentialVelocityComponentDesc.Enter += Control_Enter;
-		labelTangentialVelocityComponentDesc.Leave += Control_Leave;
-		labelTangentialVelocityComponentDesc.MouseDown += Control_MouseDown;
-		labelTangentialVelocityComponentDesc.MouseEnter += Control_Enter;
-		labelTangentialVelocityComponentDesc.MouseLeave += Control_Leave;
-		// 
-		// labelRadialVelocityComponentDesc
-		// 
-		labelRadialVelocityComponentDesc.AccessibleDescription = "Shows the radial velocity component (AU/yr)";
-		labelRadialVelocityComponentDesc.AccessibleName = "Radial velocity component (AU/yr)";
-		labelRadialVelocityComponentDesc.AccessibleRole = AccessibleRole.StaticText;
-		labelRadialVelocityComponentDesc.ContextMenuStrip = contextMenuOpenTerminology;
-		labelRadialVelocityComponentDesc.Dock = DockStyle.Top;
-		labelRadialVelocityComponentDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelRadialVelocityComponentDesc.Location = new Point(321, 81);
-		labelRadialVelocityComponentDesc.Name = "labelRadialVelocityComponentDesc";
-		labelRadialVelocityComponentDesc.Size = new Size(246, 20);
-		labelRadialVelocityComponentDesc.TabIndex = 89;
-		labelRadialVelocityComponentDesc.Tag = "20";
-		labelRadialVelocityComponentDesc.ToolTipValues.Description = "Shows the radial velocity component (AU/yr).\r\nDouble-click or right-click to open the terminology.";
-		labelRadialVelocityComponentDesc.ToolTipValues.EnableToolTips = true;
-		labelRadialVelocityComponentDesc.ToolTipValues.Heading = "Radial velocity component (AU/yr)";
-		labelRadialVelocityComponentDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelRadialVelocityComponentDesc.Values.ExtraText = "AU/yr";
-		labelRadialVelocityComponentDesc.Values.Text = "Radial velocity component";
-		labelRadialVelocityComponentDesc.DoubleClick += OpenTerminology_DoubleClick;
-		labelRadialVelocityComponentDesc.Enter += Control_Enter;
-		labelRadialVelocityComponentDesc.Leave += Control_Leave;
-		labelRadialVelocityComponentDesc.MouseDown += Control_MouseDown;
-		labelRadialVelocityComponentDesc.MouseEnter += Control_Enter;
-		labelRadialVelocityComponentDesc.MouseLeave += Control_Leave;
-		// 
-		// labelCurrentOrbitalVelocityDesc
-		// 
-		labelCurrentOrbitalVelocityDesc.AccessibleDescription = "Shows the current orbital velocity (AU/yr)";
-		labelCurrentOrbitalVelocityDesc.AccessibleName = "Current orbital velocity (AU/yr)";
-		labelCurrentOrbitalVelocityDesc.AccessibleRole = AccessibleRole.StaticText;
-		labelCurrentOrbitalVelocityDesc.ContextMenuStrip = contextMenuOpenTerminology;
-		labelCurrentOrbitalVelocityDesc.Dock = DockStyle.Top;
-		labelCurrentOrbitalVelocityDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelCurrentOrbitalVelocityDesc.Location = new Point(321, 55);
-		labelCurrentOrbitalVelocityDesc.Name = "labelCurrentOrbitalVelocityDesc";
-		labelCurrentOrbitalVelocityDesc.Size = new Size(246, 20);
-		labelCurrentOrbitalVelocityDesc.TabIndex = 88;
-		labelCurrentOrbitalVelocityDesc.Tag = "20";
-		labelCurrentOrbitalVelocityDesc.ToolTipValues.Description = "Shows the current orbital velocity (AU/yr).\r\nDouble-click or right-click to open the terminology.";
-		labelCurrentOrbitalVelocityDesc.ToolTipValues.EnableToolTips = true;
-		labelCurrentOrbitalVelocityDesc.ToolTipValues.Heading = "Current orbital velocity (AU/yr)";
-		labelCurrentOrbitalVelocityDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelCurrentOrbitalVelocityDesc.Values.ExtraText = "AU/yr";
-		labelCurrentOrbitalVelocityDesc.Values.Text = "Current orbital velocity";
-		labelCurrentOrbitalVelocityDesc.DoubleClick += OpenTerminology_DoubleClick;
-		labelCurrentOrbitalVelocityDesc.Enter += Control_Enter;
-		labelCurrentOrbitalVelocityDesc.Leave += Control_Leave;
-		labelCurrentOrbitalVelocityDesc.MouseDown += Control_MouseDown;
-		labelCurrentOrbitalVelocityDesc.MouseEnter += Control_Enter;
-		labelCurrentOrbitalVelocityDesc.MouseLeave += Control_Leave;
-		// 
-		// labelMeanOrbitalVelocityDesc
-		// 
-		labelMeanOrbitalVelocityDesc.AccessibleDescription = "Shows the mean orbital velocity (AU/yr)";
-		labelMeanOrbitalVelocityDesc.AccessibleName = "Mean orbital velocity (AU/yr)";
-		labelMeanOrbitalVelocityDesc.AccessibleRole = AccessibleRole.StaticText;
-		labelMeanOrbitalVelocityDesc.ContextMenuStrip = contextMenuOpenTerminology;
-		labelMeanOrbitalVelocityDesc.Dock = DockStyle.Top;
-		labelMeanOrbitalVelocityDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelMeanOrbitalVelocityDesc.Location = new Point(321, 29);
-		labelMeanOrbitalVelocityDesc.Name = "labelMeanOrbitalVelocityDesc";
-		labelMeanOrbitalVelocityDesc.Size = new Size(246, 20);
-		labelMeanOrbitalVelocityDesc.TabIndex = 87;
-		labelMeanOrbitalVelocityDesc.Tag = "20";
-		labelMeanOrbitalVelocityDesc.ToolTipValues.Description = "Shows the mean orbital velocity (AU/yr).\r\nDouble-click or right-click to open the terminology.";
-		labelMeanOrbitalVelocityDesc.ToolTipValues.EnableToolTips = true;
-		labelMeanOrbitalVelocityDesc.ToolTipValues.Heading = "Mean orbital velocity (AU/yr)";
-		labelMeanOrbitalVelocityDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelMeanOrbitalVelocityDesc.Values.ExtraText = "AU/yr";
-		labelMeanOrbitalVelocityDesc.Values.Text = "Mean orbital velocity";
-		labelMeanOrbitalVelocityDesc.DoubleClick += OpenTerminology_DoubleClick;
-		labelMeanOrbitalVelocityDesc.Enter += Control_Enter;
-		labelMeanOrbitalVelocityDesc.Leave += Control_Leave;
-		labelMeanOrbitalVelocityDesc.MouseDown += Control_MouseDown;
-		labelMeanOrbitalVelocityDesc.MouseEnter += Control_Enter;
-		labelMeanOrbitalVelocityDesc.MouseLeave += Control_Leave;
-		// 
-		// labelAphelionVelocityDesc
-		// 
-		labelAphelionVelocityDesc.AccessibleDescription = "Shows the aphelion velocity (AU/yr)";
-		labelAphelionVelocityDesc.AccessibleName = "Aphelion velocity (AU/yr)";
-		labelAphelionVelocityDesc.AccessibleRole = AccessibleRole.StaticText;
-		labelAphelionVelocityDesc.ContextMenuStrip = contextMenuOpenTerminology;
-		labelAphelionVelocityDesc.Dock = DockStyle.Top;
-		labelAphelionVelocityDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelAphelionVelocityDesc.Location = new Point(321, 3);
-		labelAphelionVelocityDesc.Name = "labelAphelionVelocityDesc";
-		labelAphelionVelocityDesc.Size = new Size(246, 20);
-		labelAphelionVelocityDesc.TabIndex = 86;
-		labelAphelionVelocityDesc.Tag = "20";
-		labelAphelionVelocityDesc.ToolTipValues.Description = "Shows the aphelion velocity (AU/yr).\r\nDouble-click or right-click to open the terminology.";
-		labelAphelionVelocityDesc.ToolTipValues.EnableToolTips = true;
-		labelAphelionVelocityDesc.ToolTipValues.Heading = "Aphelion velocity (AU/yr)";
-		labelAphelionVelocityDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelAphelionVelocityDesc.Values.ExtraText = "AU/yr";
-		labelAphelionVelocityDesc.Values.Text = "Aphelion velocity";
-		labelAphelionVelocityDesc.DoubleClick += OpenTerminology_DoubleClick;
-		labelAphelionVelocityDesc.Enter += Control_Enter;
-		labelAphelionVelocityDesc.Leave += Control_Leave;
-		labelAphelionVelocityDesc.MouseDown += Control_MouseDown;
-		labelAphelionVelocityDesc.MouseEnter += Control_Enter;
-		labelAphelionVelocityDesc.MouseLeave += Control_Leave;
-		// 
-		// labelGeometricAlbedoAdjustedDiameterData
-		// 
-		labelGeometricAlbedoAdjustedDiameterData.AccessibleDescription = "Shows the information of \"Geometric albedo-adjusted diameter\"";
-		labelGeometricAlbedoAdjustedDiameterData.AccessibleName = "Information of \"Geometric albedo-adjusted diameter\"";
-		labelGeometricAlbedoAdjustedDiameterData.AccessibleRole = AccessibleRole.StaticText;
-		labelGeometricAlbedoAdjustedDiameterData.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelGeometricAlbedoAdjustedDiameterData.Dock = DockStyle.Top;
-		labelGeometricAlbedoAdjustedDiameterData.Location = new Point(573, 497);
-		labelGeometricAlbedoAdjustedDiameterData.Name = "labelGeometricAlbedoAdjustedDiameterData";
-		labelGeometricAlbedoAdjustedDiameterData.Size = new Size(270, 20);
-		labelGeometricAlbedoAdjustedDiameterData.TabIndex = 85;
-		labelGeometricAlbedoAdjustedDiameterData.ToolTipValues.Description = "Shows the information of \"Geometric albedo-adjusted diameter\".\r\nDouble-click or right-click to copy the information to the clipboard.";
-		labelGeometricAlbedoAdjustedDiameterData.ToolTipValues.EnableToolTips = true;
-		labelGeometricAlbedoAdjustedDiameterData.ToolTipValues.Heading = "Information of \"Geometric albedo-adjusted diameter\"";
-		labelGeometricAlbedoAdjustedDiameterData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelGeometricAlbedoAdjustedDiameterData.Values.Text = "..................";
-		labelGeometricAlbedoAdjustedDiameterData.DoubleClick += CopyToClipboard_DoubleClick;
-		labelGeometricAlbedoAdjustedDiameterData.Enter += Control_Enter;
-		labelGeometricAlbedoAdjustedDiameterData.Leave += Control_Leave;
-		labelGeometricAlbedoAdjustedDiameterData.MouseDown += Control_MouseDown;
-		labelGeometricAlbedoAdjustedDiameterData.MouseEnter += Control_Enter;
-		labelGeometricAlbedoAdjustedDiameterData.MouseLeave += Control_Leave;
-		// 
-		// labelDirectrixData
-		// 
-		labelDirectrixData.AccessibleDescription = "Shows the information of \"Directrix\"";
-		labelDirectrixData.AccessibleName = "Information of \"Directrix\"";
-		labelDirectrixData.AccessibleRole = AccessibleRole.StaticText;
-		labelDirectrixData.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelDirectrixData.Dock = DockStyle.Top;
-		labelDirectrixData.Location = new Point(256, 497);
-		labelDirectrixData.Name = "labelDirectrixData";
-		labelDirectrixData.Size = new Size(59, 20);
-		labelDirectrixData.TabIndex = 84;
-		labelDirectrixData.ToolTipValues.Description = "Shows the information of \"Directrix\".\r\nDouble-click or right-click to copy the information to the clipboard.";
-		labelDirectrixData.ToolTipValues.EnableToolTips = true;
-		labelDirectrixData.ToolTipValues.Heading = "Information of \"Directrix\"";
-		labelDirectrixData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelDirectrixData.Values.Text = "..................";
-		labelDirectrixData.DoubleClick += CopyToClipboard_DoubleClick;
-		labelDirectrixData.Enter += Control_Enter;
-		labelDirectrixData.Leave += Control_Leave;
-		labelDirectrixData.MouseDown += Control_MouseDown;
-		labelDirectrixData.MouseEnter += Control_Enter;
-		labelDirectrixData.MouseLeave += Control_Leave;
-		// 
-		// labelDirectrixDesc
-		// 
-		labelDirectrixDesc.AccessibleDescription = "Shows the directrix (AU)";
-		labelDirectrixDesc.AccessibleName = "Directrix (AU)";
-		labelDirectrixDesc.AccessibleRole = AccessibleRole.StaticText;
-		labelDirectrixDesc.ContextMenuStrip = contextMenuOpenTerminology;
-		labelDirectrixDesc.Dock = DockStyle.Top;
-		labelDirectrixDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelDirectrixDesc.Location = new Point(3, 497);
-		labelDirectrixDesc.Name = "labelDirectrixDesc";
-		labelDirectrixDesc.Size = new Size(247, 20);
-		labelDirectrixDesc.TabIndex = 76;
-		labelDirectrixDesc.Tag = "38";
-		labelDirectrixDesc.ToolTipValues.Description = "Shows the directrix (AU).\r\nDouble-click or right-click to open the terminology.";
-		labelDirectrixDesc.ToolTipValues.EnableToolTips = true;
-		labelDirectrixDesc.ToolTipValues.Heading = "Directrix (AU)";
-		labelDirectrixDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelDirectrixDesc.Values.ExtraText = "AU";
-		labelDirectrixDesc.Values.Text = "Directrix";
-		labelDirectrixDesc.DoubleClick += OpenTerminology_DoubleClick;
-		labelDirectrixDesc.Enter += Control_Enter;
-		labelDirectrixDesc.Leave += Control_Leave;
-		labelDirectrixDesc.MouseDown += Control_MouseDown;
-		labelDirectrixDesc.MouseEnter += Control_Enter;
-		labelDirectrixDesc.MouseLeave += Control_Leave;
-		// 
-		// labelMeanDistanceFromFocusData
-		// 
-		labelMeanDistanceFromFocusData.AccessibleDescription = "Shows the information of \"Mean distance from focus\"";
-		labelMeanDistanceFromFocusData.AccessibleName = "Information of \"Mean distance from focus\"";
-		labelMeanDistanceFromFocusData.AccessibleRole = AccessibleRole.StaticText;
-		labelMeanDistanceFromFocusData.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelMeanDistanceFromFocusData.Dock = DockStyle.Top;
-		labelMeanDistanceFromFocusData.Location = new Point(573, 471);
-		labelMeanDistanceFromFocusData.Name = "labelMeanDistanceFromFocusData";
-		labelMeanDistanceFromFocusData.Size = new Size(270, 20);
-		labelMeanDistanceFromFocusData.TabIndex = 75;
-		labelMeanDistanceFromFocusData.ToolTipValues.Description = "Shows the information of \"Mean distance from focus\".\r\nDouble-click or right-click to copy the information to the clipboard.";
-		labelMeanDistanceFromFocusData.ToolTipValues.EnableToolTips = true;
-		labelMeanDistanceFromFocusData.ToolTipValues.Heading = "Information of \"Mean distance from focus\"";
-		labelMeanDistanceFromFocusData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelMeanDistanceFromFocusData.Values.Text = "..................";
-		labelMeanDistanceFromFocusData.DoubleClick += CopyToClipboard_DoubleClick;
-		labelMeanDistanceFromFocusData.Enter += Control_Enter;
-		labelMeanDistanceFromFocusData.Leave += Control_Leave;
-		labelMeanDistanceFromFocusData.MouseDown += Control_MouseDown;
-		labelMeanDistanceFromFocusData.MouseEnter += Control_Enter;
-		labelMeanDistanceFromFocusData.MouseLeave += Control_Leave;
-		// 
-		// labelTisserandParameterData
-		// 
-		labelTisserandParameterData.AccessibleDescription = "Shows the information of \"Tisserand parameter\"";
-		labelTisserandParameterData.AccessibleName = "Information of \"Tisserand parameter\"";
-		labelTisserandParameterData.AccessibleRole = AccessibleRole.StaticText;
-		labelTisserandParameterData.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelTisserandParameterData.Dock = DockStyle.Top;
-		labelTisserandParameterData.Location = new Point(573, 445);
-		labelTisserandParameterData.Name = "labelTisserandParameterData";
-		labelTisserandParameterData.Size = new Size(270, 20);
-		labelTisserandParameterData.TabIndex = 73;
-		labelTisserandParameterData.ToolTipValues.Description = "Shows the information of \"Tisserand parameter\".\r\nDouble-click or right-click to copy the information to the clipboard.";
-		labelTisserandParameterData.ToolTipValues.EnableToolTips = true;
-		labelTisserandParameterData.ToolTipValues.Heading = "Information of \"Tisserand parameter\"";
-		labelTisserandParameterData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelTisserandParameterData.Values.Text = "..................";
-		labelTisserandParameterData.DoubleClick += CopyToClipboard_DoubleClick;
-		labelTisserandParameterData.Enter += Control_Enter;
-		labelTisserandParameterData.Leave += Control_Leave;
-		labelTisserandParameterData.MouseDown += Control_MouseDown;
-		labelTisserandParameterData.MouseEnter += Control_Enter;
-		labelTisserandParameterData.MouseLeave += Control_Leave;
-		// 
-		// labelSynodicPeriodData
-		// 
-		labelSynodicPeriodData.AccessibleDescription = "Shows the information of \"Synodic period\"";
-		labelSynodicPeriodData.AccessibleName = "Information of \"Synodic period\"";
-		labelSynodicPeriodData.AccessibleRole = AccessibleRole.StaticText;
-		labelSynodicPeriodData.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelSynodicPeriodData.Dock = DockStyle.Top;
-		labelSynodicPeriodData.Location = new Point(573, 419);
-		labelSynodicPeriodData.Name = "labelSynodicPeriodData";
-		labelSynodicPeriodData.Size = new Size(270, 20);
-		labelSynodicPeriodData.TabIndex = 71;
-		labelSynodicPeriodData.ToolTipValues.Description = "Shows the information of \"Synodic period\".\r\nDouble-click or right-click to copy the information to the clipboard.";
-		labelSynodicPeriodData.ToolTipValues.EnableToolTips = true;
-		labelSynodicPeriodData.ToolTipValues.Heading = "Information of \"Synodic period\"";
-		labelSynodicPeriodData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelSynodicPeriodData.Values.Text = "..................";
-		labelSynodicPeriodData.DoubleClick += CopyToClipboard_DoubleClick;
-		labelSynodicPeriodData.Enter += Control_Enter;
-		labelSynodicPeriodData.Leave += Control_Leave;
-		labelSynodicPeriodData.MouseDown += Control_MouseDown;
-		labelSynodicPeriodData.MouseEnter += Control_Enter;
-		labelSynodicPeriodData.MouseLeave += Control_Leave;
-		// 
-		// labelTimeToNextAphelionData
-		// 
-		labelTimeToNextAphelionData.AccessibleDescription = "Shows the information of \"Time to next aphelion\"";
-		labelTimeToNextAphelionData.AccessibleName = "Information of \"Time to next aphelion\"";
-		labelTimeToNextAphelionData.AccessibleRole = AccessibleRole.StaticText;
-		labelTimeToNextAphelionData.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelTimeToNextAphelionData.Dock = DockStyle.Top;
-		labelTimeToNextAphelionData.Location = new Point(573, 393);
-		labelTimeToNextAphelionData.Name = "labelTimeToNextAphelionData";
-		labelTimeToNextAphelionData.Size = new Size(270, 20);
-		labelTimeToNextAphelionData.TabIndex = 69;
-		labelTimeToNextAphelionData.ToolTipValues.Description = "Shows the information of \"Time to next aphelion\".\r\nDouble-click or right-click to copy the information to the clipboard.";
-		labelTimeToNextAphelionData.ToolTipValues.EnableToolTips = true;
-		labelTimeToNextAphelionData.ToolTipValues.Heading = "Information of \"Time to next aphelion\"";
-		labelTimeToNextAphelionData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelTimeToNextAphelionData.Values.Text = "..................";
-		labelTimeToNextAphelionData.DoubleClick += CopyToClipboard_DoubleClick;
-		labelTimeToNextAphelionData.Enter += Control_Enter;
-		labelTimeToNextAphelionData.Leave += Control_Leave;
-		labelTimeToNextAphelionData.MouseDown += Control_MouseDown;
-		labelTimeToNextAphelionData.MouseEnter += Control_Enter;
-		labelTimeToNextAphelionData.MouseLeave += Control_Leave;
-		// 
-		// labelTimeSinceAphelionData
-		// 
-		labelTimeSinceAphelionData.AccessibleDescription = "Shows the information of \"Time since aphelion\"";
-		labelTimeSinceAphelionData.AccessibleName = "Information of \"Time since aphelion\"";
-		labelTimeSinceAphelionData.AccessibleRole = AccessibleRole.StaticText;
-		labelTimeSinceAphelionData.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelTimeSinceAphelionData.Dock = DockStyle.Top;
-		labelTimeSinceAphelionData.Location = new Point(573, 367);
-		labelTimeSinceAphelionData.Name = "labelTimeSinceAphelionData";
-		labelTimeSinceAphelionData.Size = new Size(270, 20);
-		labelTimeSinceAphelionData.TabIndex = 67;
-		labelTimeSinceAphelionData.ToolTipValues.Description = "Shows the information of \"Time since aphelion\".\r\nDouble-click or right-click to copy the information to the clipboard.";
-		labelTimeSinceAphelionData.ToolTipValues.EnableToolTips = true;
-		labelTimeSinceAphelionData.ToolTipValues.Heading = "Information of \"Time since aphelion\"";
-		labelTimeSinceAphelionData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelTimeSinceAphelionData.Values.Text = "..................";
-		labelTimeSinceAphelionData.DoubleClick += CopyToClipboard_DoubleClick;
-		labelTimeSinceAphelionData.Enter += Control_Enter;
-		labelTimeSinceAphelionData.Leave += Control_Leave;
-		labelTimeSinceAphelionData.MouseDown += Control_MouseDown;
-		labelTimeSinceAphelionData.MouseEnter += Control_Enter;
-		labelTimeSinceAphelionData.MouseLeave += Control_Leave;
-		// 
-		// labelTimeToNextPerihelionData
-		// 
-		labelTimeToNextPerihelionData.AccessibleDescription = "Shows the information of \"Time to next perihelion\"";
-		labelTimeToNextPerihelionData.AccessibleName = "Information of \"Time to next perihelion\"";
-		labelTimeToNextPerihelionData.AccessibleRole = AccessibleRole.StaticText;
-		labelTimeToNextPerihelionData.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelTimeToNextPerihelionData.Dock = DockStyle.Top;
-		labelTimeToNextPerihelionData.Location = new Point(573, 341);
-		labelTimeToNextPerihelionData.Name = "labelTimeToNextPerihelionData";
-		labelTimeToNextPerihelionData.Size = new Size(270, 20);
-		labelTimeToNextPerihelionData.TabIndex = 65;
-		labelTimeToNextPerihelionData.ToolTipValues.Description = "Shows the information of \"Time to next perihelion\".\r\nDouble-click or right-click to copy the information to the clipboard.";
-		labelTimeToNextPerihelionData.ToolTipValues.EnableToolTips = true;
-		labelTimeToNextPerihelionData.ToolTipValues.Heading = "Information of \"Time to next perihelion\"";
-		labelTimeToNextPerihelionData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelTimeToNextPerihelionData.Values.Text = "..................";
-		labelTimeToNextPerihelionData.DoubleClick += CopyToClipboard_DoubleClick;
-		labelTimeToNextPerihelionData.Enter += Control_Enter;
-		labelTimeToNextPerihelionData.Leave += Control_Leave;
-		labelTimeToNextPerihelionData.MouseDown += Control_MouseDown;
-		labelTimeToNextPerihelionData.MouseEnter += Control_Enter;
-		labelTimeToNextPerihelionData.MouseLeave += Control_Leave;
-		// 
-		// labelTimeSincePerihelionData
-		// 
-		labelTimeSincePerihelionData.AccessibleDescription = "Shows the information of \"Time since perihelion\"";
-		labelTimeSincePerihelionData.AccessibleName = "Information of \"Time since perihelion\"";
-		labelTimeSincePerihelionData.AccessibleRole = AccessibleRole.StaticText;
-		labelTimeSincePerihelionData.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelTimeSincePerihelionData.Dock = DockStyle.Top;
-		labelTimeSincePerihelionData.Location = new Point(573, 315);
-		labelTimeSincePerihelionData.Name = "labelTimeSincePerihelionData";
-		labelTimeSincePerihelionData.Size = new Size(270, 20);
-		labelTimeSincePerihelionData.TabIndex = 63;
-		labelTimeSincePerihelionData.ToolTipValues.Description = "Shows the information of \"Time since perihelion\".\r\nDouble-click or right-click to copy the information to the clipboard.";
-		labelTimeSincePerihelionData.ToolTipValues.EnableToolTips = true;
-		labelTimeSincePerihelionData.ToolTipValues.Heading = "Information of \"Time since perihelion\"";
-		labelTimeSincePerihelionData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelTimeSincePerihelionData.Values.Text = "..................";
-		labelTimeSincePerihelionData.DoubleClick += CopyToClipboard_DoubleClick;
-		labelTimeSincePerihelionData.Enter += Control_Enter;
-		labelTimeSincePerihelionData.Leave += Control_Leave;
-		labelTimeSincePerihelionData.MouseDown += Control_MouseDown;
-		labelTimeSincePerihelionData.MouseEnter += Control_Enter;
-		labelTimeSincePerihelionData.MouseLeave += Control_Leave;
-		// 
-		// labelFlightPathAngleData
-		// 
-		labelFlightPathAngleData.AccessibleDescription = "Shows the information of \"Flight path angle\"";
-		labelFlightPathAngleData.AccessibleName = "Information of \"Flight path angle\"";
-		labelFlightPathAngleData.AccessibleRole = AccessibleRole.StaticText;
-		labelFlightPathAngleData.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelFlightPathAngleData.Dock = DockStyle.Top;
-		labelFlightPathAngleData.Location = new Point(573, 289);
-		labelFlightPathAngleData.Name = "labelFlightPathAngleData";
-		labelFlightPathAngleData.Size = new Size(270, 20);
-		labelFlightPathAngleData.TabIndex = 61;
-		labelFlightPathAngleData.ToolTipValues.Description = "Shows the information of \"Flight path angle\".\r\nDouble-click or right-click to copy the information to the clipboard.";
-		labelFlightPathAngleData.ToolTipValues.EnableToolTips = true;
-		labelFlightPathAngleData.ToolTipValues.Heading = "Information of \"Flight path angle\"";
-		labelFlightPathAngleData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelFlightPathAngleData.Values.Text = "..................";
-		labelFlightPathAngleData.DoubleClick += CopyToClipboard_DoubleClick;
-		labelFlightPathAngleData.Enter += Control_Enter;
-		labelFlightPathAngleData.Leave += Control_Leave;
-		labelFlightPathAngleData.MouseDown += Control_MouseDown;
-		labelFlightPathAngleData.MouseEnter += Control_Enter;
-		labelFlightPathAngleData.MouseLeave += Control_Leave;
-		// 
-		// labelArgumentOfLatitudeData
-		// 
-		labelArgumentOfLatitudeData.AccessibleDescription = "Shows the information of \"Argument of latitude\"";
-		labelArgumentOfLatitudeData.AccessibleName = "Information of \"Argument of latitude\"";
-		labelArgumentOfLatitudeData.AccessibleRole = AccessibleRole.StaticText;
-		labelArgumentOfLatitudeData.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelArgumentOfLatitudeData.Dock = DockStyle.Top;
-		labelArgumentOfLatitudeData.Location = new Point(573, 263);
-		labelArgumentOfLatitudeData.Name = "labelArgumentOfLatitudeData";
-		labelArgumentOfLatitudeData.Size = new Size(270, 20);
-		labelArgumentOfLatitudeData.TabIndex = 59;
-		labelArgumentOfLatitudeData.ToolTipValues.Description = "Shows the information of \"Argument of latitude\".\r\nDouble-click or right-click to copy the information to the clipboard.";
-		labelArgumentOfLatitudeData.ToolTipValues.EnableToolTips = true;
-		labelArgumentOfLatitudeData.ToolTipValues.Heading = "Information of \"Argument of latitude\"";
-		labelArgumentOfLatitudeData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelArgumentOfLatitudeData.Values.Text = "..................";
-		labelArgumentOfLatitudeData.DoubleClick += CopyToClipboard_DoubleClick;
-		labelArgumentOfLatitudeData.Enter += Control_Enter;
-		labelArgumentOfLatitudeData.Leave += Control_Leave;
-		labelArgumentOfLatitudeData.MouseDown += Control_MouseDown;
-		labelArgumentOfLatitudeData.MouseEnter += Control_Enter;
-		labelArgumentOfLatitudeData.MouseLeave += Control_Leave;
-		// 
-		// labelMeanLongitudeData
-		// 
-		labelMeanLongitudeData.AccessibleDescription = "Shows the information of \"Mean longitude\"";
-		labelMeanLongitudeData.AccessibleName = "Information of \"Mean longitude\"";
-		labelMeanLongitudeData.AccessibleRole = AccessibleRole.StaticText;
-		labelMeanLongitudeData.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelMeanLongitudeData.Dock = DockStyle.Top;
-		labelMeanLongitudeData.Location = new Point(573, 237);
-		labelMeanLongitudeData.Name = "labelMeanLongitudeData";
-		labelMeanLongitudeData.Size = new Size(270, 20);
-		labelMeanLongitudeData.TabIndex = 57;
-		labelMeanLongitudeData.ToolTipValues.Description = "Shows the information of \"Mean longitude\".\r\nDouble-click or right-click to copy the information to the clipboard.";
-		labelMeanLongitudeData.ToolTipValues.EnableToolTips = true;
-		labelMeanLongitudeData.ToolTipValues.Heading = "Information of \"Mean longitude\"";
-		labelMeanLongitudeData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelMeanLongitudeData.Values.Text = "..................";
-		labelMeanLongitudeData.DoubleClick += CopyToClipboard_DoubleClick;
-		labelMeanLongitudeData.Enter += Control_Enter;
-		labelMeanLongitudeData.Leave += Control_Leave;
-		labelMeanLongitudeData.MouseDown += Control_MouseDown;
-		labelMeanLongitudeData.MouseEnter += Control_Enter;
-		labelMeanLongitudeData.MouseLeave += Control_Leave;
-		// 
-		// labelLongitudeOfPerihelionData
-		// 
-		labelLongitudeOfPerihelionData.AccessibleDescription = "Shows the information of \"Longitude of perihelion\"";
-		labelLongitudeOfPerihelionData.AccessibleName = "Information of \"Longitude of perihelion\"";
-		labelLongitudeOfPerihelionData.AccessibleRole = AccessibleRole.StaticText;
-		labelLongitudeOfPerihelionData.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelLongitudeOfPerihelionData.Dock = DockStyle.Top;
-		labelLongitudeOfPerihelionData.Location = new Point(573, 211);
-		labelLongitudeOfPerihelionData.Name = "labelLongitudeOfPerihelionData";
-		labelLongitudeOfPerihelionData.Size = new Size(270, 20);
-		labelLongitudeOfPerihelionData.TabIndex = 55;
-		labelLongitudeOfPerihelionData.ToolTipValues.Description = "Shows the information of \"Longitude of perihelion\".\r\nDouble-click or right-click to copy the information to the clipboard.";
-		labelLongitudeOfPerihelionData.ToolTipValues.EnableToolTips = true;
-		labelLongitudeOfPerihelionData.ToolTipValues.Heading = "Information of \"Longitude of perihelion\"";
-		labelLongitudeOfPerihelionData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelLongitudeOfPerihelionData.Values.Text = "..................";
-		labelLongitudeOfPerihelionData.DoubleClick += CopyToClipboard_DoubleClick;
-		labelLongitudeOfPerihelionData.Enter += Control_Enter;
-		labelLongitudeOfPerihelionData.Leave += Control_Leave;
-		labelLongitudeOfPerihelionData.MouseDown += Control_MouseDown;
-		labelLongitudeOfPerihelionData.MouseEnter += Control_Enter;
-		labelLongitudeOfPerihelionData.MouseLeave += Control_Leave;
-		// 
-		// labelVisVivaEnergyData
-		// 
-		labelVisVivaEnergyData.AccessibleDescription = "Shows the information of \"Vis-viva energy\"";
-		labelVisVivaEnergyData.AccessibleName = "Information of \"Vis-viva energy\"";
-		labelVisVivaEnergyData.AccessibleRole = AccessibleRole.StaticText;
-		labelVisVivaEnergyData.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelVisVivaEnergyData.Dock = DockStyle.Top;
-		labelVisVivaEnergyData.Location = new Point(573, 185);
-		labelVisVivaEnergyData.Name = "labelVisVivaEnergyData";
-		labelVisVivaEnergyData.Size = new Size(270, 20);
-		labelVisVivaEnergyData.TabIndex = 53;
-		labelVisVivaEnergyData.ToolTipValues.Description = "Shows the information of \"Vis-viva energy\".\r\nDouble-click or right-click to copy the information to the clipboard.";
-		labelVisVivaEnergyData.ToolTipValues.EnableToolTips = true;
-		labelVisVivaEnergyData.ToolTipValues.Heading = "Information of \"Vis-viva energy\"";
-		labelVisVivaEnergyData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelVisVivaEnergyData.Values.Text = "..................";
-		labelVisVivaEnergyData.DoubleClick += CopyToClipboard_DoubleClick;
-		labelVisVivaEnergyData.Enter += Control_Enter;
-		labelVisVivaEnergyData.Leave += Control_Leave;
-		labelVisVivaEnergyData.MouseDown += Control_MouseDown;
-		labelVisVivaEnergyData.MouseEnter += Control_Enter;
-		labelVisVivaEnergyData.MouseLeave += Control_Leave;
-		// 
-		// labelSpecificAngularMomentumData
-		// 
-		labelSpecificAngularMomentumData.AccessibleDescription = "Shows the information of \"Specific angular momentum\"";
-		labelSpecificAngularMomentumData.AccessibleName = "Information of \"Specific angular momentum\"";
-		labelSpecificAngularMomentumData.AccessibleRole = AccessibleRole.StaticText;
-		labelSpecificAngularMomentumData.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelSpecificAngularMomentumData.Dock = DockStyle.Top;
-		labelSpecificAngularMomentumData.Location = new Point(573, 159);
-		labelSpecificAngularMomentumData.Name = "labelSpecificAngularMomentumData";
-		labelSpecificAngularMomentumData.Size = new Size(270, 20);
-		labelSpecificAngularMomentumData.TabIndex = 51;
-		labelSpecificAngularMomentumData.ToolTipValues.Description = "Shows the information of \"Specific angular momentum\".\r\nDouble-click or right-click to copy the information to the clipboard.";
-		labelSpecificAngularMomentumData.ToolTipValues.EnableToolTips = true;
-		labelSpecificAngularMomentumData.ToolTipValues.Heading = "Information of \"Specific angular momentum\"";
-		labelSpecificAngularMomentumData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelSpecificAngularMomentumData.Values.Text = "..................";
-		labelSpecificAngularMomentumData.DoubleClick += CopyToClipboard_DoubleClick;
-		labelSpecificAngularMomentumData.Enter += Control_Enter;
-		labelSpecificAngularMomentumData.Leave += Control_Leave;
-		labelSpecificAngularMomentumData.MouseDown += Control_MouseDown;
-		labelSpecificAngularMomentumData.MouseEnter += Control_Enter;
-		labelSpecificAngularMomentumData.MouseLeave += Control_Leave;
-		// 
-		// labelSpecificOrbitalEnergyData
-		// 
-		labelSpecificOrbitalEnergyData.AccessibleDescription = "Shows the information of \"Specific orbital energy\"";
-		labelSpecificOrbitalEnergyData.AccessibleName = "Information of \"Specific orbital energy\"";
-		labelSpecificOrbitalEnergyData.AccessibleRole = AccessibleRole.StaticText;
-		labelSpecificOrbitalEnergyData.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelSpecificOrbitalEnergyData.Dock = DockStyle.Top;
-		labelSpecificOrbitalEnergyData.Location = new Point(573, 133);
-		labelSpecificOrbitalEnergyData.Name = "labelSpecificOrbitalEnergyData";
-		labelSpecificOrbitalEnergyData.Size = new Size(270, 20);
-		labelSpecificOrbitalEnergyData.TabIndex = 49;
-		labelSpecificOrbitalEnergyData.ToolTipValues.Description = "Shows the information of \"Specific orbital energy\".\r\nDouble-click or right-click to copy the information to the clipboard.";
-		labelSpecificOrbitalEnergyData.ToolTipValues.EnableToolTips = true;
-		labelSpecificOrbitalEnergyData.ToolTipValues.Heading = "Information of \"Specific orbital energy\"";
-		labelSpecificOrbitalEnergyData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelSpecificOrbitalEnergyData.Values.Text = "..................";
-		labelSpecificOrbitalEnergyData.DoubleClick += CopyToClipboard_DoubleClick;
-		labelSpecificOrbitalEnergyData.Enter += Control_Enter;
-		labelSpecificOrbitalEnergyData.Leave += Control_Leave;
-		labelSpecificOrbitalEnergyData.MouseDown += Control_MouseDown;
-		labelSpecificOrbitalEnergyData.MouseEnter += Control_Enter;
-		labelSpecificOrbitalEnergyData.MouseLeave += Control_Leave;
-		// 
-		// labelTangentialVelocityComponentData
-		// 
-		labelTangentialVelocityComponentData.AccessibleDescription = "Shows the information of \"Tangential velocity component\"";
-		labelTangentialVelocityComponentData.AccessibleName = "Information of \"Tangential velocity component\"";
-		labelTangentialVelocityComponentData.AccessibleRole = AccessibleRole.StaticText;
-		labelTangentialVelocityComponentData.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelTangentialVelocityComponentData.Dock = DockStyle.Top;
-		labelTangentialVelocityComponentData.Location = new Point(573, 107);
-		labelTangentialVelocityComponentData.Name = "labelTangentialVelocityComponentData";
-		labelTangentialVelocityComponentData.Size = new Size(270, 20);
-		labelTangentialVelocityComponentData.TabIndex = 47;
-		labelTangentialVelocityComponentData.ToolTipValues.Description = "Shows the information of \"Tangential velocity component\".\r\nDouble-click or right-click to copy the information to the clipboard.";
-		labelTangentialVelocityComponentData.ToolTipValues.EnableToolTips = true;
-		labelTangentialVelocityComponentData.ToolTipValues.Heading = "Information of \"Tangential velocity component\"";
-		labelTangentialVelocityComponentData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelTangentialVelocityComponentData.Values.Text = "..................";
-		labelTangentialVelocityComponentData.DoubleClick += CopyToClipboard_DoubleClick;
-		labelTangentialVelocityComponentData.Enter += Control_Enter;
-		labelTangentialVelocityComponentData.Leave += Control_Leave;
-		labelTangentialVelocityComponentData.MouseDown += Control_MouseDown;
-		labelTangentialVelocityComponentData.MouseEnter += Control_Enter;
-		labelTangentialVelocityComponentData.MouseLeave += Control_Leave;
-		// 
-		// labelRadialVelocityComponentData
-		// 
-		labelRadialVelocityComponentData.AccessibleDescription = "Shows the information of \"Radial velocity component\"";
-		labelRadialVelocityComponentData.AccessibleName = "Information of \"Radial velocity component\"";
-		labelRadialVelocityComponentData.AccessibleRole = AccessibleRole.StaticText;
-		labelRadialVelocityComponentData.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelRadialVelocityComponentData.Dock = DockStyle.Top;
-		labelRadialVelocityComponentData.Location = new Point(573, 81);
-		labelRadialVelocityComponentData.Name = "labelRadialVelocityComponentData";
-		labelRadialVelocityComponentData.Size = new Size(270, 20);
-		labelRadialVelocityComponentData.TabIndex = 45;
-		labelRadialVelocityComponentData.ToolTipValues.Description = "Shows the information of \"Radial velocity component\".\r\nDouble-click or right-click to copy the information to the clipboard.";
-		labelRadialVelocityComponentData.ToolTipValues.EnableToolTips = true;
-		labelRadialVelocityComponentData.ToolTipValues.Heading = "Information of \"Radial velocity component\"";
-		labelRadialVelocityComponentData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelRadialVelocityComponentData.Values.Text = "..................";
-		labelRadialVelocityComponentData.DoubleClick += CopyToClipboard_DoubleClick;
-		labelRadialVelocityComponentData.Enter += Control_Enter;
-		labelRadialVelocityComponentData.Leave += Control_Leave;
-		labelRadialVelocityComponentData.MouseDown += Control_MouseDown;
-		labelRadialVelocityComponentData.MouseEnter += Control_Enter;
-		labelRadialVelocityComponentData.MouseLeave += Control_Leave;
-		// 
-		// labelCurrentOrbitalVelocityData
-		// 
-		labelCurrentOrbitalVelocityData.AccessibleDescription = "Shows the information of \"Current orbital velocity\"";
-		labelCurrentOrbitalVelocityData.AccessibleName = "Information of \"Current orbital velocity\"";
-		labelCurrentOrbitalVelocityData.AccessibleRole = AccessibleRole.StaticText;
-		labelCurrentOrbitalVelocityData.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelCurrentOrbitalVelocityData.Dock = DockStyle.Top;
-		labelCurrentOrbitalVelocityData.Location = new Point(573, 55);
-		labelCurrentOrbitalVelocityData.Name = "labelCurrentOrbitalVelocityData";
-		labelCurrentOrbitalVelocityData.Size = new Size(270, 20);
-		labelCurrentOrbitalVelocityData.TabIndex = 43;
-		labelCurrentOrbitalVelocityData.ToolTipValues.Description = "Shows the information of \"Current orbital velocity\".\r\nDouble-click or right-click to copy the information to the clipboard.";
-		labelCurrentOrbitalVelocityData.ToolTipValues.EnableToolTips = true;
-		labelCurrentOrbitalVelocityData.ToolTipValues.Heading = "Information of \"Current orbital velocity\"";
-		labelCurrentOrbitalVelocityData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelCurrentOrbitalVelocityData.Values.Text = "..................";
-		labelCurrentOrbitalVelocityData.DoubleClick += CopyToClipboard_DoubleClick;
-		labelCurrentOrbitalVelocityData.Enter += Control_Enter;
-		labelCurrentOrbitalVelocityData.Leave += Control_Leave;
-		labelCurrentOrbitalVelocityData.MouseDown += Control_MouseDown;
-		labelCurrentOrbitalVelocityData.MouseEnter += Control_Enter;
-		labelCurrentOrbitalVelocityData.MouseLeave += Control_Leave;
-		// 
-		// labelMeanOrbitalVelocityData
-		// 
-		labelMeanOrbitalVelocityData.AccessibleDescription = "Shows the information of \"Mean orbital velocity\"";
-		labelMeanOrbitalVelocityData.AccessibleName = "Information of \"Mean orbital velocity\"";
-		labelMeanOrbitalVelocityData.AccessibleRole = AccessibleRole.StaticText;
-		labelMeanOrbitalVelocityData.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelMeanOrbitalVelocityData.Dock = DockStyle.Top;
-		labelMeanOrbitalVelocityData.Location = new Point(573, 29);
-		labelMeanOrbitalVelocityData.Name = "labelMeanOrbitalVelocityData";
-		labelMeanOrbitalVelocityData.Size = new Size(270, 20);
-		labelMeanOrbitalVelocityData.TabIndex = 41;
-		labelMeanOrbitalVelocityData.ToolTipValues.Description = "Shows the information of \"Mean orbital velocity\".\r\nDouble-click or right-click to copy the information to the clipboard.";
-		labelMeanOrbitalVelocityData.ToolTipValues.EnableToolTips = true;
-		labelMeanOrbitalVelocityData.ToolTipValues.Heading = "Information of \"Mean orbital velocity\"";
-		labelMeanOrbitalVelocityData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelMeanOrbitalVelocityData.Values.Text = "..................";
-		labelMeanOrbitalVelocityData.DoubleClick += CopyToClipboard_DoubleClick;
-		labelMeanOrbitalVelocityData.Enter += Control_Enter;
-		labelMeanOrbitalVelocityData.Leave += Control_Leave;
-		labelMeanOrbitalVelocityData.MouseDown += Control_MouseDown;
-		labelMeanOrbitalVelocityData.MouseEnter += Control_Enter;
-		labelMeanOrbitalVelocityData.MouseLeave += Control_Leave;
-		// 
-		// labelAphelionVelocityData
-		// 
-		labelAphelionVelocityData.AccessibleDescription = "Shows the information of \"Aphelion velocity\"";
-		labelAphelionVelocityData.AccessibleName = "Information of \"Aphelion velocity\"";
-		labelAphelionVelocityData.AccessibleRole = AccessibleRole.StaticText;
-		labelAphelionVelocityData.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelAphelionVelocityData.Dock = DockStyle.Top;
-		labelAphelionVelocityData.Location = new Point(573, 3);
-		labelAphelionVelocityData.Name = "labelAphelionVelocityData";
-		labelAphelionVelocityData.Size = new Size(270, 20);
-		labelAphelionVelocityData.TabIndex = 39;
-		labelAphelionVelocityData.ToolTipValues.Description = "Shows the information of \"Aphelion velocity\".\r\nDouble-click or right-click to copy the information to the clipboard.";
-		labelAphelionVelocityData.ToolTipValues.EnableToolTips = true;
-		labelAphelionVelocityData.ToolTipValues.Heading = "Information of \"Aphelion velocity\"";
-		labelAphelionVelocityData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelAphelionVelocityData.Values.Text = "..................";
-		labelAphelionVelocityData.DoubleClick += CopyToClipboard_DoubleClick;
-		labelAphelionVelocityData.Enter += Control_Enter;
-		labelAphelionVelocityData.Leave += Control_Leave;
-		labelAphelionVelocityData.MouseDown += Control_MouseDown;
-		labelAphelionVelocityData.MouseEnter += Control_Enter;
-		labelAphelionVelocityData.MouseLeave += Control_Leave;
-		// 
-		// labelLinearEccentricityData
-		// 
-		labelLinearEccentricityData.AccessibleDescription = "Shows the information of \"Linear eccentricity\"";
-		labelLinearEccentricityData.AccessibleName = "Information of \"Linear eccentricity\"";
-		labelLinearEccentricityData.AccessibleRole = AccessibleRole.StaticText;
-		labelLinearEccentricityData.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelLinearEccentricityData.Dock = DockStyle.Top;
-		labelLinearEccentricityData.Location = new Point(256, 3);
-		labelLinearEccentricityData.Name = "labelLinearEccentricityData";
-		labelLinearEccentricityData.Size = new Size(59, 20);
-		labelLinearEccentricityData.TabIndex = 1;
-		labelLinearEccentricityData.ToolTipValues.Description = "Shows the information of \"Linear eccentricity\".\r\nDouble-click or right-click to copy the information to the clipboard.";
-		labelLinearEccentricityData.ToolTipValues.EnableToolTips = true;
-		labelLinearEccentricityData.ToolTipValues.Heading = "Information of \"Linear eccentricity\"";
-		labelLinearEccentricityData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelLinearEccentricityData.Values.Text = "..................";
-		labelLinearEccentricityData.DoubleClick += CopyToClipboard_DoubleClick;
-		labelLinearEccentricityData.Enter += Control_Enter;
-		labelLinearEccentricityData.Leave += Control_Leave;
-		labelLinearEccentricityData.MouseDown += Control_MouseDown;
-		labelLinearEccentricityData.MouseEnter += Control_Enter;
-		labelLinearEccentricityData.MouseLeave += Control_Leave;
-		// 
-		// labelLinearEccentricityDesc
-		// 
-		labelLinearEccentricityDesc.AccessibleDescription = "Shows the linear eccentricity (AU)";
-		labelLinearEccentricityDesc.AccessibleName = "Linear eccentricity (AU)";
-		labelLinearEccentricityDesc.AccessibleRole = AccessibleRole.StaticText;
-		labelLinearEccentricityDesc.ContextMenuStrip = contextMenuOpenTerminology;
-		labelLinearEccentricityDesc.Dock = DockStyle.Top;
-		labelLinearEccentricityDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelLinearEccentricityDesc.Location = new Point(3, 3);
-		labelLinearEccentricityDesc.Name = "labelLinearEccentricityDesc";
-		labelLinearEccentricityDesc.Size = new Size(247, 20);
-		labelLinearEccentricityDesc.TabIndex = 0;
-		labelLinearEccentricityDesc.Tag = "20";
-		labelLinearEccentricityDesc.ToolTipValues.Description = "Shows the linear eccentricity (AU).\r\nDouble-click or right-click to open the terminology.";
-		labelLinearEccentricityDesc.ToolTipValues.EnableToolTips = true;
-		labelLinearEccentricityDesc.ToolTipValues.Heading = "Linear eccentricity (AU)";
-		labelLinearEccentricityDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelLinearEccentricityDesc.Values.ExtraText = "AU";
-		labelLinearEccentricityDesc.Values.Text = "Linear eccentricity";
-		labelLinearEccentricityDesc.DoubleClick += OpenTerminology_DoubleClick;
-		labelLinearEccentricityDesc.Enter += Control_Enter;
-		labelLinearEccentricityDesc.Leave += Control_Leave;
-		labelLinearEccentricityDesc.MouseDown += Control_MouseDown;
-		labelLinearEccentricityDesc.MouseEnter += Control_Enter;
-		labelLinearEccentricityDesc.MouseLeave += Control_Leave;
-		// 
-		// labelSemiMinorAxisDesc
-		// 
-		labelSemiMinorAxisDesc.AccessibleDescription = "Shows the semi-minor axis (AU)";
-		labelSemiMinorAxisDesc.AccessibleName = "Semi-minor axis (AU)";
-		labelSemiMinorAxisDesc.AccessibleRole = AccessibleRole.StaticText;
-		labelSemiMinorAxisDesc.ContextMenuStrip = contextMenuOpenTerminology;
-		labelSemiMinorAxisDesc.Dock = DockStyle.Top;
-		labelSemiMinorAxisDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelSemiMinorAxisDesc.Location = new Point(3, 29);
-		labelSemiMinorAxisDesc.Name = "labelSemiMinorAxisDesc";
-		labelSemiMinorAxisDesc.Size = new Size(247, 20);
-		labelSemiMinorAxisDesc.TabIndex = 2;
-		labelSemiMinorAxisDesc.Tag = "21";
-		labelSemiMinorAxisDesc.ToolTipValues.Description = "Shows the semi-minor axis (AU).\r\nDouble-click or right-click to open the terminology.";
-		labelSemiMinorAxisDesc.ToolTipValues.EnableToolTips = true;
-		labelSemiMinorAxisDesc.ToolTipValues.Heading = "Semi-minor axis (AU)";
-		labelSemiMinorAxisDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelSemiMinorAxisDesc.Values.ExtraText = "AU";
-		labelSemiMinorAxisDesc.Values.Text = "Semi-minor axis";
-		labelSemiMinorAxisDesc.DoubleClick += OpenTerminology_DoubleClick;
-		labelSemiMinorAxisDesc.Enter += Control_Enter;
-		labelSemiMinorAxisDesc.Leave += Control_Leave;
-		labelSemiMinorAxisDesc.MouseDown += Control_MouseDown;
-		labelSemiMinorAxisDesc.MouseEnter += Control_Enter;
-		labelSemiMinorAxisDesc.MouseLeave += Control_Leave;
 		// 
 		// labelMajorAxisDesc
 		// 
@@ -1639,7 +591,7 @@ partial class DerivedOrbitElementsForm
 		labelMajorAxisDesc.LabelStyle = LabelStyle.BoldPanel;
 		labelMajorAxisDesc.Location = new Point(3, 55);
 		labelMajorAxisDesc.Name = "labelMajorAxisDesc";
-		labelMajorAxisDesc.Size = new Size(247, 20);
+		labelMajorAxisDesc.Size = new Size(227, 20);
 		labelMajorAxisDesc.TabIndex = 4;
 		labelMajorAxisDesc.Tag = "22";
 		labelMajorAxisDesc.ToolTipValues.Description = "Shows the major axis (AU).\r\nDouble-click or right-click to open the terminology.";
@@ -1665,7 +617,7 @@ partial class DerivedOrbitElementsForm
 		labelMinorAxisDesc.LabelStyle = LabelStyle.BoldPanel;
 		labelMinorAxisDesc.Location = new Point(3, 81);
 		labelMinorAxisDesc.Name = "labelMinorAxisDesc";
-		labelMinorAxisDesc.Size = new Size(247, 20);
+		labelMinorAxisDesc.Size = new Size(227, 20);
 		labelMinorAxisDesc.TabIndex = 6;
 		labelMinorAxisDesc.Tag = "23";
 		labelMinorAxisDesc.ToolTipValues.Description = "Shows the minor axis (AU).\r\nDouble-click or right-click to open the terminology.";
@@ -1680,31 +632,2587 @@ partial class DerivedOrbitElementsForm
 		labelMinorAxisDesc.MouseEnter += Control_Enter;
 		labelMinorAxisDesc.MouseLeave += Control_Leave;
 		// 
-		// labelEccentricAnomalyDesc
+		// labelMajorAxisData
 		// 
-		labelEccentricAnomalyDesc.AccessibleDescription = "Shows the eccentric anomaly (degrees)";
-		labelEccentricAnomalyDesc.AccessibleName = "Eccentric anomaly (degrees)";
-		labelEccentricAnomalyDesc.AccessibleRole = AccessibleRole.StaticText;
-		labelEccentricAnomalyDesc.ContextMenuStrip = contextMenuOpenTerminology;
-		labelEccentricAnomalyDesc.Dock = DockStyle.Top;
-		labelEccentricAnomalyDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelEccentricAnomalyDesc.Location = new Point(3, 107);
-		labelEccentricAnomalyDesc.Name = "labelEccentricAnomalyDesc";
-		labelEccentricAnomalyDesc.Size = new Size(247, 20);
-		labelEccentricAnomalyDesc.TabIndex = 8;
-		labelEccentricAnomalyDesc.Tag = "24";
-		labelEccentricAnomalyDesc.ToolTipValues.Description = "Shows the eccentric anomaly (degrees).\r\nDouble-click or right-click to open the terminology.";
-		labelEccentricAnomalyDesc.ToolTipValues.EnableToolTips = true;
-		labelEccentricAnomalyDesc.ToolTipValues.Heading = "Eccentric anomaly (degrees)";
-		labelEccentricAnomalyDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelEccentricAnomalyDesc.Values.ExtraText = "°";
-		labelEccentricAnomalyDesc.Values.Text = "Eccentric anomaly";
-		labelEccentricAnomalyDesc.DoubleClick += OpenTerminology_DoubleClick;
-		labelEccentricAnomalyDesc.Enter += Control_Enter;
-		labelEccentricAnomalyDesc.Leave += Control_Leave;
-		labelEccentricAnomalyDesc.MouseDown += Control_MouseDown;
-		labelEccentricAnomalyDesc.MouseEnter += Control_Enter;
-		labelEccentricAnomalyDesc.MouseLeave += Control_Leave;
+		labelMajorAxisData.AccessibleDescription = "Shows the information of \"Major axis\"";
+		labelMajorAxisData.AccessibleName = "Information of \"Major axis\"";
+		labelMajorAxisData.AccessibleRole = AccessibleRole.StaticText;
+		labelMajorAxisData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelMajorAxisData.Dock = DockStyle.Top;
+		labelMajorAxisData.Location = new Point(236, 55);
+		labelMajorAxisData.Name = "labelMajorAxisData";
+		labelMajorAxisData.Size = new Size(59, 20);
+		labelMajorAxisData.TabIndex = 5;
+		labelMajorAxisData.ToolTipValues.Description = "Shows the information of \"Major axis\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelMajorAxisData.ToolTipValues.EnableToolTips = true;
+		labelMajorAxisData.ToolTipValues.Heading = "Information of \"Major axis\"";
+		labelMajorAxisData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelMajorAxisData.Values.Text = "..................";
+		labelMajorAxisData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelMajorAxisData.Enter += Control_Enter;
+		labelMajorAxisData.Leave += Control_Leave;
+		labelMajorAxisData.MouseDown += Control_MouseDown;
+		labelMajorAxisData.MouseEnter += Control_Enter;
+		labelMajorAxisData.MouseLeave += Control_Leave;
+		// 
+		// labelMinorAxisData
+		// 
+		labelMinorAxisData.AccessibleDescription = "Shows the information of \"Minor axis\"";
+		labelMinorAxisData.AccessibleName = "Information of \"Minor axis\"";
+		labelMinorAxisData.AccessibleRole = AccessibleRole.StaticText;
+		labelMinorAxisData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelMinorAxisData.Dock = DockStyle.Top;
+		labelMinorAxisData.Location = new Point(236, 81);
+		labelMinorAxisData.Name = "labelMinorAxisData";
+		labelMinorAxisData.Size = new Size(59, 20);
+		labelMinorAxisData.TabIndex = 7;
+		labelMinorAxisData.ToolTipValues.Description = "Shows the information of \"Minor axis\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelMinorAxisData.ToolTipValues.EnableToolTips = true;
+		labelMinorAxisData.ToolTipValues.Heading = "Information of \"Minor axis\"";
+		labelMinorAxisData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelMinorAxisData.Values.Text = "..................";
+		labelMinorAxisData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelMinorAxisData.Enter += Control_Enter;
+		labelMinorAxisData.Leave += Control_Leave;
+		labelMinorAxisData.MouseDown += Control_MouseDown;
+		labelMinorAxisData.MouseEnter += Control_Enter;
+		labelMinorAxisData.MouseLeave += Control_Leave;
+		// 
+		// labelSemiMinorAxisDesc
+		// 
+		labelSemiMinorAxisDesc.AccessibleDescription = "Shows the semi-minor axis (AU)";
+		labelSemiMinorAxisDesc.AccessibleName = "Semi-minor axis (AU)";
+		labelSemiMinorAxisDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelSemiMinorAxisDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelSemiMinorAxisDesc.Dock = DockStyle.Top;
+		labelSemiMinorAxisDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelSemiMinorAxisDesc.Location = new Point(3, 3);
+		labelSemiMinorAxisDesc.Name = "labelSemiMinorAxisDesc";
+		labelSemiMinorAxisDesc.Size = new Size(227, 20);
+		labelSemiMinorAxisDesc.TabIndex = 0;
+		labelSemiMinorAxisDesc.Tag = "21";
+		labelSemiMinorAxisDesc.ToolTipValues.Description = "Shows the semi-minor axis (AU).\r\nDouble-click or right-click to open the terminology.";
+		labelSemiMinorAxisDesc.ToolTipValues.EnableToolTips = true;
+		labelSemiMinorAxisDesc.ToolTipValues.Heading = "Semi-minor axis (AU)";
+		labelSemiMinorAxisDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelSemiMinorAxisDesc.Values.ExtraText = "AU";
+		labelSemiMinorAxisDesc.Values.Text = "Semi-minor axis";
+		labelSemiMinorAxisDesc.DoubleClick += OpenTerminology_DoubleClick;
+		labelSemiMinorAxisDesc.Enter += Control_Enter;
+		labelSemiMinorAxisDesc.Leave += Control_Leave;
+		labelSemiMinorAxisDesc.MouseDown += Control_MouseDown;
+		labelSemiMinorAxisDesc.MouseEnter += Control_Enter;
+		labelSemiMinorAxisDesc.MouseLeave += Control_Leave;
+		// 
+		// labelSemiMinorAxisData
+		// 
+		labelSemiMinorAxisData.AccessibleDescription = "Shows the information of \"Semi-minor axis\"";
+		labelSemiMinorAxisData.AccessibleName = "Information of \"Semi-minor axis\"";
+		labelSemiMinorAxisData.AccessibleRole = AccessibleRole.StaticText;
+		labelSemiMinorAxisData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelSemiMinorAxisData.Dock = DockStyle.Top;
+		labelSemiMinorAxisData.Location = new Point(236, 3);
+		labelSemiMinorAxisData.Name = "labelSemiMinorAxisData";
+		labelSemiMinorAxisData.Size = new Size(59, 20);
+		labelSemiMinorAxisData.TabIndex = 1;
+		labelSemiMinorAxisData.ToolTipValues.Description = "Shows the information of \"Semi-minor axis\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelSemiMinorAxisData.ToolTipValues.EnableToolTips = true;
+		labelSemiMinorAxisData.ToolTipValues.Heading = "Information of \"Semi-minor axis\"";
+		labelSemiMinorAxisData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelSemiMinorAxisData.Values.Text = "..................";
+		labelSemiMinorAxisData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelSemiMinorAxisData.Enter += Control_Enter;
+		labelSemiMinorAxisData.Leave += Control_Leave;
+		labelSemiMinorAxisData.MouseDown += Control_MouseDown;
+		labelSemiMinorAxisData.MouseEnter += Control_Enter;
+		labelSemiMinorAxisData.MouseLeave += Control_Leave;
+		// 
+		// labelSemiMeanAxisDesc
+		// 
+		labelSemiMeanAxisDesc.AccessibleDescription = "Shows the semi-mean axis (AU)";
+		labelSemiMeanAxisDesc.AccessibleName = "Semi-mean axis (AU)";
+		labelSemiMeanAxisDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelSemiMeanAxisDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelSemiMeanAxisDesc.Dock = DockStyle.Top;
+		labelSemiMeanAxisDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelSemiMeanAxisDesc.Location = new Point(3, 29);
+		labelSemiMeanAxisDesc.Name = "labelSemiMeanAxisDesc";
+		labelSemiMeanAxisDesc.Size = new Size(227, 20);
+		labelSemiMeanAxisDesc.TabIndex = 2;
+		labelSemiMeanAxisDesc.Tag = "36";
+		labelSemiMeanAxisDesc.ToolTipValues.Description = "Shows the semi-mean axis (AU).\r\nDouble-click or right-click to open the terminology.";
+		labelSemiMeanAxisDesc.ToolTipValues.EnableToolTips = true;
+		labelSemiMeanAxisDesc.ToolTipValues.Heading = "Semi-mean axis (AU)";
+		labelSemiMeanAxisDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelSemiMeanAxisDesc.Values.ExtraText = "AU";
+		labelSemiMeanAxisDesc.Values.Text = "Semi-mean axis";
+		labelSemiMeanAxisDesc.DoubleClick += OpenTerminology_DoubleClick;
+		labelSemiMeanAxisDesc.Enter += Control_Enter;
+		labelSemiMeanAxisDesc.Leave += Control_Leave;
+		labelSemiMeanAxisDesc.MouseDown += Control_MouseDown;
+		labelSemiMeanAxisDesc.MouseEnter += Control_Enter;
+		labelSemiMeanAxisDesc.MouseLeave += Control_Leave;
+		// 
+		// labelSemiMeanAxisData
+		// 
+		labelSemiMeanAxisData.AccessibleDescription = "Shows the information of \"Semi-mean axis\"";
+		labelSemiMeanAxisData.AccessibleName = "Information of \"Semi-mean axis\"";
+		labelSemiMeanAxisData.AccessibleRole = AccessibleRole.StaticText;
+		labelSemiMeanAxisData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelSemiMeanAxisData.Dock = DockStyle.Top;
+		labelSemiMeanAxisData.Location = new Point(236, 29);
+		labelSemiMeanAxisData.Name = "labelSemiMeanAxisData";
+		labelSemiMeanAxisData.Size = new Size(59, 20);
+		labelSemiMeanAxisData.TabIndex = 3;
+		labelSemiMeanAxisData.ToolTipValues.Description = "Shows the information of \"Semi-mean axis\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelSemiMeanAxisData.ToolTipValues.EnableToolTips = true;
+		labelSemiMeanAxisData.ToolTipValues.Heading = "Information of \"Semi-mean axis\"";
+		labelSemiMeanAxisData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelSemiMeanAxisData.Values.Text = "..................";
+		labelSemiMeanAxisData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelSemiMeanAxisData.Enter += Control_Enter;
+		labelSemiMeanAxisData.Leave += Control_Leave;
+		labelSemiMeanAxisData.MouseDown += Control_MouseDown;
+		labelSemiMeanAxisData.MouseEnter += Control_Enter;
+		labelSemiMeanAxisData.MouseLeave += Control_Leave;
+		// 
+		// labelMeanAxisDesc
+		// 
+		labelMeanAxisDesc.AccessibleDescription = "Shows the mean axis (AU)";
+		labelMeanAxisDesc.AccessibleName = "Mean axis (AU)";
+		labelMeanAxisDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelMeanAxisDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelMeanAxisDesc.Dock = DockStyle.Top;
+		labelMeanAxisDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelMeanAxisDesc.Location = new Point(3, 107);
+		labelMeanAxisDesc.Name = "labelMeanAxisDesc";
+		labelMeanAxisDesc.Size = new Size(227, 20);
+		labelMeanAxisDesc.TabIndex = 8;
+		labelMeanAxisDesc.Tag = "37";
+		labelMeanAxisDesc.ToolTipValues.Description = "Shows the mean axis (AU).\r\nDouble-click or right-click to open the terminology.";
+		labelMeanAxisDesc.ToolTipValues.EnableToolTips = true;
+		labelMeanAxisDesc.ToolTipValues.Heading = "Mean axis (AU)";
+		labelMeanAxisDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelMeanAxisDesc.Values.ExtraText = "AU";
+		labelMeanAxisDesc.Values.Text = "Mean axis";
+		labelMeanAxisDesc.DoubleClick += OpenTerminology_DoubleClick;
+		labelMeanAxisDesc.Enter += Control_Enter;
+		labelMeanAxisDesc.Leave += Control_Leave;
+		labelMeanAxisDesc.MouseDown += Control_MouseDown;
+		labelMeanAxisDesc.MouseEnter += Control_Enter;
+		labelMeanAxisDesc.MouseLeave += Control_Leave;
+		// 
+		// labelMeanAxisData
+		// 
+		labelMeanAxisData.AccessibleDescription = "Shows the information of \"Mean axis\"";
+		labelMeanAxisData.AccessibleName = "Information of \"Mean axis\"";
+		labelMeanAxisData.AccessibleRole = AccessibleRole.StaticText;
+		labelMeanAxisData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelMeanAxisData.Dock = DockStyle.Top;
+		labelMeanAxisData.Location = new Point(236, 107);
+		labelMeanAxisData.Name = "labelMeanAxisData";
+		labelMeanAxisData.Size = new Size(59, 20);
+		labelMeanAxisData.TabIndex = 9;
+		labelMeanAxisData.ToolTipValues.Description = "Shows the information of \"Mean axis\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelMeanAxisData.ToolTipValues.EnableToolTips = true;
+		labelMeanAxisData.ToolTipValues.Heading = "Information of \"Mean axis\"";
+		labelMeanAxisData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelMeanAxisData.Values.Text = "..................";
+		labelMeanAxisData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelMeanAxisData.Enter += Control_Enter;
+		labelMeanAxisData.Leave += Control_Leave;
+		labelMeanAxisData.MouseDown += Control_MouseDown;
+		labelMeanAxisData.MouseEnter += Control_Enter;
+		labelMeanAxisData.MouseLeave += Control_Leave;
+		// 
+		// labelPerihelionDateDesc
+		// 
+		labelPerihelionDateDesc.AccessibleDescription = "Shows the perihelion date (JD)";
+		labelPerihelionDateDesc.AccessibleName = "Perihelion date (JD)";
+		labelPerihelionDateDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelPerihelionDateDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelPerihelionDateDesc.Dock = DockStyle.Top;
+		labelPerihelionDateDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelPerihelionDateDesc.Location = new Point(3, 705);
+		labelPerihelionDateDesc.Name = "labelPerihelionDateDesc";
+		labelPerihelionDateDesc.Size = new Size(227, 20);
+		labelPerihelionDateDesc.TabIndex = 54;
+		labelPerihelionDateDesc.Tag = "20";
+		labelPerihelionDateDesc.ToolTipValues.Description = "Shows the perihelion date (JD).\r\nDouble-click or right-click to open the terminology.";
+		labelPerihelionDateDesc.ToolTipValues.EnableToolTips = true;
+		labelPerihelionDateDesc.ToolTipValues.Heading = "Perihelion date (JD)";
+		labelPerihelionDateDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelPerihelionDateDesc.Values.ExtraText = "JD";
+		labelPerihelionDateDesc.Values.Text = "Perihelion date";
+		labelPerihelionDateDesc.DoubleClick += CopyToClipboard_DoubleClick;
+		labelPerihelionDateDesc.Enter += Control_Enter;
+		labelPerihelionDateDesc.Leave += Control_Leave;
+		labelPerihelionDateDesc.MouseDown += Control_MouseDown;
+		labelPerihelionDateDesc.MouseEnter += Control_Enter;
+		labelPerihelionDateDesc.MouseLeave += Control_Leave;
+		// 
+		// labelAphelionDateDesc
+		// 
+		labelAphelionDateDesc.AccessibleDescription = "Shows the aphelion date (JD)";
+		labelAphelionDateDesc.AccessibleName = "Aphelion date (JD)";
+		labelAphelionDateDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelAphelionDateDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelAphelionDateDesc.Dock = DockStyle.Top;
+		labelAphelionDateDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelAphelionDateDesc.Location = new Point(3, 679);
+		labelAphelionDateDesc.Name = "labelAphelionDateDesc";
+		labelAphelionDateDesc.Size = new Size(227, 20);
+		labelAphelionDateDesc.TabIndex = 52;
+		labelAphelionDateDesc.Tag = "20";
+		labelAphelionDateDesc.ToolTipValues.Description = "Shows the aphelion date (JD).\r\nDouble-click or right-click to open the terminology.";
+		labelAphelionDateDesc.ToolTipValues.EnableToolTips = true;
+		labelAphelionDateDesc.ToolTipValues.Heading = "Aphelion date (JD)";
+		labelAphelionDateDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAphelionDateDesc.Values.ExtraText = "JD";
+		labelAphelionDateDesc.Values.Text = "Aphelion date";
+		labelAphelionDateDesc.DoubleClick += CopyToClipboard_DoubleClick;
+		labelAphelionDateDesc.Enter += Control_Enter;
+		labelAphelionDateDesc.Leave += Control_Leave;
+		labelAphelionDateDesc.MouseDown += Control_MouseDown;
+		labelAphelionDateDesc.MouseEnter += Control_Enter;
+		labelAphelionDateDesc.MouseLeave += Control_Leave;
+		// 
+		// labelDescendingNodeDistanceDesc
+		// 
+		labelDescendingNodeDistanceDesc.AccessibleDescription = "Shows the descending node distance (AU)";
+		labelDescendingNodeDistanceDesc.AccessibleName = "Descending node distance (AU)";
+		labelDescendingNodeDistanceDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelDescendingNodeDistanceDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelDescendingNodeDistanceDesc.Dock = DockStyle.Top;
+		labelDescendingNodeDistanceDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelDescendingNodeDistanceDesc.Location = new Point(3, 653);
+		labelDescendingNodeDistanceDesc.Name = "labelDescendingNodeDistanceDesc";
+		labelDescendingNodeDistanceDesc.Size = new Size(227, 20);
+		labelDescendingNodeDistanceDesc.TabIndex = 50;
+		labelDescendingNodeDistanceDesc.Tag = "20";
+		labelDescendingNodeDistanceDesc.ToolTipValues.Description = "Shows the descending node distance (AU).\r\nDouble-click or right-click to open the terminology.";
+		labelDescendingNodeDistanceDesc.ToolTipValues.EnableToolTips = true;
+		labelDescendingNodeDistanceDesc.ToolTipValues.Heading = "Descending node distance (AU)";
+		labelDescendingNodeDistanceDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelDescendingNodeDistanceDesc.Values.ExtraText = "AU";
+		labelDescendingNodeDistanceDesc.Values.Text = "Descending node distance";
+		labelDescendingNodeDistanceDesc.DoubleClick += CopyToClipboard_DoubleClick;
+		labelDescendingNodeDistanceDesc.Enter += Control_Enter;
+		labelDescendingNodeDistanceDesc.Leave += Control_Leave;
+		labelDescendingNodeDistanceDesc.MouseDown += Control_MouseDown;
+		labelDescendingNodeDistanceDesc.MouseEnter += Control_Enter;
+		labelDescendingNodeDistanceDesc.MouseLeave += Control_Leave;
+		// 
+		// labelAscendingNodeDistanceDesc
+		// 
+		labelAscendingNodeDistanceDesc.AccessibleDescription = "Shows the ascending node distance (AU)";
+		labelAscendingNodeDistanceDesc.AccessibleName = "Ascending node distance (AU)";
+		labelAscendingNodeDistanceDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelAscendingNodeDistanceDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelAscendingNodeDistanceDesc.Dock = DockStyle.Top;
+		labelAscendingNodeDistanceDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelAscendingNodeDistanceDesc.Location = new Point(3, 627);
+		labelAscendingNodeDistanceDesc.Name = "labelAscendingNodeDistanceDesc";
+		labelAscendingNodeDistanceDesc.Size = new Size(227, 20);
+		labelAscendingNodeDistanceDesc.TabIndex = 48;
+		labelAscendingNodeDistanceDesc.Tag = "20";
+		labelAscendingNodeDistanceDesc.ToolTipValues.Description = "Shows the ascending node distance (AU).\r\nDouble-click or right-click to open the terminology.";
+		labelAscendingNodeDistanceDesc.ToolTipValues.EnableToolTips = true;
+		labelAscendingNodeDistanceDesc.ToolTipValues.Heading = "Ascending node distance (AU)";
+		labelAscendingNodeDistanceDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAscendingNodeDistanceDesc.Values.ExtraText = "AU";
+		labelAscendingNodeDistanceDesc.Values.Text = "Ascending node distance";
+		labelAscendingNodeDistanceDesc.DoubleClick += CopyToClipboard_DoubleClick;
+		labelAscendingNodeDistanceDesc.Enter += Control_Enter;
+		labelAscendingNodeDistanceDesc.Leave += Control_Leave;
+		labelAscendingNodeDistanceDesc.MouseDown += Control_MouseDown;
+		labelAscendingNodeDistanceDesc.MouseEnter += Control_Enter;
+		labelAscendingNodeDistanceDesc.MouseLeave += Control_Leave;
+		// 
+		// labelEquinoctialOrbitalElementQDesc
+		// 
+		labelEquinoctialOrbitalElementQDesc.AccessibleDescription = "Shows the equinoctial orbital element q";
+		labelEquinoctialOrbitalElementQDesc.AccessibleName = "Equinoctial orbital element q";
+		labelEquinoctialOrbitalElementQDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelEquinoctialOrbitalElementQDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelEquinoctialOrbitalElementQDesc.Dock = DockStyle.Top;
+		labelEquinoctialOrbitalElementQDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelEquinoctialOrbitalElementQDesc.Location = new Point(3, 549);
+		labelEquinoctialOrbitalElementQDesc.Name = "labelEquinoctialOrbitalElementQDesc";
+		labelEquinoctialOrbitalElementQDesc.Size = new Size(227, 20);
+		labelEquinoctialOrbitalElementQDesc.TabIndex = 42;
+		labelEquinoctialOrbitalElementQDesc.Tag = "20";
+		labelEquinoctialOrbitalElementQDesc.ToolTipValues.Description = "Shows the equinoctial orbital element q.\r\nDouble-click or right-click to open the terminology.";
+		labelEquinoctialOrbitalElementQDesc.ToolTipValues.EnableToolTips = true;
+		labelEquinoctialOrbitalElementQDesc.ToolTipValues.Heading = "Equinoctial orbital element q";
+		labelEquinoctialOrbitalElementQDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelEquinoctialOrbitalElementQDesc.Values.Text = "Equinoctial orbital element q";
+		labelEquinoctialOrbitalElementQDesc.DoubleClick += CopyToClipboard_DoubleClick;
+		labelEquinoctialOrbitalElementQDesc.Enter += Control_Enter;
+		labelEquinoctialOrbitalElementQDesc.Leave += Control_Leave;
+		labelEquinoctialOrbitalElementQDesc.MouseDown += Control_MouseDown;
+		labelEquinoctialOrbitalElementQDesc.MouseEnter += Control_Enter;
+		labelEquinoctialOrbitalElementQDesc.MouseLeave += Control_Leave;
+		// 
+		// labelEquinoctialOrbitalElementPDesc
+		// 
+		labelEquinoctialOrbitalElementPDesc.AccessibleDescription = "Shows the equinoctial orbital element p";
+		labelEquinoctialOrbitalElementPDesc.AccessibleName = "Equinoctial orbital element p";
+		labelEquinoctialOrbitalElementPDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelEquinoctialOrbitalElementPDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelEquinoctialOrbitalElementPDesc.Dock = DockStyle.Top;
+		labelEquinoctialOrbitalElementPDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelEquinoctialOrbitalElementPDesc.Location = new Point(3, 523);
+		labelEquinoctialOrbitalElementPDesc.Name = "labelEquinoctialOrbitalElementPDesc";
+		labelEquinoctialOrbitalElementPDesc.Size = new Size(227, 20);
+		labelEquinoctialOrbitalElementPDesc.TabIndex = 40;
+		labelEquinoctialOrbitalElementPDesc.Tag = "20";
+		labelEquinoctialOrbitalElementPDesc.ToolTipValues.Description = "Shows the equinoctial orbital element p.\r\nDouble-click or right-click to open the terminology.";
+		labelEquinoctialOrbitalElementPDesc.ToolTipValues.EnableToolTips = true;
+		labelEquinoctialOrbitalElementPDesc.ToolTipValues.Heading = "Equinoctial orbital element p";
+		labelEquinoctialOrbitalElementPDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelEquinoctialOrbitalElementPDesc.Values.Text = "Equinoctial orbital element p";
+		labelEquinoctialOrbitalElementPDesc.DoubleClick += CopyToClipboard_DoubleClick;
+		labelEquinoctialOrbitalElementPDesc.Enter += Control_Enter;
+		labelEquinoctialOrbitalElementPDesc.Leave += Control_Leave;
+		labelEquinoctialOrbitalElementPDesc.MouseDown += Control_MouseDown;
+		labelEquinoctialOrbitalElementPDesc.MouseEnter += Control_Enter;
+		labelEquinoctialOrbitalElementPDesc.MouseLeave += Control_Leave;
+		// 
+		// labelEquinoctialOrbitalElementKDesc
+		// 
+		labelEquinoctialOrbitalElementKDesc.AccessibleDescription = "Shows the equinoctial orbital element k";
+		labelEquinoctialOrbitalElementKDesc.AccessibleName = "Equinoctial orbital element k";
+		labelEquinoctialOrbitalElementKDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelEquinoctialOrbitalElementKDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelEquinoctialOrbitalElementKDesc.Dock = DockStyle.Top;
+		labelEquinoctialOrbitalElementKDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelEquinoctialOrbitalElementKDesc.Location = new Point(3, 497);
+		labelEquinoctialOrbitalElementKDesc.Name = "labelEquinoctialOrbitalElementKDesc";
+		labelEquinoctialOrbitalElementKDesc.Size = new Size(227, 20);
+		labelEquinoctialOrbitalElementKDesc.TabIndex = 38;
+		labelEquinoctialOrbitalElementKDesc.Tag = "20";
+		labelEquinoctialOrbitalElementKDesc.ToolTipValues.Description = "Shows the equinoctial orbital element k.\r\nDouble-click or right-click to open the terminology.";
+		labelEquinoctialOrbitalElementKDesc.ToolTipValues.EnableToolTips = true;
+		labelEquinoctialOrbitalElementKDesc.ToolTipValues.Heading = "Equinoctial orbital element k";
+		labelEquinoctialOrbitalElementKDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelEquinoctialOrbitalElementKDesc.Values.Text = "Equinoctial orbital element k";
+		labelEquinoctialOrbitalElementKDesc.DoubleClick += CopyToClipboard_DoubleClick;
+		labelEquinoctialOrbitalElementKDesc.Enter += Control_Enter;
+		labelEquinoctialOrbitalElementKDesc.Leave += Control_Leave;
+		labelEquinoctialOrbitalElementKDesc.MouseDown += Control_MouseDown;
+		labelEquinoctialOrbitalElementKDesc.MouseEnter += Control_Enter;
+		labelEquinoctialOrbitalElementKDesc.MouseLeave += Control_Leave;
+		// 
+		// labelEquinoctialOrbitalElementHDesc
+		// 
+		labelEquinoctialOrbitalElementHDesc.AccessibleDescription = "Shows the equinoctial orbital element h";
+		labelEquinoctialOrbitalElementHDesc.AccessibleName = "Equinoctial orbital element h";
+		labelEquinoctialOrbitalElementHDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelEquinoctialOrbitalElementHDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelEquinoctialOrbitalElementHDesc.Dock = DockStyle.Top;
+		labelEquinoctialOrbitalElementHDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelEquinoctialOrbitalElementHDesc.Location = new Point(3, 471);
+		labelEquinoctialOrbitalElementHDesc.Name = "labelEquinoctialOrbitalElementHDesc";
+		labelEquinoctialOrbitalElementHDesc.Size = new Size(227, 20);
+		labelEquinoctialOrbitalElementHDesc.TabIndex = 36;
+		labelEquinoctialOrbitalElementHDesc.Tag = "20";
+		labelEquinoctialOrbitalElementHDesc.ToolTipValues.Description = "Shows the equinoctial orbital element h.\r\nDouble-click or right-click to open the terminology.";
+		labelEquinoctialOrbitalElementHDesc.ToolTipValues.EnableToolTips = true;
+		labelEquinoctialOrbitalElementHDesc.ToolTipValues.Heading = "Equinoctial orbital element h";
+		labelEquinoctialOrbitalElementHDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelEquinoctialOrbitalElementHDesc.Values.Text = "Equinoctial orbital element h";
+		labelEquinoctialOrbitalElementHDesc.DoubleClick += CopyToClipboard_DoubleClick;
+		labelEquinoctialOrbitalElementHDesc.Enter += Control_Enter;
+		labelEquinoctialOrbitalElementHDesc.Leave += Control_Leave;
+		labelEquinoctialOrbitalElementHDesc.MouseDown += Control_MouseDown;
+		labelEquinoctialOrbitalElementHDesc.MouseEnter += Control_Enter;
+		labelEquinoctialOrbitalElementHDesc.MouseLeave += Control_Leave;
+		// 
+		// labelSynodicPeriodDesc
+		// 
+		labelSynodicPeriodDesc.AccessibleDescription = "Shows the synodic period (yr)";
+		labelSynodicPeriodDesc.AccessibleName = "Synodic period (yr)";
+		labelSynodicPeriodDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelSynodicPeriodDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelSynodicPeriodDesc.Dock = DockStyle.Top;
+		labelSynodicPeriodDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelSynodicPeriodDesc.Location = new Point(3, 445);
+		labelSynodicPeriodDesc.Name = "labelSynodicPeriodDesc";
+		labelSynodicPeriodDesc.Size = new Size(227, 20);
+		labelSynodicPeriodDesc.TabIndex = 34;
+		labelSynodicPeriodDesc.Tag = "20";
+		labelSynodicPeriodDesc.ToolTipValues.Description = "Shows the synodic period (yr).\r\nDouble-click or right-click to open the terminology.";
+		labelSynodicPeriodDesc.ToolTipValues.EnableToolTips = true;
+		labelSynodicPeriodDesc.ToolTipValues.Heading = "Synodic period (yr)";
+		labelSynodicPeriodDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelSynodicPeriodDesc.Values.ExtraText = "yr";
+		labelSynodicPeriodDesc.Values.Text = "Synodic period";
+		labelSynodicPeriodDesc.DoubleClick += OpenTerminology_DoubleClick;
+		labelSynodicPeriodDesc.Enter += Control_Enter;
+		labelSynodicPeriodDesc.Leave += Control_Leave;
+		labelSynodicPeriodDesc.MouseDown += Control_MouseDown;
+		labelSynodicPeriodDesc.MouseEnter += Control_Enter;
+		labelSynodicPeriodDesc.MouseLeave += Control_Leave;
+		// 
+		// labelOrbitalPeriodDesc
+		// 
+		labelOrbitalPeriodDesc.AccessibleDescription = "Shows the orbital period (years)";
+		labelOrbitalPeriodDesc.AccessibleName = "Orbital period (years)";
+		labelOrbitalPeriodDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelOrbitalPeriodDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelOrbitalPeriodDesc.Dock = DockStyle.Top;
+		labelOrbitalPeriodDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelOrbitalPeriodDesc.Location = new Point(3, 419);
+		labelOrbitalPeriodDesc.Name = "labelOrbitalPeriodDesc";
+		labelOrbitalPeriodDesc.Size = new Size(227, 20);
+		labelOrbitalPeriodDesc.TabIndex = 32;
+		labelOrbitalPeriodDesc.Tag = "33";
+		labelOrbitalPeriodDesc.ToolTipValues.Description = "Shows the orbital Period (years).\r\nDouble-click or right-click to open the terminology.";
+		labelOrbitalPeriodDesc.ToolTipValues.EnableToolTips = true;
+		labelOrbitalPeriodDesc.ToolTipValues.Heading = "Orbital Period (years)";
+		labelOrbitalPeriodDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelOrbitalPeriodDesc.Values.ExtraText = "yr";
+		labelOrbitalPeriodDesc.Values.Text = "Orbital period";
+		labelOrbitalPeriodDesc.DoubleClick += OpenTerminology_DoubleClick;
+		labelOrbitalPeriodDesc.Enter += Control_Enter;
+		labelOrbitalPeriodDesc.Leave += Control_Leave;
+		labelOrbitalPeriodDesc.MouseDown += Control_MouseDown;
+		labelOrbitalPeriodDesc.MouseEnter += Control_Enter;
+		labelOrbitalPeriodDesc.MouseLeave += Control_Leave;
+		// 
+		// labelOrbitalAreaDesc
+		// 
+		labelOrbitalAreaDesc.AccessibleDescription = "Orbital area (AU²)";
+		labelOrbitalAreaDesc.AccessibleName = "Orbital area (AU²)";
+		labelOrbitalAreaDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelOrbitalAreaDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelOrbitalAreaDesc.Dock = DockStyle.Top;
+		labelOrbitalAreaDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelOrbitalAreaDesc.Location = new Point(3, 393);
+		labelOrbitalAreaDesc.Name = "labelOrbitalAreaDesc";
+		labelOrbitalAreaDesc.Size = new Size(227, 20);
+		labelOrbitalAreaDesc.TabIndex = 30;
+		labelOrbitalAreaDesc.Tag = "34";
+		labelOrbitalAreaDesc.ToolTipValues.Description = "Shows the orbital area (AU²).\r\nDouble-click or right-click to open the terminology.";
+		labelOrbitalAreaDesc.ToolTipValues.EnableToolTips = true;
+		labelOrbitalAreaDesc.ToolTipValues.Heading = "Orbital area (AU²)";
+		labelOrbitalAreaDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelOrbitalAreaDesc.Values.ExtraText = "AU²";
+		labelOrbitalAreaDesc.Values.Text = "Orbital area";
+		labelOrbitalAreaDesc.DoubleClick += OpenTerminology_DoubleClick;
+		labelOrbitalAreaDesc.Enter += Control_Enter;
+		labelOrbitalAreaDesc.Leave += Control_Leave;
+		labelOrbitalAreaDesc.MouseDown += Control_MouseDown;
+		labelOrbitalAreaDesc.MouseEnter += Control_Enter;
+		labelOrbitalAreaDesc.MouseLeave += Control_Leave;
+		// 
+		// labelOrbitalPerimeterDesc
+		// 
+		labelOrbitalPerimeterDesc.AccessibleDescription = "Shows the orbital perimeter (AU)";
+		labelOrbitalPerimeterDesc.AccessibleName = "Orbital perimeter (AU)";
+		labelOrbitalPerimeterDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelOrbitalPerimeterDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelOrbitalPerimeterDesc.Dock = DockStyle.Top;
+		labelOrbitalPerimeterDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelOrbitalPerimeterDesc.Location = new Point(3, 367);
+		labelOrbitalPerimeterDesc.Name = "labelOrbitalPerimeterDesc";
+		labelOrbitalPerimeterDesc.Size = new Size(227, 20);
+		labelOrbitalPerimeterDesc.TabIndex = 28;
+		labelOrbitalPerimeterDesc.Tag = "35";
+		labelOrbitalPerimeterDesc.ToolTipValues.Description = "Shows the orbital perimeter (AU).\r\nDouble-click or right-click to open the terminology.";
+		labelOrbitalPerimeterDesc.ToolTipValues.EnableToolTips = true;
+		labelOrbitalPerimeterDesc.ToolTipValues.Heading = "Orbital perimeter (AU)";
+		labelOrbitalPerimeterDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelOrbitalPerimeterDesc.Values.ExtraText = "AU";
+		labelOrbitalPerimeterDesc.Values.Text = "Orbital perimeter";
+		labelOrbitalPerimeterDesc.DoubleClick += OpenTerminology_DoubleClick;
+		labelOrbitalPerimeterDesc.Enter += Control_Enter;
+		labelOrbitalPerimeterDesc.Leave += Control_Leave;
+		labelOrbitalPerimeterDesc.MouseDown += Control_MouseDown;
+		labelOrbitalPerimeterDesc.MouseEnter += Control_Enter;
+		labelOrbitalPerimeterDesc.MouseLeave += Control_Leave;
+		// 
+		// labelOrbitalSemiPerimeterDesc
+		// 
+		labelOrbitalSemiPerimeterDesc.AccessibleDescription = "Shows the orbital semi-perimeter (AU)";
+		labelOrbitalSemiPerimeterDesc.AccessibleName = "Orbital semi-perimeter (AU)";
+		labelOrbitalSemiPerimeterDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelOrbitalSemiPerimeterDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelOrbitalSemiPerimeterDesc.Dock = DockStyle.Top;
+		labelOrbitalSemiPerimeterDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelOrbitalSemiPerimeterDesc.Location = new Point(3, 341);
+		labelOrbitalSemiPerimeterDesc.Name = "labelOrbitalSemiPerimeterDesc";
+		labelOrbitalSemiPerimeterDesc.Size = new Size(227, 20);
+		labelOrbitalSemiPerimeterDesc.TabIndex = 26;
+		labelOrbitalSemiPerimeterDesc.Tag = "35";
+		labelOrbitalSemiPerimeterDesc.ToolTipValues.Description = "Shows the orbital semi-perimeter (AU).\r\nDouble-click or right-click to open the terminology.";
+		labelOrbitalSemiPerimeterDesc.ToolTipValues.EnableToolTips = true;
+		labelOrbitalSemiPerimeterDesc.ToolTipValues.Heading = "Orbital semi-perimeter (AU)";
+		labelOrbitalSemiPerimeterDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelOrbitalSemiPerimeterDesc.Values.ExtraText = "AU";
+		labelOrbitalSemiPerimeterDesc.Values.Text = "Orbital semi-perimeter";
+		labelOrbitalSemiPerimeterDesc.DoubleClick += CopyToClipboard_DoubleClick;
+		labelOrbitalSemiPerimeterDesc.Enter += Control_Enter;
+		labelOrbitalSemiPerimeterDesc.Leave += Control_Leave;
+		labelOrbitalSemiPerimeterDesc.MouseDown += Control_MouseDown;
+		labelOrbitalSemiPerimeterDesc.MouseEnter += Control_Enter;
+		labelOrbitalSemiPerimeterDesc.MouseLeave += Control_Leave;
+		// 
+		// labelDirectrixDesc
+		// 
+		labelDirectrixDesc.AccessibleDescription = "Shows the directrix (AU)";
+		labelDirectrixDesc.AccessibleName = "Directrix (AU)";
+		labelDirectrixDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelDirectrixDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelDirectrixDesc.Dock = DockStyle.Top;
+		labelDirectrixDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelDirectrixDesc.Location = new Point(3, 315);
+		labelDirectrixDesc.Name = "labelDirectrixDesc";
+		labelDirectrixDesc.Size = new Size(227, 20);
+		labelDirectrixDesc.TabIndex = 24;
+		labelDirectrixDesc.Tag = "38";
+		labelDirectrixDesc.ToolTipValues.Description = "Shows the directrix (AU).\r\nDouble-click or right-click to open the terminology.";
+		labelDirectrixDesc.ToolTipValues.EnableToolTips = true;
+		labelDirectrixDesc.ToolTipValues.Heading = "Directrix (AU)";
+		labelDirectrixDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelDirectrixDesc.Values.ExtraText = "AU";
+		labelDirectrixDesc.Values.Text = "Directrix";
+		labelDirectrixDesc.DoubleClick += OpenTerminology_DoubleClick;
+		labelDirectrixDesc.Enter += Control_Enter;
+		labelDirectrixDesc.Leave += Control_Leave;
+		labelDirectrixDesc.MouseDown += Control_MouseDown;
+		labelDirectrixDesc.MouseEnter += Control_Enter;
+		labelDirectrixDesc.MouseLeave += Control_Leave;
+		// 
+		// labelMeanDistanceFromFocusDesc
+		// 
+		labelMeanDistanceFromFocusDesc.AccessibleDescription = "Shows the mean distance from focus (AU)";
+		labelMeanDistanceFromFocusDesc.AccessibleName = "Mean distance from focus (AU)";
+		labelMeanDistanceFromFocusDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelMeanDistanceFromFocusDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelMeanDistanceFromFocusDesc.Dock = DockStyle.Top;
+		labelMeanDistanceFromFocusDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelMeanDistanceFromFocusDesc.Location = new Point(3, 289);
+		labelMeanDistanceFromFocusDesc.Name = "labelMeanDistanceFromFocusDesc";
+		labelMeanDistanceFromFocusDesc.Size = new Size(227, 20);
+		labelMeanDistanceFromFocusDesc.TabIndex = 22;
+		labelMeanDistanceFromFocusDesc.Tag = "20";
+		labelMeanDistanceFromFocusDesc.ToolTipValues.Description = "Shows the mean distance from focus (AU).\r\nDouble-click or right-click to open the terminology.";
+		labelMeanDistanceFromFocusDesc.ToolTipValues.EnableToolTips = true;
+		labelMeanDistanceFromFocusDesc.ToolTipValues.Heading = "Mean distance from focus (AU)";
+		labelMeanDistanceFromFocusDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelMeanDistanceFromFocusDesc.Values.ExtraText = "AU";
+		labelMeanDistanceFromFocusDesc.Values.Text = "Mean distance from focus";
+		labelMeanDistanceFromFocusDesc.DoubleClick += OpenTerminology_DoubleClick;
+		labelMeanDistanceFromFocusDesc.Enter += Control_Enter;
+		labelMeanDistanceFromFocusDesc.Leave += Control_Leave;
+		labelMeanDistanceFromFocusDesc.MouseDown += Control_MouseDown;
+		labelMeanDistanceFromFocusDesc.MouseEnter += Control_Enter;
+		labelMeanDistanceFromFocusDesc.MouseLeave += Control_Leave;
+		// 
+		// labelFocalParameterDesc
+		// 
+		labelFocalParameterDesc.AccessibleDescription = "Shows the focal parameter (AU)";
+		labelFocalParameterDesc.AccessibleName = "Focal parameter (AU)";
+		labelFocalParameterDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelFocalParameterDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelFocalParameterDesc.Dock = DockStyle.Top;
+		labelFocalParameterDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelFocalParameterDesc.Location = new Point(3, 263);
+		labelFocalParameterDesc.Name = "labelFocalParameterDesc";
+		labelFocalParameterDesc.Size = new Size(227, 20);
+		labelFocalParameterDesc.TabIndex = 20;
+		labelFocalParameterDesc.Tag = "30";
+		labelFocalParameterDesc.ToolTipValues.Description = "Shows the focal parameter (AU).\r\nDouble-click or right-click to open the terminology.";
+		labelFocalParameterDesc.ToolTipValues.EnableToolTips = true;
+		labelFocalParameterDesc.ToolTipValues.Heading = "Focal parameter (AU)";
+		labelFocalParameterDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelFocalParameterDesc.Values.ExtraText = "AU";
+		labelFocalParameterDesc.Values.Text = "Focal parameter";
+		labelFocalParameterDesc.DoubleClick += OpenTerminology_DoubleClick;
+		labelFocalParameterDesc.Enter += Control_Enter;
+		labelFocalParameterDesc.Leave += Control_Leave;
+		labelFocalParameterDesc.MouseDown += Control_MouseDown;
+		labelFocalParameterDesc.MouseEnter += Control_Enter;
+		labelFocalParameterDesc.MouseLeave += Control_Leave;
+		// 
+		// labelLatusRectumDesc
+		// 
+		labelLatusRectumDesc.AccessibleDescription = "Shows the latus rectum (AU)";
+		labelLatusRectumDesc.AccessibleName = "Latus rectum (AU)";
+		labelLatusRectumDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelLatusRectumDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelLatusRectumDesc.Dock = DockStyle.Top;
+		labelLatusRectumDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelLatusRectumDesc.Location = new Point(3, 237);
+		labelLatusRectumDesc.Name = "labelLatusRectumDesc";
+		labelLatusRectumDesc.Size = new Size(227, 20);
+		labelLatusRectumDesc.TabIndex = 18;
+		labelLatusRectumDesc.Tag = "32";
+		labelLatusRectumDesc.ToolTipValues.Description = "Shows the semi-latus rectum (AU).\r\nDouble-click or right-click to open the terminology.";
+		labelLatusRectumDesc.ToolTipValues.EnableToolTips = true;
+		labelLatusRectumDesc.ToolTipValues.Heading = "Semi-latus rectum (AU)";
+		labelLatusRectumDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelLatusRectumDesc.Values.ExtraText = "AU";
+		labelLatusRectumDesc.Values.Text = "Latus rectum";
+		labelLatusRectumDesc.DoubleClick += OpenTerminology_DoubleClick;
+		labelLatusRectumDesc.Enter += Control_Enter;
+		labelLatusRectumDesc.Leave += Control_Leave;
+		labelLatusRectumDesc.MouseDown += Control_MouseDown;
+		labelLatusRectumDesc.MouseEnter += Control_Enter;
+		labelLatusRectumDesc.MouseLeave += Control_Leave;
+		// 
+		// labelSemiLatusRectumDesc
+		// 
+		labelSemiLatusRectumDesc.AccessibleDescription = "Shows the semi-latus rectum (AU)";
+		labelSemiLatusRectumDesc.AccessibleName = "Semi-latus rectum (AU)";
+		labelSemiLatusRectumDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelSemiLatusRectumDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelSemiLatusRectumDesc.Dock = DockStyle.Top;
+		labelSemiLatusRectumDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelSemiLatusRectumDesc.Location = new Point(3, 211);
+		labelSemiLatusRectumDesc.Name = "labelSemiLatusRectumDesc";
+		labelSemiLatusRectumDesc.Size = new Size(227, 20);
+		labelSemiLatusRectumDesc.TabIndex = 16;
+		labelSemiLatusRectumDesc.Tag = "31";
+		labelSemiLatusRectumDesc.ToolTipValues.Description = "Shows the semi-latus rectum (AU).\r\nDouble-click or right-click to open the terminology.";
+		labelSemiLatusRectumDesc.ToolTipValues.EnableToolTips = true;
+		labelSemiLatusRectumDesc.ToolTipValues.Heading = "Semi-latus rectum (AU)";
+		labelSemiLatusRectumDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelSemiLatusRectumDesc.Values.ExtraText = "AU";
+		labelSemiLatusRectumDesc.Values.Text = "Semi-latus rectum";
+		labelSemiLatusRectumDesc.DoubleClick += OpenTerminology_DoubleClick;
+		labelSemiLatusRectumDesc.Enter += Control_Enter;
+		labelSemiLatusRectumDesc.Leave += Control_Leave;
+		labelSemiLatusRectumDesc.MouseDown += Control_MouseDown;
+		labelSemiLatusRectumDesc.MouseEnter += Control_Enter;
+		labelSemiLatusRectumDesc.MouseLeave += Control_Leave;
+		// 
+		// labelLinearEccentricityDesc
+		// 
+		labelLinearEccentricityDesc.AccessibleDescription = "Shows the linear eccentricity (AU)";
+		labelLinearEccentricityDesc.AccessibleName = "Linear eccentricity (AU)";
+		labelLinearEccentricityDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelLinearEccentricityDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelLinearEccentricityDesc.Dock = DockStyle.Top;
+		labelLinearEccentricityDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelLinearEccentricityDesc.Location = new Point(3, 185);
+		labelLinearEccentricityDesc.Name = "labelLinearEccentricityDesc";
+		labelLinearEccentricityDesc.Size = new Size(227, 20);
+		labelLinearEccentricityDesc.TabIndex = 14;
+		labelLinearEccentricityDesc.Tag = "20";
+		labelLinearEccentricityDesc.ToolTipValues.Description = "Shows the linear eccentricity (AU).\r\nDouble-click or right-click to open the terminology.";
+		labelLinearEccentricityDesc.ToolTipValues.EnableToolTips = true;
+		labelLinearEccentricityDesc.ToolTipValues.Heading = "Linear eccentricity (AU)";
+		labelLinearEccentricityDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelLinearEccentricityDesc.Values.ExtraText = "AU";
+		labelLinearEccentricityDesc.Values.Text = "Linear eccentricity";
+		labelLinearEccentricityDesc.DoubleClick += OpenTerminology_DoubleClick;
+		labelLinearEccentricityDesc.Enter += Control_Enter;
+		labelLinearEccentricityDesc.Leave += Control_Leave;
+		labelLinearEccentricityDesc.MouseDown += Control_MouseDown;
+		labelLinearEccentricityDesc.MouseEnter += Control_Enter;
+		labelLinearEccentricityDesc.MouseLeave += Control_Leave;
+		// 
+		// labelPerihelionDateData
+		// 
+		labelPerihelionDateData.AccessibleDescription = "Shows the information of \"Perihelion date\"";
+		labelPerihelionDateData.AccessibleName = "Information of \"Perihelion date\"";
+		labelPerihelionDateData.AccessibleRole = AccessibleRole.StaticText;
+		labelPerihelionDateData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelPerihelionDateData.Dock = DockStyle.Top;
+		labelPerihelionDateData.Location = new Point(236, 705);
+		labelPerihelionDateData.Name = "labelPerihelionDateData";
+		labelPerihelionDateData.Size = new Size(59, 20);
+		labelPerihelionDateData.TabIndex = 55;
+		labelPerihelionDateData.ToolTipValues.Description = "Shows the information of \"Perihelion date\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelPerihelionDateData.ToolTipValues.EnableToolTips = true;
+		labelPerihelionDateData.ToolTipValues.Heading = "Information of \"Perihelion date\"";
+		labelPerihelionDateData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelPerihelionDateData.Values.Text = "..................";
+		labelPerihelionDateData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelPerihelionDateData.Enter += Control_Enter;
+		labelPerihelionDateData.Leave += Control_Leave;
+		labelPerihelionDateData.MouseDown += Control_MouseDown;
+		labelPerihelionDateData.MouseEnter += Control_Enter;
+		labelPerihelionDateData.MouseLeave += Control_Leave;
+		// 
+		// labelAphelionDateData
+		// 
+		labelAphelionDateData.AccessibleDescription = "Shows the information of \"Aphelion date\"";
+		labelAphelionDateData.AccessibleName = "Information of \"Aphelion date\"";
+		labelAphelionDateData.AccessibleRole = AccessibleRole.StaticText;
+		labelAphelionDateData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelAphelionDateData.Dock = DockStyle.Top;
+		labelAphelionDateData.Location = new Point(236, 679);
+		labelAphelionDateData.Name = "labelAphelionDateData";
+		labelAphelionDateData.Size = new Size(59, 20);
+		labelAphelionDateData.TabIndex = 53;
+		labelAphelionDateData.ToolTipValues.Description = "Shows the information of \"Aphelion date\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelAphelionDateData.ToolTipValues.EnableToolTips = true;
+		labelAphelionDateData.ToolTipValues.Heading = "Information of \"Aphelion date\"";
+		labelAphelionDateData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAphelionDateData.Values.Text = "..................";
+		labelAphelionDateData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelAphelionDateData.Enter += Control_Enter;
+		labelAphelionDateData.Leave += Control_Leave;
+		labelAphelionDateData.MouseDown += Control_MouseDown;
+		labelAphelionDateData.MouseEnter += Control_Enter;
+		labelAphelionDateData.MouseLeave += Control_Leave;
+		// 
+		// labelDescendingNodeDistanceData
+		// 
+		labelDescendingNodeDistanceData.AccessibleDescription = "Shows the information of \"Descending node distance\"";
+		labelDescendingNodeDistanceData.AccessibleName = "Information of \"Descending node distance\"";
+		labelDescendingNodeDistanceData.AccessibleRole = AccessibleRole.StaticText;
+		labelDescendingNodeDistanceData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelDescendingNodeDistanceData.Dock = DockStyle.Top;
+		labelDescendingNodeDistanceData.Location = new Point(236, 653);
+		labelDescendingNodeDistanceData.Name = "labelDescendingNodeDistanceData";
+		labelDescendingNodeDistanceData.Size = new Size(59, 20);
+		labelDescendingNodeDistanceData.TabIndex = 51;
+		labelDescendingNodeDistanceData.ToolTipValues.Description = "Shows the information of \"Descending node distance\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelDescendingNodeDistanceData.ToolTipValues.EnableToolTips = true;
+		labelDescendingNodeDistanceData.ToolTipValues.Heading = "Information of \"Descending node distance\"";
+		labelDescendingNodeDistanceData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelDescendingNodeDistanceData.Values.Text = "..................";
+		labelDescendingNodeDistanceData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelDescendingNodeDistanceData.Enter += Control_Enter;
+		labelDescendingNodeDistanceData.Leave += Control_Leave;
+		labelDescendingNodeDistanceData.MouseDown += Control_MouseDown;
+		labelDescendingNodeDistanceData.MouseEnter += Control_Enter;
+		labelDescendingNodeDistanceData.MouseLeave += Control_Leave;
+		// 
+		// labelAscendingNodeDistanceData
+		// 
+		labelAscendingNodeDistanceData.AccessibleDescription = "Shows the information of \"Ascending node distance\"";
+		labelAscendingNodeDistanceData.AccessibleName = "Information of \"Ascending node distance\"";
+		labelAscendingNodeDistanceData.AccessibleRole = AccessibleRole.StaticText;
+		labelAscendingNodeDistanceData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelAscendingNodeDistanceData.Dock = DockStyle.Top;
+		labelAscendingNodeDistanceData.Location = new Point(236, 627);
+		labelAscendingNodeDistanceData.Name = "labelAscendingNodeDistanceData";
+		labelAscendingNodeDistanceData.Size = new Size(59, 20);
+		labelAscendingNodeDistanceData.TabIndex = 49;
+		labelAscendingNodeDistanceData.ToolTipValues.Description = "Shows the information of \"Ascending node distance\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelAscendingNodeDistanceData.ToolTipValues.EnableToolTips = true;
+		labelAscendingNodeDistanceData.ToolTipValues.Heading = "Information of \"Ascending node distance\"";
+		labelAscendingNodeDistanceData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAscendingNodeDistanceData.Values.Text = "..................";
+		labelAscendingNodeDistanceData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelAscendingNodeDistanceData.Enter += Control_Enter;
+		labelAscendingNodeDistanceData.Leave += Control_Leave;
+		labelAscendingNodeDistanceData.MouseDown += Control_MouseDown;
+		labelAscendingNodeDistanceData.MouseEnter += Control_Enter;
+		labelAscendingNodeDistanceData.MouseLeave += Control_Leave;
+		// 
+		// labelEquinoctialOrbitalElementQData
+		// 
+		labelEquinoctialOrbitalElementQData.AccessibleDescription = "Shows the information of \"Equinoctial orbital element q\"";
+		labelEquinoctialOrbitalElementQData.AccessibleName = "Information of \"Equinoctial orbital element q\"";
+		labelEquinoctialOrbitalElementQData.AccessibleRole = AccessibleRole.StaticText;
+		labelEquinoctialOrbitalElementQData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelEquinoctialOrbitalElementQData.Dock = DockStyle.Top;
+		labelEquinoctialOrbitalElementQData.Location = new Point(236, 549);
+		labelEquinoctialOrbitalElementQData.Name = "labelEquinoctialOrbitalElementQData";
+		labelEquinoctialOrbitalElementQData.Size = new Size(59, 20);
+		labelEquinoctialOrbitalElementQData.TabIndex = 43;
+		labelEquinoctialOrbitalElementQData.ToolTipValues.Description = "Shows the information of \"Equinoctial orbital element q\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelEquinoctialOrbitalElementQData.ToolTipValues.EnableToolTips = true;
+		labelEquinoctialOrbitalElementQData.ToolTipValues.Heading = "Information of \"Equinoctial orbital element q\"";
+		labelEquinoctialOrbitalElementQData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelEquinoctialOrbitalElementQData.Values.Text = "..................";
+		labelEquinoctialOrbitalElementQData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelEquinoctialOrbitalElementQData.Enter += Control_Enter;
+		labelEquinoctialOrbitalElementQData.Leave += Control_Leave;
+		labelEquinoctialOrbitalElementQData.MouseDown += Control_MouseDown;
+		labelEquinoctialOrbitalElementQData.MouseEnter += Control_Enter;
+		labelEquinoctialOrbitalElementQData.MouseLeave += Control_Leave;
+		// 
+		// labelEquinoctialOrbitalElementPData
+		// 
+		labelEquinoctialOrbitalElementPData.AccessibleDescription = "Shows the information of \"Equinoctial orbital element p\"";
+		labelEquinoctialOrbitalElementPData.AccessibleName = "Information of \"Equinoctial orbital element p\"";
+		labelEquinoctialOrbitalElementPData.AccessibleRole = AccessibleRole.StaticText;
+		labelEquinoctialOrbitalElementPData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelEquinoctialOrbitalElementPData.Dock = DockStyle.Top;
+		labelEquinoctialOrbitalElementPData.Location = new Point(236, 523);
+		labelEquinoctialOrbitalElementPData.Name = "labelEquinoctialOrbitalElementPData";
+		labelEquinoctialOrbitalElementPData.Size = new Size(59, 20);
+		labelEquinoctialOrbitalElementPData.TabIndex = 41;
+		labelEquinoctialOrbitalElementPData.ToolTipValues.Description = "Shows the information of \"Equinoctial orbital element p\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelEquinoctialOrbitalElementPData.ToolTipValues.EnableToolTips = true;
+		labelEquinoctialOrbitalElementPData.ToolTipValues.Heading = "Information of \"Equinoctial orbital element p\"";
+		labelEquinoctialOrbitalElementPData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelEquinoctialOrbitalElementPData.Values.Text = "..................";
+		labelEquinoctialOrbitalElementPData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelEquinoctialOrbitalElementPData.Enter += Control_Enter;
+		labelEquinoctialOrbitalElementPData.Leave += Control_Leave;
+		labelEquinoctialOrbitalElementPData.MouseDown += Control_MouseDown;
+		labelEquinoctialOrbitalElementPData.MouseEnter += Control_Enter;
+		labelEquinoctialOrbitalElementPData.MouseLeave += Control_Leave;
+		// 
+		// labelEquinoctialOrbitalElementKData
+		// 
+		labelEquinoctialOrbitalElementKData.AccessibleDescription = "Shows the information of \"Equinoctial orbital element k\"";
+		labelEquinoctialOrbitalElementKData.AccessibleName = "Information of \"Equinoctial orbital element k\"";
+		labelEquinoctialOrbitalElementKData.AccessibleRole = AccessibleRole.StaticText;
+		labelEquinoctialOrbitalElementKData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelEquinoctialOrbitalElementKData.Dock = DockStyle.Top;
+		labelEquinoctialOrbitalElementKData.Location = new Point(236, 497);
+		labelEquinoctialOrbitalElementKData.Name = "labelEquinoctialOrbitalElementKData";
+		labelEquinoctialOrbitalElementKData.Size = new Size(59, 20);
+		labelEquinoctialOrbitalElementKData.TabIndex = 39;
+		labelEquinoctialOrbitalElementKData.ToolTipValues.Description = "Shows the information of \"Equinoctial orbital element k\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelEquinoctialOrbitalElementKData.ToolTipValues.EnableToolTips = true;
+		labelEquinoctialOrbitalElementKData.ToolTipValues.Heading = "Information of \"Equinoctial orbital element k\"";
+		labelEquinoctialOrbitalElementKData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelEquinoctialOrbitalElementKData.Values.Text = "..................";
+		labelEquinoctialOrbitalElementKData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelEquinoctialOrbitalElementKData.Enter += Control_Enter;
+		labelEquinoctialOrbitalElementKData.Leave += Control_Leave;
+		labelEquinoctialOrbitalElementKData.MouseDown += Control_MouseDown;
+		labelEquinoctialOrbitalElementKData.MouseEnter += Control_Enter;
+		labelEquinoctialOrbitalElementKData.MouseLeave += Control_Leave;
+		// 
+		// labelEquinoctialOrbitalElementHData
+		// 
+		labelEquinoctialOrbitalElementHData.AccessibleDescription = "Shows the information of \"Equinoctial orbital element h\"";
+		labelEquinoctialOrbitalElementHData.AccessibleName = "Information of \"Equinoctial orbital element h\"";
+		labelEquinoctialOrbitalElementHData.AccessibleRole = AccessibleRole.StaticText;
+		labelEquinoctialOrbitalElementHData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelEquinoctialOrbitalElementHData.Dock = DockStyle.Top;
+		labelEquinoctialOrbitalElementHData.Location = new Point(236, 471);
+		labelEquinoctialOrbitalElementHData.Name = "labelEquinoctialOrbitalElementHData";
+		labelEquinoctialOrbitalElementHData.Size = new Size(59, 20);
+		labelEquinoctialOrbitalElementHData.TabIndex = 37;
+		labelEquinoctialOrbitalElementHData.ToolTipValues.Description = "Shows the information of \"Equinoctial orbital element h\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelEquinoctialOrbitalElementHData.ToolTipValues.EnableToolTips = true;
+		labelEquinoctialOrbitalElementHData.ToolTipValues.Heading = "Information of \"Equinoctial orbital element h\"";
+		labelEquinoctialOrbitalElementHData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelEquinoctialOrbitalElementHData.Values.Text = "..................";
+		labelEquinoctialOrbitalElementHData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelEquinoctialOrbitalElementHData.Enter += Control_Enter;
+		labelEquinoctialOrbitalElementHData.Leave += Control_Leave;
+		labelEquinoctialOrbitalElementHData.MouseDown += Control_MouseDown;
+		labelEquinoctialOrbitalElementHData.MouseEnter += Control_Enter;
+		labelEquinoctialOrbitalElementHData.MouseLeave += Control_Leave;
+		// 
+		// labelSynodicPeriodData
+		// 
+		labelSynodicPeriodData.AccessibleDescription = "Shows the information of \"Synodic period\"";
+		labelSynodicPeriodData.AccessibleName = "Information of \"Synodic period\"";
+		labelSynodicPeriodData.AccessibleRole = AccessibleRole.StaticText;
+		labelSynodicPeriodData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelSynodicPeriodData.Dock = DockStyle.Top;
+		labelSynodicPeriodData.Location = new Point(236, 445);
+		labelSynodicPeriodData.Name = "labelSynodicPeriodData";
+		labelSynodicPeriodData.Size = new Size(59, 20);
+		labelSynodicPeriodData.TabIndex = 35;
+		labelSynodicPeriodData.ToolTipValues.Description = "Shows the information of \"Synodic period\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelSynodicPeriodData.ToolTipValues.EnableToolTips = true;
+		labelSynodicPeriodData.ToolTipValues.Heading = "Information of \"Synodic period\"";
+		labelSynodicPeriodData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelSynodicPeriodData.Values.Text = "..................";
+		labelSynodicPeriodData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelSynodicPeriodData.Enter += Control_Enter;
+		labelSynodicPeriodData.Leave += Control_Leave;
+		labelSynodicPeriodData.MouseDown += Control_MouseDown;
+		labelSynodicPeriodData.MouseEnter += Control_Enter;
+		labelSynodicPeriodData.MouseLeave += Control_Leave;
+		// 
+		// labelOrbitalPeriodData
+		// 
+		labelOrbitalPeriodData.AccessibleDescription = "Shows the information of \"Orbital period\"";
+		labelOrbitalPeriodData.AccessibleName = "Information of \"Orbital period\"";
+		labelOrbitalPeriodData.AccessibleRole = AccessibleRole.StaticText;
+		labelOrbitalPeriodData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelOrbitalPeriodData.Dock = DockStyle.Top;
+		labelOrbitalPeriodData.Location = new Point(236, 419);
+		labelOrbitalPeriodData.Name = "labelOrbitalPeriodData";
+		labelOrbitalPeriodData.Size = new Size(59, 20);
+		labelOrbitalPeriodData.TabIndex = 33;
+		labelOrbitalPeriodData.ToolTipValues.Description = "Shows the information of \"Orbital period\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelOrbitalPeriodData.ToolTipValues.EnableToolTips = true;
+		labelOrbitalPeriodData.ToolTipValues.Heading = "Information of \"Orbital period\"";
+		labelOrbitalPeriodData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelOrbitalPeriodData.Values.Text = "..................";
+		labelOrbitalPeriodData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelOrbitalPeriodData.Enter += Control_Enter;
+		labelOrbitalPeriodData.Leave += Control_Leave;
+		labelOrbitalPeriodData.MouseDown += Control_MouseDown;
+		labelOrbitalPeriodData.MouseEnter += Control_Enter;
+		labelOrbitalPeriodData.MouseLeave += Control_Leave;
+		// 
+		// labelOrbitalAreaData
+		// 
+		labelOrbitalAreaData.AccessibleDescription = "Shows the information of \"Orbital area\"";
+		labelOrbitalAreaData.AccessibleName = "Information of \"Orbital area\"";
+		labelOrbitalAreaData.AccessibleRole = AccessibleRole.StaticText;
+		labelOrbitalAreaData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelOrbitalAreaData.Dock = DockStyle.Top;
+		labelOrbitalAreaData.Location = new Point(236, 393);
+		labelOrbitalAreaData.Name = "labelOrbitalAreaData";
+		labelOrbitalAreaData.Size = new Size(59, 20);
+		labelOrbitalAreaData.TabIndex = 31;
+		labelOrbitalAreaData.ToolTipValues.Description = "Shows the information of \"Orbital area\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelOrbitalAreaData.ToolTipValues.EnableToolTips = true;
+		labelOrbitalAreaData.ToolTipValues.Heading = "Information of \"Orbital area\"";
+		labelOrbitalAreaData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelOrbitalAreaData.Values.Text = "..................";
+		labelOrbitalAreaData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelOrbitalAreaData.Enter += Control_Enter;
+		labelOrbitalAreaData.Leave += Control_Leave;
+		labelOrbitalAreaData.MouseDown += Control_MouseDown;
+		labelOrbitalAreaData.MouseEnter += Control_Enter;
+		labelOrbitalAreaData.MouseLeave += Control_Leave;
+		// 
+		// labelOrbitalPerimeterData
+		// 
+		labelOrbitalPerimeterData.AccessibleDescription = "Shows the information of \"Orbital perimeter\"";
+		labelOrbitalPerimeterData.AccessibleName = "Information of \"Orbital perimeter\"";
+		labelOrbitalPerimeterData.AccessibleRole = AccessibleRole.StaticText;
+		labelOrbitalPerimeterData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelOrbitalPerimeterData.Dock = DockStyle.Top;
+		labelOrbitalPerimeterData.Location = new Point(236, 367);
+		labelOrbitalPerimeterData.Name = "labelOrbitalPerimeterData";
+		labelOrbitalPerimeterData.Size = new Size(59, 20);
+		labelOrbitalPerimeterData.TabIndex = 29;
+		labelOrbitalPerimeterData.ToolTipValues.Description = "Shows the information of \"Orbital perimeter\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelOrbitalPerimeterData.ToolTipValues.EnableToolTips = true;
+		labelOrbitalPerimeterData.ToolTipValues.Heading = "Information of \"Orbital perimeter\"";
+		labelOrbitalPerimeterData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelOrbitalPerimeterData.Values.Text = "..................";
+		labelOrbitalPerimeterData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelOrbitalPerimeterData.Enter += Control_Enter;
+		labelOrbitalPerimeterData.Leave += Control_Leave;
+		labelOrbitalPerimeterData.MouseDown += Control_MouseDown;
+		labelOrbitalPerimeterData.MouseEnter += Control_Enter;
+		labelOrbitalPerimeterData.MouseLeave += Control_Leave;
+		// 
+		// labelOrbitalSemiPerimeterData
+		// 
+		labelOrbitalSemiPerimeterData.AccessibleDescription = "Shows the information of \"Semi-mean axis\"";
+		labelOrbitalSemiPerimeterData.AccessibleName = "Information of \"Semi-mean axis\"";
+		labelOrbitalSemiPerimeterData.AccessibleRole = AccessibleRole.StaticText;
+		labelOrbitalSemiPerimeterData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelOrbitalSemiPerimeterData.Dock = DockStyle.Top;
+		labelOrbitalSemiPerimeterData.Location = new Point(236, 341);
+		labelOrbitalSemiPerimeterData.Name = "labelOrbitalSemiPerimeterData";
+		labelOrbitalSemiPerimeterData.Size = new Size(59, 20);
+		labelOrbitalSemiPerimeterData.TabIndex = 27;
+		labelOrbitalSemiPerimeterData.ToolTipValues.Description = "Shows the information of \"Semi-mean axis\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelOrbitalSemiPerimeterData.ToolTipValues.EnableToolTips = true;
+		labelOrbitalSemiPerimeterData.ToolTipValues.Heading = "Information of \"Semi-mean axis\"";
+		labelOrbitalSemiPerimeterData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelOrbitalSemiPerimeterData.Values.Text = "..................";
+		labelOrbitalSemiPerimeterData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelOrbitalSemiPerimeterData.Enter += Control_Enter;
+		labelOrbitalSemiPerimeterData.Leave += Control_Leave;
+		labelOrbitalSemiPerimeterData.MouseDown += Control_MouseDown;
+		labelOrbitalSemiPerimeterData.MouseEnter += Control_Enter;
+		labelOrbitalSemiPerimeterData.MouseLeave += Control_Leave;
+		// 
+		// labelDirectrixData
+		// 
+		labelDirectrixData.AccessibleDescription = "Shows the information of \"Directrix\"";
+		labelDirectrixData.AccessibleName = "Information of \"Directrix\"";
+		labelDirectrixData.AccessibleRole = AccessibleRole.StaticText;
+		labelDirectrixData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelDirectrixData.Dock = DockStyle.Top;
+		labelDirectrixData.Location = new Point(236, 315);
+		labelDirectrixData.Name = "labelDirectrixData";
+		labelDirectrixData.Size = new Size(59, 20);
+		labelDirectrixData.TabIndex = 25;
+		labelDirectrixData.ToolTipValues.Description = "Shows the information of \"Directrix\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelDirectrixData.ToolTipValues.EnableToolTips = true;
+		labelDirectrixData.ToolTipValues.Heading = "Information of \"Directrix\"";
+		labelDirectrixData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelDirectrixData.Values.Text = "..................";
+		labelDirectrixData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelDirectrixData.Enter += Control_Enter;
+		labelDirectrixData.Leave += Control_Leave;
+		labelDirectrixData.MouseDown += Control_MouseDown;
+		labelDirectrixData.MouseEnter += Control_Enter;
+		labelDirectrixData.MouseLeave += Control_Leave;
+		// 
+		// labelMeanDistanceFromFocusData
+		// 
+		labelMeanDistanceFromFocusData.AccessibleDescription = "Shows the information of \"Mean distance from focus\"";
+		labelMeanDistanceFromFocusData.AccessibleName = "Information of \"Mean distance from focus\"";
+		labelMeanDistanceFromFocusData.AccessibleRole = AccessibleRole.StaticText;
+		labelMeanDistanceFromFocusData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelMeanDistanceFromFocusData.Dock = DockStyle.Top;
+		labelMeanDistanceFromFocusData.Location = new Point(236, 289);
+		labelMeanDistanceFromFocusData.Name = "labelMeanDistanceFromFocusData";
+		labelMeanDistanceFromFocusData.Size = new Size(59, 20);
+		labelMeanDistanceFromFocusData.TabIndex = 23;
+		labelMeanDistanceFromFocusData.ToolTipValues.Description = "Shows the information of \"Mean distance from focus\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelMeanDistanceFromFocusData.ToolTipValues.EnableToolTips = true;
+		labelMeanDistanceFromFocusData.ToolTipValues.Heading = "Information of \"Mean distance from focus\"";
+		labelMeanDistanceFromFocusData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelMeanDistanceFromFocusData.Values.Text = "..................";
+		labelMeanDistanceFromFocusData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelMeanDistanceFromFocusData.Enter += Control_Enter;
+		labelMeanDistanceFromFocusData.Leave += Control_Leave;
+		labelMeanDistanceFromFocusData.MouseDown += Control_MouseDown;
+		labelMeanDistanceFromFocusData.MouseEnter += Control_Enter;
+		labelMeanDistanceFromFocusData.MouseLeave += Control_Leave;
+		// 
+		// labelLatusRectumData
+		// 
+		labelLatusRectumData.AccessibleDescription = "Shows the information of \"Latus rectum\"";
+		labelLatusRectumData.AccessibleName = "Information of \"Latus rectum\"";
+		labelLatusRectumData.AccessibleRole = AccessibleRole.StaticText;
+		labelLatusRectumData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelLatusRectumData.Dock = DockStyle.Top;
+		labelLatusRectumData.Location = new Point(236, 237);
+		labelLatusRectumData.Name = "labelLatusRectumData";
+		labelLatusRectumData.Size = new Size(59, 20);
+		labelLatusRectumData.TabIndex = 19;
+		labelLatusRectumData.ToolTipValues.Description = "Shows the information of \"Latus rectum\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelLatusRectumData.ToolTipValues.EnableToolTips = true;
+		labelLatusRectumData.ToolTipValues.Heading = "Information of \"Latus rectum\"";
+		labelLatusRectumData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelLatusRectumData.Values.Text = "..................";
+		labelLatusRectumData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelLatusRectumData.Enter += Control_Enter;
+		labelLatusRectumData.Leave += Control_Leave;
+		labelLatusRectumData.MouseDown += Control_MouseDown;
+		labelLatusRectumData.MouseEnter += Control_Enter;
+		labelLatusRectumData.MouseLeave += Control_Leave;
+		// 
+		// labelLinearEccentricityData
+		// 
+		labelLinearEccentricityData.AccessibleDescription = "Shows the information of \"Linear eccentricity\"";
+		labelLinearEccentricityData.AccessibleName = "Information of \"Linear eccentricity\"";
+		labelLinearEccentricityData.AccessibleRole = AccessibleRole.StaticText;
+		labelLinearEccentricityData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelLinearEccentricityData.Dock = DockStyle.Top;
+		labelLinearEccentricityData.Location = new Point(236, 185);
+		labelLinearEccentricityData.Name = "labelLinearEccentricityData";
+		labelLinearEccentricityData.Size = new Size(59, 20);
+		labelLinearEccentricityData.TabIndex = 15;
+		labelLinearEccentricityData.ToolTipValues.Description = "Shows the information of \"Linear eccentricity\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelLinearEccentricityData.ToolTipValues.EnableToolTips = true;
+		labelLinearEccentricityData.ToolTipValues.Heading = "Information of \"Linear eccentricity\"";
+		labelLinearEccentricityData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelLinearEccentricityData.Values.Text = "..................";
+		labelLinearEccentricityData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelLinearEccentricityData.Enter += Control_Enter;
+		labelLinearEccentricityData.Leave += Control_Leave;
+		labelLinearEccentricityData.MouseDown += Control_MouseDown;
+		labelLinearEccentricityData.MouseEnter += Control_Enter;
+		labelLinearEccentricityData.MouseLeave += Control_Leave;
+		// 
+		// labelFocalParameterData
+		// 
+		labelFocalParameterData.AccessibleDescription = "Shows the information of \"Focal parameter\"";
+		labelFocalParameterData.AccessibleName = "Information of \"Focal parameter\"";
+		labelFocalParameterData.AccessibleRole = AccessibleRole.StaticText;
+		labelFocalParameterData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelFocalParameterData.Dock = DockStyle.Top;
+		labelFocalParameterData.Location = new Point(236, 263);
+		labelFocalParameterData.Name = "labelFocalParameterData";
+		labelFocalParameterData.Size = new Size(59, 20);
+		labelFocalParameterData.TabIndex = 21;
+		labelFocalParameterData.ToolTipValues.Description = "Shows the information of \"Semi-latus rectum\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelFocalParameterData.ToolTipValues.EnableToolTips = true;
+		labelFocalParameterData.ToolTipValues.Heading = "Information of \"Semi-latus rectum\"";
+		labelFocalParameterData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelFocalParameterData.Values.Text = "..................";
+		labelFocalParameterData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelFocalParameterData.Enter += Control_Enter;
+		labelFocalParameterData.Leave += Control_Leave;
+		labelFocalParameterData.MouseDown += Control_MouseDown;
+		labelFocalParameterData.MouseEnter += Control_Enter;
+		labelFocalParameterData.MouseLeave += Control_Leave;
+		// 
+		// labelSemiLatusRectumData
+		// 
+		labelSemiLatusRectumData.AccessibleDescription = "Shows the information of \"Semi-latus rectum\"";
+		labelSemiLatusRectumData.AccessibleName = "Information of \"Semi-latus rectum\"";
+		labelSemiLatusRectumData.AccessibleRole = AccessibleRole.StaticText;
+		labelSemiLatusRectumData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelSemiLatusRectumData.Dock = DockStyle.Top;
+		labelSemiLatusRectumData.Location = new Point(236, 211);
+		labelSemiLatusRectumData.Name = "labelSemiLatusRectumData";
+		labelSemiLatusRectumData.Size = new Size(59, 20);
+		labelSemiLatusRectumData.TabIndex = 17;
+		labelSemiLatusRectumData.ToolTipValues.Description = "Shows the information of \"Semi-latus rectum\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelSemiLatusRectumData.ToolTipValues.EnableToolTips = true;
+		labelSemiLatusRectumData.ToolTipValues.Heading = "Information of \"Semi-latus rectum\"";
+		labelSemiLatusRectumData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelSemiLatusRectumData.Values.Text = "..................";
+		labelSemiLatusRectumData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelSemiLatusRectumData.Enter += Control_Enter;
+		labelSemiLatusRectumData.Leave += Control_Leave;
+		labelSemiLatusRectumData.MouseDown += Control_MouseDown;
+		labelSemiLatusRectumData.MouseEnter += Control_Enter;
+		labelSemiLatusRectumData.MouseLeave += Control_Leave;
+		// 
+		// labelCurrentOrbitalVelocityDesc
+		// 
+		labelCurrentOrbitalVelocityDesc.AccessibleDescription = "Shows the current orbital velocity (AU/yr)";
+		labelCurrentOrbitalVelocityDesc.AccessibleName = "Current orbital velocity (AU/yr)";
+		labelCurrentOrbitalVelocityDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelCurrentOrbitalVelocityDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelCurrentOrbitalVelocityDesc.Dock = DockStyle.Top;
+		labelCurrentOrbitalVelocityDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelCurrentOrbitalVelocityDesc.Location = new Point(301, 3);
+		labelCurrentOrbitalVelocityDesc.Name = "labelCurrentOrbitalVelocityDesc";
+		labelCurrentOrbitalVelocityDesc.Size = new Size(246, 20);
+		labelCurrentOrbitalVelocityDesc.TabIndex = 64;
+		labelCurrentOrbitalVelocityDesc.Tag = "20";
+		labelCurrentOrbitalVelocityDesc.ToolTipValues.Description = "Shows the current orbital velocity (AU/yr).\r\nDouble-click or right-click to open the terminology.";
+		labelCurrentOrbitalVelocityDesc.ToolTipValues.EnableToolTips = true;
+		labelCurrentOrbitalVelocityDesc.ToolTipValues.Heading = "Current orbital velocity (AU/yr)";
+		labelCurrentOrbitalVelocityDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelCurrentOrbitalVelocityDesc.Values.ExtraText = "AU/yr";
+		labelCurrentOrbitalVelocityDesc.Values.Text = "Current orbital velocity";
+		labelCurrentOrbitalVelocityDesc.DoubleClick += OpenTerminology_DoubleClick;
+		labelCurrentOrbitalVelocityDesc.Enter += Control_Enter;
+		labelCurrentOrbitalVelocityDesc.Leave += Control_Leave;
+		labelCurrentOrbitalVelocityDesc.MouseDown += Control_MouseDown;
+		labelCurrentOrbitalVelocityDesc.MouseEnter += Control_Enter;
+		labelCurrentOrbitalVelocityDesc.MouseLeave += Control_Leave;
+		// 
+		// labelCurrentOrbitalVelocityData
+		// 
+		labelCurrentOrbitalVelocityData.AccessibleDescription = "Shows the information of \"Current orbital velocity\"";
+		labelCurrentOrbitalVelocityData.AccessibleName = "Information of \"Current orbital velocity\"";
+		labelCurrentOrbitalVelocityData.AccessibleRole = AccessibleRole.StaticText;
+		labelCurrentOrbitalVelocityData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelCurrentOrbitalVelocityData.Dock = DockStyle.Top;
+		labelCurrentOrbitalVelocityData.Location = new Point(553, 3);
+		labelCurrentOrbitalVelocityData.Name = "labelCurrentOrbitalVelocityData";
+		labelCurrentOrbitalVelocityData.Size = new Size(290, 20);
+		labelCurrentOrbitalVelocityData.TabIndex = 65;
+		labelCurrentOrbitalVelocityData.ToolTipValues.Description = "Shows the information of \"Current orbital velocity\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelCurrentOrbitalVelocityData.ToolTipValues.EnableToolTips = true;
+		labelCurrentOrbitalVelocityData.ToolTipValues.Heading = "Information of \"Current orbital velocity\"";
+		labelCurrentOrbitalVelocityData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelCurrentOrbitalVelocityData.Values.Text = "..................";
+		labelCurrentOrbitalVelocityData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelCurrentOrbitalVelocityData.Enter += Control_Enter;
+		labelCurrentOrbitalVelocityData.Leave += Control_Leave;
+		labelCurrentOrbitalVelocityData.MouseDown += Control_MouseDown;
+		labelCurrentOrbitalVelocityData.MouseEnter += Control_Enter;
+		labelCurrentOrbitalVelocityData.MouseLeave += Control_Leave;
+		// 
+		// labelRadialVelocityComponentDesc
+		// 
+		labelRadialVelocityComponentDesc.AccessibleDescription = "Shows the radial velocity component (AU/yr)";
+		labelRadialVelocityComponentDesc.AccessibleName = "Radial velocity component (AU/yr)";
+		labelRadialVelocityComponentDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelRadialVelocityComponentDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelRadialVelocityComponentDesc.Dock = DockStyle.Top;
+		labelRadialVelocityComponentDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelRadialVelocityComponentDesc.Location = new Point(301, 29);
+		labelRadialVelocityComponentDesc.Name = "labelRadialVelocityComponentDesc";
+		labelRadialVelocityComponentDesc.Size = new Size(246, 20);
+		labelRadialVelocityComponentDesc.TabIndex = 66;
+		labelRadialVelocityComponentDesc.Tag = "20";
+		labelRadialVelocityComponentDesc.ToolTipValues.Description = "Shows the radial velocity component (AU/yr).\r\nDouble-click or right-click to open the terminology.";
+		labelRadialVelocityComponentDesc.ToolTipValues.EnableToolTips = true;
+		labelRadialVelocityComponentDesc.ToolTipValues.Heading = "Radial velocity component (AU/yr)";
+		labelRadialVelocityComponentDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelRadialVelocityComponentDesc.Values.ExtraText = "AU/yr";
+		labelRadialVelocityComponentDesc.Values.Text = "Radial velocity component";
+		labelRadialVelocityComponentDesc.DoubleClick += OpenTerminology_DoubleClick;
+		labelRadialVelocityComponentDesc.Enter += Control_Enter;
+		labelRadialVelocityComponentDesc.Leave += Control_Leave;
+		labelRadialVelocityComponentDesc.MouseDown += Control_MouseDown;
+		labelRadialVelocityComponentDesc.MouseEnter += Control_Enter;
+		labelRadialVelocityComponentDesc.MouseLeave += Control_Leave;
+		// 
+		// labelRadialVelocityComponentData
+		// 
+		labelRadialVelocityComponentData.AccessibleDescription = "Shows the information of \"Radial velocity component\"";
+		labelRadialVelocityComponentData.AccessibleName = "Information of \"Radial velocity component\"";
+		labelRadialVelocityComponentData.AccessibleRole = AccessibleRole.StaticText;
+		labelRadialVelocityComponentData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelRadialVelocityComponentData.Dock = DockStyle.Top;
+		labelRadialVelocityComponentData.Location = new Point(553, 29);
+		labelRadialVelocityComponentData.Name = "labelRadialVelocityComponentData";
+		labelRadialVelocityComponentData.Size = new Size(290, 20);
+		labelRadialVelocityComponentData.TabIndex = 67;
+		labelRadialVelocityComponentData.ToolTipValues.Description = "Shows the information of \"Radial velocity component\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelRadialVelocityComponentData.ToolTipValues.EnableToolTips = true;
+		labelRadialVelocityComponentData.ToolTipValues.Heading = "Information of \"Radial velocity component\"";
+		labelRadialVelocityComponentData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelRadialVelocityComponentData.Values.Text = "..................";
+		labelRadialVelocityComponentData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelRadialVelocityComponentData.Enter += Control_Enter;
+		labelRadialVelocityComponentData.Leave += Control_Leave;
+		labelRadialVelocityComponentData.MouseDown += Control_MouseDown;
+		labelRadialVelocityComponentData.MouseEnter += Control_Enter;
+		labelRadialVelocityComponentData.MouseLeave += Control_Leave;
+		// 
+		// labelTangentialVelocityComponentDesc
+		// 
+		labelTangentialVelocityComponentDesc.AccessibleDescription = "Shows the tangential velocity component (AU/yr)";
+		labelTangentialVelocityComponentDesc.AccessibleName = "Tangential velocity component (AU/yr)";
+		labelTangentialVelocityComponentDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelTangentialVelocityComponentDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelTangentialVelocityComponentDesc.Dock = DockStyle.Top;
+		labelTangentialVelocityComponentDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelTangentialVelocityComponentDesc.Location = new Point(301, 55);
+		labelTangentialVelocityComponentDesc.Name = "labelTangentialVelocityComponentDesc";
+		labelTangentialVelocityComponentDesc.Size = new Size(246, 20);
+		labelTangentialVelocityComponentDesc.TabIndex = 68;
+		labelTangentialVelocityComponentDesc.Tag = "20";
+		labelTangentialVelocityComponentDesc.ToolTipValues.Description = "Shows the tangential velocity component (AU/yr).\r\nDouble-click or right-click to open the terminology.";
+		labelTangentialVelocityComponentDesc.ToolTipValues.EnableToolTips = true;
+		labelTangentialVelocityComponentDesc.ToolTipValues.Heading = "Tangential velocity component (AU/yr)";
+		labelTangentialVelocityComponentDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelTangentialVelocityComponentDesc.Values.ExtraText = "AU/yr";
+		labelTangentialVelocityComponentDesc.Values.Text = "Tangential velocity component";
+		labelTangentialVelocityComponentDesc.DoubleClick += OpenTerminology_DoubleClick;
+		labelTangentialVelocityComponentDesc.Enter += Control_Enter;
+		labelTangentialVelocityComponentDesc.Leave += Control_Leave;
+		labelTangentialVelocityComponentDesc.MouseDown += Control_MouseDown;
+		labelTangentialVelocityComponentDesc.MouseEnter += Control_Enter;
+		labelTangentialVelocityComponentDesc.MouseLeave += Control_Leave;
+		// 
+		// labelTangentialVelocityComponentData
+		// 
+		labelTangentialVelocityComponentData.AccessibleDescription = "Shows the information of \"Tangential velocity component\"";
+		labelTangentialVelocityComponentData.AccessibleName = "Information of \"Tangential velocity component\"";
+		labelTangentialVelocityComponentData.AccessibleRole = AccessibleRole.StaticText;
+		labelTangentialVelocityComponentData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelTangentialVelocityComponentData.Dock = DockStyle.Top;
+		labelTangentialVelocityComponentData.Location = new Point(553, 55);
+		labelTangentialVelocityComponentData.Name = "labelTangentialVelocityComponentData";
+		labelTangentialVelocityComponentData.Size = new Size(290, 20);
+		labelTangentialVelocityComponentData.TabIndex = 69;
+		labelTangentialVelocityComponentData.ToolTipValues.Description = "Shows the information of \"Tangential velocity component\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelTangentialVelocityComponentData.ToolTipValues.EnableToolTips = true;
+		labelTangentialVelocityComponentData.ToolTipValues.Heading = "Information of \"Tangential velocity component\"";
+		labelTangentialVelocityComponentData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelTangentialVelocityComponentData.Values.Text = "..................";
+		labelTangentialVelocityComponentData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelTangentialVelocityComponentData.Enter += Control_Enter;
+		labelTangentialVelocityComponentData.Leave += Control_Leave;
+		labelTangentialVelocityComponentData.MouseDown += Control_MouseDown;
+		labelTangentialVelocityComponentData.MouseEnter += Control_Enter;
+		labelTangentialVelocityComponentData.MouseLeave += Control_Leave;
+		// 
+		// labelAphelionVelocityDesc
+		// 
+		labelAphelionVelocityDesc.AccessibleDescription = "Shows the aphelion velocity (AU/yr)";
+		labelAphelionVelocityDesc.AccessibleName = "Aphelion velocity (AU/yr)";
+		labelAphelionVelocityDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelAphelionVelocityDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelAphelionVelocityDesc.Dock = DockStyle.Top;
+		labelAphelionVelocityDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelAphelionVelocityDesc.Location = new Point(301, 81);
+		labelAphelionVelocityDesc.Name = "labelAphelionVelocityDesc";
+		labelAphelionVelocityDesc.Size = new Size(246, 20);
+		labelAphelionVelocityDesc.TabIndex = 70;
+		labelAphelionVelocityDesc.Tag = "20";
+		labelAphelionVelocityDesc.ToolTipValues.Description = "Shows the aphelion velocity (AU/yr).\r\nDouble-click or right-click to open the terminology.";
+		labelAphelionVelocityDesc.ToolTipValues.EnableToolTips = true;
+		labelAphelionVelocityDesc.ToolTipValues.Heading = "Aphelion velocity (AU/yr)";
+		labelAphelionVelocityDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAphelionVelocityDesc.Values.ExtraText = "AU/yr";
+		labelAphelionVelocityDesc.Values.Text = "Aphelion velocity";
+		labelAphelionVelocityDesc.DoubleClick += CopyToClipboard_DoubleClick;
+		labelAphelionVelocityDesc.Enter += Control_Enter;
+		labelAphelionVelocityDesc.Leave += Control_Leave;
+		labelAphelionVelocityDesc.MouseDown += Control_MouseDown;
+		labelAphelionVelocityDesc.MouseEnter += Control_Enter;
+		labelAphelionVelocityDesc.MouseLeave += Control_Leave;
+		// 
+		// labelAphelionVelocityData
+		// 
+		labelAphelionVelocityData.AccessibleDescription = "Shows the information of \"Aphelion velocity\"";
+		labelAphelionVelocityData.AccessibleName = "Information of \"Aphelion velocity\"";
+		labelAphelionVelocityData.AccessibleRole = AccessibleRole.StaticText;
+		labelAphelionVelocityData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelAphelionVelocityData.Dock = DockStyle.Top;
+		labelAphelionVelocityData.Location = new Point(553, 81);
+		labelAphelionVelocityData.Name = "labelAphelionVelocityData";
+		labelAphelionVelocityData.Size = new Size(290, 20);
+		labelAphelionVelocityData.TabIndex = 71;
+		labelAphelionVelocityData.ToolTipValues.Description = "Shows the information of \"Aphelion velocity\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelAphelionVelocityData.ToolTipValues.EnableToolTips = true;
+		labelAphelionVelocityData.ToolTipValues.Heading = "Information of \"Aphelion velocity\"";
+		labelAphelionVelocityData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAphelionVelocityData.Values.Text = "..................";
+		labelAphelionVelocityData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelAphelionVelocityData.Enter += Control_Enter;
+		labelAphelionVelocityData.Leave += Control_Leave;
+		labelAphelionVelocityData.MouseDown += Control_MouseDown;
+		labelAphelionVelocityData.MouseEnter += Control_Enter;
+		labelAphelionVelocityData.MouseLeave += Control_Leave;
+		// 
+		// labelPerihelionVelocityDesc
+		// 
+		labelPerihelionVelocityDesc.AccessibleDescription = "Shows the perihelion velocity (AU/yr)";
+		labelPerihelionVelocityDesc.AccessibleName = "Perihelion velocity (AU/yr)";
+		labelPerihelionVelocityDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelPerihelionVelocityDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelPerihelionVelocityDesc.Dock = DockStyle.Top;
+		labelPerihelionVelocityDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelPerihelionVelocityDesc.Location = new Point(301, 107);
+		labelPerihelionVelocityDesc.Name = "labelPerihelionVelocityDesc";
+		labelPerihelionVelocityDesc.Size = new Size(246, 20);
+		labelPerihelionVelocityDesc.TabIndex = 72;
+		labelPerihelionVelocityDesc.Tag = "38";
+		labelPerihelionVelocityDesc.ToolTipValues.Description = "Shows the perihelion velocity (AU/yr).\r\nDouble-click or right-click to open the terminology.";
+		labelPerihelionVelocityDesc.ToolTipValues.EnableToolTips = true;
+		labelPerihelionVelocityDesc.ToolTipValues.Heading = "Perihelion velocity (AU/yr)";
+		labelPerihelionVelocityDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelPerihelionVelocityDesc.Values.ExtraText = "AU/yr";
+		labelPerihelionVelocityDesc.Values.Text = "Perihelion velocity";
+		labelPerihelionVelocityDesc.DoubleClick += OpenTerminology_DoubleClick;
+		labelPerihelionVelocityDesc.Enter += Control_Enter;
+		labelPerihelionVelocityDesc.Leave += Control_Leave;
+		labelPerihelionVelocityDesc.MouseDown += Control_MouseDown;
+		labelPerihelionVelocityDesc.MouseEnter += Control_Enter;
+		labelPerihelionVelocityDesc.MouseLeave += Control_Leave;
+		// 
+		// labelPerihelionVelocityData
+		// 
+		labelPerihelionVelocityData.AccessibleDescription = "Shows the information of \"Perihelion velocity\"";
+		labelPerihelionVelocityData.AccessibleName = "Information of \"Perihelion velocity\"";
+		labelPerihelionVelocityData.AccessibleRole = AccessibleRole.StaticText;
+		labelPerihelionVelocityData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelPerihelionVelocityData.Dock = DockStyle.Top;
+		labelPerihelionVelocityData.Location = new Point(553, 107);
+		labelPerihelionVelocityData.Name = "labelPerihelionVelocityData";
+		labelPerihelionVelocityData.Size = new Size(290, 20);
+		labelPerihelionVelocityData.TabIndex = 73;
+		labelPerihelionVelocityData.ToolTipValues.Description = "Shows the information of \"Perihelion velocity\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelPerihelionVelocityData.ToolTipValues.EnableToolTips = true;
+		labelPerihelionVelocityData.ToolTipValues.Heading = "Information of \"Perihelion velocity\"";
+		labelPerihelionVelocityData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelPerihelionVelocityData.Values.Text = "..................";
+		labelPerihelionVelocityData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelPerihelionVelocityData.Enter += Control_Enter;
+		labelPerihelionVelocityData.Leave += Control_Leave;
+		labelPerihelionVelocityData.MouseDown += Control_MouseDown;
+		labelPerihelionVelocityData.MouseEnter += Control_Enter;
+		labelPerihelionVelocityData.MouseLeave += Control_Leave;
+		// 
+		// labelMeanOrbitalVelocityDesc
+		// 
+		labelMeanOrbitalVelocityDesc.AccessibleDescription = "Shows the mean orbital velocity (AU/yr)";
+		labelMeanOrbitalVelocityDesc.AccessibleName = "Mean orbital velocity (AU/yr)";
+		labelMeanOrbitalVelocityDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelMeanOrbitalVelocityDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelMeanOrbitalVelocityDesc.Dock = DockStyle.Top;
+		labelMeanOrbitalVelocityDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelMeanOrbitalVelocityDesc.Location = new Point(301, 133);
+		labelMeanOrbitalVelocityDesc.Name = "labelMeanOrbitalVelocityDesc";
+		labelMeanOrbitalVelocityDesc.Size = new Size(246, 20);
+		labelMeanOrbitalVelocityDesc.TabIndex = 74;
+		labelMeanOrbitalVelocityDesc.Tag = "20";
+		labelMeanOrbitalVelocityDesc.ToolTipValues.Description = "Shows the mean orbital velocity (AU/yr).\r\nDouble-click or right-click to open the terminology.";
+		labelMeanOrbitalVelocityDesc.ToolTipValues.EnableToolTips = true;
+		labelMeanOrbitalVelocityDesc.ToolTipValues.Heading = "Mean orbital velocity (AU/yr)";
+		labelMeanOrbitalVelocityDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelMeanOrbitalVelocityDesc.Values.ExtraText = "AU/yr";
+		labelMeanOrbitalVelocityDesc.Values.Text = "Mean orbital velocity";
+		labelMeanOrbitalVelocityDesc.DoubleClick += OpenTerminology_DoubleClick;
+		labelMeanOrbitalVelocityDesc.Enter += Control_Enter;
+		labelMeanOrbitalVelocityDesc.Leave += Control_Leave;
+		labelMeanOrbitalVelocityDesc.MouseDown += Control_MouseDown;
+		labelMeanOrbitalVelocityDesc.MouseEnter += Control_Enter;
+		labelMeanOrbitalVelocityDesc.MouseLeave += Control_Leave;
+		// 
+		// labelMeanOrbitalVelocityData
+		// 
+		labelMeanOrbitalVelocityData.AccessibleDescription = "Shows the information of \"Mean orbital velocity\"";
+		labelMeanOrbitalVelocityData.AccessibleName = "Information of \"Mean orbital velocity\"";
+		labelMeanOrbitalVelocityData.AccessibleRole = AccessibleRole.StaticText;
+		labelMeanOrbitalVelocityData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelMeanOrbitalVelocityData.Dock = DockStyle.Top;
+		labelMeanOrbitalVelocityData.Location = new Point(553, 133);
+		labelMeanOrbitalVelocityData.Name = "labelMeanOrbitalVelocityData";
+		labelMeanOrbitalVelocityData.Size = new Size(290, 20);
+		labelMeanOrbitalVelocityData.TabIndex = 75;
+		labelMeanOrbitalVelocityData.ToolTipValues.Description = "Shows the information of \"Mean orbital velocity\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelMeanOrbitalVelocityData.ToolTipValues.EnableToolTips = true;
+		labelMeanOrbitalVelocityData.ToolTipValues.Heading = "Information of \"Mean orbital velocity\"";
+		labelMeanOrbitalVelocityData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelMeanOrbitalVelocityData.Values.Text = "..................";
+		labelMeanOrbitalVelocityData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelMeanOrbitalVelocityData.Enter += Control_Enter;
+		labelMeanOrbitalVelocityData.Leave += Control_Leave;
+		labelMeanOrbitalVelocityData.MouseDown += Control_MouseDown;
+		labelMeanOrbitalVelocityData.MouseEnter += Control_Enter;
+		labelMeanOrbitalVelocityData.MouseLeave += Control_Leave;
+		// 
+		// labelMeanDailyOrbitalMotionDesc
+		// 
+		labelMeanDailyOrbitalMotionDesc.AccessibleDescription = "Shows the tangential velocity component (AU/yr)";
+		labelMeanDailyOrbitalMotionDesc.AccessibleName = "Tangential velocity component (AU/yr)";
+		labelMeanDailyOrbitalMotionDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelMeanDailyOrbitalMotionDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelMeanDailyOrbitalMotionDesc.Dock = DockStyle.Top;
+		labelMeanDailyOrbitalMotionDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelMeanDailyOrbitalMotionDesc.Location = new Point(301, 263);
+		labelMeanDailyOrbitalMotionDesc.Name = "labelMeanDailyOrbitalMotionDesc";
+		labelMeanDailyOrbitalMotionDesc.Size = new Size(246, 20);
+		labelMeanDailyOrbitalMotionDesc.TabIndex = 84;
+		labelMeanDailyOrbitalMotionDesc.Tag = "20";
+		labelMeanDailyOrbitalMotionDesc.ToolTipValues.Description = "Shows the mean daily orbital motion (AU/day).\r\nDouble-click or right-click to open the terminology.";
+		labelMeanDailyOrbitalMotionDesc.ToolTipValues.EnableToolTips = true;
+		labelMeanDailyOrbitalMotionDesc.ToolTipValues.Heading = "Mean daily orbital motion (AU/day)";
+		labelMeanDailyOrbitalMotionDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelMeanDailyOrbitalMotionDesc.Values.ExtraText = "AU/day";
+		labelMeanDailyOrbitalMotionDesc.Values.Text = "Mean daily orbital motion";
+		labelMeanDailyOrbitalMotionDesc.DoubleClick += CopyToClipboard_DoubleClick;
+		labelMeanDailyOrbitalMotionDesc.Enter += Control_Enter;
+		labelMeanDailyOrbitalMotionDesc.Leave += Control_Leave;
+		labelMeanDailyOrbitalMotionDesc.MouseDown += Control_MouseDown;
+		labelMeanDailyOrbitalMotionDesc.MouseEnter += Control_Enter;
+		labelMeanDailyOrbitalMotionDesc.MouseLeave += Control_Leave;
+		// 
+		// labelMeanDailyMotionDesc
+		// 
+		labelMeanDailyMotionDesc.AccessibleDescription = "Shows the mean daily motion (°/day)";
+		labelMeanDailyMotionDesc.AccessibleName = "Mean daily motion (°/day)";
+		labelMeanDailyMotionDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelMeanDailyMotionDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelMeanDailyMotionDesc.Dock = DockStyle.Top;
+		labelMeanDailyMotionDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelMeanDailyMotionDesc.Location = new Point(301, 237);
+		labelMeanDailyMotionDesc.Name = "labelMeanDailyMotionDesc";
+		labelMeanDailyMotionDesc.Size = new Size(246, 20);
+		labelMeanDailyMotionDesc.TabIndex = 82;
+		labelMeanDailyMotionDesc.Tag = "20";
+		labelMeanDailyMotionDesc.ToolTipValues.Description = "Shows the mean daily motion (°/day).\r\nDouble-click or right-click to open the terminology.";
+		labelMeanDailyMotionDesc.ToolTipValues.EnableToolTips = true;
+		labelMeanDailyMotionDesc.ToolTipValues.Heading = "Mean daily motion (AU/yr)";
+		labelMeanDailyMotionDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelMeanDailyMotionDesc.Values.ExtraText = "°/day";
+		labelMeanDailyMotionDesc.Values.Text = "Mean daily motion";
+		labelMeanDailyMotionDesc.DoubleClick += CopyToClipboard_DoubleClick;
+		labelMeanDailyMotionDesc.Enter += Control_Enter;
+		labelMeanDailyMotionDesc.Leave += Control_Leave;
+		labelMeanDailyMotionDesc.MouseDown += Control_MouseDown;
+		labelMeanDailyMotionDesc.MouseEnter += Control_Enter;
+		labelMeanDailyMotionDesc.MouseLeave += Control_Leave;
+		// 
+		// labelMeanMotionDesc
+		// 
+		labelMeanMotionDesc.AccessibleDescription = "Shows the mean motion (°/yr)";
+		labelMeanMotionDesc.AccessibleName = "Mean motion (°/yr)";
+		labelMeanMotionDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelMeanMotionDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelMeanMotionDesc.Dock = DockStyle.Top;
+		labelMeanMotionDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelMeanMotionDesc.Location = new Point(301, 211);
+		labelMeanMotionDesc.Name = "labelMeanMotionDesc";
+		labelMeanMotionDesc.Size = new Size(246, 20);
+		labelMeanMotionDesc.TabIndex = 80;
+		labelMeanMotionDesc.Tag = "20";
+		labelMeanMotionDesc.ToolTipValues.Description = "Shows the mean motion (°/yr).\r\nDouble-click or right-click to open the terminology.";
+		labelMeanMotionDesc.ToolTipValues.EnableToolTips = true;
+		labelMeanMotionDesc.ToolTipValues.Heading = "Mean motion (°/yr)";
+		labelMeanMotionDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelMeanMotionDesc.Values.ExtraText = "°/yr";
+		labelMeanMotionDesc.Values.Text = "Mean motion";
+		labelMeanMotionDesc.DoubleClick += CopyToClipboard_DoubleClick;
+		labelMeanMotionDesc.Enter += Control_Enter;
+		labelMeanMotionDesc.Leave += Control_Leave;
+		labelMeanMotionDesc.MouseDown += Control_MouseDown;
+		labelMeanMotionDesc.MouseEnter += Control_Enter;
+		labelMeanMotionDesc.MouseLeave += Control_Leave;
+		// 
+		// labelMeanDailyOrbitalMotionData
+		// 
+		labelMeanDailyOrbitalMotionData.AccessibleDescription = "Shows the information of \"Mean daily motion\"";
+		labelMeanDailyOrbitalMotionData.AccessibleName = "Information of \"Mean daily motion\"";
+		labelMeanDailyOrbitalMotionData.AccessibleRole = AccessibleRole.StaticText;
+		labelMeanDailyOrbitalMotionData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelMeanDailyOrbitalMotionData.Dock = DockStyle.Top;
+		labelMeanDailyOrbitalMotionData.Location = new Point(553, 263);
+		labelMeanDailyOrbitalMotionData.Name = "labelMeanDailyOrbitalMotionData";
+		labelMeanDailyOrbitalMotionData.Size = new Size(290, 20);
+		labelMeanDailyOrbitalMotionData.TabIndex = 85;
+		labelMeanDailyOrbitalMotionData.ToolTipValues.Description = "Shows the information of \"Perihelion velocity\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelMeanDailyOrbitalMotionData.ToolTipValues.EnableToolTips = true;
+		labelMeanDailyOrbitalMotionData.ToolTipValues.Heading = "Information of \"Mean daily motion\"";
+		labelMeanDailyOrbitalMotionData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelMeanDailyOrbitalMotionData.Values.Text = "..................";
+		labelMeanDailyOrbitalMotionData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelMeanDailyOrbitalMotionData.Enter += Control_Enter;
+		labelMeanDailyOrbitalMotionData.Leave += Control_Leave;
+		labelMeanDailyOrbitalMotionData.MouseDown += Control_MouseDown;
+		labelMeanDailyOrbitalMotionData.MouseEnter += Control_Enter;
+		labelMeanDailyOrbitalMotionData.MouseLeave += Control_Leave;
+		// 
+		// labelMeanDailyMotionData
+		// 
+		labelMeanDailyMotionData.AccessibleDescription = "Shows the information of \"Mean daily motion\"";
+		labelMeanDailyMotionData.AccessibleName = "Information of \"Mean daily motion\"";
+		labelMeanDailyMotionData.AccessibleRole = AccessibleRole.StaticText;
+		labelMeanDailyMotionData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelMeanDailyMotionData.Dock = DockStyle.Top;
+		labelMeanDailyMotionData.Location = new Point(553, 237);
+		labelMeanDailyMotionData.Name = "labelMeanDailyMotionData";
+		labelMeanDailyMotionData.Size = new Size(290, 20);
+		labelMeanDailyMotionData.TabIndex = 83;
+		labelMeanDailyMotionData.ToolTipValues.Description = "Shows the information of \"Mean daily motion\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelMeanDailyMotionData.ToolTipValues.EnableToolTips = true;
+		labelMeanDailyMotionData.ToolTipValues.Heading = "Information of \"Mean daily motion\"";
+		labelMeanDailyMotionData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelMeanDailyMotionData.Values.Text = "..................";
+		labelMeanDailyMotionData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelMeanDailyMotionData.Enter += Control_Enter;
+		labelMeanDailyMotionData.Leave += Control_Leave;
+		labelMeanDailyMotionData.MouseDown += Control_MouseDown;
+		labelMeanDailyMotionData.MouseEnter += Control_Enter;
+		labelMeanDailyMotionData.MouseLeave += Control_Leave;
+		// 
+		// labelMeanMotionData
+		// 
+		labelMeanMotionData.AccessibleDescription = "Shows the information of \"Mean motion\"";
+		labelMeanMotionData.AccessibleName = "Information of \"Mean motion\"";
+		labelMeanMotionData.AccessibleRole = AccessibleRole.StaticText;
+		labelMeanMotionData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelMeanMotionData.Dock = DockStyle.Top;
+		labelMeanMotionData.Location = new Point(553, 211);
+		labelMeanMotionData.Name = "labelMeanMotionData";
+		labelMeanMotionData.Size = new Size(290, 20);
+		labelMeanMotionData.TabIndex = 81;
+		labelMeanMotionData.ToolTipValues.Description = "Shows the information of \"Mean motion\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelMeanMotionData.ToolTipValues.EnableToolTips = true;
+		labelMeanMotionData.ToolTipValues.Heading = "Information of \"Mean motion\"";
+		labelMeanMotionData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelMeanMotionData.Values.Text = "..................";
+		labelMeanMotionData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelMeanMotionData.Enter += Control_Enter;
+		labelMeanMotionData.Leave += Control_Leave;
+		labelMeanMotionData.MouseDown += Control_MouseDown;
+		labelMeanMotionData.MouseEnter += Control_Enter;
+		labelMeanMotionData.MouseLeave += Control_Leave;
+		// 
+		// labelAngularVelocityDesc
+		// 
+		labelAngularVelocityDesc.AccessibleDescription = "Shows the angular velocity (rad/yr)";
+		labelAngularVelocityDesc.AccessibleName = "Angular velocity (rad/yr)";
+		labelAngularVelocityDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelAngularVelocityDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelAngularVelocityDesc.Dock = DockStyle.Top;
+		labelAngularVelocityDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelAngularVelocityDesc.Location = new Point(301, 159);
+		labelAngularVelocityDesc.Name = "labelAngularVelocityDesc";
+		labelAngularVelocityDesc.Size = new Size(246, 20);
+		labelAngularVelocityDesc.TabIndex = 76;
+		labelAngularVelocityDesc.Tag = "20";
+		labelAngularVelocityDesc.ToolTipValues.Description = "Shows the angular velocity (rad/yr).\r\nDouble-click or right-click to open the terminology.";
+		labelAngularVelocityDesc.ToolTipValues.EnableToolTips = true;
+		labelAngularVelocityDesc.ToolTipValues.Heading = "Angular velocity (rad/yr)";
+		labelAngularVelocityDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAngularVelocityDesc.Values.ExtraText = "rad/yr";
+		labelAngularVelocityDesc.Values.Text = "Angular velocity";
+		labelAngularVelocityDesc.DoubleClick += CopyToClipboard_DoubleClick;
+		labelAngularVelocityDesc.Enter += Control_Enter;
+		labelAngularVelocityDesc.Leave += Control_Leave;
+		labelAngularVelocityDesc.MouseDown += Control_MouseDown;
+		labelAngularVelocityDesc.MouseEnter += Control_Enter;
+		labelAngularVelocityDesc.MouseLeave += Control_Leave;
+		// 
+		// labelArealVelocityDesc
+		// 
+		labelArealVelocityDesc.AccessibleDescription = "Shows the areal velocity (AU²/yr)";
+		labelArealVelocityDesc.AccessibleName = "Areal velocity (AU²/yr)";
+		labelArealVelocityDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelArealVelocityDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelArealVelocityDesc.Dock = DockStyle.Top;
+		labelArealVelocityDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelArealVelocityDesc.Location = new Point(301, 185);
+		labelArealVelocityDesc.Name = "labelArealVelocityDesc";
+		labelArealVelocityDesc.Size = new Size(246, 20);
+		labelArealVelocityDesc.TabIndex = 78;
+		labelArealVelocityDesc.Tag = "20";
+		labelArealVelocityDesc.ToolTipValues.Description = "Shows the areal velocity (AU²/yr).\r\nDouble-click or right-click to open the terminology.";
+		labelArealVelocityDesc.ToolTipValues.EnableToolTips = true;
+		labelArealVelocityDesc.ToolTipValues.Heading = "Areal velocity (AU²/yr)";
+		labelArealVelocityDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelArealVelocityDesc.Values.ExtraText = "AU²/yr";
+		labelArealVelocityDesc.Values.Text = "Areal velocity";
+		labelArealVelocityDesc.DoubleClick += CopyToClipboard_DoubleClick;
+		labelArealVelocityDesc.Enter += Control_Enter;
+		labelArealVelocityDesc.Leave += Control_Leave;
+		labelArealVelocityDesc.MouseDown += Control_MouseDown;
+		labelArealVelocityDesc.MouseEnter += Control_Enter;
+		labelArealVelocityDesc.MouseLeave += Control_Leave;
+		// 
+		// labelAngularVelocityData
+		// 
+		labelAngularVelocityData.AccessibleDescription = "Shows the information of \"Angular velocity\"";
+		labelAngularVelocityData.AccessibleName = "Information of \"Angular velocity\"";
+		labelAngularVelocityData.AccessibleRole = AccessibleRole.StaticText;
+		labelAngularVelocityData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelAngularVelocityData.Dock = DockStyle.Top;
+		labelAngularVelocityData.Location = new Point(553, 159);
+		labelAngularVelocityData.Name = "labelAngularVelocityData";
+		labelAngularVelocityData.Size = new Size(290, 20);
+		labelAngularVelocityData.TabIndex = 77;
+		labelAngularVelocityData.ToolTipValues.Description = "Shows the information of \"Angular velocity\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelAngularVelocityData.ToolTipValues.EnableToolTips = true;
+		labelAngularVelocityData.ToolTipValues.Heading = "Information of \"Angular velocity\"";
+		labelAngularVelocityData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAngularVelocityData.Values.Text = "..................";
+		labelAngularVelocityData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelAngularVelocityData.Enter += Control_Enter;
+		labelAngularVelocityData.Leave += Control_Leave;
+		labelAngularVelocityData.MouseDown += Control_MouseDown;
+		labelAngularVelocityData.MouseEnter += Control_Enter;
+		labelAngularVelocityData.MouseLeave += Control_Leave;
+		// 
+		// labelArealVelocityData
+		// 
+		labelArealVelocityData.AccessibleDescription = "Shows the information of \"Areal velocity\"";
+		labelArealVelocityData.AccessibleName = "Information of \"Areal velocity\"";
+		labelArealVelocityData.AccessibleRole = AccessibleRole.StaticText;
+		labelArealVelocityData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelArealVelocityData.Dock = DockStyle.Top;
+		labelArealVelocityData.Location = new Point(553, 185);
+		labelArealVelocityData.Name = "labelArealVelocityData";
+		labelArealVelocityData.Size = new Size(290, 20);
+		labelArealVelocityData.TabIndex = 79;
+		labelArealVelocityData.ToolTipValues.Description = "Shows the information of \"Areal velocity\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelArealVelocityData.ToolTipValues.EnableToolTips = true;
+		labelArealVelocityData.ToolTipValues.Heading = "Information of \"Areal velocity\"";
+		labelArealVelocityData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelArealVelocityData.Values.Text = "..................";
+		labelArealVelocityData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelArealVelocityData.Enter += Control_Enter;
+		labelArealVelocityData.Leave += Control_Leave;
+		labelArealVelocityData.MouseDown += Control_MouseDown;
+		labelArealVelocityData.MouseEnter += Control_Enter;
+		labelArealVelocityData.MouseLeave += Control_Leave;
+		// 
+		// labelMeanLongitudeDesc
+		// 
+		labelMeanLongitudeDesc.AccessibleDescription = "Shows the mean longitude (°)";
+		labelMeanLongitudeDesc.AccessibleName = "Mean longitude (°)";
+		labelMeanLongitudeDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelMeanLongitudeDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelMeanLongitudeDesc.Dock = DockStyle.Top;
+		labelMeanLongitudeDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelMeanLongitudeDesc.Location = new Point(301, 393);
+		labelMeanLongitudeDesc.Name = "labelMeanLongitudeDesc";
+		labelMeanLongitudeDesc.Size = new Size(246, 20);
+		labelMeanLongitudeDesc.TabIndex = 94;
+		labelMeanLongitudeDesc.Tag = "20";
+		labelMeanLongitudeDesc.ToolTipValues.Description = "Shows the mean longitude (°).\r\nDouble-click or right-click to open the terminology.";
+		labelMeanLongitudeDesc.ToolTipValues.EnableToolTips = true;
+		labelMeanLongitudeDesc.ToolTipValues.Heading = "Mean longitude (°)";
+		labelMeanLongitudeDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelMeanLongitudeDesc.Values.ExtraText = "°";
+		labelMeanLongitudeDesc.Values.Text = "Mean longitude";
+		labelMeanLongitudeDesc.DoubleClick += OpenTerminology_DoubleClick;
+		labelMeanLongitudeDesc.Enter += Control_Enter;
+		labelMeanLongitudeDesc.Leave += Control_Leave;
+		labelMeanLongitudeDesc.MouseDown += Control_MouseDown;
+		labelMeanLongitudeDesc.MouseEnter += Control_Enter;
+		labelMeanLongitudeDesc.MouseLeave += Control_Leave;
+		// 
+		// labelLongitudeOfPerihelionDesc
+		// 
+		labelLongitudeOfPerihelionDesc.AccessibleDescription = "Shows the longitude of perihelion (°)";
+		labelLongitudeOfPerihelionDesc.AccessibleName = "Longitude of perihelion (°)";
+		labelLongitudeOfPerihelionDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelLongitudeOfPerihelionDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelLongitudeOfPerihelionDesc.Dock = DockStyle.Top;
+		labelLongitudeOfPerihelionDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelLongitudeOfPerihelionDesc.Location = new Point(301, 367);
+		labelLongitudeOfPerihelionDesc.Name = "labelLongitudeOfPerihelionDesc";
+		labelLongitudeOfPerihelionDesc.Size = new Size(246, 20);
+		labelLongitudeOfPerihelionDesc.TabIndex = 92;
+		labelLongitudeOfPerihelionDesc.Tag = "20";
+		labelLongitudeOfPerihelionDesc.ToolTipValues.Description = "Shows the longitude of perihelion (°).\r\nDouble-click or right-click to open the terminology.";
+		labelLongitudeOfPerihelionDesc.ToolTipValues.EnableToolTips = true;
+		labelLongitudeOfPerihelionDesc.ToolTipValues.Heading = "Longitude of perihelion (°)";
+		labelLongitudeOfPerihelionDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelLongitudeOfPerihelionDesc.Values.ExtraText = "°";
+		labelLongitudeOfPerihelionDesc.Values.Text = "Longitude of perihelion";
+		labelLongitudeOfPerihelionDesc.DoubleClick += OpenTerminology_DoubleClick;
+		labelLongitudeOfPerihelionDesc.Enter += Control_Enter;
+		labelLongitudeOfPerihelionDesc.Leave += Control_Leave;
+		labelLongitudeOfPerihelionDesc.MouseDown += Control_MouseDown;
+		labelLongitudeOfPerihelionDesc.MouseEnter += Control_Enter;
+		labelLongitudeOfPerihelionDesc.MouseLeave += Control_Leave;
+		// 
+		// labelMeanLongitudeData
+		// 
+		labelMeanLongitudeData.AccessibleDescription = "Shows the information of \"Mean longitude\"";
+		labelMeanLongitudeData.AccessibleName = "Information of \"Mean longitude\"";
+		labelMeanLongitudeData.AccessibleRole = AccessibleRole.StaticText;
+		labelMeanLongitudeData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelMeanLongitudeData.Dock = DockStyle.Top;
+		labelMeanLongitudeData.Location = new Point(553, 393);
+		labelMeanLongitudeData.Name = "labelMeanLongitudeData";
+		labelMeanLongitudeData.Size = new Size(290, 20);
+		labelMeanLongitudeData.TabIndex = 95;
+		labelMeanLongitudeData.ToolTipValues.Description = "Shows the information of \"Mean longitude\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelMeanLongitudeData.ToolTipValues.EnableToolTips = true;
+		labelMeanLongitudeData.ToolTipValues.Heading = "Information of \"Mean longitude\"";
+		labelMeanLongitudeData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelMeanLongitudeData.Values.Text = "..................";
+		labelMeanLongitudeData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelMeanLongitudeData.Enter += Control_Enter;
+		labelMeanLongitudeData.Leave += Control_Leave;
+		labelMeanLongitudeData.MouseDown += Control_MouseDown;
+		labelMeanLongitudeData.MouseEnter += Control_Enter;
+		labelMeanLongitudeData.MouseLeave += Control_Leave;
+		// 
+		// labelLongitudeOfPerihelionData
+		// 
+		labelLongitudeOfPerihelionData.AccessibleDescription = "Shows the information of \"Longitude of perihelion\"";
+		labelLongitudeOfPerihelionData.AccessibleName = "Information of \"Longitude of perihelion\"";
+		labelLongitudeOfPerihelionData.AccessibleRole = AccessibleRole.StaticText;
+		labelLongitudeOfPerihelionData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelLongitudeOfPerihelionData.Dock = DockStyle.Top;
+		labelLongitudeOfPerihelionData.Location = new Point(553, 367);
+		labelLongitudeOfPerihelionData.Name = "labelLongitudeOfPerihelionData";
+		labelLongitudeOfPerihelionData.Size = new Size(290, 20);
+		labelLongitudeOfPerihelionData.TabIndex = 93;
+		labelLongitudeOfPerihelionData.ToolTipValues.Description = "Shows the information of \"Longitude of perihelion\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelLongitudeOfPerihelionData.ToolTipValues.EnableToolTips = true;
+		labelLongitudeOfPerihelionData.ToolTipValues.Heading = "Information of \"Longitude of perihelion\"";
+		labelLongitudeOfPerihelionData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelLongitudeOfPerihelionData.Values.Text = "..................";
+		labelLongitudeOfPerihelionData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelLongitudeOfPerihelionData.Enter += Control_Enter;
+		labelLongitudeOfPerihelionData.Leave += Control_Leave;
+		labelLongitudeOfPerihelionData.MouseDown += Control_MouseDown;
+		labelLongitudeOfPerihelionData.MouseEnter += Control_Enter;
+		labelLongitudeOfPerihelionData.MouseLeave += Control_Leave;
+		// 
+		// labelMaxEclipticDistanceDesc
+		// 
+		labelMaxEclipticDistanceDesc.AccessibleDescription = "Shows the maximal ecliptic distance (AUE)";
+		labelMaxEclipticDistanceDesc.AccessibleName = "Maximal ecliptic distance (yr)";
+		labelMaxEclipticDistanceDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelMaxEclipticDistanceDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelMaxEclipticDistanceDesc.Dock = DockStyle.Top;
+		labelMaxEclipticDistanceDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelMaxEclipticDistanceDesc.Location = new Point(301, 315);
+		labelMaxEclipticDistanceDesc.Name = "labelMaxEclipticDistanceDesc";
+		labelMaxEclipticDistanceDesc.Size = new Size(246, 20);
+		labelMaxEclipticDistanceDesc.TabIndex = 88;
+		labelMaxEclipticDistanceDesc.Tag = "20";
+		labelMaxEclipticDistanceDesc.ToolTipValues.Description = "Shows the maximal ecliptic distance (AU).\r\nDouble-click or right-click to open the terminology.";
+		labelMaxEclipticDistanceDesc.ToolTipValues.EnableToolTips = true;
+		labelMaxEclipticDistanceDesc.ToolTipValues.Heading = "Maximal ecliptic distance (AU)";
+		labelMaxEclipticDistanceDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelMaxEclipticDistanceDesc.Values.ExtraText = "AU";
+		labelMaxEclipticDistanceDesc.Values.Text = "Maximal ecliptic distance";
+		labelMaxEclipticDistanceDesc.DoubleClick += CopyToClipboard_DoubleClick;
+		labelMaxEclipticDistanceDesc.Enter += Control_Enter;
+		labelMaxEclipticDistanceDesc.Leave += Control_Leave;
+		labelMaxEclipticDistanceDesc.MouseDown += Control_MouseDown;
+		labelMaxEclipticDistanceDesc.MouseEnter += Control_Enter;
+		labelMaxEclipticDistanceDesc.MouseLeave += Control_Leave;
+		// 
+		// labelMaxEclipticDistanceData
+		// 
+		labelMaxEclipticDistanceData.AccessibleDescription = "Shows the information of \"Maximal ecliptic distance\"";
+		labelMaxEclipticDistanceData.AccessibleName = "Information of \"Maximal ecliptic distance\"";
+		labelMaxEclipticDistanceData.AccessibleRole = AccessibleRole.StaticText;
+		labelMaxEclipticDistanceData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelMaxEclipticDistanceData.Dock = DockStyle.Top;
+		labelMaxEclipticDistanceData.Location = new Point(553, 315);
+		labelMaxEclipticDistanceData.Name = "labelMaxEclipticDistanceData";
+		labelMaxEclipticDistanceData.Size = new Size(290, 20);
+		labelMaxEclipticDistanceData.TabIndex = 89;
+		labelMaxEclipticDistanceData.ToolTipValues.Description = "Shows the information of \"Maximal ecliptic distance\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelMaxEclipticDistanceData.ToolTipValues.EnableToolTips = true;
+		labelMaxEclipticDistanceData.ToolTipValues.Heading = "Information of \"Maximal ecliptic distance\"";
+		labelMaxEclipticDistanceData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelMaxEclipticDistanceData.Values.Text = "..................";
+		labelMaxEclipticDistanceData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelMaxEclipticDistanceData.Enter += Control_Enter;
+		labelMaxEclipticDistanceData.Leave += Control_Leave;
+		labelMaxEclipticDistanceData.MouseDown += Control_MouseDown;
+		labelMaxEclipticDistanceData.MouseEnter += Control_Enter;
+		labelMaxEclipticDistanceData.MouseLeave += Control_Leave;
+		// 
+		// labelRadiusOfCurvatureDesc
+		// 
+		labelRadiusOfCurvatureDesc.AccessibleDescription = "Shows the radius of curvature (AU)";
+		labelRadiusOfCurvatureDesc.AccessibleName = "Radius of curvature (AU)";
+		labelRadiusOfCurvatureDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelRadiusOfCurvatureDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelRadiusOfCurvatureDesc.Dock = DockStyle.Top;
+		labelRadiusOfCurvatureDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelRadiusOfCurvatureDesc.Location = new Point(301, 289);
+		labelRadiusOfCurvatureDesc.Name = "labelRadiusOfCurvatureDesc";
+		labelRadiusOfCurvatureDesc.Size = new Size(246, 20);
+		labelRadiusOfCurvatureDesc.TabIndex = 86;
+		labelRadiusOfCurvatureDesc.Tag = "20";
+		labelRadiusOfCurvatureDesc.ToolTipValues.Description = "Shows the radius of curvature (AU).\r\nDouble-click or right-click to open the terminology.";
+		labelRadiusOfCurvatureDesc.ToolTipValues.EnableToolTips = true;
+		labelRadiusOfCurvatureDesc.ToolTipValues.Heading = "Radius of curvature (AU)";
+		labelRadiusOfCurvatureDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelRadiusOfCurvatureDesc.Values.ExtraText = "AU";
+		labelRadiusOfCurvatureDesc.Values.Text = "Radius of curvature";
+		labelRadiusOfCurvatureDesc.DoubleClick += CopyToClipboard_DoubleClick;
+		labelRadiusOfCurvatureDesc.Enter += Control_Enter;
+		labelRadiusOfCurvatureDesc.Leave += Control_Leave;
+		labelRadiusOfCurvatureDesc.MouseDown += Control_MouseDown;
+		labelRadiusOfCurvatureDesc.MouseEnter += Control_Enter;
+		labelRadiusOfCurvatureDesc.MouseLeave += Control_Leave;
+		// 
+		// labelRadiusOfCurvatureData
+		// 
+		labelRadiusOfCurvatureData.AccessibleDescription = "Shows the information of \"Radius of curvature\"";
+		labelRadiusOfCurvatureData.AccessibleName = "Information of \"Radius of curvature\"";
+		labelRadiusOfCurvatureData.AccessibleRole = AccessibleRole.StaticText;
+		labelRadiusOfCurvatureData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelRadiusOfCurvatureData.Dock = DockStyle.Top;
+		labelRadiusOfCurvatureData.Location = new Point(553, 289);
+		labelRadiusOfCurvatureData.Name = "labelRadiusOfCurvatureData";
+		labelRadiusOfCurvatureData.Size = new Size(290, 20);
+		labelRadiusOfCurvatureData.TabIndex = 87;
+		labelRadiusOfCurvatureData.ToolTipValues.Description = "Shows the information of \"Radius of curvature\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelRadiusOfCurvatureData.ToolTipValues.EnableToolTips = true;
+		labelRadiusOfCurvatureData.ToolTipValues.Heading = "Information of \"Radius of curvature\"";
+		labelRadiusOfCurvatureData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelRadiusOfCurvatureData.Values.Text = "..................";
+		labelRadiusOfCurvatureData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelRadiusOfCurvatureData.Enter += Control_Enter;
+		labelRadiusOfCurvatureData.Leave += Control_Leave;
+		labelRadiusOfCurvatureData.MouseDown += Control_MouseDown;
+		labelRadiusOfCurvatureData.MouseEnter += Control_Enter;
+		labelRadiusOfCurvatureData.MouseLeave += Control_Leave;
+		// 
+		// labelKozaiQuantityDesc
+		// 
+		labelKozaiQuantityDesc.AccessibleDescription = "Shows the Kozai quantity";
+		labelKozaiQuantityDesc.AccessibleName = "Kozai quantity";
+		labelKozaiQuantityDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelKozaiQuantityDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelKozaiQuantityDesc.Dock = DockStyle.Top;
+		labelKozaiQuantityDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelKozaiQuantityDesc.Location = new Point(301, 341);
+		labelKozaiQuantityDesc.Name = "labelKozaiQuantityDesc";
+		labelKozaiQuantityDesc.Size = new Size(246, 20);
+		labelKozaiQuantityDesc.TabIndex = 90;
+		labelKozaiQuantityDesc.Tag = "20";
+		labelKozaiQuantityDesc.ToolTipValues.Description = "Shows the Kozai quantity";
+		labelKozaiQuantityDesc.ToolTipValues.EnableToolTips = true;
+		labelKozaiQuantityDesc.ToolTipValues.Heading = "Kozai quantity";
+		labelKozaiQuantityDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelKozaiQuantityDesc.Values.Text = "Kozai quantity";
+		labelKozaiQuantityDesc.DoubleClick += CopyToClipboard_DoubleClick;
+		labelKozaiQuantityDesc.Enter += Control_Enter;
+		labelKozaiQuantityDesc.Leave += Control_Leave;
+		labelKozaiQuantityDesc.MouseDown += Control_MouseDown;
+		labelKozaiQuantityDesc.MouseEnter += Control_Enter;
+		labelKozaiQuantityDesc.MouseLeave += Control_Leave;
+		// 
+		// labelKozaiQuantityData
+		// 
+		labelKozaiQuantityData.AccessibleDescription = "Shows the information of \"Kozai quantity\"";
+		labelKozaiQuantityData.AccessibleName = "Information of \"Kozai quantity\"";
+		labelKozaiQuantityData.AccessibleRole = AccessibleRole.StaticText;
+		labelKozaiQuantityData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelKozaiQuantityData.Dock = DockStyle.Top;
+		labelKozaiQuantityData.Location = new Point(553, 341);
+		labelKozaiQuantityData.Name = "labelKozaiQuantityData";
+		labelKozaiQuantityData.Size = new Size(290, 20);
+		labelKozaiQuantityData.TabIndex = 91;
+		labelKozaiQuantityData.ToolTipValues.Description = "Shows the information of \"Kozai quantity\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelKozaiQuantityData.ToolTipValues.EnableToolTips = true;
+		labelKozaiQuantityData.ToolTipValues.Heading = "Information of \"Kozai quantity\"";
+		labelKozaiQuantityData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelKozaiQuantityData.Values.Text = "..................";
+		labelKozaiQuantityData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelKozaiQuantityData.Enter += Control_Enter;
+		labelKozaiQuantityData.Leave += Control_Leave;
+		labelKozaiQuantityData.MouseDown += Control_MouseDown;
+		labelKozaiQuantityData.MouseEnter += Control_Enter;
+		labelKozaiQuantityData.MouseLeave += Control_Leave;
+		// 
+		// labelArgumentOfTheAphelionDesc
+		// 
+		labelArgumentOfTheAphelionDesc.AccessibleDescription = "Shows the argument of the aphelion (degrees)";
+		labelArgumentOfTheAphelionDesc.AccessibleName = "Argument of the aphelion (degrees)";
+		labelArgumentOfTheAphelionDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelArgumentOfTheAphelionDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelArgumentOfTheAphelionDesc.Dock = DockStyle.Top;
+		labelArgumentOfTheAphelionDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelArgumentOfTheAphelionDesc.Location = new Point(301, 471);
+		labelArgumentOfTheAphelionDesc.Name = "labelArgumentOfTheAphelionDesc";
+		labelArgumentOfTheAphelionDesc.Size = new Size(246, 20);
+		labelArgumentOfTheAphelionDesc.TabIndex = 100;
+		labelArgumentOfTheAphelionDesc.Tag = "29";
+		labelArgumentOfTheAphelionDesc.ToolTipValues.Description = "Shows the argument of the aphelion (degrees).\r\nDouble-click or right-click to open the terminology.";
+		labelArgumentOfTheAphelionDesc.ToolTipValues.EnableToolTips = true;
+		labelArgumentOfTheAphelionDesc.ToolTipValues.Heading = "Argument of the aphelion (degrees)";
+		labelArgumentOfTheAphelionDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelArgumentOfTheAphelionDesc.Values.ExtraText = "°";
+		labelArgumentOfTheAphelionDesc.Values.Text = "Argument of the aphelion";
+		labelArgumentOfTheAphelionDesc.DoubleClick += OpenTerminology_DoubleClick;
+		labelArgumentOfTheAphelionDesc.Enter += Control_Enter;
+		labelArgumentOfTheAphelionDesc.Leave += Control_Leave;
+		labelArgumentOfTheAphelionDesc.MouseDown += Control_MouseDown;
+		labelArgumentOfTheAphelionDesc.MouseEnter += Control_Enter;
+		labelArgumentOfTheAphelionDesc.MouseLeave += Control_Leave;
+		// 
+		// labelArgumentAphelionData
+		// 
+		labelArgumentAphelionData.AccessibleDescription = "Shows the information of \"Argument of the aphelion\"";
+		labelArgumentAphelionData.AccessibleName = "Information of \"Argument of the aphelion\"";
+		labelArgumentAphelionData.AccessibleRole = AccessibleRole.StaticText;
+		labelArgumentAphelionData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelArgumentAphelionData.Dock = DockStyle.Top;
+		labelArgumentAphelionData.Location = new Point(553, 471);
+		labelArgumentAphelionData.Name = "labelArgumentAphelionData";
+		labelArgumentAphelionData.Size = new Size(290, 20);
+		labelArgumentAphelionData.TabIndex = 101;
+		labelArgumentAphelionData.ToolTipValues.Description = "Shows the information of \"Argument of the aphelion\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelArgumentAphelionData.ToolTipValues.EnableToolTips = true;
+		labelArgumentAphelionData.ToolTipValues.Heading = "Information of \"Argument of the aphelion\"";
+		labelArgumentAphelionData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelArgumentAphelionData.Values.Text = "..................";
+		labelArgumentAphelionData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelArgumentAphelionData.Enter += Control_Enter;
+		labelArgumentAphelionData.Leave += Control_Leave;
+		labelArgumentAphelionData.MouseDown += Control_MouseDown;
+		labelArgumentAphelionData.MouseEnter += Control_Enter;
+		labelArgumentAphelionData.MouseLeave += Control_Leave;
+		// 
+		// labelArgumentOfLatitudeData
+		// 
+		labelArgumentOfLatitudeData.AccessibleDescription = "Shows the information of \"Argument of latitude\"";
+		labelArgumentOfLatitudeData.AccessibleName = "Information of \"Argument of latitude\"";
+		labelArgumentOfLatitudeData.AccessibleRole = AccessibleRole.StaticText;
+		labelArgumentOfLatitudeData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelArgumentOfLatitudeData.Dock = DockStyle.Top;
+		labelArgumentOfLatitudeData.Location = new Point(553, 445);
+		labelArgumentOfLatitudeData.Name = "labelArgumentOfLatitudeData";
+		labelArgumentOfLatitudeData.Size = new Size(290, 20);
+		labelArgumentOfLatitudeData.TabIndex = 99;
+		labelArgumentOfLatitudeData.ToolTipValues.Description = "Shows the information of \"Argument of latitude\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelArgumentOfLatitudeData.ToolTipValues.EnableToolTips = true;
+		labelArgumentOfLatitudeData.ToolTipValues.Heading = "Information of \"Argument of latitude\"";
+		labelArgumentOfLatitudeData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelArgumentOfLatitudeData.Values.Text = "..................";
+		labelArgumentOfLatitudeData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelArgumentOfLatitudeData.Enter += Control_Enter;
+		labelArgumentOfLatitudeData.Leave += Control_Leave;
+		labelArgumentOfLatitudeData.MouseDown += Control_MouseDown;
+		labelArgumentOfLatitudeData.MouseEnter += Control_Enter;
+		labelArgumentOfLatitudeData.MouseLeave += Control_Leave;
+		// 
+		// labelArgumentOfLatitudeDesc
+		// 
+		labelArgumentOfLatitudeDesc.AccessibleDescription = "Shows the argument of latitude (°)";
+		labelArgumentOfLatitudeDesc.AccessibleName = "Argument of latitude (°)";
+		labelArgumentOfLatitudeDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelArgumentOfLatitudeDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelArgumentOfLatitudeDesc.Dock = DockStyle.Top;
+		labelArgumentOfLatitudeDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelArgumentOfLatitudeDesc.Location = new Point(301, 445);
+		labelArgumentOfLatitudeDesc.Name = "labelArgumentOfLatitudeDesc";
+		labelArgumentOfLatitudeDesc.Size = new Size(246, 20);
+		labelArgumentOfLatitudeDesc.TabIndex = 98;
+		labelArgumentOfLatitudeDesc.Tag = "20";
+		labelArgumentOfLatitudeDesc.ToolTipValues.Description = "Shows the argument of latitude (°).\r\nDouble-click or right-click to open the terminology.";
+		labelArgumentOfLatitudeDesc.ToolTipValues.EnableToolTips = true;
+		labelArgumentOfLatitudeDesc.ToolTipValues.Heading = "Argument of latitude (°)";
+		labelArgumentOfLatitudeDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelArgumentOfLatitudeDesc.Values.ExtraText = "°";
+		labelArgumentOfLatitudeDesc.Values.Text = "Argument of latitude";
+		labelArgumentOfLatitudeDesc.DoubleClick += OpenTerminology_DoubleClick;
+		labelArgumentOfLatitudeDesc.Enter += Control_Enter;
+		labelArgumentOfLatitudeDesc.Leave += Control_Leave;
+		labelArgumentOfLatitudeDesc.MouseDown += Control_MouseDown;
+		labelArgumentOfLatitudeDesc.MouseEnter += Control_Enter;
+		labelArgumentOfLatitudeDesc.MouseLeave += Control_Leave;
+		// 
+		// labelTrueLongitudeDesc
+		// 
+		labelTrueLongitudeDesc.AccessibleDescription = "Shows the true longitude (°)";
+		labelTrueLongitudeDesc.AccessibleName = "True longitude (°)";
+		labelTrueLongitudeDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelTrueLongitudeDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelTrueLongitudeDesc.Dock = DockStyle.Top;
+		labelTrueLongitudeDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelTrueLongitudeDesc.Location = new Point(301, 419);
+		labelTrueLongitudeDesc.Name = "labelTrueLongitudeDesc";
+		labelTrueLongitudeDesc.Size = new Size(246, 20);
+		labelTrueLongitudeDesc.TabIndex = 96;
+		labelTrueLongitudeDesc.Tag = "20";
+		labelTrueLongitudeDesc.ToolTipValues.Description = "Shows the true longitude (°).\r\nDouble-click or right-click to open the terminology.";
+		labelTrueLongitudeDesc.ToolTipValues.EnableToolTips = true;
+		labelTrueLongitudeDesc.ToolTipValues.Heading = "True longitude (°)";
+		labelTrueLongitudeDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelTrueLongitudeDesc.Values.ExtraText = "°";
+		labelTrueLongitudeDesc.Values.Text = "True longitude";
+		labelTrueLongitudeDesc.DoubleClick += CopyToClipboard_DoubleClick;
+		labelTrueLongitudeDesc.Enter += Control_Enter;
+		labelTrueLongitudeDesc.Leave += Control_Leave;
+		labelTrueLongitudeDesc.MouseDown += Control_MouseDown;
+		labelTrueLongitudeDesc.MouseEnter += Control_Enter;
+		labelTrueLongitudeDesc.MouseLeave += Control_Leave;
+		// 
+		// labelTrueLongitudeData
+		// 
+		labelTrueLongitudeData.AccessibleDescription = "Shows the information of \"True longitude\"";
+		labelTrueLongitudeData.AccessibleName = "Information of \"True longitude\"";
+		labelTrueLongitudeData.AccessibleRole = AccessibleRole.StaticText;
+		labelTrueLongitudeData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelTrueLongitudeData.Dock = DockStyle.Top;
+		labelTrueLongitudeData.Location = new Point(553, 419);
+		labelTrueLongitudeData.Name = "labelTrueLongitudeData";
+		labelTrueLongitudeData.Size = new Size(290, 20);
+		labelTrueLongitudeData.TabIndex = 97;
+		labelTrueLongitudeData.ToolTipValues.Description = "Shows the information of \"True longitude\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelTrueLongitudeData.ToolTipValues.EnableToolTips = true;
+		labelTrueLongitudeData.ToolTipValues.Heading = "Information of \"True longitude\"";
+		labelTrueLongitudeData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelTrueLongitudeData.Values.Text = "..................";
+		labelTrueLongitudeData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelTrueLongitudeData.Enter += Control_Enter;
+		labelTrueLongitudeData.Leave += Control_Leave;
+		labelTrueLongitudeData.MouseDown += Control_MouseDown;
+		labelTrueLongitudeData.MouseEnter += Control_Enter;
+		labelTrueLongitudeData.MouseLeave += Control_Leave;
+		// 
+		// labelSpecificOrbitalEnergyDesc
+		// 
+		labelSpecificOrbitalEnergyDesc.AccessibleDescription = "Shows the specific orbital energy (AU²/yr²)";
+		labelSpecificOrbitalEnergyDesc.AccessibleName = "Specific orbital energy (AU²/yr²)";
+		labelSpecificOrbitalEnergyDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelSpecificOrbitalEnergyDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelSpecificOrbitalEnergyDesc.Dock = DockStyle.Top;
+		labelSpecificOrbitalEnergyDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelSpecificOrbitalEnergyDesc.Location = new Point(301, 705);
+		labelSpecificOrbitalEnergyDesc.Name = "labelSpecificOrbitalEnergyDesc";
+		labelSpecificOrbitalEnergyDesc.Size = new Size(246, 20);
+		labelSpecificOrbitalEnergyDesc.TabIndex = 118;
+		labelSpecificOrbitalEnergyDesc.Tag = "20";
+		labelSpecificOrbitalEnergyDesc.ToolTipValues.Description = "Shows the specific orbital energy (AU²/yr²).\r\nDouble-click or right-click to open the terminology.";
+		labelSpecificOrbitalEnergyDesc.ToolTipValues.EnableToolTips = true;
+		labelSpecificOrbitalEnergyDesc.ToolTipValues.Heading = "specific orbital energy (AU²/yr²)";
+		labelSpecificOrbitalEnergyDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelSpecificOrbitalEnergyDesc.Values.ExtraText = "AU²/yr²";
+		labelSpecificOrbitalEnergyDesc.Values.Text = "Specific orbital energy";
+		labelSpecificOrbitalEnergyDesc.DoubleClick += OpenTerminology_DoubleClick;
+		labelSpecificOrbitalEnergyDesc.Enter += Control_Enter;
+		labelSpecificOrbitalEnergyDesc.Leave += Control_Leave;
+		labelSpecificOrbitalEnergyDesc.MouseDown += Control_MouseDown;
+		labelSpecificOrbitalEnergyDesc.MouseEnter += Control_Enter;
+		labelSpecificOrbitalEnergyDesc.MouseLeave += Control_Leave;
+		// 
+		// labelSpecificOrbitalEnergyData
+		// 
+		labelSpecificOrbitalEnergyData.AccessibleDescription = "Shows the information of \"Specific orbital energy\"";
+		labelSpecificOrbitalEnergyData.AccessibleName = "Information of \"Specific orbital energy\"";
+		labelSpecificOrbitalEnergyData.AccessibleRole = AccessibleRole.StaticText;
+		labelSpecificOrbitalEnergyData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelSpecificOrbitalEnergyData.Dock = DockStyle.Top;
+		labelSpecificOrbitalEnergyData.Location = new Point(553, 705);
+		labelSpecificOrbitalEnergyData.Name = "labelSpecificOrbitalEnergyData";
+		labelSpecificOrbitalEnergyData.Size = new Size(290, 20);
+		labelSpecificOrbitalEnergyData.TabIndex = 119;
+		labelSpecificOrbitalEnergyData.ToolTipValues.Description = "Shows the information of \"Specific orbital energy\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelSpecificOrbitalEnergyData.ToolTipValues.EnableToolTips = true;
+		labelSpecificOrbitalEnergyData.ToolTipValues.Heading = "Information of \"Specific orbital energy\"";
+		labelSpecificOrbitalEnergyData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelSpecificOrbitalEnergyData.Values.Text = "..................";
+		labelSpecificOrbitalEnergyData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelSpecificOrbitalEnergyData.Enter += Control_Enter;
+		labelSpecificOrbitalEnergyData.Leave += Control_Leave;
+		labelSpecificOrbitalEnergyData.MouseDown += Control_MouseDown;
+		labelSpecificOrbitalEnergyData.MouseEnter += Control_Enter;
+		labelSpecificOrbitalEnergyData.MouseLeave += Control_Leave;
+		// 
+		// labelSpecificAngularMomentumDesc
+		// 
+		labelSpecificAngularMomentumDesc.AccessibleDescription = "Shows the specific angular momentum (AU²/yr²)";
+		labelSpecificAngularMomentumDesc.AccessibleName = "Specific angular momentum (AU²/yr²)";
+		labelSpecificAngularMomentumDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelSpecificAngularMomentumDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelSpecificAngularMomentumDesc.Dock = DockStyle.Top;
+		labelSpecificAngularMomentumDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelSpecificAngularMomentumDesc.Location = new Point(301, 731);
+		labelSpecificAngularMomentumDesc.Name = "labelSpecificAngularMomentumDesc";
+		labelSpecificAngularMomentumDesc.Size = new Size(246, 20);
+		labelSpecificAngularMomentumDesc.TabIndex = 120;
+		labelSpecificAngularMomentumDesc.Tag = "20";
+		labelSpecificAngularMomentumDesc.ToolTipValues.Description = "Shows the specific angular momentum (AU²/yr²).\r\nDouble-click or right-click to open the terminology.";
+		labelSpecificAngularMomentumDesc.ToolTipValues.EnableToolTips = true;
+		labelSpecificAngularMomentumDesc.ToolTipValues.Heading = "Specific angular momentum (AU²/yr²)";
+		labelSpecificAngularMomentumDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelSpecificAngularMomentumDesc.Values.ExtraText = "AU²/yr²";
+		labelSpecificAngularMomentumDesc.Values.Text = "Specific angular momentum";
+		labelSpecificAngularMomentumDesc.DoubleClick += OpenTerminology_DoubleClick;
+		labelSpecificAngularMomentumDesc.Enter += Control_Enter;
+		labelSpecificAngularMomentumDesc.Leave += Control_Leave;
+		labelSpecificAngularMomentumDesc.MouseDown += Control_MouseDown;
+		labelSpecificAngularMomentumDesc.MouseEnter += Control_Enter;
+		labelSpecificAngularMomentumDesc.MouseLeave += Control_Leave;
+		// 
+		// labelSpecificAngularMomentumData
+		// 
+		labelSpecificAngularMomentumData.AccessibleDescription = "Shows the information of \"Specific angular momentum\"";
+		labelSpecificAngularMomentumData.AccessibleName = "Information of \"Specific angular momentum\"";
+		labelSpecificAngularMomentumData.AccessibleRole = AccessibleRole.StaticText;
+		labelSpecificAngularMomentumData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelSpecificAngularMomentumData.Dock = DockStyle.Top;
+		labelSpecificAngularMomentumData.Location = new Point(553, 731);
+		labelSpecificAngularMomentumData.Name = "labelSpecificAngularMomentumData";
+		labelSpecificAngularMomentumData.Size = new Size(290, 20);
+		labelSpecificAngularMomentumData.TabIndex = 121;
+		labelSpecificAngularMomentumData.ToolTipValues.Description = "Shows the information of \"Specific angular momentum\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelSpecificAngularMomentumData.ToolTipValues.EnableToolTips = true;
+		labelSpecificAngularMomentumData.ToolTipValues.Heading = "Information of \"Specific angular momentum\"";
+		labelSpecificAngularMomentumData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelSpecificAngularMomentumData.Values.Text = "..................";
+		labelSpecificAngularMomentumData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelSpecificAngularMomentumData.Enter += Control_Enter;
+		labelSpecificAngularMomentumData.Leave += Control_Leave;
+		labelSpecificAngularMomentumData.MouseDown += Control_MouseDown;
+		labelSpecificAngularMomentumData.MouseEnter += Control_Enter;
+		labelSpecificAngularMomentumData.MouseLeave += Control_Leave;
+		// 
+		// labelCharacteristicEnergyDesc
+		// 
+		labelCharacteristicEnergyDesc.AccessibleDescription = "Shows the characteristic energy (AU²/year²)";
+		labelCharacteristicEnergyDesc.AccessibleName = "Characteristic energy (AU²/year²)";
+		labelCharacteristicEnergyDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelCharacteristicEnergyDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelCharacteristicEnergyDesc.Dock = DockStyle.Top;
+		labelCharacteristicEnergyDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelCharacteristicEnergyDesc.Location = new Point(301, 757);
+		labelCharacteristicEnergyDesc.Name = "labelCharacteristicEnergyDesc";
+		labelCharacteristicEnergyDesc.Size = new Size(246, 20);
+		labelCharacteristicEnergyDesc.TabIndex = 122;
+		labelCharacteristicEnergyDesc.Tag = "20";
+		labelCharacteristicEnergyDesc.ToolTipValues.Description = "Shows the characteristic energy (AU²/year²).\r\nDouble-click or right-click to open the terminology.";
+		labelCharacteristicEnergyDesc.ToolTipValues.EnableToolTips = true;
+		labelCharacteristicEnergyDesc.ToolTipValues.Heading = "Characteristic energy (AU²/year²)";
+		labelCharacteristicEnergyDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelCharacteristicEnergyDesc.Values.ExtraText = "AU²/year²";
+		labelCharacteristicEnergyDesc.Values.Text = "Characteristic energy";
+		labelCharacteristicEnergyDesc.DoubleClick += CopyToClipboard_DoubleClick;
+		labelCharacteristicEnergyDesc.Enter += Control_Enter;
+		labelCharacteristicEnergyDesc.Leave += Control_Leave;
+		labelCharacteristicEnergyDesc.MouseDown += Control_MouseDown;
+		labelCharacteristicEnergyDesc.MouseEnter += Control_Enter;
+		labelCharacteristicEnergyDesc.MouseLeave += Control_Leave;
+		// 
+		// labelCharacteristicEnergyData
+		// 
+		labelCharacteristicEnergyData.AccessibleDescription = "Shows the information of \"Characteristic energy\"";
+		labelCharacteristicEnergyData.AccessibleName = "Information of \"Characteristic energy\"";
+		labelCharacteristicEnergyData.AccessibleRole = AccessibleRole.StaticText;
+		labelCharacteristicEnergyData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelCharacteristicEnergyData.Dock = DockStyle.Top;
+		labelCharacteristicEnergyData.Location = new Point(553, 757);
+		labelCharacteristicEnergyData.Name = "labelCharacteristicEnergyData";
+		labelCharacteristicEnergyData.Size = new Size(290, 20);
+		labelCharacteristicEnergyData.TabIndex = 123;
+		labelCharacteristicEnergyData.ToolTipValues.Description = "Shows the information of \"Characteristic energy\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelCharacteristicEnergyData.ToolTipValues.EnableToolTips = true;
+		labelCharacteristicEnergyData.ToolTipValues.Heading = "Information of \"Characteristic energy\"";
+		labelCharacteristicEnergyData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelCharacteristicEnergyData.Values.Text = "..................";
+		labelCharacteristicEnergyData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelCharacteristicEnergyData.Enter += Control_Enter;
+		labelCharacteristicEnergyData.Leave += Control_Leave;
+		labelCharacteristicEnergyData.MouseDown += Control_MouseDown;
+		labelCharacteristicEnergyData.MouseEnter += Control_Enter;
+		labelCharacteristicEnergyData.MouseLeave += Control_Leave;
+		// 
+		// labelIsPotenciallyHarzardousDesc
+		// 
+		labelIsPotenciallyHarzardousDesc.AccessibleDescription = "Shows the harzardous potencial";
+		labelIsPotenciallyHarzardousDesc.AccessibleName = "Harzardous potencial";
+		labelIsPotenciallyHarzardousDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelIsPotenciallyHarzardousDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelIsPotenciallyHarzardousDesc.Dock = DockStyle.Top;
+		labelIsPotenciallyHarzardousDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelIsPotenciallyHarzardousDesc.Location = new Point(301, 783);
+		labelIsPotenciallyHarzardousDesc.Name = "labelIsPotenciallyHarzardousDesc";
+		labelIsPotenciallyHarzardousDesc.Size = new Size(246, 20);
+		labelIsPotenciallyHarzardousDesc.TabIndex = 124;
+		labelIsPotenciallyHarzardousDesc.Tag = "20";
+		labelIsPotenciallyHarzardousDesc.ToolTipValues.Description = "Shows the harzardous potencial.\r\nDouble-click or right-click to open the terminology.";
+		labelIsPotenciallyHarzardousDesc.ToolTipValues.EnableToolTips = true;
+		labelIsPotenciallyHarzardousDesc.ToolTipValues.Heading = "Is potencially harzardous?";
+		labelIsPotenciallyHarzardousDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelIsPotenciallyHarzardousDesc.Values.Text = "Is potencially harzardous?";
+		labelIsPotenciallyHarzardousDesc.DoubleClick += CopyToClipboard_DoubleClick;
+		labelIsPotenciallyHarzardousDesc.Enter += Control_Enter;
+		labelIsPotenciallyHarzardousDesc.Leave += Control_Leave;
+		labelIsPotenciallyHarzardousDesc.MouseDown += Control_MouseDown;
+		labelIsPotenciallyHarzardousDesc.MouseEnter += Control_Enter;
+		labelIsPotenciallyHarzardousDesc.MouseLeave += Control_Leave;
+		// 
+		// labelGeometricAlbedoAdjustedDiameterDesc
+		// 
+		labelGeometricAlbedoAdjustedDiameterDesc.AccessibleDescription = "Shows the geometric albedo-adjusted diameter (km)";
+		labelGeometricAlbedoAdjustedDiameterDesc.AccessibleName = "Geometric albedo-adjusted diameter (km)";
+		labelGeometricAlbedoAdjustedDiameterDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelGeometricAlbedoAdjustedDiameterDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelGeometricAlbedoAdjustedDiameterDesc.Dock = DockStyle.Top;
+		labelGeometricAlbedoAdjustedDiameterDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelGeometricAlbedoAdjustedDiameterDesc.Location = new Point(301, 809);
+		labelGeometricAlbedoAdjustedDiameterDesc.Name = "labelGeometricAlbedoAdjustedDiameterDesc";
+		labelGeometricAlbedoAdjustedDiameterDesc.Size = new Size(246, 20);
+		labelGeometricAlbedoAdjustedDiameterDesc.TabIndex = 126;
+		labelGeometricAlbedoAdjustedDiameterDesc.Tag = "20";
+		labelGeometricAlbedoAdjustedDiameterDesc.ToolTipValues.Description = "Shows the geometric albedo-adjusted diameter (km).\r\nDouble-click or right-click to open the terminology.";
+		labelGeometricAlbedoAdjustedDiameterDesc.ToolTipValues.EnableToolTips = true;
+		labelGeometricAlbedoAdjustedDiameterDesc.ToolTipValues.Heading = "Geometric albedo-adjusted diameter (km)";
+		labelGeometricAlbedoAdjustedDiameterDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelGeometricAlbedoAdjustedDiameterDesc.Values.ExtraText = "km";
+		labelGeometricAlbedoAdjustedDiameterDesc.Values.Text = "Geometric albedo-adjusted diameter";
+		labelGeometricAlbedoAdjustedDiameterDesc.DoubleClick += OpenTerminology_DoubleClick;
+		labelGeometricAlbedoAdjustedDiameterDesc.Enter += Control_Enter;
+		labelGeometricAlbedoAdjustedDiameterDesc.Leave += Control_Leave;
+		labelGeometricAlbedoAdjustedDiameterDesc.MouseDown += Control_MouseDown;
+		labelGeometricAlbedoAdjustedDiameterDesc.MouseEnter += Control_Enter;
+		labelGeometricAlbedoAdjustedDiameterDesc.MouseLeave += Control_Leave;
+		// 
+		// labelIsPotenciallyHarzardousData
+		// 
+		labelIsPotenciallyHarzardousData.AccessibleDescription = "Shows the information of \"Is potencially harzardous?\"";
+		labelIsPotenciallyHarzardousData.AccessibleName = "Information of \"Is potencially harzardous?\"";
+		labelIsPotenciallyHarzardousData.AccessibleRole = AccessibleRole.StaticText;
+		labelIsPotenciallyHarzardousData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelIsPotenciallyHarzardousData.Dock = DockStyle.Top;
+		labelIsPotenciallyHarzardousData.Location = new Point(553, 783);
+		labelIsPotenciallyHarzardousData.Name = "labelIsPotenciallyHarzardousData";
+		labelIsPotenciallyHarzardousData.Size = new Size(290, 20);
+		labelIsPotenciallyHarzardousData.TabIndex = 125;
+		labelIsPotenciallyHarzardousData.ToolTipValues.Description = "Shows the information of \"Is potencially harzardous?\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelIsPotenciallyHarzardousData.ToolTipValues.EnableToolTips = true;
+		labelIsPotenciallyHarzardousData.ToolTipValues.Heading = "Information of \"Is potencially harzardous?\"";
+		labelIsPotenciallyHarzardousData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelIsPotenciallyHarzardousData.Values.Text = "..................";
+		labelIsPotenciallyHarzardousData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelIsPotenciallyHarzardousData.Enter += Control_Enter;
+		labelIsPotenciallyHarzardousData.Leave += Control_Leave;
+		labelIsPotenciallyHarzardousData.MouseDown += Control_MouseDown;
+		labelIsPotenciallyHarzardousData.MouseEnter += Control_Enter;
+		labelIsPotenciallyHarzardousData.MouseLeave += Control_Leave;
+		// 
+		// labelGeometricAlbedoAdjustedDiameterData
+		// 
+		labelGeometricAlbedoAdjustedDiameterData.AccessibleDescription = "Shows the information of \"Geometric albedo-adjusted diameter\"";
+		labelGeometricAlbedoAdjustedDiameterData.AccessibleName = "Information of \"Geometric albedo-adjusted diameter\"";
+		labelGeometricAlbedoAdjustedDiameterData.AccessibleRole = AccessibleRole.StaticText;
+		labelGeometricAlbedoAdjustedDiameterData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelGeometricAlbedoAdjustedDiameterData.Dock = DockStyle.Top;
+		labelGeometricAlbedoAdjustedDiameterData.Location = new Point(553, 809);
+		labelGeometricAlbedoAdjustedDiameterData.Name = "labelGeometricAlbedoAdjustedDiameterData";
+		labelGeometricAlbedoAdjustedDiameterData.Size = new Size(290, 20);
+		labelGeometricAlbedoAdjustedDiameterData.TabIndex = 127;
+		labelGeometricAlbedoAdjustedDiameterData.ToolTipValues.Description = "Shows the information of \"Geometric albedo-adjusted diameter\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelGeometricAlbedoAdjustedDiameterData.ToolTipValues.EnableToolTips = true;
+		labelGeometricAlbedoAdjustedDiameterData.ToolTipValues.Heading = "Information of \"Geometric albedo-adjusted diameter\"";
+		labelGeometricAlbedoAdjustedDiameterData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelGeometricAlbedoAdjustedDiameterData.Values.Text = "..................";
+		labelGeometricAlbedoAdjustedDiameterData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelGeometricAlbedoAdjustedDiameterData.Enter += Control_Enter;
+		labelGeometricAlbedoAdjustedDiameterData.Leave += Control_Leave;
+		labelGeometricAlbedoAdjustedDiameterData.MouseDown += Control_MouseDown;
+		labelGeometricAlbedoAdjustedDiameterData.MouseEnter += Control_Enter;
+		labelGeometricAlbedoAdjustedDiameterData.MouseLeave += Control_Leave;
+		// 
+		// labelHelioCentricLatitudeDesc
+		// 
+		labelHelioCentricLatitudeDesc.AccessibleDescription = "Shows the heliocentric latitude (°)";
+		labelHelioCentricLatitudeDesc.AccessibleName = "Heliocentric latitude (°)";
+		labelHelioCentricLatitudeDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelHelioCentricLatitudeDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelHelioCentricLatitudeDesc.Dock = DockStyle.Top;
+		labelHelioCentricLatitudeDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelHelioCentricLatitudeDesc.Location = new Point(301, 549);
+		labelHelioCentricLatitudeDesc.Name = "labelHelioCentricLatitudeDesc";
+		labelHelioCentricLatitudeDesc.Size = new Size(246, 20);
+		labelHelioCentricLatitudeDesc.TabIndex = 106;
+		labelHelioCentricLatitudeDesc.Tag = "20";
+		labelHelioCentricLatitudeDesc.ToolTipValues.Description = "Shows the heliocentric latitude (°).\r\nDouble-click or right-click to open the terminology.";
+		labelHelioCentricLatitudeDesc.ToolTipValues.EnableToolTips = true;
+		labelHelioCentricLatitudeDesc.ToolTipValues.Heading = "Heliocentric latitude (°)";
+		labelHelioCentricLatitudeDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelHelioCentricLatitudeDesc.Values.ExtraText = "°";
+		labelHelioCentricLatitudeDesc.Values.Text = "Heliocentric latitude";
+		labelHelioCentricLatitudeDesc.DoubleClick += CopyToClipboard_DoubleClick;
+		labelHelioCentricLatitudeDesc.Enter += Control_Enter;
+		labelHelioCentricLatitudeDesc.Leave += Control_Leave;
+		labelHelioCentricLatitudeDesc.MouseDown += Control_MouseDown;
+		labelHelioCentricLatitudeDesc.MouseEnter += Control_Enter;
+		labelHelioCentricLatitudeDesc.MouseLeave += Control_Leave;
+		// 
+		// labelHelioCentricLatitudeData
+		// 
+		labelHelioCentricLatitudeData.AccessibleDescription = "Shows the information of \"Heliocentric latitude\"";
+		labelHelioCentricLatitudeData.AccessibleName = "Information of \"Heliocentric latitude\"";
+		labelHelioCentricLatitudeData.AccessibleRole = AccessibleRole.StaticText;
+		labelHelioCentricLatitudeData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelHelioCentricLatitudeData.Dock = DockStyle.Top;
+		labelHelioCentricLatitudeData.Location = new Point(553, 549);
+		labelHelioCentricLatitudeData.Name = "labelHelioCentricLatitudeData";
+		labelHelioCentricLatitudeData.Size = new Size(290, 20);
+		labelHelioCentricLatitudeData.TabIndex = 107;
+		labelHelioCentricLatitudeData.ToolTipValues.Description = "Shows the information of \"Heliocentric latitude\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelHelioCentricLatitudeData.ToolTipValues.EnableToolTips = true;
+		labelHelioCentricLatitudeData.ToolTipValues.Heading = "Information of \"Heliocentric latitude\"";
+		labelHelioCentricLatitudeData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelHelioCentricLatitudeData.Values.Text = "..................";
+		labelHelioCentricLatitudeData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelHelioCentricLatitudeData.Enter += Control_Enter;
+		labelHelioCentricLatitudeData.Leave += Control_Leave;
+		labelHelioCentricLatitudeData.MouseDown += Control_MouseDown;
+		labelHelioCentricLatitudeData.MouseEnter += Control_Enter;
+		labelHelioCentricLatitudeData.MouseLeave += Control_Leave;
+		// 
+		// labelHelioCentricLongitudeDesc
+		// 
+		labelHelioCentricLongitudeDesc.AccessibleDescription = "Shows the heliocentric longitude (°)";
+		labelHelioCentricLongitudeDesc.AccessibleName = "Heliocentric longitude (°)";
+		labelHelioCentricLongitudeDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelHelioCentricLongitudeDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelHelioCentricLongitudeDesc.Dock = DockStyle.Top;
+		labelHelioCentricLongitudeDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelHelioCentricLongitudeDesc.Location = new Point(301, 575);
+		labelHelioCentricLongitudeDesc.Name = "labelHelioCentricLongitudeDesc";
+		labelHelioCentricLongitudeDesc.Size = new Size(246, 20);
+		labelHelioCentricLongitudeDesc.TabIndex = 108;
+		labelHelioCentricLongitudeDesc.Tag = "20";
+		labelHelioCentricLongitudeDesc.ToolTipValues.Description = "Shows the heliocentric longitude (°).\r\nDouble-click or right-click to open the terminology.";
+		labelHelioCentricLongitudeDesc.ToolTipValues.EnableToolTips = true;
+		labelHelioCentricLongitudeDesc.ToolTipValues.Heading = "Heliocentric longitude (°)";
+		labelHelioCentricLongitudeDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelHelioCentricLongitudeDesc.Values.ExtraText = "°";
+		labelHelioCentricLongitudeDesc.Values.Text = "Heliocentric longitude";
+		labelHelioCentricLongitudeDesc.DoubleClick += CopyToClipboard_DoubleClick;
+		labelHelioCentricLongitudeDesc.Enter += Control_Enter;
+		labelHelioCentricLongitudeDesc.Leave += Control_Leave;
+		labelHelioCentricLongitudeDesc.MouseDown += Control_MouseDown;
+		labelHelioCentricLongitudeDesc.MouseEnter += Control_Enter;
+		labelHelioCentricLongitudeDesc.MouseLeave += Control_Leave;
+		// 
+		// labelHelioCentricLongitudeData
+		// 
+		labelHelioCentricLongitudeData.AccessibleDescription = "Shows the information of \"Heliocentric longitude\"";
+		labelHelioCentricLongitudeData.AccessibleName = "Information of \"Heliocentric longitude\"";
+		labelHelioCentricLongitudeData.AccessibleRole = AccessibleRole.StaticText;
+		labelHelioCentricLongitudeData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelHelioCentricLongitudeData.Dock = DockStyle.Top;
+		labelHelioCentricLongitudeData.Location = new Point(553, 575);
+		labelHelioCentricLongitudeData.Name = "labelHelioCentricLongitudeData";
+		labelHelioCentricLongitudeData.Size = new Size(290, 20);
+		labelHelioCentricLongitudeData.TabIndex = 109;
+		labelHelioCentricLongitudeData.ToolTipValues.Description = "Shows the information of \"Heliocentric longitude\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelHelioCentricLongitudeData.ToolTipValues.EnableToolTips = true;
+		labelHelioCentricLongitudeData.ToolTipValues.Heading = "Information of \"Heliocentric longitude\"";
+		labelHelioCentricLongitudeData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelHelioCentricLongitudeData.Values.Text = "..................";
+		labelHelioCentricLongitudeData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelHelioCentricLongitudeData.Enter += Control_Enter;
+		labelHelioCentricLongitudeData.Leave += Control_Leave;
+		labelHelioCentricLongitudeData.MouseDown += Control_MouseDown;
+		labelHelioCentricLongitudeData.MouseEnter += Control_Enter;
+		labelHelioCentricLongitudeData.MouseLeave += Control_Leave;
+		// 
+		// labelAngularOfPerihelionNodeArcDesc
+		// 
+		labelAngularOfPerihelionNodeArcDesc.AccessibleDescription = "Shows the angular of the perihelion node arc (°)";
+		labelAngularOfPerihelionNodeArcDesc.AccessibleName = "Angular of the perihelion node arc (°)";
+		labelAngularOfPerihelionNodeArcDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelAngularOfPerihelionNodeArcDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelAngularOfPerihelionNodeArcDesc.Dock = DockStyle.Top;
+		labelAngularOfPerihelionNodeArcDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelAngularOfPerihelionNodeArcDesc.Location = new Point(301, 627);
+		labelAngularOfPerihelionNodeArcDesc.Name = "labelAngularOfPerihelionNodeArcDesc";
+		labelAngularOfPerihelionNodeArcDesc.Size = new Size(246, 20);
+		labelAngularOfPerihelionNodeArcDesc.TabIndex = 112;
+		labelAngularOfPerihelionNodeArcDesc.Tag = "35";
+		labelAngularOfPerihelionNodeArcDesc.ToolTipValues.Description = "Shows the angular of the perihelion node arc (°).\r\nDouble-click or right-click to open the terminology.";
+		labelAngularOfPerihelionNodeArcDesc.ToolTipValues.EnableToolTips = true;
+		labelAngularOfPerihelionNodeArcDesc.ToolTipValues.Heading = "Angular of the perihelion node arc (°)";
+		labelAngularOfPerihelionNodeArcDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAngularOfPerihelionNodeArcDesc.Values.ExtraText = "°";
+		labelAngularOfPerihelionNodeArcDesc.Values.Text = "Angular of the perihelion node arc";
+		labelAngularOfPerihelionNodeArcDesc.DoubleClick += CopyToClipboard_DoubleClick;
+		labelAngularOfPerihelionNodeArcDesc.Enter += Control_Enter;
+		labelAngularOfPerihelionNodeArcDesc.Leave += Control_Leave;
+		labelAngularOfPerihelionNodeArcDesc.MouseDown += Control_MouseDown;
+		labelAngularOfPerihelionNodeArcDesc.MouseEnter += Control_Enter;
+		labelAngularOfPerihelionNodeArcDesc.MouseLeave += Control_Leave;
+		// 
+		// labelAngularOfPerihelionNodeArcData
+		// 
+		labelAngularOfPerihelionNodeArcData.AccessibleDescription = "Shows the information of \"Angular of the perihelion node arc\"";
+		labelAngularOfPerihelionNodeArcData.AccessibleName = "Information of \"Angular of the perihelion node arc\"";
+		labelAngularOfPerihelionNodeArcData.AccessibleRole = AccessibleRole.StaticText;
+		labelAngularOfPerihelionNodeArcData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelAngularOfPerihelionNodeArcData.Dock = DockStyle.Top;
+		labelAngularOfPerihelionNodeArcData.Location = new Point(553, 627);
+		labelAngularOfPerihelionNodeArcData.Name = "labelAngularOfPerihelionNodeArcData";
+		labelAngularOfPerihelionNodeArcData.Size = new Size(290, 20);
+		labelAngularOfPerihelionNodeArcData.TabIndex = 113;
+		labelAngularOfPerihelionNodeArcData.ToolTipValues.Description = "Shows the information of \"Angular of the perihelion node arc\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelAngularOfPerihelionNodeArcData.ToolTipValues.EnableToolTips = true;
+		labelAngularOfPerihelionNodeArcData.ToolTipValues.Heading = "Information of \"Angular of the perihelion node arc\"";
+		labelAngularOfPerihelionNodeArcData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAngularOfPerihelionNodeArcData.Values.Text = "..................";
+		labelAngularOfPerihelionNodeArcData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelAngularOfPerihelionNodeArcData.Enter += Control_Enter;
+		labelAngularOfPerihelionNodeArcData.Leave += Control_Leave;
+		labelAngularOfPerihelionNodeArcData.MouseDown += Control_MouseDown;
+		labelAngularOfPerihelionNodeArcData.MouseEnter += Control_Enter;
+		labelAngularOfPerihelionNodeArcData.MouseLeave += Control_Leave;
+		// 
+		// labelAngularOfAphelionNodeArcDesc
+		// 
+		labelAngularOfAphelionNodeArcDesc.AccessibleDescription = "Shows the angular of the aphelion node arc (°)";
+		labelAngularOfAphelionNodeArcDesc.AccessibleName = "Angular of the aphelion node arc (°)";
+		labelAngularOfAphelionNodeArcDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelAngularOfAphelionNodeArcDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelAngularOfAphelionNodeArcDesc.Dock = DockStyle.Top;
+		labelAngularOfAphelionNodeArcDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelAngularOfAphelionNodeArcDesc.Location = new Point(301, 601);
+		labelAngularOfAphelionNodeArcDesc.Name = "labelAngularOfAphelionNodeArcDesc";
+		labelAngularOfAphelionNodeArcDesc.Size = new Size(246, 20);
+		labelAngularOfAphelionNodeArcDesc.TabIndex = 110;
+		labelAngularOfAphelionNodeArcDesc.Tag = "35";
+		labelAngularOfAphelionNodeArcDesc.ToolTipValues.Description = "Shows the angular of the aphelion anode rc (°).\r\nDouble-click or right-click to open the terminology.";
+		labelAngularOfAphelionNodeArcDesc.ToolTipValues.EnableToolTips = true;
+		labelAngularOfAphelionNodeArcDesc.ToolTipValues.Heading = "Angular of the aphelion node arc (°)";
+		labelAngularOfAphelionNodeArcDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAngularOfAphelionNodeArcDesc.Values.ExtraText = "°";
+		labelAngularOfAphelionNodeArcDesc.Values.Text = "Angular of the aphelion node arc";
+		// 
+		// labelAngularOfAphelionNodeArcData
+		// 
+		labelAngularOfAphelionNodeArcData.AccessibleDescription = "Shows the information of \"Angular of the aphelion node arc\"";
+		labelAngularOfAphelionNodeArcData.AccessibleName = "Information of \"Angular of the aphelion node arc\"";
+		labelAngularOfAphelionNodeArcData.AccessibleRole = AccessibleRole.StaticText;
+		labelAngularOfAphelionNodeArcData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelAngularOfAphelionNodeArcData.Dock = DockStyle.Top;
+		labelAngularOfAphelionNodeArcData.Location = new Point(553, 601);
+		labelAngularOfAphelionNodeArcData.Name = "labelAngularOfAphelionNodeArcData";
+		labelAngularOfAphelionNodeArcData.Size = new Size(290, 20);
+		labelAngularOfAphelionNodeArcData.TabIndex = 111;
+		labelAngularOfAphelionNodeArcData.ToolTipValues.Description = "Shows the information of \"Angular of the aphelion node arc\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelAngularOfAphelionNodeArcData.ToolTipValues.EnableToolTips = true;
+		labelAngularOfAphelionNodeArcData.ToolTipValues.Heading = "Information of \"Angular of the aphelion node arc\"";
+		labelAngularOfAphelionNodeArcData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAngularOfAphelionNodeArcData.Values.Text = "..................";
+		labelAngularOfAphelionNodeArcData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelAngularOfAphelionNodeArcData.Enter += Control_Enter;
+		labelAngularOfAphelionNodeArcData.Leave += Control_Leave;
+		labelAngularOfAphelionNodeArcData.MouseDown += Control_MouseDown;
+		labelAngularOfAphelionNodeArcData.MouseEnter += Control_Enter;
+		labelAngularOfAphelionNodeArcData.MouseLeave += Control_Leave;
+		// 
+		// labelFlightPathAngleDesc
+		// 
+		labelFlightPathAngleDesc.AccessibleDescription = "Shows the flight path angle (°)";
+		labelFlightPathAngleDesc.AccessibleName = "Flight path angle (°)";
+		labelFlightPathAngleDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelFlightPathAngleDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelFlightPathAngleDesc.Dock = DockStyle.Top;
+		labelFlightPathAngleDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelFlightPathAngleDesc.Location = new Point(301, 679);
+		labelFlightPathAngleDesc.Name = "labelFlightPathAngleDesc";
+		labelFlightPathAngleDesc.Size = new Size(246, 20);
+		labelFlightPathAngleDesc.TabIndex = 116;
+		labelFlightPathAngleDesc.Tag = "20";
+		labelFlightPathAngleDesc.ToolTipValues.Description = "Shows the flight path angle (°).\r\nDouble-click or right-click to open the terminology.";
+		labelFlightPathAngleDesc.ToolTipValues.EnableToolTips = true;
+		labelFlightPathAngleDesc.ToolTipValues.Heading = "Flight path angle (°)";
+		labelFlightPathAngleDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelFlightPathAngleDesc.Values.ExtraText = "°";
+		labelFlightPathAngleDesc.Values.Text = "Flight path angle";
+		labelFlightPathAngleDesc.DoubleClick += OpenTerminology_DoubleClick;
+		labelFlightPathAngleDesc.Enter += Control_Enter;
+		labelFlightPathAngleDesc.Leave += Control_Leave;
+		labelFlightPathAngleDesc.MouseDown += Control_MouseDown;
+		labelFlightPathAngleDesc.MouseEnter += Control_Enter;
+		labelFlightPathAngleDesc.MouseLeave += Control_Leave;
+		// 
+		// labelLongitudeOfTheDescendingNodeDesc
+		// 
+		labelLongitudeOfTheDescendingNodeDesc.AccessibleDescription = "Shows the longitude of the descending node (degrees)";
+		labelLongitudeOfTheDescendingNodeDesc.AccessibleName = "Longitude of the descending node (degrees)";
+		labelLongitudeOfTheDescendingNodeDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelLongitudeOfTheDescendingNodeDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelLongitudeOfTheDescendingNodeDesc.Dock = DockStyle.Top;
+		labelLongitudeOfTheDescendingNodeDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelLongitudeOfTheDescendingNodeDesc.Location = new Point(301, 653);
+		labelLongitudeOfTheDescendingNodeDesc.Name = "labelLongitudeOfTheDescendingNodeDesc";
+		labelLongitudeOfTheDescendingNodeDesc.Size = new Size(246, 20);
+		labelLongitudeOfTheDescendingNodeDesc.TabIndex = 114;
+		labelLongitudeOfTheDescendingNodeDesc.Tag = "28";
+		labelLongitudeOfTheDescendingNodeDesc.ToolTipValues.Description = "Shows the longitude of the descending node (degrees).\r\nDouble-click or right-click to open the terminology.";
+		labelLongitudeOfTheDescendingNodeDesc.ToolTipValues.EnableToolTips = true;
+		labelLongitudeOfTheDescendingNodeDesc.ToolTipValues.Heading = "Longitude of the descending node (degrees)";
+		labelLongitudeOfTheDescendingNodeDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelLongitudeOfTheDescendingNodeDesc.Values.ExtraText = "°";
+		labelLongitudeOfTheDescendingNodeDesc.Values.Text = "Longitude of the descending node";
+		labelLongitudeOfTheDescendingNodeDesc.DoubleClick += OpenTerminology_DoubleClick;
+		labelLongitudeOfTheDescendingNodeDesc.Enter += Control_Enter;
+		labelLongitudeOfTheDescendingNodeDesc.Leave += Control_Leave;
+		labelLongitudeOfTheDescendingNodeDesc.MouseDown += Control_MouseDown;
+		labelLongitudeOfTheDescendingNodeDesc.MouseEnter += Control_Enter;
+		labelLongitudeOfTheDescendingNodeDesc.MouseLeave += Control_Leave;
+		// 
+		// labelFlightPathAngleData
+		// 
+		labelFlightPathAngleData.AccessibleDescription = "Shows the information of \"Flight path angle\"";
+		labelFlightPathAngleData.AccessibleName = "Information of \"Flight path angle\"";
+		labelFlightPathAngleData.AccessibleRole = AccessibleRole.StaticText;
+		labelFlightPathAngleData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelFlightPathAngleData.Dock = DockStyle.Top;
+		labelFlightPathAngleData.Location = new Point(553, 679);
+		labelFlightPathAngleData.Name = "labelFlightPathAngleData";
+		labelFlightPathAngleData.Size = new Size(290, 20);
+		labelFlightPathAngleData.TabIndex = 117;
+		labelFlightPathAngleData.ToolTipValues.Description = "Shows the information of \"Flight path angle\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelFlightPathAngleData.ToolTipValues.EnableToolTips = true;
+		labelFlightPathAngleData.ToolTipValues.Heading = "Information of \"Flight path angle\"";
+		labelFlightPathAngleData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelFlightPathAngleData.Values.Text = "..................";
+		labelFlightPathAngleData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelFlightPathAngleData.Enter += Control_Enter;
+		labelFlightPathAngleData.Leave += Control_Leave;
+		labelFlightPathAngleData.MouseDown += Control_MouseDown;
+		labelFlightPathAngleData.MouseEnter += Control_Enter;
+		labelFlightPathAngleData.MouseLeave += Control_Leave;
+		// 
+		// labelLongitudeDescendingNodeData
+		// 
+		labelLongitudeDescendingNodeData.AccessibleDescription = "Shows the information of \"Longitude of the descending node\"";
+		labelLongitudeDescendingNodeData.AccessibleName = "Information of \"Longitude of the descending node\"";
+		labelLongitudeDescendingNodeData.AccessibleRole = AccessibleRole.StaticText;
+		labelLongitudeDescendingNodeData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelLongitudeDescendingNodeData.Dock = DockStyle.Top;
+		labelLongitudeDescendingNodeData.Location = new Point(553, 653);
+		labelLongitudeDescendingNodeData.Name = "labelLongitudeDescendingNodeData";
+		labelLongitudeDescendingNodeData.Size = new Size(290, 20);
+		labelLongitudeDescendingNodeData.TabIndex = 115;
+		labelLongitudeDescendingNodeData.ToolTipValues.Description = "Shows the information of \"Longitude of the descending node\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelLongitudeDescendingNodeData.ToolTipValues.EnableToolTips = true;
+		labelLongitudeDescendingNodeData.ToolTipValues.Heading = "Information of \"Longitude of the descending node\"";
+		labelLongitudeDescendingNodeData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelLongitudeDescendingNodeData.Values.Text = "..................";
+		labelLongitudeDescendingNodeData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelLongitudeDescendingNodeData.Enter += Control_Enter;
+		labelLongitudeDescendingNodeData.Leave += Control_Leave;
+		labelLongitudeDescendingNodeData.MouseDown += Control_MouseDown;
+		labelLongitudeDescendingNodeData.MouseEnter += Control_Enter;
+		labelLongitudeDescendingNodeData.MouseLeave += Control_Leave;
 		// 
 		// labelTrueAnomalyDesc
 		// 
@@ -1714,10 +3222,10 @@ partial class DerivedOrbitElementsForm
 		labelTrueAnomalyDesc.ContextMenuStrip = contextMenuOpenTerminology;
 		labelTrueAnomalyDesc.Dock = DockStyle.Top;
 		labelTrueAnomalyDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelTrueAnomalyDesc.Location = new Point(3, 133);
+		labelTrueAnomalyDesc.Location = new Point(301, 523);
 		labelTrueAnomalyDesc.Name = "labelTrueAnomalyDesc";
-		labelTrueAnomalyDesc.Size = new Size(247, 20);
-		labelTrueAnomalyDesc.TabIndex = 10;
+		labelTrueAnomalyDesc.Size = new Size(246, 20);
+		labelTrueAnomalyDesc.TabIndex = 104;
 		labelTrueAnomalyDesc.Tag = "25";
 		labelTrueAnomalyDesc.ToolTipValues.Description = "Shows the true anomaly (degrees).\r\nDouble-click or right-click to open the terminology.";
 		labelTrueAnomalyDesc.ToolTipValues.EnableToolTips = true;
@@ -1732,6 +3240,78 @@ partial class DerivedOrbitElementsForm
 		labelTrueAnomalyDesc.MouseEnter += Control_Enter;
 		labelTrueAnomalyDesc.MouseLeave += Control_Leave;
 		// 
+		// labelEccentricAnomalyDesc
+		// 
+		labelEccentricAnomalyDesc.AccessibleDescription = "Shows the eccentric anomaly (degrees)";
+		labelEccentricAnomalyDesc.AccessibleName = "Eccentric anomaly (degrees)";
+		labelEccentricAnomalyDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelEccentricAnomalyDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelEccentricAnomalyDesc.Dock = DockStyle.Top;
+		labelEccentricAnomalyDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelEccentricAnomalyDesc.Location = new Point(301, 497);
+		labelEccentricAnomalyDesc.Name = "labelEccentricAnomalyDesc";
+		labelEccentricAnomalyDesc.Size = new Size(246, 20);
+		labelEccentricAnomalyDesc.TabIndex = 102;
+		labelEccentricAnomalyDesc.Tag = "24";
+		labelEccentricAnomalyDesc.ToolTipValues.Description = "Shows the eccentric anomaly (degrees).\r\nDouble-click or right-click to open the terminology.";
+		labelEccentricAnomalyDesc.ToolTipValues.EnableToolTips = true;
+		labelEccentricAnomalyDesc.ToolTipValues.Heading = "Eccentric anomaly (degrees)";
+		labelEccentricAnomalyDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelEccentricAnomalyDesc.Values.ExtraText = "°";
+		labelEccentricAnomalyDesc.Values.Text = "Eccentric anomaly";
+		labelEccentricAnomalyDesc.DoubleClick += OpenTerminology_DoubleClick;
+		labelEccentricAnomalyDesc.Enter += Control_Enter;
+		labelEccentricAnomalyDesc.Leave += Control_Leave;
+		labelEccentricAnomalyDesc.MouseDown += Control_MouseDown;
+		labelEccentricAnomalyDesc.MouseEnter += Control_Enter;
+		labelEccentricAnomalyDesc.MouseLeave += Control_Leave;
+		// 
+		// labelTrueAnomalyData
+		// 
+		labelTrueAnomalyData.AccessibleDescription = "Shows the information of \"True anomaly\"";
+		labelTrueAnomalyData.AccessibleName = "Information of \"True anomaly\"";
+		labelTrueAnomalyData.AccessibleRole = AccessibleRole.StaticText;
+		labelTrueAnomalyData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelTrueAnomalyData.Dock = DockStyle.Top;
+		labelTrueAnomalyData.Location = new Point(553, 523);
+		labelTrueAnomalyData.Name = "labelTrueAnomalyData";
+		labelTrueAnomalyData.Size = new Size(290, 20);
+		labelTrueAnomalyData.TabIndex = 105;
+		labelTrueAnomalyData.ToolTipValues.Description = "Shows the information of \"True anomaly\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelTrueAnomalyData.ToolTipValues.EnableToolTips = true;
+		labelTrueAnomalyData.ToolTipValues.Heading = "Information of \"True anomaly\"";
+		labelTrueAnomalyData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelTrueAnomalyData.Values.Text = "..................";
+		labelTrueAnomalyData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelTrueAnomalyData.Enter += Control_Enter;
+		labelTrueAnomalyData.Leave += Control_Leave;
+		labelTrueAnomalyData.MouseDown += Control_MouseDown;
+		labelTrueAnomalyData.MouseEnter += Control_Enter;
+		labelTrueAnomalyData.MouseLeave += Control_Leave;
+		// 
+		// labelEccentricAnomalyData
+		// 
+		labelEccentricAnomalyData.AccessibleDescription = "Shows the information of \"Eccentric anomaly\"";
+		labelEccentricAnomalyData.AccessibleName = "Information of \"Eccentric anomaly\"";
+		labelEccentricAnomalyData.AccessibleRole = AccessibleRole.StaticText;
+		labelEccentricAnomalyData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelEccentricAnomalyData.Dock = DockStyle.Top;
+		labelEccentricAnomalyData.Location = new Point(553, 497);
+		labelEccentricAnomalyData.Name = "labelEccentricAnomalyData";
+		labelEccentricAnomalyData.Size = new Size(290, 20);
+		labelEccentricAnomalyData.TabIndex = 103;
+		labelEccentricAnomalyData.ToolTipValues.Description = "Shows the information of \"Eccentric anomaly\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelEccentricAnomalyData.ToolTipValues.EnableToolTips = true;
+		labelEccentricAnomalyData.ToolTipValues.Heading = "Information of \"Eccentric anomaly\"";
+		labelEccentricAnomalyData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelEccentricAnomalyData.Values.Text = "..................";
+		labelEccentricAnomalyData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelEccentricAnomalyData.Enter += Control_Enter;
+		labelEccentricAnomalyData.Leave += Control_Leave;
+		labelEccentricAnomalyData.MouseDown += Control_MouseDown;
+		labelEccentricAnomalyData.MouseEnter += Control_Enter;
+		labelEccentricAnomalyData.MouseLeave += Control_Leave;
+		// 
 		// labelPerihelionDistanceDesc
 		// 
 		labelPerihelionDistanceDesc.AccessibleDescription = "Shows the perihelion distance (AU)";
@@ -1742,7 +3322,7 @@ partial class DerivedOrbitElementsForm
 		labelPerihelionDistanceDesc.LabelStyle = LabelStyle.BoldPanel;
 		labelPerihelionDistanceDesc.Location = new Point(3, 159);
 		labelPerihelionDistanceDesc.Name = "labelPerihelionDistanceDesc";
-		labelPerihelionDistanceDesc.Size = new Size(247, 20);
+		labelPerihelionDistanceDesc.Size = new Size(227, 20);
 		labelPerihelionDistanceDesc.TabIndex = 12;
 		labelPerihelionDistanceDesc.Tag = "26";
 		labelPerihelionDistanceDesc.ToolTipValues.Description = "Shows the perihelion distance (AU).\r\nDouble-click or right-click to open the terminology.";
@@ -1766,10 +3346,10 @@ partial class DerivedOrbitElementsForm
 		labelAphelionDistanceDesc.ContextMenuStrip = contextMenuOpenTerminology;
 		labelAphelionDistanceDesc.Dock = DockStyle.Top;
 		labelAphelionDistanceDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelAphelionDistanceDesc.Location = new Point(3, 185);
+		labelAphelionDistanceDesc.Location = new Point(3, 133);
 		labelAphelionDistanceDesc.Name = "labelAphelionDistanceDesc";
-		labelAphelionDistanceDesc.Size = new Size(247, 20);
-		labelAphelionDistanceDesc.TabIndex = 14;
+		labelAphelionDistanceDesc.Size = new Size(227, 20);
+		labelAphelionDistanceDesc.TabIndex = 10;
 		labelAphelionDistanceDesc.Tag = "27";
 		labelAphelionDistanceDesc.ToolTipValues.Description = "Shows the aphelion distance (AU).\r\nDouble-click or right-click to open the terminology.";
 		labelAphelionDistanceDesc.ToolTipValues.EnableToolTips = true;
@@ -1784,277 +3364,6 @@ partial class DerivedOrbitElementsForm
 		labelAphelionDistanceDesc.MouseEnter += Control_Enter;
 		labelAphelionDistanceDesc.MouseLeave += Control_Leave;
 		// 
-		// labelLongitudeOfTheDescendingNodeDesc
-		// 
-		labelLongitudeOfTheDescendingNodeDesc.AccessibleDescription = "Shows the longitude of the descending node (degrees)";
-		labelLongitudeOfTheDescendingNodeDesc.AccessibleName = "Longitude of the descending node (degrees)";
-		labelLongitudeOfTheDescendingNodeDesc.AccessibleRole = AccessibleRole.StaticText;
-		labelLongitudeOfTheDescendingNodeDesc.ContextMenuStrip = contextMenuOpenTerminology;
-		labelLongitudeOfTheDescendingNodeDesc.Dock = DockStyle.Top;
-		labelLongitudeOfTheDescendingNodeDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelLongitudeOfTheDescendingNodeDesc.Location = new Point(3, 211);
-		labelLongitudeOfTheDescendingNodeDesc.Name = "labelLongitudeOfTheDescendingNodeDesc";
-		labelLongitudeOfTheDescendingNodeDesc.Size = new Size(247, 20);
-		labelLongitudeOfTheDescendingNodeDesc.TabIndex = 16;
-		labelLongitudeOfTheDescendingNodeDesc.Tag = "28";
-		labelLongitudeOfTheDescendingNodeDesc.ToolTipValues.Description = "Shows the longitude of the descending node (degrees).\r\nDouble-click or right-click to open the terminology.";
-		labelLongitudeOfTheDescendingNodeDesc.ToolTipValues.EnableToolTips = true;
-		labelLongitudeOfTheDescendingNodeDesc.ToolTipValues.Heading = "Longitude of the descending node (degrees)";
-		labelLongitudeOfTheDescendingNodeDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelLongitudeOfTheDescendingNodeDesc.Values.ExtraText = "°";
-		labelLongitudeOfTheDescendingNodeDesc.Values.Text = "Longitude of the descending node";
-		labelLongitudeOfTheDescendingNodeDesc.DoubleClick += OpenTerminology_DoubleClick;
-		labelLongitudeOfTheDescendingNodeDesc.Enter += Control_Enter;
-		labelLongitudeOfTheDescendingNodeDesc.Leave += Control_Leave;
-		labelLongitudeOfTheDescendingNodeDesc.MouseDown += Control_MouseDown;
-		labelLongitudeOfTheDescendingNodeDesc.MouseEnter += Control_Enter;
-		labelLongitudeOfTheDescendingNodeDesc.MouseLeave += Control_Leave;
-		// 
-		// labelArgumentOfTheAphelionDesc
-		// 
-		labelArgumentOfTheAphelionDesc.AccessibleDescription = "Shows the argument of the aphelion (degrees)";
-		labelArgumentOfTheAphelionDesc.AccessibleName = "Argument of the aphelion (degrees)";
-		labelArgumentOfTheAphelionDesc.AccessibleRole = AccessibleRole.StaticText;
-		labelArgumentOfTheAphelionDesc.ContextMenuStrip = contextMenuOpenTerminology;
-		labelArgumentOfTheAphelionDesc.Dock = DockStyle.Top;
-		labelArgumentOfTheAphelionDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelArgumentOfTheAphelionDesc.Location = new Point(3, 237);
-		labelArgumentOfTheAphelionDesc.Name = "labelArgumentOfTheAphelionDesc";
-		labelArgumentOfTheAphelionDesc.Size = new Size(247, 20);
-		labelArgumentOfTheAphelionDesc.TabIndex = 18;
-		labelArgumentOfTheAphelionDesc.Tag = "29";
-		labelArgumentOfTheAphelionDesc.ToolTipValues.Description = "Shows the argument of the aphelion (degrees).\r\nDouble-click or right-click to open the terminology.";
-		labelArgumentOfTheAphelionDesc.ToolTipValues.EnableToolTips = true;
-		labelArgumentOfTheAphelionDesc.ToolTipValues.Heading = "Argument of the aphelion (degrees)";
-		labelArgumentOfTheAphelionDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelArgumentOfTheAphelionDesc.Values.ExtraText = "°";
-		labelArgumentOfTheAphelionDesc.Values.Text = "Argument of the aphelion";
-		labelArgumentOfTheAphelionDesc.DoubleClick += OpenTerminology_DoubleClick;
-		labelArgumentOfTheAphelionDesc.Enter += Control_Enter;
-		labelArgumentOfTheAphelionDesc.Leave += Control_Leave;
-		labelArgumentOfTheAphelionDesc.MouseDown += Control_MouseDown;
-		labelArgumentOfTheAphelionDesc.MouseEnter += Control_Enter;
-		labelArgumentOfTheAphelionDesc.MouseLeave += Control_Leave;
-		// 
-		// labelFocalParameterDesc
-		// 
-		labelFocalParameterDesc.AccessibleDescription = "Shows the focal parameter (AU)";
-		labelFocalParameterDesc.AccessibleName = "Focal parameter (AU)";
-		labelFocalParameterDesc.AccessibleRole = AccessibleRole.StaticText;
-		labelFocalParameterDesc.ContextMenuStrip = contextMenuOpenTerminology;
-		labelFocalParameterDesc.Dock = DockStyle.Top;
-		labelFocalParameterDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelFocalParameterDesc.Location = new Point(3, 263);
-		labelFocalParameterDesc.Name = "labelFocalParameterDesc";
-		labelFocalParameterDesc.Size = new Size(247, 20);
-		labelFocalParameterDesc.TabIndex = 20;
-		labelFocalParameterDesc.Tag = "30";
-		labelFocalParameterDesc.ToolTipValues.Description = "Shows the focal parameter (AU).\r\nDouble-click or right-click to open the terminology.";
-		labelFocalParameterDesc.ToolTipValues.EnableToolTips = true;
-		labelFocalParameterDesc.ToolTipValues.Heading = "Focal parameter (AU)";
-		labelFocalParameterDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelFocalParameterDesc.Values.ExtraText = "AU";
-		labelFocalParameterDesc.Values.Text = "Focal parameter";
-		labelFocalParameterDesc.DoubleClick += OpenTerminology_DoubleClick;
-		labelFocalParameterDesc.Enter += Control_Enter;
-		labelFocalParameterDesc.Leave += Control_Leave;
-		labelFocalParameterDesc.MouseDown += Control_MouseDown;
-		labelFocalParameterDesc.MouseEnter += Control_Enter;
-		labelFocalParameterDesc.MouseLeave += Control_Leave;
-		// 
-		// labelSemiLatusRectumDesc
-		// 
-		labelSemiLatusRectumDesc.AccessibleDescription = "Shows the semi-latus rectum (AU)";
-		labelSemiLatusRectumDesc.AccessibleName = "Semi-latus rectum (AU)";
-		labelSemiLatusRectumDesc.AccessibleRole = AccessibleRole.StaticText;
-		labelSemiLatusRectumDesc.ContextMenuStrip = contextMenuOpenTerminology;
-		labelSemiLatusRectumDesc.Dock = DockStyle.Top;
-		labelSemiLatusRectumDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelSemiLatusRectumDesc.Location = new Point(3, 289);
-		labelSemiLatusRectumDesc.Name = "labelSemiLatusRectumDesc";
-		labelSemiLatusRectumDesc.Size = new Size(247, 20);
-		labelSemiLatusRectumDesc.TabIndex = 22;
-		labelSemiLatusRectumDesc.Tag = "31";
-		labelSemiLatusRectumDesc.ToolTipValues.Description = "Shows the semi-latus rectum (AU).\r\nDouble-click or right-click to open the terminology.";
-		labelSemiLatusRectumDesc.ToolTipValues.EnableToolTips = true;
-		labelSemiLatusRectumDesc.ToolTipValues.Heading = "Semi-latus rectum (AU)";
-		labelSemiLatusRectumDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelSemiLatusRectumDesc.Values.ExtraText = "AU";
-		labelSemiLatusRectumDesc.Values.Text = "Semi-latus rectum";
-		labelSemiLatusRectumDesc.DoubleClick += OpenTerminology_DoubleClick;
-		labelSemiLatusRectumDesc.Enter += Control_Enter;
-		labelSemiLatusRectumDesc.Leave += Control_Leave;
-		labelSemiLatusRectumDesc.MouseDown += Control_MouseDown;
-		labelSemiLatusRectumDesc.MouseEnter += Control_Enter;
-		labelSemiLatusRectumDesc.MouseLeave += Control_Leave;
-		// 
-		// labelLatusRectumDesc
-		// 
-		labelLatusRectumDesc.AccessibleDescription = "Shows the latus rectum (AU)";
-		labelLatusRectumDesc.AccessibleName = "Latus rectum (AU)";
-		labelLatusRectumDesc.AccessibleRole = AccessibleRole.StaticText;
-		labelLatusRectumDesc.ContextMenuStrip = contextMenuOpenTerminology;
-		labelLatusRectumDesc.Dock = DockStyle.Top;
-		labelLatusRectumDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelLatusRectumDesc.Location = new Point(3, 315);
-		labelLatusRectumDesc.Name = "labelLatusRectumDesc";
-		labelLatusRectumDesc.Size = new Size(247, 20);
-		labelLatusRectumDesc.TabIndex = 24;
-		labelLatusRectumDesc.Tag = "32";
-		labelLatusRectumDesc.ToolTipValues.Description = "Shows the semi-latus rectum (AU).\r\nDouble-click or right-click to open the terminology.";
-		labelLatusRectumDesc.ToolTipValues.EnableToolTips = true;
-		labelLatusRectumDesc.ToolTipValues.Heading = "Semi-latus rectum (AU)";
-		labelLatusRectumDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelLatusRectumDesc.Values.ExtraText = "AU";
-		labelLatusRectumDesc.Values.Text = "Latus rectum";
-		labelLatusRectumDesc.DoubleClick += OpenTerminology_DoubleClick;
-		labelLatusRectumDesc.Enter += Control_Enter;
-		labelLatusRectumDesc.Leave += Control_Leave;
-		labelLatusRectumDesc.MouseDown += Control_MouseDown;
-		labelLatusRectumDesc.MouseEnter += Control_Enter;
-		labelLatusRectumDesc.MouseLeave += Control_Leave;
-		// 
-		// labelOrbitalPeriodDesc
-		// 
-		labelOrbitalPeriodDesc.AccessibleDescription = "Shows the orbital period (years)";
-		labelOrbitalPeriodDesc.AccessibleName = "Orbital period (years)";
-		labelOrbitalPeriodDesc.AccessibleRole = AccessibleRole.StaticText;
-		labelOrbitalPeriodDesc.ContextMenuStrip = contextMenuOpenTerminology;
-		labelOrbitalPeriodDesc.Dock = DockStyle.Top;
-		labelOrbitalPeriodDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelOrbitalPeriodDesc.Location = new Point(3, 341);
-		labelOrbitalPeriodDesc.Name = "labelOrbitalPeriodDesc";
-		labelOrbitalPeriodDesc.Size = new Size(247, 20);
-		labelOrbitalPeriodDesc.TabIndex = 26;
-		labelOrbitalPeriodDesc.Tag = "33";
-		labelOrbitalPeriodDesc.ToolTipValues.Description = "Shows the orbital Period (years).\r\nDouble-click or right-click to open the terminology.";
-		labelOrbitalPeriodDesc.ToolTipValues.EnableToolTips = true;
-		labelOrbitalPeriodDesc.ToolTipValues.Heading = "Orbital Period (years)";
-		labelOrbitalPeriodDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelOrbitalPeriodDesc.Values.ExtraText = "yr";
-		labelOrbitalPeriodDesc.Values.Text = "Orbital period";
-		labelOrbitalPeriodDesc.DoubleClick += OpenTerminology_DoubleClick;
-		labelOrbitalPeriodDesc.Enter += Control_Enter;
-		labelOrbitalPeriodDesc.Leave += Control_Leave;
-		labelOrbitalPeriodDesc.MouseDown += Control_MouseDown;
-		labelOrbitalPeriodDesc.MouseEnter += Control_Enter;
-		labelOrbitalPeriodDesc.MouseLeave += Control_Leave;
-		// 
-		// labelSemiMinorAxisData
-		// 
-		labelSemiMinorAxisData.AccessibleDescription = "Shows the information of \"Semi-minor axis\"";
-		labelSemiMinorAxisData.AccessibleName = "Information of \"Semi-minor axis\"";
-		labelSemiMinorAxisData.AccessibleRole = AccessibleRole.StaticText;
-		labelSemiMinorAxisData.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelSemiMinorAxisData.Dock = DockStyle.Top;
-		labelSemiMinorAxisData.Location = new Point(256, 29);
-		labelSemiMinorAxisData.Name = "labelSemiMinorAxisData";
-		labelSemiMinorAxisData.Size = new Size(59, 20);
-		labelSemiMinorAxisData.TabIndex = 3;
-		labelSemiMinorAxisData.ToolTipValues.Description = "Shows the information of \"Semi-minor axis\".\r\nDouble-click or right-click to copy the information to the clipboard.";
-		labelSemiMinorAxisData.ToolTipValues.EnableToolTips = true;
-		labelSemiMinorAxisData.ToolTipValues.Heading = "Information of \"Semi-minor axis\"";
-		labelSemiMinorAxisData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelSemiMinorAxisData.Values.Text = "..................";
-		labelSemiMinorAxisData.DoubleClick += CopyToClipboard_DoubleClick;
-		labelSemiMinorAxisData.Enter += Control_Enter;
-		labelSemiMinorAxisData.Leave += Control_Leave;
-		labelSemiMinorAxisData.MouseDown += Control_MouseDown;
-		labelSemiMinorAxisData.MouseEnter += Control_Enter;
-		labelSemiMinorAxisData.MouseLeave += Control_Leave;
-		// 
-		// labelMajorAxisData
-		// 
-		labelMajorAxisData.AccessibleDescription = "Shows the information of \"Major axis\"";
-		labelMajorAxisData.AccessibleName = "Information of \"Major axis\"";
-		labelMajorAxisData.AccessibleRole = AccessibleRole.StaticText;
-		labelMajorAxisData.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelMajorAxisData.Dock = DockStyle.Top;
-		labelMajorAxisData.Location = new Point(256, 55);
-		labelMajorAxisData.Name = "labelMajorAxisData";
-		labelMajorAxisData.Size = new Size(59, 20);
-		labelMajorAxisData.TabIndex = 5;
-		labelMajorAxisData.ToolTipValues.Description = "Shows the information of \"Major axis\".\r\nDouble-click or right-click to copy the information to the clipboard.";
-		labelMajorAxisData.ToolTipValues.EnableToolTips = true;
-		labelMajorAxisData.ToolTipValues.Heading = "Information of \"Major axis\"";
-		labelMajorAxisData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelMajorAxisData.Values.Text = "..................";
-		labelMajorAxisData.DoubleClick += CopyToClipboard_DoubleClick;
-		labelMajorAxisData.Enter += Control_Enter;
-		labelMajorAxisData.Leave += Control_Leave;
-		labelMajorAxisData.MouseDown += Control_MouseDown;
-		labelMajorAxisData.MouseEnter += Control_Enter;
-		labelMajorAxisData.MouseLeave += Control_Leave;
-		// 
-		// labelMinorAxisData
-		// 
-		labelMinorAxisData.AccessibleDescription = "Shows the information of \"Minor axis\"";
-		labelMinorAxisData.AccessibleName = "Information of \"Minor axis\"";
-		labelMinorAxisData.AccessibleRole = AccessibleRole.StaticText;
-		labelMinorAxisData.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelMinorAxisData.Dock = DockStyle.Top;
-		labelMinorAxisData.Location = new Point(256, 81);
-		labelMinorAxisData.Name = "labelMinorAxisData";
-		labelMinorAxisData.Size = new Size(59, 20);
-		labelMinorAxisData.TabIndex = 7;
-		labelMinorAxisData.ToolTipValues.Description = "Shows the information of \"Minor axis\".\r\nDouble-click or right-click to copy the information to the clipboard.";
-		labelMinorAxisData.ToolTipValues.EnableToolTips = true;
-		labelMinorAxisData.ToolTipValues.Heading = "Information of \"Minor axis\"";
-		labelMinorAxisData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelMinorAxisData.Values.Text = "..................";
-		labelMinorAxisData.DoubleClick += CopyToClipboard_DoubleClick;
-		labelMinorAxisData.Enter += Control_Enter;
-		labelMinorAxisData.Leave += Control_Leave;
-		labelMinorAxisData.MouseDown += Control_MouseDown;
-		labelMinorAxisData.MouseEnter += Control_Enter;
-		labelMinorAxisData.MouseLeave += Control_Leave;
-		// 
-		// labelEccentricAnomalyData
-		// 
-		labelEccentricAnomalyData.AccessibleDescription = "Shows the information of \"Eccentric anomaly\"";
-		labelEccentricAnomalyData.AccessibleName = "Information of \"Eccentric anomaly\"";
-		labelEccentricAnomalyData.AccessibleRole = AccessibleRole.StaticText;
-		labelEccentricAnomalyData.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelEccentricAnomalyData.Dock = DockStyle.Top;
-		labelEccentricAnomalyData.Location = new Point(256, 107);
-		labelEccentricAnomalyData.Name = "labelEccentricAnomalyData";
-		labelEccentricAnomalyData.Size = new Size(59, 20);
-		labelEccentricAnomalyData.TabIndex = 9;
-		labelEccentricAnomalyData.ToolTipValues.Description = "Shows the information of \"Eccentric anomaly\".\r\nDouble-click or right-click to copy the information to the clipboard.";
-		labelEccentricAnomalyData.ToolTipValues.EnableToolTips = true;
-		labelEccentricAnomalyData.ToolTipValues.Heading = "Information of \"Eccentric anomaly\"";
-		labelEccentricAnomalyData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelEccentricAnomalyData.Values.Text = "..................";
-		labelEccentricAnomalyData.DoubleClick += CopyToClipboard_DoubleClick;
-		labelEccentricAnomalyData.Enter += Control_Enter;
-		labelEccentricAnomalyData.Leave += Control_Leave;
-		labelEccentricAnomalyData.MouseDown += Control_MouseDown;
-		labelEccentricAnomalyData.MouseEnter += Control_Enter;
-		labelEccentricAnomalyData.MouseLeave += Control_Leave;
-		// 
-		// labelTrueAnomalyData
-		// 
-		labelTrueAnomalyData.AccessibleDescription = "Shows the information of \"True anomaly\"";
-		labelTrueAnomalyData.AccessibleName = "Information of \"True anomaly\"";
-		labelTrueAnomalyData.AccessibleRole = AccessibleRole.StaticText;
-		labelTrueAnomalyData.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelTrueAnomalyData.Dock = DockStyle.Top;
-		labelTrueAnomalyData.Location = new Point(256, 133);
-		labelTrueAnomalyData.Name = "labelTrueAnomalyData";
-		labelTrueAnomalyData.Size = new Size(59, 20);
-		labelTrueAnomalyData.TabIndex = 11;
-		labelTrueAnomalyData.ToolTipValues.Description = "Shows the information of \"True anomaly\".\r\nDouble-click or right-click to copy the information to the clipboard.";
-		labelTrueAnomalyData.ToolTipValues.EnableToolTips = true;
-		labelTrueAnomalyData.ToolTipValues.Heading = "Information of \"True anomaly\"";
-		labelTrueAnomalyData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelTrueAnomalyData.Values.Text = "..................";
-		labelTrueAnomalyData.DoubleClick += CopyToClipboard_DoubleClick;
-		labelTrueAnomalyData.Enter += Control_Enter;
-		labelTrueAnomalyData.Leave += Control_Leave;
-		labelTrueAnomalyData.MouseDown += Control_MouseDown;
-		labelTrueAnomalyData.MouseEnter += Control_Enter;
-		labelTrueAnomalyData.MouseLeave += Control_Leave;
-		// 
 		// labelPerihelionDistanceData
 		// 
 		labelPerihelionDistanceData.AccessibleDescription = "Shows the information of \"Perihelion distance\"";
@@ -2062,7 +3371,7 @@ partial class DerivedOrbitElementsForm
 		labelPerihelionDistanceData.AccessibleRole = AccessibleRole.StaticText;
 		labelPerihelionDistanceData.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelPerihelionDistanceData.Dock = DockStyle.Top;
-		labelPerihelionDistanceData.Location = new Point(256, 159);
+		labelPerihelionDistanceData.Location = new Point(236, 159);
 		labelPerihelionDistanceData.Name = "labelPerihelionDistanceData";
 		labelPerihelionDistanceData.Size = new Size(59, 20);
 		labelPerihelionDistanceData.TabIndex = 13;
@@ -2085,10 +3394,10 @@ partial class DerivedOrbitElementsForm
 		labelAphelionDistanceData.AccessibleRole = AccessibleRole.StaticText;
 		labelAphelionDistanceData.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelAphelionDistanceData.Dock = DockStyle.Top;
-		labelAphelionDistanceData.Location = new Point(256, 185);
+		labelAphelionDistanceData.Location = new Point(236, 133);
 		labelAphelionDistanceData.Name = "labelAphelionDistanceData";
 		labelAphelionDistanceData.Size = new Size(59, 20);
-		labelAphelionDistanceData.TabIndex = 15;
+		labelAphelionDistanceData.TabIndex = 11;
 		labelAphelionDistanceData.ToolTipValues.Description = "Shows the information of \"Aphelion distance\".\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelAphelionDistanceData.ToolTipValues.EnableToolTips = true;
 		labelAphelionDistanceData.ToolTipValues.Heading = "Information of \"Aphelion distance\"";
@@ -2101,388 +3410,299 @@ partial class DerivedOrbitElementsForm
 		labelAphelionDistanceData.MouseEnter += Control_Enter;
 		labelAphelionDistanceData.MouseLeave += Control_Leave;
 		// 
-		// labelLongitudeDescendingNodeData
+		// labelTimeSincePerihelionDesc
 		// 
-		labelLongitudeDescendingNodeData.AccessibleDescription = "Shows the information of \"Longitude of the descending node\"";
-		labelLongitudeDescendingNodeData.AccessibleName = "Information of \"Longitude of the descending node\"";
-		labelLongitudeDescendingNodeData.AccessibleRole = AccessibleRole.StaticText;
-		labelLongitudeDescendingNodeData.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelLongitudeDescendingNodeData.Dock = DockStyle.Top;
-		labelLongitudeDescendingNodeData.Location = new Point(256, 211);
-		labelLongitudeDescendingNodeData.Name = "labelLongitudeDescendingNodeData";
-		labelLongitudeDescendingNodeData.Size = new Size(59, 20);
-		labelLongitudeDescendingNodeData.TabIndex = 17;
-		labelLongitudeDescendingNodeData.ToolTipValues.Description = "Shows the information of \"Longitude of the descending node\".\r\nDouble-click or right-click to copy the information to the clipboard.";
-		labelLongitudeDescendingNodeData.ToolTipValues.EnableToolTips = true;
-		labelLongitudeDescendingNodeData.ToolTipValues.Heading = "Information of \"Longitude of the descending node\"";
-		labelLongitudeDescendingNodeData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelLongitudeDescendingNodeData.Values.Text = "..................";
-		labelLongitudeDescendingNodeData.DoubleClick += CopyToClipboard_DoubleClick;
-		labelLongitudeDescendingNodeData.Enter += Control_Enter;
-		labelLongitudeDescendingNodeData.Leave += Control_Leave;
-		labelLongitudeDescendingNodeData.MouseDown += Control_MouseDown;
-		labelLongitudeDescendingNodeData.MouseEnter += Control_Enter;
-		labelLongitudeDescendingNodeData.MouseLeave += Control_Leave;
+		labelTimeSincePerihelionDesc.AccessibleDescription = "Shows the time since perihelion (yr)";
+		labelTimeSincePerihelionDesc.AccessibleName = "Time since perihelion (yr)";
+		labelTimeSincePerihelionDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelTimeSincePerihelionDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelTimeSincePerihelionDesc.Dock = DockStyle.Top;
+		labelTimeSincePerihelionDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelTimeSincePerihelionDesc.Location = new Point(3, 783);
+		labelTimeSincePerihelionDesc.Name = "labelTimeSincePerihelionDesc";
+		labelTimeSincePerihelionDesc.Size = new Size(227, 20);
+		labelTimeSincePerihelionDesc.TabIndex = 60;
+		labelTimeSincePerihelionDesc.Tag = "20";
+		labelTimeSincePerihelionDesc.ToolTipValues.Description = "Shows the time since perihelion (yr).\r\nDouble-click or right-click to open the terminology.";
+		labelTimeSincePerihelionDesc.ToolTipValues.EnableToolTips = true;
+		labelTimeSincePerihelionDesc.ToolTipValues.Heading = "Time since perihelion (yr)";
+		labelTimeSincePerihelionDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelTimeSincePerihelionDesc.Values.ExtraText = "yr";
+		labelTimeSincePerihelionDesc.Values.Text = "Time since perihelion";
+		labelTimeSincePerihelionDesc.DoubleClick += OpenTerminology_DoubleClick;
+		labelTimeSincePerihelionDesc.Enter += Control_Enter;
+		labelTimeSincePerihelionDesc.Leave += Control_Leave;
+		labelTimeSincePerihelionDesc.MouseDown += Control_MouseDown;
+		labelTimeSincePerihelionDesc.MouseEnter += Control_Enter;
+		labelTimeSincePerihelionDesc.MouseLeave += Control_Leave;
 		// 
-		// labelArgumentAphelionData
+		// labelTimeSinceAphelionDesc
 		// 
-		labelArgumentAphelionData.AccessibleDescription = "Shows the information of \"Argument of the aphelion\"";
-		labelArgumentAphelionData.AccessibleName = "Information of \"Argument of the aphelion\"";
-		labelArgumentAphelionData.AccessibleRole = AccessibleRole.StaticText;
-		labelArgumentAphelionData.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelArgumentAphelionData.Dock = DockStyle.Top;
-		labelArgumentAphelionData.Location = new Point(256, 237);
-		labelArgumentAphelionData.Name = "labelArgumentAphelionData";
-		labelArgumentAphelionData.Size = new Size(59, 20);
-		labelArgumentAphelionData.TabIndex = 19;
-		labelArgumentAphelionData.ToolTipValues.Description = "Shows the information of \"Argument of the aphelion\".\r\nDouble-click or right-click to copy the information to the clipboard.";
-		labelArgumentAphelionData.ToolTipValues.EnableToolTips = true;
-		labelArgumentAphelionData.ToolTipValues.Heading = "Information of \"Argument of the aphelion\"";
-		labelArgumentAphelionData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelArgumentAphelionData.Values.Text = "..................";
-		labelArgumentAphelionData.DoubleClick += CopyToClipboard_DoubleClick;
-		labelArgumentAphelionData.Enter += Control_Enter;
-		labelArgumentAphelionData.Leave += Control_Leave;
-		labelArgumentAphelionData.MouseDown += Control_MouseDown;
-		labelArgumentAphelionData.MouseEnter += Control_Enter;
-		labelArgumentAphelionData.MouseLeave += Control_Leave;
+		labelTimeSinceAphelionDesc.AccessibleDescription = "Shows the time since aphelion (yr)";
+		labelTimeSinceAphelionDesc.AccessibleName = "Time since aphelion (yr)";
+		labelTimeSinceAphelionDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelTimeSinceAphelionDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelTimeSinceAphelionDesc.Dock = DockStyle.Top;
+		labelTimeSinceAphelionDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelTimeSinceAphelionDesc.Location = new Point(3, 731);
+		labelTimeSinceAphelionDesc.Name = "labelTimeSinceAphelionDesc";
+		labelTimeSinceAphelionDesc.Size = new Size(227, 20);
+		labelTimeSinceAphelionDesc.TabIndex = 56;
+		labelTimeSinceAphelionDesc.Tag = "20";
+		labelTimeSinceAphelionDesc.ToolTipValues.Description = "Shows the time since aphelion (yr).\r\nDouble-click or right-click to open the terminology.";
+		labelTimeSinceAphelionDesc.ToolTipValues.EnableToolTips = true;
+		labelTimeSinceAphelionDesc.ToolTipValues.Heading = "Time since aphelion (yr)";
+		labelTimeSinceAphelionDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelTimeSinceAphelionDesc.Values.ExtraText = "yr";
+		labelTimeSinceAphelionDesc.Values.Text = "Time since aphelion";
+		labelTimeSinceAphelionDesc.DoubleClick += OpenTerminology_DoubleClick;
+		labelTimeSinceAphelionDesc.Enter += Control_Enter;
+		labelTimeSinceAphelionDesc.Leave += Control_Leave;
+		labelTimeSinceAphelionDesc.MouseDown += Control_MouseDown;
+		labelTimeSinceAphelionDesc.MouseEnter += Control_Enter;
+		labelTimeSinceAphelionDesc.MouseLeave += Control_Leave;
 		// 
-		// labelFocalParameterData
+		// labelTimeSincePerihelionData
 		// 
-		labelFocalParameterData.AccessibleDescription = "Shows the information of \"Focal parameter\"";
-		labelFocalParameterData.AccessibleName = "Information of \"Focal parameter\"";
-		labelFocalParameterData.AccessibleRole = AccessibleRole.StaticText;
-		labelFocalParameterData.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelFocalParameterData.Dock = DockStyle.Top;
-		labelFocalParameterData.Location = new Point(256, 263);
-		labelFocalParameterData.Name = "labelFocalParameterData";
-		labelFocalParameterData.Size = new Size(59, 20);
-		labelFocalParameterData.TabIndex = 21;
-		labelFocalParameterData.ToolTipValues.Description = "Shows the information of \"Semi-latus rectum\".\r\nDouble-click or right-click to copy the information to the clipboard.";
-		labelFocalParameterData.ToolTipValues.EnableToolTips = true;
-		labelFocalParameterData.ToolTipValues.Heading = "Information of \"Semi-latus rectum\"";
-		labelFocalParameterData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelFocalParameterData.Values.Text = "..................";
-		labelFocalParameterData.DoubleClick += CopyToClipboard_DoubleClick;
-		labelFocalParameterData.Enter += Control_Enter;
-		labelFocalParameterData.Leave += Control_Leave;
-		labelFocalParameterData.MouseDown += Control_MouseDown;
-		labelFocalParameterData.MouseEnter += Control_Enter;
-		labelFocalParameterData.MouseLeave += Control_Leave;
+		labelTimeSincePerihelionData.AccessibleDescription = "Shows the information of \"Time since perihelion\"";
+		labelTimeSincePerihelionData.AccessibleName = "Information of \"Time since perihelion\"";
+		labelTimeSincePerihelionData.AccessibleRole = AccessibleRole.StaticText;
+		labelTimeSincePerihelionData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelTimeSincePerihelionData.Dock = DockStyle.Top;
+		labelTimeSincePerihelionData.Location = new Point(236, 783);
+		labelTimeSincePerihelionData.Name = "labelTimeSincePerihelionData";
+		labelTimeSincePerihelionData.Size = new Size(59, 20);
+		labelTimeSincePerihelionData.TabIndex = 61;
+		labelTimeSincePerihelionData.ToolTipValues.Description = "Shows the information of \"Time since perihelion\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelTimeSincePerihelionData.ToolTipValues.EnableToolTips = true;
+		labelTimeSincePerihelionData.ToolTipValues.Heading = "Information of \"Time since perihelion\"";
+		labelTimeSincePerihelionData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelTimeSincePerihelionData.Values.Text = "..................";
+		labelTimeSincePerihelionData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelTimeSincePerihelionData.Enter += Control_Enter;
+		labelTimeSincePerihelionData.Leave += Control_Leave;
+		labelTimeSincePerihelionData.MouseDown += Control_MouseDown;
+		labelTimeSincePerihelionData.MouseEnter += Control_Enter;
+		labelTimeSincePerihelionData.MouseLeave += Control_Leave;
 		// 
-		// labelSemiLatusRectumData
+		// labelTimeSinceAphelionData
 		// 
-		labelSemiLatusRectumData.AccessibleDescription = "Shows the information of \"Semi-latus rectum\"";
-		labelSemiLatusRectumData.AccessibleName = "Information of \"Semi-latus rectum\"";
-		labelSemiLatusRectumData.AccessibleRole = AccessibleRole.StaticText;
-		labelSemiLatusRectumData.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelSemiLatusRectumData.Dock = DockStyle.Top;
-		labelSemiLatusRectumData.Location = new Point(256, 289);
-		labelSemiLatusRectumData.Name = "labelSemiLatusRectumData";
-		labelSemiLatusRectumData.Size = new Size(59, 20);
-		labelSemiLatusRectumData.TabIndex = 23;
-		labelSemiLatusRectumData.ToolTipValues.Description = "Shows the information of \"Semi-latus rectum\".\r\nDouble-click or right-click to copy the information to the clipboard.";
-		labelSemiLatusRectumData.ToolTipValues.EnableToolTips = true;
-		labelSemiLatusRectumData.ToolTipValues.Heading = "Information of \"Semi-latus rectum\"";
-		labelSemiLatusRectumData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelSemiLatusRectumData.Values.Text = "..................";
-		labelSemiLatusRectumData.DoubleClick += CopyToClipboard_DoubleClick;
-		labelSemiLatusRectumData.Enter += Control_Enter;
-		labelSemiLatusRectumData.Leave += Control_Leave;
-		labelSemiLatusRectumData.MouseDown += Control_MouseDown;
-		labelSemiLatusRectumData.MouseEnter += Control_Enter;
-		labelSemiLatusRectumData.MouseLeave += Control_Leave;
+		labelTimeSinceAphelionData.AccessibleDescription = "Shows the information of \"Time since aphelion\"";
+		labelTimeSinceAphelionData.AccessibleName = "Information of \"Time since aphelion\"";
+		labelTimeSinceAphelionData.AccessibleRole = AccessibleRole.StaticText;
+		labelTimeSinceAphelionData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelTimeSinceAphelionData.Dock = DockStyle.Top;
+		labelTimeSinceAphelionData.Location = new Point(236, 731);
+		labelTimeSinceAphelionData.Name = "labelTimeSinceAphelionData";
+		labelTimeSinceAphelionData.Size = new Size(59, 20);
+		labelTimeSinceAphelionData.TabIndex = 57;
+		labelTimeSinceAphelionData.ToolTipValues.Description = "Shows the information of \"Time since aphelion\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelTimeSinceAphelionData.ToolTipValues.EnableToolTips = true;
+		labelTimeSinceAphelionData.ToolTipValues.Heading = "Information of \"Time since aphelion\"";
+		labelTimeSinceAphelionData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelTimeSinceAphelionData.Values.Text = "..................";
+		labelTimeSinceAphelionData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelTimeSinceAphelionData.Enter += Control_Enter;
+		labelTimeSinceAphelionData.Leave += Control_Leave;
+		labelTimeSinceAphelionData.MouseDown += Control_MouseDown;
+		labelTimeSinceAphelionData.MouseEnter += Control_Enter;
+		labelTimeSinceAphelionData.MouseLeave += Control_Leave;
 		// 
-		// labelLatusRectumData
+		// labelTimeToNextPerihelionDesc
 		// 
-		labelLatusRectumData.AccessibleDescription = "Shows the information of \"Latus rectum\"";
-		labelLatusRectumData.AccessibleName = "Information of \"Latus rectum\"";
-		labelLatusRectumData.AccessibleRole = AccessibleRole.StaticText;
-		labelLatusRectumData.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelLatusRectumData.Dock = DockStyle.Top;
-		labelLatusRectumData.Location = new Point(256, 315);
-		labelLatusRectumData.Name = "labelLatusRectumData";
-		labelLatusRectumData.Size = new Size(59, 20);
-		labelLatusRectumData.TabIndex = 25;
-		labelLatusRectumData.ToolTipValues.Description = "Shows the information of \"Latus rectum\".\r\nDouble-click or right-click to copy the information to the clipboard.";
-		labelLatusRectumData.ToolTipValues.EnableToolTips = true;
-		labelLatusRectumData.ToolTipValues.Heading = "Information of \"Latus rectum\"";
-		labelLatusRectumData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelLatusRectumData.Values.Text = "..................";
-		labelLatusRectumData.DoubleClick += CopyToClipboard_DoubleClick;
-		labelLatusRectumData.Enter += Control_Enter;
-		labelLatusRectumData.Leave += Control_Leave;
-		labelLatusRectumData.MouseDown += Control_MouseDown;
-		labelLatusRectumData.MouseEnter += Control_Enter;
-		labelLatusRectumData.MouseLeave += Control_Leave;
+		labelTimeToNextPerihelionDesc.AccessibleDescription = "Shows the time to next perihelion (yr)";
+		labelTimeToNextPerihelionDesc.AccessibleName = "Time to next perihelion (yr)";
+		labelTimeToNextPerihelionDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelTimeToNextPerihelionDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelTimeToNextPerihelionDesc.Dock = DockStyle.Top;
+		labelTimeToNextPerihelionDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelTimeToNextPerihelionDesc.Location = new Point(3, 809);
+		labelTimeToNextPerihelionDesc.Name = "labelTimeToNextPerihelionDesc";
+		labelTimeToNextPerihelionDesc.Size = new Size(227, 20);
+		labelTimeToNextPerihelionDesc.TabIndex = 62;
+		labelTimeToNextPerihelionDesc.Tag = "20";
+		labelTimeToNextPerihelionDesc.ToolTipValues.Description = "Shows the time to next perihelion (yr).\r\nDouble-click or right-click to open the terminology.";
+		labelTimeToNextPerihelionDesc.ToolTipValues.EnableToolTips = true;
+		labelTimeToNextPerihelionDesc.ToolTipValues.Heading = "Time to next perihelion (yr)";
+		labelTimeToNextPerihelionDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelTimeToNextPerihelionDesc.Values.ExtraText = "yr";
+		labelTimeToNextPerihelionDesc.Values.Text = "Time to next perihelion";
+		labelTimeToNextPerihelionDesc.DoubleClick += OpenTerminology_DoubleClick;
+		labelTimeToNextPerihelionDesc.Enter += Control_Enter;
+		labelTimeToNextPerihelionDesc.Leave += Control_Leave;
+		labelTimeToNextPerihelionDesc.MouseDown += Control_MouseDown;
+		labelTimeToNextPerihelionDesc.MouseEnter += Control_Enter;
+		labelTimeToNextPerihelionDesc.MouseLeave += Control_Leave;
 		// 
-		// labelOrbitalPeriodData
+		// labelTimeToNextAphelionDesc
 		// 
-		labelOrbitalPeriodData.AccessibleDescription = "Shows the information of \"Orbital period\"";
-		labelOrbitalPeriodData.AccessibleName = "Information of \"Orbital period\"";
-		labelOrbitalPeriodData.AccessibleRole = AccessibleRole.StaticText;
-		labelOrbitalPeriodData.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelOrbitalPeriodData.Dock = DockStyle.Top;
-		labelOrbitalPeriodData.Location = new Point(256, 341);
-		labelOrbitalPeriodData.Name = "labelOrbitalPeriodData";
-		labelOrbitalPeriodData.Size = new Size(59, 20);
-		labelOrbitalPeriodData.TabIndex = 27;
-		labelOrbitalPeriodData.ToolTipValues.Description = "Shows the information of \"Orbital period\".\r\nDouble-click or right-click to copy the information to the clipboard.";
-		labelOrbitalPeriodData.ToolTipValues.EnableToolTips = true;
-		labelOrbitalPeriodData.ToolTipValues.Heading = "Information of \"Orbital period\"";
-		labelOrbitalPeriodData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelOrbitalPeriodData.Values.Text = "..................";
-		labelOrbitalPeriodData.DoubleClick += CopyToClipboard_DoubleClick;
-		labelOrbitalPeriodData.Enter += Control_Enter;
-		labelOrbitalPeriodData.Leave += Control_Leave;
-		labelOrbitalPeriodData.MouseDown += Control_MouseDown;
-		labelOrbitalPeriodData.MouseEnter += Control_Enter;
-		labelOrbitalPeriodData.MouseLeave += Control_Leave;
+		labelTimeToNextAphelionDesc.AccessibleDescription = "Shows the time to next aphelion (yr)";
+		labelTimeToNextAphelionDesc.AccessibleName = "Time to next aphelion (yr)";
+		labelTimeToNextAphelionDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelTimeToNextAphelionDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelTimeToNextAphelionDesc.Dock = DockStyle.Top;
+		labelTimeToNextAphelionDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelTimeToNextAphelionDesc.Location = new Point(3, 757);
+		labelTimeToNextAphelionDesc.Name = "labelTimeToNextAphelionDesc";
+		labelTimeToNextAphelionDesc.Size = new Size(227, 20);
+		labelTimeToNextAphelionDesc.TabIndex = 58;
+		labelTimeToNextAphelionDesc.Tag = "20";
+		labelTimeToNextAphelionDesc.ToolTipValues.Description = "Shows the time to next aphelion (yr).\r\nDouble-click or right-click to open the terminology.";
+		labelTimeToNextAphelionDesc.ToolTipValues.EnableToolTips = true;
+		labelTimeToNextAphelionDesc.ToolTipValues.Heading = "Time to next aphelion (yr)";
+		labelTimeToNextAphelionDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelTimeToNextAphelionDesc.Values.ExtraText = "yr";
+		labelTimeToNextAphelionDesc.Values.Text = "Time to next aphelion";
+		labelTimeToNextAphelionDesc.DoubleClick += OpenTerminology_DoubleClick;
+		labelTimeToNextAphelionDesc.Enter += Control_Enter;
+		labelTimeToNextAphelionDesc.Leave += Control_Leave;
+		labelTimeToNextAphelionDesc.MouseDown += Control_MouseDown;
+		labelTimeToNextAphelionDesc.MouseEnter += Control_Enter;
+		labelTimeToNextAphelionDesc.MouseLeave += Control_Leave;
 		// 
-		// labelOrbitalAreaDesc
+		// labelTimeToNextPerihelionData
 		// 
-		labelOrbitalAreaDesc.AccessibleDescription = "Orbital area (AU²)";
-		labelOrbitalAreaDesc.AccessibleName = "Orbital area (AU²)";
-		labelOrbitalAreaDesc.AccessibleRole = AccessibleRole.StaticText;
-		labelOrbitalAreaDesc.ContextMenuStrip = contextMenuOpenTerminology;
-		labelOrbitalAreaDesc.Dock = DockStyle.Top;
-		labelOrbitalAreaDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelOrbitalAreaDesc.Location = new Point(3, 367);
-		labelOrbitalAreaDesc.Name = "labelOrbitalAreaDesc";
-		labelOrbitalAreaDesc.Size = new Size(247, 20);
-		labelOrbitalAreaDesc.TabIndex = 28;
-		labelOrbitalAreaDesc.Tag = "34";
-		labelOrbitalAreaDesc.ToolTipValues.Description = "Shows the orbital area (AU²).\r\nDouble-click or right-click to open the terminology.";
-		labelOrbitalAreaDesc.ToolTipValues.EnableToolTips = true;
-		labelOrbitalAreaDesc.ToolTipValues.Heading = "Orbital area (AU²)";
-		labelOrbitalAreaDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelOrbitalAreaDesc.Values.ExtraText = "AU²";
-		labelOrbitalAreaDesc.Values.Text = "Orbital area";
-		labelOrbitalAreaDesc.DoubleClick += OpenTerminology_DoubleClick;
-		labelOrbitalAreaDesc.Enter += Control_Enter;
-		labelOrbitalAreaDesc.Leave += Control_Leave;
-		labelOrbitalAreaDesc.MouseDown += Control_MouseDown;
-		labelOrbitalAreaDesc.MouseEnter += Control_Enter;
-		labelOrbitalAreaDesc.MouseLeave += Control_Leave;
+		labelTimeToNextPerihelionData.AccessibleDescription = "Shows the information of \"Time to next perihelion\"";
+		labelTimeToNextPerihelionData.AccessibleName = "Information of \"Time to next perihelion\"";
+		labelTimeToNextPerihelionData.AccessibleRole = AccessibleRole.StaticText;
+		labelTimeToNextPerihelionData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelTimeToNextPerihelionData.Dock = DockStyle.Top;
+		labelTimeToNextPerihelionData.Location = new Point(236, 809);
+		labelTimeToNextPerihelionData.Name = "labelTimeToNextPerihelionData";
+		labelTimeToNextPerihelionData.Size = new Size(59, 20);
+		labelTimeToNextPerihelionData.TabIndex = 63;
+		labelTimeToNextPerihelionData.ToolTipValues.Description = "Shows the information of \"Time to next perihelion\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelTimeToNextPerihelionData.ToolTipValues.EnableToolTips = true;
+		labelTimeToNextPerihelionData.ToolTipValues.Heading = "Information of \"Time to next perihelion\"";
+		labelTimeToNextPerihelionData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelTimeToNextPerihelionData.Values.Text = "..................";
+		labelTimeToNextPerihelionData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelTimeToNextPerihelionData.Enter += Control_Enter;
+		labelTimeToNextPerihelionData.Leave += Control_Leave;
+		labelTimeToNextPerihelionData.MouseDown += Control_MouseDown;
+		labelTimeToNextPerihelionData.MouseEnter += Control_Enter;
+		labelTimeToNextPerihelionData.MouseLeave += Control_Leave;
 		// 
-		// labelOrbitalPerimeterDesc
+		// labelTimeToNextAphelionData
 		// 
-		labelOrbitalPerimeterDesc.AccessibleDescription = "Shows the orbital perimeter (AU)";
-		labelOrbitalPerimeterDesc.AccessibleName = "Orbital perimeter (AU)";
-		labelOrbitalPerimeterDesc.AccessibleRole = AccessibleRole.StaticText;
-		labelOrbitalPerimeterDesc.ContextMenuStrip = contextMenuOpenTerminology;
-		labelOrbitalPerimeterDesc.Dock = DockStyle.Top;
-		labelOrbitalPerimeterDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelOrbitalPerimeterDesc.Location = new Point(3, 393);
-		labelOrbitalPerimeterDesc.Name = "labelOrbitalPerimeterDesc";
-		labelOrbitalPerimeterDesc.Size = new Size(247, 20);
-		labelOrbitalPerimeterDesc.TabIndex = 30;
-		labelOrbitalPerimeterDesc.Tag = "35";
-		labelOrbitalPerimeterDesc.ToolTipValues.Description = "Shows the orbital perimeter (AU).\r\nDouble-click or right-click to open the terminology.";
-		labelOrbitalPerimeterDesc.ToolTipValues.EnableToolTips = true;
-		labelOrbitalPerimeterDesc.ToolTipValues.Heading = "Orbital perimeter (AU)";
-		labelOrbitalPerimeterDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelOrbitalPerimeterDesc.Values.ExtraText = "AU";
-		labelOrbitalPerimeterDesc.Values.Text = "Orbital perimeter";
-		labelOrbitalPerimeterDesc.DoubleClick += OpenTerminology_DoubleClick;
-		labelOrbitalPerimeterDesc.Enter += Control_Enter;
-		labelOrbitalPerimeterDesc.Leave += Control_Leave;
-		labelOrbitalPerimeterDesc.MouseDown += Control_MouseDown;
-		labelOrbitalPerimeterDesc.MouseEnter += Control_Enter;
-		labelOrbitalPerimeterDesc.MouseLeave += Control_Leave;
+		labelTimeToNextAphelionData.AccessibleDescription = "Shows the information of \"Time to next aphelion\"";
+		labelTimeToNextAphelionData.AccessibleName = "Information of \"Time to next aphelion\"";
+		labelTimeToNextAphelionData.AccessibleRole = AccessibleRole.StaticText;
+		labelTimeToNextAphelionData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelTimeToNextAphelionData.Dock = DockStyle.Top;
+		labelTimeToNextAphelionData.Location = new Point(236, 757);
+		labelTimeToNextAphelionData.Name = "labelTimeToNextAphelionData";
+		labelTimeToNextAphelionData.Size = new Size(59, 20);
+		labelTimeToNextAphelionData.TabIndex = 59;
+		labelTimeToNextAphelionData.ToolTipValues.Description = "Shows the information of \"Time to next aphelion\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelTimeToNextAphelionData.ToolTipValues.EnableToolTips = true;
+		labelTimeToNextAphelionData.ToolTipValues.Heading = "Information of \"Time to next aphelion\"";
+		labelTimeToNextAphelionData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelTimeToNextAphelionData.Values.Text = "..................";
+		labelTimeToNextAphelionData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelTimeToNextAphelionData.Enter += Control_Enter;
+		labelTimeToNextAphelionData.Leave += Control_Leave;
+		labelTimeToNextAphelionData.MouseDown += Control_MouseDown;
+		labelTimeToNextAphelionData.MouseEnter += Control_Enter;
+		labelTimeToNextAphelionData.MouseLeave += Control_Leave;
 		// 
-		// labelSemiMeanAxisDesc
+		// labelLengthOfAphelionNodeArcData
 		// 
-		labelSemiMeanAxisDesc.AccessibleDescription = "Shows the semi-mean axis (AU)";
-		labelSemiMeanAxisDesc.AccessibleName = "Semi-mean axis (AU)";
-		labelSemiMeanAxisDesc.AccessibleRole = AccessibleRole.StaticText;
-		labelSemiMeanAxisDesc.ContextMenuStrip = contextMenuOpenTerminology;
-		labelSemiMeanAxisDesc.Dock = DockStyle.Top;
-		labelSemiMeanAxisDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelSemiMeanAxisDesc.Location = new Point(3, 419);
-		labelSemiMeanAxisDesc.Name = "labelSemiMeanAxisDesc";
-		labelSemiMeanAxisDesc.Size = new Size(247, 20);
-		labelSemiMeanAxisDesc.TabIndex = 32;
-		labelSemiMeanAxisDesc.Tag = "36";
-		labelSemiMeanAxisDesc.ToolTipValues.Description = "Shows the semi-mean axis (AU).\r\nDouble-click or right-click to open the terminology.";
-		labelSemiMeanAxisDesc.ToolTipValues.EnableToolTips = true;
-		labelSemiMeanAxisDesc.ToolTipValues.Heading = "Semi-mean axis (AU)";
-		labelSemiMeanAxisDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelSemiMeanAxisDesc.Values.ExtraText = "AU";
-		labelSemiMeanAxisDesc.Values.Text = "Semi-mean axis";
-		labelSemiMeanAxisDesc.DoubleClick += OpenTerminology_DoubleClick;
-		labelSemiMeanAxisDesc.Enter += Control_Enter;
-		labelSemiMeanAxisDesc.Leave += Control_Leave;
-		labelSemiMeanAxisDesc.MouseDown += Control_MouseDown;
-		labelSemiMeanAxisDesc.MouseEnter += Control_Enter;
-		labelSemiMeanAxisDesc.MouseLeave += Control_Leave;
+		labelLengthOfAphelionNodeArcData.AccessibleDescription = "Shows the information of \"Length of the aphelion node arc (AU)\"";
+		labelLengthOfAphelionNodeArcData.AccessibleName = "Information of \"Length of the aphelion node arc (AU)\"";
+		labelLengthOfAphelionNodeArcData.AccessibleRole = AccessibleRole.StaticText;
+		labelLengthOfAphelionNodeArcData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelLengthOfAphelionNodeArcData.Dock = DockStyle.Top;
+		labelLengthOfAphelionNodeArcData.Location = new Point(236, 575);
+		labelLengthOfAphelionNodeArcData.Name = "labelLengthOfAphelionNodeArcData";
+		labelLengthOfAphelionNodeArcData.Size = new Size(59, 20);
+		labelLengthOfAphelionNodeArcData.TabIndex = 45;
+		labelLengthOfAphelionNodeArcData.ToolTipValues.Description = "Shows the information of \"Length of the aphelion node arc (AU)\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelLengthOfAphelionNodeArcData.ToolTipValues.EnableToolTips = true;
+		labelLengthOfAphelionNodeArcData.ToolTipValues.Heading = "Information of \"Length of the aphelion node arc (AU)\"";
+		labelLengthOfAphelionNodeArcData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelLengthOfAphelionNodeArcData.Values.Text = "..................";
+		labelLengthOfAphelionNodeArcData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelLengthOfAphelionNodeArcData.Enter += Control_Enter;
+		labelLengthOfAphelionNodeArcData.Leave += Control_Leave;
+		labelLengthOfAphelionNodeArcData.MouseDown += Control_MouseDown;
+		labelLengthOfAphelionNodeArcData.MouseEnter += Control_Enter;
+		labelLengthOfAphelionNodeArcData.MouseLeave += Control_Leave;
 		// 
-		// labelMeanAxisDesc
+		// labelLengthOfPerihelionNodeArcData
 		// 
-		labelMeanAxisDesc.AccessibleDescription = "Shows the mean axis (AU)";
-		labelMeanAxisDesc.AccessibleName = "Mean axis (AU)";
-		labelMeanAxisDesc.AccessibleRole = AccessibleRole.StaticText;
-		labelMeanAxisDesc.ContextMenuStrip = contextMenuOpenTerminology;
-		labelMeanAxisDesc.Dock = DockStyle.Top;
-		labelMeanAxisDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelMeanAxisDesc.Location = new Point(3, 445);
-		labelMeanAxisDesc.Name = "labelMeanAxisDesc";
-		labelMeanAxisDesc.Size = new Size(247, 20);
-		labelMeanAxisDesc.TabIndex = 34;
-		labelMeanAxisDesc.Tag = "37";
-		labelMeanAxisDesc.ToolTipValues.Description = "Shows the mean axis (AU).\r\nDouble-click or right-click to open the terminology.";
-		labelMeanAxisDesc.ToolTipValues.EnableToolTips = true;
-		labelMeanAxisDesc.ToolTipValues.Heading = "Mean axis (AU)";
-		labelMeanAxisDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelMeanAxisDesc.Values.ExtraText = "AU";
-		labelMeanAxisDesc.Values.Text = "Mean axis";
-		labelMeanAxisDesc.DoubleClick += OpenTerminology_DoubleClick;
-		labelMeanAxisDesc.Enter += Control_Enter;
-		labelMeanAxisDesc.Leave += Control_Leave;
-		labelMeanAxisDesc.MouseDown += Control_MouseDown;
-		labelMeanAxisDesc.MouseEnter += Control_Enter;
-		labelMeanAxisDesc.MouseLeave += Control_Leave;
+		labelLengthOfPerihelionNodeArcData.AccessibleDescription = "Shows the information of \"Length of the perihelion node arc\"";
+		labelLengthOfPerihelionNodeArcData.AccessibleName = "Information of \"Length of the perihelion node arc\"";
+		labelLengthOfPerihelionNodeArcData.AccessibleRole = AccessibleRole.StaticText;
+		labelLengthOfPerihelionNodeArcData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelLengthOfPerihelionNodeArcData.Dock = DockStyle.Top;
+		labelLengthOfPerihelionNodeArcData.Location = new Point(236, 601);
+		labelLengthOfPerihelionNodeArcData.Name = "labelLengthOfPerihelionNodeArcData";
+		labelLengthOfPerihelionNodeArcData.Size = new Size(59, 20);
+		labelLengthOfPerihelionNodeArcData.TabIndex = 47;
+		labelLengthOfPerihelionNodeArcData.ToolTipValues.Description = "Shows the information of \"Length of the perihelion node arc\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelLengthOfPerihelionNodeArcData.ToolTipValues.EnableToolTips = true;
+		labelLengthOfPerihelionNodeArcData.ToolTipValues.Heading = "Information of \"Length of the perihelion node arc\"";
+		labelLengthOfPerihelionNodeArcData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelLengthOfPerihelionNodeArcData.Values.Text = "..................";
+		labelLengthOfPerihelionNodeArcData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelLengthOfPerihelionNodeArcData.Enter += Control_Enter;
+		labelLengthOfPerihelionNodeArcData.Leave += Control_Leave;
+		labelLengthOfPerihelionNodeArcData.MouseDown += Control_MouseDown;
+		labelLengthOfPerihelionNodeArcData.MouseEnter += Control_Enter;
+		labelLengthOfPerihelionNodeArcData.MouseLeave += Control_Leave;
 		// 
-		// labelOrbitalAreaData
+		// labelLengthOfPerihelionNodeArcDesc
 		// 
-		labelOrbitalAreaData.AccessibleDescription = "Shows the information of \"Orbital area\"";
-		labelOrbitalAreaData.AccessibleName = "Information of \"Orbital area\"";
-		labelOrbitalAreaData.AccessibleRole = AccessibleRole.StaticText;
-		labelOrbitalAreaData.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelOrbitalAreaData.Dock = DockStyle.Top;
-		labelOrbitalAreaData.Location = new Point(256, 367);
-		labelOrbitalAreaData.Name = "labelOrbitalAreaData";
-		labelOrbitalAreaData.Size = new Size(59, 20);
-		labelOrbitalAreaData.TabIndex = 29;
-		labelOrbitalAreaData.ToolTipValues.Description = "Shows the information of \"Orbital area\".\r\nDouble-click or right-click to copy the information to the clipboard.";
-		labelOrbitalAreaData.ToolTipValues.EnableToolTips = true;
-		labelOrbitalAreaData.ToolTipValues.Heading = "Information of \"Orbital area\"";
-		labelOrbitalAreaData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelOrbitalAreaData.Values.Text = "..................";
-		labelOrbitalAreaData.DoubleClick += CopyToClipboard_DoubleClick;
-		labelOrbitalAreaData.Enter += Control_Enter;
-		labelOrbitalAreaData.Leave += Control_Leave;
-		labelOrbitalAreaData.MouseDown += Control_MouseDown;
-		labelOrbitalAreaData.MouseEnter += Control_Enter;
-		labelOrbitalAreaData.MouseLeave += Control_Leave;
+		labelLengthOfPerihelionNodeArcDesc.AccessibleDescription = "Shows the length of the perihelion node arc (AU)";
+		labelLengthOfPerihelionNodeArcDesc.AccessibleName = "Length of the perihelion node arc (AU)";
+		labelLengthOfPerihelionNodeArcDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelLengthOfPerihelionNodeArcDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelLengthOfPerihelionNodeArcDesc.Dock = DockStyle.Top;
+		labelLengthOfPerihelionNodeArcDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelLengthOfPerihelionNodeArcDesc.Location = new Point(3, 601);
+		labelLengthOfPerihelionNodeArcDesc.Name = "labelLengthOfPerihelionNodeArcDesc";
+		labelLengthOfPerihelionNodeArcDesc.Size = new Size(227, 20);
+		labelLengthOfPerihelionNodeArcDesc.TabIndex = 46;
+		labelLengthOfPerihelionNodeArcDesc.Tag = "35";
+		labelLengthOfPerihelionNodeArcDesc.ToolTipValues.Description = "Shows the length of the perihelion node arc (AU).\r\nDouble-click or right-click to open the terminology.";
+		labelLengthOfPerihelionNodeArcDesc.ToolTipValues.EnableToolTips = true;
+		labelLengthOfPerihelionNodeArcDesc.ToolTipValues.Heading = "Length of the perihelion node arc (AU)";
+		labelLengthOfPerihelionNodeArcDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelLengthOfPerihelionNodeArcDesc.Values.ExtraText = "AU";
+		labelLengthOfPerihelionNodeArcDesc.Values.Text = "Length of the perihelion node arc";
+		labelLengthOfPerihelionNodeArcDesc.DoubleClick += CopyToClipboard_DoubleClick;
+		labelLengthOfPerihelionNodeArcDesc.Enter += Control_Enter;
+		labelLengthOfPerihelionNodeArcDesc.Leave += Control_Leave;
+		labelLengthOfPerihelionNodeArcDesc.MouseDown += Control_MouseDown;
+		labelLengthOfPerihelionNodeArcDesc.MouseEnter += Control_Enter;
+		labelLengthOfPerihelionNodeArcDesc.MouseLeave += Control_Leave;
 		// 
-		// labelOrbitalPerimeterData
+		// labelLengthOfAphelionNodeArcDesc
 		// 
-		labelOrbitalPerimeterData.AccessibleDescription = "Shows the information of \"Orbital perimeter\"";
-		labelOrbitalPerimeterData.AccessibleName = "Information of \"Orbital perimeter\"";
-		labelOrbitalPerimeterData.AccessibleRole = AccessibleRole.StaticText;
-		labelOrbitalPerimeterData.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelOrbitalPerimeterData.Dock = DockStyle.Top;
-		labelOrbitalPerimeterData.Location = new Point(256, 393);
-		labelOrbitalPerimeterData.Name = "labelOrbitalPerimeterData";
-		labelOrbitalPerimeterData.Size = new Size(59, 20);
-		labelOrbitalPerimeterData.TabIndex = 31;
-		labelOrbitalPerimeterData.ToolTipValues.Description = "Shows the information of \"Orbital perimeter\".\r\nDouble-click or right-click to copy the information to the clipboard.";
-		labelOrbitalPerimeterData.ToolTipValues.EnableToolTips = true;
-		labelOrbitalPerimeterData.ToolTipValues.Heading = "Information of \"Orbital perimeter\"";
-		labelOrbitalPerimeterData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelOrbitalPerimeterData.Values.Text = "..................";
-		labelOrbitalPerimeterData.DoubleClick += CopyToClipboard_DoubleClick;
-		labelOrbitalPerimeterData.Enter += Control_Enter;
-		labelOrbitalPerimeterData.Leave += Control_Leave;
-		labelOrbitalPerimeterData.MouseDown += Control_MouseDown;
-		labelOrbitalPerimeterData.MouseEnter += Control_Enter;
-		labelOrbitalPerimeterData.MouseLeave += Control_Leave;
-		// 
-		// labelSemiMeanAxisData
-		// 
-		labelSemiMeanAxisData.AccessibleDescription = "Shows the information of \"Semi-mean axis\"";
-		labelSemiMeanAxisData.AccessibleName = "Information of \"Semi-mean axis\"";
-		labelSemiMeanAxisData.AccessibleRole = AccessibleRole.StaticText;
-		labelSemiMeanAxisData.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelSemiMeanAxisData.Dock = DockStyle.Top;
-		labelSemiMeanAxisData.Location = new Point(256, 419);
-		labelSemiMeanAxisData.Name = "labelSemiMeanAxisData";
-		labelSemiMeanAxisData.Size = new Size(59, 20);
-		labelSemiMeanAxisData.TabIndex = 33;
-		labelSemiMeanAxisData.ToolTipValues.Description = "Shows the information of \"Semi-mean axis\".\r\nDouble-click or right-click to copy the information to the clipboard.";
-		labelSemiMeanAxisData.ToolTipValues.EnableToolTips = true;
-		labelSemiMeanAxisData.ToolTipValues.Heading = "Information of \"Semi-mean axis\"";
-		labelSemiMeanAxisData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelSemiMeanAxisData.Values.Text = "..................";
-		labelSemiMeanAxisData.DoubleClick += CopyToClipboard_DoubleClick;
-		labelSemiMeanAxisData.Enter += Control_Enter;
-		labelSemiMeanAxisData.Leave += Control_Leave;
-		labelSemiMeanAxisData.MouseDown += Control_MouseDown;
-		labelSemiMeanAxisData.MouseEnter += Control_Enter;
-		labelSemiMeanAxisData.MouseLeave += Control_Leave;
-		// 
-		// labelMeanAxisData
-		// 
-		labelMeanAxisData.AccessibleDescription = "Shows the information of \"Mean axis\"";
-		labelMeanAxisData.AccessibleName = "Information of \"Mean axis\"";
-		labelMeanAxisData.AccessibleRole = AccessibleRole.StaticText;
-		labelMeanAxisData.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelMeanAxisData.Dock = DockStyle.Top;
-		labelMeanAxisData.Location = new Point(256, 445);
-		labelMeanAxisData.Name = "labelMeanAxisData";
-		labelMeanAxisData.Size = new Size(59, 20);
-		labelMeanAxisData.TabIndex = 35;
-		labelMeanAxisData.ToolTipValues.Description = "Shows the information of \"Mean axis\".\r\nDouble-click or right-click to copy the information to the clipboard.";
-		labelMeanAxisData.ToolTipValues.EnableToolTips = true;
-		labelMeanAxisData.ToolTipValues.Heading = "Information of \"Mean axis\"";
-		labelMeanAxisData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelMeanAxisData.Values.Text = "..................";
-		labelMeanAxisData.DoubleClick += CopyToClipboard_DoubleClick;
-		labelMeanAxisData.Enter += Control_Enter;
-		labelMeanAxisData.Leave += Control_Leave;
-		labelMeanAxisData.MouseDown += Control_MouseDown;
-		labelMeanAxisData.MouseEnter += Control_Enter;
-		labelMeanAxisData.MouseLeave += Control_Leave;
-		// 
-		// labelStandardGravitationalParameterData
-		// 
-		labelStandardGravitationalParameterData.AccessibleDescription = "Shows the information of \"Standard gravitational parameter\"";
-		labelStandardGravitationalParameterData.AccessibleName = "Information of \"Standard gravitational parameter\"";
-		labelStandardGravitationalParameterData.AccessibleRole = AccessibleRole.StaticText;
-		labelStandardGravitationalParameterData.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelStandardGravitationalParameterData.Dock = DockStyle.Top;
-		labelStandardGravitationalParameterData.Location = new Point(256, 471);
-		labelStandardGravitationalParameterData.Name = "labelStandardGravitationalParameterData";
-		labelStandardGravitationalParameterData.Size = new Size(59, 20);
-		labelStandardGravitationalParameterData.TabIndex = 37;
-		labelStandardGravitationalParameterData.ToolTipValues.Description = "Shows the information of \"Standard gravitational parameter\".\r\nDouble-click or right-click to copy the information to the clipboard.";
-		labelStandardGravitationalParameterData.ToolTipValues.EnableToolTips = true;
-		labelStandardGravitationalParameterData.ToolTipValues.Heading = "Information of \"Standard gravitational parameter\"";
-		labelStandardGravitationalParameterData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelStandardGravitationalParameterData.Values.Text = "..................";
-		labelStandardGravitationalParameterData.DoubleClick += CopyToClipboard_DoubleClick;
-		labelStandardGravitationalParameterData.Enter += Control_Enter;
-		labelStandardGravitationalParameterData.Leave += Control_Leave;
-		labelStandardGravitationalParameterData.MouseDown += Control_MouseDown;
-		labelStandardGravitationalParameterData.MouseEnter += Control_Enter;
-		labelStandardGravitationalParameterData.MouseLeave += Control_Leave;
-		// 
-		// labelStandardGravitationalParameterDesc
-		// 
-		labelStandardGravitationalParameterDesc.AccessibleDescription = "Shows the standard gravitational parameter (AU³/a²)";
-		labelStandardGravitationalParameterDesc.AccessibleName = "Standard gravitational parameter (AU³/a²)";
-		labelStandardGravitationalParameterDesc.AccessibleRole = AccessibleRole.StaticText;
-		labelStandardGravitationalParameterDesc.ContextMenuStrip = contextMenuOpenTerminology;
-		labelStandardGravitationalParameterDesc.Dock = DockStyle.Top;
-		labelStandardGravitationalParameterDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelStandardGravitationalParameterDesc.Location = new Point(3, 471);
-		labelStandardGravitationalParameterDesc.Name = "labelStandardGravitationalParameterDesc";
-		labelStandardGravitationalParameterDesc.Size = new Size(247, 20);
-		labelStandardGravitationalParameterDesc.TabIndex = 36;
-		labelStandardGravitationalParameterDesc.Tag = "38";
-		labelStandardGravitationalParameterDesc.ToolTipValues.Description = "Shows the standard gravitational parameter (AU³/a²).\r\nDouble-click or right-click to open the terminology.";
-		labelStandardGravitationalParameterDesc.ToolTipValues.EnableToolTips = true;
-		labelStandardGravitationalParameterDesc.ToolTipValues.Heading = "Standard gravitational parameter (AU³/a²)";
-		labelStandardGravitationalParameterDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelStandardGravitationalParameterDesc.Values.ExtraText = "AU³/a²";
-		labelStandardGravitationalParameterDesc.Values.Text = "Standard gravitational parameter";
-		labelStandardGravitationalParameterDesc.DoubleClick += OpenTerminology_DoubleClick;
-		labelStandardGravitationalParameterDesc.Enter += Control_Enter;
-		labelStandardGravitationalParameterDesc.Leave += Control_Leave;
-		labelStandardGravitationalParameterDesc.MouseDown += Control_MouseDown;
-		labelStandardGravitationalParameterDesc.MouseEnter += Control_Enter;
-		labelStandardGravitationalParameterDesc.MouseLeave += Control_Leave;
+		labelLengthOfAphelionNodeArcDesc.AccessibleDescription = "Shows the length of the aphelion node arc (AU)";
+		labelLengthOfAphelionNodeArcDesc.AccessibleName = "Length of the aphelion node arc (AU)";
+		labelLengthOfAphelionNodeArcDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelLengthOfAphelionNodeArcDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelLengthOfAphelionNodeArcDesc.Dock = DockStyle.Top;
+		labelLengthOfAphelionNodeArcDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelLengthOfAphelionNodeArcDesc.Location = new Point(3, 575);
+		labelLengthOfAphelionNodeArcDesc.Name = "labelLengthOfAphelionNodeArcDesc";
+		labelLengthOfAphelionNodeArcDesc.Size = new Size(227, 20);
+		labelLengthOfAphelionNodeArcDesc.TabIndex = 44;
+		labelLengthOfAphelionNodeArcDesc.Tag = "35";
+		labelLengthOfAphelionNodeArcDesc.ToolTipValues.Description = "Shows the length of the aphelion node arc (AU).\r\nDouble-click or right-click to open the terminology.";
+		labelLengthOfAphelionNodeArcDesc.ToolTipValues.EnableToolTips = true;
+		labelLengthOfAphelionNodeArcDesc.ToolTipValues.Heading = "Length of the aphelion node arc (AU)";
+		labelLengthOfAphelionNodeArcDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelLengthOfAphelionNodeArcDesc.Values.ExtraText = "AU";
+		labelLengthOfAphelionNodeArcDesc.Values.Text = "Length of the aphelion node arc";
+		labelLengthOfAphelionNodeArcDesc.DoubleClick += CopyToClipboard_DoubleClick;
+		labelLengthOfAphelionNodeArcDesc.Enter += Control_Enter;
+		labelLengthOfAphelionNodeArcDesc.Leave += Control_Leave;
+		labelLengthOfAphelionNodeArcDesc.MouseDown += Control_MouseDown;
+		labelLengthOfAphelionNodeArcDesc.MouseEnter += Control_Enter;
+		labelLengthOfAphelionNodeArcDesc.MouseLeave += Control_Leave;
 		// 
 		// toolStripIcons
 		// 
@@ -3110,7 +4330,7 @@ partial class DerivedOrbitElementsForm
 		AccessibleRole = AccessibleRole.Dialog;
 		AutoScaleDimensions = new SizeF(7F, 15F);
 		AutoScaleMode = AutoScaleMode.Font;
-		ClientSize = new Size(846, 598);
+		ClientSize = new Size(846, 883);
 		ControlBox = false;
 		Controls.Add(toolStripContainer);
 		FormBorderStyle = FormBorderStyle.SizableToolWindow;
@@ -3145,7 +4365,9 @@ partial class DerivedOrbitElementsForm
 	}
 
 	#endregion
+	/// <summary>Provides the form's status strip.</summary>
 	private KryptonStatusStrip kryptonStatusStrip;
+	/// <summary>Displays informational text in the status strip.</summary>
 	private ToolStripStatusLabel labelInformation;
 	private ToolStripContainer toolStripContainer;
 	private KryptonManager kryptonManager;
@@ -3199,7 +4421,6 @@ partial class DerivedOrbitElementsForm
 	private KryptonTableLayoutPanel tableLayoutPanel;
 	private KryptonLabel labelGeometricAlbedoAdjustedDiameterDesc;
 	private KryptonLabel labelMeanDistanceFromFocusDesc;
-	private KryptonLabel labelTisserandParameterDesc;
 	private KryptonLabel labelSynodicPeriodDesc;
 	private KryptonLabel labelTimeToNextAphelionDesc;
 	private KryptonLabel labelTimeSinceAphelionDesc;
@@ -3209,19 +4430,16 @@ partial class DerivedOrbitElementsForm
 	private KryptonLabel labelArgumentOfLatitudeDesc;
 	private KryptonLabel labelMeanLongitudeDesc;
 	private KryptonLabel labelLongitudeOfPerihelionDesc;
-	private KryptonLabel labelVisVivaEnergyDesc;
 	private KryptonLabel labelSpecificAngularMomentumDesc;
 	private KryptonLabel labelSpecificOrbitalEnergyDesc;
 	private KryptonLabel labelTangentialVelocityComponentDesc;
 	private KryptonLabel labelRadialVelocityComponentDesc;
 	private KryptonLabel labelCurrentOrbitalVelocityDesc;
 	private KryptonLabel labelMeanOrbitalVelocityDesc;
-	private KryptonLabel labelAphelionVelocityDesc;
 	private KryptonLabel labelGeometricAlbedoAdjustedDiameterData;
 	private KryptonLabel labelDirectrixData;
 	private KryptonLabel labelDirectrixDesc;
 	private KryptonLabel labelMeanDistanceFromFocusData;
-	private KryptonLabel labelTisserandParameterData;
 	private KryptonLabel labelSynodicPeriodData;
 	private KryptonLabel labelTimeToNextAphelionData;
 	private KryptonLabel labelTimeSinceAphelionData;
@@ -3231,7 +4449,6 @@ partial class DerivedOrbitElementsForm
 	private KryptonLabel labelArgumentOfLatitudeData;
 	private KryptonLabel labelMeanLongitudeData;
 	private KryptonLabel labelLongitudeOfPerihelionData;
-	private KryptonLabel labelVisVivaEnergyData;
 	private KryptonLabel labelSpecificAngularMomentumData;
 	private KryptonLabel labelSpecificOrbitalEnergyData;
 	private KryptonLabel labelTangentialVelocityComponentData;
@@ -3275,8 +4492,59 @@ partial class DerivedOrbitElementsForm
 	private KryptonLabel labelOrbitalPerimeterData;
 	private KryptonLabel labelSemiMeanAxisData;
 	private KryptonLabel labelMeanAxisData;
-	private KryptonLabel labelStandardGravitationalParameterData;
-	private KryptonLabel labelStandardGravitationalParameterDesc;
 	private KryptonLabel labelPerihelionVelocityData;
 	private KryptonLabel labelPerihelionVelocityDesc;
+	private KryptonLabel labelKozaiQuantityDesc;
+	private KryptonLabel labelKozaiQuantityData;
+	private KryptonLabel labelAphelionVelocityDesc;
+	private KryptonLabel labelHelioCentricLatitudeData;
+	private KryptonLabel labelEquinoctialOrbitalElementQData;
+	private KryptonLabel labelEquinoctialOrbitalElementPData;
+	private KryptonLabel labelEquinoctialOrbitalElementKData;
+	private KryptonLabel labelEquinoctialOrbitalElementHData;
+	private KryptonLabel labelMaxEclipticDistanceData;
+	private KryptonLabel labelEquinoctialOrbitalElementQDesc;
+	private KryptonLabel labelEquinoctialOrbitalElementPDesc;
+	private KryptonLabel labelEquinoctialOrbitalElementKDesc;
+	private KryptonLabel labelEquinoctialOrbitalElementHDesc;
+	private KryptonLabel labelMeanDailyOrbitalMotionDesc;
+	private KryptonLabel labelMeanDailyMotionDesc;
+	private KryptonLabel labelMeanMotionDesc;
+	private KryptonLabel labelMeanDailyOrbitalMotionData;
+	private KryptonLabel labelMeanDailyMotionData;
+	private KryptonLabel labelMeanMotionData;
+	private KryptonLabel labelAngularVelocityData;
+	private KryptonLabel labelArealVelocityData;
+	private KryptonLabel labelHelioCentricLatitudeDesc;
+	private KryptonLabel labelMaxEclipticDistanceDesc;
+	private KryptonLabel labelArealVelocityDesc;
+	private KryptonLabel labelAngularVelocityDesc;
+	private KryptonLabel labelHelioCentricLongitudeData;
+	private KryptonLabel labelTrueLongitudeData;
+	private KryptonLabel labelCharacteristicEnergyData;
+	private KryptonLabel labelRadiusOfCurvatureData;
+	private KryptonLabel labelIsPotenciallyHarzardousData;
+	private KryptonLabel labelTrueLongitudeDesc;
+	private KryptonLabel labelHelioCentricLongitudeDesc;
+	private KryptonLabel labelCharacteristicEnergyDesc;
+	private KryptonLabel labelRadiusOfCurvatureDesc;
+	private KryptonLabel labelIsPotenciallyHarzardousDesc;
+	private KryptonLabel labelLengthOfAphelionNodeArcDesc;
+	private KryptonLabel labelLengthOfPerihelionNodeArcDesc;
+	private KryptonLabel labelOrbitalSemiPerimeterDesc;
+	private KryptonLabel labelLengthOfPerihelionNodeArcData;
+	private KryptonLabel labelOrbitalSemiPerimeterData;
+	private KryptonLabel labelLengthOfAphelionNodeArcData;
+	private KryptonLabel labelAngularOfPerihelionNodeArcData;
+	private KryptonLabel labelAngularOfAphelionNodeArcData;
+	private KryptonLabel labelAngularOfAphelionNodeArcDesc;
+	private KryptonLabel labelAngularOfPerihelionNodeArcDesc;
+	private KryptonLabel labelAphelionDateDesc;
+	private KryptonLabel labelPerihelionDateDesc;
+	private KryptonLabel labelPerihelionDateData;
+	private KryptonLabel labelAphelionDateData;
+	private KryptonLabel labelAscendingNodeDistanceDesc;
+	private KryptonLabel labelDescendingNodeDistanceDesc;
+	private KryptonLabel labelAscendingNodeDistanceData;
+	private KryptonLabel labelDescendingNodeDistanceData;
 }
