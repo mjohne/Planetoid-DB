@@ -158,10 +158,6 @@ partial class DerivedOrbitElementsForm
 		labelHelioCentricLatitudeData = new KryptonLabel();
 		labelHelioCentricLongitudeDesc = new KryptonLabel();
 		labelHelioCentricLongitudeData = new KryptonLabel();
-		labelAngularOfPerihelionNodeArcDesc = new KryptonLabel();
-		labelAngularOfPerihelionNodeArcData = new KryptonLabel();
-		labelAngularOfAphelionNodeArcDesc = new KryptonLabel();
-		labelAngularOfAphelionNodeArcData = new KryptonLabel();
 		labelFlightPathAngleDesc = new KryptonLabel();
 		labelLongitudeOfTheDescendingNodeDesc = new KryptonLabel();
 		labelFlightPathAngleData = new KryptonLabel();
@@ -186,6 +182,10 @@ partial class DerivedOrbitElementsForm
 		labelLengthOfPerihelionNodeArcData = new KryptonLabel();
 		labelLengthOfPerihelionNodeArcDesc = new KryptonLabel();
 		labelLengthOfAphelionNodeArcDesc = new KryptonLabel();
+		labelAngularOfPerihelionNodeArcData = new KryptonLabel();
+		labelAngularOfAphelionNodeArcData = new KryptonLabel();
+		labelAngularOfPerihelionNodeArcDesc = new KryptonLabel();
+		labelAngularOfAphelionNodeArcDesc = new KryptonLabel();
 		toolStripIcons = new ToolStrip();
 		toolStripDropDownButtonSaveToFile = new ToolStripDropDownButton();
 		contextMenuSaveToFile = new ContextMenuStrip(components);
@@ -1057,8 +1057,8 @@ partial class DerivedOrbitElementsForm
 		// 
 		// labelOrbitalPeriodDesc
 		// 
-		labelOrbitalPeriodDesc.AccessibleDescription = "Shows the orbital period (years)";
-		labelOrbitalPeriodDesc.AccessibleName = "Orbital period (years)";
+		labelOrbitalPeriodDesc.AccessibleDescription = "Shows the orbital period (yr)";
+		labelOrbitalPeriodDesc.AccessibleName = "Orbital period (yr)";
 		labelOrbitalPeriodDesc.AccessibleRole = AccessibleRole.StaticText;
 		labelOrbitalPeriodDesc.ContextMenuStrip = contextMenuOpenTerminology;
 		labelOrbitalPeriodDesc.Dock = DockStyle.Top;
@@ -2048,8 +2048,8 @@ partial class DerivedOrbitElementsForm
 		// 
 		// labelMeanDailyOrbitalMotionDesc
 		// 
-		labelMeanDailyOrbitalMotionDesc.AccessibleDescription = "Shows the tangential velocity component (AU/yr)";
-		labelMeanDailyOrbitalMotionDesc.AccessibleName = "Tangential velocity component (AU/yr)";
+		labelMeanDailyOrbitalMotionDesc.AccessibleDescription = "Shows the mean daily orbital motion (AU/day)";
+		labelMeanDailyOrbitalMotionDesc.AccessibleName = "Mean daily orbital motion (AU/day)";
 		labelMeanDailyOrbitalMotionDesc.AccessibleRole = AccessibleRole.StaticText;
 		labelMeanDailyOrbitalMotionDesc.ContextMenuStrip = contextMenuOpenTerminology;
 		labelMeanDailyOrbitalMotionDesc.Dock = DockStyle.Top;
@@ -2537,8 +2537,8 @@ partial class DerivedOrbitElementsForm
 		// 
 		// labelArgumentOfTheAphelionDesc
 		// 
-		labelArgumentOfTheAphelionDesc.AccessibleDescription = "Shows the argument of the aphelion (degrees)";
-		labelArgumentOfTheAphelionDesc.AccessibleName = "Argument of the aphelion (degrees)";
+		labelArgumentOfTheAphelionDesc.AccessibleDescription = "Shows the argument of the aphelion (°)";
+		labelArgumentOfTheAphelionDesc.AccessibleName = "Argument of the aphelion (°)";
 		labelArgumentOfTheAphelionDesc.AccessibleRole = AccessibleRole.StaticText;
 		labelArgumentOfTheAphelionDesc.ContextMenuStrip = contextMenuOpenTerminology;
 		labelArgumentOfTheAphelionDesc.Dock = DockStyle.Top;
@@ -2548,9 +2548,9 @@ partial class DerivedOrbitElementsForm
 		labelArgumentOfTheAphelionDesc.Size = new Size(246, 20);
 		labelArgumentOfTheAphelionDesc.TabIndex = 100;
 		labelArgumentOfTheAphelionDesc.Tag = "29";
-		labelArgumentOfTheAphelionDesc.ToolTipValues.Description = "Shows the argument of the aphelion (degrees).\r\nDouble-click or right-click to open the terminology.";
+		labelArgumentOfTheAphelionDesc.ToolTipValues.Description = "Shows the argument of the aphelion (°).\r\nDouble-click or right-click to open the terminology.";
 		labelArgumentOfTheAphelionDesc.ToolTipValues.EnableToolTips = true;
-		labelArgumentOfTheAphelionDesc.ToolTipValues.Heading = "Argument of the aphelion (degrees)";
+		labelArgumentOfTheAphelionDesc.ToolTipValues.Heading = "Argument of the aphelion (°)";
 		labelArgumentOfTheAphelionDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 		labelArgumentOfTheAphelionDesc.Values.ExtraText = "°";
 		labelArgumentOfTheAphelionDesc.Values.Text = "Argument of the aphelion";
@@ -3024,98 +3024,6 @@ partial class DerivedOrbitElementsForm
 		labelHelioCentricLongitudeData.MouseEnter += Control_Enter;
 		labelHelioCentricLongitudeData.MouseLeave += Control_Leave;
 		// 
-		// labelAngularOfPerihelionNodeArcDesc
-		// 
-		labelAngularOfPerihelionNodeArcDesc.AccessibleDescription = "Shows the angular of the perihelion node arc (°)";
-		labelAngularOfPerihelionNodeArcDesc.AccessibleName = "Angular of the perihelion node arc (°)";
-		labelAngularOfPerihelionNodeArcDesc.AccessibleRole = AccessibleRole.StaticText;
-		labelAngularOfPerihelionNodeArcDesc.ContextMenuStrip = contextMenuOpenTerminology;
-		labelAngularOfPerihelionNodeArcDesc.Dock = DockStyle.Top;
-		labelAngularOfPerihelionNodeArcDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelAngularOfPerihelionNodeArcDesc.Location = new Point(301, 627);
-		labelAngularOfPerihelionNodeArcDesc.Name = "labelAngularOfPerihelionNodeArcDesc";
-		labelAngularOfPerihelionNodeArcDesc.Size = new Size(246, 20);
-		labelAngularOfPerihelionNodeArcDesc.TabIndex = 112;
-		labelAngularOfPerihelionNodeArcDesc.Tag = "35";
-		labelAngularOfPerihelionNodeArcDesc.ToolTipValues.Description = "Shows the angular of the perihelion node arc (°).\r\nDouble-click or right-click to open the terminology.";
-		labelAngularOfPerihelionNodeArcDesc.ToolTipValues.EnableToolTips = true;
-		labelAngularOfPerihelionNodeArcDesc.ToolTipValues.Heading = "Angular of the perihelion node arc (°)";
-		labelAngularOfPerihelionNodeArcDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelAngularOfPerihelionNodeArcDesc.Values.ExtraText = "°";
-		labelAngularOfPerihelionNodeArcDesc.Values.Text = "Angular of the perihelion node arc";
-		labelAngularOfPerihelionNodeArcDesc.DoubleClick += CopyToClipboard_DoubleClick;
-		labelAngularOfPerihelionNodeArcDesc.Enter += Control_Enter;
-		labelAngularOfPerihelionNodeArcDesc.Leave += Control_Leave;
-		labelAngularOfPerihelionNodeArcDesc.MouseDown += Control_MouseDown;
-		labelAngularOfPerihelionNodeArcDesc.MouseEnter += Control_Enter;
-		labelAngularOfPerihelionNodeArcDesc.MouseLeave += Control_Leave;
-		// 
-		// labelAngularOfPerihelionNodeArcData
-		// 
-		labelAngularOfPerihelionNodeArcData.AccessibleDescription = "Shows the information of \"Angular of the perihelion node arc\"";
-		labelAngularOfPerihelionNodeArcData.AccessibleName = "Information of \"Angular of the perihelion node arc\"";
-		labelAngularOfPerihelionNodeArcData.AccessibleRole = AccessibleRole.StaticText;
-		labelAngularOfPerihelionNodeArcData.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelAngularOfPerihelionNodeArcData.Dock = DockStyle.Top;
-		labelAngularOfPerihelionNodeArcData.Location = new Point(553, 627);
-		labelAngularOfPerihelionNodeArcData.Name = "labelAngularOfPerihelionNodeArcData";
-		labelAngularOfPerihelionNodeArcData.Size = new Size(290, 20);
-		labelAngularOfPerihelionNodeArcData.TabIndex = 113;
-		labelAngularOfPerihelionNodeArcData.ToolTipValues.Description = "Shows the information of \"Angular of the perihelion node arc\".\r\nDouble-click or right-click to copy the information to the clipboard.";
-		labelAngularOfPerihelionNodeArcData.ToolTipValues.EnableToolTips = true;
-		labelAngularOfPerihelionNodeArcData.ToolTipValues.Heading = "Information of \"Angular of the perihelion node arc\"";
-		labelAngularOfPerihelionNodeArcData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelAngularOfPerihelionNodeArcData.Values.Text = "..................";
-		labelAngularOfPerihelionNodeArcData.DoubleClick += CopyToClipboard_DoubleClick;
-		labelAngularOfPerihelionNodeArcData.Enter += Control_Enter;
-		labelAngularOfPerihelionNodeArcData.Leave += Control_Leave;
-		labelAngularOfPerihelionNodeArcData.MouseDown += Control_MouseDown;
-		labelAngularOfPerihelionNodeArcData.MouseEnter += Control_Enter;
-		labelAngularOfPerihelionNodeArcData.MouseLeave += Control_Leave;
-		// 
-		// labelAngularOfAphelionNodeArcDesc
-		// 
-		labelAngularOfAphelionNodeArcDesc.AccessibleDescription = "Shows the angular of the aphelion node arc (°)";
-		labelAngularOfAphelionNodeArcDesc.AccessibleName = "Angular of the aphelion node arc (°)";
-		labelAngularOfAphelionNodeArcDesc.AccessibleRole = AccessibleRole.StaticText;
-		labelAngularOfAphelionNodeArcDesc.ContextMenuStrip = contextMenuOpenTerminology;
-		labelAngularOfAphelionNodeArcDesc.Dock = DockStyle.Top;
-		labelAngularOfAphelionNodeArcDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelAngularOfAphelionNodeArcDesc.Location = new Point(301, 601);
-		labelAngularOfAphelionNodeArcDesc.Name = "labelAngularOfAphelionNodeArcDesc";
-		labelAngularOfAphelionNodeArcDesc.Size = new Size(246, 20);
-		labelAngularOfAphelionNodeArcDesc.TabIndex = 110;
-		labelAngularOfAphelionNodeArcDesc.Tag = "35";
-		labelAngularOfAphelionNodeArcDesc.ToolTipValues.Description = "Shows the angular of the aphelion anode rc (°).\r\nDouble-click or right-click to open the terminology.";
-		labelAngularOfAphelionNodeArcDesc.ToolTipValues.EnableToolTips = true;
-		labelAngularOfAphelionNodeArcDesc.ToolTipValues.Heading = "Angular of the aphelion node arc (°)";
-		labelAngularOfAphelionNodeArcDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelAngularOfAphelionNodeArcDesc.Values.ExtraText = "°";
-		labelAngularOfAphelionNodeArcDesc.Values.Text = "Angular of the aphelion node arc";
-		// 
-		// labelAngularOfAphelionNodeArcData
-		// 
-		labelAngularOfAphelionNodeArcData.AccessibleDescription = "Shows the information of \"Angular of the aphelion node arc\"";
-		labelAngularOfAphelionNodeArcData.AccessibleName = "Information of \"Angular of the aphelion node arc\"";
-		labelAngularOfAphelionNodeArcData.AccessibleRole = AccessibleRole.StaticText;
-		labelAngularOfAphelionNodeArcData.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelAngularOfAphelionNodeArcData.Dock = DockStyle.Top;
-		labelAngularOfAphelionNodeArcData.Location = new Point(553, 601);
-		labelAngularOfAphelionNodeArcData.Name = "labelAngularOfAphelionNodeArcData";
-		labelAngularOfAphelionNodeArcData.Size = new Size(290, 20);
-		labelAngularOfAphelionNodeArcData.TabIndex = 111;
-		labelAngularOfAphelionNodeArcData.ToolTipValues.Description = "Shows the information of \"Angular of the aphelion node arc\".\r\nDouble-click or right-click to copy the information to the clipboard.";
-		labelAngularOfAphelionNodeArcData.ToolTipValues.EnableToolTips = true;
-		labelAngularOfAphelionNodeArcData.ToolTipValues.Heading = "Information of \"Angular of the aphelion node arc\"";
-		labelAngularOfAphelionNodeArcData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelAngularOfAphelionNodeArcData.Values.Text = "..................";
-		labelAngularOfAphelionNodeArcData.DoubleClick += CopyToClipboard_DoubleClick;
-		labelAngularOfAphelionNodeArcData.Enter += Control_Enter;
-		labelAngularOfAphelionNodeArcData.Leave += Control_Leave;
-		labelAngularOfAphelionNodeArcData.MouseDown += Control_MouseDown;
-		labelAngularOfAphelionNodeArcData.MouseEnter += Control_Enter;
-		labelAngularOfAphelionNodeArcData.MouseLeave += Control_Leave;
-		// 
 		// labelFlightPathAngleDesc
 		// 
 		labelFlightPathAngleDesc.AccessibleDescription = "Shows the flight path angle (°)";
@@ -3144,8 +3052,8 @@ partial class DerivedOrbitElementsForm
 		// 
 		// labelLongitudeOfTheDescendingNodeDesc
 		// 
-		labelLongitudeOfTheDescendingNodeDesc.AccessibleDescription = "Shows the longitude of the descending node (degrees)";
-		labelLongitudeOfTheDescendingNodeDesc.AccessibleName = "Longitude of the descending node (degrees)";
+		labelLongitudeOfTheDescendingNodeDesc.AccessibleDescription = "Shows the longitude of the descending node (°)";
+		labelLongitudeOfTheDescendingNodeDesc.AccessibleName = "Longitude of the descending node (°)";
 		labelLongitudeOfTheDescendingNodeDesc.AccessibleRole = AccessibleRole.StaticText;
 		labelLongitudeOfTheDescendingNodeDesc.ContextMenuStrip = contextMenuOpenTerminology;
 		labelLongitudeOfTheDescendingNodeDesc.Dock = DockStyle.Top;
@@ -3155,9 +3063,9 @@ partial class DerivedOrbitElementsForm
 		labelLongitudeOfTheDescendingNodeDesc.Size = new Size(246, 20);
 		labelLongitudeOfTheDescendingNodeDesc.TabIndex = 114;
 		labelLongitudeOfTheDescendingNodeDesc.Tag = "28";
-		labelLongitudeOfTheDescendingNodeDesc.ToolTipValues.Description = "Shows the longitude of the descending node (degrees).\r\nDouble-click or right-click to open the terminology.";
+		labelLongitudeOfTheDescendingNodeDesc.ToolTipValues.Description = "Shows the longitude of the descending node (°).\r\nDouble-click or right-click to open the terminology.";
 		labelLongitudeOfTheDescendingNodeDesc.ToolTipValues.EnableToolTips = true;
-		labelLongitudeOfTheDescendingNodeDesc.ToolTipValues.Heading = "Longitude of the descending node (degrees)";
+		labelLongitudeOfTheDescendingNodeDesc.ToolTipValues.Heading = "Longitude of the descending node (°)";
 		labelLongitudeOfTheDescendingNodeDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 		labelLongitudeOfTheDescendingNodeDesc.Values.ExtraText = "°";
 		labelLongitudeOfTheDescendingNodeDesc.Values.Text = "Longitude of the descending node";
@@ -3216,8 +3124,8 @@ partial class DerivedOrbitElementsForm
 		// 
 		// labelTrueAnomalyDesc
 		// 
-		labelTrueAnomalyDesc.AccessibleDescription = "Show sthe true anomaly (degrees)";
-		labelTrueAnomalyDesc.AccessibleName = "True anomaly (degrees)";
+		labelTrueAnomalyDesc.AccessibleDescription = "Show sthe true anomaly (°)";
+		labelTrueAnomalyDesc.AccessibleName = "True anomaly (°)";
 		labelTrueAnomalyDesc.AccessibleRole = AccessibleRole.StaticText;
 		labelTrueAnomalyDesc.ContextMenuStrip = contextMenuOpenTerminology;
 		labelTrueAnomalyDesc.Dock = DockStyle.Top;
@@ -3227,9 +3135,9 @@ partial class DerivedOrbitElementsForm
 		labelTrueAnomalyDesc.Size = new Size(246, 20);
 		labelTrueAnomalyDesc.TabIndex = 104;
 		labelTrueAnomalyDesc.Tag = "25";
-		labelTrueAnomalyDesc.ToolTipValues.Description = "Shows the true anomaly (degrees).\r\nDouble-click or right-click to open the terminology.";
+		labelTrueAnomalyDesc.ToolTipValues.Description = "Shows the true anomaly (°).\r\nDouble-click or right-click to open the terminology.";
 		labelTrueAnomalyDesc.ToolTipValues.EnableToolTips = true;
-		labelTrueAnomalyDesc.ToolTipValues.Heading = "True anomaly (degrees)";
+		labelTrueAnomalyDesc.ToolTipValues.Heading = "True anomaly (°)";
 		labelTrueAnomalyDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 		labelTrueAnomalyDesc.Values.ExtraText = "°";
 		labelTrueAnomalyDesc.Values.Text = "True anomaly";
@@ -3242,8 +3150,8 @@ partial class DerivedOrbitElementsForm
 		// 
 		// labelEccentricAnomalyDesc
 		// 
-		labelEccentricAnomalyDesc.AccessibleDescription = "Shows the eccentric anomaly (degrees)";
-		labelEccentricAnomalyDesc.AccessibleName = "Eccentric anomaly (degrees)";
+		labelEccentricAnomalyDesc.AccessibleDescription = "Shows the eccentric anomaly (°)";
+		labelEccentricAnomalyDesc.AccessibleName = "Eccentric anomaly (°)";
 		labelEccentricAnomalyDesc.AccessibleRole = AccessibleRole.StaticText;
 		labelEccentricAnomalyDesc.ContextMenuStrip = contextMenuOpenTerminology;
 		labelEccentricAnomalyDesc.Dock = DockStyle.Top;
@@ -3253,9 +3161,9 @@ partial class DerivedOrbitElementsForm
 		labelEccentricAnomalyDesc.Size = new Size(246, 20);
 		labelEccentricAnomalyDesc.TabIndex = 102;
 		labelEccentricAnomalyDesc.Tag = "24";
-		labelEccentricAnomalyDesc.ToolTipValues.Description = "Shows the eccentric anomaly (degrees).\r\nDouble-click or right-click to open the terminology.";
+		labelEccentricAnomalyDesc.ToolTipValues.Description = "Shows the eccentric anomaly (°).\r\nDouble-click or right-click to open the terminology.";
 		labelEccentricAnomalyDesc.ToolTipValues.EnableToolTips = true;
-		labelEccentricAnomalyDesc.ToolTipValues.Heading = "Eccentric anomaly (degrees)";
+		labelEccentricAnomalyDesc.ToolTipValues.Heading = "Eccentric anomaly (°)";
 		labelEccentricAnomalyDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 		labelEccentricAnomalyDesc.Values.ExtraText = "°";
 		labelEccentricAnomalyDesc.Values.Text = "Eccentric anomaly";
@@ -3340,7 +3248,7 @@ partial class DerivedOrbitElementsForm
 		// 
 		// labelAphelionDistanceDesc
 		// 
-		labelAphelionDistanceDesc.AccessibleDescription = "Aphelion distance (AU)";
+		labelAphelionDistanceDesc.AccessibleDescription = "Shows the aphelion distance (AU)";
 		labelAphelionDistanceDesc.AccessibleName = "Aphelion distance (AU)";
 		labelAphelionDistanceDesc.AccessibleRole = AccessibleRole.StaticText;
 		labelAphelionDistanceDesc.ContextMenuStrip = contextMenuOpenTerminology;
@@ -3703,6 +3611,98 @@ partial class DerivedOrbitElementsForm
 		labelLengthOfAphelionNodeArcDesc.MouseDown += Control_MouseDown;
 		labelLengthOfAphelionNodeArcDesc.MouseEnter += Control_Enter;
 		labelLengthOfAphelionNodeArcDesc.MouseLeave += Control_Leave;
+		// 
+		// labelAngularOfPerihelionNodeArcData
+		// 
+		labelAngularOfPerihelionNodeArcData.AccessibleDescription = "Shows the information of \"Angular of the perihelion node arc\"";
+		labelAngularOfPerihelionNodeArcData.AccessibleName = "Information of \"Angular of the perihelion node arc\"";
+		labelAngularOfPerihelionNodeArcData.AccessibleRole = AccessibleRole.StaticText;
+		labelAngularOfPerihelionNodeArcData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelAngularOfPerihelionNodeArcData.Dock = DockStyle.Top;
+		labelAngularOfPerihelionNodeArcData.Location = new Point(553, 627);
+		labelAngularOfPerihelionNodeArcData.Name = "labelAngularOfPerihelionNodeArcData";
+		labelAngularOfPerihelionNodeArcData.Size = new Size(290, 20);
+		labelAngularOfPerihelionNodeArcData.TabIndex = 113;
+		labelAngularOfPerihelionNodeArcData.ToolTipValues.Description = "Shows the information of \"Angular of the perihelion node arc\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelAngularOfPerihelionNodeArcData.ToolTipValues.EnableToolTips = true;
+		labelAngularOfPerihelionNodeArcData.ToolTipValues.Heading = "Information of \"Angular of the perihelion node arc\"";
+		labelAngularOfPerihelionNodeArcData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAngularOfPerihelionNodeArcData.Values.Text = "..................";
+		labelAngularOfPerihelionNodeArcData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelAngularOfPerihelionNodeArcData.Enter += Control_Enter;
+		labelAngularOfPerihelionNodeArcData.Leave += Control_Leave;
+		labelAngularOfPerihelionNodeArcData.MouseDown += Control_MouseDown;
+		labelAngularOfPerihelionNodeArcData.MouseEnter += Control_Enter;
+		labelAngularOfPerihelionNodeArcData.MouseLeave += Control_Leave;
+		// 
+		// labelAngularOfAphelionNodeArcData
+		// 
+		labelAngularOfAphelionNodeArcData.AccessibleDescription = "Shows the information of \"Angular of the aphelion node arc\"";
+		labelAngularOfAphelionNodeArcData.AccessibleName = "Information of \"Angular of the aphelion node arc\"";
+		labelAngularOfAphelionNodeArcData.AccessibleRole = AccessibleRole.StaticText;
+		labelAngularOfAphelionNodeArcData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelAngularOfAphelionNodeArcData.Dock = DockStyle.Top;
+		labelAngularOfAphelionNodeArcData.Location = new Point(553, 601);
+		labelAngularOfAphelionNodeArcData.Name = "labelAngularOfAphelionNodeArcData";
+		labelAngularOfAphelionNodeArcData.Size = new Size(290, 20);
+		labelAngularOfAphelionNodeArcData.TabIndex = 111;
+		labelAngularOfAphelionNodeArcData.ToolTipValues.Description = "Shows the information of \"Angular of the aphelion node arc\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelAngularOfAphelionNodeArcData.ToolTipValues.EnableToolTips = true;
+		labelAngularOfAphelionNodeArcData.ToolTipValues.Heading = "Information of \"Angular of the aphelion node arc\"";
+		labelAngularOfAphelionNodeArcData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAngularOfAphelionNodeArcData.Values.Text = "..................";
+		labelAngularOfAphelionNodeArcData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelAngularOfAphelionNodeArcData.Enter += Control_Enter;
+		labelAngularOfAphelionNodeArcData.Leave += Control_Leave;
+		labelAngularOfAphelionNodeArcData.MouseDown += Control_MouseDown;
+		labelAngularOfAphelionNodeArcData.MouseEnter += Control_Enter;
+		labelAngularOfAphelionNodeArcData.MouseLeave += Control_Leave;
+		// 
+		// labelAngularOfPerihelionNodeArcDesc
+		// 
+		labelAngularOfPerihelionNodeArcDesc.AccessibleDescription = "Shows the angular of the perihelion node arc (°)";
+		labelAngularOfPerihelionNodeArcDesc.AccessibleName = "Angular of the perihelion node arc (°)";
+		labelAngularOfPerihelionNodeArcDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelAngularOfPerihelionNodeArcDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelAngularOfPerihelionNodeArcDesc.Dock = DockStyle.Top;
+		labelAngularOfPerihelionNodeArcDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelAngularOfPerihelionNodeArcDesc.Location = new Point(301, 627);
+		labelAngularOfPerihelionNodeArcDesc.Name = "labelAngularOfPerihelionNodeArcDesc";
+		labelAngularOfPerihelionNodeArcDesc.Size = new Size(246, 20);
+		labelAngularOfPerihelionNodeArcDesc.TabIndex = 112;
+		labelAngularOfPerihelionNodeArcDesc.Tag = "35";
+		labelAngularOfPerihelionNodeArcDesc.ToolTipValues.Description = "Shows the angular of the perihelion node arc (°).\r\nDouble-click or right-click to open the terminology.";
+		labelAngularOfPerihelionNodeArcDesc.ToolTipValues.EnableToolTips = true;
+		labelAngularOfPerihelionNodeArcDesc.ToolTipValues.Heading = "Angular of the perihelion node arc (°)";
+		labelAngularOfPerihelionNodeArcDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAngularOfPerihelionNodeArcDesc.Values.ExtraText = "°";
+		labelAngularOfPerihelionNodeArcDesc.Values.Text = "Angular of the perihelion node arc";
+		labelAngularOfPerihelionNodeArcDesc.DoubleClick += CopyToClipboard_DoubleClick;
+		labelAngularOfPerihelionNodeArcDesc.Enter += Control_Enter;
+		labelAngularOfPerihelionNodeArcDesc.Leave += Control_Leave;
+		labelAngularOfPerihelionNodeArcDesc.MouseDown += Control_MouseDown;
+		labelAngularOfPerihelionNodeArcDesc.MouseEnter += Control_Enter;
+		labelAngularOfPerihelionNodeArcDesc.MouseLeave += Control_Leave;
+		// 
+		// labelAngularOfAphelionNodeArcDesc
+		// 
+		labelAngularOfAphelionNodeArcDesc.AccessibleDescription = "Shows the angular of the aphelion node arc (°)";
+		labelAngularOfAphelionNodeArcDesc.AccessibleName = "Angular of the aphelion node arc (°)";
+		labelAngularOfAphelionNodeArcDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelAngularOfAphelionNodeArcDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelAngularOfAphelionNodeArcDesc.Dock = DockStyle.Top;
+		labelAngularOfAphelionNodeArcDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelAngularOfAphelionNodeArcDesc.Location = new Point(301, 601);
+		labelAngularOfAphelionNodeArcDesc.Name = "labelAngularOfAphelionNodeArcDesc";
+		labelAngularOfAphelionNodeArcDesc.Size = new Size(246, 20);
+		labelAngularOfAphelionNodeArcDesc.TabIndex = 110;
+		labelAngularOfAphelionNodeArcDesc.Tag = "35";
+		labelAngularOfAphelionNodeArcDesc.ToolTipValues.Description = "Shows the angular of the aphelion anode rc (°).\r\nDouble-click or right-click to open the terminology.";
+		labelAngularOfAphelionNodeArcDesc.ToolTipValues.EnableToolTips = true;
+		labelAngularOfAphelionNodeArcDesc.ToolTipValues.Heading = "Angular of the aphelion node arc (°)";
+		labelAngularOfAphelionNodeArcDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAngularOfAphelionNodeArcDesc.Values.ExtraText = "°";
+		labelAngularOfAphelionNodeArcDesc.Values.Text = "Angular of the aphelion node arc";
 		// 
 		// toolStripIcons
 		// 
