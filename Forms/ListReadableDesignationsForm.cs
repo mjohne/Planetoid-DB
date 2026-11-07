@@ -510,8 +510,8 @@ internal partial class ListReadableDesignationsForm : BaseKryptonForm
 			listView.Items.Clear();
 			listView.Columns.Clear();
 			// Add columns for index and readable designation
-			_ = listView.Columns.Add(new ColumnHeader { Text = I18nStrings.Index, TextAlign = HorizontalAlignment.Right, Width = 100 });
-			_ = listView.Columns.Add(new ColumnHeader { Text = "Readable Designation", TextAlign = HorizontalAlignment.Left, Width = 300 });
+			_ = listView.Columns.Add(value: new ColumnHeader { Text = I18nStrings.Index, TextAlign = HorizontalAlignment.Right, Width = 100 });
+			_ = listView.Columns.Add(value: new ColumnHeader { Text = "Readable Designation", TextAlign = HorizontalAlignment.Left, Width = 300 });
 			// Calculate the range based on the numeric up/down values
 			int min = (int)toolStripNumericUpDownMinimum.Value - 1;
 			int max = (int)toolStripNumericUpDownMaximum.Value;
