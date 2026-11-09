@@ -55,6 +55,7 @@ internal class PostscriptExporter : IOrbitDataExporter
 	/// <remarks>This method replaces special characters in the input string with their corresponding PostScript escape sequences.</remarks>
 	private static string EscapePostScriptString(string value)
 	{
+		ArgumentException.ThrowIfNullOrEmpty(argument: value);
 		return value
 			.Replace(oldValue: "\\", newValue: "\\\\", comparisonType: StringComparison.Ordinal)
 			.Replace(oldValue: "(", newValue: "\\(", comparisonType: StringComparison.Ordinal)
@@ -68,6 +69,19 @@ internal class PostscriptExporter : IOrbitDataExporter
 	/// <remarks>This method exports the selected data to a Postscript file at the specified file path.</remarks>
 	public void Export(string filePath, string exportTitle, Dictionary<string, string> selectedData)
 	{
+		if (string.IsNullOrEmpty(value: filePath))
+		{
+			// Log the error and throw an exception if the file path is null or empty
+			logger.Error(message: "File path must not be null or empty.");
+			throw new ArgumentException(message: "File path must not be null or empty.", paramName: nameof(filePath));
+		}
+		if (string.IsNullOrEmpty(value: exportTitle))
+		{
+			// Log the error and throw an exception if the export title is null or empty
+			logger.Error(message: "Export title must not be null or empty.");
+			throw new ArgumentException(message: "Export title must not be null or empty.", paramName: nameof(exportTitle));
+		}
+		ArgumentNullException.ThrowIfNull(argument: selectedData);
 		// Log the export operation
 		logger.Info(message: $"Exporting data to Postscript file: {filePath}");
 		// Create a StringBuilder to build the content of the Postscript file
