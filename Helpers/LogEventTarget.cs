@@ -33,6 +33,7 @@ internal sealed class LogEventTarget : Target
 	/// <remarks>Passing a <paramref name="name"/> allows multiple targets to coexist while remaining individually addressable.</remarks>
 	public LogEventTarget(string name)
 	{
+		ArgumentException.ThrowIfNullOrEmpty(argument: name);
 		// Set the target name for NLog configuration purposes
 		Name = name;
 	}

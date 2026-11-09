@@ -17,6 +17,7 @@ using System.Diagnostics;
 
 namespace Planetoid_DB.Helpers;
 
+/// <summary>Provides derived elements for planetoids.</summary>
 internal partial class DerivedElements
 {
 	/// <summary>Represents the synodic period of a planetoid with a solar system planet.</summary>

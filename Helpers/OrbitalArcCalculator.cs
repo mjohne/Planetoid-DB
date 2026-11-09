@@ -69,6 +69,14 @@ internal static class OrbitalArcCalculator
 		return aphel / circumference * 360.0;
 	}
 
+	/// <summary>
+	/// Calculates the perihelion and aphelion arc lengths and the circumference of an elliptical orbit.
+	/// </summary>
+	/// <param name="a">The positive semimajor axis of the orbit.</param>
+	/// <param name="e">The orbital eccentricity, in the range [0, 1).</param>
+	/// <param name="omegaDegrees">The argument of perihelion, in degrees.</param>
+	/// <returns>A tuple containing the perihelion arc length, aphelion arc length, and complete circumference.</returns>
+	/// <exception cref="ArgumentOutOfRangeException">The semimajor axis is not positive, or the eccentricity is outside the range [0, 1).</exception>
 	private static (double perihel, double aphel, double circumference) CalculateArcs(double a, double e, double omegaDegrees)
 	{
 		// Validate input parameters.

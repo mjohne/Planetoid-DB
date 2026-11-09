@@ -26,34 +26,13 @@ namespace Planetoid_DB.Helpers;
 
 /// <summary>Provides static methods to import user-scoped application settings from CSV, INI, XML, JSON, and YAML files into <see cref="Settings.Default"/>.</summary>
 /// <remarks>Only user-scoped settings can be written back; application-scoped settings that appear in the file are silently skipped. After a successful import <see cref="Settings.Default"/> is saved automatically.</remarks>
-internal static class SettingsImporter
+internal static partial class SettingsImporter
 {
 	/// <summary>NLog logger for the class.</summary>
 	/// <remarks>This logger is used to log messages and errors during the import process.</remarks>
 	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
 	#region Internal data model
-
-	/// <summary>Represents a single setting entry parsed from an import file.</summary>
-	/// <remarks>This class is used internally to hold the name, type, scope, and value of a setting before it is applied to <see cref="Settings.Default"/>.</remarks>
-	private sealed class SettingEntry
-	{
-		/// <summary>Gets the name of the setting.</summary>
-		/// <remarks>This is the key used to look up the setting in <see cref="Settings.Default"/>.</remarks>
-		public string Name { get; init; } = string.Empty;
-
-		/// <summary>Gets the CLR type name of the setting value.</summary>
-		/// <remarks>This is used to convert the string value to the appropriate type when applying the setting.</remarks>
-		public string TypeName { get; init; } = string.Empty;
-
-		/// <summary>Gets the scope of the setting ("User" or "Application").</summary>
-		/// <remarks>Only user-scoped settings can be applied; application-scoped settings are skipped.</remarks>
-		public string Scope { get; init; } = string.Empty;
-
-		/// <summary>Gets the value of the setting as a string.</summary>
-		/// <remarks>This value will be converted to the appropriate type based on <see cref="TypeName"/> when applying the setting.</remarks>
-		public string Value { get; init; } = string.Empty;
-	}
 
 	#endregion
 
@@ -65,6 +44,7 @@ internal static class SettingsImporter
 	/// <remarks>This method iterates over the provided entries, checks their scope and existence in the current settings, converts their values to the appropriate type, and saves the settings if any were applied.</remarks>
 	private static int ApplySettings(IEnumerable<SettingEntry> entries)
 	{
+		ArgumentNullException.ThrowIfNull(argument: entries);
 		// Get the current settings instance.
 		Settings settings = Settings.Default;
 		// Track how many settings were successfully applied.
@@ -135,6 +115,9 @@ internal static class SettingsImporter
 	/// <remarks>All numeric conversions use <see cref="CultureInfo.CurrentCulture"/>. Unsupported types fall back to <see cref="Convert.ChangeType(object, Type, IFormatProvider)"/>. Throws if the input string is not in a format compatible with the target type.</remarks>
 	private static object? ConvertValue(string value, string typeName, Type propertyType)
 	{
+		ArgumentException.ThrowIfNullOrEmpty(argument: value);
+		ArgumentException.ThrowIfNullOrEmpty(argument: typeName);
+		ArgumentNullException.ThrowIfNull(argument: propertyType);
 		// Use a switch expression to convert the string value to the appropriate CLR type based on the type name.
 		return typeName switch
 		{
@@ -160,6 +143,13 @@ internal static class SettingsImporter
 	{
 		// Log an info message indicating the start of the CSV import process.
 		logger.Info(message: $"Importing settings from CSV file '{filePath}'.");
+		// Validate the file path
+		if (string.IsNullOrEmpty(value: filePath))
+		{
+			// Log the error and throw an exception if the file path is null or empty
+			logger.Error(message: "File path must not be null or empty.");
+			throw new ArgumentException(message: "File path must not be null or empty.", paramName: nameof(filePath));
+		}
 		// Use a try-catch block to handle any exceptions that may occur during file reading or parsing.
 		try
 		{
@@ -214,6 +204,13 @@ internal static class SettingsImporter
 	/// <remarks>This method handles quoted fields, escaped quotes (""), and unquoted fields. It does not handle multiline fields.</remarks>
 	private static string[] ParseCsvLine(string line)
 	{
+		// Validate the parameter
+		if (string.IsNullOrEmpty(value: line))
+		{
+			// Log the error and throw an exception if the raw CSV line is null or empty
+			logger.Error(message: "The raw CSV line not be null or empty.");
+			throw new ArgumentException(message: "The raw CSV line must not be null or empty.", paramName: nameof(line));
+		}
 		// Initialize a list to hold the parsed fields.
 		List<string> fields = [];
 		// Initialize the position index to start parsing from the beginning of the line.
@@ -302,6 +299,13 @@ internal static class SettingsImporter
 	{
 		// Log an info message indicating the start of the INI import process.
 		logger.Info(message: $"Importing settings from INI file '{filePath}'.");
+		// Validate the file path
+		if (string.IsNullOrEmpty(value: filePath))
+		{
+			// Log the error and throw an exception if the file path is null or empty
+			logger.Error(message: "File path must not be null or empty.");
+			throw new ArgumentException(message: "File path must not be null or empty.", paramName: nameof(filePath));
+		}
 		// Use a try-catch block to handle any exceptions that may occur during file reading or parsing.
 		try
 		{
@@ -385,6 +389,13 @@ internal static class SettingsImporter
 	{
 		// Log an info message indicating the start of the XML import process.
 		logger.Info(message: $"Importing settings from XML file '{filePath}'.");
+		// Validate the file path
+		if (string.IsNullOrEmpty(value: filePath))
+		{
+			// Log the error and throw an exception if the file path is null or empty
+			logger.Error(message: "File path must not be null or empty.");
+			throw new ArgumentException(message: "File path must not be null or empty.", paramName: nameof(filePath));
+		}
 		// Use a try-catch block to handle any exceptions that may occur during file reading or parsing.
 		try
 		{
@@ -451,6 +462,13 @@ internal static class SettingsImporter
 	{
 		// Log an info message indicating the start of the JSON import process.
 		logger.Info(message: $"Importing settings from JSON file '{filePath}'.");
+		// Validate the file path
+		if (string.IsNullOrEmpty(value: filePath))
+		{
+			// Log the error and throw an exception if the file path is null or empty
+			logger.Error(message: "File path must not be null or empty.");
+			throw new ArgumentException(message: "File path must not be null or empty.", paramName: nameof(filePath));
+		}
 		// Use a try-catch block to handle any exceptions that may occur during file reading or parsing.
 		try
 		{
@@ -477,6 +495,13 @@ internal static class SettingsImporter
 	/// <remarks>This is a simple hand-rolled parser that handles the specific format produced by the exporter. It does not attempt to handle arbitrary JSON.</remarks>
 	private static List<SettingEntry> ParseJsonArray(string json)
 	{
+		// Validate the parameter
+		if (string.IsNullOrEmpty(value: json))
+		{
+			// Log the error and throw an exception if the JSON array is null or empty
+			logger.Error(message: "JSON array must not be null or empty.");
+			throw new ArgumentException(message: "JSON array path must not be null or empty.", paramName: nameof(json));
+		}
 		// Remove whitespace and newlines for easier parsing.
 		List<SettingEntry> entries = [];
 		// Extract each object between { and }
@@ -587,6 +612,13 @@ internal static class SettingsImporter
 	/// <remarks>This is a simple hand-rolled parser that handles the specific format produced by the exporter. It does not attempt to handle arbitrary JSON.</remarks>
 	private static Dictionary<string, string> ParseJsonObject(string obj)
 	{
+		// Validate the parameter
+		if (string.IsNullOrEmpty(value: obj))
+		{
+			// Log the error and throw an exception if the raw text is null or empty
+			logger.Error(message: "Raw text must not be null or empty.");
+			throw new ArgumentException(message: "raw text must not be null or empty.", paramName: nameof(obj));
+		}
 		// Use a case-insensitive dictionary to store the parsed key/value pairs.
 		Dictionary<string, string> result = new(comparer: StringComparer.OrdinalIgnoreCase);
 		// Initialize the position index to start parsing from the beginning of the object string.
@@ -664,6 +696,14 @@ internal static class SettingsImporter
 	/// <remarks>This method handles escaped quotes (\"), ensuring that the search for the closing quote does not terminate prematurely.</remarks>
 	private static int FindClosingQuote(string text, int start)
 	{
+		// Validate the parameter
+		if (string.IsNullOrEmpty(value: text))
+		{
+			// Log the error and throw an exception if the text to search is null or empty
+			logger.Error(message: "Text to search must not be null or empty.");
+			throw new ArgumentException(message: "Text to search must not be null or empty.", paramName: nameof(text));
+		}
+		ArgumentOutOfRangeException.ThrowIfNegative(value: start);
 		// Start searching from the specified position, looking for the closing quote while skipping escaped quotes.
 		int i = start;
 		// Loop through the text until the end is reached.
@@ -693,6 +733,13 @@ internal static class SettingsImporter
 	/// <remarks>This method handles common JSON escape sequences such as \n, \r, \t, \\, \", and Unicode escapes (\uXXXX).</remarks>
 	private static string JsonUnescape(string value)
 	{
+		// Validate the parameter
+		if (string.IsNullOrEmpty(value: value))
+		{
+			// Log the error and throw an exception if the The raw JSON string content is null or empty
+			logger.Error(message: "The raw JSON string content must not be null or empty.");
+			throw new ArgumentException(message: "The raw JSON string content must not be null or empty.", paramName: nameof(value));
+		}
 		// If the string does not contain any backslashes, return it as-is for efficiency.
 		if (!value.Contains(value: '\\', comparisonType: StringComparison.CurrentCulture))
 		{
@@ -745,6 +792,13 @@ internal static class SettingsImporter
 	{
 		// Log an info message indicating the start of the YAML import process.
 		logger.Info(message: $"Importing settings from YAML file '{filePath}'.");
+		// Validate the file path
+		if (string.IsNullOrEmpty(value: filePath))
+		{
+			// Log the error and throw an exception if the file path is null or empty
+			logger.Error(message: "File path must not be null or empty.");
+			throw new ArgumentException(message: "File path must not be null or empty.", paramName: nameof(filePath));
+		}
 		// Use a try-catch block to handle any exceptions that may occur during file reading or parsing.
 		try
 		{
@@ -821,6 +875,19 @@ internal static class SettingsImporter
 	/// <returns>The trimmed scalar value, or an empty string if the key is not found.</returns>
 	private static string ParseYamlValue(string line, string key)
 	{
+		// Validate the parameter
+		if (string.IsNullOrEmpty(value: line))
+		{
+			// Log the error and throw an exception if the line is null or empty
+			logger.Error("The line must not be null or empty.");
+			throw new ArgumentException(message: "The line must not be null or empty.", paramName: nameof(line));
+		}
+		if (string.IsNullOrEmpty(value: key))
+		{
+			// Log the error and throw an exception if the key is null or empty
+			logger.Error("The key must not be null or empty.");
+			throw new ArgumentException(message: "The key must not be null or empty.", paramName: nameof(key));
+		}
 		// Handles both "- name: value" and "  name: value"
 		// Construct the search string for the key followed by a colon.
 		string search = $"{key}:";
@@ -835,6 +902,13 @@ internal static class SettingsImporter
 	/// <returns>The plain string value.</returns>
 	private static string YamlUnquote(string scalar)
 	{
+		// Validate the parameter
+		if (string.IsNullOrEmpty(value: scalar))
+		{
+			// Log the error and throw an exception if the scalar is null or empty
+			logger.Error("The scalar must not be null or empty.");
+			throw new ArgumentException(message: "The scalar must not be null or empty.", paramName: nameof(scalar));
+		}
 		// If the scalar is single-quoted, remove the quotes and unescape doubled single quotes.
 		if (scalar.Length >= 2 && scalar[0] == '\'' && scalar[^1] == '\'')
 		{

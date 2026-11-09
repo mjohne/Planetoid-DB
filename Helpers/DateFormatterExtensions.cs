@@ -35,6 +35,7 @@ internal static class DateFormatterExtensions
 	/// <exception cref="ArgumentException">Wird geworfen, wenn der Input-String ungültig oder null ist.</exception>
 	public static string ToCultureDate(this string input, CultureInfo? targetCulture = null, bool useLongFormat = false)
 	{
+		ArgumentException.ThrowIfNullOrEmpty(argument: input);
 		// Use the TryToCultureDate method to attempt the conversion and throw an exception if it fails
 		return TryToCultureDate(input: input, formattedDate: out string result, targetCulture: targetCulture, useLongFormat: useLongFormat) ? result : throw new ArgumentException(message: $"The provided value '{input}' is not a valid date string in the format 'YYYYMMDD'.", paramName: nameof(input));
 	}
@@ -52,6 +53,7 @@ internal static class DateFormatterExtensions
 	/// <remarks>This method attempts to parse the input string as a DateOnly using the exact format "yyyyMMdd" and formats it according to the specified culture and format specifier.</remarks>
 	public static bool TryToCultureDate(this string input, out string formattedDate, CultureInfo? targetCulture = null, bool useLongFormat = false)
 	{
+		ArgumentException.ThrowIfNullOrEmpty(argument: input);
 		// Validate input
 		CultureInfo culture = targetCulture ?? CultureInfo.CurrentCulture;
 		// Determine the format specifier based on the useLongFormat parameter

@@ -50,6 +50,7 @@ internal static class AverageCalculator
 	/// <remarks>The arithmetic mean is the sum of all values divided by the count of values.</remarks>
 	public static double ArithmeticMean(IEnumerable<double> values)
 	{
+		ArgumentNullException.ThrowIfNull(argument: values);
 		// Initialize sum and count variables to accumulate the total and number of valid values
 		double sum = 0;
 		int count = 0;
@@ -74,6 +75,7 @@ internal static class AverageCalculator
 	public static double Median(IEnumerable<double> values)
 	{
 		// Filter out NaN and Infinity values, sort the remaining values, and convert to an array for indexing
+		ArgumentNullException.ThrowIfNull(argument: values);
 		double[] sorted = GetValidSortedValues(values: values);
 		if (sorted.Length == 0)
 		{
@@ -89,6 +91,7 @@ internal static class AverageCalculator
 	/// <remarks>The mode is the value that appears most frequently. If all values are unique, returns NaN.</remarks>
 	public static double Mode(IEnumerable<double> values)
 	{
+		ArgumentNullException.ThrowIfNull(argument: values);
 		// Use a dictionary to store the frequency of each rounded value (to avoid floating-point precision issues)
 		Dictionary<double, int> frequencies = [];
 		// Iterate through each value in the input collection
@@ -119,6 +122,7 @@ internal static class AverageCalculator
 	/// <remarks>The geometric mean is the nth root of the product of n values. All values must be positive.</remarks>
 	public static double GeometricMean(IEnumerable<double> values)
 	{
+		ArgumentNullException.ThrowIfNull(argument: values);
 		// Filter out NaN, Infinity, and non-positive values before calculating the geometric mean
 		double logSum = 0;
 		int count = 0;
@@ -143,6 +147,7 @@ internal static class AverageCalculator
 	/// <remarks>The harmonic mean is the reciprocal of the arithmetic mean of the reciprocals.</remarks>
 	public static double HarmonicMean(IEnumerable<double> values)
 	{
+		ArgumentNullException.ThrowIfNull(argument: values);
 		// Filter out NaN, Infinity, and non-positive values before calculating the harmonic mean
 		double reciprocalSum = 0;
 		int count = 0;
@@ -166,6 +171,7 @@ internal static class AverageCalculator
 	/// <remarks>The quadratic mean is the square root of the arithmetic mean of the squares.</remarks>
 	public static double QuadraticMean(IEnumerable<double> values)
 	{
+		ArgumentNullException.ThrowIfNull(argument: values);
 		// Filter out NaN and Infinity values before calculating the quadratic mean
 		double sumOfSquares = 0;
 		int count = 0;
@@ -190,6 +196,7 @@ internal static class AverageCalculator
 	/// <remarks>The cubic mean is the cube root of the arithmetic mean of the cubes.</remarks>
 	public static double CubicMean(IEnumerable<double> values)
 	{
+		ArgumentNullException.ThrowIfNull(argument: values);
 		// Filter out NaN and Infinity values before calculating the cubic mean
 		double[] valueArray = GetValidSortedValues(values);
 		// Return NaN if there are no valid values to calculate the cubic mean
@@ -208,17 +215,15 @@ internal static class AverageCalculator
 	/// <remarks>For two values, the logarithmic mean is (b-a)/ln(b/a). For multiple values, uses pairwise average.</remarks>
 	public static double LogarithmicMean(IEnumerable<double> values)
 	{
+		ArgumentNullException.ThrowIfNull(argument: values);
 		// Filter out NaN, Infinity, and non-positive values before calculating the logarithmic mean
 		double[] valueArray = GetValidSortedValues(values: values.Where(predicate: static v => v > 0));
 		// Return NaN if there are no valid values to calculate the logarithmic mean
 		switch (valueArray.Length)
 		{
-			case 0:
-				return double.NaN;
-			case 1:
-				return valueArray[0];
-			default:
-				break;
+			case 0: return double.NaN;
+			case 1: return valueArray[0];
+			default: break;
 		}
 		// For multiple values, calculate pairwise logarithmic means
 		double sum = 0;
@@ -249,6 +254,7 @@ internal static class AverageCalculator
 	/// <remarks>Replaces values below the lower percentile and above the upper percentile with the percentile values themselves.</remarks>
 	public static double WinsorMean(IEnumerable<double> values, double percentile = 0.1)
 	{
+		ArgumentNullException.ThrowIfNull(argument: values);
 		// Clamp percentile to [0, 0.5) to ensure valid index calculations
 		percentile = Math.Clamp(value: percentile, min: 0.0, max: 0.4999);
 		// Filter out NaN and Infinity values, sort the remaining values, and convert to an array for indexing
@@ -283,6 +289,7 @@ internal static class AverageCalculator
 	/// <remarks>Also known as the interquartile mean or midmean.</remarks>
 	public static double QuartileMean(IEnumerable<double> values)
 	{
+		ArgumentNullException.ThrowIfNull(argument: values);
 		// Filter out NaN and Infinity values, sort the remaining values, and convert to an array for indexing
 		double[] sorted = GetValidSortedValues(values: values);
 		// Return NaN if there are no valid values to calculate the quartile mean
@@ -313,6 +320,7 @@ internal static class AverageCalculator
 	/// <remarks>Finds the shortest contiguous half of the sorted values and calculates their mean.</remarks>
 	public static double ShortestHalfMean(IEnumerable<double> values)
 	{
+		ArgumentNullException.ThrowIfNull(argument: values);
 		// Filter out NaN and Infinity values, sort the remaining values, and convert to an array for indexing
 		double[] sorted = GetValidSortedValues(values: values);
 		// Return NaN if there are no valid values to calculate the mean of the shortest half
@@ -356,6 +364,7 @@ internal static class AverageCalculator
 	/// <remarks>A weighted combination of quartiles: 0.3*Q1 + 0.4*Median + 0.3*Q3.</remarks>
 	public static double GastwirthCohenMean(IEnumerable<double> values)
 	{
+		ArgumentNullException.ThrowIfNull(argument: values);
 		// Filter out NaN and Infinity values, sort the remaining values, and convert to an array for indexing
 		double[] sorted = GetValidSortedValues(values: values);
 		// Return NaN if there are no valid values to calculate the Gastwirth-Cohen mean
@@ -382,6 +391,7 @@ internal static class AverageCalculator
 	/// <remarks>The midrange is the average of the minimum and maximum values.</remarks>
 	public static double RangeMean(IEnumerable<double> values)
 	{
+		ArgumentNullException.ThrowIfNull(argument: values);
 		// Filter out NaN and Infinity values and convert to an array for indexing
 		double[] valueArray = GetValidSortedValues(values: values);
 		// Return NaN if there are no valid values to calculate the range mean
@@ -394,6 +404,7 @@ internal static class AverageCalculator
 	/// <remarks>The contraharmonic mean is the sum of squares divided by the sum.</remarks>
 	public static double AMean(IEnumerable<double> values)
 	{
+		ArgumentNullException.ThrowIfNull(argument: values);
 		// Filter out NaN and Infinity values and convert to an array for indexing
 		double[] valueArray = GetValidSortedValues(values: values);
 		// Return NaN if there are no valid values to calculate the "a"-mean
@@ -414,6 +425,7 @@ internal static class AverageCalculator
 	/// <remarks>Calculates the average of averages of all windows of the specified size.</remarks>
 	public static double MovingAverage(IEnumerable<double> values, int windowSize = 3)
 	{
+		ArgumentNullException.ThrowIfNull(argument: values);
 		// Ensure the window size is at least 1 to avoid division by zero
 		if (windowSize < 1)
 		{
@@ -460,6 +472,7 @@ internal static class AverageCalculator
 	/// <remarks>Combines the Hölder mean with the shortest half selection method.</remarks>
 	public static double HolderMeanShortestHalf(IEnumerable<double> values, double p = 2)
 	{
+		ArgumentNullException.ThrowIfNull(argument: values);
 		// Filter out NaN and Infinity values and convert to an array for indexing
 		double[] sorted = GetValidSortedValues(values: values);
 		// Return NaN if there are no valid values to calculate the Hölder mean of the shortest half
@@ -502,6 +515,7 @@ internal static class AverageCalculator
 	/// <remarks>The Lehmer mean is a generalization that includes harmonic (p=0), geometric (p→1), arithmetic (p=1), and quadratic (p=2) means.</remarks>
 	public static double LehmerMean(IEnumerable<double> values, double p = 2)
 	{
+		ArgumentNullException.ThrowIfNull(argument: values);
 		// Filter out NaN, Infinity, and negative values before calculating the Lehmer mean, as it is typically defined for non-negative values
 		double[] valueArray = GetValidSortedValues(values: values.Where(predicate: static v => v >= 0));
 		// Return NaN if there are no valid values to calculate the Lehmer mean

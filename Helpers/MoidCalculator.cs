@@ -43,13 +43,13 @@ internal partial class MoidCalculator
 	/// <remarks>These constants follow the commonly cited IAU-JPL mean planetary elements at J2000.0 as published by Standish (1992). The reference frame is the J2000.0 ecliptic and equinox. The stored <c>ArgumentPerihelionDeg</c> values are the argument of perihelion (<c>ω</c>), derived from the published longitude of perihelion (<c>ϖ</c>) and longitude of the ascending node (<c>Ω</c>) using <c>ω = ϖ - Ω</c>.</remarks>
 	private static readonly PlanetElements[] Planets =
 	[
-		new(Name: "Mercury", SemiMajorAxis: 0.38709893, Eccentricity: 0.20563069, InclinationDeg: 7.00487, LongitudeAscendingNodeDeg: 48.33167, ArgumentPerihelionDeg: 29.12478),
-		new(Name: "Venus", SemiMajorAxis: 0.72333199, Eccentricity: 0.00677323, InclinationDeg: 3.39471, LongitudeAscendingNodeDeg: 76.68069, ArgumentPerihelionDeg: 54.85229),
-		new(Name: "Earth", SemiMajorAxis: 1.00000011, Eccentricity: 0.01671022, InclinationDeg: 0.00005, LongitudeAscendingNodeDeg: -11.26064, ArgumentPerihelionDeg: 114.20783),
-		new(Name: "Mars", SemiMajorAxis: 1.52366231, Eccentricity: 0.09341233, InclinationDeg: 1.85061, LongitudeAscendingNodeDeg: 49.57854, ArgumentPerihelionDeg: 286.46230),
-		new(Name: "Jupiter", SemiMajorAxis: 5.20336301, Eccentricity: 0.04839266, InclinationDeg: 1.30530, LongitudeAscendingNodeDeg: 100.55615, ArgumentPerihelionDeg: 274.19770),
-		new(Name: "Saturn", SemiMajorAxis: 9.53707032, Eccentricity: 0.05415060, InclinationDeg: 2.48446, LongitudeAscendingNodeDeg: 113.71504, ArgumentPerihelionDeg: 338.71690),
-		new(Name: "Uranus", SemiMajorAxis: 19.19126393, Eccentricity: 0.04716771, InclinationDeg: 0.76986, LongitudeAscendingNodeDeg: 74.22988, ArgumentPerihelionDeg: 96.73436),
+		new(Name: "Mercury", SemiMajorAxis:  0.38709893, Eccentricity: 0.20563069, InclinationDeg: 7.00487, LongitudeAscendingNodeDeg:  48.33167, ArgumentPerihelionDeg:  29.12478),
+		new(Name: "Venus",   SemiMajorAxis:  0.72333199, Eccentricity: 0.00677323, InclinationDeg: 3.39471, LongitudeAscendingNodeDeg:  76.68069, ArgumentPerihelionDeg:  54.85229),
+		new(Name: "Earth",   SemiMajorAxis:  1.00000011, Eccentricity: 0.01671022, InclinationDeg: 0.00005, LongitudeAscendingNodeDeg: -11.26064, ArgumentPerihelionDeg: 114.20783),
+		new(Name: "Mars",    SemiMajorAxis:  1.52366231, Eccentricity: 0.09341233, InclinationDeg: 1.85061, LongitudeAscendingNodeDeg:  49.57854, ArgumentPerihelionDeg: 286.46230),
+		new(Name: "Jupiter", SemiMajorAxis:  5.20336301, Eccentricity: 0.04839266, InclinationDeg: 1.30530, LongitudeAscendingNodeDeg: 100.55615, ArgumentPerihelionDeg: 274.19770),
+		new(Name: "Saturn",  SemiMajorAxis:  9.53707032, Eccentricity: 0.05415060, InclinationDeg: 2.48446, LongitudeAscendingNodeDeg: 113.71504, ArgumentPerihelionDeg: 338.71690),
+		new(Name: "Uranus",  SemiMajorAxis: 19.19126393, Eccentricity: 0.04716771, InclinationDeg: 0.76986, LongitudeAscendingNodeDeg:  74.22988, ArgumentPerihelionDeg:  96.73436),
 		new(Name: "Neptune", SemiMajorAxis: 30.06896348, Eccentricity: 0.00858587, InclinationDeg: 1.76917, LongitudeAscendingNodeDeg: 131.72169, ArgumentPerihelionDeg: 273.24966),
 	];
 
@@ -66,10 +66,7 @@ internal partial class MoidCalculator
 	/// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
 	/// <returns>A list of <see cref="MoidResult"/> records, one per planet, in order from Mercury to Neptune.</returns>
 	/// <remarks>Uses a two-stage numerical algorithm: a coarse grid search (720 × 720 angular samples) to locate the approximate minimum, followed by coordinate-descent refinement for high precision.</remarks>
-	public static List<MoidResult> CalculateMoids(
-		double semiMajorAxis, double eccentricity, double inclinationDeg,
-		double longitudeAscendingNodeDeg, double argumentPerihelionDeg,
-		CancellationToken cancellationToken = default)
+	public static List<MoidResult> CalculateMoids(double semiMajorAxis, double eccentricity, double inclinationDeg, double longitudeAscendingNodeDeg, double argumentPerihelionDeg, CancellationToken cancellationToken = default)
 	{
 		double[] moidValues = CalculateMoidsInPlanetOrder(
 			semiMajorAxis, eccentricity, inclinationDeg, longitudeAscendingNodeDeg, argumentPerihelionDeg, cancellationToken);
@@ -90,13 +87,7 @@ internal partial class MoidCalculator
 	/// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
 	/// <returns>An array of eight MOID values in AU ordered from Mercury to Neptune.</returns>
 	/// <remarks>Optimized for bulk processing by computing the first-orbit coarse cache once and reusing it for all eight planet comparisons.</remarks>
-	public static double[] CalculateMoidsInPlanetOrder(
-		double semiMajorAxis,
-		double eccentricity,
-		double inclinationDeg,
-		double longitudeAscendingNodeDeg,
-		double argumentPerihelionDeg,
-		CancellationToken cancellationToken = default)
+	public static double[] CalculateMoidsInPlanetOrder(double semiMajorAxis, double eccentricity, double inclinationDeg, double longitudeAscendingNodeDeg, double argumentPerihelionDeg, CancellationToken cancellationToken = default)
 	{
 		// Convert the minor planet's orbital elements from degrees to radians for internal calculations
 		double i1 = inclinationDeg * Math.PI / 180.0;
@@ -157,10 +148,10 @@ internal partial class MoidCalculator
 	/// <param name="cancellationToken">Token to monitor for cancellation requests.</param>
 	/// <returns>The calculated MOID value.</returns>
 	/// <remarks>This method leverages the precomputed positions of the minor planet's orbit to efficiently compute the MOID against a given planet, using a coarse grid search followed by local refinement.</remarks>
-	private static double CalculateMoidUsingFirstOrbitCache(
-		double a1, double e1, double w1, double cosO1, double sinO1, double cosi1, double sini1, double oneMinusE1Sq,
-		(double X, double Y, double Z)[] pos1Cache, PlanetComputationData planet, CancellationToken cancellationToken)
+	private static double CalculateMoidUsingFirstOrbitCache(double a1, double e1, double w1, double cosO1, double sinO1, double cosi1, double sini1, double oneMinusE1Sq, (double X, double Y, double Z)[] pos1Cache, PlanetComputationData planet, CancellationToken cancellationToken)
 	{
+		ArgumentNullException.ThrowIfNull(argument: pos1Cache);
+		ArgumentNullException.ThrowIfNull(argument: planet);
 		// Rent a temporary array from the shared pool to hold the coarse grid positions for the planet's orbit
 		(double X, double Y, double Z)[] pos2Cache = ArrayPool<(double X, double Y, double Z)>.Shared.Rent(minimumLength: GridSteps);
 		// Use a try-finally block to ensure the rented array is returned to the pool even if an exception occurs
@@ -208,17 +199,7 @@ internal partial class MoidCalculator
 	/// <param name="argumentPerihelionDeg2">The argument of perihelion of the second minor planet's orbit in degrees.</param>
 	/// <returns>The MOID in AU between the two minor planets.</returns>
 	/// <remarks>Uses the same two-stage numerical algorithm as <see cref="CalculateMoids"/>: a coarse grid search (720 × 720 angular samples) followed by coordinate-descent refinement.</remarks>
-	public static double CalculateMoidBetweenPlanetoids(
-		double semiMajorAxis1,
-		double eccentricity1,
-		double inclinationDeg1,
-		double longitudeAscendingNodeDeg1,
-		double argumentPerihelionDeg1,
-		double semiMajorAxis2,
-		double eccentricity2,
-		double inclinationDeg2,
-		double longitudeAscendingNodeDeg2,
-		double argumentPerihelionDeg2)
+	public static double CalculateMoidBetweenPlanetoids(double semiMajorAxis1, double eccentricity1, double inclinationDeg1, double longitudeAscendingNodeDeg1, double argumentPerihelionDeg1, double semiMajorAxis2, double eccentricity2, double inclinationDeg2, double longitudeAscendingNodeDeg2, double argumentPerihelionDeg2)
 	{
 		// Convert angular elements of the first minor planet from degrees to radians
 		double i1 = inclinationDeg1 * Math.PI / 180.0;
@@ -229,9 +210,7 @@ internal partial class MoidCalculator
 		double o2 = argumentPerihelionDeg2 * Math.PI / 180.0;
 		double bigO2 = longitudeAscendingNodeDeg2 * Math.PI / 180.0;
 		// Calculate the MOID between the two orbits using the double-grid search algorithm
-		return CalculateMoid(
-			a1: semiMajorAxis1, e1: eccentricity1, i1: i1, w1: o1, bigO1: bigO1,
-			a2: semiMajorAxis2, e2: eccentricity2, i2: i2, w2: o2, bigO2: bigO2);
+		return CalculateMoid(a1: semiMajorAxis1, e1: eccentricity1, i1: i1, w1: o1, bigO1: bigO1, a2: semiMajorAxis2, e2: eccentricity2, i2: i2, w2: o2, bigO2: bigO2);
 	}
 
 	/// <summary>Computes the MOID between two Keplerian orbits using a double-grid search with local refinement.</summary>
@@ -247,9 +226,7 @@ internal partial class MoidCalculator
 	/// <param name="bigO2">Longitude of ascending node of orbit 2 (radians).</param>
 	/// <returns>The MOID in AU.</returns>
 	/// <remarks> Stage 1: coarse double-grid search with <c>GridSteps = 720</c> steps per orbit (0.5° resolution). Stage 2: coordinate-descent refinement starting from the best grid point, iteratively narrowing the search bracket until the step size falls below <c>1e-9</c> radians (≈ 0.2 milli-arcseconds), giving sub-milliarcsecond accuracy.</remarks>
-	private static double CalculateMoid(
-		double a1, double e1, double i1, double w1, double bigO1,
-		double a2, double e2, double i2, double w2, double bigO2)
+	private static double CalculateMoid(double a1, double e1, double i1, double w1, double bigO1, double a2, double e2, double i2, double w2, double bigO2)
 	{
 		// Rent arrays from pool for better memory management
 		(double X, double Y, double Z)[] pos1Cache = ArrayPool<(double X, double Y, double Z)>.Shared.Rent(minimumLength: GridSteps);
@@ -307,11 +284,10 @@ internal partial class MoidCalculator
 	/// <param name="cancellationToken">Token used to cancel the coarse search.</param>
 	/// <returns>The best coarse-grid squared distance and associated anomaly pair.</returns>
 	/// <remarks>Performs a lock-free parallel search and returns the best coarse starting point for local refinement.</remarks>
-	private static CoarseMinimumResult FindCoarseMinimum(
-		(double X, double Y, double Z)[] pos1Cache,
-		(double X, double Y, double Z)[] pos2Cache,
-		CancellationToken cancellationToken = default)
+	private static CoarseMinimumResult FindCoarseMinimum((double X, double Y, double Z)[] pos1Cache, (double X, double Y, double Z)[] pos2Cache, CancellationToken cancellationToken = default)
 	{
+		ArgumentNullException.ThrowIfNull(argument: pos1Cache);
+		ArgumentNullException.ThrowIfNull(argument: pos2Cache);
 		// Use long bits to avoid locking on double values; this allows atomic updates of the minimum distance found so far
 		long minDistSquaredBits = BitConverter.DoubleToInt64Bits(value: double.MaxValue);
 		long bestF1Bits = 0;
@@ -422,10 +398,7 @@ internal partial class MoidCalculator
 				}
 			});
 		// Return the best coarse minimum found across all threads
-		return new CoarseMinimumResult(
-			MinDistanceSquared: BitConverter.Int64BitsToDouble(value: Interlocked.Read(location: ref minDistSquaredBits)),
-			BestF1: BitConverter.Int64BitsToDouble(value: Interlocked.Read(location: ref bestF1Bits)),
-			BestF2: BitConverter.Int64BitsToDouble(value: Interlocked.Read(location: ref bestF2Bits)));
+		return new CoarseMinimumResult(MinDistanceSquared: BitConverter.Int64BitsToDouble(value: Interlocked.Read(location: ref minDistSquaredBits)), BestF1: BitConverter.Int64BitsToDouble(value: Interlocked.Read(location: ref bestF1Bits)), BestF2: BitConverter.Int64BitsToDouble(value: Interlocked.Read(location: ref bestF2Bits)));
 	}
 
 	/// <summary>Builds precomputed constants for all planetary comparison orbits.</summary>
@@ -481,10 +454,7 @@ internal partial class MoidCalculator
 	/// <param name="coarseMin">The coarse minimum distance used as the initial best.</param>
 	/// <returns>The refined MOID in AU.</returns>
 	/// <remarks>Optimized version that reuses precomputed trigonometric values from the grid search phase.</remarks>
-	private static double RefineMinimumOptimized(
-		double a1, double e1, double w1, double cosO1, double sinO1, double cosi1, double sini1, double oneMinusE1Sq,
-		double a2, double e2, double w2, double cosO2, double sinO2, double cosi2, double sini2, double oneMinusE2Sq,
-		double f1Start, double f2Start, double initialStep, double coarseMin)
+	private static double RefineMinimumOptimized(double a1, double e1, double w1, double cosO1, double sinO1, double cosi1, double sini1, double oneMinusE1Sq, double a2, double e2, double w2, double cosO2, double sinO2, double cosi2, double sini2, double oneMinusE2Sq, double f1Start, double f2Start, double initialStep, double coarseMin)
 	{
 		double f1 = f1Start;
 		double f2 = f2Start;
@@ -543,9 +513,7 @@ internal partial class MoidCalculator
 	/// <returns>The Cartesian position (X, Y, Z) in the ecliptic frame (AU).</returns>
 	/// <remarks>Optimized version that avoids redundant trigonometric calculations.</remarks>
 	[MethodImpl(methodImplOptions: MethodImplOptions.AggressiveInlining)]
-	private static (double X, double Y, double Z) OrbitPositionOptimized(
-		double a, double e, double w, double f,
-		double cosO, double sinO, double cosi, double sini, double oneMinusESq)
+	private static (double X, double Y, double Z) OrbitPositionOptimized(double a, double e, double w, double f, double cosO, double sinO, double cosi, double sini, double oneMinusESq)
 	{
 		// Heliocentric distance from the focal formula (using precomputed 1-e²)
 		double r = a * oneMinusESq / (1.0 + (e * Math.Cos(d: f)));
@@ -566,9 +534,7 @@ internal partial class MoidCalculator
 	/// <returns>The squared distance between the two points.</returns>
 	/// <remarks>Using squared distance avoids expensive sqrt operations during comparisons.</remarks>
 	[MethodImpl(methodImplOptions: MethodImplOptions.AggressiveInlining)]
-	private static double DistanceSquared(
-		(double X, double Y, double Z) p1,
-		(double X, double Y, double Z) p2)
+	private static double DistanceSquared((double X, double Y, double Z) p1, (double X, double Y, double Z) p2)
 	{
 		double dx = p1.X - p2.X;
 		double dy = p1.Y - p2.Y;

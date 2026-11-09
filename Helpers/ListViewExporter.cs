@@ -93,6 +93,20 @@ internal static partial class ListViewExporter
 	/// <remarks>The output is a simple tab-delimited text file with the title as the first line, a separator line of dashes, column headers, and then one line per row of data. No special escaping is performed, so tabs in the data may cause misalignment.</remarks>
 	public static void SaveAsText(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
+		// Validate the parameters
+		ArgumentNullException.ThrowIfNull(argument: listView);
+		if (string.IsNullOrEmpty(value: title))
+		{
+			// Log the error and throw an exception if the title is null or empty
+			logger.Error(message: "Title must not be null or empty.");
+			throw new ArgumentException(message: "Title must not be null or empty.", paramName: nameof(title));
+		}
+		if (string.IsNullOrEmpty(value: fileName))
+		{
+			// Log the error and throw an exception if the file name is null or empty
+			logger.Error(message: "File name must not be null or empty.");
+			throw new ArgumentException(message: "File name must not be null or empty.", paramName: nameof(fileName));
+		}
 		// Get the column headers and write the output file with UTF-8 encoding. The first line is the title, followed by a separator line, then the headers, and then each row of data as tab-delimited values.
 		try
 		{
@@ -130,6 +144,20 @@ internal static partial class ListViewExporter
 	/// <remarks>The output is a complete LaTeX document with a table containing the ListView data. Special characters in the data are escaped for LaTeX. The document uses the 'article' class and includes a caption with the provided title.</remarks>
 	public static void SaveAsLatex(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
+		// Validate the parameters
+		ArgumentNullException.ThrowIfNull(argument: listView);
+		if (string.IsNullOrEmpty(value: title))
+		{
+			// Log the error and throw an exception if the title is null or empty
+			logger.Error(message: "Title must not be null or empty.");
+			throw new ArgumentException(message: "Title must not be null or empty.", paramName: nameof(title));
+		}
+		if (string.IsNullOrEmpty(value: fileName))
+		{
+			// Log the error and throw an exception if the file name is null or empty
+			logger.Error(message: "File name must not be null or empty.");
+			throw new ArgumentException(message: "File name must not be null or empty.", paramName: nameof(fileName));
+		}
 		// Get the column headers and write the output file with UTF-8 encoding. The output is a complete LaTeX document with a table containing the ListView data. Special characters in the data are escaped for LaTeX.
 		try
 		{
@@ -180,6 +208,20 @@ internal static partial class ListViewExporter
 	/// <remarks>The output is a Markdown-formatted text file with the title as a level-1 heading, followed by a table containing the ListView data. Special characters in the cell data are escaped to prevent breaking the Markdown syntax.</remarks>
 	public static void SaveAsMarkdown(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
+		// Validate the parameters
+		ArgumentNullException.ThrowIfNull(argument: listView);
+		if (string.IsNullOrEmpty(value: title))
+		{
+			// Log the error and throw an exception if the title is null or empty
+			logger.Error(message: "Title must not be null or empty.");
+			throw new ArgumentException(message: "Title must not be null or empty.", paramName: nameof(title));
+		}
+		if (string.IsNullOrEmpty(value: fileName))
+		{
+			// Log the error and throw an exception if the file name is null or empty
+			logger.Error(message: "File name must not be null or empty.");
+			throw new ArgumentException(message: "File name must not be null or empty.", paramName: nameof(fileName));
+		}
 		// Get the column headers and write the output file with UTF-8 encoding. The output is a Markdown-formatted text file with the title as a level-1 heading, followed by a table containing the ListView data. Special characters in the cell data are escaped to prevent breaking the Markdown syntax.
 		try
 		{
@@ -220,6 +262,20 @@ internal static partial class ListViewExporter
 	/// <remarks>The output is an AsciiDoc-formatted text file with the title as a first-level heading, followed by a table containing the ListView data. The table uses the 'header' option to indicate that the first row contains column headers. Special characters in the cell data are escaped to prevent breaking the AsciiDoc syntax.</remarks>
 	public static void SaveAsAsciiDoc(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
+		// Validate the parameters
+		ArgumentNullException.ThrowIfNull(argument: listView);
+		if (string.IsNullOrEmpty(value: title))
+		{
+			// Log the error and throw an exception if the title is null or empty
+			logger.Error(message: "Title must not be null or empty.");
+			throw new ArgumentException(message: "Title must not be null or empty.", paramName: nameof(title));
+		}
+		if (string.IsNullOrEmpty(value: fileName))
+		{
+			// Log the error and throw an exception if the file name is null or empty
+			logger.Error(message: "File name must not be null or empty.");
+			throw new ArgumentException(message: "File name must not be null or empty.", paramName: nameof(fileName));
+		}
 		// Get the column headers and write the output file with UTF-8 encoding. The output is an AsciiDoc-formatted text file with the title as a first-level heading, followed by a table containing the ListView data. The table uses the 'header' option to indicate that the first row contains column headers. Special characters in the cell data are escaped to prevent breaking the AsciiDoc syntax.
 		try
 		{
@@ -261,6 +317,20 @@ internal static partial class ListViewExporter
 	/// <remarks>The output is a reStructuredText-formatted text file with the title as the main heading, followed by a table containing the ListView data. The table uses grid table syntax with proper alignment and separators. Special characters in the cell data are escaped to prevent breaking the reStructuredText syntax.</remarks>
 	public static void SaveAsReStructuredText(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
+		// Validate the parameters
+		ArgumentNullException.ThrowIfNull(argument: listView);
+		if (string.IsNullOrEmpty(value: title))
+		{
+			// Log the error and throw an exception if the title is null or empty
+			logger.Error(message: "Title must not be null or empty.");
+			throw new ArgumentException(message: "Title must not be null or empty.", paramName: nameof(title));
+		}
+		if (string.IsNullOrEmpty(value: fileName))
+		{
+			// Log the error and throw an exception if the file name is null or empty
+			logger.Error(message: "File name must not be null or empty.");
+			throw new ArgumentException(message: "File name must not be null or empty.", paramName: nameof(fileName));
+		}
 		// Get the column headers and rows, calculate column widths for proper alignment, and write the output file with UTF-8 encoding. The output is a reStructuredText-formatted text file with the title as the main heading, followed by a grid table containing the ListView data. Special characters in the cell data are escaped to prevent breaking the reStructuredText syntax.
 		try
 		{
@@ -337,6 +407,20 @@ internal static partial class ListViewExporter
 	/// <remarks>The file is a proper Textile document, not a plain text file.</remarks>
 	public static void SaveAsTextile(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
+		// Validate the parameters
+		ArgumentNullException.ThrowIfNull(argument: listView);
+		if (string.IsNullOrEmpty(value: title))
+		{
+			// Log the error and throw an exception if the title is null or empty
+			logger.Error(message: "Title must not be null or empty.");
+			throw new ArgumentException(message: "Title must not be null or empty.", paramName: nameof(title));
+		}
+		if (string.IsNullOrEmpty(value: fileName))
+		{
+			// Log the error and throw an exception if the file name is null or empty
+			logger.Error(message: "File name must not be null or empty.");
+			throw new ArgumentException(message: "File name must not be null or empty.", paramName: nameof(fileName));
+		}
 		// Get the column headers and write the output file with UTF-8 encoding. The output is a Textile-formatted text file with the title as a level-1 heading, followed by a table containing the ListView data. Special characters in the cell data are escaped to prevent breaking the Textile syntax.
 		try
 		{
@@ -375,6 +459,20 @@ internal static partial class ListViewExporter
 	/// <remarks>The file is a proper Typst document, not a plain text file.</remarks>
 	public static void SaveAsTypst(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
+		// Validate the parameters
+		ArgumentNullException.ThrowIfNull(argument: listView);
+		if (string.IsNullOrEmpty(value: title))
+		{
+			// Log the error and throw an exception if the title is null or empty
+			logger.Error(message: "Title must not be null or empty.");
+			throw new ArgumentException(message: "Title must not be null or empty.", paramName: nameof(title));
+		}
+		if (string.IsNullOrEmpty(value: fileName))
+		{
+			// Log the error and throw an exception if the file name is null or empty
+			logger.Error(message: "File name must not be null or empty.");
+			throw new ArgumentException(message: "File name must not be null or empty.", paramName: nameof(fileName));
+		}
 		// Get the column headers and rows, and write the output file with UTF-8 encoding. The output is a Typst-formatted text file with the title as a level-1 heading, followed by a table containing the ListView data. Special characters in the cell data are escaped to prevent breaking the Typst syntax.
 		try
 		{
@@ -420,6 +518,20 @@ internal static partial class ListViewExporter
 	/// <remarks>The file is a proper compressed DOCX (ZIP/Open XML) archive, not a flat XML file.</remarks>
 	public static void SaveAsWord(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
+		// Validate the parameters
+		ArgumentNullException.ThrowIfNull(argument: listView);
+		if (string.IsNullOrEmpty(value: title))
+		{
+			// Log the error and throw an exception if the title is null or empty
+			logger.Error(message: "Title must not be null or empty.");
+			throw new ArgumentException(message: "Title must not be null or empty.", paramName: nameof(title));
+		}
+		if (string.IsNullOrEmpty(value: fileName))
+		{
+			// Log the error and throw an exception if the file name is null or empty
+			logger.Error(message: "File name must not be null or empty.");
+			throw new ArgumentException(message: "File name must not be null or empty.", paramName: nameof(fileName));
+		}
 		// Get the column headers and rows, and write the output file as a proper compressed DOCX (ZIP/Open XML) archive with the necessary structure and content types. The document contains a table with the ListView data and a styled title paragraph.
 		try
 		{
@@ -502,6 +614,20 @@ internal static partial class ListViewExporter
 	/// <remarks>The file is a proper compressed ODT (ZIP) archive, not a flat XML file.</remarks>
 	public static void SaveAsOdt(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
+		// Validate the parameters
+		ArgumentNullException.ThrowIfNull(argument: listView);
+		if (string.IsNullOrEmpty(value: title))
+		{
+			// Log the error and throw an exception if the title is null or empty
+			logger.Error(message: "Title must not be null or empty.");
+			throw new ArgumentException(message: "Title must not be null or empty.", paramName: nameof(title));
+		}
+		if (string.IsNullOrEmpty(value: fileName))
+		{
+			// Log the error and throw an exception if the file name is null or empty
+			logger.Error(message: "File name must not be null or empty.");
+			throw new ArgumentException(message: "File name must not be null or empty.", paramName: nameof(fileName));
+		}
 		// Get the column headers and rows, and write the output file as a proper compressed ODT (ZIP) archive with the necessary structure and content types. The document contains a table with the ListView data and a heading with the title.
 		try
 		{
@@ -580,6 +706,20 @@ internal static partial class ListViewExporter
 	/// <remarks>The RTF file is saved using ASCII encoding.</remarks>
 	public static void SaveAsRtf(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
+		// Validate the parameters
+		ArgumentNullException.ThrowIfNull(argument: listView);
+		if (string.IsNullOrEmpty(value: title))
+		{
+			// Log the error and throw an exception if the title is null or empty
+			logger.Error(message: "Title must not be null or empty.");
+			throw new ArgumentException(message: "Title must not be null or empty.", paramName: nameof(title));
+		}
+		if (string.IsNullOrEmpty(value: fileName))
+		{
+			// Log the error and throw an exception if the file name is null or empty
+			logger.Error(message: "File name must not be null or empty.");
+			throw new ArgumentException(message: "File name must not be null or empty.", paramName: nameof(fileName));
+		}
 		// Get the column headers and rows, and write the output file in Rich Text Format (RTF) with ASCII encoding. The RTF document contains a bold heading for the title and a table with the ListView data. Special characters in the cell data are escaped to prevent breaking the RTF syntax.
 		try
 		{
@@ -634,6 +774,20 @@ internal static partial class ListViewExporter
 	/// <remarks>The file is a proper compressed ABW (ZIP/XML) archive, not a flat XML file.</remarks>
 	public static void SaveAsAbiword(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
+		// Validate the parameters
+		ArgumentNullException.ThrowIfNull(argument: listView);
+		if (string.IsNullOrEmpty(value: title))
+		{
+			// Log the error and throw an exception if the title is null or empty
+			logger.Error(message: "Title must not be null or empty.");
+			throw new ArgumentException(message: "Title must not be null or empty.", paramName: nameof(title));
+		}
+		if (string.IsNullOrEmpty(value: fileName))
+		{
+			// Log the error and throw an exception if the file name is null or empty
+			logger.Error(message: "File name must not be null or empty.");
+			throw new ArgumentException(message: "File name must not be null or empty.", paramName: nameof(fileName));
+		}
 		// Get the column headers and rows, and write the output file as a proper compressed ABW (ZIP/XML) archive with the necessary structure. The ABW format is based on XML and requires specific elements such as <abiword>, <section>, <p>, and <table> to structure the document content. The document contains a paragraph for the title and a table for the ListView data.
 		try
 		{
@@ -695,6 +849,20 @@ internal static partial class ListViewExporter
 	/// <remarks>WPS Writer natively supports HTML-based content; the file is saved in HTML format internally.</remarks>
 	public static void SaveAsWps(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
+		// Validate the parameters
+		ArgumentNullException.ThrowIfNull(argument: listView);
+		if (string.IsNullOrEmpty(value: title))
+		{
+			// Log the error and throw an exception if the title is null or empty
+			logger.Error(message: "Title must not be null or empty.");
+			throw new ArgumentException(message: "Title must not be null or empty.", paramName: nameof(title));
+		}
+		if (string.IsNullOrEmpty(value: fileName))
+		{
+			// Log the error and throw an exception if the file name is null or empty
+			logger.Error(message: "File name must not be null or empty.");
+			throw new ArgumentException(message: "File name must not be null or empty.", paramName: nameof(fileName));
+		}
 		// Get the column headers and rows, and write the output file in HTML format with UTF-8 encoding. The HTML document contains a heading for the title and a table for the ListView data. Special characters in the title and cell data are encoded using HTML entities to ensure a well-formed HTML document that can be opened in WPS Writer.
 		try
 		{
@@ -748,6 +916,20 @@ internal static partial class ListViewExporter
 	/// <remarks>The file is a proper compressed XLSX (ZIP/Open XML) archive.</remarks>
 	public static void SaveAsExcel(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
+		// Validate the parameters
+		ArgumentNullException.ThrowIfNull(argument: listView);
+		if (string.IsNullOrEmpty(value: title))
+		{
+			// Log the error and throw an exception if the title is null or empty
+			logger.Error(message: "Title must not be null or empty.");
+			throw new ArgumentException(message: "Title must not be null or empty.", paramName: nameof(title));
+		}
+		if (string.IsNullOrEmpty(value: fileName))
+		{
+			// Log the error and throw an exception if the file name is null or empty
+			logger.Error(message: "File name must not be null or empty.");
+			throw new ArgumentException(message: "File name must not be null or empty.", paramName: nameof(fileName));
+		}
 		// Get the column headers and rows, and write the output file as a proper compressed XLSX (ZIP/Open XML) archive with the necessary structure and content types. The document contains a single sheet named "Data" with the ListView data. The title is included as a comment in the first cell (A1) for reference.
 		try
 		{
@@ -844,6 +1026,20 @@ internal static partial class ListViewExporter
 	/// <remarks>The file is a proper compressed ODS (ZIP) archive, not a flat XML file.</remarks>
 	public static void SaveAsOds(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
+		// Validate the parameters
+		ArgumentNullException.ThrowIfNull(argument: listView);
+		if (string.IsNullOrEmpty(value: title))
+		{
+			// Log the error and throw an exception if the title is null or empty
+			logger.Error(message: "Title must not be null or empty.");
+			throw new ArgumentException(message: "Title must not be null or empty.", paramName: nameof(title));
+		}
+		if (string.IsNullOrEmpty(value: fileName))
+		{
+			// Log the error and throw an exception if the file name is null or empty
+			logger.Error(message: "File name must not be null or empty.");
+			throw new ArgumentException(message: "File name must not be null or empty.", paramName: nameof(fileName));
+		}
 		// Get the column headers and rows, and write the output file as a proper compressed ODS (ZIP) archive with the necessary structure and content types. The ODS format requires specific entries such as mimetype, META-INF/manifest.xml, and content.xml with the appropriate content types and structure. The document contains a table with the ListView data, and the table is named using the provided title.
 		try
 		{
@@ -921,6 +1117,20 @@ internal static partial class ListViewExporter
 	/// <remarks>Fields containing special characters (commas, quotes, newlines) are properly escaped according to CSV standards.</remarks>
 	public static void SaveAsCsv(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
+		// Validate the parameters
+		ArgumentNullException.ThrowIfNull(argument: listView);
+		if (string.IsNullOrEmpty(value: title))
+		{
+			// Log the error and throw an exception if the title is null or empty
+			logger.Error(message: "Title must not be null or empty.");
+			throw new ArgumentException(message: "Title must not be null or empty.", paramName: nameof(title));
+		}
+		if (string.IsNullOrEmpty(value: fileName))
+		{
+			// Log the error and throw an exception if the file name is null or empty
+			logger.Error(message: "File name must not be null or empty.");
+			throw new ArgumentException(message: "File name must not be null or empty.", paramName: nameof(fileName));
+		}
 		// Get the column headers and rows, and write the output file in CSV format with UTF-8 encoding. The first line contains the column headers, and each subsequent line contains a data row. Fields that contain special characters are escaped by enclosing them in double quotes and doubling any internal double quotes to ensure the CSV file is well-formed and can be opened in spreadsheet applications without issues.
 		try
 		{
@@ -959,6 +1169,20 @@ internal static partial class ListViewExporter
 	/// <remarks>Fields containing tabs or newlines are properly escaped by enclosing them in double quotes and doubling any internal double quotes to ensure the TSV file is well-formed.</remarks>
 	public static void SaveAsTsv(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
+		// Validate the parameters
+		ArgumentNullException.ThrowIfNull(argument: listView);
+		if (string.IsNullOrEmpty(value: title))
+		{
+			// Log the error and throw an exception if the title is null or empty
+			logger.Error(message: "Title must not be null or empty.");
+			throw new ArgumentException(message: "Title must not be null or empty.", paramName: nameof(title));
+		}
+		if (string.IsNullOrEmpty(value: fileName))
+		{
+			// Log the error and throw an exception if the file name is null or empty
+			logger.Error(message: "File name must not be null or empty.");
+			throw new ArgumentException(message: "File name must not be null or empty.", paramName: nameof(fileName));
+		}
 		// Get the column headers and rows, and write the output file in TSV format with UTF-8 encoding. The first line contains the column headers, and each subsequent line contains a data row. Fields that contain tabs or newlines are escaped by enclosing them in double quotes and doubling any internal double quotes to ensure the TSV file is well-formed and can be opened in spreadsheet applications without issues.
 		try
 		{
@@ -993,6 +1217,20 @@ internal static partial class ListViewExporter
 	/// <remarks>Fields containing pipe characters or newlines are properly escaped by enclosing them in double quotes and doubling any internal double quotes to ensure the PSV file is well-formed.</remarks>
 	public static void SaveAsPsv(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
+		// Validate the parameters
+		ArgumentNullException.ThrowIfNull(argument: listView);
+		if (string.IsNullOrEmpty(value: title))
+		{
+			// Log the error and throw an exception if the title is null or empty
+			logger.Error(message: "Title must not be null or empty.");
+			throw new ArgumentException(message: "Title must not be null or empty.", paramName: nameof(title));
+		}
+		if (string.IsNullOrEmpty(value: fileName))
+		{
+			// Log the error and throw an exception if the file name is null or empty
+			logger.Error(message: "File name must not be null or empty.");
+			throw new ArgumentException(message: "File name must not be null or empty.", paramName: nameof(fileName));
+		}
 		// Get the column headers and rows, and write the output file in PSV format with UTF-8 encoding. The first line contains the column headers, and each subsequent line contains a data row. Fields that contain pipe characters or newlines are escaped by enclosing them in double quotes and doubling any internal double quotes to ensure the PSV file is well-formed and can be opened in spreadsheet applications without issues.
 		try
 		{
@@ -1027,6 +1265,20 @@ internal static partial class ListViewExporter
 	/// <remarks>ET files use CSV format for WPS Spreadsheet compatibility.</remarks>
 	public static void SaveAsEt(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
+		// Validate the parameters
+		ArgumentNullException.ThrowIfNull(argument: listView);
+		if (string.IsNullOrEmpty(value: title))
+		{
+			// Log the error and throw an exception if the title is null or empty
+			logger.Error(message: "Title must not be null or empty.");
+			throw new ArgumentException(message: "Title must not be null or empty.", paramName: nameof(title));
+		}
+		if (string.IsNullOrEmpty(value: fileName))
+		{
+			// Log the error and throw an exception if the file name is null or empty
+			logger.Error(message: "File name must not be null or empty.");
+			throw new ArgumentException(message: "File name must not be null or empty.", paramName: nameof(fileName));
+		}
 		// Get the column headers and rows, and write the output file in CSV format with UTF-8 encoding. The first line contains the column headers, and each subsequent line contains a data row. Fields that contain special characters such as commas, quotes, or newlines are escaped by enclosing them in double quotes and doubling any internal double quotes to ensure the CSV file is well-formed and can be opened in WPS Spreadsheet without issues.
 		try
 		{
@@ -1065,6 +1317,20 @@ internal static partial class ListViewExporter
 	/// <remarks>The HTML document contains a heading for the title and a table for the ListView data. Special characters in the title and cell data are encoded using HTML entities to ensure a well-formed HTML document that can be opened in web browsers.</remarks>
 	public static void SaveAsHtml(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
+		// Validate the parameters
+		ArgumentNullException.ThrowIfNull(argument: listView);
+		if (string.IsNullOrEmpty(value: title))
+		{
+			// Log the error and throw an exception if the title is null or empty
+			logger.Error(message: "Title must not be null or empty.");
+			throw new ArgumentException(message: "Title must not be null or empty.", paramName: nameof(title));
+		}
+		if (string.IsNullOrEmpty(value: fileName))
+		{
+			// Log the error and throw an exception if the file name is null or empty
+			logger.Error(message: "File name must not be null or empty.");
+			throw new ArgumentException(message: "File name must not be null or empty.", paramName: nameof(fileName));
+		}
 		// Get the column headers and rows, and write the output file in HTML format with UTF-8 encoding. The HTML document includes a DOCTYPE declaration, head with meta charset and title, and a body containing an H1 heading for the title and a table for the ListView data. Special characters are encoded using System.Net.WebUtility.HtmlEncode to ensure the HTML document is well-formed.
 		try
 		{
@@ -1117,6 +1383,20 @@ internal static partial class ListViewExporter
 	/// <remarks>This method creates an XML document with a root element named "data" and a "title" attribute. Each row in the ListView is represented as a "row" element, and each cell is represented as a child element with a name derived from the column header.</remarks>
 	public static void SaveAsXml(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
+		// Validate the parameters
+		ArgumentNullException.ThrowIfNull(argument: listView);
+		if (string.IsNullOrEmpty(value: title))
+		{
+			// Log the error and throw an exception if the title is null or empty
+			logger.Error(message: "Title must not be null or empty.");
+			throw new ArgumentException(message: "Title must not be null or empty.", paramName: nameof(title));
+		}
+		if (string.IsNullOrEmpty(value: fileName))
+		{
+			// Log the error and throw an exception if the file name is null or empty
+			logger.Error(message: "File name must not be null or empty.");
+			throw new ArgumentException(message: "File name must not be null or empty.", paramName: nameof(fileName));
+		}
 		// Get the column headers and rows, and write the output file in XML format with UTF-8 encoding. The XML document has a root element named "data" with a "title" attribute. Each row in the ListView is represented as a "row" element, and each cell is represented as a child element with a name derived from the column header. Special characters in the headers and cell data are properly escaped to ensure that the XML document is well-formed and can be parsed by XML parsers without issues.
 		try
 		{
@@ -1166,6 +1446,20 @@ internal static partial class ListViewExporter
 	/// <remarks>This method creates a DocBook XML document with an "article" root element, a "title" element for the document title, and a "section" containing a "table" with the ListView data. The table includes a header row with column headers and subsequent rows for the data. Special characters in the title and cell data are encoded to ensure that the XML document is well-formed and can be processed by DocBook tools without issues.</remarks>
 	public static void SaveAsDocBook(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
+		// Validate the parameters
+		ArgumentNullException.ThrowIfNull(argument: listView);
+		if (string.IsNullOrEmpty(value: title))
+		{
+			// Log the error and throw an exception if the title is null or empty
+			logger.Error(message: "Title must not be null or empty.");
+			throw new ArgumentException(message: "Title must not be null or empty.", paramName: nameof(title));
+		}
+		if (string.IsNullOrEmpty(value: fileName))
+		{
+			// Log the error and throw an exception if the file name is null or empty
+			logger.Error(message: "File name must not be null or empty.");
+			throw new ArgumentException(message: "File name must not be null or empty.", paramName: nameof(fileName));
+		}
 		// Get the column headers and rows, and write the output file in DocBook XML format with UTF-8 encoding. The XML document has an "article" root element, a "title" element for the document title, and a "section" containing a "table" with the ListView data. The table includes a header row with column headers and subsequent rows for the data. Special characters in the title and cell data are encoded to ensure that the XML document is well-formed and can be processed by DocBook tools without issues.
 		try
 		{
@@ -1238,6 +1532,20 @@ internal static partial class ListViewExporter
 	/// <remarks>This method creates a JSON document with a root object containing a "title" property and a "rows" property. The "rows" property is an array of objects, where each object represents a row in the ListView and has properties corresponding to the column headers. Special characters in the headers and cell data are properly escaped to ensure that the JSON document is well-formed and can be parsed by JSON parsers without issues.</remarks>
 	public static void SaveAsJson(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
+		// Validate the parameters
+		ArgumentNullException.ThrowIfNull(argument: listView);
+		if (string.IsNullOrEmpty(value: title))
+		{
+			// Log the error and throw an exception if the title is null or empty
+			logger.Error(message: "Title must not be null or empty.");
+			throw new ArgumentException(message: "Title must not be null or empty.", paramName: nameof(title));
+		}
+		if (string.IsNullOrEmpty(value: fileName))
+		{
+			// Log the error and throw an exception if the file name is null or empty
+			logger.Error(message: "File name must not be null or empty.");
+			throw new ArgumentException(message: "File name must not be null or empty.", paramName: nameof(fileName));
+		}
 		// Get the column headers and rows, and write the output file in JSON format with UTF-8 encoding. The JSON document has a root object containing a "title" property and a "rows" property. The "rows" property is an array of objects, where each object represents a row in the ListView and has properties corresponding to the column headers. Special characters in the headers and cell data are properly escaped by the JsonSerializer to ensure that the JSON document is well-formed.
 		try
 		{
@@ -1280,6 +1588,20 @@ internal static partial class ListViewExporter
 	/// <remarks>This method creates a YAML document with a root object containing a "title" property and a "rows" property. The "rows" property is an array of objects, where each object represents a row in the ListView and has properties corresponding to the column headers. Special characters in the headers and cell data are properly escaped to ensure that the YAML document is well-formed and can be parsed by YAML parsers without issues.</remarks>
 	public static void SaveAsYaml(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
+		// Validate the parameters
+		ArgumentNullException.ThrowIfNull(argument: listView);
+		if (string.IsNullOrEmpty(value: title))
+		{
+			// Log the error and throw an exception if the title is null or empty
+			logger.Error(message: "Title must not be null or empty.");
+			throw new ArgumentException(message: "Title must not be null or empty.", paramName: nameof(title));
+		}
+		if (string.IsNullOrEmpty(value: fileName))
+		{
+			// Log the error and throw an exception if the file name is null or empty
+			logger.Error(message: "File name must not be null or empty.");
+			throw new ArgumentException(message: "File name must not be null or empty.", paramName: nameof(fileName));
+		}
 		// Get the column headers and rows, and write the output file in YAML format with UTF-8 encoding. The YAML document has a root object containing a "title" property and a "rows" property. The "rows" property is an array of objects, where each object represents a row in the ListView and has properties corresponding to the column headers. Special characters in the headers and cell data are properly escaped to ensure that the YAML document is well-formed.
 		try
 		{
@@ -1323,6 +1645,20 @@ internal static partial class ListViewExporter
 	/// <remarks>This method creates a TOML document with a "title" key at the top of the file and a list of tables for each row in the ListView. Each table is represented as a TOML array of tables with keys corresponding to the column headers. Special characters in the headers and cell data are properly escaped to ensure that the TOML document is well-formed and can be parsed by TOML parsers without issues.</remarks>
 	public static void SaveAsToml(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
+		// Validate the parameters
+		ArgumentNullException.ThrowIfNull(argument: listView);
+		if (string.IsNullOrEmpty(value: title))
+		{
+			// Log the error and throw an exception if the title is null or empty
+			logger.Error(message: "Title must not be null or empty.");
+			throw new ArgumentException(message: "Title must not be null or empty.", paramName: nameof(title));
+		}
+		if (string.IsNullOrEmpty(value: fileName))
+		{
+			// Log the error and throw an exception if the file name is null or empty
+			logger.Error(message: "File name must not be null or empty.");
+			throw new ArgumentException(message: "File name must not be null or empty.", paramName: nameof(fileName));
+		}
 		// Get the column headers and rows, and write the output file in TOML format with UTF-8 encoding. The TOML document has a "title" key at the top of the file and a list of tables for each row in the ListView. Each table is represented as a TOML array of tables with keys corresponding to the column headers. Special characters in the headers and cell data are escaped by replacing double quotes with escaped double quotes to ensure that the TOML document is well-formed.
 		try
 		{
@@ -1365,6 +1701,20 @@ internal static partial class ListViewExporter
 	/// <remarks>This method creates a SQL script that includes a CREATE TABLE statement to define the table structure based on the column headers, followed by INSERT INTO statements for each row of data. The table name is derived from the title parameter, with non-alphanumeric characters replaced by underscores. Special characters in the data are escaped to ensure that the SQL script is well-formed and can be executed against a SQL database without issues.</remarks>
 	public static void SaveAsSql(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
+		// Validate the parameters
+		ArgumentNullException.ThrowIfNull(argument: listView);
+		if (string.IsNullOrEmpty(value: title))
+		{
+			// Log the error and throw an exception if the title is null or empty
+			logger.Error(message: "Title must not be null or empty.");
+			throw new ArgumentException(message: "Title must not be null or empty.", paramName: nameof(title));
+		}
+		if (string.IsNullOrEmpty(value: fileName))
+		{
+			// Log the error and throw an exception if the file name is null or empty
+			logger.Error(message: "File name must not be null or empty.");
+			throw new ArgumentException(message: "File name must not be null or empty.", paramName: nameof(fileName));
+		}
 		// Get the column headers and rows, and write the output file as a SQL script with UTF-8 encoding. The SQL script includes a CREATE TABLE statement to define the table structure based on the column headers, followed by INSERT INTO statements for each row of data. The table name is derived from the title parameter, with non-alphanumeric characters replaced by underscores. Special characters in the data are escaped by doubling single quotes to ensure that the SQL script is well-formed and can be executed against a SQL database without issues.
 		try
 		{
@@ -1419,6 +1769,20 @@ internal static partial class ListViewExporter
 	/// <remarks>This method creates a SQLite database file with a single table containing the data from the ListView. The table name is derived from the title parameter, with non-alphanumeric characters replaced by underscores. The method uses parameterized SQL commands to insert the data, which ensures that special characters in the data are properly escaped and that the resulting database is well-formed and can be opened with SQLite tools without issues.</remarks>
 	public static void SaveAsSqlite(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
+		// Validate the parameters
+		ArgumentNullException.ThrowIfNull(argument: listView);
+		if (string.IsNullOrEmpty(value: title))
+		{
+			// Log the error and throw an exception if the title is null or empty
+			logger.Error(message: "Title must not be null or empty.");
+			throw new ArgumentException(message: "Title must not be null or empty.", paramName: nameof(title));
+		}
+		if (string.IsNullOrEmpty(value: fileName))
+		{
+			// Log the error and throw an exception if the file name is null or empty
+			logger.Error(message: "File name must not be null or empty.");
+			throw new ArgumentException(message: "File name must not be null or empty.", paramName: nameof(fileName));
+		}
 		// Get the column headers and rows, and create a SQLite database file with a single table containing the data from the ListView. The table name is derived from the title parameter, with non-alphanumeric characters replaced by underscores. The method uses parameterized SQL commands to insert the data, which ensures that special characters in the data are properly escaped and that the resulting database is well-formed.
 		try
 		{
@@ -1486,6 +1850,20 @@ internal static partial class ListViewExporter
 	/// <remarks>The method generates a PDF document with the specified title and the contents of the ListView. Each page contains a heading with the title and a table with the data. If the ListView is in virtual mode, the <paramref name="virtualRowProvider"/> delegate is used to retrieve the items.</remarks>
 	public static void SaveAsPdf(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
+		// Validate the parameters
+		ArgumentNullException.ThrowIfNull(argument: listView);
+		if (string.IsNullOrEmpty(value: title))
+		{
+			// Log the error and throw an exception if the title is null or empty
+			logger.Error(message: "Title must not be null or empty.");
+			throw new ArgumentException(message: "Title must not be null or empty.", paramName: nameof(title));
+		}
+		if (string.IsNullOrEmpty(value: fileName))
+		{
+			// Log the error and throw an exception if the file name is null or empty
+			logger.Error(message: "File name must not be null or empty.");
+			throw new ArgumentException(message: "File name must not be null or empty.", paramName: nameof(fileName));
+		}
 		// Get the column headers and rows, and write the output file in PDF format. The method generates a PDF document with the specified title and the contents of the ListView. Each page contains a heading with the title and a table with the data. If the ListView is in virtual mode, the <paramref name="virtualRowProvider"/> delegate is used to retrieve the items.
 		try
 		{
@@ -1646,6 +2024,20 @@ internal static partial class ListViewExporter
 	/// <remarks>The PostScript file will include page headers, column headers, and data rows. If the content exceeds one page, additional pages will be created automatically.</remarks>
 	public static void SaveAsPostScript(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
+		// Validate the parameters
+		ArgumentNullException.ThrowIfNull(argument: listView);
+		if (string.IsNullOrEmpty(value: title))
+		{
+			// Log the error and throw an exception if the title is null or empty
+			logger.Error(message: "Title must not be null or empty.");
+			throw new ArgumentException(message: "Title must not be null or empty.", paramName: nameof(title));
+		}
+		if (string.IsNullOrEmpty(value: fileName))
+		{
+			// Log the error and throw an exception if the file name is null or empty
+			logger.Error(message: "File name must not be null or empty.");
+			throw new ArgumentException(message: "File name must not be null or empty.", paramName: nameof(fileName));
+		}
 		// Get the column headers and rows, and write the output file in PostScript format. The method generates a PostScript document with page headers containing the title and page number, column headers repeated on each page, and data rows formatted in a simple table layout. Pagination is handled by starting a new page when the content exceeds the page height, ensuring that the output is properly formatted for printing or viewing in a PostScript viewer.
 		try
 		{
@@ -1800,6 +2192,20 @@ internal static partial class ListViewExporter
 	/// <remarks>The file is a proper compressed EPUB (ZIP) archive conforming to the EPUB 2 specification.</remarks>
 	public static void SaveAsEpub(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
+		// Validate the parameters
+		ArgumentNullException.ThrowIfNull(argument: listView);
+		if (string.IsNullOrEmpty(value: title))
+		{
+			// Log the error and throw an exception if the title is null or empty
+			logger.Error(message: "Title must not be null or empty.");
+			throw new ArgumentException(message: "Title must not be null or empty.", paramName: nameof(title));
+		}
+		if (string.IsNullOrEmpty(value: fileName))
+		{
+			// Log the error and throw an exception if the file name is null or empty
+			logger.Error(message: "File name must not be null or empty.");
+			throw new ArgumentException(message: "File name must not be null or empty.", paramName: nameof(fileName));
+		}
 		// Get the column headers and rows, generate the necessary HTML, HHC, and HHP files in a temporary directory, and invoke the HTML Help Workshop compiler (hhc.exe) to create the CHM file. The method checks for the presence of hhc.exe in the default installation path and shows an error message if it is not found. If hhc.exe is available, it creates a temporary directory to store the intermediate files, generates an index.html file with the ListView data formatted as a table, a toc.hhc file for the table of contents, and a project.hhp file for the project configuration. It then runs hhc.exe with the project file to compile the CHM. If compilation is successful and the CHM file is created, it copies the resulting CHM to the specified output path. Finally, it cleans up the temporary directory and shows a success message or an error message if compilation fails.
 		try
 		{
@@ -1906,6 +2312,20 @@ internal static partial class ListViewExporter
 	/// <remarks>The method generates a MOBI file with a minimal header and a single HTML content record containing the ListView data formatted as a table. The MOBI file structure is constructed manually, including the necessary header fields and text records. The resulting MOBI file can be opened with compatible e-book readers that support the MOBI format.</remarks>
 	public static void SaveAsMobi(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
+		// Validate the parameters
+		ArgumentNullException.ThrowIfNull(argument: listView);
+		if (string.IsNullOrEmpty(value: title))
+		{
+			// Log the error and throw an exception if the title is null or empty
+			logger.Error(message: "Title must not be null or empty.");
+			throw new ArgumentException(message: "Title must not be null or empty.", paramName: nameof(title));
+		}
+		if (string.IsNullOrEmpty(value: fileName))
+		{
+			// Log the error and throw an exception if the file name is null or empty
+			logger.Error(message: "File name must not be null or empty.");
+			throw new ArgumentException(message: "File name must not be null or empty.", paramName: nameof(fileName));
+		}
 		// Get the column headers and rows, and write the output file in MOBI format. The method constructs a minimal MOBI file structure, including the necessary header fields and a single HTML content record containing the ListView data formatted as a table. The HTML content is generated by encoding the title, headers, and cell data to ensure that special characters are properly handled. The resulting MOBI file can be opened with compatible e-book readers that support the MOBI format.
 		try
 		{
@@ -1961,11 +2381,11 @@ internal static partial class ListViewExporter
 				hw.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: 65001));
 				hw.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: 0x12345678));
 				hw.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: 6));
-				ms.Seek(offset: 96, loc: SeekOrigin.Begin);
+				_ = ms.Seek(offset: 96, loc: SeekOrigin.Begin);
 				hw.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: textRecords.Count + 1));
-				ms.Seek(offset: 100, loc: SeekOrigin.Begin);
+				_ = ms.Seek(offset: 100, loc: SeekOrigin.Begin);
 				hw.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: 0));
-				ms.Seek(offset: 120, loc: SeekOrigin.Begin);
+				_ = ms.Seek(offset: 120, loc: SeekOrigin.Begin);
 				hw.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: 6));
 			}
 			byte[] eofRecord = [0xe9, 0x8e, 0x0d, 0x0a];
@@ -2030,6 +2450,20 @@ internal static partial class ListViewExporter
 	/// <remarks>The method generates a valid FB2 XML document with the required structure, including the description section with metadata (such as title, author, and date) and the body section containing the content formatted as a table. The column headers are written as table headers, and each data row is written as a table row. Special characters in the title, headers, and cell data are properly escaped to ensure that the resulting XML document is well-formed and can be opened with FB2-compatible readers without issues.</remarks>
 	public static void SaveAsFictionBook2(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
+		// Validate the parameters
+		ArgumentNullException.ThrowIfNull(argument: listView);
+		if (string.IsNullOrEmpty(value: title))
+		{
+			// Log the error and throw an exception if the title is null or empty
+			logger.Error(message: "Title must not be null or empty.");
+			throw new ArgumentException(message: "Title must not be null or empty.", paramName: nameof(title));
+		}
+		if (string.IsNullOrEmpty(value: fileName))
+		{
+			// Log the error and throw an exception if the file name is null or empty
+			logger.Error(message: "File name must not be null or empty.");
+			throw new ArgumentException(message: "File name must not be null or empty.", paramName: nameof(fileName));
+		}
 		// Get the column headers and rows, and write the output file in FictionBook 2 (FB2) XML format with UTF-8 encoding. The XML document has a root element <FictionBook> and includes a description section with metadata (title, author, language, and date) and a body section containing the content formatted as a table. The table headers and data rows are written as elements within the body section. Special characters in the title, headers, and cell data are properly escaped to ensure that the resulting XML document is well-formed and can be opened with FB2-compatible readers without issues.
 		try
 		{
@@ -2115,6 +2549,20 @@ internal static partial class ListViewExporter
 	/// <remarks>Requires Microsoft HTML Help Workshop (<c>hhc.exe</c>) to be installed. If it is not found, an error message is shown and no file is written.</remarks>
 	public static void SaveAsChm(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
+		// Validate the parameters
+		ArgumentNullException.ThrowIfNull(argument: listView);
+		if (string.IsNullOrEmpty(value: title))
+		{
+			// Log the error and throw an exception if the title is null or empty
+			logger.Error(message: "Title must not be null or empty.");
+			throw new ArgumentException(message: "Title must not be null or empty.", paramName: nameof(title));
+		}
+		if (string.IsNullOrEmpty(value: fileName))
+		{
+			// Log the error and throw an exception if the file name is null or empty
+			logger.Error(message: "File name must not be null or empty.");
+			throw new ArgumentException(message: "File name must not be null or empty.", paramName: nameof(fileName));
+		}
 		// Get the column headers and rows, generate the necessary HTML, HHC, and HHP files in a temporary directory, and invoke the HTML Help Workshop compiler (hhc.exe) to create the CHM file. The method checks for the presence of hhc.exe in the default installation path and shows an error message if it is not found. If hhc.exe is available, it creates a temporary directory to store the intermediate files, generates an index.html file with the ListView data formatted as a table, a toc.hhc file for the table of contents, and a project.hhp file for the project configuration. It then runs hhc.exe with the project file to compile the CHM. If compilation is successful and the CHM file is created, it copies the resulting CHM to the specified output path. Finally, it cleans up the temporary directory and shows a success message or an error message if compilation fails.
 		string[] headers = GetHeaders(listView: listView);
 		string hhcPath = Path.Combine(
@@ -2128,7 +2576,7 @@ internal static partial class ListViewExporter
 		}
 		// Create a temporary directory to store the intermediate files needed for CHM compilation. The directory is created in the system's temporary path with a unique name generated using a GUID. After the compilation process, the temporary directory and its contents will be deleted to clean up any intermediate files.
 		string tempDir = Path.Combine(path1: Path.GetTempPath(), path2: Guid.NewGuid().ToString());
-		Directory.CreateDirectory(path: tempDir);
+		_ = Directory.CreateDirectory(path: tempDir);
 		// Generate the index.html file with the ListView data formatted as a table, the toc.hhc file for the table of contents, and the project.hhp file for the project configuration. The index.html file includes a title and a table with the column headers and data rows. The toc.hhc file defines a single entry in the table of contents that points to index.html. The project.hhp file specifies the options for CHM compilation, including the title, default topic, and contents file.
 		try
 		{
@@ -2238,6 +2686,20 @@ internal static partial class ListViewExporter
 	/// <remarks>The file is a proper compressed XPS (ZIP) archive adhering to the Open Packaging Convention.</remarks>
 	public static void SaveAsXps(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
+		// Validate the parameters
+		ArgumentNullException.ThrowIfNull(argument: listView);
+		if (string.IsNullOrEmpty(value: title))
+		{
+			// Log the error and throw an exception if the title is null or empty
+			logger.Error(message: "Title must not be null or empty.");
+			throw new ArgumentException(message: "Title must not be null or empty.", paramName: nameof(title));
+		}
+		if (string.IsNullOrEmpty(value: fileName))
+		{
+			// Log the error and throw an exception if the file name is null or empty
+			logger.Error(message: "File name must not be null or empty.");
+			throw new ArgumentException(message: "File name must not be null or empty.", paramName: nameof(fileName));
+		}
 		// Get the column headers and rows, and write the output file in XML Paper Specification (XPS) format. The method constructs a valid XPS document as a ZIP archive adhering to the Open Packaging Convention. It creates the necessary entries for content types, relationships, fixed document sequence, and fixed page containing the ListView data formatted as a table. The column headers are written as text elements, and each data row is written as a series of text elements positioned appropriately on the page. Special characters in the title, headers, and cell data are properly escaped to ensure that the resulting XPS document is well-formed and can be opened with XPS-compatible viewers without issues.
 		try
 		{
@@ -2294,7 +2756,7 @@ internal static partial class ListViewExporter
 			// Define local functions to start a new page and finish the current page. The StartNewPage function initializes the currentPageBuilder with the XML content for a new fixed page, including the title and column headers. The FinishCurrentPage function finalizes the current page by closing the XML tags, creating a new entry in the ZIP archive for the page, and writing the page content to that entry. It also creates a relationships entry for the page that references the font resource used in the page.
 			void StartNewPage()
 			{
-				currentPageBuilder.Clear();
+				_ = currentPageBuilder.Clear();
 				_ = currentPageBuilder.AppendLine(value: "<?xml version=\"1.0\" encoding=\"utf-8\"?>");
 				_ = currentPageBuilder.AppendLine(value: "<FixedPage Width=\"816\" Height=\"1056\" xmlns=\"http://schemas.microsoft.com/xps/2005/06\" xml:lang=\"en-US\">");
 				string safeTitle = System.Security.SecurityElement.Escape(str: title) ?? string.Empty;
