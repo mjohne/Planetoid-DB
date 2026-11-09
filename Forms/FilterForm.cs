@@ -105,14 +105,12 @@ internal partial class FilterForm : BaseKryptonForm
 	/// <returns><see langword="true"/> if parsing succeeded; otherwise <see langword="false"/>.</returns>
 	private static bool TryParseField(string line, int startIndex, int length, out double value)
 	{
+		ArgumentException.ThrowIfNullOrEmpty(argument: line);
+		ArgumentOutOfRangeException.ThrowIfNegative(value: startIndex);
 		// Ensure the output parameter is initialized to a default value
 		value = default;
 		// Check if the line is long enough to contain the specified field and attempt to parse it as a double using invariant culture
-		return line.Length >= startIndex + length && double.TryParse(
-			s: line.Substring(startIndex: startIndex, length: length).Trim(),
-			style: NumberStyles.Float,
-			provider: CultureInfo.InvariantCulture,
-			result: out value);
+		return line.Length >= startIndex + length && double.TryParse(s: line.Substring(startIndex: startIndex, length: length).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out value);
 	}
 
 	/// <summary>Creates the shared orbital-element field definition list used by scanning, resetting, and filtering.</summary>
@@ -146,8 +144,8 @@ internal partial class FilterForm : BaseKryptonForm
 		Dictionary<string, double> maxVals = [];
 		foreach (OrbitalElementFilter el in elements)
 		{
-			minVals[el.Name] = double.MaxValue;
-			maxVals[el.Name] = double.MinValue;
+			minVals[key: el.Name] = double.MaxValue;
+			maxVals[key: el.Name] = double.MinValue;
 		}
 		// Scan all records
 		foreach (string line in planetoidsDatabase)
@@ -156,8 +154,8 @@ internal partial class FilterForm : BaseKryptonForm
 			{
 				if (TryParseField(line: line, startIndex: el.Start, length: el.Length, value: out double val))
 				{
-					if (val < minVals[el.Name]) { minVals[el.Name] = val; }
-					if (val > maxVals[el.Name]) { maxVals[el.Name] = val; }
+					if (val < minVals[key: el.Name]) { minVals[key: el.Name] = val; }
+					if (val > maxVals[key: el.Name]) { maxVals[key: el.Name] = val; }
 				}
 			}
 		}
@@ -166,14 +164,14 @@ internal partial class FilterForm : BaseKryptonForm
 		defaultMaxima.Clear();
 		foreach (OrbitalElementFilter el in elements)
 		{
-			double mn = minVals[el.Name] == double.MaxValue ? 0 : minVals[el.Name];
-			double mx = maxVals[el.Name] == double.MinValue ? 0 : maxVals[el.Name];
-			if (minVals[el.Name] == double.MaxValue || maxVals[el.Name] == double.MinValue)
+			double mn = minVals[key: el.Name] == double.MaxValue ? 0 : minVals[key: el.Name];
+			double mx = maxVals[key: el.Name] == double.MinValue ? 0 : maxVals[key: el.Name];
+			if (minVals[key: el.Name] == double.MaxValue || maxVals[key: el.Name] == double.MinValue)
 			{
 				logger.Warn(message: $"No valid values found for orbital element '{el.Name}' in the database; defaulting min/max to 0.");
 			}
-			defaultMinima[el.Name] = (decimal)mn;
-			defaultMaxima[el.Name] = (decimal)mx;
+			defaultMinima[key: el.Name] = (decimal)mn;
+			defaultMaxima[key: el.Name] = (decimal)mx;
 		}
 	}
 
@@ -185,6 +183,7 @@ internal partial class FilterForm : BaseKryptonForm
 	/// <remarks>If <paramref name="lower"/> is greater than <paramref name="upper"/>, the bounds are reordered automatically.</remarks>
 	private static void SetNumericValue(KryptonNumericUpDown control, decimal value, decimal lower, decimal upper)
 	{
+		ArgumentNullException.ThrowIfNull(argument: control);
 		// Ensure the lower and upper bounds are correctly ordered
 		decimal minimum = Math.Min(val1: lower, val2: upper);
 		decimal maximum = Math.Max(val1: lower, val2: upper);
@@ -199,6 +198,9 @@ internal partial class FilterForm : BaseKryptonForm
 	/// <param name="maximumControl">The maximum spinbutton.</param>
 	private void ResetElement(string key, KryptonNumericUpDown minimumControl, KryptonNumericUpDown maximumControl)
 	{
+		ArgumentException.ThrowIfNullOrEmpty(argument: key);
+		ArgumentNullException.ThrowIfNull(argument: minimumControl);
+		ArgumentNullException.ThrowIfNull(argument: maximumControl);
 		// Log the reset action for the specified orbital element
 		logger.Info(message: $"Resetting orbital element '{key}' to default min/max values.");
 		// Suppress ValueChanged events while updating the spinbuttons to avoid triggering unnecessary event handlers
@@ -250,6 +252,8 @@ internal partial class FilterForm : BaseKryptonForm
 	/// <param name="maximumControl">The maximum spinbutton.</param>
 	private void EnforceMinNotExceedsMax(KryptonNumericUpDown minimumControl, KryptonNumericUpDown maximumControl)
 	{
+		ArgumentNullException.ThrowIfNull(argument: minimumControl);
+		ArgumentNullException.ThrowIfNull(argument: maximumControl);
 		// Check if ValueChanged events are currently suppressed to avoid re-entrant calls
 		if (suppressValueChangedEvents)
 		{
@@ -283,6 +287,8 @@ internal partial class FilterForm : BaseKryptonForm
 	/// <param name="maximumControl">The maximum spinbutton.</param>
 	private void EnforceMaxNotBelowMin(KryptonNumericUpDown minimumControl, KryptonNumericUpDown maximumControl)
 	{
+		ArgumentNullException.ThrowIfNull(argument: minimumControl);
+		ArgumentNullException.ThrowIfNull(argument: maximumControl);
 		// Check if ValueChanged events are currently suppressed to avoid re-entrant calls
 		if (suppressValueChangedEvents)
 		{
@@ -322,6 +328,10 @@ internal partial class FilterForm : BaseKryptonForm
 	private async void FilterForm_Load(object sender, EventArgs e)
 	{
 		ClearStatusBar(label: labelInformation);
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Log the form load event for debugging purposes
 		logger.Info(message: "FilterForm loaded");
 		// Play the open sound in the background to indicate that the form has been opened
@@ -375,6 +385,10 @@ internal partial class FilterForm : BaseKryptonForm
 	{
 		// Log that the form is closing
 		logger.Info(message: "FilterForm is closing.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Play the close sound in the background to indicate that the form is closing
 		AudioPlayback.PlayCloseSound();
 	}
@@ -390,6 +404,10 @@ internal partial class FilterForm : BaseKryptonForm
 	private void ButtonResetMeanAnomalyAtTheEpoch_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Resetting mean anomaly at the epoch filter to default min/max values.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		ResetElement(key: "MeanAnomaly", minimumControl: numericUpDownMinimumMeanAnomalyAtTheEpoch, maximumControl: numericUpDownMaximumMeanAnomalyAtTheEpoch);
 	}
 
@@ -400,6 +418,10 @@ internal partial class FilterForm : BaseKryptonForm
 	private void ButtonResetArgumentOfThePerihelion_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Resetting argument of the perihelion filter to default min/max values.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		ResetElement(key: "ArgPeri", minimumControl: numericUpDownMinimumArgumentOfThePerihelion, maximumControl: numericUpDownMaximumArgumentOfThePerihelion);
 	}
 
@@ -410,6 +432,10 @@ internal partial class FilterForm : BaseKryptonForm
 	private void ButtonResetLongitudeOfTheAscendingNode_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Resetting longitude of the ascending node filter to default min/max values.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		ResetElement(key: "LongAscNode", minimumControl: numericUpDownMinimumLongitudeOfTheAscendingNode, maximumControl: numericUpDownMaximumLongitudeOfTheAscendingNode);
 	}
 
@@ -420,6 +446,10 @@ internal partial class FilterForm : BaseKryptonForm
 	private void ButtonResetInclination_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Resetting inclination filter to default min/max values.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		ResetElement(key: "Incl", minimumControl: numericUpDownMinimumInclination, maximumControl: numericUpDownMaximumInclination);
 	}
 
@@ -430,6 +460,10 @@ internal partial class FilterForm : BaseKryptonForm
 	private void ButtonResetOrbitalEccentricity_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Resetting orbital eccentricity filter to default min/max values.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		ResetElement(key: "OrbEcc", minimumControl: numericUpDownMinimumOrbitalEccentricity, maximumControl: numericUpDownMaximumOrbitalEccentricity);
 	}
 
@@ -440,6 +474,10 @@ internal partial class FilterForm : BaseKryptonForm
 	private void ButtonResetMeanDailyMotion_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Resetting mean daily motion filter to default min/max values.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		ResetElement(key: "Motion", minimumControl: numericUpDownMinimumMeanDailyMotion, maximumControl: numericUpDownMaximumMeanDailyMotion);
 	}
 
@@ -450,6 +488,10 @@ internal partial class FilterForm : BaseKryptonForm
 	private void ButtonResetSemiMajorAxis_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Resetting semi-major axis filter to default min/max values.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		ResetElement(key: "SemiMajorAxis", minimumControl: numericUpDownMinimumSemiMajorAxis, maximumControl: numericUpDownMaximumSemiMajorAxis);
 	}
 
@@ -460,6 +502,10 @@ internal partial class FilterForm : BaseKryptonForm
 	private void ButtonResetAbsoluteMagnitude_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Resetting absolute magnitude filter to default min/max values.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		ResetElement(key: "AbsoluteMagnitude", minimumControl: numericUpDownMinimumAbsoluteMagnitude, maximumControl: numericUpDownMaximumAbsoluteMagnitude);
 	}
 
@@ -470,6 +516,10 @@ internal partial class FilterForm : BaseKryptonForm
 	private void ButtonResetSlopeParameter_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Resetting slope parameter filter to default min/max values.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		ResetElement(key: "SlopeParameter", minimumControl: numericUpDownMinimumSlopeParameter, maximumControl: numericUpDownMaximumSlopeParameter);
 	}
 
@@ -480,6 +530,10 @@ internal partial class FilterForm : BaseKryptonForm
 	private void ButtonNumberOfOppositions_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Resetting number of oppositions filter to default min/max values.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		ResetElement(key: "NumberOfOppositions", minimumControl: numericUpDownMinimumNumberOfOppositions, maximumControl: numericUpDownMaximumNumberOfOppositions);
 	}
 
@@ -490,6 +544,10 @@ internal partial class FilterForm : BaseKryptonForm
 	private void ButtonResetNumberOfObservations_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Resetting number of observations filter to default min/max values.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		ResetElement(key: "NumberOfObservations", minimumControl: numericUpDownMinimumNumberOfObservations, maximumControl: numericUpDownMaximumNumberOfObservations);
 	}
 
@@ -500,6 +558,10 @@ internal partial class FilterForm : BaseKryptonForm
 	private void ButtonResetRmsResidual_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Resetting RMS residual filter to default min/max values.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		ResetElement(key: "RmsResidual", minimumControl: numericUpDownMinimumRmsResidual, maximumControl: numericUpDownMaximumRmsResidual);
 	}
 
@@ -510,6 +572,10 @@ internal partial class FilterForm : BaseKryptonForm
 	private void ButtonApply_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Applying filter settings to the planetoids database.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		try
 		{
 			// Apply the filter settings to the planetoids database and store the filtered result in FilteredDatabase
@@ -540,6 +606,10 @@ internal partial class FilterForm : BaseKryptonForm
 	private void ButtonCancel_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Cancelling filter settings and closing the form.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Clear the filtered database since the user cancelled the operation
 		FilteredDatabase = null;
 		DialogResult = DialogResult.Cancel;
@@ -553,6 +623,10 @@ internal partial class FilterForm : BaseKryptonForm
 	private void ButtonReset_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Resetting all filter settings to their default values.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		ResetAllElements();
 	}
 
@@ -566,6 +640,10 @@ internal partial class FilterForm : BaseKryptonForm
 	/// <remarks>This method is used to update the minimum mean anomaly at the epoch filter.</remarks>
 	private void NumericUpDownMinimumMeanAnomalyAtTheEpoch_ValueChanged(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		EnforceMinNotExceedsMax(minimumControl: numericUpDownMinimumMeanAnomalyAtTheEpoch, maximumControl: numericUpDownMaximumMeanAnomalyAtTheEpoch);
 		logger.Info(message: $"Minimum Mean Anomaly at the Epoch changed to {numericUpDownMinimumMeanAnomalyAtTheEpoch.Value}. Current range: [{numericUpDownMinimumMeanAnomalyAtTheEpoch.Value}, {numericUpDownMaximumMeanAnomalyAtTheEpoch.Value}]");
 	}
@@ -576,6 +654,10 @@ internal partial class FilterForm : BaseKryptonForm
 	/// <remarks>This method is used to update the maximum mean anomaly at the epoch filter.</remarks>
 	private void NumericUpDownMaximumMeanAnomalyAtTheEpoch_ValueChanged(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		EnforceMaxNotBelowMin(minimumControl: numericUpDownMinimumMeanAnomalyAtTheEpoch, maximumControl: numericUpDownMaximumMeanAnomalyAtTheEpoch);
 		logger.Info(message: $"Maximum Mean Anomaly at the Epoch changed to {numericUpDownMaximumMeanAnomalyAtTheEpoch.Value}. Current range: [{numericUpDownMinimumMeanAnomalyAtTheEpoch.Value}, {numericUpDownMaximumMeanAnomalyAtTheEpoch.Value}]");
 	}
@@ -586,6 +668,10 @@ internal partial class FilterForm : BaseKryptonForm
 	/// <remarks>This method is used to update the minimum argument of the perihelion filter.</remarks>
 	private void NumericUpDownMinimumArgumentOfThePerihelion_ValueChanged(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		EnforceMinNotExceedsMax(minimumControl: numericUpDownMinimumArgumentOfThePerihelion, maximumControl: numericUpDownMaximumArgumentOfThePerihelion);
 		logger.Info(message: $"Minimum Argument of the Perihelion changed to {numericUpDownMinimumArgumentOfThePerihelion.Value}. Current range: [{numericUpDownMinimumArgumentOfThePerihelion.Value}, {numericUpDownMaximumArgumentOfThePerihelion.Value}]");
 	}
@@ -596,6 +682,10 @@ internal partial class FilterForm : BaseKryptonForm
 	/// <remarks>This method is used to update the maximum argument of the perihelion filter.</remarks>
 	private void NumericUpDownMaximumArgumentOfThePerihelion_ValueChanged(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		EnforceMaxNotBelowMin(minimumControl: numericUpDownMinimumArgumentOfThePerihelion, maximumControl: numericUpDownMaximumArgumentOfThePerihelion);
 		logger.Info(message: $"Maximum Argument of the Perihelion changed to {numericUpDownMaximumArgumentOfThePerihelion.Value}. Current range: [{numericUpDownMinimumArgumentOfThePerihelion.Value}, {numericUpDownMaximumArgumentOfThePerihelion.Value}]");
 	}
@@ -606,6 +696,10 @@ internal partial class FilterForm : BaseKryptonForm
 	/// <remarks>This method is used to update the minimum longitude of the ascending node filter.</remarks>
 	private void NumericUpDownMinimumLongitudeOfTheAscendingNode_ValueChanged(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		EnforceMinNotExceedsMax(minimumControl: numericUpDownMinimumLongitudeOfTheAscendingNode, maximumControl: numericUpDownMaximumLongitudeOfTheAscendingNode);
 		logger.Info(message: $"Minimum Longitude of the Ascending Node changed to {numericUpDownMinimumLongitudeOfTheAscendingNode.Value}. Current range: [{numericUpDownMinimumLongitudeOfTheAscendingNode.Value}, {numericUpDownMaximumLongitudeOfTheAscendingNode.Value}]");
 	}
@@ -616,6 +710,10 @@ internal partial class FilterForm : BaseKryptonForm
 	/// <remarks>This method is used to update the maximum longitude of the ascending node filter.</remarks>
 	private void NumericUpDownMaximumLongitudeOfTheAscendingNode_ValueChanged(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		EnforceMaxNotBelowMin(minimumControl: numericUpDownMinimumLongitudeOfTheAscendingNode, maximumControl: numericUpDownMaximumLongitudeOfTheAscendingNode);
 		logger.Info(message: $"Maximum Longitude of the Ascending Node changed to {numericUpDownMaximumLongitudeOfTheAscendingNode.Value}. Current range: [{numericUpDownMinimumLongitudeOfTheAscendingNode.Value}, {numericUpDownMaximumLongitudeOfTheAscendingNode.Value}]");
 	}
@@ -626,6 +724,10 @@ internal partial class FilterForm : BaseKryptonForm
 	/// <remarks>This method is used to update the minimum inclination filter.</remarks>
 	private void NumericUpDownMinimumInclination_ValueChanged(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		EnforceMinNotExceedsMax(minimumControl: numericUpDownMinimumInclination, maximumControl: numericUpDownMaximumInclination);
 		logger.Info(message: $"Minimum Inclination changed to {numericUpDownMinimumInclination.Value}. Current range: [{numericUpDownMinimumInclination.Value}, {numericUpDownMaximumInclination.Value}]");
 	}
@@ -636,6 +738,10 @@ internal partial class FilterForm : BaseKryptonForm
 	/// <remarks>This method is used to update the maximum inclination filter.</remarks>
 	private void NumericUpDownMaximumInclination_ValueChanged(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		EnforceMaxNotBelowMin(minimumControl: numericUpDownMinimumInclination, maximumControl: numericUpDownMaximumInclination);
 		logger.Info(message: $"Maximum Inclination changed to {numericUpDownMaximumInclination.Value}. Current range: [{numericUpDownMinimumInclination.Value}, {numericUpDownMaximumInclination.Value}]");
 	}
@@ -646,6 +752,10 @@ internal partial class FilterForm : BaseKryptonForm
 	/// <remarks>This method is used to update the minimum orbital eccentricity filter.</remarks>
 	private void NumericUpDownMinimumOrbitalEccentricity_ValueChanged(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		EnforceMinNotExceedsMax(minimumControl: numericUpDownMinimumOrbitalEccentricity, maximumControl: numericUpDownMaximumOrbitalEccentricity);
 		logger.Info(message: $"Minimum Orbital Eccentricity changed to {numericUpDownMinimumOrbitalEccentricity.Value}. Current range: [{numericUpDownMinimumOrbitalEccentricity.Value}, {numericUpDownMaximumOrbitalEccentricity.Value}]");
 	}
@@ -656,6 +766,10 @@ internal partial class FilterForm : BaseKryptonForm
 	/// <remarks>This method is used to update the maximum orbital eccentricity filter.</remarks>
 	private void NumericUpDownMaximumOrbitalEccentricity_ValueChanged(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		EnforceMaxNotBelowMin(minimumControl: numericUpDownMinimumOrbitalEccentricity, maximumControl: numericUpDownMaximumOrbitalEccentricity);
 		logger.Info(message: $"Maximum Orbital Eccentricity changed to {numericUpDownMaximumOrbitalEccentricity.Value}. Current range: [{numericUpDownMinimumOrbitalEccentricity.Value}, {numericUpDownMaximumOrbitalEccentricity.Value}]");
 	}
@@ -666,6 +780,10 @@ internal partial class FilterForm : BaseKryptonForm
 	/// <remarks>This method is used to update the minimum mean daily motion filter.</remarks>
 	private void NumericUpDownMinimumMeanDailyMotion_ValueChanged(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		EnforceMinNotExceedsMax(minimumControl: numericUpDownMinimumMeanDailyMotion, maximumControl: numericUpDownMaximumMeanDailyMotion);
 		logger.Info(message: $"Minimum Mean Daily Motion changed to {numericUpDownMinimumMeanDailyMotion.Value}. Current range: [{numericUpDownMinimumMeanDailyMotion.Value}, {numericUpDownMaximumMeanDailyMotion.Value}]");
 	}
@@ -676,6 +794,10 @@ internal partial class FilterForm : BaseKryptonForm
 	/// <remarks>This method is used to update the maximum mean daily motion filter.</remarks>
 	private void NumericUpDownMaximumMeanDailyMotion_ValueChanged(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		EnforceMaxNotBelowMin(minimumControl: numericUpDownMinimumMeanDailyMotion, maximumControl: numericUpDownMaximumMeanDailyMotion);
 		logger.Info(message: $"Maximum Mean Daily Motion changed to {numericUpDownMaximumMeanDailyMotion.Value}. Current range: [{numericUpDownMinimumMeanDailyMotion.Value}, {numericUpDownMaximumMeanDailyMotion.Value}]");
 	}
@@ -686,6 +808,10 @@ internal partial class FilterForm : BaseKryptonForm
 	/// <remarks>This method is used to update the minimum semi-major axis filter.</remarks>
 	private void NumericUpDownMinimumSemiMajorAxis_ValueChanged(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		EnforceMinNotExceedsMax(minimumControl: numericUpDownMinimumSemiMajorAxis, maximumControl: numericUpDownMaximumSemiMajorAxis);
 		logger.Info(message: $"Minimum Semi-Major Axis changed to {numericUpDownMinimumSemiMajorAxis.Value}. Current range: [{numericUpDownMinimumSemiMajorAxis.Value}, {numericUpDownMaximumSemiMajorAxis.Value}]");
 	}
@@ -696,6 +822,10 @@ internal partial class FilterForm : BaseKryptonForm
 	/// <remarks>This method is used to update the maximum semi-major axis filter.</remarks>
 	private void NumericUpDownMaximumSemiMajorAxis_ValueChanged(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		EnforceMaxNotBelowMin(minimumControl: numericUpDownMinimumSemiMajorAxis, maximumControl: numericUpDownMaximumSemiMajorAxis);
 		logger.Info(message: $"Maximum Semi-Major Axis changed to {numericUpDownMaximumSemiMajorAxis.Value}. Current range: [{numericUpDownMinimumSemiMajorAxis.Value}, {numericUpDownMaximumSemiMajorAxis.Value}]");
 	}
@@ -706,6 +836,10 @@ internal partial class FilterForm : BaseKryptonForm
 	/// <remarks>This method is used to update the minimum absolute magnitude filter.</remarks>
 	private void NumericUpDownMinimumAbsoluteMagnitude_ValueChanged(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		EnforceMinNotExceedsMax(minimumControl: numericUpDownMinimumAbsoluteMagnitude, maximumControl: numericUpDownMaximumAbsoluteMagnitude);
 		logger.Info(message: $"Minimum Absolute Magnitude changed to {numericUpDownMinimumAbsoluteMagnitude.Value}. Current range: [{numericUpDownMinimumAbsoluteMagnitude.Value}, {numericUpDownMaximumAbsoluteMagnitude.Value}]");
 	}
@@ -716,6 +850,10 @@ internal partial class FilterForm : BaseKryptonForm
 	/// <remarks>This method is used to update the maximum absolute magnitude filter.</remarks>
 	private void NumericUpDownMaximumAbsoluteMagnitude_ValueChanged(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		EnforceMaxNotBelowMin(minimumControl: numericUpDownMinimumAbsoluteMagnitude, maximumControl: numericUpDownMaximumAbsoluteMagnitude);
 		logger.Info(message: $"Maximum Absolute Magnitude changed to {numericUpDownMaximumAbsoluteMagnitude.Value}. Current range: [{numericUpDownMinimumAbsoluteMagnitude.Value}, {numericUpDownMaximumAbsoluteMagnitude.Value}]");
 	}
@@ -726,6 +864,10 @@ internal partial class FilterForm : BaseKryptonForm
 	/// <remarks>This method is used to update the minimum slope parameter filter.</remarks>
 	private void NumericUpDownMinimumSlopeParameter_ValueChanged(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		EnforceMinNotExceedsMax(minimumControl: numericUpDownMinimumSlopeParameter, maximumControl: numericUpDownMaximumSlopeParameter);
 		logger.Info(message: $"Minimum Slope Parameter changed to {numericUpDownMinimumSlopeParameter.Value}. Current range: [{numericUpDownMinimumSlopeParameter.Value}, {numericUpDownMaximumSlopeParameter.Value}]");
 	}
@@ -736,6 +878,10 @@ internal partial class FilterForm : BaseKryptonForm
 	/// <remarks>This method is used to update the maximum slope parameter filter.</remarks>
 	private void NumericUpDownMaximumSlopeParameter_ValueChanged(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		EnforceMaxNotBelowMin(minimumControl: numericUpDownMinimumSlopeParameter, maximumControl: numericUpDownMaximumSlopeParameter);
 		logger.Info(message: $"Maximum Slope Parameter changed to {numericUpDownMaximumSlopeParameter.Value}. Current range: [{numericUpDownMinimumSlopeParameter.Value}, {numericUpDownMaximumSlopeParameter.Value}]");
 	}
@@ -746,6 +892,10 @@ internal partial class FilterForm : BaseKryptonForm
 	/// <remarks>This method is used to update the minimum number of oppositions filter.</remarks>
 	private void NumericUpDownMinimumNumberOfOppositions_ValueChanged(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		EnforceMinNotExceedsMax(minimumControl: numericUpDownMinimumNumberOfOppositions, maximumControl: numericUpDownMaximumNumberOfOppositions);
 		logger.Info(message: $"Minimum Number of Oppositions changed to {numericUpDownMinimumNumberOfOppositions.Value}. Current range: [{numericUpDownMinimumNumberOfOppositions.Value}, {numericUpDownMaximumNumberOfOppositions.Value}]");
 	}
@@ -756,6 +906,10 @@ internal partial class FilterForm : BaseKryptonForm
 	/// <remarks>This method is used to update the maximum number of oppositions filter.</remarks>
 	private void NumericUpDownMaximumNumberOfOppositions_ValueChanged(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		EnforceMaxNotBelowMin(minimumControl: numericUpDownMinimumNumberOfOppositions, maximumControl: numericUpDownMaximumNumberOfOppositions);
 		logger.Info(message: $"Maximum Number of Oppositions changed to {numericUpDownMaximumNumberOfOppositions.Value}. Current range: [{numericUpDownMinimumNumberOfOppositions.Value}, {numericUpDownMaximumNumberOfOppositions.Value}]");
 	}
@@ -766,6 +920,10 @@ internal partial class FilterForm : BaseKryptonForm
 	/// <remarks>This method is used to update the minimum number of observations filter.</remarks>
 	private void NumericUpDownMinimumNumberOfObservations_ValueChanged(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		EnforceMinNotExceedsMax(minimumControl: numericUpDownMinimumNumberOfObservations, maximumControl: numericUpDownMaximumNumberOfObservations);
 		logger.Info(message: $"Minimum Number of Observations changed to {numericUpDownMinimumNumberOfObservations.Value}. Current range: [{numericUpDownMinimumNumberOfObservations.Value}, {numericUpDownMaximumNumberOfObservations.Value}]");
 	}
@@ -776,6 +934,10 @@ internal partial class FilterForm : BaseKryptonForm
 	/// <remarks>This method is used to update the maximum number of observations filter.</remarks>
 	private void NumericUpDownMaximumNumberOfObservations_ValueChanged(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		EnforceMaxNotBelowMin(minimumControl: numericUpDownMinimumNumberOfObservations, maximumControl: numericUpDownMaximumNumberOfObservations);
 		logger.Info(message: $"Maximum Number of Observations changed to {numericUpDownMaximumNumberOfObservations.Value}. Current range: [{numericUpDownMinimumNumberOfObservations.Value}, {numericUpDownMaximumNumberOfObservations.Value}]");
 	}
@@ -786,6 +948,10 @@ internal partial class FilterForm : BaseKryptonForm
 	/// <remarks>This method is used to update the minimum RMS residual filter.</remarks>
 	private void NumericUpDownMinimumRmsResidual_ValueChanged(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		EnforceMinNotExceedsMax(minimumControl: numericUpDownMinimumRmsResidual, maximumControl: numericUpDownMaximumRmsResidual);
 		logger.Info(message: $"Minimum RMS Residual changed to {numericUpDownMinimumRmsResidual.Value}. Current range: [{numericUpDownMinimumRmsResidual.Value}, {numericUpDownMaximumRmsResidual.Value}]");
 	}
@@ -796,6 +962,10 @@ internal partial class FilterForm : BaseKryptonForm
 	/// <remarks>This method is used to update the maximum RMS residual filter.</remarks>
 	private void NumericUpDownMaximumRmsResidual_ValueChanged(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		EnforceMaxNotBelowMin(minimumControl: numericUpDownMinimumRmsResidual, maximumControl: numericUpDownMaximumRmsResidual);
 		logger.Info(message: $"Maximum RMS Residual changed to {numericUpDownMaximumRmsResidual.Value}. Current range: [{numericUpDownMinimumRmsResidual.Value}, {numericUpDownMaximumRmsResidual.Value}]");
 	}

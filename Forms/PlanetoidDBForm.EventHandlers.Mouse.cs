@@ -25,6 +25,10 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to store the control that triggered the event for future reference.</remarks>
 	protected override void Control_MouseDown(object sender, MouseEventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Check if the sender is a Control
 		if (sender is Control control)
 		{
@@ -40,7 +44,11 @@ public partial class PlanetoidDbForm
 	/// <param name="e">The mouse event data.</param>
 	private void MouseCoordinates_MouseMove(object sender, MouseEventArgs e)
 	{
-		Point clientPoint = PointToClient(Cursor.Position);
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		Point clientPoint = PointToClient(p: Cursor.Position);
 		toolStripStatusLabelMouseCoordinates.Text = $"{clientPoint.X}x{clientPoint.Y}";
 	}
 }

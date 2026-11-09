@@ -161,6 +161,12 @@ internal partial class MaxoidsOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>The percentage is displayed both in the progress bar's <c>Text</c> property and in the adjacent label.</remarks>
 	private void UpdateProgress(int percent)
 	{
+		if (int.IsNegative(value: percent))
+		{
+			logger.Error(message: $"Progress value must not be negative: {percent}");
+			ShowErrorMessage(message: $"Progress value must not be negative: {percent}");
+			return;
+		}
 		// Clamp the percentage value to ensure it stays within the valid range of 0 to 100
 		int clampedPercent = Math.Clamp(value: percent, min: 0, max: 100);
 		kryptonProgressBar.Value = clampedPercent;
@@ -174,6 +180,8 @@ internal partial class MaxoidsOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>Lines that are too short or have invalid orbital elements are silently skipped.</remarks>
 	private static void ProcessPlanetoidLine(string line, List<MaxoidRowResult> results)
 	{
+		ArgumentException.ThrowIfNullOrEmpty(argument: line);
+		ArgumentNullException.ThrowIfNull(argument: results);
 		// Validate the line length to ensure it contains the required orbital element fields
 		if (line.Length < 103)
 		{
@@ -272,6 +280,10 @@ internal partial class MaxoidsOfAllMinorPlanetsForm : BaseKryptonForm
 	{
 		// Log that the form has loaded
 		logger.Info(message: "MaxoidsOfAllMinorPlanetsForm loaded. Clearing status bar.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Play the open sound in the background to indicate that the form has been opened
 		AudioPlayback.PlayOpenSound();
 		// Clear the status bar label to ensure no residual messages are displayed
@@ -286,6 +298,10 @@ internal partial class MaxoidsOfAllMinorPlanetsForm : BaseKryptonForm
 	{
 		// Log that the form is closing
 		logger.Info(message: "MaxoidsOfAllMinorPlanetsForm is closing. Cancelling any running calculation.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Play the close sound in the background to indicate that the form is closing
 		AudioPlayback.PlayCloseSound();
 		// If a calculation is currently running, signal cancellation and dispose of the token source
@@ -307,6 +323,10 @@ internal partial class MaxoidsOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>Called by the ListView for each visible row. Must be fast and must not modify <see cref="_results"/>.</remarks>
 	private void ListView_RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Validate the requested index and return an empty item if it's out of range
 		if (e.ItemIndex < 0 || e.ItemIndex >= _results.Count)
 		{
@@ -337,6 +357,10 @@ internal partial class MaxoidsOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>The calculation runs on a background thread. Progress is reported via the progress bar. The user can cancel at any time using the Cancel button.</remarks>
 	private async void ButtonStart_Click(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		if (_planetoids.Count == 0)
 		{
 			logger.Warn(message: "No planetoid data available to process.");
@@ -432,6 +456,10 @@ internal partial class MaxoidsOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>The calculation can be cancelled by the user at any time using the Cancel button.</remarks>
 	private void ButtonCancel_Click(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// If a calculation is currently running, request cancellation and prevent repeated cancel clicks.
 		if (_cancellationTokenSource != null)
 		{
@@ -447,6 +475,10 @@ internal partial class MaxoidsOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>When the "Go to Object" button is clicked, the corresponding planetoid is displayed in the <see cref="PlanetoidDbForm"/> and this form is closed.</remarks>
 	private void ToolStripButtonGoToObject_Click(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		if (SelectedPlanetoidInMainForm())
 		{
 			logger.Info(message: "Navigated to selected planetoid in main form. Closing MaxoidsOfAllMinorPlanetsForm.");
@@ -464,6 +496,10 @@ internal partial class MaxoidsOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>Toggles the sort order for the clicked column (ascending/descending) and re-sorts the results list. Column headers are updated with a ▲ or ▼ indicator to show the current sort direction.</remarks>
 	private void ListView_ColumnClick(object sender, ColumnClickEventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// If there are no results to sort, exit the method early
 		if (_results.Count == 0)
 		{
@@ -508,6 +544,10 @@ internal partial class MaxoidsOfAllMinorPlanetsForm : BaseKryptonForm
 	private void ListView_SelectedIndexChanged(object sender, EventArgs e)
 	{
 		logger.Info(message: "ListView selection changed.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		UpdateGoToObjectButtonState();
 	}
 
@@ -522,6 +562,10 @@ internal partial class MaxoidsOfAllMinorPlanetsForm : BaseKryptonForm
 	private void ListView_DoubleClick(object sender, EventArgs e)
 	{
 		logger.Info(message: "ListView item double-clicked.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		_ = SelectedPlanetoidInMainForm();
 	}
 

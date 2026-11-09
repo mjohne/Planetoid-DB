@@ -184,6 +184,12 @@ internal partial class EphemerisForm : BaseKryptonForm
 	/// <remarks>This method updates the progress bar value and the associated label to reflect the current progress of the calculation.</remarks>
 	private void SetProgress(int percent)
 	{
+		if (int.IsNegative(value: percent))
+		{
+			logger.Error($"The progress value must no be negative: {percent}");
+			ShowErrorMessage($"The progress value must no be negative: {percent}");
+			return;
+		}
 		// Clamp the progress value to the range [0, 100]
 		int value = Math.Clamp(value: percent, min: 0, max: 100);
 		// Update the progress bar and label with the clamped value
@@ -220,7 +226,13 @@ internal partial class EphemerisForm : BaseKryptonForm
 	/// <returns>A list view item containing the result's full-precision values.</returns>
 	private ListViewItem GetExportListViewItem(int index)
 	{
-		EphemerisEntry entry = lastResult[index];
+		if (int.IsNegative(value: index))
+		{
+			logger.Error($"The item value must no be negative: {index}");
+			ShowErrorMessage($"The item value must no be negative: {index}");
+			return new();
+		}
+		EphemerisEntry entry = lastResult[index: index];
 		CultureInfo invariantCulture = CultureInfo.InvariantCulture;
 		return new ListViewItem(items:
 		[
@@ -247,6 +259,7 @@ internal partial class EphemerisForm : BaseKryptonForm
 	/// <remarks>Visible entries are highlighted.</remarks>
 	private void ShowResult(IReadOnlyList<EphemerisEntry> entries)
 	{
+		ArgumentNullException.ThrowIfNull(argument: entries);
 		// Use invariant culture for consistent formatting of numbers and dates
 		CultureInfo ic = CultureInfo.InvariantCulture;
 		// Begin updating the list view to prevent flickering during the update
@@ -379,6 +392,10 @@ internal partial class EphemerisForm : BaseKryptonForm
 	{
 		// Log the form load event for debugging purposes
 		logger.Info(message: "Ephemeris form loaded");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Play the open sound in the background to indicate that the form has been opened
 		AudioPlayback.PlayOpenSound();
 		// Clear the status bar
@@ -411,6 +428,8 @@ internal partial class EphemerisForm : BaseKryptonForm
 	{
 		// Log the form closing event for debugging purposes
 		logger.Info(message: "Ephemeris form is closing");
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// If a calculation is currently running, cancel it and set the flag to close the form after the calculation completes
 		if (cancellationTokenSource is not null)
 		{
@@ -446,6 +465,10 @@ internal partial class EphemerisForm : BaseKryptonForm
 	{
 		// Log the button click event for debugging purposes
 		logger.Info(message: "Calculate button clicked; starting ephemeris calculation.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// If no valid MPCORB record is available or a calculation is already running, do nothing
 		if (elements is null || cancellationTokenSource is not null)
 		{
@@ -578,6 +601,10 @@ internal partial class EphemerisForm : BaseKryptonForm
 	{
 		// Log the cancellation request
 		logger.Info(message: "Cancellation requested by the user.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Cancel the running calculation if a cancellation token source exists
 		cancellationTokenSource?.Cancel();
 	}
@@ -589,6 +616,10 @@ internal partial class EphemerisForm : BaseKryptonForm
 	private void ButtonLoadEphemerisFile_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Load DE440/441 button clicked; prompting user to select a JPL ephemeris file.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Show an OpenFileDialog to allow the user to choose the JPL DE binary file to load
 		using OpenFileDialog openFileDialog = new()
 		{
@@ -633,6 +664,10 @@ internal partial class EphemerisForm : BaseKryptonForm
 	{
 		// Log the button click event for debugging purposes
 		logger.Info(message: "Open World Map button clicked; opening world map dialog for observer location selection.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Create and show the world map form as a modal dialog
 		using WorldMapForm worldMapForm = new();
 		/*
@@ -663,6 +698,10 @@ internal partial class EphemerisForm : BaseKryptonForm
 	{
 		// Log the menu item click event for debugging purposes
 		logger.Info(message: "Download DE440 menu item clicked; checking network availability for JPL DE 440 download.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Check if the network is available before proceeding with the download
 		if (!NetworkInterface.GetIsNetworkAvailable())
 		{
@@ -695,6 +734,10 @@ internal partial class EphemerisForm : BaseKryptonForm
 	{
 		// Log the menu item click event for debugging purposes
 		logger.Info(message: "Download DE441 menu item clicked; checking network availability for JPL DE 441 download.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Check if the network is available before proceeding with the download
 		if (!NetworkInterface.GetIsNetworkAvailable())
 		{
@@ -724,6 +767,10 @@ internal partial class EphemerisForm : BaseKryptonForm
 	{
 		// Log the menu item click event for debugging purposes
 		logger.Info(message: "Open JPL DE web page menu item clicked; opening the JPL DE ephemeris download page in the default web browser.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Open the JPL DE ephemeris download page in the default web browser
 		OpenWebsite(fileName: $"https://ssd.jpl.nasa.gov/ftp/eph/planets/Linux/");
 	}

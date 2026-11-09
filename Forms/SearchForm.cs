@@ -219,6 +219,10 @@ internal partial class SearchForm : BaseKryptonForm
 	{
 		// Log that the form is loading
 		logger.Info(message: "SearchForm is loading.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Play the open sound in the background to indicate that the form has been opened
 		AudioPlayback.PlayOpenSound();
 		// Clear the status bar to ensure no residual messages are displayed
@@ -244,6 +248,10 @@ internal partial class SearchForm : BaseKryptonForm
 	{
 		// Log that the form is closing
 		logger.Info(message: "SearchForm is closing.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Play the close sound in the background to indicate that the form is closing
 		AudioPlayback.PlayCloseSound();
 	}
@@ -259,6 +267,10 @@ internal partial class SearchForm : BaseKryptonForm
 	private async void KryptonButtonSearch_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Search button clicked. Starting search operation.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Get the search text entered by the user in the search text box. If the search text is null, empty, or consists only of whitespace, show a warning message to the user and return without performing any search.
 		string searchText = toolStripTextBoxSearch.Text;
 		if (string.IsNullOrWhiteSpace(value: searchText))
@@ -498,6 +510,10 @@ internal partial class SearchForm : BaseKryptonForm
 	/// <remarks>If a search operation is currently in progress (indicated by an active cancellation token source), this method will signal the cancellation token to request that the search operation stop. If no search operation is active, this method does nothing.</remarks>
 	private void KryptonButtonCancel_Click(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Check if a cancellation token source is active, which indicates that a search operation is currently in progress. If it is active and a cancellation has not already been requested, call the Cancel method to signal the search operation to stop. This allows the user to cancel a long-running search if they no longer wish to wait for it to complete.
 		if (_cancellationTokenSource != null && !_cancellationTokenSource.IsCancellationRequested)
 		{
@@ -513,6 +529,10 @@ internal partial class SearchForm : BaseKryptonForm
 	private void ToolStripMenuItemMarkAll_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Mark All clicked. Marking all items in the checked list box.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// If there are no items in the checked list box, there is nothing to mark, so return without doing anything.
 		if (kryptonCheckedListBoxElements.Items.Count == 0)
 		{
@@ -539,6 +559,10 @@ internal partial class SearchForm : BaseKryptonForm
 	private void ToolStripMenuItemUnmarkAll_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Unmark All clicked. Unchecking all items in the checked list box.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// If there are no items in the checked list box, there is nothing to unmark, so return without doing anything.
 		if (kryptonCheckedListBoxElements.Items.Count == 0)
 		{
@@ -565,6 +589,10 @@ internal partial class SearchForm : BaseKryptonForm
 	private void ToolStripButtonGoToObject_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Go To Object button clicked. Navigating to selected object and closing the search form.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		GoToObject(closeAfterNavigation: true);
 	}
 
@@ -579,6 +607,10 @@ internal partial class SearchForm : BaseKryptonForm
 	private void ListViewResults_DoubleClick(object? sender, EventArgs e)
 	{
 		logger.Info(message: "ListView item double-clicked. Navigating to selected object.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		GoToObject();
 	}
 
@@ -592,6 +624,10 @@ internal partial class SearchForm : BaseKryptonForm
 	/// <remarks>This method determines the sort order and initiates the sorting process for the selected column.</remarks>
 	private void ListView_ColumnClick(object? sender, ColumnClickEventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// If there are no items, do not attempt to sort
 		if (listViewResults.VirtualListSize == 0)
 		{
@@ -699,6 +735,10 @@ internal partial class SearchForm : BaseKryptonForm
 	/// <remarks>This event is triggered when the ListView requires a virtual item to be displayed.</remarks>
 	private void ListViewResults_RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Attempt to retrieve the SearchResult corresponding to the requested item index, ensuring thread safety by locking the _searchResults list during access. If the index is valid, create a new ListViewItem populated with the data from the SearchResult; otherwise, return without setting the item, which should not occur if VirtualListSize is managed correctly.
 		SearchResult item;
 		lock (_searchResults)
@@ -730,6 +770,7 @@ internal partial class SearchForm : BaseKryptonForm
 	/// <remarks>Used as the <c>virtualRowProvider</c> delegate when exporting via <see cref="Helpers.ListViewExporter"/>.</remarks>
 	private ListViewItem GetVirtualListViewItem(int index)
 	{
+		ArgumentOutOfRangeException.ThrowIfNegative(value: index);
 		// Check if the provided index is within the valid range of the search results list, and if so, create and return a new ListViewItem based on the corresponding SearchResult; otherwise, return an empty ListViewItem
 		if (index >= 0 && index < _searchResults.Count)
 		{

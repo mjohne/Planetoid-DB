@@ -103,12 +103,7 @@ internal partial class MoidsOfOneMinorPlanetForm : BaseKryptonForm
 	/// <param name="longitudeAscendingNodeDeg">The longitude of the ascending node in degrees.</param>
 	/// <param name="argumentPerihelionDeg">The argument of perihelion in degrees.</param>
 	/// <remarks>Call this method before showing the form so that the MOID data is available on load.</remarks>
-	public void SetOrbitalElements(
-		double semiMajorAxis,
-		double eccentricity,
-		double inclinationDeg,
-		double longitudeAscendingNodeDeg,
-		double argumentPerihelionDeg)
+	public void SetOrbitalElements(double semiMajorAxis, double eccentricity, double inclinationDeg, double longitudeAscendingNodeDeg, double argumentPerihelionDeg)
 	{
 		this.semiMajorAxis = semiMajorAxis;
 		this.eccentricity = eccentricity;
@@ -129,6 +124,10 @@ internal partial class MoidsOfOneMinorPlanetForm : BaseKryptonForm
 	{
 		// Log that the form has loaded and that MOID computation is starting
 		logger.Info(message: "MoidsOfOneMinorPlanetForm loaded. Computing MOID values for the minor planet.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Play the open sound in the background to indicate that the form has been opened
 		AudioPlayback.PlayOpenSound();
 		// Clear the status bar
@@ -166,6 +165,10 @@ internal partial class MoidsOfOneMinorPlanetForm : BaseKryptonForm
 	{
 		// Log that the form is closing
 		logger.Info(message: "MoidsOfOneMinorPlanetForm is closing.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Play the close sound in the background to indicate that the form is closing
 		AudioPlayback.PlayCloseSound();
 	}
@@ -181,6 +184,10 @@ internal partial class MoidsOfOneMinorPlanetForm : BaseKryptonForm
 	private void MenuitemCopyToClipboardMoidRelativeToMercury_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying Mercury MOID value to clipboard: {labelMercuryData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelMercuryData.Text);
 	}
 
@@ -191,6 +198,10 @@ internal partial class MoidsOfOneMinorPlanetForm : BaseKryptonForm
 	private void MenuitemCopyToClipboardMoidRelativeToVenus_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying Venus MOID value to clipboard: {labelVenusData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelVenusData.Text);
 	}
 
@@ -201,6 +212,10 @@ internal partial class MoidsOfOneMinorPlanetForm : BaseKryptonForm
 	private void MenuitemCopyToClipboardMoidRelativeToEarth_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying Earth MOID value to clipboard: {labelEarthData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelEarthData.Text);
 	}
 
@@ -211,6 +226,10 @@ internal partial class MoidsOfOneMinorPlanetForm : BaseKryptonForm
 	private void MenuitemCopyToClipboardMoidRelativeToMars_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying Mars MOID value to clipboard: {labelMarsData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelMarsData.Text);
 	}
 
@@ -221,6 +240,10 @@ internal partial class MoidsOfOneMinorPlanetForm : BaseKryptonForm
 	private void MenuitemCopyToClipboardMoidRelativeToJupiter_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying Jupiter MOID value to clipboard: {labelJupiterData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelJupiterData.Text);
 	}
 
@@ -231,6 +254,10 @@ internal partial class MoidsOfOneMinorPlanetForm : BaseKryptonForm
 	private void MenuitemCopyToClipboardMoidRelativeToSaturn_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying Saturn MOID value to clipboard: {labelSaturnData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelSaturnData.Text);
 	}
 
@@ -241,6 +268,10 @@ internal partial class MoidsOfOneMinorPlanetForm : BaseKryptonForm
 	private void MenuitemCopyToClipboardMoidRelativeToUranus_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying Uranus MOID value to clipboard: {labelUranusData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelUranusData.Text);
 	}
 
@@ -251,6 +282,10 @@ internal partial class MoidsOfOneMinorPlanetForm : BaseKryptonForm
 	private void MenuitemCopyToClipboardMoidRelativeToNeptune_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying Neptune MOID value to clipboard: {labelNeptuneData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelNeptuneData.Text);
 	}
 

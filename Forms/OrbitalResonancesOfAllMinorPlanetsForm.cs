@@ -225,6 +225,12 @@ internal partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>The percentage is displayed both in the progress bar's <c>Text</c> property and in the adjacent label.</remarks>
 	private void UpdateProgress(int percent)
 	{
+		if (int.IsNegative(value: percent))
+		{
+			logger.Error($"The value of the progress bar must not be negative: {percent} %");
+			ShowErrorMessage($"The value of the progress bar must not be negative: {percent} %");
+			return;
+		}
 		// Clamp the percentage value to ensure it stays within the valid range of 0 to 100; this prevents invalid values from being set on the progress bar and ensures that the displayed percentage is always meaningful
 		int clampedPercent = Math.Clamp(value: percent, min: 0, max: 100);
 		kryptonProgressBar.Value = clampedPercent;
@@ -238,6 +244,8 @@ internal partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>Lines that are too short or have an invalid semi-major axis are silently skipped. All resonances are added to the results list; filtering by selected planets is handled at a higher level.</remarks>
 	private static void ProcessPlanetoidLine(string line, List<ResonanceResult> results)
 	{
+		ArgumentException.ThrowIfNullOrEmpty(argument: line);
+		ArgumentNullException.ThrowIfNull(argument: results);
 		// Validate the line length to ensure it contains the expected fields; if the line is too short, it cannot be processed and is skipped without logging an error, as this may be common for malformed records
 		if (line.Length < 103)
 		{
@@ -266,6 +274,52 @@ internal partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 		}
 	}
 
+	/// <summary>Sorts the <see cref="_results"/> list by the currently selected column and sort order.</summary>
+	/// <remarks>Numeric columns (Planet Period, Planetoid Period, Ratio, Deviation) are sorted numerically; all other columns are sorted as strings (case-insensitive, ordinal).</remarks>
+	private void SortResults()
+	{
+		// Determine the column to sort by and the sort direction, then apply the appropriate sorting logic based on the column type (numeric or string) and update the _results list accordingly
+		int col = sortColumn;
+		bool ascending = sortOrder == SortOrder.Ascending;
+		_results = col switch
+		{
+			// For the Planet Period column, sort the results by the PlanetPeriod property of the Resonance object in ascending or descending order based on the current sort order
+			ColumnIndexPlanetPeriod when ascending => [.. _results.OrderBy(keySelector: static r => r.Resonance.PlanetPeriod)],
+			ColumnIndexPlanetPeriod => [.. _results.OrderByDescending(keySelector: static r => r.Resonance.PlanetPeriod)],
+			ColumnIndexPlanetoidPeriod when ascending => [.. _results.OrderBy(keySelector: static r => r.Resonance.PlanetoidPeriod)],
+			ColumnIndexPlanetoidPeriod => [.. _results.OrderByDescending(keySelector: static r => r.Resonance.PlanetoidPeriod)],
+			ColumnIndexRatio when ascending => [.. _results.OrderBy(keySelector: static r => r.Resonance.Ratio)],
+			ColumnIndexRatio => [.. _results.OrderByDescending(keySelector: static r => r.Resonance.Ratio)],
+			ColumnIndexDeviation when ascending => [.. _results.OrderBy(keySelector: static r => r.Resonance.DeviationPercent)],
+			ColumnIndexDeviation => [.. _results.OrderByDescending(keySelector: static r => r.Resonance.DeviationPercent)],
+			_ when ascending => [.. _results.OrderBy(keySelector: r => GetColumnText(result: r, column: col), comparer: StringComparer.OrdinalIgnoreCase)],
+			_ => [.. _results.OrderByDescending(keySelector: r => GetColumnText(result: r, column: col), comparer: StringComparer.OrdinalIgnoreCase)]
+		};
+	}
+
+	/// <summary>Returns the display text for a given column of a <see cref="ResonanceResult"/>.</summary>
+	/// <param name="result">The resonance result.</param>
+	/// <param name="column">The zero-based column index.</param>
+	/// <returns>The text value used for sorting and display of the specified column.</returns>
+	private static string GetColumnText(ResonanceResult result, int column)
+	{
+		ArgumentNullException.ThrowIfNull(argument: result);
+		ArgumentOutOfRangeException.ThrowIfNegative(value: column);
+		return column switch
+		{
+			// Returns the display text for each column of a ResonanceResult
+			ColumnIndexPlanetoid => result.PlanetoidName,
+			// For the Planet column, return the name of the planet involved in the resonance
+			ColumnIndexPlanet => result.Resonance.PlanetName,
+			// For the Resonance column, return a string in the format "P:Q" representing the resonance ratio
+			ColumnIndexResonance => $"{result.Resonance.ResonanceP}:{result.Resonance.ResonanceQ}",
+			// For the IsResonance column, return "Yes" if the deviation is below the threshold, otherwise "No"
+			ColumnIndexIsResonance => result.Resonance.DeviationPercent < ResonanceThresholdPercent ? "Yes" : "No",
+			_ => string.Empty
+		};
+	}
+
+
 	#endregion
 
 	#region form event handlers
@@ -278,6 +332,10 @@ internal partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 	{
 		// Log that the form has been loaded; this is useful for tracking the lifecycle of the form in the application logs
 		logger.Info(message: "OrbitalResonancesOfAllMinorPlanetsForm loaded.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Play the open sound in the background to indicate that the form has been opened
 		AudioPlayback.PlayOpenSound();
 		// Clear the status bar to ensure it starts in a clean state when the form is first displayed
@@ -292,6 +350,10 @@ internal partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 	{
 		// Log that the form is closing
 		logger.Info(message: "OrbitalResonancesOfAllMinorPlanetsForm is closing.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Play the close sound in the background to indicate that the form is closing
 		AudioPlayback.PlayCloseSound();
 		// If a search is currently running (indicated by a non-null cancellation token source), signal cancellation and dispose of the token source to free resources; this ensures that any background tasks are properly cancelled when the form is closed, preventing potential issues with lingering tasks or resource leaks
@@ -314,6 +376,10 @@ internal partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>Called by the ListView for each visible row. Must be fast and must not modify <see cref="_results"/>.</remarks>
 	private void ListView_RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Validate the requested index to ensure it is within the bounds of the _results list; if the index is invalid, log a warning and provide a default empty ListViewItem to avoid exceptions in the ListView, allowing it to continue functioning even if an invalid index is requested
 		if (e.ItemIndex < 0 || e.ItemIndex >= _results.Count)
 		{
@@ -352,8 +418,12 @@ internal partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
 	/// <remarks>This method is called whenever a planet selection button or the filter resonances button is checked or unchecked.</remarks>
-	private void PlanetButton_CheckedChanged(object? sender, EventArgs e)
+	private void PlanetButton_CheckedChanged(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// If there are no results yet, there is nothing to filter, so we can skip the filtering step; this check prevents unnecessary processing when the user changes the planet selection before running the search for the first time
 		if (_allResults.Count > 0)
 		{
@@ -373,6 +443,10 @@ internal partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 	{
 		// Validate that at least one planet is selected before starting the search
 		List<string> selectedPlanets = GetSelectedPlanets();
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		if (selectedPlanets.Count == 0)
 		{
 			logger.Warn(message: "No planets selected. Please select at least one planet before starting the search.");
@@ -498,6 +572,10 @@ internal partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>The search can be cancelled by the user at any time using the Cancel button.</remarks>
 	private void ButtonCancel_Click(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// If a search is currently running, request cancellation and prevent repeated cancel clicks.
 		// Keep the save, planet-selection, and filter controls disabled here so they are only
 		// re-enabled after the background search has fully completed and final results have been
@@ -516,6 +594,10 @@ internal partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>All sub-items of the selected row are joined with a tab character before being placed on the clipboard. If no row is selected the method returns without action.</remarks>
 	private void ToolStripMenuItemCopyToClipboard_Click(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Check if any item is selected in the list view; if not, return without doing anything; if an item is selected, get the index of the first selected item and validate it against the _results list; if the index is valid, retrieve the corresponding ResonanceResult and format its data into a tab-separated string; finally, copy the formatted string to the clipboard
 		if (listView.SelectedIndices.Count == 0)
 		{
@@ -557,6 +639,10 @@ internal partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>Toggles the sort order for the clicked column (ascending/descending) and re-sorts the results list. Column headers are updated with a ▲ or ▼ indicator to show the current sort direction.</remarks>
 	private void ListView_ColumnClick(object sender, ColumnClickEventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// If there are no results to sort, exit the method early to avoid unnecessary processing and potential errors when trying to access column headers or sort the empty list
 		if (_results.Count == 0)
 		{
@@ -584,56 +670,11 @@ internal partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 				headerText = headerText[SortIndicatorPrefixLength..];
 			}
 			// Update the header text for each column, adding the appropriate sort indicator (▲ for ascending, ▼ for descending) to the currently sorted column while leaving other columns without indicators
-			listView.Columns[index: i].Text = i == sortColumn
-				? $"{(sortOrder == SortOrder.Ascending ? "▲" : "▼")} {headerText}"
-				: headerText;
+			listView.Columns[index: i].Text = i == sortColumn ? $"{(sortOrder == SortOrder.Ascending ? "▲" : "▼")} {headerText}" : headerText;
 		}
 		// Re-sort the results based on the newly selected sort column and order, then refresh the ListView to display the sorted results
 		SortResults();
 		listView.Refresh();
-	}
-
-	/// <summary>Sorts the <see cref="_results"/> list by the currently selected column and sort order.</summary>
-	/// <remarks>Numeric columns (Planet Period, Planetoid Period, Ratio, Deviation) are sorted numerically; all other columns are sorted as strings (case-insensitive, ordinal).</remarks>
-	private void SortResults()
-	{
-		// Determine the column to sort by and the sort direction, then apply the appropriate sorting logic based on the column type (numeric or string) and update the _results list accordingly
-		int col = sortColumn;
-		bool ascending = sortOrder == SortOrder.Ascending;
-		_results = col switch
-		{
-			// For the Planet Period column, sort the results by the PlanetPeriod property of the Resonance object in ascending or descending order based on the current sort order
-			ColumnIndexPlanetPeriod when ascending => [.. _results.OrderBy(keySelector: static r => r.Resonance.PlanetPeriod)],
-			ColumnIndexPlanetPeriod => [.. _results.OrderByDescending(keySelector: static r => r.Resonance.PlanetPeriod)],
-			ColumnIndexPlanetoidPeriod when ascending => [.. _results.OrderBy(keySelector: static r => r.Resonance.PlanetoidPeriod)],
-			ColumnIndexPlanetoidPeriod => [.. _results.OrderByDescending(keySelector: static r => r.Resonance.PlanetoidPeriod)],
-			ColumnIndexRatio when ascending => [.. _results.OrderBy(keySelector: static r => r.Resonance.Ratio)],
-			ColumnIndexRatio => [.. _results.OrderByDescending(keySelector: static r => r.Resonance.Ratio)],
-			ColumnIndexDeviation when ascending => [.. _results.OrderBy(keySelector: static r => r.Resonance.DeviationPercent)],
-			ColumnIndexDeviation => [.. _results.OrderByDescending(keySelector: static r => r.Resonance.DeviationPercent)],
-			_ when ascending => [.. _results.OrderBy(keySelector: r => GetColumnText(result: r, column: col), comparer: StringComparer.OrdinalIgnoreCase)],
-			_ => [.. _results.OrderByDescending(keySelector: r => GetColumnText(result: r, column: col), comparer: StringComparer.OrdinalIgnoreCase)]
-		};
-	}
-
-	/// <summary>Returns the display text for a given column of a <see cref="ResonanceResult"/>.</summary>
-	/// <param name="result">The resonance result.</param>
-	/// <param name="column">The zero-based column index.</param>
-	/// <returns>The text value used for sorting and display of the specified column.</returns>
-	private static string GetColumnText(ResonanceResult result, int column)
-	{
-		return column switch
-		{
-			// Returns the display text for each column of a ResonanceResult
-			ColumnIndexPlanetoid => result.PlanetoidName,
-			// For the Planet column, return the name of the planet involved in the resonance
-			ColumnIndexPlanet => result.Resonance.PlanetName,
-			// For the Resonance column, return a string in the format "P:Q" representing the resonance ratio
-			ColumnIndexResonance => $"{result.Resonance.ResonanceP}:{result.Resonance.ResonanceQ}",
-			// For the IsResonance column, return "Yes" if the deviation is below the threshold, otherwise "No"
-			ColumnIndexIsResonance => result.Resonance.DeviationPercent < ResonanceThresholdPercent ? "Yes" : "No",
-			_ => string.Empty
-		};
 	}
 
 	#endregion
@@ -646,6 +687,10 @@ internal partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>When an item is double-clicked, the corresponding planetoid is displayed in the <see cref="PlanetoidDbForm"/> without closing this form.</remarks>
 	private void ListView_DoubleClick(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Ensure that an item is selected and that the index is within the bounds of the results list; if so, retrieve the corresponding ResonanceResult and use its PlanetoidName to jump to the record in the PlanetoidDbForm
 		if (listView.SelectedIndices.Count == 0)
 		{

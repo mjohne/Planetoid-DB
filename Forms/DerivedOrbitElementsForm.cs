@@ -227,6 +227,10 @@ internal partial class DerivedOrbitElementsForm : BaseKryptonForm
 		ClearStatusBar(label: labelInformation);
 		// Log the form load event for debugging purposes
 		logger.Info(message: "DerivedOrbitElementsForm loaded");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Play the open sound in the background to indicate that the form has been opened
 		AudioPlayback.PlayOpenSound();
 		// Validate the provided derived orbit elements data
@@ -252,6 +256,10 @@ internal partial class DerivedOrbitElementsForm : BaseKryptonForm
 	{
 		// Log that the form is closing
 		logger.Info(message: "DerivedOrbitElementsForm is closing.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Play the close sound in the background to indicate that the form is closing
 		AudioPlayback.PlayCloseSound();
 	}
@@ -266,6 +274,10 @@ internal partial class DerivedOrbitElementsForm : BaseKryptonForm
 	/// <remarks>This method is used to store the control that triggered the event for future reference.</remarks>
 	protected override void Control_MouseDown(object sender, MouseEventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Call the base class implementation to ensure any base functionality is executed
 		if (sender is ToolStripMenuItem menuItem && menuItem.Tag is Label targetLabel)
 		{
@@ -288,6 +300,10 @@ internal partial class DerivedOrbitElementsForm : BaseKryptonForm
 	private void CopyToClipboardLinearEccentricity_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying linear eccentricity data to clipboard: {labelLinearEccentricityData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelLinearEccentricityData.Text);
 	}
 
@@ -299,6 +315,10 @@ internal partial class DerivedOrbitElementsForm : BaseKryptonForm
 	private void CopyToClipboardSemiMinorAxis_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying semi-minor axis data to clipboard: {labelSemiMinorAxisData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelSemiMinorAxisData.Text);
 	}
 
@@ -310,6 +330,10 @@ internal partial class DerivedOrbitElementsForm : BaseKryptonForm
 	private void CopyToClipboardMajorAxis_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying major axis data to clipboard: {labelMajorAxisData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelMajorAxisData.Text);
 	}
 
@@ -321,6 +345,10 @@ internal partial class DerivedOrbitElementsForm : BaseKryptonForm
 	private void CopyToClipboardMinorAxis_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying minor axis data to clipboard: {labelMinorAxisData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelMinorAxisData.Text);
 	}
 
@@ -332,6 +360,10 @@ internal partial class DerivedOrbitElementsForm : BaseKryptonForm
 	private void CopyToClipboardEccentricAnomaly_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying eccentric anomaly data to clipboard: {labelEccentricAnomalyData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelEccentricAnomalyData.Text);
 	}
 
@@ -343,6 +375,10 @@ internal partial class DerivedOrbitElementsForm : BaseKryptonForm
 	private void CopyToClipboardTrueAnomaly_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying true anomaly data to clipboard: {labelTrueAnomalyData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelTrueAnomalyData.Text);
 	}
 
@@ -354,6 +390,10 @@ internal partial class DerivedOrbitElementsForm : BaseKryptonForm
 	private void CopyToClipboardPerihelionDistance_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying perihelion distance data to clipboard: {labelPerihelionDistanceData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelPerihelionDistanceData.Text);
 	}
 
@@ -365,6 +405,10 @@ internal partial class DerivedOrbitElementsForm : BaseKryptonForm
 	private void CopyToClipboardAphelionDistance_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying aphelion distance data to clipboard: {labelAphelionDistanceData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelAphelionDistanceData.Text);
 	}
 
@@ -376,6 +420,10 @@ internal partial class DerivedOrbitElementsForm : BaseKryptonForm
 	private void CopyToClipboardLongitudeDescendingNode_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying longitude of the descending node data to clipboard: {labelLongitudeDescendingNodeData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelLongitudeDescendingNodeData.Text);
 	}
 
@@ -387,6 +435,10 @@ internal partial class DerivedOrbitElementsForm : BaseKryptonForm
 	private void CopyToClipboardArgumentAphelion_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying argument of aphelion data to clipboard: {labelArgumentAphelionData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelArgumentAphelionData.Text);
 	}
 
@@ -398,6 +450,10 @@ internal partial class DerivedOrbitElementsForm : BaseKryptonForm
 	private void CopyToClipboardFocalParameter_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying focal parameter data to clipboard: {labelFocalParameterData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelFocalParameterData.Text);
 	}
 
@@ -409,6 +465,10 @@ internal partial class DerivedOrbitElementsForm : BaseKryptonForm
 	private void CopyToClipboardSemiLatusRectum_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying semi-latus rectum data to clipboard: {labelSemiLatusRectumData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelSemiLatusRectumData.Text);
 	}
 
@@ -420,6 +480,10 @@ internal partial class DerivedOrbitElementsForm : BaseKryptonForm
 	private void CopyToClipboardLatusRectum_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying latus rectum data to clipboard: {labelLatusRectumData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelLatusRectumData.Text);
 	}
 
@@ -431,6 +495,10 @@ internal partial class DerivedOrbitElementsForm : BaseKryptonForm
 	private void CopyToClipboardOrbitalPeriod_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying orbital period data to clipboard: {labelOrbitalPeriodData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelOrbitalPeriodData.Text);
 	}
 
@@ -442,6 +510,10 @@ internal partial class DerivedOrbitElementsForm : BaseKryptonForm
 	private void CopyToClipboardOrbitalArea_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying orbital area data to clipboard: {labelOrbitalAreaData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelOrbitalAreaData.Text);
 	}
 
@@ -453,6 +525,10 @@ internal partial class DerivedOrbitElementsForm : BaseKryptonForm
 	private void CopyToClipboardSemiMeanAxis_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying semi-mean axis data to clipboard: {labelSemiMeanAxisData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelSemiMeanAxisData.Text);
 	}
 
@@ -464,6 +540,10 @@ internal partial class DerivedOrbitElementsForm : BaseKryptonForm
 	private void CopyToClipboardMeanAxis_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying mean axis data to clipboard: {labelMeanAxisData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelMeanAxisData.Text);
 	}
 
@@ -477,6 +557,10 @@ internal partial class DerivedOrbitElementsForm : BaseKryptonForm
 	/// <remarks>This method attempts to parse the current tag text as an integer and opens the terminology dialog for the corresponding entry if successful.</remarks>
 	private void OpenTerminology_DoubleClick(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Safe casting from sender directly to evaluate the exact control being interacted with
 		if (sender is Control control && control.Tag != null)
 		{

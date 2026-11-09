@@ -68,6 +68,11 @@ internal partial class SettingsExportForm : BaseKryptonForm
 	/// <remarks>The suggested file name is composed of <paramref name="filePrefix"/> and the current timestamp. The wait cursor is shown during export. Any unexpected exception is logged and shown as an error.</remarks>
 	private void ExportSettings(string filter, string defaultExt, string dialogTitle, string filePrefix, Action<string> exporter)
 	{
+		ArgumentException.ThrowIfNullOrEmpty(argument: filter);
+		ArgumentException.ThrowIfNullOrEmpty(argument: defaultExt);
+		ArgumentException.ThrowIfNullOrEmpty(argument: dialogTitle);
+		ArgumentException.ThrowIfNullOrEmpty(argument: filePrefix);
+		ArgumentNullException.ThrowIfNull(argument: exporter);
 		// Show the save file dialog to the user
 		using SaveFileDialog saveFileDialog = new()
 		{
@@ -116,6 +121,10 @@ internal partial class SettingsExportForm : BaseKryptonForm
 	{
 		// Log that the form has loaded successfully
 		logger.Info(message: "SettingsExportForm loaded successfully.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Play the open sound in the background to indicate that the form has been opened
 		AudioPlayback.PlayOpenSound();
 		// Clear the status bar to ensure no residual messages are displayed
@@ -130,6 +139,10 @@ internal partial class SettingsExportForm : BaseKryptonForm
 	{
 		// Log that the form is closing
 		logger.Info(message: "SettingsExportForm is closing.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Play the close sound in the background to indicate that the form is closing
 		AudioPlayback.PlayCloseSound();
 	}
@@ -145,6 +158,10 @@ internal partial class SettingsExportForm : BaseKryptonForm
 	private void ButtonExportCsv_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Initiating settings export to CSV.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		ExportSettings(filter: "CSV Files (*.csv)|*.csv|All Files (*.*)|*.*", defaultExt: "csv", dialogTitle: "Export Settings as CSV", filePrefix: "Settings", exporter: SettingsExporter.SaveAsCsv);
 	}
 
@@ -155,6 +172,10 @@ internal partial class SettingsExportForm : BaseKryptonForm
 	private void ButtonExportIni_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Initiating settings export to INI.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		ExportSettings(filter: "INI Files (*.ini)|*.ini|All Files (*.*)|*.*", defaultExt: "ini", dialogTitle: "Export Settings as INI", filePrefix: "Settings", exporter: SettingsExporter.SaveAsIni);
 	}
 
@@ -165,6 +186,10 @@ internal partial class SettingsExportForm : BaseKryptonForm
 	private void ButtonExportXml_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Initiating settings export to XML.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		ExportSettings(filter: "XML Files (*.xml)|*.xml|All Files (*.*)|*.*", defaultExt: "xml", dialogTitle: "Export Settings as XML", filePrefix: "Settings", exporter: SettingsExporter.SaveAsXml);
 	}
 
@@ -175,6 +200,10 @@ internal partial class SettingsExportForm : BaseKryptonForm
 	private void ButtonExportJson_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Initiating settings export to JSON.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		ExportSettings(filter: "JSON Files (*.json)|*.json|All Files (*.*)|*.*", defaultExt: "json", dialogTitle: "Export Settings as JSON", filePrefix: "Settings", exporter: SettingsExporter.SaveAsJson);
 	}
 
@@ -185,6 +214,10 @@ internal partial class SettingsExportForm : BaseKryptonForm
 	private void ButtonExportYaml_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Initiating settings export to YAML.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		ExportSettings(filter: "YAML Files (*.yaml)|*.yaml|All Files (*.*)|*.*", defaultExt: "yaml", dialogTitle: "Export Settings as YAML", filePrefix: "Settings", exporter: SettingsExporter.SaveAsYaml);
 	}
 

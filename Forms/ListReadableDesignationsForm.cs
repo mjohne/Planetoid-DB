@@ -138,6 +138,7 @@ internal partial class ListReadableDesignationsForm : BaseKryptonForm
 	/// <remarks>This method is used to extract the index and designation from a fixed-width planetoid record string. It validates the input and uses <see cref="ReadOnlySpan{T}"/> for efficient substring extraction without allocations.</remarks>
 	private static bool TryParsePlanetoidRecord(string record, out string parsedIndex, out string parsedDesignation)
 	{
+		ArgumentException.ThrowIfNullOrWhiteSpace(argument: record);
 		// Initialize output parameters
 		parsedIndex = string.Empty;
 		parsedDesignation = string.Empty;
@@ -407,6 +408,10 @@ internal partial class ListReadableDesignationsForm : BaseKryptonForm
 	/// <remarks>Logs the closing event and plays the close sound to provide closure feedback.</remarks>
 	private void ListReadableDesignationsForm_FormClosing(object sender, FormClosingEventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Log that the form is closing
 		logger.Info(message: "DerivedOrbitElementsForm is closing.");
 		// Play the close sound in the background to indicate that the form is closing
@@ -424,6 +429,8 @@ internal partial class ListReadableDesignationsForm : BaseKryptonForm
 	private void ListView_ColumnClick(object? sender, ColumnClickEventArgs e)
 	{
 		// Log the column click event
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		logger.Info(message: $"Column {e.Column} clicked for sorting.");
 		// If the virtual list is empty, log a warning and return without sorting
 		if (listView.VirtualListSize == 0)
@@ -449,6 +456,10 @@ internal partial class ListReadableDesignationsForm : BaseKryptonForm
 	/// <remarks>This method is used to retrieve virtual items for the ListView.</remarks>
 	private void ListView_RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Calculating the true index in the database based on the offset and sorting
 		int realIndex = sortedIndices != null && e.ItemIndex < sortedIndices.Count
 			? sortedIndices[index: e.ItemIndex]
@@ -551,6 +562,10 @@ internal partial class ListReadableDesignationsForm : BaseKryptonForm
 	/// <remarks>This method calls the TriggerNavigation method to navigate to the selected planetoid record in the main form.</remarks>
 	private void ToolStripButtonGoToObject_Click(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Log the button click event
 		logger.Info(message: "Go to Object button clicked.");
 		// Trigger navigation to the selected planetoid record
@@ -567,6 +582,10 @@ internal partial class ListReadableDesignationsForm : BaseKryptonForm
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	private void ListView_DoubleClick(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Log the button click event
 		logger.Info(message: "Go to Object button clicked.");
 		// Trigger navigation to the selected planetoid record

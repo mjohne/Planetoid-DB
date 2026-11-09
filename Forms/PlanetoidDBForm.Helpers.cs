@@ -63,23 +63,156 @@ public partial class PlanetoidDbForm
 	/// <remarks>This field is used to format messages for bookmarks that have been removed.</remarks>
 	private static readonly CompositeFormat bookmarkRemovedFormat = CompositeFormat.Parse(format: I18nStrings.BookmarkRemoved);
 
+	/// <summary>Calculates the total size of files in a directory and its subdirectories.</summary>
+	/// <param name="folderPath">The path to the directory.</param>
+	/// <returns>The total size of the files in bytes, or 0 if the directory does not exist.</returns>
+	/// <remarks>This method is used to calculate the total size of files in a directory and its subdirectories.</remarks>
 	private static long GetDirectorySize(string folderPath)
 	{
+		ArgumentException.ThrowIfNullOrEmpty(argument: folderPath);
+		// Check if the directory exists before attempting to calculate its size
 		if (!Directory.Exists(path: folderPath))
 		{
+			// Log a warning message if the directory does not exist
+			logger.Warn(message: $"Directory does not exist: {folderPath}");
 			return 0;
 		}
-
+		// Initialize a variable to hold the total size of files
 		long size = 0;
+		// Create a DirectoryInfo object to access the directory's files and subdirectories
 		DirectoryInfo dirInfo = new(path: folderPath);
-
+		// Use a foreach loop to iterate through all files in the directory and its subdirectories
 		foreach (FileInfo file in dirInfo.GetFiles(searchPattern: "*.*", searchOption: SearchOption.AllDirectories))
 		{
+			// Add the length of each file to the total size
 			size += file.Length;
 		}
 		return size;
 	}
 
+	/// <summary>Adds an item to the derived data ListView.</summary>
+	/// <param name="element">The name of the orbital element.</param>
+	/// <param name="unit">The unit of the orbital element.</param>
+	/// <param name="value">The calculated value of the orbital element.</param>
+	private void AddItemToListViewDerivedData(string element, string unit, string value)
+	{
+		ArgumentException.ThrowIfNullOrEmpty(argument: element);
+		ArgumentException.ThrowIfNullOrEmpty(argument: unit);
+		ArgumentException.ThrowIfNullOrEmpty(argument: value);
+		ListViewItem item = new(text: element);
+		_ = item.SubItems.Add(text: unit);
+		_ = item.SubItems.Add(text: value);
+		_ = listViewDerivedData.Items.Add(value: item);
+	}
+
+	/// <summary>A workaround to retrieve the window from its maximized state before positioning it</summary>
+	/// <remarks>Maximized windows cannot be reliably repositioned for snapping. This method restores the form to its normal state first; forms in any other state are left unchanged.</remarks>
+	private void PrepareFormForSnapping()
+	{
+		if (WindowState == FormWindowState.Maximized)
+		{
+			WindowState = FormWindowState.Normal;
+		}
+	}
+
+	/// <summary>Snaps the window to the left screen half</summary>
+	/// <remarks>Positions the window to occupy the left half of the working area, extending full height.</remarks>
+	private void SnapLeft()
+	{
+		PrepareFormForSnapping();
+		Rectangle area = Screen.FromControl(control: this).WorkingArea;
+		Left = area.Left;
+		Top = area.Top;
+		Width = area.Width / 2;
+		Height = area.Height;
+	}
+
+	/// <summary>Snaps the window to the right screen half</summary>
+	/// <remarks>Positions the window to occupy the right half of the working area, extending full height.</remarks>
+	private void SnapRight()
+	{
+		PrepareFormForSnapping();
+		Rectangle area = Screen.FromControl(control: this).WorkingArea;
+		Left = area.Left + (area.Width / 2);
+		Top = area.Top;
+		Width = area.Width / 2;
+		Height = area.Height;
+	}
+
+	/// <summary>Snaps the window to the upper screen half</summary>
+	/// <remarks>Positions the window to occupy the upper half of the working area, extending full width.</remarks>
+	private void SnapTop()
+	{
+		PrepareFormForSnapping();
+		Rectangle area = Screen.FromControl(control: this).WorkingArea;
+		Left = area.Left;
+		Top = area.Top;
+		Width = area.Width;
+		Height = area.Height / 2;
+	}
+
+	/// <summary>Snaps the window to the lower screen half</summary>
+	/// <remarks>Positions the window to occupy the lower half of the working area, extending full width.</remarks>
+	private void SnapBottom()
+	{
+		PrepareFormForSnapping();
+		Rectangle area = Screen.FromControl(control: this).WorkingArea;
+		Left = area.Left;
+		Top = area.Top + (area.Height / 2);
+		Width = area.Width;
+		Height = area.Height / 2;
+	}
+
+	/// <summary>Snaps the window to the upper left screen quarter</summary>
+	/// <remarks>Positions the window to occupy the upper left quadrant of the working area.</remarks>
+	private void SnapTopLeft()
+	{
+		PrepareFormForSnapping();
+		Rectangle area = Screen.FromControl(control: this).WorkingArea;
+		Left = area.Left;
+		Top = area.Top;
+		Width = area.Width / 2;
+		Height = area.Height / 2;
+	}
+
+	/// <summary>Snaps the window to the upper right screen quarter</summary>
+	/// <remarks>Positions the window to occupy the upper right quadrant of the working area.</remarks>
+	private void SnapTopRight()
+	{
+		PrepareFormForSnapping();
+		Rectangle area = Screen.FromControl(control: this).WorkingArea;
+		Left = area.Left + (area.Width / 2);
+		Top = area.Top;
+		Width = area.Width / 2;
+		Height = area.Height / 2;
+	}
+
+	/// <summary>Snaps the window to the lower left screen quarter</summary>
+	/// <remarks>Positions the window to occupy the lower left quadrant of the working area.</remarks>
+	private void SnapBottomLeft()
+	{
+		PrepareFormForSnapping();
+		Rectangle area = Screen.FromControl(control: this).WorkingArea;
+		Left = area.Left;
+		Top = area.Top + (area.Height / 2);
+		Width = area.Width / 2;
+		Height = area.Height / 2;
+	}
+
+	/// <summary>Snaps the window to the lower right screen quarter</summary>
+	/// <remarks>Positions the window to occupy the lower right quadrant of the working area.</remarks>
+	private void SnapBottomRight()
+	{
+		PrepareFormForSnapping();
+		Rectangle area = Screen.FromControl(control: this).WorkingArea;
+		Left = area.Left + (area.Width / 2);
+		Top = area.Top + (area.Height / 2);
+		Width = area.Width / 2;
+		Height = area.Height / 2;
+	}
+
+	/// <summary>Displays the disk usage of the application directory and its Planetoid-Db application data folder.</summary>
+	/// <remarks>Updates the status bar with the combined size in MB of the application directory and the application data folder.</remarks>
 	private void DiskSizeUsage()
 	{
 		string appPath = AppContext.BaseDirectory;
@@ -150,8 +283,11 @@ public partial class PlanetoidDbForm
 	/// <summary>Navigates to the specified position in the planetoids database.</summary>
 	/// <param name="position">The position to navigate to.</param>
 	/// <remarks>This method is used to navigate to the specified position in the planetoids database.</remarks>
-	internal void GotoCurrentPosition(int position)
+	internal void GotoCurrentMpcorbPosition(int position)
 	{
+		ArgumentOutOfRangeException.ThrowIfNegative(value: position);
+		// Create a specific culture for formatting
+		IFormatProvider provider = CultureInfo.InvariantCulture;
 		// Handle the case where the database is empty
 		if (position < 0 || position >= planetoidsDatabase.Count)
 		{
@@ -202,6 +338,82 @@ public partial class PlanetoidDbForm
 			labelMpcorbReadableDesignationData.Text = ExtractField(span: entrySpan, start: 166, length: 28);
 			labelMpcorbDateLastObservationData.Text = ExtractField(span: entrySpan, start: 194, length: 8);
 			toolStripLabelIndexPosition.Text = $@"{I18nStrings.Index}: {position + 1:N0} / {planetoidsDatabase.Count:N0}";
+
+			listViewDerivedData.Items.Clear();
+
+			double semiMajorAxis = double.Parse(s: labelMpcorbSemiMajorAxisData.Text, provider: provider);
+			double numericalEccentricity = double.Parse(s: labelMpcorbOrbitalEccentricityData.Text, provider: provider);
+			double meanAnomaly = double.Parse(s: labelMpcorbMeanAnomalyAtTheEpochData.Text, provider: provider);
+			double longitudeAscendingNode = double.Parse(s: labelMpcorbLongitudeOfTheAscendingNodeData.Text, provider: provider);
+			double argumentPerihelion = double.Parse(s: labelMpcorbArgumentOfThePerihelionData.Text, provider: provider);
+			double inclination = double.Parse(s: labelMpcorbInclinationToTheEclipticData.Text, provider: provider);
+			double absoluteMagnitude = double.Parse(s: labelMpcorbAbsoluteMagnitudeData.Text, provider: provider);
+			double trueAnomaly = DerivedElements.CalculateTrueAnomaly(meanAnomaly: meanAnomaly, numericalEccentricity: numericalEccentricity);
+
+			AddItemToListViewDerivedData(element: "Semi-minor axis", unit: "AU", value: DerivedElements.CalculateSemiMinorAxis(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+			AddItemToListViewDerivedData(element: "Semi-mean axis", unit: "AU", value: DerivedElements.CalculateSemiMeanAxis(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+			AddItemToListViewDerivedData(element: "Major axis", unit: "AU", value: DerivedElements.CalculateMajorAxis(semiMajorAxis: semiMajorAxis).ToString(provider: provider));
+			AddItemToListViewDerivedData(element: "Minor axis", unit: "AU", value: DerivedElements.CalculateMinorAxis(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+			AddItemToListViewDerivedData(element: "Mean axis", unit: "AU", value: DerivedElements.CalculateMeanAxis(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+			AddItemToListViewDerivedData(element: "Aphelion distance", unit: "AU", value: DerivedElements.CalculateAphelionDistance(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+			AddItemToListViewDerivedData(element: "Perihelion distance", unit: "AU", value: DerivedElements.CalculatePerihelionDistance(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+			AddItemToListViewDerivedData(element: "Linear eccentricity", unit: "---", value: DerivedElements.CalculateLinearEccentricity(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+			AddItemToListViewDerivedData(element: "Semi-latus rectum", unit: "AU", value: DerivedElements.CalculateSemiLatusRectum(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+			AddItemToListViewDerivedData(element: "Latus rectum", unit: "AU", value: DerivedElements.CalculateLatusRectum(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+			AddItemToListViewDerivedData(element: "Mean distance from focus", unit: "AU", value: DerivedElements.CalculateMeanDistanceFromFocus(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+			AddItemToListViewDerivedData(element: "Focal parameter", unit: "AU", value: DerivedElements.CalculateFocusDirectrixDistance(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+			AddItemToListViewDerivedData(element: "Directrix", unit: "AU", value: DerivedElements.CalculateCenterDirectrixDistance(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+			AddItemToListViewDerivedData(element: "Orbital semi-perimeter", unit: "AU", value: DerivedElements.CalculateOrbitalSemiPerimeter(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+			AddItemToListViewDerivedData(element: "Orbital perimeter", unit: "AU", value: DerivedElements.CalculateOrbitalPerimeter(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+			AddItemToListViewDerivedData(element: "Orbital area", unit: "AU²", value: DerivedElements.CalculateOrbitalArea(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+			AddItemToListViewDerivedData(element: "Orbital period", unit: "year", value: DerivedElements.CalculateSiderealOrbitalPeriod(semiMajorAxis: semiMajorAxis).ToString(provider: provider));
+			AddItemToListViewDerivedData(element: "Synodic period", unit: "year", value: DerivedElements.CalculateSynodicOrbitalPeriod(semiMajorAxis: semiMajorAxis).ToString(provider: provider));
+			AddItemToListViewDerivedData(element: "Radius of curvature", unit: "AU", value: DerivedElements.CalculateMaxEclipticDistance(semiMajorAxis: semiMajorAxis, inclination: inclination).ToString(provider: provider));
+			AddItemToListViewDerivedData(element: "Maximal ecliptic distance", unit: "AU", value: DerivedElements.CalculateRadiusOfCurvature(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity, trueAnomaly: trueAnomaly).ToString(provider: provider));
+			AddItemToListViewDerivedData(element: "Equinoctial orbital element h", unit: "---", value: DerivedElements.CalculateEquinoctialOrbitalElementH(numericalEccentricity: numericalEccentricity, argumentPerihelion: argumentPerihelion, lengthAscendingNode: longitudeAscendingNode).ToString(provider: provider));
+			AddItemToListViewDerivedData(element: "Equinoctial orbital element k", unit: "---", value: DerivedElements.CalculateEquinoctialOrbitalElementK(numericalEccentricity: numericalEccentricity, argumentPerihelion: argumentPerihelion, lengthAscendingNode: longitudeAscendingNode).ToString(provider: provider));
+			AddItemToListViewDerivedData(element: "Equinoctial orbital element P", unit: "---", value: DerivedElements.CalculateEquinoctialOrbitalElementP(orbitalInclination: inclination, lengthAscendingNode: longitudeAscendingNode).ToString(provider: provider));
+			AddItemToListViewDerivedData(element: "Equinoctial orbital element Q", unit: "---", value: DerivedElements.CalculateEquinoctialOrbitalElementQ(orbitalInclination: inclination, lengthAscendingNode: longitudeAscendingNode).ToString(provider: provider));
+			AddItemToListViewDerivedData(element: "Length of the aphelion node arc", unit: "AU", value: DerivedElements.CalculateLengthOfAphelionNodeArc(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity, argumentOfPerihelion: argumentPerihelion).ToString(provider: provider));
+			AddItemToListViewDerivedData(element: "Length of the perihelion node arc", unit: "AU", value: DerivedElements.CalculateLengthOfPerihelionNodeArc(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity, argumentOfPerihelion: argumentPerihelion).ToString(provider: provider));
+			AddItemToListViewDerivedData(element: "Ascending node distance", unit: "AU", value: DerivedElements.CalculateAscendingNodeDistance(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity, argumentPerihelion: argumentPerihelion).ToString(provider: provider));
+			AddItemToListViewDerivedData(element: "Descending node distance", unit: "AU", value: DerivedElements.CalculateDescendingNodeDistance(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity, argumentPerihelion: argumentPerihelion).ToString(provider: provider));
+			AddItemToListViewDerivedData(element: "Aphelion date", unit: "JD", value: DerivedElements.CalculateAphelionDate(meanAnomaly: meanAnomaly, semiMajorAxis: semiMajorAxis, epochJd: JulianDates.CalculateJulianDate(DecodePackedEpochDateToDate(packedEpoch: labelMpcorbEpochData.Text))).ToString(provider: provider));
+			AddItemToListViewDerivedData(element: "Perihelion date", unit: "JD", value: DerivedElements.CalculatePerihelionDate(meanAnomaly: meanAnomaly, semiMajorAxis: semiMajorAxis, epochJd: JulianDates.CalculateJulianDate(DecodePackedEpochDateToDate(packedEpoch: labelMpcorbEpochData.Text))).ToString(provider: provider));
+			AddItemToListViewDerivedData(element: "Time since aphelion", unit: "year", value: DerivedElements.CalculateTimeSincePerihelion(meanAnomaly: meanAnomaly, semiMajorAxis: semiMajorAxis).ToString(provider: provider));
+			AddItemToListViewDerivedData(element: "Time to next aphelion", unit: "year", value: DerivedElements.CalculateTimeToNextPerihelion(meanAnomaly: meanAnomaly, semiMajorAxis: semiMajorAxis).ToString(provider: provider));
+			AddItemToListViewDerivedData(element: "Time since perihelion", unit: "year", value: DerivedElements.CalculateTimeSinceAphelion(meanAnomaly: meanAnomaly, semiMajorAxis: semiMajorAxis).ToString(provider: provider));
+			AddItemToListViewDerivedData(element: "Time since perihelion", unit: "year", value: DerivedElements.CalculateTimeToNextAphelion(meanAnomaly: meanAnomaly, semiMajorAxis: semiMajorAxis).ToString(provider: provider));
+			AddItemToListViewDerivedData(element: "Current orbital velocity", unit: "AU/year", value: DerivedElements.CalculateCurrentOrbitalVelocity(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity, trueAnomaly: trueAnomaly).ToString(provider: provider));
+			AddItemToListViewDerivedData(element: "Radial velocity component", unit: "AU/year", value: DerivedElements.CalculateRadialVelocityComponent(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity, trueAnomaly: trueAnomaly).ToString(provider: provider));
+			AddItemToListViewDerivedData(element: "Tangential velocity component", unit: "AU/year", value: DerivedElements.CalculateTangentialVelocityComponent(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity, trueAnomaly: trueAnomaly).ToString(provider: provider));
+			AddItemToListViewDerivedData(element: "Aphelion velocity", unit: "AU/year", value: DerivedElements.CalculateAphelionVelocity(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+			AddItemToListViewDerivedData(element: "Perihelion velocity", unit: "AU/year", value: DerivedElements.CalculatePerihelionVelocity(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+			AddItemToListViewDerivedData(element: "Mean velocity", unit: "AU/year", value: DerivedElements.CalculateMeanOrbitalVelocity(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+			AddItemToListViewDerivedData(element: "Angular velocity", unit: "rad/year", value: DerivedElements.CalculateAngularVelocity(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity, trueAnomaly: trueAnomaly).ToString(provider: provider));
+			AddItemToListViewDerivedData(element: "Areal velocity", unit: "AU²/year", value: DerivedElements.CalculateArealVelocity(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+			AddItemToListViewDerivedData(element: "Mean motion", unit: "°/year", value: DerivedElements.CalculateMeanMotion(semiMajorAxis: semiMajorAxis).ToString(provider: provider));
+			AddItemToListViewDerivedData(element: "Mean daily motion", unit: "°/day", value: DerivedElements.CalculateMeanDailyMotion(semiMajorAxis: semiMajorAxis).ToString(provider: provider));
+			AddItemToListViewDerivedData(element: "Mean daily orbital motion", unit: "AU/day", value: DerivedElements.CalculateMeanDailyOrbitalMotion(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+			AddItemToListViewDerivedData(element: "Kozai quantity", unit: "---", value: DerivedElements.CalculateKozaiQuantity(numericalEccentricity: numericalEccentricity, orbitalInclination: inclination).ToString(provider: provider));
+			AddItemToListViewDerivedData(element: "Longitude of perihelion", unit: "°", value: DerivedElements.CalculateLongitudeOfPerihelion(longitudeAscendingNode: longitudeAscendingNode, argumentPerihelion: argumentPerihelion).ToString(provider: provider));
+			AddItemToListViewDerivedData(element: "Mean longitude", unit: "°", value: DerivedElements.CalculateMeanLongitude(longitudeAscendingNode: longitudeAscendingNode, argumentPerihelion: argumentPerihelion, meanAnomaly: meanAnomaly).ToString(provider: provider));
+			AddItemToListViewDerivedData(element: "True longitude", unit: "°", value: DerivedElements.CalculateTrueLongitude(longitudeAscendingNode: longitudeAscendingNode, argumentPerihelion: argumentPerihelion, trueAnomaly: trueAnomaly).ToString(provider: provider));
+			AddItemToListViewDerivedData(element: "Argument of latitude", unit: "°", value: DerivedElements.CalculateArgumentOfLatitude(argumentPerihelion: argumentPerihelion, trueAnomaly: trueAnomaly).ToString(provider: provider));
+			AddItemToListViewDerivedData(element: "Argument of the aphelion", unit: "°", value: DerivedElements.CalculateArgumentOfAphelion(argumentPerihelion: argumentPerihelion).ToString(provider: provider));
+			AddItemToListViewDerivedData(element: "Eccentric anomaly", unit: "°", value: DerivedElements.CalculateEccentricAnomaly(meanAnomaly: meanAnomaly, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+			AddItemToListViewDerivedData(element: "True anomaly", unit: "°", value: trueAnomaly.ToString(provider: provider));
+			AddItemToListViewDerivedData(element: "Heliocentric latitude", unit: "°", value: DerivedElements.CalculateHeliocentricLatitude(argumentPerihelion: argumentPerihelion, trueAnomaly: trueAnomaly, inclination: inclination).ToString(provider: provider));
+			AddItemToListViewDerivedData(element: "Heliocentric longitude", unit: "°", value: DerivedElements.CalculateHeliocentricLongitude(longitudeAscendingNode: longitudeAscendingNode, argumentPerihelion: argumentPerihelion, trueAnomaly: trueAnomaly, inclination: inclination).ToString(provider: provider));
+			AddItemToListViewDerivedData(element: "Angular of the aphelion node arc", unit: "°", value: DerivedElements.CalculateAngularOfAphelionNodeArc(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity, argumentOfPerihelion: argumentPerihelion).ToString(provider: provider));
+			AddItemToListViewDerivedData(element: "Angular of the perihelion node arc", unit: "°", value: DerivedElements.CalculateAngularOfPerihelionNodeArc(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity, argumentOfPerihelion: argumentPerihelion).ToString(provider: provider));
+			AddItemToListViewDerivedData(element: "Longitude of the descending node", unit: "°", value: DerivedElements.CalculateLongitudeDescendingNode(longitudeAscendingNode: longitudeAscendingNode).ToString(provider: provider));
+			AddItemToListViewDerivedData(element: "Flight path angle", unit: "°", value: DerivedElements.CalculateFlightPathAngle(numericalEccentricity: numericalEccentricity, trueAnomaly: trueAnomaly).ToString(provider: provider));
+			AddItemToListViewDerivedData(element: "Specific orbital energy", unit: "AU²/yr²", value: DerivedElements.CalculateSpecificOrbitalEnergy(semiMajorAxis: semiMajorAxis).ToString(provider: provider));
+			AddItemToListViewDerivedData(element: "Specific angular momentum", unit: "AU²/yr²", value: DerivedElements.CalculateSpecificAngularMomentum(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+			AddItemToListViewDerivedData(element: "Characteristic energy", unit: "AU²/yr²", value: DerivedElements.CalculateCharacteristicEnergy(semiMajorAxis: semiMajorAxis).ToString(provider: provider));
+			AddItemToListViewDerivedData(element: "Is potentially hazardous?", unit: "---", value: DerivedElements.IsPotentiallyHazardous(earthMoidAu: MoidCalculator.CalculateMoidBetweenPlanetoids(semiMajorAxis1: 1.00000011, eccentricity1: 0.0167102, inclinationDeg1: 5E-05, longitudeAscendingNodeDeg1: 49.5785, argumentPerihelionDeg1: 114.208, semiMajorAxis2: semiMajorAxis, eccentricity2: numericalEccentricity, inclinationDeg2: inclination, longitudeAscendingNodeDeg2: longitudeAscendingNode, argumentPerihelionDeg2: argumentPerihelion), absoluteMagnitudeH: absoluteMagnitude).ToString(provider: provider));
+			AddItemToListViewDerivedData(element: "Geometric albedo-adjusted diameter", unit: "km", value: DerivedElements.CalculateGeometricAlbedoAdjustedDiameter(absoluteMagnitude: absoluteMagnitude, geometricAlbedo: 0.154).ToString(provider: provider));
 		}
 		catch (Exception ex)
 		{
@@ -214,6 +426,29 @@ public partial class PlanetoidDbForm
 			// Resume layout and perform any pending layout logic.
 			tableLayoutPanelMpcorbData.ResumeLayout(performLayout: true);
 		}
+
+		if (listViewReadableDesignations.VirtualListSize > position)
+		{
+			listViewReadableDesignations.BeginUpdate();
+			try
+			{
+				// Vorherige Auswahl aufheben und neuen Index selektieren
+				listViewReadableDesignations.SelectedIndices.Clear();
+				_ = listViewReadableDesignations.SelectedIndices.Add(itemIndex: position);
+
+				// Sicherstellen, dass die selektierte Zeile sichtbar ist (automatisches Scrollen)
+				listViewReadableDesignations.EnsureVisible(index: position);
+			}
+			catch (Exception ex)
+			{
+				logger.Error(exception: ex, message: $"Error updating ListView selection for position {position}: {ex.Message}");
+			}
+			finally
+			{
+				listViewReadableDesignations.EndUpdate();
+			}
+		}
+
 		// Update bookmark UI state for the new position
 		UpdateBookmarkButtonState();
 		UpdateBookmarkMenuToggleState();
@@ -259,52 +494,48 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to jump to the record with the specified index or designation in the planetoids database.</remarks>
 	internal void JumpToRecord(string index, string designation)
 	{
-		// Loop through the planetoids database to find the record with the specified index or designation
+		ArgumentException.ThrowIfNullOrEmpty(argument: index);
+		ArgumentException.ThrowIfNullOrEmpty(argument: designation);
+		// Normalize search parameters
+		index = index?.Trim() ?? string.Empty;
+		designation = designation?.Trim() ?? string.Empty;
+		// Loop through the planetoids database to find the record with the specified index or designation.
 		for (int i = 0; i < planetoidsDatabase.Count; i++)
 		{
-			// Extract the current entry from the database
+			// Get the current entry from the database
 			string entry = planetoidsDatabase[index: i];
-			// Check if the index matches the current entry's index (first 7 characters)
-			if (!string.IsNullOrWhiteSpace(value: index) && entry.Length >= 7 && entry[..7].Trim().Equals(value: index, comparisonType: StringComparison.OrdinalIgnoreCase))
+			// Use ReadOnlySpan<char> to avoid allocating temporary strings during comparisons
+			bool indexMatches =
+				!string.IsNullOrEmpty(value: index) &&
+				entry.Length >= 7 &&
+				entry.AsSpan(start: 0, length: 7).Trim().Equals(other: index.AsSpan(), comparisonType: StringComparison.OrdinalIgnoreCase);
+			bool designationMatches =
+				!string.IsNullOrEmpty(value: designation) &&
+				entry.Length >= 194 &&
+				entry.AsSpan(start: 166, length: 28).Trim().Equals(other: designation.AsSpan(), comparisonType: StringComparison.OrdinalIgnoreCase);
+			// If either the index or designation matches, navigate to the record and update the current position.
+			if (indexMatches || designationMatches)
 			{
-				// If the index matches, set the current position to the index and navigate to that position
-				PushNavigationHistory(previousPosition: currentPosition);
-				currentPosition = i;
-				GotoCurrentPosition(position: currentPosition);
-				currentAstorbPosition = currentPosition;
+				// Update navigation history.
+				PushNavigationHistory(previousPosition: currentMpcorbPosition);
+				// Navigate to the selected record.
+				currentMpcorbPosition = i;
+				GotoCurrentMpcorbPosition(position: currentMpcorbPosition);
+				currentAstorbPosition = currentMpcorbPosition;
 				GotoCurrentAstorbPosition(position: currentAstorbPosition);
-				currentMpcorbJsonPosition = currentPosition;
+				currentMpcorbJsonPosition = currentMpcorbPosition;
 				GotoCurrentMpcorbJsonPosition(position: currentMpcorbJsonPosition);
-				currentAllnumCatPosition = currentPosition;
+				currentAllnumCatPosition = currentMpcorbPosition;
 				GotoCurrentAllnumCatPosition(position: currentAllnumCatPosition);
-				currentSingoppCatPosition = currentPosition;
+				currentSingoppCatPosition = currentMpcorbPosition;
 				GotoCurrentSingoppCatPosition(position: currentSingoppCatPosition);
-				currentUfitobsCatPosition = currentPosition;
-				GotoCurrentUfitobsCatPosition(position: currentUfitobsCatPosition);
-				return;
-			}
-			// If the index does not match, check if the designation matches the current entry's designation (characters 166-193)
-			if (!string.IsNullOrEmpty(value: designation) && entry.Length >= 194 && entry.Substring(startIndex: 166, length: 28).Trim().Equals(value: designation, comparisonType: StringComparison.OrdinalIgnoreCase))
-			{
-				// If the designation matches, set the current position to the index and navigate to that position
-				PushNavigationHistory(previousPosition: currentPosition);
-				currentPosition = i;
-				GotoCurrentPosition(position: currentPosition);
-				currentAstorbPosition = currentPosition;
-				GotoCurrentAstorbPosition(position: currentAstorbPosition);
-				currentMpcorbJsonPosition = currentPosition;
-				GotoCurrentMpcorbJsonPosition(position: currentMpcorbJsonPosition);
-				currentAllnumCatPosition = currentPosition;
-				GotoCurrentAllnumCatPosition(position: currentAllnumCatPosition);
-				currentSingoppCatPosition = currentPosition;
-				GotoCurrentSingoppCatPosition(position: currentSingoppCatPosition);
-				currentUfitobsCatPosition = currentPosition;
+				currentUfitobsCatPosition = currentMpcorbPosition;
 				GotoCurrentUfitobsCatPosition(position: currentUfitobsCatPosition);
 				return;
 			}
 		}
-		// If no matching record is found, log and show an error message box to the user
-		logger.Warn(message: $"Record not found in the current loaded database. Index: {index}, Designation: {designation}");
+		// If no matching record is found, log a warning and show an error message to the user.
+		logger.Warn(message: $"Record not found. Index: {index}, Designation: {designation}");
 		ShowErrorMessage(message: "Record not found in the current loaded database.");
 	}
 
@@ -373,19 +604,19 @@ public partial class PlanetoidDbForm
 			return;
 		}
 		// Record the current position in the navigation history before navigating
-		PushNavigationHistory(previousPosition: currentPosition);
+		PushNavigationHistory(previousPosition: currentMpcorbPosition);
 		// Generate a random index within the bounds of the planetoids database
-		currentPosition = Random.Shared.Next(maxValue: planetoidsDatabase.Count);
-		GotoCurrentPosition(position: currentPosition);
-		currentAstorbPosition = currentPosition;
+		currentMpcorbPosition = Random.Shared.Next(maxValue: planetoidsDatabase.Count);
+		GotoCurrentMpcorbPosition(position: currentMpcorbPosition);
+		currentAstorbPosition = currentMpcorbPosition;
 		GotoCurrentAstorbPosition(position: currentAstorbPosition);
-		currentMpcorbJsonPosition = currentPosition;
+		currentMpcorbJsonPosition = currentMpcorbPosition;
 		GotoCurrentMpcorbJsonPosition(position: currentMpcorbJsonPosition);
-		currentAllnumCatPosition = currentPosition;
+		currentAllnumCatPosition = currentMpcorbPosition;
 		GotoCurrentAllnumCatPosition(position: currentAllnumCatPosition);
-		currentSingoppCatPosition = currentPosition;
+		currentSingoppCatPosition = currentMpcorbPosition;
 		GotoCurrentSingoppCatPosition(position: currentSingoppCatPosition);
-		currentUfitobsCatPosition = currentPosition;
+		currentUfitobsCatPosition = currentMpcorbPosition;
 		GotoCurrentUfitobsCatPosition(position: currentUfitobsCatPosition);
 	}
 
@@ -394,17 +625,17 @@ public partial class PlanetoidDbForm
 	private void NavigateToTheBeginOfTheData()
 	{
 		// Record the current position in the navigation history before navigating
-		PushNavigationHistory(previousPosition: currentPosition);
-		GotoCurrentPosition(position: currentPosition = 0);
-		currentAstorbPosition = currentPosition;
+		PushNavigationHistory(previousPosition: currentMpcorbPosition);
+		GotoCurrentMpcorbPosition(position: currentMpcorbPosition = 0);
+		currentAstorbPosition = currentMpcorbPosition;
 		GotoCurrentAstorbPosition(position: currentAstorbPosition);
-		currentMpcorbJsonPosition = currentPosition;
+		currentMpcorbJsonPosition = currentMpcorbPosition;
 		GotoCurrentMpcorbJsonPosition(position: currentMpcorbJsonPosition);
-		currentAllnumCatPosition = currentPosition;
+		currentAllnumCatPosition = currentMpcorbPosition;
 		GotoCurrentAllnumCatPosition(position: currentAllnumCatPosition);
-		currentSingoppCatPosition = currentPosition;
+		currentSingoppCatPosition = currentMpcorbPosition;
 		GotoCurrentSingoppCatPosition(position: currentSingoppCatPosition);
-		currentUfitobsCatPosition = currentPosition;
+		currentUfitobsCatPosition = currentMpcorbPosition;
 		GotoCurrentUfitobsCatPosition(position: currentUfitobsCatPosition);
 	}
 
@@ -419,24 +650,24 @@ public partial class PlanetoidDbForm
 			return;
 		}
 		// Record the current position in the navigation history before navigating
-		PushNavigationHistory(previousPosition: currentPosition);
+		PushNavigationHistory(previousPosition: currentMpcorbPosition);
 		// Calculate the new position by subtracting the step position and wrapping around using modulo
-		currentPosition = (currentPosition - stepPosition) % planetoidsDatabase.Count;
-		if (currentPosition < 0)
+		currentMpcorbPosition = (currentMpcorbPosition - stepPosition) % planetoidsDatabase.Count;
+		if (currentMpcorbPosition < 0)
 		{
-			currentPosition += planetoidsDatabase.Count;
+			currentMpcorbPosition += planetoidsDatabase.Count;
 		}
 		// Navigate to the new position
-		GotoCurrentPosition(position: currentPosition);
-		currentAstorbPosition = currentPosition;
+		GotoCurrentMpcorbPosition(position: currentMpcorbPosition);
+		currentAstorbPosition = currentMpcorbPosition;
 		GotoCurrentAstorbPosition(position: currentAstorbPosition);
-		currentMpcorbJsonPosition = currentPosition;
+		currentMpcorbJsonPosition = currentMpcorbPosition;
 		GotoCurrentMpcorbJsonPosition(position: currentMpcorbJsonPosition);
-		currentAllnumCatPosition = currentPosition;
+		currentAllnumCatPosition = currentMpcorbPosition;
 		GotoCurrentAllnumCatPosition(position: currentAllnumCatPosition);
-		currentSingoppCatPosition = currentPosition;
+		currentSingoppCatPosition = currentMpcorbPosition;
 		GotoCurrentSingoppCatPosition(position: currentSingoppCatPosition);
-		currentUfitobsCatPosition = currentPosition;
+		currentUfitobsCatPosition = currentMpcorbPosition;
 		GotoCurrentUfitobsCatPosition(position: currentUfitobsCatPosition);
 	}
 
@@ -445,29 +676,29 @@ public partial class PlanetoidDbForm
 	private void NavigateToThePreviousData()
 	{
 		// Record the current position in the navigation history before navigating
-		PushNavigationHistory(previousPosition: currentPosition);
+		PushNavigationHistory(previousPosition: currentMpcorbPosition);
 		// If the current position is 0, wrap around to the last entry in the database
-		if (currentPosition == 0)
+		if (currentMpcorbPosition == 0)
 		{
 			// Set the current position to the last entry in the database
-			currentPosition = planetoidsDatabase.Count - 1;
+			currentMpcorbPosition = planetoidsDatabase.Count - 1;
 		}
 		else
 		{
 			// Decrease the current position by 1
-			currentPosition--;
+			currentMpcorbPosition--;
 		}
 		// Navigate to the current position
-		GotoCurrentPosition(position: currentPosition);
-		currentAstorbPosition = currentPosition;
+		GotoCurrentMpcorbPosition(position: currentMpcorbPosition);
+		currentAstorbPosition = currentMpcorbPosition;
 		GotoCurrentAstorbPosition(position: currentAstorbPosition);
-		currentMpcorbJsonPosition = currentPosition;
+		currentMpcorbJsonPosition = currentMpcorbPosition;
 		GotoCurrentMpcorbJsonPosition(position: currentMpcorbJsonPosition);
-		currentAllnumCatPosition = currentPosition;
+		currentAllnumCatPosition = currentMpcorbPosition;
 		GotoCurrentAllnumCatPosition(position: currentAllnumCatPosition);
-		currentSingoppCatPosition = currentPosition;
+		currentSingoppCatPosition = currentMpcorbPosition;
 		GotoCurrentSingoppCatPosition(position: currentSingoppCatPosition);
-		currentUfitobsCatPosition = currentPosition;
+		currentUfitobsCatPosition = currentMpcorbPosition;
 		GotoCurrentUfitobsCatPosition(position: currentUfitobsCatPosition);
 	}
 
@@ -476,29 +707,29 @@ public partial class PlanetoidDbForm
 	private void NavigateToTheNextData()
 	{
 		// Record the current position in the navigation history before navigating
-		PushNavigationHistory(previousPosition: currentPosition);
+		PushNavigationHistory(previousPosition: currentMpcorbPosition);
 		// If the current position is the last entry in the database, wrap around to the first entry
-		if (currentPosition == planetoidsDatabase.Count - 1)
+		if (currentMpcorbPosition == planetoidsDatabase.Count - 1)
 		{
 			// Set the current position to 0 (the first entry in the database)
-			currentPosition = 0;
+			currentMpcorbPosition = 0;
 		}
 		else
 		{
 			// Increase the current position by 1
-			currentPosition++;
+			currentMpcorbPosition++;
 		}
 		// Navigate to the current position
-		GotoCurrentPosition(position: currentPosition);
-		currentAstorbPosition = currentPosition;
+		GotoCurrentMpcorbPosition(position: currentMpcorbPosition);
+		currentAstorbPosition = currentMpcorbPosition;
 		GotoCurrentAstorbPosition(position: currentAstorbPosition);
-		currentMpcorbJsonPosition = currentPosition;
+		currentMpcorbJsonPosition = currentMpcorbPosition;
 		GotoCurrentMpcorbJsonPosition(position: currentMpcorbJsonPosition);
-		currentAllnumCatPosition = currentPosition;
+		currentAllnumCatPosition = currentMpcorbPosition;
 		GotoCurrentAllnumCatPosition(position: currentAllnumCatPosition);
-		currentSingoppCatPosition = currentPosition;
+		currentSingoppCatPosition = currentMpcorbPosition;
 		GotoCurrentSingoppCatPosition(position: currentSingoppCatPosition);
-		currentUfitobsCatPosition = currentPosition;
+		currentUfitobsCatPosition = currentMpcorbPosition;
 		GotoCurrentUfitobsCatPosition(position: currentUfitobsCatPosition);
 	}
 
@@ -513,20 +744,20 @@ public partial class PlanetoidDbForm
 			return;
 		}
 		// Record the current position in the navigation history before navigating
-		PushNavigationHistory(previousPosition: currentPosition);
+		PushNavigationHistory(previousPosition: currentMpcorbPosition);
 		// Calculate the new position by adding the step position and wrapping around using modulo
-		currentPosition = (currentPosition + stepPosition) % planetoidsDatabase.Count;
+		currentMpcorbPosition = (currentMpcorbPosition + stepPosition) % planetoidsDatabase.Count;
 		// Navigate to the new position
-		GotoCurrentPosition(position: currentPosition);
-		currentAstorbPosition = currentPosition;
+		GotoCurrentMpcorbPosition(position: currentMpcorbPosition);
+		currentAstorbPosition = currentMpcorbPosition;
 		GotoCurrentAstorbPosition(position: currentAstorbPosition);
-		currentMpcorbJsonPosition = currentPosition;
+		currentMpcorbJsonPosition = currentMpcorbPosition;
 		GotoCurrentMpcorbJsonPosition(position: currentMpcorbJsonPosition);
-		currentAllnumCatPosition = currentPosition;
+		currentAllnumCatPosition = currentMpcorbPosition;
 		GotoCurrentAllnumCatPosition(position: currentAllnumCatPosition);
-		currentSingoppCatPosition = currentPosition;
+		currentSingoppCatPosition = currentMpcorbPosition;
 		GotoCurrentSingoppCatPosition(position: currentSingoppCatPosition);
-		currentUfitobsCatPosition = currentPosition;
+		currentUfitobsCatPosition = currentMpcorbPosition;
 		GotoCurrentUfitobsCatPosition(position: currentUfitobsCatPosition);
 	}
 
@@ -535,23 +766,23 @@ public partial class PlanetoidDbForm
 	private void NavigateToTheEndOfTheData()
 	{
 		// Record the current position in the navigation history before navigating
-		PushNavigationHistory(previousPosition: currentPosition);
-		GotoCurrentPosition(position: currentPosition = planetoidsDatabase.Count - 1);
-		currentAstorbPosition = currentPosition;
+		PushNavigationHistory(previousPosition: currentMpcorbPosition);
+		GotoCurrentMpcorbPosition(position: currentMpcorbPosition = planetoidsDatabase.Count - 1);
+		currentAstorbPosition = currentMpcorbPosition;
 		GotoCurrentAstorbPosition(position: currentAstorbPosition);
-		currentMpcorbJsonPosition = currentPosition;
+		currentMpcorbJsonPosition = currentMpcorbPosition;
 		GotoCurrentMpcorbJsonPosition(position: currentMpcorbJsonPosition);
-		currentAllnumCatPosition = currentPosition;
+		currentAllnumCatPosition = currentMpcorbPosition;
 		GotoCurrentAllnumCatPosition(position: currentAllnumCatPosition);
-		currentSingoppCatPosition = currentPosition;
+		currentSingoppCatPosition = currentMpcorbPosition;
 		GotoCurrentSingoppCatPosition(position: currentSingoppCatPosition);
-		currentUfitobsCatPosition = currentPosition;
+		currentUfitobsCatPosition = currentMpcorbPosition;
 		GotoCurrentUfitobsCatPosition(position: currentUfitobsCatPosition);
 	}
 
 	/// <summary>Pushes the specified position onto the navigation history back-stack and updates the history navigation buttons.</summary>
 	/// <param name="previousPosition">The zero-based index of the position to record in the back-history.</param>
-	/// <remarks>Call this method before changing <see cref="currentPosition"/> so that the <em>previous</em> position is recorded. When a new position is pushed, the forward-history stack is cleared because the user started a new navigation branch. This method has no effect when <see cref="isNavigatingHistory"/> is <c>true</c> to avoid re-entrancy.</remarks>
+	/// <remarks>Call this method before changing <see cref="currentMpcorbPosition"/> so that the <em>previous</em> position is recorded. When a new position is pushed, the forward-history stack is cleared because the user started a new navigation branch. This method has no effect when <see cref="isNavigatingHistory"/> is <c>true</c> to avoid re-entrancy.</remarks>
 	private void PushNavigationHistory(int previousPosition)
 	{
 		// Avoid pushing history when navigating through history to prevent re-entrancy issues
@@ -586,7 +817,7 @@ public partial class PlanetoidDbForm
 			return;
 		}
 		// Push current position to forward stack before moving back
-		navigationHistoryForward.Push(item: currentPosition);
+		navigationHistoryForward.Push(item: currentMpcorbPosition);
 		// Pop the previous position from the back stack
 		int targetPosition = navigationHistoryBack.Pop();
 		// Set the flag so PushNavigationHistory does not fire during this internal navigation
@@ -594,17 +825,17 @@ public partial class PlanetoidDbForm
 		// Navigate to the target position and update all related positions
 		try
 		{
-			currentPosition = targetPosition;
-			GotoCurrentPosition(position: currentPosition);
-			currentAstorbPosition = currentPosition;
+			currentMpcorbPosition = targetPosition;
+			GotoCurrentMpcorbPosition(position: currentMpcorbPosition);
+			currentAstorbPosition = currentMpcorbPosition;
 			GotoCurrentAstorbPosition(position: currentAstorbPosition);
-			currentMpcorbJsonPosition = currentPosition;
+			currentMpcorbJsonPosition = currentMpcorbPosition;
 			GotoCurrentMpcorbJsonPosition(position: currentMpcorbJsonPosition);
-			currentAllnumCatPosition = currentPosition;
+			currentAllnumCatPosition = currentMpcorbPosition;
 			GotoCurrentAllnumCatPosition(position: currentAllnumCatPosition);
-			currentSingoppCatPosition = currentPosition;
+			currentSingoppCatPosition = currentMpcorbPosition;
 			GotoCurrentSingoppCatPosition(position: currentSingoppCatPosition);
-			currentUfitobsCatPosition = currentPosition;
+			currentUfitobsCatPosition = currentMpcorbPosition;
 			GotoCurrentUfitobsCatPosition(position: currentUfitobsCatPosition);
 		}
 		// Catch any exceptions that occur during navigation and log them
@@ -632,7 +863,7 @@ public partial class PlanetoidDbForm
 			return;
 		}
 		// Push current position to back stack before moving forward
-		navigationHistoryBack.Push(item: currentPosition);
+		navigationHistoryBack.Push(item: currentMpcorbPosition);
 		// Pop the next position from the forward stack
 		int targetPosition = navigationHistoryForward.Pop();
 		// Set the flag so PushNavigationHistory does not fire during this internal navigation
@@ -640,17 +871,17 @@ public partial class PlanetoidDbForm
 		// Navigate to the target position and update all related positions
 		try
 		{
-			currentPosition = targetPosition;
-			GotoCurrentPosition(position: currentPosition);
-			currentAstorbPosition = currentPosition;
+			currentMpcorbPosition = targetPosition;
+			GotoCurrentMpcorbPosition(position: currentMpcorbPosition);
+			currentAstorbPosition = currentMpcorbPosition;
 			GotoCurrentAstorbPosition(position: currentAstorbPosition);
-			currentMpcorbJsonPosition = currentPosition;
+			currentMpcorbJsonPosition = currentMpcorbPosition;
 			GotoCurrentMpcorbJsonPosition(position: currentMpcorbJsonPosition);
-			currentAllnumCatPosition = currentPosition;
+			currentAllnumCatPosition = currentMpcorbPosition;
 			GotoCurrentAllnumCatPosition(position: currentAllnumCatPosition);
-			currentSingoppCatPosition = currentPosition;
+			currentSingoppCatPosition = currentMpcorbPosition;
 			GotoCurrentSingoppCatPosition(position: currentSingoppCatPosition);
-			currentUfitobsCatPosition = currentPosition;
+			currentUfitobsCatPosition = currentMpcorbPosition;
 			GotoCurrentUfitobsCatPosition(position: currentUfitobsCatPosition);
 		}
 		// Catch any exceptions that occur during navigation and log them
@@ -673,6 +904,7 @@ public partial class PlanetoidDbForm
 	/// <returns>The trimmed readable designation string, or an empty string when the position is out of range or the entry is too short.</returns>
 	private string GetPlanetoidNameAtPosition(int position)
 	{
+		ArgumentOutOfRangeException.ThrowIfNegative(value: position);
 		// Validate the position to ensure it is within the bounds of the planetoids database
 		if (position < 0 || position >= planetoidsDatabase.Count)
 		{
@@ -691,6 +923,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>All history entries between the current position and the selected entry are moved to the opposite stack so that the full history remains navigable after the jump, just as in a classic web browser.</remarks>
 	private void NavigateHistoryToPosition(int targetPosition, bool fromBack)
 	{
+		ArgumentOutOfRangeException.ThrowIfNegative(value: targetPosition);
 		// If the target position is the same as the current position, do nothing
 		if (fromBack)
 		{
@@ -706,8 +939,8 @@ public partial class PlanetoidDbForm
 			{
 				// Remove the target from back stack
 				_ = navigationHistoryBack.Pop();
-				// Push currentPosition first so it is the next forward step
-				navigationHistoryForward.Push(item: currentPosition);
+				// Push currentMpcorbPosition first so it is the next forward step
+				navigationHistoryForward.Push(item: currentMpcorbPosition);
 				// Push intermediate entries in pop-order so the nearest entry is on top
 				foreach (int entry in intermediates)
 				{
@@ -730,8 +963,8 @@ public partial class PlanetoidDbForm
 			{
 				// Remove the target from forward stack
 				_ = navigationHistoryForward.Pop();
-				// Push currentPosition first so it is the next back step
-				navigationHistoryBack.Push(item: currentPosition);
+				// Push currentMpcorbPosition first so it is the next back step
+				navigationHistoryBack.Push(item: currentMpcorbPosition);
 				// Push intermediate entries in pop-order so the nearest entry is on top
 				foreach (int entry in intermediates)
 				{
@@ -744,17 +977,17 @@ public partial class PlanetoidDbForm
 		// Update the current position and navigate to it
 		try
 		{
-			currentPosition = targetPosition;
-			GotoCurrentPosition(position: currentPosition);
-			currentAstorbPosition = currentPosition;
+			currentMpcorbPosition = targetPosition;
+			GotoCurrentMpcorbPosition(position: currentMpcorbPosition);
+			currentAstorbPosition = currentMpcorbPosition;
 			GotoCurrentAstorbPosition(position: currentAstorbPosition);
-			currentMpcorbJsonPosition = currentPosition;
+			currentMpcorbJsonPosition = currentMpcorbPosition;
 			GotoCurrentMpcorbJsonPosition(position: currentMpcorbJsonPosition);
-			currentAllnumCatPosition = currentPosition;
+			currentAllnumCatPosition = currentMpcorbPosition;
 			GotoCurrentAllnumCatPosition(position: currentAllnumCatPosition);
-			currentSingoppCatPosition = currentPosition;
+			currentSingoppCatPosition = currentMpcorbPosition;
 			GotoCurrentSingoppCatPosition(position: currentSingoppCatPosition);
-			currentUfitobsCatPosition = currentPosition;
+			currentUfitobsCatPosition = currentMpcorbPosition;
 			GotoCurrentUfitobsCatPosition(position: currentUfitobsCatPosition);
 		}
 		// Catch any exceptions that occur during navigation and log them
@@ -1243,8 +1476,8 @@ public partial class PlanetoidDbForm
 		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 		formEphemeris.TopMost = TopMost;
 		// Pass the raw MPCORB record of the current planetoid to the form
-		string? rawRecord = currentPosition >= 0 && currentPosition < planetoidsDatabase.Count
-			? planetoidsDatabase[index: currentPosition]?.ToString()
+		string? rawRecord = currentMpcorbPosition >= 0 && currentMpcorbPosition < planetoidsDatabase.Count
+			? planetoidsDatabase[index: currentMpcorbPosition]?.ToString()
 			: null;
 		formEphemeris.SetPlanetoidRecord(rawRecord: rawRecord);
 		// Show the ephemerides form as a modal dialog
@@ -1293,7 +1526,7 @@ public partial class PlanetoidDbForm
 		_ = formTisserand.ShowDialog(owner: this);
 	}
 
-	/// <summary>Shows the Tisserand parameters of all minor planets form. Opens the form to compute Tisserand parameters for all planetoids relative to the solar system planets.</summary>
+	/// <summary>Shows the Tisserand parameters of all minor planets form. Opens the form to compute the Tisserand parameters for all planetoids relative to the solar system planets.</summary>
 	/// <remarks>Passes the full planetoids database to the form so it can iterate over all records.</remarks>
 	private void ShowTisserandParametersOfAllMinorPlanets()
 	{
@@ -1301,6 +1534,58 @@ public partial class PlanetoidDbForm
 		using TisserandParameterOfAllMinorPlanetsForm formTisserandOfAll = new(planetoids: planetoidsDatabase);
 		formTisserandOfAll.TopMost = TopMost;
 		_ = formTisserandOfAll.ShowDialog(owner: this);
+	}
+
+	/// <summary>Shows the encounter velocitys form for the current planetoid.</summary>
+	/// <remarks>Parses the semi-major axis, eccentricity, and inclination from the UI labels and opens the <see cref="EncounterVelocityOfOneMinorPlanetForm"/>.</remarks>
+	private void ShowEncounterVelocitys()
+	{
+		// Create a culture-specific format provider for parsing the orbital elements
+		IFormatProvider provider = CultureInfo.CreateSpecificCulture(name: "en");
+		// Parse the semi-major axis from the corresponding label on the form
+		if (!double.TryParse(s: labelMpcorbSemiMajorAxisData.Text, style: NumberStyles.Any, provider: provider, result: out double semiMajorAxis))
+		{
+			// If parsing fails, log the error and show an error message to the user
+			logger.Error(message: $"Failed to parse semi-major axis: '{labelMpcorbSemiMajorAxisData.Text}'");
+			ShowErrorMessage(message: $"Could not parse semi-major axis value: '{labelMpcorbSemiMajorAxisData.Text}'");
+			return;
+		}
+		// Parse the eccentricity from the corresponding label on the form
+		if (!double.TryParse(s: labelMpcorbOrbitalEccentricityData.Text, style: NumberStyles.Any, provider: provider, result: out double eccentricity))
+		{
+			// If parsing fails, log the error and show an error message to the user
+			logger.Error(message: $"Failed to parse eccentricity: '{labelMpcorbOrbitalEccentricityData.Text}'");
+			ShowErrorMessage(message: $"Could not parse eccentricity value: '{labelMpcorbOrbitalEccentricityData.Text}'");
+			return;
+		}
+		// Parse the inclination to the ecliptic from the corresponding label on the form
+		if (!double.TryParse(s: labelMpcorbInclinationToTheEclipticData.Text, style: NumberStyles.Any, provider: provider, result: out double inclinationDeg))
+		{
+			// If parsing fails, log the error and show an error message to the user
+			logger.Error(message: $"Failed to parse inclination: '{labelMpcorbInclinationToTheEclipticData.Text}'");
+			ShowErrorMessage(message: $"Could not parse inclination value: '{labelMpcorbInclinationToTheEclipticData.Text}'");
+			return;
+		}
+		// Create a new instance of the EncounterVelocityOfOneMinorPlanetForm
+		using EncounterVelocityOfOneMinorPlanetForm formEncounterVelocity = new();
+		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
+		formEncounterVelocity.TopMost = TopMost;
+		// Pass the parsed orbital elements to the form
+		formEncounterVelocity.SetOrbitalElements(semiMajorAxis: semiMajorAxis, eccentricity: eccentricity, inclinationDeg: inclinationDeg);
+		// Log the action of opening the EncounterVelocityOfOneMinorPlanetForm with the parsed orbital elements
+		logger.Info(message: $"Opening EncounterVelocityOfOneMinorPlanetForm with orbital elements: semi-major axis={semiMajorAxis}, eccentricity={eccentricity}, inclination={inclinationDeg}");
+		// Show the Tisserand parameters form as a modal dialog
+		_ = formEncounterVelocity.ShowDialog(owner: this);
+	}
+
+	/// <summary>Shows the encounter velocitys of all minor planets form. Opens the form to compute the encounter velocitys for all planetoids relative to the solar system planets.</summary>
+	/// <remarks>Passes the full planetoids database to the form so it can iterate over all records.</remarks>
+	private void ShowEncounterVelocitysOfAllMinorPlanets()
+	{
+		// Create a new instance of the TisserandParameterOfAllMinorPlanetsForm
+		using EncounterVelocityOfAllMinorPlanetsForm formEncounterVelocityOfAll = new(planetoids: planetoidsDatabase);
+		formEncounterVelocityOfAll.TopMost = TopMost;
+		_ = formEncounterVelocityOfAll.ShowDialog(owner: this);
 	}
 
 	/// <summary>Shows the bulk observations data downloader form. Opens the form to download observation data files for a range of minor planets from the MPC website and save them to disk.</summary>
@@ -1620,13 +1905,13 @@ public partial class PlanetoidDbForm
 			planetoidsDatabase.Clear();
 			planetoidsDatabase.AddRange(collection: filtered);
 			// Navigate to the first record of the filtered database
-			currentPosition = 0;
-			GotoCurrentPosition(position: currentPosition);
-			currentAstorbPosition = currentPosition;
+			currentMpcorbPosition = 0;
+			GotoCurrentMpcorbPosition(position: currentMpcorbPosition);
+			currentAstorbPosition = currentMpcorbPosition;
 			GotoCurrentAstorbPosition(position: currentAstorbPosition);
-			currentMpcorbJsonPosition = currentPosition;
+			currentMpcorbJsonPosition = currentMpcorbPosition;
 			GotoCurrentMpcorbJsonPosition(position: currentMpcorbJsonPosition);
-			currentAllnumCatPosition = currentPosition;
+			currentAllnumCatPosition = currentMpcorbPosition;
 			GotoCurrentAllnumCatPosition(position: currentAllnumCatPosition);
 			logger.Info(message: $"Filter applied: database now contains {planetoidsDatabase.Count} records.");
 		}
@@ -1692,12 +1977,12 @@ public partial class PlanetoidDbForm
 		if (formListReadableDesignations.DialogResult == DialogResult.OK && formListReadableDesignations.SelectedIndex > 0)
 		{
 			// Navigate to the current position in the database
-			GotoCurrentPosition(position: formListReadableDesignations.SelectedIndex);
-			currentAstorbPosition = currentPosition;
+			GotoCurrentMpcorbPosition(position: formListReadableDesignations.SelectedIndex);
+			currentAstorbPosition = currentMpcorbPosition;
 			GotoCurrentAstorbPosition(position: currentAstorbPosition);
-			currentMpcorbJsonPosition = currentPosition;
+			currentMpcorbJsonPosition = currentMpcorbPosition;
 			GotoCurrentMpcorbJsonPosition(position: currentMpcorbJsonPosition);
-			currentAllnumCatPosition = currentPosition;
+			currentAllnumCatPosition = currentMpcorbPosition;
 			GotoCurrentAllnumCatPosition(position: currentAllnumCatPosition);
 		}
 	}
@@ -1746,16 +2031,15 @@ public partial class PlanetoidDbForm
 		elements.Add(item: DerivedElements.CalculatePerihelionDistance(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
 		elements.Add(item: DerivedElements.CalculateAphelionDistance(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
 		elements.Add(item: DerivedElements.CalculateLongitudeDescendingNode(longitudeAscendingNode: longitudeAscendingNode).ToString(provider: provider));
-		elements.Add(item: DerivedElements.CalculateArgumentOfAphelion(argumentAphelion: argumentAphelion).ToString(provider: provider));
-		elements.Add(item: DerivedElements.CalculateFocalParameter(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+		elements.Add(item: DerivedElements.CalculateArgumentOfAphelion(argumentPerihelion: argumentAphelion).ToString(provider: provider));
+		elements.Add(item: DerivedElements.CalculateFocusDirectrixDistance(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
 		elements.Add(item: DerivedElements.CalculateSemiLatusRectum(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
 		elements.Add(item: DerivedElements.CalculateLatusRectum(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
-		elements.Add(item: DerivedElements.CalculatePeriod(semiMajorAxis: semiMajorAxis).ToString(provider: provider));
+		elements.Add(item: DerivedElements.CalculateSiderealOrbitalPeriod(semiMajorAxis: semiMajorAxis).ToString(provider: provider));
 		elements.Add(item: DerivedElements.CalculateOrbitalArea(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
 		elements.Add(item: DerivedElements.CalculateOrbitalPerimeter(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
 		elements.Add(item: DerivedElements.CalculateSemiMeanAxis(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
 		elements.Add(item: DerivedElements.CalculateMeanAxis(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
-		elements.Add(item: DerivedElements.CalculateStandardGravitationalParameter(semiMajorAxis: semiMajorAxis).ToString(provider: provider));
 		// Return the complete list of orbital and derived elements
 		return elements;
 	}
@@ -1803,50 +2087,71 @@ public partial class PlanetoidDbForm
 		double argumentPerihelion = double.Parse(s: labelMpcorbArgumentOfThePerihelionData.Text, provider: provider);
 		double inclination = double.Parse(s: labelMpcorbInclinationToTheEclipticData.Text, provider: provider);
 		double absoluteMagnitude = double.Parse(s: labelMpcorbAbsoluteMagnitudeData.Text, provider: provider);
-		// Calculate true anomaly for velocity and energy calculations
 		double trueAnomaly = DerivedElements.CalculateTrueAnomaly(meanAnomaly: meanAnomaly, numericalEccentricity: numericalEccentricity);
-		// Original 19 elements
-		derivedOrbitElements.Add(item: DerivedElements.CalculateLinearEccentricity(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+
 		derivedOrbitElements.Add(item: DerivedElements.CalculateSemiMinorAxis(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+		derivedOrbitElements.Add(item: DerivedElements.CalculateSemiMeanAxis(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
 		derivedOrbitElements.Add(item: DerivedElements.CalculateMajorAxis(semiMajorAxis: semiMajorAxis).ToString(provider: provider));
 		derivedOrbitElements.Add(item: DerivedElements.CalculateMinorAxis(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
-		derivedOrbitElements.Add(item: DerivedElements.CalculateEccentricAnomaly(meanAnomaly: meanAnomaly, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
-		derivedOrbitElements.Add(item: trueAnomaly.ToString(provider: provider));
-		derivedOrbitElements.Add(item: DerivedElements.CalculatePerihelionDistance(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+		derivedOrbitElements.Add(item: DerivedElements.CalculateMeanAxis(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
 		derivedOrbitElements.Add(item: DerivedElements.CalculateAphelionDistance(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
-		derivedOrbitElements.Add(item: DerivedElements.CalculateLongitudeDescendingNode(longitudeAscendingNode: longitudeAscendingNode).ToString(provider: provider));
-		derivedOrbitElements.Add(item: DerivedElements.CalculateArgumentOfAphelion(argumentAphelion: argumentPerihelion).ToString(provider: provider));
-		derivedOrbitElements.Add(item: DerivedElements.CalculateFocalParameter(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+		derivedOrbitElements.Add(item: DerivedElements.CalculatePerihelionDistance(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+		derivedOrbitElements.Add(item: DerivedElements.CalculateLinearEccentricity(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
 		derivedOrbitElements.Add(item: DerivedElements.CalculateSemiLatusRectum(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
 		derivedOrbitElements.Add(item: DerivedElements.CalculateLatusRectum(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
-		derivedOrbitElements.Add(item: DerivedElements.CalculatePeriod(semiMajorAxis: semiMajorAxis).ToString(provider: provider));
-		derivedOrbitElements.Add(item: DerivedElements.CalculateOrbitalArea(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+		derivedOrbitElements.Add(item: DerivedElements.CalculateFocusDirectrixDistance(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+		derivedOrbitElements.Add(item: DerivedElements.CalculateMeanDistanceFromFocus(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+		derivedOrbitElements.Add(item: DerivedElements.CalculateCenterDirectrixDistance(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+		derivedOrbitElements.Add(item: DerivedElements.CalculateOrbitalSemiPerimeter(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
 		derivedOrbitElements.Add(item: DerivedElements.CalculateOrbitalPerimeter(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
-		derivedOrbitElements.Add(item: DerivedElements.CalculateSemiMeanAxis(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
-		derivedOrbitElements.Add(item: DerivedElements.CalculateMeanAxis(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
-		derivedOrbitElements.Add(item: DerivedElements.CalculateStandardGravitationalParameter(semiMajorAxis: semiMajorAxis).ToString(provider: provider));
-		// New 22 elements
-		derivedOrbitElements.Add(item: DerivedElements.CalculateDirectrix(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
-		derivedOrbitElements.Add(item: DerivedElements.CalculatePerihelionVelocity(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
-		derivedOrbitElements.Add(item: DerivedElements.CalculateAphelionVelocity(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
-		derivedOrbitElements.Add(item: DerivedElements.CalculateMeanOrbitalVelocity(semiMajorAxis: semiMajorAxis).ToString(provider: provider));
-		derivedOrbitElements.Add(item: DerivedElements.CalculateCurrentOrbitalVelocity(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity, trueAnomaly: trueAnomaly).ToString(provider: provider));
-		derivedOrbitElements.Add(item: DerivedElements.CalculateRadialVelocityComponent(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity, trueAnomaly: trueAnomaly).ToString(provider: provider));
-		derivedOrbitElements.Add(item: DerivedElements.CalculateTangentialVelocityComponent(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity, trueAnomaly: trueAnomaly).ToString(provider: provider));
-		derivedOrbitElements.Add(item: DerivedElements.CalculateSpecificOrbitalEnergy(semiMajorAxis: semiMajorAxis).ToString(provider: provider));
-		derivedOrbitElements.Add(item: DerivedElements.CalculateSpecificAngularMomentum(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
-		derivedOrbitElements.Add(item: DerivedElements.CalculateVisVivaEnergy(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity, trueAnomaly: trueAnomaly).ToString(provider: provider));
-		derivedOrbitElements.Add(item: DerivedElements.CalculateLongitudeOfPerihelion(longitudeAscendingNode: longitudeAscendingNode, argumentPerihelion: argumentPerihelion).ToString(provider: provider));
-		derivedOrbitElements.Add(item: DerivedElements.CalculateMeanLongitude(longitudeAscendingNode: longitudeAscendingNode, argumentPerihelion: argumentPerihelion, meanAnomaly: meanAnomaly).ToString(provider: provider));
-		derivedOrbitElements.Add(item: DerivedElements.CalculateArgumentOfLatitude(argumentPerihelion: argumentPerihelion, trueAnomaly: trueAnomaly).ToString(provider: provider));
-		derivedOrbitElements.Add(item: DerivedElements.CalculateFlightPathAngle(numericalEccentricity: numericalEccentricity, trueAnomaly: trueAnomaly).ToString(provider: provider));
+		derivedOrbitElements.Add(item: DerivedElements.CalculateOrbitalArea(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+		derivedOrbitElements.Add(item: DerivedElements.CalculateSiderealOrbitalPeriod(semiMajorAxis: semiMajorAxis).ToString(provider: provider));
+		derivedOrbitElements.Add(item: DerivedElements.CalculateSynodicOrbitalPeriod(semiMajorAxis: semiMajorAxis).ToString(provider: provider));
+		derivedOrbitElements.Add(item: DerivedElements.CalculateEquinoctialOrbitalElementH(numericalEccentricity: numericalEccentricity, argumentPerihelion: argumentPerihelion, lengthAscendingNode: longitudeAscendingNode).ToString(provider: provider));
+		derivedOrbitElements.Add(item: DerivedElements.CalculateEquinoctialOrbitalElementK(numericalEccentricity: numericalEccentricity, argumentPerihelion: argumentPerihelion, lengthAscendingNode: longitudeAscendingNode).ToString(provider: provider));
+		derivedOrbitElements.Add(item: DerivedElements.CalculateEquinoctialOrbitalElementP(orbitalInclination: inclination, lengthAscendingNode: longitudeAscendingNode).ToString(provider: provider));
+		derivedOrbitElements.Add(item: DerivedElements.CalculateEquinoctialOrbitalElementQ(orbitalInclination: inclination, lengthAscendingNode: longitudeAscendingNode).ToString(provider: provider));
+		derivedOrbitElements.Add(item: DerivedElements.CalculateLengthOfAphelionNodeArc(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity, argumentOfPerihelion: argumentPerihelion).ToString(provider: provider));
+		derivedOrbitElements.Add(item: DerivedElements.CalculateLengthOfPerihelionNodeArc(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity, argumentOfPerihelion: argumentPerihelion).ToString(provider: provider));
+		derivedOrbitElements.Add(item: DerivedElements.CalculateAscendingNodeDistance(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity, argumentPerihelion: argumentPerihelion).ToString(provider: provider));
+		derivedOrbitElements.Add(item: DerivedElements.CalculateDescendingNodeDistance(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity, argumentPerihelion: argumentPerihelion).ToString(provider: provider));
+		derivedOrbitElements.Add(item: DerivedElements.CalculateAphelionDate(meanAnomaly: meanAnomaly, semiMajorAxis: semiMajorAxis, epochJd: JulianDates.CalculateJulianDate(DecodePackedEpochDateToDate(packedEpoch: labelMpcorbEpochData.Text))).ToString(provider: provider));
+		derivedOrbitElements.Add(item: DerivedElements.CalculatePerihelionDate(meanAnomaly: meanAnomaly, semiMajorAxis: semiMajorAxis, epochJd: JulianDates.CalculateJulianDate(DecodePackedEpochDateToDate(packedEpoch: labelMpcorbEpochData.Text))).ToString(provider: provider));
 		derivedOrbitElements.Add(item: DerivedElements.CalculateTimeSincePerihelion(meanAnomaly: meanAnomaly, semiMajorAxis: semiMajorAxis).ToString(provider: provider));
 		derivedOrbitElements.Add(item: DerivedElements.CalculateTimeToNextPerihelion(meanAnomaly: meanAnomaly, semiMajorAxis: semiMajorAxis).ToString(provider: provider));
 		derivedOrbitElements.Add(item: DerivedElements.CalculateTimeSinceAphelion(meanAnomaly: meanAnomaly, semiMajorAxis: semiMajorAxis).ToString(provider: provider));
 		derivedOrbitElements.Add(item: DerivedElements.CalculateTimeToNextAphelion(meanAnomaly: meanAnomaly, semiMajorAxis: semiMajorAxis).ToString(provider: provider));
-		derivedOrbitElements.Add(item: DerivedElements.CalculateSynodicPeriod(semiMajorAxis: semiMajorAxis).ToString(provider: provider));
-		derivedOrbitElements.Add(item: DerivedElements.CalculateTisserandParameter(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity, inclination: inclination).ToString(provider: provider));
-		derivedOrbitElements.Add(item: DerivedElements.CalculateMeanDistanceFromFocus(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+		derivedOrbitElements.Add(item: DerivedElements.CalculateCurrentOrbitalVelocity(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity, trueAnomaly: trueAnomaly).ToString(provider: provider));
+		derivedOrbitElements.Add(item: DerivedElements.CalculateRadialVelocityComponent(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity, trueAnomaly: trueAnomaly).ToString(provider: provider));
+		derivedOrbitElements.Add(item: DerivedElements.CalculateTangentialVelocityComponent(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity, trueAnomaly: trueAnomaly).ToString(provider: provider));
+		derivedOrbitElements.Add(item: DerivedElements.CalculateAphelionVelocity(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+		derivedOrbitElements.Add(item: DerivedElements.CalculatePerihelionVelocity(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+		derivedOrbitElements.Add(item: DerivedElements.CalculateMeanOrbitalVelocity(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+		derivedOrbitElements.Add(item: DerivedElements.CalculateAngularVelocity(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity, trueAnomaly: trueAnomaly).ToString(provider: provider));
+		derivedOrbitElements.Add(item: DerivedElements.CalculateArealVelocity(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+		derivedOrbitElements.Add(item: DerivedElements.CalculateMeanMotion(semiMajorAxis: semiMajorAxis).ToString(provider: provider));
+		derivedOrbitElements.Add(item: DerivedElements.CalculateMeanDailyMotion(semiMajorAxis: semiMajorAxis).ToString(provider: provider));
+		derivedOrbitElements.Add(item: DerivedElements.CalculateMeanDailyOrbitalMotion(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+		derivedOrbitElements.Add(item: DerivedElements.CalculateMaxEclipticDistance(semiMajorAxis: semiMajorAxis, inclination: inclination).ToString(provider: provider));
+		derivedOrbitElements.Add(item: DerivedElements.CalculateRadiusOfCurvature(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity, trueAnomaly: trueAnomaly).ToString(provider: provider));
+		derivedOrbitElements.Add(item: DerivedElements.CalculateKozaiQuantity(numericalEccentricity: numericalEccentricity, orbitalInclination: inclination).ToString(provider: provider));
+		derivedOrbitElements.Add(item: DerivedElements.CalculateLongitudeOfPerihelion(longitudeAscendingNode: longitudeAscendingNode, argumentPerihelion: argumentPerihelion).ToString(provider: provider));
+		derivedOrbitElements.Add(item: DerivedElements.CalculateMeanLongitude(longitudeAscendingNode: longitudeAscendingNode, argumentPerihelion: argumentPerihelion, meanAnomaly: meanAnomaly).ToString(provider: provider));
+		derivedOrbitElements.Add(item: DerivedElements.CalculateTrueLongitude(longitudeAscendingNode: longitudeAscendingNode, argumentPerihelion: argumentPerihelion, trueAnomaly: trueAnomaly).ToString(provider: provider));
+		derivedOrbitElements.Add(item: DerivedElements.CalculateArgumentOfLatitude(argumentPerihelion: argumentPerihelion, trueAnomaly: trueAnomaly).ToString(provider: provider));
+		derivedOrbitElements.Add(item: DerivedElements.CalculateArgumentOfAphelion(argumentPerihelion: argumentPerihelion).ToString(provider: provider));
+		derivedOrbitElements.Add(item: DerivedElements.CalculateEccentricAnomaly(meanAnomaly: meanAnomaly, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+		derivedOrbitElements.Add(item: trueAnomaly.ToString(provider: provider));
+		derivedOrbitElements.Add(item: DerivedElements.CalculateHeliocentricLatitude(argumentPerihelion: argumentPerihelion, trueAnomaly: trueAnomaly, inclination: inclination).ToString(provider: provider));
+		derivedOrbitElements.Add(item: DerivedElements.CalculateHeliocentricLongitude(longitudeAscendingNode: longitudeAscendingNode, argumentPerihelion: argumentPerihelion, trueAnomaly: trueAnomaly, inclination: inclination).ToString(provider: provider));
+		derivedOrbitElements.Add(item: DerivedElements.CalculateAngularOfAphelionNodeArc(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity, argumentOfPerihelion: argumentPerihelion).ToString(provider: provider));
+		derivedOrbitElements.Add(item: DerivedElements.CalculateAngularOfPerihelionNodeArc(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity, argumentOfPerihelion: argumentPerihelion).ToString(provider: provider));
+		derivedOrbitElements.Add(item: DerivedElements.CalculateLongitudeDescendingNode(longitudeAscendingNode: longitudeAscendingNode).ToString(provider: provider));
+		derivedOrbitElements.Add(item: DerivedElements.CalculateFlightPathAngle(numericalEccentricity: numericalEccentricity, trueAnomaly: trueAnomaly).ToString(provider: provider));
+		derivedOrbitElements.Add(item: DerivedElements.CalculateSpecificOrbitalEnergy(semiMajorAxis: semiMajorAxis).ToString(provider: provider));
+		derivedOrbitElements.Add(item: DerivedElements.CalculateSpecificAngularMomentum(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+		derivedOrbitElements.Add(item: DerivedElements.CalculateCharacteristicEnergy(semiMajorAxis: semiMajorAxis).ToString(provider: provider));
+		derivedOrbitElements.Add(item: DerivedElements.IsPotentiallyHazardous(earthMoidAu: MoidCalculator.CalculateMoidBetweenPlanetoids(semiMajorAxis1: 1.00000011, eccentricity1: 0.0167102, inclinationDeg1: 5E-05, longitudeAscendingNodeDeg1: 49.5785, argumentPerihelionDeg1: 114.208, semiMajorAxis2: semiMajorAxis, eccentricity2: numericalEccentricity, inclinationDeg2: inclination, longitudeAscendingNodeDeg2: longitudeAscendingNode, argumentPerihelionDeg2: argumentPerihelion), absoluteMagnitudeH: absoluteMagnitude).ToString(provider: provider));
 		// Assume standard albedo of 0.154 for C-type asteroids if not specified
 		derivedOrbitElements.Add(item: DerivedElements.CalculateGeometricAlbedoAdjustedDiameter(absoluteMagnitude: absoluteMagnitude, geometricAlbedo: 0.154).ToString(provider: provider));
 		// Create a new instance of the DerivedOrbitElementsForm
@@ -2071,6 +2376,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method parses the fixed-width fields of the ASTORB.DAT record at the given position and updates the corresponding UI labels. If the position is out of range or the database is empty, all labels are cleared.</remarks>
 	internal void GotoCurrentAstorbPosition(int position)
 	{
+		ArgumentOutOfRangeException.ThrowIfNegative(value: position);
 		// Handle the case where the database is empty or position is out of range
 		if (astorbDatabase.Count == 0 || position < 0 || position >= astorbDatabase.Count)
 		{
@@ -2115,7 +2421,7 @@ public partial class PlanetoidDbForm
 			labelAstorbAbsoluteMagnitudeData.Text = ExtractField(span: entrySpan, start: 50, length: 5);
 			// Col 56-60 (0-based 55,5): G (slope parameter)
 			labelAstorbSlopeParameterData.Text = ExtractField(span: entrySpan, start: 55, length: 5);
-			// Col 61-63 (0-based 60,3): B-V color index
+			// Col 61-63 (0-based 60,3): B-mpcorbDatReadableDesignationDelimiterBegin color index
 			labelAstorbColorIndexData.Text = ExtractField(span: entrySpan, start: 60, length: 3);
 			// Col 64-68 (0-based 63,5): IRAS diameter (km)
 			labelAstorbIrasDiameterData.Text = ExtractField(span: entrySpan, start: 63, length: 5);
@@ -2262,6 +2568,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method parses the fixed-width fields of the ALLNUM.CAT record at the given position and updates the corresponding UI labels. If the position is out of range or the database is empty, all labels are cleared.</remarks>
 	internal void GotoCurrentAllnumCatPosition(int position)
 	{
+		ArgumentOutOfRangeException.ThrowIfNegative(value: position);
 		// Handle the case where the database is empty or position is out of range
 		if (allnumCatDatabase.Count == 0 || position < 0 || position >= allnumCatDatabase.Count)
 		{
@@ -2392,6 +2699,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method parses the fixed-width fields of the SINGOPP.CAT record at the given position and updates the corresponding UI labels. If the position is out of range or the database is empty, all labels are cleared.</remarks>
 	internal void GotoCurrentSingoppCatPosition(int position)
 	{
+		ArgumentOutOfRangeException.ThrowIfNegative(value: position);
 		// Handle the case where the database is empty or position is out of range
 		if (singoppCatDatabase.Count == 0 || position < 0 || position >= singoppCatDatabase.Count)
 		{
@@ -2523,7 +2831,8 @@ public partial class PlanetoidDbForm
 	/// <remarks>If the position is out of range or the database is empty, all UFITOBS.CAT labels are cleared.</remarks>
 	internal void GotoCurrentUfitobsCatPosition(int position)
 	{
-		//
+		ArgumentOutOfRangeException.ThrowIfNegative(value: position);
+		// Handle the case where the database is empty or position is out of range		
 		if (ufitobsCatDatabase.Count == 0 || position < 0 || position >= ufitobsCatDatabase.Count)
 		{
 			ClearCurrentUfitobsCatRecordDisplay();
@@ -2672,6 +2981,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method reads the JSON fields of the MPCORB.JSON record at the given position and updates the corresponding UI labels. If the position is out of range or the database is empty, all labels are cleared.</remarks>
 	internal void GotoCurrentMpcorbJsonPosition(int position)
 	{
+		ArgumentOutOfRangeException.ThrowIfNegative(value: position);
 		// Handle the case where the database is empty or position is out of range
 		if (mpcorbJsonDatabase.Count == 0 || position < 0 || position >= mpcorbJsonDatabase.Count)
 		{
@@ -2775,7 +3085,7 @@ public partial class PlanetoidDbForm
 		}
 	}
 
-	#region bookmark methods
+	#region Bookmark methods
 
 	/// <summary>In-memory list of bookmarks for the MPCORB.DAT database.</summary>
 	/// <remarks>This list is loaded from disk at application startup and updated in memory as bookmarks are added or removed. Changes are persisted to disk when bookmarks are modified.</remarks>
@@ -2928,7 +3238,7 @@ public partial class PlanetoidDbForm
 			return;
 		}
 		// Get the current position in the MPCORB.DAT database
-		int pos = currentPosition;
+		int pos = currentMpcorbPosition;
 		// Check if a bookmark already exists for this position
 		int existingIndex = bookmarksMpcorbDat.FindIndex(match: b => b.Position == pos);
 		// If a bookmark exists, remove it; otherwise, add a new bookmark entry
@@ -2958,7 +3268,7 @@ public partial class PlanetoidDbForm
 	internal void UpdateBookmarkButtonState()
 	{
 		// Determine if the current position is bookmarked
-		bool isBookmarked = IsMpcorbDatPositionBookmarked(position: currentPosition);
+		bool isBookmarked = IsMpcorbDatPositionBookmarked(position: currentMpcorbPosition);
 		// Update the toolbar button's checked state and icon based on the bookmark status
 		toolStripButtonBookmark.Checked = isBookmarked;
 	}
@@ -2967,7 +3277,7 @@ public partial class PlanetoidDbForm
 	internal void UpdateBookmarkMenuToggleState()
 	{
 		// Determine if the current position is bookmarked
-		bool isBookmarked = IsMpcorbDatPositionBookmarked(position: currentPosition);
+		bool isBookmarked = IsMpcorbDatPositionBookmarked(position: currentMpcorbPosition);
 		// Update the toolbar button's checked state and icon based on the bookmark status
 		toolStripMenuItemBookmarkToggle.Checked = isBookmarked;
 	}
@@ -3015,7 +3325,7 @@ public partial class PlanetoidDbForm
 
 	/// <summary>Clears all bookmarks for the MPCORB.DAT database and refreshes the UI.</summary>
 	/// <remarks>This method clears the in-memory list of bookmarks for MPCORB.DAT, removes all entries from the persistent storage, and updates the bookmark button and menu toggle states to reflect that there are no bookmarks.</remarks>
-	internal void ClearMpcorbDatBookmarks()
+	private void ClearMpcorbDatBookmarks()
 	{
 		// Clear the in-memory list of bookmarks for MPCORB.DAT
 		bookmarksMpcorbDat.Clear();
@@ -3030,7 +3340,7 @@ public partial class PlanetoidDbForm
 
 	/// <summary>Clears all bookmarks for the MPCORB.JSON database.</summary>
 	/// <remarks>This method clears the in-memory list of bookmarks for MPCORB.JSON and removes all entries from the persistent storage.</remarks>
-	internal void ClearMpcorbJsonBookmarks()
+	private void ClearMpcorbJsonBookmarks()
 	{
 		// Clear the in-memory list of bookmarks for MPCORB.JSON
 		bookmarksMpcorbJson.Clear();
@@ -3041,7 +3351,7 @@ public partial class PlanetoidDbForm
 	}
 
 	/// <summary>Clears all bookmarks for the ASTORB.DAT database.</summary>
-	internal void ClearAstorbDatBookmarks()
+	private void ClearAstorbDatBookmarks()
 	{
 		// Clear the in-memory list of bookmarks for ASTORB.DAT
 		bookmarksAstorbDat.Clear();
@@ -3052,7 +3362,7 @@ public partial class PlanetoidDbForm
 	}
 
 	/// <summary>Clears all bookmarks for the ALLNUM.CAT database.</summary>
-	internal void ClearAllnumCatBookmarks()
+	private void ClearAllnumCatBookmarks()
 	{
 		// Clear the in-memory list of bookmarks for ALLNUM.CAT
 		bookmarksAllnumCat.Clear();
@@ -3063,7 +3373,7 @@ public partial class PlanetoidDbForm
 	}
 
 	/// <summary>Clears all bookmarks for the SINGOPP.CAT database.</summary>
-	internal void ClearSingoppCatBookmarks()
+	private void ClearSingoppCatBookmarks()
 	{
 		// Clear the in-memory list of bookmarks for SINGOPP.CAT
 		bookmarksSingoppCat.Clear();
@@ -3074,7 +3384,7 @@ public partial class PlanetoidDbForm
 	}
 
 	/// <summary>Clears all bookmarks for the UFITOBS.CAT database.</summary>
-	internal void ClearUfitobsCatBookmarks()
+	private void ClearUfitobsCatBookmarks()
 	{
 		// Clear the in-memory list of bookmarks for UFITOBS.CAT
 		bookmarksUfitobsCat.Clear();
@@ -3082,78 +3392,6 @@ public partial class PlanetoidDbForm
 		BookmarkStore.ClearAll(databaseFilename: filenameUfitobsCat);
 		// Log the action for auditing purposes
 		logger.Info(message: "All UFITOBS.CAT bookmarks cleared.");
-	}
-
-	/// <summary>Populates the MPCORB.DAT bookmark drop-down when the user opens it.</summary>
-	/// <param name="sender">The event source.</param>
-	/// <param name="e">Event data.</param>
-	/// <remarks>This method is called when the user opens the MPCORB.DAT bookmark drop-down menu. It populates the drop-down with the current list of bookmarks for MPCORB.DAT, creating a menu item for each bookmark entry and associating it with the appropriate click event handler.</remarks>
-	internal void BookmarkListMpcorbDat_DropDownOpening(object? sender, EventArgs e)
-	{
-		// Log the action of populating the MPCORB.DAT bookmark drop-down
-		logger.Info(message: "Populating MPCORB.DAT bookmark drop-down...");
-		// Call the helper method to populate the drop-down with the current bookmarks for MPCORB.DAT
-		PopulateBookmarkDropDown(parentItem: toolStripMenuItemBookmarkListMpcorbDat, bookmarks: bookmarksMpcorbDat, onClickHandler: BookmarkNavigateMpcorbDat_Click);
-	}
-
-	/// <summary>Populates the MPCORB.JSON bookmark drop-down when the user opens it.</summary>
-	/// <param name="sender">The event source.</param>
-	/// <param name="e">Event data.</param>												   
-	/// <remarks>This method is called when the user opens the MPCORB.JSON bookmark drop-down menu. It populates the drop-down with the current list of bookmarks for MPCORB.JSON, creating a menu item for each bookmark entry and associating it with the appropriate click event handler.</remarks>
-	internal void BookmarkListMpcorbJson_DropDownOpening(object? sender, EventArgs e)
-	{
-		// Log the action of populating the MPCORB.JSON bookmark drop-down
-		logger.Info(message: "Populating MPCORB.JSON bookmark drop-down...");
-		// Call the helper method to populate the drop-down with the current bookmarks for MPCORB.JSON
-		PopulateBookmarkDropDown(parentItem: toolStripMenuItemBookmarkListMpcorbJson, bookmarks: bookmarksMpcorbJson, onClickHandler: BookmarkNavigateMpcorbJson_Click);
-	}
-
-	/// <summary>Populates the ASTORB.DAT bookmark drop-down when the user opens it.</summary>
-	/// <param name="sender">The event source.</param>
-	/// <param name="e">Event data.</param>
-	/// <remarks>This method is called when the user opens the ASTORB.DAT bookmark drop-down menu. It populates the drop-down with the current list of bookmarks for ASTORB.DAT, creating a menu item for each bookmark entry and associating it with the appropriate click event handler.</remarks>
-	internal void BookmarkListAstorbDat_DropDownOpening(object? sender, EventArgs e)
-	{
-		// Log the action of populating the ASTORB.DAT bookmark drop-down
-		logger.Info(message: "Populating ASTORB.DAT bookmark drop-down...");
-		// Call the helper method to populate the drop-down with the current bookmarks for ASTORB.DAT
-		PopulateBookmarkDropDown(parentItem: toolStripMenuItemBookmarkListAstorbDat, bookmarks: bookmarksAstorbDat, onClickHandler: BookmarkNavigateAstorbDat_Click);
-	}
-
-	/// <summary>Populates the ALLNUM.CAT bookmark drop-down when the user opens it.</summary>
-	/// <param name="sender">The event source.</param>
-	/// <param name="e">Event data.</param>
-	/// <remarks>This method is called when the user opens the ALLNUM.CAT bookmark drop-down menu. It populates the drop-down with the current list of bookmarks for ALLNUM.CAT, creating a menu item for each bookmark entry and associating it with the appropriate click event handler.</remarks>
-	internal void BookmarkListAllnumCat_DropDownOpening(object? sender, EventArgs e)
-	{
-		// Log the action of populating the ALLNUM.CAT bookmark drop-down
-		logger.Info(message: "Populating ALLNUM.CAT bookmark drop-down...");
-		// Call the helper method to populate the drop-down with the current bookmarks for ALLNUM.CAT
-		PopulateBookmarkDropDown(parentItem: toolStripMenuItemBookmarkListAllnumCat, bookmarks: bookmarksAllnumCat, onClickHandler: BookmarkNavigateAllnumCat_Click);
-	}
-
-	/// <summary>Populates the SINGOPP.CAT bookmark drop-down when the user opens it.</summary>
-	/// <param name="sender">The event source.</param>
-	/// <param name="e">Event data.</param>
-	/// <remarks>This method is called when the user opens the SINGOPP.CAT bookmark drop-down menu. It populates the drop-down with the current list of bookmarks for SINGOPP.CAT, creating a menu item for each bookmark entry and associating it with the appropriate click event handler.</remarks>
-	internal void BookmarkListSingoppCat_DropDownOpening(object? sender, EventArgs e)
-	{
-		// Log the action of populating the SINGOPP.CAT bookmark drop-down
-		logger.Info(message: "Populating SINGOPP.CAT bookmark drop-down...");
-		// Call the helper method to populate the drop-down with the current bookmarks for SINGOPP.CAT
-		PopulateBookmarkDropDown(parentItem: toolStripMenuItemBookmarkListSingoppCat, bookmarks: bookmarksSingoppCat, onClickHandler: BookmarkNavigateSingoppCat_Click);
-	}
-
-	/// <summary>Populates the UFITOBS.CAT bookmark drop-down when the user opens it.</summary>
-	/// <param name="sender">The event source.</param>
-	/// <param name="e">Event data.</param>
-	/// <remarks>This method is called when the user opens the UFITOBS.CAT bookmark drop-down menu. It populates the drop-down with the current list of bookmarks for UFITOBS.CAT, creating a menu item for each bookmark entry and associating it with the appropriate click event handler.</remarks>
-	internal void BookmarkListUfitobsCat_DropDownOpening(object? sender, EventArgs e)
-	{
-		// Log the action of populating the UFITOBS.CAT bookmark drop-down
-		logger.Info(message: "Populating UFITOBS.CAT bookmark drop-down...");
-		// Call the helper method to populate the drop-down with the current bookmarks for UFITOBS.CAT
-		PopulateBookmarkDropDown(parentItem: toolStripMenuItemBookmarkListUfitobsCat, bookmarks: bookmarksUfitobsCat, onClickHandler: BookmarkNavigateUfitobsCat_Click);
 	}
 
 	/// <summary>Extracts the identifier used for bookmark validation from a fixed-width record line without logging.</summary>
@@ -3363,247 +3601,161 @@ public partial class PlanetoidDbForm
 		return ValidateBookmark(entry: entry, bookmarks: bookmarksUfitobsCat, databaseFilename: filenameUfitobsCat, databaseLabel: "UFITOBS.CAT", count: ufitobsCatDatabase.Count, getDesignation: i => ExtractBookmarkIdentifier(line: ufitobsCatDatabase[index: i]?.ToString(), start: 0, length: 14), auditReport: auditReport);
 	}
 
-	/// <summary>Navigates to the MPCORB.DAT record stored in the clicked bookmark item.</summary>
-	/// <param name="sender">The clicked menu item whose <see cref="ToolStripItem.Tag"/> is a <see cref="BookmarkEntry"/>.</param>
-	/// <param name="e">Event data.</param>
-	/// <remarks>This method is called when the user clicks a bookmark item in the MPCORB.DAT drop-down menu. It navigates to the record stored in the clicked bookmark item.</remarks>
-	private void BookmarkNavigateMpcorbDat_Click(object? sender, EventArgs e)
-	{
-		// Ensure the sender is a ToolStripMenuItem with a BookmarkEntry in its Tag
-		if (sender is ToolStripMenuItem { Tag: BookmarkEntry entry })
-		{
-			// Verify the bookmark still points to the right planetoid; correct or delete it otherwise
-			if (!ValidateMpcorbDatBookmark(entry: entry))
-			{
-				// Log a warning that the bookmark navigation cannot proceed due to validation failure
-				logger.Warn(message: "Bookmark navigation failed: bookmark validation failed.");
-				// Exit the method early since the bookmark is invalid or has been deleted
-				return;
-			}
-			// Save the current position to the navigation history before navigating to the bookmarked position
-			PushNavigationHistory(previousPosition: currentPosition);
-			// Update the current position to the bookmarked position and navigate to it
-			currentPosition = entry.Position;
-			// Call the method to navigate to the current position in the MPCORB.DAT database
-			GotoCurrentPosition(position: currentPosition);
-			// Update the current positions for all other databases to match the new position
-			currentAstorbPosition = currentPosition;
-			currentMpcorbJsonPosition = currentPosition;
-			currentAllnumCatPosition = currentPosition;
-			currentSingoppCatPosition = currentPosition;
-			currentUfitobsCatPosition = currentPosition;
-			// Update the bookmark button and menu toggle states to reflect the new position
-			UpdateBookmarkButtonState();
-			UpdateBookmarkMenuToggleState();
-			// Log the navigation action for auditing purposes
-			logger.Info(message: $"Navigated to MPCORB.DAT bookmark at position {currentPosition}.");
-		}
-		// If the sender is not a valid ToolStripMenuItem with a BookmarkEntry, log a warning
-		else
-		{
-			// Log a warning if the sender is not a valid ToolStripMenuItem with a BookmarkEntry
-			logger.Warn(message: "Bookmark navigation failed: sender is not a valid ToolStripMenuItem with a BookmarkEntry.");
-		}
-	}
-
-	/// <summary>Navigates to the MPCORB.JSON record stored in the clicked bookmark item.</summary>
-	/// <param name="sender">The clicked menu item whose <see cref="ToolStripItem.Tag"/> is a <see cref="BookmarkEntry"/>.</param>
-	/// <param name="e">Event data.</param>
-	/// <remarks>This method is called when the user clicks a bookmark item in the MPCORB.JSON drop-down menu. It navigates to the record stored in the clicked bookmark item.</remarks>
-	private void BookmarkNavigateMpcorbJson_Click(object? sender, EventArgs e)
-	{
-		// Ensure the sender is a ToolStripMenuItem with a BookmarkEntry in its Tag
-		if (sender is ToolStripMenuItem { Tag: BookmarkEntry entry })
-		{
-			// Verify the bookmark still points to the right planetoid; correct or delete it otherwise
-			if (!ValidateMpcorbJsonBookmark(entry: entry))
-			{
-				// Log a warning that the bookmark navigation cannot proceed due to validation failure
-				logger.Warn(message: "Bookmark navigation failed: bookmark validation failed.");
-				// Exit the method early since the bookmark is invalid or has been deleted
-				return;
-			}
-			// Save the current position to the navigation history before navigating to the bookmarked position
-			PushNavigationHistory(previousPosition: currentPosition);
-			// Update the current MPCORB.JSON position to the bookmarked position and navigate to it
-			currentMpcorbJsonPosition = entry.Position;
-			// Call the method to navigate to the current position in the MPCORB.JSON database
-			GotoCurrentMpcorbJsonPosition(position: currentMpcorbJsonPosition);
-			// Update the current positions for all other databases to match the new position
-			currentPosition = currentMpcorbJsonPosition;
-			currentAstorbPosition = currentMpcorbJsonPosition;
-			currentAllnumCatPosition = currentMpcorbJsonPosition;
-			currentSingoppCatPosition = currentMpcorbJsonPosition;
-			currentUfitobsCatPosition = currentMpcorbJsonPosition;
-			// Update the bookmark button and menu toggle states to reflect the new position
-			UpdateBookmarkButtonState();
-			UpdateBookmarkMenuToggleState();
-			// Log the navigation action for auditing purposes
-			logger.Info(message: $"Navigated to MPCORB.JSON bookmark at position {currentMpcorbJsonPosition}.");
-		}
-		// If the sender is not a valid ToolStripMenuItem with a BookmarkEntry, log a warning
-		else
-		{
-			// Log a warning if the sender is not a valid ToolStripMenuItem with a BookmarkEntry
-			logger.Warn(message: "Bookmark navigation failed: sender is not a valid ToolStripMenuItem with a BookmarkEntry.");
-		}
-	}
-
-	/// <summary>Navigates to the ASTORB.DAT record stored in the clicked bookmark item.</summary>
-	/// <param name="sender">The clicked menu item whose <see cref="ToolStripItem.Tag"/> is a <see cref="BookmarkEntry"/>.</param>
-	/// <param name="e">Event data.</param>
-	/// <remarks>This method is called when the user clicks a bookmark item in the ASTORB.DAT drop-down menu. It navigates to the record stored in the clicked bookmark item.</remarks>
-	private void BookmarkNavigateAstorbDat_Click(object? sender, EventArgs e)
-	{
-		// Ensure the sender is a ToolStripMenuItem with a BookmarkEntry in its Tag
-		if (sender is ToolStripMenuItem { Tag: BookmarkEntry entry })
-		{
-			// Verify the bookmark still points to the right planetoid; correct or delete it otherwise
-			if (!ValidateAstorbDatBookmark(entry: entry))
-			{
-				return;
-			}
-			// Save the current position to the navigation history before navigating to the bookmarked position
-			PushNavigationHistory(previousPosition: currentPosition);
-			// Update the current ASTORB.DAT position to the bookmarked position and navigate to it
-			currentAstorbPosition = entry.Position;
-			// Call the method to navigate to the current position in the ASTORB.DAT database
-			GotoCurrentAstorbPosition(position: currentAstorbPosition);
-			// Update the current positions for all other databases to match the new position
-			currentPosition = currentAstorbPosition;
-			currentMpcorbJsonPosition = currentAstorbPosition;
-			currentAllnumCatPosition = currentAstorbPosition;
-			currentSingoppCatPosition = currentAstorbPosition;
-			currentUfitobsCatPosition = currentAstorbPosition;
-			// Update the bookmark button and menu toggle states to reflect the new position
-			UpdateBookmarkButtonState();
-			UpdateBookmarkMenuToggleState();
-			// Log the navigation action for auditing purposes
-			logger.Info(message: $"Navigated to ASTORB.DAT bookmark at position {currentAstorbPosition}.");
-		}
-		else
-		{
-			// Log a warning if the sender is not a valid ToolStripMenuItem with a BookmarkEntry
-			logger.Warn(message: "Bookmark navigation failed: sender is not a valid ToolStripMenuItem with a BookmarkEntry.");
-		}
-	}
-
-	/// <summary>Navigates to the ALLNUM.CAT record stored in the clicked bookmark item.</summary>
-	/// <param name="sender">The clicked menu item whose <see cref="ToolStripItem.Tag"/> is a <see cref="BookmarkEntry"/>.</param>
-	/// <param name="e">Event data.</param>
-	/// <remarks>This method is called when the user clicks a bookmark item in the ALLNUM.CAT drop-down menu. It navigates to the record stored in the clicked bookmark item.</remarks>
-	private void BookmarkNavigateAllnumCat_Click(object? sender, EventArgs e)
-	{
-		// Ensure the sender is a ToolStripMenuItem with a BookmarkEntry in its Tag
-		if (sender is ToolStripMenuItem { Tag: BookmarkEntry entry })
-		{
-			// Verify the bookmark still points to the right planetoid; correct or delete it otherwise
-			if (!ValidateAllnumCatBookmark(entry: entry))
-			{
-				return;
-			}
-			// Save the current position to the navigation history before navigating to the bookmarked position
-			PushNavigationHistory(previousPosition: currentPosition);
-			// Update the current ALLNUM.CAT position to the bookmarked position and navigate to it
-			currentAllnumCatPosition = entry.Position;
-			// Call the method to navigate to the current position in the ALLNUM.CAT database
-			GotoCurrentAllnumCatPosition(position: currentAllnumCatPosition);
-			// Update the current positions for all other databases to match the new position
-			currentPosition = currentAllnumCatPosition;
-			currentMpcorbJsonPosition = currentAllnumCatPosition;
-			currentAstorbPosition = currentAllnumCatPosition;
-			currentSingoppCatPosition = currentAllnumCatPosition;
-			currentUfitobsCatPosition = currentAllnumCatPosition;
-			// Update the bookmark button and menu toggle states to reflect the new position
-			UpdateBookmarkButtonState();
-			UpdateBookmarkMenuToggleState();
-			// Log the navigation action for auditing purposes
-			logger.Info(message: $"Navigated to ALLNUM.CAT bookmark at position {currentAllnumCatPosition}.");
-		}
-		else
-		{
-			// Log a warning if the sender is not a valid ToolStripMenuItem with a BookmarkEntry
-			logger.Warn(message: "Bookmark navigation failed: sender is not a valid ToolStripMenuItem with a BookmarkEntry.");
-		}
-	}
-
-	/// <summary>Navigates to the SINGOPP.CAT record stored in the clicked bookmark item.</summary>
-	/// <param name="sender">The clicked menu item whose <see cref="ToolStripItem.Tag"/> is a <see cref="BookmarkEntry"/>.</param>
-	/// <param name="e">Event data.</param>
-	/// <remarks>This method is called when the user clicks a bookmark item in the SINGOPP.CAT drop-down menu. It navigates to the record stored in the clicked bookmark item.</remarks>
-	private void BookmarkNavigateSingoppCat_Click(object? sender, EventArgs e)
-	{
-		// Ensure the sender is a ToolStripMenuItem with a BookmarkEntry in its Tag
-		if (sender is ToolStripMenuItem { Tag: BookmarkEntry entry })
-		{
-			// Verify the bookmark still points to the right planetoid; correct or delete it otherwise
-			if (!ValidateSingoppCatBookmark(entry: entry))
-			{
-				return;
-			}
-			// Save the current position to the navigation history before navigating to the bookmarked position
-			PushNavigationHistory(previousPosition: currentPosition);
-			// Update the current SINGOPP.CAT position to the bookmarked position and navigate to it
-			currentSingoppCatPosition = entry.Position;
-			// Call the method to navigate to the current position in the SINGOPP.CAT database
-			GotoCurrentSingoppCatPosition(position: currentSingoppCatPosition);
-			// Update the current positions for all other databases to match the new position
-			currentPosition = currentSingoppCatPosition;
-			currentMpcorbJsonPosition = currentSingoppCatPosition;
-			currentAstorbPosition = currentSingoppCatPosition;
-			currentAllnumCatPosition = currentSingoppCatPosition;
-			currentUfitobsCatPosition = currentSingoppCatPosition;
-			// Update the bookmark button and menu toggle states to reflect the new position
-			UpdateBookmarkButtonState();
-			UpdateBookmarkMenuToggleState();
-			// Log the navigation action for auditing purposes
-			logger.Info(message: $"Navigated to SINGOPP.CAT bookmark at position {currentSingoppCatPosition}.");
-		}
-		else
-		{
-			// Log a warning if the sender is not a valid ToolStripMenuItem with a BookmarkEntry
-			logger.Warn(message: "Bookmark navigation failed: sender is not a valid ToolStripMenuItem with a BookmarkEntry.");
-		}
-	}
-
-	/// <summary>Navigates to the UFITOBS.CAT record stored in the clicked bookmark item.</summary>
-	/// <param name="sender">The clicked menu item whose <see cref="ToolStripItem.Tag"/> is a <see cref="BookmarkEntry"/>.</param>
-	/// <param name="e">Event data.</param>
-	/// <remarks>This method is called when the user clicks a bookmark item in the UFITOBS.CAT drop-down menu. It navigates to the record stored in the clicked bookmark item.</remarks>
-	private void BookmarkNavigateUfitobsCat_Click(object? sender, EventArgs e)
-	{
-		// Ensure the sender is a ToolStripMenuItem with a BookmarkEntry in its Tag
-		if (sender is ToolStripMenuItem { Tag: BookmarkEntry entry })
-		{
-			// Verify the bookmark still points to the right planetoid; correct or delete it otherwise
-			if (!ValidateUfitobsCatBookmark(entry: entry))
-			{
-				return;
-			}
-			// Save the current position to the navigation history before navigating to the bookmarked position
-			PushNavigationHistory(previousPosition: currentPosition);
-			// Update the current UFITOBS.CAT position to the bookmarked position and navigate to it
-			currentUfitobsCatPosition = entry.Position;
-			// Call the method to navigate to the current position in the UFITOBS.CAT database
-			GotoCurrentUfitobsCatPosition(position: currentUfitobsCatPosition);
-			// Update the current positions for all other databases to match the new position
-			currentPosition = currentUfitobsCatPosition;
-			currentSingoppCatPosition = currentUfitobsCatPosition;
-			currentMpcorbJsonPosition = currentUfitobsCatPosition;
-			currentAstorbPosition = currentUfitobsCatPosition;
-			currentAllnumCatPosition = currentUfitobsCatPosition;
-			// Update the bookmark button and menu toggle states to reflect the new position
-			UpdateBookmarkButtonState();
-			UpdateBookmarkMenuToggleState();
-			// Log the navigation action for auditing purposes
-			logger.Info(message: $"Navigated to UFITOBS.CAT bookmark at position {currentUfitobsCatPosition}.");
-		}
-		else
-		{
-			// Log a warning if the sender is not a valid ToolStripMenuItem with a BookmarkEntry
-			logger.Warn(message: "Bookmark navigation failed: sender is not a valid ToolStripMenuItem with a BookmarkEntry.");
-		}
-	}
-
 	#endregion
+
+	/// <summary>Initializes and assigns the ContextMenuStrip for the readable designations ListView.</summary>
+	private void InitializeListViewreadableDesignationContextMenu()
+	{
+		#region ContextMenuStrip contextMenu
+
+		ContextMenuStrip contextMenu = new()
+		{
+			AccessibleDescription = "Shows the context menu of data items",
+			AccessibleName = "Context menu of items",
+			AccessibleRole = AccessibleRole.MenuPopup,
+			AllowClickThrough = true,
+			Name = "contextMenu",
+			ShowCheckMargin = false,
+			ShowImageMargin = true,
+			TabStop = true,
+			Text = "Context menu of items"
+		};
+		contextMenu.Enter += Control_Enter;
+		contextMenu.Leave += Control_Leave;
+		contextMenu.MouseEnter += Control_Enter;
+		contextMenu.MouseLeave += Control_Leave;
+		contextMenu.MouseMove += MouseCoordinates_MouseMove;
+
+		#endregion
+
+		#region ToolStripMenuItem itemCopyDesignation: Copy designation / name only
+
+		// Item: Copy designation / name only
+		ToolStripMenuItem itemCopyDesignation = new(text: "Copy readable designation", image: FatcowIcons16px.fatcow_style_16px, onClick: CopyListViewDesignation_Click)
+		{
+			AccessibleDescription = "Copies the readable designation",
+			AccessibleName = "Copy readable designation",
+			AccessibleRole = AccessibleRole.MenuItem,
+			AutoToolTip = true,
+			Name = "itemCopyDesignation"
+		};
+		itemCopyDesignation.MouseEnter += Control_Enter;
+		itemCopyDesignation.MouseLeave += Control_Leave;
+		itemCopyDesignation.MouseMove += MouseCoordinates_MouseMove;
+
+		#endregion
+
+		#region ToolStripMenuItem itemCopyFormatted: Copy formatted overview (tab-separated)
+
+		// Item: Copy formatted overview (tab-separated)
+		ToolStripMenuItem itemCopyFormatted = new(text: "Copy formatted overview (Index / MPC-ID / Name)", image: FatcowIcons16px.fatcow_table_row_insert_16px, onClick: CopyListViewFormatted_Click)
+		{
+			AccessibleDescription = "Copies the formatted overview",
+			AccessibleName = "Copy formatted overview (Index / MPC-ID / Name)",
+			AccessibleRole = AccessibleRole.MenuItem,
+			AutoToolTip = true,
+			Name = "itemCopyFormatted"
+		};
+		itemCopyFormatted.MouseEnter += Control_Enter;
+		itemCopyFormatted.MouseLeave += Control_Leave;
+		itemCopyFormatted.MouseMove += MouseCoordinates_MouseMove;
+
+		#endregion
+
+		#region ToolStripMenuItem itemCopyRaw: Copy unedited raw line
+
+		// Item: Copy unedited raw line
+		ToolStripMenuItem itemCopyRaw = new(text: "Copy raw row (MPCORB.DAT)", image: FatcowIcons16px.fatcow_page_copy_16px, onClick: CopyListViewRawLine_Click)
+		{
+			AccessibleDescription = "Copies unedited raw line",
+			AccessibleName = "Copy raw row (MPCORB.DAT)",
+			AccessibleRole = AccessibleRole.MenuItem,
+			AutoToolTip = true,
+			Name = "itemCopyRaw"
+		};
+		itemCopyRaw.MouseEnter += Control_Enter;
+		itemCopyRaw.MouseLeave += Control_Leave;
+		itemCopyRaw.MouseMove += MouseCoordinates_MouseMove;
+
+		#endregion
+
+		#region ToolStripMenuItem itemCopyValue
+
+		ToolStripMenuItem itemCopyValue = new(text: "Copy specific values", image: FatcowIcons16px.fatcow_page_white_copy_16px)
+		{
+			AccessibleDescription = "Copies specific values",
+			AccessibleName = "Copy specific values",
+			AccessibleRole = AccessibleRole.MenuItem,
+			AutoToolTip = true,
+			Name = "itemCopyValue",
+			DropDown = contextMenuFullCopyToClipboardOrbitalElements
+		};
+		itemCopyValue.MouseEnter += Control_Enter;
+		itemCopyValue.MouseLeave += Control_Leave;
+		itemCopyValue.MouseMove += MouseCoordinates_MouseMove;
+
+		#endregion
+
+		#region ToolStripSeparator separator
+
+		// Separator
+		ToolStripSeparator separator = new()
+		{
+			AccessibleDescription = "Just a separator",
+			AccessibleName = "Just a separator",
+			AccessibleRole = AccessibleRole.Separator,
+			Name = "separator"
+		};
+		separator.MouseEnter += Control_Enter;
+		separator.MouseLeave += Control_Leave;
+		separator.MouseMove += MouseCoordinates_MouseMove;
+
+		#endregion
+
+		#region ToolStripMenuItem itemToggleBookmark
+
+		ToolStripMenuItem itemToggleBookmark = new(text: "Toggle bookmark", image: FatcowIcons16px.fatcow_bookmark_16px, onClick: (s, ev) => ToggleMpcorbDatBookmark())
+		{
+			AccessibleDescription = "Toggles the bookmark for the current minor planet entry",
+			AccessibleName = "Toggle bookmark",
+			AccessibleRole = AccessibleRole.MenuItem,
+			AutoToolTip = true,
+			Name = "itemToggleBookmark"
+		};
+		itemToggleBookmark.MouseEnter += Control_Enter;
+		itemToggleBookmark.MouseLeave += Control_Leave;
+		itemToggleBookmark.MouseMove += MouseCoordinates_MouseMove;
+
+		#endregion
+
+		#region ToolStripMenuItem itemExternalDataPages
+
+		ToolStripMenuItem itemExternalDataPages = new(text: "External data pages", image: FatcowIcons16px.fatcow_external_16px)
+		{
+			AccessibleDescription = "Opens external data pages in the web browser",
+			AccessibleName = "External data pages",
+			AccessibleRole = AccessibleRole.MenuItem,
+			AutoToolTip = true,
+			Name = "itemExternalDataPages",
+			DropDown = contextMenuExternalDataPages
+		};
+		itemCopyValue.MouseEnter += Control_Enter;
+		itemCopyValue.MouseLeave += Control_Leave;
+		itemCopyValue.MouseMove += MouseCoordinates_MouseMove;
+
+		#endregion
+
+		_ = contextMenu.Items.Add(value: itemCopyDesignation);
+		_ = contextMenu.Items.Add(value: itemCopyFormatted);
+		_ = contextMenu.Items.Add(value: itemCopyRaw);
+		_ = contextMenu.Items.Add(value: itemCopyValue);
+		_ = contextMenu.Items.Add(value: separator);
+		_ = contextMenu.Items.Add(value: itemToggleBookmark);
+		_ = contextMenu.Items.Add(value: itemExternalDataPages);
+
+		// Control menu opening (disable if no row is selected)
+		contextMenu.Opening += ListViewContextMenu_Opening;
+		// Assign a context menu to the ListView
+		listViewReadableDesignations.ContextMenuStrip = contextMenu;
+	}
 }

@@ -22,7 +22,6 @@ using Planetoid_DB.Forms;
 using Planetoid_DB.Helpers;
 
 using System.Diagnostics;
-using System.Text;
 
 namespace Planetoid_DB;
 
@@ -72,7 +71,7 @@ internal partial class ExportDataSheetForm : BaseKryptonForm
 	/// <remarks>This method is used to set the internal list of orbit elements that will be used for export operations.</remarks>
 	public void SetDatabase(List<string> list)
 	{
-		orbitElements = list;
+		orbitElements = list ?? throw new ArgumentNullException(paramName: nameof(list));
 	}
 
 	/// <summary>Updates the enabled state of the export button based on the number of checked items in the orbital elements checklist.</summary>
@@ -195,6 +194,10 @@ internal partial class ExportDataSheetForm : BaseKryptonForm
 	{
 		// Log the form load event for debugging purposes
 		logger.Info(message: "ExportDataSheetForm loaded");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Play the open sound in the background to indicate that the form has been opened
 		AudioPlayback.PlayOpenSound();
 		// Clear the status bar text
@@ -211,6 +214,10 @@ internal partial class ExportDataSheetForm : BaseKryptonForm
 	{
 		// Log that the form is closing
 		logger.Info(message: "ExportDataSheetForm is closing.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Play the close sound in the background to indicate that the form is closing
 		AudioPlayback.PlayCloseSound();
 	}
@@ -227,6 +234,10 @@ internal partial class ExportDataSheetForm : BaseKryptonForm
 	{
 		// Log that the Mark All button was clicked and that all items in the orbital elements checklist are being marked
 		logger.Info(message: "Mark All button clicked. Marking all items in the orbital elements checklist.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Call the MarkAll method to mark all items in the orbital elements checklist
 		MarkAll();
 	}
@@ -240,6 +251,10 @@ internal partial class ExportDataSheetForm : BaseKryptonForm
 		// Log that the Unmark All button was clicked and that all items in the orbital elements checklist are being unmarked
 		logger.Info(message: "Unmark All button clicked. Unmarking all items in the orbital elements checklist.");
 		// Call the UnmarkAll method to unmark all items in the orbital elements checklist
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		UnmarkAll();
 	}
 
@@ -251,6 +266,10 @@ internal partial class ExportDataSheetForm : BaseKryptonForm
 	{
 		// Log that the Export As Text menu item was clicked
 		logger.Info(message: "Export As Text menu item clicked. Exporting selected orbital elements to a text file.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Call the ExecuteExport method to export the selected orbital elements using the TextExporter
 		ExecuteExport(exporter: new TextExporter());
 		// Show a message box indicating that the data was exported successfully
@@ -265,6 +284,10 @@ internal partial class ExportDataSheetForm : BaseKryptonForm
 	{
 		// Log that the Export As vCalendar menu item was clicked
 		logger.Info(message: "Export As vCalendar menu item clicked. Exporting selected orbital elements to an vCalendar file.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Call the ExecuteExport method to export the selected orbital elements using the VcalExporter
 		ExecuteExport(exporter: new VcalExporter());
 		// Show a message box indicating that the data was exported successfully
@@ -279,6 +302,10 @@ internal partial class ExportDataSheetForm : BaseKryptonForm
 	{
 		// Log that the Export As iCalendar menu item was clicked
 		logger.Info(message: "Export As iCalendar menu item clicked. Exporting selected orbital elements to an iCalendar file.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Call the ExecuteExport method to export the selected orbital elements using the IcsExporter
 		ExecuteExport(exporter: new IcsExporter());
 		// Show a message box indicating that the data was exported successfully
@@ -293,6 +320,10 @@ internal partial class ExportDataSheetForm : BaseKryptonForm
 	{
 		// Log that the Export As xCalendar menu item was clicked
 		logger.Info(message: "Export As xCalendar menu item clicked. Exporting selected orbital elements to an xCalendar file.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Call the ExecuteExport method to export the selected orbital elements using the XcalExporter
 		ExecuteExport(exporter: new XcalExporter());
 		// Show a message box indicating that the data was exported successfully
@@ -307,6 +338,10 @@ internal partial class ExportDataSheetForm : BaseKryptonForm
 	{
 		// Log that the Export As Creole menu item was clicked
 		logger.Info(message: "Export As Creole menu item clicked. Exporting selected orbital elements to an Creole file.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Call the ExecuteExport method to export the selected orbital elements using the Creole
 		ExecuteExport(exporter: new CreoleExporter());
 		// Show a message box indicating that the data was exported successfully
@@ -321,6 +356,10 @@ internal partial class ExportDataSheetForm : BaseKryptonForm
 	{
 		// Log that the Export As BBCode menu item was clicked
 		logger.Info(message: "Export As BBCode menu item clicked. Exporting selected orbital elements to an BBCode file.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Call the ExecuteExport method to export the selected orbital elements using the BbcodeExporter
 		ExecuteExport(exporter: new BbcodeExporter());
 		// Show a message box indicating that the data was exported successfully
@@ -335,6 +374,10 @@ internal partial class ExportDataSheetForm : BaseKryptonForm
 	{
 		// Log that the Export As LaTeX menu item was clicked
 		logger.Info(message: "Export As LaTeX menu item clicked. Exporting selected orbital elements to a LaTeX file.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Call the ExecuteExport method to export the selected orbital elements using the LatexExporter
 		ExecuteExport(exporter: new LatexExporter());
 		// Show a message box indicating that the data was exported successfully
@@ -349,6 +392,10 @@ internal partial class ExportDataSheetForm : BaseKryptonForm
 	{
 		// Log that the Export As Markdown menu item was clicked
 		logger.Info(message: "Export As Markdown menu item clicked. Exporting selected orbital elements to a Markdown file.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Call the ExecuteExport method to export the selected orbital elements using the MarkdownExporter
 		ExecuteExport(exporter: new MarkdownExporter());
 		// Show a message box indicating that the data was exported successfully
@@ -363,6 +410,10 @@ internal partial class ExportDataSheetForm : BaseKryptonForm
 	{
 		// Log that the Export As Word menu item was clicked
 		logger.Info(message: "Export As Word menu item clicked. Exporting selected orbital elements to a Word file.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Call the ExecuteExport method to export the selected orbital elements using the WordExporter
 		ExecuteExport(exporter: new WordExporter());
 		// Show a message box indicating that the data was exported successfully
@@ -377,6 +428,10 @@ internal partial class ExportDataSheetForm : BaseKryptonForm
 	{
 		// Log that the Export As ODT menu item was clicked
 		logger.Info(message: "Export As ODT menu item clicked. Exporting selected orbital elements to a ODT file.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Call the ExecuteExport method to export the selected orbital elements using the odtExporter
 		ExecuteExport(exporter: new OdtExporter());
 		// Show a message box indicating that the data was exported successfully
@@ -391,6 +446,10 @@ internal partial class ExportDataSheetForm : BaseKryptonForm
 	{
 		// Log that the Export As RTF menu item was clicked
 		logger.Info(message: "Export As RTF menu item clicked. Exporting selected orbital elements to a RTF file.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Call the ExecuteExport method to export the selected orbital elements using the RtfExporter
 		ExecuteExport(exporter: new RtfExporter());
 		// Show a message box indicating that the data was exported successfully
@@ -405,6 +464,10 @@ internal partial class ExportDataSheetForm : BaseKryptonForm
 	{
 		// Log that the Export As Excel menu item was clicked
 		logger.Info(message: "Export As Excel menu item clicked. Exporting selected orbital elements to a Excel file.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Call the ExecuteExport method to export the selected orbital elements using the RtfExporter
 		ExecuteExport(exporter: new ExcelExporter());
 		// Show a message box indicating that the data was exported successfully
@@ -419,6 +482,10 @@ internal partial class ExportDataSheetForm : BaseKryptonForm
 	{
 		// Log that the Export As Excel menu item was clicked
 		logger.Info(message: "Export As ODS menu item clicked. Exporting selected orbital elements to a ODS file.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Call the ExecuteExport method to export the selected orbital elements using the RtfExporter
 		ExecuteExport(exporter: new ExcelExporter());
 		// Show a message box indicating that the data was exported successfully
@@ -433,6 +500,10 @@ internal partial class ExportDataSheetForm : BaseKryptonForm
 	{
 		// Log that the Export As CSV menu item was clicked
 		logger.Info(message: "Export As CSV menu item clicked. Exporting selected orbital elements to a CSV file.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Call the ExecuteExport method to export the selected orbital elements using the CsvExporter
 		ExecuteExport(exporter: new CsvExporter());
 		// Show a message box indicating that the data was exported successfully
@@ -447,6 +518,10 @@ internal partial class ExportDataSheetForm : BaseKryptonForm
 	{
 		// Log that the Export As TSV menu item was clicked
 		logger.Info(message: "Export As TSV menu item clicked. Exporting selected orbital elements to a TSV file.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Call the ExecuteExport method to export the selected orbital elements using the TsvExporter
 		ExecuteExport(exporter: new TsvExporter());
 		// Show a message box indicating that the data was exported successfully
@@ -461,6 +536,10 @@ internal partial class ExportDataSheetForm : BaseKryptonForm
 	{
 		// Log that the Export As PSV menu item was clicked
 		logger.Info(message: "Export As PSV menu item clicked. Exporting selected orbital elements to a PSV file.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Call the ExecuteExport method to export the selected orbital elements using the PsvExporter
 		ExecuteExport(exporter: new PsvExporter());
 		// Show a message box indicating that the data was exported successfully
@@ -475,6 +554,10 @@ internal partial class ExportDataSheetForm : BaseKryptonForm
 	{
 		// Log that the Export As HTML menu item was clicked
 		logger.Info(message: "Export As HTML menu item clicked. Exporting selected orbital elements to an HTML file.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Call the ExecuteExport method to export the selected orbital elements using the HtmlExporter
 		ExecuteExport(exporter: new HtmlExporter());
 		// Show a message box indicating that the data was exported successfully
@@ -489,6 +572,10 @@ internal partial class ExportDataSheetForm : BaseKryptonForm
 	{
 		// Log that the Export As XML menu item was clicked
 		logger.Info(message: "Export As XML menu item clicked. Exporting selected orbital elements to an XML file.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Call the ExecuteExport method to export the selected orbital elements using the XmlExporter
 		ExecuteExport(exporter: new XmlExporter());
 		// Show a message box indicating that the data was exported successfully
@@ -503,6 +590,10 @@ internal partial class ExportDataSheetForm : BaseKryptonForm
 	{
 		// Log that the Export As JSON menu item was clicked
 		logger.Info(message: "Export As JSON menu item clicked. Exporting selected orbital elements to a JSON file.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Call the ExecuteExport method to export the selected orbital elements using the JsonExporter
 		ExecuteExport(exporter: new JsonExporter());
 		// Show a message box indicating that the data was exported successfully
@@ -517,6 +608,10 @@ internal partial class ExportDataSheetForm : BaseKryptonForm
 	{
 		// Log that the Export As YAML menu item was clicked
 		logger.Info(message: "Export As YAML menu item clicked. Exporting selected orbital elements to a YAML file.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Call the ExecuteExport method to export the selected orbital elements using the YamlExporter
 		ExecuteExport(exporter: new YamlExporter());
 		// Show a message box indicating that the data was exported successfully
@@ -531,6 +626,10 @@ internal partial class ExportDataSheetForm : BaseKryptonForm
 	{
 		// Log that the Export As SQL menu item was clicked
 		logger.Info(message: "Export As SQL menu item clicked. Exporting selected orbital elements to a SQL file.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Call the ExecuteExport method to export the selected orbital elements using the SqlExporter
 		ExecuteExport(exporter: new SqlExporter());
 		// Show a message box indicating that the data was exported successfully
@@ -545,6 +644,10 @@ internal partial class ExportDataSheetForm : BaseKryptonForm
 	{
 		// Log that the Export As PDF menu item was clicked
 		logger.Info(message: "Export As PDF menu item clicked. Exporting selected orbital elements to a PDF file.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Call the ExecuteExport method to export the selected orbital elements using the PdfExporter
 		ExecuteExport(exporter: new PdfExporter());
 		// Show a message box indicating that the data was exported successfully
@@ -559,6 +662,10 @@ internal partial class ExportDataSheetForm : BaseKryptonForm
 	{
 		// Log that the Export As Postscript menu item was clicked
 		logger.Info(message: "Export As Postscript menu item clicked. Exporting selected orbital elements to a Postscript file.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Call the ExecuteExport method to export the selected orbital elements using the PostscriptExporter
 		ExecuteExport(exporter: new PostscriptExporter());
 		// Show a message box indicating that the data was exported successfully
@@ -573,6 +680,10 @@ internal partial class ExportDataSheetForm : BaseKryptonForm
 	{
 		// Log that the Export As Epub menu item was clicked
 		logger.Info(message: "Export As Epub menu item clicked. Exporting selected orbital elements to a Epub file.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Call the ExecuteExport method to export the selected orbital elements using the EpubExporter
 		ExecuteExport(exporter: new EpubExporter());
 		// Show a message box indicating that the data was exported successfully
@@ -585,54 +696,14 @@ internal partial class ExportDataSheetForm : BaseKryptonForm
 	/// <remarks>This method handles the export of database information as a MOBI file.</remarks>
 	private void ToolStripMenuItemExportAsMobi_Click(object sender, EventArgs e)
 	{
-		// Create a new SaveFileDialog to allow the user to select the file path and name for the exported MOBI file
-		using SaveFileDialog saveFileDialogMobi = new()
-		{
-			Filter = "MOBI files (*.mobi)|*.mobi|All files (*.*)|*.*",
-			DefaultExt = "mobi",
-			Title = "Save database information as MOBI"
-		};
-		// Set the initial directory for the save file dialog to the user's documents folder
-		saveFileDialogMobi.InitialDirectory = Environment.GetFolderPath(folder: Environment.SpecialFolder.MyDocuments);
-		// Set the initial file name for the save file dialog
-		saveFileDialogMobi.FileName = $"{orbitElements[index: 0]}.{saveFileDialogMobi.DefaultExt}";
-		// Show the save file dialog to select the file path and name
-		if (saveFileDialogMobi.ShowDialog(owner: this) != DialogResult.OK)
-		{
-			logger.Warn(message: "Export operation canceled by the user.");
-			return;
-		}
-		// Log the file name selected by the user for exporting data
-		logger.Info(message: $"Exporting data to MOBI file: {saveFileDialogMobi.FileName}");
-		// Create a StringBuilder to build the content of the MOBI file
-		StringBuilder sb = new();
-		// Append the content to the StringBuilder in a simple text format for the MOBI file
-		_ = sb.AppendLine(value: "BOOKMOBI");
-		_ = sb.AppendLine(value: $"Export for [{orbitElements[index: 0]}] {orbitElements[index: 1]}");
-		_ = sb.AppendLine();
-		// Iterate through the checked items in the checkedListBoxOrbitalElements and append the selected elements to the MOBI content
-		bool hasSelectedElements = false;
-		// Loop through the items in the checkedListBoxOrbitalElements and check if they are checked
-		for (int i = 0; i < checkedListBoxOrbitalElements.Items.Count; i++)
-		{
-			if (!checkedListBoxOrbitalElements.GetItemChecked(index: i))
-			{
-				continue;
-			}
-			// If the item is checked, append the orbit element to the MOBI content
-			hasSelectedElements = true;
-			_ = sb.AppendLine(value: $"{checkedListBoxOrbitalElements.Items[index: i]}: {orbitElements[index: i]}");
-		}
-		// If no elements were selected, add a message to the MOBI content
-		if (!hasSelectedElements)
-		{
-			_ = sb.AppendLine(value: "No selected elements.");
-		}
-		// Write the content of the StringBuilder to the specified file path as a MOBI file
-		File.WriteAllBytes(path: saveFileDialogMobi.FileName, bytes: Encoding.UTF8.GetBytes(s: sb.ToString()));
-		// Log that the data was exported successfully
-		logger.Info(message: $"Data exported successfully to MOBI file: {saveFileDialogMobi.FileName}");
-
+		// Log that the Export As Mobi menu item was clicked
+		logger.Info(message: "Export As Mobi menu item clicked. Exporting selected orbital elements to a Mobi file.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		// Call the ExecuteExport method to export the selected orbital elements using the MobiExporter
+		ExecuteExport(exporter: new MobiExporter());
 		// Show a message box indicating that the data was exported successfully
 		_ = KryptonMessageBox.Show(owner: this, text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
@@ -647,6 +718,10 @@ internal partial class ExportDataSheetForm : BaseKryptonForm
 	/// <remarks>This method is used to enable or disable the export buttons based on the selection state of the orbital elements.</remarks>
 	private void CheckedListBoxOrbitalElements_SelectedIndexChanged(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Enable or disable the export buttons based on whether any items are checked
 		UpdateExportButtonState();
 	}

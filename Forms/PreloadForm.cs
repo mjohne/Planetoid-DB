@@ -79,6 +79,7 @@ internal partial class PreloadForm : BaseKryptonForm
 	{
 		// Validate input
 		ArgumentNullException.ThrowIfNull(argument: resourceData);
+		ArgumentException.ThrowIfNullOrEmpty(argument: outputFilePath);
 		// Log the attempt to extract the resource data to the specified output file path
 		logger.Info(message: $"Attempting to extract resource data to '{outputFilePath}'.");
 		// Use a try-catch block to handle potential exceptions during file writing
@@ -154,6 +155,10 @@ internal partial class PreloadForm : BaseKryptonForm
 	{
 		// Log that the preload form has loaded successfully
 		logger.Info(message: "PreloadForm loaded successfully.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Play the open sound in the background to indicate that the form has been opened
 		AudioPlayback.PlayOpenSound();
 		// Clear the status bar when the form loads
@@ -168,6 +173,10 @@ internal partial class PreloadForm : BaseKryptonForm
 	{
 		// Log that the form is closing
 		logger.Info(message: "PreloadForm is closing.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Play the close sound in the background to indicate that the form is closing
 		AudioPlayback.PlayCloseSound();
 	}
@@ -184,6 +193,10 @@ internal partial class PreloadForm : BaseKryptonForm
 	{
 		// Log that the user clicked the Open Local File command link
 		logger.Info(message: "User clicked 'Open Local File' command link.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Call the method to open a local file
 		OpenLocalFile();
 	}
@@ -196,6 +209,10 @@ internal partial class PreloadForm : BaseKryptonForm
 	{
 		// Log that the user clicked the Download MPCORB.DAT command link
 		logger.Info(message: "User clicked 'Download MPCORB.DAT' command link.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Check if there is an internet connection available
 		if (!NetworkInterface.GetIsNetworkAvailable())
 		{
@@ -233,6 +250,10 @@ internal partial class PreloadForm : BaseKryptonForm
 	private void KryptonCommandLinkButtonLoadInternalDemoData_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "User clicked 'Load Internal Demo Data' command link.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Define the output file name
 		string outputFileName = "demoset-10000.txt";
 		// Combine the application's startup path with the output file name to get the full output path
@@ -262,6 +283,10 @@ internal partial class PreloadForm : BaseKryptonForm
 	{
 		// Log that the user clicked the App Info command link
 		logger.Info(message: "User clicked 'App Info' command link.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Call the method to show the application information form
 		ShowAppInfo();
 	}
@@ -278,6 +303,10 @@ internal partial class PreloadForm : BaseKryptonForm
 	{
 		// Log that the DragEnter event has been triggered
 		logger.Info(message: "DragEnter event triggered.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Update the status label to inform the user about the supported file type
 		labelInformation.Text = "Drag and drop only MPCORB.DAT files are supported.";
 		// Check if the data being dragged is null and log a warning if it is
@@ -298,6 +327,10 @@ internal partial class PreloadForm : BaseKryptonForm
 	{
 		// Log that the DragLeave event has been triggered
 		logger.Info(message: "DragLeave event triggered.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Clear the status label to remove any drag-and-drop information
 		labelInformation.Text = string.Empty;
 	}
@@ -310,6 +343,10 @@ internal partial class PreloadForm : BaseKryptonForm
 	{
 		// Log that the DragDrop event has been triggered
 		logger.Info(message: "DragDrop event triggered.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Clear the status label to remove any drag-and-drop information
 		labelInformation.Text = string.Empty;
 		// Check if the data being dropped is null and log a warning if it is

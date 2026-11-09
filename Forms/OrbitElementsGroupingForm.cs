@@ -116,6 +116,8 @@ internal partial class OrbitElementsGroupingForm : BaseKryptonForm
 	/// <returns>A list of integer arrays, where each array represents a unique combination of k elements from the input array. Returns an empty list if no combinations are possible.</returns>
 	private static List<int[]> GetKCombinations(int[] elements, int k)
 	{
+		ArgumentNullException.ThrowIfNull(argument: elements);
+		ArgumentOutOfRangeException.ThrowIfNegative(value: k);
 		// Validate input parameters to ensure they are within acceptable ranges. If k is less than 0 or greater than the length of the elements array, an ArgumentException is thrown.
 		if (k == 0)
 		{
@@ -166,6 +168,7 @@ internal partial class OrbitElementsGroupingForm : BaseKryptonForm
 	/// <exception cref="ArgumentNullException">Thrown when <paramref name="progress"/> or <paramref name="messageProgress"/> is <see langword="null"/>.</exception>
 	private async Task PerformGroupingAsync(int elementsCount, double tolerancePercent, IProgress<int> progress, IProgress<string> messageProgress, CancellationToken cancellationToken)
 	{
+		ArgumentOutOfRangeException.ThrowIfNegative(value: elementsCount);
 		const int availableElementsCount = 7;
 		// Validate input parameters to ensure they are within acceptable ranges and not null. If any parameter is invalid, an appropriate exception is thrown to indicate the error.
 		ArgumentNullException.ThrowIfNull(argument: progress);
@@ -375,6 +378,10 @@ internal partial class OrbitElementsGroupingForm : BaseKryptonForm
 	{
 		// Log that the form has been loaded
 		logger.Info(message: "OrbitElementsGroupingForm loaded successfully.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Play the open sound in the background to indicate that the form has been opened
 		AudioPlayback.PlayOpenSound();
 		// Clear the status bar when the form loads
@@ -387,6 +394,10 @@ internal partial class OrbitElementsGroupingForm : BaseKryptonForm
 	{
 		// Log that the form is closing
 		logger.Info(message: "OrbitElementsGroupingForm is closing.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Play the close sound in the background to indicate that the form is closing
 		AudioPlayback.PlayCloseSound();
 		// Check if a cancellation token source is currently assigned. If it is, call the Cancel method to signal cancellation to any ongoing operations, and dispose of the token source to free resources.
@@ -406,9 +417,13 @@ internal partial class OrbitElementsGroupingForm : BaseKryptonForm
 	/// <remarks>Disables the Start button, enables the Cancel button, resets progress indicators, and starts the grouping operation asynchronously. Displays an informational message if no planetoid data is available.</remarks>
 	/// <param name="sender">The source of the event, typically the Start button.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
-	private async void ButtonStart_Click(object? sender, EventArgs e)
+	private async void ButtonStart_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Start button clicked. Initiating grouping operation.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Check if there are any planetoid records to process. If not, show an informational message and return.
 		if (_planetoids.Count == 0)
 		{
@@ -468,8 +483,12 @@ internal partial class OrbitElementsGroupingForm : BaseKryptonForm
 
 	/// <summary>Handles the Click event of the Cancel button to request cancellation of the ongoing grouping operation.</summary>
 	/// <remarks>Checks if a cancellation token source is available, and if so, issues a cancellation request and disables the Cancel button to prevent multiple cancellation attempts.</remarks>
-	private void ButtonCancel_Click(object? sender, EventArgs e)
+	private void ButtonCancel_Click(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Check if a cancellation token source is currently assigned. If it is, call the Cancel method to signal cancellation to the ongoing operation, and disable the Cancel button to prevent further cancellation attempts.
 		if (_cancellationTokenSource != null)
 		{

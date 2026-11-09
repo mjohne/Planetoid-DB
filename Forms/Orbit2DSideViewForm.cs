@@ -60,14 +60,14 @@ internal partial class Orbit2DSideViewForm : BaseKryptonForm
 	/// <remarks>These values are sourced from the same dataset used in <see cref="MoidCalculator"/> to ensure consistency. Each entry stores the planet name, semi-major axis in AU, eccentricity, and inclination in degrees.</remarks>
 	private static readonly (string Name, double SemiMajorAxis, double Eccentricity, double InclinationDeg)[] PlanetOrbits =
 	[
-		("Mercury", 0.38709893, 0.20563069, 7.00487),
-		("Venus",   0.72333199, 0.00677323, 3.39471),
-		("Earth",   1.00000011, 0.01671022, 0.00005),
-		("Mars",    1.52366231, 0.09341233, 1.85061),
-		("Jupiter", 5.20336301, 0.04839266, 1.30530),
-		("Saturn",  9.53707032, 0.05415060, 2.48446),
-		("Uranus",  19.19126393, 0.04716771, 0.76986),
-		("Neptune", 30.06896348, 0.00858587, 1.76917),
+		(Name: "Mercury", SemiMajorAxis:  0.38709893, Eccentricity: 0.20563069, InclinationDeg: 7.00487),
+		(Name: "Venus",   SemiMajorAxis:  0.72333199, Eccentricity: 0.00677323, InclinationDeg: 3.39471),
+		(Name: "Earth",   SemiMajorAxis:  1.00000011, Eccentricity: 0.01671022, InclinationDeg: 0.00005),
+		(Name: "Mars",    SemiMajorAxis:  1.52366231, Eccentricity: 0.09341233, InclinationDeg: 1.85061),
+		(Name: "Jupiter", SemiMajorAxis:  5.20336301, Eccentricity: 0.04839266, InclinationDeg: 1.30530),
+		(Name: "Saturn",  SemiMajorAxis:  9.53707032, Eccentricity: 0.05415060, InclinationDeg: 2.48446),
+		(Name: "Uranus",  SemiMajorAxis: 19.19126393, Eccentricity: 0.04716771, InclinationDeg: 0.76986),
+		(Name: "Neptune", SemiMajorAxis: 30.06896348, Eccentricity: 0.00858587, InclinationDeg: 1.76917),
 	];
 
 	/// <summary>Colors used to draw each planet's orbit line, in Mercury–Neptune order.</summary>
@@ -196,6 +196,7 @@ internal partial class Orbit2DSideViewForm : BaseKryptonForm
 	/// <para>This results in the perihelion lying in the upper (positive Y) half-plane for inclinations between 0° and 180°, and the aphelion in the lower half-plane, consistent with the side-view convention.</para></remarks>
 	private void AddOrbitLine(string name, double semiMajorAxis, double eccentricity, double inclinationDeg, ScottPlot.Color lineColor, float lineWidth)
 	{
+		ArgumentException.ThrowIfNullOrEmpty(argument: name);
 		// Guard against degenerate or invalid orbital parameters.
 		if (semiMajorAxis <= 0.0 || eccentricity < 0.0 || eccentricity >= 1.0)
 		{
@@ -239,6 +240,10 @@ internal partial class Orbit2DSideViewForm : BaseKryptonForm
 	{
 		// Log that the form has been loaded
 		logger.Info(message: "Orbits2DSideViewForm loaded.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Play the open sound in the background to indicate that the form has been opened
 		AudioPlayback.PlayOpenSound();
 		// Clear the status bar before rendering to ensure any previous messages are removed.
@@ -264,6 +269,10 @@ internal partial class Orbit2DSideViewForm : BaseKryptonForm
 	{
 		// Log that the form is closing
 		logger.Info(message: "Orbit2DSideViewForm is closing.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Play the close sound in the background to indicate that the form is closing
 		AudioPlayback.PlayCloseSound();
 	}

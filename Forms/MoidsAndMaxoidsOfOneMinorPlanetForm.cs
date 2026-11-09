@@ -103,12 +103,7 @@ internal partial class MoidsAndMaxoidsOfOneMinorPlanetForm : BaseKryptonForm
 	/// <param name="longitudeAscendingNodeDeg">The longitude of the ascending node in degrees.</param>
 	/// <param name="argumentPerihelionDeg">The argument of perihelion in degrees.</param>
 	/// <remarks>Call this method before showing the form so that the MOID and MAXOID data is available on load.</remarks>
-	public void SetOrbitalElements(
-		double semiMajorAxis,
-		double eccentricity,
-		double inclinationDeg,
-		double longitudeAscendingNodeDeg,
-		double argumentPerihelionDeg)
+	public void SetOrbitalElements(double semiMajorAxis, double eccentricity, double inclinationDeg, double longitudeAscendingNodeDeg, double argumentPerihelionDeg)
 	{
 		this.semiMajorAxis = semiMajorAxis;
 		this.eccentricity = eccentricity;
@@ -127,6 +122,10 @@ internal partial class MoidsAndMaxoidsOfOneMinorPlanetForm : BaseKryptonForm
 	/// <remarks>MOID and MAXOID values are calculated using <see cref="MoidCalculator.CalculateMoids"/> and displayed in the second column of the <see cref="tableLayoutPanel"/>.</remarks>
 	private void MoidsAndMaxoidsOfOneMinorPlanetForm_Load(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Clear the status bar
 		ClearStatusBar(label: labelInformation);
 		try
@@ -189,6 +188,10 @@ internal partial class MoidsAndMaxoidsOfOneMinorPlanetForm : BaseKryptonForm
 	private void MenuitemCopyToClipboardMoidRelativeToMercury_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying Mercury MOID value to clipboard: {labelMercuryMoidData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelMercuryMoidData.Text);
 	}
 
@@ -199,6 +202,10 @@ internal partial class MoidsAndMaxoidsOfOneMinorPlanetForm : BaseKryptonForm
 	private void MenuitemCopyToClipboardMaxoidRelativeToMercury_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying Mercury MAXOID value to clipboard: {labelMercuryMaxoidData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelMercuryMaxoidData.Text);
 	}
 
@@ -209,6 +216,10 @@ internal partial class MoidsAndMaxoidsOfOneMinorPlanetForm : BaseKryptonForm
 	private void MenuitemCopyToClipboardMoidRelativeToVenus_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying Venus MOID value to clipboard: {labelVenusMoidData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelVenusMoidData.Text);
 	}
 
@@ -219,6 +230,10 @@ internal partial class MoidsAndMaxoidsOfOneMinorPlanetForm : BaseKryptonForm
 	private void MenuitemCopyToClipboardMaxoidRelativeToVenus_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying Venus MAXOID value to clipboard: {labelVenusMaxoidData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelVenusMaxoidData.Text);
 	}
 
@@ -229,6 +244,10 @@ internal partial class MoidsAndMaxoidsOfOneMinorPlanetForm : BaseKryptonForm
 	private void MenuitemCopyToClipboardMoidRelativeToEarth_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying Earth MOID value to clipboard: {labelEarthMoidData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelEarthMoidData.Text);
 	}
 
@@ -239,6 +258,10 @@ internal partial class MoidsAndMaxoidsOfOneMinorPlanetForm : BaseKryptonForm
 	private void MenuitemCopyToClipboardMaxoidRelativeToEarth_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying Earth MAXOID value to clipboard: {labelEarthMaxoidData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelEarthMaxoidData.Text);
 	}
 
@@ -249,6 +272,10 @@ internal partial class MoidsAndMaxoidsOfOneMinorPlanetForm : BaseKryptonForm
 	private void MenuitemCopyToClipboardMoidRelativeToMars_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying Mars MOID value to clipboard: {labelMarsMoidData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelMarsMoidData.Text);
 	}
 
@@ -259,6 +286,10 @@ internal partial class MoidsAndMaxoidsOfOneMinorPlanetForm : BaseKryptonForm
 	private void MenuitemCopyToClipboardMaxoidRelativeToMars_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying Mars MAXOID value to clipboard: {labelMarsMaxoidData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelMarsMaxoidData.Text);
 	}
 
@@ -269,6 +300,10 @@ internal partial class MoidsAndMaxoidsOfOneMinorPlanetForm : BaseKryptonForm
 	private void MenuitemCopyToClipboardMoidRelativeToJupiter_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying Jupiter MOID value to clipboard: {labelJupiterMoidData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelJupiterMoidData.Text);
 	}
 
@@ -279,6 +314,10 @@ internal partial class MoidsAndMaxoidsOfOneMinorPlanetForm : BaseKryptonForm
 	private void MenuitemCopyToClipboardMaxoidRelativeToJupiter_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying Jupiter MAXOID value to clipboard: {labelJupiterMaxoidData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelJupiterMaxoidData.Text);
 	}
 
@@ -289,6 +328,10 @@ internal partial class MoidsAndMaxoidsOfOneMinorPlanetForm : BaseKryptonForm
 	private void MenuitemCopyToClipboardMoidRelativeToSaturn_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying Saturn MOID value to clipboard: {labelSaturnMoidData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelSaturnMoidData.Text);
 	}
 
@@ -299,6 +342,10 @@ internal partial class MoidsAndMaxoidsOfOneMinorPlanetForm : BaseKryptonForm
 	private void MenuitemCopyToClipboardMaxoidRelativeToSaturn_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying Saturn MAXOID value to clipboard: {labelSaturnMaxoidData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelSaturnMaxoidData.Text);
 	}
 
@@ -309,6 +356,10 @@ internal partial class MoidsAndMaxoidsOfOneMinorPlanetForm : BaseKryptonForm
 	private void MenuitemCopyToClipboardMoidRelativeToUranus_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying Uranus MOID value to clipboard: {labelUranusMoidData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelUranusMoidData.Text);
 	}
 
@@ -319,6 +370,10 @@ internal partial class MoidsAndMaxoidsOfOneMinorPlanetForm : BaseKryptonForm
 	private void MenuitemCopyToClipboardMaxoidRelativeToUranus_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying Uranus MAXOID value to clipboard: {labelUranusMaxoidData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelUranusMaxoidData.Text);
 	}
 
@@ -329,6 +384,10 @@ internal partial class MoidsAndMaxoidsOfOneMinorPlanetForm : BaseKryptonForm
 	private void MenuitemCopyToClipboardMoidRelativeToNeptune_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying Neptune MOID value to clipboard: {labelNeptuneMoidData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelNeptuneMoidData.Text);
 	}
 
@@ -339,6 +398,10 @@ internal partial class MoidsAndMaxoidsOfOneMinorPlanetForm : BaseKryptonForm
 	private void MenuitemCopyToClipboardMaxoidRelativeToNeptune_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying Neptune MAXOID value to clipboard: {labelNeptuneMaxoidData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelNeptuneMaxoidData.Text);
 	}
 

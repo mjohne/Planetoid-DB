@@ -117,6 +117,7 @@ internal partial class TableModeForm : BaseKryptonForm
 	/// <remarks>The method stores the elements of <paramref name="arrTemp"/> in the internal <see cref="planetoidsDatabase"/> list. The caller is responsible for providing data in the expected string format.</remarks>
 	public void FillArray(List<string> arrTemp)
 	{
+		ArgumentNullException.ThrowIfNull(argument: arrTemp);
 		logger.Info(message: "Filling the internal planetoids database with {Count} records.", argument: arrTemp.Count);
 		// Fill the internal planetoids database
 		planetoidsDatabase = [.. arrTemp];
@@ -207,6 +208,11 @@ internal partial class TableModeForm : BaseKryptonForm
 	/// <remarks>This method modifies the display cache in place to reflect the new sort order.</remarks>
 	private void SortDisplayCache(int columnIndex, SortOrder order)
 	{
+		ArgumentOutOfRangeException.ThrowIfNegative(value: columnIndex);
+		if (!Enum.IsDefined(value: order))
+		{
+			throw new System.ComponentModel.InvalidEnumArgumentException(argumentName: nameof(order), invalidValue: (int)order, enumClass: typeof(SortOrder));
+		}
 		// If no sorting is requested, log a warning and return
 		if (order == SortOrder.None)
 		{
@@ -215,12 +221,7 @@ internal partial class TableModeForm : BaseKryptonForm
 		}
 		// Determine the sort direction
 		int direction = (order == SortOrder.Ascending) ? 1 : -1;
-		// Perform the sort using a custom comparison
-		// The comparison handles both numeric and string sorting
-		// depending on the content of the column.
-		// This ensures that numeric columns are sorted numerically
-		// and string columns are sorted alphabetically.
-		// List<T>.Sort uses QuickSort (very fast, O(n log n))
+		// Perform the sort using a custom comparison. The comparison handles both numeric and string sorting depending on the content of the column. This ensures that numeric columns are sorted numerically and string columns are sorted alphabetically. List<T>.Sort uses QuickSort (very fast, O(n log n))
 		displayCache.Sort(comparison: (x, y) =>
 		{
 			// Retrieve values based on the column
@@ -292,6 +293,10 @@ internal partial class TableModeForm : BaseKryptonForm
 	{
 		// Log that the form is loading
 		logger.Info(message: "Loading TableModeForm.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Clear the status bar text
 		ClearStatusBar(label: labelInformation);
 		// Play the open sound in the background to indicate that the form has been opened
@@ -317,6 +322,10 @@ internal partial class TableModeForm : BaseKryptonForm
 	{
 		// Log that the form is closing and request cancellation of any ongoing operations
 		logger.Info(message: "Closing TableModeForm. Requesting cancellation of any ongoing operations.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Play the close sound in the background to indicate that the form is closing
 		AudioPlayback.PlayCloseSound();
 		// Request cancellation of any ongoing operations while the UI is still alive
@@ -329,6 +338,10 @@ internal partial class TableModeForm : BaseKryptonForm
 	/// <remarks>This method is called when the form is closed.</remarks>
 	private void TableModeForm_FormClosed(object sender, FormClosedEventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Clearing the token if the window is closed during work
 		cancellationTokenSource?.Dispose();
 		listView.Dispose();
@@ -344,6 +357,10 @@ internal partial class TableModeForm : BaseKryptonForm
 	/// <remarks>This method is called when the selected index of the list view changes.</remarks>
 	private void ListViewTableMode_SelectedIndexChanged(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Cast the sender to a ListView
 		if (sender is not ListView listView)
 		{
@@ -376,6 +393,10 @@ internal partial class TableModeForm : BaseKryptonForm
 	/// <remarks>This method is called to retrieve virtual items for the ListView.</remarks>
 	private void ListView_RetrieveVirtualItem(object? sender, RetrieveVirtualItemEventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Ensure that the index is within the valid range.
 		if (e.ItemIndex >= 0 && e.ItemIndex < displayCache.Count)
 		{
@@ -404,6 +425,10 @@ internal partial class TableModeForm : BaseKryptonForm
 	private async void ToolStripButtonList_ClickAsync(object sender, EventArgs e)
 	{
 		logger.Info(message: "List button clicked. Starting background processing of planetoid records.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Determine the range to process
 		int minIndex = (int)toolStripNumericUpDownMinimum.Value - 1;
 		int maxIndex = (int)toolStripNumericUpDownMaximum.Value;
@@ -514,9 +539,13 @@ internal partial class TableModeForm : BaseKryptonForm
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
 	/// <remarks>This method is called when a column header is clicked.</remarks>
-	private void ListView_ColumnClick(object? sender, ColumnClickEventArgs e)
+	private void ListView_ColumnClick(object sender, ColumnClickEventArgs e)
 	{
 		logger.Info(message: "Column {ColumnIndex} clicked for sorting.", argument: e.Column);
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// If empty list, do nothing
 		if (displayCache.Count == 0)
 		{
@@ -573,9 +602,13 @@ internal partial class TableModeForm : BaseKryptonForm
 	/// <param name="sender">Event source (the Cancel button).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is called when the Cancel button is clicked.</remarks>
-	private void ButtonCancel_Click(object? sender, EventArgs? e)
+	private void ButtonCancel_Click(object sender, EventArgs? e)
 	{
 		logger.Info(message: "Cancel button clicked. Requesting cancellation of any ongoing operations.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Stop the stopwatch for performance measurement
 		stopwatch.Stop();
 		// Set the cancel flag to true to request cancellation
@@ -590,9 +623,13 @@ internal partial class TableModeForm : BaseKryptonForm
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
 	/// <remarks>When an item in the list is double-clicked, the corresponding planetoid is displayed in the <see cref="PlanetoidDbForm"/> without closing this form.</remarks>
-	private void ListView_DoubleClick(object? sender, EventArgs e)
+	private void ListView_DoubleClick(object sender, EventArgs e)
 	{
 		logger.Info(message: "ListView item double-clicked. Navigating to the selected planetoid.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		GoToObject(closeAfterNavigation: false);
 	}
 
@@ -604,9 +641,13 @@ internal partial class TableModeForm : BaseKryptonForm
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
 	/// <remarks>When clicked, the corresponding planetoid is displayed in the <see cref="PlanetoidDbForm"/> and this form is closed.</remarks>
-	private void ToolStripButtonGoToObject_Click(object? sender, EventArgs e)
+	private void ToolStripButtonGoToObject_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "'Go to object' toolbar button clicked. Navigating to the selected planetoid.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		GoToObject(closeAfterNavigation: true);
 	}
 

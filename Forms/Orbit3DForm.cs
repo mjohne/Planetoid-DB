@@ -154,14 +154,14 @@ internal partial class Orbit3DForm : BaseKryptonForm
 	/// <remarks>The argument of perihelion and mean anomaly values are derived from the standard longitude-of-perihelion and mean-longitude elements for J2000.0. The mean motion for each planet is computed from Kepler's third law: n = 0.9856076686 / a^1.5 deg/day.</remarks>
 	private static readonly (string Name, double A, double E, double I, double Om, double Peri, double M0, Color Col)[] Planets =
 	[
-		("Mercury",  0.38709927, 0.20563593,  7.00497902,  48.33076593,  29.12703035, 174.79252722, Color.FromArgb(red: 0xC0, green: 0xC0, blue: 0xC8)),
-		("Venus",    0.72333566, 0.00677672,  3.39467605,  76.67984255,  54.92262463,  50.37663232, Color.FromArgb(red: 0xE8, green: 0xD0, blue: 0x90)),
-		("Earth",    1.00000261, 0.01671123,  0.00001531,   0.0,        102.93768193,  -2.47311027, Color.FromArgb(red: 0x40, green: 0x90, blue: 0xFF)),
-		("Mars",     1.52371034, 0.09339410,  1.84969142,  49.55953891, -73.50316850,  19.39019754, Color.FromArgb(red: 0xE0, green: 0x60, blue: 0x30)),
-		("Jupiter",  5.20288700, 0.04838624,  1.30439695, 100.47390909, -85.74542926,  19.66796068, Color.FromArgb(red: 0xE8, green: 0xC0, blue: 0x88)),
-		("Saturn",   9.53667594, 0.05386179,  2.48599187, 113.66242448, -21.06354617, -42.64463408, Color.FromArgb(red: 0xD8, green: 0xC8, blue: 0x70)),
-		("Uranus",  19.18916464, 0.04725744,  0.77263783,  74.01692503,  96.93735127, 142.28382821, Color.FromArgb(red: 0x80, green: 0xE0, blue: 0xE8)),
-		("Neptune", 30.06992276, 0.00859048,  1.77004347, 131.78422574, -86.81946347, -100.08479196, Color.FromArgb(red: 0x30, green: 0x50, blue: 0xD0)),
+		(Name: "Mercury", A:  0.38709927, E: 0.20563593, I: 7.00497902, Om:  48.33076593, Peri:  29.12703035, M0:  174.79252722, Col: Color.FromArgb(red: 0xC0, green: 0xC0, blue: 0xC8)),
+		(Name: "Venus",   A:  0.72333566, E: 0.00677672, I: 3.39467605, Om:  76.67984255, Peri:  54.92262463, M0:   50.37663232, Col: Color.FromArgb(red: 0xE8, green: 0xD0, blue: 0x90)),
+		(Name: "Earth",   A:  1.00000261, E: 0.01671123, I: 0.00001531, Om:   0.0,        Peri: 102.93768193, M0:   -2.47311027, Col: Color.FromArgb(red: 0x40, green: 0x90, blue: 0xFF)),
+		(Name: "Mars",    A:  1.52371034, E: 0.09339410, I: 1.84969142, Om:  49.55953891, Peri: -73.50316850, M0:   19.39019754, Col: Color.FromArgb(red: 0xE0, green: 0x60, blue: 0x30)),
+		(Name: "Jupiter", A:  5.20288700, E: 0.04838624, I: 1.30439695, Om: 100.47390909, Peri: -85.74542926, M0:   19.66796068, Col: Color.FromArgb(red: 0xE8, green: 0xC0, blue: 0x88)),
+		(Name: "Saturn",  A:  9.53667594, E: 0.05386179, I: 2.48599187, Om: 113.66242448, Peri: -21.06354617, M0:  -42.64463408, Col: Color.FromArgb(red: 0xD8, green: 0xC8, blue: 0x70)),
+		(Name: "Uranus",  A: 19.18916464, E: 0.04725744, I: 0.77263783, Om:  74.01692503, Peri:  96.93735127, M0:  142.28382821, Col: Color.FromArgb(red: 0x80, green: 0xE0, blue: 0xE8)),
+		(Name: "Neptune", A: 30.06992276, E: 0.00859048, I: 1.77004347, Om: 131.78422574, Peri: -86.81946347, M0: -100.08479196, Col: Color.FromArgb(red: 0x30, green: 0x50, blue: 0xD0)),
 	];
 
 	#region Constructor
@@ -269,16 +269,13 @@ internal partial class Orbit3DForm : BaseKryptonForm
 	/// <param name="periDeg">Argument of perihelion in degrees.</param>
 	/// <param name="mDeg">Mean anomaly in degrees.</param>
 	/// <returns>A tuple of (x, y, z) ecliptic coordinates in AU, where the Z axis points toward the ecliptic north pole (positive = above ecliptic plane).</returns>
-	private static (double X, double Y, double Z) OrbElemToEcliptic(
-		double a, double e, double iDeg, double omDeg, double periDeg, double mDeg)
+	private static (double X, double Y, double Z) OrbElemToEcliptic(double a, double e, double iDeg, double omDeg, double periDeg, double mDeg)
 	{
 		double ecc = e;
 		double mRad = mDeg * Math.PI / 180.0;
 		double bigE = SolveKepler(meanAnomalyRad: mRad, eccentricity: ecc);
 		// True anomaly ν via atan2
-		double nu = 2.0 * Math.Atan2(
-			y: Math.Sqrt(d: 1.0 + ecc) * Math.Sin(a: bigE / 2.0),
-			x: Math.Sqrt(d: 1.0 - ecc) * Math.Cos(d: bigE / 2.0));
+		double nu = 2.0 * Math.Atan2(y: Math.Sqrt(d: 1.0 + ecc) * Math.Sin(a: bigE / 2.0), x: Math.Sqrt(d: 1.0 - ecc) * Math.Cos(d: bigE / 2.0));
 		// Heliocentric distance
 		double r = a * (1.0 - (ecc * Math.Cos(d: bigE)));
 		// Position in orbital plane (perifocal frame)
@@ -296,12 +293,9 @@ internal partial class Orbit3DForm : BaseKryptonForm
 		double sinPeri = Math.Sin(a: periRad);
 		// Rotation matrix: R = Rz(Ω) · Rx(i) · Rz(ω)
 		// Applied to (xOrbital, yOrbital, 0)
-		double x = (((cosOm * cosPeri) - (sinOm * sinPeri * cosI)) * xOrbital)
-				 + (((-cosOm * sinPeri) - (sinOm * cosPeri * cosI)) * yOrbital);
-		double y = (((sinOm * cosPeri) + (cosOm * sinPeri * cosI)) * xOrbital)
-				 + (((-sinOm * sinPeri) + (cosOm * cosPeri * cosI)) * yOrbital);
-		double z = (sinPeri * sinI * xOrbital)
-				 + (cosPeri * sinI * yOrbital);
+		double x = (((cosOm * cosPeri) - (sinOm * sinPeri * cosI)) * xOrbital) + (((-cosOm * sinPeri) - (sinOm * cosPeri * cosI)) * yOrbital);
+		double y = (((sinOm * cosPeri) + (cosOm * sinPeri * cosI)) * xOrbital) + (((-sinOm * sinPeri) + (cosOm * cosPeri * cosI)) * yOrbital);
+		double z = (sinPeri * sinI * xOrbital) + (cosPeri * sinI * yOrbital);
 		// Return the heliocentric ecliptic coordinates in AU
 		return (x, y, z);
 	}
@@ -314,8 +308,7 @@ internal partial class Orbit3DForm : BaseKryptonForm
 	/// <param name="periDeg">Argument of perihelion in degrees.</param>
 	/// <param name="steps">Number of equal-mean-anomaly steps (default <see cref="OrbitSteps"/>).</param>
 	/// <returns>An array of <paramref name="steps"/>+1 ecliptic-coordinate tuples that close the orbit.</returns>
-	private static (double X, double Y, double Z)[] ComputeOrbitPoints(
-		double a, double e, double iDeg, double omDeg, double periDeg, int steps = OrbitSteps)
+	private static (double X, double Y, double Z)[] ComputeOrbitPoints(double a, double e, double iDeg, double omDeg, double periDeg, int steps = OrbitSteps)
 	{
 		(double X, double Y, double Z)[] pts = new (double X, double Y, double Z)[steps + 1];
 		for (int k = 0; k <= steps; k++)
@@ -332,9 +325,10 @@ internal partial class Orbit3DForm : BaseKryptonForm
 	/// <remarks><para>Format: [century-letter][2-digit-year][month-char][day-char].</para>
 	/// <para>Century letters: I=1800s, J=1900s, K=2000s.</para>
 	/// <para>Month chars: '1'–'9' for Jan–Sep, 'A'=Oct, 'B'=Nov, 'C'=Dec.</para>
-	/// <para>Day chars: '1'–'9' for 1–9, 'A'–'V' for 10–31.</para></remarks>
+	/// <para>Day chars: '1'–'9' for 1–9, 'A'–'mpcorbDatReadableDesignationDelimiterBegin' for 10–31.</para></remarks>
 	private static double MpcorbEpochToJd(string packed)
 	{
+		ArgumentException.ThrowIfNullOrWhiteSpace(argument: packed);
 		if (packed.Length < 5)
 		{
 			return J2000Jd;
@@ -442,10 +436,10 @@ internal partial class Orbit3DForm : BaseKryptonForm
 		// Column-major OpenGL perspective matrix
 		double[] proj =
 		[
-			f / aspect, 0.0,   0.0,                           0.0,
-			0.0,        f,     0.0,                           0.0,
-			0.0,        0.0,  (2000.0 + 0.1) / (0.1 - 2000.0), -1.0,
-			0.0,        0.0,   2.0 * 2000.0 * 0.1 / (0.1 - 2000.0), 0.0,
+			f / aspect, 0.0,  0.0,                                  0.0,
+			0.0,        f,    0.0,                                  0.0,
+			0.0,        0.0, (2000.0 + 0.1) / (0.1 - 2000.0),      -1.0,
+			0.0,        0.0,  2.0 * 2000.0 * 0.1 / (0.1 - 2000.0),  0.0
 		];
 		GL.LoadMatrix(m: ref proj[0]);
 		GL.MatrixMode(mode: MatrixMode.Modelview);
@@ -520,6 +514,7 @@ internal partial class Orbit3DForm : BaseKryptonForm
 	/// <remarks>Each planet's orbit is drawn as a line strip in a distinct color. The colors are dimmed to 60% brightness to ensure the planetoid's orbit stands out more prominently.</remarks>
 	private static void DrawPlanetOrbits((double X, double Y, double Z)[][] cachedOrbits)
 	{
+		ArgumentNullException.ThrowIfNull(argument: cachedOrbits);
 		GL.LineWidth(width: 1.5f);
 		for (int idx = 0; idx < Planets.Length; idx++)
 		{
@@ -691,10 +686,14 @@ internal partial class Orbit3DForm : BaseKryptonForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">Event arguments.</param>
 	/// <remarks>Creates the <see cref="GLControl"/>, initializes the OpenGL context, and triggers the first render.</remarks>
-	private void Orbit3DForm_Load(object? sender, EventArgs e)
+	private void Orbit3DForm_Load(object sender, EventArgs e)
 	{
 		// Log that the form has been loaded
 		logger.Info(message: "Orbit3DForm loaded.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Play the open sound in the background to indicate that the form has been opened
 		AudioPlayback.PlayOpenSound();
 		// Clear the status bar label to avoid showing stale information before initialization
@@ -754,6 +753,10 @@ internal partial class Orbit3DForm : BaseKryptonForm
 	{
 		// Log that the form is closing
 		logger.Info(message: "Orbit3DForm is closing.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Play the close sound in the background to indicate that the form is closing
 		AudioPlayback.PlayCloseSound();
 	}
@@ -766,8 +769,12 @@ internal partial class Orbit3DForm : BaseKryptonForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">Paint event arguments.</param>
 	/// <remarks>Triggers rendering of the 3D scene whenever the GL control needs to be repainted.</remarks>
-	private void GlControl_Paint(object? sender, PaintEventArgs e)
+	private void GlControl_Paint(object sender, PaintEventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Only render if the OpenGL context is ready; otherwise, skip to avoid exceptions.
 		if (!_glReady)
 		{
@@ -781,8 +788,12 @@ internal partial class Orbit3DForm : BaseKryptonForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">Event arguments.</param>
 	/// <remarks>Updates the OpenGL viewport and projection matrix whenever the GL control is resized.</remarks>
-	private void GlControl_Resize(object? sender, EventArgs e)
+	private void GlControl_Resize(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		if (!_glReady)
 		{
 			logger.Warn(message: "OpenGL context is not ready; skipping resize handling.");
@@ -797,8 +808,12 @@ internal partial class Orbit3DForm : BaseKryptonForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">Mouse event arguments.</param>
 	/// <remarks>Left-click initiates rotation, while right-click initiates panning. The initial mouse position is recorded for calculating deltas during movement.</remarks>
-	private void GlControl_MouseDown(object? sender, MouseEventArgs e)
+	private void GlControl_MouseDown(object sender, MouseEventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		_lastMousePos = e.Location;
 		if (e.Button == MouseButtons.Left)
 		{
@@ -814,8 +829,12 @@ internal partial class Orbit3DForm : BaseKryptonForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">Mouse event arguments.</param>
 	/// <remarks>Releases the rotation or panning mode when the corresponding mouse button is released.</remarks>
-	private void GlControl_MouseUp(object? sender, MouseEventArgs e)
+	private void GlControl_MouseUp(object sender, MouseEventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		if (e.Button == MouseButtons.Left)
 		{
 			_leftDown = false;
@@ -830,8 +849,12 @@ internal partial class Orbit3DForm : BaseKryptonForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">Mouse event arguments.</param>
 	/// <remarks>Left-drag rotates the scene (yaw and pitch). Right-drag pans the camera laterally.</remarks>
-	private void GlControl_MouseMove(object? sender, MouseEventArgs e)
+	private void GlControl_MouseMove(object sender, MouseEventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		int dx = e.X - _lastMousePos.X;
 		int dy = e.Y - _lastMousePos.Y;
 		_lastMousePos = e.Location;
@@ -856,8 +879,12 @@ internal partial class Orbit3DForm : BaseKryptonForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">Mouse event arguments.</param>
 	///	<remarks>Zooms the camera in or out based on the scroll delta, with limits to prevent excessive zooming.</remarks>
-	private void GlControl_MouseWheel(object? sender, MouseEventArgs e)
+	private void GlControl_MouseWheel(object sender, MouseEventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		_zoom -= e.Delta * 0.02f;
 		_zoom = Math.Clamp(value: _zoom, min: 0.5f, max: 200f);
 		_glControl.Invalidate();

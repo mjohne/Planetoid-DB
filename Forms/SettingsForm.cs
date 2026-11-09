@@ -71,6 +71,10 @@ internal partial class SettingsForm : BaseKryptonForm
 	{
 		// Log that the form has been loaded
 		logger.Info(message: "SettingsForm loaded.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Play the open sound in the background to indicate that the form has been opened
 		AudioPlayback.PlayOpenSound();
 		// Clear the status bar to ensure no residual messages are displayed
@@ -87,6 +91,10 @@ internal partial class SettingsForm : BaseKryptonForm
 	{
 		// Log that the form is closing
 		logger.Info(message: "SettingsForm is closing.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Play the close sound in the background to indicate that the form is closing
 		AudioPlayback.PlayCloseSound();
 	}
@@ -102,6 +110,10 @@ internal partial class SettingsForm : BaseKryptonForm
 	private void RadioButtonStartSpecific_CheckedChanged(object sender, EventArgs e)
 	{
 		logger.Info(message: $"RadioButtonStartSpecific checked changed to {radioButtonStartSpecific.Checked}.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		numericUpDownStartSpecificItem.Enabled = radioButtonStartSpecific.Checked;
 	}
 
@@ -116,6 +128,10 @@ internal partial class SettingsForm : BaseKryptonForm
 	private void ToolStripButtonSave_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Save button clicked.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		//TODO: Implement saving of settings
 		DialogResult = DialogResult.OK;
 		Close();
@@ -128,6 +144,10 @@ internal partial class SettingsForm : BaseKryptonForm
 	private void ToolStripButtonCancel_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Cancel button clicked.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		DialogResult = DialogResult.Cancel;
 		Close();
 	}
@@ -139,6 +159,10 @@ internal partial class SettingsForm : BaseKryptonForm
 	private void ToolStripButtonLoadDefaultSettings_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Load Default Settings button clicked.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		//TODO: Implement loading default settings
 	}
 

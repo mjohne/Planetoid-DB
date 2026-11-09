@@ -79,6 +79,9 @@ internal partial class LicenseForm : BaseKryptonForm
 	/// <remarks>This method is used to extract an embedded resource asynchronously.</remarks>
 	private static async Task ExtractResourceAsync(string nameSpace, string destinationPath, string resourceName, CancellationToken token = default)
 	{
+		ArgumentException.ThrowIfNullOrEmpty(argument: nameSpace);
+		ArgumentException.ThrowIfNullOrEmpty(argument: destinationPath);
+		ArgumentException.ThrowIfNullOrEmpty(argument: resourceName);
 		// Get the executing assembly
 		Assembly assembly = Assembly.GetExecutingAssembly();
 		// Get the resource path
@@ -87,13 +90,7 @@ internal partial class LicenseForm : BaseKryptonForm
 		using Stream? resourceStream = assembly.GetManifestResourceStream(name: resourcePath) ?? throw new FileNotFoundException(message: $"Embedded resource '{resourcePath}' not found.");
 		// Create the file stream
 		// 'useAsync: true' enables internal buffer optimizations for asynchronous writing.
-		using FileStream fileStream = new(
-			path: destinationPath,
-			mode: FileMode.Create,
-			access: FileAccess.Write,
-			share: FileShare.None,
-			bufferSize: 4096,
-			useAsync: true);
+		using FileStream fileStream = new(path: destinationPath, mode: FileMode.Create, access: FileAccess.Write, share: FileShare.None, bufferSize: 4096, useAsync: true);
 		// Copy the resource stream to the file stream
 		await resourceStream.CopyToAsync(destination: fileStream, cancellationToken: token).ConfigureAwait(continueOnCapturedContext: false);
 	}
@@ -110,6 +107,10 @@ internal partial class LicenseForm : BaseKryptonForm
 	{
 		// Log that the LicenseForm has loaded successfully
 		logger.Info(message: "LicenseForm loaded successfully.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Play the open sound in the background to indicate that the form has been opened
 		AudioPlayback.PlayOpenSound();
 		// Clear the status bar to ensure no message is displayed on startup
@@ -124,6 +125,10 @@ internal partial class LicenseForm : BaseKryptonForm
 	{
 		// Log that the form is closing
 		logger.Info(message: "LicenseForm is closing.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Play the close sound in the background to indicate that the form is closing
 		AudioPlayback.PlayCloseSound();
 	}
@@ -140,6 +145,10 @@ internal partial class LicenseForm : BaseKryptonForm
 	/// <remarks>This method is used to save the LICENSE file to a user-specified location.</remarks>
 	private async void KryptonButtonSaveLicense_ClickAsync(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Create a SaveFileDialog to prompt the user for a file location
 		if (saveFileDialog.ShowDialog(owner: this) != DialogResult.OK)
 		{
@@ -167,6 +176,10 @@ internal partial class LicenseForm : BaseKryptonForm
 	private void KryptonButtonCopyLicenseToClipboard_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Copy License to Clipboard button clicked.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Copy the text from the KryptonTextBox to the clipboard
 		CopyToClipboard(text: kryptonTextBoxLicense.Text);
 	}

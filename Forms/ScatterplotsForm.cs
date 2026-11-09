@@ -578,9 +578,13 @@ internal partial class ScatterplotsForm : BaseKryptonForm
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data associated with the form-closing request.</param>
 	/// <remarks>The running task is canceled so the form can close cleanly without leaving background work behind.</remarks>
-	private void ScatterplotsForm_FormClosing(object? sender, FormClosingEventArgs e)
+	private void ScatterplotsForm_FormClosing(object sender, FormClosingEventArgs e)
 	{
 		// Log that the form is closing
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		logger.Info(message: "ScatterplotsForm is closing. Cancelling any running scatter-plot generation task.");
 		_cancellationTokenSource?.Cancel();
 		// Play the close sound in the background to indicate that the form is closing
@@ -595,6 +599,10 @@ internal partial class ScatterplotsForm : BaseKryptonForm
 	{
 		// Log that the form has loaded and is initializing
 		logger.Info(message: "ScatterplotsForm loaded. Initializing form and clearing status bar.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Clear the status bar when the form loads
 		ClearStatusBar(label: labelInformation);
 	}
@@ -607,8 +615,12 @@ internal partial class ScatterplotsForm : BaseKryptonForm
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data associated with the click.</param>
 	/// <remarks>When no task is running the handler starts scatter-plot generation; otherwise it requests cancellation.</remarks>
-	private async void ToolStripButtonStartCancel_Click(object? sender, EventArgs e)
+	private async void ToolStripButtonStartCancel_Click(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// If a scatter-plot generation task is currently running, request cancellation and return immediately.
 		if (_cancellationTokenSource != null)
 		{
@@ -697,8 +709,12 @@ internal partial class ScatterplotsForm : BaseKryptonForm
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data associated with the selection change.</param>
 	/// <remarks>The empty chart is redrawn so the title and axes immediately reflect the current X-axis selection.</remarks>
-	private void ToolStripComboBoxXAxis_SelectedIndexChanged(object? sender, EventArgs e)
+	private void ToolStripComboBoxXAxis_SelectedIndexChanged(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		_ = UpdateScatterPlot(xDefinition: SelectedXDefinition, yDefinition: SelectedYDefinition, results: _currentResults);
 		logger.Info(message: "X-axis selection changed to {0}. Updating scatter plot.", argument: SelectedXDefinition?.DisplayName ?? "None");
 	}
@@ -707,8 +723,12 @@ internal partial class ScatterplotsForm : BaseKryptonForm
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data associated with the selection change.</param>
 	/// <remarks>The empty chart is redrawn so the title and axes immediately reflect the current Y-axis selection.</remarks>
-	private void ToolStripComboBoxYAxis_SelectedIndexChanged(object? sender, EventArgs e)
+	private void ToolStripComboBoxYAxis_SelectedIndexChanged(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		_ = UpdateScatterPlot(xDefinition: SelectedXDefinition, yDefinition: SelectedYDefinition, results: _currentResults);
 		logger.Info(message: "Y-axis selection changed to {0}. Updating scatter plot.", argument: SelectedYDefinition?.DisplayName ?? "None");
 	}
@@ -717,8 +737,12 @@ internal partial class ScatterplotsForm : BaseKryptonForm
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data associated with the check-state change.</param>
 	/// <remarks>The button text mirrors the current state so users can immediately see whether live updates are enabled.</remarks>
-	private void ToolStripButtonLiveDisplay_CheckedChanged(object? sender, EventArgs e)
+	private void ToolStripButtonLiveDisplay_CheckedChanged(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		toolStripButtonLiveDisplay.Text = toolStripButtonLiveDisplay.Checked ? "On" : "Off";
 		logger.Info(message: "Live display toggled to {0}.", argument: toolStripButtonLiveDisplay.Checked ? "On" : "Off");
 	}
@@ -727,8 +751,12 @@ internal partial class ScatterplotsForm : BaseKryptonForm
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data associated with the check-state change.</param>
 	/// <remarks>Immediately redraws the chart with the updated axis scale without requiring a new data run.</remarks>
-	private void ToolStripButtonLogScaleX_CheckedChanged(object? sender, EventArgs e)
+	private void ToolStripButtonLogScaleX_CheckedChanged(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		int excluded = UpdateScatterPlot(xDefinition: _currentXDefinition, yDefinition: _currentYDefinition, results: _currentResults);
 		if (_currentResults.Count > 0)
 		{
@@ -743,8 +771,12 @@ internal partial class ScatterplotsForm : BaseKryptonForm
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data associated with the check-state change.</param>
 	/// <remarks>Immediately redraws the chart with the updated axis scale without requiring a new data run.</remarks>
-	private void ToolStripButtonLogScaleY_CheckedChanged(object? sender, EventArgs e)
+	private void ToolStripButtonLogScaleY_CheckedChanged(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		int excluded = UpdateScatterPlot(xDefinition: _currentXDefinition, yDefinition: _currentYDefinition, results: _currentResults);
 		if (_currentResults.Count > 0)
 		{
@@ -765,6 +797,10 @@ internal partial class ScatterplotsForm : BaseKryptonForm
 	/// <remarks>Called by the ListView in VirtualMode instead of storing all items in memory.</remarks>
 	private void ListViewResults_RetrieveVirtualItem(object? sender, RetrieveVirtualItemEventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Validate the requested index to ensure it is within the bounds of the current results list.
 		if (e.ItemIndex < 0 || e.ItemIndex >= _currentResults.Count)
 		{

@@ -99,6 +99,7 @@ internal partial class EncounterVelocityOfAllMinorPlanetsForm : BaseKryptonForm
 	{
 		// Log the initialization of the form with the count of planetoid records
 		logger.Info(message: $"Initializing EncounterVelocityOfAllMinorPlanetsForm with {planetoids.Count} planetoid records.");
+		ArgumentNullException.ThrowIfNull(argument: planetoids);
 		InitializeComponent();
 		// Cache the planetoid records for use during the calculation; this allows the calculation method to access the raw data without needing to pass it around or access it from a shared resource
 		_planetoids = planetoids;
@@ -313,6 +314,10 @@ internal partial class EncounterVelocityOfAllMinorPlanetsForm : BaseKryptonForm
 	{
 		// Log that the form has been loaded and clear the status bar
 		logger.Info(message: "EncounterVelocityOfAllMinorPlanetsForm loaded.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Clear the status bar to ensure no residual messages are displayed from previous operations
 		ClearStatusBar(label: labelInformation);
 		// Disable the filter button initially since no results are available yet
@@ -329,6 +334,10 @@ internal partial class EncounterVelocityOfAllMinorPlanetsForm : BaseKryptonForm
 	{
 		// Log that the form is closing and check for any running calculations
 		logger.Info(message: "EncounterVelocityOfAllMinorPlanetsForm is closing.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Play the close sound in the background to indicate that the form is closing
 		AudioPlayback.PlayCloseSound();
 		// If a calculation is currently running, signal cancellation and dispose of the token source
@@ -356,6 +365,10 @@ internal partial class EncounterVelocityOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>Called by the ListView for each visible row. Must be fast and must not modify <see cref="_results"/>.</remarks>
 	private void ListView_RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Validate the requested index to ensure it is within the bounds of the results list
 		if (e.ItemIndex < 0 || e.ItemIndex >= _results.Count)
 		{
@@ -424,6 +437,10 @@ internal partial class EncounterVelocityOfAllMinorPlanetsForm : BaseKryptonForm
 	private void ListView_ColumnClick(object sender, ColumnClickEventArgs e)
 	{
 		logger.Info(message: $"Column {e.Column} clicked. Toggling sort order.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// If there are no results to sort, exit the method early
 		if (_results.Count == 0)
 		{
@@ -467,6 +484,10 @@ internal partial class EncounterVelocityOfAllMinorPlanetsForm : BaseKryptonForm
 	{
 		// Log the double-click event and navigate to the selected planetoid in the main form
 		logger.Info(message: "ListView item double-clicked. Navigating to selected planetoid in main form.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		SelectedPlanetoidInMainForm();
 	}
 
@@ -482,6 +503,10 @@ internal partial class EncounterVelocityOfAllMinorPlanetsForm : BaseKryptonForm
 	{
 		// Log the start of the calculation and check if there are any planetoid records to process
 		logger.Info(message: "Start button clicked. Beginning encounter velocity calculation.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Disable the filter button during calculation to prevent user interaction
 		toolStripButtonFilterEncounterVelocitys.Enabled = false;
 		if (_planetoids.Count == 0)
@@ -601,6 +626,10 @@ internal partial class EncounterVelocityOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>The calculation can be cancelled by the user at any time using the Cancel button.</remarks>
 	private void ButtonCancel_Click(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// If a calculation is currently running, request cancellation and prevent repeated cancel clicks.
 		if (_cancellationTokenSource != null)
 		{
@@ -616,6 +645,10 @@ internal partial class EncounterVelocityOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>When the "Go to Object" button is clicked, the corresponding planetoid is displayed in the <see cref="PlanetoidDbForm"/> without closing this form.</remarks>
 	private void ToolStripButtonGoToObject_Click(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Check if an item is actually selected before executing actions
 		if (listView.SelectedIndices.Count > 0)
 		{
@@ -641,6 +674,10 @@ internal partial class EncounterVelocityOfAllMinorPlanetsForm : BaseKryptonForm
 	{
 		// Log the current state of the filter button and apply or remove the filter accordingly
 		logger.Info(message: $"Filter button clicked. Checked state: {toolStripButtonFilterEncounterVelocitys.Checked}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		if (toolStripButtonFilterEncounterVelocitys.Checked)
 		{
 			// Log the action of enabling the filter and apply the filter to the ListView

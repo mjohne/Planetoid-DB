@@ -316,16 +316,7 @@ internal partial class ObservationsForm : BaseKryptonForm
 						: observatoryCode;
 					// Create a ListViewItem with the packed minor planet number as the main text, and the other fields as subitems
 					ListViewItem item = new(text: packedMinorPlanetNumber);
-					item.SubItems.AddRange(items:
-					[
-						packedProvisionalDesignation,
-						discoveryAsterisk,
-						dateOfObservation,
-						observedRectascension,
-						observedDeclination,
-						observedMagnitudeAndBand,
-						observatoryCodeEntry
-					]);
+					item.SubItems.AddRange(items: [packedProvisionalDesignation, discoveryAsterisk, dateOfObservation, observedRectascension, observedDeclination, observedMagnitudeAndBand, observatoryCodeEntry]);
 					_ = listView.Items.Add(value: item);
 				}
 			}
@@ -412,6 +403,9 @@ internal partial class ObservationsForm : BaseKryptonForm
 	/// <returns>The trimmed substring, or an empty string if out of range.</returns>
 	private static string SafeSubstring(string value, int startIndex, int length)
 	{
+		ArgumentException.ThrowIfNullOrEmpty(argument: value);
+		ArgumentOutOfRangeException.ThrowIfNegative(value: startIndex);
+		ArgumentOutOfRangeException.ThrowIfNegative(value: length);
 		// If the start index is beyond the end of the string, return an empty string
 		if (startIndex >= value.Length)
 		{
@@ -430,6 +424,8 @@ internal partial class ObservationsForm : BaseKryptonForm
 	/// <returns>The resolved absolute URL.</returns>
 	private static string ResolveUrl(string baseUrl, string relativeUrl)
 	{
+		ArgumentException.ThrowIfNullOrEmpty(argument: baseUrl);
+		ArgumentException.ThrowIfNullOrEmpty(argument: relativeUrl);
 		// Use Uri to resolve relative paths correctly
 		Uri baseUri = new(uriString: baseUrl);
 		Uri resolved = new(baseUri: baseUri, relativeUri: relativeUrl);
@@ -462,6 +458,10 @@ internal partial class ObservationsForm : BaseKryptonForm
 	{
 		// Log that the form has loaded successfully
 		logger.Info(message: "ObservationsForm loaded.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Play the open sound in the background to indicate that the form has been opened
 		AudioPlayback.PlayOpenSound();
 		// Clear the status bar and load the observatory codes when the form loads
@@ -476,6 +476,10 @@ internal partial class ObservationsForm : BaseKryptonForm
 	{
 		// Log that the form is closing
 		logger.Info(message: "ObservationsForm is closing.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Play the close sound in the background to indicate that the form is closing
 		AudioPlayback.PlayCloseSound();
 	}
@@ -490,6 +494,10 @@ internal partial class ObservationsForm : BaseKryptonForm
 	/// <remarks>This method determines the sort order and initiates the sorting process for the selected column.</remarks>
 	private void ListView_ColumnClick(object sender, ColumnClickEventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// If there are no items in the ListView, do not attempt to sort
 		if (listView.Items.Count == 0)
 		{
@@ -543,6 +551,10 @@ internal partial class ObservationsForm : BaseKryptonForm
 	private void ToolStripButtonReload_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Reloading observatory codes.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Clear the status bar and load the observatory codes when the form loads
 		LoadObservatoryCodes();
 	}
@@ -554,6 +566,10 @@ internal partial class ObservationsForm : BaseKryptonForm
 	private void ToolStripButtonObservatoryCodes_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Opening ObservatoryCodesForm.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Open the ObservatoryCodesForm as a modal dialog to display the list of observatory codes. The form is set to be topmost based on the current state of the main form to ensure it appears above other windows.
 		using ObservatoryCodesForm formObservatoryCodes = new();
 		formObservatoryCodes.TopMost = TopMost;

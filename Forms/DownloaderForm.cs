@@ -140,6 +140,7 @@ internal partial class DownloaderForm : BaseKryptonForm
 	/// <remarks>Uses <see cref="Uri.LocalPath"/> to extract the filename. The result is combined with the directory of <see cref="_filenameTemp"/>.</remarks>
 	private string? GetFileFromUrl(string url)
 	{
+		ArgumentException.ThrowIfNullOrWhiteSpace(argument: url);
 		// Validate the URL and extract the filename
 		if (!Uri.TryCreate(uriString: url, uriKind: UriKind.Absolute, result: out Uri? parsedUri))
 		{
@@ -165,6 +166,8 @@ internal partial class DownloaderForm : BaseKryptonForm
 	/// <remarks>The method streams the compressed input to the output file using <see cref="GZipStream"/>. It throws exceptions (e.g. <see cref="IOException"/>, <see cref="InvalidDataException"/>) to the caller.</remarks>
 	protected static async Task ExtractGzipFileAsync(string gzipFilePath, string outputFilePath, CancellationToken token)
 	{
+		ArgumentException.ThrowIfNullOrEmpty(argument: gzipFilePath);
+		ArgumentException.ThrowIfNullOrEmpty(argument: outputFilePath);
 		// Log the extraction operation for debugging purposes
 		logger.Info(message: $"Extracting GZIP file: {gzipFilePath} to {outputFilePath}");
 		// Open the source GZIP file for reading with asynchronous options
@@ -196,6 +199,8 @@ internal partial class DownloaderForm : BaseKryptonForm
 	/// <returns>A task that represents the asynchronous operation. The task result is <see langword="true"/> if the response indicates success; otherwise, <see langword="false"/>.</returns>
 	private static async Task<bool> HasInternetAsync(HttpClient client, string url)
 	{
+		ArgumentNullException.ThrowIfNull(argument: client);
+		ArgumentException.ThrowIfNullOrWhiteSpace(argument: url);
 		// Use a 5-second timeout for the connectivity check
 		try
 		{
@@ -389,6 +394,9 @@ internal partial class DownloaderForm : BaseKryptonForm
 	/// <remarks>This method updates the UI with the download progress and handles cancellation.</remarks>
 	private async Task DownloadFileAsync(string fileUrl, string destinationPath, IProgress<DownloadProgressInfo> progress, CancellationToken token)
 	{
+		ArgumentException.ThrowIfNullOrEmpty(argument: fileUrl);
+		ArgumentException.ThrowIfNullOrEmpty(argument: destinationPath);
+		ArgumentNullException.ThrowIfNull(argument: progress);
 		// Update the status label to indicate that the download is in progress
 		labelStatusValue.Text = "Downloading...";
 		// Send an HTTP GET request to the specified file URL, requesting only the headers initially to get content length and last modified date
@@ -469,6 +477,10 @@ internal partial class DownloaderForm : BaseKryptonForm
 	{
 		// Log the form load event for debugging purposes
 		logger.Info(message: "DownloaderForm loaded");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Play the open sound in the background to indicate that the form has been opened
 		AudioPlayback.PlayOpenSound();
 		// Clear the status bar
@@ -483,6 +495,10 @@ internal partial class DownloaderForm : BaseKryptonForm
 	{
 		// Log that the form is closing
 		logger.Info(message: "Form is closing. Canceling any ongoing download operation.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Cancel any ongoing download operation if the cancellation token source is not null
 		cancellationTokenSource?.Cancel();
 		// Play the close sound in the background to indicate that the form is closing
@@ -507,6 +523,8 @@ internal partial class DownloaderForm : BaseKryptonForm
 	{
 		// Log that the form is closing
 		logger.Info(message: "Form is closing. Canceling any ongoing download operation.");
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Cancel any ongoing download operation if the cancellation token source is not null
 		cancellationTokenSource?.Cancel();
 		// Play the close sound in the background to indicate that the form is closing
@@ -526,6 +544,10 @@ internal partial class DownloaderForm : BaseKryptonForm
 	private async void ButtonDownload_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Download button clicked. Starting download workflow.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		await StartDownloadAsync().ConfigureAwait(continueOnCapturedContext: false);
 	}
 
@@ -536,6 +558,10 @@ internal partial class DownloaderForm : BaseKryptonForm
 	private void ButtonCancel_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Cancel button clicked. Canceling download workflow.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		cancellationTokenSource?.Cancel();
 	}
 

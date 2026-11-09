@@ -20,10 +20,14 @@ namespace Planetoid_DB;
 public partial class PlanetoidDbForm
 {
 	/// <summary>Updates disk size usage when a file system change occurs.</summary>
-	/// <param name="source">The source of the event.</param>
+	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The file system event details.</param>
-	private void OnChanged(object source, FileSystemEventArgs e)
+	private void OnChanged(object sender, FileSystemEventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		DiskSizeUsage();
 	}
 
@@ -32,6 +36,10 @@ public partial class PlanetoidDbForm
 	/// <param name="e">The event data for the rename.</param>
 	private void OnChanged(object sender, RenamedEventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		DiskSizeUsage();
 	}
 }

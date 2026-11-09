@@ -62,9 +62,8 @@ internal partial class SplashScreenForm : BaseKryptonForm
 	/// <remarks>This method is called to set the value of the splash screen progress bar.</remarks>
 	public void SetProgressbar(int value)
 	{
+		ArgumentOutOfRangeException.ThrowIfNegative(value: value);
 		// Validate the value
-		// Check if the value is within the range of the progress bar
-		// If the value is less than the minimum or greater than the maximum, throw an exception
 		if (value < progressBarSplash.Minimum || value > progressBarSplash.Maximum)
 		{
 			// Log the error and show a error message
@@ -90,6 +89,10 @@ internal partial class SplashScreenForm : BaseKryptonForm
 	{
 		// Log that the form is loading
 		logger.Info(message: "SplashScreenForm is loading.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Set the version label text to the assembly version
 		labelVersion.Text = string.Format(provider: CultureInfo.CurrentCulture, format: I18nStrings.VersionTemplate, arg0: AssemblyInfo.AssemblyVersion);
 		// Play the start sound when the splash screen loads

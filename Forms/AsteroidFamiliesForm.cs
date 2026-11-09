@@ -88,6 +88,12 @@ internal partial class AsteroidFamiliesForm : BaseKryptonForm
 	/// <remarks>This method opens a save dialog and streams the specified families directly to a text file to minimize memory usage.</remarks>
 	private async Task SaveFamiliesToFileAsync(IReadOnlyList<AsteroidFamily> families)
 	{
+		if (families == null)
+		{
+			logger.Error($"'families' must not null: {families}");
+			ShowErrorMessage($"'families' must not null: {families}");
+			return;
+		}
 		// We determine a default file name based on whether there is a single family or multiple families. If there is one family, we use its name (truncated at the first '(' if present) and replace spaces with underscores. If there are multiple families, we use a generic name "AsteroidFamilies".
 		string defaultFileName = families.Count == 1
 			? (families[index: 0].Name.Contains(value: '(', comparisonType: StringComparison.InvariantCulture)
@@ -202,13 +208,7 @@ internal partial class AsteroidFamiliesForm : BaseKryptonForm
 	/// <param name="progress">Progress reporter (0–100).</param>
 	/// <param name="cancellationToken">Token to cancel the operation.</param>
 	/// <remarks>This method performs the asteroid family detection asynchronously using an orbital element binning algorithm.</remarks>
-	private async Task PerformDetectionAsync(
-		double tolA,
-		double tolE,
-		double tolI,
-		int minMembers,
-		IProgress<int> progress,
-		CancellationToken cancellationToken)
+	private async Task PerformDetectionAsync(double tolA, double tolE, double tolI, int minMembers, IProgress<int> progress, CancellationToken cancellationToken)
 	{
 		// The detection process is divided into three phases:
 		try
@@ -355,34 +355,6 @@ internal partial class AsteroidFamiliesForm : BaseKryptonForm
 		treeViewFamilies.EndUpdate();
 	}
 
-	/// <summary>Handles TreeView node selection and populates the member ListView accordingly.</summary>
-	/// <param name="sender">The source of the event.</param>
-	/// <param name="e">A TreeViewEventArgs that contains the event data.</param>
-	/// <remarks>This method updates the member ListView based on the selected family in the TreeView.</remarks>
-	private void TreeViewFamilies_AfterSelect(object? sender, TreeViewEventArgs e)
-	{
-		// We check if the selected node's Tag property is an integer index that corresponds to a family in the _families list. If it is, we set the _selectedFamily field to the corresponding family, update the VirtualListSize of the member ListView to match the number of members in the selected family, and enable the Save Selected button.
-		if (e.Node?.Tag is int idx && idx >= 0 && idx < _families.Count)
-		{
-			_selectedFamily = _families[index: idx];
-			// Reset sort state when a different family is selected
-			_sortColumn = -1;
-			_sortOrder = SortOrder.None;
-			// Remove any existing sort indicators from all column headers
-			for (int i = 0; i < listViewMembers.Columns.Count; i++)
-			{
-				string headerText = listViewMembers.Columns[index: i].Text;
-				if (headerText.StartsWith(value: "▲ ", comparisonType: StringComparison.CurrentCulture) || headerText.StartsWith(value: "▼ ", comparisonType: StringComparison.CurrentCulture))
-				{
-					listViewMembers.Columns[index: i].Text = headerText[2..];
-				}
-			}
-			listViewMembers.VirtualListSize = _selectedFamily.Members.Count;
-			listViewMembers.Invalidate();
-			toolStripButtonSaveListSelectedFamily.Enabled = true;
-		}
-	}
-
 	/// <summary>Navigates to the currently selected member planetoid in the <see cref="PlanetoidDbForm"/>.</summary>
 	/// <param name="closeAfterNavigation">If <see langword="true"/>, this form is closed after navigation.</param>
 	/// <remarks>Does nothing when no item is selected or the family list is empty.</remarks>
@@ -426,6 +398,10 @@ internal partial class AsteroidFamiliesForm : BaseKryptonForm
 	/// <remarks>This method is called when the form is loaded to perform any necessary initialization tasks, such as logging and playing an open sound.</remarks>
 	private void AsteroidFamiliesForm_Load(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Log that the form has been loaded
 		logger.Info(message: "AsteroidFamiliesForm loaded.");
 		// Play the open sound in the background to indicate that the form has been opened
@@ -438,6 +414,10 @@ internal partial class AsteroidFamiliesForm : BaseKryptonForm
 	/// <remarks>This method is called when the form is closing to cancel any active detection and release resources.</remarks>
 	private void AsteroidFamiliesForm_FormClosing(object? sender, FormClosingEventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// We log an informational message indicating that the form is closing and that we are cancelling any active detection and releasing resources.
 		logger.Info(message: "Form is closing. Cancelling any active detection and releasing resources.");
 		// Play the close sound in the background to indicate that the form is closing
@@ -460,6 +440,10 @@ internal partial class AsteroidFamiliesForm : BaseKryptonForm
 	/// <remarks>This method provides ListView items on demand for VirtualMode.</remarks>
 	private void ListView_RetrieveVirtualItem(object? sender, RetrieveVirtualItemEventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// We check if a family is currently selected and if the requested item index is within the bounds of the selected family's member list. If not, we return a placeholder item with a "?" text. Otherwise, we create a new ListViewItem with the planetoid's index and add subitems for the name, semi-major axis, eccentricity, inclination, mean anomaly, argument of perihelion, and longitude of ascending node, all formatted appropriately.
 		if (_selectedFamily == null || e.ItemIndex >= _selectedFamily.Members.Count)
 		{
@@ -491,6 +475,8 @@ internal partial class AsteroidFamiliesForm : BaseKryptonForm
 	private async void ToolStripButtonStartSearch_Click(object? sender, EventArgs e)
 	{
 		logger.Info(message: "User initiated asteroid family detection.");
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// If there are no planetoid data lines available, show an informational message and return.
 		if (_planetoids.Count == 0)
 		{
@@ -540,6 +526,8 @@ internal partial class AsteroidFamiliesForm : BaseKryptonForm
 	private void ToolStripButtonCancel_Click(object? sender, EventArgs e)
 	{
 		logger.Info(message: "User requested cancellation of the asteroid family detection.");
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// If a cancellation token source exists, signal cancellation to stop the detection process. Also disable the Cancel button and re-enable the Start button to allow the user to start a new detection if desired.
 		if (_cancellationTokenSource != null)
 		{
@@ -556,6 +544,8 @@ internal partial class AsteroidFamiliesForm : BaseKryptonForm
 	private async void ToolStripButtonSaveSelected_Click(object? sender, EventArgs e)
 	{
 		logger.Info(message: "User requested to save the currently selected family to a text file.");
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// We check if a family is currently selected. If not, we simply return without doing anything. If a family is selected, we call the SaveFamiliesToFile method with a list containing just the selected family to save it to a text file.
 		if (_selectedFamily == null)
 		{
@@ -572,6 +562,8 @@ internal partial class AsteroidFamiliesForm : BaseKryptonForm
 	private async void ToolStripButtonSaveAll_Click(object? sender, EventArgs e)
 	{
 		logger.Info(message: "User requested to save all detected families to a single text file.");
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// We check if there are any detected families in the _families list. If the list is empty, we simply return without doing anything. If there are families detected, we call the SaveFamiliesToFile method with the entire list of families to save them all to a single text file.
 		if (_families.Count == 0)
 		{
@@ -589,6 +581,8 @@ internal partial class AsteroidFamiliesForm : BaseKryptonForm
 	private void ToolStripButtonGoToObject_Click(object? sender, EventArgs e)
 	{
 		logger.Info(message: "User clicked 'Go to object' button. Navigating to selected member and closing the form.");
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		NavigateToSelectedMember(closeAfterNavigation: true);
 	}
 
@@ -602,6 +596,10 @@ internal partial class AsteroidFamiliesForm : BaseKryptonForm
 	/// <remarks>Clicking a column header sorts the member list by that column, alternating between ascending and descending order. The sort indicator (▲/▼) is shown in the column header text. Because the ListView operates in virtual mode, sorting is applied directly to the underlying <see cref="AsteroidFamily.Members"/> list and the control is refreshed.</remarks>
 	private void ListViewMembers_ColumnClick(object? sender, ColumnClickEventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Nothing to sort if no family is selected or the list is empty
 		if (_selectedFamily == null || _selectedFamily.Members.Count == 0)
 		{
@@ -672,6 +670,8 @@ internal partial class AsteroidFamiliesForm : BaseKryptonForm
 	/// <returns>A signed integer that indicates the relative order of <paramref name="a"/> and <paramref name="b"/>.</returns>
 	private static int CompareAlphanumeric(string a, string b)
 	{
+		ArgumentException.ThrowIfNullOrEmpty(argument: a);
+		ArgumentException.ThrowIfNullOrEmpty(argument: b);
 		bool hasNumericA = int.TryParse(s: a, result: out int numA);
 		bool hasNumericB = int.TryParse(s: b, result: out int numB);
 		return hasNumericA && hasNumericB
@@ -690,7 +690,47 @@ internal partial class AsteroidFamiliesForm : BaseKryptonForm
 	private void ListViewMembers_DoubleClick(object? sender, EventArgs e)
 	{
 		logger.Info(message: "User double-clicked a member. Navigating to selected member without closing the form.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		NavigateToSelectedMember(closeAfterNavigation: false);
+	}
+
+	#endregion
+
+	#region AfterSelect event handler
+
+	/// <summary>Handles TreeView node selection and populates the member ListView accordingly.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">A TreeViewEventArgs that contains the event data.</param>
+	/// <remarks>This method updates the member ListView based on the selected family in the TreeView.</remarks>
+	private void TreeViewFamilies_AfterSelect(object? sender, TreeViewEventArgs e)
+	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		// We check if the selected node's Tag property is an integer index that corresponds to a family in the _families list. If it is, we set the _selectedFamily field to the corresponding family, update the VirtualListSize of the member ListView to match the number of members in the selected family, and enable the Save Selected button.
+		if (e.Node?.Tag is int idx && idx >= 0 && idx < _families.Count)
+		{
+			_selectedFamily = _families[index: idx];
+			// Reset sort state when a different family is selected
+			_sortColumn = -1;
+			_sortOrder = SortOrder.None;
+			// Remove any existing sort indicators from all column headers
+			for (int i = 0; i < listViewMembers.Columns.Count; i++)
+			{
+				string headerText = listViewMembers.Columns[index: i].Text;
+				if (headerText.StartsWith(value: "▲ ", comparisonType: StringComparison.CurrentCulture) || headerText.StartsWith(value: "▼ ", comparisonType: StringComparison.CurrentCulture))
+				{
+					listViewMembers.Columns[index: i].Text = headerText[2..];
+				}
+			}
+			listViewMembers.VirtualListSize = _selectedFamily.Members.Count;
+			listViewMembers.Invalidate();
+			toolStripButtonSaveListSelectedFamily.Enabled = true;
+		}
 	}
 
 	#endregion

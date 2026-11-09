@@ -260,6 +260,7 @@ internal partial class DistributionsForm : BaseKryptonForm
 	/// <remarks>The input value is clamped to the 0 to 100 range before it is shown.</remarks>
 	private void UpdateProgress(int percent)
 	{
+		ArgumentOutOfRangeException.ThrowIfNegative(value: percent);
 		// Clamp the input percentage to ensure it stays within the valid range of 0 to 100.
 		int clampedPercent = Math.Clamp(value: percent, min: 0, max: 100);
 		// Update the Krypton progress bar with the clamped percentage value and display it as text.
@@ -279,6 +280,7 @@ internal partial class DistributionsForm : BaseKryptonForm
 	/// <remarks>The method keeps the chart and the tabular view synchronized.</remarks>
 	private void ApplyResults(HistogramDefinition? definition, IReadOnlyList<HistogramBinResult> results)
 	{
+		ArgumentNullException.ThrowIfNull(argument: results);
 		// Update the current results list with the new histogram bins.
 		_currentResults = [.. results];
 		// The ListView is updated in a batch to prevent flickering and improve performance while adding multiple items.
@@ -312,6 +314,7 @@ internal partial class DistributionsForm : BaseKryptonForm
 	/// <remarks>The chart always contains a title, axis labels, and a legend. When no results are available, the axes are still configured but no bars are plotted.</remarks>
 	private void UpdateHistogramPlot(HistogramDefinition? definition, IReadOnlyList<HistogramBinResult> results)
 	{
+		ArgumentNullException.ThrowIfNull(argument: results);
 		// Clear existing plots and configure the title, axis labels, and legend based on the selected histogram definition. The title reflects the selected orbital element or property, and the axis labels are set accordingly. The legend is made visible and aligned to the upper right corner of the plot area.
 		formsPlotHistogram.Plot.Clear();
 		formsPlotHistogram.Plot.Title(text: definition is null ? "Orbit elements histogram" : $"Histogram of {definition.DisplayName}");
@@ -369,14 +372,11 @@ internal partial class DistributionsForm : BaseKryptonForm
 	/// <param name="cancellationToken">The token used to cancel the operation.</param>
 	/// <returns>A sorted list of final histogram bins.</returns>
 	/// <remarks>The method scans the supplied MPCORB lines once, counts values into bins, and optionally reports intermediate snapshots for live rendering.</remarks>
-	private List<HistogramBinResult> BuildHistogram(
-		HistogramDefinition definition,
-		double stepSize,
-		bool enableLiveDisplay,
-		IProgress<int> progress,
-		IProgress<List<HistogramBinResult>> liveResults,
-		CancellationToken cancellationToken)
+	private List<HistogramBinResult> BuildHistogram(HistogramDefinition definition, double stepSize, bool enableLiveDisplay, IProgress<int> progress, IProgress<List<HistogramBinResult>> liveResults, CancellationToken cancellationToken)
 	{
+		ArgumentNullException.ThrowIfNull(argument: definition);
+		ArgumentNullException.ThrowIfNull(argument: progress);
+		ArgumentNullException.ThrowIfNull(argument: liveResults);
 		// Use a sorted dictionary to count the number of planetoids in each histogram bin, where the key is the bin index and the value is the count. The sorted dictionary ensures that the bins are automatically ordered by their index, which corresponds to their range in the histogram.
 		SortedDictionary<int, int> counts = [];
 		// The total number of planetoids is used to determine how frequently to report progress and live updates. Progress is reported every 1% of completion, and live updates are reported every 4% of completion, with a minimum interval of at least one processed item to ensure responsiveness even with small datasets.
@@ -426,6 +426,7 @@ internal partial class DistributionsForm : BaseKryptonForm
 	/// <remarks>The method transforms the bin indices and counts into a list of HistogramBinResult objects, calculating the start and end values for each bin based on the step size. The resulting list is sorted by the bin index, which corresponds to the range of values for each histogram bin.</remarks>
 	private static List<HistogramBinResult> CreateHistogramResults(SortedDictionary<int, int> counts, double stepSize)
 	{
+		ArgumentNullException.ThrowIfNull(argument: counts);
 		// Convert the sorted dictionary of counts into a list of HistogramBinResult objects, where each object represents a histogram bin with its start and end values calculated based on the bin index and step size. The start value of each bin is calculated as the bin index multiplied by the step size, and the end value is calculated as the start value plus the step size. The count for each bin is taken directly from the sorted dictionary.
 		return counts.Count == 0
 		? []
@@ -473,14 +474,11 @@ internal partial class DistributionsForm : BaseKryptonForm
 	/// <remarks>The method extracts a substring from the specified start index and length, trims it, and attempts to parse it as a double using the invariant culture. This is used to extract various orbital elements and properties from the fixed-width fields in the raw MPCORB records.</remarks>
 	private static bool TryParseValue(string line, int startIndex, int length, out double value)
 	{
+		ArgumentException.ThrowIfNullOrWhiteSpace(argument: line);
 		// Initialize the output value to default to ensure it has a defined value in case parsing fails. The method will return false if the specified substring cannot be parsed as a double, or if the line does not contain enough characters for the specified start index and length.
 		value = default;
 		// Check if the line has enough characters to extract the specified substring based on the start index and length. If the line is too short, parsing cannot proceed and the method will return false.
-		return line.Length >= startIndex + length && double.TryParse(
-			s: line.Substring(startIndex: startIndex, length: length).Trim(),
-			style: NumberStyles.Float,
-			provider: CultureInfo.InvariantCulture,
-			result: out value);
+		return line.Length >= startIndex + length && double.TryParse(s: line.Substring(startIndex: startIndex, length: length).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out value);
 	}
 
 	/// <summary>Attempts to parse the semi-major axis from a raw MPCORB record.</summary>
@@ -490,6 +488,7 @@ internal partial class DistributionsForm : BaseKryptonForm
 	/// <remarks>The semi-major axis is located at a fixed position in the MPCORB record, and this method uses the TryParseValue helper to extract and parse it as a double.</remarks>
 	private static bool TryParseSemiMajorAxis(string line, out double value)
 	{
+		ArgumentException.ThrowIfNullOrWhiteSpace(argument: line);
 		return TryParseValue(line: line, startIndex: 92, length: 11, value: out value);
 	}
 
@@ -500,6 +499,7 @@ internal partial class DistributionsForm : BaseKryptonForm
 	/// <remarks>The eccentricity is located at a fixed position in the MPCORB record, and this method uses the TryParseValue helper to extract and parse it as a double.</remarks>
 	private static bool TryParseEccentricity(string line, out double value)
 	{
+		ArgumentException.ThrowIfNullOrWhiteSpace(argument: line);
 		return TryParseValue(line: line, startIndex: 70, length: 9, value: out value);
 	}
 
@@ -510,6 +510,7 @@ internal partial class DistributionsForm : BaseKryptonForm
 	/// <remarks>The inclination is located at a fixed position in the MPCORB record, and this method uses the TryParseValue helper to extract and parse it as a double.</remarks>
 	private static bool TryParseInclination(string line, out double value)
 	{
+		ArgumentException.ThrowIfNullOrWhiteSpace(argument: line);
 		return TryParseValue(line: line, startIndex: 59, length: 9, value: out value);
 	}
 
@@ -520,6 +521,7 @@ internal partial class DistributionsForm : BaseKryptonForm
 	/// <remarks>The mean anomaly is located at a fixed position in the MPCORB record, and this method uses the TryParseValue helper to extract and parse it as a double.</remarks>
 	private static bool TryParseMeanAnomaly(string line, out double value)
 	{
+		ArgumentException.ThrowIfNullOrWhiteSpace(argument: line);
 		return TryParseValue(line: line, startIndex: 26, length: 9, value: out value);
 	}
 
@@ -530,6 +532,7 @@ internal partial class DistributionsForm : BaseKryptonForm
 	/// <remarks>The argument of perihelion is located at a fixed position in the MPCORB record, and this method uses the TryParseValue helper to extract and parse it as a double.</remarks>
 	private static bool TryParseArgumentOfPerihelion(string line, out double value)
 	{
+		ArgumentException.ThrowIfNullOrWhiteSpace(argument: line);
 		return TryParseValue(line: line, startIndex: 37, length: 9, value: out value);
 	}
 
@@ -540,6 +543,7 @@ internal partial class DistributionsForm : BaseKryptonForm
 	/// <remarks>The longitude of the ascending node is located at a fixed position in the MPCORB record, and this method uses the TryParseValue helper to extract and parse it as a double.</remarks>
 	private static bool TryParseLongitudeOfAscendingNode(string line, out double value)
 	{
+		ArgumentException.ThrowIfNullOrWhiteSpace(argument: line);
 		return TryParseValue(line: line, startIndex: 48, length: 9, value: out value);
 	}
 
@@ -550,6 +554,7 @@ internal partial class DistributionsForm : BaseKryptonForm
 	/// <remarks>The mean daily motion is located at a fixed position in the MPCORB record, and this method uses the TryParseValue helper to extract and parse it as a double.</remarks>
 	private static bool TryParseMeanDailyMotion(string line, out double value)
 	{
+		ArgumentException.ThrowIfNullOrWhiteSpace(argument: line);
 		return TryParseValue(line: line, startIndex: 80, length: 11, value: out value);
 	}
 
@@ -560,6 +565,7 @@ internal partial class DistributionsForm : BaseKryptonForm
 	/// <remarks>The perihelion distance is calculated from the semi-major axis and eccentricity, which are located at fixed positions in the MPCORB record.</remarks>
 	private static bool TryParsePerihelionDistance(string line, out double value)
 	{
+		ArgumentException.ThrowIfNullOrWhiteSpace(argument: line);
 		value = default;
 		return TryParseSemiMajorAxis(line: line, value: out double semiMajorAxis) &&
 		TryParseEccentricity(line: line, value: out double eccentricity) && (value = semiMajorAxis * (1 - eccentricity)) >= 0;
@@ -572,6 +578,7 @@ internal partial class DistributionsForm : BaseKryptonForm
 	/// <remarks>The aphelion distance is calculated from the semi-major axis and eccentricity, which are located at fixed positions in the MPCORB record.</remarks>
 	private static bool TryParseAphelionDistance(string line, out double value)
 	{
+		ArgumentException.ThrowIfNullOrWhiteSpace(argument: line);
 		value = default;
 		return TryParseSemiMajorAxis(line: line, value: out double semiMajorAxis) &&
 		TryParseEccentricity(line: line, value: out double eccentricity) && (value = semiMajorAxis * (1 + eccentricity)) >= 0;
@@ -584,6 +591,7 @@ internal partial class DistributionsForm : BaseKryptonForm
 	/// <remarks>The orbital period is calculated from the semi-major axis, which is located at a fixed position in the MPCORB record.</remarks>
 	private static bool TryParseOrbitalPeriod(string line, out double value)
 	{
+		ArgumentException.ThrowIfNullOrWhiteSpace(argument: line);
 		value = default;
 		return TryParseSemiMajorAxis(line: line, value: out double semiMajorAxis) && semiMajorAxis >= 0 && (value = Math.Sqrt(d: Math.Pow(x: semiMajorAxis, y: 3))) >= 0;
 	}
@@ -600,6 +608,10 @@ internal partial class DistributionsForm : BaseKryptonForm
 	{
 		// Log that the form has been loaded
 		logger.Info(message: "DistributionsForm loaded.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Play the open sound in the background to indicate that the form has been opened
 		AudioPlayback.PlayOpenSound();
 	}
@@ -612,6 +624,8 @@ internal partial class DistributionsForm : BaseKryptonForm
 	{
 		// Log a warning message indicating that the form is closing and any running histogram operation will be canceled. This provides visibility into the application's behavior and helps with debugging if needed.
 		logger.Warn(message: "DistributionsForm is closing, canceling any running histogram operation.");
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Play the close sound in the background to indicate that the form is closing
 		AudioPlayback.PlayCloseSound();
 		// Request cancellation of any running histogram generation task to ensure that the form can close cleanly without leaving background work behind. This allows the application to terminate gracefully and prevents potential issues with lingering tasks.
@@ -628,6 +642,8 @@ internal partial class DistributionsForm : BaseKryptonForm
 	/// <remarks>When no task is running the handler starts histogram generation; otherwise it requests cancellation.</remarks>
 	private async void ToolStripButtonStartCancel_Click(object? sender, EventArgs e)
 	{
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// If a histogram generation task is currently running, request cancellation and return immediately. This allows the user to stop the ongoing operation without starting a new one. If no task is running, the method proceeds to validate the input selections and start a new histogram generation task.
 		if (_cancellationTokenSource != null)
 		{
@@ -721,6 +737,8 @@ internal partial class DistributionsForm : BaseKryptonForm
 	/// <remarks>The step-size drop-down is repopulated with values that are meaningful for the selected histogram definition.</remarks>
 	private void ToolStripComboBoxOrbitElement_SelectedIndexChanged(object? sender, EventArgs e)
 	{
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Retrieve the currently selected histogram definition based on the user's selection in the orbital-element drop-down. This definition contains information about the selected orbital element, including its display name, axis label, unit suffix, and available step size options. The selected definition will be used to update the UI and populate the step-size drop-down with relevant options for the chosen orbital element.
 		HistogramDefinition? definition = GetSelectedDefinition();
 		// Clear the step-size drop-down items to prepare for repopulation based on the newly selected histogram definition. This ensures that only relevant step size options are displayed for the selected orbital element, providing a better user experience and preventing invalid selections.
@@ -760,6 +778,8 @@ internal partial class DistributionsForm : BaseKryptonForm
 	private void ToolStripComboBoxStepSize_SelectedIndexChanged(object? sender, EventArgs e)
 	{
 		logger.Info(message: "Step-size selection changed.");
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		UpdateHistogramPlot(definition: GetSelectedDefinition(), results: _currentResults);
 	}
 
@@ -770,6 +790,8 @@ internal partial class DistributionsForm : BaseKryptonForm
 	private void ToolStripButtonLiveDisplay_CheckedChanged(object? sender, EventArgs e)
 	{
 		logger.Info(message: "Live-display setting changed.");
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Update the text of the live-display button to reflect its current checked state. If the button is checked, the text will show "On" to indicate that live updates are enabled; if it is unchecked, the text will show "Off" to indicate that live updates are disabled. This provides immediate visual feedback to the user about the state of the live display option.
 		toolStripButtonLiveDisplay.Text = toolStripButtonLiveDisplay.Checked ? "On" : "Off";
 	}
@@ -781,6 +803,8 @@ internal partial class DistributionsForm : BaseKryptonForm
 	private void ToolStripButtonLogScale_CheckedChanged(object? sender, EventArgs e)
 	{
 		logger.Info(message: "Log-scale setting changed.");
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Update the histogram plot to reflect the change in log scale setting. The UpdateHistogramPlot method will redraw the chart using the current results, applying the new axis scaling based on whether the log-scale button is checked or not. This allows the user to see the effect of enabling or disabling log scale on the histogram immediately.
 		UpdateHistogramPlot(definition: GetSelectedDefinition(), results: _currentResults);
 	}

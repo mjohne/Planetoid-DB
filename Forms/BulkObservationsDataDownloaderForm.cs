@@ -160,6 +160,12 @@ internal partial class BulkObservationsDataDownloaderForm : BaseKryptonForm
 	/// <remarks>Call this before showing the form so the spinner is pre-populated correctly.</remarks>
 	public void SetMinimum(int minimum)
 	{
+		if (int.IsNegative(value: minimum))
+		{
+			logger.Error($"The minimum index value for the range spinner must not negative: {minimum}");
+			ShowErrorMessage($"The minimum index value for the range spinner must not negative: {minimum}");
+			return;
+		}
 		// Clamp to valid spinner bounds
 		decimal value = Math.Max(val1: 1, val2: minimum);
 		numericUpDownMinimum.Minimum = value;
@@ -171,6 +177,12 @@ internal partial class BulkObservationsDataDownloaderForm : BaseKryptonForm
 	/// <remarks>Call this before showing the form so the spinner is pre-populated correctly.</remarks>
 	public void SetMaximum(int maximum)
 	{
+		if (int.IsNegative(value: maximum))
+		{
+			logger.Error($"The maximum index value for the range spinner must not negative: {maximum}");
+			ShowErrorMessage($"The maximum index value for the range spinner must not negative: {maximum}");
+			return;
+		}
 		// Clamp to a positive value
 		decimal value = Math.Max(val1: 1, val2: maximum);
 		numericUpDownMaximum.Maximum = value;
@@ -184,6 +196,8 @@ internal partial class BulkObservationsDataDownloaderForm : BaseKryptonForm
 	/// <remarks>This method uses the <see cref="Uri"/> class to correctly handle relative paths and ensure a valid absolute URL is returned.</remarks>
 	private static string ResolveUrl(string baseUrl, string relativeUrl)
 	{
+		ArgumentException.ThrowIfNullOrWhiteSpace(argument: baseUrl);
+		ArgumentException.ThrowIfNullOrWhiteSpace(argument: relativeUrl);
 		// Use Uri to resolve relative paths correctly
 		Uri baseUri = new(uriString: baseUrl);
 		Uri resolved = new(baseUri: baseUri, relativeUri: relativeUrl);
@@ -197,6 +211,7 @@ internal partial class BulkObservationsDataDownloaderForm : BaseKryptonForm
 	/// <remarks>This method extracts the last segment of the URL path, unescapes it, and returns it as the filename. If the last segment is empty or whitespace, a fallback name based on the current timestamp is returned to ensure a valid filename.</remarks>
 	private static string GetFileNameFromUrl(string absoluteUrl)
 	{
+		ArgumentException.ThrowIfNullOrEmpty(argument: absoluteUrl);
 		// Use Uri to parse the path and extract only the last segment
 		if (Uri.TryCreate(uriString: absoluteUrl, uriKind: UriKind.Absolute, result: out Uri? uri))
 		{
@@ -217,12 +232,11 @@ internal partial class BulkObservationsDataDownloaderForm : BaseKryptonForm
 	/// <remarks>This method increments the error counter and appends a new <see cref="BulkObservationsDownloadErrorEntry"/> to the in-memory list of download errors. The timestamp is set to the current time.</remarks>
 	private void AddDownloadError(string url, string errorType, string errorDescription)
 	{
+		ArgumentException.ThrowIfNullOrEmpty(argument: url);
+		ArgumentException.ThrowIfNullOrEmpty(argument: errorType);
+		ArgumentException.ThrowIfNullOrEmpty(argument: errorDescription);
 		_errorCount++;
-		_downloadErrors.Add(item: new BulkObservationsDownloadErrorEntry(
-			Timestamp: DateTime.Now,
-			Url: string.IsNullOrWhiteSpace(value: url) ? "-" : url,
-			ErrorType: errorType,
-			ErrorDescription: errorDescription));
+		_downloadErrors.Add(item: new BulkObservationsDownloadErrorEntry(Timestamp: DateTime.Now, Url: string.IsNullOrWhiteSpace(value: url) ? "-" : url, ErrorType: errorType, ErrorDescription: errorDescription));
 	}
 
 	/// <summary>Updates the progress bar percentage and taskbar progress for the given file counts.</summary>
@@ -255,6 +269,9 @@ internal partial class BulkObservationsDataDownloaderForm : BaseKryptonForm
 	/// <remarks>This method updates the status labels with the latest counters and timing information.</remarks>
 	private void UpdateStatusLabels(string status, int downloaded, int total)
 	{
+		ArgumentException.ThrowIfNullOrEmpty(argument: status);
+		ArgumentOutOfRangeException.ThrowIfNegativeOrZero(value: downloaded);
+		ArgumentOutOfRangeException.ThrowIfNegativeOrZero(value: total);
 		labelStatusValue.Text = status;
 		labelFileCountValue.Text = $"{downloaded}/{total}";
 		labelFileSizeValue.Text = $"{_currentFileSize:N0} / {_totalBytesDownloaded:N0} {I18nStrings.BytesText}";
@@ -474,6 +491,10 @@ internal partial class BulkObservationsDataDownloaderForm : BaseKryptonForm
 	{
 		// Log the form load event
 		logger.Info(message: "BulkObservationsDataDownloaderForm loaded; initialising spinners and clearing status bar.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Play the open sound in the background to indicate that the form has been opened
 		AudioPlayback.PlayOpenSound();
 		// Clear the status bar on load
@@ -505,6 +526,10 @@ internal partial class BulkObservationsDataDownloaderForm : BaseKryptonForm
 	{
 		// Log the closing event and cancel any active download
 		logger.Info(message: "BulkObservationsDataDownloaderForm closing; cancelling any active download.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Play the close sound in the background to indicate that the form is closing
 		AudioPlayback.PlayCloseSound();
 		// Signal cancellation to the running download
@@ -531,6 +556,10 @@ internal partial class BulkObservationsDataDownloaderForm : BaseKryptonForm
 	private async void ButtonStart_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Start/Pause button clicked.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// If a download is active and not paused, pause it
 		if (_cancellationTokenSource != null && !_isPaused)
 		{
@@ -623,6 +652,10 @@ internal partial class BulkObservationsDataDownloaderForm : BaseKryptonForm
 	private void ButtonCancel_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Cancel button clicked; cancelling download.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// If currently paused, unblock the awaiting task before cancelling
 		if (_isPaused)
 		{
@@ -642,6 +675,10 @@ internal partial class BulkObservationsDataDownloaderForm : BaseKryptonForm
 	private void ButtonErrorLog_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Error log button clicked; displaying download errors.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		using BulkObservationsDownloadErrorsForm form = new(entries: _downloadErrors);
 		_ = form.ShowDialog(owner: this);
 	}

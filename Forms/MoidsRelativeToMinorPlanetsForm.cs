@@ -116,14 +116,9 @@ internal partial class MoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 	/// <param name="argumentPerihelionDeg">When successful, receives the argument of perihelion in degrees.</param>
 	/// <returns><see langword="true"/> if all five elements were parsed successfully; <see langword="false"/> otherwise.</returns>
 	/// <remarks>The method first checks if the line is long enough to contain all required fields. It then attempts to parse each field individually, returning <see langword="false"/> if any parsing operation fails.</remarks>
-	private static bool TryParseOrbitalElements(
-		string line,
-		out double semiMajorAxis,
-		out double eccentricity,
-		out double inclinationDeg,
-		out double longitudeAscendingNodeDeg,
-		out double argumentPerihelionDeg)
+	private static bool TryParseOrbitalElements(string line, out double semiMajorAxis, out double eccentricity, out double inclinationDeg, out double longitudeAscendingNodeDeg, out double argumentPerihelionDeg)
 	{
+		ArgumentException.ThrowIfNullOrEmpty(argument: line);
 		semiMajorAxis = 0;
 		eccentricity = 0;
 		inclinationDeg = 0;
@@ -253,6 +248,7 @@ internal partial class MoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>The combo box items are replaced with all names that contain the current text (case-insensitive). The cursor is repositioned at the end of the typed text after the update.</remarks>
 	private void ApplyContainsFilter(ComboBox comboBox)
 	{
+		ArgumentNullException.ThrowIfNull(argument: comboBox);
 		if (_updatingComboBox)
 		{
 			logger.Warn(message: "Re-entrant call to ApplyContainsFilter detected; skipping update.");
@@ -293,6 +289,10 @@ internal partial class MoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>The method first clears the status bar. It then extracts all planetoid designations from the raw database lines and populates both combo boxes with these names. An autocomplete source is also set up to provide standard "StartsWith" suggestions based on the full list of names. Any errors during this process are logged and displayed to the user.</remarks>
 	private void MoidsRelativeToMinorPlanetsForm_Load(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Clear the status bar
 		ClearStatusBar(label: labelInformation);
 		try
@@ -325,6 +325,10 @@ internal partial class MoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>This event fires only when the user commits an item from the list; at that point both values are stable enough to perform a full MOID calculation.</remarks>
 	private void ComboBoxPlanetoid_SelectionChangeCommitted(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CalculateAndDisplayMoid();
 	}
 
@@ -350,6 +354,10 @@ internal partial class MoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>This method is triggered whenever the text in the first combo box changes. It applies a filter to the items in the combo box so that only names containing the current text (case-insensitive) are shown. The cursor is repositioned at the end of the typed text after the update. The MOID is recalculated only if both combo boxes contain exact valid designations.</remarks>
 	private void ComboBoxPlanetoid1_TextChanged(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		ApplyContainsFilter(comboBox: comboBoxPlanetoid1);
 		RecalculateMoidIfBothPlanetoidsAreValid();
 	}
@@ -360,6 +368,10 @@ internal partial class MoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>This method is triggered whenever the text in the second combo box changes. It applies a filter to the items in the combo box so that only names containing the current text (case-insensitive) are shown. The cursor is repositioned at the end of the typed text after the update. The MOID is recalculated only if both combo boxes contain exact valid designations.</remarks>
 	private void ComboBoxPlanetoid2_TextChanged(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		ApplyContainsFilter(comboBox: comboBoxPlanetoid2);
 		RecalculateMoidIfBothPlanetoidsAreValid();
 	}
@@ -370,6 +382,10 @@ internal partial class MoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>This method is triggered when the user clicks the random-selection button next to the first combo box. It picks a random planetoid name from the full list of names (not the filtered list) and sets it as the text of the first combo box, which in turn triggers a MOID recalculation through the TextChanged event.</remarks>
 	private void KryptonButtonRandomPlanetoid1_Click(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		if (_allNames.Length > 0)
 		{
 			// Pick a random index from the full list, not the filtered list
@@ -385,6 +401,10 @@ internal partial class MoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>This method is triggered when the user clicks the random-selection button next to the second combo box. It picks a random planetoid name from the full list of names (not the filtered list) and sets it as the text of the second combo box, which in turn triggers a MOID recalculation through the TextChanged event.</remarks>
 	private void KryptonButtonRandomPlanetoid2_Click(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		if (_allNames.Length > 0)
 		{
 			// Pick a random index from the full list, not the filtered list

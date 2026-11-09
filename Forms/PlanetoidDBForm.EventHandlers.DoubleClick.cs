@@ -31,6 +31,10 @@ public partial class PlanetoidDbForm
 	{
 		// Get the current tag text from the sender control
 		logger.Info(message: $"Double-click event triggered on control '{sender?.GetType().Name}' to open terminology dialog.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Try to parse the index from the current tag text
 		if (TryParseInt(input: currentTagText, value: out int index, errorMessage: out string errorMessage))
 		{
@@ -51,6 +55,10 @@ public partial class PlanetoidDbForm
 	{
 		// Log the action of loading additional databases on startup via double-click
 		logger.Info(message: "Loading additional databases on startup via double-click.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Set the checked state of the menu items to true for loading additional databases on startup
 		toolStripMenuItemLoadDatabaseOnStartupMpcorbJson.Checked = true;
 		toolStripMenuItemLoadDatabaseOnStartupAstorbDat.Checked = true;
@@ -78,6 +86,10 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to show an Easter egg message when the user double-clicks on a control.</remarks>
 	private void EasterEgg_DoubleClick(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		_ = KryptonMessageBox.Show(owner: this, text: I18nStrings.EasterEgg, caption: I18nStrings.ErrorCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
 }

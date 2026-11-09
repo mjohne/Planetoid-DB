@@ -256,6 +256,10 @@ internal partial class TisserandParameterOfAllMinorPlanetsForm : BaseKryptonForm
 	{
 		// Log that the form has been loaded and clear the status bar
 		logger.Info(message: "TisserandParameterOfAllMinorPlanetsForm loaded.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Clear the status bar to ensure no residual messages are displayed from previous operations
 		ClearStatusBar(label: labelInformation);
 		// Play the open sound in the background to indicate that the form has been opened
@@ -270,6 +274,10 @@ internal partial class TisserandParameterOfAllMinorPlanetsForm : BaseKryptonForm
 	{
 		// Log that the form is closing and check for any running calculations
 		logger.Info(message: "TisserandParameterOfAllMinorPlanetsForm is closing.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Play the close sound in the background to indicate that the form is closing
 		AudioPlayback.PlayCloseSound();
 		// If a calculation is currently running, signal cancellation and dispose of the token source
@@ -295,6 +303,10 @@ internal partial class TisserandParameterOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>Called by the ListView for each visible row. Must be fast and must not modify <see cref="_results"/>.</remarks>
 	private void ListView_RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Validate the requested index to ensure it is within the bounds of the results list
 		if (e.ItemIndex < 0 || e.ItemIndex >= _results.Count)
 		{
@@ -331,6 +343,10 @@ internal partial class TisserandParameterOfAllMinorPlanetsForm : BaseKryptonForm
 	private async void ButtonStart_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Start button clicked. Beginning Tisserand parameter calculation.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		if (_planetoids.Count == 0)
 		{
 			_ = KryptonMessageBox.Show(owner: this, text: "No planetoid data available.", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
@@ -433,6 +449,10 @@ internal partial class TisserandParameterOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>The calculation can be cancelled by the user at any time using the Cancel button.</remarks>
 	private void ButtonCancel_Click(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// If a calculation is currently running, request cancellation and prevent repeated cancel clicks.
 		if (_cancellationTokenSource != null)
 		{
@@ -475,6 +495,10 @@ internal partial class TisserandParameterOfAllMinorPlanetsForm : BaseKryptonForm
 	private void ListView_ColumnClick(object sender, ColumnClickEventArgs e)
 	{
 		logger.Info(message: $"Column {e.Column} clicked. Toggling sort order.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// If there are no results to sort, exit the method early
 		if (_results.Count == 0)
 		{
@@ -518,6 +542,10 @@ internal partial class TisserandParameterOfAllMinorPlanetsForm : BaseKryptonForm
 	private void ListView_DoubleClick(object sender, EventArgs e)
 	{
 		// Log the double-click event and navigate to the selected planetoid in the main form
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		logger.Info(message: "ListView item double-clicked. Navigating to selected planetoid in main form.");
 		SelectedPlanetoidInMainForm();
 	}

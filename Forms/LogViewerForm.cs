@@ -123,6 +123,7 @@ internal partial class LogViewerForm : BaseKryptonForm
 	/// <remarks>This method extracts relevant information from the log event and constructs a ListViewItem suitable for display in the virtual ListView.</remarks>
 	private static ListViewItem CreateListViewItem(LogEventInfo logEvent)
 	{
+		ArgumentNullException.ThrowIfNull(argument: logEvent);
 		// Format the timestamp, level, exception type, and message for display
 		string timestampText = FormatTimestamp(timestamp: logEvent.TimeStamp);
 		string levelText = logEvent.Level?.Name ?? string.Empty;
@@ -256,6 +257,10 @@ internal partial class LogViewerForm : BaseKryptonForm
 	{
 		// Log the form load event for debugging purposes
 		logger.Info(message: "LogViewerForm loaded");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Play the open sound in the background to indicate that the form has been opened
 		AudioPlayback.PlayOpenSound();
 		// Start loading log events asynchronously without blocking the UI thread
@@ -270,6 +275,10 @@ internal partial class LogViewerForm : BaseKryptonForm
 	{
 		// Log that the form is closing
 		logger.Info(message: "DerivedOrbitElementsForm is closing.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Play the close sound in the background to indicate that the form is closing
 		AudioPlayback.PlayCloseSound();
 	}
@@ -284,9 +293,9 @@ internal partial class LogViewerForm : BaseKryptonForm
 	/// <remarks>Uses <see cref="sortedIndices"/> to map virtual indices to the correct <see cref="_displayCache"/> entry.</remarks>
 	private void ListView_RetrieveVirtualItem(object? sender, RetrieveVirtualItemEventArgs e)
 	{
-		int realIndex = sortedIndices != null && e.ItemIndex < sortedIndices.Count
-			? sortedIndices[index: e.ItemIndex]
-			: e.ItemIndex;
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		int realIndex = sortedIndices != null && e.ItemIndex < sortedIndices.Count ? sortedIndices[index: e.ItemIndex] : e.ItemIndex;
 		if (realIndex < 0 || realIndex >= _displayCache.Count)
 		{
 			logger.Warn(message: $"Invalid realIndex {realIndex} for ListView_RetrieveVirtualItem.");
@@ -302,6 +311,8 @@ internal partial class LogViewerForm : BaseKryptonForm
 	/// <remarks>Enables or disables the delete-selected button based on whether any items are currently selected in the ListView.</remarks>
 	private void ListView_SelectedIndexChanged(object? sender, EventArgs e)
 	{
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		toolStripButtonDeleteSelected.Enabled = listView.SelectedIndices.Count > 0;
 	}
 
@@ -311,6 +322,8 @@ internal partial class LogViewerForm : BaseKryptonForm
 	/// <remarks>This method determines the sort order and initiates the sorting process for the selected column.</remarks>
 	private void ListView_ColumnClick(object? sender, ColumnClickEventArgs e)
 	{
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// If there are no items, do not attempt to sort
 		if (listView.VirtualListSize == 0)
 		{
@@ -409,6 +422,10 @@ internal partial class LogViewerForm : BaseKryptonForm
 	private void ToolStripButtonDeleteSelected_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Delete Selected button clicked.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// If no items are selected, do nothing
 		if (listView.SelectedIndices.Count == 0)
 		{
@@ -453,6 +470,10 @@ internal partial class LogViewerForm : BaseKryptonForm
 	private void ToolStripButtonDeleteAll_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Delete All button clicked.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Clear the backing store
 		LogEventStore.Clear();
 		// Clear the local display cache

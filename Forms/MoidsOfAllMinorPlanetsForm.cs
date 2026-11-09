@@ -163,6 +163,12 @@ internal partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>The percentage is displayed both in the progress bar's <c>Text</c> property and in the adjacent label.</remarks>
 	private void UpdateProgress(int percent)
 	{
+		if (int.IsNegative(percent))
+		{
+			logger.Error($"The value of the progress bar must not be negative: {percent}");
+			ShowErrorMessage($"The value of the progress bar must not be negative: {percent}");
+			return;
+		}
 		// Clamp the percentage value to ensure it stays within the valid range of 0 to 100
 		int clampedPercent = Math.Clamp(value: percent, min: 0, max: 100);
 		kryptonProgressBar.Value = clampedPercent;
@@ -276,6 +282,10 @@ internal partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 	{
 		// Log that the form has loaded and clear the status bar
 		logger.Info(message: "MoidsOfAllMinorPlanetsForm loaded. Clearing status bar.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Play the open sound in the background to indicate that the form has been opened
 		AudioPlayback.PlayOpenSound();
 		// Clear the status bar label to ensure no residual messages are displayed
@@ -290,6 +300,10 @@ internal partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 	{
 		// Log that the form is closing
 		logger.Info(message: "MoidsOfAllMinorPlanetsForm is closing. Cancelling any running calculation.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Play the close sound in the background to indicate that the form is closing
 		AudioPlayback.PlayCloseSound();
 		_cancellationTokenSource?.Cancel();
@@ -305,6 +319,10 @@ internal partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>Called by the ListView for each visible row. Must be fast and must not modify <see cref="_results"/>.</remarks>
 	private void ListView_RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Validate the requested index against the results list
 		if (e.ItemIndex < 0 || e.ItemIndex >= _results.Count)
 		{
@@ -336,6 +354,10 @@ internal partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>The calculation runs on a background thread. Progress is reported via the progress bar. The user can cancel at any time using the Cancel button.</remarks>
 	private async void ButtonStart_Click(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Check if there are any planetoids to process
 		if (_planetoids.Count == 0)
 		{
@@ -468,6 +490,10 @@ internal partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>The calculation can be cancelled by the user at any time using the Cancel button.</remarks>
 	private void ButtonCancel_Click(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// If a calculation is currently running, request cancellation and prevent repeated cancel clicks.
 		if (_cancellationTokenSource != null)
 		{
@@ -483,6 +509,10 @@ internal partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>When the "Go to Object" button is clicked, the corresponding planetoid is displayed in the <see cref="PlanetoidDbForm"/> and this form is closed.</remarks>
 	private void ToolStripButtonGoToObject_Click(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Attempt to select the currently highlighted planetoid in the main form
 		if (SelectedPlanetoidInMainForm())
 		{
@@ -502,6 +532,10 @@ internal partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>Toggles the sort order for the clicked column (ascending/descending) and re-sorts the results list. Column headers are updated with a ▲ or ▼ indicator to show the current sort direction.</remarks>
 	private void ListView_ColumnClick(object sender, ColumnClickEventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// If there are no results, do not attempt to sort
 		if (_results.Count == 0)
 		{
@@ -543,6 +577,11 @@ internal partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>Enables the "Go to object" button when a row is selected.</remarks>
 	private void ListView_SelectedIndexChanged(object sender, EventArgs e)
 	{
+		logger.Info("ListView index changed");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		UpdateGoToObjectButtonState();
 	}
 
@@ -557,6 +596,10 @@ internal partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 	private void ListView_DoubleClick(object sender, EventArgs e)
 	{
 		logger.Info(message: "ListView item double-clicked. Navigating to selected planetoid in main form.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		_ = SelectedPlanetoidInMainForm();
 	}
 

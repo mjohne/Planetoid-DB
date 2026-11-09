@@ -35,6 +35,7 @@ internal sealed class BulkObservationsDownloadErrorsForm : BaseKryptonForm
 	/// <remarks>Configures the form's appearance and populates the list view with the provided error entries.</remarks>
 	internal BulkObservationsDownloadErrorsForm(IReadOnlyList<BulkObservationsDownloadErrorEntry> entries)
 	{
+		ArgumentNullException.ThrowIfNull(argument: entries);
 		// Form configuration
 		Text = "Bulk Download Errors";
 		StartPosition = FormStartPosition.CenterParent;

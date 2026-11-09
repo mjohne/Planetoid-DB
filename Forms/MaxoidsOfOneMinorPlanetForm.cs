@@ -87,20 +87,10 @@ internal partial class MaxoidsOfOneMinorPlanetForm : BaseKryptonForm
 	/// <param name="longitudeAscendingNodeDeg">The longitude of the ascending node in degrees.</param>
 	/// <param name="argumentPerihelionDeg">The argument of perihelion in degrees.</param>
 	/// <remarks>Call this method before showing the form so that the MAXOID data is available on load.</remarks>
-	public void SetOrbitalElements(
-		double semiMajorAxis,
-		double eccentricity,
-		double inclinationDeg,
-		double longitudeAscendingNodeDeg,
-		double argumentPerihelionDeg)
+	public void SetOrbitalElements(double semiMajorAxis, double eccentricity, double inclinationDeg, double longitudeAscendingNodeDeg, double argumentPerihelionDeg)
 	{
 		// Create a new instance of OrbitalElements with the provided parameters and assign it to the private field
-		_orbitalElements = new OrbitalElements(
-			SemiMajorAxis: semiMajorAxis,
-			Eccentricity: eccentricity,
-			InclinationDeg: inclinationDeg,
-			LongitudeAscendingNodeDeg: longitudeAscendingNodeDeg,
-			ArgumentPerihelionDeg: argumentPerihelionDeg);
+		_orbitalElements = new OrbitalElements(SemiMajorAxis: semiMajorAxis, Eccentricity: eccentricity, InclinationDeg: inclinationDeg, LongitudeAscendingNodeDeg: longitudeAscendingNodeDeg, ArgumentPerihelionDeg: argumentPerihelionDeg);
 	}
 
 	/// <summary>Sets the orbital elements of the minor planet used for computing MAXOID values.</summary>
@@ -147,6 +137,10 @@ internal partial class MaxoidsOfOneMinorPlanetForm : BaseKryptonForm
 	{
 		// Log the start of the MAXOID computation process
 		logger.Info(message: "Starting MAXOID computation process.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Clear the status bar
 		ClearStatusBar(label: labelInformation);
 		// Play the open sound in the background to indicate that the form has been opened
@@ -188,6 +182,10 @@ internal partial class MaxoidsOfOneMinorPlanetForm : BaseKryptonForm
 	{
 		// Log that the form is closing
 		logger.Info(message: "MaxoidsOfOneMinorPlanetForm is closing.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Play the close sound in the background to indicate that the form is closing
 		AudioPlayback.PlayCloseSound();
 	}
@@ -203,6 +201,10 @@ internal partial class MaxoidsOfOneMinorPlanetForm : BaseKryptonForm
 	private void MenuitemCopyToClipboardMaxoidRelativeToMercury_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Copying Mercury MAXOID value to clipboard: {0}", labelMercuryData.Text);
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelMercuryData.Text);
 	}
 
@@ -213,6 +215,10 @@ internal partial class MaxoidsOfOneMinorPlanetForm : BaseKryptonForm
 	private void MenuitemCopyToClipboardMaxoidRelativeToVenus_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Copying Venus MAXOID value to clipboard: {0}", labelVenusData.Text);
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelVenusData.Text);
 	}
 
@@ -223,6 +229,10 @@ internal partial class MaxoidsOfOneMinorPlanetForm : BaseKryptonForm
 	private void MenuitemCopyToClipboardMaxoidRelativeToEarth_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Copying Earth MAXOID value to clipboard: {0}", labelEarthData.Text);
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelEarthData.Text);
 	}
 
@@ -233,6 +243,10 @@ internal partial class MaxoidsOfOneMinorPlanetForm : BaseKryptonForm
 	private void MenuitemCopyToClipboardMaxoidRelativeToMars_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Copying Mars MAXOID value to clipboard: {0}", labelMarsData.Text);
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelMarsData.Text);
 	}
 
@@ -243,6 +257,10 @@ internal partial class MaxoidsOfOneMinorPlanetForm : BaseKryptonForm
 	private void MenuitemCopyToClipboardMaxoidRelativeToJupiter_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Copying Jupiter MAXOID value to clipboard: {0}", labelJupiterData.Text);
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelJupiterData.Text);
 	}
 
@@ -253,6 +271,10 @@ internal partial class MaxoidsOfOneMinorPlanetForm : BaseKryptonForm
 	private void MenuitemCopyToClipboardMaxoidRelativeToSaturn_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Copying Saturn MAXOID value to clipboard: {0}", labelSaturnData.Text);
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelSaturnData.Text);
 	}
 
@@ -263,6 +285,10 @@ internal partial class MaxoidsOfOneMinorPlanetForm : BaseKryptonForm
 	private void MenuitemCopyToClipboardMaxoidRelativeToUranus_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Copying Uranus MAXOID value to clipboard: {0}", labelUranusData.Text);
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelUranusData.Text);
 	}
 
@@ -273,6 +299,10 @@ internal partial class MaxoidsOfOneMinorPlanetForm : BaseKryptonForm
 	private void MenuitemCopyToClipboardMaxoidRelativeToNeptune_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Copying Neptune MAXOID value to clipboard: {0}", labelNeptuneData.Text);
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelNeptuneData.Text);
 	}
 

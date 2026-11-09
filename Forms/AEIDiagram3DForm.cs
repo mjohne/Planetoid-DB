@@ -2,7 +2,7 @@
  * File:        AEIDiagram3DForm.cs
  * Project:     Planetoid-DB
  * Namespace:   Planetoid_DB
- * Description: ...
+ * Description: Displays a 3D a,e,i diagram for all known planetoids.
  *
  * Author:      Michael Johne
  * Company:     Mijo Software
