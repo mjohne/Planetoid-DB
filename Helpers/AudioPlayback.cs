@@ -41,6 +41,7 @@ internal sealed class AudioPlayback
 	/// <remarks>This method uses a background task to load and play the sound, logging any errors that occur during playback.</remarks>
 	private static Task PlaySoundInBackground(MemoryStream resourceName)
 	{
+		ArgumentNullException.ThrowIfNull(argument: resourceName);
 		// Check if the user has enabled UI sound playback in the application settings.
 		if (Settings.Default.userEnableUiSound)
 		{
@@ -114,7 +115,7 @@ internal sealed class AudioPlayback
 		// Log the request to play the start sound resource.
 		logger.Info(message: "Request to play start sound received.");
 		// Play the start sound resource in the background.
-		PlaySoundInBackground(resourceName: Properties.Resources.ui_start);
+		_ = PlaySoundInBackground(resourceName: Properties.Resources.ui_start);
 	}
 
 	/// <summary>Plays the send data sound resource asynchronously without blocking the UI thread.</summary>
@@ -124,7 +125,7 @@ internal sealed class AudioPlayback
 		// Log the request to play the send data sound resource.
 		logger.Info(message: "Request to play send data sound received.");
 		// Play the send data sound resource in the background.
-		PlaySoundInBackground(resourceName: Properties.Resources.ui_senddata);
+		_ = PlaySoundInBackground(resourceName: Properties.Resources.ui_senddata);
 	}
 
 	/// <summary>Plays the shutdown sound resource asynchronously without blocking the UI thread.</summary>
@@ -145,7 +146,7 @@ internal sealed class AudioPlayback
 		// Log the request to play the open sound resource.
 		logger.Info(message: "Request to play open sound received.");
 		// Play the open sound resource in the background.
-		PlaySoundInBackground(resourceName: Properties.Resources.ui_open);
+		_ = PlaySoundInBackground(resourceName: Properties.Resources.ui_open);
 	}
 
 	/// <summary>Plays the close sound resource asynchronously without blocking the UI thread.</summary>
@@ -155,7 +156,6 @@ internal sealed class AudioPlayback
 		// Log the request to play the close sound resource.
 		logger.Info(message: "Request to play close sound received.");
 		// Play the close sound resource in the background.
-		PlaySoundInBackground(resourceName: Properties.Resources.ui_close);
+		_ = PlaySoundInBackground(resourceName: Properties.Resources.ui_close);
 	}
-
 }

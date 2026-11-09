@@ -24,11 +24,8 @@ namespace Planetoid_DB.Helpers;
 internal sealed class BookmarkEntry
 {
 	/// <summary>Initializes a new instance of the <see cref="BookmarkEntry"/> class.</summary>
-
 	public BookmarkEntry()
-
 	{
-
 	}
 
 	/// <summary>Gets or sets the date and time when this bookmark was created.</summary>

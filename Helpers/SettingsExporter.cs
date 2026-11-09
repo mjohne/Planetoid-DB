@@ -25,36 +25,11 @@ namespace Planetoid_DB.Helpers;
 
 /// <summary>Provides static methods to export all application settings (user-scoped and application-scoped) from <see cref="Settings"/> to CSV, INI, XML, JSON, and YAML files.</summary>
 /// <remarks>Each setting is exported with its name, data type, scope (User/Application), and current value.</remarks>
-internal static class SettingsExporter
+internal static partial class SettingsExporter
 {
 	/// <summary>NLog logger for the class.</summary>
 	/// <remarks>This logger is used to log messages and errors during the export process.</remarks>
 	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
-
-	#region Internal data model
-
-	/// <summary>Represents a single setting entry that will be written to an export file.</summary>
-	/// <remarks>This class is used internally to hold the name, type, scope, and value of a setting.</remarks>
-	private sealed class SettingEntry
-	{
-		/// <summary>Gets the name of the setting.</summary>
-		/// <remarks>The name corresponds to the property name in <c>Settings.settings</c>.</remarks>
-		public string Name { get; init; } = string.Empty;
-
-		/// <summary>Gets the CLR type name of the setting value.</summary>
-		/// <remarks>The type name is obtained from the <see cref="SettingsProperty.PropertyType"/> of the setting.</remarks>
-		public string TypeName { get; init; } = string.Empty;
-
-		/// <summary>Gets the scope of the setting ("User" or "Application").</summary>
-		/// <remarks>The scope indicates whether the setting is user-scoped or application-scoped.</remarks>
-		public string Scope { get; init; } = string.Empty;
-
-		/// <summary>Gets the current value of the setting as a string.</summary>
-		/// <remarks>The value is obtained from <c>Settings.Default[settingName]</c> and converted to a string.</remarks>
-		public string Value { get; init; } = string.Empty;
-	}
-
-	#endregion
 
 	#region Settings collection helper
 
@@ -71,9 +46,7 @@ internal static class SettingsExporter
 		foreach (SettingsProperty prop in settings.Properties)
 		{
 			// Determine the scope of the setting (User or Application)
-			string scope = prop.Attributes[key: typeof(UserScopedSettingAttribute)] is UserScopedSettingAttribute
-				? "User"
-				: "Application";
+			string scope = prop.Attributes[key: typeof(UserScopedSettingAttribute)] is UserScopedSettingAttribute ? "User" : "Application";
 			// Read the value of the setting, handling any exceptions that may occur
 			string value;
 			// Use a try-catch block to safely read the value of the setting
@@ -111,6 +84,13 @@ internal static class SettingsExporter
 	{
 		// Log the export operation
 		logger.Info(message: $"Exporting settings as CSV to '{filePath}'.");
+		// Validate the file path
+		if (string.IsNullOrEmpty(value: filePath))
+		{
+			// Log the error and throw an exception if the file path is null or empty
+			logger.Error(message: "File path must not be null or empty.");
+			throw new ArgumentException(message: "File path must not be null or empty.", paramName: nameof(filePath));
+		}
 		// Use a try-catch block to handle any exceptions that may occur during the export process
 		try
 		{
@@ -153,6 +133,13 @@ internal static class SettingsExporter
 	{
 		// Log the export operation
 		logger.Info(message: $"Exporting settings as INI to '{filePath}'.");
+		// Validate the file path
+		if (string.IsNullOrEmpty(value: filePath))
+		{
+			// Log the error and throw an exception if the file path is null or empty
+			logger.Error(message: "File path must not be null or empty.");
+			throw new ArgumentException(message: "File path must not be null or empty.", paramName: nameof(filePath));
+		}
 		// Use a try-catch block to handle any exceptions that may occur during the export process
 		try
 		{
@@ -204,6 +191,13 @@ internal static class SettingsExporter
 	{
 		// Log the export operation
 		logger.Info(message: $"Exporting settings as XML to '{filePath}'.");
+		// Validate the file path
+		if (string.IsNullOrEmpty(value: filePath))
+		{
+			// Log the error and throw an exception if the file path is null or empty
+			logger.Error(message: "File path must not be null or empty.");
+			throw new ArgumentException(message: "File path must not be null or empty.", paramName: nameof(filePath));
+		}
 		// Use a try-catch block to handle any exceptions that may occur during the export process
 		try
 		{
@@ -257,6 +251,13 @@ internal static class SettingsExporter
 	{
 		// Log the export operation
 		logger.Info(message: $"Exporting settings as JSON to '{filePath}'.");
+		// Validate the file path
+		if (string.IsNullOrEmpty(value: filePath))
+		{
+			// Log the error and throw an exception if the file path is null or empty
+			logger.Error(message: "File path must not be null or empty.");
+			throw new ArgumentException(message: "File path must not be null or empty.", paramName: nameof(filePath));
+		}
 		// Use a try-catch block to handle any exceptions that may occur during the export process
 		try
 		{
@@ -336,6 +337,13 @@ internal static class SettingsExporter
 	{
 		// Log the export operation
 		logger.Info(message: $"Exporting settings as YAML to '{filePath}'.");
+		// Validate the file path
+		if (string.IsNullOrEmpty(value: filePath))
+		{
+			// Log the error and throw an exception if the file path is null or empty
+			logger.Error(message: "File path must not be null or empty.");
+			throw new ArgumentException(message: "File path must not be null or empty.", paramName: nameof(filePath));
+		}
 		// Use a try-catch block to handle any exceptions that may occur during the export process
 		try
 		{

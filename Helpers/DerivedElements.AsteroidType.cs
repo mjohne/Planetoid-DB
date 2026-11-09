@@ -15,6 +15,7 @@
 
 namespace Planetoid_DB.Helpers;
 
+/// <summary>Provides derived properties and classifications for minor planets.</summary>
 internal partial class DerivedElements
 {
 	/// <summary>Represents standard taxonomic types of asteroids and their average densities.</summary>
@@ -32,7 +33,7 @@ internal partial class DerivedElements
 		/// <summary>Icy body / Trans-Neptunian Object (TNO), average density ~1.0 g/cm³.</summary>
 		IcyObject,
 
-		/// <summary>V-type asteroid (basaltic, like 4 Vesta), average density ~3.0 g/cm³.</summary>
+		/// <summary>mpcorbDatReadableDesignationDelimiterBegin-type asteroid (basaltic, like 4 Vesta), average density ~3.0 g/cm³.</summary>
 		VType
 	}
 }

@@ -31,14 +31,14 @@ internal partial class DerivedElements
 	/// <remarks>This array contains the names and orbital periods of the 8 planets in the solar system.</remarks>
 	private static readonly (string Name, double Period)[] SolarSystemPlanets =
 	[
-		("Mercury", 0.240846),
-		("Venus", 0.615197),
-		("Earth", 1.000000),
-		("Mars", 1.880848),
-		("Jupiter", 11.862615),
-		("Saturn", 29.447498),
-		("Uranus", 84.016846),
-		("Neptune", 164.791320)
+		(Name: "Mercury", Period:   0.240846),
+		(Name: "Venus",   Period:   0.615197),
+		(Name: "Earth",   Period:   1.000000),
+		(Name: "Mars",    Period:   1.880848),
+		(Name: "Jupiter", Period:  11.862615),
+		(Name: "Saturn",  Period:  29.447498),
+		(Name: "Uranus",  Period:  84.016846),
+		(Name: "Neptune", Period: 164.791320)
 	];
 
 	private const double siderealEarthYearInDays = 365.242188;
@@ -1287,7 +1287,7 @@ internal partial class DerivedElements
 		double radiusMeters = diameterKm / 2.0 * 1000.0;
 		// Convert density from g/cm³ to kg/m³: 1 g/cm³ = 1000 kg/m³
 		double densityKgPerM3 = densityGPerCm3 * 1000.0;
-		// Volume of a sphere: V = (4/3) * π * r³
+		// Volume of a sphere: mpcorbDatReadableDesignationDelimiterBegin = (4/3) * π * r³
 		double volumeM3 = 4.0 / 3.0 * Math.PI * Math.Pow(x: radiusMeters, y: 3);
 		// Mass in kg = Volume in m³ * Density in kg/m³
 		return volumeM3 * densityKgPerM3;

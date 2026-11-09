@@ -46,7 +46,7 @@ internal sealed class BookmarkStore
 	public static string GetBookmarkFilePath(string databaseFilename)
 	{
 		// Validate the input database filename
-		if (string.IsNullOrWhiteSpace(value: databaseFilename))
+		if (string.IsNullOrEmpty(value: databaseFilename))
 		{
 			// Log the error and throw an exception if the database filename is null or whitespace
 			logger.Error(message: "Database filename must not be null or whitespace.");
@@ -70,6 +70,13 @@ internal sealed class BookmarkStore
 	/// <returns>A list of <see cref="BookmarkEntry"/> objects, or an empty list if none are found or an error occurs.</returns>
 	public static List<BookmarkEntry> Load(string databaseFilename)
 	{
+		// Validate the input database filename
+		if (string.IsNullOrEmpty(value: databaseFilename))
+		{
+			// Log the error and throw an exception if the database filename is null or whitespace
+			logger.Error(message: "Database filename must not be null or whitespace.");
+			throw new ArgumentException(message: "Database filename must not be null or whitespace.", paramName: nameof(databaseFilename));
+		}
 		// Initialize the path variable to null for error handling
 		string? path = null;
 		// Attempt to load the bookmarks from the corresponding JSON file
@@ -104,6 +111,14 @@ internal sealed class BookmarkStore
 	/// <remarks>If the bookmark file does not exist, it will be created. If it exists, it will be overwritten.</remarks>
 	public static void Save(string databaseFilename, IEnumerable<BookmarkEntry> entries)
 	{
+		// Validate the input database filename
+		if (string.IsNullOrEmpty(value: databaseFilename))
+		{
+			// Log the error and throw an exception if the database filename is null or whitespace
+			logger.Error(message: "Database filename must not be null or whitespace.");
+			throw new ArgumentException(message: "Database filename must not be null or whitespace.", paramName: nameof(databaseFilename));
+		}
+		ArgumentNullException.ThrowIfNull(argument: entries);
 		// Initialize the path variable to null for error handling
 		string? path = null;
 		// Attempt to save the bookmarks to the corresponding JSON file
@@ -133,6 +148,13 @@ internal sealed class BookmarkStore
 	/// <remarks>If the bookmark file does not exist, no action is taken.</remarks>
 	public static void ClearAll(string databaseFilename)
 	{
+		// Validate the input database filename
+		if (string.IsNullOrEmpty(value: databaseFilename))
+		{
+			// Log the error and throw an exception if the database filename is null or whitespace
+			logger.Error(message: "Database filename must not be null or whitespace.");
+			throw new ArgumentException(message: "Database filename must not be null or whitespace.", paramName: nameof(databaseFilename));
+		}
 		// Initialize the path variable to null for error handling
 		string? path = null;
 		// Attempt to delete the bookmark file corresponding to the specified database filename

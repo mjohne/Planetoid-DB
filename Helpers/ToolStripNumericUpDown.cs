@@ -400,6 +400,7 @@ internal class ToolStripNumericUpDown() : ToolStripControlHost(c: CreateControlI
 	/// <param name="e">An EventArgs instance containing the event data associated with the value change.</param>
 	private void OnValueChanged(object? sender, EventArgs e)
 	{
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Call the base class method to ensure that any necessary processing is performed by the base class.
 		ValueChanged?.Invoke(sender: this, e: e);
 	}
@@ -410,6 +411,7 @@ internal class ToolStripNumericUpDown() : ToolStripControlHost(c: CreateControlI
 	/// <param name="e">An instance of KeyEventArgs that contains the event data, including information about which key was pressed.</param>
 	private void OnKeyDown(object? sender, KeyEventArgs e)
 	{
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Call the base class method to ensure that any necessary processing is performed by the base class.
 		KeyDown?.Invoke(sender: this, e: e);
 	}
@@ -420,6 +422,7 @@ internal class ToolStripNumericUpDown() : ToolStripControlHost(c: CreateControlI
 	/// <param name="e">An instance of KeyPressEventArgs that contains the event data, including the pressed key character.</param>
 	private void OnKeyPress(object? sender, KeyPressEventArgs e)
 	{
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Call the base class method to ensure that any necessary processing is performed by the base class.
 		KeyPress?.Invoke(sender: this, e: e);
 	}
@@ -430,6 +433,7 @@ internal class ToolStripNumericUpDown() : ToolStripControlHost(c: CreateControlI
 	/// <param name="e">An instance of KeyEventArgs that contains information about the released key.</param>
 	private void OnKeyUp(object? sender, KeyEventArgs e)
 	{
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Call the base class method to ensure that any necessary processing is performed by the base class.
 		KeyUp?.Invoke(sender: this, e: e);
 	}
@@ -440,6 +444,7 @@ internal class ToolStripNumericUpDown() : ToolStripControlHost(c: CreateControlI
 	/// <param name="e">An instance of CancelEventArgs that contains the event data, including a flag to cancel the validation.</param>
 	private void OnValidating(object? sender, CancelEventArgs e)
 	{
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Call the base class method to ensure that any necessary processing is performed by the base class.
 		Validating?.Invoke(sender: this, e: e);
 	}
@@ -450,6 +455,7 @@ internal class ToolStripNumericUpDown() : ToolStripControlHost(c: CreateControlI
 	/// <param name="e">An EventArgs instance containing the event data for the validation event.</param>
 	private void OnValidated(object? sender, EventArgs e)
 	{
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Call the base class method to ensure that any necessary processing is performed by the base class.
 		Validated?.Invoke(sender: this, e: e);
 	}
@@ -460,6 +466,8 @@ internal class ToolStripNumericUpDown() : ToolStripControlHost(c: CreateControlI
 	/// <param name="e">An <see cref="EventArgs"/> instance containing the event data associated with the text change.</param>
 	private void OnTextChanged(object? sender, EventArgs e)
 	{
+		ArgumentNullException.ThrowIfNull(argument: e);
+		// Call the base class method to ensure that any necessary processing is performed by the base class.
 		base.OnTextChanged(e: e);
 		TextChanged?.Invoke(sender: this, e: e);
 	}
@@ -470,6 +478,7 @@ internal class ToolStripNumericUpDown() : ToolStripControlHost(c: CreateControlI
 	/// <param name="e">An instance of <see cref="EventArgs"/> that contains the event data.</param>
 	private void OnClick(object? sender, EventArgs e)
 	{
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Call the base class method to ensure that any necessary processing is performed by the base class.
 		base.OnClick(e: e);
 	}
@@ -480,6 +489,7 @@ internal class ToolStripNumericUpDown() : ToolStripControlHost(c: CreateControlI
 	/// <param name="e">An <see cref="EventArgs"/> instance containing the event data associated with the double-click event.</param>
 	private void OnDoubleClick(object? sender, EventArgs e)
 	{
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Call the base class method to ensure that any necessary processing is performed by the base class.
 		base.OnDoubleClick(e: e);
 	}
@@ -490,6 +500,7 @@ internal class ToolStripNumericUpDown() : ToolStripControlHost(c: CreateControlI
 	/// <param name="e">An instance of MouseEventArgs that contains the event data, including information about the mouse button pressed and the mouse cursor position.</param>
 	private void OnMouseClick(object? sender, MouseEventArgs e)
 	{
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Call the base class method to ensure that any necessary processing is performed by the base class.
 		MouseClick?.Invoke(sender: this, e: e);
 	}
@@ -500,6 +511,7 @@ internal class ToolStripNumericUpDown() : ToolStripControlHost(c: CreateControlI
 	/// <param name="e">An instance of MouseEventArgs that contains the event data, including the position of the mouse and the button that was pressed.</param>
 	private void OnMouseDoubleClick(object? sender, MouseEventArgs e)
 	{
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Call the base class method to ensure that any necessary processing is performed by the base class.
 		MouseDoubleClick?.Invoke(sender: this, e: e);
 	}
@@ -510,6 +522,7 @@ internal class ToolStripNumericUpDown() : ToolStripControlHost(c: CreateControlI
 	/// <param name="e">An instance of MouseEventArgs containing information about the mouse button pressed and the cursor position.</param>
 	private void OnMouseDown(object? sender, MouseEventArgs e)
 	{
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Call the base class method to ensure that any necessary processing is performed by the base class.
 		MouseDown?.Invoke(sender: this, e: e);
 	}
@@ -520,6 +533,7 @@ internal class ToolStripNumericUpDown() : ToolStripControlHost(c: CreateControlI
 	/// <param name="e">The event data associated with the mouse enter event.</param>
 	private void OnMouseEnter(object? sender, EventArgs e)
 	{
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Call the base class method to ensure that any necessary processing is performed by the base class.
 		MouseEnter?.Invoke(sender: this, e: e);
 	}
@@ -530,6 +544,7 @@ internal class ToolStripNumericUpDown() : ToolStripControlHost(c: CreateControlI
 	/// <param name="e">An object containing the event data associated with the mouse leave action.</param>
 	private void OnMouseLeave(object? sender, EventArgs e)
 	{
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Call the base class method to ensure that any necessary processing is performed by the base class.
 		MouseLeave?.Invoke(sender: this, e: e);
 	}
@@ -540,6 +555,7 @@ internal class ToolStripNumericUpDown() : ToolStripControlHost(c: CreateControlI
 	/// <param name="e">An EventArgs that contains the event data for the MouseHover event.</param>
 	private void OnMouseHover(object? sender, EventArgs e)
 	{
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Call the base class method to ensure that any necessary processing is performed by the base class.
 		MouseHover?.Invoke(sender: this, e: e);
 	}
@@ -550,6 +566,7 @@ internal class ToolStripNumericUpDown() : ToolStripControlHost(c: CreateControlI
 	/// <param name="e">An instance of MouseEventArgs containing information about the mouse position and button states.</param>
 	private void OnMouseMove(object? sender, MouseEventArgs e)
 	{
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Call the base class method to ensure that any necessary processing is performed by the base class.
 		MouseMove?.Invoke(sender: this, e: e);
 	}
@@ -560,6 +577,7 @@ internal class ToolStripNumericUpDown() : ToolStripControlHost(c: CreateControlI
 	/// <param name="e">An object containing information about the mouse event, including the mouse button released and the cursor position.</param>
 	private void OnMouseUp(object? sender, MouseEventArgs e)
 	{
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Call the base class method to ensure that any necessary processing is performed by the base class.
 		MouseUp?.Invoke(sender: this, e: e);
 	}
@@ -570,6 +588,7 @@ internal class ToolStripNumericUpDown() : ToolStripControlHost(c: CreateControlI
 	/// <param name="e">An EventArgs instance containing the event data associated with the focus change.</param>
 	private void OnGotFocus(object? sender, EventArgs e)
 	{
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Call the base class method to ensure that any necessary processing is performed by the base class.
 		GotFocus?.Invoke(sender: this, e: e);
 	}
@@ -580,6 +599,7 @@ internal class ToolStripNumericUpDown() : ToolStripControlHost(c: CreateControlI
 	/// <param name="e">An EventArgs instance containing the event data associated with the focus loss.</param>
 	private void OnLostFocus(object? sender, EventArgs e)
 	{
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Call the base class method to ensure that any necessary processing is performed by the base class.
 		LostFocus?.Invoke(sender: this, e: e);
 	}
@@ -590,6 +610,7 @@ internal class ToolStripNumericUpDown() : ToolStripControlHost(c: CreateControlI
 	/// <param name="e">The event data associated with the Enter event.</param>
 	private void OnEnter(object? sender, EventArgs e)
 	{
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Call the base class method to ensure that any necessary processing is performed by the base class.
 		Enter?.Invoke(sender: this, e: e);
 	}
@@ -600,6 +621,7 @@ internal class ToolStripNumericUpDown() : ToolStripControlHost(c: CreateControlI
 	/// <param name="e">The event data associated with the Leave event.</param>
 	private void OnLeave(object? sender, EventArgs e)
 	{
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Call the base class method to ensure that any necessary processing is performed by the base class.
 		Leave?.Invoke(sender: this, e: e);
 	}

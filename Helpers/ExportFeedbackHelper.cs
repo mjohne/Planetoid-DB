@@ -32,11 +32,8 @@ internal static class ExportFeedbackHelper
 	/// <remarks>This method is used by exporter classes to display error messages to the user when an export operation fails.</remarks>
 	public static void ShowErrorMessage(string message)
 	{
-		_ = KryptonMessageBox.Show(
-			text: message,
-			caption: I18nStrings.ErrorCaption,
-			buttons: KryptonMessageBoxButtons.OK,
-			icon: KryptonMessageBoxIcon.Error);
+		ArgumentException.ThrowIfNullOrEmpty(argument: message);
+		_ = KryptonMessageBox.Show(text: message, caption: I18nStrings.ErrorCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Error);
 	}
 
 	/// <summary>Shows a success message box after a file has been saved successfully.</summary>
@@ -44,11 +41,7 @@ internal static class ExportFeedbackHelper
 	public static void ShowSuccess()
 	{
 		// Show a success message box to the user
-		_ = KryptonMessageBox.Show(
-			text: I18nStrings.FileSavedSuccessfully,
-			caption: I18nStrings.InformationCaption,
-			buttons: KryptonMessageBoxButtons.OK,
-			icon: KryptonMessageBoxIcon.Information);
+		_ = KryptonMessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
 
 	/// <summary>Logs and shows an error that occurred while saving a file.</summary>
@@ -58,6 +51,9 @@ internal static class ExportFeedbackHelper
 	/// <remarks>Logs the error with details about the format and file path, and displays an error message box to the user.</remarks>
 	public static void ShowError(Exception ex, string format, string filePath)
 	{
+		ArgumentNullException.ThrowIfNull(argument: ex);
+		ArgumentException.ThrowIfNullOrEmpty(argument: format);
+		ArgumentException.ThrowIfNullOrEmpty(argument: filePath);
 		// Log the error with details about the format and file path
 		logger.Error(exception: ex, message: $"Error saving as {format} to '{filePath}'.");
 		// Show an error message box to the user with the exception message
@@ -69,12 +65,9 @@ internal static class ExportFeedbackHelper
 	/// <remarks>Displays a message box to the user confirming how many settings were imported.</remarks>
 	public static void ShowImportSuccess(int count)
 	{
+		ArgumentOutOfRangeException.ThrowIfNegative(value: count);
 		// Show a success message box to the user
-		_ = KryptonMessageBox.Show(
-			text: $"{count} setting(s) imported successfully.",
-			caption: I18nStrings.InformationCaption,
-			buttons: KryptonMessageBoxButtons.OK,
-			icon: KryptonMessageBoxIcon.Information);
+		_ = KryptonMessageBox.Show(text: $"{count} setting(s) imported successfully.", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
 
 	/// <summary>Logs and shows an error that occurred while importing a settings file.</summary>
@@ -84,6 +77,9 @@ internal static class ExportFeedbackHelper
 	/// <remarks>Logs the error with details about the format and file path, and displays an error message box to the user.</remarks>
 	public static void ShowImportError(Exception ex, string format, string filePath)
 	{
+		ArgumentNullException.ThrowIfNull(argument: ex);
+		ArgumentException.ThrowIfNullOrEmpty(argument: format);
+		ArgumentException.ThrowIfNullOrEmpty(argument: filePath);
 		// Log the error with details about the format and file path
 		logger.Error(exception: ex, message: $"Error importing from {format} file '{filePath}'.");
 		// Show an error message box to the user with the exception message

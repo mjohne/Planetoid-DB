@@ -17,6 +17,7 @@ using System.Diagnostics;
 
 namespace Planetoid_DB.Helpers;
 
+/// <summary>Contains derived orbital elements and related assessment results.</summary>
 internal partial class DerivedElements
 {
 	/// <summary>Represents the evaluation result of a Potentially Hazardous Asteroid (PHA) assessment.</summary>
