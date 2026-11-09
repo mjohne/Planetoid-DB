@@ -428,6 +428,10 @@ internal partial class DatabaseDifferencesForm : BaseKryptonForm
 	{
 		// Log that the form has loaded and is initializing default file paths
 		logger.Info(message: "DatabaseDifferencesForm loaded. Initializing default file paths.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Default to the currently configured MPCORB file
 		pathFile1 = Settings.Default.systemFilenameMpcorbDat;
 		// Check if the default file exists and update the label accordingly
@@ -462,6 +466,10 @@ internal partial class DatabaseDifferencesForm : BaseKryptonForm
 	{
 		// Log that the form is closing
 		logger.Info(message: "DatabaseDifferencesForm is closing.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Play the close sound in the background to indicate that the form is closing
 		AudioPlayback.PlayCloseSound();
 	}
@@ -477,6 +485,10 @@ internal partial class DatabaseDifferencesForm : BaseKryptonForm
 	private void ButtonSelectFile1_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Select File 1 button clicked. Opening file dialog for reference MPCORB.DAT selection.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Open a file dialog to allow the user to select the first MPCORB file for comparison
 		using OpenFileDialog dlg = new();
 		// Set the filter to show only .DAT files and all files, and set the title of the dialog
@@ -498,6 +510,10 @@ internal partial class DatabaseDifferencesForm : BaseKryptonForm
 	private void ButtonSelectFile2_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Select File 2 button clicked. Opening file dialog for comparison MPCORB.DAT selection.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Open a file dialog to allow the user to select the second MPCORB file for comparison
 		using OpenFileDialog dlg = new();
 		// Set the filter to show only .DAT files and all files, and set the title of the dialog
@@ -519,6 +535,10 @@ internal partial class DatabaseDifferencesForm : BaseKryptonForm
 	private async void ButtonCompare_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Compare button clicked. Starting comparison of selected MPCORB.DAT files.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Reset the counters for added, deleted, and changed records before starting the comparison
 		addedRecords = deletedRecords = changedRecords = 0;
 		// Validate that both file paths are not null or empty and that the files exist; if not, show an error message and return early
@@ -603,6 +623,10 @@ internal partial class DatabaseDifferencesForm : BaseKryptonForm
 	private void ButtonCancel_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Cancel button clicked. Attempting to cancel ongoing comparison or close the form.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Check if there is an ongoing comparison operation by verifying that the cancellation token source is not null and that cancellation has not already been requested; if so, cancel the operation and disable the cancel button to prevent further clicks
 		if (_cancellationTokenSource != null && !_cancellationTokenSource.IsCancellationRequested)
 		{
@@ -644,6 +668,10 @@ internal partial class DatabaseDifferencesForm : BaseKryptonForm
 						 "Flags - 4-Hexdigit Flag\n" +
 						 "LastObs - Date of the Last Observation";
 		logger.Info(message: "Abbreviations message box displayed.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		_ = KryptonMessageBox.Show(owner: this, text: message, caption: "Abbreviations", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
 
@@ -655,6 +683,11 @@ internal partial class DatabaseDifferencesForm : BaseKryptonForm
 	private void KryptonButtonGoto_Click(object sender, EventArgs e)
 	{
 		// Log the action of navigating to a specific object and call the GoToObject method to perform the navigation
+
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		GoToObject();
 	}
 
@@ -669,6 +702,10 @@ internal partial class DatabaseDifferencesForm : BaseKryptonForm
 	private void ListViewResults_DoubleClick(object? sender, EventArgs e)
 	{
 		logger.Info(message: "ListView item double-clicked. Navigating to the selected object.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		GoToObject();
 	}
 
@@ -682,6 +719,8 @@ internal partial class DatabaseDifferencesForm : BaseKryptonForm
 	/// <remarks>This event is triggered when the ListView requires a virtual item to be displayed.</remarks>
 	private void ListViewResults_RetrieveVirtualItem(object? sender, RetrieveVirtualItemEventArgs e)
 	{
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Check if the requested item index is within the bounds of the difference results list, and if so, create a new ListViewItem based on the corresponding DifferenceResult and assign it to the event's Item property for display in the ListView
 		if (e.ItemIndex >= 0 && e.ItemIndex < differenceResults.Count)
 		{
@@ -696,6 +735,7 @@ internal partial class DatabaseDifferencesForm : BaseKryptonForm
 	/// <remarks>Used as the <c>virtualRowProvider</c> delegate when exporting via <see cref="Helpers.ListViewExporter"/>.</remarks>
 	private ListViewItem GetVirtualListViewItem(int index)
 	{
+		ArgumentOutOfRangeException.ThrowIfNegative(value: index);
 		// Check if the provided index is within the valid range of the difference results list, and if so, create and return a new ListViewItem based on the corresponding DifferenceResult; otherwise, return an empty ListViewItem
 		if (index >= 0 && index < differenceResults.Count)
 		{

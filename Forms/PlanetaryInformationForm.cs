@@ -85,77 +85,6 @@ internal partial class PlanetaryInformationForm : BaseKryptonForm
 	/// <remarks>This property is used to provide a visual representation of the object in the debugger.</remarks>
 	private string DebuggerDisplay => ToString();
 
-	/// <summary>Represents a fixed set of well-known base parameters for a single planet.</summary>
-	/// <remarks>Values are current best reference values (NASA/IAU) used to compute all derived orbital and physical properties displayed by the form.</remarks>
-	private class PlanetData
-	{
-		/// <summary>Gets the display name of the planet.</summary>
-		public required string Name { get; init; }
-
-		/// <summary>Gets the semi-major axis of the orbit in astronomical units (AU).</summary>
-		public required double SemiMajorAxisAu { get; init; }
-
-		/// <summary>Gets the numerical eccentricity of the orbit (dimensionless).</summary>
-		public required double Eccentricity { get; init; }
-
-		/// <summary>Gets the inclination of the orbital plane to the ecliptic in degrees.</summary>
-		public required double InclinationDeg { get; init; }
-
-		/// <summary>Gets the longitude of the ascending node in degrees.</summary>
-		public required double LongitudeAscendingNodeDeg { get; init; }
-
-		/// <summary>Gets the argument of perihelion in degrees.</summary>
-		public required double ArgumentPerihelionDeg { get; init; }
-
-		/// <summary>Gets the mean anomaly at the reference epoch in degrees.</summary>
-		public required double MeanAnomalyDeg { get; init; }
-
-		/// <summary>Gets the sidereal orbital period in Julian years.</summary>
-		public required double SiderealPeriodYears { get; init; }
-
-		/// <summary>Gets the synodic period as seen from Earth in Earth days.</summary>
-		public required double SynodicPeriodDays { get; init; }
-
-		/// <summary>Gets the equatorial diameter in kilometres.</summary>
-		public required double EquatorialDiameterKm { get; init; }
-
-		/// <summary>Gets the flattening (oblateness) of the planet (dimensionless).</summary>
-		public required double Flattening { get; init; }
-
-		/// <summary>Gets the mass in kilograms.</summary>
-		public required double MassKg { get; init; }
-
-		/// <summary>Gets the volume in cubic kilometres.</summary>
-		public required double VolumeKm3 { get; init; }
-
-		/// <summary>Gets the mean density in kilograms per cubic metre.</summary>
-		public required double DensityKgPerM3 { get; init; }
-
-		/// <summary>Gets the equatorial surface gravity in metres per second squared.</summary>
-		public required double SurfaceGravityMPerS2 { get; init; }
-
-		/// <summary>Gets the escape velocity in kilometres per second.</summary>
-		public required double EscapeVelocityKmPerS { get; init; }
-
-		/// <summary>Gets the sidereal rotation period in Earth days.</summary>
-		public required double RotationPeriodDays { get; init; }
-
-		/// <summary>Gets the equatorial rotational velocity in metres per second.</summary>
-		public required double EquatorialRotationVelocityMPerS { get; init; }
-
-		/// <summary>Gets the axial tilt (obliquity to the orbit) in degrees.</summary>
-		public required double AxialTiltDeg { get; init; }
-
-		/// <summary>Gets the geometric albedo (dimensionless).</summary>
-		public required double GeometricAlbedo { get; init; }
-
-		/// <summary>Gets the maximum apparent magnitude as seen from Earth.</summary>
-		public required double MaxApparentMagnitude { get; init; }
-
-		/// <summary>Gets the absolute magnitude H.</summary>
-		public required double AbsoluteMagnitude { get; init; }
-	}
-
 	/// <summary>Astronomical unit expressed in kilometres.</summary>
 	/// <remarks>Used to convert distances from AU to km when composing the display values.</remarks>
 	private const double AuInKm = 149597870.700;
@@ -177,207 +106,14 @@ internal partial class PlanetaryInformationForm : BaseKryptonForm
 	/// <remarks>Values are taken from the NASA Planetary Fact Sheet and the IAU J2000 mean orbital elements. Angles are in degrees; distances in AU or km; masses in kg; velocities in km/s or m/s as documented on each property.</remarks>
 	private static PlanetData[] Planets =>
 	[
-		new PlanetData
-		{
-			Name = "Mercury",
-			SemiMajorAxisAu = 0.38709893,
-			Eccentricity = 0.20563069,
-			InclinationDeg = 7.00487,
-			LongitudeAscendingNodeDeg = 48.33167,
-			ArgumentPerihelionDeg = 29.12478,
-			MeanAnomalyDeg = 174.7948,
-			SiderealPeriodYears = 0.2408467,
-			SynodicPeriodDays = 115.88,
-			EquatorialDiameterKm = 4879.4,
-			Flattening = 0.0000,
-			MassKg = 3.3011e23,
-			VolumeKm3 = 6.083e10,
-			DensityKgPerM3 = 5427.0,
-			SurfaceGravityMPerS2 = 3.70,
-			EscapeVelocityKmPerS = 4.25,
-			RotationPeriodDays = 58.6462,
-			EquatorialRotationVelocityMPerS = 3.026,
-			AxialTiltDeg = 0.034,
-			GeometricAlbedo = 0.142,
-			MaxApparentMagnitude = -2.48,
-			AbsoluteMagnitude = -0.613
-		},
-		new PlanetData
-		{
-			Name = "Venus",
-			SemiMajorAxisAu = 0.72333199,
-			Eccentricity = 0.00677323,
-			InclinationDeg = 3.39471,
-			LongitudeAscendingNodeDeg = 76.68069,
-			ArgumentPerihelionDeg = 54.85229,
-			MeanAnomalyDeg = 50.4161,
-			SiderealPeriodYears = 0.6151973,
-			SynodicPeriodDays = 583.92,
-			EquatorialDiameterKm = 12103.6,
-			Flattening = 0.0000,
-			MassKg = 4.8675e24,
-			VolumeKm3 = 9.2843e11,
-			DensityKgPerM3 = 5243.0,
-			SurfaceGravityMPerS2 = 8.87,
-			EscapeVelocityKmPerS = 10.36,
-			RotationPeriodDays = -243.0187,
-			EquatorialRotationVelocityMPerS = 1.81,
-			AxialTiltDeg = 177.36,
-			GeometricAlbedo = 0.689,
-			MaxApparentMagnitude = -4.92,
-			AbsoluteMagnitude = -4.384
-		},
-		new PlanetData
-		{
-			Name = "Earth",
-			SemiMajorAxisAu = 1.00000011,
-			Eccentricity = 0.01671022,
-			InclinationDeg = 0.00005,
-			LongitudeAscendingNodeDeg = -11.26064,
-			ArgumentPerihelionDeg = 114.20783,
-			MeanAnomalyDeg = 357.5291,
-			SiderealPeriodYears = 1.0000174,
-			SynodicPeriodDays = double.NaN,
-			EquatorialDiameterKm = 12756.2,
-			Flattening = 0.0033528,
-			MassKg = 5.97237e24,
-			VolumeKm3 = 1.08321e12,
-			DensityKgPerM3 = 5514.0,
-			SurfaceGravityMPerS2 = 9.80665,
-			EscapeVelocityKmPerS = 11.186,
-			RotationPeriodDays = 0.99726968,
-			EquatorialRotationVelocityMPerS = 465.1,
-			AxialTiltDeg = 23.4392811,
-			GeometricAlbedo = 0.434,
-			MaxApparentMagnitude = double.NaN,
-			AbsoluteMagnitude = -3.99
-		},
-		new PlanetData
-		{
-			Name = "Mars",
-			SemiMajorAxisAu = 1.52366231,
-			Eccentricity = 0.09341233,
-			InclinationDeg = 1.85061,
-			LongitudeAscendingNodeDeg = 49.57854,
-			ArgumentPerihelionDeg = 286.4623,
-			MeanAnomalyDeg = 19.3870,
-			SiderealPeriodYears = 1.8808476,
-			SynodicPeriodDays = 779.94,
-			EquatorialDiameterKm = 6792.4,
-			Flattening = 0.00589,
-			MassKg = 6.4171e23,
-			VolumeKm3 = 1.6318e11,
-			DensityKgPerM3 = 3933.5,
-			SurfaceGravityMPerS2 = 3.71,
-			EscapeVelocityKmPerS = 5.03,
-			RotationPeriodDays = 1.02595676,
-			EquatorialRotationVelocityMPerS = 241.17,
-			AxialTiltDeg = 25.19,
-			GeometricAlbedo = 0.170,
-			MaxApparentMagnitude = -2.94,
-			AbsoluteMagnitude = -1.601
-		},
-		new PlanetData
-		{
-			Name = "Jupiter",
-			SemiMajorAxisAu = 5.20336301,
-			Eccentricity = 0.04839266,
-			InclinationDeg = 1.30530,
-			LongitudeAscendingNodeDeg = 100.55615,
-			ArgumentPerihelionDeg = 275.066,
-			MeanAnomalyDeg = 20.020,
-			SiderealPeriodYears = 11.862615,
-			SynodicPeriodDays = 398.88,
-			EquatorialDiameterKm = 142984.0,
-			Flattening = 0.06487,
-			MassKg = 1.8982e27,
-			VolumeKm3 = 1.4313e15,
-			DensityKgPerM3 = 1326.0,
-			SurfaceGravityMPerS2 = 24.79,
-			EscapeVelocityKmPerS = 60.20,
-			RotationPeriodDays = 0.41354,
-			EquatorialRotationVelocityMPerS = 12572.0,
-			AxialTiltDeg = 3.13,
-			GeometricAlbedo = 0.538,
-			MaxApparentMagnitude = -2.94,
-			AbsoluteMagnitude = -9.395
-		},
-		new PlanetData
-		{
-			Name = "Saturn",
-			SemiMajorAxisAu = 9.53707032,
-			Eccentricity = 0.05415060,
-			InclinationDeg = 2.48446,
-			LongitudeAscendingNodeDeg = 113.71504,
-			ArgumentPerihelionDeg = 336.013862,
-			MeanAnomalyDeg = 317.020,
-			SiderealPeriodYears = 29.447498,
-			SynodicPeriodDays = 378.09,
-			EquatorialDiameterKm = 120536.0,
-			Flattening = 0.09796,
-			MassKg = 5.6834e26,
-			VolumeKm3 = 8.2713e14,
-			DensityKgPerM3 = 687.0,
-			SurfaceGravityMPerS2 = 10.44,
-			EscapeVelocityKmPerS = 36.09,
-			RotationPeriodDays = 0.44401,
-			EquatorialRotationVelocityMPerS = 9871.0,
-			AxialTiltDeg = 26.73,
-			GeometricAlbedo = 0.499,
-			MaxApparentMagnitude = -0.55,
-			AbsoluteMagnitude = -8.914
-		},
-		new PlanetData
-		{
-			Name = "Uranus",
-			SemiMajorAxisAu = 19.19126393,
-			Eccentricity = 0.04716771,
-			InclinationDeg = 0.76986,
-			LongitudeAscendingNodeDeg = 74.22988,
-			ArgumentPerihelionDeg = 96.541318,
-			MeanAnomalyDeg = 142.2386,
-			SiderealPeriodYears = 84.016846,
-			SynodicPeriodDays = 369.66,
-			EquatorialDiameterKm = 51118.0,
-			Flattening = 0.02293,
-			MassKg = 8.6810e25,
-			VolumeKm3 = 6.833e13,
-			DensityKgPerM3 = 1270.0,
-			SurfaceGravityMPerS2 = 8.87,
-			EscapeVelocityKmPerS = 21.38,
-			RotationPeriodDays = -0.71833,
-			EquatorialRotationVelocityMPerS = 2588.9,
-			AxialTiltDeg = 97.77,
-			GeometricAlbedo = 0.488,
-			MaxApparentMagnitude = 5.38,
-			AbsoluteMagnitude = -7.110
-		},
-		new PlanetData
-		{
-			Name = "Neptune",
-			SemiMajorAxisAu = 30.06896348,
-			Eccentricity = 0.00858587,
-			InclinationDeg = 1.76917,
-			LongitudeAscendingNodeDeg = 131.72169,
-			ArgumentPerihelionDeg = 265.646853,
-			MeanAnomalyDeg = 256.228,
-			SiderealPeriodYears = 164.79132,
-			SynodicPeriodDays = 367.49,
-			EquatorialDiameterKm = 49528.0,
-			Flattening = 0.01708,
-			MassKg = 1.02413e26,
-			VolumeKm3 = 6.254e13,
-			DensityKgPerM3 = 1638.0,
-			SurfaceGravityMPerS2 = 11.15,
-			EscapeVelocityKmPerS = 23.56,
-			RotationPeriodDays = 0.67125,
-			EquatorialRotationVelocityMPerS = 2680.4,
-			AxialTiltDeg = 28.32,
-			GeometricAlbedo = 0.442,
-			MaxApparentMagnitude = 7.67,
-			AbsoluteMagnitude = -7.00
-		}
-	];
+		new PlanetData(Name: "Mercury", SemiMajorAxisAu: 0.38709893, Eccentricity: 0.20563069, InclinationDeg: 7.00487, LongitudeAscendingNodeDeg: 48.33167, ArgumentPerihelionDeg: 29.12478, MeanAnomalyDeg: 174.7948, SiderealPeriodYears: 0.2408467, SynodicPeriodDays: 115.88, EquatorialDiameterKm: 4879.4, Flattening: 0.0000, MassKg: 3.3011e23, VolumeKm3: 6.083e10, DensityKgPerM3: 5427.0, SurfaceGravityMPerS2: 3.70, EscapeVelocityKmPerS: 4.25, RotationPeriodDays: 58.6462, EquatorialRotationVelocityMPerS: 3.026, AxialTiltDeg: 0.034, GeometricAlbedo: 0.142, MaxApparentMagnitude: -2.48, AbsoluteMagnitude: -0.613),
+		new PlanetData(Name: "Venus", SemiMajorAxisAu: 0.72333199, Eccentricity: 0.00677323, InclinationDeg: 3.39471, LongitudeAscendingNodeDeg: 76.68069, ArgumentPerihelionDeg: 54.85229, MeanAnomalyDeg: 50.4161, SiderealPeriodYears: 0.6151973, SynodicPeriodDays: 583.92, EquatorialDiameterKm: 12103.6, Flattening: 0.0000, MassKg: 4.8675e24, VolumeKm3: 9.2843e11, DensityKgPerM3: 5243.0, SurfaceGravityMPerS2: 8.87, EscapeVelocityKmPerS: 10.36, RotationPeriodDays: -243.0187, EquatorialRotationVelocityMPerS: 1.81, AxialTiltDeg: 177.36, GeometricAlbedo: 0.689, MaxApparentMagnitude: -4.92, AbsoluteMagnitude: -4.384),
+		new PlanetData(Name: "Earth", SemiMajorAxisAu: 1.00000011, Eccentricity: 0.01671022, InclinationDeg: 0.00005, LongitudeAscendingNodeDeg: -11.26064, ArgumentPerihelionDeg: 114.20783, MeanAnomalyDeg: 357.5291, SiderealPeriodYears: 1.0000174, SynodicPeriodDays: double.NaN, EquatorialDiameterKm: 12756.2, Flattening: 0.0033528, MassKg: 5.97237e24, VolumeKm3: 1.08321e12, DensityKgPerM3: 5514.0, SurfaceGravityMPerS2: 9.80665, EscapeVelocityKmPerS: 11.186, RotationPeriodDays: 0.99726968, EquatorialRotationVelocityMPerS: 465.1, AxialTiltDeg: 23.4392811, GeometricAlbedo: 0.434, MaxApparentMagnitude: double.NaN, AbsoluteMagnitude: -3.99),
+		new PlanetData(Name: "Mars", SemiMajorAxisAu: 1.52366231, Eccentricity: 0.09341233, InclinationDeg: 1.85061, LongitudeAscendingNodeDeg: 49.57854, ArgumentPerihelionDeg: 286.4623, MeanAnomalyDeg: 19.3870, SiderealPeriodYears: 1.8808476, SynodicPeriodDays: 779.94, EquatorialDiameterKm: 6792.4, Flattening: 0.00589, MassKg: 6.4171e23, VolumeKm3: 1.6318e11, DensityKgPerM3: 3933.5, SurfaceGravityMPerS2: 3.71, EscapeVelocityKmPerS: 5.03, RotationPeriodDays: 1.02595676, EquatorialRotationVelocityMPerS: 241.17, AxialTiltDeg: 25.19, GeometricAlbedo: 0.170, MaxApparentMagnitude: -2.94, AbsoluteMagnitude: -1.601),
+		new PlanetData(Name: "Jupiter", SemiMajorAxisAu: 5.20336301, Eccentricity: 0.04839266, InclinationDeg: 1.30530, LongitudeAscendingNodeDeg: 100.55615, ArgumentPerihelionDeg: 275.066, MeanAnomalyDeg: 20.020, SiderealPeriodYears: 11.862615, SynodicPeriodDays: 398.88, EquatorialDiameterKm: 142984.0, Flattening: 0.06487, MassKg: 1.8982e27, VolumeKm3: 1.4313e15, DensityKgPerM3: 1326.0, SurfaceGravityMPerS2: 24.79, EscapeVelocityKmPerS: 60.20, RotationPeriodDays: 0.41354, EquatorialRotationVelocityMPerS: 12572.0, AxialTiltDeg: 3.13, GeometricAlbedo: 0.538, MaxApparentMagnitude: -2.94, AbsoluteMagnitude: -9.395),
+		new PlanetData(Name: "Saturn", SemiMajorAxisAu: 9.53707032, Eccentricity: 0.05415060, InclinationDeg: 2.48446, LongitudeAscendingNodeDeg: 113.71504, ArgumentPerihelionDeg: 336.013862, MeanAnomalyDeg: 317.020, SiderealPeriodYears: 29.447498, SynodicPeriodDays: 378.09, EquatorialDiameterKm: 120536.0, Flattening: 0.09796, MassKg: 5.6834e26, VolumeKm3: 8.2713e14, DensityKgPerM3: 687.0, SurfaceGravityMPerS2: 10.44, EscapeVelocityKmPerS: 36.09, RotationPeriodDays: 0.44401, EquatorialRotationVelocityMPerS: 9871.0, AxialTiltDeg: 26.73, GeometricAlbedo: 0.499, MaxApparentMagnitude: -0.55, AbsoluteMagnitude: -8.914),
+		new PlanetData(Name: "Uranus", SemiMajorAxisAu: 19.19126393, Eccentricity: 0.04716771, InclinationDeg: 0.76986, LongitudeAscendingNodeDeg: 74.22988, ArgumentPerihelionDeg: 96.541318, MeanAnomalyDeg: 142.2386, SiderealPeriodYears: 84.016846, SynodicPeriodDays: 369.66, EquatorialDiameterKm: 51118.0, Flattening: 0.02293, MassKg: 8.6810e25, VolumeKm3: 6.833e13, DensityKgPerM3: 1270.0, SurfaceGravityMPerS2: 8.87, EscapeVelocityKmPerS: 21.38, RotationPeriodDays: -0.71833, EquatorialRotationVelocityMPerS: 2588.9, AxialTiltDeg: 97.77, GeometricAlbedo: 0.488, MaxApparentMagnitude: 5.38, AbsoluteMagnitude: -7.110),
+		new PlanetData(Name: "Neptune", SemiMajorAxisAu: 30.06896348, Eccentricity: 0.00858587, InclinationDeg: 1.76917, LongitudeAscendingNodeDeg: 131.72169, ArgumentPerihelionDeg: 265.646853, MeanAnomalyDeg: 256.228, SiderealPeriodYears: 164.79132, SynodicPeriodDays: 367.49, EquatorialDiameterKm: 49528.0, Flattening: 0.01708, MassKg: 1.02413e26, VolumeKm3: 6.254e13, DensityKgPerM3: 1638.0, SurfaceGravityMPerS2: 11.15, EscapeVelocityKmPerS: 23.56, RotationPeriodDays: 0.67125, EquatorialRotationVelocityMPerS: 2680.4, AxialTiltDeg: 28.32, GeometricAlbedo: 0.442, MaxApparentMagnitude: 7.67, AbsoluteMagnitude: -7.00)];
 
 	/// <summary>Solves Kepler's equation <c>M = E - e·sin(E)</c> for the eccentric anomaly E.</summary>
 	/// <param name="meanAnomalyRad">The mean anomaly in radians.</param>
@@ -477,6 +213,7 @@ internal partial class PlanetaryInformationForm : BaseKryptonForm
 	/// <remarks>All derived quantities (semi-minor axis, orbital area, perihelion/aphelion distances and velocities, pole diameter, descending node longitude, argument of aphelion, eccentric and true anomaly) are computed from the base parameters using standard Keplerian and geometric formulas.</remarks>
 	private static string[] ComputePlanetValues(PlanetData p, double nowJd)
 	{
+		ArgumentNullException.ThrowIfNull(argument: p);
 		// Orbital geometry (in km, computed from AU)
 		double aKm = p.SemiMajorAxisAu * AuInKm;
 		double bKm = aKm * Math.Sqrt(d: 1.0 - (p.Eccentricity * p.Eccentricity));
@@ -705,6 +442,10 @@ internal partial class PlanetaryInformationForm : BaseKryptonForm
 	{
 		// Log that the form has been loaded
 		logger.Info(message: "PlanetaryInformationForm loaded.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Play the open sound in the background to indicate that the form has been opened
 		AudioPlayback.PlayOpenSound();
 		// Clear the status bar when the form loads
@@ -720,6 +461,10 @@ internal partial class PlanetaryInformationForm : BaseKryptonForm
 	{
 		// Log that the form is closing
 		logger.Info(message: "PlanetaryInformationForm is closing.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Play the close sound in the background to indicate that the form is closing
 		AudioPlayback.PlayCloseSound();
 	}
@@ -734,6 +479,10 @@ internal partial class PlanetaryInformationForm : BaseKryptonForm
 	/// <remarks>Toggles the sort order between ascending and descending when the same column is clicked repeatedly, and updates the header text with an arrow indicator.</remarks>
 	private void ListView_ColumnClick(object sender, ColumnClickEventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// If there are no items in the ListView, do not attempt to sort
 		if (listView.Items.Count == 0)
 		{
@@ -781,6 +530,10 @@ internal partial class PlanetaryInformationForm : BaseKryptonForm
 	/// <remarks>Sets a flag when the right mouse button is pressed down on the ListView, which is used to determine if a context menu should be shown on mouse up.</remarks>
 	private void KryptonListView_MouseDown(object? sender, MouseEventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Track whether the right mouse button was pressed down on the ListView
 		rightMouseDownOnListView = e.Button == MouseButtons.Right;
 	}
@@ -791,6 +544,10 @@ internal partial class PlanetaryInformationForm : BaseKryptonForm
 	/// <remarks>Shows the context menu if the right mouse button was pressed down on the ListView and released over an item.</remarks>
 	private void KryptonListView_MouseUp(object? sender, MouseEventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Only show the context menu if the right mouse button was pressed down on the ListView and released over an item
 		if (!rightMouseDownOnListView || e.Button != MouseButtons.Right)
 		{

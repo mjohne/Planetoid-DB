@@ -231,6 +231,10 @@ internal partial class AppInfoForm : BaseKryptonForm
 	/// <remarks>This event initializes the form's UI elements with information from the assembly where available and assigns a predefined author value to the author label.</remarks>
 	private void AppInfoForm_Load(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Log that the form has loaded successfully
 		logger.Info(message: "AppInfoForm loaded successfully.");
 		// Play the open sound in the background to indicate that the form has been opened
@@ -251,6 +255,10 @@ internal partial class AppInfoForm : BaseKryptonForm
 	/// <remarks>This event handler logs the closing of the form and plays a close sound asynchronously to provide auditory feedback to the user.</remarks>
 	private void AppInfoForm_FormClosing(object sender, FormClosingEventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Log that the form is closing
 		logger.Info(message: "AppInfoForm is closing.");
 		// Play the close sound in the background to indicate that the form is closing
@@ -268,6 +276,10 @@ internal partial class AppInfoForm : BaseKryptonForm
 	private void KryptonLinkLabelWebsite_LinkClick(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Opening system homepage: {Settings.Default.systemHomepage}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		OpenWebsite(fileName: Settings.Default.systemHomepage);
 	}
 
@@ -278,6 +290,10 @@ internal partial class AppInfoForm : BaseKryptonForm
 	private void KryptonLinkLabelKryptonSuite_LinkClick(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Opening Krypton Suite website: {kryptonLinkLabelWebsiteKryptonSuite.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		OpenWebsite(fileName: kryptonLinkLabelWebsiteKryptonSuite.Text);
 	}
 
@@ -288,6 +304,10 @@ internal partial class AppInfoForm : BaseKryptonForm
 	private void KryptonLinkLabelNLog_LinkClick(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Opening NLog website: {kryptonLinkLabelWebsiteNlog.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		OpenWebsite(fileName: kryptonLinkLabelWebsiteNlog.Text);
 	}
 
@@ -298,6 +318,10 @@ internal partial class AppInfoForm : BaseKryptonForm
 	private void KryptonLinkLabelWebsiteOpenTK_LinkClick(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Opening OpenTK website: {kryptonLinkLabelWebsiteOpenTK.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		OpenWebsite(fileName: kryptonLinkLabelWebsiteOpenTK.Text);
 	}
 
@@ -308,6 +332,10 @@ internal partial class AppInfoForm : BaseKryptonForm
 	private void KryptonLinkLabelWebsiteScottPlot_LinkClick(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Opening ScottPlot website: {kryptonLinkLabelWebsiteScottPlot.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		OpenWebsite(fileName: kryptonLinkLabelWebsiteScottPlot.Text);
 	}
 
@@ -318,6 +346,10 @@ internal partial class AppInfoForm : BaseKryptonForm
 	private void KryptonLinkLabelFatCow_LinkClick(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Opening FatCow Icons website: {kryptonLinkLabelWebsiteFatcow.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		OpenWebsite(fileName: kryptonLinkLabelWebsiteFatcow.Text);
 	}
 
@@ -331,6 +363,10 @@ internal partial class AppInfoForm : BaseKryptonForm
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	private async void KryptonLinkLabelEmail_LinkClick(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		try
 		{
 			// Open the default email client with a new message to the specified email address
@@ -354,6 +390,10 @@ internal partial class AppInfoForm : BaseKryptonForm
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	private async void PictureBoxBanner_Click(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		if (_isBannerAnimationRunning)
 		{
 			return;
@@ -377,5 +417,4 @@ internal partial class AppInfoForm : BaseKryptonForm
 	}
 
 	#endregion
-
 }

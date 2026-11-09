@@ -221,6 +221,8 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method checks if a remote database file is newer than the local file by comparing their last modified dates. If the local file does not exist, it returns <see langword="true"/> (update available). If the remote file is newer, it also returns <see langword="true"/>. If any exceptions occur during the process, it returns <see langword="false"/>.</remarks>
 	private static bool IsDatabaseUpdateAvailable(string localFilePath, Uri sourceUri, bool readContentLength = false)
 	{
+		ArgumentException.ThrowIfNullOrEmpty(argument: localFilePath);
+		ArgumentNullException.ThrowIfNull(argument: sourceUri);
 		// Check if the file exists before attempting to access its metadata
 		if (!File.Exists(path: localFilePath))
 		{
@@ -263,6 +265,8 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method checks for network availability, displays the downloader form, and handles the post-download workflow, including disabling relevant UI elements and prompting for application restart.</remarks>
 	private void ShowDatabaseDownloader(string downloadUrl, ToolStripItem updateAvailableMenuItem, ToolStripItem? updateStatusItem = null)
 	{
+		ArgumentException.ThrowIfNullOrEmpty(argument: downloadUrl);
+		ArgumentNullException.ThrowIfNull(argument: updateAvailableMenuItem);
 		// Log the action of showing the database downloader form for the specified URL
 		logger.Info(message: "Showing database downloader form for URL: {0}", args: [downloadUrl]);
 		// Check if the network is available before proceeding with the download

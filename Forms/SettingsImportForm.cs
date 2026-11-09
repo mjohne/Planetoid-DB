@@ -36,6 +36,23 @@ internal partial class SettingsImportForm : BaseKryptonForm
 	/// <remarks>Overrides the base property to return the form's own status label.</remarks>
 	protected override ToolStripStatusLabel? StatusLabel => labelInformation;
 
+
+	#region constructor
+
+	/// <summary>Initializes a new instance of the <see cref="SettingsImportForm"/> class.</summary>
+	/// <remarks>This constructor initializes the form components.</remarks>
+	public SettingsImportForm()
+	{
+		// Log the initialization of the form
+		logger.Info(message: "Initializing SettingsImportForm.");
+		// Call the method to initialize the form's components
+		InitializeComponent();
+		// Log that the form has been initialized successfully
+		logger.Info(message: "SettingsImportForm initialized successfully.");
+	}
+
+	#endregion
+
 	#region helper methods
 
 	/// <summary>Returns a short debugger display string for this instance.</summary>
@@ -51,6 +68,10 @@ internal partial class SettingsImportForm : BaseKryptonForm
 	/// <remarks>The initial directory defaults to the user's Documents folder. The wait cursor is shown during import. Any unexpected exception is logged and shown as an error.</remarks>
 	private void ImportSettings(string filter, string defaultExt, string dialogTitle, Action<string> importer)
 	{
+		ArgumentException.ThrowIfNullOrEmpty(argument: filter);
+		ArgumentException.ThrowIfNullOrEmpty(argument: defaultExt);
+		ArgumentException.ThrowIfNullOrEmpty(argument: dialogTitle);
+		ArgumentNullException.ThrowIfNull(argument: importer);
 		logger.Info(message: $"Opening file dialog for settings import with filter '{filter}' and default extension '{defaultExt}'.");
 		// Show the open file dialog to the user
 		using OpenFileDialog openFileDialog = new()
@@ -91,22 +112,6 @@ internal partial class SettingsImportForm : BaseKryptonForm
 
 	#endregion
 
-	#region constructor
-
-	/// <summary>Initializes a new instance of the <see cref="SettingsImportForm"/> class.</summary>
-	/// <remarks>This constructor initializes the form components.</remarks>
-	public SettingsImportForm()
-	{
-		// Log the initialization of the form
-		logger.Info(message: "Initializing SettingsImportForm.");
-		// Call the method to initialize the form's components
-		InitializeComponent();
-		// Log that the form has been initialized successfully
-		logger.Info(message: "SettingsImportForm initialized successfully.");
-	}
-
-	#endregion
-
 	#region form event handlers
 
 	/// <summary>Handles the Load event of <see cref="SettingsImportForm"/>.</summary>
@@ -117,6 +122,10 @@ internal partial class SettingsImportForm : BaseKryptonForm
 	{
 		// Log that the form has been loaded
 		logger.Info(message: "SettingsImportForm loaded.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Play the open sound in the background to indicate that the form has been opened
 		AudioPlayback.PlayOpenSound();
 		// Clear the status bar to ensure no previous messages are displayed
@@ -131,6 +140,10 @@ internal partial class SettingsImportForm : BaseKryptonForm
 	{
 		// Log that the DragEnter event has been triggered
 		logger.Info(message: "DragEnter event triggered for settings import form.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Set the effect to Copy if the dragged data contains file paths; otherwise, set it to None
 		e.Effect = e.Data is not null && e.Data.GetDataPresent(format: DataFormats.FileDrop) ? DragDropEffects.Copy : DragDropEffects.None;
 	}
@@ -144,6 +157,10 @@ internal partial class SettingsImportForm : BaseKryptonForm
 	{
 		// Log that the DragDrop event has been triggered
 		logger.Info(message: "DragDrop event triggered for settings import form.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Check if the dragged data is null
 		if (e.Data is null)
 		{
@@ -211,6 +228,10 @@ internal partial class SettingsImportForm : BaseKryptonForm
 	{
 		// Log that the form is closing
 		logger.Info(message: "SettingsImportForm is closing.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Play the close sound in the background to indicate that the form is closing
 		AudioPlayback.PlayCloseSound();
 	}
@@ -226,6 +247,10 @@ internal partial class SettingsImportForm : BaseKryptonForm
 	private void ButtonImportCsv_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Initiating settings import from CSV.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		ImportSettings(filter: "CSV Files (*.csv)|*.csv|All Files (*.*)|*.*", defaultExt: "csv", dialogTitle: "Import Settings from CSV", importer: SettingsImporter.LoadFromCsv);
 	}
 
@@ -236,6 +261,10 @@ internal partial class SettingsImportForm : BaseKryptonForm
 	private void ButtonImportIni_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Initiating settings import from INI.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		ImportSettings(filter: "INI Files (*.ini)|*.ini|All Files (*.*)|*.*", defaultExt: "ini", dialogTitle: "Import Settings from INI", importer: SettingsImporter.LoadFromIni);
 	}
 
@@ -246,6 +275,10 @@ internal partial class SettingsImportForm : BaseKryptonForm
 	private void ButtonImportXml_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Initiating settings import from XML.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		ImportSettings(filter: "XML Files (*.xml)|*.xml|All Files (*.*)|*.*", defaultExt: "xml", dialogTitle: "Import Settings from XML", importer: SettingsImporter.LoadFromXml);
 	}
 
@@ -256,6 +289,10 @@ internal partial class SettingsImportForm : BaseKryptonForm
 	private void ButtonImportJson_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Initiating settings import from JSON.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		ImportSettings(filter: "JSON Files (*.json)|*.json|All Files (*.*)|*.*", defaultExt: "json", dialogTitle: "Import Settings from JSON", importer: SettingsImporter.LoadFromJson);
 	}
 
@@ -266,6 +303,10 @@ internal partial class SettingsImportForm : BaseKryptonForm
 	private void ButtonImportYaml_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Initiating settings import from YAML.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		ImportSettings(filter: "YAML Files (*.yaml)|*.yaml|All Files (*.*)|*.*", defaultExt: "yaml", dialogTitle: "Import Settings from YAML", importer: SettingsImporter.LoadFromYaml);
 	}
 

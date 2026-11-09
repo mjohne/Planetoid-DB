@@ -355,6 +355,8 @@ internal partial class AverageAsteroidForm : BaseKryptonForm
 	/// <remarks>This method calculates all 18 types of averages. It is safe to call from a background thread.</remarks>
 	private static ListViewItem BuildAverageRow(string propertyName, List<double> values)
 	{
+		ArgumentException.ThrowIfNullOrEmpty(argument: propertyName);
+		ArgumentNullException.ThrowIfNull(argument: values);
 		// Create a new ListViewItem with the property name as the first column
 		ListViewItem item = new(text: propertyName);
 		// Calculate and add all average types
@@ -398,6 +400,10 @@ internal partial class AverageAsteroidForm : BaseKryptonForm
 	/// <remarks>Initialises the UI state on load without starting the calculation.</remarks>
 	private void AverageAsteroidForm_Load(object? sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Log that the form has loaded and is ready to start calculations
 		logger.Info(message: "AverageAsteroidForm loaded. Ready to start calculation.");
 		// Play the open sound in the background to indicate that the form has been opened
@@ -412,6 +418,10 @@ internal partial class AverageAsteroidForm : BaseKryptonForm
 	/// <remarks>Signals cancellation and disposes the token source so that background work does not continue against a disposed form.</remarks>
 	private void AverageAsteroidForm_FormClosing(object? sender, FormClosingEventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Log that the form is closing and any running calculation is being cancelled
 		logger.Info(message: "AverageAsteroidForm is closing. Cancelling any running calculation.");
 		// Play the close sound in the background to indicate that the form is closing
@@ -420,44 +430,6 @@ internal partial class AverageAsteroidForm : BaseKryptonForm
 		_calculationCts?.Cancel();
 		_calculationCts?.Dispose();
 		_calculationCts = null;
-	}
-
-	/// <summary>Handles the Click event of the Start button to begin the asynchronous average calculation.</summary>
-	/// <param name="sender">The event source.</param>
-	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>This method initializes the cancellation token source, updates the UI state to indicate that a calculation is running, and starts the asynchronous calculation of averages. It also includes error handling to log any unexpected exceptions that occur during the calculation.</remarks>
-	private async void ToolStripButtonStart_Click(object? sender, EventArgs e)
-	{
-		logger.Info(message: "User clicked Start button. Beginning average calculation.");
-		// Dispose of any existing cancellation token source to ensure that previous calculations are properly cancelled before starting a new one
-		_calculationCts?.Dispose();
-		// Create a new cancellation token source for the upcoming calculation
-		_calculationCts = new CancellationTokenSource();
-		// Update the UI to indicate that a calculation is running, which will disable the Start button and enable the Cancel button
-		SetCalculationRunning(running: true);
-		// Start the asynchronous calculation of averages and handle any unexpected exceptions that may occur during the process
-		try
-		{
-			await CalculateAveragesAsync(ct: _calculationCts.Token).ConfigureAwait(continueOnCapturedContext: true);
-		}
-		catch (Exception ex)
-		{
-			logger.Error(message: $"Unexpected error in Start handler: {ex}");
-		}
-		finally
-		{
-			// Ensure the UI state is updated to reflect that the calculation is no longer running
-			SetCalculationRunning(running: false);
-		}
-	}
-
-	/// <summary>Handles the Click event of the Cancel button to abort a running calculation.</summary>
-	/// <param name="sender">The event source.</param>
-	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>This method signals cancellation of the ongoing average calculation by calling the Cancel method on the cancellation token source. If no calculation is running, this method has no effect.</remarks>
-	private void ToolStripButtonCancel_Click(object? sender, EventArgs e)
-	{
-		_calculationCts?.Cancel();
 	}
 
 	#endregion
@@ -470,6 +442,10 @@ internal partial class AverageAsteroidForm : BaseKryptonForm
 	/// <remarks>This method determines the sort order and initiates the sorting process for the selected column.</remarks>
 	private void ListView_ColumnClick(object sender, ColumnClickEventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Ensure the sender is a ListView and that it contains items before attempting to sort
 		if (listView.Items.Count == 0)
 		{
@@ -518,12 +494,62 @@ internal partial class AverageAsteroidForm : BaseKryptonForm
 
 	#region Click event handlers
 
+	/// <summary>Handles the Click event of the Start button to begin the asynchronous average calculation.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method initializes the cancellation token source, updates the UI state to indicate that a calculation is running, and starts the asynchronous calculation of averages. It also includes error handling to log any unexpected exceptions that occur during the calculation.</remarks>
+	private async void ToolStripButtonStart_Click(object? sender, EventArgs e)
+	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		logger.Info(message: "User clicked Start button. Beginning average calculation.");
+		// Dispose of any existing cancellation token source to ensure that previous calculations are properly cancelled before starting a new one
+		_calculationCts?.Dispose();
+		// Create a new cancellation token source for the upcoming calculation
+		_calculationCts = new CancellationTokenSource();
+		// Update the UI to indicate that a calculation is running, which will disable the Start button and enable the Cancel button
+		SetCalculationRunning(running: true);
+		// Start the asynchronous calculation of averages and handle any unexpected exceptions that may occur during the process
+		try
+		{
+			await CalculateAveragesAsync(ct: _calculationCts.Token).ConfigureAwait(continueOnCapturedContext: true);
+		}
+		catch (Exception ex)
+		{
+			logger.Error(message: $"Unexpected error in Start handler: {ex}");
+		}
+		finally
+		{
+			// Ensure the UI state is updated to reflect that the calculation is no longer running
+			SetCalculationRunning(running: false);
+		}
+	}
+
+	/// <summary>Handles the Click event of the Cancel button to abort a running calculation.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method signals cancellation of the ongoing average calculation by calling the Cancel method on the cancellation token source. If no calculation is running, this method has no effect.</remarks>
+	private void ToolStripButtonCancel_Click(object? sender, EventArgs e)
+	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		_calculationCts?.Cancel();
+	}
+
 	/// <summary>Handles the Click event of the copy-to-clipboard menu item. Copies the text of the currently selected list view row to the clipboard.</summary>
 	/// <param name="sender">Event source (the menu item).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>All sub-items of the selected row are joined with a tab character before being placed on the clipboard. If no row is selected the method returns without action.</remarks>
 	private void ToolStripMenuItemCopyToClipboard_Click(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Ensure that there is at least one selected item in the ListView before attempting to copy
 		if (listView.SelectedItems.Count == 0)
 		{

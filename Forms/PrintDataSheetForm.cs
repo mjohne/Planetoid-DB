@@ -89,7 +89,7 @@ internal partial class PrintDataSheetForm : BaseKryptonForm
 	/// <remarks>This method sets the database of orbital elements to be used by the form.</remarks>
 	public void SetDatabase(List<string> db)
 	{
-		orbitElements = db;
+		orbitElements = db ?? throw new ArgumentNullException(paramName: nameof(db));
 	}
 
 	/// <summary>Returns a short debugger display string for this instance.</summary>
@@ -118,6 +118,7 @@ internal partial class PrintDataSheetForm : BaseKryptonForm
 	/// <remarks>This method iterates through the checked list box items starting from the specified index and checks if there are any remaining checked items.</remarks>
 	private bool HasMoreCheckedItems(int startIndex)
 	{
+		ArgumentOutOfRangeException.ThrowIfNegative(value: startIndex);
 		// Iterate through the checked list box items starting from the specified index
 		for (int i = startIndex; i < checkedListBoxOrbitalElements.Items.Count; i++)
 		{
@@ -142,6 +143,10 @@ internal partial class PrintDataSheetForm : BaseKryptonForm
 	{
 		// Log that the form has been loaded
 		logger.Info(message: "PrintDataSheetForm loaded successfully.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Play the open sound in the background to indicate that the form has been opened
 		AudioPlayback.PlayOpenSound();
 		// Clear the status bar when the form loads
@@ -172,6 +177,10 @@ internal partial class PrintDataSheetForm : BaseKryptonForm
 	{
 		// Log that the form is closing
 		logger.Info(message: "PrintDataSheetForm is closing.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Play the close sound in the background to indicate that the form is closing
 		AudioPlayback.PlayCloseSound();
 	}
@@ -186,6 +195,10 @@ internal partial class PrintDataSheetForm : BaseKryptonForm
 	/// <remarks>This method is called when the print button is clicked.</remarks>
 	private void ButtonPrintDataSheet_Click(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Create a new PrintDialog instance
 		using PrintDialog dialogPrint = new();
 		// Set the printer settings for the print document
@@ -232,6 +245,10 @@ internal partial class PrintDataSheetForm : BaseKryptonForm
 	/// <remarks>This method is called when the print preview button is clicked.</remarks>
 	private void ToolStripButtonPrintPreview_Click(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Create a new PrintPreviewDialog instance
 		using PrintPreviewDialog previewDialog = new();
 		// Set the document for the print preview dialog
@@ -247,6 +264,10 @@ internal partial class PrintDataSheetForm : BaseKryptonForm
 	/// <remarks>This method is called when the page setup button is clicked.</remarks>
 	private void ToolStripButtonPageSetup_Click(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Create a new PageSetupDialog instance
 		using PageSetupDialog pageSetupDialog = new();
 		// Set the document, page settings, and printer settings for the page setup dialog
@@ -270,6 +291,10 @@ internal partial class PrintDataSheetForm : BaseKryptonForm
 	{
 		// Log a warning message indicating that the user requested to cancel printing
 		logger.Warn(message: "User requested to cancel printing.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Set the cancelPrinting flag to true to indicate that the printing process should be canceled
 		cancelPrinting = true;
 	}
@@ -280,6 +305,10 @@ internal partial class PrintDataSheetForm : BaseKryptonForm
 	/// <remarks>This method is used to mark all items in the orbital elements checklist.</remarks>
 	private void ToolStripButtonMarkAll_Click(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Mark all items in the checked list box
 		CheckIt(check: true);
 	}
@@ -290,6 +319,10 @@ internal partial class PrintDataSheetForm : BaseKryptonForm
 	/// <remarks>This method is used to unmark all items in the orbital elements checklist.</remarks>
 	private void ToolStripButtonUnmarkAll_Click(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Unmark all items in the checked list box
 		CheckIt(check: false);
 	}
@@ -304,6 +337,10 @@ internal partial class PrintDataSheetForm : BaseKryptonForm
 	/// <remarks>This method is called at the beginning of the print job to reset the pagination index and progress bar.</remarks>
 	private void PrintDoc_BeginPrint(object sender, PrintEventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Reset the last printed index to 0 at the beginning of the print job
 		lastPrintedIndex = 0;
 		toolStripProgressBarPrinting.Value = 0;
@@ -316,6 +353,10 @@ internal partial class PrintDataSheetForm : BaseKryptonForm
 	/// <remarks>This method is called when a page is printed.</remarks>
 	private void PrintDoc_PrintPage(object sender, PrintPageEventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Check if the printing process has been canceled
 		if (cancelPrinting)
 		{

@@ -112,6 +112,7 @@ internal partial class RecordsTop10Form : BaseKryptonForm
 	/// <remarks>Use this when the parameterless constructor is used and data is assigned afterwards.</remarks>
 	public void FillArray(List<string> arrTemp)
 	{
+		ArgumentNullException.ThrowIfNull(argument: arrTemp);
 		planetoidsDatabase = [.. arrTemp];
 		logger.Info(message: "Planetoid database copied into RecordsTop10Form instance.");
 	}
@@ -292,6 +293,7 @@ internal partial class RecordsTop10Form : BaseKryptonForm
 	/// <remarks>The method adds the candidate to the list, sorts it according to the active sort order, and then trims it to maintain only the top ten entries. It returns true if the candidate remains in the list after this process, indicating that it qualifies for the top-ten display.</remarks>
 	private static bool TryInsertTopRecord(List<TopRecordEntry> entries, TopRecordEntry candidate, bool isAscending)
 	{
+		ArgumentNullException.ThrowIfNull(argument: entries);
 		// Add the candidate entry to the list of current top-ten entries and sort the list based on the active sort order. The sorting is done using a comparison that compares the NumericValue of the entries, either in ascending or descending order depending on the isAscending parameter. After sorting, we check if the list exceeds ten entries, and if so, we remove the excess entries to maintain only the top ten. Finally, we return true if the candidate entry remains in the list after this process, indicating that it qualifies for the top-ten display; otherwise, we return false.
 		entries.Add(item: candidate);
 		// Sort the entries based on the active sort order. If isAscending is true, we sort in ascending order (smallest values first); if false, we sort in descending order (largest values first). The comparison is done by comparing the NumericValue of the entries.
@@ -312,6 +314,7 @@ internal partial class RecordsTop10Form : BaseKryptonForm
 	/// <remarks>Values are shown exactly as original source strings.</remarks>
 	private void ApplyTopRecords(IReadOnlyList<TopRecordEntry> entries)
 	{
+		ArgumentNullException.ThrowIfNull(argument: entries);
 		// Update the designation and value labels for each rank based on the provided top-ten entries. The method iterates through the labels and updates their text with the corresponding designation and string value from the entries list. If there are fewer than ten entries, the remaining labels are set to a default placeholder (e.g., "-") to indicate that no data is available for those ranks. This ensures that the UI accurately reflects the current top-ten records based on the latest scan results.
 		KryptonLabel[] designationLabels = GetDesignationLabels();
 		KryptonLabel[] valueLabels = GetValueLabels();
@@ -342,6 +345,7 @@ internal partial class RecordsTop10Form : BaseKryptonForm
 	/// <remarks>The method runs the scan on a background thread to keep the UI responsive. It iterates through the planetoid records, extracts the relevant value for the selected element, and maintains a live top-ten list based on the active sort order. Progress updates are reported to update the progress bar and optionally refresh the displayed top-ten results as they are found.</remarks>
 	private async Task ScanTopRecordsAsync(int selectedElementIndex, bool isAscending, CancellationToken token, IProgress<(int Percent, List<TopRecordEntry>? UpdatedEntries)> progress)
 	{
+		ArgumentOutOfRangeException.ThrowIfNegative(value: selectedElementIndex);
 		// Run the scan on a background thread to keep the UI responsive. The method iterates through the planetoid records, extracts the relevant value for the selected element, and maintains a live top-ten list based on the active sort order. Progress updates are reported to update the progress bar and optionally refresh the displayed top-ten results as they are found.
 		await Task.Run(action: () =>
 		{
@@ -404,6 +408,8 @@ internal partial class RecordsTop10Form : BaseKryptonForm
 			kryptonProgressBar.Text = $"{percent} %";
 			TaskbarProgress.SetValue(windowHandle: Handle, progressValue: (ulong)percent, progressMax: 100);
 		}
+
+		ArgumentOutOfRangeException.ThrowIfNegative(value: percent);
 		// If an updated list of top-ten entries is provided, we update the local topRecords list and apply it to the labels to refresh the displayed results. This allows the UI to show live updates of the top-ten records as they are found during the scan, providing immediate feedback to the user without waiting for the entire scan to complete.
 		if (updatedEntries != null)
 		{
@@ -447,6 +453,10 @@ internal partial class RecordsTop10Form : BaseKryptonForm
 	{
 		// Log that the form has been loaded
 		logger.Info(message: "RecordsTop10Form loaded.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Play the open sound in the background to indicate that the form has been opened
 		AudioPlayback.PlayOpenSound();
 		// On form load, we clear the status bar to ensure it starts in a clean state, disable the Cancel button since no scan is active, and disable the "Goto" buttons since there are no records to navigate to yet. This sets up the initial state of the UI for the user when they first open the form.
@@ -462,6 +472,10 @@ internal partial class RecordsTop10Form : BaseKryptonForm
 	private void RecordsTop10Form_FormClosing(object sender, FormClosingEventArgs e)
 	{
 		// Log that the form is closing
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		logger.Info(message: "RecordsTop10Form is closing.");
 		// Play the close sound in the background to indicate that the form is closing
 		AudioPlayback.PlayCloseSound();
@@ -478,6 +492,10 @@ internal partial class RecordsTop10Form : BaseKryptonForm
 	private async void Start_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Start button clicked; initiating top-ten scan.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Validate that the planetoids database is loaded and that an orbital element is selected before starting the scan. If the database is empty, we show an error message to the user indicating that the MPCORB.DAT file was not found and return without starting the scan. If no orbital element is selected in the list box, we show an error message prompting the user to select an orbital element and return without starting the scan. This ensures that we have the necessary data and user input to perform a meaningful scan before we proceed.
 		if (planetoidsDatabase.Count == 0)
 		{
@@ -551,6 +569,10 @@ internal partial class RecordsTop10Form : BaseKryptonForm
 	/// <remarks>This method is called when the Cancel control is clicked.</remarks>
 	private void Cancel_Click(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// When the Cancel button is clicked, we call Cancel on the cancellation token source to signal that the ongoing scan should be cancelled. We also disable the Cancel button to prevent multiple cancellation requests while the cancellation is being processed. The actual handling of the cancellation will occur in the ScanTopRecordsAsync method, where we check for cancellation and throw an OperationCanceledException to exit the scan loop gracefully.
 		cancellationTokenSource?.Cancel();
 		logger.Warn(message: "Scan was cancelled by the user.");
@@ -564,8 +586,10 @@ internal partial class RecordsTop10Form : BaseKryptonForm
 	private void Goto01_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Navigating to the first record in the top-ten list.");
-		ArgumentNullException.ThrowIfNull(sender);
-		ArgumentNullException.ThrowIfNull(e);
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		NavigateToRank(rankIndex: 0);
 	}
 
@@ -576,8 +600,10 @@ internal partial class RecordsTop10Form : BaseKryptonForm
 	private void Goto02_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Navigating to the second record in the top-ten list.");
-		ArgumentNullException.ThrowIfNull(sender);
-		ArgumentNullException.ThrowIfNull(e);
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		NavigateToRank(rankIndex: 1);
 	}
 
@@ -588,8 +614,10 @@ internal partial class RecordsTop10Form : BaseKryptonForm
 	private void Goto03_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Navigating to the third record in the top-ten list.");
-		ArgumentNullException.ThrowIfNull(sender);
-		ArgumentNullException.ThrowIfNull(e);
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		NavigateToRank(rankIndex: 2);
 	}
 
@@ -600,8 +628,10 @@ internal partial class RecordsTop10Form : BaseKryptonForm
 	private void Goto04_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Navigating to the fourth record in the top-ten list.");
-		ArgumentNullException.ThrowIfNull(sender);
-		ArgumentNullException.ThrowIfNull(e);
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		NavigateToRank(rankIndex: 3);
 	}
 
@@ -612,8 +642,10 @@ internal partial class RecordsTop10Form : BaseKryptonForm
 	private void Goto05_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Navigating to the fifth record in the top-ten list.");
-		ArgumentNullException.ThrowIfNull(sender);
-		ArgumentNullException.ThrowIfNull(e);
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		NavigateToRank(rankIndex: 4);
 	}
 
@@ -624,8 +656,10 @@ internal partial class RecordsTop10Form : BaseKryptonForm
 	private void Goto06_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Navigating to the sixth record in the top-ten list.");
-		ArgumentNullException.ThrowIfNull(sender);
-		ArgumentNullException.ThrowIfNull(e);
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		NavigateToRank(rankIndex: 5);
 	}
 
@@ -636,8 +670,10 @@ internal partial class RecordsTop10Form : BaseKryptonForm
 	private void Goto07_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Navigating to the seventh record in the top-ten list.");
-		ArgumentNullException.ThrowIfNull(sender);
-		ArgumentNullException.ThrowIfNull(e);
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		NavigateToRank(rankIndex: 6);
 	}
 
@@ -648,8 +684,10 @@ internal partial class RecordsTop10Form : BaseKryptonForm
 	private void Goto08_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Navigating to the eighth record in the top-ten list.");
-		ArgumentNullException.ThrowIfNull(sender);
-		ArgumentNullException.ThrowIfNull(e);
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		NavigateToRank(rankIndex: 7);
 	}
 
@@ -660,8 +698,10 @@ internal partial class RecordsTop10Form : BaseKryptonForm
 	private void Goto09_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Navigating to the ninth record in the top-ten list.");
-		ArgumentNullException.ThrowIfNull(sender);
-		ArgumentNullException.ThrowIfNull(e);
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		NavigateToRank(rankIndex: 8);
 	}
 
@@ -672,8 +712,10 @@ internal partial class RecordsTop10Form : BaseKryptonForm
 	private void Goto10_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Navigating to the tenth record in the top-ten list.");
-		ArgumentNullException.ThrowIfNull(sender);
-		ArgumentNullException.ThrowIfNull(e);
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		NavigateToRank(rankIndex: 9);
 	}
 
@@ -683,6 +725,10 @@ internal partial class RecordsTop10Form : BaseKryptonForm
 	/// <remarks>Ensures only one sort direction is checked at a time.</remarks>
 	private void SetAscendingSortOrder_Click(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// If neither sort order button is currently checked, we default to checking the ascending sort order button. This ensures that there is always a valid sort order selected, even if the user clicks on the currently unchecked button.
 		if (!toolStripButtonSortOrderAscending.Checked && !toolStripButtonSortOrderDescending.Checked)
 		{
@@ -699,6 +745,10 @@ internal partial class RecordsTop10Form : BaseKryptonForm
 	/// <remarks>Ensures only one sort direction is checked at a time.</remarks>
 	private void SetDescendingSortOrder_Click(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// If neither sort order button is currently checked, we default to checking the descending sort order button. This ensures that there is always a valid sort order selected, even if the user clicks on the currently unchecked button.
 		if (!toolStripButtonSortOrderDescending.Checked && !toolStripButtonSortOrderAscending.Checked)
 		{

@@ -85,6 +85,7 @@ internal partial class MaxoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>The method first checks if the line is long enough to contain the packed index. It then tries to extract the full readable designation from positions 166–193. If that field is empty, it falls back to the packed index in positions 0–6. If both fields are empty or the line is too short, it returns <see langword="null"/>.</remarks>
 	private static string? ExtractDesignation(string line)
 	{
+		ArgumentException.ThrowIfNullOrEmpty(argument: line);
 		// Lines must be at least 7 characters to hold the packed index
 		if (line.Length < 7)
 		{
@@ -115,6 +116,7 @@ internal partial class MaxoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>The method first checks if the line is long enough to contain all required fields. It then attempts to parse each field individually, returning <see langword="false"/> if any parsing operation fails.</remarks>
 	private static bool TryParseOrbitalElements(string line, out double semiMajorAxis, out double eccentricity, out double inclinationDeg, out double longitudeAscendingNodeDeg, out double argumentPerihelionDeg)
 	{
+		ArgumentException.ThrowIfNullOrEmpty(argument: line);
 		// Initialize out parameters to default values
 		semiMajorAxis = 0;
 		eccentricity = 0;
@@ -178,6 +180,7 @@ internal partial class MaxoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>The method iterates through all planetoid lines, extracting the designation from each line and comparing it to the given name. The comparison is case-insensitive. If a match is found, the corresponding line is returned immediately. If no match is found after checking all lines, the method returns <see langword="null"/>.</remarks>
 	private string? FindLineByDesignation(string name)
 	{
+		ArgumentException.ThrowIfNullOrEmpty(argument: name);
 		// Iterate through all planetoid lines to find a matching designation
 		foreach (string line in _planetoids)
 		{
@@ -260,6 +263,7 @@ internal partial class MaxoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>The combo box items are replaced with all names that contain the current text (case-insensitive). The cursor is repositioned at the end of the typed text after the update.</remarks>
 	private void ApplyContainsFilter(ComboBox comboBox)
 	{
+		ArgumentNullException.ThrowIfNull(argument: comboBox);
 		// Prevent re-entrant updates when the combo box is being modified programmatically
 		if (_updatingComboBox)
 		{
@@ -321,6 +325,10 @@ internal partial class MaxoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 	{
 		// Log that the form has loaded successfully
 		logger.Info(message: "MaxoidsRelativeToMinorPlanetsForm loaded.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Play the open sound in the background to indicate that the form has been opened
 		AudioPlayback.PlayOpenSound();
 		// Clear the status bar
@@ -330,10 +338,7 @@ internal partial class MaxoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 			// Log the number of planetoid names being loaded into the combo boxes
 			logger.Info(message: $"Loading {_planetoids.Count} planetoid names into combo boxes.");
 			// Extract all planetoid designations from the database
-			_allNames = [.. _planetoids
-				.Select(selector: ExtractDesignation)
-				.Where(predicate: static d => d is not null)
-				.Cast<string>()];
+			_allNames = [.. _planetoids.Select(selector: ExtractDesignation).Where(predicate: static d => d is not null).Cast<string>()];
 			// Populate both combo boxes with all planetoid names
 			comboBoxPlanetoid1.Items.AddRange(items: _allNames);
 			comboBoxPlanetoid2.Items.AddRange(items: _allNames);
@@ -360,6 +365,10 @@ internal partial class MaxoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 	{
 		// Log that the form is closing
 		logger.Info(message: "MaxoidsRelativeToMinorPlanetsForm is closing.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Play the close sound in the background to indicate that the form is closing
 		AudioPlayback.PlayCloseSound();
 	}
@@ -376,6 +385,10 @@ internal partial class MaxoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 	{
 		// Log the selection change event for debugging purposes
 		logger.Info(message: $"SelectionChangeCommitted event triggered for combo box: {sender}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Guard against null event arguments, though this should not happen in normal operation
 		ArgumentNullException.ThrowIfNull(argument: e);
 		// Recalculate and display the MAXOID based on the current selections in both combo boxes
@@ -394,6 +407,10 @@ internal partial class MaxoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 	{
 		// Log the TextChanged event for debugging purposes
 		logger.Info(message: $"TextChanged event triggered for ComboBoxPlanetoid1: {comboBoxPlanetoid1.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Guard against re-entrant updates when the combo box is being modified programmatically
 		try
 		{
@@ -420,6 +437,10 @@ internal partial class MaxoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 	{
 		// Log the TextChanged event for debugging purposes
 		logger.Info(message: $"TextChanged event triggered for ComboBoxPlanetoid2: {comboBoxPlanetoid2.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Guard against re-entrant updates when the combo box is being modified programmatically
 		try
 		{
@@ -450,6 +471,10 @@ internal partial class MaxoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 	{
 		// Log the action of clicking the random selection button for the first combo box
 		logger.Info(message: "Random selection button clicked for ComboBoxPlanetoid1.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Guard against empty planetoid list to avoid exceptions
 		if (_allNames.Length > 0)
 		{
@@ -473,6 +498,10 @@ internal partial class MaxoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 	private void KryptonButtonRandomPlanetoid2_Click(object sender, EventArgs e)
 	{
 		// Log the action of clicking the random selection button for the second combo box
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		logger.Info(message: "Random selection button clicked for ComboBoxPlanetoid2.");
 		// Guard against empty planetoid list to avoid exceptions
 		if (_allNames.Length > 0)

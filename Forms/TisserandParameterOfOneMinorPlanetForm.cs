@@ -115,6 +115,10 @@ internal partial class TisserandParameterOfOneMinorPlanetForm : BaseKryptonForm
 	{
 		// Log that the form has loaded and that Tisserand parameter calculations are starting
 		logger.Info(message: "TisserandParameterOfOneMinorPlanetForm loaded. Starting Tisserand parameter calculations.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Clear the status bar
 		ClearStatusBar(label: labelInformation);
 		// Play the open sound in the background to indicate that the form has been opened
@@ -171,6 +175,10 @@ internal partial class TisserandParameterOfOneMinorPlanetForm : BaseKryptonForm
 	{
 		// Log that the form is closing
 		logger.Info(message: "TisserandParameterOfOneMinorPlanetForm is closing.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Play the close sound in the background to indicate that the form is closing
 		AudioPlayback.PlayCloseSound();
 	}
@@ -180,6 +188,10 @@ internal partial class TisserandParameterOfOneMinorPlanetForm : BaseKryptonForm
 	#region Click event handlers
 	private void ToolStripButtonInfo_Click(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		_ = KryptonMessageBox.Show(
 			owner: this,
 			text: $"Tisserand's parameter is a dimensionless value calculated from object's orbital elements relative to a perturbing body.\n\nIt remains approximately constant during gravitational close encounters with that planet.\n\nThe parameter is used to classify minor bodies into groups such as main-belt asteroids, Jupiter-family comets, and Halley-type comets.\n\nValues of Tisserand's parameters < 3 typically indicate a comet-like orbit capable of close planetary encounters, while Tisserand's parameter > 3 indicates an asteroid-like orbit.",
@@ -196,6 +208,10 @@ internal partial class TisserandParameterOfOneMinorPlanetForm : BaseKryptonForm
 	private void MenuitemCopyToClipboardTisserandParameterRelativeToMercury_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying Tisserand parameter relative to Mercury to clipboard: {labelMercuryData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelMercuryData.Text);
 	}
 
@@ -206,6 +222,10 @@ internal partial class TisserandParameterOfOneMinorPlanetForm : BaseKryptonForm
 	private void MenuitemCopyToClipboardTisserandParameterRelativeToVenus_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying Tisserand parameter relative to Venus to clipboard: {labelVenusData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelVenusData.Text);
 	}
 
@@ -216,6 +236,10 @@ internal partial class TisserandParameterOfOneMinorPlanetForm : BaseKryptonForm
 	private void MenuitemCopyToClipboardTisserandParameterRelativeToEarth_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying Tisserand parameter relative to Earth to clipboard: {labelEarthData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelEarthData.Text);
 	}
 
@@ -226,6 +250,10 @@ internal partial class TisserandParameterOfOneMinorPlanetForm : BaseKryptonForm
 	private void MenuitemCopyToClipboardTisserandParameterRelativeToMars_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying Tisserand parameter relative to Mars to clipboard: {labelMarsData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelMarsData.Text);
 	}
 
@@ -236,6 +264,10 @@ internal partial class TisserandParameterOfOneMinorPlanetForm : BaseKryptonForm
 	private void MenuitemCopyToClipboardTisserandParameterRelativeToJupiter_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying Tisserand parameter relative to Jupiter to clipboard: {labelJupiterData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelJupiterData.Text);
 	}
 
@@ -246,6 +278,10 @@ internal partial class TisserandParameterOfOneMinorPlanetForm : BaseKryptonForm
 	private void MenuitemCopyToClipboardTisserandParameterRelativeToSaturn_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying Tisserand parameter relative to Saturn to clipboard: {labelSaturnData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelSaturnData.Text);
 	}
 
@@ -256,6 +292,10 @@ internal partial class TisserandParameterOfOneMinorPlanetForm : BaseKryptonForm
 	private void MenuitemCopyToClipboardTisserandParameterRelativeToUranus_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying Tisserand parameter relative to Uranus to clipboard: {labelUranusData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelUranusData.Text);
 	}
 
@@ -266,6 +306,10 @@ internal partial class TisserandParameterOfOneMinorPlanetForm : BaseKryptonForm
 	private void MenuitemCopyToClipboardTisserandParameterRelativeToNeptune_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying Tisserand parameter relative to Neptune to clipboard: {labelNeptuneData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelNeptuneData.Text);
 	}
 

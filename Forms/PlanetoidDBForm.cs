@@ -20,6 +20,7 @@ using Planetoid_DB.Helpers;
 using Planetoid_DB.Properties;
 
 using System.Diagnostics;
+using System.Text;
 
 namespace Planetoid_DB;
 
@@ -30,6 +31,15 @@ namespace Planetoid_DB;
 
 public partial class PlanetoidDbForm : BaseKryptonForm
 {
+	/// <summary>Ending position of the delimiter preceding the index in an MPCORB.DAT record.</summary>
+	private const int mpcorbDatIndexDelimiterEnd = 7;
+
+	/// <summary>Starting position of the delimiter preceding the readable designation in an MPCORB.DAT record.</summary>
+	private const int mpcorbDatReadableDesignationDelimiterBegin = 166;
+
+	/// <summary>Ending position of the delimiter preceding the readable designation in an MPCORB.DAT record.</summary>
+	private const int mpcorbDatReadableDesignationDelimiterEnd = 194;
+
 	/// <summary>NLog logger instance.</summary>
 	/// <remarks>This logger is used throughout the application to log important events and errors.</remarks>
 	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
@@ -44,7 +54,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 
 	/// <summary>Stores the current position in the planetoids database and the step position for navigation.</summary>
 	/// <remarks>This integer is used to store the current position in the planetoids database and the step position for navigation.</remarks>
-	private int currentPosition, stepPosition;
+	private int currentMpcorbPosition, stepPosition;
 
 	/// <summary>Stores the current position in the ASTORB database.</summary>
 	/// <remarks>This integer is used to mirror the current navigation position for the ASTORB.DAT tab display.</remarks>
@@ -106,12 +116,16 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <remarks>When <c>true</c>, the navigation code must not push the new position onto the history back-stack to avoid an infinite push loop.</remarks>
 	private bool isNavigatingHistory;
 
-	// Retrieves the current process of your program
+	/// <summary>Retrieves the current process of your program.</summary>
+	/// <remarks>This property is used to access information about the current process, such as memory usage and performance metrics.</remarks>
 	private readonly Process currentProcess = Process.GetCurrentProcess();
 
-	// Determines the number of logical CPU cores
+	/// <summary>Determines the number of logical CPU cores.</summary>
+	/// <remarks>This value is used to optimize parallel processing and resource allocation based on the number of available CPU cores.</remarks>
 	private readonly int processorCount = Environment.ProcessorCount;
 
+	/// <summary>Tracks elapsed time when a stopwatch is initialized.</summary>
+	/// <remarks>This stopwatch is used to measure elapsed time for performance monitoring or timing operations.</remarks>
 	private static Stopwatch? stopWatch;
 
 	/// <summary>Splash screen form instance.</summary>
@@ -172,6 +186,16 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <remarks>This URI is used to access the SINGOPP.CAT database.</remarks>
 	private readonly Uri uriSingoppCat = new(uriString: Settings.Default.systemSingoppCatUrl);
 
+	/// <summary>A <see cref="CompositeFormat"/> instance for formatting the bookmark audit summary.</summary>
+	/// <remarks>This field is used to format messages for the bookmark audit summary.</remarks>
+	private static readonly CompositeFormat bookmarkAuditSummary = CompositeFormat.Parse(format: I18nStrings.BookmarkAuditSummary);
+
+	/// <summary>Indicates whether shutdown sound playback has started.</summary>
+	private bool isShutdownSoundPlaybackStarted;
+
+	/// <summary>Indicates whether shutdown sound playback has completed.</summary>
+	private bool isShutdownSoundPlaybackComplete;
+
 	/*
 	private readonly IProgress<int>? downloadProgress;
 	private const int bufferSize = 81920; // 80 KB buffer size for downloading
@@ -229,6 +253,9 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		InitializeComponent();
 		// Set the version text to the current assembly version
 		TextExtra = AssemblyInfo.AssemblyVersion;
+
+		RegisterMouseMoveRecursive(control: this);
+
 		// Apply comprehensive flicker reduction for the TableLayoutPanel
 		OptimizeTableLayoutPanelForFlickerReduction();
 		// Log the initialization without an MPCORB.DAT file path
@@ -240,6 +267,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <remarks>This constructor initializes the form and sets the version text.</remarks>
 	public PlanetoidDbForm(string mpcorbDatFilePath)
 	{
+		ArgumentException.ThrowIfNullOrWhiteSpace(argument: mpcorbDatFilePath);
 		// Log the initialization with the provided MPCORB.DAT file path
 		logger.Info(message: $"Initializing PlanetoidDbForm with MPCORB.DAT file path: {mpcorbDatFilePath}");
 		// Initialize the form components
@@ -250,6 +278,21 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		OptimizeTableLayoutPanelForFlickerReduction();
 		// Log the initialization with the provided MPCORB.DAT file path
 		logger.Info(message: $"PlanetoidDbForm initialized with MPCORB.DAT file path: {mpcorbDatFilePath}");
+	}
+
+	/// <summary>Registers the mouse-move handler for the specified control and all its descendants.</summary>
+	/// <param name="control">The control whose mouse-move events are registered.</param>
+	/// <remarks>This method recursively registers the MouseMove event handler for the specified control and all its child controls.</remarks>
+	private void RegisterMouseMoveRecursive(Control control)
+	{
+		ArgumentNullException.ThrowIfNull(argument: control);
+		// Register the MouseMove event handler for the current control
+		control.MouseMove += MouseCoordinates_MouseMove;
+		// Recursively register the MouseMove event handler for all child controls
+		foreach (Control child in control.Controls)
+		{
+			RegisterMouseMoveRecursive(control: child);
+		}
 	}
 
 	/// <summary>Optimizes the TableLayoutPanels to eliminate flickering during label updates.</summary>

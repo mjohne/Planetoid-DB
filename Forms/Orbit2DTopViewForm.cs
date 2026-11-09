@@ -60,14 +60,14 @@ internal partial class Orbit2DTopViewForm : BaseKryptonForm
 	/// <remarks>These values are sourced from the same dataset used in <see cref="MoidCalculator"/> to ensure consistency. Each entry stores the planet name, semi-major axis in AU, eccentricity, and argument of perihelion in degrees.</remarks>
 	private static readonly (string Name, double SemiMajorAxis, double Eccentricity, double ArgumentPerihelionDeg)[] PlanetOrbits =
 	[
-		("Mercury", 0.38709893, 0.20563069, 29.12478),
-		("Venus",   0.72333199, 0.00677323, 54.85229),
-		("Earth",   1.00000011, 0.01671022, 114.20783),
-		("Mars",    1.52366231, 0.09341233, 286.46230),
-		("Jupiter", 5.20336301, 0.04839266, 274.19770),
-		("Saturn",  9.53707032, 0.05415060, 338.71690),
-		("Uranus",  19.19126393, 0.04716771, 96.73436),
-		("Neptune", 30.06896348, 0.00858587, 273.24966),
+		(Name: "Mercury", SemiMajorAxis:  0.38709893, Eccentricity: 0.20563069, ArgumentPerihelionDeg:  29.12478),
+		(Name: "Venus",   SemiMajorAxis:  0.72333199, Eccentricity: 0.00677323, ArgumentPerihelionDeg:  54.85229),
+		(Name: "Earth",   SemiMajorAxis:  1.00000011, Eccentricity: 0.01671022, ArgumentPerihelionDeg: 114.20783),
+		(Name: "Mars",    SemiMajorAxis:  1.52366231, Eccentricity: 0.09341233, ArgumentPerihelionDeg: 286.46230),
+		(Name: "Jupiter", SemiMajorAxis:  5.20336301, Eccentricity: 0.04839266, ArgumentPerihelionDeg: 274.19770),
+		(Name: "Saturn",  SemiMajorAxis:  9.53707032, Eccentricity: 0.05415060, ArgumentPerihelionDeg: 338.71690),
+		(Name: "Uranus",  SemiMajorAxis: 19.19126393, Eccentricity: 0.04716771, ArgumentPerihelionDeg:  96.73436),
+		(Name: "Neptune", SemiMajorAxis: 30.06896348, Eccentricity: 0.00858587, ArgumentPerihelionDeg: 273.24966),
 	];
 
 	/// <summary>Radius of the Sun marker in AU used for the central circle in the diagram.</summary>
@@ -158,22 +158,10 @@ internal partial class Orbit2DTopViewForm : BaseKryptonForm
 		for (int i = 0; i < PlanetOrbits.Length; i++)
 		{
 			(string? name, double a, double e, double omega) = PlanetOrbits[i];
-			AddOrbitEllipse(
-				name: name,
-				semiMajorAxis: a,
-				eccentricity: e,
-				argumentPerihelionDeg: omega,
-				lineColor: planetColors[i],
-				lineWidth: OrbitLineWidth);
+			AddOrbitEllipse(name: name, semiMajorAxis: a, eccentricity: e, argumentPerihelionDeg: omega, lineColor: planetColors[i], lineWidth: OrbitLineWidth);
 		}
 		// Draw the planetoid orbit in a distinct orange color so it stands out from the planet orbits.
-		AddOrbitEllipse(
-			name: _planetoidName,
-			semiMajorAxis: _semiMajorAxis,
-			eccentricity: _eccentricity,
-			argumentPerihelionDeg: _argumentPerihelionDeg,
-			lineColor: Colors.OrangeRed,
-			lineWidth: OrbitLineWidth + 1f);
+		AddOrbitEllipse(name: _planetoidName, semiMajorAxis: _semiMajorAxis, eccentricity: _eccentricity, argumentPerihelionDeg: _argumentPerihelionDeg, lineColor: Colors.OrangeRed, lineWidth: OrbitLineWidth + 1f);
 		// Scale the visible axes to the planetoid's orbit extent.
 		// The aphelion distance (maximum distance from the Sun) defines the required axis range.
 		// Planet orbits that extend beyond this limit remain drawn and can be explored by zooming out.
@@ -202,14 +190,9 @@ internal partial class Orbit2DTopViewForm : BaseKryptonForm
 	/// <para>With the perihelion direction at angle <c>ω</c> from east, the center offset is: <c>cx = −a·e·cos(ω)</c>, <c>cy = −a·e·sin(ω)</c>.</para>
 	/// <para>ScottPlot's <c>Ellipse.Rotation</c> property takes a <see cref="ScottPlot.Angle"/> value measured counter-clockwise from the positive X-axis (east), which matches the convention used here for the argument of perihelion.</para>
 	/// <para>The ellipse fill is left transparent; only the border is colored so orbit lines remain visually distinct and do not occlude one another.</para></remarks>
-	private void AddOrbitEllipse(
-		string name,
-		double semiMajorAxis,
-		double eccentricity,
-		double argumentPerihelionDeg,
-		ScottPlot.Color lineColor,
-		float lineWidth)
+	private void AddOrbitEllipse(string name, double semiMajorAxis, double eccentricity, double argumentPerihelionDeg, ScottPlot.Color lineColor, float lineWidth)
 	{
+		ArgumentException.ThrowIfNullOrEmpty(argument: name);
 		// Guard against degenerate or invalid orbital parameters.
 		if (semiMajorAxis <= 0.0 || eccentricity < 0.0 || eccentricity >= 1.0)
 		{
@@ -240,8 +223,12 @@ internal partial class Orbit2DTopViewForm : BaseKryptonForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>Clears the status bar and renders the orbital diagram when the form is first shown.</remarks>
-	private void OrbitsForm_Load(object? sender, EventArgs e)
+	private void OrbitsForm_Load(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Log that the form has been loaded
 		logger.Info(message: "Orbits2DTopViewForm loaded.");
 		// Play the open sound in the background to indicate that the form has been opened
@@ -270,6 +257,10 @@ internal partial class Orbit2DTopViewForm : BaseKryptonForm
 	{
 		// Log that the form is closing
 		logger.Info(message: "Orbit2DTopViewForm is closing.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Play the close sound in the background to indicate that the form is closing
 		AudioPlayback.PlayCloseSound();
 	}

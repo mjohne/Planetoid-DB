@@ -58,6 +58,8 @@ public class BaseKryptonForm : KryptonForm
 	/// <remarks>This method is used to display an error message to the user.</remarks>
 	protected static void ShowWarnMessage(string caption, string message)
 	{
+		ArgumentException.ThrowIfNullOrEmpty(argument: caption);
+		ArgumentException.ThrowIfNullOrEmpty(argument: message);
 		// Show an error message box with the specified message
 		_ = KryptonMessageBox.Show(text: message, caption: caption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Warning);
 	}
@@ -67,6 +69,7 @@ public class BaseKryptonForm : KryptonForm
 	/// <remarks>This method is used to display an error message to the user.</remarks>
 	protected static void ShowErrorMessage(string message)
 	{
+		ArgumentNullException.ThrowIfNull(argument: message);
 		// Show an error message box with the specified message
 		_ = KryptonMessageBox.Show(text: message, caption: I18nStrings.ErrorCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Error);
 	}
@@ -76,6 +79,7 @@ public class BaseKryptonForm : KryptonForm
 	/// <remarks>On success an informational dialog is shown. On failure the exception is logged and an error dialog is displayed. This method is protected so derived forms can use it directly.</remarks>
 	protected static void CopyToClipboard(string text)
 	{
+		ArgumentNullException.ThrowIfNull(argument: text);
 		// Try to copy the text to the clipboard
 		try
 		{
@@ -100,6 +104,8 @@ public class BaseKryptonForm : KryptonForm
 	/// <remarks>This method is used to set the status bar text and enable the information label.</remarks>
 	protected static void SetStatusBar(ToolStripStatusLabel label, string text, string additionalInfo = "")
 	{
+		ArgumentNullException.ThrowIfNull(argument: label);
+		ArgumentException.ThrowIfNullOrEmpty(argument: text);
 		// Check if the label is null or text is null or whitespace
 		if (label is null || string.IsNullOrWhiteSpace(value: text))
 		{
@@ -189,8 +195,10 @@ public class BaseKryptonForm : KryptonForm
 	/// <remarks>This method extracts text from the sender control or uses the current control's text for ToolStripItems, then copies it to the clipboard using the <see cref="CopyToClipboard"/> method.</remarks>
 	protected void CopyToClipboard_DoubleClick(object sender, EventArgs e)
 	{
-		// Check if the sender is null
+		// Ensure that an event source was supplied
 		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Get the text to copy based on the sender type
 		string? textToCopy = sender switch
 		{
@@ -238,6 +246,10 @@ public class BaseKryptonForm : KryptonForm
 	/// <remarks>This method is used to store the control that triggered the event for future reference.</remarks>
 	protected virtual void Control_MouseDown(object sender, MouseEventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Check if the sender is a Control
 		if (sender is Control control)
 		{
@@ -383,11 +395,7 @@ public class BaseKryptonForm : KryptonForm
 	/// <param name="tableLayoutPanelAction">The export action invoked when <see cref="ExportTableLayoutPanel"/> is set.</param>
 	/// <param name="textBoxAction">The optional export action invoked when <see cref="ExportTextBox"/> is set.</param>
 	/// <remarks>The export target is selected in priority order: <see cref="ExportListView"/>, then <see cref="ExportTableLayoutPanel"/>, then <see cref="ExportTextBox"/>. The wait cursor is shown during export. Any exception is logged and displayed as an error message.</remarks>
-	protected void PerformSaveExport(
-		string filter, string defaultExt, string dialogTitle,
-		Action<ListView, string, string, Func<int, ListViewItem>?> listViewAction,
-		Action<TableLayoutPanel, string, string> tableLayoutPanelAction,
-		Action<TextBox, string, string>? textBoxAction = null)
+	protected void PerformSaveExport(string filter, string defaultExt, string dialogTitle, Action<ListView, string, string, Func<int, ListViewItem>?> listViewAction, Action<TableLayoutPanel, string, string> tableLayoutPanelAction, Action<TextBox, string, string>? textBoxAction = null)
 	{
 		ArgumentNullException.ThrowIfNull(argument: filter);
 		ArgumentNullException.ThrowIfNull(argument: defaultExt);
@@ -450,6 +458,8 @@ public class BaseKryptonForm : KryptonForm
 	protected void SaveAsText_Click(object? sender, EventArgs e)
 	{
 		logger.Info(message: "Initiating export to text file.");
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		PerformSaveExport(filter: "Text Files (*.txt)|*.txt|All Files (*.*)|*.*", defaultExt: "txt", dialogTitle: "Save as Text", listViewAction: ListViewExporter.SaveAsText, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsText, textBoxAction: TextBoxExporter.SaveAsText);
 	}
 
@@ -460,6 +470,8 @@ public class BaseKryptonForm : KryptonForm
 	protected void SaveAsLatex_Click(object? sender, EventArgs e)
 	{
 		logger.Info(message: "Initiating export to LaTeX file.");
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		PerformSaveExport(filter: "LaTeX Files (*.tex)|*.tex|All Files (*.*)|*.*", defaultExt: "tex", dialogTitle: "Save as LaTeX", listViewAction: ListViewExporter.SaveAsLatex, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsLatex, textBoxAction: TextBoxExporter.SaveAsLatex);
 	}
 
@@ -470,6 +482,8 @@ public class BaseKryptonForm : KryptonForm
 	protected void SaveAsMarkdown_Click(object? sender, EventArgs e)
 	{
 		logger.Info(message: "Initiating export to Markdown file.");
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		PerformSaveExport(filter: "Markdown Files (*.md)|*.md|All Files (*.*)|*.*", defaultExt: "md", dialogTitle: "Save as Markdown", listViewAction: ListViewExporter.SaveAsMarkdown, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsMarkdown, textBoxAction: TextBoxExporter.SaveAsMarkdown);
 	}
 
@@ -480,6 +494,8 @@ public class BaseKryptonForm : KryptonForm
 	protected void SaveAsAsciiDoc_Click(object? sender, EventArgs e)
 	{
 		logger.Info(message: "Initiating export to AsciiDoc file.");
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		PerformSaveExport(filter: "AsciiDoc Files (*.adoc)|*.adoc|All Files (*.*)|*.*", defaultExt: "adoc", dialogTitle: "Save as AsciiDoc", listViewAction: ListViewExporter.SaveAsAsciiDoc, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsAsciiDoc, textBoxAction: TextBoxExporter.SaveAsAsciiDoc);
 	}
 
@@ -490,6 +506,8 @@ public class BaseKryptonForm : KryptonForm
 	protected void SaveAsReStructuredText_Click(object? sender, EventArgs e)
 	{
 		logger.Info(message: "Initiating export to reStructuredText file.");
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		PerformSaveExport(filter: "reStructuredText Files (*.rst)|*.rst|All Files (*.*)|*.*", defaultExt: "rst", dialogTitle: "Save as reStructuredText", listViewAction: ListViewExporter.SaveAsReStructuredText, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsReStructuredText, textBoxAction: TextBoxExporter.SaveAsReStructuredText);
 	}
 
@@ -500,6 +518,8 @@ public class BaseKryptonForm : KryptonForm
 	protected void SaveAsTextile_Click(object? sender, EventArgs e)
 	{
 		logger.Info(message: "Initiating export to Textile file.");
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		PerformSaveExport(filter: "Textile Files (*.textile)|*.textile|All Files (*.*)|*.*", defaultExt: "textile", dialogTitle: "Save as Textile", listViewAction: ListViewExporter.SaveAsTextile, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsTextile, textBoxAction: TextBoxExporter.SaveAsTextile);
 	}
 
@@ -510,6 +530,8 @@ public class BaseKryptonForm : KryptonForm
 	protected void SaveAsTypst_Click(object? sender, EventArgs e)
 	{
 		logger.Info(message: "Initiating export to Typst file.");
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		PerformSaveExport(filter: "Typst Files (*.typ)|*.typ|All Files (*.*)|*.*", defaultExt: "typ", dialogTitle: "Save as Typst", listViewAction: ListViewExporter.SaveAsTypst, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsTypst, textBoxAction: TextBoxExporter.SaveAsTypst);
 	}
 
@@ -520,6 +542,8 @@ public class BaseKryptonForm : KryptonForm
 	protected void SaveAsWord_Click(object? sender, EventArgs e)
 	{
 		logger.Info(message: "Initiating export to Word file.");
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		PerformSaveExport(filter: "Word Documents (*.docx)|*.docx|All Files (*.*)|*.*", defaultExt: "docx", dialogTitle: "Save as Word", listViewAction: ListViewExporter.SaveAsWord, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsWord, textBoxAction: TextBoxExporter.SaveAsWord);
 	}
 
@@ -530,6 +554,8 @@ public class BaseKryptonForm : KryptonForm
 	protected void SaveAsOdt_Click(object? sender, EventArgs e)
 	{
 		logger.Info(message: "Initiating export to OpenDocument Text file.");
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		PerformSaveExport(filter: "OpenDocument Text Files (*.odt)|*.odt|All Files (*.*)|*.*", defaultExt: "odt", dialogTitle: "Save as OpenDocument Text", listViewAction: ListViewExporter.SaveAsOdt, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsOdt, textBoxAction: TextBoxExporter.SaveAsOdt);
 	}
 
@@ -540,6 +566,8 @@ public class BaseKryptonForm : KryptonForm
 	protected void SaveAsRtf_Click(object? sender, EventArgs e)
 	{
 		logger.Info(message: "Initiating export to Rich Text Format file.");
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		PerformSaveExport(filter: "Rich Text Format Files (*.rtf)|*.rtf|All Files (*.*)|*.*", defaultExt: "rtf", dialogTitle: "Save as RTF", listViewAction: ListViewExporter.SaveAsRtf, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsRtf, textBoxAction: TextBoxExporter.SaveAsRtf);
 	}
 
@@ -550,6 +578,8 @@ public class BaseKryptonForm : KryptonForm
 	protected void SaveAsAbiword_Click(object? sender, EventArgs e)
 	{
 		logger.Info(message: "Initiating export to Abiword file.");
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		PerformSaveExport(filter: "Abiword Files (*.abw)|*.abw|All Files (*.*)|*.*", defaultExt: "abw", dialogTitle: "Save as Abiword", listViewAction: ListViewExporter.SaveAsAbiword, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsAbiword, textBoxAction: TextBoxExporter.SaveAsAbiword);
 	}
 
@@ -560,6 +590,8 @@ public class BaseKryptonForm : KryptonForm
 	protected void SaveAsWps_Click(object? sender, EventArgs e)
 	{
 		logger.Info(message: "Initiating export to WPS Writer file.");
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		PerformSaveExport(filter: "WPS Writer Files (*.wps)|*.wps|All Files (*.*)|*.*", defaultExt: "wps", dialogTitle: "Save as WPS Writer", listViewAction: ListViewExporter.SaveAsWps, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsWps, textBoxAction: TextBoxExporter.SaveAsWps);
 	}
 
@@ -570,6 +602,8 @@ public class BaseKryptonForm : KryptonForm
 	protected void SaveAsExcel_Click(object? sender, EventArgs e)
 	{
 		logger.Info(message: "Initiating export to Excel file.");
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		PerformSaveExport(filter: "Excel Spreadsheets (*.xlsx)|*.xlsx|All Files (*.*)|*.*", defaultExt: "xlsx", dialogTitle: "Save as Excel", listViewAction: ListViewExporter.SaveAsExcel, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsExcel, textBoxAction: TextBoxExporter.SaveAsExcel);
 	}
 
@@ -580,6 +614,8 @@ public class BaseKryptonForm : KryptonForm
 	protected void SaveAsOds_Click(object? sender, EventArgs e)
 	{
 		logger.Info(message: "Initiating export to OpenDocument Spreadsheet file.");
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		PerformSaveExport(filter: "OpenDocument Spreadsheet Files (*.ods)|*.ods|All Files (*.*)|*.*", defaultExt: "ods", dialogTitle: "Save as OpenDocument Spreadsheet", listViewAction: ListViewExporter.SaveAsOds, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsOds, textBoxAction: TextBoxExporter.SaveAsOds);
 	}
 
@@ -590,6 +626,8 @@ public class BaseKryptonForm : KryptonForm
 	protected void SaveAsCsv_Click(object? sender, EventArgs e)
 	{
 		logger.Info(message: "Initiating export to CSV file.");
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		PerformSaveExport(filter: "Comma-Separated Values (*.csv)|*.csv|All Files (*.*)|*.*", defaultExt: "csv", dialogTitle: "Save as CSV", listViewAction: ListViewExporter.SaveAsCsv, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsCsv, textBoxAction: TextBoxExporter.SaveAsCsv);
 	}
 
@@ -600,6 +638,8 @@ public class BaseKryptonForm : KryptonForm
 	protected void SaveAsTsv_Click(object? sender, EventArgs e)
 	{
 		logger.Info(message: "Initiating export to TSV file.");
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		PerformSaveExport(filter: "Tab-Separated Values (*.tsv)|*.tsv|All Files (*.*)|*.*", defaultExt: "tsv", dialogTitle: "Save as TSV", listViewAction: ListViewExporter.SaveAsTsv, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsTsv, textBoxAction: TextBoxExporter.SaveAsTsv);
 	}
 
@@ -610,6 +650,8 @@ public class BaseKryptonForm : KryptonForm
 	protected void SaveAsPsv_Click(object? sender, EventArgs e)
 	{
 		logger.Info(message: "Initiating export to PSV file.");
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		PerformSaveExport(filter: "Pipe-Separated Values (*.psv)|*.psv|All Files (*.*)|*.*", defaultExt: "psv", dialogTitle: "Save as PSV", listViewAction: ListViewExporter.SaveAsPsv, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsPsv, textBoxAction: TextBoxExporter.SaveAsPsv);
 	}
 
@@ -620,6 +662,8 @@ public class BaseKryptonForm : KryptonForm
 	protected void SaveAsEt_Click(object? sender, EventArgs e)
 	{
 		logger.Info(message: "Initiating export to WPS Spreadsheets file.");
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		PerformSaveExport(filter: "WPS Spreadsheets (*.et)|*.et|All Files (*.*)|*.*", defaultExt: "et", dialogTitle: "Save as WPS Spreadsheets", listViewAction: ListViewExporter.SaveAsEt, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsEt, textBoxAction: TextBoxExporter.SaveAsEt);
 	}
 
@@ -630,6 +674,8 @@ public class BaseKryptonForm : KryptonForm
 	protected void SaveAsHtml_Click(object? sender, EventArgs e)
 	{
 		logger.Info(message: "Initiating export to HTML file.");
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		PerformSaveExport(filter: "HTML Files (*.html)|*.html|All Files (*.*)|*.*", defaultExt: "html", dialogTitle: "Save as HTML", listViewAction: ListViewExporter.SaveAsHtml, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsHtml, textBoxAction: TextBoxExporter.SaveAsHtml);
 	}
 
@@ -640,6 +686,8 @@ public class BaseKryptonForm : KryptonForm
 	protected void SaveAsXml_Click(object? sender, EventArgs e)
 	{
 		logger.Info(message: "Initiating export to XML file.");
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		PerformSaveExport(filter: "XML Files (*.xml)|*.xml|All Files (*.*)|*.*", defaultExt: "xml", dialogTitle: "Save as XML", listViewAction: ListViewExporter.SaveAsXml, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsXml, textBoxAction: TextBoxExporter.SaveAsXml);
 	}
 
@@ -650,6 +698,8 @@ public class BaseKryptonForm : KryptonForm
 	protected void SaveAsDocBook_Click(object? sender, EventArgs e)
 	{
 		logger.Info(message: "Initiating export to DocBook XML file.");
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		PerformSaveExport(filter: "DocBook Files (*.xml)|*.xml|All Files (*.*)|*.*", defaultExt: "xml", dialogTitle: "Save as DocBook", listViewAction: ListViewExporter.SaveAsDocBook, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsDocBook, textBoxAction: TextBoxExporter.SaveAsDocBook);
 	}
 
@@ -660,6 +710,8 @@ public class BaseKryptonForm : KryptonForm
 	protected void SaveAsJson_Click(object? sender, EventArgs e)
 	{
 		logger.Info(message: "Initiating export to JSON file.");
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		PerformSaveExport(filter: "JSON Files (*.json)|*.json|All Files (*.*)|*.*", defaultExt: "json", dialogTitle: "Save as JSON", listViewAction: ListViewExporter.SaveAsJson, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsJson, textBoxAction: TextBoxExporter.SaveAsJson);
 	}
 
@@ -670,6 +722,8 @@ public class BaseKryptonForm : KryptonForm
 	protected void SaveAsYaml_Click(object? sender, EventArgs e)
 	{
 		logger.Info(message: "Initiating export to YAML file.");
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		PerformSaveExport(filter: "YAML Files (*.yaml)|*.yaml|All Files (*.*)|*.*", defaultExt: "yaml", dialogTitle: "Save as YAML", listViewAction: ListViewExporter.SaveAsYaml, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsYaml, textBoxAction: TextBoxExporter.SaveAsYaml);
 	}
 
@@ -680,6 +734,8 @@ public class BaseKryptonForm : KryptonForm
 	protected void SaveAsToml_Click(object? sender, EventArgs e)
 	{
 		logger.Info(message: "Initiating export to TOML file.");
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		PerformSaveExport(filter: "TOML Files (*.toml)|*.toml|All Files (*.*)|*.*", defaultExt: "toml", dialogTitle: "Save as TOML", listViewAction: ListViewExporter.SaveAsToml, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsToml, textBoxAction: TextBoxExporter.SaveAsToml);
 	}
 
@@ -690,6 +746,8 @@ public class BaseKryptonForm : KryptonForm
 	protected void SaveAsSql_Click(object? sender, EventArgs e)
 	{
 		logger.Info(message: "Initiating export to SQL file.");
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		PerformSaveExport(filter: "SQL Scripts (*.sql)|*.sql|All Files (*.*)|*.*", defaultExt: "sql", dialogTitle: "Save as SQL", listViewAction: ListViewExporter.SaveAsSql, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsSql, textBoxAction: TextBoxExporter.SaveAsSql);
 	}
 
@@ -700,6 +758,8 @@ public class BaseKryptonForm : KryptonForm
 	protected void SaveAsSqlite_Click(object? sender, EventArgs e)
 	{
 		logger.Info(message: "Initiating export to SQLite file.");
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		PerformSaveExport(filter: "SQLite Database Files (*.sqlite)|*.sqlite|All Files (*.*)|*.*", defaultExt: "sqlite", dialogTitle: "Save as SQLite", listViewAction: ListViewExporter.SaveAsSqlite, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsSqlite, textBoxAction: TextBoxExporter.SaveAsSqlite);
 	}
 
@@ -710,6 +770,8 @@ public class BaseKryptonForm : KryptonForm
 	protected void SaveAsPdf_Click(object? sender, EventArgs e)
 	{
 		logger.Info(message: "Initiating export to PDF file.");
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		PerformSaveExport(filter: "PDF Files (*.pdf)|*.pdf|All Files (*.*)|*.*", defaultExt: "pdf", dialogTitle: "Save as PDF", listViewAction: ListViewExporter.SaveAsPdf, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsPdf, textBoxAction: TextBoxExporter.SaveAsPdf);
 	}
 
@@ -720,6 +782,8 @@ public class BaseKryptonForm : KryptonForm
 	protected void SaveAsPostScript_Click(object? sender, EventArgs e)
 	{
 		logger.Info(message: "Initiating export to PostScript file.");
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		PerformSaveExport(filter: "PostScript Files (*.ps)|*.ps|All Files (*.*)|*.*", defaultExt: "ps", dialogTitle: "Save as PostScript", listViewAction: ListViewExporter.SaveAsPostScript, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsPostScript, textBoxAction: TextBoxExporter.SaveAsPostScript);
 	}
 
@@ -730,6 +794,8 @@ public class BaseKryptonForm : KryptonForm
 	protected void SaveAsEpub_Click(object? sender, EventArgs e)
 	{
 		logger.Info(message: "Initiating export to EPUB file.");
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		PerformSaveExport(filter: "EPUB Files (*.epub)|*.epub|All Files (*.*)|*.*", defaultExt: "epub", dialogTitle: "Save as EPUB", listViewAction: ListViewExporter.SaveAsEpub, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsEpub, textBoxAction: TextBoxExporter.SaveAsEpub);
 	}
 
@@ -740,6 +806,8 @@ public class BaseKryptonForm : KryptonForm
 	protected void SaveAsMobi_Click(object? sender, EventArgs e)
 	{
 		logger.Info(message: "Initiating export to MOBI file.");
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		PerformSaveExport(filter: "MOBI Files (*.mobi)|*.mobi|All Files (*.*)|*.*", defaultExt: "mobi", dialogTitle: "Save as MOBI", listViewAction: ListViewExporter.SaveAsMobi, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsMobi, textBoxAction: TextBoxExporter.SaveAsMobi);
 	}
 
@@ -750,6 +818,8 @@ public class BaseKryptonForm : KryptonForm
 	protected void SaveAsFictionBook2_Click(object? sender, EventArgs e)
 	{
 		logger.Info(message: "Initiating export to FictionBook2 file.");
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		PerformSaveExport(filter: "FictionBook2 Files (*.fb2)|*.fb2|All Files (*.*)|*.*", defaultExt: "fb2", dialogTitle: "Save as FictionBook2", listViewAction: ListViewExporter.SaveAsFictionBook2, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsFictionBook2, textBoxAction: TextBoxExporter.SaveAsFictionBook2);
 	}
 
@@ -760,6 +830,8 @@ public class BaseKryptonForm : KryptonForm
 	protected void SaveAsChm_Click(object? sender, EventArgs e)
 	{
 		logger.Info(message: "Initiating export to CHM file.");
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		PerformSaveExport(filter: "Compiled HTML Help Files (*.chm)|*.chm|All Files (*.*)|*.*", defaultExt: "chm", dialogTitle: "Save as CHM", listViewAction: ListViewExporter.SaveAsChm, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsChm, textBoxAction: TextBoxExporter.SaveAsChm);
 	}
 
@@ -770,6 +842,8 @@ public class BaseKryptonForm : KryptonForm
 	protected void SaveAsXps_Click(object? sender, EventArgs e)
 	{
 		logger.Info(message: "Initiating export to XPS file.");
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		PerformSaveExport(filter: "XPS Files (*.xps)|*.xps|All Files (*.*)|*.*", defaultExt: "xps", dialogTitle: "Save as XPS", listViewAction: ListViewExporter.SaveAsXps, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsXps, textBoxAction: TextBoxExporter.SaveAsXps);
 	}
 

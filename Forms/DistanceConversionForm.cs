@@ -70,6 +70,10 @@ internal partial class DistanceConversionForm : BaseKryptonForm
 	{
 		// Log the form load event for debugging purposes
 		logger.Info(message: "DistanceConversionForm loaded.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Play the open sound in the background to indicate that the form has been opened
 		AudioPlayback.PlayOpenSound();
 		// Clear the status bar
@@ -84,6 +88,10 @@ internal partial class DistanceConversionForm : BaseKryptonForm
 	{
 		// Log the form closing event for debugging purposes
 		logger.Info(message: "DistanceConversionForm is closing.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Play the open sound in the background to indicate that the form is closing
 		AudioPlayback.PlayCloseSound();
 	}
@@ -92,8 +100,16 @@ internal partial class DistanceConversionForm : BaseKryptonForm
 
 	#region ValueChanged event handlers
 
+	/// <summary>Updates the corresponding distance-unit values when the meter value changes.</summary>
+	/// <remarks>Prevents recursive updates while synchronizing the converted values.</remarks>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data.</param>
 	private void KryptonNumericUpDownMeter_ValueChanged(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		if (_isUpdating)
 		{
 			return;
@@ -125,8 +141,16 @@ internal partial class DistanceConversionForm : BaseKryptonForm
 		}
 	}
 
+	/// <summary>Updates the corresponding distance fields when the kilometer value changes.</summary>
+	/// <remarks>Prevents recursive updates while synchronizing the converted values.</remarks>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The event data.</param>
 	private void KryptonNumericUpDownKilometer_ValueChanged(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		if (_isUpdating)
 		{
 			return;
@@ -158,8 +182,16 @@ internal partial class DistanceConversionForm : BaseKryptonForm
 		}
 	}
 
+	/// <summary>Updates the corresponding distance values when the land-mile value changes.</summary>
+	/// <remarks>Updates are skipped while another distance value is being synchronized.</remarks>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The event data.</param>
 	private void KryptonNumericUpDownLandMile_ValueChanged(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		if (_isUpdating)
 		{
 			return;
@@ -191,8 +223,16 @@ internal partial class DistanceConversionForm : BaseKryptonForm
 		}
 	}
 
+	/// <summary>Updates the corresponding distance values when the nautical mile value changes.</summary>
+	/// <remarks>Prevents recursive updates while synchronizing the other distance controls.</remarks>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The event data.</param>
 	private void KryptonNumericUpDownNauticalMile_ValueChanged(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		if (_isUpdating)
 		{
 			return;
@@ -224,8 +264,16 @@ internal partial class DistanceConversionForm : BaseKryptonForm
 		}
 	}
 
+	/// <summary>Updates the other distance-unit values when the light-millisecond value changes.</summary>
+	/// <remarks>Recursive updates are ignored while the other distance-unit values are being synchronized.</remarks>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The event data.</param>
 	private void KryptonNumericUpDownLightMillisecond_ValueChanged(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		if (_isUpdating)
 		{
 			return;
@@ -257,8 +305,16 @@ internal partial class DistanceConversionForm : BaseKryptonForm
 		}
 	}
 
+	/// <summary>Updates the corresponding distance-unit values when the light-second value changes.</summary>
+	/// <remarks>Prevents recursive updates while converting the light-second value to the other supported distance units.</remarks>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The event data.</param>
 	private void KryptonNumericUpDownLightSecond_ValueChanged(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		if (_isUpdating)
 		{
 			return;
@@ -290,8 +346,15 @@ internal partial class DistanceConversionForm : BaseKryptonForm
 		}
 	}
 
+	/// <summary>Updates all related distance unit controls to match the current light-minute value.</summary>
+	/// <param name="sender">The event source that raised the value-changed notification.</param>
+	/// <param name="e">The event data associated with the value-changed event.</param>
 	private void KryptonNumericUpDownLightMinute_ValueChanged(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		if (_isUpdating)
 		{
 			return;
@@ -323,8 +386,16 @@ internal partial class DistanceConversionForm : BaseKryptonForm
 		}
 	}
 
+	/// <summary>Updates the equivalent distance values when the light-hour value changes.</summary>
+	/// <remarks>Updates are skipped while another synchronized value update is in progress.</remarks>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The event data.</param>
 	private void KryptonNumericUpDownLightHour_ValueChanged(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		if (_isUpdating)
 		{
 			return;
@@ -356,8 +427,16 @@ internal partial class DistanceConversionForm : BaseKryptonForm
 		}
 	}
 
+	/// <summary>Updates the corresponding distance-unit values when the light-day value changes.</summary>
+	/// <remarks>Updates are skipped while another value update is in progress to prevent recursive updates.</remarks>
+	/// <param name="sender">The object that raised the event.</param>
+	/// <param name="e">The event data.</param>
 	private void KryptonNumericUpDownLightDay_ValueChanged(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		if (_isUpdating)
 		{
 			return;
@@ -389,8 +468,15 @@ internal partial class DistanceConversionForm : BaseKryptonForm
 		}
 	}
 
+	/// <summary>Responds to a Mercurial unit value change by converting it to the other supported distance units and updating the related controls without re-entering the event handler.</summary>
+	/// <param name="sender">The source of the value-changed event.</param>
+	/// <param name="e">The event data associated with the value change.</param>
 	private void KryptonNumericUpDownMercurialUnit_ValueChanged(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		if (_isUpdating)
 		{
 			return;
@@ -422,8 +508,15 @@ internal partial class DistanceConversionForm : BaseKryptonForm
 		}
 	}
 
+	/// <summary>Synchronizes the other distance-unit values with the selected Venusian unit.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The event data.</param>
 	private void KryptonNumericUpDownVenusianUnit_ValueChanged(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		if (_isUpdating)
 		{
 			return;
@@ -455,8 +548,16 @@ internal partial class DistanceConversionForm : BaseKryptonForm
 		}
 	}
 
+	/// <summary>Updates the corresponding distance-unit values when the terrestrial-unit value changes.</summary>
+	/// <remarks>Updates are skipped while another update is in progress to prevent recursive value changes.</remarks>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The event data.</param>
 	private void KryptonNumericUpDownTerrestrialUnit_ValueChanged(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		if (_isUpdating)
 		{
 			return;
@@ -488,8 +589,16 @@ internal partial class DistanceConversionForm : BaseKryptonForm
 		}
 	}
 
+	/// <summary>
+	/// Updates the related distance controls when the lunar unit value changes by converting the current value into each supported unit.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data associated with the event.</param>
 	private void KryptonNumericUpDownLunarUnit_ValueChanged(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		if (_isUpdating)
 		{
 			return;
@@ -521,8 +630,16 @@ internal partial class DistanceConversionForm : BaseKryptonForm
 		}
 	}
 
+	/// <summary>
+	/// Updates the other distance-unit values when the Martian unit value changes.</summary>	/// <remarks>Prevents recursive updates while synchronizing the distance-unit values.</remarks>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The event data.</param>
 	private void KryptonNumericUpDownMartianUnit_ValueChanged(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		if (_isUpdating)
 		{
 			return;
@@ -554,8 +671,15 @@ internal partial class DistanceConversionForm : BaseKryptonForm
 		}
 	}
 
+	/// <summary>Updates the related distance-unit values to match the selected Jovian unit value.</summary>
+	/// <param name="sender">The event source that raised the value-change event.</param>
+	/// <param name="e">The event data associated with the value-change event.</param>
 	private void KryptonNumericUpDownJovianUnit_ValueChanged(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		if (_isUpdating)
 		{
 			return;
@@ -587,8 +711,15 @@ internal partial class DistanceConversionForm : BaseKryptonForm
 		}
 	}
 
+	/// <summary>Updates the corresponding distance-unit values when the Saturnian unit value changes.</summary>
+	/// <param name="sender">The object that raised the event.</param>
+	/// <param name="e">The event data.</param>
 	private void KryptonNumericUpDownSaturnianUnit_ValueChanged(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		if (_isUpdating)
 		{
 			return;
@@ -620,8 +751,16 @@ internal partial class DistanceConversionForm : BaseKryptonForm
 		}
 	}
 
+	/// <summary>Synchronizes the other distance values when the Uranian unit value changes.</summary>
+	/// <remarks>Updates are ignored while other distance values are being synchronized.</remarks>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The event data.</param>
 	private void KryptonNumericUpDownUranianUnit_ValueChanged(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		if (_isUpdating)
 		{
 			return;
@@ -653,8 +792,16 @@ internal partial class DistanceConversionForm : BaseKryptonForm
 		}
 	}
 
+	/// <summary>Synchronizes the other distance-unit values when the Neptunian unit value changes.</summary>
+	/// <remarks>Updates are skipped while another synchronization is in progress.</remarks>
+	/// <param name="sender">The control that raised the event.</param>
+	/// <param name="e">The event data.</param>
 	private void KryptonNumericUpDownNeptunianUnit_ValueChanged(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		if (_isUpdating)
 		{
 			return;

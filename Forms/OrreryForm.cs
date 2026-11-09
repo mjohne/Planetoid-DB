@@ -326,6 +326,7 @@ internal partial class OrreryForm : BaseKryptonForm
 	/// <remarks>The minimum is 1 unless there are no records, in which case both bounds are 0. The ValueChanged handler is wired to rebuild the selected range.</remarks>
 	private void ConfigureIndexControl(ToolStripNumericUpDown control, int value, int max)
 	{
+		ArgumentNullException.ThrowIfNull(argument: control);
 		control.DecimalPlaces = 0;
 		control.Increment = 1m;
 		control.Minimum = max == 0 ? 0m : 1m;
@@ -348,6 +349,9 @@ internal partial class OrreryForm : BaseKryptonForm
 	/// <returns><see langword="true"/> if the value was parsed successfully; otherwise <see langword="false"/>.</returns>
 	private static bool TryParseValue(string line, int start, int len, out double value)
 	{
+		ArgumentException.ThrowIfNullOrEmpty(argument: line);
+		ArgumentOutOfRangeException.ThrowIfNegative(value: start);
+		ArgumentOutOfRangeException.ThrowIfNegative(value: len);
 		value = default;
 		return line.Length >= start + len && double.TryParse(s: line.Substring(startIndex: start, length: len).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out value);
 	}
@@ -357,6 +361,7 @@ internal partial class OrreryForm : BaseKryptonForm
 	/// <returns>The trimmed readable designation, or the packed number field when the designation column is absent.</returns>
 	private static string ParseDesignation(string line)
 	{
+		ArgumentException.ThrowIfNullOrEmpty(argument: line);
 		if (line.Length >= DesignationStart + DesignationLen)
 		{
 			string readable = line.Substring(startIndex: DesignationStart, length: DesignationLen).Trim();
@@ -374,6 +379,7 @@ internal partial class OrreryForm : BaseKryptonForm
 	/// <returns><see langword="true"/> if the line describes a valid bound elliptical orbit; otherwise <see langword="false"/>.</returns>
 	private static bool TryParsePlanetoid(string line, out PlanetoidElements elements)
 	{
+		ArgumentException.ThrowIfNullOrEmpty(argument: line);
 		elements = default;
 		if (!TryParseValue(line: line, start: SemiMajorAxisStart, len: SemiMajorAxisLen, value: out double a)
 			|| !TryParseValue(line: line, start: EccentricityStart, len: EccentricityLen, value: out double e)
@@ -388,10 +394,7 @@ internal partial class OrreryForm : BaseKryptonForm
 		{
 			return false;
 		}
-		double? meanMotion = TryParseValue(line: line, start: MeanMotionStart, len: MeanMotionLen, value: out double parsedMeanMotion)
-			&& double.IsFinite(d: parsedMeanMotion)
-			? parsedMeanMotion
-			: null;
+		double? meanMotion = TryParseValue(line: line, start: MeanMotionStart, len: MeanMotionLen, value: out double parsedMeanMotion) && double.IsFinite(d: parsedMeanMotion) ? parsedMeanMotion : null;
 		string epochPacked = line.Length >= EpochStart + EpochLen ? line.Substring(startIndex: EpochStart, length: EpochLen).Trim() : string.Empty;
 		if (!TryMpcorbEpochToJd(packed: epochPacked, julianDate: out double epochJd))
 		{
@@ -465,6 +468,8 @@ internal partial class OrreryForm : BaseKryptonForm
 	/// <returns>The parsed planetoids and any orbit caches for the selected range.</returns>
 	private RangeBuildResult BuildRange(int start, int end)
 	{
+		ArgumentOutOfRangeException.ThrowIfNegative(value: start);
+		ArgumentOutOfRangeException.ThrowIfNegative(value: end);
 		List<PlanetoidElements> planetoids = new(capacity: end - start + 1);
 		for (int idx = start - 1; idx < end; idx++)
 		{
@@ -571,12 +576,9 @@ internal partial class OrreryForm : BaseKryptonForm
 		double sinI = Math.Sin(a: iRad);
 		double cosPeri = Math.Cos(d: periRad);
 		double sinPeri = Math.Sin(a: periRad);
-		double x = (((cosOm * cosPeri) - (sinOm * sinPeri * cosI)) * xOrbital)
-				 + (((-cosOm * sinPeri) - (sinOm * cosPeri * cosI)) * yOrbital);
-		double y = (((sinOm * cosPeri) + (cosOm * sinPeri * cosI)) * xOrbital)
-				 + (((-sinOm * sinPeri) + (cosOm * cosPeri * cosI)) * yOrbital);
-		double z = (sinPeri * sinI * xOrbital)
-				 + (cosPeri * sinI * yOrbital);
+		double x = (((cosOm * cosPeri) - (sinOm * sinPeri * cosI)) * xOrbital) + (((-cosOm * sinPeri) - (sinOm * cosPeri * cosI)) * yOrbital);
+		double y = (((sinOm * cosPeri) + (cosOm * sinPeri * cosI)) * xOrbital) + (((-sinOm * sinPeri) + (cosOm * cosPeri * cosI)) * yOrbital);
+		double z = (sinPeri * sinI * xOrbital) + (cosPeri * sinI * yOrbital);
 		return (X: x, Y: y, Z: z);
 	}
 
@@ -674,14 +676,11 @@ internal partial class OrreryForm : BaseKryptonForm
 	private static StateVector RungeKutta4Step(StateVector state, double jdTt, double h)
 	{
 		(double ax1, double ay1, double az1) = ComputePerturbedAcceleration(state: state, jdTt: jdTt);
-		StateVector s2 = new(X: state.X + (0.5 * h * state.Vx), Y: state.Y + (0.5 * h * state.Vy), Z: state.Z + (0.5 * h * state.Vz),
-			Vx: state.Vx + (0.5 * h * ax1), Vy: state.Vy + (0.5 * h * ay1), Vz: state.Vz + (0.5 * h * az1));
+		StateVector s2 = new(X: state.X + (0.5 * h * state.Vx), Y: state.Y + (0.5 * h * state.Vy), Z: state.Z + (0.5 * h * state.Vz), Vx: state.Vx + (0.5 * h * ax1), Vy: state.Vy + (0.5 * h * ay1), Vz: state.Vz + (0.5 * h * az1));
 		(double ax2, double ay2, double az2) = ComputePerturbedAcceleration(state: s2, jdTt: jdTt + (0.5 * h));
-		StateVector s3 = new(X: state.X + (0.5 * h * s2.Vx), Y: state.Y + (0.5 * h * s2.Vy), Z: state.Z + (0.5 * h * s2.Vz),
-			Vx: state.Vx + (0.5 * h * ax2), Vy: state.Vy + (0.5 * h * ay2), Vz: state.Vz + (0.5 * h * az2));
+		StateVector s3 = new(X: state.X + (0.5 * h * s2.Vx), Y: state.Y + (0.5 * h * s2.Vy), Z: state.Z + (0.5 * h * s2.Vz), Vx: state.Vx + (0.5 * h * ax2), Vy: state.Vy + (0.5 * h * ay2), Vz: state.Vz + (0.5 * h * az2));
 		(double ax3, double ay3, double az3) = ComputePerturbedAcceleration(state: s3, jdTt: jdTt + (0.5 * h));
-		StateVector s4 = new(X: state.X + (h * s3.Vx), Y: state.Y + (h * s3.Vy), Z: state.Z + (h * s3.Vz),
-			state.Vx + (h * ax3), state.Vy + (h * ay3), state.Vz + (h * az3));
+		StateVector s4 = new(X: state.X + (h * s3.Vx), Y: state.Y + (h * s3.Vy), Z: state.Z + (h * s3.Vz), state.Vx + (h * ax3), state.Vy + (h * ay3), state.Vz + (h * az3));
 		(double ax4, double ay4, double az4) = ComputePerturbedAcceleration(state: s4, jdTt: jdTt + h);
 
 		return new StateVector(
@@ -744,6 +743,7 @@ internal partial class OrreryForm : BaseKryptonForm
 	/// <returns><see langword="true"/> if the packed epoch was valid; otherwise <see langword="false"/>.</returns>
 	private static bool TryMpcorbEpochToJd(string packed, out double julianDate)
 	{
+		ArgumentException.ThrowIfNullOrEmpty(argument: packed);
 		julianDate = default;
 		if (packed.Length != 5)
 		{
@@ -860,9 +860,7 @@ internal partial class OrreryForm : BaseKryptonForm
 	{
 		double nowJdTt = nowJd + (TtMinusUtcSeconds / SecondsPerDay);
 		int renderedPlanetoidCount = Math.Min(val1: _planetoids.Count, val2: MaxRenderedPlanetoids);
-		if (_cachedPlanetBodies.Length == Planets.Length
-			&& _cachedPlanetoidBodies.Length == renderedPlanetoidCount
-			&& Math.Abs(value: _cachedBodyPositionsJd - nowJd) < 1e-12)
+		if (_cachedPlanetBodies.Length == Planets.Length && _cachedPlanetoidBodies.Length == renderedPlanetoidCount && Math.Abs(value: _cachedBodyPositionsJd - nowJd) < 1e-12)
 		{
 			return;
 		}
@@ -1026,6 +1024,7 @@ internal partial class OrreryForm : BaseKryptonForm
 	/// <remarks>Each planet's orbit is drawn as a line strip in a distinct color, dimmed slightly so the current-position markers stand out.</remarks>
 	private static void DrawPlanetOrbits((double X, double Y, double Z)[][] cachedOrbits)
 	{
+		ArgumentNullException.ThrowIfNull(argument: cachedOrbits);
 		GL.LineWidth(width: 1.5f);
 		for (int idx = 0; idx < Planets.Length; idx++)
 		{
@@ -1121,6 +1120,7 @@ internal partial class OrreryForm : BaseKryptonForm
 	/// <remarks>The tooltip is drawn with a semi-transparent dark background for readability over the scene.</remarks>
 	private void DrawHoverTooltip(Graphics g)
 	{
+		ArgumentNullException.ThrowIfNull(argument: g);
 		if (_hoverName is null)
 		{
 			return;
@@ -1254,10 +1254,14 @@ internal partial class OrreryForm : BaseKryptonForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">Event arguments.</param>
 	/// <remarks>Creates the <see cref="GLControl"/>, initializes the OpenGL context, configures the range spinners, and triggers the first render.</remarks>
-	private async void OrreryForm_Load(object? sender, EventArgs e)
+	private async void OrreryForm_Load(object sender, EventArgs e)
 	{
 		// Log that the form is loading
 		logger.Info(message: "OrreryForm is loading.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Play the open sound in the background to indicate that the form has been opened
 		AudioPlayback.PlayOpenSound();
 		// Clear the status bar to remove any previous messages
@@ -1314,6 +1318,10 @@ internal partial class OrreryForm : BaseKryptonForm
 	{
 		// Log that the form is closing
 		logger.Info(message: "OrreryForm is closing.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Play the close sound in the background to indicate that the form is closing
 		AudioPlayback.PlayCloseSound();
 	}
@@ -1326,8 +1334,12 @@ internal partial class OrreryForm : BaseKryptonForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">Event arguments.</param>
 	/// <remarks>Ignored until the form has finished loading to avoid rebuilding during initialization.</remarks>
-	private async void NumericIndex_ValueChanged(object? sender, EventArgs e)
+	private async void NumericIndex_ValueChanged(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		if (!_initialized)
 		{
 			return;
@@ -1339,8 +1351,12 @@ internal partial class OrreryForm : BaseKryptonForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">Event arguments.</param>
 	/// <remarks>Starts or stops the animation timer and updates the button caption and image accordingly.</remarks>
-	private void ButtonPlayPause_Click(object? sender, EventArgs e)
+	private void ButtonPlayPause_Click(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		_isPlaying = !_isPlaying;
 		if (_isPlaying)
 		{
@@ -1360,8 +1376,12 @@ internal partial class OrreryForm : BaseKryptonForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">Event arguments.</param>
 	/// <remarks>The speed slider is also reset to zero and the animation is paused.</remarks>
-	private void ButtonReset_Click(object? sender, EventArgs e)
+	private void ButtonReset_Click(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		_simulationTime = DateTime.UtcNow;
 		InvalidateBodyCache();
 		ClearHoverTarget(redraw: false);
@@ -1382,8 +1402,12 @@ internal partial class OrreryForm : BaseKryptonForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">Event arguments.</param>
 	/// <remarks>A value of zero pauses time flow while the animation is running; negative values move backward in time.</remarks>
-	private void TrackBarSpeed_ValueChanged(object? sender, EventArgs e)
+	private void TrackBarSpeed_ValueChanged(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		UpdateStatusLabel();
 	}
 
@@ -1391,8 +1415,12 @@ internal partial class OrreryForm : BaseKryptonForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">Event arguments.</param>
 	/// <remarks>Ignored while the control is being updated programmatically from the simulation clock.</remarks>
-	private void DateTimePicker_ValueChanged(object? sender, EventArgs e)
+	private void DateTimePicker_ValueChanged(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		if (_suppressDateTimeEvent)
 		{
 			return;
@@ -1411,8 +1439,12 @@ internal partial class OrreryForm : BaseKryptonForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">Event arguments.</param>
 	/// <remarks>The simulated instant is advanced by the slider value times <see cref="DaysPerTickPerUnit"/> days per tick and the scene is redrawn.</remarks>
-	private void AnimationTimer_Tick(object? sender, EventArgs e)
+	private void AnimationTimer_Tick(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		int speed = trackBarSpeed.Value;
 		if (speed == 0)
 		{
@@ -1447,8 +1479,12 @@ internal partial class OrreryForm : BaseKryptonForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">Paint event arguments.</param>
 	/// <remarks>Triggers rendering of the 3D scene, passing the GDI+ graphics for the hover tooltip overlay.</remarks>
-	private void GlControl_Paint(object? sender, PaintEventArgs e)
+	private void GlControl_Paint(object sender, PaintEventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		if (!_glReady)
 		{
 			logger.Warn(message: "OpenGL context is not ready; skipping paint event.");
@@ -1461,8 +1497,12 @@ internal partial class OrreryForm : BaseKryptonForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">Event arguments.</param>
 	/// <remarks>Updates the OpenGL viewport and projection matrix whenever the GL control is resized.</remarks>
-	private void GlControl_Resize(object? sender, EventArgs e)
+	private void GlControl_Resize(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		if (!_glReady)
 		{
 			return;
@@ -1477,8 +1517,12 @@ internal partial class OrreryForm : BaseKryptonForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">Mouse event arguments.</param>
 	/// <remarks>Left-click initiates rotation, while right-click initiates panning.</remarks>
-	private void GlControl_MouseDown(object? sender, MouseEventArgs e)
+	private void GlControl_MouseDown(object sender, MouseEventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		_lastMousePos = e.Location;
 		if (e.Button == MouseButtons.Left)
 		{
@@ -1494,8 +1538,12 @@ internal partial class OrreryForm : BaseKryptonForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">Mouse event arguments.</param>
 	/// <remarks>Releases the rotation or panning mode when the corresponding mouse button is released.</remarks>
-	private void GlControl_MouseUp(object? sender, MouseEventArgs e)
+	private void GlControl_MouseUp(object sender, MouseEventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		if (e.Button == MouseButtons.Left)
 		{
 			_leftDown = false;
@@ -1510,8 +1558,12 @@ internal partial class OrreryForm : BaseKryptonForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">Mouse event arguments.</param>
 	/// <remarks>Left-drag rotates the scene, right-drag pans. When no button is held, the body nearest the cursor is detected for the hover tooltip.</remarks>
-	private void GlControl_MouseMove(object? sender, MouseEventArgs e)
+	private void GlControl_MouseMove(object sender, MouseEventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		int dx = e.X - _lastMousePos.X;
 		int dy = e.Y - _lastMousePos.Y;
 		_lastMousePos = e.Location;
@@ -1546,8 +1598,12 @@ internal partial class OrreryForm : BaseKryptonForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">Mouse event arguments.</param>
 	/// <remarks>Zooms the camera in or out based on the scroll delta, with limits to prevent excessive zooming.</remarks>
-	private void GlControl_MouseWheel(object? sender, MouseEventArgs e)
+	private void GlControl_MouseWheel(object sender, MouseEventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		_zoom -= e.Delta * 0.02f;
 		_zoom = Math.Clamp(value: _zoom, min: 0.5f, max: 200f);
 		ClearHoverTarget(redraw: false);
@@ -1558,8 +1614,12 @@ internal partial class OrreryForm : BaseKryptonForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">Event arguments.</param>
 	/// <remarks>Invalidates the control so the tooltip is removed from the display.</remarks>
-	private void GlControl_MouseLeave(object? sender, EventArgs e)
+	private void GlControl_MouseLeave(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		ClearHoverTarget();
 	}
 

@@ -97,20 +97,12 @@ internal partial class RegionCheckerForm : BaseKryptonForm
 
 	private void SwaptIfGreaterAtRectascensionValues()
 	{
-		SwapIfGreaterAtValues(
-			value1: kryptonNumericUpDownDeclinationMinimum.Value,
-			value2: kryptonNumericUpDownDeclinationMaximum.Value,
-			text: "The two right ascension values were swapped, as the maximum value had been entered first instead of the minimum value.",
-			caption: "Values swapped");
+		SwapIfGreaterAtValues(value1: kryptonNumericUpDownDeclinationMinimum.Value, value2: kryptonNumericUpDownDeclinationMaximum.Value, text: "The two right ascension values were swapped, as the maximum value had been entered first instead of the minimum value.", caption: "Values swapped");
 	}
 
 	private void SwaptIfGreaterAtDeclinationValues()
 	{
-		SwapIfGreaterAtValues(
-			value1: kryptonNumericUpDownRectascensionMinimum.Value,
-			value2: kryptonNumericUpDownRectascensionMaximum.Value,
-			text: "The two declination values were swapped, as the maximum value had been entered first instead of the minimum value.",
-			caption: "Values swapped");
+		SwapIfGreaterAtValues(value1: kryptonNumericUpDownRectascensionMinimum.Value, value2: kryptonNumericUpDownRectascensionMaximum.Value, text: "The two declination values were swapped, as the maximum value had been entered first instead of the minimum value.", caption: "Values swapped");
 	}
 
 	#endregion
@@ -124,6 +116,10 @@ internal partial class RegionCheckerForm : BaseKryptonForm
 	{
 		// Log the form load event for debugging purposes
 		logger.Info(message: "RegionCheckerForm loaded.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Play the open sound in the background to indicate that the form has been opened
 		AudioPlayback.PlayOpenSound();
 		// Clear the status bar
@@ -138,6 +134,10 @@ internal partial class RegionCheckerForm : BaseKryptonForm
 	{
 		// Log the form closing event for debugging purposes
 		logger.Info(message: "RegionCheckerForm is closing.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Play the open sound in the background to indicate that the form is closing
 		AudioPlayback.PlayCloseSound();
 	}
@@ -148,18 +148,34 @@ internal partial class RegionCheckerForm : BaseKryptonForm
 
 	private void ToolStripButtonCheck_Click(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 	}
 
 	private void ToolStripButtonGoToObject_Click(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 	}
 
 	private void KryptonButtonConversionRectascension_Click(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 	}
 
 	private void KryptonButtonConversionDeclination_Click(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 	}
 
 	#endregion
@@ -168,24 +184,40 @@ internal partial class RegionCheckerForm : BaseKryptonForm
 
 	private void KryptonNumericUpDownRectascensionMinimum_Leave(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		SwaptIfGreaterAtRectascensionValues();
 		Control_Leave(sender: sender, e: e);
 	}
 
 	private void KryptonNumericUpDownDeclinationMinimum_Leave(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		SwaptIfGreaterAtDeclinationValues();
 		Control_Leave(sender: sender, e: e);
 	}
 
 	private void KryptonNumericUpDownRectascensionMaximum_Leave(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		SwaptIfGreaterAtRectascensionValues();
 		Control_Leave(sender: sender, e: e);
 	}
 
 	private void KryptonNumericUpDownDeclinationMaximum_Leave(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		SwaptIfGreaterAtDeclinationValues();
 		Control_Leave(sender: sender, e: e);
 	}

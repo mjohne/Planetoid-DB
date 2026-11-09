@@ -277,6 +277,10 @@ internal partial class RecordsForm : BaseKryptonForm
 	{
 		// Log that the form has been loaded
 		logger.Info(message: "RecordsForm loaded successfully.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Play the open sound in the background to indicate that the form has been opened
 		AudioPlayback.PlayOpenSound();
 		// Clear the status bar when the form loads
@@ -293,6 +297,10 @@ internal partial class RecordsForm : BaseKryptonForm
 	{
 		// Log that the form is closing
 		logger.Info(message: "RecordsForm is closing.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Play the close sound in the background to indicate that the form is closing
 		AudioPlayback.PlayCloseSound();
 	}
@@ -307,6 +315,10 @@ internal partial class RecordsForm : BaseKryptonForm
 	/// <remarks>Iterates through all database entries, processes each one for record detection, and reports progress as a percentage. The scan can be cancelled at any time. Progress bar updates are throttled to at most one per percent change.</remarks>
 	private void BackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Determine scan mode (max or min) captured before the background thread starts
 		bool isMax = (bool)(e.Argument ?? false);
 		int total = planetoidsDatabase.Count;
@@ -353,6 +365,10 @@ internal partial class RecordsForm : BaseKryptonForm
 	/// <remarks>Called on the UI thread by the BackgroundWorker. When <see cref="ProgressChangedEventArgs.UserState"/> is a <see cref="RecordProgressUpdate"/>, the corresponding designation and value labels are updated.</remarks>
 	private void BackgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Update the progress bar value and text if the percentage has changed
 		int percent = e.ProgressPercentage;
 		if (kryptonProgressBar.Value != percent)
@@ -378,6 +394,10 @@ internal partial class RecordsForm : BaseKryptonForm
 	/// <remarks>Called on the UI thread after the BackgroundWorker finishes or is cancelled. Resets the UI state so the user can start a new scan.</remarks>
 	private void BackgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Reset UI state to allow starting a new scan
 		toolStripButtonCancel.Enabled = false;
 		toolStripButtonStart.Enabled = true;
@@ -414,6 +434,10 @@ internal partial class RecordsForm : BaseKryptonForm
 	/// <remarks>Disables the Start button, enables the Cancel button, resets labels and record arrays, then launches the BackgroundWorker with the selected max/min mode.</remarks>
 	private void Start_Click(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Ensure there is data to scan before starting
 		if (planetoidsDatabase.Count == 0)
 		{
@@ -443,6 +467,10 @@ internal partial class RecordsForm : BaseKryptonForm
 	/// <remarks>Sets the cancellation flag and requests the BackgroundWorker to stop. The UI state will be reset in the <see cref="BackgroundWorker_RunWorkerCompleted"/> handler.</remarks>
 	private void Cancel_Click(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Set the cancellation flag and request the BackgroundWorker to cancel. The actual stopping will be handled cooperatively in the DoWork method, and the UI will be updated in the RunWorkerCompleted handler.
 		isCancelled = true;
 		backgroundWorker.CancelAsync();
@@ -456,7 +484,10 @@ internal partial class RecordsForm : BaseKryptonForm
 	/// <remarks>Ensures that exactly one of Ascending/Descending is selected at all times.</remarks>
 	private void SetAscendingSortOrder_Click(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
 		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		toolStripButtonSortOrderDescending.Checked = !toolStripButtonSortOrderAscending.Checked;
 		logger.Info(message: $"User selected ascending sort order. Descending sort order is now {(toolStripButtonSortOrderDescending.Checked ? "checked" : "unchecked")}.");
 	}
@@ -467,7 +498,10 @@ internal partial class RecordsForm : BaseKryptonForm
 	/// <remarks>Ensures that exactly one of Ascending/Descending is selected at all times.</remarks>
 	private void SetDescendingSortOrder_Click(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
 		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		toolStripButtonSortOrderAscending.Checked = !toolStripButtonSortOrderDescending.Checked;
 		logger.Info(message: $"User selected descending sort order. Ascending sort order is now {(toolStripButtonSortOrderAscending.Checked ? "checked" : "unchecked")}.");
 	}
@@ -479,6 +513,10 @@ internal partial class RecordsForm : BaseKryptonForm
 	private void RecordsMeanAnomalyAtTheEpoch_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "User requested to view the top ten records for Mean Anomaly at the Epoch.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Show the top ten records form for mean anomaly at the epoch
 		using RecordsTop10Form formRecordsTop10 = new(arrTemp: planetoidsDatabase, selectedElement: "Mean anomaly at the epoch");
 		formRecordsTop10.TopMost = TopMost;
@@ -492,6 +530,10 @@ internal partial class RecordsForm : BaseKryptonForm
 	private void RecordsArgumentOfThePerihelion_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "User requested to view the top ten records for Argument of the Perihelion.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Show the top ten records form for the argument of the perihelion
 		using RecordsTop10Form formRecordsTop10 = new(arrTemp: planetoidsDatabase, selectedElement: "Argument of the perihelion");
 		formRecordsTop10.TopMost = TopMost;
@@ -506,6 +548,10 @@ internal partial class RecordsForm : BaseKryptonForm
 	{
 		logger.Info(message: "User requested to view the top ten records for Longitude of the Ascending Node.");
 		// Show the top ten records form for the longitude of the ascending node
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		using RecordsTop10Form formRecordsTop10 = new(arrTemp: planetoidsDatabase, selectedElement: "Longitude of the ascending node");
 		formRecordsTop10.TopMost = TopMost;
 		_ = formRecordsTop10.ShowDialog(owner: this);
@@ -518,6 +564,10 @@ internal partial class RecordsForm : BaseKryptonForm
 	private void RecordsInclination_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "User requested to view the top ten records for Inclination.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Show the top ten records form for inclination
 		using RecordsTop10Form formRecordsTop10 = new(arrTemp: planetoidsDatabase, selectedElement: "Inclination");
 		formRecordsTop10.TopMost = TopMost;
@@ -531,6 +581,10 @@ internal partial class RecordsForm : BaseKryptonForm
 	private void RecordsOrbitalEccentricity_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "User requested to view the top ten records for Orbital Eccentricity.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Show the top ten records form for orbital eccentricity
 		using RecordsTop10Form formRecordsTop10 = new(arrTemp: planetoidsDatabase, selectedElement: "Orbital eccentricity");
 		formRecordsTop10.TopMost = TopMost;
@@ -544,6 +598,10 @@ internal partial class RecordsForm : BaseKryptonForm
 	private void RecordsMeanDailyMotion_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "User requested to view the top ten records for Mean Daily Motion.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Show the top ten records form for mean daily motion
 		using RecordsTop10Form formRecordsTop10 = new(arrTemp: planetoidsDatabase, selectedElement: "Mean daily motion");
 		formRecordsTop10.TopMost = TopMost;
@@ -557,6 +615,10 @@ internal partial class RecordsForm : BaseKryptonForm
 	private void RecordsSemiMajorAxis_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "User requested to view the top ten records for Semi-Major Axis.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Show the top ten records form for semi-major axis
 		using RecordsTop10Form formRecordsTop10 = new(arrTemp: planetoidsDatabase, selectedElement: "Semi-major axis");
 		formRecordsTop10.TopMost = TopMost;
@@ -570,6 +632,10 @@ internal partial class RecordsForm : BaseKryptonForm
 	private void RecordsAbsoluteMagnitude_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "User requested to view the top ten records for Absolute Magnitude.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Show the top ten records form for absolute magnitude
 		using RecordsTop10Form formRecordsTop10 = new(arrTemp: planetoidsDatabase, selectedElement: "Absolute magnitude");
 		formRecordsTop10.TopMost = TopMost;
@@ -583,6 +649,10 @@ internal partial class RecordsForm : BaseKryptonForm
 	private void RecordsSlopeParameter_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "User requested to view the top ten records for Slope Parameter.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Show the top ten records form for slope parameter
 		using RecordsTop10Form formRecordsTop10 = new(arrTemp: planetoidsDatabase, selectedElement: "Slope parameter");
 		formRecordsTop10.TopMost = TopMost;
@@ -596,6 +666,10 @@ internal partial class RecordsForm : BaseKryptonForm
 	private void RecordsNumberOfOppositions_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "User requested to view the top ten records for Number of Oppositions.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Show the top ten records form for number of oppositions
 		using RecordsTop10Form formRecordsTop10 = new(arrTemp: planetoidsDatabase, selectedElement: "Number of oppositions");
 		formRecordsTop10.TopMost = TopMost;
@@ -609,6 +683,10 @@ internal partial class RecordsForm : BaseKryptonForm
 	private void RecordsNumberOfObservations_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "User requested to view the top ten records for Number of Observations.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Show the top ten records form for number of observations
 		using RecordsTop10Form formRecordsTop10 = new(arrTemp: planetoidsDatabase, selectedElement: "Number of observations");
 		formRecordsTop10.TopMost = TopMost;
@@ -622,6 +700,10 @@ internal partial class RecordsForm : BaseKryptonForm
 	private void RecordsRmsResidual_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "User requested to view the top ten records for RMS Residual.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Show the top ten records form for RMS residual
 		using RecordsTop10Form formRecordsTop10 = new(arrTemp: planetoidsDatabase, selectedElement: "r.m.s. residual");
 		formRecordsTop10.TopMost = TopMost;

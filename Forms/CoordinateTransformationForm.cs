@@ -202,6 +202,10 @@ internal partial class CoordinateTransformationForm : BaseKryptonForm
 	{
 		// Log the retrieval of the first coordinate name for debugging purposes.
 		logger.Info($"Retrieving first coordinate name for system: {system}");
+		if (!Enum.IsDefined(value: system))
+		{
+			throw new System.ComponentModel.InvalidEnumArgumentException(argumentName: nameof(system), invalidValue: (int)system, enumClass: typeof(AstronomicalCoordinateSystem));
+		}
 		// Return the appropriate label for the first coordinate based on the selected astronomical coordinate system.
 		return system switch
 		{
@@ -224,6 +228,10 @@ internal partial class CoordinateTransformationForm : BaseKryptonForm
 	private static string SecondCoordinateName(AstronomicalCoordinateSystem system)
 	{
 		// Log the retrieval of the second coordinate name for debugging purposes.
+		if (!Enum.IsDefined(value: system))
+		{
+			throw new System.ComponentModel.InvalidEnumArgumentException(argumentName: nameof(system), invalidValue: (int)system, enumClass: typeof(AstronomicalCoordinateSystem));
+		}
 		logger.Info($"Retrieving second coordinate name for system: {system}");
 		// Return the appropriate label for the second coordinate based on the selected astronomical coordinate system.
 		return system switch
@@ -245,6 +253,7 @@ internal partial class CoordinateTransformationForm : BaseKryptonForm
 	/// <remarks>This method handles the parsing of coordinate values, including support for the HH:MM:SS format when the input is in hours. It ensures that the parsed values are valid and finite.</remarks>
 	private static bool TryParseCoordinate(string text, bool isHours, out double value)
 	{
+		ArgumentException.ThrowIfNullOrEmpty(argument: text);
 		// Initialize the output value to 0.0.
 		value = 0.0;
 		// Trim whitespace from the input text to ensure accurate parsing.
@@ -294,6 +303,7 @@ internal partial class CoordinateTransformationForm : BaseKryptonForm
 	/// <remarks>This method ensures that the parsed numeric values are valid and finite, supporting both the current culture and invariant culture formats for flexibility in user input.</remarks>
 	private static bool TryParseNumber(string text, out double value)
 	{
+		ArgumentException.ThrowIfNullOrEmpty(argument: text);
 		// Attempt to parse the numeric value using both the current culture and invariant culture formats.
 		bool parsed = double.TryParse(s: text, style: NumberStyles.Float, provider: CultureInfo.CurrentCulture, result: out value)
 			|| double.TryParse(s: text, style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out value);
@@ -331,6 +341,10 @@ internal partial class CoordinateTransformationForm : BaseKryptonForm
 	{
 		// Log that the form has loaded successfully
 		logger.Info(message: "CoordinateTransformationForm loaded.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Play the open sound in the background to indicate that the form has been opened
 		AudioPlayback.PlayOpenSound();
 	}
@@ -343,6 +357,10 @@ internal partial class CoordinateTransformationForm : BaseKryptonForm
 	{
 		// Log that the form is closing
 		logger.Info(message: "CoordinateTransformationForm is closing.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Play the close sound in the background to indicate that the form is closing
 		AudioPlayback.PlayCloseSound();
 	}
@@ -359,6 +377,10 @@ internal partial class CoordinateTransformationForm : BaseKryptonForm
 	{
 		// Log the button click event for debugging purposes.
 		logger.Info("Convert button clicked.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Validate that both source and target coordinate systems are selected.
 		AstronomicalCoordinateSystem source = coordinateSystems[kryptonComboBoxSource.SelectedIndex];
 		AstronomicalCoordinateSystem target = coordinateSystems[kryptonComboBoxTarget.SelectedIndex];
@@ -446,6 +468,10 @@ internal partial class CoordinateTransformationForm : BaseKryptonForm
 	{
 		// Log the coordinate selection change for debugging purposes.
 		logger.Info($"Coordinate selection changed: SourceIndex={kryptonComboBoxSource.SelectedIndex}, TargetIndex={kryptonComboBoxTarget.SelectedIndex}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Update the coordinate labels and input fields based on the selected coordinate systems.
 		UpdateCoordinateLabels();
 	}

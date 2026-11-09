@@ -83,6 +83,10 @@ internal partial class DatabaseInformationForm : BaseKryptonForm
 	/// <remarks>This method is used to display a context menu for a ToolStripItem, such as a button or dropdown.</remarks>
 	private static void ShowContextMenuForToolStripItem(object sender, ContextMenuStrip contextMenu)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: contextMenu);
 		// Check if the sender is a ToolStripItem and has an owner
 		// FIX: Use ToolStripItem instead of ToolStripButton to support DropDownButtons as well
 		if (sender is ToolStripItem item && item.Owner is not null)
@@ -104,6 +108,10 @@ internal partial class DatabaseInformationForm : BaseKryptonForm
 	{
 		// Log that the form has loaded and is attempting to read database file information
 		logger.Info(message: "DatabaseInformationForm loaded. Attempting to read database file information.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Path to the database file
 		string? dbFilePath = Settings.Default.systemFilenameMpcorbDat;
 		// Check if the file exists
@@ -170,6 +178,10 @@ internal partial class DatabaseInformationForm : BaseKryptonForm
 	{
 		// Log that the form is closing
 		logger.Info(message: "DatabaseInformationForm is closing.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Play the close sound in the background to indicate that the form is closing
 		AudioPlayback.PlayCloseSound();
 	}
@@ -185,6 +197,10 @@ internal partial class DatabaseInformationForm : BaseKryptonForm
 	private void ToolStripDropDownButtonCopyToClipboard_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Copy to clipboard button clicked. Showing context menu.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		ShowContextMenuForToolStripItem(sender: sender, contextMenu: contextMenuFullCopyToClipboard);
 	}
 
@@ -195,6 +211,10 @@ internal partial class DatabaseInformationForm : BaseKryptonForm
 	private void ToolStripButtonSaveToFile_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Save to file button clicked. Showing context menu.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		ShowContextMenuForToolStripItem(sender: sender, contextMenu: contextMenuSaveToFile);
 	}
 
@@ -205,6 +225,10 @@ internal partial class DatabaseInformationForm : BaseKryptonForm
 	private void MenuitemCopyToClipboardName_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copy to clipboard for database name clicked: {labelNameValue.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelNameValue.Text);
 	}
 
@@ -215,6 +239,10 @@ internal partial class DatabaseInformationForm : BaseKryptonForm
 	private void MenuitemCopyToClipboardPath_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copy to clipboard for database path clicked: {labelDirectoryValue.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelDirectoryValue.Text);
 	}
 
@@ -225,6 +253,10 @@ internal partial class DatabaseInformationForm : BaseKryptonForm
 	private void MenuitemCopyToClipboardSize_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copy to clipboard for database size clicked: {labelSizeValue.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelSizeValue.Text);
 	}
 
@@ -235,6 +267,10 @@ internal partial class DatabaseInformationForm : BaseKryptonForm
 	private void MenuitemCopyToClipboardCreationDate_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copy to clipboard for database creation date clicked: {labelDateCreatedValue.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelDateCreatedValue.Text);
 	}
 
@@ -245,6 +281,10 @@ internal partial class DatabaseInformationForm : BaseKryptonForm
 	private void MenuitemCopyToClipboardLastAccessDate_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copy to clipboard for database last access date clicked: {labelDateAccessedValue.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelDateAccessedValue.Text);
 	}
 
@@ -255,6 +295,10 @@ internal partial class DatabaseInformationForm : BaseKryptonForm
 	private void MenuitemCopyToClipboardLastWriteDate_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copy to clipboard for database last write date clicked: {labelDateWritedValue.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelDateWritedValue.Text);
 	}
 
@@ -265,6 +309,10 @@ internal partial class DatabaseInformationForm : BaseKryptonForm
 	private void MenuitemCopyToClipboardAttributes_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copy to clipboard for database attributes clicked: {labelAttributesValue.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelAttributesValue.Text);
 	}
 

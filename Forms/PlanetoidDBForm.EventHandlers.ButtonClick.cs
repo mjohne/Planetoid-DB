@@ -26,6 +26,10 @@ public partial class PlanetoidDbForm
 	private void HistoryBack_ButtonClick(object sender, EventArgs e)
 	{
 		logger.Info(message: "Navigating back in the planetoid history");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		NavigateHistoryBack();
 	}
 
@@ -36,6 +40,10 @@ public partial class PlanetoidDbForm
 	private void HistoryForward_ButtonClick(object sender, EventArgs e)
 	{
 		logger.Info(message: "Navigating forward in the planetoid history");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		NavigateHistoryForward();
 	}
 }

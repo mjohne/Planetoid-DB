@@ -68,6 +68,10 @@ internal partial class AngleMeasureConversionForm : BaseKryptonForm
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	private void AngleMeasureConversionForm_Load(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Log the form load event for debugging purposes
 		logger.Info(message: "AngleMeasureConversionForm loaded.");
 		// Play the open sound in the background to indicate that the form has been opened
@@ -82,6 +86,10 @@ internal partial class AngleMeasureConversionForm : BaseKryptonForm
 	/// <remarks>If a calculation is running, it is canceled and the form will close after the checking stops. If no checking is running, the it is disposed.</remarks>
 	private void AngleMeasureConversionForm_FormClosing(object sender, FormClosingEventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Log the form closing event for debugging purposes
 		logger.Info(message: "AngleMeasureConversionForm is closing.");
 		// Play the open sound in the background to indicate that the form is closing
@@ -92,8 +100,15 @@ internal partial class AngleMeasureConversionForm : BaseKryptonForm
 
 	#region Leave as calculate event handlers
 
+	/// <summary>Updates the rectascension values in decimal and sexagesimal time and angle formats.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data.</param>
 	private void RectascensionFromTimeMeasureSexagesimal_Calculate(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		if (_isUpdating)
 		{
 			return;
@@ -133,8 +148,16 @@ internal partial class AngleMeasureConversionForm : BaseKryptonForm
 		}
 	}
 
+	/// <summary>Converts the entered sexagesimal right ascension angle to decimal degrees and sexagesimal and decimal time.</summary>
+	/// <remarks>When the angle is 360 degrees or greater, the minutes and seconds are reset to zero.</remarks>
+	/// <param name="sender">The object that raised the event.</param>
+	/// <param name="e">The event data.</param>
 	private void RectascensionFromAngleMeasureSexagesimal_Calculate(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		if (_isUpdating)
 		{
 			return;
@@ -175,8 +198,16 @@ internal partial class AngleMeasureConversionForm : BaseKryptonForm
 		}
 	}
 
+	/// <summary>Converts decimal-hour right ascension to sexagesimal time, sexagesimal angle, and decimal degrees.</summary>
+	/// <remarks>Updates are skipped while another conversion is in progress.</remarks>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The event data.</param>
 	private void RectascensionFromTimeMeasureDecimal_Calculate(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		if (_isUpdating)
 		{
 			return;
@@ -206,8 +237,16 @@ internal partial class AngleMeasureConversionForm : BaseKryptonForm
 		}
 	}
 
+	/// <summary>Converts the decimal angle measure of the right ascension to sexagesimal angle and time measures.</summary>
+	/// <remarks>Does not update the corresponding controls while another update is in progress.</remarks>
+	/// <param name="sender">The object that raised the event.</param>
+	/// <param name="e">The event data.</param>
 	private void RectascensionFromAngleMeasureDecimal_Calculate(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		if (_isUpdating)
 		{
 			return;
@@ -237,8 +276,16 @@ internal partial class AngleMeasureConversionForm : BaseKryptonForm
 		}
 	}
 
+	/// <summary>Converts the sexagesimal declination angle to decimal degrees and updates the decimal-degree value.</summary>
+	/// <remarks>Calculation is skipped while an update is already in progress.</remarks>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data.</param>
 	private void DeclinationFromAngleMeasureSexagesimal_Calculate(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		if (_isUpdating)
 		{
 			return;
@@ -259,8 +306,16 @@ internal partial class AngleMeasureConversionForm : BaseKryptonForm
 		}
 	}
 
+	/// <summary>Converts the decimal declination angle to sexagesimal degrees, arcminutes, and arcseconds.</summary>
+	/// <remarks>Updates are skipped while another update is in progress.</remarks>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data.</param>
 	private void DeclinationFromAngleMeasureDecimal_Calculate(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		if (_isUpdating)
 		{
 			return;

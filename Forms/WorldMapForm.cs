@@ -381,11 +381,15 @@ internal partial class WorldMapForm : BaseKryptonForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The event data.</param>
 	/// <remarks>Shows an error message in the status bar if the WebView2 runtime is unavailable.</remarks>
-	private async void WorldMapForm_Load(object? sender, EventArgs e)
+	private async void WorldMapForm_Load(object sender, EventArgs e)
 	{
 		labelInformation.Text = string.Empty;
 		// Log that the form is loading and WebView2 initialization is starting
 		logger.Info(message: "WorldMapForm loading. Initializing WebView2.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Play the open sound in the background to indicate that the form has been opened
 		AudioPlayback.PlayOpenSound();
 		// Attempt to ensure that the WebView2 control is initialized and ready
@@ -440,6 +444,10 @@ internal partial class WorldMapForm : BaseKryptonForm
 	{
 		// Log that the form is closing and any pending work will be canceled
 		logger.Info(message: "WorldMapForm is closing. Canceling any pending work.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Play the close sound in the background to indicate that the form is closing
 		AudioPlayback.PlayCloseSound();
 		// Cancel the cancellation token source to stop any ongoing geocoding requests
@@ -458,6 +466,8 @@ internal partial class WorldMapForm : BaseKryptonForm
 	{
 		// Log that the WebView2 navigation has completed and the predefined marker check is starting
 		logger.Info(message: "WebView2 navigation completed. Checking if predefined marker should be set.");
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Mark multiple positions if they were provided
 		if (initialMarkers is { Count: > 0 } && e.IsSuccess && !IsDisposed)
 		{
@@ -512,6 +522,8 @@ internal partial class WorldMapForm : BaseKryptonForm
 	{
 		// Log that a web resource request has been intercepted and the Referer header will be set
 		logger.Info(message: $"Web resource requested: {e.Request.Uri}. Setting Referer header to comply with OpenStreetMap tile usage policy.");
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Set the Referer header to comply with OpenStreetMap tile usage policy
 		e.Request.Headers.SetHeader(name: "Referer", value: OpenStreetMapReferer);
 	}
@@ -524,6 +536,8 @@ internal partial class WorldMapForm : BaseKryptonForm
 	{
 		// Log that a navigation is starting and indicate whether it was user-initiated
 		logger.Info(message: $"Navigation starting to {e.Uri}. User initiated: {e.IsUserInitiated}");
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Do not interfere with the initial navigation created by NavigateToString.
 		if (!e.IsUserInitiated)
 		{
@@ -566,6 +580,8 @@ internal partial class WorldMapForm : BaseKryptonForm
 	{
 		// Log that a web message has been received from the map page
 		logger.Info(message: "Received web message from the map page.");
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Attempt to parse the JSON message and handle it accordingly
 		try
 		{
@@ -610,6 +626,8 @@ internal partial class WorldMapForm : BaseKryptonForm
 	{
 		// Log that the OK button was clicked and the form will close with the selected coordinates
 		logger.Info(message: "OK button clicked. Closing form with selected coordinates.");
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Set the dialog result to OK to indicate that coordinates have been selected
 		DialogResult = DialogResult.OK;
 		Close();
@@ -623,6 +641,8 @@ internal partial class WorldMapForm : BaseKryptonForm
 	{
 		// Log that the Cancel button was clicked and the form will close without returning coordinates
 		logger.Info(message: "Cancel button clicked. Closing form without returning coordinates.");
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Set the dialog result to Cancel to indicate that no coordinates have been selected
 		DialogResult = DialogResult.Cancel;
 		Close();
@@ -636,6 +656,8 @@ internal partial class WorldMapForm : BaseKryptonForm
 	{
 		// Log that the Search button was clicked and a location search will start
 		logger.Info(message: "Search button clicked. Starting location search.");
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Start the location search asynchronously
 		await PerformSearchAsync().ConfigureAwait(continueOnCapturedContext: true);
 	}
@@ -646,6 +668,8 @@ internal partial class WorldMapForm : BaseKryptonForm
 	/// <remarks>The key press is handled to avoid a system beep.</remarks>
 	private async void TextBoxSearch_KeyDown(object? sender, KeyEventArgs e)
 	{
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Check if the pressed key is Enter
 		if (e.KeyCode == Keys.Enter)
 		{
@@ -669,6 +693,10 @@ internal partial class WorldMapForm : BaseKryptonForm
 	{
 		// Log that the coordinates label was double-clicked and the coordinates will be copied to the clipboard
 		logger.Info(message: "Coordinates label double-clicked. Copying coordinates to clipboard.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Copy the coordinates text to the clipboard, using an empty string if the label text is null
 		CopyToClipboard(text: labelCoordinates.Text ?? string.Empty);
 	}

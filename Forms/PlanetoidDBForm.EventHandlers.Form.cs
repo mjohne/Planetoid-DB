@@ -33,6 +33,10 @@ public partial class PlanetoidDbForm
 	{
 		// Log the Load event of the form
 		logger.Info(message: "PlanetoidDBForm_Load event triggered");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Start the stop watch.
 		stopWatch = new Stopwatch();
 		stopWatch.Start();
@@ -52,7 +56,7 @@ public partial class PlanetoidDbForm
 			Settings.Default.Save();
 		}
 
-		toolStripStatusLabelWindowSize.Text = $"{Size.Height}x{Size.Width}";
+		toolStripStatusLabelWindowSize.Text = $"{Size.Width}x{Size.Height}";
 
 		// Set the checked state of the enable UI sound menu item based on the user settings
 		toolStripMenuItemOptionEnableUiSound.Checked = Settings.Default.userEnableUiSound;
@@ -143,6 +147,10 @@ public partial class PlanetoidDbForm
 				logger.Error(exception: UnauthorizedAccessEx, message: $"Unauthorized access to file path: {resolvedMpcOrbDatFilePath}");
 			}
 		}
+
+		// ContextMenuStrip für die ListView einrichten
+		InitializeListViewreadableDesignationContextMenu();
+
 		// Load the ASTORB.DAT file and update the tab text with the last modified date
 		//LoadAstorbDatabase();
 		// Load all bookmarks from disk into memory at startup
@@ -159,6 +167,10 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to handle the shown event of the form.</remarks>
 	private void PlanetoidDBForm_Shown(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Check if an update is available for the MPCORB.DAT database and enable the timer for blinking the update label
 		if (IsMpcorbDatUpdateAvailable())
 		{
@@ -283,7 +295,6 @@ public partial class PlanetoidDbForm
 			listViewReadableDesignations.EndUpdate();
 			//toolStripDropDownButtonSaveList.Enabled = true;
 		}
-
 	}
 
 	/// <summary>Handles the FormClosing event of the PlanetoidDBForm.</summary>
@@ -294,6 +305,10 @@ public partial class PlanetoidDbForm
 	{
 		// Log the FormClosing event of the form
 		logger.Info(message: "PlanetoidDBForm_FormClosing event triggered");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Keep the form open until the shutdown sound has finished playing
 		if (isShutdownSoundPlaybackComplete)
 		{
@@ -371,6 +386,10 @@ public partial class PlanetoidDbForm
 	/// <param name="e">The event data.</param>
 	private void PlanetoidDbForm_Resize(object sender, EventArgs e)
 	{
-		toolStripStatusLabelWindowSize.Text = $"{Size.Height}x{Size.Width}";
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		toolStripStatusLabelWindowSize.Text = $"{Size.Width}x{Size.Height}";
 	}
 }

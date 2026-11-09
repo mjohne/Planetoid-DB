@@ -30,11 +30,16 @@ namespace Planetoid_DB;
 public partial class PlanetoidDbForm
 {
 	/// <summary>Handles the click event for the ToolStripStatusLabelDiskSizeUsage. Shows an information message box.</summary>
+	/// <summary>Handles the click event for the ToolStripStatusLabelDiskSizeUsage. Shows an information message box.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show an information message box.</remarks>
 	private void ToolStripStatusLabelDiskSizeUsage_Click(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Show an information message box with the specified message
 		_ = KryptonMessageBox.Show(text: "This label indicates the hard drive space occupied by the program.\n\nThe first value refers to the program directory, and the second value refers to the user directory.", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
@@ -46,6 +51,10 @@ public partial class PlanetoidDbForm
 	private void Archive_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Showing archive form");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		ShowArchive();
 	}
 
@@ -57,6 +66,10 @@ public partial class PlanetoidDbForm
 	{
 		// Log the navigation action with the specified index
 		logger.Info(message: $"Navigating to index: {toolStripTextBoxGotoIndex.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Initialize the position variable to store the parsed index
 		int pos = 0;
 		// Try to parse the index from the ToolStripTextBoxGotoIndex
@@ -110,6 +123,10 @@ public partial class PlanetoidDbForm
 	private void Terminology_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Opening terminology form with index 0");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		OpenTerminology(index: 0);
 	}
 
@@ -120,6 +137,10 @@ public partial class PlanetoidDbForm
 	private void NavigateStep10_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Navigating to step 10");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Set the step position to 10
 		stepPosition = 10;
 		// Clear the checked state of all other menu items
@@ -135,6 +156,10 @@ public partial class PlanetoidDbForm
 	private void NavigateStep100_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Navigating to step 100");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Set the step position to 100
 		stepPosition = 100;
 		// Clear the checked state of all other menu items
@@ -150,6 +175,10 @@ public partial class PlanetoidDbForm
 	private void NavigateStep1000_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Navigating to step 1000");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Set the step position to 1000
 		stepPosition = 1000;
 		// Clear the checked state of all other menu items
@@ -165,6 +194,10 @@ public partial class PlanetoidDbForm
 	private void NavigateStep10000_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Navigating to step 10000");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Set the step position to 10000
 		stepPosition = 10000;
 		// Clear the checked state of all other menu items
@@ -180,6 +213,10 @@ public partial class PlanetoidDbForm
 	private void NavigateStep100000_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Navigating to step 100000");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Set the step position to 100000
 		stepPosition = 100000;
 		// Clear the checked state of all other menu items
@@ -195,6 +232,10 @@ public partial class PlanetoidDbForm
 	private void Exit_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Exiting application");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		Close();
 	}
 
@@ -205,6 +246,10 @@ public partial class PlanetoidDbForm
 	private void OpenWebsiteMPC_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Opening MPC website: {Settings.Default.systemWebsiteMpc}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		AudioPlayback.PlaySendDataSound();
 		OpenWebsite(fileName: Settings.Default.systemWebsiteMpc);
 	}
@@ -216,6 +261,10 @@ public partial class PlanetoidDbForm
 	private void OpenMpcorbDatWebsite_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Opening MPCORB website: {Settings.Default.systemWebsiteMpcorb}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		AudioPlayback.PlaySendDataSound();
 		OpenWebsite(fileName: Settings.Default.systemWebsiteMpcorb);
 	}
@@ -227,6 +276,10 @@ public partial class PlanetoidDbForm
 	private void DownloadMpcorbDat_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Showing downloader form for MPCORB.DAT database");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		ShowMpcorbDatDownloader();
 	}
 
@@ -237,6 +290,10 @@ public partial class PlanetoidDbForm
 	private void DownloadMpcorbJson_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Showing downloader form for MPCORB.JSON database");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		ShowMpcorbJsonDownloader();
 	}
 
@@ -247,6 +304,10 @@ public partial class PlanetoidDbForm
 	private void DownloadAstorbDat_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Showing downloader form for ASTORB.DAT database");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		ShowAstorbDatDownloader();
 	}
 
@@ -257,6 +318,10 @@ public partial class PlanetoidDbForm
 	private void DownloadAllnumCat_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Showing downloader form for ALLNUM.CAT database");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		ShowAllnumCatDownloader();
 	}
 
@@ -267,6 +332,10 @@ public partial class PlanetoidDbForm
 	private void DownloadUfitobsCat_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Showing downloader form for UFITOBS.CAT database");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		ShowUfitobsCatDownloader();
 	}
 
@@ -277,6 +346,10 @@ public partial class PlanetoidDbForm
 	private void DownloadSingoppCat_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Showing downloader form for SINGOPP.CAT database");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		ShowSingoppCatDownloader();
 	}
 
@@ -288,6 +361,10 @@ public partial class PlanetoidDbForm
 	private void CheckMpcorbDatUpdate_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Showing data check form for MPCORB.DAT database");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		ShowMpcorbDatUpdateCheck();
 	}
 
@@ -299,6 +376,10 @@ public partial class PlanetoidDbForm
 	private void CheckMpcorbJsonUpdate_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Showing data check form for MPCORB.JSON database");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		ShowMpcorbJsonUpdateCheck();
 	}
 
@@ -309,6 +390,10 @@ public partial class PlanetoidDbForm
 	private void CheckAstorbDatUpdate_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Showing data check form for ASTORB.DAT database");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		ShowAstorbDatUpdateCheck();
 	}
 
@@ -319,6 +404,10 @@ public partial class PlanetoidDbForm
 	private void CheckAllnumCatUpdate_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Showing data check form for ALLNUM.CAT database");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		ShowAllnumCatUpdateCheck();
 	}
 
@@ -329,6 +418,10 @@ public partial class PlanetoidDbForm
 	private void CheckUfitobsCatUpdate_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Showing data check form for UFITOBS.CAT database");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		ShowUfitobsCatUpdateCheck();
 	}
 
@@ -339,6 +432,10 @@ public partial class PlanetoidDbForm
 	private void CheckSingoppCatUpdate_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Showing data check form for SINGOPP.CAT database");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		ShowSingoppCatUpdateCheck();
 	}
 
@@ -349,6 +446,10 @@ public partial class PlanetoidDbForm
 	private void About_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Showing application information form");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		ShowAppInfo();
 	}
 
@@ -359,6 +460,10 @@ public partial class PlanetoidDbForm
 	private void OpenWebsitePDB_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Opening Planetoid Database website; {Settings.Default.systemHomepage}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		OpenWebsite(fileName: Settings.Default.systemHomepage);
 		AudioPlayback.PlaySendDataSound();
 	}
@@ -370,6 +475,10 @@ public partial class PlanetoidDbForm
 	private void TableMode_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Opening table mode form");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		OpenTableMode();
 	}
 
@@ -381,6 +490,10 @@ public partial class PlanetoidDbForm
 	private void DatabaseInformation_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Showing database information form");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		ShowDatabaseInformation();
 	}
 
@@ -391,6 +504,10 @@ public partial class PlanetoidDbForm
 	private void PrintDataSheet_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Showing print data sheet form");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		PrintDataSheet();
 	}
 
@@ -401,6 +518,10 @@ public partial class PlanetoidDbForm
 	private void Search_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Showing search form");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		ShowSearch();
 	}
 
@@ -411,6 +532,10 @@ public partial class PlanetoidDbForm
 	private void LoadRandomMinorPlanet_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Loading a random minor planet from the database");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		LoadRandomMinorPlanet();
 	}
 
@@ -421,6 +546,10 @@ public partial class PlanetoidDbForm
 	private void NavigateToTheBegin_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Navigating to the beginning of the data");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		NavigateToTheBeginOfTheData();
 	}
 
@@ -431,6 +560,10 @@ public partial class PlanetoidDbForm
 	private void NavigateSomeDataBackward_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Navigating backward by a specified step in the data");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		NavigateSomeDataBackward();
 	}
 
@@ -441,6 +574,10 @@ public partial class PlanetoidDbForm
 	private void NavigateToThePreviousData_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Navigating to the previous data entry");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		NavigateToThePreviousData();
 	}
 
@@ -451,6 +588,10 @@ public partial class PlanetoidDbForm
 	private void NavigateToTheNextData_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Navigating to the next data entry");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		NavigateToTheNextData();
 	}
 
@@ -461,6 +602,10 @@ public partial class PlanetoidDbForm
 	private void NavigateSomeDataForward_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Navigating forward by a specified step in the data");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		NavigateSomeDataForward();
 	}
 
@@ -471,6 +616,10 @@ public partial class PlanetoidDbForm
 	private void NavigateToTheEnd_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Navigating to the end of the data");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		NavigateToTheEndOfTheData();
 	}
 
@@ -481,6 +630,10 @@ public partial class PlanetoidDbForm
 	private void Settings_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Showing settings form");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		ShowSettings();
 	}
 
@@ -491,6 +644,10 @@ public partial class PlanetoidDbForm
 	private void ExportSettings_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Showing settings export form.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		ShowSettingsExport();
 	}
 
@@ -501,6 +658,10 @@ public partial class PlanetoidDbForm
 	private void ImportSettings_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Showing settings import form.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		ShowSettingsImport();
 	}
 
@@ -511,6 +672,10 @@ public partial class PlanetoidDbForm
 	private void Filter_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Showing filter form");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		ShowFilter();
 	}
 
@@ -521,6 +686,10 @@ public partial class PlanetoidDbForm
 	private void FilterReset_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Resetting filter and restoring original database");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Replace the current database with the backup
 		planetoidsDatabase.Clear();
 		planetoidsDatabase.AddRange(collection: planetoidsDatabaseBackup);
@@ -547,6 +716,10 @@ public partial class PlanetoidDbForm
 	private void DerivedOrbitElements_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Showing derived orbit elements form");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		ShowDerivedOrbitElements();
 	}
 
@@ -557,6 +730,10 @@ public partial class PlanetoidDbForm
 	private void Restart_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Restarting application");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		Restart();
 	}
 
@@ -567,6 +744,10 @@ public partial class PlanetoidDbForm
 	private void StayOnTop_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Checking if the form should stay on top of other windows");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CheckStayOnTop();
 	}
 
@@ -577,6 +758,10 @@ public partial class PlanetoidDbForm
 	private void CopyToClipboardIndexNumber_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying index number to clipboard: {labelMpcorbIndexData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelMpcorbIndexData.Text);
 	}
 
@@ -587,6 +772,10 @@ public partial class PlanetoidDbForm
 	private void CopyToClipboardReadableDesignation_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying readable designation to clipboard: {labelMpcorbReadableDesignationData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelMpcorbReadableDesignationData.Text);
 	}
 
@@ -597,6 +786,10 @@ public partial class PlanetoidDbForm
 	private void CopyToClipboardEpoch_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying epoch to clipboard: {labelMpcorbEpochData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelMpcorbEpochData.Text);
 	}
 
@@ -607,6 +800,10 @@ public partial class PlanetoidDbForm
 	private void CopyToClipboardMeanAnomaly_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying mean anomaly to clipboard: {labelMpcorbMeanAnomalyAtTheEpochData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelMpcorbMeanAnomalyAtTheEpochData.Text);
 	}
 
@@ -617,6 +814,10 @@ public partial class PlanetoidDbForm
 	private void CopyToClipboardArgumentOfThePerihelion_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying argument of perihelion to clipboard: {labelMpcorbArgumentOfThePerihelionData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelMpcorbArgumentOfThePerihelionData.Text);
 	}
 
@@ -627,6 +828,10 @@ public partial class PlanetoidDbForm
 	private void CopyToClipboardLongitudeOfTheAscendingNode_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying longitude of the ascending node to clipboard: {labelMpcorbLongitudeOfTheAscendingNodeData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelMpcorbLongitudeOfTheAscendingNodeData.Text);
 	}
 
@@ -637,6 +842,10 @@ public partial class PlanetoidDbForm
 	private void CopyToClipboardInclinationToTheEcliptic_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying inclination to the ecliptic to clipboard: {labelMpcorbInclinationToTheEclipticData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelMpcorbInclinationToTheEclipticData.Text);
 	}
 
@@ -647,6 +856,10 @@ public partial class PlanetoidDbForm
 	private void CopyToClipboardOrbitalEccentricity_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying orbital eccentricity to clipboard: {labelMpcorbOrbitalEccentricityData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelMpcorbOrbitalEccentricityData.Text);
 	}
 
@@ -657,6 +870,10 @@ public partial class PlanetoidDbForm
 	private void CopyToClipboardMeanDailyMotion_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying mean daily motion to clipboard: {labelMpcorbMeanDailyMotionData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelMpcorbMeanDailyMotionData.Text);
 	}
 
@@ -667,6 +884,10 @@ public partial class PlanetoidDbForm
 	private void CopyToClipboardSemiMajorAxis_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying semi-major axis to clipboard: {labelMpcorbSemiMajorAxisData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelMpcorbSemiMajorAxisData.Text);
 	}
 
@@ -677,6 +898,10 @@ public partial class PlanetoidDbForm
 	private void CopyToClipboardAbsoluteMagnitude_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying absolute magnitude to clipboard: {labelMpcorbAbsoluteMagnitudeData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelMpcorbAbsoluteMagnitudeData.Text);
 	}
 
@@ -687,6 +912,10 @@ public partial class PlanetoidDbForm
 	private void CopyToClipboardSlopeParameter_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying slope parameter to clipboard: {labelMpcorbSlopeParameterData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelMpcorbSlopeParameterData.Text);
 	}
 
@@ -697,6 +926,10 @@ public partial class PlanetoidDbForm
 	private void CopyToClipboardReference_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying reference to clipboard: {labelMpcorbReferenceData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelMpcorbReferenceData.Text);
 	}
 
@@ -707,6 +940,10 @@ public partial class PlanetoidDbForm
 	private void CopyToClipboardNumberOfOppositions_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying number of oppositions to clipboard: {labelMpcorbNumberOfOppositionsData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelMpcorbNumberOfOppositionsData.Text);
 	}
 
@@ -717,6 +954,10 @@ public partial class PlanetoidDbForm
 	private void CopyToClipboardNumberOfObservations_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying number of observations to clipboard: {labelMpcorbNumberOfObservationsData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelMpcorbNumberOfObservationsData.Text);
 	}
 
@@ -727,6 +968,10 @@ public partial class PlanetoidDbForm
 	private void CopyToClipboardObservationSpan_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying observation span to clipboard: {labelMpcorbObservationSpanData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelMpcorbObservationSpanData.Text);
 	}
 
@@ -737,6 +982,10 @@ public partial class PlanetoidDbForm
 	private void CopyToClipboardRmsResidual_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying RMS residual to clipboard: {labelMpcorbRmsResidualData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelMpcorbRmsResidualData.Text);
 	}
 
@@ -747,6 +996,10 @@ public partial class PlanetoidDbForm
 	private void CopyToClipboardComputerName_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying computer name to clipboard: {labelMpcorbComputerNameData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelMpcorbComputerNameData.Text);
 	}
 
@@ -757,6 +1010,10 @@ public partial class PlanetoidDbForm
 	private void CopyToClipboardDateOfLastObservation_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying date of last observation to clipboard: {labelMpcorbDateLastObservationData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelMpcorbDateLastObservationData.Text);
 	}
 
@@ -767,6 +1024,10 @@ public partial class PlanetoidDbForm
 	private void CopyToClipboardFlags_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying flags to clipboard: {labelMpcorbFlagsData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelMpcorbFlagsData.Text);
 	}
 
@@ -777,6 +1038,10 @@ public partial class PlanetoidDbForm
 	private void Export_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Exporting data sheet");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		ExportDataSheet();
 	}
 
@@ -787,6 +1052,10 @@ public partial class PlanetoidDbForm
 	private void Records_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Showing records main form");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		ShowRecords();
 	}
 
@@ -797,6 +1066,10 @@ public partial class PlanetoidDbForm
 	private void RecordsMeanAnomalyAtTheEpoch_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Showing top ten records form for mean anomaly at the epoch");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Show the top ten records form for mean anomaly at the epoch
 		ShowRecordsTop10(selectedElement: "Mean anomaly at the epoch");
 	}
@@ -808,6 +1081,10 @@ public partial class PlanetoidDbForm
 	private void RecordsArgumentOfThePerihelion_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Showing top ten records form for argument of the perihelion");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Show the top ten records form for the argument of the perihelion
 		ShowRecordsTop10(selectedElement: "Argument of the perihelion");
 	}
@@ -819,6 +1096,10 @@ public partial class PlanetoidDbForm
 	private void RecordsLongitudeOfTheAscendingNode_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Showing top ten records form for longitude of the ascending node");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Show the top ten records form for the longitude of the ascending node
 		ShowRecordsTop10(selectedElement: "Longitude of the ascending node");
 	}
@@ -830,6 +1111,10 @@ public partial class PlanetoidDbForm
 	private void RecordsInclination_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Showing top ten records form for inclination");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Show the top ten records form for inclination
 		ShowRecordsTop10(selectedElement: "Inclination");
 	}
@@ -841,6 +1126,10 @@ public partial class PlanetoidDbForm
 	private void RecordsOrbitalEccentricity_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Showing top ten records form for orbital eccentricity");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Show the top ten records form for orbital eccentricity
 		ShowRecordsTop10(selectedElement: "Orbital eccentricity");
 	}
@@ -852,6 +1141,10 @@ public partial class PlanetoidDbForm
 	private void RecordsMeanDailyMotion_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Showing top ten records form for mean daily motion");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Show the top ten records form for mean daily motion
 		ShowRecordsTop10(selectedElement: "Mean daily motion");
 	}
@@ -863,6 +1156,10 @@ public partial class PlanetoidDbForm
 	private void RecordsSemiMajorAxis_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Showing top ten records form for semi-major axis");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Show the top ten records form for semi-major axis
 		ShowRecordsTop10(selectedElement: "Semi-major axis");
 	}
@@ -874,6 +1171,10 @@ public partial class PlanetoidDbForm
 	private void RecordsAbsoluteMagnitude_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Showing top ten records form for absolute magnitude");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Show the top ten records form for absolute magnitude
 		ShowRecordsTop10(selectedElement: "Absolute magnitude");
 	}
@@ -885,6 +1186,10 @@ public partial class PlanetoidDbForm
 	private void RecordsSlopeParameter_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Showing top ten records form for slope parameter");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Show the top ten records form for slope parameter
 		ShowRecordsTop10(selectedElement: "Slope parameter");
 	}
@@ -896,6 +1201,10 @@ public partial class PlanetoidDbForm
 	private void RecordsNumberOfOppositions_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Showing top ten records form for number of oppositions");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Show the top ten records form for number of oppositions
 		ShowRecordsTop10(selectedElement: "Number of oppositions");
 	}
@@ -907,6 +1216,10 @@ public partial class PlanetoidDbForm
 	private void RecordsNumberOfObservations_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Showing top ten records form for number of observations");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Show the top ten records form for number of observations
 		ShowRecordsTop10(selectedElement: "Number of observations");
 	}
@@ -918,6 +1231,10 @@ public partial class PlanetoidDbForm
 	private void RecordsRmsResidual_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Showing top ten records form for RMS residual");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Show the top ten records form for RMS residual
 		ShowRecordsTop10(selectedElement: "r.m.s. residual");
 	}
@@ -929,6 +1246,10 @@ public partial class PlanetoidDbForm
 	private void Distributions_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Showing histogram form for the selected parameter");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Show the histogram form for the selected parameter
 		ShowHistogram();
 	}
@@ -940,6 +1261,10 @@ public partial class PlanetoidDbForm
 	private void ScatterPlots_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Showing scatter plot form for the selected parameter");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Show the scatter plot form for the selected parameter
 		ShowScatterPlot();
 	}
@@ -951,6 +1276,10 @@ public partial class PlanetoidDbForm
 	private void AEIDiagram3D_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Showing 3D diagram form for the selected parameter");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		using AEIDiagram3DForm formAEIDiagram = new(planetoids: planetoidsDatabase);
 		formAEIDiagram.TopMost = TopMost;
 		_ = formAEIDiagram.ShowDialog(owner: this);
@@ -963,6 +1292,10 @@ public partial class PlanetoidDbForm
 	private void Orrery_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Showing orrery form");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		using OrreryForm formOrrery = new(planetoids: planetoidsDatabase);
 		formOrrery.TopMost = TopMost;
 		_ = formOrrery.ShowDialog(owner: this);
@@ -975,6 +1308,10 @@ public partial class PlanetoidDbForm
 	private void PlanetaryInformation_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Showing planetary information form");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		using PlanetaryInformationForm formPlanetaryInformation = new();
 		formPlanetaryInformation.TopMost = TopMost;
 		_ = formPlanetaryInformation.ShowDialog(owner: this);
@@ -987,6 +1324,10 @@ public partial class PlanetoidDbForm
 	private void AverageAsteroid_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Showing Average Asteroid form");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Check if the database is loaded and contains data before attempting to show the form
 		try
 		{
@@ -1008,6 +1349,10 @@ public partial class PlanetoidDbForm
 		catch (Exception ex)
 		{
 			// Log the error with the exception details and show an error message to the user
+			// Ensure that an event source was supplied
+			ArgumentNullException.ThrowIfNull(argument: sender);
+			// Ensure that the event data was supplied
+			ArgumentNullException.ThrowIfNull(argument: e);
 			logger.Error(message: "Failed to open Average Asteroid form: {0}", args: ex);
 			ShowErrorMessage(message: $"Failed to open Average Asteroid form: {ex.Message}");
 		}
@@ -1020,6 +1365,10 @@ public partial class PlanetoidDbForm
 	private void WorldMap_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Showing world map form");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		using WorldMapForm formWorldMap = new();
 		formWorldMap.TopMost = TopMost;
 		_ = formWorldMap.ShowDialog(owner: this);
@@ -1032,6 +1381,10 @@ public partial class PlanetoidDbForm
 	private void ListReadableDesignations_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Listing readable designations");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		ListReadableDesignations();
 	}
 
@@ -1042,6 +1395,10 @@ public partial class PlanetoidDbForm
 	private void License_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Showing license");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		ShowLicense();
 	}
 
@@ -1052,6 +1409,10 @@ public partial class PlanetoidDbForm
 	private void CompareDatabases_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Comparing database archives");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		ShowCompareArchives();
 	}
 
@@ -1062,6 +1423,10 @@ public partial class PlanetoidDbForm
 	private void OrbitalResonances_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Showing orbital resonances form");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		ShowOrbitalResonances();
 	}
 
@@ -1072,6 +1437,10 @@ public partial class PlanetoidDbForm
 	private void Observations_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Showing observations form");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		ShowObservations();
 	}
 
@@ -1082,6 +1451,10 @@ public partial class PlanetoidDbForm
 	private void OrbitElementsGrouping_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Showing orbit elements grouping form");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		ShowOrbitElementsGrouping();
 	}
 
@@ -1092,6 +1465,10 @@ public partial class PlanetoidDbForm
 	private void AsteroidFamiliesDetection_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Showing asteroid families form");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		ShowAsteroidFamiliesDetection();
 	}
 
@@ -1102,6 +1479,10 @@ public partial class PlanetoidDbForm
 	private void OrbitalResonancesOfAllMinorPlanets_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Showing orbital resonances of all minor planets form");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		ShowOrbitalResonancesOfAllMinorPlanets();
 	}
 
@@ -1112,6 +1493,10 @@ public partial class PlanetoidDbForm
 	private void Moids_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Showing MOIDs form");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		ShowMoids();
 	}
 
@@ -1122,6 +1507,10 @@ public partial class PlanetoidDbForm
 	private void Maxoids_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Showing MAXOIDs form");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		ShowMaxoids();
 	}
 
@@ -1132,6 +1521,10 @@ public partial class PlanetoidDbForm
 	private void MoidsAndMaxoids_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Showing MOIDs and MAXOIDs form");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		ShowMoidsAndMaxoids();
 	}
 
@@ -1142,6 +1535,10 @@ public partial class PlanetoidDbForm
 	private void MoidsOfAllMinorPlanets_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Showing MOIDs of all minor planets form");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		ShowMoidsOfAllMinorPlanets();
 	}
 
@@ -1152,6 +1549,10 @@ public partial class PlanetoidDbForm
 	private void MaxoidsOfAllMinorPlanets_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Showing MAXOIDs of all minor planets form");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		ShowMaxoidsOfAllMinorPlanets();
 	}
 
@@ -1162,6 +1563,10 @@ public partial class PlanetoidDbForm
 	private void TisserandParameters_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Showing Tisserand parameters of one minor planet form");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		ShowTisserandParameters();
 	}
 
@@ -1172,6 +1577,10 @@ public partial class PlanetoidDbForm
 	private void TisserandParametersOfAllMinorPlanets_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Showing Tisserand parameters of all minor planets form");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		ShowTisserandParametersOfAllMinorPlanets();
 	}
 
@@ -1182,6 +1591,10 @@ public partial class PlanetoidDbForm
 	private void EncounterVelocitys_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Showing encounter velocitys of one minor planet form");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		ShowEncounterVelocitys();
 	}
 
@@ -1192,6 +1605,10 @@ public partial class PlanetoidDbForm
 	private void EncounterVelocitysOfAllMinorPlanets_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Showing encounter velocitys of all minor planets form");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		ShowEncounterVelocitysOfAllMinorPlanets();
 	}
 
@@ -1202,6 +1619,10 @@ public partial class PlanetoidDbForm
 	private void Ephemerides_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Showing ephemerides form");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		ShowEphemerides();
 	}
 
@@ -1212,6 +1633,10 @@ public partial class PlanetoidDbForm
 	private void BulkObservationDataDownloader_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Showing bulk observations data downloader form");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		ShowBulkObservationDataDownloader();
 	}
 
@@ -1222,6 +1647,10 @@ public partial class PlanetoidDbForm
 	private void MoidsRelativeToMinorPlanets_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Showing MOIDs relative to minor planets form");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		ShowMoidsRelativeToMinorPlanets();
 	}
 
@@ -1232,6 +1661,10 @@ public partial class PlanetoidDbForm
 	private void MaxoidsRelativeToMinorPlanets_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Showing MAXOIDs relative to minor planets form");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		ShowMaxoidsRelativeToMinorPlanets();
 	}
 
@@ -1242,6 +1675,10 @@ public partial class PlanetoidDbForm
 	private void OpenLocalMpcorbDat_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Opening local MPCORB.DAT file");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		OpenLocalMpcorbDat();
 	}
 
@@ -1252,6 +1689,10 @@ public partial class PlanetoidDbForm
 	private void OpenDataPageMpcDatabase_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Opening MPC Database page for object {labelMpcorbIndexData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		AudioPlayback.PlaySendDataSound();
 		OpenWebsite(fileName: $"https://www.minorplanetcenter.net/db_search/show_object?utf8=%E2%9C%93&object_id={labelMpcorbIndexData.Text}");
 	}
@@ -1263,6 +1704,10 @@ public partial class PlanetoidDbForm
 	private void OpenDataPageJplSmallBodyDatabase_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Opening JPL Small-Body Database page for object {labelMpcorbIndexData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		AudioPlayback.PlaySendDataSound();
 		OpenWebsite(fileName: $"https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr={labelMpcorbIndexData.Text}&view=OPDA");
 	}
@@ -1274,6 +1719,10 @@ public partial class PlanetoidDbForm
 	private void OpenDataPageLowellMinorPlanetServices_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Opening Lowell Minor Planet Services page for object {labelMpcorbIndexData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		AudioPlayback.PlaySendDataSound();
 		OpenWebsite(fileName: $"https://asteroid.lowell.edu/gui/search/{ProcessDesignationForUrl(input: labelMpcorbReadableDesignationData.Text)}");
 	}
@@ -1285,6 +1734,10 @@ public partial class PlanetoidDbForm
 	private void OpenDataPageAsteroidsDynamicSite_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Opening Asteroids Dynamic Site page for object {labelMpcorbIndexData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		AudioPlayback.PlaySendDataSound();
 		OpenWebsite(fileName: $"https://newton.spacedys.com/astdys/index.php?pc=1.1.0&n={ProcessDesignationForUrl(input: labelMpcorbReadableDesignationData.Text)}");
 	}
@@ -1296,6 +1749,10 @@ public partial class PlanetoidDbForm
 	private void OpenDataPageNearEarthObjectsDynamicSite_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Opening Near-Earth Objects Dynamic Site page for object {labelMpcorbIndexData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		AudioPlayback.PlaySendDataSound();
 		OpenWebsite(fileName: $"https://newton.spacedys.com/neodys/index.php?pc=1.1.0&n={ProcessDesignationForUrl(input: labelMpcorbReadableDesignationData.Text)}");
 	}
@@ -1307,6 +1764,10 @@ public partial class PlanetoidDbForm
 	private void OpenDataPageNearEarthObjectCoordinationCentre_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Opening Near-Earth Object Coordination Centre page for object {labelMpcorbIndexData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		AudioPlayback.PlaySendDataSound();
 		OpenWebsite(fileName: $"https://neo.ssa.esa.int/search-for-asteroids?tab=summary&des={ProcessDesignationForUrl(input: labelMpcorbReadableDesignationData.Text)}");
 	}
@@ -1318,6 +1779,10 @@ public partial class PlanetoidDbForm
 	private void OpenDataPageSsoCard_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Opening SsoCard page for object {labelMpcorbIndexData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		AudioPlayback.PlaySendDataSound();
 		OpenWebsite(fileName: $"https://ssp.imcce.fr/forms/ssocard/{ProcessDesignationForUrl(input: labelMpcorbReadableDesignationData.Text)}");
 	}
@@ -1329,6 +1794,10 @@ public partial class PlanetoidDbForm
 	private void OpenDataPageNeoToolsOvt_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Opening NeoTools OVT page for object {labelMpcorbIndexData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		AudioPlayback.PlaySendDataSound();
 		OpenWebsite(fileName: $"https://neotools.neo.s2p.esa.int/ovt?object={ProcessDesignationForUrl(input: labelMpcorbReadableDesignationData.Text)}");
 	}
@@ -1340,6 +1809,10 @@ public partial class PlanetoidDbForm
 	private void OpenDataPageMp3CAtLe_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Opening MP3C at University of Leicester page for object {labelMpcorbIndexData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		AudioPlayback.PlaySendDataSound();
 		OpenWebsite(fileName: $"https://mp3c.le.ac.uk/bodies/{ProcessDesignationForUrl2(input: labelMpcorbReadableDesignationData.Text)}");
 	}
@@ -1351,6 +1824,10 @@ public partial class PlanetoidDbForm
 	private void OpenDataPageMp3CAtOca_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Opening MP3C at Observatoire de la Côte d'Azur page for object {labelMpcorbIndexData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		AudioPlayback.PlaySendDataSound();
 		OpenWebsite(fileName: $"https://mp3c.oca.eu/bodies/{ProcessDesignationForUrl2(input: labelMpcorbReadableDesignationData.Text)}");
 	}
@@ -1363,6 +1840,10 @@ public partial class PlanetoidDbForm
 	{
 		// Log the action of opening all relevant data pages for the selected object
 		logger.Info(message: $"Opening all relevant data pages for object {labelMpcorbIndexData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Call the individual methods to open each data page, passing the same sender and event arguments to maintain context
 		OpenDataPageMpcDatabase_Click(sender: sender, e: e);
 		OpenDataPageJplSmallBodyDatabase_Click(sender: sender, e: e);
@@ -1383,6 +1864,10 @@ public partial class PlanetoidDbForm
 	private void LabelFlagsData_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Decoding MPCORB flags for object {labelMpcorbIndexData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		DecodeMpcorbFlags();
 	}
 
@@ -1393,6 +1878,10 @@ public partial class PlanetoidDbForm
 	private void LabelReferenceData_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Decoding MPCORB reference for object {labelMpcorbIndexData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		DecodeMpcorbReference();
 	}
 
@@ -1403,6 +1892,10 @@ public partial class PlanetoidDbForm
 	private void LabelEpochData_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Decoding packed epoch for object {labelMpcorbIndexData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		DecodePackedEpoch();
 	}
 
@@ -1413,6 +1906,10 @@ public partial class PlanetoidDbForm
 	private void LabelReadableDesignationData_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Decoding readable designation for object {labelMpcorbIndexData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		DecodeReadableDesignation();
 	}
 
@@ -1423,6 +1920,10 @@ public partial class PlanetoidDbForm
 	private void LabelDateOfLastObservation_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Decoding readable date of last observation for object {labelMpcorbIndexData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		DecodeDateOfLastObservation();
 	}
 
@@ -1433,6 +1934,10 @@ public partial class PlanetoidDbForm
 	private void ObservatoryCodes_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Opening Observatory Codes form");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Open the ObservatoryCodesForm as a modal dialog to display the list of observatory codes. The form is set to be topmost based on the current state of the main form to ensure it appears above other windows.
 		using ObservatoryCodesForm formObservatoryCodes = new();
 		formObservatoryCodes.TopMost = TopMost;
@@ -1446,6 +1951,10 @@ public partial class PlanetoidDbForm
 	private void Orbit2DTopView_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Displaying 2D top view of the orbit for object {labelMpcorbIndexData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		ShowOrbit2DTopView();
 	}
 
@@ -1456,6 +1965,10 @@ public partial class PlanetoidDbForm
 	private void Orbit2DSideView_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Displaying 2D side view of the orbit for object {labelMpcorbIndexData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		ShowOrbit2DSideView();
 	}
 
@@ -1466,6 +1979,10 @@ public partial class PlanetoidDbForm
 	private void Orbit3DView_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Displaying 3D view of the orbit for object {labelMpcorbIndexData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		ShowOrbit3DView();
 	}
 
@@ -1477,6 +1994,10 @@ public partial class PlanetoidDbForm
 	{
 		// Log the click event and the current checked state of the logging menu item
 		logger.Info(message: $"Logging menu item clicked. Checked state: {toolStripMenuItemLogging.Checked}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Enable or disable logging based on the checked state of the menu item
 		if (toolStripMenuItemLogging.Checked)
 		{
@@ -1503,6 +2024,10 @@ public partial class PlanetoidDbForm
 	private void ToolStripMenuItemLoadDatabaseOnStartupMpcorbJson_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Load Database on Startup for MPCORB.JSON menu item clicked. Checked state: {toolStripMenuItemLoadDatabaseOnStartupMpcorbJson.Checked}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Toggle the visibility of the MPCORB.JSON tab based on the menu item checked state
 		kryptonPageMpcorbJson.Visible = toolStripMenuItemLoadDatabaseOnStartupMpcorbJson.Checked;
 		// Update the user setting to reflect the new state
@@ -1517,6 +2042,10 @@ public partial class PlanetoidDbForm
 	private void ToolStripMenuItemLoadDatabaseOnStartupAstorbDat_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Load Database on Startup for ASTORB.DAT menu item clicked. Checked state: {toolStripMenuItemLoadDatabaseOnStartupAstorbDat.Checked}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Toggle the visibility of the ASTORB.DAT tab based on the menu item checked state
 		kryptonPageAstorbDat.Visible = toolStripMenuItemLoadDatabaseOnStartupAstorbDat.Checked;
 		// Update the user setting to reflect the new state
@@ -1531,6 +2060,10 @@ public partial class PlanetoidDbForm
 	private void ToolStripMenuItemLoadDatabaseOnStartupAllnumCat_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Load Database on Startup for ALLNUM.CAT menu item clicked. Checked state: {toolStripMenuItemLoadDatabaseOnStartupAllnumCat.Checked}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Toggle the visibility of the ALLNUM.CAT tab based on the menu item checked state
 		kryptonPageAllnumCat.Visible = toolStripMenuItemLoadDatabaseOnStartupAllnumCat.Checked;
 		// Update the user setting to reflect the new state
@@ -1545,6 +2078,10 @@ public partial class PlanetoidDbForm
 	private void ToolStripMenuItemLoadDatabaseOnStartupSingoppCat_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Load Database on Startup for SINGOPP.CAT menu item clicked. Checked state: {toolStripMenuItemLoadDatabaseOnStartupSingoppCat.Checked}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Toggle the visibility of the SINGOPP.CAT tab based on the menu item checked state
 		kryptonPageSingoppCat.Visible = toolStripMenuItemLoadDatabaseOnStartupSingoppCat.Checked;
 		// Update the user setting to reflect the new state
@@ -1559,6 +2096,10 @@ public partial class PlanetoidDbForm
 	private void ToolStripMenuItemLoadDatabaseOnStartupUfitobsCat_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Load Database on Startup for UFITOBS.CAT menu item clicked. Checked state: {toolStripMenuItemLoadDatabaseOnStartupUfitobsCat.Checked}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Toggle the visibility of the UFITOBS.CAT tab based on the menu item checked state
 		kryptonPageUfitobsCat.Visible = toolStripMenuItemLoadDatabaseOnStartupUfitobsCat.Checked;
 		// Update the user setting to reflect the new state
@@ -1573,6 +2114,10 @@ public partial class PlanetoidDbForm
 	private void ToolStripMenuItemCheckingDatabaseUpdatesOnStartup_Click(object sender, EventArgs e)
 	{
 		// Log the action of toggling the setting and the new checked state
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		logger.Info(message: $"Toggling the 'Checking Database Updates on Startup' setting. Check state: {toolStripMenuItemCheckingDatabaseUpdatesOnStartup.Checked}");
 		// Update the user setting based on the checked state of the menu item
 		Settings.Default.userCheckingDatabaseUpdatesOnStartup = toolStripMenuItemCheckingDatabaseUpdatesOnStartup.Checked;
@@ -1587,6 +2132,10 @@ public partial class PlanetoidDbForm
 	{
 		// Log the start of the bookmark audit process
 		logger.Info(message: "Starting bookmark audit...");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		if (bookmarksMpcorbJson.Count > 0 && mpcorbJsonDatabase.Count == 0)
 		{
 			// If there are bookmarks for MPCORB.JSON but the database is not loaded, log the situation and load the database
@@ -1676,6 +2225,10 @@ public partial class PlanetoidDbForm
 	{
 		// Log the action of opening the CoordinateTransformationForm
 		logger.Info(message: "Opening CoordinateTransformationForm for astronomical coordinate conversion...");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Open the CoordinateTransformationForm as a modal dialog
 		using CoordinateTransformationForm form = new();
 		_ = form.ShowDialog(owner: this);
@@ -1689,6 +2242,10 @@ public partial class PlanetoidDbForm
 	{
 		// Log the action of opening the AngleMeasureConversionForm
 		logger.Info(message: "Opening AngleMeasureConversionForm...");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Open the AngleMeasureConversionForm as a modal dialog
 		using AngleMeasureConversionForm form = new();
 		_ = form.ShowDialog(owner: this);
@@ -1702,6 +2259,10 @@ public partial class PlanetoidDbForm
 	{
 		// Log the action of opening the DistanceConversionForm
 		logger.Info(message: "Opening DistanceConversionForm...");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Open the DistanceConversionForm as a modal dialog
 		using DistanceConversionForm form = new();
 		_ = form.ShowDialog(owner: this);
@@ -1715,6 +2276,10 @@ public partial class PlanetoidDbForm
 	{
 		// Log the action of opening the NeaListDownloadForm
 		logger.Info(message: "Opening NeaListDownloadForm...");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Open the NeaListDownloadForm as a modal dialog
 		using NeaListDownloadForm form = new();
 		_ = form.ShowDialog(owner: this);
@@ -1727,6 +2292,10 @@ public partial class PlanetoidDbForm
 	{
 		// Log the action of Clicking on ToolStripMenuItemWindowStateMaximize
 		logger.Info(message: "Maximize the application window.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		WindowState = FormWindowState.Maximized;
 	}
 
@@ -1737,6 +2306,10 @@ public partial class PlanetoidDbForm
 	{
 		// Log the action of Clicking on ToolStripMenuItemWindowStateMinimize
 		logger.Info(message: "Minimize the application window.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		WindowState = FormWindowState.Minimized;
 	}
 
@@ -1747,6 +2320,10 @@ public partial class PlanetoidDbForm
 	{
 		// Log the action of Clicking on ToolStripMenuItemWindowStateNormal
 		logger.Info(message: "Normalize the application window.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		WindowState = FormWindowState.Normal;
 	}
 
@@ -1757,6 +2334,10 @@ public partial class PlanetoidDbForm
 	{
 		// Log the action of Clicking on ToolStripMenuItemWindowStateCenterToScreen
 		logger.Info(message: "Center the application window to the screen.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CenterToScreen();
 	}
 
@@ -1767,6 +2348,10 @@ public partial class PlanetoidDbForm
 	{
 		// Log the action of Clicking on ToolStripMenuItemWindowStateSnapLeft
 		logger.Info(message: "Snap the application window on the left side.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		SnapLeft();
 	}
 
@@ -1777,6 +2362,10 @@ public partial class PlanetoidDbForm
 	{
 		// Log the action of Clicking on ToolStripMenuItemWindowStateSnapRight
 		logger.Info(message: "Snap the application window on the right side.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		SnapRight();
 	}
 
@@ -1787,6 +2376,10 @@ public partial class PlanetoidDbForm
 	{
 		// Log the action of Clicking on ToolStripMenuItemWindowStateSnapTop
 		logger.Info(message: "Snap the application window on the upper half.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		SnapTop();
 	}
 
@@ -1797,6 +2390,10 @@ public partial class PlanetoidDbForm
 	{
 		// Log the action of Clicking on ToolStripMenuItemWindowStateSnapBottm
 		logger.Info(message: "Snap the application window on the lower half.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		SnapBottom();
 	}
 
@@ -1807,6 +2404,10 @@ public partial class PlanetoidDbForm
 	{
 		// Log the action of Clicking on ToolStripMenuItemWindowStateSnapTopLeft
 		logger.Info(message: "Snap the application window to the upper left corner.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		SnapTopLeft();
 	}
 
@@ -1817,6 +2418,10 @@ public partial class PlanetoidDbForm
 	{
 		// Log the action of Clicking on ToolStripMenuItemWindowStateSnapTopRight
 		logger.Info(message: "Snap the application window to the upper right corner.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		SnapTopRight();
 	}
 
@@ -1827,6 +2432,10 @@ public partial class PlanetoidDbForm
 	{
 		// Log the action of Clicking on ToolStripMenuItemWindowStateSnapBottomLeft
 		logger.Info(message: "Snap the application window to the lower left corner.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		SnapBottomLeft();
 	}
 
@@ -1837,56 +2446,477 @@ public partial class PlanetoidDbForm
 	{
 		// Log the action of Clicking on ToolStripMenuItemWindowStateSnapBottomCenter
 		logger.Info(message: "Snap the application window to the lower right corner.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		SnapBottomRight();
 	}
 
-	/// <summary>Handles the Click event for the listViewReadableDesignations control. Navigates to the selected planetoid position in the database.</summary>
+	/// <summary>Handles the Click event for the listViewDerivedDatas control. Shows a message box with the text of the first cell of the selected row.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>This method retrieves the selected index in virtual mode, pushes the current position to navigation history, and updates all database views to the new position.</remarks>
-	private void ListViewReadableDesignations_Click(object sender, EventArgs e)
+	/// <remarks>This method displays the content of the first column (sub-item 0) for the currently selected item in the list view.</remarks>
+	private void ListViewDerivedData_Click(object sender, EventArgs e)
 	{
-		// Check if any row is selected in VirtualMode using SelectedIndices
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		// Check if any item in the ListView is selected
+		if (listViewDerivedData.SelectedItems.Count > 0)
+		{
+			// Get the first cell of the selected row; element
+			string firstCellText = listViewDerivedData.SelectedItems[index: 0].SubItems[index: 0].Text;
+			// Get the second cell of the selected row; unit
+			string secondCellText = listViewDerivedData.SelectedItems[index: 0].SubItems[index: 1].Text;
+			// Get the third cell of the selected row; value
+			string thirdCellText = listViewDerivedData.SelectedItems[index: 0].SubItems[index: 2].Text;
+			// Log the click action
+			logger.Info(message: $"ListViewDerivedData clicked. Cells content: {firstCellText}/{secondCellText}/{thirdCellText}/");
+			// Set the status bar with the information of the selected position
+			labelInformation.Text = $"{firstCellText}: {thirdCellText} {secondCellText}";
+		}
+	}
+
+	/// <summary>Copies the un-truncated raw MPCORB.DAT line of the selected row to the clipboard.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	private void CopyListViewRawLine_Click(object sender, EventArgs e)
+	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		if (listViewReadableDesignations.SelectedIndices.Count > 0)
 		{
-			int selectedIndex = listViewReadableDesignations.SelectedIndices[0];
-
-			// Validate bounds against planetoidsDatabase
+			int selectedIndex = listViewReadableDesignations.SelectedIndices[index: 0];
 			if (selectedIndex >= 0 && selectedIndex < planetoidsDatabase.Count)
 			{
-				// Avoid redundant navigation if clicking the already active item
-				if (selectedIndex == currentMpcorbPosition)
-				{
-					return;
-				}
-
-				logger.Info(message: $"ListViewReadableDesignations clicked. Navigating to position: {selectedIndex + 1}");
-
-				// Push current position to navigation history before changing position
-				PushNavigationHistory(previousPosition: currentMpcorbPosition);
-
-				// Update positions and navigate across all loaded databases
-				currentMpcorbPosition = selectedIndex;
-				GotoCurrentMpcorbPosition(position: currentMpcorbPosition);
-				/*
-				currentAstorbPosition = currentMpcorbPosition;
-				GotoCurrentAstorbPosition(position: currentAstorbPosition);
-
-				currentMpcorbJsonPosition = currentMpcorbPosition;
-				GotoCurrentMpcorbJsonPosition(position: currentMpcorbJsonPosition);
-
-				currentAllnumCatPosition = currentMpcorbPosition;
-				GotoCurrentAllnumCatPosition(position: currentAllnumCatPosition);
-
-				currentSingoppCatPosition = currentMpcorbPosition;
-				GotoCurrentSingoppCatPosition(position: currentSingoppCatPosition);
-
-				currentUfitobsCatPosition = currentMpcorbPosition;
-				GotoCurrentUfitobsCatPosition(position: currentUfitobsCatPosition);
-				*/
+				string rawMpcorbLine = planetoidsDatabase[index: selectedIndex];
+				logger.Info(message: $"Context menu: Copying raw MPCORB.DAT line for index {selectedIndex + 1}.");
+				CopyToClipboard(text: rawMpcorbLine);
 			}
 		}
 	}
+
+	/// <summary>Copies only the readable designation of the selected row to the clipboard.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	private void CopyListViewDesignation_Click(object sender, EventArgs e)
+	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		if (listViewReadableDesignations.SelectedIndices.Count > 0)
+		{
+			int selectedIndex = listViewReadableDesignations.SelectedIndices[index: 0];
+			if (selectedIndex >= 0 && selectedIndex < planetoidsDatabase.Count)
+			{
+				string entryStr = planetoidsDatabase[index: selectedIndex];
+				string readableDesignation = entryStr.Length >= mpcorbDatReadableDesignationDelimiterEnd ? entryStr[mpcorbDatReadableDesignationDelimiterBegin..mpcorbDatReadableDesignationDelimiterEnd].Trim() : string.Empty;
+				logger.Info(message: $"Context menu: Copying designation '{readableDesignation}' for index {selectedIndex + 1}.");
+				CopyToClipboard(text: readableDesignation);
+			}
+		}
+	}
+
+	/// <summary>Copies a formatted overview (Index, MPC-ID, Designation) of the selected row to the clipboard.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	private void CopyListViewFormatted_Click(object sender, EventArgs e)
+	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		if (listViewReadableDesignations.SelectedIndices.Count > 0)
+		{
+			int selectedIndex = listViewReadableDesignations.SelectedIndices[index: 0];
+			if (selectedIndex >= 0 && selectedIndex < planetoidsDatabase.Count)
+			{
+				string entryStr = planetoidsDatabase[index: selectedIndex];
+				string mpcIndex = entryStr.Length >= mpcorbDatIndexDelimiterEnd ? entryStr[..mpcorbDatIndexDelimiterEnd].Trim() : (selectedIndex + 1).ToString(provider: CultureInfo.InvariantCulture);
+				string readableDesignation = entryStr.Length >= mpcorbDatReadableDesignationDelimiterEnd ? entryStr[mpcorbDatReadableDesignationDelimiterBegin..mpcorbDatReadableDesignationDelimiterEnd].Trim() : string.Empty;
+				string formattedText = $"{selectedIndex + 1}\t{mpcIndex}\t{readableDesignation}";
+
+				logger.Info(message: $"Context menu: Copying formatted row overview for index {selectedIndex + 1}.");
+				CopyToClipboard(text: formattedText);
+			}
+		}
+	}
+
+	#region Bookmarks
+
+	/// <summary>Navigates to the MPCORB.DAT record stored in the clicked bookmark item.</summary>
+	/// <param name="sender">The clicked menu item whose <see cref="ToolStripItem.Tag"/> is a <see cref="BookmarkEntry"/>.</param>
+	/// <param name="e">Event data.</param>
+	/// <remarks>This method is called when the user clicks a bookmark item in the MPCORB.DAT drop-down menu. It navigates to the record stored in the clicked bookmark item.</remarks>
+	private void BookmarkNavigateMpcorbDat_Click(object sender, EventArgs e)
+	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		// Ensure the sender is a ToolStripMenuItem with a BookmarkEntry in its Tag
+		if (sender is ToolStripMenuItem { Tag: BookmarkEntry entry })
+		{
+			// Verify the bookmark still points to the right planetoid; correct or delete it otherwise
+			if (!ValidateMpcorbDatBookmark(entry: entry))
+			{
+				// Log a warning that the bookmark navigation cannot proceed due to validation failure
+				logger.Warn(message: "Bookmark navigation failed: bookmark validation failed.");
+				// Exit the method early since the bookmark is invalid or has been deleted
+				return;
+			}
+			// Save the current position to the navigation history before navigating to the bookmarked position
+			PushNavigationHistory(previousPosition: currentMpcorbPosition);
+			// Update the current position to the bookmarked position and navigate to it
+			currentMpcorbPosition = entry.Position;
+			// Call the method to navigate to the current position in the MPCORB.DAT database
+			GotoCurrentMpcorbPosition(position: currentMpcorbPosition);
+			// Update the current positions for all other databases to match the new position
+			currentAstorbPosition = currentMpcorbPosition;
+			currentMpcorbJsonPosition = currentMpcorbPosition;
+			currentAllnumCatPosition = currentMpcorbPosition;
+			currentSingoppCatPosition = currentMpcorbPosition;
+			currentUfitobsCatPosition = currentMpcorbPosition;
+			// Update the bookmark button and menu toggle states to reflect the new position
+			UpdateBookmarkButtonState();
+			UpdateBookmarkMenuToggleState();
+			// Log the navigation action for auditing purposes
+			logger.Info(message: $"Navigated to MPCORB.DAT bookmark at position {currentMpcorbPosition}.");
+		}
+		// If the sender is not a valid ToolStripMenuItem with a BookmarkEntry, log a warning
+		else
+		{
+			// Log a warning if the sender is not a valid ToolStripMenuItem with a BookmarkEntry
+			logger.Warn(message: "Bookmark navigation failed: sender is not a valid ToolStripMenuItem with a BookmarkEntry.");
+		}
+	}
+
+	/// <summary>Navigates to the MPCORB.JSON record stored in the clicked bookmark item.</summary>
+	/// <param name="sender">The clicked menu item whose <see cref="ToolStripItem.Tag"/> is a <see cref="BookmarkEntry"/>.</param>
+	/// <param name="e">Event data.</param>
+	/// <remarks>This method is called when the user clicks a bookmark item in the MPCORB.JSON drop-down menu. It navigates to the record stored in the clicked bookmark item.</remarks>
+	private void BookmarkNavigateMpcorbJson_Click(object? sender, EventArgs e)
+	{
+		// Ensure the sender is a ToolStripMenuItem with a BookmarkEntry in its Tag
+		if (sender is ToolStripMenuItem { Tag: BookmarkEntry entry })
+		{
+			// Verify the bookmark still points to the right planetoid; correct or delete it otherwise
+			if (!ValidateMpcorbJsonBookmark(entry: entry))
+			{
+				// Log a warning that the bookmark navigation cannot proceed due to validation failure
+				logger.Warn(message: "Bookmark navigation failed: bookmark validation failed.");
+				// Exit the method early since the bookmark is invalid or has been deleted
+				return;
+			}
+			// Save the current position to the navigation history before navigating to the bookmarked position
+			PushNavigationHistory(previousPosition: currentMpcorbPosition);
+			// Update the current MPCORB.JSON position to the bookmarked position and navigate to it
+			currentMpcorbJsonPosition = entry.Position;
+			// Call the method to navigate to the current position in the MPCORB.JSON database
+			GotoCurrentMpcorbJsonPosition(position: currentMpcorbJsonPosition);
+			// Update the current positions for all other databases to match the new position
+			currentMpcorbPosition = currentMpcorbJsonPosition;
+			currentAstorbPosition = currentMpcorbJsonPosition;
+			currentAllnumCatPosition = currentMpcorbJsonPosition;
+			currentSingoppCatPosition = currentMpcorbJsonPosition;
+			currentUfitobsCatPosition = currentMpcorbJsonPosition;
+			// Update the bookmark button and menu toggle states to reflect the new position
+			UpdateBookmarkButtonState();
+			UpdateBookmarkMenuToggleState();
+			// Log the navigation action for auditing purposes
+			logger.Info(message: $"Navigated to MPCORB.JSON bookmark at position {currentMpcorbJsonPosition}.");
+		}
+		// If the sender is not a valid ToolStripMenuItem with a BookmarkEntry, log a warning
+		else
+		{
+			// Log a warning if the sender is not a valid ToolStripMenuItem with a BookmarkEntry
+			logger.Warn(message: "Bookmark navigation failed: sender is not a valid ToolStripMenuItem with a BookmarkEntry.");
+		}
+	}
+
+	/// <summary>Navigates to the ASTORB.DAT record stored in the clicked bookmark item.</summary>
+	/// <param name="sender">The clicked menu item whose <see cref="ToolStripItem.Tag"/> is a <see cref="BookmarkEntry"/>.</param>
+	/// <param name="e">Event data.</param>
+	/// <remarks>This method is called when the user clicks a bookmark item in the ASTORB.DAT drop-down menu. It navigates to the record stored in the clicked bookmark item.</remarks>
+	private void BookmarkNavigateAstorbDat_Click(object sender, EventArgs e)
+	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		// Ensure the sender is a ToolStripMenuItem with a BookmarkEntry in its Tag
+		if (sender is ToolStripMenuItem { Tag: BookmarkEntry entry })
+		{
+			// Verify the bookmark still points to the right planetoid; correct or delete it otherwise
+			if (!ValidateAstorbDatBookmark(entry: entry))
+			{
+				return;
+			}
+			// Save the current position to the navigation history before navigating to the bookmarked position
+			PushNavigationHistory(previousPosition: currentMpcorbPosition);
+			// Update the current ASTORB.DAT position to the bookmarked position and navigate to it
+			currentAstorbPosition = entry.Position;
+			// Call the method to navigate to the current position in the ASTORB.DAT database
+			GotoCurrentAstorbPosition(position: currentAstorbPosition);
+			// Update the current positions for all other databases to match the new position
+			currentMpcorbPosition = currentAstorbPosition;
+			currentMpcorbJsonPosition = currentAstorbPosition;
+			currentAllnumCatPosition = currentAstorbPosition;
+			currentSingoppCatPosition = currentAstorbPosition;
+			currentUfitobsCatPosition = currentAstorbPosition;
+			// Update the bookmark button and menu toggle states to reflect the new position
+			UpdateBookmarkButtonState();
+			UpdateBookmarkMenuToggleState();
+			// Log the navigation action for auditing purposes
+			logger.Info(message: $"Navigated to ASTORB.DAT bookmark at position {currentAstorbPosition}.");
+		}
+		else
+		{
+			// Log a warning if the sender is not a valid ToolStripMenuItem with a BookmarkEntry
+			logger.Warn(message: "Bookmark navigation failed: sender is not a valid ToolStripMenuItem with a BookmarkEntry.");
+		}
+	}
+
+	/// <summary>Navigates to the ALLNUM.CAT record stored in the clicked bookmark item.</summary>
+	/// <param name="sender">The clicked menu item whose <see cref="ToolStripItem.Tag"/> is a <see cref="BookmarkEntry"/>.</param>
+	/// <param name="e">Event data.</param>
+	/// <remarks>This method is called when the user clicks a bookmark item in the ALLNUM.CAT drop-down menu. It navigates to the record stored in the clicked bookmark item.</remarks>
+	private void BookmarkNavigateAllnumCat_Click(object sender, EventArgs e)
+	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		// Ensure the sender is a ToolStripMenuItem with a BookmarkEntry in its Tag
+		if (sender is ToolStripMenuItem { Tag: BookmarkEntry entry })
+		{
+			// Verify the bookmark still points to the right planetoid; correct or delete it otherwise
+			if (!ValidateAllnumCatBookmark(entry: entry))
+			{
+				return;
+			}
+			// Save the current position to the navigation history before navigating to the bookmarked position
+			PushNavigationHistory(previousPosition: currentMpcorbPosition);
+			// Update the current ALLNUM.CAT position to the bookmarked position and navigate to it
+			currentAllnumCatPosition = entry.Position;
+			// Call the method to navigate to the current position in the ALLNUM.CAT database
+			GotoCurrentAllnumCatPosition(position: currentAllnumCatPosition);
+			// Update the current positions for all other databases to match the new position
+			currentMpcorbPosition = currentAllnumCatPosition;
+			currentMpcorbJsonPosition = currentAllnumCatPosition;
+			currentAstorbPosition = currentAllnumCatPosition;
+			currentSingoppCatPosition = currentAllnumCatPosition;
+			currentUfitobsCatPosition = currentAllnumCatPosition;
+			// Update the bookmark button and menu toggle states to reflect the new position
+			UpdateBookmarkButtonState();
+			UpdateBookmarkMenuToggleState();
+			// Log the navigation action for auditing purposes
+			logger.Info(message: $"Navigated to ALLNUM.CAT bookmark at position {currentAllnumCatPosition}.");
+		}
+		else
+		{
+			// Log a warning if the sender is not a valid ToolStripMenuItem with a BookmarkEntry
+			logger.Warn(message: "Bookmark navigation failed: sender is not a valid ToolStripMenuItem with a BookmarkEntry.");
+		}
+	}
+
+	/// <summary>Navigates to the SINGOPP.CAT record stored in the clicked bookmark item.</summary>
+	/// <param name="sender">The clicked menu item whose <see cref="ToolStripItem.Tag"/> is a <see cref="BookmarkEntry"/>.</param>
+	/// <param name="e">Event data.</param>
+	/// <remarks>This method is called when the user clicks a bookmark item in the SINGOPP.CAT drop-down menu. It navigates to the record stored in the clicked bookmark item.</remarks>
+	private void BookmarkNavigateSingoppCat_Click(object sender, EventArgs e)
+	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		// Ensure the sender is a ToolStripMenuItem with a BookmarkEntry in its Tag
+		if (sender is ToolStripMenuItem { Tag: BookmarkEntry entry })
+		{
+			// Verify the bookmark still points to the right planetoid; correct or delete it otherwise
+			if (!ValidateSingoppCatBookmark(entry: entry))
+			{
+				return;
+			}
+			// Save the current position to the navigation history before navigating to the bookmarked position
+			PushNavigationHistory(previousPosition: currentMpcorbPosition);
+			// Update the current SINGOPP.CAT position to the bookmarked position and navigate to it
+			currentSingoppCatPosition = entry.Position;
+			// Call the method to navigate to the current position in the SINGOPP.CAT database
+			GotoCurrentSingoppCatPosition(position: currentSingoppCatPosition);
+			// Update the current positions for all other databases to match the new position
+			currentMpcorbPosition = currentSingoppCatPosition;
+			currentMpcorbJsonPosition = currentSingoppCatPosition;
+			currentAstorbPosition = currentSingoppCatPosition;
+			currentAllnumCatPosition = currentSingoppCatPosition;
+			currentUfitobsCatPosition = currentSingoppCatPosition;
+			// Update the bookmark button and menu toggle states to reflect the new position
+			UpdateBookmarkButtonState();
+			UpdateBookmarkMenuToggleState();
+			// Log the navigation action for auditing purposes
+			logger.Info(message: $"Navigated to SINGOPP.CAT bookmark at position {currentSingoppCatPosition}.");
+		}
+		else
+		{
+			// Log a warning if the sender is not a valid ToolStripMenuItem with a BookmarkEntry
+			logger.Warn(message: "Bookmark navigation failed: sender is not a valid ToolStripMenuItem with a BookmarkEntry.");
+		}
+	}
+
+	/// <summary>Navigates to the UFITOBS.CAT record stored in the clicked bookmark item.</summary>
+	/// <param name="sender">The clicked menu item whose <see cref="ToolStripItem.Tag"/> is a <see cref="BookmarkEntry"/>.</param>
+	/// <param name="e">Event data.</param>
+	/// <remarks>This method is called when the user clicks a bookmark item in the UFITOBS.CAT drop-down menu. It navigates to the record stored in the clicked bookmark item.</remarks>
+	private void BookmarkNavigateUfitobsCat_Click(object sender, EventArgs e)
+	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		// Ensure the sender is a ToolStripMenuItem with a BookmarkEntry in its Tag
+		if (sender is ToolStripMenuItem { Tag: BookmarkEntry entry })
+		{
+			// Verify the bookmark still points to the right planetoid; correct or delete it otherwise
+			if (!ValidateUfitobsCatBookmark(entry: entry))
+			{
+				return;
+			}
+			// Save the current position to the navigation history before navigating to the bookmarked position
+			PushNavigationHistory(previousPosition: currentMpcorbPosition);
+			// Update the current UFITOBS.CAT position to the bookmarked position and navigate to it
+			currentUfitobsCatPosition = entry.Position;
+			// Call the method to navigate to the current position in the UFITOBS.CAT database
+			GotoCurrentUfitobsCatPosition(position: currentUfitobsCatPosition);
+			// Update the current positions for all other databases to match the new position
+			currentMpcorbPosition = currentUfitobsCatPosition;
+			currentSingoppCatPosition = currentUfitobsCatPosition;
+			currentMpcorbJsonPosition = currentUfitobsCatPosition;
+			currentAstorbPosition = currentUfitobsCatPosition;
+			currentAllnumCatPosition = currentUfitobsCatPosition;
+			// Update the bookmark button and menu toggle states to reflect the new position
+			UpdateBookmarkButtonState();
+			UpdateBookmarkMenuToggleState();
+			// Log the navigation action for auditing purposes
+			logger.Info(message: $"Navigated to UFITOBS.CAT bookmark at position {currentUfitobsCatPosition}.");
+		}
+		else
+		{
+			// Log a warning if the sender is not a valid ToolStripMenuItem with a BookmarkEntry
+			logger.Warn(message: "Bookmark navigation failed: sender is not a valid ToolStripMenuItem with a BookmarkEntry.");
+		}
+	}
+
+	/// <summary>Handles the Click event of the bookmark toolbar button and menu item to toggle the bookmark state of the current MPCORB.DAT entry.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	private void ToggleBookmark_Click(object sender, EventArgs e)
+	{
+		// Log the action of toggling the bookmark for the current MPCORB.DAT entry
+		logger.Info(message: $"Toggling bookmark for MPCORB.DAT entry at index {labelMpcorbIndexData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		// Call the method to toggle the bookmark state for the current MPCORB.DAT entry
+		ToggleMpcorbDatBookmark();
+	}
+
+	/// <summary>Handles the Click event of the "Clear MPCORB.DAT bookmarks" menu item.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	private void BookmarkClearMpcorbDat_Click(object sender, EventArgs e)
+	{
+		// Log the action of clearing MPCORB.DAT bookmarks
+		logger.Info(message: "Clearing MPCORB.DAT bookmarks");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		// Call the method to clear all bookmarks for MPCORB.DAT entries
+		ClearMpcorbDatBookmarks();
+	}
+
+	/// <summary>Handles the Click event of the "Clear MPCORB.JSON bookmarks" menu item.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	private void BookmarkClearMpcorbJson_Click(object sender, EventArgs e)
+	{
+		// Log the action of clearing MPCORB.JSON bookmarks
+		logger.Info(message: "Clearing MPCORB.JSON bookmarks");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		// Call the method to clear all bookmarks for MPCORB.JSON entries
+		ClearMpcorbJsonBookmarks();
+	}
+
+	/// <summary>Handles the Click event of the "Clear ASTORB.DAT bookmarks" menu item.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	private void BookmarkClearAstorbDat_Click(object sender, EventArgs e)
+	{
+		// Log the action of clearing ASTORB.DAT bookmarks
+		logger.Info(message: "Clearing ASTORB.DAT bookmarks");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		// Call the method to clear all bookmarks for ASTORB.DAT entries
+		ClearAstorbDatBookmarks();
+	}
+
+	/// <summary>Handles the Click event of the "Clear ALLNUM.CAT bookmarks" menu item.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	private void BookmarkClearAllnumCat_Click(object sender, EventArgs e)
+	{
+		// Log the action of clearing ALLNUM.CAT bookmarks
+		logger.Info(message: "Clearing ALLNUM.CAT bookmarks");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		// Call the method to clear all bookmarks for ALLNUM.CAT entries
+		ClearAllnumCatBookmarks();
+	}
+
+	/// <summary>Handles the Click event of the "Clear SINGOPP.CAT bookmarks" menu item.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	private void BookmarkClearSingoppCat_Click(object sender, EventArgs e)
+	{
+		// Log the action of clearing SINGOPP.CAT bookmarks
+		logger.Info(message: "Clearing SINGOPP.CAT bookmarks");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		// Call the method to clear all bookmarks for SINGOPP.CAT entries
+		ClearSingoppCatBookmarks();
+	}
+
+	/// <summary>Handles the Click event of the "Clear UFITOBS.CAT bookmarks" menu item.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	private void BookmarkClearUfitobsCat_Click(object sender, EventArgs e)
+	{
+		// Log the action of clearing UFITOBS.CAT bookmarks
+		logger.Info(message: "Clearing UFITOBS.CAT bookmarks");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		// Call the method to clear all bookmarks for UFITOBS.CAT entries
+		ClearUfitobsCatBookmarks();
+	}
+
+	#endregion
 
 	/// <summary>Handles the click event for the Fatcow icon set menu item.</summary>
 	/// <param name="sender">The event source.</param>
@@ -1946,6 +2976,10 @@ public partial class PlanetoidDbForm
 	{
 		// Log the click event and the current checked state of the experimental features menu item
 		logger.Info(message: $"Experimental Features menu item clicked. Checked state: {toolStripMenuItemExperimentalFeatures.Checked}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Toggle experimental features based on the current checked state of the menu item
 		if (toolStripMenuItemExperimentalFeatures.Checked)
 		{
@@ -1967,6 +3001,10 @@ public partial class PlanetoidDbForm
 	{
 		// Log the click event and the current checked state of the UI sound menu item
 		logger.Info(message: $"UI Sound menu item clicked. Checked state: {toolStripMenuItemOptionEnableUiSound.Checked}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Toggle UI sound based on the current checked state of the menu item
 		if (toolStripMenuItemOptionEnableUiSound.Checked)
 		{
@@ -1988,86 +3026,13 @@ public partial class PlanetoidDbForm
 	{
 		// Log the action of opening the Log Viewer form
 		logger.Info(message: "Opening Log Viewer form");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Open the LogViewerForm as a modal dialog to display all stored NLog log events. The form is set to be topmost based on the current state of the main form to ensure it appears above other windows.
 		using LogViewerForm formLogViewer = new();
 		formLogViewer.TopMost = TopMost;
 		_ = formLogViewer.ShowDialog(owner: this);
-	}
-
-	/// <summary>Handles the Click event of the bookmark toolbar button and menu item to toggle the bookmark state of the current MPCORB.DAT entry.</summary>
-	/// <param name="sender">The event source.</param>
-	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	private void ToggleBookmark_Click(object? sender, EventArgs e)
-	{
-		// Log the action of toggling the bookmark for the current MPCORB.DAT entry
-		logger.Info(message: $"Toggling bookmark for MPCORB.DAT entry at index {labelMpcorbIndexData.Text}");
-		// Call the method to toggle the bookmark state for the current MPCORB.DAT entry
-		ToggleMpcorbDatBookmark();
-	}
-
-	/// <summary>Handles the Click event of the "Clear MPCORB.DAT bookmarks" menu item.</summary>
-	/// <param name="sender">The event source.</param>
-	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	private void BookmarkClearMpcorbDat_Click(object? sender, EventArgs e)
-	{
-		// Log the action of clearing MPCORB.DAT bookmarks
-		logger.Info(message: "Clearing MPCORB.DAT bookmarks");
-		// Call the method to clear all bookmarks for MPCORB.DAT entries
-		ClearMpcorbDatBookmarks();
-	}
-
-	/// <summary>Handles the Click event of the "Clear MPCORB.JSON bookmarks" menu item.</summary>
-	/// <param name="sender">The event source.</param>
-	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	private void BookmarkClearMpcorbJson_Click(object? sender, EventArgs e)
-	{
-		// Log the action of clearing MPCORB.JSON bookmarks
-		logger.Info(message: "Clearing MPCORB.JSON bookmarks");
-		// Call the method to clear all bookmarks for MPCORB.JSON entries
-		ClearMpcorbJsonBookmarks();
-	}
-
-	/// <summary>Handles the Click event of the "Clear ASTORB.DAT bookmarks" menu item.</summary>
-	/// <param name="sender">The event source.</param>
-	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	private void BookmarkClearAstorbDat_Click(object? sender, EventArgs e)
-	{
-		// Log the action of clearing ASTORB.DAT bookmarks
-		logger.Info(message: "Clearing ASTORB.DAT bookmarks");
-		// Call the method to clear all bookmarks for ASTORB.DAT entries
-		ClearAstorbDatBookmarks();
-	}
-
-	/// <summary>Handles the Click event of the "Clear ALLNUM.CAT bookmarks" menu item.</summary>
-	/// <param name="sender">The event source.</param>
-	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	private void BookmarkClearAllnumCat_Click(object? sender, EventArgs e)
-	{
-		// Log the action of clearing ALLNUM.CAT bookmarks
-		logger.Info(message: "Clearing ALLNUM.CAT bookmarks");
-		// Call the method to clear all bookmarks for ALLNUM.CAT entries
-		ClearAllnumCatBookmarks();
-	}
-
-	/// <summary>Handles the Click event of the "Clear SINGOPP.CAT bookmarks" menu item.</summary>
-	/// <param name="sender">The event source.</param>
-	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	private void BookmarkClearSingoppCat_Click(object? sender, EventArgs e)
-	{
-		// Log the action of clearing SINGOPP.CAT bookmarks
-		logger.Info(message: "Clearing SINGOPP.CAT bookmarks");
-		// Call the method to clear all bookmarks for SINGOPP.CAT entries
-		ClearSingoppCatBookmarks();
-	}
-
-	/// <summary>Handles the Click event of the "Clear UFITOBS.CAT bookmarks" menu item.</summary>
-	/// <param name="sender">The event source.</param>
-	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	private void BookmarkClearUfitobsCat_Click(object? sender, EventArgs e)
-	{
-		// Log the action of clearing UFITOBS.CAT bookmarks
-		logger.Info(message: "Clearing UFITOBS.CAT bookmarks");
-		// Call the method to clear all bookmarks for UFITOBS.CAT entries
-		ClearUfitobsCatBookmarks();
 	}
 }

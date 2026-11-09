@@ -15,6 +15,8 @@
 
 using Krypton.Toolkit;
 
+using Planetoid_DB.Helpers;
+
 using System.Globalization;
 
 namespace Planetoid_DB;
@@ -23,6 +25,32 @@ namespace Planetoid_DB;
 /// <remarks>This partial class is part of the PlanetoidDbForm and provides functionality to decode the 4-hexdigit flag and compressed reference code from MPCORB.DAT.</remarks>
 public partial class PlanetoidDbForm
 {
+	private void DecodeDateOfLastObservation()
+	{
+		// Get the packed date of last observation from the label
+		string packedDate = labelMpcorbDateLastObservationData.Text;
+		// Validate that the packed date is not empty or whitespace
+		if (string.IsNullOrWhiteSpace(value: packedDate))
+		{
+			// Log a warning and show a message box if the packed date is empty
+			logger.Warn(message: "Packed date of last observation text is empty or whitespace");
+			_ = KryptonMessageBox.Show(owner: this, text: "No date of last observation data available.", caption: "Date of Last Observation Decoder", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Warning);
+			return;
+		}
+		// Decode the packed date using the ToCultureDate extension method
+		string shortDate = packedDate.ToCultureDate();
+		// Build the result message
+		System.Text.StringBuilder result = new();
+		_ = result.AppendLine(value: $"MPCORB Date Decoder");
+		_ = result.AppendLine(value: $"==================");
+		_ = result.AppendLine(value: $"Packed date: {packedDate}");
+		_ = result.AppendLine(value: $"Decoded date: {shortDate}");
+		// Display the result in a KryptonMessageBox
+		_ = KryptonMessageBox.Show(owner: this, text: result.ToString(), caption: "Date of Last Observation Decoder", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+		// Log the decoded date information
+		logger.Info(message: $"Decoded MPCORB date of last observation: {packedDate} = {shortDate}");
+	}
+
 	/// <summary>Decodes the 4-hexdigit flag from MPCORB.DAT and displays the result in a KryptonMessageBox.</summary>
 	/// <remarks>The flag encodes orbit type in the lower 6 bits and additional information in bits 6-15 according to MPC specifications.</remarks>
 	private void DecodeMpcorbFlags()
@@ -103,7 +131,7 @@ public partial class PlanetoidDbForm
 			}
 			// Display the result in a KryptonMessageBox
 			_ = KryptonMessageBox.Show(owner: this, text: result.ToString(), caption: "MPCORB Flag Decoder", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
-
+			// Log the decoded flag information
 			logger.Info(message: $"Decoded MPCORB flag: {flagText} = {flagValue} ({orbitTypeName})");
 		}
 		// Handle format exceptions when parsing the hex string
@@ -147,6 +175,7 @@ public partial class PlanetoidDbForm
 			_ = result.AppendLine(value: $"  {decodedReference}");
 			// Display the result in a KryptonMessageBox
 			_ = KryptonMessageBox.Show(owner: this, text: result.ToString(), caption: "MPCORB Reference Decoder", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+			// Log the decoded reference information
 			logger.Info(message: $"Decoded MPCORB reference: '{compressedRef}' → '{decodedReference}'");
 		}
 		// Handle any general exceptions that may occur during decoding
@@ -192,7 +221,6 @@ public partial class PlanetoidDbForm
 		{
 			return $"Minor Planet Circular (MPC) {110000 + DecodeBase62(encoded: compressedRef.AsSpan(start: 1, length: 4))}";
 		}
-
 		// 2D: Lowercase letter + four digits
 		if (char.IsLower(c: firstChar) && int.TryParse(compressedRef.AsSpan(start: 1, length: 4), out int remainder))
 		{
@@ -293,6 +321,7 @@ public partial class PlanetoidDbForm
 			_ = result.AppendLine(value: $"  {decodedEpoch}");
 			// Display the result in a KryptonMessageBox
 			_ = KryptonMessageBox.Show(owner: this, text: result.ToString(), caption: "Packed Epoch Decoder", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+			// Log the decoded epoch information
 			logger.Info(message: $"Decoded packed epoch: '{packedEpoch}' → '{decodedEpoch}'");
 		}
 		// Handle any general exceptions that may occur during decoding
@@ -306,13 +335,13 @@ public partial class PlanetoidDbForm
 	/// <summary>Decodes a packed MPC epoch string to its full date form.</summary>
 	/// <param name="packedEpoch">The packed epoch string (5 characters, e.g. "K134Q").</param>
 	/// <returns>The unpacked date as a string in <c>yyyy-MM-dd</c> format.</returns>
-	/// <remarks>The packed epoch format is defined at https://www.minorplanetcenter.net/iau/info/PackedDates.html.
-	/// Century letters: I = 1800, J = 1900, K = 2000. Month/day digits 1–9 map to 1–9; letters A–C (month) or A–V (day) map to 10–12 or 10–31 respectively.</remarks>
-	internal static string DecodePackedEpochDate(string packedEpoch)
+	/// <remarks>The packed epoch format is defined at https://www.minorplanetcenter.net/iau/info/PackedDates.html. Century letters: I = 1800, J = 1900, K = 2000. Month/day digits 1–9 map to 1–9; letters A–C (month) or A–mpcorbDatReadableDesignationDelimiterBegin (day) map to 10–12 or 10–31 respectively.</remarks>
+	private static string DecodePackedEpochDate(string packedEpoch)
 	{
 		// Validate that the packed epoch is exactly 5 characters
 		if (string.IsNullOrWhiteSpace(value: packedEpoch) || packedEpoch.Length != 5)
 		{
+			logger.Error(message: $"Packed epoch must be exactly 5 characters, got: '{packedEpoch}'");
 			throw new FormatException(message: $"Packed epoch must be exactly 5 characters, got: '{packedEpoch}'");
 		}
 		// Decode the century from the first character
@@ -349,6 +378,52 @@ public partial class PlanetoidDbForm
 		return new DateOnly(year: year, month: month, day: day).ToString(format: "yyyy-MM-dd", provider: CultureInfo.CurrentCulture);
 	}
 
+	/// <summary>Decodes a packed MPC epoch string to its full date form.</summary>
+	/// <param name="packedEpoch">The packed epoch string (5 characters, e.g. "K134Q").</param>
+	/// <returns>The unpacked date in <c>yyyy-MM-dd</c> format.</returns>
+	/// <remarks>The packed epoch format is defined at https://www.minorplanetcenter.net/iau/info/PackedDates.html. Century letters: I = 1800, J = 1900, K = 2000. Month/day digits 1–9 map to 1–9; letters A–C (month) or A–mpcorbDatReadableDesignationDelimiterBegin (day) map to 10–12 or 10–31 respectively.</remarks>
+	private static DateTime DecodePackedEpochDateToDate(string packedEpoch)
+	{
+		// Validate that the packed epoch is exactly 5 characters
+		if (string.IsNullOrWhiteSpace(value: packedEpoch) || packedEpoch.Length != 5)
+		{
+			logger.Error(message: $"Packed epoch must be exactly 5 characters, got: '{packedEpoch}'");
+			throw new FormatException(message: $"Packed epoch must be exactly 5 characters, got: '{packedEpoch}'");
+		}
+		// Decode the century from the first character
+		int century = packedEpoch[index: 0] switch
+		{
+			'I' => 1800,
+			'J' => 1900,
+			'K' => 2000,
+			_ => throw new FormatException(message: $"Unknown century character '{packedEpoch[index: 0]}' in packed epoch '{packedEpoch}'")
+		};
+		// Decode the two-digit year within the century
+		if (!int.TryParse(s: packedEpoch.AsSpan(start: 1, length: 2), result: out int yearInCentury))
+		{
+			throw new FormatException(message: $"Invalid year digits in packed epoch '{packedEpoch}'");
+		}
+		int year = century + yearInCentury;
+		// Decode the month character
+		char monthChar = packedEpoch[index: 3];
+		int month = monthChar switch
+		{
+			>= '1' and <= '9' => monthChar - '0',
+			>= 'A' and <= 'C' => monthChar - 'A' + 10,
+			_ => throw new FormatException(message: $"Invalid month character '{monthChar}' in packed epoch '{packedEpoch}'")
+		};
+		// Decode the day character
+		char dayChar = packedEpoch[index: 4];
+		int day = dayChar switch
+		{
+			>= '1' and <= '9' => dayChar - '0',
+			>= 'A' and <= 'V' => dayChar - 'A' + 10,
+			_ => throw new FormatException(message: $"Invalid day character '{dayChar}' in packed epoch '{packedEpoch}'")
+		};
+		// Return the unpacked date as a string in yyyy-MM-dd format
+		return new DateTime(year: year, month: month, day: day);
+	}
+
 	/// <summary>Decodes the readable designation from the label and displays the unpacked form in a KryptonMessageBox.</summary>
 	/// <remarks>The packed designation format is defined at https://www.minorplanetcenter.net/iau/info/DesDoc.html and https://www.minorplanetcenter.net/iau/info/PackedDes.html.</remarks>
 	private void DecodeReadableDesignation()
@@ -376,6 +451,7 @@ public partial class PlanetoidDbForm
 			_ = result.AppendLine(value: $"  {unpacked}");
 			// Display the result in a KryptonMessageBox
 			_ = KryptonMessageBox.Show(owner: this, text: result.ToString(), caption: "Readable Designation Decoder", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+			// Log the decoded designation information
 			logger.Info(message: $"Decoded readable designation: '{packed}' → '{unpacked}'");
 		}
 		catch (Exception ex)
@@ -395,6 +471,7 @@ public partial class PlanetoidDbForm
 	{
 		if (string.IsNullOrWhiteSpace(value: packed))
 		{
+			logger.Error(message: $"Designation string must not be empty: {packed}");
 			throw new FormatException(message: "Designation string must not be empty.");
 		}
 		// Already unpacked if it contains a space (e.g. "1995 XA")
@@ -439,10 +516,10 @@ public partial class PlanetoidDbForm
 				throw new FormatException(message: $"Invalid year digits in packed designation '{packed}'");
 			}
 			int year = century + yearInCentury;
-			char halfMonthLetter = packed[3];
-			char subscriptTens = packed[4];
-			char subscriptOnes = packed[5];
-			char orderLetter = packed[6];
+			char halfMonthLetter = packed[index: 3];
+			char subscriptTens = packed[index: 4];
+			char subscriptOnes = packed[index: 5];
+			char orderLetter = packed[index: 6];
 			// Decode the subscript tens character (0-9 → 0-9, A-Z → 10-35)
 			int tens = subscriptTens switch
 			{
@@ -467,7 +544,7 @@ public partial class PlanetoidDbForm
 		// "~xxxx" → very large numbers encoded in base-62 (out of scope for typical data)
 		if (packed.Length == 5)
 		{
-			char first = packed[0];
+			char first = packed[index: 0];
 			// All-digit: strip leading zeros
 			if (char.IsAsciiDigit(c: first))
 			{
@@ -502,6 +579,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>Supports various journal codes as specified by the Minor Planet Center; taken from https://www.minorplanetcenter.net/iau/info/References.html.</remarks>
 	private static string GetJournalName(string code)
 	{
+		ArgumentException.ThrowIfNullOrEmpty(argument: code);
 		return code switch
 		{
 			"AA" => "Astronomy and Astrophysics",

@@ -96,7 +96,9 @@ internal partial class EncounterVelocityOfOneMinorPlanetForm : BaseKryptonForm
 	/// <remarks>Call this method before showing the form so that the Tisserand parameter data is available on load.</remarks>
 	public void SetOrbitalElements(double semiMajorAxis, double eccentricity, double inclinationDeg)
 	{
+		// Log the orbital elements being set for debugging purposes
 		logger.Info(message: $"Setting orbital elements: semiMajorAxis={semiMajorAxis}, eccentricity={eccentricity}, inclinationDeg={inclinationDeg}");
+		// Store the provided orbital elements in the instance fields for later use in calculations
 		this.semiMajorAxis = semiMajorAxis;
 		this.eccentricity = eccentricity;
 		this.inclinationDeg = inclinationDeg;
@@ -115,6 +117,10 @@ internal partial class EncounterVelocityOfOneMinorPlanetForm : BaseKryptonForm
 		const double orbitalEartVelocityiInKm = 29.78498;
 		// Log that the form has loaded and that encounter velocity calculations are starting
 		logger.Info(message: "EncounterVelocityOfOneMinorPlanetForm loaded. Starting encounter velocity calculations.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Clear the status bar
 		ClearStatusBar(label: labelInformation);
 		// Play the open sound in the background to indicate that the form has been opened
@@ -136,10 +142,7 @@ internal partial class EncounterVelocityOfOneMinorPlanetForm : BaseKryptonForm
 				return;
 			}
 			// Calculate Tisserand parameters for all 8 planets
-			TisserandParameterCalculator.TisserandResult[] tisserandResults = TisserandParameterCalculator.CalculateTisserandParameters(
-				semiMajorAxis: semiMajorAxis,
-				eccentricity: eccentricity,
-				inclinationDeg: inclinationDeg);
+			TisserandParameterCalculator.TisserandResult[] tisserandResults = TisserandParameterCalculator.CalculateTisserandParameters(semiMajorAxis: semiMajorAxis, eccentricity: eccentricity, inclinationDeg: inclinationDeg);
 			// Log a message indicating that the Tisserand parameters were successfully calculated.
 			logger.Info(message: $"Successfully calculated Tisserand parameters for semi-major axis={semiMajorAxis}, eccentricity={eccentricity}, inclination={inclinationDeg}");
 			// Populate the data labels (one per planet row, index 0 = Mercury … 7 = Neptune)
@@ -171,6 +174,10 @@ internal partial class EncounterVelocityOfOneMinorPlanetForm : BaseKryptonForm
 	{
 		// Log that the form is closing
 		logger.Info(message: "EncounterVelocityOfOneMinorPlanetForm is closing.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Play the close sound in the background to indicate that the form is closing
 		AudioPlayback.PlayCloseSound();
 	}
@@ -179,6 +186,10 @@ internal partial class EncounterVelocityOfOneMinorPlanetForm : BaseKryptonForm
 
 	#region Click event handlers
 
+	/// <summary>Displays information about encounter velocity.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data.</param>
+	/// <remarks>This method shows a message box with information about encounter velocity when the corresponding tool strip button is clicked.</remarks>
 	private void ToolStripButtonInfo_Click(object sender, EventArgs e)
 	{
 		_ = KryptonMessageBox.Show(
@@ -196,7 +207,13 @@ internal partial class EncounterVelocityOfOneMinorPlanetForm : BaseKryptonForm
 	/// <remarks>This event handler retrieves the encounter velocity value relative to Mercury from the corresponding label and copies it to the clipboard using the <see cref="BaseKryptonForm.CopyToClipboard(string)"/> helper method.</remarks>
 	private void MenuitemCopyToClipboardEncounterVelocityRelativeToMercury_Click(object sender, EventArgs e)
 	{
+		// Log the action of copying the encounter velocity relative to Mercury to the clipboard
 		logger.Info(message: $"Copying the encounter velocity relative to Mercury to clipboard: {labelMercuryData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		// Use the base class method to copy the text from the label to the clipboard
 		CopyToClipboard(text: labelMercuryData.Text);
 	}
 
@@ -206,7 +223,13 @@ internal partial class EncounterVelocityOfOneMinorPlanetForm : BaseKryptonForm
 	/// <remarks>This event handler retrieves the encounter velocity value relative to Venus from the corresponding label and copies it to the clipboard using the <see cref="BaseKryptonForm.CopyToClipboard(string)"/> helper method.</remarks>
 	private void MenuitemCopyToClipboardEncounterVelocityRelativeToVenus_Click(object sender, EventArgs e)
 	{
+		// Log the action of copying the encounter velocity relative to Venus to the clipboard
 		logger.Info(message: $"Copying the encounter velocity relative to Venus to clipboard: {labelVenusData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		// Use the base class method to copy the text from the label to the clipboard
 		CopyToClipboard(text: labelVenusData.Text);
 	}
 
@@ -216,7 +239,13 @@ internal partial class EncounterVelocityOfOneMinorPlanetForm : BaseKryptonForm
 	/// <remarks>This event handler retrieves the encounter velocity value relative to Earth from the corresponding label and copies it to the clipboard using the <see cref="BaseKryptonForm.CopyToClipboard(string)"/> helper method.</remarks>
 	private void MenuitemCopyToClipboardEncounterVelocityRelativeToEarth_Click(object sender, EventArgs e)
 	{
+		// Log the action of copying the encounter velocity relative to Earth to the clipboard
 		logger.Info(message: $"Copying the encounter velocity relative to Earth to clipboard: {labelEarthData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		// Use the base class method to copy the text from the label to the clipboard
 		CopyToClipboard(text: labelEarthData.Text);
 	}
 
@@ -226,7 +255,13 @@ internal partial class EncounterVelocityOfOneMinorPlanetForm : BaseKryptonForm
 	/// <remarks>This event handler retrieves the encounter velocity value relative to Mars from the corresponding label and copies it to the clipboard using the <see cref="BaseKryptonForm.CopyToClipboard(string)"/> helper method.</remarks>
 	private void MenuitemCopyToClipboardEncounterVelocityRelativeToMars_Click(object sender, EventArgs e)
 	{
+		// Log the action of copying the encounter velocity relative to Mars to the clipboard
 		logger.Info(message: $"Copying the encounter velocity relative to Mars to clipboard: {labelMarsData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		// Use the base class method to copy the text from the label to the clipboard
 		CopyToClipboard(text: labelMarsData.Text);
 	}
 
@@ -236,7 +271,13 @@ internal partial class EncounterVelocityOfOneMinorPlanetForm : BaseKryptonForm
 	/// <remarks>This event handler retrieves the encounter velocity value relative to Jupiter from the corresponding label and copies it to the clipboard using the <see cref="BaseKryptonForm.CopyToClipboard(string)"/> helper method.</remarks>
 	private void MenuitemCopyToClipboardEncounterVelocityRelativeToJupiter_Click(object sender, EventArgs e)
 	{
+		// Log the action of copying the encounter velocity relative to Jupiter to the clipboard
 		logger.Info(message: $"Copying the encounter velocity relative to Jupiter to clipboard: {labelJupiterData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		// Use the base class method to copy the text from the label to the clipboard
 		CopyToClipboard(text: labelJupiterData.Text);
 	}
 
@@ -246,7 +287,13 @@ internal partial class EncounterVelocityOfOneMinorPlanetForm : BaseKryptonForm
 	/// <remarks>This event handler retrieves the encounter velocity value relative to Saturn from the corresponding label and copies it to the clipboard using the <see cref="BaseKryptonForm.CopyToClipboard(string)"/> helper method.</remarks>
 	private void MenuitemCopyToClipboardEncounterVelocityRelativeToSaturn_Click(object sender, EventArgs e)
 	{
+		// Log the action of copying the encounter velocity relative to Saturn to the clipboard
 		logger.Info(message: $"Copying the encounter velocity relative to Saturn to clipboard: {labelSaturnData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		// Use the base class method to copy the text from the label to the clipboard
 		CopyToClipboard(text: labelSaturnData.Text);
 	}
 
@@ -256,7 +303,13 @@ internal partial class EncounterVelocityOfOneMinorPlanetForm : BaseKryptonForm
 	/// <remarks>This event handler retrieves the encounter velocity value relative to Uranus from the corresponding label and copies it to the clipboard using the <see cref="BaseKryptonForm.CopyToClipboard(string)"/> helper method.</remarks>
 	private void MenuitemCopyToClipboardEncounterVelocityRelativeToUranus_Click(object sender, EventArgs e)
 	{
+		// Log the action of copying the encounter velocity relative to Uranus to the clipboard
 		logger.Info(message: $"Copying the encounter velocity relative to Uranus to clipboard: {labelUranusData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		// Use the base class method to copy the text from the label to the clipboard
 		CopyToClipboard(text: labelUranusData.Text);
 	}
 
@@ -266,7 +319,13 @@ internal partial class EncounterVelocityOfOneMinorPlanetForm : BaseKryptonForm
 	/// <remarks>This event handler retrieves the encounter velocity value relative to Neptune from the corresponding label and copies it to the clipboard using the <see cref="BaseKryptonForm.CopyToClipboard(string)"/> helper method.</remarks>
 	private void MenuitemCopyToClipboardEncounterVelocityRelativeToNeptune_Click(object sender, EventArgs e)
 	{
+		// Log the action of copying the encounter velocity relative to Neptune to the clipboard
 		logger.Info(message: $"Copying the encounter velocity relative to Neptune to clipboard: {labelNeptuneData.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		// Use the base class method to copy the text from the label to the clipboard
 		CopyToClipboard(text: labelNeptuneData.Text);
 	}
 

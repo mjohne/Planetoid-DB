@@ -30,7 +30,9 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to load the database in a background thread.</remarks>
 	private void BackgroundWorkerLoadingDatabase_DoWork(object sender, DoWorkEventArgs e)
 	{
+		// Ensure that an event source was supplied
 		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
 		ArgumentNullException.ThrowIfNull(argument: e);
 		// Log the start of the database loading process
 		logger.Info(message: "Loading database in background worker");
@@ -89,10 +91,14 @@ public partial class PlanetoidDbForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="ProgressChangedEventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to handle the progress changed event during the database loading process.</remarks>
-	private void BackgroundWorkerLoadingDatabase_ProgressChanged(object? sender, ProgressChangedEventArgs e)
+	private void BackgroundWorkerLoadingDatabase_ProgressChanged(object sender, ProgressChangedEventArgs e)
 	{
 		//KryptonMessageBox.Show(owner: this, text: e.ProgressPercentage.ToString());
 		// TODO: Not implemented yet
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		_ = KryptonMessageBox.Show(owner: this, text: "Not implemented yet", caption: I18nStrings.ErrorCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Error);
 	}
 
@@ -100,10 +106,14 @@ public partial class PlanetoidDbForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="RunWorkerCompletedEventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to handle the completion of the database loading process.</remarks>
-	private void BackgroundWorkerLoadingDatabase_RunWorkerCompleted(object? sender, RunWorkerCompletedEventArgs e)
+	private void BackgroundWorkerLoadingDatabase_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
 	{
 		// Log the completion of the database loading process
 		logger.Info(message: "Database loading completed");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Set the initial value of the goto index text box
 		toolStripTextBoxGotoIndex.Text = 1.ToString(provider: CultureInfo.CurrentCulture);
 		// Set the current position to the first record

@@ -112,6 +112,10 @@ internal partial class TerminologyForm : BaseKryptonForm
 	{
 		// Log that the form has loaded
 		logger.Info(message: "TerminologyForm loaded.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Play the open sound in the background to indicate that the form has been opened
 		AudioPlayback.PlayOpenSound();
 		// Initial update of the browser content
@@ -128,6 +132,10 @@ internal partial class TerminologyForm : BaseKryptonForm
 	{
 		// Log that the form is closing
 		logger.Info(message: "TerminologyForm is closing.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Play the close sound in the background to indicate that the form is closing
 		AudioPlayback.PlayCloseSound();
 	}
@@ -142,6 +150,10 @@ internal partial class TerminologyForm : BaseKryptonForm
 	/// <remarks>This event is triggered when the selected value in the list box changes.</remarks>
 	private void ListBox_SelectedValueChanged(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Guard Clause: Prevents errors when the selection is cleared.
 		if (listBox.SelectedIndex == -1)
 		{

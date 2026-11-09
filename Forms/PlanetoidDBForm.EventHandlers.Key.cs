@@ -27,6 +27,10 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to ensure only numeric input is allowed in the ToolStripTextBoxGotoIndex.</remarks>
 	private void GotoIndex_KeyPress(object sender, KeyPressEventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Check if the pressed key is a control character or a digit
 		if (!char.IsControl(c: e.KeyChar) && !char.IsDigit(c: e.KeyChar))
 		{

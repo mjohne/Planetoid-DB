@@ -31,7 +31,7 @@ namespace Planetoid_DB;
 /// <summary>Represents a form for archiving MPCORB files.</summary>
 /// <remarks>This form provides functionality for archiving MPCORB files using various compression formats and levels.</remarks>
 // You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
-[DebuggerDisplay(value: $"{{{nameof(GetDebuggerDisplay)},nq}}")]
+[DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
 
 internal partial class ArchiveMpcorbForm : BaseKryptonForm
 {
@@ -80,10 +80,7 @@ internal partial class ArchiveMpcorbForm : BaseKryptonForm
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
 	/// <remarks>This method is used to provide a custom debugger display string.</remarks>
-	private string GetDebuggerDisplay()
-	{
-		return ToString();
-	}
+	private string DebuggerDisplay => ToString();
 
 	/// <summary>Formats the given number of bytes into a human-readable string with appropriate units.</summary>
 	/// <param name="bytes">The number of bytes to format.</param>
@@ -91,6 +88,12 @@ internal partial class ArchiveMpcorbForm : BaseKryptonForm
 	/// <remarks>This method converts the given number of bytes into a human-readable string with appropriate units, such as KB, MB, GB, etc.</remarks>
 	private static string FormatBytes(long bytes)
 	{
+		if (long.IsNegative(value: bytes))
+		{
+			logger.Error($"Byte value must be positive: {bytes}");
+			ShowErrorMessage($"Byte value must be positive: {bytes}");
+			return string.Empty;
+		}
 		// Define size units
 		string[] sizes = ["B", "KB", "MB", "GB", "TB"];
 		// Calculate the appropriate unit
@@ -186,6 +189,11 @@ internal partial class ArchiveMpcorbForm : BaseKryptonForm
 	/// <remarks>This method reads data from the source stream and writes it to the destination stream in chunks, updating the progress bar and status label on the UI thread. It also calculates and displays statistics such as elapsed time, estimated remaining time, and compression ratio.</remarks>
 	private async Task CopyStreamWithProgressAsync(Stream source, Stream destination, long totalBytes, Stream outputStream, string compressionLevel, Stopwatch stopwatch, CancellationToken token)
 	{
+		ArgumentNullException.ThrowIfNull(argument: source);
+		ArgumentNullException.ThrowIfNull(argument: destination);
+		ArgumentNullException.ThrowIfNull(argument: outputStream);
+		ArgumentException.ThrowIfNullOrEmpty(argument: compressionLevel);
+		ArgumentNullException.ThrowIfNull(argument: stopwatch);
 		// Define a buffer for reading data in chunks
 		// Use a buffer size of 80 KB, which is a common size for efficient file copying
 		byte[] buffer = new byte[81920];
@@ -292,6 +300,10 @@ internal partial class ArchiveMpcorbForm : BaseKryptonForm
 	{
 		// Log that the form has been loaded
 		logger.Info(message: "ArchiveMpcorbForm loaded.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Set default file path
 		string defaultPath = Settings.Default.systemFilenameMpcorbDat;
 		// If the default path exists, set it in the source textbox
@@ -340,6 +352,10 @@ internal partial class ArchiveMpcorbForm : BaseKryptonForm
 	{
 		// Log that the form is closing
 		logger.Info(message: "ArchiveMpcorbForm is closing.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Play the close sound in the background to indicate that the form is closing
 		AudioPlayback.PlayCloseSound();
 	}
@@ -355,6 +371,10 @@ internal partial class ArchiveMpcorbForm : BaseKryptonForm
 	private void KryptonButtonBrowseSource_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Browse Source button clicked.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Create and configure an OpenFileDialog to allow the user to select a source file
 		using OpenFileDialog openFileDialog = new()
 		{
@@ -384,6 +404,10 @@ internal partial class ArchiveMpcorbForm : BaseKryptonForm
 	private void KryptonButtonBrowseTarget_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Browse Target button clicked.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Create and configure a SaveFileDialog to allow the user to select a target file path for the archive
 		using SaveFileDialog saveFileDialog = new()
 		{
@@ -407,6 +431,10 @@ internal partial class ArchiveMpcorbForm : BaseKryptonForm
 	private async void ToolStripButtonArchive_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Archive button clicked.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// If a cancellation token source already exists, it means an archiving operation is in progress, so we cancel it and return
 		if (cancellationTokenSource != null)
 		{
@@ -542,6 +570,10 @@ internal partial class ArchiveMpcorbForm : BaseKryptonForm
 	private void ToolStripMenuItemFormatZip_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Zip format selected.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Uncheck the other format options when the "Zip" menu item is clicked
 		toolStripMenuItemFormatGzip.Checked = false;
 		toolStripMenuItemFormatBrotli.Checked = false;
@@ -558,6 +590,10 @@ internal partial class ArchiveMpcorbForm : BaseKryptonForm
 	private void ToolStripMenuItemFormatGzip_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "GZip format selected.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Uncheck the other format options when the "GZip" menu item is clicked
 		toolStripMenuItemFormatZip.Checked = false;
 		toolStripMenuItemFormatBrotli.Checked = false;
@@ -574,6 +610,10 @@ internal partial class ArchiveMpcorbForm : BaseKryptonForm
 	private void ToolStripMenuItemFormatBrotli_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Brotli format selected.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Uncheck the other format options when the "Brotli" menu item is clicked
 		toolStripMenuItemFormatZip.Checked = false;
 		toolStripMenuItemFormatGzip.Checked = false;
@@ -590,6 +630,10 @@ internal partial class ArchiveMpcorbForm : BaseKryptonForm
 	private void ToolStripMenuItemCompressionOptimal_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Optimal compression level selected.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Uncheck the other compression level options when the "Optimal" menu item is clicked
 		toolStripMenuItemCompressionFastest.Checked = false;
 		toolStripMenuItemCompressionNo.Checked = false;
@@ -605,6 +649,10 @@ internal partial class ArchiveMpcorbForm : BaseKryptonForm
 	private void ToolStripMenuItemCompressionFastest_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Fastest compression level selected.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Uncheck the other compression level options when the "Fastest" menu item is clicked
 		toolStripMenuItemCompressionOptimal.Checked = false;
 		toolStripMenuItemCompressionNo.Checked = false;
@@ -620,6 +668,10 @@ internal partial class ArchiveMpcorbForm : BaseKryptonForm
 	private void ToolStripMenuItemCompressionNo_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "No compression level selected.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Uncheck the other compression level options when the "No" menu item is clicked
 		toolStripMenuItemCompressionOptimal.Checked = false;
 		toolStripMenuItemCompressionFastest.Checked = false;
@@ -635,6 +687,10 @@ internal partial class ArchiveMpcorbForm : BaseKryptonForm
 	private void ToolStripMenuItemCompressionSmallestSize_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "SmallestSize compression level selected.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Uncheck the other compression level options when the "SmallestSize" menu item is clicked
 		toolStripMenuItemCompressionOptimal.Checked = false;
 		toolStripMenuItemCompressionFastest.Checked = false;

@@ -151,6 +151,7 @@ internal partial class CheckDatabaseForm : BaseKryptonForm
 	/// <remarks>This method sends a HEAD request to the specified URI and retrieves both the last modified date and content length from the response headers.</remarks>
 	private static async Task<(DateTime LastModified, long ContentLength)> GetOnlineFileInfoAsync(Uri uri)
 	{
+		ArgumentNullException.ThrowIfNull(argument: uri);
 		// Send a HEAD request to the specified URI and retrieve the last modified date and content length
 		try
 		{
@@ -189,6 +190,10 @@ internal partial class CheckDatabaseForm : BaseKryptonForm
 	/// <remarks>This event is used to initialize the form's UI elements with information from the database files.</remarks>
 	private async void CheckDatabaseForm_Load(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Clear the status bar
 		ClearStatusBar(label: labelInformation);
 		// URI for the database file
@@ -246,6 +251,10 @@ internal partial class CheckDatabaseForm : BaseKryptonForm
 	{
 		// Log that the form is closing
 		logger.Info(message: "CheckDatabaseForm is closing.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Play the close sound in the background to indicate that the form is closing
 		AudioPlayback.PlayCloseSound();
 	}
@@ -261,8 +270,10 @@ internal partial class CheckDatabaseForm : BaseKryptonForm
 	/// <exception cref="ArgumentNullException">Thrown when the sender is null.</exception>
 	private void LabelUpdateNeeded_DoubleClick(object sender, EventArgs e)
 	{
-		// Check if the sender is null
+		// Ensure that an event source was supplied
 		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Reset the displayed information
 		labelContentLengthValueLocal.Text = string.Empty;
 		labelModifiedDateValueLocal.Text = string.Empty;
@@ -285,6 +296,10 @@ internal partial class CheckDatabaseForm : BaseKryptonForm
 	private void MenuitemCopyToClipboardDatabaseLocalModifiedDate_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying local modified date to clipboard: {labelModifiedDateValueLocal.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboardSafe(value: labelModifiedDateValueLocal.Text, propertyName: "local modified date");
 	}
 
@@ -295,6 +310,10 @@ internal partial class CheckDatabaseForm : BaseKryptonForm
 	private void MenuitemCopyToClipboardDatabaseLocalContentLength_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying local content length to clipboard: {labelContentLengthValueLocal.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboardSafe(value: labelContentLengthValueLocal.Text, propertyName: "local content length");
 	}
 
@@ -305,6 +324,10 @@ internal partial class CheckDatabaseForm : BaseKryptonForm
 	private void MenuitemCopyToClipboardDatabaseOnlineModifiedDate_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying online modified date to clipboard: {labelModifiedDateValueOnline.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboardSafe(value: labelModifiedDateValueOnline.Text, propertyName: "online modified date");
 	}
 
@@ -315,6 +338,10 @@ internal partial class CheckDatabaseForm : BaseKryptonForm
 	private void MenuitemCopyToClipboardDatabaseOnlineContentLength_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying online content length to clipboard: {labelContentLengthValueOnline.Text}");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboardSafe(value: labelContentLengthValueOnline.Text, propertyName: "online content length");
 	}
 

@@ -184,6 +184,10 @@ internal partial class ObservatoryCodesForm : BaseKryptonForm
 	{
 		// Log that the form has been loaded
 		logger.Info(message: "ObservatoryCodesForm loaded.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Play the open sound in the background to indicate that the form has been opened
 		AudioPlayback.PlayOpenSound();
 		// Clear the status bar and load the observatory codes into the ListView
@@ -198,6 +202,10 @@ internal partial class ObservatoryCodesForm : BaseKryptonForm
 	{
 		// Log that the form is closing
 		logger.Info(message: "ObservatoryCodesForm is closing.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Play the close sound in the background to indicate that the form is closing
 		AudioPlayback.PlayCloseSound();
 	}
@@ -214,6 +222,10 @@ internal partial class ObservatoryCodesForm : BaseKryptonForm
 	{
 		// Log the column click event for sorting
 		logger.Info(message: $"Column {e.Column} clicked for sorting.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// If there are no items in the ListView, do not attempt to sort
 		if (listView.Items.Count == 0)
 		{
@@ -221,9 +233,7 @@ internal partial class ObservatoryCodesForm : BaseKryptonForm
 			return;
 		}
 		// Determine the new sort order based on the clicked column and current sort state
-		sortOrder = (e.Column == sortColumn && sortOrder == SortOrder.Ascending)
-			? SortOrder.Descending
-			: SortOrder.Ascending;
+		sortOrder = (e.Column == sortColumn && sortOrder == SortOrder.Ascending) ? SortOrder.Descending : SortOrder.Ascending;
 		// Update the sort column to the one that was clicked
 		sortColumn = e.Column;
 		// Update the column headers to indicate the current sort column and order
@@ -268,6 +278,10 @@ internal partial class ObservatoryCodesForm : BaseKryptonForm
 	{
 		// Log the menu item click event for debugging purposes
 		logger.Info(message: "Download Observatory Codes menu item clicked; checking network availability for observatory codes download.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Check if the network is available before proceeding with the download
 		if (!NetworkInterface.GetIsNetworkAvailable())
 		{
@@ -304,10 +318,12 @@ internal partial class ObservatoryCodesForm : BaseKryptonForm
 	{
 		// Log the menu item click event for debugging purposes
 		logger.Info(message: "Open MPC Observatory Codes page menu item clicked; preparing to open the page in the default web browser.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Determine the URL to use for opening the MPC Observatory Codes page, preferring user-defined settings over system defaults
-		string obsCodesPageUrl = string.IsNullOrWhiteSpace(value: Settings.Default.userMpcObsCodesPage)
-			? Settings.Default.systemMpcObsCodesPage
-			: Settings.Default.userMpcObsCodesPage;
+		string obsCodesPageUrl = string.IsNullOrWhiteSpace(value: Settings.Default.userMpcObsCodesPage) ? Settings.Default.systemMpcObsCodesPage : Settings.Default.userMpcObsCodesPage;
 		// Log the action of opening the MPC Observatory Codes page
 		logger.Info(message: $"Opening MPC Observatory Codes page; {obsCodesPageUrl}");
 		AudioPlayback.PlaySendDataSound();
@@ -329,11 +345,7 @@ internal partial class ObservatoryCodesForm : BaseKryptonForm
 			// Log a warning that no row is selected and the action cannot proceed
 			logger.Warn(message: "Mark on map ignored because no row is selected.");
 			// Show a warning message box to the user indicating that they need to select an observatory first
-			_ = KryptonMessageBox.Show(owner: this,
-				text: $"Mark on map ignored because no row is selected.\n\nPlease select an observatory first.",
-				caption: "No row selected",
-				buttons: KryptonMessageBoxButtons.OK,
-				icon: KryptonMessageBoxIcon.Warning);
+			_ = KryptonMessageBox.Show(owner: this, text: $"Mark on map ignored because no row is selected.\n\nPlease select an observatory first.", caption: "No row selected", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Warning);
 			// Update the status bar to inform the user that they need to select an observatory first
 			SetStatusBar(label: labelInformation, text: "Please select an observatory first.");
 			// Exit the method early since there is no selected observatory to mark on the map
@@ -347,11 +359,7 @@ internal partial class ObservatoryCodesForm : BaseKryptonForm
 			// Log a warning that the selected row has no valid geographic coordinates
 			logger.Warn(message: "Mark on map ignored because the selected row has no valid geographic coordinates.");
 			// Show a warning message box to the user indicating that the selected observatory has no valid coordinates
-			_ = KryptonMessageBox.Show(owner: this,
-				text: $"Mark on map ignored because the selected row has no valid geographic coordinates.\n\nPlease select an observatory with valid coordinates.",
-				caption: "Invalid coordinates",
-				buttons: KryptonMessageBoxButtons.OK,
-				icon: KryptonMessageBoxIcon.Warning);
+			_ = KryptonMessageBox.Show(owner: this, text: $"Mark on map ignored because the selected row has no valid geographic coordinates.\n\nPlease select an observatory with valid coordinates.", caption: "Invalid coordinates", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Warning);
 			// Update the status bar to inform the user that the selected observatory has no valid geographic coordinates
 			SetStatusBar(label: labelInformation, text: "The selected observatory has no valid geographic coordinates.");
 			// Exit the method early since the selected observatory cannot be marked on the map
@@ -377,6 +385,10 @@ internal partial class ObservatoryCodesForm : BaseKryptonForm
 	{
 		// Log the click on the button
 		logger.Info(message: "Mark all on map menu item clicked.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Require at least one row
 		List<(decimal Latitude, decimal Longitude, string Label)> markers = new(capacity: listView.Items.Count);
 		// Iterate through all items in the ListView to collect valid coordinates
@@ -405,11 +417,7 @@ internal partial class ObservatoryCodesForm : BaseKryptonForm
 		{
 			// Log a warning that no valid coordinates were found and the action will be ignored
 			logger.Warn(message: "Mark all on map ignored because no row has valid geographic coordinates.");
-			_ = KryptonMessageBox.Show(owner: this,
-				text: "Mark all on map ignored because no row has valid geographic coordinates.",
-				caption: "No valid coordinates",
-				buttons: KryptonMessageBoxButtons.OK,
-				icon: KryptonMessageBoxIcon.Warning);
+			_ = KryptonMessageBox.Show(owner: this, text: "Mark all on map ignored because no row has valid geographic coordinates.", caption: "No valid coordinates", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Warning);
 			// Update the status bar to inform the user that no observatory with valid geographic coordinates was found
 			SetStatusBar(label: labelInformation, text: "No observatory with valid geographic coordinates found.");
 			return;

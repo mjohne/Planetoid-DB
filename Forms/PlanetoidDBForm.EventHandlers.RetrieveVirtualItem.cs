@@ -26,12 +26,16 @@ public partial class PlanetoidDbForm
 	/// <param name="e">The event data containing the requested item index and receiving the virtual item.</param>
 	private void ListViewReadableDesignations_RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		int index = e.ItemIndex;
 		if (index >= 0 && index < planetoidsDatabase.Count)
 		{
 			string entryStr = planetoidsDatabase[index: index];
-			string mpcIndex = entryStr.Length >= 194 ? entryStr[..7].Trim() : string.Empty;
-			string readableDesignation = entryStr.Length >= 194 ? entryStr.Substring(startIndex: 166, length: 28).Trim() : string.Empty;
+			string mpcIndex = entryStr.Length >= mpcorbDatReadableDesignationDelimiterEnd ? entryStr[..7].Trim() : string.Empty;
+			string readableDesignation = entryStr.Length >= mpcorbDatReadableDesignationDelimiterEnd ? entryStr[mpcorbDatReadableDesignationDelimiterBegin..mpcorbDatReadableDesignationDelimiterEnd].Trim() : string.Empty;
 			ListViewItem item = new(text: (index + 1).ToString(provider: CultureInfo.InvariantCulture));
 			_ = item.SubItems.Add(text: mpcIndex);
 			_ = item.SubItems.Add(text: readableDesignation);
@@ -39,7 +43,7 @@ public partial class PlanetoidDbForm
 		}
 		else
 		{
-			logger.Warn($"Epmty list view item at {index + 1}.");
+			logger.Warn($"Empty list view item at {index + 1}.");
 			e.Item = new ListViewItem(items: [string.Empty, string.Empty]);
 		}
 	}

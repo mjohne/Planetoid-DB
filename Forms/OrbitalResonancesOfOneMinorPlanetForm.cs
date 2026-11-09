@@ -204,6 +204,10 @@ internal partial class OrbitalResonancesOfOneMinorPlanetForm : BaseKryptonForm
 	/// <remarks>This method determines the sort order and initiates the sorting process for the selected column.</remarks>
 	private void ListView_ColumnClick(object sender, ColumnClickEventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// If there are no items, do not attempt to sort
 		if (listView.Items.Count == 0)
 		{
@@ -262,6 +266,10 @@ internal partial class OrbitalResonancesOfOneMinorPlanetForm : BaseKryptonForm
 	private void ToolStripButtonFilterResonances_Click(object sender, EventArgs e)
 	{
 		// Toggle the checked state of the filter button to switch between showing all rows and only resonance rows
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		logger.Info(message: $"Toggling filter resonances");
 		// Refresh the list view to reflect the new filter state
 		PopulateListView();
@@ -273,6 +281,10 @@ internal partial class OrbitalResonancesOfOneMinorPlanetForm : BaseKryptonForm
 	/// <remarks>All sub-items of the selected row are joined with a tab character before being placed on the clipboard. If no row is selected the method returns without action.</remarks>
 	private void ToolStripMenuItemCopyToClipboard_Click(object sender, EventArgs e)
 	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		if (listView.SelectedItems.Count == 0)
 		{
 			// Log a warning indicating that the copy operation was attempted with no selected items
