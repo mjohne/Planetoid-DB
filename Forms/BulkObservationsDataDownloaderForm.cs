@@ -144,7 +144,9 @@ internal partial class BulkObservationsDataDownloaderForm : BaseKryptonForm
 		// Configure UI timer (fires every second to update elapsed/estimated time labels)
 		_uiTimer = new System.Windows.Forms.Timer { Interval = 1000 };
 		_uiTimer.Tick += UiTimer_Tick;
-		logger.Info(message: $"BulkObservationsDataDownloaderForm initialized with {planetoids.Count} planetoid records..");
+		// Enable double buffering for the TableLayoutPanel to prevent flickering
+		DoubleBufferingHelper.EnableDoubleBuffering(control: tableLayoutPanel);
+		logger.Info(message: $"BulkObservationsDataDownloaderForm initialized with {planetoids.Count} planetoid records.");
 	}
 
 	#endregion
