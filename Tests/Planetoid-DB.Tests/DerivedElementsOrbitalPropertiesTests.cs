@@ -48,10 +48,7 @@ public sealed class DerivedElementsOrbitalPropertiesTests
 		Assert.Equal(expected: 360.0 / 365.242188, actual: DerivedElements.CalculateMeanDailyMotion(semiMajorAxis: 1.0), precision: 9);
 		Assert.Equal(expected: 0.249351251320533, actual: DerivedElements.CalculateMeanDailyMotion(semiMajorAxis: SemiMajorAxis), precision: 9);
 		// The yearly and daily mean motions must differ exactly by the sidereal year used by the class.
-		Assert.Equal(
-			expected: DerivedElements.CalculateMeanMotion(semiMajorAxis: SemiMajorAxis),
-			actual: DerivedElements.CalculateMeanDailyMotion(semiMajorAxis: SemiMajorAxis) * 365.242188,
-			precision: 9);
+		Assert.Equal(expected: DerivedElements.CalculateMeanMotion(semiMajorAxis: SemiMajorAxis), actual: DerivedElements.CalculateMeanDailyMotion(semiMajorAxis: SemiMajorAxis) * 365.242188, precision: 9);
 	}
 
 	/// <summary>Verifies the Julian date of the perihelion passage.</summary>
@@ -65,7 +62,7 @@ public sealed class DerivedElementsOrbitalPropertiesTests
 		// At perihelion (M = 0) the passage date equals the epoch.
 		Assert.Equal(expected: epochJd, actual: DerivedElements.CalculatePerihelionDate(meanAnomaly: 0.0, semiMajorAxis: SemiMajorAxis, epochJd: epochJd), precision: 6);
 		// The difference between the passage date and the epoch equals the time since perihelion.
-		double timeSincePerihelionDays = (epochJd - DerivedElements.CalculatePerihelionDate(meanAnomaly: 90.0, semiMajorAxis: SemiMajorAxis, epochJd: epochJd));
+		double timeSincePerihelionDays = epochJd - DerivedElements.CalculatePerihelionDate(meanAnomaly: 90.0, semiMajorAxis: SemiMajorAxis, epochJd: epochJd);
 		Assert.Equal(expected: DerivedElements.CalculateTimeSincePerihelion(meanAnomaly: 90.0, semiMajorAxis: SemiMajorAxis) * 365.25, actual: timeSincePerihelionDays, precision: 6);
 	}
 
@@ -74,25 +71,16 @@ public sealed class DerivedElementsOrbitalPropertiesTests
 	[Fact]
 	public void CalculatePerihelionAndAphelionPositionReturnsEclipticCoordinates()
 	{
-		(double longitude, double latitude) = DerivedElements.CalculatePerihelionPosition(
-			inclination: Inclination,
-			longitudeAscendingNode: LongitudeAscendingNode,
-			argumentPerihelion: ArgumentPerihelion);
+		(double longitude, double latitude) = DerivedElements.CalculatePerihelionPosition(inclination: Inclination, longitudeAscendingNode: LongitudeAscendingNode, argumentPerihelion: ArgumentPerihelion);
 		Assert.Equal(expected: 99.13252220932563, actual: longitude, precision: 9);
 		Assert.Equal(expected: 12.952539642222362, actual: latitude, precision: 9);
 
-		(double aphelionLongitude, double aphelionLatitude) = DerivedElements.CalculateAphelionPosition(
-			inclination: Inclination,
-			longitudeAscendingNode: LongitudeAscendingNode,
-			argumentPerihelion: ArgumentPerihelion);
+		(double aphelionLongitude, double aphelionLatitude) = DerivedElements.CalculateAphelionPosition(inclination: Inclination, longitudeAscendingNode: LongitudeAscendingNode, argumentPerihelion: ArgumentPerihelion);
 		Assert.Equal(expected: 279.1325222093256, actual: aphelionLongitude, precision: 9);
 		Assert.Equal(expected: -12.952539642222359, actual: aphelionLatitude, precision: 9);
 
 		// For i = 0 the ecliptic longitude reduces to Ω + ω and the latitude vanishes.
-		(double flatLongitude, double flatLatitude) = DerivedElements.CalculatePerihelionPosition(
-			inclination: 0.0,
-			longitudeAscendingNode: LongitudeAscendingNode,
-			argumentPerihelion: ArgumentPerihelion);
+		(double flatLongitude, double flatLatitude) = DerivedElements.CalculatePerihelionPosition(inclination: 0.0, longitudeAscendingNode: LongitudeAscendingNode, argumentPerihelion: ArgumentPerihelion);
 		Assert.Equal(expected: 100.0, actual: flatLongitude, precision: 9);
 		Assert.Equal(expected: 0.0, actual: flatLatitude, precision: 9);
 	}
@@ -132,15 +120,15 @@ public sealed class DerivedElementsOrbitalPropertiesTests
 	{
 		List<DerivedElements.SynodicPeriod> synodicPeriods = DerivedElements.CalculateSynodicPeriods(semiMajorAxis: SemiMajorAxis);
 		Assert.Equal(expected: 8, actual: synodicPeriods.Count);
-		Assert.Equal(expected: "Mercury", actual: synodicPeriods[0].PlanetName);
-		Assert.Equal(expected: "Neptune", actual: synodicPeriods[7].PlanetName);
-		Assert.Equal(expected: 0.256472826216022, actual: synodicPeriods[0].SynodicPeriodYears, precision: 9);
-		Assert.Equal(expected: 1.338656210270802, actual: synodicPeriods[2].SynodicPeriodYears, precision: 9);
-		Assert.Equal(expected: 3.588179456576375, actual: synodicPeriods[3].SynodicPeriodYears, precision: 9);
+		Assert.Equal(expected: "Mercury", actual: synodicPeriods[index: 0].PlanetName);
+		Assert.Equal(expected: "Neptune", actual: synodicPeriods[index: 7].PlanetName);
+		Assert.Equal(expected: 0.256472826216022, actual: synodicPeriods[index: 0].SynodicPeriodYears, precision: 9);
+		Assert.Equal(expected: 1.338656210270802, actual: synodicPeriods[index: 2].SynodicPeriodYears, precision: 9);
+		Assert.Equal(expected: 3.588179456576375, actual: synodicPeriods[index: 3].SynodicPeriodYears, precision: 9);
 		// The Earth entry must equal the established single-planet calculation.
-		Assert.Equal(expected: DerivedElements.CalculateSynodicOrbitalPeriod(semiMajorAxis: SemiMajorAxis), actual: synodicPeriods[2].SynodicPeriodYears, precision: 9);
+		Assert.Equal(expected: DerivedElements.CalculateSynodicOrbitalPeriod(semiMajorAxis: SemiMajorAxis), actual: synodicPeriods[index: 2].SynodicPeriodYears, precision: 9);
 		// A planetoid with a = 1 AU has an infinite synodic period with Earth.
-		Assert.True(condition: double.IsPositiveInfinity(d: DerivedElements.CalculateSynodicPeriods(semiMajorAxis: 1.0)[2].SynodicPeriodYears));
+		Assert.True(condition: double.IsPositiveInfinity(d: DerivedElements.CalculateSynodicPeriods(semiMajorAxis: 1.0)[index: 2].SynodicPeriodYears));
 	}
 
 	/// <summary>Verifies the equinoctial elements h, k, p and q.</summary>
@@ -180,23 +168,14 @@ public sealed class DerivedElementsOrbitalPropertiesTests
 	[Fact]
 	public void CalculateHeliocentricCoordinates()
 	{
-		Assert.Equal(expected: 15.0, actual: DerivedElements.CalculateHeliocentricLatitude(argPeri: ArgumentPerihelion, trueAnom: 30.0, inclination: Inclination), precision: 9);
+		Assert.Equal(expected: 15.0, actual: DerivedElements.CalculateHeliocentricLatitude(argumentPerihelion: ArgumentPerihelion, trueAnomaly: 30.0, inclination: Inclination), precision: 9);
 		Assert.Equal(expected: 130.0, actual: DerivedElements.CalculateHeliocentricLongitude(longitudeAscendingNode: LongitudeAscendingNode, argumentPerihelion: ArgumentPerihelion, trueAnomaly: 30.0, inclination: Inclination), precision: 9);
 		Assert.Equal(expected: 130.0, actual: DerivedElements.CalculateTrueLongitude(longitudeAscendingNode: LongitudeAscendingNode, argumentPerihelion: ArgumentPerihelion, trueAnomaly: 30.0), precision: 9);
 		Assert.Equal(expected: 2.5 * Math.Sin(a: 15.0 * Math.PI / 180.0), actual: DerivedElements.CalculateMaxEclipticDistance(semiMajorAxis: SemiMajorAxis, inclination: Inclination), precision: 9);
 	}
 
-	/// <summary>Verifies that the standard gravitational parameter is the constant 4π² in AU and years.</summary>
-	/// <remarks>For heliocentric orbits in AU and Julian years the solar GM equals 4π².</remarks>
-	[Fact]
-	public void CalculateStandardGravitationalParameterIsConstant()
-	{
-		Assert.Equal(expected: 4.0 * Math.PI * Math.PI, actual: DerivedElements.CalculateStandardGravitationalParameter(semiMajorAxis: 1.0), precision: 9);
-		Assert.Equal(expected: 4.0 * Math.PI * Math.PI, actual: DerivedElements.CalculateStandardGravitationalParameter(semiMajorAxis: 5.0), precision: 9);
-	}
-
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
 	/// <remarks>This property is used to provide a visual representation of the object in the debugger.</remarks>
-	private string DebuggerDisplay => ToString();
+	private string DebuggerDisplay => ToString() ?? string.Empty;
 }

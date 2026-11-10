@@ -49,9 +49,7 @@ public sealed class OrbitPropagationTests
 		MinorPlanetOrbitalElements elements = TestData.Ceres();
 		// Act & Assert: Verify that calling GetTwoBodyState with the invalid Julian date throws an ArgumentOutOfRangeException.
 		_ = Assert.Throws<ArgumentOutOfRangeException>(() => OrbitPropagationService.GetTwoBodyState(elements: elements, julianDateTdb: julianDate));
-		_ = Assert.Throws<ArgumentOutOfRangeException>(() => OrbitPropagationService.GetTwoBodyState(
-			elements: elements with { EpochJulianDateTt = julianDate },
-			julianDateTdb: 2451545.0));
+		_ = Assert.Throws<ArgumentOutOfRangeException>(() => OrbitPropagationService.GetTwoBodyState(elements: elements with { EpochJulianDateTt = julianDate }, julianDateTdb: 2451545.0));
 	}
 
 	/// <summary>Verifies two-body propagation rejects invalid orbital elements.</summary>

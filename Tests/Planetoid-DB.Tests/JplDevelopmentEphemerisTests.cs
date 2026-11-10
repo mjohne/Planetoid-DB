@@ -44,6 +44,8 @@ public sealed class JplDevelopmentEphemerisTests
 	[InlineData(2688, "-Infinity")]
 	public void RejectsNonFiniteHeaderValues(int offset, string nonFiniteKind)
 	{
+		ArgumentOutOfRangeException.ThrowIfNegative(value: offset);
+		ArgumentException.ThrowIfNullOrEmpty(argument: nonFiniteKind);
 		// Create a synthetic DE440 file with a non-finite value in the header at the specified offset.
 		byte[] file = CreateFixture();
 		// Write the non-finite value (NaN, Infinity, or -Infinity) into the header at the specified offset.
@@ -165,6 +167,7 @@ public sealed class JplDevelopmentEphemerisTests
 			WriteInt32(file, offset: pointerOffset + 8, value: 1);
 		}
 		// Store the DE number used to identify this fixture as DE440.
+
 		WriteInt32(file, offset: 2840, value: 440);
 		// The extended constant table starts at offset 2856, and we write three constants for testing.
 		int extendedPointerOffset = 2856 + 6;
@@ -184,6 +187,9 @@ public sealed class JplDevelopmentEphemerisTests
 	/// <remarks>BinaryPrimitives.WriteInt32LittleEndian is available in .NET 6 and later.</remarks>
 	private static void WriteInt32(byte[] buffer, int offset, int value)
 	{
+		ArgumentNullException.ThrowIfNull(argument: buffer);
+		ArgumentOutOfRangeException.ThrowIfNegative(value: offset);
+		ArgumentOutOfRangeException.ThrowIfNegative(value: value);
 		// Use BinaryPrimitives to write the integer in little-endian format
 		BinaryPrimitives.WriteInt32LittleEndian(destination: buffer.AsSpan(start: offset), value: value);
 	}
@@ -195,6 +201,9 @@ public sealed class JplDevelopmentEphemerisTests
 	/// <remarks>BinaryPrimitives.WriteDoubleLittleEndian is available in .NET 6 and later.</remarks>
 	private static void WriteDouble(byte[] buffer, int offset, double value)
 	{
+		ArgumentNullException.ThrowIfNull(argument: buffer);
+		ArgumentOutOfRangeException.ThrowIfNegative(value: offset);
+		ArgumentOutOfRangeException.ThrowIfNegative(value: value);
 		// Use BinaryPrimitives to write the double in little-endian format
 		BinaryPrimitives.WriteDoubleLittleEndian(destination: buffer.AsSpan(start: offset), value: value);
 	}
