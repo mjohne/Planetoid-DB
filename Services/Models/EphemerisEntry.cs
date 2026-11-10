@@ -37,23 +37,7 @@ namespace Planetoid_DB.Services.Models;
 /// <remarks>The <see cref="EphemerisEntry"/> record encapsulates the calculated position and visibility information of a minor planet at a specific instant in time, including both topocentric and heliocentric coordinates, apparent magnitude, and various angular measurements relevant to observational astronomy.</remarks>
 // You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
 [DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
-internal sealed record EphemerisEntry(
-	DateTimeOffset Time,
-	double RightAscensionHours,
-	double DeclinationDegrees,
-	double AzimuthDegrees,
-	double AltitudeDegrees,
-	double DistanceAu,
-	double ApparentMagnitude,
-	bool IsVisible,
-	double HeliocentricDistanceAu = double.NaN,
-	double SunAltitudeDegrees = double.NaN,
-	double MoonSeparationDegrees = double.NaN,
-	double PhaseAngleDegrees = double.NaN,
-	double ElongationDegrees = double.NaN,
-	double GeometricAltitudeDegrees = double.NaN,
-	double AstrometricRightAscensionHours = double.NaN,
-	double AstrometricDeclinationDegrees = double.NaN)
+internal sealed record EphemerisEntry(DateTimeOffset Time, double RightAscensionHours, double DeclinationDegrees, double AzimuthDegrees, double AltitudeDegrees, double DistanceAu, double ApparentMagnitude, bool IsVisible, double HeliocentricDistanceAu = double.NaN, double SunAltitudeDegrees = double.NaN, double MoonSeparationDegrees = double.NaN, double PhaseAngleDegrees = double.NaN, double ElongationDegrees = double.NaN, double GeometricAltitudeDegrees = double.NaN, double AstrometricRightAscensionHours = double.NaN, double AstrometricDeclinationDegrees = double.NaN)
 {
 	/// <summary>Gets a value indicating whether the object is above the (true) horizon, based on the geometric altitude if available, otherwise the apparent altitude.</summary>
 	/// <remarks>This property uses the geometric altitude if available; otherwise, it falls back to the apparent altitude.</remarks>

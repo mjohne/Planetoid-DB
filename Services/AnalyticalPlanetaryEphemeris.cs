@@ -13,6 +13,8 @@
  * See LICENSE file in the project root for license information.
  */
 
+using NLog;
+
 using Planetoid_DB.Services.Models;
 
 using System.Diagnostics;
@@ -27,6 +29,10 @@ namespace Planetoid_DB.Services;
 [DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
 internal sealed class AnalyticalPlanetaryEphemeris : IPlanetaryEphemerisProvider
 {
+	/// <summary>NLog logger instance.</summary>
+	/// <remarks>This logger is used throughout the application to log important events and errors.</remarks>
+	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+
 	/// <summary>Mean elements and their rates per Julian century: a [AU], e, I [°], L [°], ϖ [°], Ω [°].</summary>
 	/// <remarks>Source: Standish, E.M., "Keplerian Elements for Approximate Positions of the Major Planets", JPL IOM 312.F-98-048, 24 November 1998; see <see href="https://ssd.jpl.nasa.gov/planets/approx_pos.html">JPL's approximate positions documentation</see>.</remarks>
 	private static readonly Dictionary<SolarSystemBody, double[]> Elements = new()
@@ -60,6 +66,11 @@ internal sealed class AnalyticalPlanetaryEphemeris : IPlanetaryEphemerisProvider
 	/// <remarks>This method uses the JPL mean orbital elements to compute the position of the specified body. The accuracy is generally within a few arcseconds to arcminutes for the planets and about 0.3° for the Moon within the range of 1800–2050.</remarks>
 	public Vector3d GetHeliocentricPosition(SolarSystemBody body, double julianDateTdb)
 	{
+		if (!Enum.IsDefined(value: body))
+		{
+			logger.Error(message: $"The enum {body} is not defined.");
+			throw new System.ComponentModel.InvalidEnumArgumentException(argumentName: nameof(body), invalidValue: (int)body, enumClass: typeof(SolarSystemBody));
+		}
 		// The Moon's position is computed relative to the Earth-Moon barycenter, so we need to adjust for the Moon's position relative to the Earth.
 		if (body == SolarSystemBody.Earth)
 		{
@@ -85,13 +96,7 @@ internal sealed class AnalyticalPlanetaryEphemeris : IPlanetaryEphemerisProvider
 		// The longitude of the ascending node (node) is in degrees
 		double node = el[10] + (el[11] * t);
 		// Compute the heliocentric position in ecliptic coordinates using Kepler's laws
-		Vector3d ecliptic = OrbitPropagationService.KeplerPosition(
-			semiMajorAxisAu: a,
-			eccentricity: e,
-			inclinationDegrees: i,
-			longitudeOfAscendingNodeDegrees: node,
-			argumentOfPerihelionDegrees: varpi - node,
-			meanAnomalyDegrees: l - varpi);
+		Vector3d ecliptic = OrbitPropagationService.KeplerPosition(semiMajorAxisAu: a, eccentricity: e, inclinationDegrees: i, longitudeOfAscendingNodeDegrees: node, argumentOfPerihelionDegrees: varpi - node, meanAnomalyDegrees: l - varpi);
 		// Convert the ecliptic coordinates to equatorial coordinates using the J2000 transformation matrix
 		return AstronomicalConstants.EclipticToEquatorialJ2000 * ecliptic;
 	}

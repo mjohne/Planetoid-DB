@@ -13,6 +13,8 @@
  * See LICENSE file in the project root for license information.
  */
 
+using NLog;
+
 using Planetoid_DB.Services.Models;
 
 using System.Buffers.Binary;
@@ -27,6 +29,10 @@ namespace Planetoid_DB.Services;
 [DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
 internal sealed class JplDevelopmentEphemeris : IPlanetaryEphemerisProvider, IDisposable
 {
+	/// <summary>NLog logger instance.</summary>
+	/// <remarks>This logger is used throughout the application to log important events and errors.</remarks>
+	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+
 	/// <summary>Size of the fixed part of the header [bytes].</summary>
 	/// <remarks>The fixed header contains metadata about the ephemeris file, including the number of coefficients, the number of sub-intervals, and other information required to interpret the data records.</remarks>
 	private const int FixedHeaderSize = 2856;
@@ -85,6 +91,12 @@ internal sealed class JplDevelopmentEphemeris : IPlanetaryEphemerisProvider, IDi
 	/// <remarks>This constructor opens the specified binary DE file, reads the header, and initializes the ephemeris provider. It validates the header and coefficient layout to ensure that the file is a valid JPL DE binary file.</remarks>
 	public JplDevelopmentEphemeris(string filePath)
 	{
+		if (string.IsNullOrEmpty(value: filePath))
+		{
+			// Log the error and throw an exception if the file path is null or empty
+			logger.Error(message: "File path must not be null or empty.");
+			throw new ArgumentException(message: "File path must not be null or empty.", paramName: nameof(filePath));
+		}
 		// Initialize the coefficient pointer table
 		for (int i = 0; i < 12; i++)
 		{
@@ -209,6 +221,12 @@ internal sealed class JplDevelopmentEphemeris : IPlanetaryEphemerisProvider, IDi
 	/// <remarks>This method computes the heliocentric position of the specified solar system body by evaluating the Chebyshev coefficients for that body and subtracting the Sun's position. The result is returned in astronomical units (AU).</remarks>
 	public Vector3d GetHeliocentricPosition(SolarSystemBody body, double julianDateTdb)
 	{
+		if (!Enum.IsDefined(value: body))
+		{
+			// Log the error and throw an exception if the enum is undefined
+			logger.Error(message: $"Enum {body} is undefined.");
+			throw new System.ComponentModel.InvalidEnumArgumentException(argumentName: nameof(body), invalidValue: (int)body, enumClass: typeof(SolarSystemBody));
+		}
 		// Lock the sync object to ensure thread-safe access to the cached record and evaluation
 		lock (sync)
 		{
@@ -316,10 +334,12 @@ internal sealed class JplDevelopmentEphemeris : IPlanetaryEphemerisProvider, IDi
 	/// <remarks>This method evaluates the Chebyshev series for the specified item (solar system body) at the given Julian date (TDB). It calculates the appropriate data record and sub-interval, normalizes the time, and computes the position using the Chebyshev coefficients. The result is returned in kilometers.</remarks>
 	private Vector3d Evaluate(int item, double julianDateTdb)
 	{
+		ArgumentOutOfRangeException.ThrowIfNegative(value: item);
 		// Check if the requested Julian date is within the coverage of the ephemeris
 		if (julianDateTdb < StartJulianDate || julianDateTdb > EndJulianDate)
 		{
-			// If the date is outside the coverage, throw an exception indicating that the date is out of range
+			// Log the error and throw an exception if the date is out of range
+			logger.Error(message: $"The date is outside the coverage of {Name}.");
 			throw new ArgumentOutOfRangeException(paramName: nameof(julianDateTdb), actualValue: julianDateTdb, message: $"The date is outside the coverage of {Name}.");
 		}
 		// Calculate the index of the last data record based on the start and end Julian dates and the block length
