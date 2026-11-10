@@ -133,6 +133,7 @@ internal partial class BulkObservationsDataDownloaderForm : BaseKryptonForm
 	/// <remarks>Each element in <paramref name="planetoids"/> must be a raw MPCORB-format string. The form displays minimum/maximum spinners pre-populated with 1 and the count of records.</remarks>
 	public BulkObservationsDataDownloaderForm(IReadOnlyList<string> planetoids)
 	{
+		logger.Info(message: "Initializing BulkObservationsDataDownloaderForm...");
 		InitializeComponent();
 		_planetoids = planetoids;
 		// Initialize HttpClient with reasonable timeout
@@ -143,7 +144,7 @@ internal partial class BulkObservationsDataDownloaderForm : BaseKryptonForm
 		// Configure UI timer (fires every second to update elapsed/estimated time labels)
 		_uiTimer = new System.Windows.Forms.Timer { Interval = 1000 };
 		_uiTimer.Tick += UiTimer_Tick;
-		logger.Info(message: $"BulkObservationsDataDownloaderForm initialized with {planetoids.Count} planetoid records.");
+		logger.Info(message: $"BulkObservationsDataDownloaderForm initialized with {planetoids.Count} planetoid records..");
 	}
 
 	#endregion
@@ -196,8 +197,8 @@ internal partial class BulkObservationsDataDownloaderForm : BaseKryptonForm
 	/// <remarks>This method uses the <see cref="Uri"/> class to correctly handle relative paths and ensure a valid absolute URL is returned.</remarks>
 	private static string ResolveUrl(string baseUrl, string relativeUrl)
 	{
-		ArgumentException.ThrowIfNullOrWhiteSpace(argument: baseUrl);
-		ArgumentException.ThrowIfNullOrWhiteSpace(argument: relativeUrl);
+		ArgumentException.ThrowIfNullOrEmpty(argument: baseUrl);
+		ArgumentException.ThrowIfNullOrEmpty(argument: relativeUrl);
 		// Use Uri to resolve relative paths correctly
 		Uri baseUri = new(uriString: baseUrl);
 		Uri resolved = new(baseUri: baseUri, relativeUri: relativeUrl);
@@ -270,8 +271,8 @@ internal partial class BulkObservationsDataDownloaderForm : BaseKryptonForm
 	private void UpdateStatusLabels(string status, int downloaded, int total)
 	{
 		ArgumentException.ThrowIfNullOrEmpty(argument: status);
-		ArgumentOutOfRangeException.ThrowIfNegativeOrZero(value: downloaded);
-		ArgumentOutOfRangeException.ThrowIfNegativeOrZero(value: total);
+		ArgumentOutOfRangeException.ThrowIfNegative(value: downloaded);
+		ArgumentOutOfRangeException.ThrowIfNegative(value: total);
 		labelStatusValue.Text = status;
 		labelFileCountValue.Text = $"{downloaded}/{total}";
 		labelFileSizeValue.Text = $"{_currentFileSize:N0} / {_totalBytesDownloaded:N0} {I18nStrings.BytesText}";
@@ -469,6 +470,8 @@ internal partial class BulkObservationsDataDownloaderForm : BaseKryptonForm
 	/// <remarks>This handler fires on the UI thread.</remarks>
 	private void UiTimer_Tick(object? sender, EventArgs e)
 	{
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		// Only update when the form is still open
 		if (!IsHandleCreated || IsDisposed || Disposing)
 		{
