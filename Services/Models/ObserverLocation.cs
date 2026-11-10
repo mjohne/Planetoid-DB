@@ -13,6 +13,8 @@
  * See LICENSE file in the project root for license information.
  */
 
+using NLog;
+
 using System.Diagnostics;
 
 namespace Planetoid_DB.Services.Models;
@@ -26,6 +28,10 @@ namespace Planetoid_DB.Services.Models;
 [DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
 internal sealed record ObserverLocation(double LatitudeDegrees, double LongitudeDegrees, double ElevationMeters = 0.0)
 {
+	/// <summary>NLog logger instance.</summary>
+	/// <remarks>This logger is used throughout the application to log important events and errors.</remarks>
+	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+
 	/// <summary>Validates the location and throws if it is out of range.</summary>
 	/// <exception cref="ArgumentOutOfRangeException">Thrown when latitude, longitude or elevation are out of range.</exception>
 	/// <remarks>This method checks that the latitude is between −90° and +90°, the longitude is between −180° and +180°, and the elevation is between −500 m and 10000 m. If any of these conditions are not met, an <see cref="ArgumentOutOfRangeException"/> is thrown with a descriptive message.</remarks>
@@ -34,16 +40,19 @@ internal sealed record ObserverLocation(double LatitudeDegrees, double Longitude
 		// Validate the latitude, longitude and elevation values to ensure they are within the valid ranges for geodetic coordinates.
 		if (!double.IsFinite(d: LatitudeDegrees) || LatitudeDegrees is < -90.0 or > 90.0)
 		{
+			logger.Error(message: $"Latitude must be between −90° and +90°. Latitude is {LatitudeDegrees}°.");
 			throw new ArgumentOutOfRangeException(paramName: nameof(LatitudeDegrees), actualValue: LatitudeDegrees, message: "Latitude must be between −90° and +90°.");
 		}
 		// Validate the longitude value to ensure it is within the valid range for geodetic coordinates.
 		if (!double.IsFinite(d: LongitudeDegrees) || LongitudeDegrees is < -180.0 or > 180.0)
 		{
+			logger.Error(message: $"Longitude must be between −180° and +180°. Longitude is {LongitudeDegrees}°.");
 			throw new ArgumentOutOfRangeException(paramName: nameof(LongitudeDegrees), actualValue: LongitudeDegrees, message: "Longitude must be between −180° and +180°.");
 		}
 		// Validate the elevation value to ensure it is within the valid range for geodetic coordinates.
 		if (!double.IsFinite(d: ElevationMeters) || ElevationMeters is < -500.0 or > 10000.0)
 		{
+			logger.Error(message: $"Elevation must be between −90° and +90°. Elevation is {ElevationMeters}°.");
 			throw new ArgumentOutOfRangeException(paramName: nameof(ElevationMeters), actualValue: ElevationMeters, message: "Elevation must be between −500 m and 10000 m.");
 		}
 	}

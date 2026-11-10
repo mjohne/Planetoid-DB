@@ -119,15 +119,11 @@ internal sealed class EphemerisService(IPlanetaryEphemerisProvider planetaryEphe
 	/// <param name="cancellationToken">A token to cancel the calculation.</param>
 	/// <returns>The ephemeris entries.</returns>
 	/// <remarks>This method runs the ephemeris calculation on a background thread, allowing the calling thread to remain responsive. It returns a task that completes with the calculated ephemeris entries.</remarks>
-	public Task<IReadOnlyList<EphemerisEntry>> CalculateAsync(
-		MinorPlanetOrbitalElements elements,
-		IReadOnlyList<DateTimeOffset> times,
-		ObserverLocation observer,
-		VisibilityCriteria? criteria = null,
-		EphemerisOptions? options = null,
-		IProgress<int>? progress = null,
-		CancellationToken cancellationToken = default)
+	public Task<IReadOnlyList<EphemerisEntry>> CalculateAsync(MinorPlanetOrbitalElements elements, IReadOnlyList<DateTimeOffset> times, ObserverLocation observer, VisibilityCriteria? criteria = null, EphemerisOptions? options = null, IProgress<int>? progress = null, CancellationToken cancellationToken = default)
 	{
+		ArgumentNullException.ThrowIfNull(argument: elements);
+		ArgumentNullException.ThrowIfNull(argument: times);
+		ArgumentNullException.ThrowIfNull(argument: observer);
 		// Run the calculation on a background thread using Task.Run, passing the cancellation token to allow for cancellation
 		return Task.Run(function: () => Calculate(elements: elements, times: times, observer: observer, criteria: criteria, options: options, progress: progress, cancellationToken: cancellationToken), cancellationToken: cancellationToken);
 	}
@@ -145,14 +141,7 @@ internal sealed class EphemerisService(IPlanetaryEphemerisProvider planetaryEphe
 	/// <exception cref="ArgumentOutOfRangeException">Thrown when a time point is outside the planetary ephemeris or too many points are requested.</exception>
 	/// <exception cref="OperationCanceledException">Thrown when the calculation is canceled.</exception>
 	/// <remarks>This method performs the ephemeris calculation synchronously, returning the calculated entries directly. It validates the input parameters and throws exceptions for invalid inputs or if the calculation is canceled.</remarks>
-	public IReadOnlyList<EphemerisEntry> Calculate(
-		MinorPlanetOrbitalElements elements,
-		IReadOnlyList<DateTimeOffset> times,
-		ObserverLocation observer,
-		VisibilityCriteria? criteria = null,
-		EphemerisOptions? options = null,
-		IProgress<int>? progress = null,
-		CancellationToken cancellationToken = default)
+	public IReadOnlyList<EphemerisEntry> Calculate(MinorPlanetOrbitalElements elements, IReadOnlyList<DateTimeOffset> times, ObserverLocation observer, VisibilityCriteria? criteria = null, EphemerisOptions? options = null, IProgress<int>? progress = null, CancellationToken cancellationToken = default)
 	{
 		// Validate that the orbital elements, time points, and observer location are not null to prevent null reference exceptions
 		ArgumentNullException.ThrowIfNull(argument: elements);
@@ -261,6 +250,10 @@ internal sealed class EphemerisService(IPlanetaryEphemerisProvider planetaryEphe
 	/// <remarks>This method computes the topocentric ephemeris entry for a minor planet at a specific observation time, taking into account light-time correction, parallax, aberration, precession, nutation, and visibility criteria. It returns an <see cref="EphemerisEntry"/> containing the calculated values.</remarks>
 	private EphemerisEntry CalculateEntry(MinorPlanetOrbitalElements elements, StateVector state, DateTimeOffset utc, ObserverLocation observer, VisibilityCriteria criteria, EphemerisOptions options)
 	{
+		ArgumentNullException.ThrowIfNull(argument: elements);
+		ArgumentNullException.ThrowIfNull(argument: observer);
+		ArgumentNullException.ThrowIfNull(argument: criteria);
+		ArgumentNullException.ThrowIfNull(argument: options);
 		// Convert the observation time to Julian Dates in UTC, TT, and TDB for use in calculations
 		double jdUtc = TimeScales.ToJulianDateUtc(time: utc);
 		double jdTt = TimeScales.ToJulianDateTt(time: utc);

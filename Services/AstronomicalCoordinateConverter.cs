@@ -135,10 +135,7 @@ internal static class AstronomicalCoordinateConverter
 		return source switch
 		{
 			AstronomicalCoordinateSystem.Horizontal => precession.Transpose() * HorizontalToEquatorial(
-				azimuthDegrees: firstAngleDegrees,
-				altitudeDegrees: secondAngleDegrees,
-				localSiderealTimeDegrees: localSiderealTimeDegrees,
-				observerLatitudeDegrees: observerLatitudeDegrees),
+				azimuthDegrees: firstAngleDegrees, altitudeDegrees: secondAngleDegrees, localSiderealTimeDegrees: localSiderealTimeDegrees, observerLatitudeDegrees: observerLatitudeDegrees),
 			AstronomicalCoordinateSystem.EquatorialJ2000 => inputVector,
 			AstronomicalCoordinateSystem.EquatorialOfDate => precession.Transpose() * SphericalVector(
 				firstAngleDegrees: firstCoordinateIsHourAngle

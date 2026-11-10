@@ -25,11 +25,7 @@ namespace Planetoid_DB.Services.Models;
 /// <remarks>The <see cref="VisibilityCriteria"/> record is used to specify the criteria for determining whether a minor planet is observable, including minimum altitude, maximum Sun altitude, faintest magnitude, and minimum Moon separation.</remarks>
 // You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
 [DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
-internal sealed record VisibilityCriteria(
-	double MinimumAltitudeDegrees = 0.0,
-	double MaximumSunAltitudeDegrees = -12.0,
-	double? FaintestMagnitude = null,
-	double MinimumMoonSeparationDegrees = 0.0)
+internal sealed record VisibilityCriteria(double MinimumAltitudeDegrees = 0.0, double MaximumSunAltitudeDegrees = -12.0, double? FaintestMagnitude = null, double MinimumMoonSeparationDegrees = 0.0)
 {
 	/// <summary>Gets the default visibility criteria (object above the horizon, Sun below −12°).</summary>
 	/// <remarks>This property provides a convenient way to obtain a standard set of visibility criteria without having to specify the parameters explicitly.</remarks>

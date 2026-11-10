@@ -87,17 +87,7 @@ internal static class MpcorbElementsParser
 		// Use the designation name if available; otherwise, use the index as the designation
 		string designation = string.IsNullOrWhiteSpace(value: record.DesignationName) ? record.Index : record.DesignationName;
 		// Create a new MinorPlanetOrbitalElements instance with the parsed values
-		MinorPlanetOrbitalElements candidate = new(
-			Designation: designation,
-			EpochJulianDateTt: epochJd,
-			MeanAnomalyDegrees: meanAnomaly,
-			ArgumentOfPerihelionDegrees: argPeri,
-			LongitudeOfAscendingNodeDegrees: node,
-			InclinationDegrees: incl,
-			Eccentricity: ecc,
-			SemiMajorAxisAu: a,
-			AbsoluteMagnitude: h,
-			SlopeParameter: g);
+		MinorPlanetOrbitalElements candidate = new(Designation: designation, EpochJulianDateTt: epochJd, MeanAnomalyDegrees: meanAnomaly, ArgumentOfPerihelionDegrees: argPeri, LongitudeOfAscendingNodeDegrees: node, InclinationDegrees: incl, Eccentricity: ecc, SemiMajorAxisAu: a, AbsoluteMagnitude: h, SlopeParameter: g);
 		// Validate the candidate elements; if validation fails, set the error message and return false
 		try
 		{
@@ -159,13 +149,13 @@ internal static class MpcorbElementsParser
 		return true;
 	}
 
-	/// <summary>Decodes a single packed digit (0–9, A–V).</summary>
+	/// <summary>Decodes a single packed digit (0–9, A–mpcorbDatReadableDesignationDelimiterBegin).</summary>
 	/// <param name="c">The packed character.</param>
 	/// <returns>The decoded value or −1 if invalid.</returns>
 	/// <remarks>The packed digit format is described at https://www.minorplanetcenter.net/iau/info/PackedDates.html.</remarks>
 	private static int DecodePackedDigit(char c)
 	{
-		// The packed digit can be '0'–'9' (0–9) or 'A'–'V' (10–31). Return -1 for invalid characters.
+		// The packed digit can be '0'–'9' (0–9) or 'A'–'mpcorbDatReadableDesignationDelimiterBegin' (10–31). Return -1 for invalid characters.
 		return c switch
 		{
 			>= '0' and <= '9' => c - '0',

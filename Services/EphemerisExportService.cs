@@ -13,6 +13,8 @@
  * See LICENSE file in the project root for license information.
  */
 
+using NLog;
+
 using Planetoid_DB.Services.Models;
 
 using System.Globalization;
@@ -24,6 +26,10 @@ namespace Planetoid_DB.Services;
 /// <remarks>All values are expressed in astronomical units [AU], days [d] and degrees [°] unless otherwise specified.</remarks>
 internal static class EphemerisExportService
 {
+	/// <summary>NLog logger instance.</summary>
+	/// <remarks>This logger is used throughout the application to log important events and errors.</remarks>
+	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+
 	/// <summary>The CSV header with units.</summary>
 	/// <remarks>All values are expressed in astronomical units [AU], days [d] and degrees [°] unless otherwise specified.</remarks>
 	public const string CsvHeader = "Time (UTC, ISO 8601),RA of date (h),RA of date (hms),Dec of date (deg),Dec of date (dms),RA J2000 (h),RA J2000 (hms),Dec J2000 (deg),Dec J2000 (dms),Azimuth (deg),Altitude (deg),Distance (AU),Heliocentric distance (AU),Magnitude (mag),Phase angle (deg),Elongation (deg),Sun altitude (deg),Moon separation (deg),Visible";
@@ -74,7 +80,12 @@ internal static class EphemerisExportService
 	public static Task ExportCsvAsync(string filePath, IEnumerable<EphemerisEntry> entries, string? designation = null, ObserverLocation? observer = null, CancellationToken cancellationToken = default)
 	{
 		// Validate arguments
-		ArgumentException.ThrowIfNullOrWhiteSpace(argument: filePath);
+		if (string.IsNullOrEmpty(value: filePath))
+		{
+			// Log the error and throw an exception if the file path is null or empty
+			logger.Error(message: "File path must not be null or empty.");
+			throw new ArgumentException(message: "File path must not be null or empty.", paramName: nameof(filePath));
+		}
 		ArgumentNullException.ThrowIfNull(argument: entries);
 		// Create a task to write the CSV text to the specified file path asynchronously
 		return Task.Run(function: async () =>
