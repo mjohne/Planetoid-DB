@@ -62,7 +62,7 @@ internal partial class DistributionsForm : BaseKryptonForm
 	public DistributionsForm(IReadOnlyList<string> planetoids)
 	{
 		// Log the initialization of the form with the count of planetoids to be processed. This provides a record of how many records are being handled when the form is created, which can be useful for debugging and performance analysis.
-		logger.Info(message: "Initializing HistogramsForm with {0} planetoids.", argument: planetoids.Count);
+		logger.Info(message: "Initializing HistogramsForm with {0} planetoids...", argument: planetoids.Count);
 		InitializeComponent();
 		// Store the supplied planetoid data for histogram generation.
 		_planetoids = planetoids;

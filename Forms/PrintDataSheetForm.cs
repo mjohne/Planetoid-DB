@@ -64,7 +64,7 @@ internal partial class PrintDataSheetForm : BaseKryptonForm
 	public PrintDataSheetForm()
 	{
 		// Log the initialization of the form
-		logger.Info(message: "Initializing PrintDataSheetForm.");
+		logger.Info(message: "Initializing PrintDataSheetForm...");
 		// Initialize the form components
 		InitializeComponent();
 		// Initialize the print document, register it for disposal with the form and subscribe to its events
@@ -77,7 +77,7 @@ internal partial class PrintDataSheetForm : BaseKryptonForm
 		printDoc.PrintPage += PrintDoc_PrintPage;
 		printDoc.BeginPrint += PrintDoc_BeginPrint;
 		// Log that the PrintDataSheetForm has been initialized successfully
-		logger.Info(message: "PrintDataSheetForm initialized successfully.");
+		logger.Info(message: "PrintDataSheetForm initialized.");
 	}
 
 	#endregion

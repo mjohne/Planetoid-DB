@@ -55,7 +55,7 @@ internal partial class CoordinateTransformationForm : BaseKryptonForm
 	public CoordinateTransformationForm()
 	{
 		// Log the initialization of the form for debugging purposes.
-		logger.Info(message: "Initializing CoordinateTransformationForm.");
+		logger.Info(message: "Initializing CoordinateTransformationForm...");
 		// Call the method to initialize the form's components and controls.
 		InitializeComponent();
 		// Enable double buffering for the TableLayoutPanel to prevent flickering
@@ -104,7 +104,7 @@ internal partial class CoordinateTransformationForm : BaseKryptonForm
 		// Update the coordinate labels based on the initial selections in the combo boxes.
 		UpdateCoordinateLabels();
 		// Log that the form has been initialized successfully
-		logger.Info(message: "CoordinateTransformationForm initialized successfully.");
+		logger.Info(message: "CoordinateTransformationForm initialized.");
 	}
 
 	#endregion

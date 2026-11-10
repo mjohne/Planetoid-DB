@@ -72,11 +72,11 @@ internal partial class ObservatoryCodesForm : BaseKryptonForm
 	public ObservatoryCodesForm()
 	{
 		// Log the initialization of the form
-		logger.Info(message: "Initializing ObservatoryCodesForm.");
+		logger.Info(message: "Initializing ObservatoryCodesForm...");
 		// Initialize the form components
 		InitializeComponent();
 		// Log that the form has been initialized successfully
-		logger.Info(message: "ObservatoryCodesForm initialized successfully.");
+		logger.Info(message: "ObservatoryCodesForm initialized.");
 	}
 
 	#endregion

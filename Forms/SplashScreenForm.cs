@@ -40,11 +40,11 @@ internal partial class SplashScreenForm : BaseKryptonForm
 	public SplashScreenForm()
 	{
 		// Log the initialization of the splash screen form
-		logger.Info(message: "Initializing SplashScreenForm.");
+		logger.Info(message: "Initializing SplashScreenForm...");
 		// Initialize the form components
 		InitializeComponent();
 		// Log that the form has been initialized successfully
-		logger.Info(message: "SplashScreenForm initialized successfully.");
+		logger.Info(message: "SplashScreenForm initialized.");
 	}
 
 	#endregion

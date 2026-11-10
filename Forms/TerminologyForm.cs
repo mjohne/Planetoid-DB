@@ -41,11 +41,11 @@ internal partial class TerminologyForm : BaseKryptonForm
 	public TerminologyForm()
 	{
 		// Log the initialization of the form
-		logger.Info(message: "Initializing TerminologyForm.");
+		logger.Info(message: "Initializing TerminologyForm...");
 		// Initialize the form components
 		InitializeComponent();
 		// Log that the form has been initialized successfully
-		logger.Info(message: "TerminologyForm initialized successfully.");
+		logger.Info(message: "TerminologyForm initialized.");
 	}
 
 	#endregion

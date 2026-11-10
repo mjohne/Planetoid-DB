@@ -79,7 +79,7 @@ internal partial class RecordsForm : BaseKryptonForm
 	public RecordsForm()
 	{
 		// Log that the form is being initialized
-		logger.Info(message: "Initializing RecordsForm.");
+		logger.Info(message: "Initializing RecordsForm...");
 		// Initialize the form components
 		InitializeComponent();
 		// Enable double buffering for the TableLayoutPanel to prevent flickering
@@ -91,7 +91,7 @@ internal partial class RecordsForm : BaseKryptonForm
 		backgroundWorker.RunWorkerCompleted += BackgroundWorker_RunWorkerCompleted;
 #pragma warning restore CS8622
 		// Log that the RecordsForm has been initialized successfully
-		logger.Info(message: "RecordsForm initialized successfully.");
+		logger.Info(message: "RecordsForm initialized.");
 	}
 
 	#endregion

@@ -43,11 +43,11 @@ internal partial class SettingsForm : BaseKryptonForm
 	public SettingsForm()
 	{
 		// Log the initialization of the SettingsForm
-		logger.Info(message: "Initializing SettingsForm.");
+		logger.Info(message: "Initializing SettingsForm..");
 		// Initialize the form components
 		InitializeComponent();
 		// Log that the components have been initialized
-		logger.Info(message: "SettingsForm components initialized.");
+		logger.Info(message: "SettingsForm initialized.");
 	}
 
 	#endregion

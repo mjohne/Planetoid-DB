@@ -92,13 +92,13 @@ internal partial class SearchForm : BaseKryptonForm
 	/// <remarks>This constructor sets up the form and initializes the property map for searching.</remarks>
 	public SearchForm()
 	{
-		logger.Info(message: "Initializing SearchForm instance.");
+		logger.Info(message: "Initializing SearchForm...");
 		// Initialize the form components and set up the property map for searching.
 		InitializeComponent();
 		// Set up the mapping of orbital element names to their corresponding retrieval functions from a PlanetoidRecord.
 		InitializePropertyMap();
 		// Log that the SearchForm instance has been initialized successfully.
-		logger.Info(message: "SearchForm instance initialized successfully.");
+		logger.Info(message: "SearchForm initialized.");
 	}
 
 	#endregion

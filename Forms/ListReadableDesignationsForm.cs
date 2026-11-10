@@ -109,11 +109,11 @@ internal partial class ListReadableDesignationsForm : BaseKryptonForm
 	public ListReadableDesignationsForm()
 	{
 		// Log the initialization of the form
-		logger.Info(message: "Initializing ListReadableDesignationsForm.");
+		logger.Info(message: "Initializing ListReadableDesignationsForm...");
 		// Initialize the form components
 		InitializeComponent();
 		// Log successful initialization
-		logger.Info(message: "ListReadableDesignationsForm initialized successfully.");
+		logger.Info(message: "ListReadableDesignationsForm initialized.");
 	}
 
 	#endregion

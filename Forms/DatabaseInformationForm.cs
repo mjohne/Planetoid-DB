@@ -61,7 +61,7 @@ internal partial class DatabaseInformationForm : BaseKryptonForm
 	public DatabaseInformationForm()
 	{
 		// Log an informational message indicating that the form is being initialized
-		logger.Info(message: "Initializing DatabaseInformationForm.");
+		logger.Info(message: "Initializing DatabaseInformationForm...");
 		// Initialize the form components
 		InitializeComponent();
 		// Log a debug message indicating that the form has been initialized

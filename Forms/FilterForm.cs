@@ -63,7 +63,7 @@ internal partial class FilterForm : BaseKryptonForm
 	public FilterForm()
 	{
 		// Log the initialization of the form for debugging purposes
-		logger.Info(message: "Initializing FilterForm.");
+		logger.Info(message: "Initializing FilterForm...");
 		// Initialize the form components
 		InitializeComponent();
 		// Center values in all numeric spin buttons
@@ -74,7 +74,7 @@ internal partial class FilterForm : BaseKryptonForm
 		// Enable double buffering for the TableLayoutPanel to prevent flickering
 		DoubleBufferingHelper.EnableDoubleBuffering(control: tableLayoutPanel);
 		// Log that the form has been initialized successfully
-		logger.Info(message: "FilterForm initialized successfully.");
+		logger.Info(message: "FilterForm initialized.");
 	}
 
 	#endregion

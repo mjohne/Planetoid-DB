@@ -122,13 +122,13 @@ internal partial class OrreryForm : BaseKryptonForm
 	/// <remarks>The argument of perihelion and mean anomaly values are derived from the standard longitude-of-perihelion and mean-longitude elements for J2000.0.</remarks>
 	private static readonly (string Name, double A, double E, double I, double Om, double Peri, double M0, Color Col)[] Planets =
 	[
-		(Name: "Mercury",  0.38709927, 0.20563593,  7.00497902,  48.33076593,  29.12703035, 174.79252722, Color.FromArgb(red: 0xC0, green: 0xC0, blue: 0xC8)),
-		(Name: "Venus",    0.72333566, 0.00677672,  3.39467605,  76.67984255,  54.92262463,  50.37663232, Color.FromArgb(red: 0xE8, green: 0xD0, blue: 0x90)),
-		(Name: "Earth",    1.00000261, 0.01671123,  0.00001531,   0.0,        102.93768193,  -2.47311027, Color.FromArgb(red: 0x40, green: 0x90, blue: 0xFF)),
-		(Name: "Mars",     1.52371034, 0.09339410,  1.84969142,  49.55953891, -73.50316850,  19.39019754, Color.FromArgb(red: 0xE0, green: 0x60, blue: 0x30)),
-		(Name: "Jupiter",  5.20288700, 0.04838624,  1.30439695, 100.47390909, -85.74542926,  19.66796068, Color.FromArgb(red: 0xE8, green: 0xC0, blue: 0x88)),
-		(Name: "Saturn",   9.53667594, 0.05386179,  2.48599187, 113.66242448, -21.06354617, -42.64463408, Color.FromArgb(red: 0xD8, green: 0xC8, blue: 0x70)),
-		(Name: "Uranus",  19.18916464, 0.04725744,  0.77263783,  74.01692503,  96.93735127, 142.28382821, Color.FromArgb(red: 0x80, green: 0xE0, blue: 0xE8)),
+		(Name: "Mercury",  0.38709927, 0.20563593,  7.00497902,  48.33076593,  29.12703035,  174.79252722, Color.FromArgb(red: 0xC0, green: 0xC0, blue: 0xC8)),
+		(Name: "Venus",    0.72333566, 0.00677672,  3.39467605,  76.67984255,  54.92262463,   50.37663232, Color.FromArgb(red: 0xE8, green: 0xD0, blue: 0x90)),
+		(Name: "Earth",    1.00000261, 0.01671123,  0.00001531,   0.0,        102.93768193,   -2.47311027, Color.FromArgb(red: 0x40, green: 0x90, blue: 0xFF)),
+		(Name: "Mars",     1.52371034, 0.09339410,  1.84969142,  49.55953891, -73.50316850,   19.39019754, Color.FromArgb(red: 0xE0, green: 0x60, blue: 0x30)),
+		(Name: "Jupiter",  5.20288700, 0.04838624,  1.30439695, 100.47390909, -85.74542926,   19.66796068, Color.FromArgb(red: 0xE8, green: 0xC0, blue: 0x88)),
+		(Name: "Saturn",   9.53667594, 0.05386179,  2.48599187, 113.66242448, -21.06354617,  -42.64463408, Color.FromArgb(red: 0xD8, green: 0xC8, blue: 0x70)),
+		(Name: "Uranus",  19.18916464, 0.04725744,  0.77263783,  74.01692503,  96.93735127,  142.28382821, Color.FromArgb(red: 0x80, green: 0xE0, blue: 0xE8)),
 		(Name: "Neptune", 30.06992276, 0.00859048,  1.77004347, 131.78422574, -86.81946347, -100.08479196, Color.FromArgb(red: 0x30, green: 0x50, blue: 0xD0)),
 	];
 
@@ -265,7 +265,7 @@ internal partial class OrreryForm : BaseKryptonForm
 	public OrreryForm(IReadOnlyList<string> planetoids)
 	{
 		// Log the number of source planetoid records provided to the constructor for debugging purposes.
-		logger.Info(message: "Initializing OrreryForm with {0} source planetoid records.", args: planetoids?.Count ?? 0);
+		logger.Info(message: "Initializing OrreryForm with {0} source planetoid records...", args: planetoids?.Count ?? 0);
 		// Store the source lines for later parsing; if null, use an empty list to avoid null reference issues.
 		_sourceLines = planetoids ?? [];
 		// Initialize the form's components (designer-generated code).

@@ -248,7 +248,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	public PlanetoidDbForm()
 	{
 		// Log the initialization without an MPCORB.DAT file path
-		logger.Info(message: "Initializing PlanetoidDbForm without MPCORB.DAT file path.");
+		logger.Info(message: "Initializing PlanetoidDbForm without MPCORB.DAT file path...");
 		// Initialize the form components
 		InitializeComponent();
 		// Set the version text to the current assembly version

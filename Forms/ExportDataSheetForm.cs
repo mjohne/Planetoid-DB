@@ -50,11 +50,11 @@ internal partial class ExportDataSheetForm : BaseKryptonForm
 	public ExportDataSheetForm()
 	{
 		// Log that the form is being initialized
-		logger.Info(message: "Initializing ExportDataSheetForm.");
+		logger.Info(message: "Initializing ExportDataSheetForm...");
 		// Initialize the form components
 		InitializeComponent();
 		// Log that the form has been initialized successfully
-		logger.Info(message: "ExportDataSheetForm initialized successfully.");
+		logger.Info(message: "ExportDataSheetForm initialized.");
 	}
 
 	#endregion
