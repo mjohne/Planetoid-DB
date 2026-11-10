@@ -206,11 +206,11 @@ internal partial class ObservationsForm : BaseKryptonForm
 	public ObservationsForm()
 	{
 		// Log the initialization of the ObservationsForm to provide feedback in the application logs
-		logger.Info(message: "Initializing ObservationsForm.");
+		logger.Info(message: "Initializing ObservationsForm...");
 		// Call the method to initialize the form's components, setting up the user interface elements and event handlers
 		InitializeComponent();
 		// Log that the ObservationsForm has been initialized successfully, indicating that the form is ready for use
-		logger.Info(message: "ObservationsForm initialized successfully.");
+		logger.Info(message: "ObservationsForm initialized.");
 	}
 
 	#endregion

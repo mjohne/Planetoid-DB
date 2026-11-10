@@ -98,11 +98,11 @@ internal partial class EphemerisForm : BaseKryptonForm
 	public EphemerisForm()
 	{
 		// Log the initialization of the form for debugging purposes
-		logger.Info(message: "Initializing EphemerisForm.");
+		logger.Info(message: "Initializing EphemerisForm...");
 		// Initialize the form components
 		InitializeComponent();
 		// Log that the form has been initialized successfully
-		logger.Info(message: "EphemerisForm initialized successfully.");
+		logger.Info(message: "EphemerisForm initialized.");
 	}
 
 	#endregion

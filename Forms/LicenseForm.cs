@@ -54,11 +54,11 @@ internal partial class LicenseForm : BaseKryptonForm
 	public LicenseForm()
 	{
 		// Log that the LicenseForm is being initialized
-		logger.Info(message: "Initializing LicenseForm.");
+		logger.Info(message: "Initializing LicenseForm...");
 		// Initialize the form components
 		InitializeComponent();
 		// Log that the LicenseForm has been initialized successfully
-		logger.Info(message: "LicenseForm initialized successfully.");
+		logger.Info(message: "LicenseForm initialized.");
 	}
 
 	#endregion

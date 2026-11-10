@@ -95,12 +95,12 @@ internal partial class TisserandParameterOfAllMinorPlanetsForm : BaseKryptonForm
 	public TisserandParameterOfAllMinorPlanetsForm(IReadOnlyList<string> planetoids)
 	{
 		// Log the initialization of the form with the count of planetoid records
-		logger.Info(message: $"Initializing TisserandParameterOfAllMinorPlanetsForm with {planetoids.Count} planetoid records.");
+		logger.Info(message: $"Initializing TisserandParameterOfAllMinorPlanetsForm with {planetoids.Count} planetoid records...");
 		InitializeComponent();
 		// Cache the planetoid records for use during the calculation; this allows the calculation method to access the raw data without needing to pass it around or access it from a shared resource
 		_planetoids = planetoids;
 		// Set the initial state of the buttons and progress bar
-		logger.Info(message: "TisserandParameterOfAllMinorPlanetsForm initialized successfully.");
+		logger.Info(message: $"TisserandParameterOfAllMinorPlanetsForm initialized with {_planetoids.Count} planetoid records.");
 	}
 
 	#endregion

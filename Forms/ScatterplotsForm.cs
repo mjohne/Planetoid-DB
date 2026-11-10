@@ -68,7 +68,7 @@ internal partial class ScatterplotsForm : BaseKryptonForm
 	public ScatterplotsForm(IReadOnlyList<string> planetoids)
 	{
 		// Log the initialization of the form with the count of planetoids to be processed.
-		logger.Info(message: "Initializing ScatterplotsForm with {0} planetoids.", argument: planetoids.Count);
+		logger.Info(message: "Initializing ScatterplotsForm with {0} planetoids...", argument: planetoids.Count);
 		// Initialize the form's components and controls, including the ScottPlot chart and the ListView.
 		InitializeComponent();
 		// Store the supplied planetoid data for scatter-plot generation.

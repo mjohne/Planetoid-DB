@@ -98,13 +98,13 @@ internal partial class EncounterVelocityOfAllMinorPlanetsForm : BaseKryptonForm
 	public EncounterVelocityOfAllMinorPlanetsForm(IReadOnlyList<string> planetoids)
 	{
 		// Log the initialization of the form with the count of planetoid records
-		logger.Info(message: $"Initializing EncounterVelocityOfAllMinorPlanetsForm with {planetoids.Count} planetoid records.");
+		logger.Info(message: $"Initializing EncounterVelocityOfAllMinorPlanetsForm with {planetoids.Count} planetoid records...");
 		ArgumentNullException.ThrowIfNull(argument: planetoids);
 		InitializeComponent();
 		// Cache the planetoid records for use during the calculation; this allows the calculation method to access the raw data without needing to pass it around or access it from a shared resource
 		_planetoids = planetoids;
 		// Set the initial state of the buttons and progress bar
-		logger.Info(message: "EncounterVelocityOfAllMinorPlanetsForm initialized successfully.");
+		logger.Info(message: "EncounterVelocityOfAllMinorPlanetsForm initialized.");
 	}
 
 	#endregion

@@ -71,7 +71,7 @@ internal partial class OrbitElementsGroupingForm : BaseKryptonForm
 	public OrbitElementsGroupingForm(IReadOnlyList<string> planetoids)
 	{
 		// Log the initialization of the form with the count of planetoids provided
-		logger.Info(message: "Initializing OrbitElementsGroupingForm with {0} planetoids.", argument: planetoids.Count);
+		logger.Info(message: "Initializing OrbitElementsGroupingForm with {0} planetoids...", argument: planetoids.Count);
 		// Call the method to initialize the form's components, setting up the UI elements and layout.
 		InitializeComponent();
 		// Store the provided planetoid records in the private field for later processing during grouping operations.

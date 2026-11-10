@@ -45,7 +45,7 @@ internal partial class NeaListDownloadForm : BaseKryptonForm
 		// Initialize the form components
 		InitializeComponent();
 		// Log that the form has been initialized successfully
-		logger.Info(message: "NeaListDownloadForm initialized successfully.");
+		logger.Info(message: "NeaListDownloadForm initialized.");
 	}
 
 	#endregion

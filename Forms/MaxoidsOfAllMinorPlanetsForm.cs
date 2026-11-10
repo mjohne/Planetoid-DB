@@ -101,7 +101,7 @@ internal partial class MaxoidsOfAllMinorPlanetsForm : BaseKryptonForm
 	public MaxoidsOfAllMinorPlanetsForm(IReadOnlyList<string> planetoids)
 	{
 		// Log the initialization of the form
-		logger.Info(message: "Initializing MaxoidsOfAllMinorPlanetsForm.");
+		logger.Info(message: "Initializing MaxoidsOfAllMinorPlanetsForm...");
 		// Initialize the form's components (controls, layout, etc.) using the designer-generated method
 		InitializeComponent();
 		// Cache the planetoid records for use during the calculation; this allows the calculation method to access the raw data without needing to pass it around or access it from a shared resource

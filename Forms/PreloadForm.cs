@@ -52,7 +52,7 @@ internal partial class PreloadForm : BaseKryptonForm
 	public PreloadForm()
 	{
 		// Log the initialization of the PreloadForm
-		logger.Info(message: "Initializing PreloadForm.");
+		logger.Info(message: "Initializing PreloadForm...");
 		// Initialize the form components
 		InitializeComponent();
 		// Set the version text to the current assembly version

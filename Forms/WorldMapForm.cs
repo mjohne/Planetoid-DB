@@ -140,7 +140,7 @@ internal partial class WorldMapForm : BaseKryptonForm
 	public WorldMapForm()
 	{
 		// Log that the WorldMapForm is being initialized
-		logger.Info(message: "Initializing WorldMapForm.");
+		logger.Info(message: "Initializing WorldMapForm...");
 		// Initialize the form components
 		InitializeComponent();
 		// Log that the form has been initialized
@@ -158,7 +158,7 @@ internal partial class WorldMapForm : BaseKryptonForm
 		// Store the position as the current selection and update the UI
 		SetSelection(latitude: initialPosition.Value.Latitude, longitude: initialPosition.Value.Longitude);
 		// Log that the form was initialized with a predefined position
-		logger.Info(message: "WorldMapForm initialized with a predefined marker position.");
+		logger.Info(message: $"WorldMapForm initialized with a predefined marker position. Latitude: {initialPosition.Value.Latitude}. Longitude: {initialPosition.Value.Longitude}.");
 	}
 
 	/// <summary>Initializes a new instance of the <see cref="WorldMapForm"/> class and marks all given positions on the map.</summary>

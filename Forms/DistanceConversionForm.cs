@@ -47,7 +47,7 @@ internal partial class DistanceConversionForm : BaseKryptonForm
 		// Initialize the form components
 		InitializeComponent();
 		// Log that the form has been initialized successfully
-		logger.Info(message: "DistanceConversionForm initialized successfully.");
+		logger.Info(message: "DistanceConversionForm initialized.");
 	}
 
 	#endregion

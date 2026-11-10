@@ -71,7 +71,7 @@ internal partial class MoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 		// Cache the planetoid records for use in the form
 		_planetoids = planetoids;
 		// Log successful initialization
-		logger.Info(message: $"{nameof(MoidsRelativeToMinorPlanetsForm)} initialized successfully.");
+		logger.Info(message: $"{nameof(MoidsRelativeToMinorPlanetsForm)} with {_planetoids.Count} planetoid records initialized.");
 	}
 
 	#endregion

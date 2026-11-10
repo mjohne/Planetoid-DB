@@ -61,7 +61,7 @@ internal partial class MaxoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 	public MaxoidsRelativeToMinorPlanetsForm(IReadOnlyList<string> planetoids)
 	{
 		// Log the initialization of the form with the provided planetoid records
-		logger.Info(message: "Initializing MaxoidsRelativeToMinorPlanetsForm with planetoid records.");
+		logger.Info(message: $"Initializing MaxoidsRelativeToMinorPlanetsForm with {planetoids.Count} planetoid records...");
 		// Guard against null input to ensure the form has valid data to work with
 		InitializeComponent();
 		// Cache the planetoid records for use in the form

@@ -92,7 +92,7 @@ internal partial class TableModeForm : BaseKryptonForm
 	public TableModeForm()
 	{
 		// Log the initialization of the form
-		logger.Info(message: "Initializing TableModeForm.");
+		logger.Info(message: "Initializing TableModeForm...");
 		// Initialize the form components
 		InitializeComponent();
 		// Enable virtual mode for the ListView
@@ -100,7 +100,7 @@ internal partial class TableModeForm : BaseKryptonForm
 		// Initially disable the save to file button until data is loaded
 		toolStripDropDownButtonSaveToFile.Enabled = false;
 		// Log that the form has been initialized successfully
-		logger.Info(message: "TableModeForm initialized successfully.");
+		logger.Info(message: "TableModeForm initialized.");
 	}
 
 	#endregion

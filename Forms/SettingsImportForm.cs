@@ -44,11 +44,11 @@ internal partial class SettingsImportForm : BaseKryptonForm
 	public SettingsImportForm()
 	{
 		// Log the initialization of the form
-		logger.Info(message: "Initializing SettingsImportForm.");
+		logger.Info(message: "Initializing SettingsImportForm...");
 		// Call the method to initialize the form's components
 		InitializeComponent();
 		// Log that the form has been initialized successfully
-		logger.Info(message: "SettingsImportForm initialized successfully.");
+		logger.Info(message: "SettingsImportForm initialized.");
 	}
 
 	#endregion

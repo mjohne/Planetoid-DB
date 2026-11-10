@@ -91,7 +91,7 @@ internal partial class DatabaseDifferencesForm : BaseKryptonForm
 	public DatabaseDifferencesForm()
 	{
 		// Log the initialization of the form to provide context in the application logs
-		logger.Info(message: "Initializing DatabaseDifferencesForm.");
+		logger.Info(message: "Initializing DatabaseDifferencesForm...");
 		// Initialize the form's components, setting up the user interface elements and layout as defined in the designer file.
 		InitializeComponent();
 		//	Log that the form has been successfully initialized, indicating that the UI is ready for user interaction.
