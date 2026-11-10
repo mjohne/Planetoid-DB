@@ -45,14 +45,7 @@ public sealed class ExporterTests : IDisposable
 
 	/// <summary>Gets the type names of all exporters under test.</summary>
 	/// <remarks>This property returns a collection of exporter type names used for parameterized tests.</remarks>
-	public static TheoryData<string> ExporterNames =>
-	[
-		nameof(BbcodeExporter), nameof(CreoleExporter), nameof(CsvExporter), nameof(EpubExporter), nameof(ExcelExporter),
-		nameof(HtmlExporter), nameof(IcsExporter), nameof(JsonExporter), nameof(LatexExporter), nameof(MarkdownExporter),
-		nameof(MobiExporter), nameof(OdsExporter), nameof(OdtExporter), nameof(PdfExporter), nameof(PostscriptExporter),
-		nameof(PsvExporter), nameof(RtfExporter), nameof(SqlExporter), nameof(TextExporter), nameof(TsvExporter),
-		nameof(VcalExporter), nameof(WordExporter), nameof(XcalExporter), nameof(XmlExporter), nameof(YamlExporter),
-	];
+	public static TheoryData<string> ExporterNames => [nameof(BbcodeExporter), nameof(CreoleExporter), nameof(CsvExporter), nameof(EpubExporter), nameof(ExcelExporter), nameof(HtmlExporter), nameof(IcsExporter), nameof(JsonExporter), nameof(LatexExporter), nameof(MarkdownExporter), nameof(MobiExporter), nameof(OdsExporter), nameof(OdtExporter), nameof(PdfExporter), nameof(PostscriptExporter), nameof(PsvExporter), nameof(RtfExporter), nameof(SqlExporter), nameof(TextExporter), nameof(TsvExporter), nameof(VcalExporter), nameof(WordExporter), nameof(XcalExporter), nameof(XmlExporter), nameof(YamlExporter)];
 
 	/// <summary>Creates an exporter instance by its type name.</summary>
 	/// <param name="name">The exporter type name.</param>
@@ -60,6 +53,7 @@ public sealed class ExporterTests : IDisposable
 	/// <remarks>This method uses reflection to create an instance of the specified exporter type.</remarks>
 	private static IOrbitDataExporter Create(string name)
 	{
+		ArgumentException.ThrowIfNullOrEmpty(argument: name);
 		// The exporter types are located in the Planetoid_DB.Export namespace.
 		Type type = typeof(CsvExporter).Assembly.GetType(name: $"Planetoid_DB.Export.{name}", throwOnError: true)!;
 		// Create an instance of the exporter type using Activator.CreateInstance.
@@ -72,6 +66,7 @@ public sealed class ExporterTests : IDisposable
 	/// <remarks>This method exports the sample data using the specified exporter and returns the path of the generated file.</remarks>
 	private string ExportSample(IOrbitDataExporter exporter)
 	{
+		ArgumentNullException.ThrowIfNull(argument: exporter);
 		// Combine the temporary directory path with the exporter's file extension to create the output file path.
 		string path = Path.Combine(path1: tempDirectory, path2: $"export.{exporter.Extension}");
 		// Call the Export method of the exporter to write the sample data to the specified file path.
@@ -95,6 +90,7 @@ public sealed class ExporterTests : IDisposable
 	[MemberData(nameof(ExporterNames))]
 	public void ExporterHasConsistentMetadata(string name)
 	{
+		ArgumentException.ThrowIfNullOrEmpty(argument: name);
 		// Create an exporter instance using the specified type name.
 		IOrbitDataExporter exporter = Create(name: name);
 		// Verify that the exporter extension is not null or whitespace.
@@ -114,6 +110,7 @@ public sealed class ExporterTests : IDisposable
 	[MemberData(nameof(ExporterNames))]
 	public void ExporterWritesFileContainingData(string name)
 	{
+		ArgumentException.ThrowIfNullOrEmpty(argument: name);
 		// Export the sample data using the specified exporter and get the path of the exported file.
 		string path = ExportSample(exporter: Create(name: name));
 		// Verify that the exported file exists.

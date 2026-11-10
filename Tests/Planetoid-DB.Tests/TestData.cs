@@ -13,8 +13,6 @@
  * See LICENSE file in the project root for license information.
  */
 
-using Planetoid_DB.Services.Models;
-
 namespace Planetoid_DB.Tests;
 
 /// <summary>Provides shared test data.</summary>
@@ -27,6 +25,7 @@ internal static class TestData
 	/// <remarks>This method is internal to the test assembly and is not intended for public use.</remarks>
 	private static string BuildLine(params (int Start, int Width, string Text)[] fields)
 	{
+		ArgumentNullException.ThrowIfNull(argument: fields);
 		// The MPCORB line is 202 characters long, with the last 8 characters reserved for the last-observation date.
 		char[] line = new string(c: ' ', count: 202).ToCharArray();
 		// The last field (name) is left-aligned, while all other fields are right-aligned.
@@ -42,12 +41,7 @@ internal static class TestData
 
 	/// <summary>Gets an MPCORB record of (1) Ceres (epoch 2025-05-05.0 TT).</summary>
 	/// <remarks>This property is internal to the test assembly and is not intended for public use.</remarks>
-	public static string CeresRecord { get; } = BuildLine(
-		(0, 7, "00001"), (8, 5, "3.34"), (14, 5, "0.15"), (20, 5, "K2555"),
-		(26, 9, "188.70269"), (37, 9, "73.27343"), (48, 9, "80.25221"), (59, 9, "10.58780"),
-		(70, 9, "0.0794013"), (80, 11, "0.21424651"), (92, 11, "2.7660512"),
-		(107, 9, "E2024-V47"), (117, 5, "7330"), (123, 3, "125"), (127, 9, "1801-2024"), (137, 4, "0.80"),
-		(150, 10, "MPCLINUX"), (161, 4, "0000"), (166, 28, "(1) Ceres"), (194, 8, "20241101"));
+	public static string CeresRecord { get; } = BuildLine((Start: 0, Width: 7, Text: "00001"), (Start: 8, Width: 5, Text: "3.34"), (Start: 14, Width: 5, Text: "0.15"), (Start: 20, Width: 5, Text: "K2555"), (Start: 26, Width: 9, Text: "188.70269"), (Start: 37, Width: 9, Text: "73.27343"), (Start: 48, Width: 9, Text: "80.25221"), (Start: 59, Width: 9, Text: "10.58780"), (Start: 70, Width: 9, Text: "0.0794013"), (Start: 80, Width: 11, Text: "0.21424651"), (Start: 92, Width: 11, Text: "2.7660512"), (Start: 107, Width: 9, Text: "E2024-V47"), (Start: 117, Width: 5, Text: "7330"), (Start: 123, Width: 3, Text: "125"), (Start: 127, Width: 9, Text: "1801-2024"), (Start: 137, Width: 4, Text: "0.80"), (Start: 150, Width: 10, Text: "MPCLINUX"), (Start: 161, Width: 4, Text: "0000"), (Start: 166, Width: 28, Text: "(1) Ceres"), (Start: 194, Width: 8, Text: "20241101"));
 
 	/// <summary>Gets the observer at the Royal Observatory Greenwich.</summary>
 	/// <remarks>This property is internal to the test assembly and is not intended for public use.</remarks>
@@ -65,7 +59,6 @@ internal static class TestData
 		// Parse the MPCORB record and assert that parsing was successful.
 		Assert.True(condition: MpcorbElementsParser.TryParse(rawLine: CeresRecord, elements: out MinorPlanetOrbitalElements? elements, error: out string? error), userMessage: error);
 		// A successful parse guarantees that elements is non-null.
-
 		return elements;
 	}
 }
