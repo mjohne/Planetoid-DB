@@ -105,7 +105,6 @@ public class BaseKryptonForm : KryptonForm
 	protected static void SetStatusBar(ToolStripStatusLabel label, string text, string additionalInfo = "")
 	{
 		ArgumentNullException.ThrowIfNull(argument: label);
-		ArgumentException.ThrowIfNullOrEmpty(argument: text);
 		// Check if the label is null or text is null or whitespace
 		if (label is null || string.IsNullOrWhiteSpace(value: text))
 		{
