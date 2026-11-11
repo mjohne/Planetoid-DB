@@ -130,14 +130,14 @@ internal static class MpcorbElementsParser
 			_ => -1
 		};
 		// Validate that the century is valid and that the year digits are numeric
-		if (century < 0 || !char.IsAsciiDigit(c: packedEpoch[1]) || !char.IsAsciiDigit(c: packedEpoch[2]))
+		if (century < 0 || !char.IsAsciiDigit(c: packedEpoch[index: 1]) || !char.IsAsciiDigit(c: packedEpoch[index: 2]))
 		{
 			return false;
 		}
 		// Decode the year, month, and day from the packed epoch
-		int year = (century * 100) + ((packedEpoch[1] - '0') * 10) + (packedEpoch[2] - '0');
-		int month = DecodePackedDigit(c: packedEpoch[3]);
-		int day = DecodePackedDigit(c: packedEpoch[4]);
+		int year = (century * 100) + ((packedEpoch[index: 1] - '0') * 10) + (packedEpoch[index: 2] - '0');
+		int month = DecodePackedDigit(c: packedEpoch[index: 3]);
+		int day = DecodePackedDigit(c: packedEpoch[index: 4]);
 		// Validate the month and day values to ensure they represent a valid date
 		if (month is < 1 or > 12 || day < 1 || day > DateTime.DaysInMonth(year: year, month: month))
 		{
