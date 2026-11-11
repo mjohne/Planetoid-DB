@@ -31,6 +31,6 @@ internal static partial class ListViewExporter
 	{
 		/// <summary>Returns a string representation of the NewRecord instance for debugging purposes. This property is used by the DebuggerDisplay attribute to provide a concise and informative display of the record's properties in the debugger.</summary>
 		/// <remarks>This property is used by the debugger to display the state of the object in a human-readable format.</remarks>
-		private string DebuggerDisplay => ToString();
+		private string DebuggerDisplay => ToString() ?? string.Empty;
 	}
 }

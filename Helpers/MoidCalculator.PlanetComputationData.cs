@@ -40,6 +40,6 @@ internal partial class MoidCalculator
 		/// <summary>Returns a string representation of the precomputed planet data for debugging purposes.</summary>
 		/// <returns>A string representation of the precomputed planet data for debugging purposes.</returns>
 		/// <remarks>This property is used by the debugger to display a concise summary of the precomputed planet data.</remarks>
-		private string DebuggerDisplay => ToString();
+		private string DebuggerDisplay => ToString() ?? string.Empty;
 	}
 }

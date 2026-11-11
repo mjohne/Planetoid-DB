@@ -37,6 +37,6 @@ internal partial class MoidCalculator
 		/// <summary>Returns a string representation of the planet elements for debugging purposes.</summary>
 		/// <returns>A string representation of the planet elements for debugging purposes.</returns>
 		/// <remarks>This property is used by the debugger to display a concise summary of the planet's orbital elements.</remarks>
-		private string DebuggerDisplay => ToString();
+		private string DebuggerDisplay => ToString() ?? string.Empty;
 	}
 }
