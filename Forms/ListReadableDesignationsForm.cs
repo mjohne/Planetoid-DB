@@ -123,7 +123,7 @@ internal partial class ListReadableDesignationsForm : BaseKryptonForm
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
 	/// <remarks>This property is used to provide a short string representation of the current instance for debugging purposes.</remarks>
-	private string DebuggerDisplay => ToString();
+	private string DebuggerDisplay => ToString() ?? string.Empty;
 
 	/// <summary>Gets the selected index in the list view.</summary>
 	/// <returns>The selected index if an item is selected; otherwise, -1.</returns>

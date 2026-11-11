@@ -80,11 +80,11 @@ internal partial class MoidsOfOneMinorPlanetForm : BaseKryptonForm
 	public MoidsOfOneMinorPlanetForm()
 	{
 		// Log the initialization of the form
-		logger.Info(message: "Initializing MoidsOfOneMinorPlanetForm.");
+		logger.Info(message: "Initializing MoidsOfOneMinorPlanetForm...");
 		// Initialize the form components
 		InitializeComponent();
 		// Log that the form has been initialized successfully
-		logger.Info(message: "MoidsOfOneMinorPlanetForm initialized successfully.");
+		logger.Info(message: "MoidsOfOneMinorPlanetForm initialized.");
 	}
 
 	#endregion
@@ -94,7 +94,7 @@ internal partial class MoidsOfOneMinorPlanetForm : BaseKryptonForm
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
 	/// <remarks>This property is used to provide a visual representation of the object in the debugger.</remarks>
-	private string DebuggerDisplay => ToString();
+	private string DebuggerDisplay => ToString() ?? string.Empty;
 
 	/// <summary>Sets the orbital elements of the minor planet used for computing MOID values.</summary>
 	/// <param name="semiMajorAxis">The semi-major axis in AU.</param>

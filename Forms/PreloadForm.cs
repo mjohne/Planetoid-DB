@@ -68,7 +68,7 @@ internal partial class PreloadForm : BaseKryptonForm
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
 	/// <remarks>This property is used to provide a custom display string for the debugger.</remarks>
-	private string DebuggerDisplay => ToString();
+	private string DebuggerDisplay => ToString() ?? string.Empty;
 
 	/// <summary>Safely extracts resource data bytes to the specified output file path.</summary>
 	/// <param name="resourceData">The byte array containing the resource data.</param>

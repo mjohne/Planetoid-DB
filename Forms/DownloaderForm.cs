@@ -132,7 +132,7 @@ internal partial class DownloaderForm : BaseKryptonForm
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
 	/// <remarks>This property is used to provide a visual representation of the object in the debugger.</remarks>
-	private string DebuggerDisplay => ToString();
+	private string DebuggerDisplay => ToString() ?? string.Empty;
 
 	/// <summary>Extracts the filename from the given URL and returns the full destination path within the temporary file directory.</summary>
 	/// <param name="url">The absolute URL from which to extract the filename.</param>

@@ -287,7 +287,7 @@ internal partial class OrreryForm : BaseKryptonForm
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
 	/// <remarks>This property is used by the debugger to display the state of the <see cref="OrreryForm"/> instance in a concise format.</remarks>
-	private string DebuggerDisplay => ToString();
+	private string DebuggerDisplay => ToString() ?? string.Empty;
 
 	/// <summary>Creates and configures the embedded <see cref="GLControl"/> and adds it to the GL panel.</summary>
 	/// <remarks>The control is created with an OpenGL compatibility-profile context so that the immediate-mode GL functions used for rendering are available.</remarks>

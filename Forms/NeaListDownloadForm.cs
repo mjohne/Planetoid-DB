@@ -55,8 +55,11 @@ internal partial class NeaListDownloadForm : BaseKryptonForm
 	/// <summary>Gets a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
 	/// <remarks>This property is used to provide a visual representation of the object in the debugger.</remarks>
-	private string DebuggerDisplay => ToString();
+	private string DebuggerDisplay => ToString() ?? string.Empty;
 
+	/// <summary>Downloads an NEA list using the specified URL.</summary>
+	/// <param name="url">The URL of the NEA list to download.</param>
+	/// <param name="autoClose">true to close the downloader automatically; otherwise, false.</param>
 	private void DownloadNeaList(string url, bool autoClose = false)
 	{
 		// Log the menu item click event for debugging purposes
@@ -93,6 +96,9 @@ internal partial class NeaListDownloadForm : BaseKryptonForm
 		}
 	}
 
+	/// <summary>Downloads the specified near-Earth asteroid lists when a network connection is available.</summary>
+	/// <param name="urls">The URLs of the lists to download. Cannot be <c>null</c>.</param>
+	/// <param name="autoClose">A value indicating whether the downloader closes automatically.</param>
 	private void DownloadNeaLists(string[] urls, bool autoClose = false)
 	{
 		ArgumentNullException.ThrowIfNull(argument: urls);

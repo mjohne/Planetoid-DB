@@ -110,7 +110,7 @@ internal partial class TisserandParameterOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
 	/// <remarks>This method is primarily intended for debugging purposes.</remarks>
-	private string DebuggerDisplay => ToString();
+	private string DebuggerDisplay => ToString() ?? string.Empty;
 
 	/// <summary>Updates the progress bar value and text label.</summary>
 	/// <param name="percent">Progress value from 0 to 100.</param>

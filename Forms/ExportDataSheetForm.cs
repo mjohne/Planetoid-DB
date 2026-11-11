@@ -64,7 +64,7 @@ internal partial class ExportDataSheetForm : BaseKryptonForm
 	/// <summary>Gets a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
 	/// <remarks>This property is used to provide a visual representation of the object in the debugger.</remarks>
-	private string DebuggerDisplay => ToString();
+	private string DebuggerDisplay => ToString() ?? string.Empty;
 
 	/// <summary>Sets the internal list of orbit elements that will be used for export operations.</summary>
 	/// <param name="list">A list of orbit element values (strings). The list is stored by reference.</param>

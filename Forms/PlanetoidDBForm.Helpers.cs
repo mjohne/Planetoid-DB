@@ -45,7 +45,7 @@ public partial class PlanetoidDbForm
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
 	/// <remarks>This property is used to provide a custom display string for the debugger.</remarks>
-	private string DebuggerDisplay => ToString();
+	private string DebuggerDisplay => ToString() ?? string.Empty;
 
 	/// <summary>A <see cref="CompositeFormat"/> instance for formatting unavailable bookmark databases.</summary>
 	/// <remarks>This field is used to format bookmark audit messages for unavailable databases.</remarks>
@@ -3604,7 +3604,7 @@ public partial class PlanetoidDbForm
 	#endregion
 
 	/// <summary>Initializes and assigns the ContextMenuStrip for the readable designations ListView.</summary>
-	private void InitializeListViewreadableDesignationContextMenu()
+	private void InitializeListViewReadableDesignationContextMenu()
 	{
 		#region ContextMenuStrip contextMenu
 

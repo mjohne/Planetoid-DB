@@ -80,7 +80,7 @@ internal partial class ArchiveMpcorbForm : BaseKryptonForm
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
 	/// <remarks>This method is used to provide a custom debugger display string.</remarks>
-	private string DebuggerDisplay => ToString();
+	private string DebuggerDisplay => ToString() ?? string.Empty;
 
 	/// <summary>Formats the given number of bytes into a human-readable string with appropriate units.</summary>
 	/// <param name="bytes">The number of bytes to format.</param>

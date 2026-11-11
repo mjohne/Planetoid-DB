@@ -101,7 +101,7 @@ internal partial class RecordsForm : BaseKryptonForm
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
 	/// <remarks>This property is called to obtain a string representation of the current instance.</remarks>
-	private string DebuggerDisplay => ToString();
+	private string DebuggerDisplay => ToString() ?? string.Empty;
 
 	/// <summary>Fills the internal database list with a copy of the provided planetoid data.</summary>
 	/// <param name="arrTemp">The list of raw planetoid data lines from the main form.</param>

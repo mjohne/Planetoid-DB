@@ -95,7 +95,7 @@ internal partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 	public MoidsOfAllMinorPlanetsForm(IReadOnlyList<string> planetoids)
 	{
 		// Log the initialization of the form with the count of planetoid records
-		logger.Info(message: $"Initializing MoidsOfAllMinorPlanetsForm with {planetoids.Count} planetoid records.");
+		logger.Info(message: $"Initializing MoidsOfAllMinorPlanetsForm with {planetoids.Count} planetoid records...");
 		// Initialize the form components and controls
 		InitializeComponent();
 		// Store the planetoid data for processing
@@ -107,7 +107,7 @@ internal partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 			_originalColumnHeaders[i] = listView.Columns[index: i].Text;
 		}
 		// Log that the form has been initialized successfully
-		logger.Info(message: "MoidsOfAllMinorPlanetsForm initialized successfully.");
+		logger.Info(message: "MoidsOfAllMinorPlanetsForm with {_planetoids.Count} planetoids initialized.");
 	}
 
 	#endregion
@@ -117,7 +117,7 @@ internal partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
 	/// <remarks>This property is primarily intended for debugging purposes.</remarks>
-	private string DebuggerDisplay => ToString();
+	private string DebuggerDisplay => ToString() ?? string.Empty;
 
 	/// <summary>Selects the currently highlighted planetoid in the main form and navigates to its record in the owner form, if applicable.</summary>
 	/// <returns><see langword="true"/> if navigation was performed; otherwise, <see langword="false"/>.</returns>

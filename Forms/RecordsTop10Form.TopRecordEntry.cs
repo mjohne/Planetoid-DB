@@ -31,6 +31,6 @@ internal partial class RecordsTop10Form
 	{
 		/// <summary>Gets a string representation of the top record entry for debugging purposes.</summary>
 		/// <remarks>This property is used by the DebuggerDisplay attribute to show a concise representation of the record in the debugger.</remarks>
-		private string DebuggerDisplay => ToString();
+		private string DebuggerDisplay => ToString() ?? string.Empty;
 	}
 }

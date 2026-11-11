@@ -42,11 +42,11 @@ internal partial class RegionCheckerForm : BaseKryptonForm
 	public RegionCheckerForm()
 	{
 		// Log the initialization of the form for debugging purposes
-		logger.Info(message: "Initializing RegionCheckerForm.");
+		logger.Info(message: "Initializing RegionCheckerForm...");
 		// Initialize the form components
 		InitializeComponent();
 		// Log that the form has been initialized successfully
-		logger.Info(message: "RegionCheckerForm initialized successfully.");
+		logger.Info(message: "RegionCheckerForm initialized.");
 	}
 
 	#endregion
@@ -56,7 +56,7 @@ internal partial class RegionCheckerForm : BaseKryptonForm
 	/// <summary>Gets a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
 	/// <remarks>This property is used to provide a visual representation of the object in the debugger.</remarks>
-	private string DebuggerDisplay => ToString();
+	private string DebuggerDisplay => ToString() ?? string.Empty;
 
 	public static bool IsInside<T>(T rightascension, T declination, T minRightascension, T maxRightascension, T minDeclination, T maxDeclination, bool inclusive = true) where T : INumber<T>
 	{

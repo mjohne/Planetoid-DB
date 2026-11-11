@@ -105,7 +105,7 @@ internal partial class RecordsTop10Form : BaseKryptonForm
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
 	/// <remarks>This property is called to obtain a string representation of the current instance.</remarks>
-	private string DebuggerDisplay => ToString();
+	private string DebuggerDisplay => ToString() ?? string.Empty;
 
 	/// <summary>Copies the provided planetoid database into this form instance.</summary>
 	/// <param name="arrTemp">Source records from the main form.</param>

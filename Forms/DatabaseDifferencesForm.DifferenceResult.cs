@@ -34,6 +34,6 @@ internal partial class DatabaseDifferencesForm
 		/// <remarks>The property currently returns the same string as <c>ToString()</c> on this instance, but it can be customized to include more specific information if needed.</remarks>
 		// You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
 		[DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
-		private readonly string DebuggerDisplay => ToString();
+		private readonly string DebuggerDisplay => ToString() ?? string.Empty;
 	}
 }

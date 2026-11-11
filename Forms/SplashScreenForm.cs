@@ -54,7 +54,7 @@ internal partial class SplashScreenForm : BaseKryptonForm
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
 	/// <remarks>This method is called to obtain a string representation of the current instance.</remarks>
-	private string DebuggerDisplay => ToString();
+	private string DebuggerDisplay => ToString() ?? string.Empty;
 
 	/// <summary>Sets the splash screen progress bar value.</summary>
 	/// <param name="value">The value to set on the progress bar. Must be between <c>progressBarSplash.Minimum</c> and <c>progressBarSplash.Maximum</c>.</param>

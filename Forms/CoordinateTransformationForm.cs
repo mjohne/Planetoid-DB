@@ -130,7 +130,7 @@ internal partial class CoordinateTransformationForm : BaseKryptonForm
 
 	/// <summary>Gets a string representation of the form for debugging purposes.</summary>
 	/// <remarks>This property is used by the debugger to display a concise description of the form's state.</remarks>
-	private string DebuggerDisplay => ToString();
+	private string DebuggerDisplay => ToString() ?? string.Empty;
 
 	/// <summary>Runs the conversion when Enter is used as the dialog's default action.</summary>
 	/// <param name="keyData">The key and modifier keys to process.</param>

@@ -32,6 +32,6 @@ internal partial class TisserandParameterOfAllMinorPlanetsForm
 		/// <summary>Returns a string representation of the Tisserand row result for debugging purposes.</summary>
 		/// <returns>A string representation of the Tisserand row result.</returns>
 		/// <remarks>This property is used by the debugger to display the contents of the RowResult record in a human-readable format.</remarks>
-		private string DebuggerDisplay => ToString();
+		private string DebuggerDisplay => ToString() ?? string.Empty;
 	}
 }

@@ -37,6 +37,6 @@ internal partial class OrreryForm
 		/// <summary>Returns a short debugger display string for this instance.</summary>
 		/// <returns>A string representation of the current instance for use in the debugger.</returns>
 		/// <remarks>This property is used by the debugger to display the state of the <see cref="OrreryForm"/> instance in a concise format.</remarks>
-		private string DebuggerDisplay => ToString();
+		private string DebuggerDisplay => ToString() ?? string.Empty;
 	}
 }
