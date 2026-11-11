@@ -31,5 +31,5 @@ internal record struct SexagesimalTime<T>(int Hours, int Minutes, T Seconds) whe
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
 	/// <remarks>This property is used to provide a visual representation of the object in the debugger.</remarks>
-	private readonly string DebuggerDisplay => ToString();
+	private readonly string DebuggerDisplay => ToString() ?? string.Empty;
 }

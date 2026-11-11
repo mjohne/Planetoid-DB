@@ -52,5 +52,5 @@ internal sealed class LogEventTarget : Target
 	/// <summary>Returns a string representation of the current object for debugging purposes.</summary>
 	/// <returns>A string representation of the current object.</returns>
 	/// <remarks>This property is used by the debugger to display information about the object.</remarks>
-	private string DebuggerDisplay => ToString();
+	private string DebuggerDisplay => ToString() ?? string.Empty;
 }

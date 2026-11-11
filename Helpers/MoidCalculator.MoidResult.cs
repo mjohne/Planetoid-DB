@@ -33,6 +33,6 @@ internal partial class MoidCalculator
 		/// <summary>Returns a string representation of the MOID result for debugging purposes.</summary>
 		/// <returns>A string representation of the MOID result for debugging purposes.</returns>
 		/// <remarks>This method is used by the debugger to display a concise summary of the MOID result.</remarks>
-		private string DebuggerDisplay => ToString();
+		private string DebuggerDisplay => ToString() ?? string.Empty;
 	}
 }

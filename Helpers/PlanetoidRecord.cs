@@ -88,5 +88,5 @@ internal readonly record struct PlanetoidRecord(string Index, string MagAbs, str
 	/// <summary>Returns a string representation of the PlanetoidRecord for debugging purposes.</summary>
 	/// <returns>A string representation of the PlanetoidRecord.</returns>
 	/// <remarks>This property is used by the DebuggerDisplay attribute to provide a concise view of the record's contents during debugging.</remarks>
-	private string DebuggerDisplay => ToString();
+	private string DebuggerDisplay => ToString() ?? string.Empty;
 }
