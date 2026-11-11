@@ -39,6 +39,6 @@ internal partial class AsteroidFamiliesForm
 		/// <summary>Gets a string representation of the planetoid entry for debugging purposes.</summary>
 		/// <remarks>This property is used to provide a visual representation of the object in the debugger.</remarks>
 		/// <returns>A string representation of the current instance for use in the debugger.</returns>
-		private string DebuggerDisplay => ToString();
+		private string DebuggerDisplay => ToString() ?? string.Empty;
 	}
 }

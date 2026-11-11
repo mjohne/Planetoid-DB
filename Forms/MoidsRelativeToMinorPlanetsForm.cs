@@ -81,7 +81,7 @@ internal partial class MoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
 	/// <remarks>This property is used to provide a visual representation of the object in the debugger.</remarks>
-	private string DebuggerDisplay => ToString();
+	private string DebuggerDisplay => ToString() ?? string.Empty;
 
 	/// <summary>Extracts the readable designation string from a single MPCORB record line.</summary>
 	/// <param name="line">The raw MPCORB record string.</param>

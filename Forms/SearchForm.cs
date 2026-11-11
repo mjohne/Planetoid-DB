@@ -108,7 +108,7 @@ internal partial class SearchForm : BaseKryptonForm
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
 	/// <remarks>This property is used to provide a custom debugger display string.</remarks>
-	private string DebuggerDisplay => ToString();
+	private string DebuggerDisplay => ToString() ?? string.Empty;
 
 	/// <summary>Initializes the property map with mappings between property names and their corresponding accessors.</summary>
 	/// <remarks>This method populates the internal property map with key-value pairs that associate human-readable property names with lambda expressions for accessing the corresponding properties of the target object. This mapping is typically used for dynamic property access or data export scenarios.</remarks>

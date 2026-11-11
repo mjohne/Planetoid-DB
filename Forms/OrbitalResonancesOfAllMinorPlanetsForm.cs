@@ -154,7 +154,7 @@ internal partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
 	/// <remarks>This property is primarily intended for debugging purposes.</remarks>
-	private string DebuggerDisplay => ToString();
+	private string DebuggerDisplay => ToString() ?? string.Empty;
 
 	/// <summary>Filters the result set list accordingly.</summary>
 	/// <remarks>This method applies the active filter settings to the results and refreshes the list view to reflect the filtered data. The filter includes only results for selected planets and, if enabled, further restricts by resonance deviation. The method should be called whenever filter settings or selection change to ensure the displayed data remains accurate.</remarks>

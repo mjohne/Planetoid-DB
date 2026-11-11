@@ -69,11 +69,11 @@ internal partial class PlanetaryInformationForm : BaseKryptonForm
 	public PlanetaryInformationForm()
 	{
 		// Log the initialization of the form instance
-		logger.Info(message: "Initializing PlanetaryInformationForm instance.");
+		logger.Info(message: "Initializing PlanetaryInformationForm...");
 		// Initialize the form components
 		InitializeComponent();
 		// Log successful initialization
-		logger.Info(message: "PlanetaryInformationForm instance initialized successfully.");
+		logger.Info(message: "PlanetaryInformationForm initialized.");
 	}
 
 	#endregion
@@ -83,7 +83,7 @@ internal partial class PlanetaryInformationForm : BaseKryptonForm
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
 	/// <remarks>This property is used to provide a visual representation of the object in the debugger.</remarks>
-	private string DebuggerDisplay => ToString();
+	private string DebuggerDisplay => ToString() ?? string.Empty;
 
 	/// <summary>Astronomical unit expressed in kilometres.</summary>
 	/// <remarks>Used to convert distances from AU to km when composing the display values.</remarks>

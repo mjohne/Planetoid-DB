@@ -73,7 +73,7 @@ internal partial class AEIDiagram3DForm : BaseKryptonForm
 		UpdateStatusLabel();
 	}
 
-	private string DebuggerDisplay => ToString();
+	private string DebuggerDisplay => ToString() ?? string.Empty;
 
 	private void CreateGlControl()
 	{

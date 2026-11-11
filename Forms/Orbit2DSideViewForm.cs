@@ -74,14 +74,14 @@ internal partial class Orbit2DSideViewForm : BaseKryptonForm
 	/// <remarks>Colors are chosen to be visually distinct from one another and from the planetoid (drawn in orange-red).</remarks>
 	private static readonly ScottPlot.Color[] PlanetColors =
 	[
-		new ScottPlot.Color(red: 0xB0, green: 0xB0, blue: 0xD0),   // Mercury – light blue-gray
-		new ScottPlot.Color(red: 0xFF, green: 0xD7, blue: 0x00),   // Venus – golden
-		new ScottPlot.Color(red: 0x40, green: 0x80, blue: 0xFF),   // Earth – blue
-		new ScottPlot.Color(red: 0xCC, green: 0x44, blue: 0x22),   // Mars – red-brown
-		new ScottPlot.Color(red: 0xE8, green: 0xBE, blue: 0x78),   // Jupiter – tan
-		new ScottPlot.Color(red: 0xD4, green: 0xC0, blue: 0x70),   // Saturn – pale gold
-		new ScottPlot.Color(red: 0x80, green: 0xE0, blue: 0xE8),   // Uranus – cyan
-		new ScottPlot.Color(red: 0x30, green: 0x50, blue: 0xCC),   // Neptune – deep blue
+		new ScottPlot.Color(red: 0xB0, green: 0xB0, blue: 0xD0), // Mercury – light blue-gray
+		new ScottPlot.Color(red: 0xFF, green: 0xD7, blue: 0x00), // Venus – golden
+		new ScottPlot.Color(red: 0x40, green: 0x80, blue: 0xFF), // Earth – blue
+		new ScottPlot.Color(red: 0xCC, green: 0x44, blue: 0x22), // Mars – red-brown
+		new ScottPlot.Color(red: 0xE8, green: 0xBE, blue: 0x78), // Jupiter – tan
+		new ScottPlot.Color(red: 0xD4, green: 0xC0, blue: 0x70), // Saturn – pale gold
+		new ScottPlot.Color(red: 0x80, green: 0xE0, blue: 0xE8), // Uranus – cyan
+		new ScottPlot.Color(red: 0x30, green: 0x50, blue: 0xCC), // Neptune – deep blue
 	];
 
 	/// <summary>Radius of the Sun marker in AU used for the central circle in the diagram.</summary>
@@ -126,7 +126,7 @@ internal partial class Orbit2DSideViewForm : BaseKryptonForm
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
 	/// <remarks>The property currently returns the same string as <c>ToString()</c> on this instance, but can be customized to include more specific information if needed.</remarks>
-	private string DebuggerDisplay => ToString();
+	private string DebuggerDisplay => ToString() ?? string.Empty;
 
 	/// <summary>Renders the 2D side-view orbital diagram in the ScottPlot control.</summary>
 	/// <remarks><para>Each orbit is represented as a straight line through the origin (Sun). The perihelion arm of the line points in the direction of the orbital inclination (0° = positive X-axis, 90° = positive Y-axis, counterclockwise) and has length equal to the perihelion distance a·(1–e). The aphelion arm points in the opposite direction and has length a·(1+e).</para>

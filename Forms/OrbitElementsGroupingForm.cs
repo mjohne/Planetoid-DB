@@ -87,7 +87,7 @@ internal partial class OrbitElementsGroupingForm : BaseKryptonForm
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
 	/// <remarks>This property is used to provide a visual representation of the object in the debugger.</remarks>
-	private string DebuggerDisplay => ToString();
+	private string DebuggerDisplay => ToString() ?? string.Empty;
 
 	/// <summary>Retrieves the name of the orbital element corresponding to the specified index.</summary>
 	/// <remarks>The method maps specific indices to standard orbital element names. If an index outside the range 0–6 is provided, the method returns "Unknown".</remarks>

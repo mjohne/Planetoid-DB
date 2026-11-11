@@ -112,7 +112,7 @@ internal partial class Orbit2DTopViewForm : BaseKryptonForm
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
 	/// <remarks>The property currently returns the same string as <c>ToString()</c> on this instance, but can be customized to include more specific information if needed.</remarks>
-	private string DebuggerDisplay => ToString();
+	private string DebuggerDisplay => ToString() ?? string.Empty;
 
 	/// <summary>Renders the 2D orbital plane diagram in the ScottPlot control.</summary>
 	/// <remarks>The method clears the plot, then adds the Sun marker, the eight planet orbit ellipses, and the planetoid orbit ellipse. Axis limits are set to enclose the planetoid's orbit; planet orbits that extend beyond this range are still drawn and accessible by zooming out. Each orbit is drawn with a transparent fill and a colored border only.</remarks>

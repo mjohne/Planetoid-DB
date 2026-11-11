@@ -117,7 +117,7 @@ internal partial class MaxoidsOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
 	/// <remarks>This property is primarily intended for debugging purposes.</remarks>
-	private string DebuggerDisplay => ToString();
+	private string DebuggerDisplay => ToString() ?? string.Empty;
 
 	/// <summary>Selects the currently highlighted planetoid in the main form and navigates to its record in the owner form, if applicable.</summary>
 	/// <returns><see langword="true"/> if navigation was performed; otherwise, <see langword="false"/>.</returns>

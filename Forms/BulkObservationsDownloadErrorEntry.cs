@@ -24,11 +24,12 @@ namespace Planetoid_DB.Forms;
 /// <param name="ErrorDescription">Detailed error explanation.</param>
 /// <returns>A string representation of the current object for debugging purposes.</returns>
 /// <remarks>Instances of this record are immutable and intended for display purposes only.</remarks>
-[DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}") ]
+// You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
+[DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)}(),nq}}")]
 internal sealed record BulkObservationsDownloadErrorEntry(DateTime Timestamp, string Url, string ErrorType, string ErrorDescription)
 {
 	/// <summary>Returns a string representation of the current object for debugging purposes.</summary>
 	/// <returns>A string representation of the current object.</returns>
 	/// <remarks>This property is used by the debugger to display a concise representation of the object.</remarks>
-	private string DebuggerDisplay => ToString();
+	private string DebuggerDisplay => ToString() ?? string.Empty;
 }

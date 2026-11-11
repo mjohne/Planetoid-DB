@@ -156,7 +156,7 @@ internal partial class BulkObservationsDataDownloaderForm : BaseKryptonForm
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
 	/// <remarks>This property is used to provide a visual representation of the object in the debugger.</remarks>
-	private string DebuggerDisplay => ToString();
+	private string DebuggerDisplay => ToString() ?? string.Empty;
 
 	/// <summary>Sets the minimum index value for the range spinner.</summary>
 	/// <param name="minimum">The minimum 1-based planetoid index (usually 1).</param>

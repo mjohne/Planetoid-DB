@@ -94,7 +94,7 @@ internal partial class MoidsAndMaxoidsOfOneMinorPlanetForm : BaseKryptonForm
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
 	/// <remarks>This property is used to provide a visual representation of the object in the debugger.</remarks>
-	private string DebuggerDisplay => ToString();
+	private string DebuggerDisplay => ToString() ?? string.Empty;
 
 	/// <summary>Sets the orbital elements of the minor planet used for computing MOID and MAXOID values.</summary>
 	/// <param name="semiMajorAxis">The semi-major axis in AU.</param>

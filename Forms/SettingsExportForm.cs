@@ -57,7 +57,7 @@ internal partial class SettingsExportForm : BaseKryptonForm
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
 	/// <remarks>This method is used to provide a custom display string for the debugger.</remarks>
-	private string DebuggerDisplay => ToString();
+	private string DebuggerDisplay => ToString() ?? string.Empty;
 
 	/// <summary>Shows a save file dialog and, if confirmed, calls the supplied <paramref name="exporter"/> action.</summary>
 	/// <param name="filter">The file-type filter string for the save dialog.</param>

@@ -84,7 +84,7 @@ internal partial class FilterForm : BaseKryptonForm
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
 	/// <remarks>This property is used to provide a visual representation of the object in the debugger.</remarks>
-	private string DebuggerDisplay => ToString();
+	private string DebuggerDisplay => ToString() ?? string.Empty;
 
 	/// <summary>Fills the internal planetoids database from the provided list.</summary>
 	/// <param name="arrTemp">A list containing planetoid records as strings.</param>

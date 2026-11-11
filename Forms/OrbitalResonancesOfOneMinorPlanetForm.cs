@@ -86,11 +86,11 @@ internal partial class OrbitalResonancesOfOneMinorPlanetForm : BaseKryptonForm
 	public OrbitalResonancesOfOneMinorPlanetForm()
 	{
 		// Log the initialization of the form for debugging purposes
-		logger.Info(message: "Initializing OrbitalResonancesOfOneMinorPlanetForm.");
+		logger.Info(message: "Initializing OrbitalResonancesOfOneMinorPlanetForm...");
 		// Initialize the form components (UI elements)
 		InitializeComponent();
 		// Log that the form has been initialized successfully
-		logger.Info(message: "OrbitalResonancesOfOneMinorPlanetForm initialized successfully.");
+		logger.Info(message: "OrbitalResonancesOfOneMinorPlanetForm initialized.");
 	}
 
 	#endregion
@@ -100,7 +100,7 @@ internal partial class OrbitalResonancesOfOneMinorPlanetForm : BaseKryptonForm
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
 	/// <remarks>This property is used to provide a visual representation of the object in the debugger.</remarks>
-	private string DebuggerDisplay => ToString();
+	private string DebuggerDisplay => ToString() ?? string.Empty;
 
 	/// <summary>Sets the semi-major axis of the planetoid used for computing orbital resonances.</summary>
 	/// <param name="semiMajorAxis">The semi-major axis in AU.</param>

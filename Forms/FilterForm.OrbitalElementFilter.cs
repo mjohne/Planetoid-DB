@@ -38,6 +38,6 @@ internal partial class FilterForm
 		/// <summary>Returns a string representation of the orbital element filter for debugging purposes.</summary>
 		/// <returns>A string representation of the orbital element filter.</returns>
 		/// <remarks>This property is used to provide a visual representation of the object in the debugger.</remarks>
-		private string DebuggerDisplay => ToString();
+		private string DebuggerDisplay => ToString() ?? string.Empty;
 	}
 }

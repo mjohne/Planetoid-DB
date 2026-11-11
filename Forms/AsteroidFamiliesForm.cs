@@ -70,8 +70,13 @@ internal partial class AsteroidFamiliesForm : BaseKryptonForm
 	/// <param name="planetoids">The list of raw planetoid data lines from the MPCORB database.</param>
 	public AsteroidFamiliesForm(IReadOnlyList<string> planetoids)
 	{
+		// Log the initialization of the form for debugging purposes
+		logger.Info(message: "Initializing AsteroidFamiliesForm...");
+		// Initialize the form components
 		InitializeComponent();
 		_planetoids = planetoids;
+		// Log that the form has been successfully initialized
+		logger.Info(message: "AsteroidFamiliesForm initialized.");		
 	}
 
 	#endregion
@@ -81,7 +86,7 @@ internal partial class AsteroidFamiliesForm : BaseKryptonForm
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
 	/// <remarks>This property is used to provide a visual representation of the object in the debugger.</remarks>
-	private string DebuggerDisplay => ToString();
+	private string DebuggerDisplay => ToString() ?? string.Empty;
 
 	/// <summary>Opens a save dialog and writes the specified families to a text file asynchronously.</summary>
 	/// <param name="families">The families to export.</param>

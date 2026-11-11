@@ -34,6 +34,6 @@ internal partial class DistributionsForm
 		/// <summary>Returns a short debugger display string for this instance.</summary>
 		/// <returns>The display text for the debugger.</returns>
 		/// <remarks>The property currently returns the same string as <c>ToString()</c> on this instance, but it can be customized to include more specific information if needed.</remarks>
-		private string DebuggerDisplay => ToString();
+		private string DebuggerDisplay => ToString() ?? string.Empty;
 	}
 }

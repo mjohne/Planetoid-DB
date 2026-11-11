@@ -55,7 +55,7 @@ internal partial class TerminologyForm : BaseKryptonForm
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
 	/// <remarks>This method is used to provide a visual representation of the object in the debugger.</remarks>
-	private string DebuggerDisplay => ToString();
+	private string DebuggerDisplay => ToString() ?? string.Empty;
 
 	/// <summary>Gets the status label to be used for displaying information.</summary>
 	/// <remarks>Derived classes should override this property to provide the specific label.</remarks>

@@ -120,7 +120,7 @@ internal partial class CheckDatabaseForm : BaseKryptonForm
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
 	/// <remarks>This property is used to provide a visual representation of the object in the debugger.</remarks>
-	private string DebuggerDisplay => ToString();
+	private string DebuggerDisplay => ToString() ?? string.Empty;
 
 	/// <summary>Copies the specified text to the clipboard.</summary>
 	/// <param name="value">The text to copy to the clipboard.</param>

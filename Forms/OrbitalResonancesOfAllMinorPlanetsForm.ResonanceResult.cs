@@ -32,6 +32,6 @@ internal partial class OrbitalResonancesOfAllMinorPlanetsForm
 	{
 		/// <summary>Provides a string representation of the resonance result for debugging purposes.</summary>
 		/// <remarks>This property is used by the debugger to display the resonance result in a readable format.</remarks>
-		private string DebuggerDisplay => ToString();
+		private string DebuggerDisplay => ToString() ?? string.Empty;
 	}
 }

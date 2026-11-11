@@ -36,6 +36,6 @@ internal partial class MaxoidsOfOneMinorPlanetForm
 		/// <summary>Returns a string representation of the orbital elements for debugging purposes.</summary>		
 		/// <returns>A string representation of the orbital elements.</returns>
 		/// <remarks>This property is used to provide a visual representation of the orbital elements in the debugger.</remarks>
-		private string DebuggerDisplay => ToString();
+		private string DebuggerDisplay => ToString() ?? string.Empty;
 	}
 }

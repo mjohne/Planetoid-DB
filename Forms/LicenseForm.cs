@@ -68,7 +68,7 @@ internal partial class LicenseForm : BaseKryptonForm
 	/// <summary>Gets a short debugger display string for this instance.</summary>
 	/// <remarks>This property is used to provide a visual representation of the object in the debugger.</remarks>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	private string DebuggerDisplay => ToString();
+	private string DebuggerDisplay => ToString() ?? string.Empty;
 
 	/// <summary>Asynchronously extracts an embedded resource to a file.</summary>
 	/// <param name="nameSpace">The root namespace.</param>

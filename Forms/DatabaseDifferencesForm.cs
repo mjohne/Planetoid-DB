@@ -105,7 +105,7 @@ internal partial class DatabaseDifferencesForm : BaseKryptonForm
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
 	/// <remarks>This property is used to provide a custom debugger display string.</remarks>
-	private string DebuggerDisplay => ToString();
+	private string DebuggerDisplay => ToString() ?? string.Empty;
 
 	/// <summary>Compares two PlanetoidRecord objects and returns a string describing the differences.</summary>
 	/// <param name="r1">The first PlanetoidRecord to compare.</param>

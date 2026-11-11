@@ -206,7 +206,7 @@ internal partial class Orbit3DForm : BaseKryptonForm
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
 	/// <remarks>This property is used by the debugger to display the state of the <see cref="Orbit3DForm"/> instance in a concise format. It currently returns the same string as <c>ToString()</c>, but can be customized to include more specific information if needed.</remarks>
-	private string DebuggerDisplay => ToString();
+	private string DebuggerDisplay => ToString() ?? string.Empty;
 
 	/// <summary>Creates and configures the embedded <see cref="GLControl"/> and adds it to the GL panel.</summary>
 	/// <remarks>The control is created with an OpenGL compatibility-profile context so that the immediate-mode GL functions (glBegin/glEnd) used for rendering are available.</remarks>
