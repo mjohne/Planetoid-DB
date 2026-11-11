@@ -46,5 +46,5 @@ internal sealed record EphemerisEntry(DateTimeOffset Time, double RightAscension
 	/// <summary>Gets a string representation of the instance for debugging purposes.</summary>
 	/// <returns>A string representation of the instance.</returns>
 	/// <remarks>This property is used by the <see cref="DebuggerDisplayAttribute"/> to provide a concise summary of the instance in the debugger.</remarks>
-	private string DebuggerDisplay => ToString();
+	private string DebuggerDisplay => ToString() ?? string.Empty;
 }
