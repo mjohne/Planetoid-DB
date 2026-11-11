@@ -41,11 +41,14 @@ internal partial class DerivedElements
 		(Name: "Neptune", Period: 164.791320)
 	];
 
+	/// <summary>Mean tropical year length, in days.</summary>
 	private const double siderealEarthYearInDays = 365.242188;
 
 	/// <summary>Represents the number of days in a Julian year.</summary>
 	/// <remarks>The Julian year of 365.25 days is used for Julian date arithmetic and mean motion conversions.</remarks>
 	private const double DaysPerJulianYear = 365.25;
+
+	#region Helpers
 
 	/// <summary>Normalizes an angle in degrees to the range [0, 360).</summary>
 	/// <param name="degrees">The angle in degrees to normalize.</param>
@@ -57,6 +60,13 @@ internal partial class DerivedElements
 		// If the angle is negative, add 360 to bring it into the positive range.
 		return angle < 0 ? angle + 360.0 : angle;
 	}
+
+	/// <summary>Returns a string representation of the orbital resonance for debugging purposes.</summary>
+	/// <returns>A string representation of the orbital resonance.</returns>
+	/// <remarks>This property is used to provide a human-readable representation of the orbital resonance for debugging.</remarks>
+	private string DebuggerDisplay => ToString() ?? string.Empty;
+
+	#endregion
 
 	/// <summary>Calculates the semi-minor axis of an ellipse.</summary>
 	/// <param name="semiMajorAxis">The semi-major axis of the ellipse.</param>
@@ -1595,8 +1605,1115 @@ internal partial class DerivedElements
 		return results;
 	}
 
-	/// <summary>Returns a string representation of the orbital resonance for debugging purposes.</summary>
-	/// <returns>A string representation of the orbital resonance.</returns>
-	/// <remarks>This property is used to provide a human-readable representation of the orbital resonance for debugging.</remarks>
-	private string DebuggerDisplay => ToString() ?? string.Empty;
+	#region Apparent magnitude
+
+	/// <summary>Calculates the apparent visual magnitude (m) of an asteroid using the IAU H-G magnitude system.</summary>
+	/// <param name="absoluteMagnitudeH">The absolute magnitude H in mag.</param>
+	/// <param name="slopeParameterG">The slope parameter G (typically ~0.15 for unknown surface properties).</param>
+	/// <param name="heliocentricDistance">The distance from the Sun r in AU.</param>
+	/// <param name="geocentricDistance">The distance from the Earth Δ in AU.</param>
+	/// <param name="phaseAngle">The Sun-asteroid-Earth phase angle α in degrees (default is 0.0).</param>
+	/// <returns>The calculated apparent magnitude in mag. Returns double.NaN if distances are non-positive.</returns>
+	/// <remarks>Calculated using the IAU H-G magnitude system (Bowell et al., 1989): m = H + 5·log10(r·Δ) - 2.5·log10((1-G)·Φ₁ + G·Φ₂).</remarks>
+	public static double CalculateApparentMagnitude(double absoluteMagnitudeH, double slopeParameterG, double heliocentricDistance, double geocentricDistance, double phaseAngle = 0.0)
+	{
+		// Validate input parameters: distances must be strictly positive.
+		if (heliocentricDistance <= 0.0 || geocentricDistance <= 0.0)
+		{
+			return double.NaN;
+		}
+		// Convert phase angle α from degrees to radians and normalize
+		double alphaRad = double.DegreesToRadians(degrees: NormalizeAngle360(degrees: phaseAngle));
+		double halfAlpha = alphaRad / 2.0;
+		double tanHalfAlpha = Math.Tan(a: halfAlpha);
+		// Calculate IAU standard H-G phase functions Φ₁ and Φ₂ (Bowell et al., 1989)
+		double phi1 = Math.Exp(d: -3.33 * Math.Pow(x: tanHalfAlpha, y: 0.63));
+		double phi2 = Math.Exp(d: -1.87 * Math.Pow(x: tanHalfAlpha, y: 1.22));
+		// Combined phase integral Φ(α) = (1 - G)·Φ₁ + G·Φ₂
+		double phaseFunction = ((1.0 - slopeParameterG) * phi1) + (slopeParameterG * phi2);
+		// Apparent magnitude formula: m = H + 5·log10(r·Δ) - 2.5·log10(Φ(α))
+		return absoluteMagnitudeH + (5.0 * Math.Log10(d: heliocentricDistance * geocentricDistance)) - (2.5 * Math.Log10(d: phaseFunction));
+	}
+
+	/// <summary>Calculates the apparent visual magnitude (m) assuming a standard slope parameter G = 0.15 and zero phase angle.</summary>
+	/// <param name="absoluteMagnitudeH">The absolute magnitude H in mag.</param>
+	/// <param name="heliocentricDistance">The distance from the Sun r in AU.</param>
+	/// <param name="geocentricDistance">The distance from the Earth Δ in AU.</param>
+	/// <returns>The calculated apparent magnitude in mag.</returns>
+	public static double CalculateApparentMagnitude(double absoluteMagnitudeH, double heliocentricDistance, double geocentricDistance)
+	{
+		return CalculateApparentMagnitude(absoluteMagnitudeH: absoluteMagnitudeH, slopeParameterG: 0.15, heliocentricDistance: heliocentricDistance, geocentricDistance: geocentricDistance, phaseAngle: 0.0);
+	}
+
+	#endregion
+
+	#region Geocentric distance
+
+	/// <summary>Calculates the geocentric distance (Δ) from 3D heliocentric Cartesian coordinates.</summary>
+	/// <param name="x">The heliocentric X position of the object in AU.</param>
+	/// <param name="y">The heliocentric Y position of the object in AU.</param>
+	/// <param name="z">The heliocentric Z position of the object in AU.</param>
+	/// <param name="earthX">The heliocentric X position of Earth in AU.</param>
+	/// <param name="earthY">The heliocentric Y position of Earth in AU.</param>
+	/// <param name="earthZ">The heliocentric Z position of Earth in AU.</param>
+	/// <returns>The geocentric distance Δ in AU.</returns>
+	/// <remarks>Calculated as Δ = √((x - x_E)² + (y - y_E)² + (z - z_E)²).</remarks>
+	public static double CalculateGeocentricDistance(double x, double y, double z, double earthX, double earthY, double earthZ)
+	{
+		// Calculate the difference vector between the object and Earth
+		double dx = x - earthX;
+		double dy = y - earthY;
+		double dz = z - earthZ;
+		// The geocentric distance (Δ) is the Euclidean norm of the difference vector.
+		return Math.Sqrt(d: (dx * dx) + (dy * dy) + (dz * dz));
+	}
+
+	/// <summary>Calculates the geocentric distance (Δ) from heliocentric ecliptic spherical coordinates.</summary>
+	/// <param name="heliocentricDistance">The distance of the object from the Sun r in AU.</param>
+	/// <param name="heliocentricLongitude">The heliocentric ecliptic longitude λ in degrees.</param>
+	/// <param name="heliocentricLatitude">The heliocentric ecliptic latitude b in degrees.</param>
+	/// <param name="earthHeliocentricLongitude">The heliocentric ecliptic longitude of Earth λ_E in degrees.</param>
+	/// <param name="earthHeliocentricDistance">The distance of Earth from the Sun R in AU (default is 1.00000011 AU).</param>
+	/// <returns>The geocentric distance Δ in AU.</returns>
+	/// <remarks>Converts ecliptic spherical coordinates to Cartesian coordinates and calculates the 3D distance to Earth.</remarks>
+	public static double CalculateGeocentricDistance(double heliocentricDistance, double heliocentricLongitude, double heliocentricLatitude, double earthHeliocentricLongitude, double earthHeliocentricDistance = 1.00000011)
+	{
+		// Convert angles from degrees to radians
+		double lRad = double.DegreesToRadians(degrees: heliocentricLongitude);
+		double bRad = double.DegreesToRadians(degrees: heliocentricLatitude);
+		double lEarthRad = double.DegreesToRadians(degrees: earthHeliocentricLongitude);
+		// Convert object position to Cartesian coordinates
+		double x = heliocentricDistance * Math.Cos(d: bRad) * Math.Cos(d: lRad);
+		double y = heliocentricDistance * Math.Cos(d: bRad) * Math.Sin(a: lRad);
+		double z = heliocentricDistance * Math.Sin(a: bRad);
+		// Convert Earth position to Cartesian coordinates (assuming Earth ecliptic latitude b ≈ 0)
+		double earthX = earthHeliocentricDistance * Math.Cos(d: lEarthRad);
+		double earthY = earthHeliocentricDistance * Math.Sin(a: lEarthRad);
+		return CalculateGeocentricDistance(x: x, y: y, z: z, earthX: earthX, earthY: earthY, earthZ: 0.0);
+	}
+
+	/// <summary>Calculates the geocentric distance (Δ) using the Law of Cosines given heliocentric distances and the heliocentric angle.</summary>
+	/// <param name="heliocentricDistance">The distance of the object from the Sun r in AU.</param>
+	/// <param name="earthHeliocentricDistance">The distance of Earth from the Sun R in AU.</param>
+	/// <param name="heliocentricAngle">The angle at the Sun between the Sun-Earth vector and Sun-object vector in degrees.</param>
+	/// <returns>The geocentric distance Δ in AU.</returns>
+	/// <remarks>Calculated using the Law of Cosines: Δ = √(r² + R² - 2·r·R·cos(γ)).</remarks>
+	public static double CalculateGeocentricDistance(double heliocentricDistance, double earthHeliocentricDistance, double heliocentricAngle)
+	{
+		double gammaRad = double.DegreesToRadians(degrees: NormalizeAngle360(degrees: heliocentricAngle));
+		double rSq = heliocentricDistance * heliocentricDistance;
+		double earthRSq = earthHeliocentricDistance * earthHeliocentricDistance;
+		return Math.Sqrt(d: rSq + earthRSq - (2.0 * heliocentricDistance * earthHeliocentricDistance * Math.Cos(d: gammaRad)));
+	}
+
+	#endregion
+
+	#region Heliocentric distance
+
+	/// <summary>Calculates the heliocentric distance (r) from 3D Cartesian coordinates.</summary>
+	/// <param name="x">The heliocentric X position of the object in AU.</param>
+	/// <param name="y">The heliocentric Y position of the object in AU.</param>
+	/// <param name="z">The heliocentric Z position of the object in AU.</param>
+	/// <returns>The heliocentric distance r in AU.</returns>
+	/// <remarks>Calculated as r = √(x² + y² + z²).</remarks>
+	public static double CalculateHeliocentricDistanceFromCartesianCoordinates(double x, double y, double z)
+	{
+		// The heliocentric distance (r) is the Euclidean norm of the position vector from the Sun.
+		return Math.Sqrt(d: (x * x) + (y * y) + (z * z));
+	}
+
+	/// <summary>Calculates the heliocentric distance (r) using the conic section equation and true anomaly.</summary>
+	/// <param name="semiMajorAxis">The semi-major axis a in AU.</param>
+	/// <param name="numericalEccentricity">The numerical eccentricity e.</param>
+	/// <param name="trueAnomaly">The true anomaly ν in degrees.</param>
+	/// <returns>The heliocentric distance r in AU.</returns>
+	/// <remarks>Calculated using the conic section equation: r = a(1 - e²) / (1 + e·cos(ν)).</remarks>
+	public static double CalculateHeliocentricDistance(double semiMajorAxis, double numericalEccentricity, double trueAnomaly)
+	{
+		return CalculateCurrentDistanceFromFocus(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity, trueAnomaly: trueAnomaly);
+	}
+
+	/// <summary>Calculates the heliocentric distance (r) using the eccentric anomaly.</summary>
+	/// <param name="semiMajorAxis">The semi-major axis a in AU.</param>
+	/// <param name="numericalEccentricity">The numerical eccentricity e.</param>
+	/// <param name="eccentricAnomaly">The eccentric anomaly E in degrees.</param>
+	/// <returns>The heliocentric distance r in AU.</returns>
+	/// <remarks>Calculated as r = a · (1 - e · cos(E)).</remarks>
+	public static double CalculateHeliocentricDistanceFromEccentricAnomaly(double semiMajorAxis, double numericalEccentricity, double eccentricAnomaly)
+	{
+		double eRad = double.DegreesToRadians(degrees: NormalizeAngle360(degrees: eccentricAnomaly));
+		return semiMajorAxis * (1.0 - (numericalEccentricity * Math.Cos(d: eRad)));
+	}
+
+	#endregion
+
+	#region Elongation
+
+	/// <summary>Calculates the geocentric elongation (ψ) using the Law of Cosines from distances.</summary>
+	/// <param name="heliocentricDistance">The distance of the object from the Sun r in AU.</param>
+	/// <param name="geocentricDistance">The distance of the object from Earth Δ in AU.</param>
+	/// <param name="earthHeliocentricDistance">The distance of Earth from the Sun R in AU (default is 1.00000011 AU).</param>
+	/// <returns>The elongation angle at Earth (Sun-Earth-Object angle) in degrees [0°, 180°]. Returns double.NaN if distances are non-positive.</returns>
+	/// <remarks>Calculated using the Law of Cosines: cos(ψ) = (R² + Δ² - r²) / (2 · R · Δ).</remarks>
+	public static double CalculateElongation(double heliocentricDistance, double geocentricDistance, double earthHeliocentricDistance = 1.00000011)
+	{
+		// Validate input parameters: distances must be strictly positive.
+		if (heliocentricDistance <= 0.0 || geocentricDistance <= 0.0 || earthHeliocentricDistance <= 0.0)
+		{
+			return double.NaN;
+		}
+		double rSq = heliocentricDistance * heliocentricDistance;
+		double deltaSq = geocentricDistance * geocentricDistance;
+		double earthRSq = earthHeliocentricDistance * earthHeliocentricDistance;
+		// Cosine of elongation angle from Law of Cosines
+		double cosPsi = (earthRSq + deltaSq - rSq) / (2.0 * earthHeliocentricDistance * geocentricDistance);
+		// Clamp value to [-1.0, 1.0] to prevent floating point inaccuracy out-of-range errors
+		cosPsi = Math.Clamp(value: cosPsi, min: -1.0, max: 1.0);
+		// Return elongation in degrees
+		return double.RadiansToDegrees(radians: Math.Acos(d: cosPsi));
+	}
+
+	/// <summary>Calculates the geocentric elongation (ψ) from 3D heliocentric Cartesian coordinates.</summary>
+	/// <param name="x">The heliocentric X position of the object in AU.</param>
+	/// <param name="y">The heliocentric Y position of the object in AU.</param>
+	/// <param name="z">The heliocentric Z position of the object in AU.</param>
+	/// <param name="earthX">The heliocentric X position of Earth in AU.</param>
+	/// <param name="earthY">The heliocentric Y position of Earth in AU.</param>
+	/// <param name="earthZ">The heliocentric Z position of Earth in AU.</param>
+	/// <returns>The elongation angle at Earth (Sun-Earth-Object angle) in degrees [0°, 180°].</returns>
+	/// <remarks>Calculated using the vector dot product between the Earth-Sun vector and Earth-Object vector.</remarks>
+	public static double CalculateElongation(double x, double y, double z, double earthX, double earthY, double earthZ)
+	{
+		// Vector from Earth to Sun (-r_Earth)
+		double esX = -earthX;
+		double esY = -earthY;
+		double esZ = -earthZ;
+		// Vector from Earth to Object (r_Object - r_Earth)
+		double eoX = x - earthX;
+		double eoY = y - earthY;
+		double eoZ = z - earthZ;
+		// Vector magnitudes
+		double magES = Math.Sqrt(d: (esX * esX) + (esY * esY) + (esZ * esZ));
+		double magEO = Math.Sqrt(d: (eoX * eoX) + (eoY * eoY) + (eoZ * eoZ));
+		if (magES <= 0.0 || magEO <= 0.0)
+		{
+			return double.NaN;
+		}
+		// Dot product angle calculation
+		double dotProduct = (esX * eoX) + (esY * eoY) + (esZ * eoZ);
+		double cosPsi = dotProduct / (magES * magEO);
+		cosPsi = Math.Clamp(value: cosPsi, min: -1.0, max: 1.0);
+		return double.RadiansToDegrees(radians: Math.Acos(d: cosPsi));
+	}
+
+	/// <summary>Calculates the geocentric elongation (ψ) from equatorial coordinates (Right Ascension and Declination).</summary>
+	/// <param name="rightAscension">The object's right ascension α in degrees.</param>
+	/// <param name="declination">The object's declination δ in degrees.</param>
+	/// <param name="sunRightAscension">The Sun's right ascension α_Sun in degrees.</param>
+	/// <param name="sunDeclination">The Sun's declination δ_Sun in degrees.</param>
+	/// <returns>The angular distance (elongation) between the Sun and the object in degrees [0°, 180°].</returns>
+	/// <remarks>Calculated using spherical trigonometry: cos(ψ) = sin(δ)·sin(δ_Sun) + cos(δ)·cos(δ_Sun)·cos(α - α_Sun).</remarks>
+	public static double CalculateElongationFromEquatorial(double rightAscension, double declination, double sunRightAscension, double sunDeclination)
+	{
+		double raRad = double.DegreesToRadians(degrees: rightAscension);
+		double decRad = double.DegreesToRadians(degrees: declination);
+		double sunRaRad = double.DegreesToRadians(degrees: sunRightAscension);
+		double sunDecRad = double.DegreesToRadians(degrees: sunDeclination);
+		double cosPsi = (Math.Sin(a: decRad) * Math.Sin(a: sunDecRad)) + (Math.Cos(d: decRad) * Math.Cos(d: sunDecRad) * Math.Cos(d: raRad - sunRaRad));
+		cosPsi = Math.Clamp(value: cosPsi, min: -1.0, max: 1.0);
+		return double.RadiansToDegrees(radians: Math.Acos(d: cosPsi));
+	}
+
+	#endregion
+
+	#region Phase angle
+
+	/// <summary>Calculates the phase angle (α) at the object (Sun-Object-Earth angle) using the Law of Cosines from distances.</summary>
+	/// <param name="heliocentricDistance">The distance of the object from the Sun r in AU.</param>
+	/// <param name="geocentricDistance">The distance of the object from Earth Δ in AU.</param>
+	/// <param name="earthHeliocentricDistance">The distance of Earth from the Sun R in AU (default is 1.00000011 AU).</param>
+	/// <returns>The phase angle α at the object in degrees [0°, 180°]. Returns double.NaN if distances are non-positive.</returns>
+	/// <remarks>Calculated using the Law of Cosines: cos(α) = (r² + Δ² - R²) / (2 · r · Δ).</remarks>
+	public static double CalculatePhaseAngle(double heliocentricDistance, double geocentricDistance, double earthHeliocentricDistance = 1.00000011)
+	{
+		// Validate input parameters: distances must be strictly positive.
+		if (heliocentricDistance <= 0.0 || geocentricDistance <= 0.0 || earthHeliocentricDistance <= 0.0)
+		{
+			return double.NaN;
+		}
+		double rSq = heliocentricDistance * heliocentricDistance;
+		double deltaSq = geocentricDistance * geocentricDistance;
+		double earthRSq = earthHeliocentricDistance * earthHeliocentricDistance;
+		// Cosine of phase angle from Law of Cosines at the object
+		double cosAlpha = (rSq + deltaSq - earthRSq) / (2.0 * heliocentricDistance * geocentricDistance);
+		// Clamp value to [-1.0, 1.0] to prevent floating point inaccuracy out-of-range errors
+		cosAlpha = Math.Clamp(value: cosAlpha, min: -1.0, max: 1.0);
+		// Return phase angle in degrees
+		return double.RadiansToDegrees(radians: Math.Acos(d: cosAlpha));
+	}
+
+	/// <summary>Calculates the phase angle (α) at the object (Sun-Object-Earth angle) from 3D heliocentric Cartesian coordinates.</summary>
+	/// <param name="x">The heliocentric X position of the object in AU.</param>
+	/// <param name="y">The heliocentric Y position of the object in AU.</param>
+	/// <param name="z">The heliocentric Z position of the object in AU.</param>
+	/// <param name="earthX">The heliocentric X position of Earth in AU.</param>
+	/// <param name="earthY">The heliocentric Y position of Earth in AU.</param>
+	/// <param name="earthZ">The heliocentric Z position of Earth in AU.</param>
+	/// <returns>The phase angle α at the object in degrees [0°, 180°].</returns>
+	/// <remarks>Calculated using the vector dot product between the Object-Sun vector (-r_Object) and Object-Earth vector (r_Earth - r_Object).</remarks>
+	public static double CalculatePhaseAngle(double x, double y, double z, double earthX, double earthY, double earthZ)
+	{
+		// Vector from Object to Sun (-r_Object)
+		double osX = -x;
+		double osY = -y;
+		double osZ = -z;
+		// Vector from Object to Earth (r_Earth - r_Object)
+		double oeX = earthX - x;
+		double oeY = earthY - y;
+		double oeZ = earthZ - z;
+		// Vector magnitudes
+		double magOS = Math.Sqrt(d: (osX * osX) + (osY * osY) + (osZ * osZ));
+		double magOE = Math.Sqrt(d: (oeX * oeX) + (oeY * oeY) + (oeZ * oeZ));
+		if (magOS <= 0.0 || magOE <= 0.0)
+		{
+			return double.NaN;
+		}
+		// Dot product angle calculation
+		double dotProduct = (osX * oeX) + (osY * oeY) + (osZ * oeZ);
+		double cosAlpha = dotProduct / (magOS * magOE);
+		cosAlpha = Math.Clamp(value: cosAlpha, min: -1.0, max: 1.0);
+		return double.RadiansToDegrees(radians: Math.Acos(d: cosAlpha));
+	}
+
+	#endregion
+
+	#region Fraction illuminated
+
+	/// <summary>Calculates the illuminated fraction k (phase / fraction illuminated) of an object from the phase angle α.</summary>
+	/// <param name="phaseAngle">The Sun-Object-Earth phase angle α in degrees.</param>
+	/// <returns>The fraction of the visible disk that is illuminated, in the range [0.0, 1.0].</returns>
+	/// <remarks>Calculated as k = (1 + cos(α)) / 2 = cos²(α / 2).</remarks>
+	public static double CalculateFractionIlluminated(double phaseAngle)
+	{
+		// Convert phase angle α from degrees to radians and normalize
+		double alphaRad = double.DegreesToRadians(degrees: NormalizeAngle360(degrees: phaseAngle));
+		// Illuminated fraction formula k = (1 + cos(α)) / 2
+		double fraction = (1.0 + Math.Cos(d: alphaRad)) / 2.0;
+		// Clamp value to [0.0, 1.0] to eliminate small floating-point inaccuracies
+		return Math.Clamp(value: fraction, min: 0.0, max: 1.0);
+	}
+
+	/// <summary>Calculates the illuminated fraction k (phase / fraction illuminated) directly from distances.</summary>
+	/// <param name="heliocentricDistance">The distance of the object from the Sun r in AU.</param>
+	/// <param name="geocentricDistance">The distance of the object from Earth Δ in AU.</param>
+	/// <param name="earthHeliocentricDistance">The distance of Earth from the Sun R in AU (default is 1.00000011 AU).</param>
+	/// <returns>The fraction of the visible disk that is illuminated, in the range [0.0, 1.0]. Returns double.NaN if distances are non-positive.</returns>
+	/// <remarks>First calculates the phase angle α using the Law of Cosines, then evaluates k = (1 + cos(α)) / 2.</remarks>
+	public static double CalculateFractionIlluminated(double heliocentricDistance, double geocentricDistance, double earthHeliocentricDistance = 1.00000011)
+	{
+		double phaseAngle = CalculatePhaseAngle(heliocentricDistance: heliocentricDistance, geocentricDistance: geocentricDistance, earthHeliocentricDistance: earthHeliocentricDistance);
+		return double.IsNaN(d: phaseAngle) ? double.NaN : CalculateFractionIlluminated(phaseAngle: phaseAngle);
+	}
+
+	#endregion
+
+	#region Angular diameter
+
+	/// <summary>Calculates the apparent angular diameter of an object in arcseconds (").</summary>
+	/// <param name="diameterKm">The mean physical diameter of the object in kilometers.</param>
+	/// <param name="geocentricDistance">The distance of the object from Earth Δ in AU.</param>
+	/// <returns>The apparent angular diameter in arcseconds (arcsec / "). Returns double.NaN if parameters are non-positive.</returns>
+	/// <remarks>Calculated using exact spherical trigonometry: θ = 2 · arctan(D / (2 · Δ_km)), where 1 AU = 149,597,870.7 km.</remarks>
+	public static double CalculateAngularDiameterArcseconds(double diameterKm, double geocentricDistance)
+	{
+		// Validate input parameters: diameter and distance must be strictly positive.
+		if (diameterKm <= 0.0 || geocentricDistance <= 0.0)
+		{
+			return double.NaN;
+		}
+		// Exact length of 1 AU in kilometers (IAU 2012 definition)
+		const double kmPerAu = 149_597_870.7;
+		// Convert geocentric distance from AU to kilometers
+		double geocentricDistanceKm = geocentricDistance * kmPerAu;
+		// Exact angular diameter in radians: θ = 2 · arctan(D / (2 · Δ_km))
+		double angularDiameterRad = 2.0 * Math.Atan(d: diameterKm / (2.0 * geocentricDistanceKm));
+		// Convert radians to degrees and then to arcseconds (1° = 3600")
+		return double.RadiansToDegrees(radians: angularDiameterRad) * 3600.0;
+	}
+
+	/// <summary>Calculates the apparent angular diameter of an object in milliarcseconds (mas).</summary>
+	/// <param name="diameterKm">The mean physical diameter of the object in kilometers.</param>
+	/// <param name="geocentricDistance">The distance of the object from Earth Δ in AU.</param>
+	/// <returns>The apparent angular diameter in milliarcseconds (mas).</returns>
+	public static double CalculateAngularDiameterMilliarcseconds(double diameterKm, double geocentricDistance)
+	{
+		return CalculateAngularDiameterArcseconds(diameterKm: diameterKm, geocentricDistance: geocentricDistance) * 1000.0;
+	}
+
+	#endregion
+
+	/// <summary>Calculates the estimated duration of the opposition loop (retrograde motion) in days.</summary>
+	/// <param name="semiMajorAxis">The semi-major axis a of the object in AU.</param>
+	/// <returns>The estimated duration of retrograde motion in days. Returns double.NaN if semiMajorAxis lower/equal than 0 or equal to 1.0.</returns>
+	/// <remarks>Calculated using the analytical stationary point condition for coplanar circular orbits: cos(φ_stat) = √a / (a - √a + 1), where φ_stat is the heliocentric angle at stationarity. The retrograde duration is Δt = (φ_stat / π) · T_syn · 365.25 days.</remarks>
+	public static double CalculateOppositionLoopDurationDays(double semiMajorAxis)
+	{
+		// Validate input: semi-major axis must be strictly positive and not equal to Earth's orbit (1.0 AU)
+		if (semiMajorAxis is <= 0.0 or 1.0)
+		{
+			return double.NaN;
+		}
+		double sqrtA = Math.Sqrt(d: semiMajorAxis);
+		// Cosine of heliocentric angle φ_stat at stationary points: cos(φ_stat) = √a / (a - √a + 1)
+		double cosPhiStat = sqrtA / (semiMajorAxis - sqrtA + 1.0);
+		// Clamp value to [-1.0, 1.0] to prevent floating point numerical out-of-bounds
+		cosPhiStat = Math.Clamp(value: cosPhiStat, min: -1.0, max: 1.0);
+		// Heliocentric stationary angle φ_stat in radians
+		double phiStatRad = Math.Acos(d: cosPhiStat);
+		// Synodic period T_syn in years: T_syn = 1 / |1 - a^(-3/2)|
+		double synodicPeriodYears = CalculateSynodicOrbitalPeriod(semiMajorAxis: semiMajorAxis);
+		if (double.IsInfinity(d: synodicPeriodYears))
+		{
+			return double.NaN;
+		}
+		// Retrograde duration in days: Δt = (φ_stat / π) · T_syn · DaysPerJulianYear
+		return phiStatRad / Math.PI * synodicPeriodYears * DaysPerJulianYear;
+	}
+
+	/// <summary>Calculates the estimated heliocentric stationary angle (φ_stat) in degrees at which retrograde motion begins and ends.</summary>
+	/// <param name="semiMajorAxis">The semi-major axis a of the object in AU.</param>
+	/// <returns>The heliocentric angle φ_stat in degrees [0°, 90°]. Returns double.NaN if semiMajorAxis lower/equal than 0.</returns>
+	/// <remarks>Calculated as φ_stat = arccos(√a / (a - √a + 1)).</remarks>
+	public static double CalculateStationaryHeliocentricAngle(double semiMajorAxis)
+	{
+		if (semiMajorAxis <= 0.0)
+		{
+			return double.NaN;
+		}
+		double sqrtA = Math.Sqrt(d: semiMajorAxis);
+		double cosPhiStat = Math.Clamp(value: sqrtA / (semiMajorAxis - sqrtA + 1.0), min: -1.0, max: 1.0);
+		return double.RadiansToDegrees(radians: Math.Acos(d: cosPhiStat));
+	}
+
+	#region Relativistic perihelion precession
+
+	/// <summary>Calculates the relativistic perihelion precession in arcseconds per century (arcsec/cy).</summary>
+	/// <param name="semiMajorAxis">The semi-major axis a in AU.</param>
+	/// <param name="numericalEccentricity">The numerical eccentricity e [0, 1).</param>
+	/// <returns>The relativistic perihelion precession in arcseconds per century. Returns double.NaN for invalid or hyperbolic orbits.</returns>
+	/// <remarks>Calculated using Einstein's formula for General Relativity: Δϖ_rad/orbit = (6 · π · G · M_Sun) / (c² · a · (1 - e²)). Converted to arcseconds per century using the orbital period T = a^(3/2) years.</remarks>
+	public static double CalculateRelativisticPerihelionPrecessionArcsecondsPerCentury(double semiMajorAxis, double numericalEccentricity)
+	{
+		// Validate input parameters: semi-major axis must be positive and orbit must be closed (0 <= e < 1)
+		if (semiMajorAxis <= 0.0 || numericalEccentricity is < 0.0 or >= 1.0)
+		{
+			return double.NaN;
+		}
+		// Precession per orbit in arcseconds
+		double arcsecondsPerOrbit = CalculateRelativisticPerihelionPrecessionArcsecondsPerOrbit(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity);
+		// Orbital period T in Julian years (Kepler's 3rd Law: T = a^(3/2))
+		double periodYears = CalculateSiderealOrbitalPeriod(semiMajorAxis: semiMajorAxis);
+		// Convert arcseconds per orbit to arcseconds per century
+		return arcsecondsPerOrbit / periodYears * 100.0;
+	}
+
+	/// <summary>Calculates the relativistic perihelion precession per single orbit in arcseconds (arcsec/orbit).</summary>
+	/// <param name="semiMajorAxis">The semi-major axis a in AU.</param>
+	/// <param name="numericalEccentricity">The numerical eccentricity e [0, 1).</param>
+	/// <returns>The relativistic perihelion precession per orbit in arcseconds.</returns>
+	public static double CalculateRelativisticPerihelionPrecessionArcsecondsPerOrbit(double semiMajorAxis, double numericalEccentricity)
+	{
+		double radiansPerOrbit = CalculateRelativisticPerihelionPrecessionRadiansPerOrbit(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity);
+		return double.IsNaN(d: radiansPerOrbit) ? double.NaN : double.RadiansToDegrees(radians: radiansPerOrbit) * 3600.0;
+	}
+
+	/// <summary>Calculates the relativistic perihelion precession per single orbit in radians (rad/orbit).</summary>
+	/// <param name="semiMajorAxis">The semi-major axis a in AU.</param>
+	/// <param name="numericalEccentricity">The numerical eccentricity e [0, 1).</param>
+	/// <returns>The relativistic perihelion precession per orbit in radians.</returns>
+	public static double CalculateRelativisticPerihelionPrecessionRadiansPerOrbit(double semiMajorAxis, double numericalEccentricity)
+	{
+		if (semiMajorAxis <= 0.0 || numericalEccentricity is < 0.0 or >= 1.0)
+		{
+			return double.NaN;
+		}
+		// Solar gravitational parameter (GM_Sun) in m³/s²
+		const double gmSunM3S2 = 1.32712440018e20;
+		// Speed of light (c) in m/s
+		const double speedOfLightMS = 299_792_458.0;
+		// Exact length of 1 AU in meters (IAU 2012 definition)
+		const double metersPerAu = 149_597_870_700.0;
+		// Convert semi-major axis to meters
+		double semiMajorAxisMeters = semiMajorAxis * metersPerAu;
+		// Einstein's formula for General Relativistic precession per orbit: Δϖ = (6 · π · GM) / (c² · a · (1 - e²))
+		double denominator = speedOfLightMS * speedOfLightMS * semiMajorAxisMeters * (1.0 - (numericalEccentricity * numericalEccentricity));
+		return 6.0 * Math.PI * gmSunM3S2 / denominator;
+	}
+
+	#endregion
+
+	#region Yarkovsky drift rate
+
+	/// <summary>Calculates the Yarkovsky effect semi-major axis drift rate (da/dt) in astronomical units per year (AU/yr).</summary>
+	/// <param name="semiMajorAxis">The semi-major axis a in AU.</param>
+	/// <param name="diameterKm">The mean physical diameter of the asteroid in kilometers.</param>
+	/// <param name="densityGPerCm3">The mean bulk density in g/cm³ (e.g. 1.19 for Bennu, 2.7 for S-type).</param>
+	/// <param name="obliquityDegrees">The spin axis obliquity γ in degrees [0°, 180°]. (γ &lt; 90°: prograde/outward, γ &gt; 90°: retrograde/inward).</param>
+	/// <param name="thermalEfficiencyFactor">The thermal lag efficiency factor f_thermal (typically ~0.10 to 0.20, default is 0.15).</param>
+	/// <param name="absorptionCoefficient">The absorption coefficient α = 1 - Bond Albedo (default is 0.90).</param>
+	/// <returns>The semi-major axis drift rate da/dt in AU/year. Positive values indicate outward drift; negative values indicate inward drift. Returns double.NaN for invalid parameters.</returns>
+	/// <remarks>Calculated using the diurnal Yarkovsky recoil thermal force model: da/dt = (2 · α · S₀ · f_thermal · cos(γ) · AU_m²) / (c · ρ · D · √(GM_Sun · a_m)). Prograde rotators (γ &lt; 90°) drift outward (da/dt &gt; 0); retrograde rotators (γ &gt; 90°) drift inward (da/dt &lt; 0).
+	/// </remarks>
+	public static double CalculateYarkovskyDriftRateAuPerYear(double semiMajorAxis, double diameterKm, double densityGPerCm3, double obliquityDegrees, double thermalEfficiencyFactor = 0.15, double absorptionCoefficient = 0.9)
+	{
+		// Validate input parameters: semi-major axis, diameter, and density must be strictly positive
+		if (semiMajorAxis <= 0.0 || diameterKm <= 0.0 || densityGPerCm3 <= 0.0)
+		{
+			return double.NaN;
+		}
+		// Solar constant at 1 AU (W/m²)
+		const double solarConstantS0 = 1361.0;
+		// Speed of light c (m/s)
+		const double speedOfLightMS = 299_792_458.0;
+		// Solar gravitational parameter GM_Sun (m³/s²)
+		const double gmSunM3S2 = 1.32712440018e20;
+		// 1 AU in meters (IAU 2012)
+		const double metersPerAu = 149_597_870_700.0;
+		// Seconds in a Julian year (365.25 days)
+		const double secondsPerJulianYear = DaysPerJulianYear * 86400.0;
+		// Convert inputs to SI units
+		double semiMajorAxisMeters = semiMajorAxis * metersPerAu;
+		double diameterMeters = diameterKm * 1000.0;
+		double densityKgPerM3 = densityGPerCm3 * 1000.0;
+		double obliquityRad = double.DegreesToRadians(degrees: NormalizeAngle360(degrees: obliquityDegrees));
+		// Calculate numerator and denominator for da/dt in m/s
+		double numerator = 2.0 * absorptionCoefficient * solarConstantS0 * thermalEfficiencyFactor * Math.Cos(d: obliquityRad) * (metersPerAu * metersPerAu);
+		double denominator = speedOfLightMS * densityKgPerM3 * diameterMeters * Math.Sqrt(d: gmSunM3S2 * semiMajorAxisMeters);
+		double driftRateMetersPerSecond = numerator / denominator;
+		// Convert m/s to AU/year
+		return driftRateMetersPerSecond * secondsPerJulianYear / metersPerAu;
+	}
+
+	/// <summary>Calculates the Yarkovsky effect semi-major axis drift rate in meters per year (m/yr).</summary>
+	/// <param name="semiMajorAxis">The semi-major axis a in AU.</param>
+	/// <param name="diameterKm">The mean physical diameter of the asteroid in kilometers.</param>
+	/// <param name="densityGPerCm3">The mean bulk density in g/cm³.</param>
+	/// <param name="obliquityDegrees">The spin axis obliquity γ in degrees [0°, 180°].</param>
+	/// <param name="thermalEfficiencyFactor">The thermal lag efficiency factor (default is 0.15).</param>
+	/// <param name="absorptionCoefficient">The absorption coefficient (default is 0.90).</param>
+	/// <returns>The semi-major axis drift rate in meters per year (m/yr).</returns>
+	public static double CalculateYarkovskyDriftRateMetersPerYear(double semiMajorAxis, double diameterKm, double densityGPerCm3, double obliquityDegrees, double thermalEfficiencyFactor = 0.15, double absorptionCoefficient = 0.9)
+	{
+		const double metersPerAu = 149_597_870_700.0;
+		double driftRateAuPerYear = CalculateYarkovskyDriftRateAuPerYear(semiMajorAxis: semiMajorAxis, diameterKm: diameterKm, densityGPerCm3: densityGPerCm3, obliquityDegrees: obliquityDegrees, thermalEfficiencyFactor: thermalEfficiencyFactor, absorptionCoefficient: absorptionCoefficient);
+		return driftRateAuPerYear * metersPerAu;
+	}
+
+	/// <summary>Calculates the Yarkovsky effect semi-major axis drift rate in 10⁻⁴ AU per million years (10⁻⁴ AU/Myr), matching MPC and NEODyS database conventions.</summary>
+	/// <param name="semiMajorAxis">The semi-major axis a in AU.</param>
+	/// <param name="diameterKm">The mean physical diameter of the asteroid in kilometers.</param>
+	/// <param name="densityGPerCm3">The mean bulk density in g/cm³.</param>
+	/// <param name="obliquityDegrees">The spin axis obliquity γ in degrees [0°, 180°].</param>
+	/// <param name="thermalEfficiencyFactor">The thermal lag efficiency factor (default is 0.15).</param>
+	/// <param name="absorptionCoefficient">The absorption coefficient (default is 0.90).</param>
+	/// <returns>The drift rate in 10⁻⁴ AU/Myr (e.g. -19.0 for 101955 Bennu).</returns>
+	public static double CalculateYarkovskyDriftRateAuPerMyr(double semiMajorAxis, double diameterKm, double densityGPerCm3, double obliquityDegrees, double thermalEfficiencyFactor = 0.15, double absorptionCoefficient = 0.9)
+	{
+		// 1 AU/yr = 10⁶ AU/Myr = 10¹⁰ (10⁻⁴ AU/Myr)
+		double driftRateAuPerYear = CalculateYarkovskyDriftRateAuPerYear(semiMajorAxis: semiMajorAxis, diameterKm: diameterKm, densityGPerCm3: densityGPerCm3, obliquityDegrees: obliquityDegrees, thermalEfficiencyFactor: thermalEfficiencyFactor, absorptionCoefficient: absorptionCoefficient);
+		return driftRateAuPerYear * 1e10;
+	}
+
+	#endregion
+
+	#region Poynting-Robertson drift & Poynting-Robertson lifetime
+
+	/// <summary>Calculates the Poynting-Robertson effect semi-major axis drift rate (da/dt) in AU per year for small particles and meteoroids.</summary>
+	/// <param name="semiMajorAxis">The semi-major axis a in AU.</param>
+	/// <param name="diameterMeters">The particle/body diameter D in meters.</param>
+	/// <param name="densityGPerCm3">The bulk density ρ in g/cm³ (default is 2.0 g/cm³).</param>
+	/// <param name="radiationEfficiencyQpr">The radiation pressure efficiency factor Q_pr (default is 1.0 for geometric optics).</param>
+	/// <returns>The semi-major axis drift rate da/dt in AU/year (always negative, indicating inward orbital decay towards the Sun). Returns double.NaN for invalid parameters.</returns>
+	/// <remarks>Calculated using the Poynting-Robertson drag equation: da/dt = - (3 · L_Sun · Q_pr) / (4 · π · c² · ρ · D · a_m). Poynting-Robertson drag dominates over the Yarkovsky effect for micrometer- to centimeter-sized dust grains and small meteoroids.</remarks>
+	public static double CalculatePoyntingRobertsonDriftRateAuPerYear(double semiMajorAxis, double diameterMeters, double densityGPerCm3 = 2.0, double radiationEfficiencyQpr = 1.0)
+	{
+		// Validate input parameters: semi-major axis, diameter, density, and Q_pr must be strictly positive
+		if (semiMajorAxis <= 0.0 || diameterMeters <= 0.0 || densityGPerCm3 <= 0.0 || radiationEfficiencyQpr <= 0.0)
+		{
+			return double.NaN;
+		}
+		// Solar luminosity L_Sun in Watts (W)
+		const double solarLuminosityWatts = 3.828e26;
+		// Speed of light c in m/s
+		const double speedOfLightMS = 299_792_458.0;
+		// 1 AU in meters (IAU 2012 definition)
+		const double metersPerAu = 149_597_870_700.0;
+		// Seconds in a Julian year (365.25 days)
+		const double secondsPerJulianYear = DaysPerJulianYear * 86400.0;
+		// Convert inputs to SI units
+		double semiMajorAxisMeters = semiMajorAxis * metersPerAu;
+		double densityKgPerM3 = densityGPerCm3 * 1000.0;
+		// da/dt in m/s: da/dt = - (3 · L_Sun · Q_pr) / (4 · π · c² · ρ · D · a)
+		double denominator = 4.0 * Math.PI * speedOfLightMS * speedOfLightMS * densityKgPerM3 * diameterMeters * semiMajorAxisMeters;
+		double driftRateMetersPerSecond = -(3.0 * solarLuminosityWatts * radiationEfficiencyQpr) / denominator;
+		// Convert m/s to AU/year
+		return driftRateMetersPerSecond * secondsPerJulianYear / metersPerAu;
+	}
+
+	/// <summary>Calculates the Poynting-Robertson orbital decay time (time to spiral into the Sun) in Julian years.</summary>
+	/// <param name="initialSemiMajorAxis">The initial semi-major axis a in AU.</param>
+	/// <param name="diameterMeters">The particle/body diameter D in meters.</param>
+	/// <param name="densityGPerCm3">The bulk density ρ in g/cm³ (default is 2.0 g/cm³).</param>
+	/// <param name="radiationEfficiencyQpr">The radiation pressure efficiency factor Q_pr (default is 1.0).</param>
+	/// <returns>The total lifetime / orbital collapse time into the Sun in Julian years. Returns double.NaN for invalid parameters.</returns>
+	/// <remarks>Calculated by integrating the Poynting-Robertson drift equation: t_PR = (2 · π · c² · ρ · D · a²) / (3 · L_Sun · Q_pr).</remarks>
+	public static double CalculatePoyntingRobertsonLifetimeYears(double initialSemiMajorAxis, double diameterMeters, double densityGPerCm3 = 2.0, double radiationEfficiencyQpr = 1.0)
+	{
+		if (initialSemiMajorAxis <= 0.0 || diameterMeters <= 0.0 || densityGPerCm3 <= 0.0 || radiationEfficiencyQpr <= 0.0)
+		{
+			return double.NaN;
+		}
+		// Solar luminosity L_Sun in Watts (W)
+		const double solarLuminosityWatts = 3.828e26;
+		// Speed of light c in m/s
+		const double speedOfLightMS = 299_792_458.0;
+		// 1 AU in meters (IAU 2012 definition)
+		const double metersPerAu = 149_597_870_700.0;
+		// Seconds in a Julian year (365.25 days)
+		const double secondsPerJulianYear = DaysPerJulianYear * 86400.0;
+		double semiMajorAxisMeters = initialSemiMajorAxis * metersPerAu;
+		double densityKgPerM3 = densityGPerCm3 * 1000.0;
+		// Lifetime in seconds: t_PR = (2 · π · c² · ρ · D · a²) / (3 · L_Sun · Q_pr)
+		double lifetimeSeconds = 2.0 * Math.PI * speedOfLightMS * speedOfLightMS * densityKgPerM3 * diameterMeters * semiMajorAxisMeters * semiMajorAxisMeters / (3.0 * solarLuminosityWatts * radiationEfficiencyQpr);
+		// Convert seconds to Julian years
+		return lifetimeSeconds / secondsPerJulianYear;
+	}
+
+	#endregion
+
+	#region Beta parameter
+
+	/// <summary>Calculates the beta parameter (β = F_rad / F_grav), the ratio of solar radiation pressure force to solar gravitational force.</summary>
+	/// <param name="diameterMeters">The body or dust grain diameter D in meters.</param>
+	/// <param name="densityGPerCm3">The bulk density ρ in g/cm³ (default is 2.0 g/cm³).</param>
+	/// <param name="radiationEfficiencyQpr">The radiation pressure efficiency factor Q_pr (default is 1.0 for geometric optics / large particles).</param>
+	/// <returns>The dimensionless beta parameter β. Returns double.NaN for non-positive inputs.</returns>
+	/// <remarks>Calculated as β = (3 · L_Sun · Q_pr) / (8 · π · c · GM_Sun · ρ · D). Distance r cancels out because both forces scale with 1/r². Dynamics:
+	/// - β &lt; 0.5: Bound elliptical orbits (radiation pressure reduces effective gravitational mass).
+	/// - 0.5 &lt;= β &lt; 1.0: Hyperbolic escape orbits for dust released at perihelion (e.g. cometary dust tails).
+	/// - β &gt;= 1.0: Total gravitational repulsion; particles are blown straight out of the solar system.</remarks>
+	public static double CalculateBetaParameter(double diameterMeters, double densityGPerCm3 = 2.0, double radiationEfficiencyQpr = 1.0)
+	{
+		// Validate input parameters: diameter, density, and efficiency factor must be strictly positive
+		if (diameterMeters <= 0.0 || densityGPerCm3 <= 0.0 || radiationEfficiencyQpr <= 0.0)
+		{
+			return double.NaN;
+		}
+		// Solar luminosity L_Sun in Watts (W)
+		const double solarLuminosityWatts = 3.828e26;
+		// Speed of light c in m/s
+		const double speedOfLightMS = 299_792_458.0;
+		// Solar gravitational parameter GM_Sun in m³/s²
+		const double gmSunM3S2 = 1.32712440018e20;
+		// Convert density from g/cm³ to kg/m³
+		double densityKgPerM3 = densityGPerCm3 * 1000.0;
+		// Distance-independent constant K_beta = (3 · L_Sun) / (8 · π · c · GM_Sun) ≈ 1.148474e-3 kg/m²
+		double kBeta = 3.0 * solarLuminosityWatts / (8.0 * Math.PI * speedOfLightMS * gmSunM3S2);
+		// β = (K_beta · Q_pr) / (ρ · D)
+		return kBeta * radiationEfficiencyQpr / (densityKgPerM3 * diameterMeters);
+	}
+
+	/// <summary>Calculates the beta parameter (β) using object diameter given in kilometers.</summary>
+	/// <param name="diameterKm">The physical diameter D in kilometers.</param>
+	/// <param name="densityGPerCm3">The bulk density ρ in g/cm³.</param>
+	/// <param name="radiationEfficiencyQpr">The radiation pressure efficiency factor Q_pr (default is 1.0).</param>
+	/// <returns>The dimensionless beta parameter β.</returns>
+	public static double CalculateBetaParameterFromKm(double diameterKm, double densityGPerCm3 = 2.0, double radiationEfficiencyQpr = 1.0)
+	{
+		return CalculateBetaParameter(diameterMeters: diameterKm * 1000.0, densityGPerCm3: densityGPerCm3, radiationEfficiencyQpr: radiationEfficiencyQpr);
+	}
+
+	/// <summary>Calculates the critical blow-off diameter in meters for a threshold beta value (e.g. β_crit = 0.5 or 1.0).</summary>
+	/// <param name="criticalBeta">The critical beta threshold (default is 0.5 for perihelion dust ejection).</param>
+	/// <param name="densityGPerCm3">The bulk density ρ in g/cm³ (default is 2.0 g/cm³).</param>
+	/// <param name="radiationEfficiencyQpr">The radiation pressure efficiency factor Q_pr (default is 1.0).</param>
+	/// <returns>The critical particle diameter in meters. Particles smaller than this diameter are blown into hyperbolic escape orbits.</returns>
+	/// <remarks>Calculated as D_crit = (3 · L_Sun · Q_pr) / (8 · π · c · GM_Sun · ρ · β_crit).</remarks>
+	public static double CalculateCriticalBlowoffDiameterMeters(double criticalBeta = 0.5, double densityGPerCm3 = 2.0, double radiationEfficiencyQpr = 1.0)
+	{
+		if (criticalBeta <= 0.0 || densityGPerCm3 <= 0.0 || radiationEfficiencyQpr <= 0.0)
+		{
+			return double.NaN;
+		}
+		// Solar luminosity L_Sun in Watts (W)
+		const double solarLuminosityWatts = 3.828e26;
+		// Speed of light c in m/s
+		const double speedOfLightMS = 299_792_458.0;
+		// Solar gravitational parameter GM_Sun in m³/s²
+		const double gmSunM3S2 = 1.32712440018e20;
+		// Convert density from g/cm³ to kg/m³
+		double densityKgPerM3 = densityGPerCm3 * 1000.0;
+		// Distance-independent constant K_beta = (3 · L_Sun) / (8 · π · c · GM_Sun) ≈ 1.148474e-3 kg/m²
+		double kBeta = 3.0 * solarLuminosityWatts / (8.0 * Math.PI * speedOfLightMS * gmSunM3S2);
+		// β = (K_beta · Q_pr) / (ρ · β_crit)
+		return kBeta * radiationEfficiencyQpr / (densityKgPerM3 * criticalBeta);
+	}
+
+	#endregion
+
+	/// <summary>Analyzes the invariance of the Tisserand parameter across a planetary encounter (Restricted Three-Body Problem).</summary>
+	/// <param name="semiMajorAxisMain">The semi-major axis of the perturbing planet in AU (e.g. 5.20336301 for Jupiter).</param>
+	/// <param name="preSemiMajorAxis">The pre-encounter semi-major axis in AU.</param>
+	/// <param name="preEccentricity">The pre-encounter numerical eccentricity.</param>
+	/// <param name="preInclination">The pre-encounter inclination in degrees.</param>
+	/// <param name="postSemiMajorAxis">The post-encounter semi-major axis in AU.</param>
+	/// <param name="postEccentricity">The post-encounter numerical eccentricity.</param>
+	/// <param name="postInclination">The post-encounter inclination in degrees.</param>
+	/// <returns>A TisserandEncounterAnalysis structure containing pre/post Tisserand values, absolute and relative deviations, and orbit dynamical classifications.</returns>
+	/// <remarks>In the Circular Restricted Three-Body Problem (CR3BP), Tisserand's parameter T = a_p/a + 2·cos(i)·√(a(1-e²)/a_p) is quasi-conserved before and after close planetary encounters. Deviations exceeding ~1%–5% indicate non-zero planetary orbital eccentricity, multi-body gravitational interactions, or non-gravitational forces (e.g. Yarkovsky effect, cometary outgassing).</remarks>
+	public static TisserandEncounterAnalysis CalculateTisserandEncounterAnalysis(double semiMajorAxisMain, double preSemiMajorAxis, double preEccentricity, double preInclination, double postSemiMajorAxis, double postEccentricity, double postInclination)
+	{
+		// Calculate pre-encounter and post-encounter Tisserand parameters
+		double preTisserand = CalculateTisserandParameter(semiMajorAxisMain: semiMajorAxisMain, semiMajorAxis: preSemiMajorAxis, numericalEccentricity: preEccentricity, inclination: preInclination);
+		double postTisserand = CalculateTisserandParameter(semiMajorAxisMain: semiMajorAxisMain, semiMajorAxis: postSemiMajorAxis, numericalEccentricity: postEccentricity, inclination: postInclination);
+		// Absolute and percentage deviations
+		double absoluteDelta = Math.Abs(value: postTisserand - preTisserand);
+		double relativeDeviationPercent = preTisserand != 0.0 ? absoluteDelta / Math.Abs(value: preTisserand) * 100.0 : double.NaN;
+		// Check if the encounter conserves Tisserand parameter within typical CR3BP tolerance (<= 5%)
+		bool isQuasiConserved = relativeDeviationPercent <= 5.0;
+		// Classify dynamical orbit types based on Tisserand parameter (e.g. Main Belt Asteroid vs. Jupiter-Family Comet)
+		OrbitDynamicalClass preClassification = ClassifyOrbitByTisserand(tisserandParameter: preTisserand, semiMajorAxis: preSemiMajorAxis);
+		OrbitDynamicalClass postClassification = ClassifyOrbitByTisserand(tisserandParameter: postTisserand, semiMajorAxis: postSemiMajorAxis);
+		return new TisserandEncounterAnalysis(PreTisserand: preTisserand, PostTisserand: postTisserand, AbsoluteDelta: absoluteDelta, RelativeDeviationPercent: relativeDeviationPercent, IsQuasiConserved: isQuasiConserved, PreClassification: preClassification, PostClassification: postClassification);
+	}
+
+	/// <summary>Classifies the dynamical orbit type based on Jupiter's Tisserand parameter T_J and semi-major axis.</summary>
+	/// <param name="tisserandParameter">The Tisserand parameter relative to Jupiter (T_J).</param>
+	/// <param name="semiMajorAxis">The semi-major axis in AU.</param>
+	/// <returns>An OrbitDynamicalClass enumeration value representing the orbital regime.</returns>
+	/// <remarks>Classification standards (Levison &amp; Duncan, 1997):
+	/// - T_J &gt; 3.0 (and a &lt; a_Jupiter): Main-belt / Near-Earth Asteroid.
+	/// - 2.0 &lt;= T_J &lt;= 3.0: Jupiter-Family Comet (JFC).
+	/// - T_J &lt; 2.0 (and a &gt; 0): Halley-type comet (HTC) / Damocloid / Centaur.
+	/// - a &lt; 0: Hyperbolic / Interstellar object.</remarks>
+	public static OrbitDynamicalClass ClassifyOrbitByTisserand(double tisserandParameter, double semiMajorAxis)
+	{
+		return semiMajorAxis < 0.0 ? OrbitDynamicalClass.HyperbolicOrInterstellar
+			: tisserandParameter > 3.0 ? OrbitDynamicalClass.Asteroidal
+			: tisserandParameter is >= 2.0 and <= 3.0 ? OrbitDynamicalClass.JupiterFamilyComet
+			: OrbitDynamicalClass.HalleyTypeCometOrDamocloid;
+	}
+
+	/// <summary>Calculates the theoretical post-encounter semi-major axis a' given a conserved Tisserand parameter T, target eccentricity e', and inclination i'.</summary>
+	/// <param name="tisserandParameter">The conserved pre-encounter Tisserand parameter T.</param>
+	/// <param name="semiMajorAxisMain">The semi-major axis of the perturbing planet in AU.</param>
+	/// <param name="postEccentricity">The target post-encounter eccentricity e'.</param>
+	/// <param name="postInclination">The target post-encounter inclination i' in degrees.</param>
+	/// <returns>The theoretical post-encounter semi-major axis a' in AU, solved numerically via Newton-Raphson iteration from k·x³ - T·x² + 1 = 0, where x = √(a'/a_p).</returns>
+	public static double CalculateTheoreticalPostEncounterSemiMajorAxis(double tisserandParameter, double semiMajorAxisMain, double postEccentricity, double postInclination)
+	{
+		if (semiMajorAxisMain <= 0.0 || postEccentricity is < 0.0 or >= 1.0)
+		{
+			return double.NaN;
+		}
+		double iRad = double.DegreesToRadians(degrees: NormalizeAngle360(degrees: postInclination));
+		double k = 2.0 * Math.Cos(d: iRad) * Math.Sqrt(d: 1.0 - (postEccentricity * postEccentricity));
+		// Solve k·x³ - T·x² + 1 = 0 for x = √(a'/a_p) using Newton-Raphson
+		double x = 1.0; // Initial guess: a' ≈ a_p
+		const int maxIterations = 100;
+		const double tolerance = 1e-12;
+		for (int iteration = 0; iteration < maxIterations; iteration++)
+		{
+			double f = (k * Math.Pow(x: x, y: 3)) - (tisserandParameter * x * x) + 1.0;
+			if (Math.Abs(value: f) < tolerance)
+			{
+				break;
+			}
+			double fPrime = (3.0 * k * x * x) - (2.0 * tisserandParameter * x);
+			if (Math.Abs(value: fPrime) < 1e-14)
+			{
+				break;
+			}
+			x -= f / fPrime;
+		}
+		if (double.IsNaN(d: x) || x <= 0.0)
+		{
+			return double.NaN;
+		}
+		// a' = a_p · x²
+		return semiMajorAxisMain * x * x;
+	}
+
+	#region Moid drift analysis
+
+	/// <summary>Calculates the temporal rate of change of MOID (dMOID/dt) in AU per century (AU/cy).</summary>
+	/// <param name="initialMoidAu">The MOID in AU at the initial epoch (t1).</param>
+	/// <param name="finalMoidAu">The MOID in AU at the final epoch (t2).</param>
+	/// <param name="timeSpanYears">The elapsed time between epochs in Julian years (t2 - t1).</param>
+	/// <returns>The temporal MOID drift rate in AU per century. Negative values indicate that the orbit is approaching the target planet's orbit.</returns>
+	/// <remarks>Calculated as dMOID/dt = ((MOID_t2 - MOID_t1) / Δt_years) · 100.</remarks>
+	public static double CalculateMoidDriftRateAuPerCentury(double initialMoidAu, double finalMoidAu, double timeSpanYears)
+	{
+		// Validate input parameters: time span must be non-zero and positive
+		if (timeSpanYears <= 0.0 || initialMoidAu < 0.0 || finalMoidAu < 0.0)
+		{
+			return double.NaN;
+		}
+		// Calculate rate of change in AU per year and convert to AU per century
+		double driftRateAuPerYear = (finalMoidAu - initialMoidAu) / timeSpanYears;
+		return driftRateAuPerYear * 100.0;
+	}
+
+	/// <summary>Estimates the time in Julian years until the MOID reaches a specific target threshold distance (e.g. 0.0 AU or 0.05 AU).</summary>
+	/// <param name="currentMoidAu">The current MOID in AU.</param>
+	/// <param name="driftRateAuPerCentury">The secular MOID drift rate dMOID/dt in AU per century.</param>
+	/// <param name="targetThresholdAu">The target MOID threshold in AU (default is 0.0 AU for exact orbit intersection).</param>
+	/// <returns>The estimated time in Julian years until the threshold is reached. Returns PositiveInfinity if the drift rate moves away from the target, or NaN for invalid inputs.</returns>
+	public static double CalculateYearsToMoidThreshold(double currentMoidAu, double driftRateAuPerCentury, double targetThresholdAu = 0.0)
+	{
+		if (currentMoidAu < 0.0 || targetThresholdAu < 0.0 || driftRateAuPerCentury == 0.0 || double.IsNaN(driftRateAuPerCentury))
+		{
+			return double.NaN;
+		}
+		// Distance difference to the target threshold
+		double moidDelta = targetThresholdAu - currentMoidAu;
+		double driftRateAuPerYear = driftRateAuPerCentury / 100.0;
+		// Calculate time to threshold in years
+		double yearsToThreshold = moidDelta / driftRateAuPerYear;
+		// If time is negative, the orbit is drifting away from the threshold
+		return yearsToThreshold < 0.0 ? double.PositiveInfinity : yearsToThreshold;
+	}
+
+	/// <summary>Performs a comprehensive secular drift analysis on MOID changes between two epochs.</summary>
+	/// <param name="initialMoidAu">The MOID in AU at epoch 1.</param>
+	/// <param name="finalMoidAu">The MOID in AU at epoch 2.</param>
+	/// <param name="timeSpanYears">The time difference between epoch 1 and epoch 2 in Julian years.</param>
+	/// <param name="absoluteMagnitudeH">The absolute magnitude H in mag (used to evaluate PHA transitions).</param>
+	/// <param name="phaThresholdAu">The PHA MOID threshold in AU (default is 0.05 AU).</param>
+	/// <returns>A MoidDriftAnalysis structure containing drift rate metrics, time projections, and PHA status transition flags.</returns>
+	public static MoidDriftAnalysis AnalyzeMoidDriftRate(double initialMoidAu, double finalMoidAu, double timeSpanYears, double absoluteMagnitudeH = 22.0, double phaThresholdAu = 0.05)
+	{
+		// Calculate drift rate in AU per century
+		double driftRateAuPerCentury = CalculateMoidDriftRateAuPerCentury(initialMoidAu: initialMoidAu, finalMoidAu: finalMoidAu, timeSpanYears: timeSpanYears);
+		// Project time in years to exact intersection (MOID = 0.0 AU) and PHA threshold (MOID = 0.05 AU)
+		double yearsToZeroMoid = CalculateYearsToMoidThreshold(currentMoidAu: finalMoidAu, driftRateAuPerCentury: driftRateAuPerCentury, targetThresholdAu: 0.0);
+		double yearsToPhaThreshold = CalculateYearsToMoidThreshold(currentMoidAu: finalMoidAu, driftRateAuPerCentury: driftRateAuPerCentury, targetThresholdAu: phaThresholdAu);
+		// Direction check: Is the orbit converging towards the target planet's orbit?
+		bool isApproachingEarthOrbit = driftRateAuPerCentury < 0.0;
+		// Initial and final PHA status evaluation
+		bool isInitialPha = IsPotentiallyHazardous(earthMoidAu: initialMoidAu, absoluteMagnitudeH: absoluteMagnitudeH);
+		bool isFinalPha = IsPotentiallyHazardous(earthMoidAu: finalMoidAu, absoluteMagnitudeH: absoluteMagnitudeH);
+		// Transition states
+		bool willBecomePha = !isInitialPha && isFinalPha;
+		bool willCeasePha = isInitialPha && !isFinalPha;
+		return new MoidDriftAnalysis(InitialMoidAu: initialMoidAu, FinalMoidAu: finalMoidAu, TimeSpanYears: timeSpanYears, DriftRateAuPerCentury: driftRateAuPerCentury, EstimatedYearsToZeroMoid: yearsToZeroMoid, EstimatedYearsToPhaThreshold: yearsToPhaThreshold, IsApproachingEarthOrbit: isApproachingEarthOrbit, WillBecomePha: willBecomePha, WillCeasePha: willCeasePha);
+	}
+
+	#endregion
+
+	#region Kozai-Lidov period
+
+	/// <summary>Calculates the secular Kozai-Lidov oscillation period in Julian years for a small body perturbed by an outer massive planet.</summary>
+	/// <param name="semiMajorAxis">The semi-major axis a of the perturbed object in AU.</param>
+	/// <param name="perturbingMassSolarMasses">The mass of the perturbing planet in solar masses (e.g. 1 / 1047.3486 for Jupiter).</param>
+	/// <param name="perturbingSemiMajorAxis">The semi-major axis a_p of the perturbing planet in AU (must be greater than semiMajorAxis).</param>
+	/// <param name="perturbingEccentricity">The numerical eccentricity e_p of the perturbing planet's orbit (default is 0.0489 for Jupiter).</param>
+	/// <returns>The secular Kozai-Lidov period in Julian years. Returns double.NaN for invalid or non-hierarchical parameters.</returns>
+	/// <remarks>
+	/// Calculated using quadrupole secular perturbation theory (Innanen et al., 1997 / Kinoshita &amp; Nakai, 1999):
+	/// T_Kozai = (M_Sun / M_p) · (P_p² / P) · (1 - e_p²)^(3/2), where P_p and P are orbital periods in years.
+	/// Valid when the system is hierarchical (a &lt; a_p) and outside strong mean-motion resonances.
+	/// </remarks>
+	public static double CalculateKozaiLidovPeriodYears(double semiMajorAxis, double perturbingMassSolarMasses, double perturbingSemiMajorAxis, double perturbingEccentricity = 0.0)
+	{
+		// Validate input parameters: semi-major axes and perturbing mass must be positive, e_p in [0, 1)
+		if (semiMajorAxis <= 0.0 || perturbingSemiMajorAxis <= 0.0 || perturbingMassSolarMasses <= 0.0 || perturbingEccentricity is < 0.0 or >= 1.0)
+		{
+			return double.NaN;
+		}
+		// Ensure hierarchical setup: inner perturbed body (a < a_p)
+		if (semiMajorAxis >= perturbingSemiMajorAxis)
+		{
+			return double.NaN;
+		}
+		// Orbital period of the perturbed inner body in years: P = a^(3/2)
+		double periodYears = CalculateSiderealOrbitalPeriod(semiMajorAxis: semiMajorAxis);
+		// Orbital period of the perturbing outer planet in years: P_p = a_p^(3/2)
+		double perturbingPeriodYears = CalculateSiderealOrbitalPeriod(semiMajorAxis: perturbingSemiMajorAxis);
+		// Eccentricity factor: (1 - e_p²)^(3/2)
+		double eccentricityFactor = Math.Pow(x: 1.0 - (perturbingEccentricity * perturbingEccentricity), y: 1.5);
+		// T_Kozai = (M_Sun / M_p) · (P_p² / P) · (1 - e_p²)^(3/2)
+		double massRatio = 1.0 / perturbingMassSolarMasses;
+		double periodRatio = perturbingPeriodYears * perturbingPeriodYears / periodYears;
+		return massRatio * periodRatio * eccentricityFactor;
+	}
+
+	/// <summary>Calculates the secular Kozai-Lidov oscillation period in Julian years assuming Mercury as the primary perturbing planet.</summary>
+	/// <param name="semiMajorAxis">The semi-major axis a of the inner object in AU (must be less than Mercury's semi-major axis ~0.387 AU).</param>
+	/// <returns>The secular Kozai-Lidov period in Julian years. Returns double.NaN if semiMajorAxis >= ~0.387 AU.</returns>
+	/// <remarks>Uses Mercury parameters: M_Mercury = 1 / 6023600.0 M_Sun, a_Mercury = 0.38709893 AU, e_Mercury = 0.20563069.</remarks>
+	public static double CalculateMercuryKozaiLidovPeriodYears(double semiMajorAxis)
+	{
+		// Mercury parameters
+		const double mercuryMassSolarMasses = 1.0 / 6023600.0;
+		const double mercurySemiMajorAxisAu = 0.38709893;
+		const double mercuryEccentricity = 0.20563069;
+		return CalculateKozaiLidovPeriodYears(semiMajorAxis: semiMajorAxis, perturbingMassSolarMasses: mercuryMassSolarMasses, perturbingSemiMajorAxis: mercurySemiMajorAxisAu, perturbingEccentricity: mercuryEccentricity);
+	}
+
+	/// <summary>Calculates the secular Kozai-Lidov oscillation period in Julian years assuming Venus as the primary perturbing planet.</summary>
+	/// <param name="semiMajorAxis">The semi-major axis a of the inner object in AU (must be less than Venus's semi-major axis ~0.723 AU).</param>
+	/// <returns>The secular Kozai-Lidov period in Julian years. Returns double.NaN if semiMajorAxis >= ~0.723 AU.</returns>
+	/// <remarks>Uses Venus parameters: M_Venus = 1 / 408523.71 M_Sun, a_Venus = 0.72333199 AU, e_Venus = 0.00677323.</remarks>
+	public static double CalculateVenusKozaiLidovPeriodYears(double semiMajorAxis)
+	{
+		// Venus parameters
+		const double venusMassSolarMasses = 1.0 / 408523.71;
+		const double venusSemiMajorAxisAu = 0.72333199;
+		const double venusEccentricity = 0.00677323;
+		return CalculateKozaiLidovPeriodYears(semiMajorAxis: semiMajorAxis, perturbingMassSolarMasses: venusMassSolarMasses, perturbingSemiMajorAxis: venusSemiMajorAxisAu, perturbingEccentricity: venusEccentricity);
+	}
+
+	/// <summary>Calculates the secular Kozai-Lidov oscillation period in Julian years assuming Earth (Earth+Moon system) as the primary perturbing planet.</summary>
+	/// <param name="semiMajorAxis">The semi-major axis a of the inner object in AU (must be less than Earth's semi-major axis ~1.000 AU).</param>
+	/// <returns>The secular Kozai-Lidov period in Julian years. Returns double.NaN if semiMajorAxis >= ~1.000 AU.</returns>
+	/// <remarks>Uses Earth+Moon parameters: M_EarthMoon = 1 / 328900.56 M_Sun, a_Earth = 1.00000011 AU, e_Earth = 0.01671022.</remarks>
+	public static double CalculateEarthKozaiLidovPeriodYears(double semiMajorAxis)
+	{
+		// Earth+Moon system parameters
+		const double earthMassSolarMasses = 1.0 / 328900.56;
+		const double earthSemiMajorAxisAu = 1.00000011;
+		const double earthEccentricity = 0.01671022;
+		return CalculateKozaiLidovPeriodYears(semiMajorAxis: semiMajorAxis, perturbingMassSolarMasses: earthMassSolarMasses, perturbingSemiMajorAxis: earthSemiMajorAxisAu, perturbingEccentricity: earthEccentricity);
+	}
+
+	/// <summary>Calculates the secular Kozai-Lidov oscillation period in Julian years assuming Mars as the primary perturbing planet.</summary>
+	/// <param name="semiMajorAxis">The semi-major axis a of the inner object in AU (must be less than Mars's semi-major axis ~1.524 AU).</param>
+	/// <returns>The secular Kozai-Lidov period in Julian years. Returns double.NaN if semiMajorAxis >= ~1.524 AU.</returns>
+	/// <remarks>Uses Mars parameters: M_Mars = 1 / 3098708.0 M_Sun, a_Mars = 1.52366231 AU, e_Mars = 0.09341233.</remarks>
+	public static double CalculateMarsKozaiLidovPeriodYears(double semiMajorAxis)
+	{
+		// Mars parameters
+		const double marsMassSolarMasses = 1.0 / 3098708.0;
+		const double marsSemiMajorAxisAu = 1.52366231;
+		const double marsEccentricity = 0.09341233;
+		return CalculateKozaiLidovPeriodYears(semiMajorAxis: semiMajorAxis, perturbingMassSolarMasses: marsMassSolarMasses, perturbingSemiMajorAxis: marsSemiMajorAxisAu, perturbingEccentricity: marsEccentricity);
+	}
+
+	/// <summary>Calculates the secular Kozai-Lidov oscillation period in Julian years assuming Jupiter as the primary perturbing planet.</summary>
+	/// <param name="semiMajorAxis">The semi-major axis a of the asteroid or comet in AU (must be less than Jupiter's semi-major axis ~5.203 AU).</param>
+	/// <returns>The secular Kozai-Lidov period in Julian years (typically ~10⁴ to 10⁵ years for main-belt asteroids).</returns>
+	/// <remarks>Uses Jupiter parameters: M_J = 1 / 1047.3486 M_Sun, a_J = 5.20336301 AU, e_J = 0.0489.</remarks>
+	public static double CalculateJupiterKozaiLidovPeriodYears(double semiMajorAxis)
+	{
+		// Jupiter parameters
+		const double jupiterMassSolarMasses = 1.0 / 1047.3486;
+		const double jupiterSemiMajorAxisAu = 5.20336301;
+		const double jupiterEccentricity = 0.0489;
+		return CalculateKozaiLidovPeriodYears(semiMajorAxis: semiMajorAxis, perturbingMassSolarMasses: jupiterMassSolarMasses, perturbingSemiMajorAxis: jupiterSemiMajorAxisAu, perturbingEccentricity: jupiterEccentricity);
+	}
+
+	/// <summary>Calculates the secular Kozai-Lidov oscillation period in Julian years assuming Saturn as the primary perturbing planet.</summary>
+	/// <param name="semiMajorAxis">The semi-major axis a of the object in AU (must be less than Saturn's semi-major axis ~9.537 AU).</param>
+	/// <returns>The secular Kozai-Lidov period in Julian years. Returns double.NaN if semiMajorAxis >= ~9.537 AU.</returns>
+	/// <remarks>Uses Saturn parameters: M_Saturn = 1 / 3497.898 M_Sun, a_Saturn = 9.53707032 AU, e_Saturn = 0.05415060.</remarks>
+	public static double CalculateSaturnKozaiLidovPeriodYears(double semiMajorAxis)
+	{
+		// Saturn parameters
+		const double saturnMassSolarMasses = 1.0 / 3497.898;
+		const double saturnSemiMajorAxisAu = 9.53707032;
+		const double saturnEccentricity = 0.05415060;
+		return CalculateKozaiLidovPeriodYears(semiMajorAxis: semiMajorAxis, perturbingMassSolarMasses: saturnMassSolarMasses, perturbingSemiMajorAxis: saturnSemiMajorAxisAu, perturbingEccentricity: saturnEccentricity);
+	}
+
+	/// <summary>Calculates the secular Kozai-Lidov oscillation period in Julian years assuming Uranus as the primary perturbing planet.</summary>
+	/// <param name="semiMajorAxis">The semi-major axis a of the object in AU (must be less than Uranus's semi-major axis ~19.191 AU).</param>
+	/// <returns>The secular Kozai-Lidov period in Julian years. Returns double.NaN if semiMajorAxis >= ~19.191 AU.</returns>
+	/// <remarks>Uses Uranus parameters: M_Uranus = 1 / 22902.98 M_Sun, a_Uranus = 19.19126393 AU, e_Uranus = 0.04716771.</remarks>
+	public static double CalculateUranusKozaiLidovPeriodYears(double semiMajorAxis)
+	{
+		// Uranus parameters
+		const double uranusMassSolarMasses = 1.0 / 22902.98;
+		const double uranusSemiMajorAxisAu = 19.19126393;
+		const double uranusEccentricity = 0.04716771;
+		return CalculateKozaiLidovPeriodYears(semiMajorAxis: semiMajorAxis, perturbingMassSolarMasses: uranusMassSolarMasses, perturbingSemiMajorAxis: uranusSemiMajorAxisAu, perturbingEccentricity: uranusEccentricity);
+	}
+
+	/// <summary>Calculates the secular Kozai-Lidov oscillation period in Julian years assuming Neptune as the primary perturbing planet.</summary>
+	/// <param name="semiMajorAxis">The semi-major axis a of the object in AU (must be less than Neptune's semi-major axis ~30.069 AU).</param>
+	/// <returns>The secular Kozai-Lidov period in Julian years. Returns double.NaN if semiMajorAxis >= ~30.069 AU.</returns>
+	/// <remarks>Uses Neptune parameters: M_Neptune = 1 / 19412.24 M_Sun, a_Neptune = 30.06896348 AU, e_Neptune = 0.00858587.</remarks>
+	public static double CalculateNeptuneKozaiLidovPeriodYears(double semiMajorAxis)
+	{
+		// Neptune parameters
+		const double neptuneMassSolarMasses = 1.0 / 19412.24;
+		const double neptuneSemiMajorAxisAu = 30.06896348;
+		const double neptuneEccentricity = 0.00858587;
+		return CalculateKozaiLidovPeriodYears(semiMajorAxis: semiMajorAxis, perturbingMassSolarMasses: neptuneMassSolarMasses, perturbingSemiMajorAxis: neptuneSemiMajorAxisAu, perturbingEccentricity: neptuneEccentricity);
+	}
+
+	/// <summary>Calculates the secular Kozai-Lidov oscillation periods of a planetoid relative to all eight solar system planets.</summary>
+	/// <param name="semiMajorAxis">The semi-major axis a of the planetoid in AU.</param>
+	/// <returns>A list of KozaiLidovPeriod structures containing the planet name, planet semi-major axis, and calculated Kozai-Lidov period in Julian years.</returns>
+	/// <remarks>The Kozai-Lidov period is evaluated for each planet where the planetoid orbits inner to the planet (a &lt; a_planet). Returns double.NaN for planets where the hierarchical condition (a &lt; a_planet) is not satisfied.</remarks>
+	public static List<KozaiLidovPeriod> CalculateKozaiLidovPeriods(double semiMajorAxis)
+	{
+		List<KozaiLidovPeriod> results =
+		[
+			new(PlanetName: "Mercury", PlanetSemiMajorAxisAu:  0.38709893, KozaiPeriodYears: CalculateMercuryKozaiLidovPeriodYears(semiMajorAxis: semiMajorAxis)),
+			new(PlanetName: "Venus",   PlanetSemiMajorAxisAu:  0.72333199, KozaiPeriodYears: CalculateVenusKozaiLidovPeriodYears(semiMajorAxis: semiMajorAxis)),
+			new(PlanetName: "Earth",   PlanetSemiMajorAxisAu:  1.00000011, KozaiPeriodYears: CalculateEarthKozaiLidovPeriodYears(semiMajorAxis: semiMajorAxis)),
+			new(PlanetName: "Mars",    PlanetSemiMajorAxisAu:  1.52366231, KozaiPeriodYears: CalculateMarsKozaiLidovPeriodYears(semiMajorAxis: semiMajorAxis)),
+			new(PlanetName: "Jupiter", PlanetSemiMajorAxisAu:  5.20336301, KozaiPeriodYears: CalculateJupiterKozaiLidovPeriodYears(semiMajorAxis: semiMajorAxis)),
+			new(PlanetName: "Saturn",  PlanetSemiMajorAxisAu:  9.53707032, KozaiPeriodYears: CalculateSaturnKozaiLidovPeriodYears(semiMajorAxis: semiMajorAxis)),
+			new(PlanetName: "Uranus",  PlanetSemiMajorAxisAu: 19.19126393, KozaiPeriodYears: CalculateUranusKozaiLidovPeriodYears(semiMajorAxis: semiMajorAxis)),
+			new(PlanetName: "Neptune", PlanetSemiMajorAxisAu: 30.06896348, KozaiPeriodYears: CalculateNeptuneKozaiLidovPeriodYears(semiMajorAxis: semiMajorAxis))
+		];
+		return results;
+	}
+
+	#endregion
+
+	#region
+
+	/// <summary>Calculates the Laplace coefficient b_{3/2}^{(1)}(α) using numerical Simpson integration.</summary>
+	/// <param name="alpha">The ratio of semi-major axes α = a / a_planet (0 lower than α lower than 1).</param>
+	/// <returns>The Laplace coefficient value b_{3/2}^{(1)}(α).</returns>
+	/// <remarks>Calculated as (2/π) · ∫₀^π [cos(ψ) / (1 - 2α·cos(ψ) + α²)^(3/2)] dψ.</remarks>
+	public static double CalculateLaplaceCoefficientB32_1(double alpha)
+	{
+		if (alpha is <= 0.0 or >= 1.0)
+		{
+			return double.NaN;
+		}
+		const int steps = 360;
+		double dPsi = Math.PI / steps;
+		double sum = 0.0;
+		for (int i = 0; i < steps; i++)
+		{
+			double psi = (i + 0.5) * dPsi;
+			double denom = Math.Pow(x: 1.0 - (2.0 * alpha * Math.Cos(d: psi)) + (alpha * alpha), y: 1.5);
+			sum += Math.Cos(d: psi) / denom;
+		}
+		return 2.0 / Math.PI * sum * dPsi;
+	}
+
+	/// <summary>Calculates the Laplace coefficient b_{3/2}^{(2)}(α) using numerical Simpson integration.</summary>
+	/// <param name="alpha">The ratio of semi-major axes α = a / a_planet (0 lower than α lower than 1).</param>
+	/// <returns>The Laplace coefficient value b_{3/2}^{(2)}(α).</returns>
+	/// <remarks>Calculated as (2/π) · ∫₀^π [cos(2ψ) / (1 - 2α·cos(ψ) + α²)^(3/2)] dψ.</remarks>
+	public static double CalculateLaplaceCoefficientB32_2(double alpha)
+	{
+		if (alpha is <= 0.0 or >= 1.0)
+		{
+			return double.NaN;
+		}
+		const int steps = 360;
+		double dPsi = Math.PI / steps;
+		double sum = 0.0;
+		for (int i = 0; i < steps; i++)
+		{
+			double psi = (i + 0.5) * dPsi;
+			double denom = Math.Pow(x: 1.0 - (2.0 * alpha * Math.Cos(d: psi)) + (alpha * alpha), y: 1.5);
+			sum += Math.Cos(d: 2.0 * psi) / denom;
+		}
+		return 2.0 / Math.PI * sum * dPsi;
+	}
+
+	/// <summary>Approximates the forced eccentricity e_forced and forced inclination i_forced according to secular Laplace-Lagrange perturbation theory (Jupiter and Saturn perturbations).</summary>
+	/// <param name="semiMajorAxis">The semi-major axis a of the asteroid in AU (0.5 AU lower than a lower than 4.8 AU).</param>
+	/// <param name="osculatingEccentricity">The osculating numerical eccentricity e.</param>
+	/// <param name="osculatingInclinationDegrees">The osculating inclination i in degrees.</param>
+	/// <returns>A LaplaceLagrangeForcedElements structure containing forced/free orbital parameters and secular precession frequency A.</returns>
+	/// <remarks>Uses the classical linear secular Laplace-Lagrange model perturbed by Jupiter (j=5) and Saturn (j=6): e_forced ≈ ∑ (ν_j / (A - g_j)) · e_j, where A is the secular perihelion precession frequency of the asteroid. Free eccentricity e_free and free inclination i_free approximate the proper elements (e_p, i_p).</remarks>
+	public static LaplaceLagrangeForcedElements CalculateLaplaceLagrangeForcedElements(double semiMajorAxis, double osculatingEccentricity, double osculatingInclinationDegrees)
+	{
+		// Validate semi-major axis range for main-belt / inner solar system asteroids
+		const double jupiterSemiMajorAxis = 5.20336301;
+		const double saturnSemiMajorAxis = 9.53707032;
+		if (semiMajorAxis is <= 0.0 or >= jupiterSemiMajorAxis)
+		{
+			return new LaplaceLagrangeForcedElements(ForcedEccentricity: double.NaN, ForcedInclinationDegrees: double.NaN, FreeEccentricity: double.NaN, FreeInclinationDegrees: double.NaN, SecularPrecessionFrequencyArcsecPerYear: double.NaN);
+		}
+		// Planetary parameters: Jupiter (5) and Saturn (6)
+		const double m5 = 1.0 / 1047.3486;
+		const double m6 = 1.0 / 3497.898;
+		const double e5 = 0.0489;
+		const double e6 = 0.0565;
+		// arcsec/yr (Jupiter fundamental frequency)
+		const double g5 = 4.257;
+		// arcsec/yr (Saturn fundamental frequency)
+		const double g6 = 28.245;
+		// arcsec/yr (Saturn nodal frequency)
+		const double s6 = -26.345;
+		// Saturn inclination in radians
+		double i6Rad = double.DegreesToRadians(degrees: 2.485);
+		// Ratios of semi-major axes α
+		double alpha5 = semiMajorAxis / jupiterSemiMajorAxis;
+		double alpha6 = semiMajorAxis / saturnSemiMajorAxis;
+		// Mean motion n in arcsec/year (1 rad = 206,264.806247 arcsec)
+		double nArcsecPerYear = CalculateMeanMotionRad(semiMajorAxis: semiMajorAxis) * 206_264.806247;
+		// Laplace coefficients
+		double b32_1_5 = CalculateLaplaceCoefficientB32_1(alpha: alpha5);
+		double b32_1_6 = CalculateLaplaceCoefficientB32_1(alpha: alpha6);
+		double b32_2_5 = CalculateLaplaceCoefficientB32_2(alpha: alpha5);
+		double b32_2_6 = CalculateLaplaceCoefficientB32_2(alpha: alpha6);
+		// Asteroid secular precession frequency A (arcsec/year)
+		double frequencyA = 0.75 * nArcsecPerYear * ((m5 * alpha5 * b32_1_5) + (m6 * alpha6 * b32_1_6));
+		double frequencyB = -frequencyA;
+		// Coupling coefficients ν_5, ν_6 and μ_6
+		double nu5 = 0.75 * nArcsecPerYear * m5 * alpha5 * b32_2_5;
+		double nu6 = 0.75 * nArcsecPerYear * m6 * alpha6 * b32_2_6;
+		double mu6 = -0.75 * nArcsecPerYear * m6 * alpha6 * b32_1_6;
+		// Forced eccentricity vector components
+		double ef5 = (frequencyA != g5) ? nu5 / (frequencyA - g5) * e5 : 0.0;
+		double ef6 = (frequencyA != g6) ? nu6 / (frequencyA - g6) * e6 : 0.0;
+		double forcedEccentricity = Math.Abs(value: ef5 + ef6);
+		// Forced inclination (radians and degrees)
+		double if6Rad = (frequencyB != s6) ? mu6 / (frequencyB - s6) * Math.Sin(a: i6Rad) : 0.0;
+		double forcedInclinationDegrees = double.RadiansToDegrees(radians: Math.Abs(value: if6Rad));
+		// Free elements (proper element approximations): e_free ≈ |e - e_forced|, i_free ≈ |i - i_forced|
+		double freeEccentricity = Math.Max(val1: 0.0, val2: osculatingEccentricity - forcedEccentricity);
+		double freeInclinationDegrees = Math.Max(val1: 0.0, val2: osculatingInclinationDegrees - forcedInclinationDegrees);
+		return new LaplaceLagrangeForcedElements(ForcedEccentricity: forcedEccentricity, ForcedInclinationDegrees: forcedInclinationDegrees, FreeEccentricity: freeEccentricity, FreeInclinationDegrees: freeInclinationDegrees, SecularPrecessionFrequencyArcsecPerYear: frequencyA);
+	}
+
+	#endregion
+
+	#region Secular resonance analysis
+
+	/// <summary>Analyzes proximity to the primary secular resonances ν6 (Saturn perihelion precession) and ν16 (Saturn nodal precession).</summary>
+	/// <param name="semiMajorAxis">The semi-major axis a of the object in AU.</param>
+	/// <param name="osculatingEccentricity">The osculating numerical eccentricity e.</param>
+	/// <param name="osculatingInclinationDegrees">The osculating inclination i in degrees.</param>
+	/// <param name="frequencyToleranceArcsecPerYear">The frequency difference threshold in arcsec/year to classify resonance proximity (default is 3.0 arcsec/yr).</param>
+	/// <returns>A SecularResonanceAnalysis structure detailing frequency offsets and secular resonance proximity flags.</returns>
+	/// <remarks>
+	/// The ν6 secular resonance occurs when the asteroid's perihelion precession frequency A matches Saturn's g6 frequency (~28.245 arcsec/yr).
+	/// The ν16 secular resonance occurs when the asteroid's nodal precession frequency B matches Saturn's s6 frequency (~-26.345 arcsec/yr).
+	/// </remarks>
+	public static SecularResonanceAnalysis AnalyzeSecularResonances(double semiMajorAxis, double osculatingEccentricity, double osculatingInclinationDegrees, double frequencyToleranceArcsecPerYear = 3.0)
+	{
+		// Fundamental Saturn precession frequencies in arcsec/year. g6Saturn = Perihelion frequency g6; s6Saturn = Nodal frequency s6
+		const double g6Saturn = 28.245;
+		const double s6Saturn = -26.345;
+		// Calculate Laplace-Lagrange secular frequencies A and B = -A
+		LaplaceLagrangeForcedElements llElements = CalculateLaplaceLagrangeForcedElements(semiMajorAxis: semiMajorAxis, osculatingEccentricity: osculatingEccentricity, osculatingInclinationDegrees: osculatingInclinationDegrees);
+		double frequencyA = llElements.SecularPrecessionFrequencyArcsecPerYear;
+		if (double.IsNaN(d: frequencyA))
+		{
+			return new SecularResonanceAnalysis(SecularPerihelionFrequencyA: double.NaN, SecularNodalFrequencyB: double.NaN, DeltaNu6ArcsecPerYear: double.NaN, DeltaNu16ArcsecPerYear: double.NaN, IsInNu6Resonance: false, IsInNu16Resonance: false);
+		}
+		// Nodal precession frequency B = -A in linear secular theory
+		double frequencyB = -frequencyA;
+		// Frequency offsets to Saturn's fundamental frequencies
+		double deltaNu6 = Math.Abs(value: frequencyA - g6Saturn);
+		double deltaNu16 = Math.Abs(value: frequencyB - s6Saturn);
+		// Proximity checks against tolerance
+		bool isInNu6 = deltaNu6 <= frequencyToleranceArcsecPerYear;
+		bool isInNu16 = deltaNu16 <= frequencyToleranceArcsecPerYear;
+		return new SecularResonanceAnalysis(SecularPerihelionFrequencyA: frequencyA, SecularNodalFrequencyB: frequencyB, DeltaNu6ArcsecPerYear: deltaNu6, DeltaNu16ArcsecPerYear: deltaNu16, IsInNu6Resonance: isInNu6, IsInNu16Resonance: isInNu16);
+	}
+
+	#endregion
 }

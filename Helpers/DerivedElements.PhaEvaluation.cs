@@ -32,6 +32,6 @@ internal partial class DerivedElements
 		/// <summary>Returns a string representation of the synodic period for debugging purposes.</summary>
 		/// <returns>A string representation of the synodic period.</returns>
 		/// <remarks>This method is used to provide a human-readable representation of the synodic period for debugging.</remarks>
-		private string DebuggerDisplay => ToString();
+		private string DebuggerDisplay => ToString() ?? string.Empty;
 	}
 }
