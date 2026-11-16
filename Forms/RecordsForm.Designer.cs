@@ -190,7 +190,7 @@ partial class RecordsForm
 		kryptonPanelMain.Location = new Point(0, 0);
 		kryptonPanelMain.Name = "kryptonPanelMain";
 		kryptonPanelMain.PanelBackStyle = PaletteBackStyle.FormMain;
-		kryptonPanelMain.Size = new Size(542, 343);
+		kryptonPanelMain.Size = new Size(542, 263);
 		kryptonPanelMain.TabIndex = 0;
 		kryptonPanelMain.TabStop = true;
 		kryptonPanelMain.Text = "Main panel";
@@ -266,7 +266,7 @@ partial class RecordsForm
 		tableLayoutPanel.RowStyles.Add(new RowStyle());
 		tableLayoutPanel.RowStyles.Add(new RowStyle());
 		tableLayoutPanel.RowStyles.Add(new RowStyle());
-		tableLayoutPanel.Size = new Size(542, 343);
+		tableLayoutPanel.Size = new Size(542, 263);
 		tableLayoutPanel.TabIndex = 1;
 		tableLayoutPanel.Enter += Control_Enter;
 		tableLayoutPanel.Leave += Control_Leave;
@@ -871,7 +871,8 @@ partial class RecordsForm
 		labelElementHeader.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelElementHeader.Dock = DockStyle.Top;
 		labelElementHeader.LabelStyle = LabelStyle.BoldPanel;
-		labelElementHeader.Location = new Point(3, 3);
+		labelElementHeader.Location = new Point(0, 0);
+		labelElementHeader.Margin = new Padding(0);
 		labelElementHeader.Name = "labelElementHeader";
 		labelElementHeader.Size = new Size(191, 20);
 		labelElementHeader.TabIndex = 0;
@@ -921,7 +922,8 @@ partial class RecordsForm
 		labelDesignationHeader.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelDesignationHeader.Dock = DockStyle.Top;
 		labelDesignationHeader.LabelStyle = LabelStyle.BoldPanel;
-		labelDesignationHeader.Location = new Point(200, 3);
+		labelDesignationHeader.Location = new Point(191, 0);
+		labelDesignationHeader.Margin = new Padding(0);
 		labelDesignationHeader.Name = "labelDesignationHeader";
 		labelDesignationHeader.Size = new Size(136, 20);
 		labelDesignationHeader.TabIndex = 1;
@@ -940,9 +942,10 @@ partial class RecordsForm
 		labelValueHeader.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelValueHeader.Dock = DockStyle.Top;
 		labelValueHeader.LabelStyle = LabelStyle.BoldPanel;
-		labelValueHeader.Location = new Point(342, 3);
+		labelValueHeader.Location = new Point(327, 0);
+		labelValueHeader.Margin = new Padding(0);
 		labelValueHeader.Name = "labelValueHeader";
-		labelValueHeader.Size = new Size(197, 20);
+		labelValueHeader.Size = new Size(215, 20);
 		labelValueHeader.TabIndex = 2;
 		labelValueHeader.Values.Text = "Value";
 		labelValueHeader.Enter += Control_Enter;
@@ -958,7 +961,8 @@ partial class RecordsForm
 		labelElementMeanAnomalyAtTheEpoch.AccessibleRole = AccessibleRole.StaticText;
 		labelElementMeanAnomalyAtTheEpoch.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelElementMeanAnomalyAtTheEpoch.Dock = DockStyle.Top;
-		labelElementMeanAnomalyAtTheEpoch.Location = new Point(3, 29);
+		labelElementMeanAnomalyAtTheEpoch.Location = new Point(0, 20);
+		labelElementMeanAnomalyAtTheEpoch.Margin = new Padding(0);
 		labelElementMeanAnomalyAtTheEpoch.Name = "labelElementMeanAnomalyAtTheEpoch";
 		labelElementMeanAnomalyAtTheEpoch.Size = new Size(191, 20);
 		labelElementMeanAnomalyAtTheEpoch.TabIndex = 3;
@@ -980,7 +984,8 @@ partial class RecordsForm
 		labelDesignationMeanAnomalyAtTheEpoch.AccessibleRole = AccessibleRole.StaticText;
 		labelDesignationMeanAnomalyAtTheEpoch.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelDesignationMeanAnomalyAtTheEpoch.Dock = DockStyle.Top;
-		labelDesignationMeanAnomalyAtTheEpoch.Location = new Point(200, 29);
+		labelDesignationMeanAnomalyAtTheEpoch.Location = new Point(191, 20);
+		labelDesignationMeanAnomalyAtTheEpoch.Margin = new Padding(0);
 		labelDesignationMeanAnomalyAtTheEpoch.Name = "labelDesignationMeanAnomalyAtTheEpoch";
 		labelDesignationMeanAnomalyAtTheEpoch.Size = new Size(136, 20);
 		labelDesignationMeanAnomalyAtTheEpoch.TabIndex = 4;
@@ -1003,9 +1008,10 @@ partial class RecordsForm
 		labelValueMeanAnomalyAtTheEpoch.AccessibleRole = AccessibleRole.StaticText;
 		labelValueMeanAnomalyAtTheEpoch.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelValueMeanAnomalyAtTheEpoch.Dock = DockStyle.Top;
-		labelValueMeanAnomalyAtTheEpoch.Location = new Point(342, 29);
+		labelValueMeanAnomalyAtTheEpoch.Location = new Point(327, 20);
+		labelValueMeanAnomalyAtTheEpoch.Margin = new Padding(0);
 		labelValueMeanAnomalyAtTheEpoch.Name = "labelValueMeanAnomalyAtTheEpoch";
-		labelValueMeanAnomalyAtTheEpoch.Size = new Size(197, 20);
+		labelValueMeanAnomalyAtTheEpoch.Size = new Size(215, 20);
 		labelValueMeanAnomalyAtTheEpoch.TabIndex = 5;
 		labelValueMeanAnomalyAtTheEpoch.ToolTipValues.Description = "Shows the record value for the mean anomaly at the epoch.\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelValueMeanAnomalyAtTheEpoch.ToolTipValues.EnableToolTips = true;
@@ -1026,7 +1032,8 @@ partial class RecordsForm
 		labelElementArgumentOfThePerihelion.AccessibleRole = AccessibleRole.StaticText;
 		labelElementArgumentOfThePerihelion.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelElementArgumentOfThePerihelion.Dock = DockStyle.Top;
-		labelElementArgumentOfThePerihelion.Location = new Point(3, 55);
+		labelElementArgumentOfThePerihelion.Location = new Point(0, 40);
+		labelElementArgumentOfThePerihelion.Margin = new Padding(0);
 		labelElementArgumentOfThePerihelion.Name = "labelElementArgumentOfThePerihelion";
 		labelElementArgumentOfThePerihelion.Size = new Size(191, 20);
 		labelElementArgumentOfThePerihelion.TabIndex = 6;
@@ -1048,7 +1055,8 @@ partial class RecordsForm
 		labelDesignationArgumentOfThePerihelion.AccessibleRole = AccessibleRole.StaticText;
 		labelDesignationArgumentOfThePerihelion.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelDesignationArgumentOfThePerihelion.Dock = DockStyle.Top;
-		labelDesignationArgumentOfThePerihelion.Location = new Point(200, 55);
+		labelDesignationArgumentOfThePerihelion.Location = new Point(191, 40);
+		labelDesignationArgumentOfThePerihelion.Margin = new Padding(0);
 		labelDesignationArgumentOfThePerihelion.Name = "labelDesignationArgumentOfThePerihelion";
 		labelDesignationArgumentOfThePerihelion.Size = new Size(136, 20);
 		labelDesignationArgumentOfThePerihelion.TabIndex = 7;
@@ -1071,9 +1079,10 @@ partial class RecordsForm
 		labelValueArgumentOfThePerihelion.AccessibleRole = AccessibleRole.StaticText;
 		labelValueArgumentOfThePerihelion.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelValueArgumentOfThePerihelion.Dock = DockStyle.Top;
-		labelValueArgumentOfThePerihelion.Location = new Point(342, 55);
+		labelValueArgumentOfThePerihelion.Location = new Point(327, 40);
+		labelValueArgumentOfThePerihelion.Margin = new Padding(0);
 		labelValueArgumentOfThePerihelion.Name = "labelValueArgumentOfThePerihelion";
-		labelValueArgumentOfThePerihelion.Size = new Size(197, 20);
+		labelValueArgumentOfThePerihelion.Size = new Size(215, 20);
 		labelValueArgumentOfThePerihelion.TabIndex = 8;
 		labelValueArgumentOfThePerihelion.ToolTipValues.Description = "Shows the record value for the argument of the perihelion.\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelValueArgumentOfThePerihelion.ToolTipValues.EnableToolTips = true;
@@ -1094,7 +1103,8 @@ partial class RecordsForm
 		labelElementLongitudeOfTheAscendingNodeDesc.AccessibleRole = AccessibleRole.StaticText;
 		labelElementLongitudeOfTheAscendingNodeDesc.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelElementLongitudeOfTheAscendingNodeDesc.Dock = DockStyle.Top;
-		labelElementLongitudeOfTheAscendingNodeDesc.Location = new Point(3, 81);
+		labelElementLongitudeOfTheAscendingNodeDesc.Location = new Point(0, 60);
+		labelElementLongitudeOfTheAscendingNodeDesc.Margin = new Padding(0);
 		labelElementLongitudeOfTheAscendingNodeDesc.Name = "labelElementLongitudeOfTheAscendingNodeDesc";
 		labelElementLongitudeOfTheAscendingNodeDesc.Size = new Size(191, 20);
 		labelElementLongitudeOfTheAscendingNodeDesc.TabIndex = 9;
@@ -1116,7 +1126,8 @@ partial class RecordsForm
 		labelDesignationLongitudeOfTheAscendingNode.AccessibleRole = AccessibleRole.StaticText;
 		labelDesignationLongitudeOfTheAscendingNode.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelDesignationLongitudeOfTheAscendingNode.Dock = DockStyle.Top;
-		labelDesignationLongitudeOfTheAscendingNode.Location = new Point(200, 81);
+		labelDesignationLongitudeOfTheAscendingNode.Location = new Point(191, 60);
+		labelDesignationLongitudeOfTheAscendingNode.Margin = new Padding(0);
 		labelDesignationLongitudeOfTheAscendingNode.Name = "labelDesignationLongitudeOfTheAscendingNode";
 		labelDesignationLongitudeOfTheAscendingNode.Size = new Size(136, 20);
 		labelDesignationLongitudeOfTheAscendingNode.TabIndex = 10;
@@ -1139,9 +1150,10 @@ partial class RecordsForm
 		labelValueLongitudeOfTheAscendingNode.AccessibleRole = AccessibleRole.StaticText;
 		labelValueLongitudeOfTheAscendingNode.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelValueLongitudeOfTheAscendingNode.Dock = DockStyle.Top;
-		labelValueLongitudeOfTheAscendingNode.Location = new Point(342, 81);
+		labelValueLongitudeOfTheAscendingNode.Location = new Point(327, 60);
+		labelValueLongitudeOfTheAscendingNode.Margin = new Padding(0);
 		labelValueLongitudeOfTheAscendingNode.Name = "labelValueLongitudeOfTheAscendingNode";
-		labelValueLongitudeOfTheAscendingNode.Size = new Size(197, 20);
+		labelValueLongitudeOfTheAscendingNode.Size = new Size(215, 20);
 		labelValueLongitudeOfTheAscendingNode.TabIndex = 11;
 		labelValueLongitudeOfTheAscendingNode.ToolTipValues.Description = "Shows the record value for the longitude of the ascending node.\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelValueLongitudeOfTheAscendingNode.ToolTipValues.EnableToolTips = true;
@@ -1162,7 +1174,8 @@ partial class RecordsForm
 		labelElementInclinationToTheEcliptic.AccessibleRole = AccessibleRole.StaticText;
 		labelElementInclinationToTheEcliptic.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelElementInclinationToTheEcliptic.Dock = DockStyle.Top;
-		labelElementInclinationToTheEcliptic.Location = new Point(3, 107);
+		labelElementInclinationToTheEcliptic.Location = new Point(0, 80);
+		labelElementInclinationToTheEcliptic.Margin = new Padding(0);
 		labelElementInclinationToTheEcliptic.Name = "labelElementInclinationToTheEcliptic";
 		labelElementInclinationToTheEcliptic.Size = new Size(191, 20);
 		labelElementInclinationToTheEcliptic.TabIndex = 12;
@@ -1184,7 +1197,8 @@ partial class RecordsForm
 		labelDesignationInclinationToTheEcliptic.AccessibleRole = AccessibleRole.StaticText;
 		labelDesignationInclinationToTheEcliptic.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelDesignationInclinationToTheEcliptic.Dock = DockStyle.Top;
-		labelDesignationInclinationToTheEcliptic.Location = new Point(200, 107);
+		labelDesignationInclinationToTheEcliptic.Location = new Point(191, 80);
+		labelDesignationInclinationToTheEcliptic.Margin = new Padding(0);
 		labelDesignationInclinationToTheEcliptic.Name = "labelDesignationInclinationToTheEcliptic";
 		labelDesignationInclinationToTheEcliptic.Size = new Size(136, 20);
 		labelDesignationInclinationToTheEcliptic.TabIndex = 13;
@@ -1207,9 +1221,10 @@ partial class RecordsForm
 		labelValueInclinationToTheEcliptic.AccessibleRole = AccessibleRole.StaticText;
 		labelValueInclinationToTheEcliptic.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelValueInclinationToTheEcliptic.Dock = DockStyle.Top;
-		labelValueInclinationToTheEcliptic.Location = new Point(342, 107);
+		labelValueInclinationToTheEcliptic.Location = new Point(327, 80);
+		labelValueInclinationToTheEcliptic.Margin = new Padding(0);
 		labelValueInclinationToTheEcliptic.Name = "labelValueInclinationToTheEcliptic";
-		labelValueInclinationToTheEcliptic.Size = new Size(197, 20);
+		labelValueInclinationToTheEcliptic.Size = new Size(215, 20);
 		labelValueInclinationToTheEcliptic.TabIndex = 14;
 		labelValueInclinationToTheEcliptic.ToolTipValues.Description = "Shows the record value for the inclination to the ecliptic.\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelValueInclinationToTheEcliptic.ToolTipValues.EnableToolTips = true;
@@ -1230,7 +1245,8 @@ partial class RecordsForm
 		labelElementOrbitalEccentricity.AccessibleRole = AccessibleRole.StaticText;
 		labelElementOrbitalEccentricity.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelElementOrbitalEccentricity.Dock = DockStyle.Top;
-		labelElementOrbitalEccentricity.Location = new Point(3, 133);
+		labelElementOrbitalEccentricity.Location = new Point(0, 100);
+		labelElementOrbitalEccentricity.Margin = new Padding(0);
 		labelElementOrbitalEccentricity.Name = "labelElementOrbitalEccentricity";
 		labelElementOrbitalEccentricity.Size = new Size(191, 20);
 		labelElementOrbitalEccentricity.TabIndex = 15;
@@ -1252,7 +1268,8 @@ partial class RecordsForm
 		labelDesignationOrbitalEccentricity.AccessibleRole = AccessibleRole.StaticText;
 		labelDesignationOrbitalEccentricity.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelDesignationOrbitalEccentricity.Dock = DockStyle.Top;
-		labelDesignationOrbitalEccentricity.Location = new Point(200, 133);
+		labelDesignationOrbitalEccentricity.Location = new Point(191, 100);
+		labelDesignationOrbitalEccentricity.Margin = new Padding(0);
 		labelDesignationOrbitalEccentricity.Name = "labelDesignationOrbitalEccentricity";
 		labelDesignationOrbitalEccentricity.Size = new Size(136, 20);
 		labelDesignationOrbitalEccentricity.TabIndex = 16;
@@ -1275,9 +1292,10 @@ partial class RecordsForm
 		labelValueOrbitalEccentricity.AccessibleRole = AccessibleRole.StaticText;
 		labelValueOrbitalEccentricity.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelValueOrbitalEccentricity.Dock = DockStyle.Top;
-		labelValueOrbitalEccentricity.Location = new Point(342, 133);
+		labelValueOrbitalEccentricity.Location = new Point(327, 100);
+		labelValueOrbitalEccentricity.Margin = new Padding(0);
 		labelValueOrbitalEccentricity.Name = "labelValueOrbitalEccentricity";
-		labelValueOrbitalEccentricity.Size = new Size(197, 20);
+		labelValueOrbitalEccentricity.Size = new Size(215, 20);
 		labelValueOrbitalEccentricity.TabIndex = 17;
 		labelValueOrbitalEccentricity.ToolTipValues.Description = "Shows the record value for the orbital eccentricity.\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelValueOrbitalEccentricity.ToolTipValues.EnableToolTips = true;
@@ -1298,7 +1316,8 @@ partial class RecordsForm
 		labelElementMeanDailyMotion.AccessibleRole = AccessibleRole.StaticText;
 		labelElementMeanDailyMotion.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelElementMeanDailyMotion.Dock = DockStyle.Top;
-		labelElementMeanDailyMotion.Location = new Point(3, 159);
+		labelElementMeanDailyMotion.Location = new Point(0, 120);
+		labelElementMeanDailyMotion.Margin = new Padding(0);
 		labelElementMeanDailyMotion.Name = "labelElementMeanDailyMotion";
 		labelElementMeanDailyMotion.Size = new Size(191, 20);
 		labelElementMeanDailyMotion.TabIndex = 18;
@@ -1320,7 +1339,8 @@ partial class RecordsForm
 		labelDesignationMeanDailyMotion.AccessibleRole = AccessibleRole.StaticText;
 		labelDesignationMeanDailyMotion.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelDesignationMeanDailyMotion.Dock = DockStyle.Top;
-		labelDesignationMeanDailyMotion.Location = new Point(200, 159);
+		labelDesignationMeanDailyMotion.Location = new Point(191, 120);
+		labelDesignationMeanDailyMotion.Margin = new Padding(0);
 		labelDesignationMeanDailyMotion.Name = "labelDesignationMeanDailyMotion";
 		labelDesignationMeanDailyMotion.Size = new Size(136, 20);
 		labelDesignationMeanDailyMotion.TabIndex = 19;
@@ -1343,9 +1363,10 @@ partial class RecordsForm
 		labelValueMeanDailyMotion.AccessibleRole = AccessibleRole.StaticText;
 		labelValueMeanDailyMotion.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelValueMeanDailyMotion.Dock = DockStyle.Top;
-		labelValueMeanDailyMotion.Location = new Point(342, 159);
+		labelValueMeanDailyMotion.Location = new Point(327, 120);
+		labelValueMeanDailyMotion.Margin = new Padding(0);
 		labelValueMeanDailyMotion.Name = "labelValueMeanDailyMotion";
-		labelValueMeanDailyMotion.Size = new Size(197, 20);
+		labelValueMeanDailyMotion.Size = new Size(215, 20);
 		labelValueMeanDailyMotion.TabIndex = 20;
 		labelValueMeanDailyMotion.ToolTipValues.Description = "Shows the record value for the mean daily motion.\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelValueMeanDailyMotion.ToolTipValues.EnableToolTips = true;
@@ -1366,7 +1387,8 @@ partial class RecordsForm
 		labelElementSemiMajorAxis.AccessibleRole = AccessibleRole.StaticText;
 		labelElementSemiMajorAxis.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelElementSemiMajorAxis.Dock = DockStyle.Top;
-		labelElementSemiMajorAxis.Location = new Point(3, 185);
+		labelElementSemiMajorAxis.Location = new Point(0, 140);
+		labelElementSemiMajorAxis.Margin = new Padding(0);
 		labelElementSemiMajorAxis.Name = "labelElementSemiMajorAxis";
 		labelElementSemiMajorAxis.Size = new Size(191, 20);
 		labelElementSemiMajorAxis.TabIndex = 21;
@@ -1388,7 +1410,8 @@ partial class RecordsForm
 		labelDesignationSemiMajorAxis.AccessibleRole = AccessibleRole.StaticText;
 		labelDesignationSemiMajorAxis.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelDesignationSemiMajorAxis.Dock = DockStyle.Top;
-		labelDesignationSemiMajorAxis.Location = new Point(200, 185);
+		labelDesignationSemiMajorAxis.Location = new Point(191, 140);
+		labelDesignationSemiMajorAxis.Margin = new Padding(0);
 		labelDesignationSemiMajorAxis.Name = "labelDesignationSemiMajorAxis";
 		labelDesignationSemiMajorAxis.Size = new Size(136, 20);
 		labelDesignationSemiMajorAxis.TabIndex = 22;
@@ -1411,9 +1434,10 @@ partial class RecordsForm
 		labelValueSemiMajorAxis.AccessibleRole = AccessibleRole.StaticText;
 		labelValueSemiMajorAxis.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelValueSemiMajorAxis.Dock = DockStyle.Top;
-		labelValueSemiMajorAxis.Location = new Point(342, 185);
+		labelValueSemiMajorAxis.Location = new Point(327, 140);
+		labelValueSemiMajorAxis.Margin = new Padding(0);
 		labelValueSemiMajorAxis.Name = "labelValueSemiMajorAxis";
-		labelValueSemiMajorAxis.Size = new Size(197, 20);
+		labelValueSemiMajorAxis.Size = new Size(215, 20);
 		labelValueSemiMajorAxis.TabIndex = 23;
 		labelValueSemiMajorAxis.ToolTipValues.Description = "Shows the record value for the semi-major axis.\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelValueSemiMajorAxis.ToolTipValues.EnableToolTips = true;
@@ -1434,7 +1458,8 @@ partial class RecordsForm
 		labelElementAbsoluteMagnitude.AccessibleRole = AccessibleRole.StaticText;
 		labelElementAbsoluteMagnitude.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelElementAbsoluteMagnitude.Dock = DockStyle.Top;
-		labelElementAbsoluteMagnitude.Location = new Point(3, 211);
+		labelElementAbsoluteMagnitude.Location = new Point(0, 160);
+		labelElementAbsoluteMagnitude.Margin = new Padding(0);
 		labelElementAbsoluteMagnitude.Name = "labelElementAbsoluteMagnitude";
 		labelElementAbsoluteMagnitude.Size = new Size(191, 20);
 		labelElementAbsoluteMagnitude.TabIndex = 24;
@@ -1456,7 +1481,8 @@ partial class RecordsForm
 		labelDesignationAbsoluteMagnitude.AccessibleRole = AccessibleRole.StaticText;
 		labelDesignationAbsoluteMagnitude.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelDesignationAbsoluteMagnitude.Dock = DockStyle.Top;
-		labelDesignationAbsoluteMagnitude.Location = new Point(200, 211);
+		labelDesignationAbsoluteMagnitude.Location = new Point(191, 160);
+		labelDesignationAbsoluteMagnitude.Margin = new Padding(0);
 		labelDesignationAbsoluteMagnitude.Name = "labelDesignationAbsoluteMagnitude";
 		labelDesignationAbsoluteMagnitude.Size = new Size(136, 20);
 		labelDesignationAbsoluteMagnitude.TabIndex = 25;
@@ -1479,9 +1505,10 @@ partial class RecordsForm
 		labelValueAbsoluteMagnitude.AccessibleRole = AccessibleRole.StaticText;
 		labelValueAbsoluteMagnitude.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelValueAbsoluteMagnitude.Dock = DockStyle.Top;
-		labelValueAbsoluteMagnitude.Location = new Point(342, 211);
+		labelValueAbsoluteMagnitude.Location = new Point(327, 160);
+		labelValueAbsoluteMagnitude.Margin = new Padding(0);
 		labelValueAbsoluteMagnitude.Name = "labelValueAbsoluteMagnitude";
-		labelValueAbsoluteMagnitude.Size = new Size(197, 20);
+		labelValueAbsoluteMagnitude.Size = new Size(215, 20);
 		labelValueAbsoluteMagnitude.TabIndex = 26;
 		labelValueAbsoluteMagnitude.ToolTipValues.Description = "Shows the record value for the absolute magnitude.\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelValueAbsoluteMagnitude.ToolTipValues.EnableToolTips = true;
@@ -1502,7 +1529,8 @@ partial class RecordsForm
 		labelElementSlopeParameter.AccessibleRole = AccessibleRole.StaticText;
 		labelElementSlopeParameter.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelElementSlopeParameter.Dock = DockStyle.Top;
-		labelElementSlopeParameter.Location = new Point(3, 237);
+		labelElementSlopeParameter.Location = new Point(0, 180);
+		labelElementSlopeParameter.Margin = new Padding(0);
 		labelElementSlopeParameter.Name = "labelElementSlopeParameter";
 		labelElementSlopeParameter.Size = new Size(191, 20);
 		labelElementSlopeParameter.TabIndex = 27;
@@ -1524,7 +1552,8 @@ partial class RecordsForm
 		labelDesignationSlopeParameter.AccessibleRole = AccessibleRole.StaticText;
 		labelDesignationSlopeParameter.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelDesignationSlopeParameter.Dock = DockStyle.Top;
-		labelDesignationSlopeParameter.Location = new Point(200, 237);
+		labelDesignationSlopeParameter.Location = new Point(191, 180);
+		labelDesignationSlopeParameter.Margin = new Padding(0);
 		labelDesignationSlopeParameter.Name = "labelDesignationSlopeParameter";
 		labelDesignationSlopeParameter.Size = new Size(136, 20);
 		labelDesignationSlopeParameter.TabIndex = 28;
@@ -1547,9 +1576,10 @@ partial class RecordsForm
 		labelValueSlopeParameter.AccessibleRole = AccessibleRole.StaticText;
 		labelValueSlopeParameter.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelValueSlopeParameter.Dock = DockStyle.Top;
-		labelValueSlopeParameter.Location = new Point(342, 237);
+		labelValueSlopeParameter.Location = new Point(327, 180);
+		labelValueSlopeParameter.Margin = new Padding(0);
 		labelValueSlopeParameter.Name = "labelValueSlopeParameter";
-		labelValueSlopeParameter.Size = new Size(197, 20);
+		labelValueSlopeParameter.Size = new Size(215, 20);
 		labelValueSlopeParameter.TabIndex = 29;
 		labelValueSlopeParameter.ToolTipValues.Description = "Shows the record value for the slope parameter.\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelValueSlopeParameter.ToolTipValues.EnableToolTips = true;
@@ -1570,7 +1600,8 @@ partial class RecordsForm
 		labelElementNumberOfOppositions.AccessibleRole = AccessibleRole.StaticText;
 		labelElementNumberOfOppositions.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelElementNumberOfOppositions.Dock = DockStyle.Top;
-		labelElementNumberOfOppositions.Location = new Point(3, 263);
+		labelElementNumberOfOppositions.Location = new Point(0, 200);
+		labelElementNumberOfOppositions.Margin = new Padding(0);
 		labelElementNumberOfOppositions.Name = "labelElementNumberOfOppositions";
 		labelElementNumberOfOppositions.Size = new Size(191, 20);
 		labelElementNumberOfOppositions.TabIndex = 30;
@@ -1592,7 +1623,8 @@ partial class RecordsForm
 		labelDesignationNumberOfOppositions.AccessibleRole = AccessibleRole.StaticText;
 		labelDesignationNumberOfOppositions.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelDesignationNumberOfOppositions.Dock = DockStyle.Top;
-		labelDesignationNumberOfOppositions.Location = new Point(200, 263);
+		labelDesignationNumberOfOppositions.Location = new Point(191, 200);
+		labelDesignationNumberOfOppositions.Margin = new Padding(0);
 		labelDesignationNumberOfOppositions.Name = "labelDesignationNumberOfOppositions";
 		labelDesignationNumberOfOppositions.Size = new Size(136, 20);
 		labelDesignationNumberOfOppositions.TabIndex = 31;
@@ -1615,9 +1647,10 @@ partial class RecordsForm
 		labelValueNumberOfOppositions.AccessibleRole = AccessibleRole.StaticText;
 		labelValueNumberOfOppositions.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelValueNumberOfOppositions.Dock = DockStyle.Top;
-		labelValueNumberOfOppositions.Location = new Point(342, 263);
+		labelValueNumberOfOppositions.Location = new Point(327, 200);
+		labelValueNumberOfOppositions.Margin = new Padding(0);
 		labelValueNumberOfOppositions.Name = "labelValueNumberOfOppositions";
-		labelValueNumberOfOppositions.Size = new Size(197, 20);
+		labelValueNumberOfOppositions.Size = new Size(215, 20);
 		labelValueNumberOfOppositions.TabIndex = 32;
 		labelValueNumberOfOppositions.ToolTipValues.Description = "Shows the record value for the number of oppositions.\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelValueNumberOfOppositions.ToolTipValues.EnableToolTips = true;
@@ -1638,7 +1671,8 @@ partial class RecordsForm
 		labelElementNumberOfObservations.AccessibleRole = AccessibleRole.StaticText;
 		labelElementNumberOfObservations.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelElementNumberOfObservations.Dock = DockStyle.Top;
-		labelElementNumberOfObservations.Location = new Point(3, 289);
+		labelElementNumberOfObservations.Location = new Point(0, 220);
+		labelElementNumberOfObservations.Margin = new Padding(0);
 		labelElementNumberOfObservations.Name = "labelElementNumberOfObservations";
 		labelElementNumberOfObservations.Size = new Size(191, 20);
 		labelElementNumberOfObservations.TabIndex = 33;
@@ -1660,7 +1694,8 @@ partial class RecordsForm
 		labelDesignationNumberOfObservations.AccessibleRole = AccessibleRole.StaticText;
 		labelDesignationNumberOfObservations.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelDesignationNumberOfObservations.Dock = DockStyle.Top;
-		labelDesignationNumberOfObservations.Location = new Point(200, 289);
+		labelDesignationNumberOfObservations.Location = new Point(191, 220);
+		labelDesignationNumberOfObservations.Margin = new Padding(0);
 		labelDesignationNumberOfObservations.Name = "labelDesignationNumberOfObservations";
 		labelDesignationNumberOfObservations.Size = new Size(136, 20);
 		labelDesignationNumberOfObservations.TabIndex = 34;
@@ -1683,9 +1718,10 @@ partial class RecordsForm
 		labelValueNumberOfObservations.AccessibleRole = AccessibleRole.StaticText;
 		labelValueNumberOfObservations.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelValueNumberOfObservations.Dock = DockStyle.Top;
-		labelValueNumberOfObservations.Location = new Point(342, 289);
+		labelValueNumberOfObservations.Location = new Point(327, 220);
+		labelValueNumberOfObservations.Margin = new Padding(0);
 		labelValueNumberOfObservations.Name = "labelValueNumberOfObservations";
-		labelValueNumberOfObservations.Size = new Size(197, 20);
+		labelValueNumberOfObservations.Size = new Size(215, 20);
 		labelValueNumberOfObservations.TabIndex = 35;
 		labelValueNumberOfObservations.ToolTipValues.Description = "Shows the record value for the number of the observations.\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelValueNumberOfObservations.ToolTipValues.EnableToolTips = true;
@@ -1706,7 +1742,8 @@ partial class RecordsForm
 		labelElementRmsResidual.AccessibleRole = AccessibleRole.StaticText;
 		labelElementRmsResidual.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelElementRmsResidual.Dock = DockStyle.Top;
-		labelElementRmsResidual.Location = new Point(3, 315);
+		labelElementRmsResidual.Location = new Point(0, 240);
+		labelElementRmsResidual.Margin = new Padding(0);
 		labelElementRmsResidual.Name = "labelElementRmsResidual";
 		labelElementRmsResidual.Size = new Size(191, 20);
 		labelElementRmsResidual.TabIndex = 39;
@@ -1728,7 +1765,8 @@ partial class RecordsForm
 		labelDesignationRmsResidual.AccessibleRole = AccessibleRole.StaticText;
 		labelDesignationRmsResidual.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelDesignationRmsResidual.Dock = DockStyle.Top;
-		labelDesignationRmsResidual.Location = new Point(200, 315);
+		labelDesignationRmsResidual.Location = new Point(191, 240);
+		labelDesignationRmsResidual.Margin = new Padding(0);
 		labelDesignationRmsResidual.Name = "labelDesignationRmsResidual";
 		labelDesignationRmsResidual.Size = new Size(136, 20);
 		labelDesignationRmsResidual.TabIndex = 40;
@@ -1751,9 +1789,10 @@ partial class RecordsForm
 		labelValueRmsResidual.AccessibleRole = AccessibleRole.StaticText;
 		labelValueRmsResidual.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelValueRmsResidual.Dock = DockStyle.Top;
-		labelValueRmsResidual.Location = new Point(342, 315);
+		labelValueRmsResidual.Location = new Point(327, 240);
+		labelValueRmsResidual.Margin = new Padding(0);
 		labelValueRmsResidual.Name = "labelValueRmsResidual";
-		labelValueRmsResidual.Size = new Size(197, 20);
+		labelValueRmsResidual.Size = new Size(215, 20);
 		labelValueRmsResidual.TabIndex = 41;
 		labelValueRmsResidual.ToolTipValues.Description = "Shows the record value for the RMS residual.\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelValueRmsResidual.ToolTipValues.EnableToolTips = true;
@@ -1833,7 +1872,7 @@ partial class RecordsForm
 		toolStripContainer.ContentPanel.AccessibleName = "Content panel";
 		toolStripContainer.ContentPanel.AccessibleRole = AccessibleRole.Pane;
 		toolStripContainer.ContentPanel.Controls.Add(kryptonPanelMain);
-		toolStripContainer.ContentPanel.Size = new Size(542, 343);
+		toolStripContainer.ContentPanel.Size = new Size(542, 263);
 		toolStripContainer.Dock = DockStyle.Fill;
 		// 
 		// toolStripContainer.LeftToolStripPanel
@@ -1849,7 +1888,7 @@ partial class RecordsForm
 		toolStripContainer.RightToolStripPanel.AccessibleDescription = "Right panel";
 		toolStripContainer.RightToolStripPanel.AccessibleName = "Right panel";
 		toolStripContainer.RightToolStripPanel.AccessibleRole = AccessibleRole.Pane;
-		toolStripContainer.Size = new Size(542, 415);
+		toolStripContainer.Size = new Size(542, 335);
 		toolStripContainer.TabIndex = 8;
 		toolStripContainer.Text = "toolStripContainer";
 		// 
@@ -2231,7 +2270,7 @@ partial class RecordsForm
 		AccessibleRole = AccessibleRole.Dialog;
 		AutoScaleDimensions = new SizeF(7F, 15F);
 		AutoScaleMode = AutoScaleMode.Font;
-		ClientSize = new Size(542, 415);
+		ClientSize = new Size(542, 335);
 		ControlBox = false;
 		Controls.Add(toolStripContainer);
 		FormBorderStyle = FormBorderStyle.SizableToolWindow;
