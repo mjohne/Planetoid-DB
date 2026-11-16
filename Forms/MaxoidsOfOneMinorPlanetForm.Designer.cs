@@ -148,7 +148,8 @@ internal partial class MaxoidsOfOneMinorPlanetForm
 		labelMercuryDesc.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelMercuryDesc.Dock = DockStyle.Top;
 		labelMercuryDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelMercuryDesc.Location = new Point(3, 3);
+		labelMercuryDesc.Location = new Point(0, 0);
+		labelMercuryDesc.Margin = new Padding(0);
 		labelMercuryDesc.Name = "labelMercuryDesc";
 		labelMercuryDesc.Size = new Size(83, 20);
 		labelMercuryDesc.TabIndex = 0;
@@ -206,7 +207,8 @@ internal partial class MaxoidsOfOneMinorPlanetForm
 		labelVenusDesc.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelVenusDesc.Dock = DockStyle.Top;
 		labelVenusDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelVenusDesc.Location = new Point(3, 29);
+		labelVenusDesc.Location = new Point(0, 20);
+		labelVenusDesc.Margin = new Padding(0);
 		labelVenusDesc.Name = "labelVenusDesc";
 		labelVenusDesc.Size = new Size(83, 20);
 		labelVenusDesc.TabIndex = 2;
@@ -231,7 +233,8 @@ internal partial class MaxoidsOfOneMinorPlanetForm
 		labelEarthDesc.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelEarthDesc.Dock = DockStyle.Top;
 		labelEarthDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelEarthDesc.Location = new Point(3, 55);
+		labelEarthDesc.Location = new Point(0, 40);
+		labelEarthDesc.Margin = new Padding(0);
 		labelEarthDesc.Name = "labelEarthDesc";
 		labelEarthDesc.Size = new Size(83, 20);
 		labelEarthDesc.TabIndex = 4;
@@ -256,7 +259,8 @@ internal partial class MaxoidsOfOneMinorPlanetForm
 		labelMarsDesc.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelMarsDesc.Dock = DockStyle.Top;
 		labelMarsDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelMarsDesc.Location = new Point(3, 81);
+		labelMarsDesc.Location = new Point(0, 60);
+		labelMarsDesc.Margin = new Padding(0);
 		labelMarsDesc.Name = "labelMarsDesc";
 		labelMarsDesc.Size = new Size(83, 20);
 		labelMarsDesc.TabIndex = 6;
@@ -281,7 +285,8 @@ internal partial class MaxoidsOfOneMinorPlanetForm
 		labelJupiterDesc.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelJupiterDesc.Dock = DockStyle.Top;
 		labelJupiterDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelJupiterDesc.Location = new Point(3, 107);
+		labelJupiterDesc.Location = new Point(0, 80);
+		labelJupiterDesc.Margin = new Padding(0);
 		labelJupiterDesc.Name = "labelJupiterDesc";
 		labelJupiterDesc.Size = new Size(83, 20);
 		labelJupiterDesc.TabIndex = 8;
@@ -306,7 +311,8 @@ internal partial class MaxoidsOfOneMinorPlanetForm
 		labelSaturnDesc.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelSaturnDesc.Dock = DockStyle.Top;
 		labelSaturnDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelSaturnDesc.Location = new Point(3, 133);
+		labelSaturnDesc.Location = new Point(0, 100);
+		labelSaturnDesc.Margin = new Padding(0);
 		labelSaturnDesc.Name = "labelSaturnDesc";
 		labelSaturnDesc.Size = new Size(83, 20);
 		labelSaturnDesc.TabIndex = 10;
@@ -331,7 +337,8 @@ internal partial class MaxoidsOfOneMinorPlanetForm
 		labelUranusDesc.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelUranusDesc.Dock = DockStyle.Top;
 		labelUranusDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelUranusDesc.Location = new Point(3, 159);
+		labelUranusDesc.Location = new Point(0, 120);
+		labelUranusDesc.Margin = new Padding(0);
 		labelUranusDesc.Name = "labelUranusDesc";
 		labelUranusDesc.Size = new Size(83, 20);
 		labelUranusDesc.TabIndex = 12;
@@ -356,7 +363,8 @@ internal partial class MaxoidsOfOneMinorPlanetForm
 		labelNeptuneDesc.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelNeptuneDesc.Dock = DockStyle.Top;
 		labelNeptuneDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelNeptuneDesc.Location = new Point(3, 185);
+		labelNeptuneDesc.Location = new Point(0, 140);
+		labelNeptuneDesc.Margin = new Padding(0);
 		labelNeptuneDesc.Name = "labelNeptuneDesc";
 		labelNeptuneDesc.Size = new Size(83, 20);
 		labelNeptuneDesc.TabIndex = 14;
@@ -380,9 +388,10 @@ internal partial class MaxoidsOfOneMinorPlanetForm
 		labelMercuryData.AccessibleRole = AccessibleRole.StaticText;
 		labelMercuryData.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelMercuryData.Dock = DockStyle.Top;
-		labelMercuryData.Location = new Point(92, 3);
+		labelMercuryData.Location = new Point(83, 0);
+		labelMercuryData.Margin = new Padding(0);
 		labelMercuryData.Name = "labelMercuryData";
-		labelMercuryData.Size = new Size(189, 20);
+		labelMercuryData.Size = new Size(201, 20);
 		labelMercuryData.TabIndex = 1;
 		labelMercuryData.ToolTipValues.Description = "Shows the MAXOID relative to Mercury in AU.\r\nDouble-click or right-click to copy the value to the clipboard.";
 		labelMercuryData.ToolTipValues.EnableToolTips = true;
@@ -403,9 +412,10 @@ internal partial class MaxoidsOfOneMinorPlanetForm
 		labelVenusData.AccessibleRole = AccessibleRole.StaticText;
 		labelVenusData.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelVenusData.Dock = DockStyle.Top;
-		labelVenusData.Location = new Point(92, 29);
+		labelVenusData.Location = new Point(83, 20);
+		labelVenusData.Margin = new Padding(0);
 		labelVenusData.Name = "labelVenusData";
-		labelVenusData.Size = new Size(189, 20);
+		labelVenusData.Size = new Size(201, 20);
 		labelVenusData.TabIndex = 3;
 		labelVenusData.ToolTipValues.Description = "Shows the MAXOID relative to Venus in AU.\r\nDouble-click or right-click to copy the value to the clipboard.";
 		labelVenusData.ToolTipValues.EnableToolTips = true;
@@ -426,9 +436,10 @@ internal partial class MaxoidsOfOneMinorPlanetForm
 		labelEarthData.AccessibleRole = AccessibleRole.StaticText;
 		labelEarthData.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelEarthData.Dock = DockStyle.Top;
-		labelEarthData.Location = new Point(92, 55);
+		labelEarthData.Location = new Point(83, 40);
+		labelEarthData.Margin = new Padding(0);
 		labelEarthData.Name = "labelEarthData";
-		labelEarthData.Size = new Size(189, 20);
+		labelEarthData.Size = new Size(201, 20);
 		labelEarthData.TabIndex = 5;
 		labelEarthData.ToolTipValues.Description = "Shows the MAXOID relative to Earth in AU.\r\nDouble-click or right-click to copy the value to the clipboard.";
 		labelEarthData.ToolTipValues.EnableToolTips = true;
@@ -449,9 +460,10 @@ internal partial class MaxoidsOfOneMinorPlanetForm
 		labelMarsData.AccessibleRole = AccessibleRole.StaticText;
 		labelMarsData.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelMarsData.Dock = DockStyle.Top;
-		labelMarsData.Location = new Point(92, 81);
+		labelMarsData.Location = new Point(83, 60);
+		labelMarsData.Margin = new Padding(0);
 		labelMarsData.Name = "labelMarsData";
-		labelMarsData.Size = new Size(189, 20);
+		labelMarsData.Size = new Size(201, 20);
 		labelMarsData.TabIndex = 7;
 		labelMarsData.ToolTipValues.Description = "Shows the MAXOID relative to Mars in AU.\r\nDouble-click or right-click to copy the value to the clipboard.";
 		labelMarsData.ToolTipValues.EnableToolTips = true;
@@ -472,9 +484,10 @@ internal partial class MaxoidsOfOneMinorPlanetForm
 		labelJupiterData.AccessibleRole = AccessibleRole.StaticText;
 		labelJupiterData.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelJupiterData.Dock = DockStyle.Top;
-		labelJupiterData.Location = new Point(92, 107);
+		labelJupiterData.Location = new Point(83, 80);
+		labelJupiterData.Margin = new Padding(0);
 		labelJupiterData.Name = "labelJupiterData";
-		labelJupiterData.Size = new Size(189, 20);
+		labelJupiterData.Size = new Size(201, 20);
 		labelJupiterData.TabIndex = 9;
 		labelJupiterData.ToolTipValues.Description = "Shows the MAXOID relative to Jupiter in AU.\r\nDouble-click or right-click to copy the value to the clipboard.";
 		labelJupiterData.ToolTipValues.EnableToolTips = true;
@@ -495,9 +508,10 @@ internal partial class MaxoidsOfOneMinorPlanetForm
 		labelSaturnData.AccessibleRole = AccessibleRole.StaticText;
 		labelSaturnData.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelSaturnData.Dock = DockStyle.Top;
-		labelSaturnData.Location = new Point(92, 133);
+		labelSaturnData.Location = new Point(83, 100);
+		labelSaturnData.Margin = new Padding(0);
 		labelSaturnData.Name = "labelSaturnData";
-		labelSaturnData.Size = new Size(189, 20);
+		labelSaturnData.Size = new Size(201, 20);
 		labelSaturnData.TabIndex = 11;
 		labelSaturnData.ToolTipValues.Description = "Shows the MAXOID relative to Saturn in AU.\r\nDouble-click or right-click to copy the value to the clipboard.";
 		labelSaturnData.ToolTipValues.EnableToolTips = true;
@@ -518,9 +532,10 @@ internal partial class MaxoidsOfOneMinorPlanetForm
 		labelUranusData.AccessibleRole = AccessibleRole.StaticText;
 		labelUranusData.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelUranusData.Dock = DockStyle.Top;
-		labelUranusData.Location = new Point(92, 159);
+		labelUranusData.Location = new Point(83, 120);
+		labelUranusData.Margin = new Padding(0);
 		labelUranusData.Name = "labelUranusData";
-		labelUranusData.Size = new Size(189, 20);
+		labelUranusData.Size = new Size(201, 20);
 		labelUranusData.TabIndex = 13;
 		labelUranusData.ToolTipValues.Description = "Shows the MAXOID relative to Uranus in AU.\r\nDouble-click or right-click to copy the value to the clipboard.";
 		labelUranusData.ToolTipValues.EnableToolTips = true;
@@ -541,9 +556,10 @@ internal partial class MaxoidsOfOneMinorPlanetForm
 		labelNeptuneData.AccessibleRole = AccessibleRole.StaticText;
 		labelNeptuneData.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelNeptuneData.Dock = DockStyle.Top;
-		labelNeptuneData.Location = new Point(92, 185);
+		labelNeptuneData.Location = new Point(83, 140);
+		labelNeptuneData.Margin = new Padding(0);
 		labelNeptuneData.Name = "labelNeptuneData";
-		labelNeptuneData.Size = new Size(189, 20);
+		labelNeptuneData.Size = new Size(201, 20);
 		labelNeptuneData.TabIndex = 15;
 		labelNeptuneData.ToolTipValues.Description = "Shows the MAXOID relative to Neptune in AU.\r\nDouble-click or right-click to copy the value to the clipboard.";
 		labelNeptuneData.ToolTipValues.EnableToolTips = true;
@@ -577,7 +593,7 @@ internal partial class MaxoidsOfOneMinorPlanetForm
 		toolStripContainer.ContentPanel.AccessibleRole = AccessibleRole.Pane;
 		toolStripContainer.ContentPanel.Controls.Add(tableLayoutPanel);
 		toolStripContainer.ContentPanel.Margin = new Padding(4, 3, 4, 3);
-		toolStripContainer.ContentPanel.Size = new Size(284, 214);
+		toolStripContainer.ContentPanel.Size = new Size(284, 162);
 		toolStripContainer.Dock = DockStyle.Fill;
 		// 
 		// toolStripContainer.LeftToolStripPanel
@@ -593,7 +609,7 @@ internal partial class MaxoidsOfOneMinorPlanetForm
 		toolStripContainer.RightToolStripPanel.AccessibleDescription = "Just a panel";
 		toolStripContainer.RightToolStripPanel.AccessibleName = "Right panel";
 		toolStripContainer.RightToolStripPanel.AccessibleRole = AccessibleRole.Pane;
-		toolStripContainer.Size = new Size(284, 261);
+		toolStripContainer.Size = new Size(284, 209);
 		toolStripContainer.TabIndex = 0;
 		toolStripContainer.Text = "toolStripContainer";
 		// 
@@ -684,7 +700,7 @@ internal partial class MaxoidsOfOneMinorPlanetForm
 		tableLayoutPanel.RowStyles.Add(new RowStyle());
 		tableLayoutPanel.RowStyles.Add(new RowStyle());
 		tableLayoutPanel.RowStyles.Add(new RowStyle());
-		tableLayoutPanel.Size = new Size(284, 214);
+		tableLayoutPanel.Size = new Size(284, 162);
 		tableLayoutPanel.TabIndex = 0;
 		tableLayoutPanel.TabStop = true;
 		tableLayoutPanel.Enter += Control_Enter;
@@ -1329,7 +1345,6 @@ internal partial class MaxoidsOfOneMinorPlanetForm
 		contextMenuFullCopyToClipboard.Font = new Font("Segoe UI", 9F);
 		contextMenuFullCopyToClipboard.Items.AddRange(new ToolStripItem[] { menuitemCopyToClipboardMaxoidRelativeToMercury, menuitemCopyToClipboardMaxoidRelativeToVenus, menuitemCopyToClipboardMaxoidRelativeToEarth, menuitemCopyToClipboardMaxoidRelativeToMars, menuitemCopyToClipboardMaxoidRelativeToJupiter, menuitemCopyToClipboardMaxoidRelativeToSaturn, menuitemCopyToClipboardMaxoidRelativeToUranus, menuitemCopyToClipboardMaxoidRelativeToNeptune });
 		contextMenuFullCopyToClipboard.Name = "Context menu for copying MAXOID values to the clipboard";
-		contextMenuFullCopyToClipboard.OwnerItem = toolStripDropDownButtonCopyToClipboard;
 		contextMenuFullCopyToClipboard.Size = new Size(121, 180);
 		contextMenuFullCopyToClipboard.Text = "Copy to clipboard";
 		contextMenuFullCopyToClipboard.Enter += Control_Enter;
@@ -1462,7 +1477,7 @@ internal partial class MaxoidsOfOneMinorPlanetForm
 		AccessibleRole = AccessibleRole.Dialog;
 		AutoScaleDimensions = new SizeF(7F, 15F);
 		AutoScaleMode = AutoScaleMode.Font;
-		ClientSize = new Size(284, 261);
+		ClientSize = new Size(284, 209);
 		ControlBox = false;
 		Controls.Add(toolStripContainer);
 		FormBorderStyle = FormBorderStyle.SizableToolWindow;
