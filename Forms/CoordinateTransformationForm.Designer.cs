@@ -109,7 +109,6 @@ partial class CoordinateTransformationForm
 		kryptonTableLayoutPanel.Dock = DockStyle.Fill;
 		kryptonTableLayoutPanel.Location = new Point(0, 0);
 		kryptonTableLayoutPanel.Name = "kryptonTableLayoutPanel";
-		kryptonTableLayoutPanel.Padding = new Padding(12);
 		kryptonTableLayoutPanel.RowCount = 7;
 		kryptonTableLayoutPanel.RowStyles.Add(new RowStyle());
 		kryptonTableLayoutPanel.RowStyles.Add(new RowStyle());
@@ -118,7 +117,7 @@ partial class CoordinateTransformationForm
 		kryptonTableLayoutPanel.RowStyles.Add(new RowStyle());
 		kryptonTableLayoutPanel.RowStyles.Add(new RowStyle());
 		kryptonTableLayoutPanel.RowStyles.Add(new RowStyle());
-		kryptonTableLayoutPanel.Size = new Size(755, 232);
+		kryptonTableLayoutPanel.Size = new Size(755, 179);
 		kryptonTableLayoutPanel.TabIndex = 0;
 		kryptonTableLayoutPanel.TabStop = true;
 		kryptonTableLayoutPanel.Enter += Control_Enter;
@@ -129,7 +128,8 @@ partial class CoordinateTransformationForm
 		// kryptonLabelSource
 		// 
 		kryptonLabelSource.Anchor = AnchorStyles.Left;
-		kryptonLabelSource.Location = new Point(15, 16);
+		kryptonLabelSource.Location = new Point(0, 1);
+		kryptonLabelSource.Margin = new Padding(0);
 		kryptonLabelSource.Name = "kryptonLabelSource";
 		kryptonLabelSource.Size = new Size(83, 20);
 		kryptonLabelSource.TabIndex = 0;
@@ -146,7 +146,8 @@ partial class CoordinateTransformationForm
 		kryptonComboBoxSource.AccessibleRole = AccessibleRole.ComboBox;
 		kryptonComboBoxSource.Dock = DockStyle.Fill;
 		kryptonComboBoxSource.DropDownStyle = ComboBoxStyle.DropDownList;
-		kryptonComboBoxSource.Location = new Point(142, 15);
+		kryptonComboBoxSource.Location = new Point(121, 0);
+		kryptonComboBoxSource.Margin = new Padding(0);
 		kryptonComboBoxSource.Name = "kryptonComboBoxSource";
 		kryptonComboBoxSource.Size = new Size(213, 22);
 		kryptonComboBoxSource.TabIndex = 1;
@@ -162,7 +163,8 @@ partial class CoordinateTransformationForm
 		kryptonLabelTarget.AccessibleName = I18nStrings.CoordinateConversionTargetLabel;
 		kryptonLabelTarget.AccessibleRole = AccessibleRole.StaticText;
 		kryptonLabelTarget.Anchor = AnchorStyles.Left;
-		kryptonLabelTarget.Location = new Point(361, 16);
+		kryptonLabelTarget.Location = new Point(334, 1);
+		kryptonLabelTarget.Margin = new Padding(0);
 		kryptonLabelTarget.Name = "kryptonLabelTarget";
 		kryptonLabelTarget.Size = new Size(68, 20);
 		kryptonLabelTarget.TabIndex = 2;
@@ -179,9 +181,10 @@ partial class CoordinateTransformationForm
 		kryptonComboBoxTarget.AccessibleRole = AccessibleRole.ComboBox;
 		kryptonComboBoxTarget.Dock = DockStyle.Fill;
 		kryptonComboBoxTarget.DropDownStyle = ComboBoxStyle.DropDownList;
-		kryptonComboBoxTarget.Location = new Point(474, 15);
+		kryptonComboBoxTarget.Location = new Point(441, 0);
+		kryptonComboBoxTarget.Margin = new Padding(0);
 		kryptonComboBoxTarget.Name = "kryptonComboBoxTarget";
-		kryptonComboBoxTarget.Size = new Size(266, 22);
+		kryptonComboBoxTarget.Size = new Size(314, 22);
 		kryptonComboBoxTarget.TabIndex = 3;
 		kryptonComboBoxTarget.SelectedIndexChanged += CoordinateSelection_Changed;
 		kryptonComboBoxTarget.Enter += Control_Enter;
@@ -195,7 +198,8 @@ partial class CoordinateTransformationForm
 		kryptonLabelFirstCoordinate.AccessibleName = I18nStrings.CoordinateConversionInputTypeLabel;
 		kryptonLabelFirstCoordinate.AccessibleRole = AccessibleRole.StaticText;
 		kryptonLabelFirstCoordinate.Anchor = AnchorStyles.Left;
-		kryptonLabelFirstCoordinate.Location = new Point(15, 44);
+		kryptonLabelFirstCoordinate.Location = new Point(0, 25);
+		kryptonLabelFirstCoordinate.Margin = new Padding(0);
 		kryptonLabelFirstCoordinate.Name = "kryptonLabelFirstCoordinate";
 		kryptonLabelFirstCoordinate.Size = new Size(95, 20);
 		kryptonLabelFirstCoordinate.TabIndex = 4;
@@ -211,7 +215,8 @@ partial class CoordinateTransformationForm
 		kryptonTextBoxFirstCoordinate.AccessibleName = "First coordinate";
 		kryptonTextBoxFirstCoordinate.AccessibleRole = AccessibleRole.Text;
 		kryptonTextBoxFirstCoordinate.Dock = DockStyle.Fill;
-		kryptonTextBoxFirstCoordinate.Location = new Point(142, 43);
+		kryptonTextBoxFirstCoordinate.Location = new Point(121, 22);
+		kryptonTextBoxFirstCoordinate.Margin = new Padding(0);
 		kryptonTextBoxFirstCoordinate.Name = "kryptonTextBoxFirstCoordinate";
 		kryptonTextBoxFirstCoordinate.Size = new Size(213, 23);
 		kryptonTextBoxFirstCoordinate.TabIndex = 5;
@@ -226,7 +231,7 @@ partial class CoordinateTransformationForm
 		kryptonLabelFirstCoordinateType.AccessibleName = I18nStrings.CoordinateConversionInputTypeLabel;
 		kryptonLabelFirstCoordinateType.AccessibleRole = AccessibleRole.StaticText;
 		kryptonLabelFirstCoordinateType.Anchor = AnchorStyles.Left;
-		kryptonLabelFirstCoordinateType.Location = new Point(361, 44);
+		kryptonLabelFirstCoordinateType.Location = new Point(337, 25);
 		kryptonLabelFirstCoordinateType.Name = "kryptonLabelFirstCoordinateType";
 		kryptonLabelFirstCoordinateType.Size = new Size(54, 20);
 		kryptonLabelFirstCoordinateType.TabIndex = 6;
@@ -243,9 +248,10 @@ partial class CoordinateTransformationForm
 		kryptonComboBoxFirstCoordinateType.AccessibleRole = AccessibleRole.ComboBox;
 		kryptonComboBoxFirstCoordinateType.Dock = DockStyle.Fill;
 		kryptonComboBoxFirstCoordinateType.DropDownStyle = ComboBoxStyle.DropDownList;
-		kryptonComboBoxFirstCoordinateType.Location = new Point(474, 43);
+		kryptonComboBoxFirstCoordinateType.Location = new Point(441, 22);
+		kryptonComboBoxFirstCoordinateType.Margin = new Padding(0);
 		kryptonComboBoxFirstCoordinateType.Name = "kryptonComboBoxFirstCoordinateType";
-		kryptonComboBoxFirstCoordinateType.Size = new Size(266, 23);
+		kryptonComboBoxFirstCoordinateType.Size = new Size(314, 26);
 		kryptonComboBoxFirstCoordinateType.TabIndex = 7;
 		kryptonComboBoxFirstCoordinateType.SelectedIndexChanged += CoordinateSelection_Changed;
 		kryptonComboBoxFirstCoordinateType.Enter += Control_Enter;
@@ -259,7 +265,8 @@ partial class CoordinateTransformationForm
 		kryptonLabelSecondCoordinate.AccessibleName = I18nStrings.CoordinateConversionInputTypeLabel;
 		kryptonLabelSecondCoordinate.AccessibleRole = AccessibleRole.StaticText;
 		kryptonLabelSecondCoordinate.Anchor = AnchorStyles.Left;
-		kryptonLabelSecondCoordinate.Location = new Point(15, 73);
+		kryptonLabelSecondCoordinate.Location = new Point(0, 49);
+		kryptonLabelSecondCoordinate.Margin = new Padding(0);
 		kryptonLabelSecondCoordinate.Name = "kryptonLabelSecondCoordinate";
 		kryptonLabelSecondCoordinate.Size = new Size(113, 20);
 		kryptonLabelSecondCoordinate.TabIndex = 8;
@@ -275,7 +282,8 @@ partial class CoordinateTransformationForm
 		kryptonTextBoxSecondCoordinate.AccessibleName = "Second coordinate";
 		kryptonTextBoxSecondCoordinate.AccessibleRole = AccessibleRole.Text;
 		kryptonTextBoxSecondCoordinate.Dock = DockStyle.Fill;
-		kryptonTextBoxSecondCoordinate.Location = new Point(142, 72);
+		kryptonTextBoxSecondCoordinate.Location = new Point(121, 48);
+		kryptonTextBoxSecondCoordinate.Margin = new Padding(0);
 		kryptonTextBoxSecondCoordinate.Name = "kryptonTextBoxSecondCoordinate";
 		kryptonTextBoxSecondCoordinate.Size = new Size(213, 23);
 		kryptonTextBoxSecondCoordinate.TabIndex = 9;
@@ -290,7 +298,8 @@ partial class CoordinateTransformationForm
 		kryptonLabelAngleUnit.AccessibleName = I18nStrings.CoordinateConversionAngleUnitLabel;
 		kryptonLabelAngleUnit.AccessibleRole = AccessibleRole.StaticText;
 		kryptonLabelAngleUnit.Anchor = AnchorStyles.Left;
-		kryptonLabelAngleUnit.Location = new Point(361, 73);
+		kryptonLabelAngleUnit.Location = new Point(334, 49);
+		kryptonLabelAngleUnit.Margin = new Padding(0);
 		kryptonLabelAngleUnit.Name = "kryptonLabelAngleUnit";
 		kryptonLabelAngleUnit.Size = new Size(79, 20);
 		kryptonLabelAngleUnit.TabIndex = 10;
@@ -307,9 +316,10 @@ partial class CoordinateTransformationForm
 		kryptonComboBoxAngleUnit.AccessibleRole = AccessibleRole.ComboBox;
 		kryptonComboBoxAngleUnit.Dock = DockStyle.Fill;
 		kryptonComboBoxAngleUnit.DropDownStyle = ComboBoxStyle.DropDownList;
-		kryptonComboBoxAngleUnit.Location = new Point(474, 72);
+		kryptonComboBoxAngleUnit.Location = new Point(441, 48);
+		kryptonComboBoxAngleUnit.Margin = new Padding(0);
 		kryptonComboBoxAngleUnit.Name = "kryptonComboBoxAngleUnit";
-		kryptonComboBoxAngleUnit.Size = new Size(266, 23);
+		kryptonComboBoxAngleUnit.Size = new Size(314, 23);
 		kryptonComboBoxAngleUnit.TabIndex = 11;
 		kryptonComboBoxAngleUnit.Enter += Control_Enter;
 		kryptonComboBoxAngleUnit.Leave += Control_Leave;
@@ -322,7 +332,8 @@ partial class CoordinateTransformationForm
 		kryptonLabelDateTimeUtc.AccessibleName = I18nStrings.CoordinateConversionDateTimeLabel;
 		kryptonLabelDateTimeUtc.AccessibleRole = AccessibleRole.StaticText;
 		kryptonLabelDateTimeUtc.Anchor = AnchorStyles.Left;
-		kryptonLabelDateTimeUtc.Location = new Point(15, 101);
+		kryptonLabelDateTimeUtc.Location = new Point(0, 71);
+		kryptonLabelDateTimeUtc.Margin = new Padding(0);
 		kryptonLabelDateTimeUtc.Name = "kryptonLabelDateTimeUtc";
 		kryptonLabelDateTimeUtc.Size = new Size(121, 20);
 		kryptonLabelDateTimeUtc.TabIndex = 12;
@@ -341,7 +352,8 @@ partial class CoordinateTransformationForm
 		kryptonDateTimePickerUtc.CustomFormat = "yyyy-MM-dd HH:mm:ss";
 		kryptonDateTimePickerUtc.Dock = DockStyle.Left;
 		kryptonDateTimePickerUtc.Format = DateTimePickerFormat.Custom;
-		kryptonDateTimePickerUtc.Location = new Point(142, 101);
+		kryptonDateTimePickerUtc.Location = new Point(121, 71);
+		kryptonDateTimePickerUtc.Margin = new Padding(0);
 		kryptonDateTimePickerUtc.Name = "kryptonDateTimePickerUtc";
 		kryptonDateTimePickerUtc.ShowUpDown = true;
 		kryptonDateTimePickerUtc.Size = new Size(200, 21);
@@ -357,7 +369,8 @@ partial class CoordinateTransformationForm
 		kryptonLabelObserverLatitude.AccessibleName = I18nStrings.CoordinateConversionObserverLatitudeLabel;
 		kryptonLabelObserverLatitude.AccessibleRole = AccessibleRole.StaticText;
 		kryptonLabelObserverLatitude.Anchor = AnchorStyles.Left;
-		kryptonLabelObserverLatitude.Location = new Point(15, 129);
+		kryptonLabelObserverLatitude.Location = new Point(0, 93);
+		kryptonLabelObserverLatitude.Margin = new Padding(0);
 		kryptonLabelObserverLatitude.Name = "kryptonLabelObserverLatitude";
 		kryptonLabelObserverLatitude.Size = new Size(120, 20);
 		kryptonLabelObserverLatitude.TabIndex = 14;
@@ -373,7 +386,8 @@ partial class CoordinateTransformationForm
 		kryptonTextBoxObserverLatitude.AccessibleName = I18nStrings.CoordinateConversionObserverLatitudeLabel;
 		kryptonTextBoxObserverLatitude.AccessibleRole = AccessibleRole.Text;
 		kryptonTextBoxObserverLatitude.Dock = DockStyle.Fill;
-		kryptonTextBoxObserverLatitude.Location = new Point(142, 128);
+		kryptonTextBoxObserverLatitude.Location = new Point(121, 92);
+		kryptonTextBoxObserverLatitude.Margin = new Padding(0);
 		kryptonTextBoxObserverLatitude.Name = "kryptonTextBoxObserverLatitude";
 		kryptonTextBoxObserverLatitude.Size = new Size(213, 23);
 		kryptonTextBoxObserverLatitude.TabIndex = 15;
@@ -389,7 +403,8 @@ partial class CoordinateTransformationForm
 		kryptonLabelObserverLongitude.AccessibleName = I18nStrings.CoordinateConversionObserverLongitudeLabel;
 		kryptonLabelObserverLongitude.AccessibleRole = AccessibleRole.StaticText;
 		kryptonLabelObserverLongitude.Anchor = AnchorStyles.Left;
-		kryptonLabelObserverLongitude.Location = new Point(361, 129);
+		kryptonLabelObserverLongitude.Location = new Point(334, 93);
+		kryptonLabelObserverLongitude.Margin = new Padding(0);
 		kryptonLabelObserverLongitude.Name = "kryptonLabelObserverLongitude";
 		kryptonLabelObserverLongitude.Size = new Size(107, 20);
 		kryptonLabelObserverLongitude.TabIndex = 16;
@@ -405,9 +420,10 @@ partial class CoordinateTransformationForm
 		kryptonTextBoxObserverLongitude.AccessibleName = I18nStrings.CoordinateConversionObserverLongitudeLabel;
 		kryptonTextBoxObserverLongitude.AccessibleRole = AccessibleRole.Text;
 		kryptonTextBoxObserverLongitude.Dock = DockStyle.Fill;
-		kryptonTextBoxObserverLongitude.Location = new Point(474, 128);
+		kryptonTextBoxObserverLongitude.Location = new Point(441, 92);
+		kryptonTextBoxObserverLongitude.Margin = new Padding(0);
 		kryptonTextBoxObserverLongitude.Name = "kryptonTextBoxObserverLongitude";
-		kryptonTextBoxObserverLongitude.Size = new Size(266, 23);
+		kryptonTextBoxObserverLongitude.Size = new Size(314, 23);
 		kryptonTextBoxObserverLongitude.TabIndex = 17;
 		kryptonTextBoxObserverLongitude.Text = "0";
 		kryptonTextBoxObserverLongitude.Enter += Control_Enter;
@@ -422,7 +438,8 @@ partial class CoordinateTransformationForm
 		kryptonLabelResultTitle.AccessibleRole = AccessibleRole.StaticText;
 		kryptonLabelResultTitle.Anchor = AnchorStyles.Left;
 		kryptonTableLayoutPanel.SetColumnSpan(kryptonLabelResultTitle, 4);
-		kryptonLabelResultTitle.Location = new Point(15, 157);
+		kryptonLabelResultTitle.Location = new Point(0, 115);
+		kryptonLabelResultTitle.Margin = new Padding(0);
 		kryptonLabelResultTitle.Name = "kryptonLabelResultTitle";
 		kryptonLabelResultTitle.Size = new Size(204, 20);
 		kryptonLabelResultTitle.TabIndex = 18;
@@ -441,9 +458,10 @@ partial class CoordinateTransformationForm
 		kryptonLabelResult.ContextMenuStrip = contextMenuCopyToClipboard;
 		kryptonLabelResult.Dock = DockStyle.Fill;
 		kryptonLabelResult.LabelStyle = LabelStyle.BoldPanel;
-		kryptonLabelResult.Location = new Point(15, 183);
+		kryptonLabelResult.Location = new Point(0, 135);
+		kryptonLabelResult.Margin = new Padding(0);
 		kryptonLabelResult.Name = "kryptonLabelResult";
-		kryptonLabelResult.Size = new Size(725, 34);
+		kryptonLabelResult.Size = new Size(755, 44);
 		kryptonLabelResult.TabIndex = 19;
 		kryptonLabelResult.Values.Text = "Result...";
 		kryptonLabelResult.Click += CopyToClipboard_DoubleClick;
@@ -541,7 +559,7 @@ partial class CoordinateTransformationForm
 		toolStripContainer.ContentPanel.AccessibleDescription = "Just a panel";
 		toolStripContainer.ContentPanel.AccessibleName = "Content panel";
 		toolStripContainer.ContentPanel.Controls.Add(kryptonTableLayoutPanel);
-		toolStripContainer.ContentPanel.Size = new Size(755, 232);
+		toolStripContainer.ContentPanel.Size = new Size(755, 179);
 		toolStripContainer.Dock = DockStyle.Fill;
 		// 
 		// toolStripContainer.LeftToolStripPanel
@@ -555,7 +573,7 @@ partial class CoordinateTransformationForm
 		// 
 		toolStripContainer.RightToolStripPanel.AccessibleDescription = "Just a panel";
 		toolStripContainer.RightToolStripPanel.AccessibleName = "Right panel";
-		toolStripContainer.Size = new Size(755, 279);
+		toolStripContainer.Size = new Size(755, 226);
 		toolStripContainer.TabIndex = 6;
 		toolStripContainer.Text = "toolStripContainer";
 		// 
@@ -611,14 +629,13 @@ partial class CoordinateTransformationForm
 		AccessibleRole = AccessibleRole.Dialog;
 		AutoScaleDimensions = new SizeF(7F, 15F);
 		AutoScaleMode = AutoScaleMode.Font;
-		ClientSize = new Size(755, 279);
+		ClientSize = new Size(755, 226);
 		ControlBox = false;
 		Controls.Add(toolStripContainer);
 		FormBorderStyle = FormBorderStyle.SizableToolWindow;
 		Icon = (Icon)resources.GetObject("$this.Icon");
 		MaximizeBox = false;
 		MinimizeBox = false;
-		MinimumSize = new Size(680, 295);
 		Name = "CoordinateTransformationForm";
 		SizeGripStyle = SizeGripStyle.Hide;
 		StartPosition = FormStartPosition.CenterScreen;
