@@ -137,9 +137,10 @@ partial class CheckDatabaseForm
 		tableLayoutPanel.SetColumnSpan(labelUpdateNeeded, 3);
 		labelUpdateNeeded.Dock = DockStyle.Top;
 		labelUpdateNeeded.LabelStyle = LabelStyle.TitleControl;
-		labelUpdateNeeded.Location = new Point(3, 81);
+		labelUpdateNeeded.Location = new Point(0, 66);
+		labelUpdateNeeded.Margin = new Padding(0);
 		labelUpdateNeeded.Name = "labelUpdateNeeded";
-		labelUpdateNeeded.Size = new Size(381, 29);
+		labelUpdateNeeded.Size = new Size(387, 29);
 		labelUpdateNeeded.TabIndex = 8;
 		labelUpdateNeeded.ToolTipValues.Description = "Informs if an update is recommended.\r\nDouble-click to refresh the information.";
 		labelUpdateNeeded.ToolTipValues.EnableToolTips = true;
@@ -160,9 +161,10 @@ partial class CheckDatabaseForm
 		labelDatabaseFileLocal.AccessibleRole = AccessibleRole.Text;
 		labelDatabaseFileLocal.Dock = DockStyle.Top;
 		labelDatabaseFileLocal.LabelStyle = LabelStyle.BoldControl;
-		labelDatabaseFileLocal.Location = new Point(110, 3);
+		labelDatabaseFileLocal.Location = new Point(101, 0);
+		labelDatabaseFileLocal.Margin = new Padding(0);
 		labelDatabaseFileLocal.Name = "labelDatabaseFileLocal";
-		labelDatabaseFileLocal.Size = new Size(103, 20);
+		labelDatabaseFileLocal.Size = new Size(109, 20);
 		labelDatabaseFileLocal.TabIndex = 0;
 		labelDatabaseFileLocal.ToolTipValues.Description = "Information about the local database file";
 		labelDatabaseFileLocal.ToolTipValues.EnableToolTips = true;
@@ -181,9 +183,10 @@ partial class CheckDatabaseForm
 		labelDatabaseFileOnline.AccessibleRole = AccessibleRole.Text;
 		labelDatabaseFileOnline.Dock = DockStyle.Top;
 		labelDatabaseFileOnline.LabelStyle = LabelStyle.BoldControl;
-		labelDatabaseFileOnline.Location = new Point(219, 3);
+		labelDatabaseFileOnline.Location = new Point(210, 0);
+		labelDatabaseFileOnline.Margin = new Padding(0);
 		labelDatabaseFileOnline.Name = "labelDatabaseFileOnline";
-		labelDatabaseFileOnline.Size = new Size(165, 20);
+		labelDatabaseFileOnline.Size = new Size(177, 20);
 		labelDatabaseFileOnline.TabIndex = 1;
 		labelDatabaseFileOnline.ToolTipValues.Description = "Information about the online database file";
 		labelDatabaseFileOnline.ToolTipValues.EnableToolTips = true;
@@ -202,7 +205,8 @@ partial class CheckDatabaseForm
 		labelContentLengthText.AccessibleRole = AccessibleRole.Text;
 		labelContentLengthText.Dock = DockStyle.Top;
 		labelContentLengthText.LabelStyle = LabelStyle.BoldControl;
-		labelContentLengthText.Location = new Point(3, 29);
+		labelContentLengthText.Location = new Point(0, 20);
+		labelContentLengthText.Margin = new Padding(0);
 		labelContentLengthText.Name = "labelContentLengthText";
 		labelContentLengthText.Size = new Size(101, 20);
 		labelContentLengthText.TabIndex = 2;
@@ -223,7 +227,8 @@ partial class CheckDatabaseForm
 		labelModifiedDateText.AccessibleRole = AccessibleRole.Text;
 		labelModifiedDateText.Dock = DockStyle.Top;
 		labelModifiedDateText.LabelStyle = LabelStyle.BoldControl;
-		labelModifiedDateText.Location = new Point(3, 55);
+		labelModifiedDateText.Location = new Point(0, 46);
+		labelModifiedDateText.Margin = new Padding(0);
 		labelModifiedDateText.Name = "labelModifiedDateText";
 		labelModifiedDateText.Size = new Size(101, 20);
 		labelModifiedDateText.TabIndex = 5;
@@ -244,7 +249,7 @@ partial class CheckDatabaseForm
 		labelContentLengthValueLocal.AccessibleRole = AccessibleRole.Text;
 		labelContentLengthValueLocal.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelContentLengthValueLocal.Dock = DockStyle.Top;
-		labelContentLengthValueLocal.Location = new Point(110, 29);
+		labelContentLengthValueLocal.Location = new Point(104, 23);
 		labelContentLengthValueLocal.Name = "labelContentLengthValueLocal";
 		labelContentLengthValueLocal.Size = new Size(103, 20);
 		labelContentLengthValueLocal.TabIndex = 3;
@@ -298,9 +303,10 @@ partial class CheckDatabaseForm
 		labelModifiedDateValueLocal.AccessibleRole = AccessibleRole.Text;
 		labelModifiedDateValueLocal.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelModifiedDateValueLocal.Dock = DockStyle.Top;
-		labelModifiedDateValueLocal.Location = new Point(110, 55);
+		labelModifiedDateValueLocal.Location = new Point(101, 46);
+		labelModifiedDateValueLocal.Margin = new Padding(0);
 		labelModifiedDateValueLocal.Name = "labelModifiedDateValueLocal";
-		labelModifiedDateValueLocal.Size = new Size(103, 20);
+		labelModifiedDateValueLocal.Size = new Size(109, 20);
 		labelModifiedDateValueLocal.TabIndex = 6;
 		labelModifiedDateValueLocal.ToolTipValues.Description = "Shows the local modified date.\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelModifiedDateValueLocal.ToolTipValues.EnableToolTips = true;
@@ -321,9 +327,10 @@ partial class CheckDatabaseForm
 		labelContentLengthValueOnline.AccessibleRole = AccessibleRole.Text;
 		labelContentLengthValueOnline.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelContentLengthValueOnline.Dock = DockStyle.Top;
-		labelContentLengthValueOnline.Location = new Point(219, 29);
+		labelContentLengthValueOnline.Location = new Point(210, 20);
+		labelContentLengthValueOnline.Margin = new Padding(0);
 		labelContentLengthValueOnline.Name = "labelContentLengthValueOnline";
-		labelContentLengthValueOnline.Size = new Size(165, 20);
+		labelContentLengthValueOnline.Size = new Size(177, 20);
 		labelContentLengthValueOnline.TabIndex = 4;
 		labelContentLengthValueOnline.ToolTipValues.Description = "Shows the online content length.\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelContentLengthValueOnline.ToolTipValues.EnableToolTips = true;
@@ -344,9 +351,10 @@ partial class CheckDatabaseForm
 		labelModifiedDateValueOnline.AccessibleRole = AccessibleRole.Text;
 		labelModifiedDateValueOnline.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelModifiedDateValueOnline.Dock = DockStyle.Top;
-		labelModifiedDateValueOnline.Location = new Point(219, 55);
+		labelModifiedDateValueOnline.Location = new Point(210, 46);
+		labelModifiedDateValueOnline.Margin = new Padding(0);
 		labelModifiedDateValueOnline.Name = "labelModifiedDateValueOnline";
-		labelModifiedDateValueOnline.Size = new Size(165, 20);
+		labelModifiedDateValueOnline.Size = new Size(177, 20);
 		labelModifiedDateValueOnline.TabIndex = 7;
 		labelModifiedDateValueOnline.ToolTipValues.Description = "Shows the online modified date.\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelModifiedDateValueOnline.ToolTipValues.EnableToolTips = true;
@@ -389,7 +397,7 @@ partial class CheckDatabaseForm
 		tableLayoutPanel.RowStyles.Add(new RowStyle());
 		tableLayoutPanel.RowStyles.Add(new RowStyle());
 		tableLayoutPanel.RowStyles.Add(new RowStyle());
-		tableLayoutPanel.Size = new Size(387, 116);
+		tableLayoutPanel.Size = new Size(387, 102);
 		tableLayoutPanel.TabIndex = 0;
 		// 
 		// contextMenuSaveToFile
@@ -1002,7 +1010,7 @@ partial class CheckDatabaseForm
 		toolStripContainer.ContentPanel.AccessibleRole = AccessibleRole.Pane;
 		toolStripContainer.ContentPanel.Controls.Add(tableLayoutPanel);
 		toolStripContainer.ContentPanel.Margin = new Padding(4, 3, 4, 3);
-		toolStripContainer.ContentPanel.Size = new Size(387, 116);
+		toolStripContainer.ContentPanel.Size = new Size(387, 102);
 		toolStripContainer.Dock = DockStyle.Fill;
 		// 
 		// toolStripContainer.LeftToolStripPanel
@@ -1018,7 +1026,7 @@ partial class CheckDatabaseForm
 		toolStripContainer.RightToolStripPanel.AccessibleDescription = "Just a panel";
 		toolStripContainer.RightToolStripPanel.AccessibleName = "Right panel";
 		toolStripContainer.RightToolStripPanel.AccessibleRole = AccessibleRole.Pane;
-		toolStripContainer.Size = new Size(387, 163);
+		toolStripContainer.Size = new Size(387, 149);
 		toolStripContainer.TabIndex = 3;
 		toolStripContainer.Text = "toolStripContainer";
 		// 
@@ -1184,7 +1192,7 @@ partial class CheckDatabaseForm
 		AccessibleRole = AccessibleRole.Dialog;
 		AutoScaleDimensions = new SizeF(7F, 15F);
 		AutoScaleMode = AutoScaleMode.Font;
-		ClientSize = new Size(387, 163);
+		ClientSize = new Size(387, 149);
 		ControlBox = false;
 		Controls.Add(toolStripContainer);
 		FormBorderStyle = FormBorderStyle.SizableToolWindow;
