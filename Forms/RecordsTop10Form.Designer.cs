@@ -196,7 +196,7 @@ partial class RecordsTop10Form
 		kryptonPanelMain.Location = new Point(0, 0);
 		kryptonPanelMain.Name = "kryptonPanelMain";
 		kryptonPanelMain.PanelBackStyle = PaletteBackStyle.FormMain;
-		kryptonPanelMain.Size = new Size(706, 332);
+		kryptonPanelMain.Size = new Size(706, 253);
 		kryptonPanelMain.TabIndex = 0;
 		kryptonPanelMain.TabStop = true;
 		kryptonPanelMain.Text = "kryptonPanelMain";
@@ -228,7 +228,7 @@ partial class RecordsTop10Form
 		splitContainerMain.Panel2.AccessibleName = "Split container panel 2";
 		splitContainerMain.Panel2.AccessibleRole = AccessibleRole.Grouping;
 		splitContainerMain.Panel2.Controls.Add(kryptonPanelSplitterContainerRight);
-		splitContainerMain.Size = new Size(706, 332);
+		splitContainerMain.Size = new Size(706, 253);
 		splitContainerMain.SplitterDistance = 238;
 		splitContainerMain.TabIndex = 0;
 		splitContainerMain.Enter += Control_Enter;
@@ -246,7 +246,7 @@ partial class RecordsTop10Form
 		kryptonPanelSplitterContainerLeft.Location = new Point(0, 0);
 		kryptonPanelSplitterContainerLeft.Name = "kryptonPanelSplitterContainerLeft";
 		kryptonPanelSplitterContainerLeft.PanelBackStyle = PaletteBackStyle.FormMain;
-		kryptonPanelSplitterContainerLeft.Size = new Size(238, 332);
+		kryptonPanelSplitterContainerLeft.Size = new Size(238, 253);
 		kryptonPanelSplitterContainerLeft.TabIndex = 2;
 		kryptonPanelSplitterContainerLeft.TabStop = true;
 		kryptonPanelSplitterContainerLeft.Text = "kryptonPanelSplitterContainerLeft";
@@ -265,7 +265,7 @@ partial class RecordsTop10Form
 		listBox.Items.AddRange(new object[] { "Mean anomaly at the epoch", "Argument of the perihelion, J2000.0", "Longitude of the ascending node, J2000.0", "Inclination to the ecliptic, J2000.0", "Orbital eccentricity", "Mean daily motion", "Semi-major axis", "Absolute magnitude, H", "Slope parameter, G", "Number of oppositions", "Number of observations", "r.m.s. residual" });
 		listBox.Location = new Point(0, 0);
 		listBox.Name = "listBox";
-		listBox.Size = new Size(238, 332);
+		listBox.Size = new Size(238, 253);
 		listBox.TabIndex = 0;
 		listBox.ToolTipValues.Description = "Lists the terms that can be looked up.\r\nDouble-click or right-click to copy the information to the clipboard.";
 		listBox.ToolTipValues.EnableToolTips = true;
@@ -286,7 +286,7 @@ partial class RecordsTop10Form
 		kryptonPanelSplitterContainerRight.Location = new Point(0, 0);
 		kryptonPanelSplitterContainerRight.Name = "kryptonPanelSplitterContainerRight";
 		kryptonPanelSplitterContainerRight.PanelBackStyle = PaletteBackStyle.FormMain;
-		kryptonPanelSplitterContainerRight.Size = new Size(464, 332);
+		kryptonPanelSplitterContainerRight.Size = new Size(464, 253);
 		kryptonPanelSplitterContainerRight.TabIndex = 1;
 		kryptonPanelSplitterContainerRight.TabStop = true;
 		kryptonPanelSplitterContainerRight.Text = "kryptonPanelSplitterContainerRight";
@@ -366,7 +366,7 @@ partial class RecordsTop10Form
 		tableLayoutPanel.RowStyles.Add(new RowStyle());
 		tableLayoutPanel.RowStyles.Add(new RowStyle());
 		tableLayoutPanel.RowStyles.Add(new RowStyle());
-		tableLayoutPanel.Size = new Size(464, 332);
+		tableLayoutPanel.Size = new Size(464, 253);
 		tableLayoutPanel.TabIndex = 0;
 		tableLayoutPanel.Enter += Control_Enter;
 		tableLayoutPanel.Leave += Control_Leave;
@@ -973,9 +973,10 @@ partial class RecordsTop10Form
 		labelGoToObjectHeader.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelGoToObjectHeader.Dock = DockStyle.Top;
 		labelGoToObjectHeader.LabelStyle = LabelStyle.BoldPanel;
-		labelGoToObjectHeader.Location = new Point(241, 3);
+		labelGoToObjectHeader.Location = new Point(220, 0);
+		labelGoToObjectHeader.Margin = new Padding(0);
 		labelGoToObjectHeader.Name = "labelGoToObjectHeader";
-		labelGoToObjectHeader.Size = new Size(220, 20);
+		labelGoToObjectHeader.Size = new Size(244, 20);
 		labelGoToObjectHeader.TabIndex = 3;
 		labelGoToObjectHeader.ToolTipValues.Description = "Shows the go to object header.";
 		labelGoToObjectHeader.ToolTipValues.EnableToolTips = true;
@@ -1029,7 +1030,8 @@ partial class RecordsTop10Form
 		labelPlaceHeader.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelPlaceHeader.Dock = DockStyle.Top;
 		labelPlaceHeader.LabelStyle = LabelStyle.BoldPanel;
-		labelPlaceHeader.Location = new Point(3, 3);
+		labelPlaceHeader.Location = new Point(0, 0);
+		labelPlaceHeader.Margin = new Padding(0);
 		labelPlaceHeader.Name = "labelPlaceHeader";
 		labelPlaceHeader.Size = new Size(41, 20);
 		labelPlaceHeader.TabIndex = 0;
@@ -1050,7 +1052,8 @@ partial class RecordsTop10Form
 		buttonGoto09.AccessibleName = "Go to the element of the place no. 9";
 		buttonGoto09.AccessibleRole = AccessibleRole.PushButton;
 		buttonGoto09.ButtonStyle = ButtonStyle.Form;
-		buttonGoto09.Location = new Point(241, 261);
+		buttonGoto09.Location = new Point(220, 204);
+		buttonGoto09.Margin = new Padding(0);
 		buttonGoto09.Name = "buttonGoto09";
 		buttonGoto09.Size = new Size(69, 23);
 		buttonGoto09.TabIndex = 39;
@@ -1073,7 +1076,8 @@ partial class RecordsTop10Form
 		buttonGoto08.AccessibleName = "Go to the element of the place no. 8";
 		buttonGoto08.AccessibleRole = AccessibleRole.PushButton;
 		buttonGoto08.ButtonStyle = ButtonStyle.Form;
-		buttonGoto08.Location = new Point(241, 232);
+		buttonGoto08.Location = new Point(220, 181);
+		buttonGoto08.Margin = new Padding(0);
 		buttonGoto08.Name = "buttonGoto08";
 		buttonGoto08.Size = new Size(69, 23);
 		buttonGoto08.TabIndex = 35;
@@ -1096,7 +1100,8 @@ partial class RecordsTop10Form
 		buttonGoto07.AccessibleName = "Go to the element of the place no. 7";
 		buttonGoto07.AccessibleRole = AccessibleRole.PushButton;
 		buttonGoto07.ButtonStyle = ButtonStyle.Form;
-		buttonGoto07.Location = new Point(241, 203);
+		buttonGoto07.Location = new Point(220, 158);
+		buttonGoto07.Margin = new Padding(0);
 		buttonGoto07.Name = "buttonGoto07";
 		buttonGoto07.Size = new Size(69, 23);
 		buttonGoto07.TabIndex = 31;
@@ -1119,7 +1124,8 @@ partial class RecordsTop10Form
 		buttonGoto06.AccessibleName = "Go to the element of the place no. 6";
 		buttonGoto06.AccessibleRole = AccessibleRole.PushButton;
 		buttonGoto06.ButtonStyle = ButtonStyle.Form;
-		buttonGoto06.Location = new Point(241, 174);
+		buttonGoto06.Location = new Point(220, 135);
+		buttonGoto06.Margin = new Padding(0);
 		buttonGoto06.Name = "buttonGoto06";
 		buttonGoto06.Size = new Size(69, 23);
 		buttonGoto06.TabIndex = 27;
@@ -1142,7 +1148,8 @@ partial class RecordsTop10Form
 		buttonGoto05.AccessibleName = "Go to the element of the place no. 5";
 		buttonGoto05.AccessibleRole = AccessibleRole.PushButton;
 		buttonGoto05.ButtonStyle = ButtonStyle.Form;
-		buttonGoto05.Location = new Point(241, 145);
+		buttonGoto05.Location = new Point(220, 112);
+		buttonGoto05.Margin = new Padding(0);
 		buttonGoto05.Name = "buttonGoto05";
 		buttonGoto05.Size = new Size(69, 23);
 		buttonGoto05.TabIndex = 23;
@@ -1165,7 +1172,8 @@ partial class RecordsTop10Form
 		buttonGoto04.AccessibleName = "Go to the element of the place no. 4";
 		buttonGoto04.AccessibleRole = AccessibleRole.PushButton;
 		buttonGoto04.ButtonStyle = ButtonStyle.Form;
-		buttonGoto04.Location = new Point(241, 116);
+		buttonGoto04.Location = new Point(220, 89);
+		buttonGoto04.Margin = new Padding(0);
 		buttonGoto04.Name = "buttonGoto04";
 		buttonGoto04.Size = new Size(69, 23);
 		buttonGoto04.TabIndex = 19;
@@ -1188,7 +1196,8 @@ partial class RecordsTop10Form
 		buttonGoto03.AccessibleName = "Go to the element of the place no. 3";
 		buttonGoto03.AccessibleRole = AccessibleRole.PushButton;
 		buttonGoto03.ButtonStyle = ButtonStyle.Form;
-		buttonGoto03.Location = new Point(241, 87);
+		buttonGoto03.Location = new Point(220, 66);
+		buttonGoto03.Margin = new Padding(0);
 		buttonGoto03.Name = "buttonGoto03";
 		buttonGoto03.Size = new Size(69, 23);
 		buttonGoto03.TabIndex = 15;
@@ -1211,7 +1220,8 @@ partial class RecordsTop10Form
 		buttonGoto02.AccessibleName = "Go to the element of the place no. 2";
 		buttonGoto02.AccessibleRole = AccessibleRole.PushButton;
 		buttonGoto02.ButtonStyle = ButtonStyle.Form;
-		buttonGoto02.Location = new Point(241, 58);
+		buttonGoto02.Location = new Point(220, 43);
+		buttonGoto02.Margin = new Padding(0);
 		buttonGoto02.Name = "buttonGoto02";
 		buttonGoto02.Size = new Size(69, 23);
 		buttonGoto02.TabIndex = 11;
@@ -1236,7 +1246,8 @@ partial class RecordsTop10Form
 		labelPlace10.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelPlace10.Dock = DockStyle.Top;
 		labelPlace10.LabelStyle = LabelStyle.ItalicPanel;
-		labelPlace10.Location = new Point(3, 290);
+		labelPlace10.Location = new Point(0, 227);
+		labelPlace10.Margin = new Padding(0);
 		labelPlace10.Name = "labelPlace10";
 		labelPlace10.Size = new Size(41, 20);
 		labelPlace10.TabIndex = 40;
@@ -1259,7 +1270,8 @@ partial class RecordsTop10Form
 		labelPlace05.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelPlace05.Dock = DockStyle.Top;
 		labelPlace05.LabelStyle = LabelStyle.ItalicPanel;
-		labelPlace05.Location = new Point(3, 145);
+		labelPlace05.Location = new Point(0, 112);
+		labelPlace05.Margin = new Padding(0);
 		labelPlace05.Name = "labelPlace05";
 		labelPlace05.Size = new Size(41, 20);
 		labelPlace05.TabIndex = 20;
@@ -1282,7 +1294,8 @@ partial class RecordsTop10Form
 		labelPlace04.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelPlace04.Dock = DockStyle.Top;
 		labelPlace04.LabelStyle = LabelStyle.ItalicPanel;
-		labelPlace04.Location = new Point(3, 116);
+		labelPlace04.Location = new Point(0, 89);
+		labelPlace04.Margin = new Padding(0);
 		labelPlace04.Name = "labelPlace04";
 		labelPlace04.Size = new Size(41, 20);
 		labelPlace04.TabIndex = 16;
@@ -1305,7 +1318,8 @@ partial class RecordsTop10Form
 		labelPlace03.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelPlace03.Dock = DockStyle.Top;
 		labelPlace03.LabelStyle = LabelStyle.ItalicPanel;
-		labelPlace03.Location = new Point(3, 87);
+		labelPlace03.Location = new Point(0, 66);
+		labelPlace03.Margin = new Padding(0);
 		labelPlace03.Name = "labelPlace03";
 		labelPlace03.Size = new Size(41, 20);
 		labelPlace03.TabIndex = 12;
@@ -1328,7 +1342,8 @@ partial class RecordsTop10Form
 		labelPlace01.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelPlace01.Dock = DockStyle.Top;
 		labelPlace01.LabelStyle = LabelStyle.ItalicPanel;
-		labelPlace01.Location = new Point(3, 29);
+		labelPlace01.Location = new Point(0, 20);
+		labelPlace01.Margin = new Padding(0);
 		labelPlace01.Name = "labelPlace01";
 		labelPlace01.Size = new Size(41, 20);
 		labelPlace01.TabIndex = 4;
@@ -1351,7 +1366,8 @@ partial class RecordsTop10Form
 		labelPlace02.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelPlace02.Dock = DockStyle.Top;
 		labelPlace02.LabelStyle = LabelStyle.ItalicPanel;
-		labelPlace02.Location = new Point(3, 58);
+		labelPlace02.Location = new Point(0, 43);
+		labelPlace02.Margin = new Padding(0);
 		labelPlace02.Name = "labelPlace02";
 		labelPlace02.Size = new Size(41, 20);
 		labelPlace02.TabIndex = 8;
@@ -1374,7 +1390,8 @@ partial class RecordsTop10Form
 		labelPlace06.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelPlace06.Dock = DockStyle.Top;
 		labelPlace06.LabelStyle = LabelStyle.ItalicPanel;
-		labelPlace06.Location = new Point(3, 174);
+		labelPlace06.Location = new Point(0, 135);
+		labelPlace06.Margin = new Padding(0);
 		labelPlace06.Name = "labelPlace06";
 		labelPlace06.Size = new Size(41, 20);
 		labelPlace06.TabIndex = 24;
@@ -1397,7 +1414,8 @@ partial class RecordsTop10Form
 		labelPlace07.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelPlace07.Dock = DockStyle.Top;
 		labelPlace07.LabelStyle = LabelStyle.ItalicPanel;
-		labelPlace07.Location = new Point(3, 203);
+		labelPlace07.Location = new Point(0, 158);
+		labelPlace07.Margin = new Padding(0);
 		labelPlace07.Name = "labelPlace07";
 		labelPlace07.Size = new Size(41, 20);
 		labelPlace07.TabIndex = 28;
@@ -1420,7 +1438,8 @@ partial class RecordsTop10Form
 		labelPlace08.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelPlace08.Dock = DockStyle.Top;
 		labelPlace08.LabelStyle = LabelStyle.ItalicPanel;
-		labelPlace08.Location = new Point(3, 232);
+		labelPlace08.Location = new Point(0, 181);
+		labelPlace08.Margin = new Padding(0);
 		labelPlace08.Name = "labelPlace08";
 		labelPlace08.Size = new Size(41, 20);
 		labelPlace08.TabIndex = 32;
@@ -1443,7 +1462,8 @@ partial class RecordsTop10Form
 		labelPlace09.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelPlace09.Dock = DockStyle.Top;
 		labelPlace09.LabelStyle = LabelStyle.ItalicPanel;
-		labelPlace09.Location = new Point(3, 261);
+		labelPlace09.Location = new Point(0, 204);
+		labelPlace09.Margin = new Padding(0);
 		labelPlace09.Name = "labelPlace09";
 		labelPlace09.Size = new Size(41, 20);
 		labelPlace09.TabIndex = 36;
@@ -1466,7 +1486,8 @@ partial class RecordsTop10Form
 		labelReadableDesignationHeader.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelReadableDesignationHeader.Dock = DockStyle.Top;
 		labelReadableDesignationHeader.LabelStyle = LabelStyle.BoldPanel;
-		labelReadableDesignationHeader.Location = new Point(50, 3);
+		labelReadableDesignationHeader.Location = new Point(41, 0);
+		labelReadableDesignationHeader.Margin = new Padding(0);
 		labelReadableDesignationHeader.Name = "labelReadableDesignationHeader";
 		labelReadableDesignationHeader.Size = new Size(136, 20);
 		labelReadableDesignationHeader.TabIndex = 1;
@@ -1489,7 +1510,8 @@ partial class RecordsTop10Form
 		labelValueHeader.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelValueHeader.Dock = DockStyle.Top;
 		labelValueHeader.LabelStyle = LabelStyle.BoldPanel;
-		labelValueHeader.Location = new Point(192, 3);
+		labelValueHeader.Location = new Point(177, 0);
+		labelValueHeader.Margin = new Padding(0);
 		labelValueHeader.Name = "labelValueHeader";
 		labelValueHeader.Size = new Size(43, 20);
 		labelValueHeader.TabIndex = 2;
@@ -1511,7 +1533,8 @@ partial class RecordsTop10Form
 		labelReadableDesignation01.AccessibleRole = AccessibleRole.StaticText;
 		labelReadableDesignation01.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelReadableDesignation01.Dock = DockStyle.Top;
-		labelReadableDesignation01.Location = new Point(50, 29);
+		labelReadableDesignation01.Location = new Point(41, 20);
+		labelReadableDesignation01.Margin = new Padding(0);
 		labelReadableDesignation01.Name = "labelReadableDesignation01";
 		labelReadableDesignation01.Size = new Size(136, 20);
 		labelReadableDesignation01.TabIndex = 5;
@@ -1534,7 +1557,8 @@ partial class RecordsTop10Form
 		labelReadableDesignation02.AccessibleRole = AccessibleRole.StaticText;
 		labelReadableDesignation02.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelReadableDesignation02.Dock = DockStyle.Top;
-		labelReadableDesignation02.Location = new Point(50, 58);
+		labelReadableDesignation02.Location = new Point(41, 43);
+		labelReadableDesignation02.Margin = new Padding(0);
 		labelReadableDesignation02.Name = "labelReadableDesignation02";
 		labelReadableDesignation02.Size = new Size(136, 20);
 		labelReadableDesignation02.TabIndex = 9;
@@ -1557,7 +1581,8 @@ partial class RecordsTop10Form
 		labelReadableDesignation03.AccessibleRole = AccessibleRole.StaticText;
 		labelReadableDesignation03.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelReadableDesignation03.Dock = DockStyle.Top;
-		labelReadableDesignation03.Location = new Point(50, 87);
+		labelReadableDesignation03.Location = new Point(41, 66);
+		labelReadableDesignation03.Margin = new Padding(0);
 		labelReadableDesignation03.Name = "labelReadableDesignation03";
 		labelReadableDesignation03.Size = new Size(136, 20);
 		labelReadableDesignation03.TabIndex = 13;
@@ -1580,7 +1605,8 @@ partial class RecordsTop10Form
 		labelReadableDesignation04.AccessibleRole = AccessibleRole.StaticText;
 		labelReadableDesignation04.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelReadableDesignation04.Dock = DockStyle.Top;
-		labelReadableDesignation04.Location = new Point(50, 116);
+		labelReadableDesignation04.Location = new Point(41, 89);
+		labelReadableDesignation04.Margin = new Padding(0);
 		labelReadableDesignation04.Name = "labelReadableDesignation04";
 		labelReadableDesignation04.Size = new Size(136, 20);
 		labelReadableDesignation04.TabIndex = 17;
@@ -1603,7 +1629,8 @@ partial class RecordsTop10Form
 		labelReadableDesignation05.AccessibleRole = AccessibleRole.StaticText;
 		labelReadableDesignation05.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelReadableDesignation05.Dock = DockStyle.Top;
-		labelReadableDesignation05.Location = new Point(50, 145);
+		labelReadableDesignation05.Location = new Point(41, 112);
+		labelReadableDesignation05.Margin = new Padding(0);
 		labelReadableDesignation05.Name = "labelReadableDesignation05";
 		labelReadableDesignation05.Size = new Size(136, 20);
 		labelReadableDesignation05.TabIndex = 21;
@@ -1626,7 +1653,8 @@ partial class RecordsTop10Form
 		labelReadableDesignation06.AccessibleRole = AccessibleRole.StaticText;
 		labelReadableDesignation06.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelReadableDesignation06.Dock = DockStyle.Top;
-		labelReadableDesignation06.Location = new Point(50, 174);
+		labelReadableDesignation06.Location = new Point(41, 135);
+		labelReadableDesignation06.Margin = new Padding(0);
 		labelReadableDesignation06.Name = "labelReadableDesignation06";
 		labelReadableDesignation06.Size = new Size(136, 20);
 		labelReadableDesignation06.TabIndex = 25;
@@ -1649,7 +1677,8 @@ partial class RecordsTop10Form
 		labelReadableDesignation07.AccessibleRole = AccessibleRole.StaticText;
 		labelReadableDesignation07.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelReadableDesignation07.Dock = DockStyle.Top;
-		labelReadableDesignation07.Location = new Point(50, 203);
+		labelReadableDesignation07.Location = new Point(41, 158);
+		labelReadableDesignation07.Margin = new Padding(0);
 		labelReadableDesignation07.Name = "labelReadableDesignation07";
 		labelReadableDesignation07.Size = new Size(136, 20);
 		labelReadableDesignation07.TabIndex = 29;
@@ -1672,7 +1701,8 @@ partial class RecordsTop10Form
 		labelReadableDesignation08.AccessibleRole = AccessibleRole.StaticText;
 		labelReadableDesignation08.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelReadableDesignation08.Dock = DockStyle.Top;
-		labelReadableDesignation08.Location = new Point(50, 232);
+		labelReadableDesignation08.Location = new Point(41, 181);
+		labelReadableDesignation08.Margin = new Padding(0);
 		labelReadableDesignation08.Name = "labelReadableDesignation08";
 		labelReadableDesignation08.Size = new Size(136, 20);
 		labelReadableDesignation08.TabIndex = 33;
@@ -1695,7 +1725,8 @@ partial class RecordsTop10Form
 		labelReadableDesignation09.AccessibleRole = AccessibleRole.StaticText;
 		labelReadableDesignation09.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelReadableDesignation09.Dock = DockStyle.Top;
-		labelReadableDesignation09.Location = new Point(50, 261);
+		labelReadableDesignation09.Location = new Point(41, 204);
+		labelReadableDesignation09.Margin = new Padding(0);
 		labelReadableDesignation09.Name = "labelReadableDesignation09";
 		labelReadableDesignation09.Size = new Size(136, 20);
 		labelReadableDesignation09.TabIndex = 37;
@@ -1718,7 +1749,8 @@ partial class RecordsTop10Form
 		labelReadableDesignation10.AccessibleRole = AccessibleRole.StaticText;
 		labelReadableDesignation10.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelReadableDesignation10.Dock = DockStyle.Top;
-		labelReadableDesignation10.Location = new Point(50, 290);
+		labelReadableDesignation10.Location = new Point(41, 227);
+		labelReadableDesignation10.Margin = new Padding(0);
 		labelReadableDesignation10.Name = "labelReadableDesignation10";
 		labelReadableDesignation10.Size = new Size(136, 20);
 		labelReadableDesignation10.TabIndex = 41;
@@ -1741,7 +1773,8 @@ partial class RecordsTop10Form
 		labelValue01.AccessibleRole = AccessibleRole.StaticText;
 		labelValue01.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelValue01.Dock = DockStyle.Top;
-		labelValue01.Location = new Point(192, 29);
+		labelValue01.Location = new Point(177, 20);
+		labelValue01.Margin = new Padding(0);
 		labelValue01.Name = "labelValue01";
 		labelValue01.Size = new Size(43, 20);
 		labelValue01.TabIndex = 6;
@@ -1764,7 +1797,8 @@ partial class RecordsTop10Form
 		labelValue02.AccessibleRole = AccessibleRole.StaticText;
 		labelValue02.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelValue02.Dock = DockStyle.Top;
-		labelValue02.Location = new Point(192, 58);
+		labelValue02.Location = new Point(177, 43);
+		labelValue02.Margin = new Padding(0);
 		labelValue02.Name = "labelValue02";
 		labelValue02.Size = new Size(43, 20);
 		labelValue02.TabIndex = 10;
@@ -1787,7 +1821,8 @@ partial class RecordsTop10Form
 		labelValue03.AccessibleRole = AccessibleRole.StaticText;
 		labelValue03.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelValue03.Dock = DockStyle.Top;
-		labelValue03.Location = new Point(192, 87);
+		labelValue03.Location = new Point(177, 66);
+		labelValue03.Margin = new Padding(0);
 		labelValue03.Name = "labelValue03";
 		labelValue03.Size = new Size(43, 20);
 		labelValue03.TabIndex = 14;
@@ -1810,7 +1845,8 @@ partial class RecordsTop10Form
 		labelValue04.AccessibleRole = AccessibleRole.StaticText;
 		labelValue04.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelValue04.Dock = DockStyle.Top;
-		labelValue04.Location = new Point(192, 116);
+		labelValue04.Location = new Point(177, 89);
+		labelValue04.Margin = new Padding(0);
 		labelValue04.Name = "labelValue04";
 		labelValue04.Size = new Size(43, 20);
 		labelValue04.TabIndex = 18;
@@ -1833,7 +1869,8 @@ partial class RecordsTop10Form
 		labelValue05.AccessibleRole = AccessibleRole.StaticText;
 		labelValue05.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelValue05.Dock = DockStyle.Top;
-		labelValue05.Location = new Point(192, 145);
+		labelValue05.Location = new Point(177, 112);
+		labelValue05.Margin = new Padding(0);
 		labelValue05.Name = "labelValue05";
 		labelValue05.Size = new Size(43, 20);
 		labelValue05.TabIndex = 22;
@@ -1856,7 +1893,8 @@ partial class RecordsTop10Form
 		labelValue06.AccessibleRole = AccessibleRole.StaticText;
 		labelValue06.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelValue06.Dock = DockStyle.Top;
-		labelValue06.Location = new Point(192, 174);
+		labelValue06.Location = new Point(177, 135);
+		labelValue06.Margin = new Padding(0);
 		labelValue06.Name = "labelValue06";
 		labelValue06.Size = new Size(43, 20);
 		labelValue06.TabIndex = 26;
@@ -1879,7 +1917,8 @@ partial class RecordsTop10Form
 		labelValue07.AccessibleRole = AccessibleRole.StaticText;
 		labelValue07.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelValue07.Dock = DockStyle.Top;
-		labelValue07.Location = new Point(192, 203);
+		labelValue07.Location = new Point(177, 158);
+		labelValue07.Margin = new Padding(0);
 		labelValue07.Name = "labelValue07";
 		labelValue07.Size = new Size(43, 20);
 		labelValue07.TabIndex = 30;
@@ -1902,7 +1941,8 @@ partial class RecordsTop10Form
 		labelValue08.AccessibleRole = AccessibleRole.StaticText;
 		labelValue08.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelValue08.Dock = DockStyle.Top;
-		labelValue08.Location = new Point(192, 232);
+		labelValue08.Location = new Point(177, 181);
+		labelValue08.Margin = new Padding(0);
 		labelValue08.Name = "labelValue08";
 		labelValue08.Size = new Size(43, 20);
 		labelValue08.TabIndex = 34;
@@ -1925,7 +1965,8 @@ partial class RecordsTop10Form
 		labelValue09.AccessibleRole = AccessibleRole.StaticText;
 		labelValue09.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelValue09.Dock = DockStyle.Top;
-		labelValue09.Location = new Point(192, 261);
+		labelValue09.Location = new Point(177, 204);
+		labelValue09.Margin = new Padding(0);
 		labelValue09.Name = "labelValue09";
 		labelValue09.Size = new Size(43, 20);
 		labelValue09.TabIndex = 38;
@@ -1948,7 +1989,8 @@ partial class RecordsTop10Form
 		labelValue10.AccessibleRole = AccessibleRole.StaticText;
 		labelValue10.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelValue10.Dock = DockStyle.Top;
-		labelValue10.Location = new Point(192, 290);
+		labelValue10.Location = new Point(177, 227);
+		labelValue10.Margin = new Padding(0);
 		labelValue10.Name = "labelValue10";
 		labelValue10.Size = new Size(43, 20);
 		labelValue10.TabIndex = 42;
@@ -1970,7 +2012,8 @@ partial class RecordsTop10Form
 		buttonGoto10.AccessibleName = "Go to the element of the place no. 10";
 		buttonGoto10.AccessibleRole = AccessibleRole.PushButton;
 		buttonGoto10.ButtonStyle = ButtonStyle.Form;
-		buttonGoto10.Location = new Point(241, 290);
+		buttonGoto10.Location = new Point(220, 227);
+		buttonGoto10.Margin = new Padding(0);
 		buttonGoto10.Name = "buttonGoto10";
 		buttonGoto10.Size = new Size(69, 23);
 		buttonGoto10.TabIndex = 43;
@@ -1993,7 +2036,8 @@ partial class RecordsTop10Form
 		buttonGoto01.AccessibleName = "Go to the element of the place no. 1";
 		buttonGoto01.AccessibleRole = AccessibleRole.PushButton;
 		buttonGoto01.ButtonStyle = ButtonStyle.Form;
-		buttonGoto01.Location = new Point(241, 29);
+		buttonGoto01.Location = new Point(220, 20);
+		buttonGoto01.Margin = new Padding(0);
 		buttonGoto01.Name = "buttonGoto01";
 		buttonGoto01.Size = new Size(69, 23);
 		buttonGoto01.TabIndex = 7;
@@ -2064,11 +2108,11 @@ partial class RecordsTop10Form
 		// toolStripContainer.ContentPanel
 		// 
 		toolStripContainer.ContentPanel.Controls.Add(kryptonPanelMain);
-		toolStripContainer.ContentPanel.Size = new Size(706, 332);
+		toolStripContainer.ContentPanel.Size = new Size(706, 253);
 		toolStripContainer.Dock = DockStyle.Fill;
 		toolStripContainer.Location = new Point(0, 0);
 		toolStripContainer.Name = "toolStripContainer";
-		toolStripContainer.Size = new Size(706, 404);
+		toolStripContainer.Size = new Size(706, 325);
 		toolStripContainer.TabIndex = 4;
 		toolStripContainer.Text = "toolStripContainer";
 		// 
@@ -2251,7 +2295,7 @@ partial class RecordsTop10Form
 		AccessibleRole = AccessibleRole.Dialog;
 		AutoScaleDimensions = new SizeF(7F, 15F);
 		AutoScaleMode = AutoScaleMode.Font;
-		ClientSize = new Size(706, 404);
+		ClientSize = new Size(706, 325);
 		ControlBox = false;
 		Controls.Add(toolStripContainer);
 		FormBorderStyle = FormBorderStyle.SizableToolWindow;
