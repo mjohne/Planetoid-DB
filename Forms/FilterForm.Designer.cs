@@ -132,7 +132,7 @@ partial class FilterForm
 		kryptonPanelMain.Dock = DockStyle.Fill;
 		kryptonPanelMain.Location = new Point(0, 0);
 		kryptonPanelMain.Name = "kryptonPanelMain";
-		kryptonPanelMain.Size = new Size(514, 369);
+		kryptonPanelMain.Size = new Size(514, 290);
 		kryptonPanelMain.TabIndex = 0;
 		kryptonPanelMain.TabStop = true;
 		// 
@@ -218,7 +218,7 @@ partial class FilterForm
 		tableLayoutPanel.RowStyles.Add(new RowStyle());
 		tableLayoutPanel.RowStyles.Add(new RowStyle());
 		tableLayoutPanel.RowStyles.Add(new RowStyle());
-		tableLayoutPanel.Size = new Size(514, 369);
+		tableLayoutPanel.Size = new Size(514, 290);
 		tableLayoutPanel.TabIndex = 0;
 		tableLayoutPanel.TabStop = true;
 		// 
@@ -227,11 +227,12 @@ partial class FilterForm
 		labelHeaderReset.AccessibleDescription = "Shows the header of the reset buttons";
 		labelHeaderReset.AccessibleName = "Header of the reset buttons";
 		labelHeaderReset.AccessibleRole = AccessibleRole.StaticText;
-		labelHeaderReset.Dock = DockStyle.Fill;
+		labelHeaderReset.Dock = DockStyle.Top;
 		labelHeaderReset.LabelStyle = LabelStyle.BoldPanel;
-		labelHeaderReset.Location = new Point(461, 3);
+		labelHeaderReset.Location = new Point(440, 0);
+		labelHeaderReset.Margin = new Padding(0);
 		labelHeaderReset.Name = "labelHeaderReset";
-		labelHeaderReset.Size = new Size(50, 20);
+		labelHeaderReset.Size = new Size(74, 20);
 		labelHeaderReset.TabIndex = 3;
 		labelHeaderReset.ToolTipValues.Description = "Shows the header of the reset buttons.";
 		labelHeaderReset.ToolTipValues.EnableToolTips = true;
@@ -248,9 +249,10 @@ partial class FilterForm
 		labelHeaderMaximum.AccessibleDescription = "Shows the header of the maximum spin buttons";
 		labelHeaderMaximum.AccessibleName = "Header of the maximum spin buttons";
 		labelHeaderMaximum.AccessibleRole = AccessibleRole.StaticText;
-		labelHeaderMaximum.Dock = DockStyle.Fill;
+		labelHeaderMaximum.Dock = DockStyle.Top;
 		labelHeaderMaximum.LabelStyle = LabelStyle.BoldPanel;
-		labelHeaderMaximum.Location = new Point(355, 3);
+		labelHeaderMaximum.Location = new Point(340, 0);
+		labelHeaderMaximum.Margin = new Padding(0);
 		labelHeaderMaximum.Name = "labelHeaderMaximum";
 		labelHeaderMaximum.Size = new Size(100, 20);
 		labelHeaderMaximum.TabIndex = 2;
@@ -269,9 +271,10 @@ partial class FilterForm
 		labelHeaderMinimum.AccessibleDescription = "Shows the header of the minimum spin buttons";
 		labelHeaderMinimum.AccessibleName = "Header of the minimum spin buttons";
 		labelHeaderMinimum.AccessibleRole = AccessibleRole.StaticText;
-		labelHeaderMinimum.Dock = DockStyle.Fill;
+		labelHeaderMinimum.Dock = DockStyle.Top;
 		labelHeaderMinimum.LabelStyle = LabelStyle.BoldPanel;
-		labelHeaderMinimum.Location = new Point(247, 3);
+		labelHeaderMinimum.Location = new Point(238, 0);
+		labelHeaderMinimum.Margin = new Padding(0);
 		labelHeaderMinimum.Name = "labelHeaderMinimum";
 		labelHeaderMinimum.Size = new Size(102, 20);
 		labelHeaderMinimum.TabIndex = 1;
@@ -291,7 +294,8 @@ partial class FilterForm
 		buttonResetRmsResidual.AccessibleName = "Reset the minimum and maximum of ";
 		buttonResetRmsResidual.AccessibleRole = AccessibleRole.PushButton;
 		buttonResetRmsResidual.ButtonStyle = ButtonStyle.Form;
-		buttonResetRmsResidual.Location = new Point(461, 337);
+		buttonResetRmsResidual.Location = new Point(440, 262);
+		buttonResetRmsResidual.Margin = new Padding(0);
 		buttonResetRmsResidual.Name = "buttonResetRmsResidual";
 		buttonResetRmsResidual.Size = new Size(40, 20);
 		buttonResetRmsResidual.TabIndex = 51;
@@ -314,7 +318,8 @@ partial class FilterForm
 		buttonResetNumberOfObservations.AccessibleName = "Reset the minimum and maximum of number of observations";
 		buttonResetNumberOfObservations.AccessibleRole = AccessibleRole.PushButton;
 		buttonResetNumberOfObservations.ButtonStyle = ButtonStyle.Form;
-		buttonResetNumberOfObservations.Location = new Point(461, 309);
+		buttonResetNumberOfObservations.Location = new Point(440, 240);
+		buttonResetNumberOfObservations.Margin = new Padding(0);
 		buttonResetNumberOfObservations.Name = "buttonResetNumberOfObservations";
 		buttonResetNumberOfObservations.Size = new Size(40, 20);
 		buttonResetNumberOfObservations.TabIndex = 47;
@@ -337,7 +342,8 @@ partial class FilterForm
 		buttonNumberOfOppositions.AccessibleName = "Reset the minimum and maximum of number of oppositions";
 		buttonNumberOfOppositions.AccessibleRole = AccessibleRole.PushButton;
 		buttonNumberOfOppositions.ButtonStyle = ButtonStyle.Form;
-		buttonNumberOfOppositions.Location = new Point(461, 281);
+		buttonNumberOfOppositions.Location = new Point(440, 218);
+		buttonNumberOfOppositions.Margin = new Padding(0);
 		buttonNumberOfOppositions.Name = "buttonNumberOfOppositions";
 		buttonNumberOfOppositions.Size = new Size(40, 20);
 		buttonNumberOfOppositions.TabIndex = 43;
@@ -360,7 +366,8 @@ partial class FilterForm
 		buttonResetSlopeParameter.AccessibleName = "Reset the minimum and maximum of slope parameter";
 		buttonResetSlopeParameter.AccessibleRole = AccessibleRole.PushButton;
 		buttonResetSlopeParameter.ButtonStyle = ButtonStyle.Form;
-		buttonResetSlopeParameter.Location = new Point(461, 253);
+		buttonResetSlopeParameter.Location = new Point(440, 196);
+		buttonResetSlopeParameter.Margin = new Padding(0);
 		buttonResetSlopeParameter.Name = "buttonResetSlopeParameter";
 		buttonResetSlopeParameter.Size = new Size(40, 20);
 		buttonResetSlopeParameter.TabIndex = 39;
@@ -383,7 +390,8 @@ partial class FilterForm
 		buttonResetAbsoluteMagnitude.AccessibleName = "Reset the minimum and maximum of absolute magnitude";
 		buttonResetAbsoluteMagnitude.AccessibleRole = AccessibleRole.PushButton;
 		buttonResetAbsoluteMagnitude.ButtonStyle = ButtonStyle.Form;
-		buttonResetAbsoluteMagnitude.Location = new Point(461, 225);
+		buttonResetAbsoluteMagnitude.Location = new Point(440, 174);
+		buttonResetAbsoluteMagnitude.Margin = new Padding(0);
 		buttonResetAbsoluteMagnitude.Name = "buttonResetAbsoluteMagnitude";
 		buttonResetAbsoluteMagnitude.Size = new Size(40, 20);
 		buttonResetAbsoluteMagnitude.TabIndex = 35;
@@ -406,7 +414,8 @@ partial class FilterForm
 		buttonResetSemiMajorAxis.AccessibleName = "Reset the minimum and maximum of semi-major axis";
 		buttonResetSemiMajorAxis.AccessibleRole = AccessibleRole.PushButton;
 		buttonResetSemiMajorAxis.ButtonStyle = ButtonStyle.Form;
-		buttonResetSemiMajorAxis.Location = new Point(461, 197);
+		buttonResetSemiMajorAxis.Location = new Point(440, 152);
+		buttonResetSemiMajorAxis.Margin = new Padding(0);
 		buttonResetSemiMajorAxis.Name = "buttonResetSemiMajorAxis";
 		buttonResetSemiMajorAxis.Size = new Size(40, 20);
 		buttonResetSemiMajorAxis.TabIndex = 31;
@@ -429,7 +438,8 @@ partial class FilterForm
 		buttonResetMeanDailyMotion.AccessibleName = "Reset the minimum and maximum of mean daily motion";
 		buttonResetMeanDailyMotion.AccessibleRole = AccessibleRole.PushButton;
 		buttonResetMeanDailyMotion.ButtonStyle = ButtonStyle.Form;
-		buttonResetMeanDailyMotion.Location = new Point(461, 169);
+		buttonResetMeanDailyMotion.Location = new Point(440, 130);
+		buttonResetMeanDailyMotion.Margin = new Padding(0);
 		buttonResetMeanDailyMotion.Name = "buttonResetMeanDailyMotion";
 		buttonResetMeanDailyMotion.Size = new Size(40, 20);
 		buttonResetMeanDailyMotion.TabIndex = 27;
@@ -452,7 +462,8 @@ partial class FilterForm
 		buttonResetLongitudeOfTheAscendingNode.AccessibleName = "Reset the minimum and maximum of longitude of the ascending node";
 		buttonResetLongitudeOfTheAscendingNode.AccessibleRole = AccessibleRole.PushButton;
 		buttonResetLongitudeOfTheAscendingNode.ButtonStyle = ButtonStyle.Form;
-		buttonResetLongitudeOfTheAscendingNode.Location = new Point(461, 85);
+		buttonResetLongitudeOfTheAscendingNode.Location = new Point(440, 64);
+		buttonResetLongitudeOfTheAscendingNode.Margin = new Padding(0);
 		buttonResetLongitudeOfTheAscendingNode.Name = "buttonResetLongitudeOfTheAscendingNode";
 		buttonResetLongitudeOfTheAscendingNode.Size = new Size(40, 20);
 		buttonResetLongitudeOfTheAscendingNode.TabIndex = 15;
@@ -475,7 +486,8 @@ partial class FilterForm
 		buttonResetArgumentOfThePerihelion.AccessibleName = "Reset the minimum and maximum of argument of the perihelion";
 		buttonResetArgumentOfThePerihelion.AccessibleRole = AccessibleRole.PushButton;
 		buttonResetArgumentOfThePerihelion.ButtonStyle = ButtonStyle.Form;
-		buttonResetArgumentOfThePerihelion.Location = new Point(461, 57);
+		buttonResetArgumentOfThePerihelion.Location = new Point(440, 42);
+		buttonResetArgumentOfThePerihelion.Margin = new Padding(0);
 		buttonResetArgumentOfThePerihelion.Name = "buttonResetArgumentOfThePerihelion";
 		buttonResetArgumentOfThePerihelion.Size = new Size(40, 20);
 		buttonResetArgumentOfThePerihelion.TabIndex = 11;
@@ -498,7 +510,8 @@ partial class FilterForm
 		buttonResetMeanAnomalyAtTheEpoch.AccessibleName = "Reset the minimum and maximum of mean anomaly at the epoch";
 		buttonResetMeanAnomalyAtTheEpoch.AccessibleRole = AccessibleRole.PushButton;
 		buttonResetMeanAnomalyAtTheEpoch.ButtonStyle = ButtonStyle.Form;
-		buttonResetMeanAnomalyAtTheEpoch.Location = new Point(461, 29);
+		buttonResetMeanAnomalyAtTheEpoch.Location = new Point(440, 20);
+		buttonResetMeanAnomalyAtTheEpoch.Margin = new Padding(0);
 		buttonResetMeanAnomalyAtTheEpoch.Name = "buttonResetMeanAnomalyAtTheEpoch";
 		buttonResetMeanAnomalyAtTheEpoch.Size = new Size(40, 20);
 		buttonResetMeanAnomalyAtTheEpoch.TabIndex = 7;
@@ -524,11 +537,12 @@ partial class FilterForm
 		numericUpDownMaximumRmsResidual.DecimalPlaces = 8;
 		numericUpDownMaximumRmsResidual.Dock = DockStyle.Fill;
 		numericUpDownMaximumRmsResidual.Increment = new decimal(new int[] { 1, 0, 0, 0 });
-		numericUpDownMaximumRmsResidual.Location = new Point(355, 337);
+		numericUpDownMaximumRmsResidual.Location = new Point(340, 262);
+		numericUpDownMaximumRmsResidual.Margin = new Padding(0);
 		numericUpDownMaximumRmsResidual.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
 		numericUpDownMaximumRmsResidual.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
 		numericUpDownMaximumRmsResidual.Name = "numericUpDownMaximumRmsResidual";
-		numericUpDownMaximumRmsResidual.Size = new Size(100, 29);
+		numericUpDownMaximumRmsResidual.Size = new Size(100, 22);
 		numericUpDownMaximumRmsResidual.TabIndex = 50;
 		numericUpDownMaximumRmsResidual.ThousandsSeparator = true;
 		numericUpDownMaximumRmsResidual.ToolTipValues.Description = "Shows the maximum of r.m.s. residual.";
@@ -549,7 +563,8 @@ partial class FilterForm
 		numericUpDownMaximumNumberOfObservations.AccessibleRole = AccessibleRole.SpinButton;
 		numericUpDownMaximumNumberOfObservations.Dock = DockStyle.Fill;
 		numericUpDownMaximumNumberOfObservations.Increment = new decimal(new int[] { 1, 0, 0, 0 });
-		numericUpDownMaximumNumberOfObservations.Location = new Point(355, 309);
+		numericUpDownMaximumNumberOfObservations.Location = new Point(340, 240);
+		numericUpDownMaximumNumberOfObservations.Margin = new Padding(0);
 		numericUpDownMaximumNumberOfObservations.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
 		numericUpDownMaximumNumberOfObservations.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
 		numericUpDownMaximumNumberOfObservations.Name = "numericUpDownMaximumNumberOfObservations";
@@ -574,7 +589,8 @@ partial class FilterForm
 		numericUpDownMaximumNumberOfOppositions.AccessibleRole = AccessibleRole.SpinButton;
 		numericUpDownMaximumNumberOfOppositions.Dock = DockStyle.Fill;
 		numericUpDownMaximumNumberOfOppositions.Increment = new decimal(new int[] { 1, 0, 0, 0 });
-		numericUpDownMaximumNumberOfOppositions.Location = new Point(355, 281);
+		numericUpDownMaximumNumberOfOppositions.Location = new Point(340, 218);
+		numericUpDownMaximumNumberOfOppositions.Margin = new Padding(0);
 		numericUpDownMaximumNumberOfOppositions.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
 		numericUpDownMaximumNumberOfOppositions.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
 		numericUpDownMaximumNumberOfOppositions.Name = "numericUpDownMaximumNumberOfOppositions";
@@ -601,7 +617,8 @@ partial class FilterForm
 		numericUpDownMaximumSlopeParameter.DecimalPlaces = 8;
 		numericUpDownMaximumSlopeParameter.Dock = DockStyle.Fill;
 		numericUpDownMaximumSlopeParameter.Increment = new decimal(new int[] { 1, 0, 0, 0 });
-		numericUpDownMaximumSlopeParameter.Location = new Point(355, 253);
+		numericUpDownMaximumSlopeParameter.Location = new Point(340, 196);
+		numericUpDownMaximumSlopeParameter.Margin = new Padding(0);
 		numericUpDownMaximumSlopeParameter.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
 		numericUpDownMaximumSlopeParameter.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
 		numericUpDownMaximumSlopeParameter.Name = "numericUpDownMaximumSlopeParameter";
@@ -628,7 +645,8 @@ partial class FilterForm
 		numericUpDownMaximumAbsoluteMagnitude.DecimalPlaces = 8;
 		numericUpDownMaximumAbsoluteMagnitude.Dock = DockStyle.Fill;
 		numericUpDownMaximumAbsoluteMagnitude.Increment = new decimal(new int[] { 1, 0, 0, 0 });
-		numericUpDownMaximumAbsoluteMagnitude.Location = new Point(355, 225);
+		numericUpDownMaximumAbsoluteMagnitude.Location = new Point(340, 174);
+		numericUpDownMaximumAbsoluteMagnitude.Margin = new Padding(0);
 		numericUpDownMaximumAbsoluteMagnitude.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
 		numericUpDownMaximumAbsoluteMagnitude.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
 		numericUpDownMaximumAbsoluteMagnitude.Name = "numericUpDownMaximumAbsoluteMagnitude";
@@ -655,7 +673,8 @@ partial class FilterForm
 		numericUpDownMaximumSemiMajorAxis.DecimalPlaces = 8;
 		numericUpDownMaximumSemiMajorAxis.Dock = DockStyle.Fill;
 		numericUpDownMaximumSemiMajorAxis.Increment = new decimal(new int[] { 1, 0, 0, 0 });
-		numericUpDownMaximumSemiMajorAxis.Location = new Point(355, 197);
+		numericUpDownMaximumSemiMajorAxis.Location = new Point(340, 152);
+		numericUpDownMaximumSemiMajorAxis.Margin = new Padding(0);
 		numericUpDownMaximumSemiMajorAxis.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
 		numericUpDownMaximumSemiMajorAxis.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
 		numericUpDownMaximumSemiMajorAxis.Name = "numericUpDownMaximumSemiMajorAxis";
@@ -682,7 +701,8 @@ partial class FilterForm
 		numericUpDownMaximumMeanDailyMotion.DecimalPlaces = 8;
 		numericUpDownMaximumMeanDailyMotion.Dock = DockStyle.Fill;
 		numericUpDownMaximumMeanDailyMotion.Increment = new decimal(new int[] { 1, 0, 0, 0 });
-		numericUpDownMaximumMeanDailyMotion.Location = new Point(355, 169);
+		numericUpDownMaximumMeanDailyMotion.Location = new Point(340, 130);
+		numericUpDownMaximumMeanDailyMotion.Margin = new Padding(0);
 		numericUpDownMaximumMeanDailyMotion.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
 		numericUpDownMaximumMeanDailyMotion.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
 		numericUpDownMaximumMeanDailyMotion.Name = "numericUpDownMaximumMeanDailyMotion";
@@ -709,7 +729,8 @@ partial class FilterForm
 		numericUpDownMaximumOrbitalEccentricity.DecimalPlaces = 8;
 		numericUpDownMaximumOrbitalEccentricity.Dock = DockStyle.Fill;
 		numericUpDownMaximumOrbitalEccentricity.Increment = new decimal(new int[] { 1, 0, 0, 0 });
-		numericUpDownMaximumOrbitalEccentricity.Location = new Point(355, 141);
+		numericUpDownMaximumOrbitalEccentricity.Location = new Point(340, 108);
+		numericUpDownMaximumOrbitalEccentricity.Margin = new Padding(0);
 		numericUpDownMaximumOrbitalEccentricity.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
 		numericUpDownMaximumOrbitalEccentricity.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
 		numericUpDownMaximumOrbitalEccentricity.Name = "numericUpDownMaximumOrbitalEccentricity";
@@ -736,7 +757,8 @@ partial class FilterForm
 		numericUpDownMaximumInclination.DecimalPlaces = 8;
 		numericUpDownMaximumInclination.Dock = DockStyle.Fill;
 		numericUpDownMaximumInclination.Increment = new decimal(new int[] { 1, 0, 0, 0 });
-		numericUpDownMaximumInclination.Location = new Point(355, 113);
+		numericUpDownMaximumInclination.Location = new Point(340, 86);
+		numericUpDownMaximumInclination.Margin = new Padding(0);
 		numericUpDownMaximumInclination.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
 		numericUpDownMaximumInclination.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
 		numericUpDownMaximumInclination.Name = "numericUpDownMaximumInclination";
@@ -763,7 +785,8 @@ partial class FilterForm
 		numericUpDownMaximumLongitudeOfTheAscendingNode.DecimalPlaces = 8;
 		numericUpDownMaximumLongitudeOfTheAscendingNode.Dock = DockStyle.Fill;
 		numericUpDownMaximumLongitudeOfTheAscendingNode.Increment = new decimal(new int[] { 1, 0, 0, 0 });
-		numericUpDownMaximumLongitudeOfTheAscendingNode.Location = new Point(355, 85);
+		numericUpDownMaximumLongitudeOfTheAscendingNode.Location = new Point(340, 64);
+		numericUpDownMaximumLongitudeOfTheAscendingNode.Margin = new Padding(0);
 		numericUpDownMaximumLongitudeOfTheAscendingNode.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
 		numericUpDownMaximumLongitudeOfTheAscendingNode.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
 		numericUpDownMaximumLongitudeOfTheAscendingNode.Name = "numericUpDownMaximumLongitudeOfTheAscendingNode";
@@ -790,7 +813,8 @@ partial class FilterForm
 		numericUpDownMaximumArgumentOfThePerihelion.DecimalPlaces = 8;
 		numericUpDownMaximumArgumentOfThePerihelion.Dock = DockStyle.Fill;
 		numericUpDownMaximumArgumentOfThePerihelion.Increment = new decimal(new int[] { 1, 0, 0, 0 });
-		numericUpDownMaximumArgumentOfThePerihelion.Location = new Point(355, 57);
+		numericUpDownMaximumArgumentOfThePerihelion.Location = new Point(340, 42);
+		numericUpDownMaximumArgumentOfThePerihelion.Margin = new Padding(0);
 		numericUpDownMaximumArgumentOfThePerihelion.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
 		numericUpDownMaximumArgumentOfThePerihelion.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
 		numericUpDownMaximumArgumentOfThePerihelion.Name = "numericUpDownMaximumArgumentOfThePerihelion";
@@ -816,7 +840,8 @@ partial class FilterForm
 		numericUpDownMaximumMeanAnomalyAtTheEpoch.AllowDecimals = true;
 		numericUpDownMaximumMeanAnomalyAtTheEpoch.DecimalPlaces = 8;
 		numericUpDownMaximumMeanAnomalyAtTheEpoch.Increment = new decimal(new int[] { 1, 0, 0, 0 });
-		numericUpDownMaximumMeanAnomalyAtTheEpoch.Location = new Point(355, 29);
+		numericUpDownMaximumMeanAnomalyAtTheEpoch.Location = new Point(340, 20);
+		numericUpDownMaximumMeanAnomalyAtTheEpoch.Margin = new Padding(0);
 		numericUpDownMaximumMeanAnomalyAtTheEpoch.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
 		numericUpDownMaximumMeanAnomalyAtTheEpoch.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
 		numericUpDownMaximumMeanAnomalyAtTheEpoch.Name = "numericUpDownMaximumMeanAnomalyAtTheEpoch";
@@ -843,11 +868,12 @@ partial class FilterForm
 		numericUpDownMinimumRmsResidual.DecimalPlaces = 8;
 		numericUpDownMinimumRmsResidual.Dock = DockStyle.Fill;
 		numericUpDownMinimumRmsResidual.Increment = new decimal(new int[] { 1, 0, 0, 0 });
-		numericUpDownMinimumRmsResidual.Location = new Point(247, 337);
+		numericUpDownMinimumRmsResidual.Location = new Point(238, 262);
+		numericUpDownMinimumRmsResidual.Margin = new Padding(0);
 		numericUpDownMinimumRmsResidual.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
 		numericUpDownMinimumRmsResidual.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
 		numericUpDownMinimumRmsResidual.Name = "numericUpDownMinimumRmsResidual";
-		numericUpDownMinimumRmsResidual.Size = new Size(102, 29);
+		numericUpDownMinimumRmsResidual.Size = new Size(102, 22);
 		numericUpDownMinimumRmsResidual.TabIndex = 49;
 		numericUpDownMinimumRmsResidual.ThousandsSeparator = true;
 		numericUpDownMinimumRmsResidual.ToolTipValues.Description = "Shows the minimum of r.m.s. residual.";
@@ -868,7 +894,8 @@ partial class FilterForm
 		numericUpDownMinimumNumberOfObservations.AccessibleRole = AccessibleRole.SpinButton;
 		numericUpDownMinimumNumberOfObservations.Dock = DockStyle.Fill;
 		numericUpDownMinimumNumberOfObservations.Increment = new decimal(new int[] { 1, 0, 0, 0 });
-		numericUpDownMinimumNumberOfObservations.Location = new Point(247, 309);
+		numericUpDownMinimumNumberOfObservations.Location = new Point(238, 240);
+		numericUpDownMinimumNumberOfObservations.Margin = new Padding(0);
 		numericUpDownMinimumNumberOfObservations.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
 		numericUpDownMinimumNumberOfObservations.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
 		numericUpDownMinimumNumberOfObservations.Name = "numericUpDownMinimumNumberOfObservations";
@@ -893,7 +920,8 @@ partial class FilterForm
 		numericUpDownMinimumNumberOfOppositions.AccessibleRole = AccessibleRole.SpinButton;
 		numericUpDownMinimumNumberOfOppositions.Dock = DockStyle.Fill;
 		numericUpDownMinimumNumberOfOppositions.Increment = new decimal(new int[] { 1, 0, 0, 0 });
-		numericUpDownMinimumNumberOfOppositions.Location = new Point(247, 281);
+		numericUpDownMinimumNumberOfOppositions.Location = new Point(238, 218);
+		numericUpDownMinimumNumberOfOppositions.Margin = new Padding(0);
 		numericUpDownMinimumNumberOfOppositions.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
 		numericUpDownMinimumNumberOfOppositions.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
 		numericUpDownMinimumNumberOfOppositions.Name = "numericUpDownMinimumNumberOfOppositions";
@@ -920,7 +948,8 @@ partial class FilterForm
 		numericUpDownMinimumSlopeParameter.DecimalPlaces = 8;
 		numericUpDownMinimumSlopeParameter.Dock = DockStyle.Fill;
 		numericUpDownMinimumSlopeParameter.Increment = new decimal(new int[] { 1, 0, 0, 0 });
-		numericUpDownMinimumSlopeParameter.Location = new Point(247, 253);
+		numericUpDownMinimumSlopeParameter.Location = new Point(238, 196);
+		numericUpDownMinimumSlopeParameter.Margin = new Padding(0);
 		numericUpDownMinimumSlopeParameter.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
 		numericUpDownMinimumSlopeParameter.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
 		numericUpDownMinimumSlopeParameter.Name = "numericUpDownMinimumSlopeParameter";
@@ -947,7 +976,8 @@ partial class FilterForm
 		numericUpDownMinimumAbsoluteMagnitude.DecimalPlaces = 8;
 		numericUpDownMinimumAbsoluteMagnitude.Dock = DockStyle.Fill;
 		numericUpDownMinimumAbsoluteMagnitude.Increment = new decimal(new int[] { 1, 0, 0, 0 });
-		numericUpDownMinimumAbsoluteMagnitude.Location = new Point(247, 225);
+		numericUpDownMinimumAbsoluteMagnitude.Location = new Point(238, 174);
+		numericUpDownMinimumAbsoluteMagnitude.Margin = new Padding(0);
 		numericUpDownMinimumAbsoluteMagnitude.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
 		numericUpDownMinimumAbsoluteMagnitude.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
 		numericUpDownMinimumAbsoluteMagnitude.Name = "numericUpDownMinimumAbsoluteMagnitude";
@@ -974,7 +1004,8 @@ partial class FilterForm
 		numericUpDownMinimumSemiMajorAxis.DecimalPlaces = 8;
 		numericUpDownMinimumSemiMajorAxis.Dock = DockStyle.Fill;
 		numericUpDownMinimumSemiMajorAxis.Increment = new decimal(new int[] { 1, 0, 0, 0 });
-		numericUpDownMinimumSemiMajorAxis.Location = new Point(247, 197);
+		numericUpDownMinimumSemiMajorAxis.Location = new Point(238, 152);
+		numericUpDownMinimumSemiMajorAxis.Margin = new Padding(0);
 		numericUpDownMinimumSemiMajorAxis.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
 		numericUpDownMinimumSemiMajorAxis.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
 		numericUpDownMinimumSemiMajorAxis.Name = "numericUpDownMinimumSemiMajorAxis";
@@ -1001,7 +1032,8 @@ partial class FilterForm
 		numericUpDownMinimumMeanDailyMotion.DecimalPlaces = 8;
 		numericUpDownMinimumMeanDailyMotion.Dock = DockStyle.Fill;
 		numericUpDownMinimumMeanDailyMotion.Increment = new decimal(new int[] { 1, 0, 0, 0 });
-		numericUpDownMinimumMeanDailyMotion.Location = new Point(247, 169);
+		numericUpDownMinimumMeanDailyMotion.Location = new Point(238, 130);
+		numericUpDownMinimumMeanDailyMotion.Margin = new Padding(0);
 		numericUpDownMinimumMeanDailyMotion.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
 		numericUpDownMinimumMeanDailyMotion.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
 		numericUpDownMinimumMeanDailyMotion.Name = "numericUpDownMinimumMeanDailyMotion";
@@ -1028,7 +1060,8 @@ partial class FilterForm
 		numericUpDownMinimumOrbitalEccentricity.DecimalPlaces = 8;
 		numericUpDownMinimumOrbitalEccentricity.Dock = DockStyle.Fill;
 		numericUpDownMinimumOrbitalEccentricity.Increment = new decimal(new int[] { 1, 0, 0, 0 });
-		numericUpDownMinimumOrbitalEccentricity.Location = new Point(247, 141);
+		numericUpDownMinimumOrbitalEccentricity.Location = new Point(238, 108);
+		numericUpDownMinimumOrbitalEccentricity.Margin = new Padding(0);
 		numericUpDownMinimumOrbitalEccentricity.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
 		numericUpDownMinimumOrbitalEccentricity.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
 		numericUpDownMinimumOrbitalEccentricity.Name = "numericUpDownMinimumOrbitalEccentricity";
@@ -1055,12 +1088,12 @@ partial class FilterForm
 		numericUpDownMinimumInclination.DecimalPlaces = 8;
 		numericUpDownMinimumInclination.Dock = DockStyle.Fill;
 		numericUpDownMinimumInclination.Increment = new decimal(new int[] { 1, 0, 0, 0 });
-		numericUpDownMinimumInclination.Location = new Point(248, 113);
-		numericUpDownMinimumInclination.Margin = new Padding(4, 3, 4, 3);
+		numericUpDownMinimumInclination.Location = new Point(238, 86);
+		numericUpDownMinimumInclination.Margin = new Padding(0);
 		numericUpDownMinimumInclination.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
 		numericUpDownMinimumInclination.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
 		numericUpDownMinimumInclination.Name = "numericUpDownMinimumInclination";
-		numericUpDownMinimumInclination.Size = new Size(100, 22);
+		numericUpDownMinimumInclination.Size = new Size(102, 22);
 		numericUpDownMinimumInclination.TabIndex = 17;
 		numericUpDownMinimumInclination.ThousandsSeparator = true;
 		numericUpDownMinimumInclination.ToolTipValues.Description = "Shows the minimum of inclination to the ecliptic.";
@@ -1083,7 +1116,8 @@ partial class FilterForm
 		numericUpDownMinimumLongitudeOfTheAscendingNode.DecimalPlaces = 8;
 		numericUpDownMinimumLongitudeOfTheAscendingNode.Dock = DockStyle.Fill;
 		numericUpDownMinimumLongitudeOfTheAscendingNode.Increment = new decimal(new int[] { 1, 0, 0, 0 });
-		numericUpDownMinimumLongitudeOfTheAscendingNode.Location = new Point(247, 85);
+		numericUpDownMinimumLongitudeOfTheAscendingNode.Location = new Point(238, 64);
+		numericUpDownMinimumLongitudeOfTheAscendingNode.Margin = new Padding(0);
 		numericUpDownMinimumLongitudeOfTheAscendingNode.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
 		numericUpDownMinimumLongitudeOfTheAscendingNode.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
 		numericUpDownMinimumLongitudeOfTheAscendingNode.Name = "numericUpDownMinimumLongitudeOfTheAscendingNode";
@@ -1110,7 +1144,8 @@ partial class FilterForm
 		numericUpDownMinimumArgumentOfThePerihelion.DecimalPlaces = 8;
 		numericUpDownMinimumArgumentOfThePerihelion.Dock = DockStyle.Fill;
 		numericUpDownMinimumArgumentOfThePerihelion.Increment = new decimal(new int[] { 1, 0, 0, 0 });
-		numericUpDownMinimumArgumentOfThePerihelion.Location = new Point(247, 57);
+		numericUpDownMinimumArgumentOfThePerihelion.Location = new Point(238, 42);
+		numericUpDownMinimumArgumentOfThePerihelion.Margin = new Padding(0);
 		numericUpDownMinimumArgumentOfThePerihelion.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
 		numericUpDownMinimumArgumentOfThePerihelion.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
 		numericUpDownMinimumArgumentOfThePerihelion.Name = "numericUpDownMinimumArgumentOfThePerihelion";
@@ -1132,7 +1167,8 @@ partial class FilterForm
 		labelArgumentOfThePerihelion.AccessibleName = "Argument of the perihelion";
 		labelArgumentOfThePerihelion.AccessibleRole = AccessibleRole.StaticText;
 		labelArgumentOfThePerihelion.Dock = DockStyle.Top;
-		labelArgumentOfThePerihelion.Location = new Point(3, 57);
+		labelArgumentOfThePerihelion.Location = new Point(0, 42);
+		labelArgumentOfThePerihelion.Margin = new Padding(0);
 		labelArgumentOfThePerihelion.Name = "labelArgumentOfThePerihelion";
 		labelArgumentOfThePerihelion.Size = new Size(238, 20);
 		labelArgumentOfThePerihelion.TabIndex = 8;
@@ -1155,7 +1191,8 @@ partial class FilterForm
 		numericUpDownMinimumMeanAnomalyAtTheEpoch.DecimalPlaces = 8;
 		numericUpDownMinimumMeanAnomalyAtTheEpoch.Dock = DockStyle.Fill;
 		numericUpDownMinimumMeanAnomalyAtTheEpoch.Increment = new decimal(new int[] { 1, 0, 0, 0 });
-		numericUpDownMinimumMeanAnomalyAtTheEpoch.Location = new Point(247, 29);
+		numericUpDownMinimumMeanAnomalyAtTheEpoch.Location = new Point(238, 20);
+		numericUpDownMinimumMeanAnomalyAtTheEpoch.Margin = new Padding(0);
 		numericUpDownMinimumMeanAnomalyAtTheEpoch.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
 		numericUpDownMinimumMeanAnomalyAtTheEpoch.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
 		numericUpDownMinimumMeanAnomalyAtTheEpoch.Name = "numericUpDownMinimumMeanAnomalyAtTheEpoch";
@@ -1179,7 +1216,8 @@ partial class FilterForm
 		labelRmsResidual.AccessibleName = "r.m.s. residual";
 		labelRmsResidual.AccessibleRole = AccessibleRole.StaticText;
 		labelRmsResidual.Dock = DockStyle.Top;
-		labelRmsResidual.Location = new Point(3, 337);
+		labelRmsResidual.Location = new Point(0, 262);
+		labelRmsResidual.Margin = new Padding(0);
 		labelRmsResidual.Name = "labelRmsResidual";
 		labelRmsResidual.Size = new Size(238, 20);
 		labelRmsResidual.TabIndex = 48;
@@ -1199,7 +1237,8 @@ partial class FilterForm
 		labelLongitudeOfTheAscendingNode.AccessibleName = "Longitude of the ascending node";
 		labelLongitudeOfTheAscendingNode.AccessibleRole = AccessibleRole.StaticText;
 		labelLongitudeOfTheAscendingNode.Dock = DockStyle.Top;
-		labelLongitudeOfTheAscendingNode.Location = new Point(3, 85);
+		labelLongitudeOfTheAscendingNode.Location = new Point(0, 64);
+		labelLongitudeOfTheAscendingNode.Margin = new Padding(0);
 		labelLongitudeOfTheAscendingNode.Name = "labelLongitudeOfTheAscendingNode";
 		labelLongitudeOfTheAscendingNode.Size = new Size(238, 20);
 		labelLongitudeOfTheAscendingNode.TabIndex = 12;
@@ -1219,7 +1258,8 @@ partial class FilterForm
 		labelNumberOfObservations.AccessibleName = "Number of observations";
 		labelNumberOfObservations.AccessibleRole = AccessibleRole.StaticText;
 		labelNumberOfObservations.Dock = DockStyle.Top;
-		labelNumberOfObservations.Location = new Point(3, 309);
+		labelNumberOfObservations.Location = new Point(0, 240);
+		labelNumberOfObservations.Margin = new Padding(0);
 		labelNumberOfObservations.Name = "labelNumberOfObservations";
 		labelNumberOfObservations.Size = new Size(238, 20);
 		labelNumberOfObservations.TabIndex = 44;
@@ -1239,7 +1279,8 @@ partial class FilterForm
 		labelInclination.AccessibleName = "Inclination to the ecliptic";
 		labelInclination.AccessibleRole = AccessibleRole.StaticText;
 		labelInclination.Dock = DockStyle.Top;
-		labelInclination.Location = new Point(3, 113);
+		labelInclination.Location = new Point(0, 86);
+		labelInclination.Margin = new Padding(0);
 		labelInclination.Name = "labelInclination";
 		labelInclination.Size = new Size(238, 20);
 		labelInclination.TabIndex = 16;
@@ -1259,7 +1300,8 @@ partial class FilterForm
 		labelNumberOfOppositions.AccessibleName = "Number of oppositions";
 		labelNumberOfOppositions.AccessibleRole = AccessibleRole.StaticText;
 		labelNumberOfOppositions.Dock = DockStyle.Top;
-		labelNumberOfOppositions.Location = new Point(3, 281);
+		labelNumberOfOppositions.Location = new Point(0, 218);
+		labelNumberOfOppositions.Margin = new Padding(0);
 		labelNumberOfOppositions.Name = "labelNumberOfOppositions";
 		labelNumberOfOppositions.Size = new Size(238, 20);
 		labelNumberOfOppositions.TabIndex = 40;
@@ -1279,7 +1321,8 @@ partial class FilterForm
 		labelOrbitalEccentricity.AccessibleName = "Orbital eccentricity";
 		labelOrbitalEccentricity.AccessibleRole = AccessibleRole.StaticText;
 		labelOrbitalEccentricity.Dock = DockStyle.Top;
-		labelOrbitalEccentricity.Location = new Point(3, 141);
+		labelOrbitalEccentricity.Location = new Point(0, 108);
+		labelOrbitalEccentricity.Margin = new Padding(0);
 		labelOrbitalEccentricity.Name = "labelOrbitalEccentricity";
 		labelOrbitalEccentricity.Size = new Size(238, 20);
 		labelOrbitalEccentricity.TabIndex = 20;
@@ -1299,7 +1342,8 @@ partial class FilterForm
 		labelSlopeParameter.AccessibleName = "Slope parameter";
 		labelSlopeParameter.AccessibleRole = AccessibleRole.StaticText;
 		labelSlopeParameter.Dock = DockStyle.Top;
-		labelSlopeParameter.Location = new Point(3, 253);
+		labelSlopeParameter.Location = new Point(0, 196);
+		labelSlopeParameter.Margin = new Padding(0);
 		labelSlopeParameter.Name = "labelSlopeParameter";
 		labelSlopeParameter.Size = new Size(238, 20);
 		labelSlopeParameter.TabIndex = 36;
@@ -1319,7 +1363,8 @@ partial class FilterForm
 		labelMeanDailyMotion.AccessibleName = "Mean daily motion";
 		labelMeanDailyMotion.AccessibleRole = AccessibleRole.StaticText;
 		labelMeanDailyMotion.Dock = DockStyle.Top;
-		labelMeanDailyMotion.Location = new Point(3, 169);
+		labelMeanDailyMotion.Location = new Point(0, 130);
+		labelMeanDailyMotion.Margin = new Padding(0);
 		labelMeanDailyMotion.Name = "labelMeanDailyMotion";
 		labelMeanDailyMotion.Size = new Size(238, 20);
 		labelMeanDailyMotion.TabIndex = 24;
@@ -1339,7 +1384,8 @@ partial class FilterForm
 		labelAbsoluteMagnitude.AccessibleName = "Absolute magnitude";
 		labelAbsoluteMagnitude.AccessibleRole = AccessibleRole.StaticText;
 		labelAbsoluteMagnitude.Dock = DockStyle.Top;
-		labelAbsoluteMagnitude.Location = new Point(3, 225);
+		labelAbsoluteMagnitude.Location = new Point(0, 174);
+		labelAbsoluteMagnitude.Margin = new Padding(0);
 		labelAbsoluteMagnitude.Name = "labelAbsoluteMagnitude";
 		labelAbsoluteMagnitude.Size = new Size(238, 20);
 		labelAbsoluteMagnitude.TabIndex = 32;
@@ -1359,7 +1405,8 @@ partial class FilterForm
 		labelSemiMajorAxis.AccessibleName = "Semi-major axis";
 		labelSemiMajorAxis.AccessibleRole = AccessibleRole.StaticText;
 		labelSemiMajorAxis.Dock = DockStyle.Top;
-		labelSemiMajorAxis.Location = new Point(3, 197);
+		labelSemiMajorAxis.Location = new Point(0, 152);
+		labelSemiMajorAxis.Margin = new Padding(0);
 		labelSemiMajorAxis.Name = "labelSemiMajorAxis";
 		labelSemiMajorAxis.Size = new Size(238, 20);
 		labelSemiMajorAxis.TabIndex = 28;
@@ -1379,7 +1426,8 @@ partial class FilterForm
 		labelMeanAnomalyAtTheEpoch.AccessibleName = "Mean anomaly at the epoch";
 		labelMeanAnomalyAtTheEpoch.AccessibleRole = AccessibleRole.StaticText;
 		labelMeanAnomalyAtTheEpoch.Dock = DockStyle.Top;
-		labelMeanAnomalyAtTheEpoch.Location = new Point(3, 29);
+		labelMeanAnomalyAtTheEpoch.Location = new Point(0, 20);
+		labelMeanAnomalyAtTheEpoch.Margin = new Padding(0);
 		labelMeanAnomalyAtTheEpoch.Name = "labelMeanAnomalyAtTheEpoch";
 		labelMeanAnomalyAtTheEpoch.Size = new Size(238, 20);
 		labelMeanAnomalyAtTheEpoch.TabIndex = 4;
@@ -1399,7 +1447,8 @@ partial class FilterForm
 		buttonResetInclination.AccessibleName = "Reset the minimum and maximum of inclination to the ecliptic";
 		buttonResetInclination.AccessibleRole = AccessibleRole.PushButton;
 		buttonResetInclination.ButtonStyle = ButtonStyle.Form;
-		buttonResetInclination.Location = new Point(461, 113);
+		buttonResetInclination.Location = new Point(440, 86);
+		buttonResetInclination.Margin = new Padding(0);
 		buttonResetInclination.Name = "buttonResetInclination";
 		buttonResetInclination.Size = new Size(40, 20);
 		buttonResetInclination.TabIndex = 19;
@@ -1422,7 +1471,8 @@ partial class FilterForm
 		buttonResetOrbitalEccentricity.AccessibleName = "Reset the minimum and maximum of orbital eccentricity";
 		buttonResetOrbitalEccentricity.AccessibleRole = AccessibleRole.PushButton;
 		buttonResetOrbitalEccentricity.ButtonStyle = ButtonStyle.Form;
-		buttonResetOrbitalEccentricity.Location = new Point(461, 141);
+		buttonResetOrbitalEccentricity.Location = new Point(440, 108);
+		buttonResetOrbitalEccentricity.Margin = new Padding(0);
 		buttonResetOrbitalEccentricity.Name = "buttonResetOrbitalEccentricity";
 		buttonResetOrbitalEccentricity.Size = new Size(40, 20);
 		buttonResetOrbitalEccentricity.TabIndex = 23;
@@ -1446,7 +1496,8 @@ partial class FilterForm
 		labelHeaderElement.AccessibleRole = AccessibleRole.StaticText;
 		labelHeaderElement.Dock = DockStyle.Top;
 		labelHeaderElement.LabelStyle = LabelStyle.BoldPanel;
-		labelHeaderElement.Location = new Point(3, 3);
+		labelHeaderElement.Location = new Point(0, 0);
+		labelHeaderElement.Margin = new Padding(0);
 		labelHeaderElement.Name = "labelHeaderElement";
 		labelHeaderElement.Size = new Size(238, 20);
 		labelHeaderElement.TabIndex = 0;
@@ -1517,7 +1568,7 @@ partial class FilterForm
 		toolStripContainer.ContentPanel.AccessibleName = "Content panel";
 		toolStripContainer.ContentPanel.AccessibleRole = AccessibleRole.Pane;
 		toolStripContainer.ContentPanel.Controls.Add(kryptonPanelMain);
-		toolStripContainer.ContentPanel.Size = new Size(514, 369);
+		toolStripContainer.ContentPanel.Size = new Size(514, 290);
 		toolStripContainer.Dock = DockStyle.Fill;
 		// 
 		// toolStripContainer.LeftToolStripPanel
@@ -1533,7 +1584,7 @@ partial class FilterForm
 		toolStripContainer.RightToolStripPanel.AccessibleDescription = "Just a panel";
 		toolStripContainer.RightToolStripPanel.AccessibleName = "Right panel";
 		toolStripContainer.RightToolStripPanel.AccessibleRole = AccessibleRole.Pane;
-		toolStripContainer.Size = new Size(514, 416);
+		toolStripContainer.Size = new Size(514, 337);
 		toolStripContainer.TabIndex = 2;
 		toolStripContainer.Text = "toolStripContainer";
 		// 
@@ -1611,7 +1662,7 @@ partial class FilterForm
 		AccessibleRole = AccessibleRole.Dialog;
 		AutoScaleDimensions = new SizeF(7F, 15F);
 		AutoScaleMode = AutoScaleMode.Font;
-		ClientSize = new Size(514, 416);
+		ClientSize = new Size(514, 337);
 		ControlBox = false;
 		Controls.Add(toolStripContainer);
 		FormBorderStyle = FormBorderStyle.SizableToolWindow;
