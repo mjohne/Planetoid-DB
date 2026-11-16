@@ -46,15 +46,15 @@ partial class AEIDiagram3DForm
 		labelInformation = new ToolStripStatusLabel();
 		_panelMain = new KryptonPanel();
 		_panelGl = new Panel();
+		_toolStripScaling = new KryptonToolStrip();
+		_scaleX = new ToolStripNumericUpDown();
+		_scaleY = new ToolStripNumericUpDown();
+		_scaleZ = new ToolStripNumericUpDown();
 		_toolStripMain = new KryptonToolStrip();
 		_buttonStartPause = new ToolStripButton();
 		_buttonCancel = new ToolStripButton();
 		_buttonLive = new ToolStripButton();
 		_buttonLog = new ToolStripButton();
-		_toolStripScaling = new KryptonToolStrip();
-		_scaleX = new ToolStripNumericUpDown();
-		_scaleY = new ToolStripNumericUpDown();
-		_scaleZ = new ToolStripNumericUpDown();
 		_toolStripProgress = new KryptonToolStrip();
 		_progressBar = new KryptonProgressBarToolStripItem();
 		_container.BottomToolStripPanel.SuspendLayout();
@@ -64,8 +64,8 @@ partial class AEIDiagram3DForm
 		_statusStrip.SuspendLayout();
 		((System.ComponentModel.ISupportInitialize)_panelMain).BeginInit();
 		_panelMain.SuspendLayout();
-		_toolStripMain.SuspendLayout();
 		_toolStripScaling.SuspendLayout();
+		_toolStripMain.SuspendLayout();
 		_toolStripProgress.SuspendLayout();
 		SuspendLayout();
 		// 
@@ -140,6 +140,44 @@ partial class AEIDiagram3DForm
 		_panelGl.Size = new Size(980, 607);
 		_panelGl.TabIndex = 0;
 		// 
+		// _toolStripScaling
+		// 
+		_toolStripScaling.AccessibleDescription = "Sets scaling factors for a, e, and i axes.";
+		_toolStripScaling.AccessibleName = "Axis scaling controls";
+		_toolStripScaling.AccessibleRole = AccessibleRole.ToolBar;
+		_toolStripScaling.Dock = DockStyle.None;
+		_toolStripScaling.Font = new Font("Segoe UI", 9F);
+		_toolStripScaling.Items.AddRange(new ToolStripItem[] { _scaleX, _scaleY, _scaleZ });
+		_toolStripScaling.Location = new Point(3, 0);
+		_toolStripScaling.Name = "_toolStripScaling";
+		_toolStripScaling.Size = new Size(135, 26);
+		_toolStripScaling.TabIndex = 1;
+		_toolStripScaling.Enter += Control_Enter;
+		_toolStripScaling.Leave += Control_Leave;
+		_toolStripScaling.MouseEnter += Control_Enter;
+		_toolStripScaling.MouseLeave += Control_Leave;
+		// 
+		// _scaleX
+		// 
+		_scaleX.AutoSize = true;
+		_scaleX.Name = "_scaleX";
+		_scaleX.Size = new Size(41, 23);
+		_scaleX.Text = "0";
+		// 
+		// _scaleY
+		// 
+		_scaleY.AutoSize = true;
+		_scaleY.Name = "_scaleY";
+		_scaleY.Size = new Size(41, 23);
+		_scaleY.Text = "0";
+		// 
+		// _scaleZ
+		// 
+		_scaleZ.AutoSize = true;
+		_scaleZ.Name = "_scaleZ";
+		_scaleZ.Size = new Size(41, 23);
+		_scaleZ.Text = "0";
+		// 
 		// _toolStripMain
 		// 
 		_toolStripMain.AccessibleDescription = "Controls for generation, cancellation, and display options.";
@@ -213,44 +251,6 @@ partial class AEIDiagram3DForm
 		_buttonLog.MouseEnter += Control_Enter;
 		_buttonLog.MouseLeave += Control_Leave;
 		// 
-		// _toolStripScaling
-		// 
-		_toolStripScaling.AccessibleDescription = "Sets scaling factors for a, e, and i axes.";
-		_toolStripScaling.AccessibleName = "Axis scaling controls";
-		_toolStripScaling.AccessibleRole = AccessibleRole.ToolBar;
-		_toolStripScaling.Dock = DockStyle.None;
-		_toolStripScaling.Font = new Font("Segoe UI", 9F);
-		_toolStripScaling.Items.AddRange(new ToolStripItem[] { _scaleX, _scaleY, _scaleZ });
-		_toolStripScaling.Location = new Point(3, 0);
-		_toolStripScaling.Name = "_toolStripScaling";
-		_toolStripScaling.Size = new Size(135, 26);
-		_toolStripScaling.TabIndex = 1;
-		_toolStripScaling.Enter += Control_Enter;
-		_toolStripScaling.Leave += Control_Leave;
-		_toolStripScaling.MouseEnter += Control_Enter;
-		_toolStripScaling.MouseLeave += Control_Leave;
-		// 
-		// _scaleX
-		// 
-		_scaleX.AutoSize = true;
-		_scaleX.Name = "_scaleX";
-		_scaleX.Size = new Size(41, 23);
-		_scaleX.Text = "0";
-		// 
-		// _scaleY
-		// 
-		_scaleY.AutoSize = true;
-		_scaleY.Name = "_scaleY";
-		_scaleY.Size = new Size(41, 23);
-		_scaleY.Text = "0";
-		// 
-		// _scaleZ
-		// 
-		_scaleZ.AutoSize = true;
-		_scaleZ.Name = "_scaleZ";
-		_scaleZ.Size = new Size(41, 23);
-		_scaleZ.Text = "0";
-		// 
 		// _toolStripProgress
 		// 
 		_toolStripProgress.AccessibleDescription = "Displays generation progress.";
@@ -285,6 +285,7 @@ partial class AEIDiagram3DForm
 		// AEIDiagram3DForm
 		// 
 		ClientSize = new Size(980, 680);
+		ControlBox = false;
 		Controls.Add(_container);
 		FormBorderStyle = FormBorderStyle.SizableToolWindow;
 		Icon = (Icon)resources.GetObject("$this.Icon");
@@ -307,15 +308,16 @@ partial class AEIDiagram3DForm
 		_statusStrip.PerformLayout();
 		((System.ComponentModel.ISupportInitialize)_panelMain).EndInit();
 		_panelMain.ResumeLayout(false);
-		_toolStripMain.ResumeLayout(false);
-		_toolStripMain.PerformLayout();
 		_toolStripScaling.ResumeLayout(false);
 		_toolStripScaling.PerformLayout();
+		_toolStripMain.ResumeLayout(false);
+		_toolStripMain.PerformLayout();
 		_toolStripProgress.ResumeLayout(false);
 		_toolStripProgress.PerformLayout();
 		ResumeLayout(false);
 	}
 
+	/*
 	private void ConfigureScaleControl(ToolStripNumericUpDown control, decimal value)
 	{
 		control.Minimum = 0.1m;
@@ -334,6 +336,7 @@ partial class AEIDiagram3DForm
 		control.MouseLeave += Control_Leave;
 		control.ValueChanged += ToolStripNumericScale_ValueChanged;
 	}
+	*/
 
 	#region Windows Form Designer generated variables
 
