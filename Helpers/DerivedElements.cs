@@ -98,6 +98,17 @@ internal partial class DerivedElements
 		return Math.Abs(value: semiMajorAxis * numericalEccentricity);
 	}
 
+	/// <summary>Calculates the inter-focal distance of an ellipse (2c = 2 * a * e).</summary>
+	/// <param name="semiMajorAxis">The semi-major axis of the ellipse.</param>
+	/// <param name="numericalEccentricity">The numerical eccentricity of the ellipse.</param>
+	/// <returns>The inter-focal distance of the ellipse.</returns>
+	/// <remarks>This method is used to calculate the inter-focal distance of an ellipse.</remarks>
+	public static double CalculateInterFocalDistance(double semiMajorAxis, double numericalEccentricity)
+	{
+		// The inter-focal distance (2c) of an ellipse can be calculated using the formula: 2c = 2 * a * e, where a is the semi-major axis and e is the numerical eccentricity.
+		return Math.Abs(value: 2 * semiMajorAxis * numericalEccentricity);
+	}
+
 	/// <summary>Calculates the major axis of an ellipse.</summary>
 	/// <param name="semiMajorAxis">The semi-major axis of the ellipse.</param>
 	/// <returns>The major axis of the ellipse.</returns>
