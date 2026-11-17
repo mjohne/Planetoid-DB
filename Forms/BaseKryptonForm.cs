@@ -74,6 +74,16 @@ public class BaseKryptonForm : KryptonForm
 		_ = KryptonMessageBox.Show(text: message, caption: I18nStrings.ErrorCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Error);
 	}
 
+	/// <summary>Displays an information message.</summary>
+	/// <param name="message">The information message.</param>
+	/// <remarks>This method is used to display an information message to the user.</remarks>
+	protected static void ShowInfoMessage(string message)
+	{
+		ArgumentNullException.ThrowIfNull(argument: message);
+		// Show an information message box with the specified message
+		_ = KryptonMessageBox.Show(text: message, caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+	}
+
 	/// <summary>Copies the specified text to the clipboard and shows a confirmation dialog.</summary>
 	/// <param name="text">The text to copy to the clipboard.</param>
 	/// <remarks>On success an informational dialog is shown. On failure the exception is logged and an error dialog is displayed. This method is protected so derived forms can use it directly.</remarks>
