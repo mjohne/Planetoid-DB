@@ -632,6 +632,93 @@ internal partial class DerivedElements
 		// Convert the flight path angle back to degrees and return it.
 		return double.RadiansToDegrees(radians: angle);
 	}
+	
+	#region Apsidal passages (Perihelion & Aphelion dates and times)
+	
+	/// <summary>Calculates the Julian Date of the perihelion passage prior to or near the reference epoch.</summary>
+	/// <param name="meanAnomaly">The mean anomaly at epoch in degrees.</param>
+	/// <param name="semiMajorAxis">The semi-major axis in AU.</param>
+	/// <param name="epochJd">The reference epoch in Julian Days (TT).</param>
+	/// <returns>The Julian Date (TT) of perihelion passage.</returns>
+	/// <remarks>Calculated as T_p = EpochJD - (M / 360°) · Period · 365.25.</remarks>
+	public static double CalculatePerihelionDate(double meanAnomaly, double semiMajorAxis, double epochJd)
+	{
+		// Calculate the Julian Date of perihelion passage using the formula: T_p = EpochJD - (M / 360°) * Period * 365.25, where M is the mean anomaly in degrees, and Period is the sidereal orbital period in years.
+		return epochJd - (NormalizeAngle360(degrees: meanAnomaly) / 360.0 * CalculateSiderealOrbitalPeriod(semiMajorAxis: semiMajorAxis) * 365.25);
+	}
+
+	/// <summary>Calculates the Julian Date of the aphelion passage prior to or near the reference epoch.</summary>
+	/// <param name="meanAnomaly">The mean anomaly at epoch in degrees.</param>
+	/// <param name="semiMajorAxis">The semi-major axis in AU.</param>
+	/// <param name="epochJd">The reference epoch in Julian Days (TT).</param>
+	/// <returns>The Julian Date (TT) of aphelion passage.</returns>
+	/// <remarks>Calculated as T_a = EpochJD - ((M - 180°) / 360°) · Period · 365.25.</remarks>
+	public static double CalculateAphelionDate(double meanAnomaly, double semiMajorAxis, double epochJd)
+	{
+		// Calculate the Julian Date of aphelion passage using the formula: T_a = EpochJD - ((M - 180°) / 360°) * Period * 365.25, where M is the mean anomaly in degrees, and Period is the sidereal orbital period in years.
+		return epochJd - (NormalizeAngle360(degrees: meanAnomaly - 180.0) / 360.0 * CalculateSiderealOrbitalPeriod(semiMajorAxis: semiMajorAxis) * 365.25);
+	}
+	
+	/// <summary>Calculates the Julian Date of the previous perihelion passage prior to or at the reference epoch.</summary>
+	/// <param name="meanAnomaly">The mean anomaly at epoch in degrees.</param>
+	/// <param name="semiMajorAxis">The semi-major axis in AU.</param>
+	/// <param name="epochJd">The reference epoch in Julian Days (TT).</param>
+	/// <returns>The Julian Date (TT) of the previous perihelion passage.</returns>
+	/// <remarks>Alias/explicit counterpart to <see cref="CalculatePerihelionDate"/>.</remarks>
+	public static double CalculatePreviousPerihelionDate(double meanAnomaly, double semiMajorAxis, double epochJd)
+	{
+		return CalculatePerihelionDate(meanAnomaly: meanAnomaly, semiMajorAxis: semiMajorAxis, epochJd: epochJd);
+	}
+
+	/// <summary>Calculates the Julian Date of the nearest perihelion passage (either previous or next) relative to the reference epoch.</summary>
+	/// <param name="meanAnomaly">The mean anomaly at epoch in degrees.</param>
+	/// <param name="semiMajorAxis">The semi-major axis in AU.</param>
+	/// <param name="epochJd">The reference epoch in Julian Days (TT).</param>
+	/// <returns>The Julian Date (TT) of the closest perihelion passage.</returns>
+	/// <remarks>If the normalized mean anomaly M is in [0°, 180°], the previous perihelion is closer; if M &gt; 180°, the next perihelion is closer.</remarks>
+	public static double CalculateNearestPerihelionDate(double meanAnomaly, double semiMajorAxis, double epochJd)
+	{
+		double normalizedM = NormalizeAngle360(degrees: meanAnomaly);
+		return normalizedM <= 180.0
+			? CalculatePreviousPerihelionDate(meanAnomaly: meanAnomaly, semiMajorAxis: semiMajorAxis, epochJd: epochJd)
+			: CalculateNextPerihelionDate(meanAnomaly: meanAnomaly, semiMajorAxis: semiMajorAxis, epochJd: epochJd);
+	}
+
+	/// <summary>Calculates the Julian Date of the previous aphelion passage prior to or at the reference epoch.</summary>
+	/// <param name="meanAnomaly">The mean anomaly at epoch in degrees.</param>
+	/// <param name="semiMajorAxis">The semi-major axis in AU.</param>
+	/// <param name="epochJd">The reference epoch in Julian Days (TT).</param>
+	/// <returns>The Julian Date (TT) of the previous aphelion passage.</returns>
+	/// <remarks>Alias/explicit counterpart to <see cref="CalculateAphelionDate"/>.</remarks>
+	public static double CalculatePreviousAphelionDate(double meanAnomaly, double semiMajorAxis, double epochJd)
+	{
+		return CalculateAphelionDate(meanAnomaly: meanAnomaly, semiMajorAxis: semiMajorAxis, epochJd: epochJd);
+	}
+
+	/// <summary>Calculates the Julian Date of the next aphelion passage after the reference epoch.</summary>
+	/// <param name="meanAnomaly">The mean anomaly at the reference epoch in degrees.</param>
+	/// <param name="semiMajorAxis">The semi-major axis in AU.</param>
+	/// <param name="epochJd">The Julian date of the reference epoch.</param>
+	/// <returns>The Julian date (TT) of the next aphelion passage.</returns>
+	/// <remarks>Adds one sidereal period to the epoch of the last aphelion passage.</remarks>
+	public static double CalculateNextAphelionDate(double meanAnomaly, double semiMajorAxis, double epochJd)
+	{
+		return CalculateAphelionDate(meanAnomaly: meanAnomaly, semiMajorAxis: semiMajorAxis, epochJd: epochJd) + (CalculateSiderealOrbitalPeriod(semiMajorAxis: semiMajorAxis) * DaysPerJulianYear);
+	}
+
+	/// <summary>Calculates the Julian Date of the nearest aphelion passage (either previous or next) relative to the reference epoch.</summary>
+	/// <param name="meanAnomaly">The mean anomaly at epoch in degrees.</param>
+	/// <param name="semiMajorAxis">The semi-major axis in AU.</param>
+	/// <param name="epochJd">The reference epoch in Julian Days (TT).</param>
+	/// <returns>The Julian Date (TT) of the closest aphelion passage.</returns>
+	/// <remarks>If the angular distance from aphelion (M - 180°) normalized to [0°, 360°) is &lt;= 180°, the previous aphelion is closer; otherwise, the next aphelion is closer.</remarks>
+	public static double CalculateNearestAphelionDate(double meanAnomaly, double semiMajorAxis, double epochJd)
+	{
+		double anomalyFromAphelion = NormalizeAngle360(degrees: meanAnomaly - 180.0);
+		return anomalyFromAphelion <= 180.0
+			? CalculatePreviousAphelionDate(meanAnomaly: meanAnomaly, semiMajorAxis: semiMajorAxis, epochJd: epochJd)
+			: CalculateNextAphelionDate(meanAnomaly: meanAnomaly, semiMajorAxis: semiMajorAxis, epochJd: epochJd);
+	}
 
 	/// <summary>Calculates the time since perihelion passage.</summary>
 	/// <param name="meanAnomaly">The current mean anomaly in degrees.</param>
@@ -673,6 +760,126 @@ internal partial class DerivedElements
 		// Return the time since aphelion by multiplying the normalized anomaly from aphelion by the orbital period.
 		return anomalyFromAphelion / 360.0 * period;
 	}
+	
+	/// <summary>Calculates the elapsed time since the last perihelion passage.</summary>
+	/// <param name="meanAnomaly">The current mean anomaly in degrees.</param>
+	/// <param name="semiMajorAxis">The semi-major axis in AU.</param>
+	/// <returns>The elapsed time since the last perihelion in years [0, T).</returns>
+	public static double CalculateTimeSinceLastPerihelion(double meanAnomaly, double semiMajorAxis)
+	{
+		return CalculateTimeSincePerihelion(meanAnomaly: meanAnomaly, semiMajorAxis: semiMajorAxis);
+	}
+
+	/// <summary>Calculates the elapsed time since the last aphelion passage.</summary>
+	/// <param name="meanAnomaly">The current mean anomaly in degrees.</param>
+	/// <param name="semiMajorAxis">The semi-major axis in AU.</param>
+	/// <returns>The elapsed time since the last aphelion in years [0, T).</returns>
+	public static double CalculateTimeSinceLastAphelion(double meanAnomaly, double semiMajorAxis)
+	{
+		return CalculateTimeSinceAphelion(meanAnomaly: meanAnomaly, semiMajorAxis: semiMajorAxis);
+	}
+
+	/// <summary>Calculates the signed time to the nearest perihelion passage.</summary>
+	/// <param name="meanAnomaly">The current mean anomaly in degrees.</param>
+	/// <param name="semiMajorAxis">The semi-major axis in AU.</param>
+	/// <returns>The time to the nearest perihelion in years [-T/2, +T/2]. Positive values indicate a future passage; negative values indicate a past passage.</returns>
+	public static double CalculateTimeToPerihelion(double meanAnomaly, double semiMajorAxis)
+	{
+		double normalizedM = NormalizeAngle360(degrees: meanAnomaly);
+		return normalizedM <= 180.0
+			? -CalculateTimeSincePerihelion(meanAnomaly: meanAnomaly, semiMajorAxis: semiMajorAxis)
+			: CalculateTimeToNextPerihelion(meanAnomaly: meanAnomaly, semiMajorAxis: semiMajorAxis);
+	}
+
+	/// <summary>Calculates the signed time to the nearest aphelion passage.</summary>
+	/// <param name="meanAnomaly">The current mean anomaly in degrees.</param>
+	/// <param name="semiMajorAxis">The semi-major axis in AU.</param>
+	/// <returns>The time to the nearest aphelion in years [-T/2, +T/2]. Positive values indicate a future passage; negative values indicate a past passage.</returns>
+	public static double CalculateTimeToAphelion(double meanAnomaly, double semiMajorAxis)
+	{
+		double anomalyFromAphelion = NormalizeAngle360(degrees: meanAnomaly - 180.0);
+		return anomalyFromAphelion <= 180.0
+			? -CalculateTimeSinceAphelion(meanAnomaly: meanAnomaly, semiMajorAxis: semiMajorAxis)
+			: CalculateTimeToNextAphelion(meanAnomaly: meanAnomaly, semiMajorAxis: semiMajorAxis);
+	}
+	
+	#region Apsidal passage times in days
+
+	/// <summary>Calculates the elapsed time since perihelion passage in days.</summary>
+	/// <param name="meanAnomaly">The current mean anomaly in degrees.</param>
+	/// <param name="semiMajorAxis">The semi-major axis in AU.</param>
+	/// <returns>The time since perihelion in Julian days.</returns>
+	public static double CalculateTimeSincePerihelionDays(double meanAnomaly, double semiMajorAxis)
+	{
+		return CalculateTimeSincePerihelion(meanAnomaly: meanAnomaly, semiMajorAxis: semiMajorAxis) * DaysPerJulianYear;
+	}
+
+	/// <summary>Calculates the elapsed time since the last perihelion passage in days.</summary>
+	/// <param name="meanAnomaly">The current mean anomaly in degrees.</param>
+	/// <param name="semiMajorAxis">The semi-major axis in AU.</param>
+	/// <returns>The elapsed time since the last perihelion in Julian days [0, T_days).</returns>
+	public static double CalculateTimeSinceLastPerihelionDays(double meanAnomaly, double semiMajorAxis)
+	{
+		return CalculateTimeSinceLastPerihelion(meanAnomaly: meanAnomaly, semiMajorAxis: semiMajorAxis) * DaysPerJulianYear;
+	}
+
+	/// <summary>Calculates the time to next perihelion passage in days.</summary>
+	/// <param name="meanAnomaly">The current mean anomaly in degrees.</param>
+	/// <param name="semiMajorAxis">The semi-major axis in AU.</param>
+	/// <returns>The time to next perihelion in Julian days (0, T_days].</returns>
+	public static double CalculateTimeToNextPerihelionDays(double meanAnomaly, double semiMajorAxis)
+	{
+		return CalculateTimeToNextPerihelion(meanAnomaly: meanAnomaly, semiMajorAxis: semiMajorAxis) * DaysPerJulianYear;
+	}
+
+	/// <summary>Calculates the signed time to the nearest perihelion passage in days.</summary>
+	/// <param name="meanAnomaly">The current mean anomaly in degrees.</param>
+	/// <param name="semiMajorAxis">The semi-major axis in AU.</param>
+	/// <returns>The time to the nearest perihelion in Julian days [-T_days/2, +T_days/2]. Positive values indicate a future passage; negative values indicate a past passage.</returns>
+	public static double CalculateTimeToPerihelionDays(double meanAnomaly, double semiMajorAxis)
+	{
+		return CalculateTimeToPerihelion(meanAnomaly: meanAnomaly, semiMajorAxis: semiMajorAxis) * DaysPerJulianYear;
+	}
+
+	/// <summary>Calculates the elapsed time since aphelion passage in days.</summary>
+	/// <param name="meanAnomaly">The current mean anomaly in degrees.</param>
+	/// <param name="semiMajorAxis">The semi-major axis in AU.</param>
+	/// <returns>The time since aphelion in Julian days.</returns>
+	public static double CalculateTimeSinceAphelionDays(double meanAnomaly, double semiMajorAxis)
+	{
+		return CalculateTimeSinceAphelion(meanAnomaly: meanAnomaly, semiMajorAxis: semiMajorAxis) * DaysPerJulianYear;
+	}
+
+	/// <summary>Calculates the elapsed time since the last aphelion passage in days.</summary>
+	/// <param name="meanAnomaly">The current mean anomaly in degrees.</param>
+	/// <param name="semiMajorAxis">The semi-major axis in AU.</param>
+	/// <returns>The elapsed time since the last aphelion in Julian days [0, T_days).</returns>
+	public static double CalculateTimeSinceLastAphelionDays(double meanAnomaly, double semiMajorAxis)
+	{
+		return CalculateTimeSinceLastAphelion(meanAnomaly: meanAnomaly, semiMajorAxis: semiMajorAxis) * DaysPerJulianYear;
+	}
+
+	/// <summary>Calculates the time to next aphelion passage in days.</summary>
+	/// <param name="meanAnomaly">The current mean anomaly in degrees.</param>
+	/// <param name="semiMajorAxis">The semi-major axis in AU.</param>
+	/// <returns>The time to next aphelion in Julian days (0, T_days].</returns>
+	public static double CalculateTimeToNextAphelionDays(double meanAnomaly, double semiMajorAxis)
+	{
+		return CalculateTimeToNextAphelion(meanAnomaly: meanAnomaly, semiMajorAxis: semiMajorAxis) * DaysPerJulianYear;
+	}
+
+	/// <summary>Calculates the signed time to the nearest aphelion passage in days.</summary>
+	/// <param name="meanAnomaly">The current mean anomaly in degrees.</param>
+	/// <param name="semiMajorAxis">The semi-major axis in AU.</param>
+	/// <returns>The time to the nearest aphelion in Julian days [-T_days/2, +T_days/2]. Positive values indicate a future passage; negative values indicate a past passage.</returns>
+	public static double CalculateTimeToAphelionDays(double meanAnomaly, double semiMajorAxis)
+	{
+		return CalculateTimeToAphelion(meanAnomaly: meanAnomaly, semiMajorAxis: semiMajorAxis) * DaysPerJulianYear;
+	}
+
+	#endregion
+
+	#endregion
 
 	/// <summary>Calculates the time to next aphelion passage.</summary>
 	/// <param name="meanAnomaly">The current mean anomaly in degrees.</param>
@@ -1476,30 +1683,6 @@ internal partial class DerivedElements
 		double timeToDescending = CalculateTimeToTargetAnomalyDays(currentTrueAnomaly: currentTrueAnomaly, targetTrueAnomaly: targetNuDescending, semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity);
 		// Return the results as a tuple
 		return (AscendingNodeDays: timeToAscending, DescendingNodeDays: timeToDescending);
-	}
-
-	/// <summary>Calculates the Julian Date of the perihelion passage prior to or near the reference epoch.</summary>
-	/// <param name="meanAnomaly">The mean anomaly at epoch in degrees.</param>
-	/// <param name="semiMajorAxis">The semi-major axis in AU.</param>
-	/// <param name="epochJd">The reference epoch in Julian Days (TT).</param>
-	/// <returns>The Julian Date (TT) of perihelion passage.</returns>
-	/// <remarks>Calculated as T_p = EpochJD - (M / 360°) · Period · 365.25.</remarks>
-	public static double CalculatePerihelionDate(double meanAnomaly, double semiMajorAxis, double epochJd)
-	{
-		// Calculate the Julian Date of perihelion passage using the formula: T_p = EpochJD - (M / 360°) * Period * 365.25, where M is the mean anomaly in degrees, and Period is the sidereal orbital period in years.
-		return epochJd - (NormalizeAngle360(degrees: meanAnomaly) / 360.0 * CalculateSiderealOrbitalPeriod(semiMajorAxis: semiMajorAxis) * 365.25);
-	}
-
-	/// <summary>Calculates the Julian Date of the aphelion passage prior to or near the reference epoch.</summary>
-	/// <param name="meanAnomaly">The mean anomaly at epoch in degrees.</param>
-	/// <param name="semiMajorAxis">The semi-major axis in AU.</param>
-	/// <param name="epochJd">The reference epoch in Julian Days (TT).</param>
-	/// <returns>The Julian Date (TT) of aphelion passage.</returns>
-	/// <remarks>Calculated as T_a = EpochJD - ((M - 180°) / 360°) · Period · 365.25.</remarks>
-	public static double CalculateAphelionDate(double meanAnomaly, double semiMajorAxis, double epochJd)
-	{
-		// Calculate the Julian Date of aphelion passage using the formula: T_a = EpochJD - ((M - 180°) / 360°) * Period * 365.25, where M is the mean anomaly in degrees, and Period is the sidereal orbital period in years.
-		return epochJd - (NormalizeAngle360(degrees: meanAnomaly - 180.0) / 360.0 * CalculateSiderealOrbitalPeriod(semiMajorAxis: semiMajorAxis) * 365.25);
 	}
 
 	/// <summary>Calculates the exact ecliptic longitude and latitude of perihelion (J2000.0).</summary>
