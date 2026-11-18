@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semi-Latus Rectum (p) in the Context of MPCORB</title>
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #334155;
+            --accent-color: #1e3a8a;
+            --accent-light: #eff6ff;
+            --border-color: #cbd5e1;
+            --code-bg: #f1f5f9;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.7;
+            color: var(--text-primary);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 3rem 3.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            border: 1px solid var(--border-color);
+        }
+
+        header {
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .badge {
+            display: inline-block;
+            background-color: var(--accent-light);
+            color: var(--accent-color);
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            padding: 0.3rem 0.75rem;
+            border-radius: 4px;
+            border: 1px solid #bfdbfe;
+            margin-bottom: 0.75rem;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin: 0.25rem 0 0.5rem 0;
+            color: var(--text-primary);
+            line-height: 1.25;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            margin: 0;
+        }
+
+        h2 {
+            font-size: 1.35rem;
+            color: var(--accent-color);
+            margin-top: 2.25rem;
+            margin-bottom: 0.85rem;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 0.35rem;
+        }
+
+        h3 {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        p {
+            margin-bottom: 1.15rem;
+            color: var(--text-secondary);
+            text-align: justify;
+        }
+
+        ul, ol {
+            margin-bottom: 1.25rem;
+            padding-left: 1.5rem;
+            color: var(--text-secondary);
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        .equation-box {
+            background-color: var(--code-bg);
+            border-left: 4px solid var(--accent-color);
+            padding: 1.15rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 6px 6px 0;
+            overflow-x: auto;
+            font-family: "Cambria Math", "STIX Two Math", "Times New Roman", Times, serif;
+            font-size: 1.18rem;
+            color: var(--text-primary);
+            text-align: center;
+        }
+
+        .math-inline {
+            font-family: "Cambria Math", "STIX Two Math", "Times New Roman", Times, serif;
+            font-style: italic;
+            font-size: 1.05em;
+            color: var(--text-primary);
+        }
+
+        .math-roman {
+            font-family: "Cambria Math", "STIX Two Math", "Times New Roman", Times, serif;
+            font-style: normal;
+            font-size: 1.02em;
+            color: var(--text-primary);
+        }
+
+        .frac {
+            display: inline-flex;
+            flex-direction: column;
+            vertical-align: middle;
+            text-align: center;
+            margin: 0 0.25rem;
+        }
+
+        .frac > span:first-child {
+            border-bottom: 1px solid var(--text-primary);
+            padding: 0 0.3rem 0.15rem 0.3rem;
+        }
+
+        .frac > span:last-child {
+            padding: 0.15rem 0.3rem 0 0.3rem;
+        }
+
+        .sqrt-wrap {
+            display: inline-flex;
+            align-items: stretch;
+        }
+
+        .sqrt-rad {
+            font-size: 1.15em;
+            line-height: 1;
+            padding-right: 1px;
+        }
+
+        .sqrt-body {
+            border-top: 1px solid var(--text-primary);
+            padding: 0 0.2rem;
+        }
+
+        .spec-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.92rem;
+        }
+
+        .spec-table th, .spec-table td {
+            border: 1px solid var(--border-color);
+            padding: 0.75rem 1rem;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        .spec-table th {
+            background-color: var(--accent-color);
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .spec-table tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        code {
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+            background-color: var(--code-bg);
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.88em;
+            color: #0f172a;
+        }
+
+        pre {
+            background-color: #1e293b;
+            color: #f8fafc;
+            padding: 1rem 1.25rem;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+        }
+
+        .note-callout {
+            background-color: #fffbeb;
+            border-left: 4px solid #d97706;
+            padding: 1rem 1.25rem;
+            margin: 1.5rem 0;
+            border-radius: 0 6px 6px 0;
+            color: #78350f;
+            font-size: 0.95rem;
+        }
+
+        .diagram-box {
+            background-color: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+
+        .diagram-caption {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+        }
+
+        .calculator-box {
+            background-color: var(--accent-light);
+            border: 1px solid #bfdbfe;
+            border-radius: 8px;
+            padding: 1.25rem 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .calculator-box h4 {
+            margin: 0 0 0.75rem 0;
+            color: var(--accent-color);
+            font-size: 1rem;
+        }
+
+        .calc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            align-items: end;
+        }
+
+        .calc-field label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.3rem;
+        }
+
+        .calc-field input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 0.5rem 0.65rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 0.95rem;
+            font-family: inherit;
+        }
+
+        .calc-output {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 0.5rem 0.75rem;
+            font-size: 0.92rem;
+            color: var(--text-primary);
+        }
+
+        footer {
+            margin-top: 3rem;
+            padding-top: 1.25rem;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.85rem;
+            color: #64748b;
+            text-align: center;
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 1.75rem 1.25rem;
+            }
+            h1 {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="badge">Celestial Mechanics &amp; Astrometry Specification</div>
+            <h1>Semi-Latus Rectum (<span class="math-inline">p</span>) in the Context of the MPCORB Database</h1>
+            <p class="subtitle">Scientific Definition, Conic Parameterization, and Derivation from the IAU Minor Planet Center Orbit Catalog</p>
+        </header>
+
+        <section>
+            <h2>1. Fundamental Astrodynamical &amp; Geometric Definition</h2>
+            <p>
+                In celestial mechanics, analytical conic geometry, and orbital astrometry, the <strong>semi-latus rectum</strong> (also called the <em>focal parameter</em> or simply the <em>parameter</em> of a conic section), universally denoted by the lowercase symbol <span class="math-inline">p</span> (occasionally <span class="math-inline">&ell;</span>), is one-half of the <strong>latus rectum</strong>—the chord of a Keplerian trajectory passing through the primary focus (occupied by the Sun) perpendicular to the line of apsides (the major axis).
+            </p>
+            <p>
+                Equivalently, <span class="math-inline">p</span> is the heliocentric radial distance <span class="math-inline">r(&nu;)</span> of a minor planet when its true anomaly equals <span class="math-roman"><em>&nu;</em> = &pm;&pi;/2 rad (&pm;90&deg;)</span> (i.e., when the heliocentric position vector is orthogonal to the perihelion vector). Uniquely among orbital length scales, the semi-latus rectum remains strictly finite and positive across <em>all</em> non-rectilinear conic sections—elliptic (<span class="math-roman">0 &le; <em>e</em> &lt; 1</span>), parabolic (<span class="math-roman"><em>e</em> = 1</span>), and hyperbolic (<span class="math-roman"><em>e</em> &gt; 1</span>):
+            </p>
+            <div class="equation-box">
+                <span class="math-inline">p</span> = <span class="math-inline">a</span>(1 &minus; <span class="math-inline">e</span><sup>2</sup>) = <span class="math-inline">q</span>(1 + <span class="math-inline">e</span>) =
+                <span class="frac">
+                    <span><span class="math-inline">b</span><sup>2</sup></span>
+                    <span><span class="math-inline">a</span></span>
+                </span>
+                =
+                <span class="frac">
+                    <span>2 <span class="math-inline">q</span> <span class="math-inline">Q</span></span>
+                    <span><span class="math-inline">q</span> + <span class="math-inline">Q</span></span>
+                </span>
+            </div>
+            <p>
+                where <span class="math-inline">a</span> is the semi-major axis, <span class="math-inline">e</span> is the orbital eccentricity, <span class="math-roman"><em>b</em> = <em>a</em>&radic;(1 &minus; <em>e</em><sup>2</sup>)</span> is the semi-minor axis, <span class="math-roman"><em>q</em> = <em>a</em>(1 &minus; <em>e</em>)</span> is the perihelion distance, and <span class="math-roman"><em>Q</em> = <em>a</em>(1 + <em>e</em>)</span> is the aphelion distance. The final identity demonstrates a remarkable geometric symmetry: whereas <span class="math-inline">a</span> is the <em>arithmetic mean</em> of <span class="math-inline">q</span> and <span class="math-inline">Q</span>, and <span class="math-inline">b</span> is their <em>geometric mean</em>, the semi-latus rectum <span class="math-inline">p</span> is the exact <strong>harmonic mean</strong> of the perihelion and aphelion distances. For a circular orbit (<span class="math-roman"><em>e</em> = 0</span>), <span class="math-roman"><em>p</em> = <em>a</em> = <em>b</em> = <em>q</em> = <em>Q</em></span>.
+            </p>
+
+            <div class="diagram-box">
+                <svg width="560" height="235" viewBox="0 0 560 235" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Geometric diagram showing the semi-latus rectum p rising vertically from the Sun at focus F1 perpendicular to the line of apsides at true anomaly 90 degrees">
+                    <rect x="0" y="0" width="560" height="235" fill="#f8fafc" rx="6"/>
+                    <!-- Orbit Ellipse: center (250, 115), rx = 200 (a), ry = 90 (b), focal distance ae = sqrt(200^2 - 90^2) = 178.6 -->
+                    <!-- At x = 250 + 178.6 = 428.6, y_offset = b * sqrt(1 - (178.6/200)^2) = b^2 / a = 8100 / 200 = 40.5 -->
+                    <ellipse cx="250" cy="115" rx="200" ry="90" fill="#eff6ff" stroke="#1e3a8a" stroke-width="2"/>
+                    <!-- Line of apsides (Major axis) dashed -->
+                    <line x1="40" y1="115" x2="475" y2="115" stroke="#64748b" stroke-width="1" stroke-dasharray="4,4"/>
+                    <!-- Full Latus Rectum (2p) lower dashed half -->
+                    <line x1="429" y1="115" x2="429" y2="155.5" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="3,3"/>
+                    <!-- Semi-Latus Rectum (p) upper solid red segment from Sun (429, 115) to ellipse (429, 74.5) -->
+                    <line x1="429" y1="74.5" x2="429" y2="115" stroke="#dc2626" stroke-width="3.2"/>
+                    <!-- Right angle symbol at focus F1 -->
+                    <polyline points="419,115 419,105 429,105" fill="none" stroke="#334155" stroke-width="1.2"/>
+                    <!-- Point on ellipse at nu = 90 deg -->
+                    <circle cx="429" cy="74.5" r="4" fill="#dc2626"/>
+                    <!-- Center point -->
+                    <circle cx="250" cy="115" r="3.5" fill="#0f172a"/>
+                    <text x="250" y="132" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#334155">Center</text>
+                    <!-- Sun at primary focus F1 at (429, 115) -->
+                    <circle cx="429" cy="115" r="7.5" fill="#f59e0b" stroke="#b45309" stroke-width="1.5"/>
+                    <text x="415" y="135" text-anchor="end" font-family="sans-serif" font-size="11" fill="#92400e" font-weight="bold">Sun (F&#8321;)</text>
+                    <!-- Labels -->
+                    <text x="438" y="96" text-anchor="start" font-family="serif" font-size="15" fill="#dc2626" font-weight="bold">p = a(1 &minus; e&sup2;)</text>
+                    <text x="429" y="62" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#dc2626" font-weight="bold">&nu; = +90&deg;</text>
+                    <text x="462" y="110" text-anchor="start" font-family="sans-serif" font-size="11" fill="#0f172a">Perihelion (&nu; = 0&deg;)</text>
+                    <text x="150" y="106" text-anchor="middle" font-family="serif" font-style="italic" font-size="14" fill="#1e3a8a">a</text>
+                    <text x="340" y="106" text-anchor="middle" font-family="serif" font-style="italic" font-size="14" fill="#1e3a8a">ae</text>
+                </svg>
+                <div class="diagram-caption">
+                    Figure 1: Geometric definition of the semi-latus rectum <span class="math-roman"><em>p</em> = <em>r</em>(&nu; = &plusmn;90&deg;) = <em>a</em>(1 &minus; <em>e</em><sup>2</sup>)</span> rising orthogonally from the primary focus (<span class="math-inline">F</span><sub>1</sub>, Sun) to the orbital trajectory.
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>2. Physical &amp; Dynamical Significance in Celestial Mechanics</h2>
+            <p>
+                In two-body astrodynamics, the semi-latus rectum <span class="math-inline">p</span> is the fundamental geometric invariant directly proportional to the square of the <strong>specific relative orbital angular momentum</strong> (<span class="math-roman"><strong>h</strong> = <strong>r</strong> &times; <strong>v</strong></span>), independent of the specific orbital energy (<span class="math-inline">&Escr;</span>).
+            </p>
+
+            <h3>2.1 Direct Coupling to Specific Orbital Angular Momentum</h3>
+            <p>
+                Under a central inverse-square gravitational field with parameter <span class="math-roman"><em>&mu;</em> = <em>G</em>(<em>M</em><sub>&#9737;</sub> + <em>m</em>) &approx; <em>GM</em><sub>&#9737;</sub></span>, the semi-latus rectum is determined purely by the magnitude <span class="math-roman"><em>h</em> = |<strong>h</strong>|</span>:
+            </p>
+            <div class="equation-box">
+                <span class="math-inline">p</span> =
+                <span class="frac">
+                    <span><span class="math-inline">h</span><sup>2</sup></span>
+                    <span><span class="math-inline">&mu;</span></span>
+                </span>
+                &nbsp;&nbsp;&Longleftrightarrow;&nbsp;&nbsp;
+                <span class="math-inline">h</span> =
+                <span class="sqrt-wrap">
+                    <span class="sqrt-rad">&radic;</span>
+                    <span class="sqrt-body"><span class="math-inline">&mu;</span> <span class="math-inline">p</span></span>
+                </span>
+            </div>
+            <p>
+                Consequently, any two Keplerian orbits possessing identical specific angular momentum share the exact same semi-latus rectum <span class="math-inline">p</span>, regardless of whether their trajectories are circular, elliptic, parabolic, or hyperbolic.
+            </p>
+
+            <h3>2.2 Universal Polar Equation of Motion &amp; State-Vector Transformations</h3>
+            <p>
+                The semi-latus rectum serves as the numerator in the universal polar conic equation governing heliocentric radial distance <span class="math-inline">r(&nu;)</span> as a function of true anomaly <span class="math-inline">&nu;</span> across all eccentricity regimes:
+            </p>
+            <div class="equation-box">
+                <span class="math-inline">r</span>(<span class="math-inline">&nu;</span>) =
+                <span class="frac">
+                    <span><span class="math-inline">p</span></span>
+                    <span>1 + <span class="math-inline">e</span> cos <span class="math-inline">&nu;</span></span>
+                </span>
+                =
+                <span class="frac">
+                    <span><span class="math-inline">a</span>(1 &minus; <span class="math-inline">e</span><sup>2</sup>)</span>
+                    <span>1 + <span class="math-inline">e</span> cos <span class="math-inline">&nu;</span></span>
+                </span>
+            </div>
+            <p>
+                Furthermore, in perifocal (PQW) coordinate transformations used to convert MPCORB orbital elements into 3D heliocentric Cartesian position (<span class="math-roman"><strong>r</strong></span>) and velocity (<span class="math-roman"><strong>v</strong></span>) state vectors, the perifocal velocity components are scaled directly by <span class="math-roman">&radic;(<em>&mu;</em>/<em>p</em>)</span>:
+            </p>
+            <div class="equation-box">
+                <span class="math-roman"><strong>v</strong><sub>PQW</sub></span> =
+                <span class="sqrt-wrap">
+                    <span class="sqrt-rad">&radic;</span>
+                    <span class="sqrt-body">
+                        <span class="frac">
+                            <span><span class="math-inline">&mu;</span></span>
+                            <span><span class="math-inline">p</span></span>
+                        </span>
+                    </span>
+                </span>
+                <span class="math-roman">&Bigl( &minus;sin <em>&nu;</em> <strong>P&#770;</strong> + (<em>e</em> + cos <em>&nu;</em>) <strong>Q&#770;</strong> &Bigr)</span>
+            </div>
+            <p>
+                Using <span class="math-inline">p</span> in state-vector evaluation avoids singularities at <span class="math-roman"><em>e</em> = 1</span> (parabolic limit) and seamlessly unifies elliptic minor planet propagation with hyperbolic comet/interstellar object propagation.
+            </p>
+        </section>
+
+        <section>
+            <h2>3. Specific Status and Derivation in the MPCORB Catalog</h2>
+            <p>
+                In the <strong>MPCORB</strong> (<em>Minor Planet Center Orbit</em>) database published by the International Astronomical Union's Minor Planet Center (IAU MPC), the semi-latus rectum <span class="math-inline">p</span> is <em>not</em> tabulated as an explicit column in <code>MPCORB.DAT</code>. Instead, it is computed deterministically from two primary osculating elements stored in every record:
+            </p>
+
+            <ul>
+                <li>
+                    <strong>Computational Derivation from <code>MPCORB.DAT</code>:</strong> Parse the osculating <strong>orbital eccentricity</strong> <span class="math-inline">e</span> (columns <code>71–79</code>, Fortran format <code>F9.7</code>) and the osculating <strong>semi-major axis</strong> <span class="math-inline">a</span> (columns <code>93–103</code>, Fortran format <code>F11.7</code>), and evaluate <span class="math-roman"><em>p</em> = <em>a</em>(1 &minus; <em>e</em><sup>2</sup>) = <em>a</em>(1 &minus; <em>e</em>)(1 + <em>e</em>)</span>.
+                </li>
+                <li>
+                    <strong>Derivation from <code>COMET.DAT</code> (Parabolic/Hyperbolic Regime):</strong> For comets and interstellar objects parameterized by perihelion distance <span class="math-inline">q</span> and eccentricity <span class="math-inline">e</span>, evaluate <span class="math-roman"><em>p</em> = <em>q</em>(1 + <em>e</em>)</span>, which remains completely free of division-by-zero singularities at <span class="math-roman"><em>e</em> = 1</span>.
+                </li>
+                <li>
+                    <strong>Osculating Heliocentric Reference &amp; Unit:</strong> Because <span class="math-inline">a</span> and <span class="math-inline">e</span> in <code>MPCORB.DAT</code> are <em>osculating heliocentric</em> elements valid at the record's packed <code>Epoch</code> (columns <code>21–25</code>) in the J2000.0 mean ecliptic frame, the derived semi-latus rectum <span class="math-inline">p</span> is likewise an instantaneous osculating heliocentric length expressed in <strong>Astronomical Units (<span class="math-roman">AU</span>)</strong> (<span class="math-roman">1 AU &equiv; 149,597,870,700 m</span>).
+                </li>
+                <li>
+                    <strong>Role in MOID &amp; Orbit Intersection Solvers:</strong> Analytical and algebraic algorithms for computing the Minimum Orbit Intersection Distance (MOID) between two MPCORB objects (such as Gronchi's resultant method and Baluev–Mikryukov trigonometric polynomial solvers) reformulate both trajectories in terms of <span class="math-inline">p</span> and the eccentricity vector components <span class="math-roman">(<em>e</em> cos <em>&omega;</em>, <em>e</em> sin <em>&omega;</em>)</span> to eliminate transcendental anomaly dependencies.
+                </li>
+            </ul>
+
+            <div class="note-callout">
+                <strong>Numerical Stability Tip for MPCORB Parsers:</strong> When computing <span class="math-inline">p</span> in IEEE-754 double precision from <code>MPCORB.DAT</code> for high-eccentricity objects (<span class="math-roman"><em>e</em> &rarr; 1<sup>&minus;</sup></span>), factor the expression as <code>p = a * (1.0 - e) * (1.0 + e)</code> rather than <code>a * (1.0 - e * e)</code> to reduce rounding error in the <span class="math-roman">(1 &minus; <em>e</em>)</span> factor.
+            </div>
+
+            <div class="calculator-box">
+                <h4>Interactive MPCORB Semi-Latus Rectum (<span class="math-inline">p</span>) &amp; Angular Momentum Calculator</h4>
+                <div class="calc-grid">
+                    <div class="calc-field">
+                        <label for="inputA">Semi-Major Axis <em>a</em> (AU, Cols 93&ndash;103)</label>
+                        <input type="number" id="inputA" step="0.0000001" min="0.01" value="2.7653485">
+                    </div>
+                    <div class="calc-field">
+                        <label for="inputE">Eccentricity <em>e</em> (Cols 71&ndash;79)</label>
+                        <input type="number" id="inputE" step="0.0000001" min="0" max="0.9999999" value="0.0785354">
+                    </div>
+                    <div class="calc-output" id="calcResult">
+                        Semi-latus rectum <em>p</em>: <strong>2.7482909</strong> AU<br>
+                        Latus rectum 2<em>p</em>: <strong>5.4965819</strong> AU | <em>h</em>: <strong>4.9224</strong> AU&sup2;/yr
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Fixed-Width Source Columns in <code>MPCORB.DAT</code></h2>
+            <p>
+                The table below specifies the exact fixed-width columns (1-based indexing) in a standard 202-character <code>MPCORB.DAT</code> record used to compute the semi-latus rectum <span class="math-inline">p</span> and heliocentric distance <span class="math-inline">r(&nu;)</span>:
+            </p>
+
+            <table class="spec-table">
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Columns (1-based)</th>
+                        <th>Python Slice (0-based)</th>
+                        <th>Fortran Format</th>
+                        <th>Unit &amp; Role</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong><code>Epoch</code></strong></td>
+                        <td><code>21–25</code></td>
+                        <td><code>line[20:25]</code></td>
+                        <td><code>A5</code> (Packed)</td>
+                        <td>Osculation reference epoch</td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>e</code> (Eccentricity)</strong></td>
+                        <td><code>71–79</code></td>
+                        <td><code>line[70:79]</code></td>
+                        <td><code>F9.7</code></td>
+                        <td>Dimensionless (<span class="math-roman">0 &le; <em>e</em> &lt; 1</span>); input for <span class="math-inline">p</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>a</code> (Semi-major axis)</strong></td>
+                        <td><code>93–103</code></td>
+                        <td><code>line[92:103]</code></td>
+                        <td><code>F11.7</code></td>
+                        <td>Astronomical Units (<span class="math-roman">AU</span>); input for <span class="math-inline">p</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>p</code> (Semi-latus rectum)</strong></td>
+                        <td><em>Derived (not stored)</em></td>
+                        <td><code>a * (1.0 - e) * (1.0 + e)</code></td>
+                        <td><em>Computed</em></td>
+                        <td>Astronomical Units (<span class="math-roman">AU</span>); <span class="math-roman"><em>p</em> = <em>b</em><sup>2</sup>/<em>a</em> = <em>h</em><sup>2</sup>/<em>&mu;</em></span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Example Record Calculation (<code>00001</code> — (1) Ceres)</h3>
+            <pre>Col:  ... 71      79 ... 93       103 ...
+Data: ... 0.0785354  ... 2.7653485    ...
+          └───┬───┘      └────┬────┘
+              e             a (AU)
+
+Computation:
+  Semi-latus rectum (p) = 2.7653485 * (1 - 0.0785354) * (1 + 0.0785354)
+                        = 2.7482909 AU
+  Latus rectum     (2p) = 5.4965819 AU
+  Harmonic check 2qQ/(q+Q) = 2 * 2.5481707 * 2.9825263 / 5.5306970
+                           = 2.7482909 AU</pre>
+        </section>
+
+        <footer>
+            Self-contained scientific reference document (zero external dependencies) &bull; Conventions aligned with IAU Minor Planet Center (MPC) <code>MPCORB.DAT</code> specifications.
+        </footer>
+    </div>
+
+    <script>
+        (function () {
+            const inputA = document.getElementById("inputA");
+            const inputE = document.getElementById("inputE");
+            const calcResult = document.getElementById("calcResult");
+            // Gaussian gravitational constant k in rad/day; in AU^2/yr: h_1AU = 2 * pi AU^2/yr ≈ 6.2831853
+            const twoPi = 2 * Math.PI;
+
+            function updateCalculation() {
+                const a = parseFloat(inputA.value);
+                const e = parseFloat(inputE.value);
+
+                if (!isFinite(a) || a <= 0) {
+                    calcResult.innerHTML = "Please enter a valid positive semi-major axis <em>a</em> &gt; 0.";
+                    return;
+                }
+
+                if (!isFinite(e) || e < 0 || e >= 1) {
+                    calcResult.innerHTML = "Eccentricity <em>e</em> must satisfy 0 &le; <em>e</em> &lt; 1 for an elliptic MPCORB record.";
+                    return;
+                }
+
+                const p = a * (1 - e) * (1 + e);
+                const latusRectum = 2 * p;
+                const hAU2Yr = twoPi * Math.sqrt(p);
+
+                calcResult.innerHTML =
+                    `Semi-latus rectum <em>p</em>: <strong>${p.toFixed(7)}</strong> AU<br>` +
+                    `Latus rectum 2<em>p</em>: <strong>${latusRectum.toFixed(7)}</strong> AU | <em>h</em>: <strong>${hAU2Yr.toFixed(4)}</strong> AU&sup2;/yr`;
+            }
+
+            inputA.addEventListener("input", updateCalculation);
+            inputE.addEventListener("input", updateCalculation);
+            updateCalculation();
+        })();
+    </script>
+</body>
+</html>

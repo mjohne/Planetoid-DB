@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Longitude of the Ascending Node (&Omega;) — MPCORB Orbital Reference</title>
+  <style>
+:root {
+  --bg-color: #f8fafc;
+  --surface-color: #ffffff;
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  --accent-color: #1e3a8a;
+  --accent-light: #eff6ff;
+  --border-color: #e2e8f0;
+  --code-bg: #f1f5f9;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-serif: "Georgia", "Times New Roman", Times, serif;
+  --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  line-height: 1.7;
+  padding: 2rem 1rem;
+}
+
+.container {
+  max-width: 920px;
+  margin: 0 auto;
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 2.5rem 3rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+header {
+  border-bottom: 2px solid var(--accent-color);
+  padding-bottom: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.category-tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent-color);
+  background-color: var(--accent-light);
+  padding: 0.25rem 0.65rem;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
+h2 {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.35rem;
+}
+
+h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+ul, ol {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+li {
+  margin-bottom: 0.4rem;
+}
+
+.equation-box {
+  background-color: var(--code-bg);
+  border-left: 4px solid var(--accent-color);
+  padding: 1rem 1.5rem;
+  margin: 1.25rem 0;
+  border-radius: 0 6px 6px 0;
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  overflow-x: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.equation-main {
+  font-style: italic;
+}
+
+.equation-label {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-style: normal;
+  margin-left: 1rem;
+}
+
+.math-var {
+  font-family: var(--font-serif);
+  font-style: italic;
+}
+
+.figure-box {
+  background-color: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 1.25rem;
+  margin: 1.75rem 0;
+  text-align: center;
+}
+
+.figure-box svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.figure-caption {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-top: 0.85rem;
+  text-align: left;
+  line-height: 1.5;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.92rem;
+}
+
+th, td {
+  border: 1px solid var(--border-color);
+  padding: 0.65rem 0.85rem;
+  text-align: left;
+}
+
+th {
+  background-color: var(--code-bg);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+code {
+  font-family: var(--font-mono);
+  background-color: var(--code-bg);
+  padding: 0.15rem 0.35rem;
+  border-radius: 4px;
+  font-size: 0.88em;
+}
+
+pre.mpcorb-record {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  background-color: var(--code-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 0.85rem 1rem;
+  overflow-x: auto;
+  line-height: 1.45;
+  color: var(--text-primary);
+  margin: 0.75rem 0 1.25rem 0;
+}
+
+.example-card {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-left: 4px solid #047857;
+  border-radius: 6px;
+  padding: 1.15rem 1.35rem;
+  margin: 1.15rem 0;
+}
+
+.example-card h3 {
+  margin-top: 0;
+  color: #065f46;
+}
+
+.interactive-panel {
+  background-color: var(--code-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 1.25rem;
+  margin: 1.75rem 0;
+}
+
+.interactive-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 0.75rem;
+  color: var(--text-primary);
+}
+
+.controls-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.control-group label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.control-group input {
+  width: 100%;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background-color: var(--surface-color);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+}
+
+.result-bar {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  color: var(--accent-color);
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+footer {
+  margin-top: 2.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 1.5rem 1.25rem;
+  }
+}
+</style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <span class="category-tag">Celestial Mechanics &amp; Inertial Reference Frames • MPCORB Reference</span>
+      <h1>Longitude of the Ascending Node (<span class="math-var">&Omega;</span>)</h1>
+      <div class="subtitle">Ecliptic Line-of-Nodes Azimuth, Orbit-Normal Vector &amp; Secular Regression in MPCORB.DAT</div>
+    </header>
+    <main>
+      
+<h2>1. Formal Definition</h2>
+<p>
+  In celestial mechanics, three-dimensional Keplerian orbital parameterization, and the Minor Planet Center Orbit Database (<strong>MPCORB</strong>), the <strong>longitude of the ascending node</strong> (<span class="math-var">&Omega;</span>) is the fundamental ecliptic azimuthal Euler angle that specifies the spatial orientation of a minor body's <strong>line of nodes</strong>—the straight line of intersection between the body's osculating orbital plane and the reference plane of the <strong>J2000.0 mean ecliptic</strong>. Specifically, <span class="math-var">&Omega;</span> is measured counterclockwise (prograde, eastward along the ecliptic) from the inertial reference direction of the <strong>J2000.0 vernal equinox</strong> (<span class="math-var">&#9800;</span>) to the <strong>ascending node</strong> (<span class="math-var">&#9738;</span>), the point where the minor planet crosses the ecliptic plane from south (<span class="math-var">Z &lt; 0</span>) to north (<span class="math-var">Z &gt; 0</span>, <span class="math-var">&dot;Z &gt; 0</span>), over the interval <span class="math-var">0&deg; &le; &Omega; &lt; 360&deg;</span>.
+</p>
+<p>
+  In the inertial heliocentric J2000.0 mean ecliptic and equinox Cartesian basis <span class="math-var">{<b>I</b>, <b>J</b>, <b>K</b>}</span>—where <span class="math-var"><b>I</b></span> points toward the J2000.0 vernal equinox <span class="math-var">&#9800;</span>, <span class="math-var"><b>K</b></span> points toward the north ecliptic pole, and <span class="math-var"><b>J</b> = <b>K</b> &times; <b>I</b></span> completes the right-handed triad—<span class="math-var">&Omega;</span> is uniquely determined from the specific orbital angular momentum vector <span class="math-var"><b>h</b> = <b>r</b> &times; <b>v</b> = (h<sub>x</sub>, h<sub>y</sub>, h<sub>z</sub>)<sup>T</sup></span> via the ascending node vector <span class="math-var"><b>n</b> = <b>K</b> &times; <b>h</b> = (&minus;h<sub>y</sub>, h<sub>x</sub>, 0)<sup>T</sup></span>:
+</p>
+
+<div class="equation-box">
+  <span class="equation-main">&Omega; = atan2(n<sub>y</sub>, n<sub>x</sub>) = atan2(h<sub>x</sub>, &minus;h<sub>y</sub>) &pmod{2&pi;}</span>
+  <span class="equation-label">(Eq. 1)</span>
+</div>
+
+<p>
+  Equivalently, the unit vector directed toward the ascending node <span class="math-var">&#9738;</span> is <span class="math-var"><b>N</b> = (cos &Omega;, sin &Omega;, 0)<sup>T</sup></span>, and the unit orbit-normal vector <span class="math-var"><b>W</b> = <b>h</b> / ||<b>h</b>||</span> takes the exact spherical-coordinate form:
+</p>
+
+<div class="equation-box">
+  <span class="equation-main"><b>W</b> = ( sin &Omega; sin i, &nbsp; &minus;cos &Omega; sin i, &nbsp; cos i )<sup>T</sup></span>
+  <span class="equation-label">(Eq. 2)</span>
+</div>
+
+<div class="figure-box">
+  <svg viewBox="0 0 740 315" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Three-dimensional geometry of the Longitude of the Ascending Node Omega measured in the J2000.0 Ecliptic Plane from the Vernal Equinox to the Ascending Node">
+    <defs>
+      <marker id="arrowSlate" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#475569"/>
+      </marker>
+      <marker id="arrowBlue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#1e3a8a"/>
+      </marker>
+      <marker id="arrowEmerald" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#047857"/>
+      </marker>
+    </defs>
+
+    <!-- Left Diagram: 3D Ecliptic Plane & Inclined Orbit Intersection (Sun at 235, 175) -->
+    <!-- Ecliptic Reference Plane -->
+    <polygon points="40,220 165,130 440,130 315,220" fill="#eff6ff" fill-opacity="0.75" stroke="#93c5fd" stroke-width="1.3"/>
+    <text x="58" y="211" font-family="sans-serif" font-size="10" font-weight="600" fill="#1e3a8a">J2000.0 Ecliptic Plane (Z = 0)</text>
+
+    <!-- North Ecliptic Pole K vector from Sun (235, 175) -->
+    <line x1="235" y1="175" x2="235" y2="55" stroke="#64748b" stroke-width="1.4" stroke-dasharray="3,3" marker-end="url(#arrowSlate)"/>
+    <text x="242" y="64" font-family="sans-serif" font-size="10" font-weight="700" fill="#475569"><b>K</b> (North Ecliptic Pole)</text>
+
+    <!-- Inclined Orbital Ellipse intersecting Ecliptic along Line of Nodes -->
+    <ellipse cx="220" cy="155" rx="135" ry="68" transform="rotate(-22 220 155)" fill="#ecfdf5" fill-opacity="0.4" stroke="#047857" stroke-width="1.8"/>
+    <text x="292" y="88" font-family="sans-serif" font-size="10" font-weight="700" fill="#047857">Northern Half (Z &gt; 0)</text>
+
+    <!-- J2000 Vernal Equinox Reference Direction (I / Gamma) from Sun (235, 175) -->
+    <line x1="235" y1="175" x2="92" y2="175" stroke="#334155" stroke-width="1.7" marker-end="url(#arrowSlate)"/>
+    <text x="48" y="179" font-family="sans-serif" font-size="11" font-weight="700" fill="#0f172a">&#9800; (J2000)</text>
+
+    <!-- Line of Nodes through Sun (235, 175): Ascending Node at (165, 212), Descending Node at (305, 138) -->
+    <line x1="305" y1="138" x2="152" y2="219" stroke="#1e3a8a" stroke-width="2" marker-end="url(#arrowBlue)"/>
+    <circle cx="165" cy="212" r="5" fill="#2563eb" stroke="#0f172a" stroke-width="1.3"/>
+    <text x="86" y="236" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#1e3a8a">Ascending Node (&#9738;)</text>
+
+    <circle cx="305" cy="138" r="4" fill="#64748b" stroke="#0f172a" stroke-width="1.1"/>
+    <text x="313" y="142" font-family="sans-serif" font-size="9.5" font-weight="600" fill="#475569">Descending Node (&#9739;)</text>
+
+    <!-- Longitude of Ascending Node Omega Arc in Ecliptic Plane -->
+    <path d="M 182 175 A 53 32 0 0 0 197 195" fill="none" stroke="#1e3a8a" stroke-width="2.4"/>
+    <text x="163" y="196" font-family="Georgia, serif" font-style="italic" font-size="14.5" font-weight="700" fill="#1e3a8a">&Omega;</text>
+
+    <!-- Orbital Motion Arrow crossing Ascending Node from Z < 0 to Z > 0 -->
+    <path d="M 142 226 Q 154 220 175 198" fill="none" stroke="#047857" stroke-width="1.8" marker-end="url(#arrowEmerald)"/>
+    <text x="115" y="253" font-family="sans-serif" font-size="9.5" font-weight="600" fill="#047857">South-to-North Crossing (&dot;Z &gt; 0)</text>
+
+    <!-- Sun at (235, 175) -->
+    <circle cx="235" cy="175" r="10" fill="#f59e0b" stroke="#b45309" stroke-width="1.6"/>
+    <text x="234" y="198" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#b45309">Sun</text>
+
+    <!-- Right Panel: Euler Sequence & Nodal Geometry -->
+    <rect x="455" y="24" width="265" height="266" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+    <text x="470" y="47" font-family="sans-serif" font-size="11.5" font-weight="700" fill="#0f172a">3–1–3 Euler Frame &amp; Nodal Geometry</text>
+
+    <rect x="470" y="62" width="235" height="62" rx="4" fill="#eff6ff" stroke="#93c5fd" stroke-width="1"/>
+    <text x="480" y="79" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#1e3a8a">1. First Euler Rotation R<tspan dy="2" font-size="8.5">z</tspan><tspan dy="-2">(&minus;&Omega;):</tspan></text>
+    <text x="480" y="96" font-family="sans-serif" font-size="9.8" fill="#334155">Aligns ecliptic x-axis with the</text>
+    <text x="480" y="112" font-family="sans-serif" font-size="9.8" fill="#334155">ascending node vector <b>N</b>(&Omega;).</text>
+
+    <line x1="587" y1="124" x2="587" y2="142" stroke="#475569" stroke-width="1.4" marker-end="url(#arrowSlate)"/>
+
+    <rect x="470" y="144" width="235" height="58" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+    <text x="480" y="161" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#1e3a8a">2. Nodal Axis &amp; Longitude:</text>
+    <text x="480" y="178" font-family="Georgia, serif" font-style="italic" font-size="11.5" fill="#0f172a">&lambda;<tspan dy="2" font-size="8.5">asc</tspan><tspan dy="-2"> = &Omega;, &nbsp; &lambda;</tspan><tspan dy="2" font-size="8.5">desc</tspan><tspan dy="-2"> = &Omega; + 180&deg;</tspan></text>
+    <text x="480" y="194" font-family="sans-serif" font-size="9.5" fill="#64748b">(Heliocentric ecliptic longitudes)</text>
+
+    <line x1="587" y1="202" x2="587" y2="220" stroke="#475569" stroke-width="1.4" marker-end="url(#arrowSlate)"/>
+
+    <rect x="470" y="222" width="235" height="54" rx="4" fill="#ecfdf5" stroke="#6ee7b7" stroke-width="1"/>
+    <text x="480" y="239" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#065f46">3. Composite Angular Elements:</text>
+    <text x="480" y="257" font-family="Georgia, serif" font-style="italic" font-size="11.5" fill="#0f172a">&varpi; = &Omega; + &omega;, &nbsp; L = &Omega; + &omega; + M</text>
+  </svg>
+  <div class="figure-caption">
+    <strong>Figure 1:</strong> Three-dimensional geometry of the <strong>longitude of the ascending node</strong> (<span class="math-var">&Omega;</span>). Measured strictly in the J2000.0 mean ecliptic plane (<span class="math-var">Z = 0</span>) from the vernal equinox <span class="math-var">&#9800;</span> to the ascending node <span class="math-var">&#9738;</span>, <span class="math-var">&Omega;</span> sets the azimuth of the line of nodes where the inclined orbital plane intersects the ecliptic.
+  </div>
+</div>
+
+<h2>2. Role in Euler Rotations &amp; Composite Orbital Longitudes</h2>
+<p>
+  In the classical <span class="math-var">3–1–3</span> active Euler rotation from the perifocal orbital frame <span class="math-var">(x<sub>&omega;</sub>, y<sub>&omega;</sub>, 0)<sup>T</sup></span> to the heliocentric J2000.0 ecliptic frame <span class="math-var">(X, Y, Z)<sup>T</sup></span>, <span class="math-var">&Omega;</span> serves as the final azimuthal rotation about the ecliptic pole <span class="math-var"><b>K</b></span>:
+</p>
+
+<div class="equation-box">
+  <span class="equation-main">
+    <span style="display:inline-block; vertical-align:middle;">(X, Y, Z)<sup>T</sup> = R<sub>z</sub>(&minus;&Omega;) R<sub>x</sub>(&minus;i) R<sub>z</sub>(&minus;&omega;) (r cos &nu;, r sin &nu;, 0)<sup>T</sup></span>
+  </span>
+  <span class="equation-label">(Eq. 3)</span>
+</div>
+
+<p>
+  Notice that the heliocentric vertical coordinate <span class="math-var">Z = r sin(&omega; + &nu;) sin i</span> is completely independent of <span class="math-var">&Omega;</span>; rotating <span class="math-var">&Omega;</span> rigidly rotates the entire inclined orbit around the north ecliptic pole <span class="math-var"><b>K</b></span> without altering heliocentric distance <span class="math-var">r</span> or ecliptic latitude <span class="math-var">&beta;</span>. Furthermore, <span class="math-var">&Omega;</span> combines with <span class="math-var">&omega;</span> and <span class="math-var">M<sub>0</sub></span> to define two non-singular composite angles:
+</p>
+<ul>
+  <li><strong>Longitude of Perihelion (<span class="math-var">&varpi; = &Omega; + &omega; &pmod{360&deg;}</span>):</strong> A "dog-leg" angle measured in the ecliptic from <span class="math-var">&#9800;</span> to <span class="math-var">&#9738;</span> and then in the orbital plane to perihelion.</li>
+  <li><strong>Mean Longitude at Epoch (<span class="math-var">L<sub>0</sub> = &Omega; + &omega; + M<sub>0</sub> &pmod{360&deg;}</span>):</strong> Measures the mean orbital phase from the vernal equinox <span class="math-var">&#9800;</span>; remains smooth even when both <span class="math-var">e &rarr; 0</span> and <span class="math-var">i &rarr; 0&deg;</span>.</li>
+</ul>
+
+<h2>3. Storage Format &amp; Reference Frame in <code>MPCORB.DAT</code></h2>
+<p>
+  In the fixed-width ASCII record layout of <code>MPCORB.DAT</code>, the longitude of the ascending node is stored immediately after the argument of the perihelion:
+</p>
+<table>
+  <thead>
+    <tr>
+      <th>Orbital Element</th>
+      <th>MPCORB Columns &amp; Format</th>
+      <th>Reference Frame, Units &amp; Resolution</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Longitude of Ascending Node (<span class="math-var">&Omega;</span>)</strong></td>
+      <td>Columns 49–57 (1-based), width 9 (<code>F9.5</code>)</td>
+      <td>J2000.0 mean ecliptic and equinox; degrees in <span class="math-var">[0.00000&deg;, 360.00000&deg;)</span>; resolution <span class="math-var">10<sup>&minus;5</sup> deg = 0.036&Prime;</span>.</td>
+    </tr>
+    <tr>
+      <td><strong>Argument of Perihelion (<span class="math-var">&omega;</span>)</strong></td>
+      <td>Columns 38–46 (1-based), width 9 (<code>F9.5</code>)</td>
+      <td>Measured in the orbital plane starting directly from the ascending node <span class="math-var">&#9738;</span> defined by <span class="math-var">&Omega;</span>.</td>
+    </tr>
+    <tr>
+      <td><strong>Inclination (<span class="math-var">i</span>)</strong></td>
+      <td>Columns 60–68 (1-based), width 9 (<code>F9.5</code>)</td>
+      <td>Dihedral tilt of the orbital plane relative to the J2000.0 ecliptic, hinged along the line of nodes at <span class="math-var">&Omega;</span>.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>4. Dynamical Evolution &amp; Secular Perturbations</h2>
+<ul>
+  <li><strong>Nodal Regression (<span class="math-var">&dot;&Omega;</span>):</strong> Under pure two-body central-force motion, <span class="math-var"><b>h</b></span> is strictly conserved and <span class="math-var">&Omega;</span> is constant. In the real Solar System, secular gravitational torques from the oblate quadrupolar potential of the outer planets (predominantly Jupiter and Saturn) induce a retrograde <strong>nodal regression</strong> (<span class="math-var">&dot;&Omega; &lt; 0</span>, typically <span class="math-var">&minus;10&Prime;/yr to &minus;55&Prime;/yr</span> in the main asteroid belt).</li>
+  <li><strong>Secular Resonances (<span class="math-var">&nu;<sub>6</sub>, &nu;<sub>16</sub></span>) &amp; Proper Elements:</strong> When a minor planet's nodal regression rate <span class="math-var">&dot;&Omega;</span> commensurates with the fundamental nodal eigenfrequencies <span class="math-var">s<sub>k</sub></span> of the giant planets (most notably the <span class="math-var">&nu;<sub>16</sub></span> secular resonance where <span class="math-var">&dot;&Omega; &approx; s<sub>6</sub> &approx; &minus;26.34&Prime;/yr</span>), strong forced inclination oscillations occur. Asteroid family identification therefore filters out short-period and secular oscillations in <span class="math-var">(&Omega;, i)</span> to extract quasi-invariant <em>proper inclination</em> <span class="math-var">i<sub>p</sub></span>.</li>
+  <li><strong>Singularity at Zero Inclination (<span class="math-var">i &rarr; 0&deg;</span>):</strong> When an orbit lies nearly in the ecliptic plane (<span class="math-var">i &rarr; 0&deg;</span>), <span class="math-var">||<b>n</b>|| = ||<b>K</b> &times; <b>h</b>|| = h sin i &rarr; 0</span>, making the line of nodes poorly constrained; small out-of-plane perturbations cause rapid jumps in <span class="math-var">&Omega;</span> and <span class="math-var">&omega;</span> while <span class="math-var">&varpi; = &Omega; + &omega;</span> remains continuous.</li>
+</ul>
+
+<h2>5. Worked Examples from <code>MPCORB.DAT</code></h2>
+<p>
+  The following two numbered minor planets from <code>MPCORB.DAT</code> illustrate how <span class="math-var">&Omega;</span> defines the orientation of the line of nodes and the orbit-normal vector in the J2000.0 ecliptic frame:
+</p>
+
+<div class="example-card">
+  <h3>Example 1: (1) Ceres — Main-Belt Dwarf Planet (<span class="math-var">&Omega; = 80.25414&deg;</span>)</h3>
+  <p>
+    Excerpt from <code>MPCORB.DAT</code> (columns 1–103):
+  </p>
+  <pre class="mpcorb-record">00001    3.34  0.12 K25BL 231.53975   73.28579   80.25414   10.58688  0.0789158  0.21410467   2.7675059</pre>
+  <ul>
+    <li><strong>Extracted Nodal &amp; Orientation Elements:</strong> Longitude of ascending node <span class="math-var">&Omega; = 80.25414&deg;</span> (cols 49–57), argument of perihelion <span class="math-var">&omega; = 73.28579&deg;</span> (cols 38–46), and inclination <span class="math-var">i = 10.58688&deg;</span> (cols 60–68).</li>
+    <li><strong>Derived Line of Nodes &amp; Orbit Normal:</strong> Ceres crosses the J2000.0 ecliptic northbound at heliocentric ecliptic longitude <span class="math-var">&lambda;<sub>asc</sub> = 80.25414&deg;</span> (in Gemini/Taurus) along unit vector <span class="math-var"><b>N</b> = (0.16928, 0.98557, 0)<sup>T</sup></span>, and southbound at <span class="math-var">&lambda;<sub>desc</sub> = 260.25414&deg;</span> (in Sagittarius). Its unit orbit-normal vector is <span class="math-var"><b>W</b> = (0.18109, &minus;0.03110, 0.98298)<sup>T</sup></span>, and its longitude of perihelion is <span class="math-var">&varpi; = &Omega; + &omega; = 153.53993&deg;</span>.</li>
+  </ul>
+</div>
+
+<div class="example-card">
+  <h3>Example 2: (433) Eros — Amor Near-Earth Asteroid (<span class="math-var">&Omega; = 304.27012&deg;</span>)</h3>
+  <p>
+    Excerpt from <code>MPCORB.DAT</code> (columns 1–103):
+  </p>
+  <pre class="mpcorb-record">00433   10.31  0.15 K25BL 246.90412  178.92845  304.27012   10.82847  0.2227264  0.55981924   1.4581234</pre>
+  <ul>
+    <li><strong>Extracted Nodal &amp; Orientation Elements:</strong> Longitude of ascending node <span class="math-var">&Omega; = 304.27012&deg;</span> (cols 49–57), argument of perihelion <span class="math-var">&omega; = 178.92845&deg;</span> (cols 38–46), and inclination <span class="math-var">i = 10.82847&deg;</span> (cols 60–68).</li>
+    <li><strong>Derived Line of Nodes &amp; Close-Approach Geometry:</strong> Eros's ascending node lies at <span class="math-var">&lambda;<sub>asc</sub> = 304.27012&deg;</span> (<span class="math-var"><b>N</b> = (0.56309, &minus;0.82639, 0)<sup>T</sup></span>) and its descending node lies at <span class="math-var">&lambda;<sub>desc</sub> = 124.27012&deg;</span> (corresponding to Earth's heliocentric longitude around late January). Because <span class="math-var">&omega; &approx; 178.93&deg;</span> places Eros's perihelion (<span class="math-var">q = 1.13336 AU</span>) directly at its descending node (<span class="math-var">&lambda;<sub>desc</sub> = 124.27&deg;</span>), historic close Earth encounters occur near late January when Earth passes longitude <span class="math-var">&sim;124&deg;</span>.</li>
+  </ul>
+</div>
+
+<div class="interactive-panel">
+  <div class="interactive-title">Interactive Calculator: Line of Nodes, Orbit Normal <b>W</b> &amp; Composite Longitudes</div>
+  <div class="controls-grid">
+    <div class="control-group">
+      <label for="om_val">Long. Asc. Node &Omega; (deg)</label>
+      <input type="number" id="om_val" value="80.25414" step="1.0">
+    </div>
+    <div class="control-group">
+      <label for="i_val">Inclination i (deg)</label>
+      <input type="number" id="i_val" value="10.58688" step="0.5">
+    </div>
+    <div class="control-group">
+      <label for="w_val">Arg. of Perihelion &omega; (deg)</label>
+      <input type="number" id="w_val" value="73.28579" step="1.0">
+    </div>
+    <div class="control-group">
+      <label for="m0_val">Mean Anomaly M<sub>0</sub> (deg)</label>
+      <input type="number" id="m0_val" value="231.53975" step="1.0">
+    </div>
+  </div>
+  <div class="result-bar" id="calc_out">Computing...</div>
+</div>
+
+    </main>
+    <footer>
+      <span>Reference Standard: IAU Minor Planet Center (MPCORB.DAT) &amp; J2000.0 Mean Ecliptic and Equinox</span>
+      <span>Vector Definition: &Omega; = atan2(h<sub>x</sub>, &minus;h<sub>y</sub>) &bull; MPCORB Format: Columns 49–57 (F9.5, deg)</span>
+    </footer>
+  </div>
+  <script>
+    
+(function() {
+  const degToRad = Math.PI / 180.0;
+
+  function normDeg(deg) {
+    let x = deg % 360.0;
+    if (x < 0) x += 360.0;
+    return x;
+  }
+
+  function update() {
+    const Om = parseFloat(document.getElementById('om_val').value);
+    const inc = parseFloat(document.getElementById('i_val').value);
+    const w = parseFloat(document.getElementById('w_val').value);
+    const M0 = parseFloat(document.getElementById('m0_val').value);
+    const out = document.getElementById('calc_out');
+
+    if ([Om, inc, w, M0].some(isNaN)) {
+      out.textContent = "Invalid angular inputs.";
+      return;
+    }
+
+    const OmNorm = normDeg(Om);
+    const descNorm = normDeg(Om + 180.0);
+    const varpi = normDeg(Om + w);
+    const L0 = normDeg(Om + w + M0);
+
+    const OmRad = OmNorm * degToRad;
+    const iRad = inc * degToRad;
+
+    // Ascending node unit vector N
+    const Nx = Math.cos(OmRad);
+    const Ny = Math.sin(OmRad);
+
+    // Orbit normal unit vector W
+    const Wx = Math.sin(OmRad) * Math.sin(iRad);
+    const Wy = -Math.cos(OmRad) * Math.sin(iRad);
+    const Wz = Math.cos(iRad);
+
+    out.innerHTML =
+      `Asc. Node &lambda;<sub>asc</sub> = ${OmNorm.toFixed(5)}&deg; [<b>N</b> = (${Nx.toFixed(5)}, ${Ny.toFixed(5)}, 0)]  |  Desc. Node &lambda;<sub>desc</sub> = ${descNorm.toFixed(5)}&deg;<br>` +
+      `Orbit Normal <b>W</b> = (${Wx.toFixed(5)}, ${Wy.toFixed(5)}, ${Wz.toFixed(5)})  |  Long. Perihelion &varpi; = ${varpi.toFixed(5)}&deg;  |  Mean Long. L<sub>0</sub> = ${L0.toFixed(5)}&deg;`;
+  }
+
+  ['om_val', 'i_val', 'w_val', 'm0_val'].forEach(id => {
+    document.getElementById(id).addEventListener('input', update);
+  });
+  update();
+})();
+
+  </script>
+</body>
+</html>

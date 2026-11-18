@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orbital Semi-Perimeter (s = L/2) in the Context of MPCORB</title>
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #334155;
+            --accent-color: #1e3a8a;
+            --accent-light: #eff6ff;
+            --border-color: #cbd5e1;
+            --code-bg: #f1f5f9;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.7;
+            color: var(--text-primary);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 3rem 3.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            border: 1px solid var(--border-color);
+        }
+
+        header {
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .badge {
+            display: inline-block;
+            background-color: var(--accent-light);
+            color: var(--accent-color);
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            padding: 0.3rem 0.75rem;
+            border-radius: 4px;
+            border: 1px solid #bfdbfe;
+            margin-bottom: 0.75rem;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin: 0.25rem 0 0.5rem 0;
+            color: var(--text-primary);
+            line-height: 1.25;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            margin: 0;
+        }
+
+        h2 {
+            font-size: 1.35rem;
+            color: var(--accent-color);
+            margin-top: 2.25rem;
+            margin-bottom: 0.85rem;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 0.35rem;
+        }
+
+        h3 {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        p {
+            margin-bottom: 1.15rem;
+            color: var(--text-secondary);
+            text-align: justify;
+        }
+
+        ul, ol {
+            margin-bottom: 1.25rem;
+            padding-left: 1.5rem;
+            color: var(--text-secondary);
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        .equation-box {
+            background-color: var(--code-bg);
+            border-left: 4px solid var(--accent-color);
+            padding: 1.15rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 6px 6px 0;
+            overflow-x: auto;
+            font-family: "Cambria Math", "STIX Two Math", "Times New Roman", Times, serif;
+            font-size: 1.18rem;
+            color: var(--text-primary);
+            text-align: center;
+        }
+
+        .math-inline {
+            font-family: "Cambria Math", "STIX Two Math", "Times New Roman", Times, serif;
+            font-style: italic;
+            font-size: 1.05em;
+            color: var(--text-primary);
+        }
+
+        .math-roman {
+            font-family: "Cambria Math", "STIX Two Math", "Times New Roman", Times, serif;
+            font-style: normal;
+            font-size: 1.02em;
+            color: var(--text-primary);
+        }
+
+        .frac {
+            display: inline-flex;
+            flex-direction: column;
+            vertical-align: middle;
+            text-align: center;
+            margin: 0 0.25rem;
+        }
+
+        .frac > span:first-child {
+            border-bottom: 1px solid var(--text-primary);
+            padding: 0 0.3rem 0.15rem 0.3rem;
+        }
+
+        .frac > span:last-child {
+            padding: 0.15rem 0.3rem 0 0.3rem;
+        }
+
+        .sqrt-wrap {
+            display: inline-flex;
+            align-items: stretch;
+        }
+
+        .sqrt-rad {
+            font-size: 1.15em;
+            line-height: 1;
+            padding-right: 1px;
+        }
+
+        .sqrt-body {
+            border-top: 1px solid var(--text-primary);
+            padding: 0 0.2rem;
+        }
+
+        .spec-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.92rem;
+        }
+
+        .spec-table th, .spec-table td {
+            border: 1px solid var(--border-color);
+            padding: 0.75rem 1rem;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        .spec-table th {
+            background-color: var(--accent-color);
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .spec-table tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        code {
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+            background-color: var(--code-bg);
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.88em;
+            color: #0f172a;
+        }
+
+        pre {
+            background-color: #1e293b;
+            color: #f8fafc;
+            padding: 1rem 1.25rem;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+        }
+
+        .note-callout {
+            background-color: #fffbeb;
+            border-left: 4px solid #d97706;
+            padding: 1rem 1.25rem;
+            margin: 1.5rem 0;
+            border-radius: 0 6px 6px 0;
+            color: #78350f;
+            font-size: 0.95rem;
+        }
+
+        .terminology-callout {
+            background-color: var(--accent-light);
+            border-left: 4px solid var(--accent-color);
+            padding: 1rem 1.25rem;
+            margin: 1.5rem 0;
+            border-radius: 0 6px 6px 0;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+        }
+
+        .diagram-box {
+            background-color: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+
+        .diagram-caption {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+        }
+
+        .calculator-box {
+            background-color: var(--accent-light);
+            border: 1px solid #bfdbfe;
+            border-radius: 8px;
+            padding: 1.25rem 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .calculator-box h4 {
+            margin: 0 0 0.75rem 0;
+            color: var(--accent-color);
+            font-size: 1rem;
+        }
+
+        .calc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            align-items: end;
+        }
+
+        .calc-field label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.3rem;
+        }
+
+        .calc-field input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 0.5rem 0.65rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 0.95rem;
+            font-family: inherit;
+        }
+
+        .calc-output {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 0.5rem 0.75rem;
+            font-size: 0.92rem;
+            color: var(--text-primary);
+        }
+
+        footer {
+            margin-top: 3rem;
+            padding-top: 1.25rem;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.85rem;
+            color: #64748b;
+            text-align: center;
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 1.75rem 1.25rem;
+            }
+            h1 {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="badge">Celestial Mechanics &amp; Astrometry Specification</div>
+            <h1>Orbital Semi-Perimeter (<span class="math-inline">s</span> = <span class="math-inline">L</span>/2) in the Context of the MPCORB Database</h1>
+            <p class="subtitle">Scientific Definition, Apsidal-to-Apsidal Semi-Elliptic Arc Length, Elliptic Integral Formulation, and Evaluation from MPCORB</p>
+        </header>
+
+        <section>
+            <h2>1. Fundamental Differential-Geometric &amp; Astrodynamical Definition</h2>
+            <div class="terminology-callout">
+                <strong>Definition &amp; Nomenclature:</strong> In differential geometry and two-body celestial mechanics, the <strong>orbital semi-perimeter</strong> (also termed the <em>semi-circumference of the orbit</em>, <em>apsidal-to-apsidal arc length</em>, or in German astrometry <em>halber Bahnumfang</em>)—typically denoted by <span class="math-inline">s</span> (or <span class="math-roman"><em>L</em>/2</span>, <span class="math-roman"><em>U</em>/2</span>)—is exactly half of the closed Euclidean arc length <span class="math-inline">L</span> of an instantaneous osculating Keplerian ellipse, corresponding physically to the Euclidean path length traversed by an orbiting body along either symmetric semi-ellipse connecting <strong>perihelion</strong> (<span class="math-roman"><em>E</em> = 0, <em>&nu;</em> = 0&deg;</span>) to <strong>aphelion</strong> (<span class="math-roman"><em>E</em> = &pi;, <em>&nu;</em> = 180&deg;</span>), or vice versa. It is a dimensional length quantity expressed in Astronomical Units (<span class="math-roman">AU</span>).
+            </div>
+            <p>
+                Integrating the Euclidean differential arc-length element <span class="math-roman"><em>ds</em> = <em>a</em>&radic;(1 &minus; <em>e</em><sup>2</sup> cos<sup>2</sup> <em>E</em>) <em>dE</em></span> over the outbound half-revolution from perihelion (<span class="math-roman"><em>E</em> = 0</span>) to aphelion (<span class="math-roman"><em>E</em> = &pi;</span>)—or equivalently over the inbound return branch (<span class="math-roman"><em>E</em> &isin; [&pi;, 2&pi;)</span>)—yields the exact formulation of the <strong>orbital semi-perimeter</strong> <span class="math-inline">s</span> in terms of the <strong>complete elliptic integral of the second kind</strong> <span class="math-roman"><em>E</em><sub>ell</sub>(<em>e</em>)</span>:
+            </p>
+            <div class="equation-box">
+                <span class="math-inline">s</span> =
+                <span class="frac">
+                    <span><span class="math-inline">L</span></span>
+                    <span>2</span>
+                </span>
+                = <span class="math-roman">&int;</span><sub>0</sub><sup>&pi;</sup> <span class="math-inline">a</span>
+                <span class="sqrt-wrap">
+                    <span class="sqrt-rad">&radic;</span>
+                    <span class="sqrt-body">
+                        1 &minus; <span class="math-inline">e</span><sup>2</sup> cos<sup>2</sup> <span class="math-inline">E</span>
+                    </span>
+                </span>
+                <span class="math-inline">dE</span>
+                = 2 <span class="math-inline">a</span>
+                <span class="math-roman">&int;</span><sub>0</sub><sup>&pi;/2</sup>
+                <span class="sqrt-wrap">
+                    <span class="sqrt-rad">&radic;</span>
+                    <span class="sqrt-body">
+                        1 &minus; <span class="math-inline">e</span><sup>2</sup> sin<sup>2</sup> <span class="math-inline">&phi;</span>
+                    </span>
+                </span>
+                <span class="math-inline">d&phi;</span>
+                = 2 <span class="math-inline">a</span> <span class="math-roman"><em>E</em><sub>ell</sub>(<em>e</em>)</span>
+            </div>
+            <p>
+                Geometrically, whereas the <strong>major axis</strong> <span class="math-roman">2<em>a</em> = <em>Q</em> + <em>q</em></span> is the straight-line chord connecting perihelion and aphelion along the line of apsides, the <strong>orbital semi-perimeter</strong> <span class="math-roman"><em>s</em> = 2<em>a</em> <em>E</em><sub>ell</sub>(<em>e</em>)</span> is the curved elliptic arc joining those same two apsidal vertices. Consequently, <span class="math-inline">s</span> satisfies strict geometric inequalities and asymptotic limits:
+            </p>
+            <ul>
+                <li><strong>Strict Chord-to-Semicircle Bounds (<span class="math-roman">2<em>a</em> &lt; <em>s</em> &le; &pi;<em>a</em></span>):</strong> Because a straight line is the shortest Euclidean path between perihelion and aphelion (<span class="math-roman">2<em>a</em></span>) and a semicircle of radius <span class="math-inline">a</span> maximizes the arc length for a given semi-major axis (<span class="math-roman">&pi;<em>a</em></span>), <span class="math-inline">s</span> is strictly bounded by <span class="math-roman">2<em>a</em> &lt; <em>s</em> &le; &pi;<em>a</em></span> for all bound elliptic orbits (<span class="math-roman">0 &le; <em>e</em> &lt; 1</span>).</li>
+                <li><strong>Circular Limit (<span class="math-roman"><em>e</em> = 0 &rArr; <em>s</em> = &pi;<em>a</em></span>):</strong> Since <span class="math-roman"><em>E</em><sub>ell</sub>(0) = &pi;/2</span>, the semi-perimeter equals the Euclidean semicircle length <span class="math-roman"><em>s</em> = &pi;<em>a</em> &approx; 3.1415927<em>a</em></span>.</li>
+                <li><strong>Degenerate Collinear Limit (<span class="math-roman"><em>e</em> &rarr; 1<sup>&minus;</sup> &rArr; <em>s</em> &rarr; 2<em>a</em><sup>+</sup></span>):</strong> Since <span class="math-roman"><em>E</em><sub>ell</sub>(1) = 1</span>, as the ellipse flattens onto the line of apsides (<span class="math-roman"><em>b</em> &rarr; 0<sup>+</sup></span>), the curved apsidal-to-apsidal arc converges to the straight-line major axis chord <span class="math-roman"><em>s</em> &rarr; 2<em>a</em></span>.</li>
+                <li><strong>Parabolic Divergence (<span class="math-roman"><em>e</em> = 1</span>):</strong> Because aphelion recedes to infinity (<span class="math-roman"><em>a</em> &rarr; &infin;</span>), the apsidal-to-apsidal semi-perimeter is infinite (<span class="math-roman"><em>s</em> = +&infin;</span>).</li>
+            </ul>
+
+            <div class="diagram-box">
+                <svg width="560" height="245" viewBox="0 0 560 245" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Geometric diagram illustrating the orbital semi-perimeter s = L/2 = 2a E(e) as the upper outbound elliptic arc from perihelion (E = 0) to aphelion (E = pi), contrasted with the straight-line major axis chord 2a">
+                    <rect x="0" y="0" width="560" height="245" fill="#f8fafc" rx="6"/>
+                    <!-- Lower inbound semi-ellipse (dashed/muted) -->
+                    <path d="M 80 118 A 200 100 0 0 0 480 118" fill="none" stroke="#93c5fd" stroke-width="2.2" stroke-dasharray="6,4"/>
+                    <!-- Upper outbound semi-ellipse (highlighted red): Orbital Semi-Perimeter s = L/2 = 2a E(e) -->
+                    <path d="M 480 118 A 200 100 0 0 0 80 118" fill="#eff6ff" stroke="#dc2626" stroke-width="4"/>
+                    <!-- Straight-line major axis chord 2a connecting aphelion (80,118) to perihelion (480,118) -->
+                    <line x1="80" y1="118" x2="480" y2="118" stroke="#1e3a8a" stroke-width="2"/>
+                    <!-- Center O -->
+                    <circle cx="280" cy="118" r="3.5" fill="#0f172a"/>
+                    <text x="280" y="135" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#0f172a" font-weight="bold">Center (O)</text>
+                    <!-- Primary focus F1 (Sun) at x = 280 + 173.21 = 453.21 -->
+                    <circle cx="453.2" cy="118" r="7" fill="#f59e0b" stroke="#b45309" stroke-width="1.5"/>
+                    <text x="446" y="137" text-anchor="end" font-family="sans-serif" font-size="10" fill="#92400e" font-weight="bold">Sun (F&#8321;)</text>
+                    <!-- Perihelion and Aphelion vertices -->
+                    <circle cx="480" cy="118" r="4.5" fill="#dc2626"/>
+                    <text x="488" y="114" text-anchor="start" font-family="sans-serif" font-size="10" fill="#0f172a" font-weight="bold">Perihelion (E = 0)</text>
+                    <circle cx="80" cy="118" r="4.5" fill="#dc2626"/>
+                    <text x="72" y="114" text-anchor="end" font-family="sans-serif" font-size="10" fill="#0f172a" font-weight="bold">Aphelion (E = &pi;)</text>
+                    <!-- Labels -->
+                    <text x="280" y="13" text-anchor="middle" font-family="serif" font-size="14" fill="#dc2626" font-weight="bold">Orbital Semi-Perimeter s = L / 2 = 2a E(&#101;) &isin; (2a, &pi;a]</text>
+                    <text x="280" y="72" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#991b1b">Outbound Semi-Elliptic Path (Perihelion &rarr; Aphelion, &Delta;t = P / 2)</text>
+                    <text x="210" y="111" text-anchor="middle" font-family="serif" font-size="13" fill="#1e3a8a" font-weight="bold">Major Axis Chord = 2a = Q + q</text>
+                    <text x="280" y="232" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#475569">Inbound Return Semi-Ellipse (Aphelion &rarr; Perihelion, length = s = L / 2)</text>
+                </svg>
+                <div class="diagram-caption">
+                    Figure 1: Geometric comparison between the curved <strong>orbital semi-perimeter</strong> <span class="math-roman"><em>s</em> = <em>L</em>/2 = 2<em>a</em> <em>E</em><sub>ell</sub>(<em>e</em>)</span> connecting perihelion and aphelion and the straight-line apsidal chord <span class="math-roman">2<em>a</em> = <em>Q</em> + <em>q</em></span>.
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>2. Kinematic Symmetry, Series Expansions &amp; Quadrature</h2>
+            <p>
+                In unperturbed two-body Keplerian motion, the apsidal line divides the orbit into two geometrically congruent halves of equal arc length <span class="math-inline">s</span> and equal traversal duration <span class="math-roman"><em>P</em>/2</span>, governed by the following mathematical identities:
+            </p>
+
+            <h3>2.1 Temporal &amp; Kinematic Duality Between Outbound and Inbound Branches</h3>
+            <p>
+                By Kepler&rsquo;s equation <span class="math-roman"><em>M</em> = <em>E</em> &minus; <em>e</em> sin <em>E</em></span>, the elapsed time from perihelion (<span class="math-roman"><em>E</em> = 0, <em>M</em> = 0</span>) to aphelion (<span class="math-roman"><em>E</em> = &pi;, <em>M</em> = &pi;</span>) is exactly half the sidereal orbital period (<span class="math-roman">&Delta;<em>t</em> = <em>P</em>/2</span>), and the spatial arc length traversed during that half-period is identically the orbital semi-perimeter <span class="math-roman"><em>s</em> = <em>L</em>/2</span>. Consequently, the time-averaged scalar speed over the outbound branch (perihelion to aphelion), over the inbound branch (aphelion to perihelion), and over the full orbit are identical:
+            </p>
+            <div class="equation-box">
+                <span class="math-inline">v&#772;</span><sub>half</sub> =
+                <span class="frac">
+                    <span><span class="math-inline">s</span></span>
+                    <span><span class="math-inline">P</span> / 2</span>
+                </span>
+                =
+                <span class="frac">
+                    <span>2 <span class="math-inline">a</span> <span class="math-roman"><em>E</em><sub>ell</sub>(<em>e</em>)</span></span>
+                    <span><span class="math-inline">&pi;</span> <span class="math-inline">a</span><sup>3/2</sup> / &radic;<span class="math-inline">&mu;</span></span>
+                </span>
+                =
+                <span class="frac">
+                    <span><span class="math-inline">L</span></span>
+                    <span><span class="math-inline">P</span></span>
+                </span>
+                = <span class="math-inline">v&#772;</span>
+            </div>
+            <p>
+                Note, however, that the <strong>ascending-node to descending-node</strong> arc length (<span class="math-roman"><em>s</em><sub>&Omega;&rarr;&#9738;</sub></span>, the northern ecliptic excursion) equals the orbital semi-perimeter <span class="math-inline">s</span> <em>if and only if</em> the line of nodes coincides with the line of apsides (<span class="math-roman"><em>&omega;</em> = 0&deg;</span> or <span class="math-roman">180&deg;</span>); for arbitrary argument of perihelion <span class="math-inline">&omega;</span>, the nodal split divides <span class="math-roman"><em>L</em> = 2<em>s</em></span> asymmetrically unless <span class="math-roman">sin <em>&omega;</em> = 0</span>.
+            </p>
+
+            <h3>2.2 Ivory&ndash;Bessel Series in the Third Flattening (<span class="math-inline">h</span>)</h3>
+            <p>
+                Using the squared third flattening parameter <span class="math-roman"><em>h</em> = (<em>a</em> &minus; <em>b</em>)<sup>2</sup>/(<em>a</em> + <em>b</em>)<sup>2</sup> = <em>e</em><sup>4</sup> / [1 + &radic;(1 &minus; <em>e</em><sup>2</sup>)]<sup>4</sup></span>, the orbital semi-perimeter <span class="math-inline">s</span> is expanded directly as:
+            </p>
+            <div class="equation-box">
+                <span class="math-inline">s</span> =
+                <span class="frac">
+                    <span><span class="math-inline">&pi;</span></span>
+                    <span>2</span>
+                </span>
+                (<span class="math-inline">a</span> + <span class="math-inline">b</span>)
+                <span class="math-roman">[</span>1 +
+                <span class="frac"><span>1</span><span>4</span></span> <span class="math-inline">h</span> +
+                <span class="frac"><span>1</span><span>64</span></span> <span class="math-inline">h</span><sup>2</sup> +
+                <span class="frac"><span>1</span><span>256</span></span> <span class="math-inline">h</span><sup>3</sup> +
+                <span class="frac"><span>25</span><span>16384</span></span> <span class="math-inline">h</span><sup>4</sup> + &middot;&middot;&middot;<span class="math-roman">]</span>
+            </div>
+
+            <h3>2.3 Arithmetic-Geometric Mean (AGM) Quadrature</h3>
+            <p>
+                For arbitrary eccentricities across the entire elliptic domain <span class="math-roman">0 &le; <em>e</em> &lt; 1</span> (including high-eccentricity comets and Damocloids), the Arithmetic-Geometric Mean iteration (<span class="math-roman"><em>a</em><sub>0</sub> = 1</span>, <span class="math-roman"><em>b</em><sub>0</sub> = &radic;(1 &minus; <em>e</em><sup>2</sup>)</span>, <span class="math-roman"><em>c</em><sub>0</sub> = <em>e</em></span>) yields <span class="math-inline">s</span> to full IEEE-754 double precision in &le; 6 steps:
+            </p>
+            <div class="equation-box">
+                <span class="math-inline">s</span> =
+                <span class="frac">
+                    <span><span class="math-inline">&pi;</span> <span class="math-inline">a</span></span>
+                    <span><span class="math-inline">a</span><sub><span class="math-inline">N</span></sub></span>
+                </span>
+                <span class="math-roman">[</span>1 &minus;
+                <span class="math-roman">&sum;</span><sub><span class="math-inline">n</span>=0</sub><sup><span class="math-inline">N</span></sup>
+                2<sup><span class="math-inline">n</span>&minus;1</sup> <span class="math-inline">c</span><sub><span class="math-inline">n</span></sub><sup>2</sup><span class="math-roman">]</span>
+            </div>
+        </section>
+
+        <section>
+            <h2>3. Specific Status and Derivation in the MPCORB Catalog</h2>
+            <p>
+                In the <strong>MPCORB</strong> (<em>Minor Planet Center Orbit</em>) database published by the International Astronomical Union&rsquo;s Minor Planet Center (IAU MPC):
+            </p>
+
+            <ul>
+                <li>
+                    <strong>Implicit Derived Quantity (Not Tabulated):</strong> The orbital semi-perimeter <span class="math-inline">s</span> is <em>not</em> stored as an explicit column in <code>MPCORB.DAT</code>. Instead, it is computed directly from the osculating <strong>numeric eccentricity</strong> <span class="math-inline">e</span> (columns <code>71–79</code>, format <code>F9.7</code>) and osculating <strong>semi-major axis</strong> <span class="math-inline">a</span> (columns <code>93–103</code>, format <code>F11.7</code>) via <span class="math-roman"><em>s</em> = 2<em>a</em> <em>E</em><sub>ell</sub>(<em>e</em>) = <em>L</em> / 2</span>.
+                </li>
+                <li>
+                    <strong>Universal Finiteness &amp; Bounds Across All <code>MPCORB.DAT</code> Entries:</strong> Because every record in <code>MPCORB.DAT</code> represents a bound elliptic orbit (<span class="math-roman">0 &le; <em>e</em> &lt; 1</span>, <span class="math-roman"><em>a</em> &gt; 0</span>), the orbital semi-perimeter <span class="math-inline">s</span> is strictly finite, positive, and bounded by <span class="math-roman">2<em>a</em> &lt; <em>s</em> &le; &pi;<em>a</em></span> across 100% of catalog records.
+                </li>
+                <li>
+                    <strong>Osculating Heliocentric Reference &amp; Unit:</strong> Derived from MPCORB elements at the record&rsquo;s packed <code>Epoch</code> (columns <code>21–25</code>) in the J2000.0 mean ecliptic frame, <span class="math-inline">s</span> represents the instantaneous osculating outbound or inbound apsidal path length expressed in <strong>Astronomical Units (<span class="math-roman">AU</span>)</strong> (<span class="math-roman">1 AU &equiv; 149,597,870,700 m</span>).
+                </li>
+                <li>
+                    <strong>Practical Applications in Minor Planet Analysis:</strong>
+                    <ul>
+                        <li><em>Apsidal Transit Path Length:</em> Quantifies the exact heliocentric distance traveled by a comet or high-eccentricity asteroid during a single inbound leg from aphelion to perihelion (e.g., for solar radiation exposure and volatile sublimation modeling).</li>
+                        <li><em>Geometric Tortuosity / Arc-to-Chord Ratio (<span class="math-roman"><em>s</em>/(2<em>a</em>)</span>):</em> Measures how much longer the curved orbital semi-perimeter <span class="math-inline">s</span> is compared to the straight-line major axis <span class="math-roman">2<em>a</em></span>, decreasing monotonically from <span class="math-roman">&pi;/2 &approx; 1.5708</span> (circular) toward <span class="math-roman">1.0000</span> (needle-like comet orbit).</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <div class="note-callout">
+                <strong>Implementation &amp; Precision Note:</strong> When storing or displaying both the orbital perimeter <span class="math-inline">L</span> and the orbital semi-perimeter <span class="math-inline">s</span> in an MPCORB processing pipeline, compute <span class="math-inline">s</span> directly as <code>double s = 2.0 * a * CompleteEllipticE(e);</code> (or <code>s = 0.5 * L</code>). Multiplying by <code>0.5</code> in IEEE-754 binary64 arithmetic simply decrements the binary exponent by 1, introducing zero rounding error.
+            </div>
+
+            <div class="calculator-box">
+                <h4>Interactive MPCORB Orbital Semi-Perimeter (<span class="math-inline">s</span> = <span class="math-inline">L</span>/2) Calculator</h4>
+                <div class="calc-grid">
+                    <div class="calc-field">
+                        <label for="inputA">Semi-Major Axis <em>a</em> (AU, Cols 93&ndash;103)</label>
+                        <input type="number" id="inputA" step="0.0000001" min="0.01" value="2.7653485">
+                    </div>
+                    <div class="calc-field">
+                        <label for="inputE">Numeric Eccentricity <em>e</em> (Cols 71&ndash;79)</label>
+                        <input type="number" id="inputE" step="0.0000001" min="0" max="0.9999999" value="0.0785354">
+                    </div>
+                    <div class="calc-output" id="calcResult">
+                        Orbital semi-perimeter <em>s</em> = 2<em>aE</em>(<em>e</em>): <strong>8.6742033</strong> AU<br>
+                        Full perimeter <em>L</em> = 2<em>s</em>: <strong>17.3484066</strong> AU | Semicircle &pi;<em>a</em>: <strong>8.6876001</strong> AU<br>
+                        Major axis chord 2<em>a</em>: <strong>5.5306970</strong> AU | Arc/Chord <em>s</em>/(2<em>a</em>): <strong>1.568374</strong>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Fixed-Width Source Columns &amp; Semi-Perimeter Metrics in <code>MPCORB.DAT</code></h2>
+            <p>
+                The table below summarizes the fixed-width columns (1-based indexing) in a standard 202-character <code>MPCORB.DAT</code> record required to compute the orbital semi-perimeter <span class="math-inline">s</span> and its associated geometric ratios:
+            </p>
+
+            <table class="spec-table">
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Columns (1-based)</th>
+                        <th>Python Slice (0-based)</th>
+                        <th>Fortran Format</th>
+                        <th>Unit &amp; Role</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong><code>Epoch</code></strong></td>
+                        <td><code>21–25</code></td>
+                        <td><code>line[20:25]</code></td>
+                        <td><code>A5</code> (Packed)</td>
+                        <td>Osculation reference epoch</td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>e</code> (Numeric eccentricity)</strong></td>
+                        <td><code>71–79</code></td>
+                        <td><code>line[70:79]</code></td>
+                        <td><code>F9.7</code></td>
+                        <td>Dimensionless (<span class="math-roman">0 &le; <em>e</em> &lt; 1</span>); elliptic modulus of <span class="math-roman"><em>E</em><sub>ell</sub>(<em>e</em>)</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>a</code> (Semi-major axis)</strong></td>
+                        <td><code>93–103</code></td>
+                        <td><code>line[92:103]</code></td>
+                        <td><code>F11.7</code></td>
+                        <td>Astronomical Units (<span class="math-roman">AU</span>); half of apsidal chord <span class="math-roman">2<em>a</em></span></td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>s</code> (Orbital semi-perimeter)</strong></td>
+                        <td><em>Derived (not stored)</em></td>
+                        <td><code>2.0 * a * ellipe(e**2)</code></td>
+                        <td><em>Computed</em></td>
+                        <td>Astronomical Units (<span class="math-roman">AU</span>); apsidal arc <span class="math-roman">2<em>a</em> &lt; <em>s</em> &le; &pi;<em>a</em></span></td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>L</code> (Full orbital perimeter)</strong></td>
+                        <td><em>Derived (not stored)</em></td>
+                        <td><code>2.0 * s</code></td>
+                        <td><em>Computed</em></td>
+                        <td>Astronomical Units (<span class="math-roman">AU</span>); closed circumference <span class="math-roman">4<em>a</em> &lt; <em>L</em> &le; 2&pi;<em>a</em></span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Example Record Evaluation (<code>00001</code> — (1) Ceres)</h3>
+            <pre>Col:  ... 71      79 ... 93       103 ...
+Data: ... 0.0785354  ... 2.7653485    ...
+          └───┬───┘      └────┬────┘
+              e             a (AU)
+
+Orbital Semi-Perimeter Evaluation for (1) Ceres:
+  Elliptic integral       E_ell(e)        = E_ell(0.0785354)          = 1.5683743631
+  Orbital semi-perimeter  (s = 2a*E(e))   = 2 * 2.7653485 * E(e)      =  8.6742033 AU
+  Full orbital perimeter  (L = 2s)        = 2 * 8.6742033             = 17.3484066 AU
+  Circular semicircle     (pi * a)        = pi * 2.7653485            =  8.6876001 AU
+  Major axis chord        (2 * a)         = 2 * 2.7653485             =  5.5306970 AU
+  Arc-to-chord ratio      (s / (2a))      = E_ell(0.0785354)          =  1.5683744</pre>
+        </section>
+
+        <footer>
+            Self-contained scientific reference document (zero external dependencies) &bull; Conventions aligned with IAU Minor Planet Center (MPC) <code>MPCORB.DAT</code> specifications.
+        </footer>
+    </div>
+
+    <script>
+        (function () {
+            const inputA = document.getElementById("inputA");
+            const inputE = document.getElementById("inputE");
+            const calcResult = document.getElementById("calcResult");
+
+            // Exact Complete Elliptic Integral of the Second Kind E(e) via AGM
+            function completeEllipticE(e) {
+                if (e === 0) return Math.PI / 2;
+                let a = 1.0;
+                let b = Math.sqrt(1.0 - e * e);
+                let c = e;
+                let sum = c * c;
+                let powerOfTwo = 1.0;
+
+                for (let n = 1; n <= 20; n++) {
+                    const aNext = 0.5 * (a + b);
+                    const bNext = Math.sqrt(a * b);
+                    const cNext = 0.5 * (a - b);
+                    sum += powerOfTwo * cNext * cNext;
+                    a = aNext;
+                    b = bNext;
+                    c = cNext;
+                    powerOfTwo *= 2.0;
+                    if (Math.abs(c) < 1e-16) break;
+                }
+
+                return (Math.PI / (2.0 * a)) * (1.0 - 0.5 * sum);
+            }
+
+            function updateCalculation() {
+                const a = parseFloat(inputA.value);
+                const e = parseFloat(inputE.value);
+
+                if (!isFinite(a) || a <= 0) {
+                    calcResult.innerHTML = "Please enter a valid positive semi-major axis <em>a</em> &gt; 0.";
+                    return;
+                }
+
+                if (!isFinite(e) || e < 0 || e >= 1) {
+                    calcResult.innerHTML = "Numeric eccentricity <em>e</em> must satisfy 0 &le; <em>e</em> &lt; 1 for an elliptic MPCORB record.";
+                    return;
+                }
+
+                const E_e = completeEllipticE(e);
+                const s = 2.0 * a * E_e;
+                const L = 2.0 * s;
+                const semiCirc = Math.PI * a;
+                const twoA = 2.0 * a;
+
+                calcResult.innerHTML =
+                    `Orbital semi-perimeter <em>s</em> = 2<em>aE</em>(<em>e</em>): <strong>${s.toFixed(7)}</strong> AU<br>` +
+                    `Full perimeter <em>L</em> = 2<em>s</em>: <strong>${L.toFixed(7)}</strong> AU | Semicircle &pi;<em>a</em>: <strong>${semiCirc.toFixed(7)}</strong> AU<br>` +
+                    `Major axis chord 2<em>a</em>: <strong>${twoA.toFixed(7)}</strong> AU | Arc/Chord <em>s</em>/(2<em>a</em>): <strong>${E_e.toFixed(6)}</strong>`;
+            }
+
+            inputA.addEventListener("input", updateCalculation);
+            inputE.addEventListener("input", updateCalculation);
+            updateCalculation();
+        })();
+    </script>
+</body>
+</html>

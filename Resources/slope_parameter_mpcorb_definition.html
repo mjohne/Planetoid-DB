@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slope Parameter (G) — MPCORB Two-Parameter Phase System</title>
+  <style>
+:root {
+  --bg-color: #f8fafc;
+  --surface-color: #ffffff;
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  --accent-color: #1e3a8a;
+  --accent-light: #eff6ff;
+  --border-color: #e2e8f0;
+  --code-bg: #f1f5f9;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-serif: "Georgia", "Times New Roman", Times, serif;
+  --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  line-height: 1.7;
+  padding: 2rem 1rem;
+}
+
+.container {
+  max-width: 920px;
+  margin: 0 auto;
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 2.5rem 3rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+header {
+  border-bottom: 2px solid var(--accent-color);
+  padding-bottom: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.category-tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent-color);
+  background-color: var(--accent-light);
+  padding: 0.25rem 0.65rem;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
+h2 {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.35rem;
+}
+
+h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+ul, ol {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+li {
+  margin-bottom: 0.4rem;
+}
+
+.equation-box {
+  background-color: var(--code-bg);
+  border-left: 4px solid var(--accent-color);
+  padding: 1rem 1.5rem;
+  margin: 1.25rem 0;
+  border-radius: 0 6px 6px 0;
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  overflow-x: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.equation-main {
+  font-style: italic;
+}
+
+.equation-label {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-style: normal;
+  margin-left: 1rem;
+}
+
+.math-var {
+  font-family: var(--font-serif);
+  font-style: italic;
+}
+
+.figure-box {
+  background-color: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 1.25rem;
+  margin: 1.75rem 0;
+  text-align: center;
+}
+
+.figure-box svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.figure-caption {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-top: 0.85rem;
+  text-align: left;
+  line-height: 1.5;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.92rem;
+}
+
+th, td {
+  border: 1px solid var(--border-color);
+  padding: 0.65rem 0.85rem;
+  text-align: left;
+}
+
+th {
+  background-color: var(--code-bg);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+code {
+  font-family: var(--font-mono);
+  background-color: var(--code-bg);
+  padding: 0.15rem 0.35rem;
+  border-radius: 4px;
+  font-size: 0.88em;
+}
+
+pre.mpcorb-record {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  background-color: var(--code-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 0.85rem 1rem;
+  overflow-x: auto;
+  line-height: 1.45;
+  color: var(--text-primary);
+  margin: 0.75rem 0 1.25rem 0;
+}
+
+.example-card {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-left: 4px solid #047857;
+  border-radius: 6px;
+  padding: 1.15rem 1.35rem;
+  margin: 1.15rem 0;
+}
+
+.example-card h3 {
+  margin-top: 0;
+  color: #065f46;
+}
+
+.interactive-panel {
+  background-color: var(--code-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 1.25rem;
+  margin: 1.75rem 0;
+}
+
+.interactive-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 0.75rem;
+  color: var(--text-primary);
+}
+
+.controls-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.control-group label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.control-group input {
+  width: 100%;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background-color: var(--surface-color);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+}
+
+.result-bar {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  color: var(--accent-color);
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+footer {
+  margin-top: 2.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 1.5rem 1.25rem;
+  }
+}
+</style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <span class="category-tag">Planetary Photometry &amp; Regolith Scattering • MPCORB Reference</span>
+      <h1>Slope Parameter (<span class="math-var">G</span>)</h1>
+      <div class="subtitle">IAU <span class="math-var">(H, G)</span> Phase-Curve Mixing Parameter, Opposition Surge &amp; Phase Integral in MPCORB.DAT</div>
+    </header>
+    <main>
+      
+<h2>1. Formal Definition</h2>
+<p>
+  In planetary photometry, regolith scattering physics, and the Minor Planet Center Orbit Database (<strong>MPCORB</strong>), the <strong>slope parameter</strong> (<span class="math-var">G</span>) is the dimensionless photometric parameter in the IAU 1985 two-parameter <span class="math-var">(H, G)</span> magnitude system (Bowell et al. 1989) that governs the <strong>solar phase-angle dependence</strong> of a minor planet's disk-integrated visual brightness. Physically, <span class="math-var">G</span> acts as a linear mixing weight between two empirically calibrated basis phase functions, <span class="math-var">&Phi;<sub>1</sub>(&alpha;)</span> and <span class="math-var">&Phi;<sub>2</sub>(&alpha;)</span>, thereby quantifying both the <strong>linear phase slope</strong> (measured in <span class="math-var">mag/deg</span> at moderate phase angles <span class="math-var">10&deg; &lesssim; &alpha; &lesssim; 50&deg;</span>) and the relative amplitude of the <strong>non-linear opposition surge</strong> near <span class="math-var">&alpha; &rarr; 0&deg;</span>.
+</p>
+<p>
+  For a minor body observed at heliocentric distance <span class="math-var">r</span>, observer distance <span class="math-var">&Delta;</span>, and solar phase angle <span class="math-var">&alpha;</span>, the reduced visual magnitude <span class="math-var">H(&alpha;) = V(r, &Delta;, &alpha;) &minus; 5 log<sub>10</sub>(r &Delta;)</span> is coupled to the absolute magnitude <span class="math-var">H</span> and slope parameter <span class="math-var">G</span> through the normalized disk-integrated phase integral <span class="math-var">&Psi;(&alpha;; G)</span>:
+</p>
+
+<div class="equation-box">
+  <span class="equation-main">H(&alpha;) = H &minus; 2.5 log<sub>10</sub> &Psi;(&alpha;; G), &quad; &Psi;(&alpha;; G) = (1 &minus; G) &Phi;<sub>1</sub>(&alpha;) + G &Phi;<sub>2</sub>(&alpha;)</span>
+  <span class="equation-label">(Eq. 1)</span>
+</div>
+
+<p>
+  Inverting Eq. 1 for <span class="math-var">G</span> at any single phase angle <span class="math-var">&alpha; &gt; 0&deg;</span> where <span class="math-var">&Phi;<sub>2</sub>(&alpha;) &ne; &Phi;<sub>1</sub>(&alpha;)</span> demonstrates that <span class="math-var">G</span> represents the fractional interpolation coordinate between the steep-slope endmember <span class="math-var">&Phi;<sub>1</sub>(&alpha;)</span> (<span class="math-var">G = 0</span>) and the shallow-slope endmember <span class="math-var">&Phi;<sub>2</sub>(&alpha;)</span> (<span class="math-var">G = 1</span>):
+</p>
+
+<div class="equation-box">
+  <span class="equation-main">G = [ 10<sup>&minus;0.4 (H(&alpha;) &minus; H)</sup> &minus; &Phi;<sub>1</sub>(&alpha;) ] / [ &Phi;<sub>2</sub>(&alpha;) &minus; &Phi;<sub>1</sub>(&alpha;) ] &nbsp;[dimensionless]</span>
+  <span class="equation-label">(Eq. 2)</span>
+</div>
+
+<div class="figure-box">
+  <svg viewBox="0 0 740 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Basis phase functions Phi_1(alpha) and Phi_2(alpha) and linear mixing controlled by the slope parameter G">
+    <defs>
+      <marker id="arrowSlate" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#475569"/>
+      </marker>
+      <marker id="arrowMix" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#b45309"/>
+      </marker>
+    </defs>
+
+    <!-- Horizontal Grid Lines: Psi = 1.0 (y=32), 0.75 (y=77), 0.50 (y=122), 0.25 (y=167), 0.00 (y=212) -->
+    <!-- Mapping: x = 85 + (alpha / 120) * 575; y = 32 + (1.0 - Psi) * 180 -->
+    <line x1="85" y1="32" x2="670" y2="32" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="4,3"/>
+    <line x1="85" y1="77" x2="670" y2="77" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="4,3"/>
+    <line x1="85" y1="122" x2="670" y2="122" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="4,3"/>
+    <line x1="85" y1="167" x2="670" y2="167" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="4,3"/>
+
+    <!-- Shaded Mixing Envelope between Phi_1 (G=0) and Phi_2 (G=1) -->
+    <!-- Phi_2(a) = exp(-1.862 * tan(a/2)^1.218):
+         a=0: 1.000 -> (85, 32.0)
+         a=10: 0.903 -> (132.9, 49.5)
+         a=20: 0.779 -> (180.8, 71.8)
+         a=40: 0.543 -> (276.7, 114.3)
+         a=60: 0.343 -> (372.5, 150.3)
+         a=90: 0.155 -> (516.3, 184.1)
+         a=120: 0.055 -> (660.0, 202.1) -->
+    <!-- Phi_1(a) = exp(-3.332 * tan(a/2)^0.631):
+         a=0: 1.000 -> (85, 32.0)
+         a=10: 0.491 -> (132.9, 123.6)
+         a=20: 0.348 -> (180.8, 149.4)
+         a=40: 0.193 -> (276.7, 177.3)
+         a=60: 0.105 -> (372.5, 193.1)
+         a=90: 0.036 -> (516.3, 205.5)
+         a=120: 0.008 -> (660.0, 210.6) -->
+    <polygon points="85,32 132.9,49.5 180.8,71.8 276.7,114.3 372.5,150.3 516.3,184.1 660,202.1 660,210.6 516.3,205.5 372.5,193.1 276.7,177.3 180.8,149.4 132.9,123.6" fill="#dbeafe" fill-opacity="0.65"/>
+
+    <!-- Axes -->
+    <line x1="85" y1="212" x2="685" y2="212" stroke="#475569" stroke-width="1.5" marker-end="url(#arrowSlate)"/>
+    <line x1="85" y1="212" x2="85" y2="18" stroke="#475569" stroke-width="1.5" marker-end="url(#arrowSlate)"/>
+
+    <text x="20" y="122" transform="rotate(-90 20 122)" font-family="sans-serif" font-size="11" font-weight="600" fill="#475569">Normalized Flux Factor &Psi;(&alpha;; G)</text>
+    <text x="310" y="252" font-family="sans-serif" font-size="11.5" font-weight="600" fill="#0f172a">Solar Phase Angle &alpha; [deg]</text>
+
+    <!-- Y-axis ticks -->
+    <text x="48" y="36" font-family="monospace" font-size="10.5" fill="#334155">1.00</text>
+    <text x="48" y="81" font-family="monospace" font-size="10.5" fill="#334155">0.75</text>
+    <text x="48" y="126" font-family="monospace" font-size="10.5" fill="#334155">0.50</text>
+    <text x="48" y="171" font-family="monospace" font-size="10.5" fill="#334155">0.25</text>
+    <text x="48" y="216" font-family="monospace" font-size="10.5" fill="#334155">0.00</text>
+
+    <!-- Upper Curve: Phi_2(alpha) (G = 1.0 limit) -->
+    <polyline points="85,32 132.9,49.5 180.8,71.8 276.7,114.3 372.5,150.3 516.3,184.1 660,202.1" fill="none" stroke="#047857" stroke-width="2.4"/>
+    <text x="285" y="102" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#047857">&Phi;<tspan dy="2" font-size="8.5">2</tspan><tspan dy="-2">(&alpha;) [G = 1 Endmember: Shallow Slope]</tspan></text>
+
+    <!-- Middle Curve: G = 0.25 example -->
+    <polyline points="85,32 132.9,105.1 180.8,130.0 276.7,161.6 372.5,182.4 516.3,200.2 660,208.5" fill="none" stroke="#b45309" stroke-width="2" stroke-dasharray="5,3"/>
+    <text x="385" y="168" font-family="sans-serif" font-size="10" font-weight="700" fill="#b45309">&Psi;(&alpha;; G = 0.25)</text>
+
+    <!-- Lower Curve: Phi_1(alpha) (G = 0.0 limit) -->
+    <polyline points="85,32 132.9,123.6 180.8,149.4 276.7,177.3 372.5,193.1 516.3,205.5 660,210.6" fill="none" stroke="#1e3a8a" stroke-width="2.4"/>
+    <text x="155" y="196" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#1e3a8a">&Phi;<tspan dy="2" font-size="8.5">1</tspan><tspan dy="-2">(&alpha;) [G = 0 Endmember: Steep Opposition Surge]</tspan></text>
+
+    <!-- Vertical Interpolation Arrow at alpha = 20 deg (x = 180.8) -->
+    <line x1="180.8" y1="74" x2="180.8" y2="147" stroke="#b45309" stroke-width="1.6" marker-start="url(#arrowMix)" marker-end="url(#arrowMix)"/>
+    <text x="187" y="114" font-family="sans-serif" font-size="9.5" font-weight="700" fill="#b45309">Weight G</text>
+
+    <!-- X-axis ticks -->
+    <line x1="85" y1="212" x2="85" y2="218" stroke="#475569" stroke-width="1.2"/>
+    <text x="77" y="231" font-family="monospace" font-size="10.5" fill="#334155">0&deg;</text>
+
+    <line x1="180.8" y1="212" x2="180.8" y2="218" stroke="#475569" stroke-width="1.2"/>
+    <text x="170" y="231" font-family="monospace" font-size="10.5" fill="#334155">20&deg;</text>
+
+    <line x1="276.7" y1="212" x2="276.7" y2="218" stroke="#475569" stroke-width="1.2"/>
+    <text x="266" y="231" font-family="monospace" font-size="10.5" fill="#334155">40&deg;</text>
+
+    <line x1="372.5" y1="212" x2="372.5" y2="218" stroke="#475569" stroke-width="1.2"/>
+    <text x="362" y="231" font-family="monospace" font-size="10.5" fill="#334155">60&deg;</text>
+
+    <line x1="468.3" y1="212" x2="468.3" y2="218" stroke="#475569" stroke-width="1.2"/>
+    <text x="458" y="231" font-family="monospace" font-size="10.5" fill="#334155">80&deg;</text>
+
+    <line x1="564.2" y1="212" x2="564.2" y2="218" stroke="#475569" stroke-width="1.2"/>
+    <text x="550" y="231" font-family="monospace" font-size="10.5" fill="#334155">100&deg;</text>
+
+    <line x1="660.0" y1="212" x2="660.0" y2="218" stroke="#475569" stroke-width="1.2"/>
+    <text x="646" y="231" font-family="monospace" font-size="10.5" fill="#334155">120&deg;</text>
+  </svg>
+  <div class="figure-caption">
+    <strong>Figure 1:</strong> Linear convex combination <span class="math-var">&Psi;(&alpha;; G) = (1 &minus; G)&Phi;<sub>1</sub>(&alpha;) + G&Phi;<sub>2</sub>(&alpha;)</span> in normalized reflected flux units. Lower values of <span class="math-var">G</span> weight <span class="math-var">&Phi;<sub>1</sub>(&alpha;)</span> more heavily, producing a sharp opposition peak near <span class="math-var">&alpha; = 0&deg;</span> and rapid darkening with increasing phase angle, whereas higher values of <span class="math-var">G</span> shift weight toward <span class="math-var">&Phi;<sub>2</sub>(&alpha;)</span>, yielding a flatter phase curve characteristic of high-albedo regoliths.
+  </div>
+</div>
+
+<h2>2. Analytical Basis Functions &amp; Phase Integral</h2>
+<p>
+  In the Bowell et al. (1989) formulation, the two normalized basis functions <span class="math-var">&Phi;<sub>1</sub>(&alpha;)</span> and <span class="math-var">&Phi;<sub>2</sub>(&alpha;)</span> are defined over <span class="math-var">0&deg; &le; &alpha; &le; 120&deg;</span> by:
+</p>
+
+<div class="equation-box">
+  <span class="equation-main">&Phi;<sub>1</sub>(&alpha;) = exp &left;[ &minus;3.332 &middot; (tan(&alpha; / 2))<sup>0.631</sup> &right;], &quad; &Phi;<sub>2</sub>(&alpha;) = exp &left;[ &minus;1.862 &middot; (tan(&alpha; / 2))<sup>1.218</sup> &right;]</span>
+  <span class="equation-label">(Eq. 3)</span>
+</div>
+
+<p>
+  From <span class="math-var">G</span>, two additional physical quantities used in asteroid thermophysical modeling (such as the Near-Earth Asteroid Thermal Model, NEATM) are directly determined:
+</p>
+<ul>
+  <li><strong>Phase Integral (<span class="math-var">q</span>):</strong> The ratio of Bond albedo <span class="math-var">A</span> to geometric albedo <span class="math-var">p<sub>V</sub></span> (<span class="math-var">A = q &middot; p<sub>V</sub></span>) integrates the directional scattering function over the full <span class="math-var">4&pi;</span> sphere and obeys the exact linear relation (Bowell et al. 1989):
+    <div class="equation-box">
+      <span class="equation-main">q(G) = 2 &int;<sub>0</sub><sup>&pi;</sup> &Psi;(&alpha;; G) sin(&alpha;) d&alpha; = 0.290 + 0.684 &middot; G</span>
+      <span class="equation-label">(Eq. 4)</span>
+    </div>
+  </li>
+  <li><strong>Linear Phase Coefficient (<span class="math-var">&beta;<sub>lin</sub></span>):</strong> Across the quasi-linear phase interval <span class="math-var">10&deg; &le; &alpha; &le; 30&deg;</span>, <span class="math-var">G</span> maps inversely to the traditional linear phase slope <span class="math-var">&beta;<sub>lin</sub> &approx; 0.041 &minus; 0.025 G</span> [<span class="math-var">mag/deg</span>].</li>
+</ul>
+
+<h2>3. Storage Format &amp; Taxonomic Correlation in <code>MPCORB.DAT</code></h2>
+<p>
+  In the fixed-width ASCII record structure of <code>MPCORB.DAT</code>, the slope parameter <span class="math-var">G</span> occupies columns 15–19 (1-based) in Fortran format <code>F5.2</code> (or <code>F5.3</code> for select well-observed objects):
+</p>
+<table>
+  <thead>
+    <tr>
+      <th>Taxonomic Class / Population</th>
+      <th>Typical Slope Parameter (<span class="math-var">G</span>)</th>
+      <th>Geometric Albedo (<span class="math-var">p<sub>V</sub></span>)</th>
+      <th>Scattering Physics &amp; MPCORB Behavior</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>MPCORB Default (Unfitted)</strong></td>
+      <td><code>0.15</code> (exact default)</td>
+      <td>Unspecified (<span class="math-var">&sim;0.14</span>)</td>
+      <td>Assigned automatically by the MPC whenever observations lack sufficient phase-angle coverage (&lt; 3–4 apparitions or narrow <span class="math-var">&Delta;&alpha;</span>).</td>
+    </tr>
+    <tr>
+      <td><strong>Low-Albedo Primitive (C, B, D, P, T)</strong></td>
+      <td><span class="math-var">0.05 &ndash; 0.14</span> (mean <span class="math-var">&approx; 0.09</span>)</td>
+      <td><span class="math-var">0.03 &ndash; 0.09</span></td>
+      <td>Dark, opaque carbonaceous regoliths suppress multiple scattering; shadow hiding dominates, causing steep phase dimming and a pronounced opposition spike.</td>
+    </tr>
+    <tr>
+      <td><strong>Moderate-Albedo Silicaceous (S, Q, V, L)</strong></td>
+      <td><span class="math-var">0.18 &ndash; 0.28</span> (mean <span class="math-var">&approx; 0.23</span>)</td>
+      <td><span class="math-var">0.15 &ndash; 0.30</span></td>
+      <td>Higher single-scattering albedo increases inter-grain multiple scattering, partially filling in shadows and flattening the phase curve.</td>
+    </tr>
+    <tr>
+      <td><strong>High-Albedo Enstatite / Basaltic (E, Xe)</strong></td>
+      <td><span class="math-var">0.35 &ndash; 0.50</span> (mean <span class="math-var">&approx; 0.43</span>)</td>
+      <td><span class="math-var">0.35 &ndash; 0.60</span></td>
+      <td>Strong multiple scattering and narrow coherent-backscatter opposition peak yield shallow phase curves and high phase integrals (<span class="math-var">q &approx; 0.53&ndash;0.63</span>).</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>4. Physical Interpretation &amp; Observational Limitations</h2>
+<ul>
+  <li><strong>Physical Domain (<span class="math-var">0 &le; G &le; 1</span> vs. Empirical Outliers):</strong> While <span class="math-var">&Psi;(&alpha;; G)</span> is defined as a convex combination for <span class="math-var">G &isin; [0, 1]</span>, unconstrained least-squares fits on noisy multi-opposition astrometric photometry occasionally yield slightly negative values (<span class="math-var">&minus;0.15 &lesssim; G &lt; 0</span>) for very dark Trojans/TNOs or <span class="math-var">G &gt; 0.6</span> for ultra-bright bodies; <code>MPCORB.DAT</code> retains such fitted values when statistically constrained.</li>
+  <li><strong>Coupling Uncertainty (<span class="math-var">&sigma;<sub>H</sub> &ndash; &sigma;<sub>G</sub></span> Covariance):</strong> Because <span class="math-var">H</span> is defined by extrapolating back to <span class="math-var">&alpha; = 0&deg;</span>, errors in <span class="math-var">G</span> directly bias <span class="math-var">H</span>. For a main-belt asteroid observed predominantly at <span class="math-var">&alpha; &approx; 15&deg;&ndash;20&deg;</span>, substituting the default <span class="math-var">G = 0.15</span> for a true <span class="math-var">G = 0.05</span> or <span class="math-var">G = 0.40</span> shifts the extrapolated <span class="math-var">H</span> by <span class="math-var">&approx; &plusmn;0.15 to &plusmn;0.25 mag</span>.</li>
+  <li><strong>Modern Refinements (<span class="math-var">(H, G<sub>1</sub>, G<sub>2</sub>)</span> and <span class="math-var">(H, G<sub>12</sub>)</span>):</strong> Because the two-parameter <span class="math-var">(H, G)</span> system ties the opposition surge amplitude rigidly to the linear slope, the IAU 2012 system (Muinonen et al. 2010) introduced three basis functions <span class="math-var">&Phi;<sub>1</sub>, &Phi;<sub>2</sub>, &Phi;<sub>3</sub></span> to decouple the opposition spike from the linear slope; however, <code>MPCORB.DAT</code> continues to store <span class="math-var">(H, G)</span> as its canonical catalog standard.</li>
+</ul>
+
+<h2>5. Worked Examples from <code>MPCORB.DAT</code></h2>
+<p>
+  The following two numbered minor planets from <code>MPCORB.DAT</code> illustrate both a custom-fitted low-albedo slope parameter and the standard catalog default value:
+</p>
+
+<div class="example-card">
+  <h3>Example 1: (1) Ceres — Fitted Low-Albedo Slope Parameter (<span class="math-var">G = 0.12</span>)</h3>
+  <p>
+    Excerpt from <code>MPCORB.DAT</code> (columns 1–103):
+  </p>
+  <pre class="mpcorb-record">00001    3.34  0.12 K25BL 231.53975   73.28579   80.25414   10.58688  0.0789158  0.21410467   2.7675059</pre>
+  <ul>
+    <li><strong>Extracted Photometric Fields:</strong> Absolute magnitude <span class="math-var">H = 3.34 mag</span> (cols 9–13) and fitted slope parameter <span class="math-var">G = 0.12</span> (cols 15–19), consistent with Ceres's dark C/G-type carbonaceous surface (<span class="math-var">p<sub>V</sub> &approx; 0.090</span>).</li>
+    <li><strong>Derived Phase Integral:</strong> <span class="math-var">q = 0.290 + 0.684(0.12) = 0.3721</span>, yielding a Bond albedo <span class="math-var">A = q &middot; p<sub>V</sub> &approx; 0.0335</span>.</li>
+    <li><strong>Phase Dimming at <span class="math-var">&alpha; = 15.0&deg;</span>:</strong> Evaluating Eq. 3 gives <span class="math-var">&Phi;<sub>1</sub>(15&deg;) = 0.41502</span> and <span class="math-var">&Phi;<sub>2</sub>(15&deg;) = 0.84289</span>, so <span class="math-var">&Psi;(15&deg;; 0.12) = 0.88(0.41502) + 0.12(0.84289) = 0.46636</span> and <span class="math-var">&Delta;m<sub>phase</sub>(15&deg;) = &minus;2.5 log<sub>10</sub>(0.46636) = +0.828 mag</span> (yielding <span class="math-var">H(15&deg;) = 4.168 mag</span>).</li>
+  </ul>
+</div>
+
+<div class="example-card">
+  <h3>Example 2: (433) Eros — Standard Default Slope Parameter (<span class="math-var">G = 0.15</span>) vs. S-Type Photometry</h3>
+  <p>
+    Excerpt from <code>MPCORB.DAT</code> (columns 1–103):
+  </p>
+  <pre class="mpcorb-record">00433   10.31  0.15 K25BL 246.90412  178.92845  304.27012   10.82847  0.2227264  0.55981924   1.4581234</pre>
+  <ul>
+    <li><strong>Extracted Photometric Fields:</strong> Absolute magnitude <span class="math-var">H = 10.31 mag</span> (cols 9–13) and canonical default slope parameter <span class="math-var">G = 0.15</span> (cols 15–19).</li>
+    <li><strong>Derived Phase Integral &amp; Phase Dimming:</strong> With <span class="math-var">G = 0.15</span>, <span class="math-var">q = 0.290 + 0.684(0.15) = 0.3926</span>. At <span class="math-var">&alpha; = 30.0&deg;</span> (typical for an Amor-class NEA), <span class="math-var">&Phi;<sub>1</sub>(30&deg;) = 0.25641</span> and <span class="math-var">&Phi;<sub>2</sub>(30&deg;) = 0.65928</span>, giving <span class="math-var">&Psi;(30&deg;; 0.15) = 0.31684</span> and <span class="math-var">&Delta;m<sub>phase</sub>(30&deg;) = +1.248 mag</span> (<span class="math-var">H(30&deg;) = 11.558 mag</span>).</li>
+    <li><strong>Comparison with Spacecraft-Measured S-Type Value:</strong> Dedicated NEAR Shoemaker disk-integrated photometry determined an S-complex slope parameter <span class="math-var">G &approx; 0.23</span> for Eros, which reduces <span class="math-var">&Delta;m<sub>phase</sub>(30&deg;)</span> to <span class="math-var">+1.148 mag</span> (<span class="math-var">0.100 mag</span> brighter than the default <span class="math-var">G = 0.15</span> prediction).</li>
+  </ul>
+</div>
+
+<div class="interactive-panel">
+  <div class="interactive-title">Interactive Calculator: Slope Parameter (G) Phase Response &amp; Inversion Solver</div>
+  <div class="controls-grid">
+    <div class="control-group">
+      <label for="g_val">Slope Parameter G (&minus;0.2 to 1.0)</label>
+      <input type="number" id="g_val" value="0.12" step="0.01" min="-0.2" max="1.0">
+    </div>
+    <div class="control-group">
+      <label for="a_val">Solar Phase Angle &alpha; (deg, 0–120)</label>
+      <input type="number" id="a_val" value="15.0" step="0.5" min="0" max="120">
+    </div>
+    <div class="control-group">
+      <label for="h_val">Absolute Magnitude H (mag)</label>
+      <input type="number" id="h_val" value="3.34" step="0.05" min="-2" max="38">
+    </div>
+  </div>
+  <div class="result-bar" id="calc_out">Computing...</div>
+</div>
+
+    </main>
+    <footer>
+      <span>Reference Standard: IAU Minor Planet Center (MPCORB.DAT) &amp; Bowell et al. (1989) (H, G) System</span>
+      <span>Phase Integral Relation: q(G) = 0.290 + 0.684 G &bull; Canonical MPCORB Default: G = 0.15</span>
+    </footer>
+  </div>
+  <script>
+    
+(function() {
+  const degToRad = Math.PI / 180.0;
+
+  function phi(alphaDeg, A, B) {
+    if (alphaDeg <= 0) return 1.0;
+    const halfAlphaRad = (alphaDeg * degToRad) / 2.0;
+    const t = Math.tan(halfAlphaRad);
+    return Math.exp(-A * Math.pow(t, B));
+  }
+
+  function update() {
+    const G = parseFloat(document.getElementById('g_val').value);
+    const alpha = parseFloat(document.getElementById('a_val').value);
+    const H = parseFloat(document.getElementById('h_val').value);
+    const out = document.getElementById('calc_out');
+
+    if ([G, alpha, H].some(isNaN) || alpha < 0 || alpha > 120 || G < -0.2 || G > 1.0) {
+      out.textContent = "Invalid input range (require -0.2 <= G <= 1.0 and 0 <= alpha <= 120 deg).";
+      return;
+    }
+
+    const phi1 = phi(alpha, 3.332, 0.631);
+    const phi2 = phi(alpha, 1.862, 1.218);
+    const psi = (1.0 - G) * phi1 + G * phi2;
+
+    if (psi <= 0) {
+      out.textContent = "Unphysical negative flux factor Psi(alpha; G) <= 0 for this combination.";
+      return;
+    }
+
+    const dmPhase = -2.5 * Math.log10(psi);
+    const hAlpha = H + dmPhase;
+    const phaseIntegralQ = 0.290 + 0.684 * G;
+
+    // Approximate linear slope between 10 deg and 30 deg
+    const psi10 = (1.0 - G) * phi(10.0, 3.332, 0.631) + G * phi(10.0, 1.862, 1.218);
+    const psi30 = (1.0 - G) * phi(30.0, 3.332, 0.631) + G * phi(30.0, 1.862, 1.218);
+    const betaLin = (-2.5 * Math.log10(psi30) - (-2.5 * Math.log10(psi10))) / 20.0;
+
+    out.innerHTML =
+      `&Psi;(&alpha;=${alpha.toFixed(1)}&deg;; G=${G.toFixed(2)}) = ${psi.toFixed(5)}  [&Phi;<sub>1</sub> = ${phi1.toFixed(5)}, &Phi;<sub>2</sub> = ${phi2.toFixed(5)}]<br>` +
+      `&Delta;m<sub>phase</sub>(&alpha;) = +${dmPhase.toFixed(3)} mag  |  H(&alpha;) = ${hAlpha.toFixed(3)} mag  |  Phase Integral q = ${phaseIntegralQ.toFixed(4)}  |  &beta;<sub>10&ndash;30&deg;</sub> = ${betaLin.toFixed(4)} mag/deg`;
+  }
+
+  ['g_val', 'a_val', 'h_val'].forEach(id => {
+    document.getElementById(id).addEventListener('input', update);
+  });
+  update();
+})();
+
+  </script>
+</body>
+</html>

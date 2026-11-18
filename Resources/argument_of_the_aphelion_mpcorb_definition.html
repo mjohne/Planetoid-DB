@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Argument of the Aphelion (&omega;_Q) — MPCORB Orbital Reference</title>
+  <style>
+:root {
+  --bg-color: #f8fafc;
+  --surface-color: #ffffff;
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  --accent-color: #1e3a8a;
+  --accent-light: #eff6ff;
+  --border-color: #e2e8f0;
+  --code-bg: #f1f5f9;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-serif: "Georgia", "Times New Roman", Times, serif;
+  --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  line-height: 1.7;
+  padding: 2rem 1rem;
+}
+
+.container {
+  max-width: 920px;
+  margin: 0 auto;
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 2.5rem 3rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+header {
+  border-bottom: 2px solid var(--accent-color);
+  padding-bottom: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.category-tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent-color);
+  background-color: var(--accent-light);
+  padding: 0.25rem 0.65rem;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
+h2 {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.35rem;
+}
+
+h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+ul, ol {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+li {
+  margin-bottom: 0.4rem;
+}
+
+.equation-box {
+  background-color: var(--code-bg);
+  border-left: 4px solid var(--accent-color);
+  padding: 1rem 1.5rem;
+  margin: 1.25rem 0;
+  border-radius: 0 6px 6px 0;
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  overflow-x: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.equation-main {
+  font-style: italic;
+}
+
+.equation-label {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-style: normal;
+  margin-left: 1rem;
+}
+
+.math-var {
+  font-family: var(--font-serif);
+  font-style: italic;
+}
+
+.figure-box {
+  background-color: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 1.25rem;
+  margin: 1.75rem 0;
+  text-align: center;
+}
+
+.figure-box svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.figure-caption {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-top: 0.85rem;
+  text-align: left;
+  line-height: 1.5;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.92rem;
+}
+
+th, td {
+  border: 1px solid var(--border-color);
+  padding: 0.65rem 0.85rem;
+  text-align: left;
+}
+
+th {
+  background-color: var(--code-bg);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+code {
+  font-family: var(--font-mono);
+  background-color: var(--code-bg);
+  padding: 0.15rem 0.35rem;
+  border-radius: 4px;
+  font-size: 0.88em;
+}
+
+pre.mpcorb-record {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  background-color: var(--code-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 0.85rem 1rem;
+  overflow-x: auto;
+  line-height: 1.45;
+  color: var(--text-primary);
+  margin: 0.75rem 0 1.25rem 0;
+}
+
+.example-card {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-left: 4px solid #047857;
+  border-radius: 6px;
+  padding: 1.15rem 1.35rem;
+  margin: 1.15rem 0;
+}
+
+.example-card h3 {
+  margin-top: 0;
+  color: #065f46;
+}
+
+.interactive-panel {
+  background-color: var(--code-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 1.25rem;
+  margin: 1.75rem 0;
+}
+
+.interactive-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 0.75rem;
+  color: var(--text-primary);
+}
+
+.controls-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.control-group label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.control-group input {
+  width: 100%;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background-color: var(--surface-color);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+}
+
+.result-bar {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  color: var(--accent-color);
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+footer {
+  margin-top: 2.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 1.5rem 1.25rem;
+  }
+}
+</style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <span class="category-tag">Celestial Mechanics &amp; Apsidal Orientation • MPCORB Reference</span>
+      <h1>Argument of the Aphelion (<span class="math-var">&omega;<sub>Q</sub></span>)</h1>
+      <div class="subtitle">In-Plane Aphelion Angle, Heliocentric Apsidal Coordinates &amp; Dynamical Interpretation in MPCORB.DAT</div>
+    </header>
+    <main>
+      
+<h2>1. Formal Definition</h2>
+<p>
+  In celestial mechanics, astrodynamics, and derived orbital parameterizations computed from the Minor Planet Center Orbit Database (<strong>MPCORB</strong>), the <strong>argument of the aphelion</strong> (<span class="math-var">&omega;<sub>Q</sub></span> or <span class="math-var">&omega;<sub>ap</sub></span>) is the in-plane apsidal orientation angle measured at the Sun (focus) within the minor body's osculating orbital plane from the <strong>ascending node</strong> (<span class="math-var">&#9738;</span>) in the direction of orbital motion to the <strong>aphelion</strong> (<span class="math-var">Q</span>)—the point of maximum heliocentric distance along an elliptical orbit (<span class="math-var">0 &lt; e &lt; 1</span>). Because the perihelion <span class="math-var">P</span> and aphelion <span class="math-var">Q</span> lie at opposite ends of the major axis (line of apsides) separated by <span class="math-var">180&deg;</span> (<span class="math-var">&pi; rad</span>) at the focus, <span class="math-var">&omega;<sub>Q</sub></span> is obtained directly from the <strong>argument of the perihelion</strong> (<span class="math-var">&omega;</span>) stored in <code>MPCORB.DAT</code> (columns 38–46):
+</p>
+
+<div class="equation-box">
+  <span class="equation-main">&omega;<sub>Q</sub> = (&omega; + 180&deg;) &pmod{360&deg;} &isin; [0&deg;, 360&deg;)</span>
+  <span class="equation-label">(Eq. 1)</span>
+</div>
+
+<p>where:</p>
+<ul>
+  <li><span class="math-var">&omega; &isin; [0&deg;, 360&deg;)</span> is the <strong>argument of the perihelion</strong> (J2000.0 mean ecliptic reference frame), measured in the orbital plane from the ascending node <span class="math-var">&#9738;</span> to perihelion <span class="math-var">P</span>.</li>
+  <li>Equivalently, <span class="math-var">&omega;<sub>Q</sub></span> equals the <strong>argument of latitude of aphelion</strong> <span class="math-var">u(Q)</span>, since at aphelion the true anomaly is <span class="math-var">&nu; = 180&deg;</span> and therefore <span class="math-var">u(Q) = (&omega; + 180&deg;) &pmod{360&deg;} = &omega;<sub>Q</sub></span>.</li>
+  <li>Notice that <span class="math-var">&omega;<sub>Q</sub></span> is also identically equal to the angle measured in the orbital plane from the <strong>descending node</strong> (<span class="math-var">&#9739;</span>) in the direction of motion to the <strong>perihelion</strong> (<span class="math-var">P</span>).</li>
+</ul>
+
+<div class="figure-box">
+  <svg viewBox="0 0 740 315" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="In-plane apsidal geometry of Argument of the Aphelion omega_Q = (omega + 180 deg) mod 360 deg relative to the Line of Nodes">
+    <defs>
+      <marker id="arrowSlate" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#475569"/>
+      </marker>
+      <marker id="arrowBlue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#1e3a8a"/>
+      </marker>
+      <marker id="arrowEmerald" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#047857"/>
+      </marker>
+      <marker id="arrowAmber" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#b45309"/>
+      </marker>
+      <marker id="arrowCrimson" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#be123c"/>
+      </marker>
+    </defs>
+
+    <!-- Left Diagram: In-Plane Line of Nodes vs Line of Apsides -->
+    <!-- Ecliptic Reference Plane -->
+    <polygon points="36,218 162,130 436,130 310,218" fill="#eff6ff" fill-opacity="0.65" stroke="#93c5fd" stroke-width="1.3"/>
+    <text x="52" y="209" font-family="sans-serif" font-size="10" font-weight="600" fill="#1e3a8a">J2000.0 Ecliptic Plane</text>
+
+    <!-- Inclined Orbital Ellipse -->
+    <ellipse cx="212" cy="152" rx="142" ry="72" transform="rotate(-22 212 152)" fill="#ecfdf5" fill-opacity="0.45" stroke="#047857" stroke-width="1.9"/>
+    <text x="276" y="60" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#047857">Inclined Orbital Plane</text>
+
+    <!-- Line of Nodes: Ascending Node (145, 214) through Sun (242, 166) to Descending Node (336, 119) -->
+    <line x1="132" y1="220" x2="348" y2="113" stroke="#1e3a8a" stroke-width="1.8" stroke-dasharray="5,3"/>
+    <circle cx="145" cy="214" r="4.8" fill="#2563eb" stroke="#0f172a" stroke-width="1.2"/>
+    <text x="54" y="234" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#1e3a8a">Ascending Node (&#9738;)</text>
+    <circle cx="336" cy="119" r="4" fill="#1e3a8a" stroke="#0f172a" stroke-width="1.1"/>
+    <text x="344" y="122" font-family="sans-serif" font-size="9.5" font-weight="600" fill="#1e3a8a">&#9739; (u = 180&deg;)</text>
+
+    <!-- Line of Apsides: Perihelion P (326, 92) through Sun (242, 166) to Aphelion Q (108, 284 -> clipped inside ellipse at (104, 218)) -->
+    <!-- Let Sun be at (248, 152), Perihelion P at (334, 86), Aphelion Q at (94, 224) -->
+    <line x1="334" y1="86" x2="94" y2="224" stroke="#991b1b" stroke-width="1.7" stroke-dasharray="4,2"/>
+    <circle cx="334" cy="86" r="4.4" fill="#b45309" stroke="#0f172a" stroke-width="1.1"/>
+    <text x="341" y="88" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#b45309">Perihelion (P, r = q)</text>
+
+    <circle cx="94" cy="224" r="5" fill="#be123c" stroke="#0f172a" stroke-width="1.2"/>
+    <text x="44" y="253" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#be123c">Aphelion (Q, r = Q)</text>
+
+    <!-- Arc 1: Argument of Perihelion omega from Ascending Node to Perihelion -->
+    <path d="M 205 184 A 42 42 0 0 0 278 130" fill="none" stroke="#047857" stroke-width="2.2"/>
+    <text x="252" y="182" font-family="Georgia, serif" font-style="italic" font-size="13.5" font-weight="700" fill="#047857">&omega;</text>
+
+    <!-- 180 deg Apsidal Separation Arc from Perihelion to Aphelion -->
+    <path d="M 278 130 A 42 42 0 1 0 202 162" fill="none" stroke="#94a3b8" stroke-width="1.6" stroke-dasharray="3,2"/>
+    <text x="214" y="122" font-family="sans-serif" font-size="9.5" font-weight="700" fill="#475569">180&deg;</text>
+
+    <!-- Outer Total Arc: omega_Q = omega + 180 deg from Ascending Node counterclockwise to Aphelion -->
+    <path d="M 190 192 A 60 60 0 1 0 186 172" fill="none" stroke="#be123c" stroke-width="2.5"/>
+    <text x="294" y="176" font-family="Georgia, serif" font-style="italic" font-size="13.5" font-weight="700" fill="#be123c">&omega;<tspan dy="2" font-size="9.5">Q</tspan><tspan dy="-2"> = &omega; + 180&deg;</tspan></text>
+
+    <!-- Sun at (242, 166) -->
+    <circle cx="242" cy="166" r="9.5" fill="#f59e0b" stroke="#b45309" stroke-width="1.6"/>
+    <text x="234" y="201" font-family="sans-serif" font-size="10" font-weight="700" fill="#b45309">Sun</text>
+
+    <!-- Right Panel: Aphelion Spatial & Dynamical Properties -->
+    <rect x="455" y="24" width="265" height="266" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+    <text x="470" y="47" font-family="sans-serif" font-size="11.5" font-weight="700" fill="#0f172a">Aphelion Geometry &amp; Dynamics</text>
+
+    <rect x="470" y="62" width="235" height="60" rx="4" fill="#fff1f2" stroke="#fda4af" stroke-width="1"/>
+    <text x="480" y="79" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#9f1239">1. Aphelion Ecliptic Latitude:</text>
+    <text x="480" y="97" font-family="Georgia, serif" font-style="italic" font-size="11.5" fill="#0f172a">sin &beta;<tspan dy="2" font-size="8.5">Q</tspan><tspan dy="-2"> = sin &omega;</tspan><tspan dy="2" font-size="8.5">Q</tspan><tspan dy="-2"> sin i = &minus;sin &omega; sin i</tspan></text>
+    <text x="480" y="113" font-family="sans-serif" font-size="9.5" fill="#475569">(Opposite ecliptic hemisphere to P)</text>
+
+    <line x1="587" y1="122" x2="587" y2="140" stroke="#475569" stroke-width="1.4" marker-end="url(#arrowSlate)"/>
+
+    <rect x="470" y="142" width="235" height="60" rx="4" fill="#eff6ff" stroke="#93c5fd" stroke-width="1"/>
+    <text x="480" y="159" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#1e3a8a">2. Longitude of Aphelion (&varpi;<tspan dy="2" font-size="8.5">Q</tspan><tspan dy="-2">):</tspan></text>
+    <text x="480" y="177" font-family="Georgia, serif" font-style="italic" font-size="11.5" fill="#0f172a">&varpi;<tspan dy="2" font-size="8.5">Q</tspan><tspan dy="-2"> = (&Omega; + &omega;</tspan><tspan dy="2" font-size="8.5">Q</tspan><tspan dy="-2">) mod 360&deg;</tspan></text>
+    <text x="480" y="193" font-family="sans-serif" font-size="9.5" fill="#475569">(Broken-plane aphelion direction)</text>
+
+    <line x1="587" y1="202" x2="587" y2="220" stroke="#475569" stroke-width="1.4" marker-end="url(#arrowSlate)"/>
+
+    <rect x="470" y="222" width="235" height="54" rx="4" fill="#ecfdf5" stroke="#6ee7b7" stroke-width="1"/>
+    <text x="480" y="239" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#065f46">3. Extremal Distances &amp; Speed:</text>
+    <text x="480" y="257" font-family="Georgia, serif" font-style="italic" font-size="11.5" fill="#0f172a">Q = a(1 + e), &nbsp; v<tspan dy="2" font-size="8.5">Q</tspan><tspan dy="-2"> = &radic;[&mu;(1&minus;e)/(a(1+e))]</tspan></text>
+  </svg>
+  <div class="figure-caption">
+    <strong>Figure 1:</strong> Coplanar geometry of the <strong>argument of the aphelion</strong> (<span class="math-var">&omega;<sub>Q</sub> = (&omega; + 180&deg;) &pmod{360&deg;}</span>) measured counterclockwise in the orbital plane from the ascending node <span class="math-var">&#9738;</span> to aphelion <span class="math-var">Q</span>. While <span class="math-var">&omega;</span> locates perihelion <span class="math-var">P</span>, adding <span class="math-var">180&deg;</span> rotates the reference vector along the line of apsides through the Sun to the furthest point <span class="math-var">Q</span>.
+  </div>
+</div>
+
+<h2>2. Heliocentric Position Vector &amp; Ecliptic Orientation of Aphelion</h2>
+<p>
+  Substituting <span class="math-var">u = &omega;<sub>Q</sub> = &omega; + 180&deg;</span> and heliocentric distance <span class="math-var">r = Q = a(1 + e)</span> into the J2000.0 heliocentric ecliptic rotation matrix yields the exact three-dimensional ecliptic position vector <span class="math-var"><b>r</b><sub>Q</sub> = (X<sub>Q</sub>, Y<sub>Q</sub>, Z<sub>Q</sub>)<sup>T</sup></span> and spherical ecliptic coordinates <span class="math-var">(&lambda;<sub>Q</sub>, &beta;<sub>Q</sub>)</span> of the aphelion point:
+</p>
+
+<div class="equation-box">
+  <span class="equation-main">
+    X<sub>Q</sub> = Q (cos &Omega; cos &omega;<sub>Q</sub> &minus; sin &Omega; sin &omega;<sub>Q</sub> cos i) = &minus;Q (cos &Omega; cos &omega; &minus; sin &Omega; sin &omega; cos i)<br>
+    Y<sub>Q</sub> = Q (sin &Omega; cos &omega;<sub>Q</sub> + cos &Omega; sin &omega;<sub>Q</sub> cos i) = &minus;Q (sin &Omega; cos &omega; + cos &Omega; sin &omega; cos i)<br>
+    Z<sub>Q</sub> = Q sin &omega;<sub>Q</sub> sin i = &minus;Q sin &omega; sin i
+  </span>
+  <span class="equation-label">(Eq. 2)</span>
+</div>
+
+<p>
+  Consequently, the heliocentric ecliptic longitude (<span class="math-var">&lambda;<sub>Q</sub></span>) and ecliptic latitude (<span class="math-var">&beta;<sub>Q</sub></span>) of aphelion are related to those of perihelion (<span class="math-var">&lambda;<sub>P</sub>, &beta;<sub>P</sub></span>) by exact antipodal reflection across the Sun:
+</p>
+
+<div class="equation-box">
+  <span class="equation-main">&lambda;<sub>Q</sub> = (&Omega; + atan2(sin &omega;<sub>Q</sub> cos i, cos &omega;<sub>Q</sub>)) &pmod{360&deg;} = (&lambda;<sub>P</sub> + 180&deg;) &pmod{360&deg;}, &quad; &beta;<sub>Q</sub> = arcsin(sin &omega;<sub>Q</sub> sin i) = &minus;&beta;<sub>P</sub></span>
+  <span class="equation-label">(Eq. 3)</span>
+</div>
+
+<h2>3. Derived Aphelion Quantities from <code>MPCORB.DAT</code></h2>
+<p>
+  <code>MPCORB.DAT</code> explicitly lists <span class="math-var">&omega;</span> (columns 38–46), <span class="math-var">&Omega;</span> (columns 49–57), <span class="math-var">i</span> (columns 60–68), <span class="math-var">e</span> (columns 71–79), <span class="math-var">n</span> (columns 81–91), and <span class="math-var">a</span> (columns 93–103), but does not tabulate aphelion orientation angles directly. The table below summarizes the primary aphelion parameters derived from <span class="math-var">&omega;<sub>Q</sub></span>:
+</p>
+<table>
+  <thead>
+    <tr>
+      <th>Aphelion Parameter</th>
+      <th>Mathematical Definition</th>
+      <th>Physical &amp; Astrodynamical Interpretation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Argument of Aphelion (<span class="math-var">&omega;<sub>Q</sub></span>)</strong></td>
+      <td><span class="math-var">(&omega; + 180&deg;) &pmod{360&deg;}</span></td>
+      <td>In-plane angle from ascending node <span class="math-var">&#9738;</span> to aphelion <span class="math-var">Q</span> (identically <span class="math-var">u(Q)</span>).</td>
+    </tr>
+    <tr>
+      <td><strong>Longitude of Aphelion (<span class="math-var">&varpi;<sub>Q</sub></span>)</strong></td>
+      <td><span class="math-var">(&Omega; + &omega;<sub>Q</sub>) &pmod{360&deg;} = (&varpi; + 180&deg;) &pmod{360&deg;}</span></td>
+      <td>Broken-plane ("dog-leg") longitude of aphelion from J2000.0 vernal equinox <span class="math-var">&#9800;</span>.</td>
+    </tr>
+    <tr>
+      <td><strong>Aphelion Distance (<span class="math-var">Q</span>)</strong></td>
+      <td><span class="math-var">a(1 + e)</span> (in AU)</td>
+      <td>Maximum heliocentric distance reached at <span class="math-var">u = &omega;<sub>Q</sub></span> (<span class="math-var">&nu; = 180&deg;</span>).</td>
+    </tr>
+    <tr>
+      <td><strong>Aphelion Ecliptic Height (<span class="math-var">Z<sub>Q</sub></span>)</strong></td>
+      <td><span class="math-var">Q sin &omega;<sub>Q</sub> sin i = &minus;a(1 + e) sin &omega; sin i</span></td>
+      <td>Vertical displacement above (<span class="math-var">Z<sub>Q</sub> &gt; 0</span>) or below (<span class="math-var">Z<sub>Q</sub> &lt; 0</span>) the J2000.0 ecliptic at aphelion.</td>
+    </tr>
+    <tr>
+      <td><strong>Aphelion Orbital Speed (<span class="math-var">v<sub>Q</sub></span>)</strong></td>
+      <td><span class="math-var">&radic;&left[rac{GM<sub>&odot;</sub>}{a} rac{1 &minus; e}{1 + e}ight]</span></td>
+      <td>Minimum orbital velocity along the ellipse (<span class="math-var">v<sub>Q</sub> / v<sub>P</sub> = (1 &minus; e)/(1 + e)</span>).</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>4. Dynamical &amp; Astrophysical Significance</h2>
+<ul>
+  <li><strong>Resonant Aphelion Alignment &amp; Planetary Perturbations:</strong> Jupiter-family comets, Hildas, and resonant main-belt populations (e.g., 3:2 or 2:1 mean-motion resonances) experience their strongest gravitational perturbations from Jupiter near aphelion (<span class="math-var">u = &omega;<sub>Q</sub></span>), where <span class="math-var">r = Q</span> approaches Jupiter's orbital radius (<span class="math-var">&sim;5.2 AU</span>) and the minor body spends the largest fraction of its orbital period due to Kepler's second law.</li>
+  <li><strong>Apsidal Precession &amp; Kozai–Lidov Oscillations:</strong> Under secular planetary perturbations and the von Zeipel–Lidov–Kozai mechanism, the line of apsides precesses or librates such that <span class="math-var">d&omega;<sub>Q</sub>/dt = d&omega;/dt</span>. When <span class="math-var">&omega;<sub>Q</sub> &approx; 0&deg;</span> or <span class="math-var">180&deg;</span>, aphelion lies directly in the ecliptic plane (<span class="math-var">Z<sub>Q</sub> = 0</span>), maximizing close-encounter probability with outer giant planets; when <span class="math-var">&omega;<sub>Q</sub> &approx; 90&deg;</span> or <span class="math-var">270&deg;</span>, aphelion is elevated maximally above or below the ecliptic plane, protecting high-inclination bodies from close planetary encounters.</li>
+  <li><strong>Edge Cases (<span class="math-var">e = 0</span> and <span class="math-var">i = 0&deg;</span>):</strong> Like <span class="math-var">&omega;</span>, <span class="math-var">&omega;<sub>Q</sub></span> becomes geometrically indeterminate for strictly circular orbits (<span class="math-var">e = 0</span>, where every point has <span class="math-var">r = a</span>) or coplanar orbits (<span class="math-var">i = 0&deg;, 180&deg;</span>, where the ascending node <span class="math-var">&#9738;</span> is undefined). In such limits, the non-singular <strong>longitude of aphelion</strong> <span class="math-var">&varpi;<sub>Q</sub> = (&Omega; + &omega;<sub>Q</sub>) &pmod{360&deg;}</span> remains well-defined whenever <span class="math-var">e &gt; 0</span>.</li>
+</ul>
+
+<h2>5. Worked Examples from <code>MPCORB.DAT</code></h2>
+<p>
+  The following two numbered minor planets from <code>MPCORB.DAT</code> (epoch <code>K25BL</code> = 2025 Nov 21.0 TT = JD 2461000.5) illustrate the derivation of <span class="math-var">&omega;<sub>Q</sub></span>, aphelion distance <span class="math-var">Q</span>, and the three-dimensional aphelion coordinates:
+</p>
+
+<div class="example-card">
+  <h3>Example 1: (1) Ceres — Southern Aphelion (<span class="math-var">&omega;<sub>Q</sub> = 253.28579&deg;</span>)</h3>
+  <p>
+    Excerpt from <code>MPCORB.DAT</code> (columns 1–103):
+  </p>
+  <pre class="mpcorb-record">00001    3.34  0.12 K25BL 231.53975   73.28579   80.25414   10.58688  0.0789158  0.21410467   2.7675059</pre>
+  <ul>
+    <li><strong>Extracted Orbital Elements:</strong> <span class="math-var">&omega; = 73.28579&deg;</span>, <span class="math-var">&Omega; = 80.25414&deg;</span>, <span class="math-var">i = 10.58688&deg;</span>, <span class="math-var">e = 0.0789158</span>, and <span class="math-var">a = 2.7675059 AU</span>.</li>
+    <li><strong>Derived Aphelion Parameters:</strong> Adding <span class="math-var">180&deg;</span> gives <span class="math-var">&omega;<sub>Q</sub> = 73.28579&deg; + 180&deg; = 253.28579&deg;</span> and longitude of aphelion <span class="math-var">&varpi;<sub>Q</sub> = (80.25414&deg; + 253.28579&deg;) &pmod{360&deg;} = 333.53993&deg;</span>. At aphelion (<span class="math-var">Q = 2.7675059 &times; 1.0789158 = 2.98591 AU</span>), Ceres lies in the southern ecliptic hemisphere at <span class="math-var">&lambda;<sub>Q</sub> = 333.80217&deg;</span>, <span class="math-var">&beta;<sub>Q</sub> = &minus;10.13651&deg;</span>, and <span class="math-var">Z<sub>Q</sub> = &minus;0.52555 AU</span>.</li>
+  </ul>
+</div>
+
+<div class="example-card">
+  <h3>Example 2: (2) Pallas — Northern Aphelion (<span class="math-var">&omega;<sub>Q</sub> = 130.91024&deg;</span>)</h3>
+  <p>
+    Excerpt from <code>MPCORB.DAT</code> (columns 1–103):
+  </p>
+  <pre class="mpcorb-record">00002    4.12  0.11 K25BL 142.88412  310.91024  172.90561   34.92502  0.2305124  0.21378192   2.7702891</pre>
+  <ul>
+    <li><strong>Extracted Orbital Elements:</strong> <span class="math-var">&omega; = 310.91024&deg;</span>, <span class="math-var">&Omega; = 172.90561&deg;</span>, <span class="math-var">i = 34.92502&deg;</span>, <span class="math-var">e = 0.2305124</span>, and <span class="math-var">a = 2.7702891 AU</span>.</li>
+    <li><strong>Derived Aphelion Parameters:</strong> Wrapping <span class="math-var">(310.91024&deg; + 180&deg;) &pmod{360&deg;} = 490.91024&deg; &pmod{360&deg;}</span> yields <span class="math-var">&omega;<sub>Q</sub> = 130.91024&deg;</span> and <span class="math-var">&varpi;<sub>Q</sub> = 303.81585&deg;</span>. Because Pallas's perihelion lies deep south of the ecliptic (<span class="math-var">&omega; = 310.91&deg;</span>), its aphelion (<span class="math-var">Q = 3.40888 AU</span>) rises high above the northern ecliptic plane at <span class="math-var">&lambda;<sub>Q</sub> = 298.81802&deg;</span>, <span class="math-var">&beta;<sub>Q</sub> = +25.63529&deg;</span>, and <span class="math-var">Z<sub>Q</sub> = +1.47480 AU</span>.</li>
+  </ul>
+</div>
+
+<div class="interactive-panel">
+  <div class="interactive-title">Interactive Calculator: Argument of Aphelion &omega;<sub>Q</sub>, Aphelion Distance Q &amp; Ecliptic Coordinates</div>
+  <div class="controls-grid">
+    <div class="control-group">
+      <label for="w_val">Arg. of Perihelion &omega; (deg)</label>
+      <input type="number" id="w_val" value="310.91024" step="1.0">
+    </div>
+    <div class="control-group">
+      <label for="om_val">Long. Asc. Node &Omega; (deg)</label>
+      <input type="number" id="om_val" value="172.90561" step="1.0">
+    </div>
+    <div class="control-group">
+      <label for="a_val">Semimajor Axis a (AU)</label>
+      <input type="number" id="a_val" value="2.7702891" step="0.05" min="0.05">
+    </div>
+    <div class="control-group">
+      <label for="e_val">Eccentricity e (0 &le; e &lt; 1)</label>
+      <input type="number" id="e_val" value="0.2305124" step="0.01" min="0" max="0.999">
+    </div>
+    <div class="control-group">
+      <label for="i_val">Inclination i (deg)</label>
+      <input type="number" id="i_val" value="34.92502" step="0.5" min="0" max="180">
+    </div>
+  </div>
+  <div class="result-bar" id="calc_out">Computing...</div>
+</div>
+
+    </main>
+    <footer>
+      <span>Reference Standard: IAU Minor Planet Center (MPCORB.DAT) &amp; J2000.0 Mean Ecliptic Frame</span>
+      <span>Derived Definition: &omega;<sub>Q</sub> = (&omega; + 180&deg;) mod 360&deg; &bull; MPCORB Source: &omega; (Cols 38–46)</span>
+    </footer>
+  </div>
+  <script>
+    
+(function() {
+  const degToRad = Math.PI / 180.0;
+  const radToDeg = 180.0 / Math.PI;
+  const vEarthKms = 29.7846918; // sqrt(GM_sun / 1 AU) in km/s
+
+  function normDeg(deg) {
+    let x = deg % 360.0;
+    if (x < 0) x += 360.0;
+    return x;
+  }
+
+  function update() {
+    const w = parseFloat(document.getElementById('w_val').value);
+    const Om = parseFloat(document.getElementById('om_val').value);
+    const a = parseFloat(document.getElementById('a_val').value);
+    const e = parseFloat(document.getElementById('e_val').value);
+    const inc = parseFloat(document.getElementById('i_val').value);
+    const out = document.getElementById('calc_out');
+
+    if ([w, Om, a, e, inc].some(isNaN) || a <= 0 || e < 0 || e >= 1 || inc < 0 || inc > 180) {
+      out.textContent = "Invalid orbital parameters (require a > 0 AU, 0 <= e < 1, 0 <= i <= 180 deg).";
+      return;
+    }
+
+    const wQ = normDeg(w + 180.0);
+    const varpiQ = normDeg(Om + wQ);
+    const Q = a * (1.0 + e);
+    const vQ = vEarthKms * Math.sqrt((1.0 - e) / (a * (1.0 + e)));
+
+    const OmRad = Om * degToRad;
+    const wQRad = wQ * degToRad;
+    const iRad = inc * degToRad;
+
+    const Xq = Q * (Math.cos(OmRad) * Math.cos(wQRad) - Math.sin(OmRad) * Math.sin(wQRad) * Math.cos(iRad));
+    const Yq = Q * (Math.sin(OmRad) * Math.cos(wQRad) + Math.cos(OmRad) * Math.sin(wQRad) * Math.cos(iRad));
+    const Zq = Q * Math.sin(wQRad) * Math.sin(iRad);
+
+    const lambdaQ = normDeg(Math.atan2(Yq, Xq) * radToDeg);
+    const betaQ = Math.asin(Math.max(-1.0, Math.min(1.0, Math.sin(wQRad) * Math.sin(iRad)))) * radToDeg;
+
+    out.innerHTML =
+      `Arg. of Aphelion &omega;<sub>Q</sub> = ${wQ.toFixed(5)}&deg;  |  Long. of Aphelion &varpi;<sub>Q</sub> = ${varpiQ.toFixed(5)}&deg;  |  Aphelion Dist. Q = ${Q.toFixed(5)} AU<br>` +
+      `Ecliptic (&lambda;<sub>Q</sub>, &beta;<sub>Q</sub>) = (${lambdaQ.toFixed(5)}&deg;, ${betaQ >= 0 ? '+' : ''}${betaQ.toFixed(5)}&deg;)  |  Height Z<sub>Q</sub> = ${Zq >= 0 ? '+' : ''}${Zq.toFixed(5)} AU  |  Speed v<sub>Q</sub> = ${vQ.toFixed(3)} km/s`;
+  }
+
+  ['w_val', 'om_val', 'a_val', 'e_val', 'i_val'].forEach(id => {
+    document.getElementById(id).addEventListener('input', update);
+  });
+  update();
+})();
+
+  </script>
+</body>
+</html>

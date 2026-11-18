@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Length of the Perihelion Node Arc in the Context of MPCORB</title>
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #334155;
+            --accent-color: #1e3a8a;
+            --accent-light: #eff6ff;
+            --border-color: #cbd5e1;
+            --code-bg: #f1f5f9;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.7;
+            color: var(--text-primary);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 3rem 3.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            border: 1px solid var(--border-color);
+        }
+
+        header {
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .badge {
+            display: inline-block;
+            background-color: var(--accent-light);
+            color: var(--accent-color);
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            padding: 0.3rem 0.75rem;
+            border-radius: 4px;
+            border: 1px solid #bfdbfe;
+            margin-bottom: 0.75rem;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin: 0.25rem 0 0.5rem 0;
+            color: var(--text-primary);
+            line-height: 1.25;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            margin: 0;
+        }
+
+        h2 {
+            font-size: 1.35rem;
+            color: var(--accent-color);
+            margin-top: 2.25rem;
+            margin-bottom: 0.85rem;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 0.35rem;
+        }
+
+        h3 {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        p {
+            margin-bottom: 1.15rem;
+            color: var(--text-secondary);
+            text-align: justify;
+        }
+
+        ul, ol {
+            margin-bottom: 1.25rem;
+            padding-left: 1.5rem;
+            color: var(--text-secondary);
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        .equation-box {
+            background-color: var(--code-bg);
+            border-left: 4px solid var(--accent-color);
+            padding: 1.15rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 6px 6px 0;
+            overflow-x: auto;
+            font-family: "Cambria Math", "STIX Two Math", "Times New Roman", Times, serif;
+            font-size: 1.18rem;
+            color: var(--text-primary);
+            text-align: center;
+        }
+
+        .math-inline {
+            font-family: "Cambria Math", "STIX Two Math", "Times New Roman", Times, serif;
+            font-style: italic;
+            font-size: 1.05em;
+            color: var(--text-primary);
+        }
+
+        .math-roman {
+            font-family: "Cambria Math", "STIX Two Math", "Times New Roman", Times, serif;
+            font-style: normal;
+            font-size: 1.02em;
+            color: var(--text-primary);
+        }
+
+        .frac {
+            display: inline-flex;
+            flex-direction: column;
+            vertical-align: middle;
+            text-align: center;
+            margin: 0 0.25rem;
+        }
+
+        .frac > span:first-child {
+            border-bottom: 1px solid var(--text-primary);
+            padding: 0 0.3rem 0.15rem 0.3rem;
+        }
+
+        .frac > span:last-child {
+            padding: 0.15rem 0.3rem 0 0.3rem;
+        }
+
+        .spec-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.92rem;
+        }
+
+        .spec-table th, .spec-table td {
+            border: 1px solid var(--border-color);
+            padding: 0.75rem 1rem;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        .spec-table th {
+            background-color: var(--accent-color);
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .spec-table tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        code {
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+            background-color: var(--code-bg);
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.88em;
+            color: #0f172a;
+        }
+
+        pre {
+            background-color: #1e293b;
+            color: #f8fafc;
+            padding: 1rem 1.25rem;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+        }
+
+        .note-callout {
+            background-color: #fffbeb;
+            border-left: 4px solid #d97706;
+            padding: 1rem 1.25rem;
+            margin: 1.5rem 0;
+            border-radius: 0 6px 6px 0;
+            color: #78350f;
+            font-size: 0.95rem;
+        }
+
+        .terminology-callout {
+            background-color: var(--accent-light);
+            border-left: 4px solid var(--accent-color);
+            padding: 1rem 1.25rem;
+            margin: 1.5rem 0;
+            border-radius: 0 6px 6px 0;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+        }
+
+        .diagram-box {
+            background-color: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+
+        .diagram-caption {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+        }
+
+        .calculator-box {
+            background-color: var(--accent-light);
+            border: 1px solid #bfdbfe;
+            border-radius: 8px;
+            padding: 1.25rem 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .calculator-box h4 {
+            margin: 0 0 0.75rem 0;
+            color: var(--accent-color);
+            font-size: 1rem;
+        }
+
+        .calc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+            gap: 1rem;
+            align-items: end;
+        }
+
+        .calc-field label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.3rem;
+        }
+
+        .calc-field input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 0.5rem 0.65rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 0.95rem;
+            font-family: inherit;
+        }
+
+        .calc-output {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 0.55rem 0.75rem;
+            font-size: 0.92rem;
+            color: var(--text-primary);
+        }
+
+        footer {
+            margin-top: 3rem;
+            padding-top: 1.25rem;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.85rem;
+            color: #64748b;
+            text-align: center;
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 1.75rem 1.25rem;
+            }
+            h1 {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="badge">Celestial Mechanics &amp; Astrometry Specification</div>
+            <h1>Length of the Perihelion Node Arc (<span class="math-inline">s</span><sub>q</sub>) in the Context of the MPCORB Database</h1>
+            <p class="subtitle">Scientific Definition, Elliptic Arc-Length Integral Formulation, Nodal-Apsidal Geometry, and Evaluation from MPCORB</p>
+        </header>
+
+        <section>
+            <h2>1. Fundamental Astrodynamical &amp; Geometric Definition</h2>
+            <div class="terminology-callout">
+                <strong>Definition &amp; Nomenclature:</strong> In two-body Keplerian orbital geometry and elliptic-integral astrodynamics, the <strong>length of the perihelion node arc</strong> (denoted <span class="math-inline">s</span><sub>q</sub> or <span class="math-inline">L</span><sub>&Omega;q&mldr;</sub>, and complementary to the <strong>aphelion node arc</strong> <span class="math-inline">s</span><sub>Q</sub>)—is the physical spatial arc length (measured in Astronomical Units, <span class="math-roman">AU</span>) along the osculating Keplerian ellipse extending from the <strong>ascending node</strong> (<span class="math-inline">&Omega;</span>, where true anomaly <span class="math-roman"><em>&nu;</em><sub>&Omega;</sub> = &minus;<em>&omega;</em></span>, or <span class="math-roman">360&deg; &minus; <em>&omega;</em></span>) through <strong>perihelion</strong> (<span class="math-inline">q</span>, where <span class="math-roman"><em>&nu;</em> = 0&deg;</span>) to the <strong>descending node</strong> (<span class="math-inline">&mldr;</span>, where <span class="math-roman"><em>&nu;</em><sub>&mldr;</sub> = 180&deg; &minus; <em>&omega;</em></span>).
+            </div>
+            <p>
+                Every inclined, bound Keplerian orbit (<span class="math-roman">0 &le; <em>e</em> &lt; 1</span>, <span class="math-roman">0&deg; &lt; <em>i</em> &lt; 180&deg;</span>) intersects the J2000.0 reference ecliptic plane along the <strong>line of nodes</strong> at two antipodal focal points: the <strong>ascending node</strong> (<span class="math-inline">&Omega;</span>, ecliptic latitude crossing <span class="math-roman"><em>&beta;</em> : &minus; &rarr; +</span>) and the <strong>descending node</strong> (<span class="math-inline">&mldr;</span>, ecliptic latitude crossing <span class="math-roman"><em>&beta;</em> : + &rarr; &minus;</span>). This focal chord partitions the closed orbital perimeter <span class="math-inline">C</span> into two mutually exclusive, complementary orbital arcs:
+            </p>
+            <div class="equation-box">
+                <span class="math-inline">C</span> = <span class="math-inline">s</span><sub>q</sub> + <span class="math-inline">s</span><sub>Q</sub> = 4<span class="math-inline">a</span> <span class="math-inline">E</span>(<span class="math-inline">e</span>)
+            </div>
+            <p>
+                where <span class="math-inline">a</span> is the semi-major axis (<span class="math-roman">AU</span>), <span class="math-inline">e</span> is the numeric eccentricity, <span class="math-roman"><em>E</em>(<em>e</em>) = &int;<sub>0</sub><sup>&pi;/2</sup> &radic;(1 &minus; <em>e</em><sup>2</sup> sin<sup>2</sup> <em>&theta;</em>) <em>d&theta;</em></span> is the <strong>complete elliptic integral of the second kind</strong>, <span class="math-inline">s</span><sub>q</sub> is the <strong>perihelion node arc</strong> (spanning <span class="math-inline">&Omega; &rarr; q &rarr; &mldr;</span> across the northern ecliptic hemisphere <span class="math-roman"><em>&beta;</em> &ge; 0</span> for prograde orbits), and <span class="math-inline">s</span><sub>Q</sub> is the <strong>aphelion node arc</strong> (spanning <span class="math-inline">&mldr; &rarr; Q &rarr; &Omega;</span> across the southern ecliptic hemisphere <span class="math-roman"><em>&beta;</em> &le; 0</span>).
+            </p>
+            <p>
+                Expressed in terms of the classical Keplerian elements <span class="math-roman">(<em>a</em>, <em>e</em>, <em>&omega;</em>)</span>, the exact arc length <span class="math-inline">s</span><sub>q</sub> is given by the definite line integral along the elliptic trajectory <span class="math-roman"><strong>r</strong>(<em>E</em>) = (<em>a</em>(cos <em>E</em> &minus; <em>e</em>), <em>a</em>&radic;(1 &minus; <em>e</em><sup>2</sup>) sin <em>E</em>)</span> parameterized by the continuous signed eccentric anomaly <span class="math-roman"><em>E</em> &isin; [<em>E</em><sub>&Omega;</sub>, <em>E</em><sub>&mldr;</sub>]</span> spanning perihelion (<span class="math-roman"><em>E</em> = 0</span>):
+            </p>
+            <div class="equation-box">
+                <span class="math-inline">s</span><sub>q</sub> = <span class="math-inline">a</span>
+                <span class="math-roman">&int;<sub><em>E</em><sub>&Omega;</sub></sub><sup><em>E</em><sub>&mldr;</sub></sup></span>
+                &radic;(1 &minus; <span class="math-inline">e</span><sup>2</sup> cos<sup>2</sup> <span class="math-inline">E</span>) <span class="math-inline">dE</span>
+                = <span class="math-inline">a</span>
+                <span class="math-roman">[</span>
+                <span class="math-inline">E</span>(<span class="math-inline">&phi;</span><sub>&mldr;</sub> | <span class="math-inline">e</span><sup>2</sup>) &minus; <span class="math-inline">E</span>(<span class="math-inline">&phi;</span><sub>&Omega;</sub> | <span class="math-inline">e</span><sup>2</sup>)
+                <span class="math-roman">]</span>
+            </div>
+            <p>
+                where <span class="math-roman"><em>E</em>(&phi; | <em>m</em>) = &int;<sub>0</sub><sup>&phi;</sup> &radic;(1 &minus; <em>m</em> sin<sup>2</sup> <em>&theta;</em>) <em>d&theta;</em></span> is the <strong>incomplete elliptic integral of the second kind</strong> with amplitude <span class="math-roman"><em>&phi;</em> = <em>E</em> + &pi;/2</span> (or evaluated directly via numerical Gauss&ndash;Legendre quadrature of <span class="math-roman"><em>ds</em> = <em>a</em>&radic;(1 &minus; <em>e</em><sup>2</sup> cos<sup>2</sup> <em>E</em>) <em>dE</em></span> over <span class="math-roman">[<em>E</em><sub>&Omega;</sub>, <em>E</em><sub>&mldr;</sub>]</span>), and the signed nodal eccentric anomalies <span class="math-roman"><em>E</em><sub>&Omega;</sub> &le; 0 &le; <em>E</em><sub>&mldr;</sub></span> (for <span class="math-roman">0&deg; &le; <em>&omega;</em> &le; 180&deg;</span>) are uniquely determined by the argument of perihelion <span class="math-inline">&omega;</span>:
+            </p>
+            <div class="equation-box">
+                <span class="math-inline">E</span><sub>&Omega;</sub> = &minus;2 arctan
+                <span class="math-roman">(</span>
+                <span class="frac">
+                    <span>&radic;(1 &minus; <span class="math-inline">e</span>)</span>
+                    <span>&radic;(1 + <span class="math-inline">e</span>)</span>
+                </span>
+                tan
+                <span class="frac">
+                    <span><span class="math-inline">&omega;</span></span>
+                    <span>2</span>
+                </span>
+                <span class="math-roman">)</span>
+                &nbsp;,&nbsp;&nbsp;&nbsp;&nbsp;
+                <span class="math-inline">E</span><sub>&mldr;</sub> = 2 arctan
+                <span class="math-roman">(</span>
+                <span class="frac">
+                    <span>&radic;(1 &minus; <span class="math-inline">e</span>)</span>
+                    <span>&radic;(1 + <span class="math-inline">e</span>)</span>
+                </span>
+                tan
+                <span class="frac">
+                    <span>&pi; &minus; <span class="math-inline">&omega;</span></span>
+                    <span>2</span>
+                </span>
+                <span class="math-roman">)</span>
+            </div>
+            <p>
+                (with branches wrapped smoothly so that <span class="math-roman"><em>E</em><sub>&Omega;</sub> &le; 0 &le; <em>E</em><sub>&mldr;</sub></span> and <span class="math-roman">0 &lt; <em>E</em><sub>&mldr;</sub> &minus; <em>E</em><sub>&Omega;</sub> &lt; 2&pi;</span> for all <span class="math-roman">0&deg; &le; <em>&omega;</em> &lt; 360&deg;</span>). Key geometric and physical properties of <span class="math-inline">s</span><sub>q</sub> include:
+            </p>
+            <ul>
+                <li><strong>Apsidal Line Symmetry (<span class="math-roman"><em>&omega;</em> = 0&deg;, 180&deg;</span>):</strong> When the line of nodes coincides with the line of apsides (<span class="math-roman"><em>&omega;</em> = 0&deg;</span> or <span class="math-roman">180&deg;</span>), the focal chord bisects the ellipse into two congruent halves, yielding <span class="math-roman"><em>s</em><sub>q</sub> = <em>s</em><sub>Q</sub> = 2<em>a E</em>(<em>e</em>) = <em>C</em>/2</span> regardless of eccentricity <span class="math-inline">e</span>.</li>
+                <li><strong>Minimal &amp; Maximal Perihelion Arc Extrema (<span class="math-roman"><em>&omega;</em> = 90&deg;, 270&deg;</span>):</strong> When the line of nodes is orthogonal to the line of apsides (<span class="math-roman"><em>&omega;</em> = 90&deg;</span>, perihelion at maximum northern ecliptic latitude), the latus rectum passes through both nodes and <span class="math-inline">s</span><sub>q</sub> attains its global minimum for fixed <span class="math-roman">(<em>a</em>, <em>e</em>)</span>: <span class="math-roman"><em>s</em><sub>q,min</sub> &lt; <em>C</em>/2 &lt; <em>s</em><sub>Q,max</sub></span>. Conversely, at <span class="math-roman"><em>&omega;</em> = 270&deg;</span> (perihelion at maximum southern ecliptic latitude), <span class="math-inline">s</span><sub>q</sub> attains its global maximum <span class="math-roman"><em>s</em><sub>q,max</sub> &gt; <em>C</em>/2 &gt; <em>s</em><sub>Q,min</sub></span>.</li>
+                <li><strong>Circular Orbit Limit (<span class="math-roman"><em>e</em> &rarr; 0</span>):</strong> For a circular orbit (<span class="math-roman"><em>e</em> = 0</span>), the perihelion node arc reduces identically to the semicircle <span class="math-roman"><em>s</em><sub>q</sub> = &pi;<em>a</em></span>.</li>
+                <li><strong>Distinction from Angular Span (<span class="math-roman">&Delta;<em>&nu;</em><sub>q</sub> = 180&deg;</span>):</strong> Because the line of nodes passes directly through the primary focus (the Sun), the true-anomaly angular span of the perihelion node arc is <em>always</em> exactly <span class="math-roman">&Delta;<em>&nu;</em><sub>q</sub> = (180&deg; &minus; <em>&omega;</em>) &minus; (&minus;<em>&omega;</em>) = 180&deg;</span> (<span class="math-inline">&pi;</span> radians), whereas its physical metric length <span class="math-inline">s</span><sub>q</sub> (<span class="math-roman">AU</span>) varies strongly with <span class="math-inline">&omega;</span> and <span class="math-inline">e</span> because the perihelion focus lies closer to the perihelion vertex (<span class="math-roman"><em>r</em><sub>q</sub> = <em>a</em>(1 &minus; <em>e</em>) &le; <em>r</em><sub>Q</sub> = <em>a</em>(1 + <em>e</em>)</span>).</li>
+            </ul>
+
+            <div class="diagram-box">
+                <svg width="560" height="250" viewBox="0 0 560 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Orbital diagram showing an eccentric ellipse partitioned by the line of nodes passing through the Sun into the perihelion node arc s_q (highlighted in blue) and the aphelion node arc s_Q">
+                    <rect x="0" y="0" width="560" height="250" fill="#f8fafc" rx="6"/>
+                    <!-- Left panel: Orbital ellipse with focal line of nodes -->
+                    <ellipse cx="165" cy="125" rx="115" ry="78" fill="#eff6ff" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,3"/>
+                    <!-- Aphelion Node Arc s_Q (secondary dashed/muted red) -->
+                    <path d="M 197.1 50.1 A 115 78 0 1 0 270.8 155.5" fill="none" stroke="#94a3b8" stroke-width="2.2"/>
+                    <!-- Perihelion Node Arc s_q (highlighted in bold blue from Ascending Node (270.8, 155.5) around Perihelion (280, 125) to Descending Node (197.1, 50.1)) -->
+                    <path d="M 270.8 155.5 A 115 78 0 0 0 197.1 50.1" fill="none" stroke="#1d4ed8" stroke-width="3.6"/>
+                    <!-- Apsidal line Q - S - q -->
+                    <line x1="42" y1="125" x2="288" y2="125" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3,3"/>
+                    <!-- Line of nodes passing through Sun S -->
+                    <line x1="185" y1="33" x2="280" y2="168" stroke="#1e3a8a" stroke-width="1.6" stroke-dasharray="5,3"/>
+                    <!-- Sun S -->
+                    <circle cx="249.5" cy="125" r="5.5" fill="#f59e0b" stroke="#b45309" stroke-width="1.2"/>
+                    <text x="247" y="114" text-anchor="end" font-family="serif" font-size="11" fill="#92400e" font-weight="bold">S (Focus)</text>
+                    <!-- Aphelion Q -->
+                    <circle cx="50" cy="125" r="3.5" fill="#64748b"/>
+                    <text x="43" y="129" text-anchor="end" font-family="serif" font-style="italic" font-size="12" fill="#475569" font-weight="bold">Q</text>
+                    <!-- Perihelion q -->
+                    <circle cx="280" cy="125" r="3.8" fill="#1d4ed8"/>
+                    <text x="286" y="129" text-anchor="start" font-family="serif" font-style="italic" font-size="12" fill="#1d4ed8" font-weight="bold">q</text>
+                    <!-- Descending node -->
+                    <circle cx="197.1" cy="50.1" r="4" fill="#1e3a8a"/>
+                    <text x="193" y="42" text-anchor="end" font-family="serif" font-size="11" fill="#1e3a8a" font-weight="bold">&mldr; (Desc. Node)</text>
+                    <!-- Ascending node -->
+                    <circle cx="270.8" cy="155.5" r="4" fill="#1e3a8a"/>
+                    <text x="276" y="167" text-anchor="start" font-family="serif" font-size="11" fill="#1e3a8a" font-weight="bold">&Omega; (Asc. Node)</text>
+                    <!-- Arc labels -->
+                    <text x="85" y="68" text-anchor="middle" font-family="serif" font-size="11" fill="#64748b">s<tspan baseline-shift="sub" font-size="8">Q</tspan></text>
+                    <text x="290" y="92" text-anchor="start" font-family="serif" font-size="12" fill="#1d4ed8" font-weight="bold">s<tspan baseline-shift="sub" font-size="9">q</tspan> (Perihelion Arc)</text>
+
+                    <!-- Right panel: Analytical summary -->
+                    <text x="430" y="52" text-anchor="middle" font-family="serif" font-size="13.5" fill="#1e3a8a" font-weight="bold">Perihelion Node Arc (s<tspan baseline-shift="sub" font-size="9">q</tspan>):</text>
+                    <text x="430" y="80" text-anchor="middle" font-family="serif" font-size="12.5" fill="#1d4ed8" font-weight="bold">s<tspan baseline-shift="sub" font-size="9">q</tspan> = a &int;<tspan baseline-shift="sub" font-size="8">E&Omega;</tspan><tspan baseline-shift="super" font-size="8">E&mldr;</tspan> &radic;(1 &minus; e&sup2; cos&sup2; E) dE</text>
+                    <text x="430" y="108" text-anchor="middle" font-family="serif" font-size="12" fill="#334155">s<tspan baseline-shift="sub" font-size="9">q</tspan> + s<tspan baseline-shift="sub" font-size="9">Q</tspan> = C = 4a E(e)</text>
+                    <text x="430" y="138" text-anchor="middle" font-family="sans-serif" font-size="10.5" fill="#334155">Path: &Omega; &rarr; q (Perihelion) &rarr; &mldr;</text>
+                    <text x="430" y="156" text-anchor="middle" font-family="sans-serif" font-size="10.5" fill="#334155">True anomaly span: &Delta;&nu;<tspan baseline-shift="sub" font-size="8">q</tspan> = 180&deg;</text>
+                    <text x="430" y="186" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#475569">Circular limit (e = 0): s<tspan baseline-shift="sub" font-size="8">q</tspan> = &pi;a</text>
+                    <text x="430" y="202" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#475569">Apsidal nodes (&omega; = 0&deg;, 180&deg;): s<tspan baseline-shift="sub" font-size="8">q</tspan> = C/2</text>
+                </svg>
+                <div class="diagram-caption">
+                    Figure 1: Partition of an osculating Keplerian ellipse by the focal line of nodes (<span class="math-inline">&Omega;&mldr;</span>) into the <strong>perihelion node arc</strong> <span class="math-inline">s</span><sub>q</sub> (<span class="math-inline">&Omega; &rarr; q &rarr; &mldr;</span>, blue) and the complementary <strong>aphelion node arc</strong> <span class="math-inline">s</span><sub>Q</sub> (<span class="math-inline">&mldr; &rarr; Q &rarr; &Omega;</span>, grey).
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>2. Quadrature Formulation &amp; Series Approximation</h2>
+            <p>
+                Because the incomplete elliptic integral of the second kind cannot be expressed in elementary functions for <span class="math-roman">0 &lt; <em>e</em> &lt; 1</span>, <span class="math-inline">s</span><sub>q</sub> is evaluated in high-precision astrodynamical pipelines via 16-point or 32-point Gauss&ndash;Legendre quadrature over the continuous interval <span class="math-roman"><em>E</em> &isin; [<em>E</em><sub>&Omega;</sub>, <em>E</em><sub>&mldr;</sub>]</span> (achieving full IEEE-754 double precision <span class="math-roman">&approx; 10<sup>&minus;16</sup></span> across all minor-planet eccentricities <span class="math-roman"><em>e</em> &lt; 0.99</span>) or Carlson symmetric elliptic integrals <span class="math-roman"><em>R</em><sub>F</sub></span> and <span class="math-roman"><em>R</em><sub>D</sub></span>.
+            </p>
+            <p>
+                For small-to-moderate eccentricities (<span class="math-roman"><em>e</em> &ll; 1</span>), expanding the arc-length differential <span class="math-roman"><em>ds</em>/<em>dE</em> = <em>a</em>&radic;(1 &minus; <em>e</em><sup>2</sup> cos<sup>2</sup> <em>E</em>) = <em>a</em>(1 &minus; &frac12;<em>e</em><sup>2</sup> cos<sup>2</sup> <em>E</em> &minus; &frac18;<em>e</em><sup>4</sup> cos<sup>4</sup> <em>E</em> &minus; &hellip;)</span> and substituting <span class="math-roman"><em>E</em><sub>&mldr;</sub> &minus; <em>E</em><sub>&Omega;</sub> = &pi; &minus; 2<em>e</em> sin <em>&omega;</em> + &Oscr;(<em>e</em><sup>3</sup>)</span> yields the analytical asymptotic expansion:
+            </p>
+            <div class="equation-box">
+                <span class="math-inline">s</span><sub>q</sub> = <span class="math-inline">a</span>
+                <span class="math-roman">[</span>
+                &pi; &minus; 2<span class="math-inline">e</span> sin <span class="math-inline">&omega;</span> &minus;
+                <span class="frac">
+                    <span>&pi;</span>
+                    <span>4</span>
+                </span>
+                <span class="math-inline">e</span><sup>2</sup> +
+                <span class="math-roman">&Oscr;(<em>e</em><sup>3</sup>)</span>
+                <span class="math-roman">]</span>
+            </div>
+            <p>
+                The leading eccentricity-orientation coupling term <span class="math-roman">&minus;2<em>ae</em> sin <em>&omega;</em></span> demonstrates that <span class="math-inline">s</span><sub>q</sub> falls below the semi-perimeter <span class="math-roman"><em>C</em>/2 &approx; &pi;<em>a</em>(1 &minus; <em>e</em><sup>2</sup>/4)</span> whenever perihelion lies north of the ecliptic (<span class="math-roman">0&deg; &lt; <em>&omega;</em> &lt; 180&deg;</span>, <span class="math-roman">sin <em>&omega;</em> &gt; 0</span>) and exceeds <span class="math-roman"><em>C</em>/2</span> whenever perihelion lies south of the ecliptic (<span class="math-roman">180&deg; &lt; <em>&omega;</em> &lt; 360&deg;</span>, <span class="math-roman">sin <em>&omega;</em> &lt; 0</span>), preserving <span class="math-roman"><em>s</em><sub>q</sub> + <em>s</em><sub>Q</sub> = <em>C</em></span> identically.
+            </p>
+        </section>
+
+        <section>
+            <h2>3. Specific Status and Derivation in the MPCORB Catalog</h2>
+            <p>
+                In the <strong>MPCORB</strong> (<em>Minor Planet Center Orbit</em>) database published by the International Astronomical Union&rsquo;s Minor Planet Center (IAU MPC):
+            </p>
+
+            <ul>
+                <li>
+                    <strong>Implicit Derived Metric Quantity (Not Tabulated):</strong> <code>MPCORB.DAT</code> distributes osculating orbits exclusively in classical Keplerian elements and does <em>not</em> tabulate <span class="math-inline">s</span><sub>q</sub> (or <span class="math-inline">s</span><sub>Q</sub> or the orbital circumference <span class="math-inline">C</span>) as explicit columns. Instead, <span class="math-inline">s</span><sub>q</sub> is computed directly from three osculating columns present in every record:
+                    <ul>
+                        <li><strong>Argument of perihelion <span class="math-inline">&omega;</span></strong> (columns <code>38–46</code>, format <code>F9.5</code>, degrees);</li>
+                        <li><strong>Numeric eccentricity <span class="math-inline">e</span></strong> (columns <code>71–79</code>, format <code>F9.7</code>, dimensionless);</li>
+                        <li><strong>Semi-major axis <span class="math-inline">a</span></strong> (columns <code>93–103</code>, format <code>F11.7</code>, <span class="math-roman">AU</span>).</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Note on Inclination &amp; Coplanar Limit (<span class="math-roman"><em>i</em> = 0&deg;</span>):</strong> While <span class="math-inline">i</span> (columns <code>60–68</code>) and <span class="math-inline">&Omega;</span> (columns <code>49–57</code>) do not enter the numerical value of <span class="math-inline">s</span><sub>q</sub> explicitly once <span class="math-inline">&omega;</span> is specified, the physical line of nodes is geometrically defined only for inclined orbits (<span class="math-roman">0&deg; &lt; <em>i</em> &lt; 180&deg;</span>). For exact coplanar records (<span class="math-roman"><em>i</em> = 0&deg;</span>, <span class="math-roman"><em>&Omega;</em> = 0&deg;</span> by convention), the integral evaluates smoothly using the tabulated <span class="math-inline">&omega;</span> (representing the arc from ecliptic longitude <span class="math-roman">0&deg;</span> through perihelion to <span class="math-roman">180&deg;</span>).
+                </li>
+                <li>
+                    <strong>Physical &amp; Astrodynamical Applications in MPCORB Analysis:</strong>
+                    <ul>
+                        <li><em>Inner-Solar-System Thermal &amp; Cometary Outgassing Path Length:</em> For Near-Earth Objects (NEOs), Jupiter-family comets, and sun-grazing bodies, <span class="math-inline">s</span><sub>q</sub> quantifies the exact spatial path length traversed through the high-insolation inner heliocentric region (<span class="math-roman"><em>r</em> &le; <em>p</em><sub>slr</sub></span> when <span class="math-roman"><em>&omega;</em> = 90&deg;, 270&deg;</span>) between ascending and descending ecliptic plane crossings.</li>
+                        <li><em>Earth-Crossing NEO &amp; Meteoroid Stream Geometry:</em> Characterizes the spatial geometry of the inner nodal loop where minimum orbital intersection distances (MOIDs) with the terrestrial planets occur.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <div class="note-callout">
+                <strong>Implementation &amp; Branch-Continuity Note:</strong> To guarantee a continuous integration interval spanning perihelion (<span class="math-roman"><em>E</em> = 0</span>) for any <span class="math-roman"><em>&omega;</em> &isin; [0, 2&pi;)</span>, map <span class="math-inline">&omega;</span> into <span class="math-roman">(&minus;&pi;, &pi;]</span> before evaluating <span class="math-roman"><em>E</em><sub>&Omega;</sub> = &minus;2 * Math.Atan2(Math.Sqrt(1 - e) * Math.Sin(0.5 * omegaSigned), Math.Sqrt(1 + e) * Math.Cos(0.5 * omegaSigned))</span>, and compute <span class="math-roman"><em>E</em><sub>&mldr;</sub></span> on <span class="math-roman">[0, 2&pi;)</span> via <span class="math-roman"><em>&nu;</em><sub>&mldr;</sub> = (Math.PI - omegaNorm) mod 2&pi;</span>, adding <span class="math-roman">2&pi;</span> to <span class="math-roman"><em>E</em><sub>&mldr;</sub></span> if <span class="math-roman"><em>E</em><sub>&mldr;</sub> &lt; <em>E</em><sub>&Omega;</sub></span>. This ensures <span class="math-roman"><em>E</em><sub>&Omega;</sub> &le; 0 &le; <em>E</em><sub>&mldr;</sub></span> with <span class="math-roman">0 &lt; <em>E</em><sub>&mldr;</sub> &minus; <em>E</em><sub>&Omega;</sub> &lt; 2&pi;</span> across all quadrants without branch jumps.
+            </div>
+
+            <div class="calculator-box">
+                <h4>Interactive MPCORB Perihelion Node Arc (<span class="math-inline">s</span><sub>q</sub>) Calculator</h4>
+                <div class="calc-grid">
+                    <div class="calc-field">
+                        <label for="inputA">Semi-Major Axis <em>a</em> (AU, Cols 93&ndash;103)</label>
+                        <input type="number" id="inputA" step="0.0000001" min="0.01" value="2.7675059">
+                    </div>
+                    <div class="calc-field">
+                        <label for="inputE">Eccentricity <em>e</em> (Cols 71&ndash;79)</label>
+                        <input type="number" id="inputE" step="0.0000001" min="0" max="0.9999999" value="0.0785354">
+                    </div>
+                    <div class="calc-field">
+                        <label for="inputOmega">Arg. of Perihelion <em>&omega;</em> (deg, Cols 38&ndash;46)</label>
+                        <input type="number" id="inputOmega" step="0.00001" value="73.28574">
+                    </div>
+                    <div class="calc-output" id="calcResult">
+                        Perihelion node arc <em>s</em><sub>q</sub>: <strong>8.2693987 AU</strong><br>
+                        Aphelion node arc <em>s</em><sub>Q</sub>: <strong>9.0928047 AU</strong><br>
+                        Total perimeter <em>C</em>: <strong>17.3622034 AU</strong>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Fixed-Width Source Columns &amp; Computation from <code>MPCORB.DAT</code></h2>
+            <p>
+                The table below summarizes the fixed-width columns (1-based indexing) in a standard 202-character <code>MPCORB.DAT</code> record required to evaluate <span class="math-inline">s</span><sub>q</sub>:
+            </p>
+
+            <table class="spec-table">
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Columns (1-based)</th>
+                        <th>Python Slice (0-based)</th>
+                        <th>Fortran Format</th>
+                        <th>Unit &amp; Role</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong><code>&omega;</code> (Argument of perihelion)</strong></td>
+                        <td><code>38–46</code></td>
+                        <td><code>line[37:46]</code></td>
+                        <td><code>F9.5</code></td>
+                        <td>Degrees (<span class="math-roman">&deg;</span>); sets nodal true anomalies <span class="math-roman">&minus;&omega;</span> and <span class="math-roman">180&deg; &minus; &omega;</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>e</code> (Numeric eccentricity)</strong></td>
+                        <td><code>71–79</code></td>
+                        <td><code>line[70:79]</code></td>
+                        <td><code>F9.7</code></td>
+                        <td>Dimensionless (<span class="math-roman">0 &le; <em>e</em> &lt; 1</span>); elliptic modulus <span class="math-roman"><em>k</em> = <em>e</em></span></td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>a</code> (Semi-major axis)</strong></td>
+                        <td><code>93–103</code></td>
+                        <td><code>line[92:103]</code></td>
+                        <td><code>F11.7</code></td>
+                        <td>Astronomical Units (<span class="math-roman">AU</span>); linear scale factor of arc length</td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>s<sub>q</sub></code> (Perihelion node arc length)</strong></td>
+                        <td><em>Derived (not stored)</em></td>
+                        <td><code>a * quad(sqrt(1 - e**2 * cos(E)**2), E_asc, E_desc)</code></td>
+                        <td><em>Computed</em></td>
+                        <td>Astronomical Units (<span class="math-roman">AU</span>); arc length along <span class="math-inline">&Omega; &rarr; q &rarr; &mldr;</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Example Record Evaluation (<code>00001</code> — (1) Ceres)</h3>
+            <pre>Col:  ... 38      46 ... 71      79 ... 93        103
+Data: ... 73.28574   ... 0.0785354  ... 2.7675059
+          └───┬───┘      └───┬───┘      └────┬────┘
+           w (deg)           e             a (AU)
+
+Perihelion Node Arc Evaluation for (1) Ceres:
+  Ascending node true/ecc. anomaly   nu_asc  = -73.28574 deg  ->  E_asc  = -68.95946 deg
+  Descending node true/ecc. anomaly  nu_desc = 106.71426 deg  ->  E_desc = +102.38798 deg
+  Perihelion node arc length (s_q)   s_q (&Omega; -> q -> &mldr;)        = 8.2693987 AU (47.629% of orbit)
+  Aphelion node arc length (s_Q)     s_Q (&mldr; -> Q -> &Omega;)        = 9.0928047 AU (52.371% of orbit)
+  Total orbital perimeter (C)        C = s_q + s_Q = 4a E(e)  = 17.3622034 AU</pre>
+        </section>
+
+        <footer>
+            Self-contained scientific reference document (zero external dependencies) &bull; Conventions aligned with IAU Minor Planet Center (MPC) <code>MPCORB.DAT</code> specifications.
+        </footer>
+    </div>
+
+    <script>
+        (function () {
+            const inputA = document.getElementById("inputA");
+            const inputE = document.getElementById("inputE");
+            const inputOmega = document.getElementById("inputOmega");
+            const calcResult = document.getElementById("calcResult");
+
+            // 16-point Gauss-Legendre nodes and weights on [-1, 1]
+            const GL_X = [
+                -0.9894009349916499, -0.9445750230732326, -0.8656312023878318, -0.7554044083550030,
+                -0.6178762444026438, -0.4580167776572274, -0.2816035507792589, -0.0950125098376374,
+                 0.0950125098376374,  0.2816035507792589,  0.4580167776572274,  0.6178762444026438,
+                 0.7554044083550030,  0.8656312023878318,  0.9445750230732326,  0.9894009349916499
+            ];
+            const GL_W = [
+                0.0271524594117541, 0.0622535239386479, 0.0951585116824928, 0.1246289712555339,
+                0.1495959888165767, 0.1691565193950025, 0.1826034150449236, 0.1894506104550685,
+                0.1894506104550685, 0.1826034150449236, 0.1691565193950025, 0.1495959888165767,
+                0.1246289712555339, 0.0951585116824928, 0.0622535239386479, 0.0271524594117541
+            ];
+
+            function integrateArcLength(a, e, E1, E2) {
+                const half = 0.5 * (E2 - E1);
+                const mid = 0.5 * (E1 + E2);
+                const e2 = e * e;
+                let sum = 0.0;
+                for (let k = 0; k < GL_X.length; k++) {
+                    const E = mid + half * GL_X[k];
+                    const cosE = Math.cos(E);
+                    sum += GL_W[k] * Math.sqrt(Math.max(0.0, 1.0 - e2 * cosE * cosE));
+                }
+                return a * half * sum;
+            }
+
+            function trueToEccentricAnomalySigned(nuRad, e) {
+                const sqrtOneMinusE = Math.sqrt(1.0 - e);
+                const sqrtOnePlusE = Math.sqrt(1.0 + e);
+                const halfNu = 0.5 * nuRad;
+                return 2.0 * Math.atan2(sqrtOneMinusE * Math.sin(halfNu), sqrtOnePlusE * Math.cos(halfNu));
+            }
+
+            function updateCalculation() {
+                const a = parseFloat(inputA.value);
+                const e = parseFloat(inputE.value);
+                const omegaDeg = parseFloat(inputOmega.value);
+
+                if (!isFinite(a) || a <= 0) {
+                    calcResult.innerHTML = "Semi-major axis <em>a</em> must be strictly positive (&gt; 0 AU).";
+                    return;
+                }
+
+                if (!isFinite(e) || e < 0 || e >= 1) {
+                    calcResult.innerHTML = "Numeric eccentricity <em>e</em> must satisfy 0 &le; <em>e</em> &lt; 1 for an elliptic orbit.";
+                    return;
+                }
+
+                if (!isFinite(omegaDeg)) {
+                    calcResult.innerHTML = "Please enter a valid argument of perihelion <em>&omega;</em> in degrees.";
+                    return;
+                }
+
+                const omegaNormDeg = (((omegaDeg % 360.0) + 360.0) % 360.0);
+                const omegaRad = (omegaNormDeg * Math.PI) / 180.0;
+
+                // Wrap omega into (-pi, pi] so E_asc <= 0 <= E_desc spans perihelion (E = 0)
+                const omegaSigned = omegaRad > Math.PI ? omegaRad - 2.0 * Math.PI : omegaRad;
+                const eAsc = trueToEccentricAnomalySigned(-omegaSigned, e);
+
+                const nuDesc = (((Math.PI - omegaRad) % (2.0 * Math.PI)) + 2.0 * Math.PI) % (2.0 * Math.PI);
+                let eDesc = trueToEccentricAnomalySigned(nuDesc, e);
+                if (eDesc < 0.0) {
+                    eDesc += 2.0 * Math.PI;
+                }
+                if (eDesc <= eAsc) {
+                    eDesc += 2.0 * Math.PI;
+                }
+
+                const sq = integrateArcLength(a, e, eAsc, eDesc);
+                const perimeter = integrateArcLength(a, e, 0.0, 2.0 * Math.PI);
+                const sQ = perimeter - sq;
+
+                calcResult.innerHTML =
+                    `Perihelion node arc <em>s</em><sub>q</sub>: <strong>${sq.toFixed(7)} AU</strong><br>` +
+                    `Aphelion node arc <em>s</em><sub>Q</sub>: <strong>${sQ.toFixed(7)} AU</strong><br>` +
+                    `Total perimeter <em>C</em>: <strong>${perimeter.toFixed(7)} AU</strong>`;
+            }
+
+            inputA.addEventListener("input", updateCalculation);
+            inputE.addEventListener("input", updateCalculation);
+            inputOmega.addEventListener("input", updateCalculation);
+            updateCalculation();
+        })();
+    </script>
+</body>
+</html>

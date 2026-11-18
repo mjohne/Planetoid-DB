@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Angular Velocity — MPCORB Orbital Dynamics</title>
+  <style>
+:root {
+  --bg-color: #f8fafc;
+  --surface-color: #ffffff;
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  --accent-color: #1e3a8a;
+  --accent-light: #eff6ff;
+  --border-color: #e2e8f0;
+  --code-bg: #f1f5f9;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-serif: "Georgia", "Times New Roman", Times, serif;
+  --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-color: #0f172a;
+    --surface-color: #1e293b;
+    --text-primary: #f8fafc;
+    --text-secondary: #cbd5e1;
+    --text-muted: #94a3b8;
+    --accent-color: #60a5fa;
+    --accent-light: #1e3a8a33;
+    --border-color: #334155;
+    --code-bg: #0f172a;
+  }
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  line-height: 1.7;
+  padding: 2rem 1rem;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 2.5rem 3rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+header {
+  border-bottom: 2px solid var(--accent-color);
+  padding-bottom: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.category-tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent-color);
+  background-color: var(--accent-light);
+  padding: 0.25rem 0.65rem;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
+h2 {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.35rem;
+}
+
+h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+ul, ol {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+li {
+  margin-bottom: 0.4rem;
+}
+
+.equation-box {
+  background-color: var(--code-bg);
+  border-left: 4px solid var(--accent-color);
+  padding: 1rem 1.5rem;
+  margin: 1.25rem 0;
+  border-radius: 0 6px 6px 0;
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  overflow-x: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.equation-main {
+  font-style: italic;
+}
+
+.equation-label {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-style: normal;
+  margin-left: 1rem;
+}
+
+.math-var {
+  font-family: var(--font-serif);
+  font-style: italic;
+}
+
+.math-vec {
+  font-family: var(--font-serif);
+  font-weight: bold;
+  font-style: italic;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.92rem;
+}
+
+th, td {
+  border: 1px solid var(--border-color);
+  padding: 0.65rem 0.85rem;
+  text-align: left;
+}
+
+th {
+  background-color: var(--code-bg);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+code {
+  font-family: var(--font-mono);
+  background-color: var(--code-bg);
+  padding: 0.15rem 0.35rem;
+  border-radius: 4px;
+  font-size: 0.88em;
+}
+
+.interactive-panel {
+  background-color: var(--code-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 1.25rem;
+  margin: 1.75rem 0;
+}
+
+.interactive-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 0.75rem;
+  color: var(--text-primary);
+}
+
+.controls-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.control-group label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.control-group input {
+  width: 100%;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background-color: var(--surface-color);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+}
+
+.result-bar {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--accent-color);
+  font-weight: 600;
+}
+
+footer {
+  margin-top: 2.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 1.5rem 1.25rem;
+  }
+}
+</style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <span class="category-tag">Celestial Mechanics &amp; Astrodynamics • MPCORB Reference</span>
+      <h1>Angular Velocity</h1>
+      <div class="subtitle">Instantaneous Heliocentric Rate of Change of True Anomaly</div>
+    </header>
+    <main>
+      
+<h2>1. Formal Definition</h2>
+<p>
+  In heliocentric orbital mechanics applied to the Minor Planet Center Orbit Database (<strong>MPCORB</strong>), the <strong>instantaneous orbital angular velocity</strong> (<span class="math-var">&omega;</span> or <span class="math-var">&#x03BD;&#x0307;</span>) is the time rate of change of the minor planet's true anomaly <span class="math-var">&nu;</span> (or, equivalently, its argument of latitude <span class="math-var">u = &omega;<sub>p</sub> + &nu;</span> or true longitude <span class="math-var">l = &Omega; + &omega;<sub>p</sub> + &nu;</span>) measured within the instantaneous osculating orbital plane with respect to the heliocenter.
+</p>
+<p>
+  In vector form, the orbital angular velocity vector <span class="math-vec">&omega;</span> is directed along the orbital pole unit vector <span class="math-vec">h&#x0302;</span> (normal to the osculating orbital plane, inclined by <span class="math-var">i</span> to the J2000 ecliptic) with scalar magnitude <span class="math-var">&#x03BD;&#x0307; = d&nu;/dt</span>. It must be strictly distinguished from the <strong>mean daily motion</strong> <span class="math-var">n = dM/dt</span> stored directly in <code>MPCORB.DAT</code> (columns 81–91): whereas <span class="math-var">n</span> is a constant orbital-averaged angular rate, <span class="math-var">&#x03BD;&#x0307;(t)</span> varies continuously around an eccentric orbit in inverse proportion to the square of the heliocentric distance.
+</p>
+
+<h2>2. Mathematical Formulation from MPCORB Elements</h2>
+<p>
+  Directly from Kepler's second law (conservation of specific orbital angular momentum <span class="math-var">h = r<sup>2</sup> &#x03BD;&#x0307;</span>), the instantaneous angular velocity is determined by the semimajor axis <span class="math-var">a</span> (AU, <code>MPCORB.DAT</code> cols 93–103), eccentricity <span class="math-var">e</span> (cols 71–79), mean motion <span class="math-var">n</span> (cols 81–91), and true anomaly <span class="math-var">&nu;</span>:
+</p>
+
+<div class="equation-box">
+  <span class="equation-main">&#x03BD;&#x0307; = d&nu; / dt = h / r<sup>2</sup> = &radic;(&mu; p) / r<sup>2</sup> = n &middot; (1 + e cos &nu;)<sup>2</sup> / (1 &minus; e<sup>2</sup>)<sup>3/2</sup></span>
+  <span class="equation-label">(Eq. 1)</span>
+</div>
+
+<p>where:</p>
+<ul>
+  <li><span class="math-var">n = &radic;(&mu; / a<sup>3</sup>)</span> is the unperturbed Keplerian mean motion (in rad/day, or multiplied by <span class="math-var">180/&pi;</span> for deg/day as tabulated in <code>MPCORB.DAT</code>).</li>
+  <li><span class="math-var">h = &radic;(&mu; a(1 &minus; e<sup>2</sup>)) = n a<sup>2</sup> &radic;(1 &minus; e<sup>2</sup>)</span> is the specific angular momentum in AU<sup>2</sup> day<sup>&minus;1</sup>.</li>
+  <li><span class="math-var">r = a(1 &minus; e<sup>2</sup>) / (1 + e cos &nu;) = a(1 &minus; e cos E)</span> is the instantaneous heliocentric distance in AU.</li>
+</ul>
+
+<p>Expressed in terms of the eccentric anomaly <span class="math-var">E</span>, the instantaneous angular velocity is:</p>
+<div class="equation-box">
+  <span class="equation-main">&#x03BD;&#x0307; = n &middot; &radic;(1 &minus; e<sup>2</sup>) / (1 &minus; e cos E)<sup>2</sup></span>
+  <span class="equation-label">(Eq. 2)</span>
+</div>
+
+<h2>3. Dynamic Range &amp; Angular Rates in MPCORB</h2>
+<p>
+  Because <span class="math-var">&#x03BD;&#x0307; &prop; r<sup>&minus;2</sup></span>, eccentric minor planets (such as Apollo/Amor near-Earth asteroids, Damocloids, or Jupiter-family comets) exhibit dramatic variations in angular velocity between perihelion and aphelion:
+</p>
+<table>
+  <thead>
+    <tr>
+      <th>Orbital State</th>
+      <th>Angular Velocity <span class="math-var">&#x03BD;&#x0307;</span></th>
+      <th>Ratio to Mean Motion (<span class="math-var">&#x03BD;&#x0307; / n</span>)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Perihelion (<span class="math-var">&nu;</span> = 0&deg;) — Maximum</td>
+      <td><span class="math-var">&#x03BD;&#x0307;<sub>peri</sub> = n &radic;(1 + e) / (1 &minus; e)<sup>3/2</sup></span></td>
+      <td><span class="math-var">(1 + e)<sup>1/2</sup> (1 &minus; e)<sup>&minus;3/2</sup></span></td>
+    </tr>
+    <tr>
+      <td>Mean Distance (<span class="math-var">r = a</span>, <span class="math-var">E</span> = &pm;90&deg;)</td>
+      <td><span class="math-var">&#x03BD;&#x0307; = n &radic;(1 &minus; e<sup>2</sup>)</span></td>
+      <td><span class="math-var">&radic;(1 &minus; e<sup>2</sup>)</span></td>
+    </tr>
+    <tr>
+      <td>Instantaneous Equality (<span class="math-var">&#x03BD;&#x0307; = n</span>)</td>
+      <td><span class="math-var">&#x03BD;&#x0307; = n</span></td>
+      <td><span class="math-var">1.0</span> (occurs at <span class="math-var">r = a(1 &minus; e<sup>2</sup>)<sup>1/4</sup></span>)</td>
+    </tr>
+    <tr>
+      <td>Aphelion (<span class="math-var">&nu;</span> = 180&deg;) — Minimum</td>
+      <td><span class="math-var">&#x03BD;&#x0307;<sub>aph</sub> = n &radic;(1 &minus; e) / (1 + e)<sup>3/2</sup></span></td>
+      <td><span class="math-var">(1 &minus; e)<sup>1/2</sup> (1 + e)<sup>&minus;3/2</sup></span></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>
+  <strong>Unit Conventions:</strong> In <code>MPCORB.DAT</code>, mean motion <span class="math-var">n</span> is reported in <strong>degrees per day</strong> (<code>deg/d</code>) to 7 decimal places (e.g., <span class="math-var">n</span> &approx; 0.2141 deg/d for (1) Ceres). Accordingly, <span class="math-var">&#x03BD;&#x0307;</span> is naturally expressed in <code>deg/d</code>, <code>arcsec/h</code> (<span class="math-var">1 deg/d = 150 arcsec/h</span>), or SI <code>rad/s</code> (<span class="math-var">1 deg/d = (&pi;/180) / 86400 &approx; 2.0201 &times; 10<sup>&minus;7</sup> rad/s</span>). Note that <span class="math-var">&#x03BD;&#x0307;</span> is the heliocentric orbital angular rate, not the apparent topocentric sky-plane proper motion (<span class="math-var">&mu;<sub>&alpha;</sub> cos &delta;, &mu;<sub>&delta;</sub></span>), which also incorporates Earth's orbital motion and observer-target geometry.
+</p>
+
+<div class="interactive-panel">
+  <div class="interactive-title">Interactive Calculator: Instantaneous Heliocentric Angular Velocity</div>
+  <div class="controls-grid">
+    <div class="control-group">
+      <label for="a_val">Semimajor Axis a (AU)</label>
+      <input type="number" id="a_val" value="2.767" step="0.01" min="0.01">
+    </div>
+    <div class="control-group">
+      <label for="e_val">Eccentricity e</label>
+      <input type="number" id="e_val" value="0.076" step="0.005" min="0" max="0.999">
+    </div>
+    <div class="control-group">
+      <label for="nu_val">True Anomaly &nu; (deg)</label>
+      <input type="number" id="nu_val" value="45.0" step="1.0">
+    </div>
+  </div>
+  <div class="result-bar" id="calc_out">Computing...</div>
+</div>
+
+    </main>
+    <footer>
+      <span>Reference Standard: IAU Minor Planet Center (MPCORB.DAT) Two-Body Heliocentric Model</span>
+      <span>Standard Gaussian Gravitational Constant: k = 0.01720209895 AU<sup>3/2</sup> d<sup>&minus;1</sup></span>
+    </footer>
+  </div>
+  <script>
+    
+(function() {
+  const k = 0.01720209895;
+  const radToDeg = 180.0 / Math.PI;
+
+  function update() {
+    const a = parseFloat(document.getElementById('a_val').value);
+    const e = parseFloat(document.getElementById('e_val').value);
+    const nuDeg = parseFloat(document.getElementById('nu_val').value);
+    const out = document.getElementById('calc_out');
+
+    if (isNaN(a) || isNaN(e) || isNaN(nuDeg) || a <= 0 || e < 0 || e >= 1) {
+      out.textContent = "Invalid orbital parameters (require a > 0 and 0 <= e < 1).";
+      return;
+    }
+
+    const nRadDay = k / Math.pow(a, 1.5);
+    const nDegDay = nRadDay * radToDeg;
+    const nuRad = nuDeg * Math.PI / 180.0;
+    const factor = Math.pow(1 + e * Math.cos(nuRad), 2) / Math.pow(1 - e * e, 1.5);
+    const nuDotDegDay = nDegDay * factor;
+    const nuDotRadSec = (nRadDay * factor) / 86400.0;
+
+    out.textContent = `nu_dot = ${nuDotDegDay.toFixed(6)} deg/d  |  ${nuDotRadSec.toExponential(5)} rad/s  |  (n = ${nDegDay.toFixed(6)} deg/d)`;
+  }
+
+  ['a_val', 'e_val', 'nu_val'].forEach(id => {
+    document.getElementById(id).addEventListener('input', update);
+  });
+  update();
+})();
+
+  </script>
+</body>
+</html>
