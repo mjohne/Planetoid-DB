@@ -29,7 +29,7 @@ Typical responsibilities include:
 - assembly metadata
 - common UI performance helpers
 
-The current repository contains helper classes such as `AverageCalculator`, `BookmarkEntry`, `BookmarkStore`, `DerivedElements`, `DoubleBufferingHelper`, `DownloadProgressInfo`, `ExportEscapeHelper`, `ExportFeedbackHelper`, `IOrbitDataExporter`, `ListViewExporter`, `ListViewItemComparer`, `LogEventDto`, `LogEventStore`, `LogEventTarget`, `MaxoidCalculator`, `MoidCalculator`, `PlanetoidRecord`, `SettingsExporter`, `SettingsImporter`, `TaskbarProgress`, `TextBoxExporter`, and `TisserandParameterCalculator`.
+The current repository contains helper classes such as `AssemblyInfo`, `AstDysProperElementsParser`, `AsteroidFamilyUiHelper`, `AudioPlayback`, `AverageCalculator`, `BookmarkEntry`, `BookmarkStore`, `DateFormatterExtensions`, `DerivedElements`, `DoubleBufferingHelper`, `DownloadProgressInfo`, `ExportEscapeHelper`, `ExportFeedbackHelper`, `IOrbitDataExporter`, `ListViewExporter`, `ListViewItemComparer`, `LogEventDto`, `LogEventStore`, `LogEventTarget`, `MaxoidCalculator`, `MoidCalculator`, `OrbitalArcCalculator`, `PlanetoidRecord`, `SettingsExporter`, `SettingsImporter`, `TaskbarProgress`, `TextBoxExporter`, `TisserandParameterCalculator` and `ToolStripNumericUpDown`.
 
 ## Architecture
 
