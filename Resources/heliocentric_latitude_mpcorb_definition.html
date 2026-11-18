@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Heliocentric Latitude (&beta;) — MPCORB Orbital Reference</title>
+  <style>
+:root {
+  --bg-color: #f8fafc;
+  --surface-color: #ffffff;
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  --accent-color: #1e3a8a;
+  --accent-light: #eff6ff;
+  --border-color: #e2e8f0;
+  --code-bg: #f1f5f9;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-serif: "Georgia", "Times New Roman", Times, serif;
+  --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  line-height: 1.7;
+  padding: 2rem 1rem;
+}
+
+.container {
+  max-width: 920px;
+  margin: 0 auto;
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 2.5rem 3rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+header {
+  border-bottom: 2px solid var(--accent-color);
+  padding-bottom: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.category-tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent-color);
+  background-color: var(--accent-light);
+  padding: 0.25rem 0.65rem;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
+h2 {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.35rem;
+}
+
+h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+ul, ol {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+li {
+  margin-bottom: 0.4rem;
+}
+
+.equation-box {
+  background-color: var(--code-bg);
+  border-left: 4px solid var(--accent-color);
+  padding: 1rem 1.5rem;
+  margin: 1.25rem 0;
+  border-radius: 0 6px 6px 0;
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  overflow-x: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.equation-main {
+  font-style: italic;
+}
+
+.equation-label {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-style: normal;
+  margin-left: 1rem;
+}
+
+.math-var {
+  font-family: var(--font-serif);
+  font-style: italic;
+}
+
+.figure-box {
+  background-color: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 1.25rem;
+  margin: 1.75rem 0;
+  text-align: center;
+}
+
+.figure-box svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.figure-caption {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-top: 0.85rem;
+  text-align: left;
+  line-height: 1.5;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.92rem;
+}
+
+th, td {
+  border: 1px solid var(--border-color);
+  padding: 0.65rem 0.85rem;
+  text-align: left;
+}
+
+th {
+  background-color: var(--code-bg);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+code {
+  font-family: var(--font-mono);
+  background-color: var(--code-bg);
+  padding: 0.15rem 0.35rem;
+  border-radius: 4px;
+  font-size: 0.88em;
+}
+
+pre.mpcorb-record {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  background-color: var(--code-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 0.85rem 1rem;
+  overflow-x: auto;
+  line-height: 1.45;
+  color: var(--text-primary);
+  margin: 0.75rem 0 1.25rem 0;
+}
+
+.example-card {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-left: 4px solid #047857;
+  border-radius: 6px;
+  padding: 1.15rem 1.35rem;
+  margin: 1.15rem 0;
+}
+
+.example-card h3 {
+  margin-top: 0;
+  color: #065f46;
+}
+
+.interactive-panel {
+  background-color: var(--code-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 1.25rem;
+  margin: 1.75rem 0;
+}
+
+.interactive-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 0.75rem;
+  color: var(--text-primary);
+}
+
+.controls-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.control-group label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.control-group input {
+  width: 100%;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background-color: var(--surface-color);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+}
+
+.result-bar {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  color: var(--accent-color);
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+footer {
+  margin-top: 2.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 1.5rem 1.25rem;
+  }
+}
+</style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <span class="category-tag">Celestial Mechanics &amp; Heliocentric Ecliptic Coordinates • MPCORB Reference</span>
+      <h1>Heliocentric Latitude (<span class="math-var">&beta;</span>)</h1>
+      <div class="subtitle">Ecliptic Elevation Angle, Spherical-Triangle Coupling &amp; Vertical Displacement in MPCORB.DAT</div>
+    </header>
+    <main>
+      
+<h2>1. Formal Definition</h2>
+<p>
+  In celestial mechanics, positional astronomy, and derived spherical ephemerides computed from the Minor Planet Center Orbit Database (<strong>MPCORB</strong>), the <strong>heliocentric latitude</strong>—more precisely, the <strong>heliocentric ecliptic latitude</strong> (<span class="math-var">&beta;</span> or <span class="math-var">b</span>)—is the signed spherical elevation angle measured at the center of the <strong>Sun</strong> between the fundamental <strong>J2000.0 mean ecliptic plane</strong> and the minor body's instantaneous heliocentric position vector <span class="math-var"><b>r</b>(t) = (X(t), Y(t), Z(t))<sup>T</sup></span>:
+</p>
+
+<div class="equation-box">
+  <span class="equation-main">
+    &beta;(t) = rcsin &left( rac{Z(t)}{r(t)} &right) = \mathrm{atan2} &left( Z(t), \sqrt{X(t)<sup>2</sup> + Y(t)<sup>2</sup>} &right) &isin; [&minus;90&deg;, +90&deg;]
+  </span>
+  <span class="equation-label">(Eq. 1)</span>
+</div>
+
+<p>where:</p>
+<ul>
+  <li><span class="math-var">Z(t)</span> is the Cartesian component of <span class="math-var"><b>r</b>(t)</span> orthogonal to the J2000.0 ecliptic plane, oriented positively toward the <strong>north ecliptic pole</strong> (<span class="math-var">&alpha;<sub>J2000</sub> = 18<sup>h</sup>00<sup>m</sup>00<sup>s</sup>, &delta;<sub>J2000</sub> = +66&deg;33'38.55"</span>), and <span class="math-var">r(t) = |<b>r</b>(t)| = &radic;(X(t)<sup>2</sup> + Y(t)<sup>2</sup> + Z(t)<sup>2</sup>)</span> is the heliocentric radial distance.</li>
+  <li>By convention, <span class="math-var">&beta;(t) &gt; 0&deg;</span> denotes positions north of the J2000.0 ecliptic plane, <span class="math-var">&beta;(t) = 0&deg;</span> occurs exclusively at the <strong>ascending node</strong> (<span class="math-var">&#9738;</span>) and <strong>descending node</strong> (<span class="math-var">&#9739;</span>), and <span class="math-var">&beta;(t) &lt; 0&deg;</span> denotes positions south of the ecliptic plane.</li>
+  <li>Because <code>MPCORB.DAT</code> tabulates all angular elements (<span class="math-var">M<sub>0</sub></span>, <span class="math-var">&omega;</span>, <span class="math-var">&Omega;</span>, <span class="math-var">i</span>) in the <strong>J2000.0 mean ecliptic and equinox</strong> reference frame, <span class="math-var">&beta;(t)</span> is directly coupled to the orbital inclination <span class="math-var">i</span> and the instantaneous <strong>argument of latitude</strong> <span class="math-var">u(t) = (&omega; + &nu;(t)) &pmod{360&deg;}</span> via spherical trigonometry.</li>
+</ul>
+
+<div class="figure-box">
+  <svg viewBox="0 0 740 315" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Three-dimensional spherical triangle on the heliocentric celestial sphere relating Heliocentric Ecliptic Latitude beta to Argument of Latitude u and Inclination i">
+    <defs>
+      <marker id="arrowSlate" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#475569"/>
+      </marker>
+      <marker id="arrowBlue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#1e3a8a"/>
+      </marker>
+      <marker id="arrowEmerald" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#047857"/>
+      </marker>
+      <marker id="arrowCrimson" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#be123c"/>
+      </marker>
+    </defs>
+
+    <!-- Left Diagram: 3D Ecliptic Plane vs Inclined Orbital Plane and Vertical Projection -->
+    <!-- Ecliptic Reference Plane -->
+    <polygon points="34,225 162,135 438,135 310,225" fill="#eff6ff" fill-opacity="0.7" stroke="#93c5fd" stroke-width="1.3"/>
+    <text x="52" y="216" font-family="sans-serif" font-size="10" font-weight="600" fill="#1e3a8a">J2000.0 Ecliptic Plane (&beta; = 0&deg;)</text>
+
+    <!-- North Ecliptic Pole Z-axis at Sun (215, 180) -->
+    <line x1="215" y1="180" x2="215" y2="42" stroke="#64748b" stroke-width="1.4" stroke-dasharray="4,3" marker-end="url(#arrowSlate)"/>
+    <text x="172" y="34" font-family="sans-serif" font-size="10" font-weight="700" fill="#475569">+Z (North Ecliptic Pole)</text>
+
+    <!-- Vernal Equinox Reference Direction gamma (from Sun 215,180 to 82,202) -->
+    <line x1="215" y1="180" x2="88" y2="201" stroke="#475569" stroke-width="1.3" stroke-dasharray="3,2" marker-end="url(#arrowSlate)"/>
+    <text x="64" y="198" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#334155">&#9800; (J2000)</text>
+
+    <!-- Line of Nodes: Ascending Node (156, 214) through Sun (215, 180) to Descending Node (315, 122) -->
+    <line x1="142" y1="222" x2="328" y2="115" stroke="#1e3a8a" stroke-width="1.8" stroke-dasharray="5,3"/>
+    <circle cx="156" cy="214" r="4.6" fill="#2563eb" stroke="#0f172a" stroke-width="1.1"/>
+    <text x="72" y="236" font-family="sans-serif" font-size="10" font-weight="700" fill="#1e3a8a">Ascending Node &#9738;</text>
+
+    <!-- Inclined Orbital Plane Wedge -->
+    <polygon points="156,214 315,122 392,52 233,144" fill="#ecfdf5" fill-opacity="0.45" stroke="#047857" stroke-width="1.6"/>
+    <text x="292" y="48" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#047857">Inclined Orbital Plane</text>
+
+    <!-- Inclination angle i between Ecliptic and Orbital Plane at Ascending Node -->
+    <path d="M 188 195 A 36 36 0 0 0 183 181" fill="none" stroke="#047857" stroke-width="2"/>
+    <text x="193" y="184" font-family="Georgia, serif" font-style="italic" font-size="12.5" font-weight="700" fill="#047857">i</text>
+
+    <!-- Body Position r(t) at (332, 74) and Ecliptic Projection r_xy at (332, 166) -->
+    <!-- Vertical height Z = r sin beta -->
+    <line x1="332" y1="74" x2="332" y2="166" stroke="#be123c" stroke-width="1.8" stroke-dasharray="4,2"/>
+    <rect x="326" y="160" width="6" height="6" fill="none" stroke="#be123c" stroke-width="1.1"/>
+    <text x="339" y="126" font-family="Georgia, serif" font-style="italic" font-size="11.5" font-weight="700" fill="#be123c">Z = r sin &beta;</text>
+
+    <!-- Ecliptic projection vector r_xy from Sun (215, 180) to (332, 166) -->
+    <line x1="215" y1="180" x2="332" y2="166" stroke="#1e3a8a" stroke-width="1.7" stroke-dasharray="4,2"/>
+    <circle cx="332" cy="166" r="3.5" fill="#1e3a8a"/>
+    <text x="266" y="187" font-family="Georgia, serif" font-style="italic" font-size="10.5" fill="#1e3a8a">r cos &beta;</text>
+
+    <!-- Heliocentric radius vector r(t) from Sun (215, 180) to Body (332, 74) -->
+    <line x1="215" y1="180" x2="332" y2="74" stroke="#be123c" stroke-width="2.3" marker-end="url(#arrowCrimson)"/>
+    <circle cx="332" cy="74" r="5.2" fill="#e11d48" stroke="#0f172a" stroke-width="1.2"/>
+    <text x="340" y="75" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#be123c">Body r(t)</text>
+
+    <!-- Heliocentric Latitude beta elevation arc at Sun between r_xy (332,166) and r(t) (332,74) -->
+    <path d="M 274 173 A 60 60 0 0 0 260 139" fill="none" stroke="#be123c" stroke-width="2.5"/>
+    <text x="276" y="154" font-family="Georgia, serif" font-style="italic" font-size="14.5" font-weight="700" fill="#be123c">&beta;</text>
+
+    <!-- Sun at (215, 180) -->
+    <circle cx="215" cy="180" r="9.5" fill="#f59e0b" stroke="#b45309" stroke-width="1.6"/>
+    <text x="206" y="205" font-family="sans-serif" font-size="10" font-weight="700" fill="#b45309">Sun</text>
+
+    <!-- Right Panel: Spherical Trigonometry & MPCORB Evaluation -->
+    <rect x="455" y="24" width="265" height="266" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+    <text x="470" y="47" font-family="sans-serif" font-size="11.5" font-weight="700" fill="#0f172a">Spherical Triangle &amp; Bounds</text>
+
+    <rect x="470" y="62" width="235" height="60" rx="4" fill="#fff1f2" stroke="#fda4af" stroke-width="1"/>
+    <text x="480" y="79" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#9f1239">1. Spherical Sine Law (Napier):</text>
+    <text x="480" y="97" font-family="Georgia, serif" font-style="italic" font-size="11.5" fill="#0f172a">sin &beta;(t) = sin(&omega; + &nu;(t)) sin i</text>
+    <text x="480" y="113" font-family="sans-serif" font-size="9.5" fill="#475569">(Independent of ascending node &Omega;)</text>
+
+    <line x1="587" y1="122" x2="587" y2="140" stroke="#475569" stroke-width="1.4" marker-end="url(#arrowSlate)"/>
+
+    <rect x="470" y="142" width="235" height="60" rx="4" fill="#eff6ff" stroke="#93c5fd" stroke-width="1"/>
+    <text x="480" y="159" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#1e3a8a">2. Strict Extrema Envelope:</text>
+    <text x="480" y="177" font-family="Georgia, serif" font-style="italic" font-size="11.5" fill="#0f172a">|&beta;(t)| &le; i' = min(i, 180&deg; &minus; i)</text>
+    <text x="480" y="193" font-family="sans-serif" font-size="9.5" fill="#475569">(Peaks at antinodes u = 90&deg;, 270&deg;)</text>
+
+    <line x1="587" y1="202" x2="587" y2="220" stroke="#475569" stroke-width="1.4" marker-end="url(#arrowSlate)"/>
+
+    <rect x="470" y="222" width="235" height="54" rx="4" fill="#ecfdf5" stroke="#6ee7b7" stroke-width="1"/>
+    <text x="480" y="239" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#065f46">3. Heliocentric Ecliptic Triad:</text>
+    <text x="480" y="257" font-family="Georgia, serif" font-style="italic" font-size="11.5" fill="#0f172a">(r, &lambda;, &beta;) &hArr; (X, Y, Z)<sub>J2000</sub></text>
+  </svg>
+  <div class="figure-caption">
+    <strong>Figure 1:</strong> Three-dimensional geometry of <strong>heliocentric ecliptic latitude</strong> (<span class="math-var">&beta;</span>) measured at the Sun between the J2000.0 ecliptic plane (<span class="math-var">Z = 0</span>) and the minor body's position vector <span class="math-var"><b>r</b>(t)</span>. By Napier's rules for the right spherical triangle bounded by the ascending node <span class="math-var">&#9738;</span>, the body, and its orthogonal ecliptic projection, <span class="math-var">sin &beta; = sin u sin i</span>.
+  </div>
+</div>
+
+<h2>2. Spherical Trigonometric Formula &amp; Derivation from <code>MPCORB.DAT</code></h2>
+<p>
+  <code>MPCORB.DAT</code> provides the epoch mean anomaly <span class="math-var">M<sub>0</sub></span> (columns 27–35), argument of perihelion <span class="math-var">&omega;</span> (columns 38–46), longitude of the ascending node <span class="math-var">&Omega;</span> (columns 49–57), inclination <span class="math-var">i</span> (columns 60–68), eccentricity <span class="math-var">e</span> (columns 71–79), mean daily motion <span class="math-var">n</span> (columns 81–91), and semimajor axis <span class="math-var">a</span> (columns 93–103). Solving Kepler's equation <span class="math-var">M(t) = E(t) &minus; e sin E(t)</span> for <span class="math-var">E(t)</span>, converting to the true anomaly <span class="math-var">&nu;(t)</span>, and forming the <strong>argument of latitude</strong> <span class="math-var">u(t) = (&omega; + &nu;(t)) &pmod{360&deg;}</span> determines <span class="math-var">&beta;(t)</span> directly without needing <span class="math-var">&Omega;</span>:
+</p>
+
+<div class="equation-box">
+  <span class="equation-main">
+    \sin &beta;(t) = \sin u(t) \sin i = \sin(&omega; + &nu;(t)) \sin i, &quad; &beta;(t) = rcsin &left( \sin(&omega; + &nu;(t)) \sin i &right)
+  </span>
+  <span class="equation-label">(Eq. 2)</span>
+</div>
+
+<p>
+  Together with the heliocentric ecliptic longitude <span class="math-var">&lambda;(t)</span> and radial distance <span class="math-var">r(t) = a(1 &minus; e<sup>2</sup>)/(1 + e \cos &nu;(t))</span>, <span class="math-var">&beta;(t)</span> completes the spherical-to-Cartesian transformation in the J2000.0 mean ecliptic frame:
+</p>
+
+<div class="equation-box">
+  <span class="equation-main">
+    X(t) = r(t) \cos &beta;(t) \cos &lambda;(t), &quad; Y(t) = r(t) \cos &beta;(t) \sin &lambda;(t), &quad; Z(t) = r(t) \sin &beta;(t)
+  </span>
+  <span class="equation-label">(Eq. 3)</span>
+</div>
+
+<p>
+  Differentiating <span class="math-var">\sin &beta; = \sin u \sin i</span> with respect to time yields the instantaneous <strong>ecliptic latitude rate</strong> (<span class="math-var">d&beta;/dt</span>) along an unperturbed Keplerian orbit (<span class="math-var">\dot{u} = \dot{&nu;} = h/r<sup>2</sup></span>):
+</p>
+
+<div class="equation-box">
+  <span class="equation-main">
+    rac{d&beta;}{dt} = rac{\cos u(t) \sin i}{\cos &beta;(t)} rac{h}{r(t)<sup>2</sup>} = rac{\cos u(t) \sin i}{\sqrt{1 &minus; \sin<sup>2</sup> u(t) \sin<sup>2</sup> i}} rac{n(1 + e \cos &nu;(t))<sup>2</sup>}{(1 &minus; e<sup>2</sup>)<sup>3/2</sup>}
+  </span>
+  <span class="equation-label">(Eq. 4)</span>
+</div>
+
+<h2>3. Behavioral Regimes &amp; Extrema Across Orbital Classes</h2>
+<p>
+  Because <span class="math-var">\sin i = \sin(180&deg; &minus; i) &ge; 0</span> for all <span class="math-var">i &isin; [0&deg;, 180&deg;]</span>, both prograde (<span class="math-var">0&deg; &le; i &lt; 90&deg;</span>) and retrograde (<span class="math-var">90&deg; &lt; i &le; 180&deg;</span>) orbits satisfy the exact bound <span class="math-var">|&beta;(t)| &le; i'</span>, where <span class="math-var">i' = \min(i, 180&deg; &minus; i)</span>:
+</p>
+<table>
+  <thead>
+    <tr>
+      <th>Orbital Regime</th>
+      <th>Inclination (<span class="math-var">i</span>)</th>
+      <th>Heliocentric Latitude (<span class="math-var">&beta;(t)</span>) Behavior</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Coplanar / Ecliptic Orbit</strong></td>
+      <td><span class="math-var">i = 0&deg;</span> or <span class="math-var">180&deg;</span></td>
+      <td><span class="math-var">&beta;(t) &equiv; 0&deg;</span> identically at all epochs (<span class="math-var">Z(t) &equiv; 0</span>); body remains strictly inside the ecliptic plane.</td>
+    </tr>
+    <tr>
+      <td><strong>Low-Inclination Main-Belt / NEO</strong></td>
+      <td><span class="math-var">0&deg; &lt; i &lt; 15&deg;</span></td>
+      <td>Oscillates sinusoidally within <span class="math-var">[&minus;i, +i]</span>, crossing <span class="math-var">&beta; = 0&deg;</span> at <span class="math-var">u = 0&deg;</span> (<span class="math-var">&dot{&beta;} &gt; 0</span>) and <span class="math-var">u = 180&deg;</span> (<span class="math-var">&dot{&beta;} &lt; 0</span>).</td>
+    </tr>
+    <tr>
+      <td><strong>High-Inclination / Hungaria / Phocaea</strong></td>
+      <td><span class="math-var">15&deg; &le; i &lt; 90&deg;</span></td>
+      <td>Reaches <span class="math-var">&beta; = +i</span> at the northern antinode (<span class="math-var">u = 90&deg;</span>) and <span class="math-var">&beta; = &minus;i</span> at the southern antinode (<span class="math-var">u = 270&deg;</span>).</td>
+    </tr>
+    <tr>
+      <td><strong>Polar / Retrograde (Damocloid / Comet)</strong></td>
+      <td><span class="math-var">90&deg; &le; i &lt; 180&deg;</span></td>
+      <td>At <span class="math-var">i = 90&deg;</span>, <span class="math-var">&beta;(t)</span> sweeps the full pole-to-pole range <span class="math-var">[&minus;90&deg;, +90&deg;]</span>; for <span class="math-var">i &gt; 90&deg;</span>, <span class="math-var">|&beta;(t)| &le; 180&deg; &minus; i</span>.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>4. Astrodynamical &amp; Observational Significance</h2>
+<ul>
+  <li><strong>Distinction Between Heliocentric Latitude (<span class="math-var">&beta;</span>) and Geocentric Latitude (<span class="math-var">&beta;<sub>geo</sub></span>):</strong> <span class="math-var">&beta;(t)</span> is measured from the <em>Sun</em> and depends purely on the minor planet's heliocentric orbital elements (<span class="math-var">i, &omega;, M<sub>0</sub>, e, n</span>). By contrast, an Earth-based observer measures the <strong>geocentric ecliptic latitude</strong> <span class="math-var">&beta;<sub>geo</sub>(t) = rcsin(Z(t) / \Delta(t))</span> (since Earth's heliocentric ecliptic coordinate satisfies <span class="math-var">Z<sub>&oplus;</sub> &approx; 0</span>), which is amplified by the parallax factor <span class="math-var">r(t) / \Delta(t)</span> during close terrestrial approaches (<span class="math-var">\Delta \ll r</span>), allowing a near-Earth asteroid with <span class="math-var">&beta; = +3&deg;</span> to appear near the ecliptic pole (<span class="math-var">&beta;<sub>geo</sub> &gt; 60&deg;</span>) from Earth.</li>
+  <li><strong>Sky-Survey Completeness &amp; Ecliptic Bias:</strong> Because most asteroid surveys historically concentrated along the zodiacal belt (<span class="math-var">|&beta;<sub>geo</sub>| &lt; 15&deg;</span>), high-inclination minor planets spend the majority of their orbital period near their antinodes (<span class="math-var">|&beta;(t)| &approx; i</span>), creating strong observational selection bias against high-<span class="math-var">|&beta;|</span> populations in <code>MPCORB.DAT</code>.</li>
+  <li><strong>Solar-System Invariable Plane Transformation:</strong> For secular dynamical studies, <span class="math-var">&beta;(t)</span> is often transformed from the J2000.0 ecliptic plane to the <strong>Laplace invariable plane</strong> (<span class="math-var">i<sub>inv</sub> = 1.5787&deg;, &Omega;<sub>inv</sub> = 107.5822&deg;</span> in J2000.0 ecliptic coordinates), removing the <span class="math-var">&sim;1.6&deg;</span> tilt of Earth's orbital plane relative to the total angular momentum vector of the Solar System.</li>
+</ul>
+
+<h2>5. Worked Examples from <code>MPCORB.DAT</code></h2>
+<p>
+  The following two numbered minor planets from <code>MPCORB.DAT</code> (epoch <code>K25BL</code> = 2025 Nov 21.0 TT = JD 2461000.5) demonstrate the computation of heliocentric ecliptic latitude <span class="math-var">&beta;(t<sub>0</sub>)</span>, vertical height <span class="math-var">Z(t<sub>0</sub>)</span>, and instantaneous latitude rate <span class="math-var">d&beta;/dt</span>:
+</p>
+
+<div class="example-card">
+  <h3>Example 1: (1) Ceres — Southern Ecliptic Hemisphere (<span class="math-var">&beta;(t<sub>0</sub>) = &minus;9.35472&deg;</span>)</h3>
+  <p>
+    Excerpt from <code>MPCORB.DAT</code> (columns 1–103):
+  </p>
+  <pre class="mpcorb-record">00001    3.34  0.12 K25BL 231.53975   73.28579   80.25414   10.58688  0.0789158  0.21410467   2.7675059</pre>
+  <ul>
+    <li><strong>Extracted Epoch Elements:</strong> <span class="math-var">M<sub>0</sub> = 231.53975&deg;</span>, <span class="math-var">&omega; = 73.28579&deg;</span>, <span class="math-var">i = 10.58688&deg;</span>, <span class="math-var">e = 0.0789158</span>, <span class="math-var">n = 0.21410467&deg;/d</span>, and <span class="math-var">a = 2.7675059 AU</span>.</li>
+    <li><strong>Derived Heliocentric Latitude:</strong> With <span class="math-var">&nu;<sub>0</sub> = 224.54123&deg;</span>, the argument of latitude is <span class="math-var">u<sub>0</sub> = 297.82702&deg;</span>. Evaluating Eq. (2) gives <span class="math-var">\sin &beta;(t<sub>0</sub>) = \sin 297.82702&deg; \sin 10.58688&deg; = &minus;0.162547</span>, corresponding to <span class="math-var">&beta;(t<sub>0</sub>) = &minus;9.35472&deg;</span> (nearly at its southern extreme of <span class="math-var">&minus;10.58688&deg;</span>), vertical height <span class="math-var">Z(t<sub>0</sub>) = &minus;0.47361 AU</span> (<span class="math-var">r(t<sub>0</sub>) = 2.91367 AU</span>), and northward latitude drift <span class="math-var">d&beta;/dt = +0.01699&deg;/day</span> as Ceres ascends toward its ascending node.</li>
+  </ul>
+</div>
+
+<div class="example-card">
+  <h3>Example 2: (2) Pallas — High Northern Ecliptic Latitude (<span class="math-var">&beta;(t<sub>0</sub>) = +31.83232&deg;</span>)</h3>
+  <p>
+    Excerpt from <code>MPCORB.DAT</code> (columns 1–103):
+  </p>
+  <pre class="mpcorb-record">00002    4.12  0.11 K25BL 142.88412  310.91024  172.90561   34.92502  0.2305124  0.21378192   2.7702891</pre>
+  <ul>
+    <li><strong>Extracted Epoch Elements:</strong> <span class="math-var">M<sub>0</sub> = 142.88412&deg;</span>, <span class="math-var">&omega; = 310.91024&deg;</span>, <span class="math-var">i = 34.92502&deg;</span>, <span class="math-var">e = 0.2305124</span>, <span class="math-var">n = 0.21378192&deg;/d</span>, and <span class="math-var">a = 2.7702891 AU</span>.</li>
+    <li><strong>Derived Heliocentric Latitude:</strong> With <span class="math-var">&nu;<sub>0</sub> = 162.13238&deg;</span>, <span class="math-var">u<sub>0</sub> = 113.04262&deg;</span> yields <span class="math-var">\sin &beta;(t<sub>0</sub>) = \sin 113.04262&deg; \sin 34.92502&deg; = +0.527433</span>, placing Pallas high above the J2000.0 ecliptic at <span class="math-var">&beta;(t<sub>0</sub>) = +31.83232&deg;</span>, vertical coordinate <span class="math-var">Z(t<sub>0</sub>) = +1.76047 AU</span> (<span class="math-var">r(t<sub>0</sub>) = 3.33781 AU</span>), and southward drift <span class="math-var">d&beta;/dt = &minus;0.03765&deg;/day</span> toward its descending node.</li>
+  </ul>
+</div>
+
+<div class="interactive-panel">
+  <div class="interactive-title">Interactive Calculator: Heliocentric Latitude &beta;(t), Ecliptic Height Z(t) &amp; Latitude Rate d&beta;/dt</div>
+  <div class="controls-grid">
+    <div class="control-group">
+      <label for="i_val">Inclination i (deg)</label>
+      <input type="number" id="i_val" value="34.92502" step="0.5" min="0" max="180">
+    </div>
+    <div class="control-group">
+      <label for="w_val">Arg. of Perihelion &omega; (deg)</label>
+      <input type="number" id="w_val" value="310.91024" step="1.0">
+    </div>
+    <div class="control-group">
+      <label for="m0_val">Mean Anomaly M<sub>0</sub> (deg)</label>
+      <input type="number" id="m0_val" value="142.88412" step="1.0">
+    </div>
+    <div class="control-group">
+      <label for="a_val">Semimajor Axis a (AU)</label>
+      <input type="number" id="a_val" value="2.7702891" step="0.05" min="0.05">
+    </div>
+    <div class="control-group">
+      <label for="e_val">Eccentricity e (0 &le; e &lt; 1)</label>
+      <input type="number" id="e_val" value="0.2305124" step="0.01" min="0" max="0.9999">
+    </div>
+    <div class="control-group">
+      <label for="n_val">Mean Motion n (deg/day)</label>
+      <input type="number" id="n_val" value="0.21378192" step="0.01">
+    </div>
+    <div class="control-group">
+      <label for="dt_val">Elapsed Time &Delta;t (days)</label>
+      <input type="number" id="dt_val" value="0" step="10">
+    </div>
+  </div>
+  <div class="result-bar" id="calc_out">Computing...</div>
+</div>
+
+    </main>
+    <footer>
+      <span>Reference Standard: IAU Minor Planet Center (MPCORB.DAT) &amp; J2000.0 Mean Ecliptic Frame</span>
+      <span>Governing Relation: sin &beta;(t) = sin(&omega; + &nu;(t)) sin i &bull; MPCORB Sources: i, &omega;, M<sub>0</sub>, e, n, a</span>
+    </footer>
+  </div>
+  <script>
+    
+(function() {
+  const degToRad = Math.PI / 180.0;
+  const radToDeg = 180.0 / Math.PI;
+
+  function normDeg(deg) {
+    let x = deg % 360.0;
+    if (x < 0) x += 360.0;
+    return x;
+  }
+
+  function solveKepler(Mrad, e) {
+    let E = Mrad + e * Math.sin(Mrad) + 0.5 * e * e * Math.sin(2.0 * Mrad);
+    for (let k = 0; k < 20; k++) {
+      const f = E - e * Math.sin(E) - Mrad;
+      const fp = 1.0 - e * Math.cos(E);
+      const dE = f / fp;
+      E -= dE;
+      if (Math.abs(dE) < 1e-14) break;
+    }
+    return E;
+  }
+
+  function update() {
+    const inc = parseFloat(document.getElementById('i_val').value);
+    const w = parseFloat(document.getElementById('w_val').value);
+    const M0 = parseFloat(document.getElementById('m0_val').value);
+    const a = parseFloat(document.getElementById('a_val').value);
+    const e = parseFloat(document.getElementById('e_val').value);
+    const n = parseFloat(document.getElementById('n_val').value);
+    const dt = parseFloat(document.getElementById('dt_val').value);
+    const out = document.getElementById('calc_out');
+
+    if ([inc, w, M0, a, e, n, dt].some(isNaN) || a <= 0 || e < 0 || e >= 1 || inc < 0 || inc > 180) {
+      out.textContent = "Invalid orbital parameters (require a > 0 AU, 0 <= e < 1, 0 <= i <= 180 deg).";
+      return;
+    }
+
+    const MtDeg = normDeg(M0 + n * dt);
+    const MtRad = MtDeg * degToRad;
+    const E = solveKepler(MtRad, e);
+
+    const nuRad = 2.0 * Math.atan2(
+      Math.sqrt(1.0 + e) * Math.sin(E / 2.0),
+      Math.sqrt(1.0 - e) * Math.cos(E / 2.0)
+    );
+    const nuDeg = normDeg(nuRad * radToDeg);
+    const uDeg = normDeg(w + nuDeg);
+    const uRad = uDeg * degToRad;
+    const iRad = inc * degToRad;
+
+    const p = a * (1.0 - e * e);
+    const r = p / (1.0 + e * Math.cos(nuRad));
+
+    const sinBeta = Math.sin(uRad) * Math.sin(iRad);
+    const betaRad = Math.asin(Math.max(-1.0, Math.min(1.0, sinBeta)));
+    const betaDeg = betaRad * radToDeg;
+    const Z = r * sinBeta;
+    const rProj = r * Math.cos(betaRad);
+
+    const maxLat = Math.min(inc, 180.0 - inc);
+    const cosBeta = Math.cos(betaRad);
+    const nuDotDegPerDay = n * Math.pow(1.0 + e * Math.cos(nuRad), 2) / Math.pow(1.0 - e * e, 1.5);
+    const betaDotDegPerDay = cosBeta > 1e-12
+      ? (Math.cos(uRad) * Math.sin(iRad) / cosBeta) * nuDotDegPerDay
+      : 0.0;
+
+    out.innerHTML =
+      `Heliocentric Lat. &beta;(t) = ${betaDeg >= 0 ? '+' : ''}${betaDeg.toFixed(5)}&deg; (Bounds: &plusmn;${maxLat.toFixed(3)}&deg;)  |  Arg. of Latitude u(t) = ${uDeg.toFixed(5)}&deg;<br>` +
+      `Vertical Height Z(t) = ${Z >= 0 ? '+' : ''}${Z.toFixed(5)} AU  |  Ecliptic Proj. r<sub>xy</sub> = ${rProj.toFixed(5)} AU  |  Drift d&beta;/dt = ${betaDotDegPerDay >= 0 ? '+' : ''}${betaDotDegPerDay.toFixed(5)}&deg;/day`;
+  }
+
+  ['i_val', 'w_val', 'm0_val', 'a_val', 'e_val', 'n_val', 'dt_val'].forEach(id => {
+    document.getElementById(id).addEventListener('input', update);
+  });
+  update();
+})();
+
+  </script>
+</body>
+</html>

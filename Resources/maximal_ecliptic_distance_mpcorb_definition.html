@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maximal Ecliptic Distance (|Z|_max) in the Context of MPCORB</title>
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #334155;
+            --accent-color: #1e3a8a;
+            --accent-light: #eff6ff;
+            --border-color: #cbd5e1;
+            --code-bg: #f1f5f9;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.7;
+            color: var(--text-primary);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 3rem 3.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            border: 1px solid var(--border-color);
+        }
+
+        header {
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .badge {
+            display: inline-block;
+            background-color: var(--accent-light);
+            color: var(--accent-color);
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            padding: 0.3rem 0.75rem;
+            border-radius: 4px;
+            border: 1px solid #bfdbfe;
+            margin-bottom: 0.75rem;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin: 0.25rem 0 0.5rem 0;
+            color: var(--text-primary);
+            line-height: 1.25;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            margin: 0;
+        }
+
+        h2 {
+            font-size: 1.35rem;
+            color: var(--accent-color);
+            margin-top: 2.25rem;
+            margin-bottom: 0.85rem;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 0.35rem;
+        }
+
+        h3 {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        p {
+            margin-bottom: 1.15rem;
+            color: var(--text-secondary);
+            text-align: justify;
+        }
+
+        ul, ol {
+            margin-bottom: 1.25rem;
+            padding-left: 1.5rem;
+            color: var(--text-secondary);
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        .equation-box {
+            background-color: var(--code-bg);
+            border-left: 4px solid var(--accent-color);
+            padding: 1.15rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 6px 6px 0;
+            overflow-x: auto;
+            font-family: "Cambria Math", "STIX Two Math", "Times New Roman", Times, serif;
+            font-size: 1.18rem;
+            color: var(--text-primary);
+            text-align: center;
+        }
+
+        .math-inline {
+            font-family: "Cambria Math", "STIX Two Math", "Times New Roman", Times, serif;
+            font-style: italic;
+            font-size: 1.05em;
+            color: var(--text-primary);
+        }
+
+        .math-roman {
+            font-family: "Cambria Math", "STIX Two Math", "Times New Roman", Times, serif;
+            font-style: normal;
+            font-size: 1.02em;
+            color: var(--text-primary);
+        }
+
+        .frac {
+            display: inline-flex;
+            flex-direction: column;
+            vertical-align: middle;
+            text-align: center;
+            margin: 0 0.25rem;
+        }
+
+        .frac > span:first-child {
+            border-bottom: 1px solid var(--text-primary);
+            padding: 0 0.3rem 0.15rem 0.3rem;
+        }
+
+        .frac > span:last-child {
+            padding: 0.15rem 0.3rem 0 0.3rem;
+        }
+
+        .sqrt-wrap {
+            display: inline-flex;
+            align-items: stretch;
+        }
+
+        .sqrt-rad {
+            font-size: 1.15em;
+            line-height: 1;
+            padding-right: 1px;
+        }
+
+        .sqrt-body {
+            border-top: 1px solid var(--text-primary);
+            padding: 0 0.2rem;
+        }
+
+        .spec-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.92rem;
+        }
+
+        .spec-table th, .spec-table td {
+            border: 1px solid var(--border-color);
+            padding: 0.75rem 1rem;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        .spec-table th {
+            background-color: var(--accent-color);
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .spec-table tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        code {
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+            background-color: var(--code-bg);
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.88em;
+            color: #0f172a;
+        }
+
+        pre {
+            background-color: #1e293b;
+            color: #f8fafc;
+            padding: 1rem 1.25rem;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+        }
+
+        .note-callout {
+            background-color: #fffbeb;
+            border-left: 4px solid #d97706;
+            padding: 1rem 1.25rem;
+            margin: 1.5rem 0;
+            border-radius: 0 6px 6px 0;
+            color: #78350f;
+            font-size: 0.95rem;
+        }
+
+        .terminology-callout {
+            background-color: var(--accent-light);
+            border-left: 4px solid var(--accent-color);
+            padding: 1rem 1.25rem;
+            margin: 1.5rem 0;
+            border-radius: 0 6px 6px 0;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+        }
+
+        .diagram-box {
+            background-color: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+
+        .diagram-caption {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+        }
+
+        .calculator-box {
+            background-color: var(--accent-light);
+            border: 1px solid #bfdbfe;
+            border-radius: 8px;
+            padding: 1.25rem 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .calculator-box h4 {
+            margin: 0 0 0.75rem 0;
+            color: var(--accent-color);
+            font-size: 1rem;
+        }
+
+        .calc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+            gap: 1rem;
+            align-items: end;
+        }
+
+        .calc-field label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.3rem;
+        }
+
+        .calc-field input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 0.5rem 0.65rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 0.95rem;
+            font-family: inherit;
+        }
+
+        .calc-output {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 0.55rem 0.75rem;
+            font-size: 0.92rem;
+            color: var(--text-primary);
+        }
+
+        footer {
+            margin-top: 3rem;
+            padding-top: 1.25rem;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.85rem;
+            color: #64748b;
+            text-align: center;
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 1.75rem 1.25rem;
+            }
+            h1 {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="badge">Celestial Mechanics &amp; Astrometry Specification</div>
+            <h1>Maximal Ecliptic Distance (<span class="math-roman">|<em>Z</em>|<sub>max</sub></span>) in the Context of the MPCORB Database</h1>
+            <p class="subtitle">Scientific Definition, Analytical Extrema Above and Below the J2000.0 Ecliptic Plane, Apsidal Asymmetry, and Evaluation from MPCORB</p>
+        </header>
+
+        <section>
+            <h2>1. Fundamental Astrodynamical &amp; Geometric Definition</h2>
+            <div class="terminology-callout">
+                <strong>Definition &amp; Nomenclature:</strong> In three-dimensional heliocentric ecliptic coordinate geometry, the <strong>maximal ecliptic distance</strong> (also termed the <em>maximum vertical excursion from the ecliptic plane</em>, <em>maximum heliocentric ecliptic</em> <span class="math-inline">Z</span>-<em>height</em>, or in German astrometry <em>maximaler Ekliptikabstand</em>)—denoted by <span class="math-roman">|<em>Z</em>|<sub>max</sub></span>, <span class="math-roman"><em>z</em><sub>max</sub></span>, or <span class="math-roman"><em>d</em><sub>ecl,max</sub></span>—is the supremum of the perpendicular Euclidean distance <span class="math-roman">|<em>Z</em>(&nu;)|</span> between a minor planet and the fundamental J2000.0 heliocentric ecliptic reference plane (<span class="math-roman"><em>Z</em> = 0</span>) over one complete osculating Keplerian revolution. It is a dimensional length quantity expressed in Astronomical Units (<span class="math-roman">AU</span>).
+            </div>
+            <p>
+                In the J2000.0 heliocentric ecliptic Cartesian frame <span class="math-roman">(<em>X</em>, <em>Y</em>, <em>Z</em>)</span>, the signed perpendicular coordinate <span class="math-inline">Z</span>(<span class="math-inline">&nu;</span>) as a function of true anomaly <span class="math-inline">&nu;</span>, argument of perihelion <span class="math-inline">&omega;</span>, and orbital inclination <span class="math-inline">i</span> is given by:
+            </p>
+            <div class="equation-box">
+                <span class="math-inline">Z</span>(<span class="math-inline">&nu;</span>) = <span class="math-inline">r</span>(<span class="math-inline">&nu;</span>) sin <span class="math-inline">i</span> sin(<span class="math-inline">&omega;</span> + <span class="math-inline">&nu;</span>)
+                =
+                <span class="frac">
+                    <span><span class="math-inline">a</span> (1 &minus; <span class="math-inline">e</span><sup>2</sup>) sin <span class="math-inline">i</span> sin(<span class="math-inline">&omega;</span> + <span class="math-inline">&nu;</span>)</span>
+                    <span>1 + <span class="math-inline">e</span> cos <span class="math-inline">&nu;</span></span>
+                </span>
+            </div>
+            <p>
+                Differentiating <span class="math-inline">Z</span>(<span class="math-inline">&nu;</span>) with respect to <span class="math-inline">&nu;</span> yields the exact stationarity condition <span class="math-roman">cos(<em>&omega;</em> + <em>&nu;</em>) + <em>e</em> cos <em>&omega;</em> = 0</span>. Because <span class="math-roman">|<em>e</em> cos <em>&omega;</em>| &le; <em>e</em> &lt; 1</span> for every bound elliptic orbit, this equation possesses exactly two roots per revolution—one at the <strong>northernmost ecliptic apex</strong> (<span class="math-roman"><em>Z</em><sub>north</sub> &ge; 0</span>) and one at the <strong>southernmost ecliptic nadir</strong> (<span class="math-roman"><em>Z</em><sub>south</sub> &le; 0</span>):
+            </p>
+            <div class="equation-box">
+                <span class="math-inline">Z</span><sub>north</sub> =
+                <span class="frac">
+                    <span><span class="math-inline">a</span> (1 &minus; <span class="math-inline">e</span><sup>2</sup>) sin <span class="math-inline">i</span></span>
+                    <span>&radic;(1 &minus; <span class="math-inline">e</span><sup>2</sup> cos<sup>2</sup> <span class="math-inline">&omega;</span>) &minus; <span class="math-inline">e</span> sin <span class="math-inline">&omega;</span></span>
+                </span>
+                &nbsp;,&nbsp;&nbsp;&nbsp;
+                <span class="math-inline">Z</span><sub>south</sub> = &minus;
+                <span class="frac">
+                    <span><span class="math-inline">a</span> (1 &minus; <span class="math-inline">e</span><sup>2</sup>) sin <span class="math-inline">i</span></span>
+                    <span>&radic;(1 &minus; <span class="math-inline">e</span><sup>2</sup> cos<sup>2</sup> <span class="math-inline">&omega;</span>) + <span class="math-inline">e</span> sin <span class="math-inline">&omega;</span></span>
+                </span>
+            </div>
+            <p>
+                Taking the maximum of the two magnitudes gives the closed-form <strong>maximal ecliptic distance</strong> <span class="math-roman">|<em>Z</em>|<sub>max</sub> = max(<em>Z</em><sub>north</sub>, |<em>Z</em><sub>south</sub>|)</span>:
+            </p>
+            <div class="equation-box">
+                |<span class="math-inline">Z</span>|<sub>max</sub> =
+                <span class="frac">
+                    <span><span class="math-inline">a</span> (1 &minus; <span class="math-inline">e</span><sup>2</sup>) sin <span class="math-inline">i</span></span>
+                    <span>&radic;(1 &minus; <span class="math-inline">e</span><sup>2</sup> cos<sup>2</sup> <span class="math-inline">&omega;</span>) &minus; <span class="math-inline">e</span> |sin <span class="math-inline">&omega;</span>|</span>
+                </span>
+                = <span class="math-inline">a</span> sin <span class="math-inline">i</span>
+                <span class="roman">[</span>
+                &radic;(1 &minus; <span class="math-inline">e</span><sup>2</sup> cos<sup>2</sup> <span class="math-inline">&omega;</span>) + <span class="math-inline">e</span> |sin <span class="math-inline">&omega;</span>|
+                <span class="roman">]</span>
+            </div>
+            <p>
+                Note the exact algebraic equivalence obtained by rationalizing the denominator: <span class="math-roman">(1 &minus; <em>e</em><sup>2</sup>) / [&radic;(1 &minus; <em>e</em><sup>2</sup> cos<sup>2</sup> <em>&omega;</em>) &minus; <em>e</em> |sin <em>&omega;</em>|] &equiv; &radic;(1 &minus; <em>e</em><sup>2</sup> cos<sup>2</sup> <em>&omega;</em>) + <em>e</em> |sin <em>&omega;</em>|</span>, which eliminates any numerical cancellation as <span class="math-roman"><em>e</em> &rarr; 1<sup>&minus;</sup></span>. Key geometric properties include:
+            </p>
+            <ul>
+                <li><strong>Strict Non-Negativity &amp; Coplanar Vanishing (<span class="math-roman">|<em>Z</em>|<sub>max</sub> &ge; 0</span>):</strong> <span class="math-roman">|<em>Z</em>|<sub>max</sub> = 0</span> if and only if the orbit lies strictly in the ecliptic plane (<span class="math-roman"><em>i</em> = 0&deg;</span> or <span class="math-roman"><em>i</em> = 180&deg;</span>); it is invariant under retrograde reflection (<span class="math-roman">sin(180&deg; &minus; <em>i</em>) = sin <em>i</em></span>) and independent of the longitude of the ascending node <span class="math-inline">&Omega;</span>.</li>
+                <li><strong>Northern vs. Southern Asymmetry (<span class="math-roman"><em>Z</em><sub>north</sub> &ne; |<em>Z</em><sub>south</sub>|</span> for <span class="math-roman"><em>e</em> sin <em>&omega;</em> &ne; 0</span>):</strong> Whenever the apsidal line does not coincide with the nodal line (<span class="math-roman">sin <em>&omega;</em> &ne; 0</span>), the aphelion hemisphere attains a larger vertical excursion than the perihelion hemisphere (<span class="math-roman"><em>Z</em><sub>north</sub> &gt; |<em>Z</em><sub>south</sub>|</span> when <span class="math-roman">0&deg; &lt; <em>&omega;</em> &lt; 180&deg;</span>; <span class="math-roman">|<em>Z</em><sub>south</sub>| &gt; <em>Z</em><sub>north</sub></span> when <span class="math-roman">180&deg; &lt; <em>&omega;</em> &lt; 360&deg;</span>).</li>
+                <li><strong>Global Envelope Bounds (<span class="math-roman"><em>b</em> sin <em>i</em> &le; |<em>Z</em>|<sub>max</sub> &le; <em>Q</em> sin <em>i</em></span>):</strong> For fixed <span class="math-roman">(<em>a</em>, <em>e</em>, <em>i</em>)</span>, varying <span class="math-inline">&omega;</span> bounds <span class="math-roman">|<em>Z</em>|<sub>max</sub></span> between <span class="math-roman"><em>a</em>&radic;(1 &minus; <em>e</em><sup>2</sup>) sin <em>i</em></span> (at <span class="math-roman"><em>&omega;</em> = 0&deg;, 180&deg;</span>, when apsides lie on the nodes) and <span class="math-roman"><em>a</em>(1 + <em>e</em>) sin <em>i</em> = <em>Q</em> sin <em>i</em></span> (at <span class="math-roman"><em>&omega;</em> = 90&deg;, 270&deg;</span>, when aphelion coincides with maximum ecliptic latitude <span class="math-roman">|<em>&beta;</em>| = <em>i</em></span>).</li>
+            </ul>
+
+            <div class="diagram-box">
+                <svg width="560" height="245" viewBox="0 0 560 245" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Edge-on projection diagram showing an inclined eccentric orbit crossing the J2000.0 ecliptic plane Z = 0 at the ascending node, reaching asymmetric northernmost excursion Z_north above the ecliptic and southernmost excursion |Z_south| below the ecliptic">
+                    <rect x="0" y="0" width="560" height="245" fill="#f8fafc" rx="6"/>
+                    <!-- Ecliptic plane Z = 0 horizontal line -->
+                    <line x1="40" y1="138" x2="520" y2="138" stroke="#64748b" stroke-width="2"/>
+                    <text x="515" y="131" text-anchor="end" font-family="sans-serif" font-size="10" fill="#475569" font-weight="bold">Ecliptic Plane (Z = 0)</text>
+                    <!-- Tilted eccentric orbit curve (edge-on projection): Sun at (255, 138), perihelion lower-left, aphelion upper-right -->
+                    <ellipse cx="295" cy="116" rx="175" ry="62" transform="rotate(-21 295 116)" fill="#eff6ff" fill-opacity="0.65" stroke="#1e3a8a" stroke-width="2.4"/>
+                    <!-- Sun at Focus F1 (255, 138) -->
+                    <circle cx="255" cy="138" r="7" fill="#f59e0b" stroke="#b45309" stroke-width="1.5"/>
+                    <text x="255" y="156" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#92400e" font-weight="bold">Sun (F&#8321;)</text>
+                    <!-- Ascending Node on Z = 0 -->
+                    <circle cx="163" cy="138" r="4.5" fill="#0f172a"/>
+                    <text x="155" y="153" text-anchor="end" font-family="sans-serif" font-size="9.5" fill="#0f172a" font-weight="bold">Node (Z = 0)</text>
+                    <!-- Northernmost Apex Z_north at approx (446, 39) -->
+                    <line x1="446" y1="39" x2="446" y2="138" stroke="#dc2626" stroke-width="2" stroke-dasharray="4,3"/>
+                    <circle cx="446" cy="39" r="4.5" fill="#dc2626"/>
+                    <text x="438" y="34" text-anchor="end" font-family="serif" font-size="12" fill="#dc2626" font-weight="bold">Z<tspan baseline-shift="sub" font-size="8.5">north</tspan> = |Z|<tspan baseline-shift="sub" font-size="8.5">max</tspan></text>
+                    <text x="453" y="88" text-anchor="start" font-family="sans-serif" font-size="9.5" fill="#dc2626" font-weight="bold">|Z|<tspan baseline-shift="sub" font-size="7.5">max</tspan></text>
+                    <!-- Southernmost Nadir Z_south at approx (131, 187) -->
+                    <line x1="131" y1="138" x2="131" y2="187" stroke="#0284c7" stroke-width="2" stroke-dasharray="4,3"/>
+                    <circle cx="131" cy="187" r="4.5" fill="#0284c7"/>
+                    <text x="123" y="198" text-anchor="end" font-family="serif" font-size="11.5" fill="#0369a1" font-weight="bold">|Z<tspan baseline-shift="sub" font-size="8.5">south</tspan>| &lt; Z<tspan baseline-shift="sub" font-size="8.5">north</tspan></text>
+                    <!-- Inclination angle arc at Sun -->
+                    <path d="M 290 138 A 35 35 0 0 0 287.5 125" fill="none" stroke="#1e3a8a" stroke-width="1.5"/>
+                    <text x="296" y="131" text-anchor="start" font-family="serif" font-style="italic" font-size="11.5" fill="#1e3a8a" font-weight="bold">i</text>
+                    <!-- Formula footer -->
+                    <text x="280" y="226" text-anchor="middle" font-family="serif" font-size="13" fill="#1e3a8a" font-weight="bold">|Z|<tspan baseline-shift="sub" font-size="9">max</tspan> = a sin i [ &radic;(1 &minus; e&sup2; cos&sup2; &omega;) + e |sin &omega;| ]</text>
+                </svg>
+                <div class="diagram-caption">
+                    Figure 1: Edge-on meridional projection perpendicular to the nodal line showing the northernmost ecliptic height <span class="math-roman"><em>Z</em><sub>north</sub></span> and southernmost depth <span class="math-roman">|<em>Z</em><sub>south</sub>|</span> for an inclined eccentric orbit (<span class="math-roman">0&deg; &lt; <em>&omega;</em> &lt; 180&deg;</span>).
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>2. Special Cases, Heliocentric Distance at Apex &amp; Secular Kozai&ndash;Lidov Coupling</h2>
+            <p>
+                Evaluating the true anomaly <span class="math-inline">&nu;</span><sub>ext</sub> at which <span class="math-inline">Z</span>(<span class="math-inline">&nu;</span>) reaches its extrema clarifies both the orbital geometry at maximum ecliptic height and its long-term dynamical evolution:
+            </p>
+
+            <h3>2.1 Orbital Position at the Ecliptic Extrema</h3>
+            <p>
+                At the northernmost (<span class="math-roman"><em>Z</em> = <em>Z</em><sub>north</sub></span>) and southernmost (<span class="math-roman"><em>Z</em> = <em>Z</em><sub>south</sub></span>) points, the argument of latitude <span class="math-roman"><em>u</em> = <em>&omega;</em> + <em>&nu;</em></span> and heliocentric distance <span class="math-inline">r</span> satisfy:
+            </p>
+            <div class="equation-box">
+                cos(<span class="math-inline">&omega;</span> + <span class="math-inline">&nu;</span><sub>ext</sub>) = &minus;<span class="math-inline">e</span> cos <span class="math-inline">&omega;</span>
+                &nbsp;,&nbsp;&nbsp;&nbsp;
+                <span class="math-inline">r</span>(Z<sub>north</sub>) = <span class="math-inline">a</span>
+                <span class="roman">[</span>
+                1 +
+                <span class="frac">
+                    <span><span class="math-inline">e</span> sin <span class="math-inline">&omega;</span></span>
+                    <span>&radic;(1 &minus; <span class="math-inline">e</span><sup>2</sup> cos<sup>2</sup> <span class="math-inline">&omega;</span>)</span>
+                </span>
+                <span class="roman">]</span>
+            </div>
+            <p>
+                Notice that the point of maximum perpendicular distance from the ecliptic (<span class="math-roman">max |<em>Z</em>|</span>) generally <strong>does not</strong> coincide with the point of maximum ecliptic latitude (<span class="math-roman">max |<em>&beta;</em>| = <em>i</em></span> at <span class="math-roman"><em>&omega;</em> + <em>&nu;</em> = &plusmn;90&deg;</span>), except in the symmetric special cases <span class="math-roman"><em>e</em> = 0</span> or <span class="math-roman">cos <em>&omega;</em> = 0</span> (<span class="math-roman"><em>&omega;</em> = 90&deg;, 270&deg;</span>).
+            </p>
+
+            <h3>2.2 Dynamical Role in Survey Bias, MOID &amp; Kozai&ndash;Lidov Oscillations</h3>
+            <ul>
+                <li><strong>Ecliptic Survey Observational Selection Bias:</strong> Ground-based minor planet discovery surveys concentrate near the ecliptic (<span class="math-roman">|<em>&beta;</em>| &lesssim; 15&deg;</span>). Objects with large <span class="math-roman">|<em>Z</em>|<sub>max</sub></span> spend a smaller fraction of their orbital period near the ecliptic plane, spending long intervals near their high-<span class="math-roman">|<em>Z</em>|</span> turning points (especially when <span class="math-roman"><em>&omega;</em> &approx; 90&deg;, 270&deg;</span>, where Kepler&rsquo;s second law slows orbital velocity near aphelion).</li>
+                <li><strong>Nodal Crossing Geometry &amp; Earth MOID:</strong> Because Earth&rsquo;s orbit lies nearly in <span class="math-roman"><em>Z</em> = 0</span>, close planetary approaches can only occur near the ascending or descending nodes (<span class="math-roman"><em>Z</em> &approx; 0</span>). High-<span class="math-roman">|<em>Z</em>|<sub>max</sub></span> Near-Earth Asteroids (NEAs) are protected from close planetary encounters away from their nodes.</li>
+                <li><strong>von Zeipel&ndash;Lidov&ndash;Kozai Secular Coupling:</strong> Under secular perturbations from Jupiter, <span class="math-inline">e</span> and <span class="math-inline">i</span> undergo coupled oscillations conserving <span class="math-roman">&radic;(1 &minus; <em>e</em><sup>2</sup>) cos <em>i</em></span> while <span class="math-inline">&omega;</span> librates or circulates, periodically pumping <span class="math-roman">|<em>Z</em>|<sub>max</sub></span> to extreme heights above the ecliptic.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>3. Specific Status and Derivation in the MPCORB Catalog</h2>
+            <p>
+                In the <strong>MPCORB</strong> (<em>Minor Planet Center Orbit</em>) database published by the International Astronomical Union&rsquo;s Minor Planet Center (IAU MPC):
+            </p>
+
+            <ul>
+                <li>
+                    <strong>Implicit Derived Quantity (Not Tabulated):</strong> The maximal ecliptic distance <span class="math-roman">|<em>Z</em>|<sub>max</sub></span> (along with <span class="math-inline">Z</span><sub>north</sub> and <span class="math-inline">Z</span><sub>south</sub>) is <em>not</em> stored as a column in <code>MPCORB.DAT</code>. Instead, it is computed directly from four osculating elements tabulated in every record:
+                    <ul>
+                        <li><strong>Argument of perihelion <span class="math-inline">&omega;</span></strong> (columns <code>38–46</code>, format <code>F9.5</code>, degrees);</li>
+                        <li><strong>Orbital inclination <span class="math-inline">i</span></strong> (columns <code>60–68</code>, format <code>F9.5</code>, degrees);</li>
+                        <li><strong>Numeric eccentricity <span class="math-inline">e</span></strong> (columns <code>71–79</code>, format <code>F9.7</code>, dimensionless);</li>
+                        <li><strong>Semi-major axis <span class="math-inline">a</span></strong> (columns <code>93–103</code>, format <code>F11.7</code>, <span class="math-roman">AU</span>).</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Independence from Epoch Anomaly (<span class="math-inline">M</span>) and Ascending Node (<span class="math-inline">&Omega;</span>):</strong> Because <span class="math-roman">|<em>Z</em>|<sub>max</sub></span> is an orbital-envelope invariant over a full revolution, it does not depend on the mean anomaly <span class="math-inline">M</span> (columns <code>27–35</code>) or the longitude of the ascending node <span class="math-inline">&Omega;</span> (columns <code>49–57</code>).
+                </li>
+                <li>
+                    <strong>Universal Finiteness Across All <code>MPCORB.DAT</code> Records:</strong> Because every record in <code>MPCORB.DAT</code> satisfies <span class="math-roman">0 &le; <em>e</em> &lt; 1</span> and <span class="math-roman"><em>a</em> &gt; 0</span>, <span class="math-roman">|<em>Z</em>|<sub>max</sub></span> is strictly finite and bounded by <span class="math-roman">0 &le; |<em>Z</em>|<sub>max</sub> &le; <em>a</em>(1 + <em>e</em>) sin <em>i</em> &lt; 2<em>a</em></span> across the entire catalog.
+                </li>
+            </ul>
+
+            <div class="note-callout">
+                <strong>Numerical Evaluation Note:</strong> Always compute <span class="math-roman">|<em>Z</em>|<sub>max</sub></span> using the rationalized product form <code>a * Math.Sin(i) * (Math.Sqrt(1.0 - Math.Pow(e * Math.Cos(omega), 2)) + e * Math.Abs(Math.Sin(omega)))</code> rather than dividing by <code>Math.Sqrt(...) - e * Math.Abs(Math.Sin(omega))</code>. The rationalized form avoids catastrophic subtraction for high-eccentricity, high-inclination objects (e.g., Damocloids or near-sun comets) when <span class="math-roman"><em>e</em> &rarr; 1</span> and <span class="math-roman">|sin <em>&omega;</em>| &rarr; 1</span>.
+            </div>
+
+            <div class="calculator-box">
+                <h4>Interactive MPCORB Maximal Ecliptic Distance (<span class="math-roman">|<em>Z</em>|<sub>max</sub></span>) Calculator</h4>
+                <div class="calc-grid">
+                    <div class="calc-field">
+                        <label for="inputA">Semi-Major Axis <em>a</em> (AU, Cols 93&ndash;103)</label>
+                        <input type="number" id="inputA" step="0.0000001" min="0.01" value="2.7653485">
+                    </div>
+                    <div class="calc-field">
+                        <label for="inputE">Eccentricity <em>e</em> (Cols 71&ndash;79)</label>
+                        <input type="number" id="inputE" step="0.0000001" min="0" max="0.9999999" value="0.0785354">
+                    </div>
+                    <div class="calc-field">
+                        <label for="inputI">Inclination <em>i</em> (deg, Cols 60&ndash;68)</label>
+                        <input type="number" id="inputI" step="0.00001" min="0" max="180" value="10.58789">
+                    </div>
+                    <div class="calc-field">
+                        <label for="inputOmega">Arg. of Perihelion <em>&omega;</em> (deg, Cols 38&ndash;46)</label>
+                        <input type="number" id="inputOmega" step="0.00001" value="73.28574">
+                    </div>
+                    <div class="calc-output" id="calcResult">
+                        Maximal ecliptic distance |<em>Z</em>|<sub>max</sub>: <strong>0.5453440</strong> AU<br>
+                        Northern apex <em>Z</em><sub>north</sub>: <strong>+0.5453440</strong> AU<br>
+                        Southern nadir <em>Z</em><sub>south</sub>: <strong>&minus;0.4692735</strong> AU
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Fixed-Width Source Columns &amp; Ecliptic Excursion Metrics in <code>MPCORB.DAT</code></h2>
+            <p>
+                The table below summarizes the fixed-width columns (1-based indexing) in a standard 202-character <code>MPCORB.DAT</code> record required to compute <span class="math-roman">|<em>Z</em>|<sub>max</sub></span>, <span class="math-inline">Z</span><sub>north</sub>, and <span class="math-inline">Z</span><sub>south</sub>:
+            </p>
+
+            <table class="spec-table">
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Columns (1-based)</th>
+                        <th>Python Slice (0-based)</th>
+                        <th>Fortran Format</th>
+                        <th>Unit &amp; Role</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong><code>&omega;</code> (Argument of perihelion)</strong></td>
+                        <td><code>38–46</code></td>
+                        <td><code>line[37:46]</code></td>
+                        <td><code>F9.5</code></td>
+                        <td>Degrees (<span class="math-roman">&deg;</span>); governs north/south apsidal asymmetry</td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>i</code> (Inclination to ecliptic)</strong></td>
+                        <td><code>60–68</code></td>
+                        <td><code>line[59:68]</code></td>
+                        <td><code>F9.5</code></td>
+                        <td>Degrees (<span class="math-roman">&deg;</span>); scales vertical excursion via <span class="math-roman">sin <em>i</em></span></td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>e</code> (Numeric eccentricity)</strong></td>
+                        <td><code>71–79</code></td>
+                        <td><code>line[70:79]</code></td>
+                        <td><code>F9.7</code></td>
+                        <td>Dimensionless (<span class="math-roman">0 &le; <em>e</em> &lt; 1</span>); controls aphelion amplification</td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>a</code> (Semi-major axis)</strong></td>
+                        <td><code>93–103</code></td>
+                        <td><code>line[92:103]</code></td>
+                        <td><code>F11.7</code></td>
+                        <td>Astronomical Units (<span class="math-roman">AU</span>); linear spatial scale factor</td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>|Z|<sub>max</sub></code> (Maximal ecliptic distance)</strong></td>
+                        <td><em>Derived (not stored)</em></td>
+                        <td><code>a*sin(i)*(sqrt(1-(e*cos(w))**2)+e*abs(sin(w)))</code></td>
+                        <td><em>Computed</em></td>
+                        <td>Astronomical Units (<span class="math-roman">AU</span>); <span class="math-roman">max(<em>Z</em><sub>north</sub>, |<em>Z</em><sub>south</sub>|)</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Example Record Evaluation (<code>00001</code> — (1) Ceres)</h3>
+            <pre>Col:  ... 38      46 ... 60       68 ... 71      79 ... 93       103 ...
+Data: ... 73.28574   ... 10.58789    ... 0.0785354  ... 2.7653485    ...
+          └───┬───┘      └───┬───┘       └───┬───┘      └────┬────┘
+           w (deg)        i (deg)            e             a (AU)
+
+Maximal Ecliptic Distance Evaluation for (1) Ceres:
+  Radical term R(e, w)     = sqrt(1 - (e * cos w)^2)         = 0.9997461
+  Asymmetry term e*|sin w| = 0.0785354 * |sin(73.28574 deg)| = 0.0752175
+  Northern apex  Z_north   = a * sin(i) * (R + e * sin w)    = +0.5453440 AU
+  Southern nadir Z_south   = -a * sin(i) * (R - e * sin w)   = -0.4692735 AU
+  Maximal ecliptic dist.   |Z|_max = max(Z_north, |Z_south|) =  0.5453440 AU (~81.58 million km)</pre>
+        </section>
+
+        <footer>
+            Self-contained scientific reference document (zero external dependencies) &bull; Conventions aligned with IAU Minor Planet Center (MPC) <code>MPCORB.DAT</code> specifications.
+        </footer>
+    </div>
+
+    <script>
+        (function () {
+            const inputA = document.getElementById("inputA");
+            const inputE = document.getElementById("inputE");
+            const inputI = document.getElementById("inputI");
+            const inputOmega = document.getElementById("inputOmega");
+            const calcResult = document.getElementById("calcResult");
+
+            function updateCalculation() {
+                const a = parseFloat(inputA.value);
+                const e = parseFloat(inputE.value);
+                const incDeg = parseFloat(inputI.value);
+                const omegaDeg = parseFloat(inputOmega.value);
+
+                if (!isFinite(a) || a <= 0) {
+                    calcResult.innerHTML = "Please enter a valid positive semi-major axis <em>a</em> &gt; 0.";
+                    return;
+                }
+
+                if (!isFinite(e) || e < 0 || e >= 1) {
+                    calcResult.innerHTML = "Numeric eccentricity <em>e</em> must satisfy 0 &le; <em>e</em> &lt; 1 for an elliptic MPCORB record.";
+                    return;
+                }
+
+                if (!isFinite(incDeg) || incDeg < 0 || incDeg > 180) {
+                    calcResult.innerHTML = "Inclination <em>i</em> must satisfy 0&deg; &le; <em>i</em> &le; 180&deg;.";
+                    return;
+                }
+
+                if (!isFinite(omegaDeg)) {
+                    calcResult.innerHTML = "Please enter a valid argument of perihelion <em>&omega;</em> in degrees.";
+                    return;
+                }
+
+                const incRad = (incDeg * Math.PI) / 180.0;
+                const omegaRad = (omegaDeg * Math.PI) / 180.0;
+
+                const sinI = Math.sin(incRad);
+                const cosW = Math.cos(omegaRad);
+                const sinW = Math.sin(omegaRad);
+
+                const eCosW = e * cosW;
+                const radical = Math.sqrt(Math.max(0.0, 1.0 - eCosW * eCosW));
+
+                const zNorth = a * sinI * (radical + e * sinW);
+                const zSouth = -a * sinI * (radical - e * sinW);
+                const zMax = Math.max(Math.abs(zNorth), Math.abs(zSouth));
+
+                calcResult.innerHTML =
+                    `Maximal ecliptic distance |<em>Z</em>|<sub>max</sub>: <strong>${zMax.toFixed(7)}</strong> AU<br>` +
+                    `Northern apex <em>Z</em><sub>north</sub>: <strong>+${zNorth.toFixed(7)}</strong> AU<br>` +
+                    `Southern nadir <em>Z</em><sub>south</sub>: <strong>&minus;${Math.abs(zSouth).toFixed(7)}</strong> AU`;
+            }
+
+            inputA.addEventListener("input", updateCalculation);
+            inputE.addEventListener("input", updateCalculation);
+            inputI.addEventListener("input", updateCalculation);
+            inputOmega.addEventListener("input", updateCalculation);
+            updateCalculation();
+        })();
+    </script>
+</body>
+</html>

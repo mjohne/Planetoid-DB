@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mean Daily Orbital Motion — MPCORB Orbital Dynamics</title>
+  <style>
+:root {
+  --bg-color: #f8fafc;
+  --surface-color: #ffffff;
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  --accent-color: #1e3a8a;
+  --accent-light: #eff6ff;
+  --border-color: #e2e8f0;
+  --code-bg: #f1f5f9;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-serif: "Georgia", "Times New Roman", Times, serif;
+  --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  line-height: 1.7;
+  padding: 2rem 1rem;
+}
+
+.container {
+  max-width: 920px;
+  margin: 0 auto;
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 2.5rem 3rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+header {
+  border-bottom: 2px solid var(--accent-color);
+  padding-bottom: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.category-tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent-color);
+  background-color: var(--accent-light);
+  padding: 0.25rem 0.65rem;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
+h2 {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.35rem;
+}
+
+h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+ul, ol {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+li {
+  margin-bottom: 0.4rem;
+}
+
+.equation-box {
+  background-color: var(--code-bg);
+  border-left: 4px solid var(--accent-color);
+  padding: 1rem 1.5rem;
+  margin: 1.25rem 0;
+  border-radius: 0 6px 6px 0;
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  overflow-x: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.equation-main {
+  font-style: italic;
+}
+
+.equation-label {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-style: normal;
+  margin-left: 1rem;
+}
+
+.math-var {
+  font-family: var(--font-serif);
+  font-style: italic;
+}
+
+.figure-box {
+  background-color: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 1.25rem;
+  margin: 1.75rem 0;
+  text-align: center;
+}
+
+.figure-box svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.figure-caption {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-top: 0.85rem;
+  text-align: left;
+  line-height: 1.5;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.92rem;
+}
+
+th, td {
+  border: 1px solid var(--border-color);
+  padding: 0.65rem 0.85rem;
+  text-align: left;
+}
+
+th {
+  background-color: var(--code-bg);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+code {
+  font-family: var(--font-mono);
+  background-color: var(--code-bg);
+  padding: 0.15rem 0.35rem;
+  border-radius: 4px;
+  font-size: 0.88em;
+}
+
+.interactive-panel {
+  background-color: var(--code-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 1.25rem;
+  margin: 1.75rem 0;
+}
+
+.interactive-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 0.75rem;
+  color: var(--text-primary);
+}
+
+.controls-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.control-group label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.control-group input {
+  width: 100%;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background-color: var(--surface-color);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+}
+
+.result-bar {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  color: var(--accent-color);
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+footer {
+  margin-top: 2.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 1.5rem 1.25rem;
+  }
+}
+</style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <span class="category-tag">Celestial Mechanics &amp; Astrodynamics • MPCORB Reference</span>
+      <h1>Mean Daily Orbital Motion</h1>
+      <div class="subtitle">Orbit-Averaged Daily Spatial Path Length (Linear Distance per Day) in MPCORB.DAT</div>
+    </header>
+    <main>
+      
+<h2>1. Formal Definition</h2>
+<p>
+  In heliocentric orbital mechanics and derived astrodynamical analytics based on the Minor Planet Center Orbit Database (<strong>MPCORB</strong>), the <strong>mean daily orbital motion</strong> (<span class="math-var">s&#x0304;<sub>d</sub></span> or <span class="math-var">&Delta;s<sub>d</sub></span>) is defined as the <strong>orbit-averaged linear path length (spatial distance)</strong> traversed by a minor planet along its Keplerian ellipse per ephemeris day (<span class="math-var">1 d = 86,400 s</span> of TT/TDB), expressed in units of length per day (such as <strong>astronomical units per day</strong>, <code>AU/d</code>, or <strong>kilometers per day</strong>, <code>km/d</code>).
+</p>
+<p>
+  In direct linear-spatial analogy to the angular <em>mean daily motion</em> <span class="math-var">n</span> (which divides a complete revolution of <span class="math-var">360&deg;</span> or <span class="math-var">2&pi;</span> rad by the sidereal orbital period <span class="math-var">P</span>), the <strong>mean daily orbital motion</strong> divides the total geometric circumference (perimeter) <span class="math-var">L</span> of the osculating orbital ellipse by the sidereal orbital period <span class="math-var">P</span>. Because <span class="math-var">1 d</span> is a fixed unit interval of time, this quantity is numerically identical to the <strong>mean orbital speed</strong> (<span class="math-var">v&#x0304;<sub>orb</sub></span>) scaled to a daily epoch step, representing the constant spatial arc increment covered per day by a fictitious uniform-speed body completing one full circuit <span class="math-var">L</span> in time <span class="math-var">P</span>:
+</p>
+
+<div class="equation-box">
+  <span class="equation-main">s&#x0304;<sub>d</sub> = L / P = (L &middot; n<sub>deg</sub>) / 360&deg; = (L &middot; n<sub>rad</sub>) / (2&pi;) &nbsp;[AU / d]</span>
+  <span class="equation-label">(Eq. 1)</span>
+</div>
+
+<div class="figure-box">
+  <svg viewBox="0 0 740 315" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Geometric schematic of Mean Daily Orbital Motion as a linear spatial arc per day compared to instantaneous orbital arc">
+    <defs>
+      <marker id="arrowBlue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#1e3a8a"/>
+      </marker>
+      <marker id="arrowSlate" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#475569"/>
+      </marker>
+      <marker id="arrowEmerald" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#047857"/>
+      </marker>
+      <marker id="arrowAmber" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#b45309"/>
+      </marker>
+    </defs>
+
+    <!-- Coordinate axes -->
+    <line x1="40" y1="158" x2="700" y2="158" stroke="#cbd5e1" stroke-width="1.2" stroke-dasharray="5,4"/>
+    <line x1="340" y1="20" x2="340" y2="295" stroke="#cbd5e1" stroke-width="1.2" stroke-dasharray="5,4"/>
+
+    <!-- Keplerian Ellipse (a = 145, e = 0.55 -> c = 80, b = 121) centered at O(340, 158) -->
+    <ellipse cx="340" cy="158" rx="145" ry="121" fill="#eff6ff" fill-opacity="0.4" stroke="#1e3a8a" stroke-width="2"/>
+
+    <!-- Highlighted equal-arc segment representing Mean Daily Orbital Motion s_d = L / P -->
+    <path d="M 412.5 53.2 A 145 121 0 0 0 340 37" fill="none" stroke="#047857" stroke-width="4.5" stroke-linecap="round"/>
+    <text x="345" y="25" font-family="sans-serif" font-size="11.5" font-weight="700" fill="#047857">Mean Daily Arc s&#x0304;<tspan dy="3" font-size="9">d</tspan><tspan dy="-3"> = L / P [AU/d]</tspan></text>
+
+    <!-- Highlighted instantaneous perihelion daily arc (longer: v_max * 1d) -->
+    <path d="M 477.5 196.2 A 145 121 0 0 0 477.5 119.8" fill="none" stroke="#b45309" stroke-width="4.5" stroke-linecap="round"/>
+    <text x="492" y="138" font-family="sans-serif" font-size="11" font-weight="600" fill="#b45309">Perihelion Daily Arc</text>
+    <text x="492" y="153" font-family="Georgia, serif" font-style="italic" font-size="11.5" fill="#b45309">&Delta;s<tspan dy="2" font-size="9">q</tspan><tspan dy="-2"> = v</tspan><tspan dy="2" font-size="9">max</tspan><tspan dy="-2">&middot;(1 d) &gt; s&#x0304;</tspan><tspan dy="2" font-size="9">d</tspan></text>
+
+    <!-- Highlighted instantaneous aphelion daily arc (shorter: v_min * 1d) -->
+    <path d="M 196.8 139.2 A 145 121 0 0 0 196.8 176.8" fill="none" stroke="#475569" stroke-width="4.5" stroke-linecap="round"/>
+    <text x="48" y="138" font-family="sans-serif" font-size="11" font-weight="600" fill="#334155">Aphelion Daily Arc</text>
+    <text x="48" y="153" font-family="Georgia, serif" font-style="italic" font-size="11.5" fill="#334155">&Delta;s<tspan dy="2" font-size="9">Q</tspan><tspan dy="-2"> = v</tspan><tspan dy="2" font-size="9">min</tspan><tspan dy="-2">&middot;(1 d) &lt; s&#x0304;</tspan><tspan dy="2" font-size="9">d</tspan></text>
+
+    <!-- Center O -->
+    <circle cx="340" cy="158" r="3" fill="#64748b"/>
+    <text x="328" y="173" font-family="Georgia, serif" font-style="italic" font-size="13" fill="#475569">O</text>
+
+    <!-- Primary Focus F (Sun) at x = 340 + 80 = 420, y = 158 -->
+    <circle cx="420" cy="158" r="7.5" fill="#f59e0b" stroke="#b45309" stroke-width="1.5"/>
+    <text x="408" y="179" font-family="Georgia, serif" font-style="italic" font-size="13" fill="#b45309">Sun (F)</text>
+
+    <!-- Perihelion & Aphelion points -->
+    <circle cx="485" cy="158" r="3.5" fill="#1e3a8a"/>
+    <text x="492" y="173" font-family="sans-serif" font-size="11" font-weight="600" fill="#1e3a8a">Perihelion (q)</text>
+    <circle cx="195" cy="158" r="3.5" fill="#1e3a8a"/>
+    <text x="115" y="173" font-family="sans-serif" font-size="11" font-weight="600" fill="#1e3a8a">Aphelion (Q)</text>
+
+    <!-- Semimajor & Semiminor axis annotations -->
+    <line x1="195" y1="292" x2="340" y2="292" stroke="#334155" stroke-width="1.3" marker-start="url(#arrowSlate)" marker-end="url(#arrowSlate)"/>
+    <text x="255" y="307" font-family="Georgia, serif" font-style="italic" font-size="13" fill="#334155">a (AU)</text>
+
+    <!-- Summary Callout Box -->
+    <rect x="515" y="212" width="212" height="86" rx="5" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
+    <text x="525" y="229" font-family="sans-serif" font-size="11" font-weight="700" fill="#0f172a">Linear Spatial Analogy</text>
+    <text x="525" y="246" font-family="sans-serif" font-size="10.5" fill="#334155">&bull; Angular: n = 360&deg; / P [deg/d]</text>
+    <text x="525" y="263" font-family="sans-serif" font-size="10.5" fill="#334155">&bull; Linear: s&#x0304;<tspan dy="2" font-size="8">d</tspan><tspan dy="-2"> = L / P [AU/d]</tspan></text>
+    <text x="525" y="280" font-family="sans-serif" font-size="10.5" fill="#334155">&bull; Depends on both a and e</text>
+  </svg>
+  <div class="figure-caption">
+    <strong>Figure 1:</strong> Spatial interpretation of <strong>mean daily orbital motion</strong> (<span class="math-var">s&#x0304;<sub>d</sub> = L / P</span>, green arc) along an osculating Keplerian ellipse of total perimeter <span class="math-var">L</span>. While the true daily path length <span class="math-var">&Delta;s(t) = &int; v(t) dt</span> peaks at perihelion (<span class="math-var">&Delta;s<sub>q</sub></span>, amber) and reaches its minimum at aphelion (<span class="math-var">&Delta;s<sub>Q</sub></span>, slate), the mean daily orbital motion represents the uniform linear distance traversed per ephemeris day across one complete revolution.
+  </div>
+</div>
+
+<h2>2. Analytical Derivation from MPCORB Elements</h2>
+<p>
+  Unlike the angular <em>mean daily motion</em> <span class="math-var">n</span>—which depends solely on the semimajor axis <span class="math-var">a</span>—the linear <strong>mean daily orbital motion</strong> <span class="math-var">s&#x0304;<sub>d</sub></span> depends on both the osculating <strong>semimajor axis</strong> <span class="math-var">a</span> (in AU) and the <strong>orbital eccentricity</strong> <span class="math-var">e</span> (<span class="math-var">0 &le; e &lt; 1</span>), because the geometric circumference <span class="math-var">L</span> of an ellipse shrinks as <span class="math-var">e</span> increases at fixed <span class="math-var">a</span>.
+</p>
+<p>
+  The exact perimeter <span class="math-var">L</span> of the osculating ellipse is given by the complete elliptic integral of the second kind <span class="math-var">E(e)</span>:
+</p>
+
+<div class="equation-box">
+  <span class="equation-main">L = 4a &middot; E(e) = 4a &int;<sub>0</sub><sup>&pi;/2</sup> &radic;(1 &minus; e<sup>2</sup> sin<sup>2</sup>&theta;) d&theta; = 2&pi;a &left;[ 1 &minus; &sum;<sub>m=1</sub><sup>&infin;</sup> ((2m)! / (2<sup>2m</sup> (m!)<sup>2</sup>))<sup>2</sup> &middot; (e<sup>2m</sup> / (2m &minus; 1)) &right;] &nbsp;[AU]</span>
+  <span class="equation-label">(Eq. 2)</span>
+</div>
+
+<p>
+  Combining <span class="math-var">L</span> with the Keplerian sidereal orbital period <span class="math-var">P = 2&pi; / (k &middot; a<sup>&minus;3/2</sup>) = 360&deg; / n<sub>deg</sub></span> [d] yields the exact analytical expression for the <strong>mean daily orbital motion</strong>:
+</p>
+
+<div class="equation-box">
+  <span class="equation-main">s&#x0304;<sub>d</sub> = L / P = (2 / &pi;) &middot; k &middot; a<sup>&minus;1/2</sup> &middot; E(e) = (4a &middot; E(e) &middot; n<sub>deg</sub>) / 360&deg; &nbsp;[AU / d]</span>
+  <span class="equation-label">(Eq. 3)</span>
+</div>
+
+<p>where:</p>
+<ul>
+  <li><span class="math-var">k = 0.01720209895 AU<sup>3/2</sup> d<sup>&minus;1</sup></span> is the Gaussian gravitational constant (<span class="math-var">k &middot; a<sup>&minus;1/2</sup></span> equals the circular orbital speed at radius <span class="math-var">a</span> in <code>AU/d</code>).</li>
+  <li><span class="math-var">E(e)</span> is the complete elliptic integral of the second kind with modulus <span class="math-var">e</span> (<span class="math-var">E(0) = &pi;/2</span> for a circle, decreasing monotonically to <span class="math-var">E(1) = 1</span> as <span class="math-var">e &rarr; 1</span>).</li>
+  <li>For a circular orbit (<span class="math-var">e = 0</span>), <span class="math-var">L = 2&pi;a</span> and <span class="math-var">E(0) = &pi;/2</span>, so Eq. 3 reduces to <span class="math-var">s&#x0304;<sub>d,circ</sub> = k &middot; a<sup>&minus;1/2</sup> = 2&pi;a &middot; (n<sub>deg</sub> / 360&deg;)</span> [AU/d].</li>
+  <li>For high-precision numerical evaluation without infinite series truncation, <span class="math-var">E(e)</span> is computed via the <strong>Arithmetic-Geometric Mean (AGM)</strong> algorithm or approximated to better than <span class="math-var">10<sup>&minus;15</sup></span> using Ramanujan's second perimeter formula with <span class="math-var">b = a&radic;(1 &minus; e<sup>2</sup>)</span> and <span class="math-var">h = ((a &minus; b)/(a + b))<sup>2</sup></span>: <span class="math-var">L &approx; &pi;(a + b)[1 + 3h / (10 + &radic;(4 &minus; 3h))]</span>.</li>
+</ul>
+
+<h2>3. Derivation from <code>MPCORB.DAT</code> Parameters &amp; Unit Conversions</h2>
+<p>
+  <code>MPCORB.DAT</code> does not store the linear perimeter <span class="math-var">L</span> or the linear daily path <span class="math-var">s&#x0304;<sub>d</sub></span> directly; instead, both are uniquely determined from three tabulated columns in each minor planet record:
+</p>
+<table>
+  <thead>
+    <tr>
+      <th>Parameter / Quantity</th>
+      <th>MPCORB Source / Formula</th>
+      <th>Physical Unit &amp; Example ((1) Ceres)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Orbital Eccentricity (<span class="math-var">e</span>)</td>
+      <td><code>MPCORB.DAT</code> cols 71–79 (<code>F9.7</code>)</td>
+      <td>Dimensionless; for Ceres: <span class="math-var">e = 0.0789158</span>.</td>
+    </tr>
+    <tr>
+      <td>Mean Daily Motion (<span class="math-var">n</span>)</td>
+      <td><code>MPCORB.DAT</code> cols 81–91 (<code>F11.8</code>)</td>
+      <td><code>deg/d</code>; for Ceres: <span class="math-var">n = 0.21410467 deg/d</span> (<span class="math-var">P = 1681.42 d</span>).</td>
+    </tr>
+    <tr>
+      <td>Semimajor Axis (<span class="math-var">a</span>)</td>
+      <td><code>MPCORB.DAT</code> cols 93–103 (<code>F11.7</code>)</td>
+      <td><code>AU</code>; for Ceres: <span class="math-var">a = 2.7675059 AU</span>.</td>
+    </tr>
+    <tr>
+      <td>Orbital Perimeter (<span class="math-var">L</span>)</td>
+      <td><span class="math-var">L = 4a &middot; E(e)</span></td>
+      <td><code>AU</code>; for Ceres: <span class="math-var">L = 17.361693 AU</span> (<span class="math-var">2.59727 &times; 10<sup>9</sup> km</span>).</td>
+    </tr>
+    <tr>
+      <td><strong>Mean Daily Orbital Motion (<span class="math-var">s&#x0304;<sub>d</sub></span>)</strong></td>
+      <td><span class="math-var">s&#x0304;<sub>d</sub> = L / P = (L &middot; n) / 360&deg;</span></td>
+      <td><code>0.01032561 AU/d</code> = <code>1,544,689 km/d</code> (<span class="math-var">17.878 km/s</span>).</td>
+    </tr>
+  </tbody>
+</table>
+<p>
+  Standard unit conversion factors using the IAU 2012 exact definition of the astronomical unit (<span class="math-var">1 AU = 149,597,870.700 km</span>):
+</p>
+<ul>
+  <li><strong>Kilometers per ephemeris day:</strong> <span class="math-var">s&#x0304;<sub>d</sub> [km/d] = s&#x0304;<sub>d</sub> [AU/d] &times; 149,597,870.700</span></li>
+  <li><strong>Mean orbital velocity (<span class="math-var">v&#x0304;<sub>orb</sub></span>):</strong> <span class="math-var">v&#x0304;<sub>orb</sub> [km/s] = s&#x0304;<sub>d</sub> [km/d] / 86,400</span></li>
+</ul>
+
+<h2>4. Comparison of Mean Daily Orbital Motion with Extremal Daily Path Lengths</h2>
+<p>
+  Because orbital velocity varies along an eccentric trajectory according to the <em>vis-viva</em> equation <span class="math-var">v(r) = k&radic;(2/r &minus; 1/a)</span>, the linear <strong>mean daily orbital motion</strong> <span class="math-var">s&#x0304;<sub>d</sub></span> lies strictly between the instantaneous daily spatial displacement at perihelion (<span class="math-var">r = q = a(1 &minus; e)</span>) and at aphelion (<span class="math-var">r = Q = a(1 + e)</span>):
+</p>
+<ul>
+  <li><strong>Circular Orbit Limit (<span class="math-var">e = 0</span>):</strong> <span class="math-var">s&#x0304;<sub>d</sub> = k &middot; a<sup>&minus;1/2</sup></span>. All daily path increments are identical around the orbit.</li>
+  <li><strong>Eccentricity Scaling (<span class="math-var">0 &lt; e &lt; 1</span>):</strong> At constant semimajor axis <span class="math-var">a</span>, the orbital period <span class="math-var">P</span> remains invariant while the ellipse circumference <span class="math-var">L = 4a E(e)</span> decreases from <span class="math-var">2&pi;a</span> (at <span class="math-var">e = 0</span>) to <span class="math-var">4a</span> (in the degenerate radial limit <span class="math-var">e &rarr; 1</span>). Consequently, <span class="math-var">s&#x0304;<sub>d</sub></span> decreases by a factor of <span class="math-var">2/&pi; &approx; 0.63662</span> across the full bound eccentricity range <span class="math-var">e &isin; [0, 1)</span>.</li>
+  <li><strong>Relation to Time-Averaged Speed vs. Path-Averaged Speed:</strong> Because <span class="math-var">s&#x0304;<sub>d</sub> = (1/P) &int;<sub>0</sub><sup>P</sup> v(t) dt</span>, the mean daily orbital motion equals the exact <em>time-averaged</em> speed over one orbital period (multiplied by <span class="math-var">1 d</span>), whereas the geometric mean of perihelion and aphelion speeds <span class="math-var">&radic;(v<sub>q</sub> v<sub>Q</sub>) = k &middot; a<sup>&minus;1/2</sup></span> equals the circular speed at distance <span class="math-var">a</span>.</li>
+</ul>
+
+<div class="figure-box">
+  <svg viewBox="0 0 740 245" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Normalized Mean Daily Orbital Motion s_d / s_d(e=0) as a function of Orbital Eccentricity e">
+    <defs>
+      <marker id="axisArrow2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#475569"/>
+      </marker>
+    </defs>
+
+    <!-- Horizontal reference grid -->
+    <line x1="80" y1="35" x2="680" y2="35" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="4,3"/>
+    <line x1="80" y1="85" x2="680" y2="85" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="4,3"/>
+    <line x1="80" y1="135" x2="680" y2="135" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="4,3"/>
+    <line x1="80" y1="185" x2="680" y2="185" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="4,3"/>
+
+    <!-- Plot axes -->
+    <line x1="80" y1="195" x2="695" y2="195" stroke="#475569" stroke-width="1.5" marker-end="url(#axisArrow2)"/>
+    <line x1="80" y1="195" x2="80" y2="20" stroke="#475569" stroke-width="1.5" marker-end="url(#axisArrow2)"/>
+
+    <text x="22" y="112" transform="rotate(-90 22 112)" font-family="sans-serif" font-size="11" font-weight="600" fill="#475569">Ratio s&#x0304;<tspan dy="2" font-size="8.5">d</tspan><tspan dy="-2">(e) / s&#x0304;</tspan><tspan dy="2" font-size="8.5">d</tspan><tspan dy="-2">(0) = (2/&pi;)E(e)</tspan></text>
+    <text x="315" y="232" font-family="sans-serif" font-size="11.5" font-weight="600" fill="#0f172a">Orbital Eccentricity e (at fixed Semimajor Axis a)</text>
+
+    <!-- Y-axis ticks: 1.00 at y=35, 0.90 at y=85, 0.80 at y=135, 0.70 at y=185 (500 px per unit) -->
+    <text x="42" y="39" font-family="monospace" font-size="10.5" fill="#334155">1.00</text>
+    <text x="42" y="89" font-family="monospace" font-size="10.5" fill="#334155">0.90</text>
+    <text x="42" y="139" font-family="monospace" font-size="10.5" fill="#334155">0.80</text>
+    <text x="42" y="189" font-family="monospace" font-size="10.5" fill="#334155">0.70</text>
+
+    <!-- Curve: x = 80 + e * 580; y = 35 + (1 - (2/pi)*E(e)) * 500 -->
+    <!-- e=0.0: 1.000 -> (80, 35)
+         e=0.2: 0.9899 -> (196, 40.1)
+         e=0.4: 0.9589 -> (312, 55.6)
+         e=0.6: 0.9046 -> (428, 82.7)
+         e=0.8: 0.8199 -> (544, 125.1)
+         e=0.9: 0.7586 -> (602, 155.7)
+         e=0.99: 0.6596 -> (654.2, 205.2 -> clipped at 195, let's stop at e=0.95 -> 0.7165 -> (631, 176.8)) -->
+    <path d="M 80 35
+             C 150 36, 230 43, 312 55.6
+             C 395 68.5, 475 95, 544 125.1
+             C 585 143, 615 162, 637 183"
+          fill="none" stroke="#1e3a8a" stroke-width="2.5"/>
+
+    <!-- Marker points -->
+    <circle cx="80" cy="35" r="4.5" fill="#047857"/>
+    <text x="90" y="51" font-family="sans-serif" font-size="10.5" font-weight="600" fill="#047857">Circle (e = 0): s&#x0304;<tspan dy="2" font-size="8.5">d</tspan><tspan dy="-2"> = k&middot;a</tspan><tspan dy="-3" font-size="8.5">&minus;1/2</tspan></text>
+
+    <circle cx="312" cy="55.6" r="4" fill="#1e3a8a"/>
+    <text x="318" y="49" font-family="sans-serif" font-size="10" fill="#1e3a8a">e = 0.4 (0.9589)</text>
+
+    <circle cx="544" cy="125.1" r="4" fill="#1e3a8a"/>
+    <text x="455" y="138" font-family="sans-serif" font-size="10" fill="#1e3a8a">e = 0.8 (0.8199)</text>
+
+    <!-- Degenerate limit callout -->
+    <text x="515" y="176" font-family="sans-serif" font-size="10" font-weight="600" fill="#b45309">Limit e &rarr; 1: 2/&pi; &approx; 0.6366</text>
+
+    <!-- X-axis ticks -->
+    <line x1="80" y1="195" x2="80" y2="201" stroke="#475569" stroke-width="1.2"/>
+    <text x="72" y="214" font-family="monospace" font-size="10.5" fill="#334155">0.0</text>
+
+    <line x1="196" y1="195" x2="196" y2="201" stroke="#475569" stroke-width="1.2"/>
+    <text x="188" y="214" font-family="monospace" font-size="10.5" fill="#334155">0.2</text>
+
+    <line x1="312" y1="195" x2="312" y2="201" stroke="#475569" stroke-width="1.2"/>
+    <text x="304" y="214" font-family="monospace" font-size="10.5" fill="#334155">0.4</text>
+
+    <line x1="428" y1="195" x2="428" y2="201" stroke="#475569" stroke-width="1.2"/>
+    <text x="420" y="214" font-family="monospace" font-size="10.5" fill="#334155">0.6</text>
+
+    <line x1="544" y1="195" x2="544" y2="201" stroke="#475569" stroke-width="1.2"/>
+    <text x="536" y="214" font-family="monospace" font-size="10.5" fill="#334155">0.8</text>
+
+    <line x1="660" y1="195" x2="660" y2="201" stroke="#475569" stroke-width="1.2"/>
+    <text x="652" y="214" font-family="monospace" font-size="10.5" fill="#334155">1.0</text>
+  </svg>
+  <div class="figure-caption">
+    <strong>Figure 2:</strong> Dimensionless reduction factor <span class="math-var">s&#x0304;<sub>d</sub>(e) / s&#x0304;<sub>d</sub>(0) = (2/&pi;) E(e)</span> of the linear mean daily orbital motion as a function of orbital eccentricity <span class="math-var">e</span> at fixed semimajor axis <span class="math-var">a</span>. Because the orbital period <span class="math-var">P</span> depends only on <span class="math-var">a</span> while the ellipse perimeter <span class="math-var">L</span> contracts with increasing <span class="math-var">e</span>, more eccentric orbits cover a shorter average daily distance than circular orbits of the same semimajor axis.
+  </div>
+</div>
+
+<div class="interactive-panel">
+  <div class="interactive-title">Interactive Calculator: Linear Mean Daily Orbital Motion &amp; Elliptic Perimeter</div>
+  <div class="controls-grid">
+    <div class="control-group">
+      <label for="a_val">Semimajor Axis a (AU)</label>
+      <input type="number" id="a_val" value="2.7675059" step="0.001" min="0.001">
+    </div>
+    <div class="control-group">
+      <label for="e_val">Orbital Eccentricity e (0 &le; e &lt; 1)</label>
+      <input type="number" id="e_val" value="0.0789158" step="0.01" min="0" max="0.999999">
+    </div>
+    <div class="control-group">
+      <label for="dt_val">Elapsed Time &Delta;t (days)</label>
+      <input type="number" id="dt_val" value="100.0" step="1.0">
+    </div>
+  </div>
+  <div class="result-bar" id="calc_out">Computing...</div>
+</div>
+
+    </main>
+    <footer>
+      <span>Reference Standard: IAU Minor Planet Center (MPCORB.DAT) Two-Body Heliocentric Model</span>
+      <span>1 AU = 149,597,870.700 km (IAU 2012) &bull; k = 0.01720209895 AU<sup>3/2</sup> d<sup>&minus;1</sup></span>
+    </footer>
+  </div>
+  <script>
+    
+(function() {
+  const k = 0.01720209895;
+  const radToDeg = 180.0 / Math.PI;
+  const auToKm = 149597870.700;
+
+  // Complete elliptic integral of the second kind E(e) via Arithmetic-Geometric Mean (AGM)
+  function ellipticE(e) {
+    if (e === 0) return Math.PI / 2.0;
+    let a = 1.0;
+    let b = Math.sqrt(1.0 - e * e);
+    let sum = 0.0;
+    let pow2 = 0.5;
+    for (let i = 0; i < 30; i++) {
+      const c = (a - b) / 2.0;
+      sum += pow2 * c * c;
+      const aNext = (a + b) / 2.0;
+      const bNext = Math.sqrt(a * b);
+      a = aNext;
+      b = bNext;
+      pow2 *= 2.0;
+      if (Math.abs(a - b) < 1e-16) break;
+    }
+    const K = Math.PI / (2.0 * a);
+    return K * (1.0 - sum - (e * e) / 2.0);
+  }
+
+  function update() {
+    const a = parseFloat(document.getElementById('a_val').value);
+    const e = parseFloat(document.getElementById('e_val').value);
+    const dt = parseFloat(document.getElementById('dt_val').value);
+    const out = document.getElementById('calc_out');
+
+    if (isNaN(a) || a <= 0) {
+      out.textContent = "Invalid semimajor axis (require a > 0 AU).";
+      return;
+    }
+    if (isNaN(e) || e < 0 || e >= 1) {
+      out.textContent = "Invalid eccentricity (require 0 <= e < 1).";
+      return;
+    }
+
+    const nRadDay = k / Math.pow(a, 1.5);
+    const nDegDay = nRadDay * radToDeg;
+    const periodDays = 360.0 / nDegDay;
+    const E_e = ellipticE(e);
+    const perimeterAU = 4.0 * a * E_e;
+    const sDailyAU = perimeterAU / periodDays;
+    const sDailyKm = sDailyAU * auToKm;
+    const meanSpeedKmS = sDailyKm / 86400.0;
+    const totalDistAU = isNaN(dt) ? 0 : (sDailyAU * dt);
+
+    out.innerHTML =
+      `s&#x0304;_d = ${sDailyAU.toFixed(8)} AU/d (${sDailyKm.toLocaleString('en-US', {maximumFractionDigits: 1})} km/d  |  ${meanSpeedKmS.toFixed(4)} km/s)<br>` +
+      `L = ${perimeterAU.toFixed(6)} AU  |  P = ${periodDays.toFixed(2)} d  |  n = ${nDegDay.toFixed(8)} deg/d  |  &Delta;s(&Delta;t) = ${totalDistAU.toFixed(6)} AU`;
+  }
+
+  ['a_val', 'e_val', 'dt_val'].forEach(id => {
+    document.getElementById(id).addEventListener('input', update);
+  });
+  update();
+})();
+
+  </script>
+</body>
+</html>

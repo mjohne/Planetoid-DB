@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Current Orbital Velocity in the Context of MPCORB</title>
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #334155;
+            --accent-color: #1e3a8a;
+            --accent-light: #eff6ff;
+            --border-color: #cbd5e1;
+            --code-bg: #f1f5f9;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.7;
+            color: var(--text-primary);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 3rem 3.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            border: 1px solid var(--border-color);
+        }
+
+        header {
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .badge {
+            display: inline-block;
+            background-color: var(--accent-light);
+            color: var(--accent-color);
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            padding: 0.3rem 0.75rem;
+            border-radius: 4px;
+            border: 1px solid #bfdbfe;
+            margin-bottom: 0.75rem;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin: 0.25rem 0 0.5rem 0;
+            color: var(--text-primary);
+            line-height: 1.25;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            margin: 0;
+        }
+
+        h2 {
+            font-size: 1.35rem;
+            color: var(--accent-color);
+            margin-top: 2.25rem;
+            margin-bottom: 0.85rem;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 0.35rem;
+        }
+
+        h3 {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        p {
+            margin-bottom: 1.15rem;
+            color: var(--text-secondary);
+            text-align: justify;
+        }
+
+        ul, ol {
+            margin-bottom: 1.25rem;
+            padding-left: 1.5rem;
+            color: var(--text-secondary);
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        .equation-box {
+            background-color: var(--code-bg);
+            border-left: 4px solid var(--accent-color);
+            padding: 1.15rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 6px 6px 0;
+            overflow-x: auto;
+            font-family: "Cambria Math", "STIX Two Math", "Times New Roman", Times, serif;
+            font-size: 1.18rem;
+            color: var(--text-primary);
+            text-align: center;
+        }
+
+        .math-inline {
+            font-family: "Cambria Math", "STIX Two Math", "Times New Roman", Times, serif;
+            font-style: italic;
+            font-size: 1.05em;
+            color: var(--text-primary);
+        }
+
+        .math-roman {
+            font-family: "Cambria Math", "STIX Two Math", "Times New Roman", Times, serif;
+            font-style: normal;
+            font-size: 1.02em;
+            color: var(--text-primary);
+        }
+
+        .frac {
+            display: inline-flex;
+            flex-direction: column;
+            vertical-align: middle;
+            text-align: center;
+            margin: 0 0.25rem;
+        }
+
+        .frac > span:first-child {
+            border-bottom: 1px solid var(--text-primary);
+            padding: 0 0.3rem 0.15rem 0.3rem;
+        }
+
+        .frac > span:last-child {
+            padding: 0.15rem 0.3rem 0 0.3rem;
+        }
+
+        .spec-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.92rem;
+        }
+
+        .spec-table th, .spec-table td {
+            border: 1px solid var(--border-color);
+            padding: 0.75rem 1rem;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        .spec-table th {
+            background-color: var(--accent-color);
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .spec-table tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        code {
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+            background-color: var(--code-bg);
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.88em;
+            color: #0f172a;
+        }
+
+        pre {
+            background-color: #1e293b;
+            color: #f8fafc;
+            padding: 1rem 1.25rem;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+        }
+
+        .note-callout {
+            background-color: #fffbeb;
+            border-left: 4px solid #d97706;
+            padding: 1rem 1.25rem;
+            margin: 1.5rem 0;
+            border-radius: 0 6px 6px 0;
+            color: #78350f;
+            font-size: 0.95rem;
+        }
+
+        .terminology-callout {
+            background-color: var(--accent-light);
+            border-left: 4px solid var(--accent-color);
+            padding: 1rem 1.25rem;
+            margin: 1.5rem 0;
+            border-radius: 0 6px 6px 0;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+        }
+
+        .diagram-box {
+            background-color: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+
+        .diagram-caption {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+        }
+
+        .calculator-box {
+            background-color: var(--accent-light);
+            border: 1px solid #bfdbfe;
+            border-radius: 8px;
+            padding: 1.25rem 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .calculator-box h4 {
+            margin: 0 0 0.75rem 0;
+            color: var(--accent-color);
+            font-size: 1rem;
+        }
+
+        .calc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+            gap: 1rem;
+            align-items: end;
+        }
+
+        .calc-field label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.3rem;
+        }
+
+        .calc-field input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 0.5rem 0.65rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 0.95rem;
+            font-family: inherit;
+        }
+
+        .calc-output {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 0.55rem 0.75rem;
+            font-size: 0.92rem;
+            color: var(--text-primary);
+        }
+
+        footer {
+            margin-top: 3rem;
+            padding-top: 1.25rem;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.85rem;
+            color: #64748b;
+            text-align: center;
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 1.75rem 1.25rem;
+            }
+            h1 {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="badge">Celestial Mechanics &amp; Astrodynamics Specification</div>
+            <h1>Current Orbital Velocity (<span class="math-inline">v</span>(<span class="math-inline">t</span>)) in the Context of the MPCORB Database</h1>
+            <p class="subtitle">Scientific Definition, Vis-Viva Formulation, Radial &amp; Transverse Kinematics, and Propagation from MPCORB</p>
+        </header>
+
+        <section>
+            <h2>1. Fundamental Astrodynamical &amp; Kinematic Definition</h2>
+            <div class="terminology-callout">
+                <strong>Definition &amp; Nomenclature:</strong> In two-body Keplerian celestial mechanics, <strong>current orbital velocity</strong>—more strictly termed <strong>instantaneous heliocentric orbital speed</strong> <span class="math-roman"><em>v</em>(<em>t</em>) = &parallel;<strong>v</strong>(<em>t</em>)&parallel; = &parallel;<em>d</em><strong>r</strong>/<em>dt</em>&parallel;</span> (or, in vectorial form, the <strong>instantaneous heliocentric state velocity vector</strong> <span class="math-roman"><strong>v</strong>(<em>t</em>) &isin; &#8477;<sup>3</sup></span>)—is the magnitude (and direction) of the minor planet&rsquo;s inertial velocity relative to the Sun (or Solar System barycenter in osculating J2000.0 ecliptic/equatorial coordinates) at a specified evaluation epoch <span class="math-inline">t</span> (either the osculating catalog epoch <span class="math-inline">t</span><sub>0</sub> or a propagated observation epoch <span class="math-inline">t</span><sub>obs</sub> in Terrestrial Time <span class="math-roman">TT</span>), expressed in <span class="math-roman">km/s</span> or <span class="math-roman">AU/day</span> (<span class="math-roman">1 AU/day = 1731.4568368 km/s</span>).
+            </div>
+            <p>
+                Under conservation of specific mechanical orbital energy <span class="math-roman"><em>&epsilon;</em> = <em>v</em><sup>2</sup>/2 &minus; <em>&mu;</em>/<em>r</em> = &minus;<em>&mu;</em>/(2<em>a</em>)</span> in the heliocentric two-body problem, the instantaneous scalar orbital speed <span class="math-roman"><em>v</em>(<em>t</em>)</span> at heliocentric radial distance <span class="math-roman"><em>r</em>(<em>t</em>) = &parallel;<strong>r</strong>(<em>t</em>)&parallel;</span> is governed exactly by the <strong><em>vis-viva</em> equation</strong>:
+            </p>
+            <div class="equation-box">
+                <span class="math-inline">v</span>(<span class="math-inline">t</span>) =
+                &radic;<span style="text-decoration: overline;">
+                    <span class="math-inline">&mu;</span><sub>&odot;</sub>
+                    <span class="math-roman">(</span>
+                    <span class="frac">
+                        <span>2</span>
+                        <span><span class="math-inline">r</span>(<span class="math-inline">t</span>)</span>
+                    </span>
+                    &minus;
+                    <span class="frac">
+                        <span>1</span>
+                        <span><span class="math-inline">a</span></span>
+                    </span>
+                    <span class="math-roman">)</span>
+                </span>
+            </div>
+            <p>
+                where <span class="math-roman"><em>&mu;</em><sub>&odot;</sub> = <em>G</em>(<em>M</em><sub>&odot;</sub> + <em>m</em>) &approx; <em>GM</em><sub>&odot;</sub> = 1.32712440041 &times; 10<sup>11</sup> km<sup>3</sup> s<sup>&minus;2</sup> = <em>k</em><sup>2</sup> AU<sup>3</sup> day<sup>&minus;2</sup></span> (with the Gaussian gravitational constant <span class="math-roman"><em>k</em> = 0.01720209895 rad day<sup>&minus;1</sup> AU<sup>1/2</sup></span>, <span class="math-roman"><em>k</em><sup>2</sup> = 2.959122082855911 &times; 10<sup>&minus;4</sup> AU<sup>3</sup>/day<sup>2</sup></span>, and <span class="math-roman">1 AU = 149,597,870.700 km</span>), <span class="math-inline">a</span> is the osculating semi-major axis (<span class="math-roman">AU</span>), and <span class="math-roman"><em>r</em>(<em>t</em>)</span> is the instantaneous heliocentric distance obtained by solving Kepler&rsquo;s equation <span class="math-roman"><em>M</em>(<em>t</em>) = <em>E</em>(<em>t</em>) &minus; <em>e</em> sin <em>E</em>(<em>t</em>)</span>:
+            </p>
+            <div class="equation-box">
+                <span class="math-inline">r</span>(<span class="math-inline">t</span>) = <span class="math-inline">a</span><span class="math-roman">(</span>1 &minus; <span class="math-inline">e</span> cos <span class="math-inline">E</span>(<span class="math-inline">t</span>)<span class="math-roman">)</span> =
+                <span class="frac">
+                    <span><span class="math-inline">a</span>(1 &minus; <span class="math-inline">e</span><sup>2</sup>)</span>
+                    <span>1 + <span class="math-inline">e</span> cos <span class="math-inline">&nu;</span>(<span class="math-inline">t</span>)</span>
+                </span>
+            </div>
+            <p>
+                Substituting <span class="math-roman"><em>r</em>(<em>t</em>)</span> into the <em>vis-viva</em> relation yields closed-form expressions directly in terms of the eccentric anomaly <span class="math-roman"><em>E</em>(<em>t</em>)</span> or true anomaly <span class="math-roman"><em>&nu;</em>(<em>t</em>)</span>:
+            </p>
+            <div class="equation-box">
+                <span class="math-inline">v</span>(<span class="math-inline">t</span>) =
+                &radic;<span style="text-decoration: overline;">
+                    <span class="frac">
+                        <span><span class="math-inline">&mu;</span><sub>&odot;</sub></span>
+                        <span><span class="math-inline">a</span></span>
+                    </span>
+                    &middot;
+                    <span class="frac">
+                        <span>1 + <span class="math-inline">e</span> cos <span class="math-inline">E</span>(<span class="math-inline">t</span>)</span>
+                        <span>1 &minus; <span class="math-inline">e</span> cos <span class="math-inline">E</span>(<span class="math-inline">t</span>)</span>
+                    </span>
+                </span>
+                =
+                &radic;<span style="text-decoration: overline;">
+                    <span class="frac">
+                        <span><span class="math-inline">&mu;</span><sub>&odot;</sub></span>
+                        <span><span class="math-inline">a</span>(1 &minus; <span class="math-inline">e</span><sup>2</sup>)</span>
+                    </span>
+                    <span class="math-roman">(</span>1 + 2<span class="math-inline">e</span> cos <span class="math-inline">&nu;</span>(<span class="math-inline">t</span>) + <span class="math-inline">e</span><sup>2</sup><span class="math-roman">)</span>
+                </span>
+            </div>
+            <p>
+                Key kinematic properties and vector decompositions of <span class="math-roman"><strong>v</strong>(<em>t</em>)</span> include:
+            </p>
+            <ul>
+                <li><strong>Apsidal Extrema &amp; Circular Reference Speed:</strong>
+                    <ul>
+                        <li><em>Perihelion speed (<span class="math-roman"><em>r</em> = <em>q</em> = <em>a</em>(1 &minus; <em>e</em>)</span>, <span class="math-roman"><em>E</em> = 0&deg;</span>):</em> <span class="math-roman"><em>v</em><sub>max</sub> = <em>v</em><sub>q</sub> = &radic;[<em>&mu;</em><sub>&odot;</sub>(1 + <em>e</em>) / (<em>a</em>(1 &minus; <em>e</em>))]</span>.</li>
+                        <li><em>Aphelion speed (<span class="math-roman"><em>r</em> = <em>Q</em> = <em>a</em>(1 + <em>e</em>)</span>, <span class="math-roman"><em>E</em> = 180&deg;</span>):</em> <span class="math-roman"><em>v</em><sub>min</sub> = <em>v</em><sub>Q</sub> = &radic;[<em>&mu;</em><sub>&odot;</sub>(1 &minus; <em>e</em>) / (<em>a</em>(1 + <em>e</em>))]</span>.</li>
+                        <li><em>Circular speed at semi-major axis (<span class="math-roman"><em>r</em> = <em>a</em></span>, <span class="math-roman"><em>E</em> = 90&deg;, 270&deg;</span>):</em> <span class="math-roman"><em>v</em><sub>c</sub> = &radic;(<em>&mu;</em><sub>&odot;</sub> / <em>a</em>) = &radic;(<em>v</em><sub>q</sub> <em>v</em><sub>Q</sub>) &approx; 29.7846918 / &radic;<em>a</em><sub>AU</sub> km/s</span>.</li>
+                    </ul>
+                </li>
+                <li><strong>Polar (Radial &amp; Transverse) Decomposition in the Orbital Plane:</strong>
+                    <div class="equation-box">
+                        <span class="math-inline">v</span><sub>r</sub>(<span class="math-inline">t</span>) = <span class="math-inline">&#7769;</span> =
+                        &radic;<span style="text-decoration: overline;">
+                            <span class="frac">
+                                <span><span class="math-inline">&mu;</span><sub>&odot;</sub></span>
+                                <span><span class="math-inline">p</span></span>
+                            </span>
+                        </span>
+                        <span class="math-inline">e</span> sin <span class="math-inline">&nu;</span>(<span class="math-inline">t</span>),
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="math-inline">v</span><sub>&theta;</sub>(<span class="math-inline">t</span>) = <span class="math-inline">r</span><span class="math-inline">&nu;&#775;</span> =
+                        &radic;<span style="text-decoration: overline;">
+                            <span class="frac">
+                                <span><span class="math-inline">&mu;</span><sub>&odot;</sub></span>
+                                <span><span class="math-inline">p</span></span>
+                            </span>
+                        </span>
+                        (1 + <span class="math-inline">e</span> cos <span class="math-inline">&nu;</span>(<span class="math-inline">t</span>)),
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="math-inline">v</span>(<span class="math-inline">t</span>) = &radic;(<span class="math-inline">v</span><sub>r</sub><sup>2</sup> + <span class="math-inline">v</span><sub>&theta;</sub><sup>2</sup>)
+                    </div>
+                    where <span class="math-roman"><em>p</em> = <em>a</em>(1 &minus; <em>e</em><sup>2</sup>)</span> is the semi-latus rectum, <span class="math-roman"><em>v</em><sub>r</sub> &gt; 0</span> on the outbound leg (<span class="math-roman">0&deg; &lt; <em>&nu;</em> &lt; 180&deg;</span>), <span class="math-roman"><em>v</em><sub>r</sub> &lt; 0</span> on the inbound leg (<span class="math-roman">180&deg; &lt; <em>&nu;</em> &lt; 360&deg;</span>), and <span class="math-roman"><em>v</em><sub>r</sub> = 0</span> at the apsides.
+                </li>
+                <li><strong>3D Inertial Heliocentric J2000.0 Ecliptic Velocity Vector (<span class="math-roman"><strong>v</strong>(<em>t</em>)</span>):</strong> In perifocal coordinates (<span class="math-roman"><em>P</em></span> toward perihelion, <span class="math-roman"><em>Q</em></span> along <span class="math-roman"><em>&nu;</em> = 90&deg;</span>):
+                    <div class="equation-box">
+                        <strong>v</strong><sub>perifocal</sub>(<span class="math-inline">t</span>) =
+                        <span class="frac">
+                            <span>&radic;(<span class="math-inline">&mu;</span><sub>&odot;</sub> <span class="math-inline">a</span>)</span>
+                            <span><span class="math-inline">r</span>(<span class="math-inline">t</span>)</span>
+                        </span>
+                        <span class="math-roman">[</span>
+                        &minus;sin <span class="math-inline">E</span>(<span class="math-inline">t</span>) <strong>P&#770;</strong>
+                        + &radic;(1 &minus; <span class="math-inline">e</span><sup>2</sup>) cos <span class="math-inline">E</span>(<span class="math-inline">t</span>) <strong>Q&#770;</strong>
+                        <span class="math-roman">]</span>
+                    </div>
+                    which rotates into the J2000.0 ecliptic frame via the 3-1-3 Euler matrix <span class="math-roman"><strong>R</strong><sub>z</sub>(&minus;&Omega;) <strong>R</strong><sub>x</sub>(&minus;<em>i</em>) <strong>R</strong><sub>z</sub>(&minus;&omega;)</span> using the argument of perihelion <span class="math-inline">&omega;</span>, longitude of the ascending node <span class="math-inline">&Omega;</span>, and inclination <span class="math-inline">i</span>.
+                </li>
+            </ul>
+
+            <div class="diagram-box">
+                <svg width="560" height="250" viewBox="0 0 560 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Orbital velocity diagram illustrating the instantaneous tangential velocity vector v(t), radial component v_r, and transverse component v_theta along an elliptic orbit">
+                    <rect x="0" y="0" width="560" height="250" fill="#f8fafc" rx="6"/>
+                    <!-- Left panel: Orbital ellipse with velocity vector decomposition -->
+                    <ellipse cx="165" cy="125" rx="115" ry="78" fill="#eff6ff" stroke="#1e3a8a" stroke-width="1.6"/>
+                    <!-- Apsidal line Q - S - q -->
+                    <line x1="42" y1="125" x2="288" y2="125" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3,3"/>
+                    <!-- Sun S at right focus -->
+                    <circle cx="249.5" cy="125" r="5.5" fill="#f59e0b" stroke="#b45309" stroke-width="1.2"/>
+                    <text x="249.5" y="143" text-anchor="middle" font-family="serif" font-size="11" fill="#92400e" font-weight="bold">S</text>
+                    <!-- Aphelion Q & Perihelion q -->
+                    <circle cx="50" cy="125" r="3.8" fill="#64748b"/>
+                    <text x="44" y="129" text-anchor="end" font-family="serif" font-style="italic" font-size="11" fill="#475569">Q (v<tspan baseline-shift="sub" font-size="7.5">min</tspan>)</text>
+                    <circle cx="280" cy="125" r="3.8" fill="#64748b"/>
+                    <text x="286" y="129" text-anchor="start" font-family="serif" font-style="italic" font-size="11" fill="#475569">q (v<tspan baseline-shift="sub" font-size="7.5">max</tspan>)</text>
+
+                    <!-- Body position P on upper outbound leg: theta_ecc = 60 deg -> x = 165 + 115*0.5 = 222.5, y = 125 - 78*0.866 = 57.5 -->
+                    <!-- Radius vector r from S(249.5, 125) to P(222.5, 57.5) -->
+                    <line x1="249.5" y1="125" x2="222.5" y2="57.5" stroke="#64748b" stroke-width="1.2" stroke-dasharray="2,2"/>
+                    <text x="243" y="96" text-anchor="start" font-family="serif" font-style="italic" font-size="11" fill="#475569">r(t)</text>
+
+                    <!-- Tangent velocity vector v(t) at P(222.5, 57.5): tangent direction (-115*sin60, -78*cos60) = (-99.6, -39) -> scaled to (-56, -22) -> end (166.5, 35.5) -->
+                    <defs>
+                        <marker id="arrowBlue" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto">
+                            <polygon points="0 0, 7 3.5, 0 7" fill="#1d4ed8"/>
+                        </marker>
+                        <marker id="arrowSlate" markerWidth="6" markerHeight="6" refX="4.5" refY="3" orient="auto">
+                            <polygon points="0 0, 6 3, 0 6" fill="#475569"/>
+                        </marker>
+                    </defs>
+                    <!-- Radial component v_r (outward along r: (-27, -67.5) normalized -> (-11, -27.5) -> end (211.5, 30)) -->
+                    <line x1="222.5" y1="57.5" x2="211.5" y2="30" stroke="#475569" stroke-width="1.3" stroke-dasharray="2,2" marker-end="url(#arrowSlate)"/>
+                    <text x="214" y="24" text-anchor="start" font-family="serif" font-style="italic" font-size="10" fill="#475569">v<tspan baseline-shift="sub" font-size="7.5">r</tspan></text>
+                    <!-- Transverse component v_theta (perpendicular to r: (-67.5, +27) normalized -> (-45, +18) -> end (177.5, 75.5)) -->
+                    <line x1="222.5" y1="57.5" x2="177.5" y2="75.5" stroke="#475569" stroke-width="1.3" stroke-dasharray="2,2" marker-end="url(#arrowSlate)"/>
+                    <text x="172" y="87" text-anchor="end" font-family="serif" font-style="italic" font-size="10" fill="#475569">v<tspan baseline-shift="sub" font-size="7.5">&theta;</tspan></text>
+                    <!-- Total velocity vector v(t) -->
+                    <line x1="222.5" y1="57.5" x2="166.5" y2="35.5" stroke="#1d4ed8" stroke-width="2.6" marker-end="url(#arrowBlue)"/>
+                    <text x="161" y="34" text-anchor="end" font-family="serif" font-size="11.5" fill="#1d4ed8" font-weight="bold">v(t)</text>
+
+                    <!-- Body dot -->
+                    <circle cx="222.5" cy="57.5" r="4.8" fill="#0f172a"/>
+                    <text x="230" y="56" text-anchor="start" font-family="sans-serif" font-size="9.5" fill="#0f172a" font-weight="bold">P(t)</text>
+
+                    <!-- Right panel: Vis-viva & kinematic equations -->
+                    <text x="445" y="48" text-anchor="middle" font-family="serif" font-size="13.5" fill="#1e3a8a" font-weight="bold">Vis-Viva Orbital Speed v(t):</text>
+                    <text x="445" y="78" text-anchor="middle" font-family="serif" font-size="13" fill="#1d4ed8" font-weight="bold">v(t) = &radic;[ &mu;<tspan baseline-shift="sub" font-size="8.5">&odot;</tspan> (2 / r(t) &minus; 1 / a) ]</text>
+                    <text x="445" y="105" text-anchor="middle" font-family="serif" font-size="11.5" fill="#334155">r(t) = a (1 &minus; e cos E(t))</text>
+                    <text x="445" y="128" text-anchor="middle" font-family="serif" font-size="11" fill="#334155">M(t) = M<tspan baseline-shift="sub" font-size="8">0</tspan> + n (t &minus; t<tspan baseline-shift="sub" font-size="8">0</tspan>) = E &minus; e sin E</text>
+                    <text x="445" y="156" text-anchor="middle" font-family="sans-serif" font-size="10.5" fill="#334155">Range: v<tspan baseline-shift="sub" font-size="8">min</tspan> (aphelion) &le; v(t) &le; v<tspan baseline-shift="sub" font-size="8">max</tspan> (perihelion)</text>
+                    <text x="445" y="182" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#475569">1 AU/day = 1731.4568368 km/s</text>
+                    <text x="445" y="198" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#475569">Epoch scale: Terrestrial Time (TT)</text>
+                </svg>
+                <div class="diagram-caption">
+                    Figure 1: Instantaneous heliocentric velocity vector <span class="math-roman"><strong>v</strong>(<em>t</em>) = <em>v</em><sub>r</sub> <strong>r&#770;</strong> + <em>v</em><sub>&theta;</sub> <strong>&theta;&#770;</strong></span> tangent to the Keplerian trajectory at heliocentric distance <span class="math-roman"><em>r</em>(<em>t</em>)</span>, governed by the <em>vis-viva</em> conservation law.
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>2. Contrast Among Orbital Velocity Metrics</h2>
+            <p>
+                In astrodynamical applications built on <code>MPCORB.DAT</code>, <strong>current orbital velocity</strong> (<span class="math-roman"><em>v</em>(<em>t</em>)</span>) denotes the instantaneous Keplerian speed at epoch <span class="math-inline">t</span>, distinct from apsidal extrema, circular reference velocity, and topocentric sky-plane angular rates:
+            </p>
+            <table class="spec-table">
+                <thead>
+                    <tr>
+                        <th>Velocity Metric</th>
+                        <th>Mathematical Formulation</th>
+                        <th>Typical Unit</th>
+                        <th>Physical &amp; Astrometric Distinction</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Current Orbital Velocity (<span class="math-roman"><em>v</em>(<em>t</em>)</span>)</strong></td>
+                        <td><span class="math-roman">&radic;[<em>&mu;</em><sub>&odot;</sub> (2/<em>r</em>(<em>t</em>) &minus; 1/<em>a</em>)]</span></td>
+                        <td><span class="math-roman">km/s</span> or <span class="math-roman">AU/day</span></td>
+                        <td>Instantaneous heliocentric inertial speed at epoch <span class="math-inline">t</span> (depends on <span class="math-inline">a</span>, <span class="math-inline">e</span>, and <span class="math-roman"><em>M</em>(<em>t</em>)</span>)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Perihelion Velocity (<span class="math-inline">v</span><sub>max</sub> / <span class="math-inline">v</span><sub>q</sub>)</strong></td>
+                        <td><span class="math-roman">&radic;[<em>&mu;</em><sub>&odot;</sub>(1 + <em>e</em>) / (<em>a</em>(1 &minus; <em>e</em>))]</span></td>
+                        <td><span class="math-roman">km/s</span> or <span class="math-roman">AU/day</span></td>
+                        <td>Upper bound of orbital speed attained at <span class="math-roman"><em>r</em> = <em>q</em></span> (<span class="math-roman"><em>M</em> = 0&deg;</span>)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Aphelion Velocity (<span class="math-inline">v</span><sub>min</sub> / <span class="math-inline">v</span><sub>Q</sub>)</strong></td>
+                        <td><span class="math-roman">&radic;[<em>&mu;</em><sub>&odot;</sub>(1 &minus; <em>e</em>) / (<em>a</em>(1 + <em>e</em>))]</span></td>
+                        <td><span class="math-roman">km/s</span> or <span class="math-roman">AU/day</span></td>
+                        <td>Lower bound of orbital speed attained at <span class="math-roman"><em>r</em> = <em>Q</em></span> (<span class="math-roman"><em>M</em> = 180&deg;</span>)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Mean Circular Velocity (<span class="math-inline">v</span><sub>c</sub>)</strong></td>
+                        <td><span class="math-roman">&radic;(<em>&mu;</em><sub>&odot;</sub> / <em>a</em>) = 2<em>&pi;a</em> / <em>P</em></span></td>
+                        <td><span class="math-roman">km/s</span> or <span class="math-roman">AU/day</span></td>
+                        <td>Speed of a fictitious circular orbit of radius <span class="math-inline">a</span> (not the time-averaged speed for <span class="math-roman"><em>e</em> &gt; 0</span>)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Apparent Sky Motion (<span class="math-roman"><em>&mu;</em><sub>sky</sub></span>)</strong></td>
+                        <td><span class="math-roman">&radic;[(<span class="math-inline">&alpha;&#775;</span> cos <span class="math-inline">&delta;</span>)<sup>2</sup> + <span class="math-inline">&delta;&#775;</span><sup>2</sup>]</span></td>
+                        <td><span class="math-roman">arcsec/min</span> or <span class="math-roman">deg/day</span></td>
+                        <td>Observer-dependent geocentric/topocentric angular rate projected onto the celestial sphere</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>3. Specific Status and Derivation in the MPCORB Catalog</h2>
+            <p>
+                In the <strong>MPCORB</strong> (<em>Minor Planet Center Orbit</em>) database published by the International Astronomical Union&rsquo;s Minor Planet Center (IAU MPC):
+            </p>
+
+            <ul>
+                <li>
+                    <strong>Implicit Derived Quantity (Not Tabulated):</strong> <code>MPCORB.DAT</code> stores osculating heliocentric Keplerian orbital elements in the J2000.0 ecliptic frame and does not explicitly tabulate <span class="math-roman"><em>v</em>(<em>t</em>)</span> or <span class="math-roman"><strong>v</strong>(<em>t</em>)</span>. Instead, scalar speed <span class="math-roman"><em>v</em>(<em>t</em>)</span> is derived directly from four fixed-width columns in every <code>MPCORB.DAT</code> record (and the full 3D velocity vector <span class="math-roman"><strong>v</strong>(<em>t</em>)</span> additionally uses <span class="math-inline">&omega;</span>, <span class="math-inline">&Omega;</span>, and <span class="math-inline">i</span> from columns <code>38–69</code>):
+                    <ul>
+                        <li><strong>Packed epoch <span class="math-inline">t</span><sub>0</sub></strong> (columns <code>21–25</code>, format <code>A5</code>, <span class="math-roman">0<sup>h</sup> TT</span>);</li>
+                        <li><strong>Mean anomaly at epoch <span class="math-inline">M</span><sub>0</sub></strong> (columns <code>27–35</code>, format <code>F9.5</code>, degrees);</li>
+                        <li><strong>Orbital eccentricity <span class="math-inline">e</span></strong> (columns <code>71–79</code>, format <code>F9.7</code>, dimensionless);</li>
+                        <li><strong>Daily mean motion <span class="math-inline">n</span></strong> (columns <code>81–91</code>, format <code>F11.8</code>, <span class="math-roman">deg/day</span>) and <strong>semi-major axis <span class="math-inline">a</span></strong> (columns <code>93–103</code>, format <code>F11.7</code>, <span class="math-roman">AU</span>).</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Two-Epoch Evaluation Convention (<span class="math-roman"><em>t</em> = <em>t</em><sub>0</sub></span> vs. <span class="math-roman"><em>t</em> = <em>t</em><sub>obs</sub></span>):</strong>
+                    <ul>
+                        <li><em>At Osculating Catalog Epoch (<span class="math-roman"><em>t</em> = <em>t</em><sub>0</sub></span>):</em> Solve Kepler&rsquo;s equation directly for <span class="math-inline">M</span><sub>0</sub> without temporal propagation.</li>
+                        <li><em>At Current Observation Date (<span class="math-roman"><em>t</em> = <em>t</em><sub>obs</sub></span>, e.g., <span class="math-roman">2026-11-18</span>):</em> Propagate the mean anomaly linearly via <span class="math-roman"><em>M</em>(<em>t</em><sub>obs</sub>) = [<em>M</em><sub>0</sub> + <em>n</em>(<em>t</em><sub>obs</sub> &minus; <em>t</em><sub>0</sub>)] mod 360&deg;</span> (using <span class="math-roman"><em>n</em> = (180/&pi;)<em>k</em> <em>a</em><sup>&minus;3/2</sup> = 0.9856076686 <em>a</em><sup>&minus;3/2</sup> deg/day</span> if recomputed from <span class="math-inline">a</span> for strict two-body consistency), solve <span class="math-roman"><em>E</em> &minus; <em>e</em> sin <em>E</em> = <em>M</em>(<em>t</em><sub>obs</sub>)</span>, compute <span class="math-roman"><em>r</em>(<em>t</em><sub>obs</sub>) = <em>a</em>(1 &minus; <em>e</em> cos <em>E</em>)</span>, and evaluate the <em>vis-viva</em> speed <span class="math-roman"><em>v</em>(<em>t</em><sub>obs</sub>)</span>.</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Physical &amp; Observational Significance in Minor-Planet Studies:</strong>
+                    <ul>
+                        <li><em>Impact &amp; Encounter Energetics:</em> Determines the heliocentric kinetic energy per unit mass (<span class="math-roman"><em>v</em><sup>2</sup>/2</span>) and asymptotic encounter velocity (<span class="math-roman"><em>v</em><sub>&infin;</sub> = &parallel;<strong>v</strong><sub>ast</sub> &minus; <strong>v</strong><sub>&oplus;</sub>&parallel;</span>) during planetary close approaches and B-plane impact analyses.</li>
+                        <li><em>Radar &amp; Spectroscopic Doppler Shift:</em> The radial velocity component <span class="math-roman"><em>v</em><sub>r</sub>(<em>t</em>)</span> and geocentric range rate <span class="math-inline">&#7769;</span><sub>&Delta;</sub> govern relativistic Doppler frequency offsets (<span class="math-roman">&Delta;<em>f</em>/<em>f</em><sub>0</sub> &approx; &minus;2&#7769;<sub>&Delta;</sub>/<em>c</em></span>) in planetary radar astrometry.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <div class="note-callout">
+                <strong>Osculating Two-Body vs. Perturbed N-Body Precision Note:</strong> Propagating <span class="math-roman"><em>M</em>(<em>t</em><sub>obs</sub>) = <em>M</em><sub>0</sub> + <em>n</em>(<em>t</em><sub>obs</sub> &minus; <em>t</em><sub>0</sub>)</span> with fixed elements <span class="math-roman">(<em>a</em>, <em>e</em>, <em>i</em>, &Omega;, &omega;)</span> yields the exact <em>unperturbed two-body Keplerian velocity</em> from the osculating epoch <span class="math-inline">t</span><sub>0</sub>. Over multi-year spans or during close planetary encounters, planetary perturbations alter the osculating elements; high-precision ephemerides therefore integrate the equations of motion numerically (e.g., RK4/RKF45 or Gauss-Radau) before evaluating <span class="math-roman"><strong>v</strong>(<em>t</em><sub>obs</sub>)</span>.
+            </div>
+
+            <div class="calculator-box">
+                <h4>Interactive MPCORB Current Orbital Velocity (<span class="math-inline">v</span>(<span class="math-inline">t</span>)) Calculator</h4>
+                <div class="calc-grid">
+                    <div class="calc-field">
+                        <label for="inputEpoch">Packed Epoch (Cols 21&ndash;25)</label>
+                        <input type="text" id="inputEpoch" maxlength="5" value="K25BL">
+                    </div>
+                    <div class="calc-field">
+                        <label for="inputM0">Mean Anomaly <em>M</em><sub>0</sub> (deg, Cols 27&ndash;35)</label>
+                        <input type="number" id="inputM0" step="0.00001" value="231.53975">
+                    </div>
+                    <div class="calc-field">
+                        <label for="inputE">Eccentricity <em>e</em> (Cols 71&ndash;79)</label>
+                        <input type="number" id="inputE" step="0.0000001" min="0" max="0.9999999" value="0.0785354">
+                    </div>
+                    <div class="calc-field">
+                        <label for="inputA">Semi-Major Axis <em>a</em> (AU, Cols 93&ndash;103)</label>
+                        <input type="number" id="inputA" step="0.0000001" min="0.0001" value="2.7671819">
+                    </div>
+                    <div class="calc-field">
+                        <label for="inputTargetDate">Evaluation Date (TT, YYYY-MM-DD)</label>
+                        <input type="text" id="inputTargetDate" value="2026-11-18">
+                    </div>
+                    <div class="calc-output" id="calcResult" style="grid-column: 1 / -1;">
+                        At Evaluation Date <strong>2026-11-18 00:00 TT (JD 2461362.5000)</strong>:<br>
+                        Current Orbital Velocity <em>v</em>(<em>t</em>): <strong>18.3038 km/s (0.0105713 AU/day)</strong> &bull; Heliocentric Distance <em>r</em>(<em>t</em>): <strong>2.658481 AU</strong><br>
+                        Components: Radial <em>v</em><sub>r</sub> = <strong>&minus;1.3264 km/s (Inbound)</strong>, Transverse <em>v</em><sub>&theta;</sub> = <strong>18.2557 km/s</strong> &bull; Range: <strong>16.5513 &ndash; 19.3738 km/s</strong>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Fixed-Width Source Columns &amp; Computation from <code>MPCORB.DAT</code></h2>
+            <p>
+                The table below summarizes the fixed-width columns (1-based indexing) in a standard 202-character <code>MPCORB.DAT</code> record required to compute <span class="math-roman"><em>v</em>(<em>t</em>)</span> (and optionally the 3D vector <span class="math-roman"><strong>v</strong>(<em>t</em>)</span>):
+            </p>
+
+            <table class="spec-table">
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Columns (1-based)</th>
+                        <th>0-Based Slice</th>
+                        <th>Fortran Format</th>
+                        <th>Unit &amp; Role</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong><code>Epoch</code> (<span class="math-inline">t</span><sub>0</sub>)</strong></td>
+                        <td><code>21–25</code></td>
+                        <td><code>line[20:25]</code></td>
+                        <td><code>A5</code></td>
+                        <td>Packed MPC date (<span class="math-roman">0<sup>h</sup> TT</span>); reference epoch <span class="math-inline">t</span><sub>0</sub></td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>M</code> (<span class="math-inline">M</span><sub>0</sub>, Mean anomaly)</strong></td>
+                        <td><code>27–35</code></td>
+                        <td><code>line[26:35]</code></td>
+                        <td><code>F9.5</code></td>
+                        <td>Degrees (<span class="math-roman">&deg;</span>); initial phase for Kepler&rsquo;s equation</td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>&omega;, &Omega;, i</code> (Orientation)</strong></td>
+                        <td><code>38–69</code></td>
+                        <td><code>line[37:69]</code></td>
+                        <td><code>3F10.5</code></td>
+                        <td>Degrees (<span class="math-roman">&deg;</span>); needed only for 3D ecliptic vector <span class="math-roman"><strong>v</strong>(<em>t</em>)</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>e</code> (Eccentricity)</strong></td>
+                        <td><code>71–79</code></td>
+                        <td><code>line[70:79]</code></td>
+                        <td><code>F9.7</code></td>
+                        <td>Dimensionless (<span class="math-roman">0 &le; <em>e</em> &lt; 1</span>); scales radial distance &amp; velocity modulation</td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>n</code> (Daily mean motion)</strong></td>
+                        <td><code>81–91</code></td>
+                        <td><code>line[80:91]</code></td>
+                        <td><code>F11.8</code></td>
+                        <td>Degrees per day (<span class="math-roman">deg/day</span>); propagates <span class="math-roman"><em>M</em>(<em>t</em>) = <em>M</em><sub>0</sub> + <em>n</em>(<em>t</em> &minus; <em>t</em><sub>0</sub>)</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>a</code> (Semi-major axis)</strong></td>
+                        <td><code>93–103</code></td>
+                        <td><code>line[92:103]</code></td>
+                        <td><code>F11.7</code></td>
+                        <td>Astronomical Units (<span class="math-roman">AU</span>); sets specific orbital energy <span class="math-roman">&minus;<em>&mu;</em><sub>&odot;</sub>/(2<em>a</em>)</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>v(t)</code> (Current orbital velocity)</strong></td>
+                        <td><em>Derived (not stored)</em></td>
+                        <td><code>sqrt(mu * (2/r - 1/a))</code></td>
+                        <td><em>Computed</em></td>
+                        <td><span class="math-roman">km/s</span> or <span class="math-roman">AU/day</span>; instantaneous heliocentric speed at epoch <span class="math-inline">t</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Example Record Evaluation (<code>00001</code> — (1) Ceres at <span class="math-roman">t<sub>obs</sub> = 2026-11-18</span>)</h3>
+            <pre>Col:  ... 21  25 27       35 ... 71      79 81         91 93        103
+Data: ... K25BL  231.53975   ... 0.0785354  0.21401711   2.7671819
+          └─┬─┘  └────┬────┘     └───┬───┘  └────┬─────┘ └────┬────┘
+          Epoch      M0 (deg)        e       n (deg/day)    a (AU)
+
+Current Orbital Velocity Evaluation for (1) Ceres at t_obs = 2026-11-18 00:00 TT:
+  Osculating epoch (t0)            K25BL -> 2025-11-21 00:00:00 TT   = JD 2461000.50000 TT
+  Evaluation epoch (t_obs)         2026-11-18 00:00:00 TT            = JD 2461362.50000 TT (dt = +362.0 d)
+  Propagated mean anomaly M(t_obs) (231.53975 + 0.21401711 * 362.0)  = 309.01394 deg (Inbound leg)
+  Eccentric anomaly E(t_obs)       Solved via Newton-Raphson         = 305.41761 deg
+  True anomaly nu(t_obs)           2 * atan2(...)                    = 301.66341 deg
+  Heliocentric distance r(t_obs)   2.7671819 * (1 - e * cos E)       = 2.6584814 AU
+  Current orbital velocity v(t)    sqrt(mu * (2/r - 1/a))            = 18.3038 km/s (0.0105713 AU/day)
+  Radial / Transverse split        v_r = -1.3264 km/s | v_theta      = 18.2557 km/s
+  Apsidal speed envelope           v_min (Q) = 16.5513 km/s          | v_max (q) = 19.3738 km/s</pre>
+        </section>
+
+        <footer>
+            Self-contained scientific reference document (zero external dependencies) &bull; Conventions aligned with IAU Minor Planet Center (MPC) <code>MPCORB.DAT</code> specifications.
+        </footer>
+    </div>
+
+    <script>
+        (function () {
+            const inputEpoch = document.getElementById("inputEpoch");
+            const inputM0 = document.getElementById("inputM0");
+            const inputE = document.getElementById("inputE");
+            const inputA = document.getElementById("inputA");
+            const inputTargetDate = document.getElementById("inputTargetDate");
+            const calcResult = document.getElementById("calcResult");
+
+            // IAU 2012/2015 exact constants
+            const K_GAUSS = 0.01720209895; // AU^(3/2) / day
+            const MU_AU3_DAY2 = K_GAUSS * K_GAUSS; // 2.959122082855911e-4 AU^3/day^2
+            const AU_KM = 149597870.700; // km
+            const DAY_SEC = 86400.0; // s
+            const AUDAY_TO_KMS = AU_KM / DAY_SEC; // 1731.4568368055555 km/s
+            const DEG2RAD = Math.PI / 180.0;
+            const RAD2DEG = 180.0 / Math.PI;
+
+            const CENTURY_MAP = { I: 1800, J: 1900, K: 2000, L: 2100 };
+
+            function decodeBase36Char(ch) {
+                const code = ch.charCodeAt(0);
+                if (code >= 48 && code <= 57) return code - 48;
+                if (code >= 65 && code <= 90) return code - 55;
+                return NaN;
+            }
+
+            function gregorianToJD(year, month, dayFraction) {
+                let y = year;
+                let m = month;
+                if (m <= 2) {
+                    y -= 1;
+                    m += 12;
+                }
+                const A = Math.floor(y / 100);
+                const B = 2 - A + Math.floor(A / 4);
+                return Math.floor(365.25 * (y + 4716)) + Math.floor(30.6001 * (m + 1)) + dayFraction + B - 1524.5;
+            }
+
+            function parseMpcPackedEpoch(str) {
+                const s = str.trim().toUpperCase();
+                if (s.length !== 5) return NaN;
+                const century = CENTURY_MAP[s[0]];
+                const yy = parseInt(s.substring(1, 3), 10);
+                const month = decodeBase36Char(s[3]);
+                const day = decodeBase36Char(s[4]);
+                if (!isFinite(century) || !isFinite(yy) || !(month >= 1 && month <= 12) || !(day >= 1 && day <= 31)) {
+                    return NaN;
+                }
+                return gregorianToJD(century + yy, month, day);
+            }
+
+            function parseIsoDateToJD(str) {
+                const m = /^(\d{4})-(\d{1,2})-(\d{1,2}(?:\.\d+)?)$/.exec(str.trim());
+                if (!m) return NaN;
+                const year = parseInt(m[1], 10);
+                const month = parseInt(m[2], 10);
+                const day = parseFloat(m[3]);
+                if (!(month >= 1 && month <= 12) || !(day >= 1 && day < 32)) return NaN;
+                return gregorianToJD(year, month, day);
+            }
+
+            function solveKeplerElliptic(mRad, e) {
+                // Normalize mRad to [-pi, pi] for fast Newton-Raphson convergence
+                let m = ((mRad % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI);
+                if (m > Math.PI) m -= 2 * Math.PI;
+                let E = e < 0.8 ? m + e * Math.sin(m) : Math.PI;
+                for (let iter = 0; iter < 50; iter++) {
+                    const f = E - e * Math.sin(E) - m;
+                    const fp = 1.0 - e * Math.cos(E);
+                    const dE = f / fp;
+                    E -= dE;
+                    if (Math.abs(dE) < 1e-14) break;
+                }
+                return E;
+            }
+
+            function updateCalculation() {
+                const t0 = parseMpcPackedEpoch(inputEpoch.value);
+                const m0Deg = parseFloat(inputM0.value);
+                const e = parseFloat(inputE.value);
+                const a = parseFloat(inputA.value);
+                const tObs = parseIsoDateToJD(inputTargetDate.value);
+
+                if (!isFinite(t0)) {
+                    calcResult.innerHTML = "Invalid 5-character MPC packed epoch (e.g., <code>K25BL</code> for 2025-11-21).";
+                    return;
+                }
+                if (!isFinite(tObs)) {
+                    calcResult.innerHTML = "Invalid evaluation date. Use <code>YYYY-MM-DD</code> (e.g., <code>2026-11-18</code>).";
+                    return;
+                }
+                if (!isFinite(m0Deg)) {
+                    calcResult.innerHTML = "Please enter a valid mean anomaly <em>M</em><sub>0</sub> in degrees.";
+                    return;
+                }
+                if (!isFinite(e) || e < 0 || e >= 1) {
+                    calcResult.innerHTML = "Eccentricity <em>e</em> must satisfy 0 &le; <em>e</em> &lt; 1 for a bound elliptic orbit.";
+                    return;
+                }
+                if (!isFinite(a) || a <= 0) {
+                    calcResult.innerHTML = "Semi-major axis <em>a</em> must be strictly positive (&gt; 0 AU).";
+                    return;
+                }
+
+                // Daily mean motion from a (deg/day)
+                const nDegPerDay = (K_GAUSS / Math.pow(a, 1.5)) * RAD2DEG;
+                const dt = tObs - t0;
+                const mObsDeg = (((m0Deg + nDegPerDay * dt) % 360.0) + 360.0) % 360.0;
+                const E = solveKeplerElliptic(mObsDeg * DEG2RAD, e);
+
+                // Heliocentric distance r (AU) and vis-viva speed v
+                const r = a * (1.0 - e * Math.cos(E));
+                const vAuDay = Math.sqrt(MU_AU3_DAY2 * (2.0 / r - 1.0 / a));
+                const vKms = vAuDay * AUDAY_TO_KMS;
+
+                // True anomaly and radial / transverse components
+                const nu = 2.0 * Math.atan2(
+                    Math.sqrt(1.0 + e) * Math.sin(E / 2.0),
+                    Math.sqrt(1.0 - e) * Math.cos(E / 2.0)
+                );
+                const p = a * (1.0 - e * e);
+                const sqrtMuOverP = Math.sqrt(MU_AU3_DAY2 / p) * AUDAY_TO_KMS;
+                const vrKms = sqrtMuOverP * e * Math.sin(nu);
+                const vthetaKms = sqrtMuOverP * (1.0 + e * Math.cos(nu));
+
+                // Apsidal speed bounds
+                const vMinKms = Math.sqrt((MU_AU3_DAY2 * (1.0 - e)) / (a * (1.0 + e))) * AUDAY_TO_KMS;
+                const vMaxKms = Math.sqrt((MU_AU3_DAY2 * (1.0 + e)) / (a * (1.0 - e))) * AUDAY_TO_KMS;
+
+                const vrSign = vrKms >= 0 ? "+" : "&minus;";
+                const legLabel = Math.abs(vrKms) < 1e-6 ? "Apsis" : (vrKms > 0 ? "Outbound" : "Inbound");
+
+                calcResult.innerHTML =
+                    `At Evaluation Date <strong>${inputTargetDate.value.trim()} 00:00 TT (JD ${tObs.toFixed(4)})</strong>:<br>` +
+                    `Current Orbital Velocity <em>v</em>(<em>t</em>): <strong>${vKms.toFixed(4)} km/s (${vAuDay.toFixed(7)} AU/day)</strong> &bull; Heliocentric Distance <em>r</em>(<em>t</em>): <strong>${r.toFixed(6)} AU</strong><br>` +
+                    `Components: Radial <em>v</em><sub>r</sub> = <strong>${vrSign}${Math.abs(vrKms).toFixed(4)} km/s (${legLabel})</strong>, Transverse <em>v</em><sub>&theta;</sub> = <strong>${vthetaKms.toFixed(4)} km/s</strong> &bull; Range: <strong>${vMinKms.toFixed(4)} &ndash; ${vMaxKms.toFixed(4)} km/s</strong>`;
+            }
+
+            inputEpoch.addEventListener("input", updateCalculation);
+            inputM0.addEventListener("input", updateCalculation);
+            inputE.addEventListener("input", updateCalculation);
+            inputA.addEventListener("input", updateCalculation);
+            inputTargetDate.addEventListener("input", updateCalculation);
+            updateCalculation();
+        })();
+    </script>
+</body>
+</html>

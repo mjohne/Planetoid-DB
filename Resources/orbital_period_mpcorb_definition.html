@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orbital Period (P) in the Context of MPCORB</title>
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #334155;
+            --accent-color: #1e3a8a;
+            --accent-light: #eff6ff;
+            --border-color: #cbd5e1;
+            --code-bg: #f1f5f9;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.7;
+            color: var(--text-primary);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 3rem 3.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            border: 1px solid var(--border-color);
+        }
+
+        header {
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .badge {
+            display: inline-block;
+            background-color: var(--accent-light);
+            color: var(--accent-color);
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            padding: 0.3rem 0.75rem;
+            border-radius: 4px;
+            border: 1px solid #bfdbfe;
+            margin-bottom: 0.75rem;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin: 0.25rem 0 0.5rem 0;
+            color: var(--text-primary);
+            line-height: 1.25;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            margin: 0;
+        }
+
+        h2 {
+            font-size: 1.35rem;
+            color: var(--accent-color);
+            margin-top: 2.25rem;
+            margin-bottom: 0.85rem;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 0.35rem;
+        }
+
+        h3 {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        p {
+            margin-bottom: 1.15rem;
+            color: var(--text-secondary);
+            text-align: justify;
+        }
+
+        ul, ol {
+            margin-bottom: 1.25rem;
+            padding-left: 1.5rem;
+            color: var(--text-secondary);
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        .equation-box {
+            background-color: var(--code-bg);
+            border-left: 4px solid var(--accent-color);
+            padding: 1.15rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 6px 6px 0;
+            overflow-x: auto;
+            font-family: "Cambria Math", "STIX Two Math", "Times New Roman", Times, serif;
+            font-size: 1.18rem;
+            color: var(--text-primary);
+            text-align: center;
+        }
+
+        .math-inline {
+            font-family: "Cambria Math", "STIX Two Math", "Times New Roman", Times, serif;
+            font-style: italic;
+            font-size: 1.05em;
+            color: var(--text-primary);
+        }
+
+        .math-roman {
+            font-family: "Cambria Math", "STIX Two Math", "Times New Roman", Times, serif;
+            font-style: normal;
+            font-size: 1.02em;
+            color: var(--text-primary);
+        }
+
+        .frac {
+            display: inline-flex;
+            flex-direction: column;
+            vertical-align: middle;
+            text-align: center;
+            margin: 0 0.25rem;
+        }
+
+        .frac > span:first-child {
+            border-bottom: 1px solid var(--text-primary);
+            padding: 0 0.3rem 0.15rem 0.3rem;
+        }
+
+        .frac > span:last-child {
+            padding: 0.15rem 0.3rem 0 0.3rem;
+        }
+
+        .sqrt-wrap {
+            display: inline-flex;
+            align-items: stretch;
+        }
+
+        .sqrt-rad {
+            font-size: 1.15em;
+            line-height: 1;
+            padding-right: 1px;
+        }
+
+        .sqrt-body {
+            border-top: 1px solid var(--text-primary);
+            padding: 0 0.2rem;
+        }
+
+        .spec-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.92rem;
+        }
+
+        .spec-table th, .spec-table td {
+            border: 1px solid var(--border-color);
+            padding: 0.75rem 1rem;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        .spec-table th {
+            background-color: var(--accent-color);
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .spec-table tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        code {
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+            background-color: var(--code-bg);
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.88em;
+            color: #0f172a;
+        }
+
+        pre {
+            background-color: #1e293b;
+            color: #f8fafc;
+            padding: 1rem 1.25rem;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+        }
+
+        .note-callout {
+            background-color: #fffbeb;
+            border-left: 4px solid #d97706;
+            padding: 1rem 1.25rem;
+            margin: 1.5rem 0;
+            border-radius: 0 6px 6px 0;
+            color: #78350f;
+            font-size: 0.95rem;
+        }
+
+        .terminology-callout {
+            background-color: var(--accent-light);
+            border-left: 4px solid var(--accent-color);
+            padding: 1rem 1.25rem;
+            margin: 1.5rem 0;
+            border-radius: 0 6px 6px 0;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+        }
+
+        .diagram-box {
+            background-color: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+
+        .diagram-caption {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+        }
+
+        .calculator-box {
+            background-color: var(--accent-light);
+            border: 1px solid #bfdbfe;
+            border-radius: 8px;
+            padding: 1.25rem 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .calculator-box h4 {
+            margin: 0 0 0.75rem 0;
+            color: var(--accent-color);
+            font-size: 1rem;
+        }
+
+        .calc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+            align-items: end;
+        }
+
+        .calc-field label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.3rem;
+        }
+
+        .calc-field input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 0.5rem 0.65rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 0.95rem;
+            font-family: inherit;
+        }
+
+        .calc-output {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 0.55rem 0.75rem;
+            font-size: 0.92rem;
+            color: var(--text-primary);
+        }
+
+        footer {
+            margin-top: 3rem;
+            padding-top: 1.25rem;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.85rem;
+            color: #64748b;
+            text-align: center;
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 1.75rem 1.25rem;
+            }
+            h1 {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="badge">Celestial Mechanics &amp; Astrometry Specification</div>
+            <h1>Orbital Period (<span class="math-inline">P</span>) in the Context of the MPCORB Database</h1>
+            <p class="subtitle">Scientific Definition, Kepler&rsquo;s Third Law, Mean Daily Motion Coupling, Synodic Period, and Evaluation from MPCORB</p>
+        </header>
+
+        <section>
+            <h2>1. Fundamental Astrodynamical &amp; Temporal Definition</h2>
+            <div class="terminology-callout">
+                <strong>Definition &amp; Nomenclature:</strong> In two-body celestial mechanics and solar system astrometry, the <strong>orbital period</strong> (specifically the <em>osculating sidereal orbital period</em>, also termed the <em>revolution period</em> or in German astrometry <em>siderische Umlaufzeit</em>)—denoted by <span class="math-inline">P</span> or <span class="math-inline">T</span>—is the time interval required for a minor planet to complete one full <span class="math-roman">360&deg;</span> (<span class="math-roman">2&pi; rad</span>) revolution around the Sun along its instantaneous osculating Keplerian ellipse relative to the inertial J2000.0 reference frame. It is a dimensional time quantity expressed in <strong>days (<span class="math-roman">d</span>)</strong>, <strong>Julian years (<span class="math-roman">yr</span>, <span class="math-roman">365.25 d</span>)</strong>, or <strong>seconds (<span class="math-roman">s</span>)</strong>.
+            </div>
+            <p>
+                By <strong>Kepler&rsquo;s third law</strong> (harmonic law) in the heliocentric two-body approximation, the square of the sidereal orbital period <span class="math-inline">P</span> is strictly proportional to the cube of the osculating semi-major axis <span class="math-inline">a</span> and inversely proportional to the heliocentric gravitational parameter <span class="math-roman"><em>&mu;</em> = <em>G</em>(<em>M</em><sub>&#9737;</sub> + <em>m</em>) &approx; <em>GM</em><sub>&#9737;</sub> = <em>k</em><sup>2</sup></span> (for massless test bodies <span class="math-roman"><em>m</em> &ll; <em>M</em><sub>&#9737;</sub></span>):
+            </p>
+            <div class="equation-box">
+                <span class="math-inline">P</span> =
+                <span class="frac">
+                    <span>2 <span class="math-inline">&pi;</span></span>
+                    <span><span class="math-inline">n</span></span>
+                </span>
+                = 2 <span class="math-inline">&pi;</span>
+                <span class="sqrt-wrap">
+                    <span class="sqrt-rad">&radic;</span>
+                    <span class="sqrt-body">
+                        <span class="frac">
+                            <span><span class="math-inline">a</span><sup>3</sup></span>
+                            <span><span class="math-inline">&mu;</span></span>
+                        </span>
+                    </span>
+                </span>
+                =
+                <span class="frac">
+                    <span>2 <span class="math-inline">&pi;</span></span>
+                    <span><span class="math-inline">k</span></span>
+                </span>
+                <span class="math-inline">a</span><sup>3/2</sup>
+                =
+                <span class="frac">
+                    <span>360&deg;</span>
+                    <span><span class="math-inline">n</span><sub>deg/d</sub></span>
+                </span>
+            </div>
+            <p>
+                where <span class="math-roman"><em>k</em> = 0.01720209895 AU<sup>3/2</sup> d<sup>&minus;1</sup></span> is the classical IAU (1976) Gaussian gravitational constant (yielding <span class="math-roman">2&pi;/<em>k</em> = 365.2568983263 d AU<sup>&minus;3/2</sup></span>, the Gaussian sidereal year), and <span class="math-roman"><em>n</em> = <em>k a</em><sup>&minus;3/2</sup></span> is the osculating <strong>mean daily motion</strong>. Key physical and dynamical properties of <span class="math-inline">P</span> include:
+            </p>
+            <ul>
+                <li><strong>Strict Independence from Orbital Eccentricity (<span class="math-inline">e</span>) and Inclination (<span class="math-inline">i</span>):</strong> In pure two-body Newtonian mechanics, <span class="math-inline">P</span> depends <em>exclusively</em> on the semi-major axis <span class="math-inline">a</span> (and hence on the specific orbital energy <span class="math-roman"><em>&varepsilon;</em> = &minus;<em>&mu;</em>/(2<em>a</em>)</span>), remaining invariant across all bound eccentricities <span class="math-roman">0 &le; <em>e</em> &lt; 1</span>.</li>
+                <li><strong>Strictly Positive &amp; Finite Across All Bound Orbits (<span class="math-roman">0 &lt; <em>P</em> &lt; +&infin;</span>):</strong> For any elliptic orbit (<span class="math-roman"><em>a</em> &gt; 0, <em>e</em> &lt; 1</span>), <span class="math-inline">P</span> is strictly finite and positive; as <span class="math-roman"><em>e</em> &rarr; 1<sup>&minus;</sup></span> at fixed perihelion <span class="math-inline">q</span>, <span class="math-roman"><em>a</em> = <em>q</em>/(1 &minus; <em>e</em>) &rarr; +&infin;</span> and <span class="math-roman"><em>P</em> &rarr; +&infin;</span> (parabolic escape limit).</li>
+                <li><strong>Osculating Instantaneous Nature:</strong> Because planetary perturbations continuously vary <span class="math-inline">a</span>(<span class="math-inline">t</span>) and <span class="math-inline">n</span>(<span class="math-inline">t</span>), the period derived from a single <code>MPCORB.DAT</code> epoch represents the <em>instantaneous osculating two-body period</em> at that epoch rather than a long-term barycentric or anomalistic mean period.</li>
+            </ul>
+
+            <div class="diagram-box">
+                <svg width="560" height="245" viewBox="0 0 560 245" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diagram illustrating Kepler's Third Law P proportional to a^(3/2), comparing an inner short-period orbit with an outer long-period orbit and showing perihelion passage intervals T_0 + kP">
+                    <rect x="0" y="0" width="560" height="245" fill="#f8fafc" rx="6"/>
+                    <!-- Outer Orbit Ellipse (a2 = 200 px, b2 = 100 px, center O2 = (280, 122)) -->
+                    <ellipse cx="280" cy="122" rx="200" ry="100" fill="#eff6ff" stroke="#1e3a8a" stroke-width="2.2"/>
+                    <!-- Inner Orbit Circle/Ellipse around Sun F1 = (453.2, 122) -->
+                    <circle cx="453.2" cy="122" r="52" fill="#fef3c7" fill-opacity="0.45" stroke="#d97706" stroke-width="1.8" stroke-dasharray="5,3"/>
+                    <!-- Major axis line -->
+                    <line x1="80" y1="122" x2="480" y2="122" stroke="#64748b" stroke-width="1" stroke-dasharray="4,4"/>
+                    <!-- Center O -->
+                    <circle cx="280" cy="122" r="3" fill="#0f172a"/>
+                    <text x="280" y="136" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#0f172a" font-weight="bold">O</text>
+                    <!-- Semi-major axis a -->
+                    <line x1="80" y1="122" x2="280" y2="122" stroke="#1e3a8a" stroke-width="2.2"/>
+                    <text x="180" y="115" text-anchor="middle" font-family="serif" font-style="italic" font-size="14" fill="#1e3a8a" font-weight="bold">a</text>
+                    <!-- Primary focus F1 (Sun) -->
+                    <circle cx="453.2" cy="122" r="7" fill="#f59e0b" stroke="#b45309" stroke-width="1.5"/>
+                    <text x="453.2" y="141" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#92400e" font-weight="bold">Sun (F&#8321;)</text>
+                    <!-- Perihelion & Aphelion timestamps -->
+                    <circle cx="480" cy="122" r="4.5" fill="#dc2626"/>
+                    <text x="488" y="114" text-anchor="start" font-family="sans-serif" font-size="10" fill="#0f172a" font-weight="bold">t = T&#8320;, T&#8320; + P</text>
+                    <text x="488" y="128" text-anchor="start" font-family="sans-serif" font-size="9.5" fill="#475569">(M = 0&deg;, 360&deg;)</text>
+                    <circle cx="80" cy="122" r="4.5" fill="#1e3a8a"/>
+                    <text x="72" y="114" text-anchor="end" font-family="sans-serif" font-size="10" fill="#0f172a" font-weight="bold">t = T&#8320; + P/2</text>
+                    <text x="72" y="128" text-anchor="end" font-family="sans-serif" font-size="9.5" fill="#475569">(M = 180&deg;)</text>
+                    <!-- Formula callouts -->
+                    <text x="235" y="58" text-anchor="middle" font-family="serif" font-size="14" fill="#1e3a8a" font-weight="bold">Kepler&rsquo;s Third Law: P = 2&pi; &radic;(a&sup3; / &mu;) = 360&deg; / n</text>
+                    <text x="235" y="77" text-anchor="middle" font-family="sans-serif" font-size="10.5" fill="#334155">Full 360&deg; revolution in inertial J2000.0 frame (independent of e &isin; [0, 1))</text>
+                    <text x="453.2" y="191" text-anchor="middle" font-family="sans-serif" font-size="9.5" fill="#92400e" font-weight="bold">Inner orbit (smaller a &rArr; shorter P)</text>
+                </svg>
+                <div class="diagram-caption">
+                    Figure 1: Sidereal orbital period <span class="math-roman"><em>P</em> = 2&pi;&radic;(<em>a</em><sup>3</sup>/&mu;)</span> governing full <span class="math-roman">360&deg;</span> revolution timing (<span class="math-roman"><em>t</em> = <em>T</em><sub>0</sub> + <em>P</em></span>) and half-period aphelion transit (<span class="math-roman"><em>t</em> = <em>T</em><sub>0</sub> + <em>P</em>/2</span>).
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>2. Unit Conversions, Synodic Period &amp; Mean-Motion Resonances</h2>
+            <p>
+                In practical minor planet ephemeris computation and dynamical classification, the sidereal orbital period <span class="math-inline">P</span> is expressed across multiple standard time units and coupled to Earth&rsquo;s orbital motion:
+            </p>
+
+            <h3>2.1 Standard Time Unit Representations</h3>
+            <p>
+                Given the semi-major axis <span class="math-inline">a</span> in <span class="math-roman">AU</span> (or mean daily motion <span class="math-inline">n</span> in <span class="math-roman">deg/day</span>), the sidereal period <span class="math-inline">P</span> is evaluated across standard astronomical and SI units via:
+            </p>
+            <div class="equation-box">
+                <span class="math-inline">P</span><sub>days</sub> =
+                <span class="frac">
+                    <span>360</span>
+                    <span><span class="math-inline">n</span><sub>deg/d</sub></span>
+                </span>
+                = 365.2568983263 &middot; <span class="math-inline">a</span><sub>AU</sub><sup>3/2</sup>
+                &nbsp;&nbsp;|&nbsp;&nbsp;
+                <span class="math-inline">P</span><sub>yr (Julian)</sub> =
+                <span class="frac">
+                    <span><span class="math-inline">P</span><sub>days</sub></span>
+                    <span>365.25</span>
+                </span>
+                &nbsp;&nbsp;|&nbsp;&nbsp;
+                <span class="math-inline">P</span><sub>sec</sub> = 86,400 &middot; <span class="math-inline">P</span><sub>days</sub>
+            </div>
+            <p>
+                Note that using the IAU 2012 exact astronomical unit (<span class="math-roman">1 AU &equiv; 149,597,870,700 m</span>) and the IAU 2015 nominal solar mass parameter (<span class="math-roman"><em>GM</em><sub>&#9737;</sub> = 1.3271244 &times; 10<sup>20</sup> m<sup>3</sup> s<sup>&minus;2</sup></span>) yields <span class="math-roman"><em>k</em><sub>IAU2015</sub> = 0.0172020989484 AU<sup>3/2</sup> d<sup>&minus;1</sup></span>, agreeing with the classical Gaussian constant <span class="math-inline">k</span> to better than <span class="math-roman">1 part in 10<sup>11</sup></span>.
+            </p>
+
+            <h3>2.2 Synodic Orbital Period (<span class="math-inline">P</span><sub>syn</sub>)</h3>
+            <p>
+                While <span class="math-inline">P</span> measures revolution relative to the fixed stars, the <strong>synodic period</strong> <span class="math-inline">P</span><sub>syn</sub>—the mean interval between successive oppositions or conjunctions as observed from Earth (sidereal period <span class="math-roman"><em>P</em><sub>&#8853;</sub> = 365.256363 d</span>)—is governed by:
+            </p>
+            <div class="equation-box">
+                <span class="frac">
+                    <span>1</span>
+                    <span><span class="math-inline">P</span><sub>syn</sub></span>
+                </span>
+                =
+                <span class="math-roman">|</span>
+                <span class="frac">
+                    <span>1</span>
+                    <span><span class="math-inline">P</span></span>
+                </span>
+                &minus;
+                <span class="frac">
+                    <span>1</span>
+                    <span><span class="math-inline">P</span><sub>&#8853;</sub></span>
+                </span>
+                <span class="math-roman">|</span>
+                &nbsp;&nbsp;&rArr;&nbsp;&nbsp;
+                <span class="math-inline">P</span><sub>syn</sub> =
+                <span class="frac">
+                    <span><span class="math-inline">P</span> &middot; <span class="math-inline">P</span><sub>&#8853;</sub></span>
+                    <span>|<span class="math-inline">P</span> &minus; <span class="math-inline">P</span><sub>&#8853;</sub>|</span>
+                </span>
+            </div>
+            <p>
+                For co-orbital Near-Earth Asteroids (NEAs) with <span class="math-roman"><em>a</em> &approx; 1.000 AU</span> (<span class="math-roman"><em>P</em> &approx; <em>P</em><sub>&#8853;</sub></span>), <span class="math-inline">P</span><sub>syn</sub> becomes very large (decades to centuries), whereas for distant Trans-Neptunian Objects (<span class="math-roman"><em>P</em> &gg; <em>P</em><sub>&#8853;</sub></span>), <span class="math-inline">P</span><sub>syn</sub> approaches <span class="math-inline">P</span><sub>&#8853;</sub> (<span class="math-roman">&approx; 1 yr</span>).
+            </p>
+
+            <h3>2.3 Mean-Motion Commensurabilities (Kirkwood Gaps &amp; Resonances)</h3>
+            <p>
+                Commensurabilities between the minor planet&rsquo;s orbital period <span class="math-inline">P</span> and Jupiter&rsquo;s orbital period <span class="math-roman"><em>P</em><sub>J</sub> &approx; 11.862 yr</span> (<span class="math-roman"><em>P</em> / <em>P</em><sub>J</sub> = <em>p</em> / <em>q</em></span>, equivalently <span class="math-roman"><em>a</em> = <em>a</em><sub>J</sub> (<em>p</em>/<em>q</em>)<sup>2/3</sup></span>) define major dynamical populations and Kirkwood gaps across the Main Belt (e.g., <span class="math-roman">4:1</span> at <span class="math-roman">2.065 AU</span>, <span class="math-roman">3:1</span> at <span class="math-roman">2.502 AU</span>, <span class="math-roman">5:2</span> at <span class="math-roman">2.825 AU</span>, <span class="math-roman">2:1</span> at <span class="math-roman">3.278 AU</span>, Hilda group <span class="math-roman">3:2</span> at <span class="math-roman">3.972 AU</span>, and Jovian Trojans <span class="math-roman">1:1</span> at <span class="math-roman">5.204 AU</span>).
+            </p>
+        </section>
+
+        <section>
+            <h2>3. Specific Status and Derivation in the MPCORB Catalog</h2>
+            <p>
+                In the <strong>MPCORB</strong> (<em>Minor Planet Center Orbit</em>) database published by the International Astronomical Union&rsquo;s Minor Planet Center (IAU MPC):
+            </p>
+
+            <ul>
+                <li>
+                    <strong>Implicit Derived Quantity (Directly Coupled to Tabulated <span class="math-inline">n</span> and <span class="math-inline">a</span>):</strong> The orbital period <span class="math-inline">P</span> is <em>not</em> stored as a separate column in <code>MPCORB.DAT</code>. Instead, <code>MPCORB.DAT</code> explicitly tabulates both the osculating <strong>mean daily motion</strong> <span class="math-inline">n</span> in degrees per day (columns <code>81–91</code>, format <code>F11.8</code>) and the osculating <strong>semi-major axis</strong> <span class="math-inline">a</span> in <span class="math-roman">AU</span> (columns <code>93–103</code>, format <code>F11.7</code>), which are redundant representations of <span class="math-inline">P</span> via <span class="math-roman"><em>P</em> = 360&deg; / <em>n</em> = (2&pi;/<em>k</em>) <em>a</em><sup>3/2</sup></span>.
+                </li>
+                <li>
+                    <strong>Precision Comparison Between <span class="math-roman">360&deg;/<em>n</em></span> and <span class="math-roman">(2&pi;/<em>k</em>)<em>a</em><sup>3/2</sup></span>:</strong> Because <span class="math-inline">n</span> is formatted to 8 decimal places (<code>F11.8</code>) while <span class="math-inline">a</span> is formatted to 7 decimal places (<code>F11.7</code>), for large Main-Belt and outer-solar-system objects (<span class="math-roman"><em>a</em> &gt; 1 AU</span>, <span class="math-roman"><em>n</em> &lt; 1&deg;/d</span>), computing <span class="math-inline">P</span> from <span class="math-inline">a</span> via <span class="math-roman"><em>P</em> = (2&pi;/<em>k</em>) <em>a</em><sup>3/2</sup></span> generally retains higher relative significant-digit precision than dividing by <span class="math-inline">n</span> (especially for distant TNOs where <span class="math-roman"><em>n</em> &approx; 0.001&deg;/d</span> has only 5 significant digits in <code>F11.8</code>).
+                </li>
+                <li>
+                    <strong>Strictly Finite Across All <code>MPCORB.DAT</code> Entries:</strong> Because <code>MPCORB.DAT</code> contains exclusively bound elliptic orbits (<span class="math-roman">0 &le; <em>e</em> &lt; 1</span>, <span class="math-roman"><em>a</em> &gt; 0</span>, <span class="math-roman"><em>n</em> &gt; 0</span>), the orbital period <span class="math-inline">P</span> is strictly positive and finite for every record in the catalog. (Unbound hyperbolic/parabolic comets are distributed separately in <code>COMET.DAT</code>.)
+                </li>
+            </ul>
+
+            <div class="note-callout">
+                <strong>Precision &amp; Consistency Note:</strong> When propagating mean anomaly <span class="math-roman"><em>M</em>(<em>t</em>) = <em>M</em><sub>0</sub> + <em>n</em> (<em>t</em> &minus; <em>t</em><sub>0</sub>)</span> in an MPCORB ephemeris engine, ensure internal self-consistency between <span class="math-inline">n</span> and <span class="math-inline">a</span>: either derive <span class="math-roman"><em>n</em> = <em>k</em><sub>deg</sub> <em>a</em><sup>&minus;3/2</sup></span> directly from the parsed semi-major axis <span class="math-inline">a</span> (with <span class="math-roman"><em>k</em><sub>deg</sub> = 0.985607668601425&deg; AU<sup>3/2</sup> d<sup>&minus;1</sup></span>), or use the tabulated <span class="math-inline">n</span> consistently for both <span class="math-inline">P</span> and <span class="math-inline">M</span>(<span class="math-inline">t</span>) so that <span class="math-roman"><em>M</em>(<em>t</em><sub>0</sub> + <em>P</em>) &minus; <em>M</em>(<em>t</em><sub>0</sub>) &equiv; 360&deg;</span> exactly.
+            </div>
+
+            <div class="calculator-box">
+                <h4>Interactive MPCORB Orbital Period (<span class="math-inline">P</span>), Mean Motion (<span class="math-inline">n</span>) &amp; Synodic Period Calculator</h4>
+                <div class="calc-grid">
+                    <div class="calc-field">
+                        <label for="inputA">Semi-Major Axis <em>a</em> (AU, Cols 93&ndash;103)</label>
+                        <input type="number" id="inputA" step="0.0000001" min="0.01" value="2.7653485">
+                    </div>
+                    <div class="calc-output" id="calcResult">
+                        Sidereal period <em>P</em>: <strong>1679.7764</strong> d (<strong>4.59898</strong> Julian yr)<br>
+                        Mean daily motion <em>n</em>: <strong>0.21431424</strong> &deg;/d<br>
+                        Synodic period <em>P</em><sub>syn</sub>: <strong>466.7623</strong> d (<strong>1.27793</strong> yr)
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Fixed-Width Source Columns &amp; Period Metrics in <code>MPCORB.DAT</code></h2>
+            <p>
+                The table below summarizes the fixed-width columns (1-based indexing) in a standard 202-character <code>MPCORB.DAT</code> record associated with the orbital period <span class="math-inline">P</span> and mean motion <span class="math-inline">n</span>:
+            </p>
+
+            <table class="spec-table">
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Columns (1-based)</th>
+                        <th>Python Slice (0-based)</th>
+                        <th>Fortran Format</th>
+                        <th>Unit &amp; Role</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong><code>Epoch</code></strong></td>
+                        <td><code>21–25</code></td>
+                        <td><code>line[20:25]</code></td>
+                        <td><code>A5</code> (Packed)</td>
+                        <td>Osculation reference epoch <span class="math-inline">t</span><sub>0</sub></td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>M</code> (Mean anomaly)</strong></td>
+                        <td><code>27–35</code></td>
+                        <td><code>line[26:35]</code></td>
+                        <td><code>F9.5</code></td>
+                        <td>Degrees (<span class="math-roman">&deg;</span>); orbital phase <span class="math-roman">360&deg; &middot; (<em>t</em> &minus; <em>T</em><sub>0</sub>)/<em>P</em></span> at epoch</td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>n</code> (Mean daily motion)</strong></td>
+                        <td><code>81–91</code></td>
+                        <td><code>line[80:91]</code></td>
+                        <td><code>F11.8</code></td>
+                        <td>Degrees per day (<span class="math-roman">&deg;/d</span>); angular rate <span class="math-roman">360&deg; / <em>P</em></span></td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>a</code> (Semi-major axis)</strong></td>
+                        <td><code>93–103</code></td>
+                        <td><code>line[92:103]</code></td>
+                        <td><code>F11.7</code></td>
+                        <td>Astronomical Units (<span class="math-roman">AU</span>); Kepler III scale <span class="math-roman"><em>P</em> &prop; <em>a</em><sup>3/2</sup></span></td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>P</code> (Sidereal orbital period)</strong></td>
+                        <td><em>Derived (not stored)</em></td>
+                        <td><code>(2*pi/k) * a**1.5</code></td>
+                        <td><em>Computed</em></td>
+                        <td>Days (<span class="math-roman">d</span>) or Julian years (<span class="math-roman">yr = d / 365.25</span>)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Example Record Evaluation (<code>00001</code> — (1) Ceres)</h3>
+            <pre>Col:  ... 27      35 ... 81        91 93       103 ...
+Data: ... 231.53975  ... 0.21431424   2.7653485    ...
+          └───┬───┘      └────┬─────┘ └────┬────┘
+            M (deg)        n (deg/d)     a (AU)
+
+Orbital Period Evaluation for (1) Ceres:
+  From semi-major axis    P = (2*pi/k) * a^(3/2)     = 365.2568983 * 2.7653485^1.5 = 1679.7764 days
+  From mean daily motion  P = 360.0 / n              = 360.0 / 0.21431424          = 1679.7764 days
+  In Julian years         P_yr = P / 365.25          = 1679.7764 / 365.25          =    4.59898 yr
+  Synodic period (Earth)  P_syn = (P * P_E)/|P - P_E|                               =  466.7623 days
+  Time since perihelion   dt_peri = (M / 360) * P    = (231.53975 / 360) * P       = 1080.3752 days</pre>
+        </section>
+
+        <footer>
+            Self-contained scientific reference document (zero external dependencies) &bull; Conventions aligned with IAU Minor Planet Center (MPC) <code>MPCORB.DAT</code> specifications.
+        </footer>
+    </div>
+
+    <script>
+        (function () {
+            const inputA = document.getElementById("inputA");
+            const calcResult = document.getElementById("calcResult");
+
+            // IAU 1976 Gaussian gravitational constant k (AU^(3/2) / day)
+            const K_GAUSS = 0.01720209895;
+            const TWO_PI_OVER_K = (2.0 * Math.PI) / K_GAUSS;
+            const P_EARTH_SIDEREAL = 365.256363004; // days
+
+            function updateCalculation() {
+                const a = parseFloat(inputA.value);
+
+                if (!isFinite(a) || a <= 0) {
+                    calcResult.innerHTML = "Please enter a valid positive semi-major axis <em>a</em> &gt; 0.";
+                    return;
+                }
+
+                const pDays = TWO_PI_OVER_K * Math.pow(a, 1.5);
+                const pJulianYr = pDays / 365.25;
+                const nDegPerDay = 360.0 / pDays;
+
+                let synText;
+                const diff = Math.abs(pDays - P_EARTH_SIDEREAL);
+                if (diff < 1e-6) {
+                    synText = "&infin; (1:1 co-orbital with Earth)";
+                } else {
+                    const pSynDays = (pDays * P_EARTH_SIDEREAL) / diff;
+                    const pSynYr = pSynDays / 365.25;
+                    synText = `<strong>${pSynDays.toFixed(4)}</strong> d (<strong>${pSynYr.toFixed(5)}</strong> yr)`;
+                }
+
+                calcResult.innerHTML =
+                    `Sidereal period <em>P</em>: <strong>${pDays.toFixed(4)}</strong> d (<strong>${pJulianYr.toFixed(5)}</strong> Julian yr)<br>` +
+                    `Mean daily motion <em>n</em>: <strong>${nDegPerDay.toFixed(8)}</strong> &deg;/d<br>` +
+                    `Synodic period <em>P</em><sub>syn</sub>: ${synText}`;
+            }
+
+            inputA.addEventListener("input", updateCalculation);
+            updateCalculation();
+        })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Angular Span of the Aphelion Node Arc (&Delta;&nu;Q) — MPCORB Orbital Reference</title>
+  <style>
+:root {
+  --bg-color: #f8fafc;
+  --surface-color: #ffffff;
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  --accent-color: #1e3a8a;
+  --accent-light: #eff6ff;
+  --border-color: #e2e8f0;
+  --code-bg: #f1f5f9;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-serif: "Georgia", "Times New Roman", Times, serif;
+  --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  line-height: 1.7;
+  padding: 2rem 1rem;
+}
+
+.container {
+  max-width: 920px;
+  margin: 0 auto;
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 2.5rem 3rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+header {
+  border-bottom: 2px solid var(--accent-color);
+  padding-bottom: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.category-tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent-color);
+  background-color: var(--accent-light);
+  padding: 0.25rem 0.65rem;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
+h2 {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.35rem;
+}
+
+h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+ul, ol {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+li {
+  margin-bottom: 0.4rem;
+}
+
+.equation-box {
+  background-color: var(--code-bg);
+  border-left: 4px solid var(--accent-color);
+  padding: 1rem 1.5rem;
+  margin: 1.25rem 0;
+  border-radius: 0 6px 6px 0;
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  overflow-x: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.equation-main {
+  font-style: italic;
+}
+
+.equation-label {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-style: normal;
+  margin-left: 1rem;
+}
+
+.math-var {
+  font-family: var(--font-serif);
+  font-style: italic;
+}
+
+.figure-box {
+  background-color: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 1.25rem;
+  margin: 1.75rem 0;
+  text-align: center;
+}
+
+.figure-box svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.figure-caption {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-top: 0.85rem;
+  text-align: left;
+  line-height: 1.5;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.92rem;
+}
+
+th, td {
+  border: 1px solid var(--border-color);
+  padding: 0.65rem 0.85rem;
+  text-align: left;
+}
+
+th {
+  background-color: var(--code-bg);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+code {
+  font-family: var(--font-mono);
+  background-color: var(--code-bg);
+  padding: 0.15rem 0.35rem;
+  border-radius: 4px;
+  font-size: 0.88em;
+}
+
+pre.mpcorb-record {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  background-color: var(--code-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 0.85rem 1rem;
+  overflow-x: auto;
+  line-height: 1.45;
+  color: var(--text-primary);
+  margin: 0.75rem 0 1.25rem 0;
+}
+
+.example-card {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-left: 4px solid #047857;
+  border-radius: 6px;
+  padding: 1.15rem 1.35rem;
+  margin: 1.15rem 0;
+}
+
+.example-card h3 {
+  margin-top: 0;
+  color: #065f46;
+}
+
+.interactive-panel {
+  background-color: var(--code-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 1.25rem;
+  margin: 1.75rem 0;
+}
+
+.interactive-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 0.75rem;
+  color: var(--text-primary);
+}
+
+.controls-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(185px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.control-group label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.control-group input {
+  width: 100%;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background-color: var(--surface-color);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+}
+
+.result-bar {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  color: var(--accent-color);
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+footer {
+  margin-top: 2.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 1.5rem 1.25rem;
+  }
+}
+</style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <span class="category-tag">Celestial Mechanics &amp; Nodal-Arc Geometry • MPCORB Reference</span>
+      <h1>Angular Span of the Aphelion Node Arc (<span class="math-var">&Delta;&nu;<sub>Q</sub></span>)</h1>
+      <div class="subtitle">Node-to-Node True-Anomaly Sector Enclosing Aphelion, Arc Length &amp; Hemispheric Residence in MPCORB.DAT</div>
+    </header>
+    <main>
+      
+<h2>1. Formal Definition</h2>
+<p>
+  In celestial mechanics, orbital geometry, and derived nodal-arc diagnostics computed from the Minor Planet Center Orbit Database (<strong>MPCORB</strong>), the <strong>angular span of the aphelion node arc</strong>—also termed the <strong>aphelion nodal-arc angle</strong> (<span class="math-var">&Delta;&nu;<sub>Q</sub></span> or <span class="math-var">&Theta;<sub>Q</sub></span>)—is the heliocentric true-anomaly angle swept in the direction of orbital motion along the orbital segment bounded by the <strong>descending node</strong> (<span class="math-var">&#9739;</span>) and the <strong>ascending node</strong> (<span class="math-var">&#9738;</span>) that contains <strong>aphelion</strong> (<span class="math-var">Q</span>, <span class="math-var">&nu; = 180&deg;</span>), provided <span class="math-var">&omega; &notin; {0&deg;, 180&deg;}</span>:
+</p>
+
+<div class="equation-box">
+  <span class="equation-main">
+    &Delta;&nu;<sub>Q</sub> = &left( &nu;<sub>&#9738;</sub> &minus; &nu;<sub>&#9739;</sub> &right) \pmod{360&deg;} = 360&deg; &minus; &Delta;&nu;<sub>P</sub> &isin; (0&deg;, 360&deg;)
+  </span>
+  <span class="equation-label">(Eq. 1)</span>
+</div>
+
+<p>where:</p>
+<ul>
+  <li><span class="math-var">&nu;<sub>&#9738;</sub> = (360&deg; &minus; &omega;) \pmod{360&deg;}</span> is the true anomaly at the <strong>ascending node</strong> (<span class="math-var">u = &omega; + &nu; = 0&deg;</span>), and <span class="math-var">&nu;<sub>&#9739;</sub> = (180&deg; &minus; &omega;) \pmod{360&deg;}</span> is the true anomaly at the <strong>descending node</strong> (<span class="math-var">u = &omega; + &nu; = 180&deg;</span>), derived directly from the <strong>argument of perihelion</strong> <span class="math-var">&omega;</span> stored in <code>MPCORB.DAT</code> (columns 38–46, in degrees).</li>
+  <li>For <span class="math-var">0&deg; &lt; &omega; &lt; 180&deg;</span>, aphelion (<span class="math-var">&nu; = 180&deg;</span>) lies strictly inside the <strong>southern ecliptic arc</strong> (<span class="math-var">180&deg; &lt; u &lt; 360&deg;</span>, <span class="math-var">&beta;(t) &lt; 0&deg;</span>) running from <span class="math-var">&#9739;</span> through <span class="math-var">Q</span> to <span class="math-var">&#9738;</span>; for <span class="math-var">180&deg; &lt; &omega; &lt; 360&deg;</span>, aphelion lies strictly inside the <strong>northern ecliptic arc</strong> (<span class="math-var">0&deg; &lt; u &lt; 180&deg;</span>, <span class="math-var">&beta;(t) &gt; 0&deg;</span>).</li>
+  <li>Because the line of nodes passes through the occupied focus (the Sun) rather than the geometric center of the ellipse (<span class="math-var">e &gt; 0</span>), the aphelion node arc <span class="math-var">&Delta;&nu;<sub>Q</sub></span> and the complementary perihelion node arc <span class="math-var">&Delta;&nu;<sub>P</sub> = 360&deg; &minus; &Delta;&nu;<sub>Q</sub></span> are <em>asymmetric</em> (<span class="math-var">&Delta;&nu;<sub>Q</sub> &ne; 180&deg;</span>) whenever <span class="math-var">e &gt; 0</span> and <span class="math-var">&omega; &notin; {0&deg;, 180&deg;}</span>.</li>
+</ul>
+
+<div class="figure-box">
+  <svg viewBox="0 0 740 315" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Orbital ellipse partitioned by the Line of Nodes through the Sun into the Aphelion Node Arc Delta nu_Q and Perihelion Node Arc Delta nu_P">
+    <defs>
+      <marker id="arrowSlate" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#475569"/>
+      </marker>
+      <marker id="arrowBlue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#1e3a8a"/>
+      </marker>
+      <marker id="arrowEmerald" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#047857"/>
+      </marker>
+      <marker id="arrowCrimson" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#be123c"/>
+      </marker>
+    </defs>
+
+    <!-- Left Diagram: Orbital Ellipse centered at (225, 162), rx = 148, ry = 108, Sun at (295, 162) -->
+    <!-- Full base ellipse -->
+    <ellipse cx="225" cy="162" rx="148" ry="108" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+
+    <!-- Line of Apsides: Aphelion Q (77, 162) to Perihelion P (373, 162) -->
+    <line x1="62" y1="162" x2="392" y2="162" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="4,3"/>
+    <circle cx="373" cy="162" r="4.8" fill="#b45309" stroke="#0f172a" stroke-width="1.2"/>
+    <text x="379" y="156" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#b45309">Perihelion P</text>
+    <text x="379" y="169" font-family="sans-serif" font-size="9" fill="#b45309">(&nu; = 0&deg;)</text>
+
+    <circle cx="77" cy="162" r="4.8" fill="#1e3a8a" stroke="#0f172a" stroke-width="1.2"/>
+    <text x="22" y="156" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#1e3a8a">Aphelion Q</text>
+    <text x="24" y="169" font-family="sans-serif" font-size="9" fill="#1e3a8a">(&nu; = 180&deg;)</text>
+
+    <!-- Line of Nodes passing through Sun (295, 162) at omega = 58 deg:
+         Ascending Node (u = 0 -> nu_asc = 302 deg): ray at -58 deg screen angle -> intersects ellipse at (339.4, 91.2)
+         Descending Node (u = 180 -> nu_desc = 122 deg): ray at +122 deg screen angle -> intersects ellipse at (221.3, 270.0)
+    -->
+    <!-- Highlighted Aphelion Node Arc (from Descending Node (221.3, 270.0) clockwise around Aphelion (77, 162) to Ascending Node (339.4, 91.2)) -->
+    <path d="M 221.3 270.0 A 148 108 0 1 1 339.4 91.2" fill="none" stroke="#1e3a8a" stroke-width="4.2"/>
+    <!-- Highlighted Perihelion Node Arc (from Ascending Node (339.4, 91.2) through Perihelion (373, 162) to Descending Node (221.3, 270.0)) -->
+    <path d="M 339.4 91.2 A 148 108 0 0 1 221.3 270.0" fill="none" stroke="#059669" stroke-width="2.4" stroke-dasharray="6,3"/>
+
+    <!-- Line of Nodes chord through Sun (295, 162) -->
+    <line x1="212" y1="284" x2="348" y2="78" stroke="#be123c" stroke-width="1.8" stroke-dasharray="5,3"/>
+
+    <!-- Ascending Node Marker -->
+    <circle cx="339.4" cy="91.2" r="5" fill="#be123c" stroke="#0f172a" stroke-width="1.2"/>
+    <text x="346" y="88" font-family="sans-serif" font-size="10" font-weight="700" fill="#be123c">Asc. Node &#9738;</text>
+
+    <!-- Descending Node Marker -->
+    <circle cx="221.3" cy="270.0" r="5" fill="#be123c" stroke="#0f172a" stroke-width="1.2"/>
+    <text x="155" y="286" font-family="sans-serif" font-size="10" font-weight="700" fill="#be123c">Desc. Node &#9739;</text>
+
+    <!-- Angular span arc Delta nu_Q at Sun (295, 162) from Desc Node ray (276, 192) around left to Asc Node ray (314, 132) -->
+    <path d="M 276 192 A 35.5 35.5 0 1 1 314 132" fill="none" stroke="#1e3a8a" stroke-width="2.4"/>
+    <text x="234" y="148" font-family="Georgia, serif" font-style="italic" font-size="14" font-weight="700" fill="#1e3a8a">&Delta;&nu;<tspan dy="3" font-size="10">Q</tspan></text>
+
+    <!-- Argument of Perihelion omega arc at Sun from Asc Node (311, 137) to Perihelion (325, 162) -->
+    <path d="M 311 137 A 30 30 0 0 1 325 162" fill="none" stroke="#047857" stroke-width="2"/>
+    <text x="325" y="146" font-family="Georgia, serif" font-style="italic" font-size="13" font-weight="700" fill="#047857">&omega;</text>
+
+    <!-- Sun at Focus (295, 162) -->
+    <circle cx="295" cy="162" r="9" fill="#f59e0b" stroke="#b45309" stroke-width="1.6"/>
+    <text x="286" y="185" font-family="sans-serif" font-size="10" font-weight="700" fill="#b45309">Sun</text>
+
+    <text x="66" y="232" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#1e3a8a">Aphelion Node Arc (&Delta;&nu;<tspan dy="2" font-size="8.5">Q</tspan><tspan dy="-2">)</tspan></text>
+
+    <!-- Right Panel: Piecewise Closed-Form Formula & Complementary Symmetry -->
+    <rect x="455" y="24" width="265" height="266" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+    <text x="470" y="47" font-family="sans-serif" font-size="11.5" font-weight="700" fill="#0f172a">Closed-Form &omega; Evaluation</text>
+
+    <rect x="470" y="62" width="235" height="62" rx="4" fill="#eff6ff" stroke="#93c5fd" stroke-width="1"/>
+    <text x="480" y="79" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#1e3a8a">1. Southern Aphelion (0&deg; &lt; &omega; &lt; 180&deg;):</text>
+    <text x="480" y="97" font-family="Georgia, serif" font-style="italic" font-size="11.5" fill="#0f172a">&Delta;&nu;<tspan dy="2" font-size="8.5">Q</tspan><tspan dy="-2"> = 360&deg; &minus; 2&omega; &nbsp; (&#9739; &rarr; Q &rarr; &#9738;)</tspan></text>
+    <text x="480" y="114" font-family="sans-serif" font-size="9.5" fill="#475569">(Aphelion in southern hemisphere)</text>
+
+    <line x1="587" y1="124" x2="587" y2="141" stroke="#475569" stroke-width="1.4" marker-end="url(#arrowSlate)"/>
+
+    <rect x="470" y="143" width="235" height="62" rx="4" fill="#ecfdf5" stroke="#6ee7b7" stroke-width="1"/>
+    <text x="480" y="160" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#065f46">2. Northern Aphelion (180&deg; &lt; &omega; &lt; 360&deg;):</text>
+    <text x="480" y="178" font-family="Georgia, serif" font-style="italic" font-size="11.5" fill="#0f172a">&Delta;&nu;<tspan dy="2" font-size="8.5">Q</tspan><tspan dy="-2"> = 2&omega; &minus; 360&deg; &nbsp; (&#9738; &rarr; Q &rarr; &#9739;)</tspan></text>
+    <text x="480" y="195" font-family="sans-serif" font-size="9.5" fill="#475569">(Aphelion in northern hemisphere)</text>
+
+    <line x1="587" y1="205" x2="587" y2="222" stroke="#475569" stroke-width="1.4" marker-end="url(#arrowSlate)"/>
+
+    <rect x="470" y="224" width="235" height="52" rx="4" fill="#fff1f2" stroke="#fda4af" stroke-width="1"/>
+    <text x="480" y="241" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#9f1239">3. Unified Cosine Form:</text>
+    <text x="480" y="259" font-family="Georgia, serif" font-style="italic" font-size="11.5" fill="#0f172a">&Delta;&nu;<tspan dy="2" font-size="8.5">Q</tspan><tspan dy="-2"> = 180&deg; + 2 arcsin(cos &omega;)</tspan></text>
+  </svg>
+  <div class="figure-caption">
+    <strong>Figure 1:</strong> Partition of an osculating elliptical orbit by the <strong>line of nodes</strong> (passing through the Sun) into the <strong>aphelion node arc</strong> (solid blue curve, angular span <span class="math-var">&Delta;&nu;<sub>Q</sub></span>) and the complementary <strong>perihelion node arc</strong> (dashed green curve, angular span <span class="math-var">&Delta;&nu;<sub>P</sub> = 360&deg; &minus; &Delta;&nu;<sub>Q</sub></span>). Whenever <span class="math-var">e &gt; 0</span> and <span class="math-var">&omega; &notin; {0&deg;, 180&deg;}</span>, the focus-offset geometry creates a large aphelion-arc angle (<span class="math-var">&Delta;&nu;<sub>Q</sub> &gt; 180&deg;</span> when <span class="math-var">\cos &omega; &gt; 0</span>) or a compressed aphelion-arc angle (<span class="math-var">&Delta;&nu;<sub>Q</sub> &lt; 180&deg;</span> when <span class="math-var">\cos &omega; &lt; 0</span>).
+  </div>
+</div>
+
+<h2>2. Closed-Form Evaluation from <code>MPCORB.DAT</code></h2>
+<p>
+  In <code>MPCORB.DAT</code>, the <strong>argument of perihelion</strong> <span class="math-var">&omega;</span> is stored in columns 38–46 (degrees, <span class="math-var">&omega; &isin; [0&deg;, 360&deg;)</span>). Because the ascending node occurs at argument of latitude <span class="math-var">u<sub>&#9738;</sub> = (&omega; + &nu;<sub>&#9738;</sub>) \pmod{360&deg;} = 0&deg;</span> and the descending node occurs at <span class="math-var">u<sub>&#9739;</sub> = (&omega; + &nu;<sub>&#9739;</sub>) \pmod{360&deg;} = 180&deg;</span>, the angular span <span class="math-var">&Delta;&nu;<sub>Q</sub></span> of the node-to-node arc enclosing aphelion (<span class="math-var">&nu; = 180&deg;</span>) reduces to an exact piecewise-linear function of <span class="math-var">&omega;</span>:
+</p>
+
+<div class="equation-box">
+  <span class="equation-main">
+    &Delta;&nu;<sub>Q</sub>(&omega;) =
+    egin{cases}
+      360&deg; &minus; 2&omega;, &amp; 0&deg; &lt; &omega; &lt; 180&deg; \quad (	ext{arc } &#9739; 	o Q 	o &#9738;, \; eta &lt; 0&deg;) \
+      2&omega; &minus; 360&deg;, &amp; 180&deg; &lt; &omega; &lt; 360&deg; \quad (	ext{arc } &#9738; 	o Q 	o &#9739;, \; eta &gt; 0&deg;) \
+      	ext{degenerate}, &amp; \omega \in \{0&deg;, 180&deg;\} \quad (	ext{aphelion coincides with a node})
+    \end{cases}
+  </span>
+  <span class="equation-label">(Eq. 2)</span>
+</div>
+
+<p>
+  For <span class="math-var">&omega; &notin; {0&deg;, 180&deg;}</span>, both branches of Eq. (2) can be written in a single smooth trigonometric expression:
+</p>
+
+<div class="equation-box">
+  <span class="equation-main">
+    &Delta;&nu;<sub>Q</sub>(&omega;) = 180&deg; + 2 rcsin(\cos &omega;) = 360&deg; &minus; &Delta;&nu;<sub>P</sub>(&omega;)
+  </span>
+  <span class="equation-label">(Eq. 3)</span>
+</div>
+
+<h2>3. Related Arc Metrics: Physical Arc Length &amp; Traversal Time</h2>
+<p>
+  While <span class="math-var">&Delta;&nu;<sub>Q</sub></span> measures the <em>heliocentric angular span</em> in degrees, pairing <span class="math-var">&omega;</span> with the <code>MPCORB.DAT</code> <strong>eccentricity</strong> <span class="math-var">e</span> (columns 71–79), <strong>mean daily motion</strong> <span class="math-var">n</span> (columns 81–91), and <strong>semimajor axis</strong> <span class="math-var">a</span> (columns 93–103) yields the corresponding <strong>physical arc length</strong> <span class="math-var">s<sub>Q</sub></span> (in AU) and <strong>Keplerian traversal duration</strong> <span class="math-var">&Delta;t<sub>Q</sub></span> (in days):
+</p>
+
+<div class="equation-box">
+  <span class="equation-main">
+    s<sub>Q</sub> = \int_{
+u<sub>start</sub>}^{
+u<sub>end</sub>} rac{a(1 &minus; e<sup>2</sup>)}{(1 + e \cos &nu;)<sup>2</sup>} \sqrt{1 + 2e \cos &nu; + e<sup>2</sup>} \, d&nu;, \quad &Delta;t<sub>Q</sub> = rac{1}{n} &left[ (E<sub>end</sub> &minus; e \sin E<sub>end</sub>) &minus; (E<sub>start</sub> &minus; e \sin E<sub>start</sub>) &right]
+  </span>
+  <span class="equation-label">(Eq. 4)</span>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Argument of Perihelion (<span class="math-var">&omega;</span>)</th>
+      <th>Bounding Nodes &amp; Hemisphere</th>
+      <th>Angular Span (<span class="math-var">&Delta;&nu;<sub>Q</sub></span>) &amp; Symmetry</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong><span class="math-var">&omega; = 0&deg;</span> or <span class="math-var">180&deg;</span></strong></td>
+      <td>Aphelion lies directly on <span class="math-var">&#9739;</span> (<span class="math-var">&omega;=0&deg;</span>) or <span class="math-var">&#9738;</span> (<span class="math-var">&omega;=180&deg;</span>)</td>
+      <td>Degenerate boundary (<span class="math-var">&Delta;&nu;<sub>Q</sub> = 360&deg;</span> or <span class="math-var">0&deg;</span>); line of apsides coincides with line of nodes.</td>
+    </tr>
+    <tr>
+      <td><strong><span class="math-var">0&deg; &lt; &omega; &lt; 90&deg;</span></strong></td>
+      <td><span class="math-var">&#9739; &rarr; Q &rarr; &#9738;</span> (Southern ecliptic hemisphere)</td>
+      <td><strong>Obtuse aphelion arc:</strong> <span class="math-var">180&deg; &lt; &Delta;&nu;<sub>Q</sub> &lt; 360&deg;</span> (wider angular span than perihelion arc <span class="math-var">&Delta;&nu;<sub>P</sub></span>).</td>
+    </tr>
+    <tr>
+      <td><strong><span class="math-var">&omega; = 90&deg;</span> or <span class="math-var">270&deg;</span></strong></td>
+      <td><span class="math-var">&#9739; &rarr; Q &rarr; &#9738;</span> (<span class="math-var">90&deg;</span>) or <span class="math-var">&#9738; &rarr; Q &rarr; &#9739;</span> (<span class="math-var">270&deg;</span>)</td>
+      <td><strong>Symmetric quadrature:</strong> <span class="math-var">&Delta;&nu;<sub>Q</sub> = &Delta;&nu;<sub>P</sub> = 180&deg;</span> (line of nodes coincides with semi-latus rectum).</td>
+    </tr>
+    <tr>
+      <td><strong><span class="math-var">90&deg; &lt; &omega; &lt; 180&deg;</span></strong></td>
+      <td><span class="math-var">&#9739; &rarr; Q &rarr; &#9738;</span> (Southern ecliptic hemisphere)</td>
+      <td><strong>Acute aphelion arc:</strong> <span class="math-var">0&deg; &lt; &Delta;&nu;<sub>Q</sub> &lt; 180&deg;</span> (narrower angular span than perihelion arc <span class="math-var">&Delta;&nu;<sub>P</sub></span>).</td>
+    </tr>
+    <tr>
+      <td><strong><span class="math-var">180&deg; &lt; &omega; &lt; 270&deg;</span></strong></td>
+      <td><span class="math-var">&#9738; &rarr; Q &rarr; &#9739;</span> (Northern ecliptic hemisphere)</td>
+      <td><strong>Acute aphelion arc:</strong> <span class="math-var">0&deg; &lt; &Delta;&nu;<sub>Q</sub> &lt; 180&deg;</span> (mirror-symmetric to <span class="math-var">360&deg; &minus; &omega;</span>).</td>
+    </tr>
+    <tr>
+      <td><strong><span class="math-var">270&deg; &lt; &omega; &lt; 360&deg;</span></strong></td>
+      <td><span class="math-var">&#9738; &rarr; Q &rarr; &#9739;</span> (Northern ecliptic hemisphere)</td>
+      <td><strong>Obtuse aphelion arc:</strong> <span class="math-var">180&deg; &lt; &Delta;&nu;<sub>Q</sub> &lt; 360&deg;</span> (wider angular span than perihelion arc <span class="math-var">&Delta;&nu;<sub>P</sub></span>).</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>4. Astrodynamical &amp; Observational Significance</h2>
+<ul>
+  <li><strong>Hemispheric Residence-Time Asymmetry:</strong> Even when <span class="math-var">&Delta;&nu;<sub>Q</sub> &lt; 180&deg;</span> (an acute aphelion nodal angle), Kepler's second law (<span class="math-var">\dot{
+u} = h/r<sup>2</sup></span>) slows the body near aphelion (<span class="math-var">r &approx; a(1+e)</span>), so the traversal time <span class="math-var">&Delta;t<sub>Q</sub></span> across the aphelion node arc routinely exceeds <span class="math-var">50%</span> of the orbital period <span class="math-var">P</span>—governing whether a minor planet or comet spends most of its orbit north (<span class="math-var">&beta; &gt; 0&deg;</span>) or south (<span class="math-var">&beta; &lt; 0&deg;</span>) of the ecliptic plane.</li>
+  <li><strong>Nodal Crossing &amp; MOID Geometry:</strong> Because a minor planet can only intersect the ecliptic plane at <span class="math-var">&#9738;</span> and <span class="math-var">&#9739;</span>, the separation between the aphelion nodal angle <span class="math-var">&Delta;&nu;<sub>Q</sub></span> and <span class="math-var">180&deg;</span> directly quantifies how far the nodal radii <span class="math-var">r<sub>&#9738;</sub> = p/(1 + e \cos &omega;)</span> and <span class="math-var">r<sub>&#9739;</sub> = p/(1 &minus; e \cos &omega;)</span> diverge from the semi-latus rectum <span class="math-var">p</span>, controlling Earth-crossing and planetary close-encounter probabilities.</li>
+  <li><strong>Kozai–Lidov Secular Libration Diagnostic:</strong> For high-inclination asteroids and TNOs undergoing Kozai–Lidov oscillations, <span class="math-var">&omega;</span> librates around <span class="math-var">90&deg;</span> or <span class="math-var">270&deg;</span>, causing <span class="math-var">&Delta;&nu;<sub>Q</sub></span> to oscillate symmetrically about <span class="math-var">180&deg;</span> in phase with eccentricity-inclination exchange.</li>
+</ul>
+
+<h2>5. Worked Examples from <code>MPCORB.DAT</code></h2>
+<p>
+  The following two numbered minor planets from <code>MPCORB.DAT</code> (epoch <code>K25BL</code> = 2025 Nov 21.0 TT = JD 2461000.5) demonstrate the evaluation of the aphelion node arc angle <span class="math-var">&Delta;&nu;<sub>Q</sub></span>, physical arc length <span class="math-var">s<sub>Q</sub></span>, and traversal duration <span class="math-var">&Delta;t<sub>Q</sub></span>:
+</p>
+
+<div class="example-card">
+  <h3>Example 1: (1) Ceres — Obtuse Southern Aphelion Node Arc (<span class="math-var">&Delta;&nu;<sub>Q</sub> = 213.42842&deg;</span>)</h3>
+  <p>
+    Excerpt from <code>MPCORB.DAT</code> (columns 1–103):
+  </p>
+  <pre class="mpcorb-record">00001    3.34  0.12 K25BL 231.53975   73.28579   80.25414   10.58688  0.0789158  0.21410467   2.7675059</pre>
+  <ul>
+    <li><strong>Extracted Epoch Elements:</strong> <span class="math-var">&omega; = 73.28579&deg;</span>, <span class="math-var">e = 0.0789158</span>, <span class="math-var">n = 0.21410467&deg;/d</span> (<span class="math-var">P = 1681.42 d</span>), and <span class="math-var">a = 2.7675059 AU</span>.</li>
+    <li><strong>Aphelion Node Arc Metrics:</strong> Because <span class="math-var">0&deg; &lt; &omega; &lt; 180&deg;</span>, aphelion lies in the southern ecliptic hemisphere along the arc from the descending node (<span class="math-var">&nu;<sub>&#9739;</sub> = 106.71421&deg;</span>) through <span class="math-var">Q</span> (<span class="math-var">180&deg;</span>) to the ascending node (<span class="math-var">&nu;<sub>&#9738;</sub> = 286.71421&deg;</span>). Eq. (2) gives <span class="math-var">&Delta;&nu;<sub>Q</sub> = 360&deg; &minus; 2(73.28579&deg;) = 213.42842&deg;</span> (while <span class="math-var">&Delta;&nu;<sub>P</sub> = 146.57158&deg;</span>), physical arc length <span class="math-var">s<sub>Q</sub> = 10.6775 AU</span> (<span class="math-var">61.49%</span> of the <span class="math-var">17.3618 AU</span> perimeter), and southern residence time <span class="math-var">&Delta;t<sub>Q</sub> = 1067.77 days</span> (<span class="math-var">63.50%</span> of Ceres's orbital period).</li>
+  </ul>
+</div>
+
+<div class="example-card">
+  <h3>Example 2: (2) Pallas — Obtuse Northern Aphelion Node Arc (<span class="math-var">&Delta;&nu;<sub>Q</sub> = 261.82048&deg;</span>)</h3>
+  <p>
+    Excerpt from <code>MPCORB.DAT</code> (columns 1–103):
+  </p>
+  <pre class="mpcorb-record">00002    4.12  0.11 K25BL 142.88412  310.91024  172.90561   34.92502  0.2305124  0.21378192   2.7702891</pre>
+  <ul>
+    <li><strong>Extracted Epoch Elements:</strong> <span class="math-var">&omega; = 310.91024&deg;</span>, <span class="math-var">e = 0.2305124</span>, <span class="math-var">n = 0.21378192&deg;/d</span> (<span class="math-var">P = 1683.96 d</span>), and <span class="math-var">a = 2.7702891 AU</span>.</li>
+    <li><strong>Aphelion Node Arc Metrics:</strong> Because <span class="math-var">180&deg; &lt; &omega; &lt; 360&deg;</span>, aphelion lies in the northern ecliptic hemisphere along the arc from the ascending node (<span class="math-var">&nu;<sub>&#9738;</sub> = 49.08976&deg;</span>) through <span class="math-var">Q</span> (<span class="math-var">180&deg;</span>) to the descending node (<span class="math-var">&nu;<sub>&#9739;</sub> = 229.08976&deg;</span>). Eq. (2) yields <span class="math-var">&Delta;&nu;<sub>Q</sub> = 2(310.91024&deg;) &minus; 360&deg; = 261.82048&deg;</span> (<span class="math-var">&Delta;&nu;<sub>P</sub> = 98.17952&deg;</span>), physical arc length <span class="math-var">s<sub>Q</sub> = 13.7995 AU</span> (<span class="math-var">80.35%</span> of the <span class="math-var">17.1743 AU</span> perimeter), and northern residence duration <span class="math-var">&Delta;t<sub>Q</sub> = 1435.56 days</span> (<span class="math-var">85.25%</span> of Pallas's orbital period).</li>
+  </ul>
+</div>
+
+<div class="interactive-panel">
+  <div class="interactive-title">Interactive Calculator: Aphelion Node Arc Angle &Delta;&nu;<sub>Q</sub>, Arc Length s<sub>Q</sub> (AU) &amp; Traversal Duration &Delta;t<sub>Q</sub></div>
+  <div class="controls-grid">
+    <div class="control-group">
+      <label for="w_val">Arg. of Perihelion &omega; (deg)</label>
+      <input type="number" id="w_val" value="310.91024" step="1.0" min="0" max="360">
+    </div>
+    <div class="control-group">
+      <label for="a_val">Semimajor Axis a (AU)</label>
+      <input type="number" id="a_val" value="2.7702891" step="0.05" min="0.05">
+    </div>
+    <div class="control-group">
+      <label for="e_val">Eccentricity e (0 &le; e &lt; 1)</label>
+      <input type="number" id="e_val" value="0.2305124" step="0.01" min="0" max="0.9999">
+    </div>
+    <div class="control-group">
+      <label for="n_val">Mean Motion n (deg/day)</label>
+      <input type="number" id="n_val" value="0.21378192" step="0.01" min="0.0001">
+    </div>
+  </div>
+  <div class="result-bar" id="calc_out">Computing...</div>
+</div>
+
+    </main>
+    <footer>
+      <span>Reference Standard: IAU Minor Planet Center (MPCORB.DAT) &amp; Two-Body Keplerian Dynamics</span>
+      <span>Governing Relation: &Delta;&nu;<sub>Q</sub>(&omega;) = 180&deg; + 2 arcsin(cos &omega;) = 360&deg; &minus; &Delta;&nu;<sub>P</sub>(&omega;) &bull; MPCORB Sources: &omega; (Cols 38–46), e, n, a</span>
+    </footer>
+  </div>
+  <script>
+    
+(function() {
+  const degToRad = Math.PI / 180.0;
+  const radToDeg = 180.0 / Math.PI;
+
+  function normDeg(deg) {
+    let x = deg % 360.0;
+    if (x < 0) x += 360.0;
+    return x;
+  }
+
+  function nuToMeanDeg(nuDeg, e) {
+    const nuRad = nuDeg * degToRad;
+    const E = 2.0 * Math.atan2(
+      Math.sqrt(1.0 - e) * Math.sin(nuRad / 2.0),
+      Math.sqrt(1.0 + e) * Math.cos(nuRad / 2.0)
+    );
+    const M = E - e * Math.sin(E);
+    return normDeg(M * radToDeg);
+  }
+
+  function integrateArcAU(a, e, nuStartDeg, spanDeg) {
+    const N = 200; // Simpson's rule subintervals
+    const p = a * (1.0 - e * e);
+    const h = (spanDeg * degToRad) / N;
+    const startRad = nuStartDeg * degToRad;
+
+    function ds_dnu(nu) {
+      const c = Math.cos(nu);
+      const denom = 1.0 + e * c;
+      return (p / (denom * denom)) * Math.sqrt(1.0 + 2.0 * e * c + e * e);
+    }
+
+    let sum = ds_dnu(startRad) + ds_dnu(startRad + N * h);
+    for (let k = 1; k < N; k++) {
+      sum += (k % 2 === 0 ? 2.0 : 4.0) * ds_dnu(startRad + k * h);
+    }
+    return (h / 3.0) * sum;
+  }
+
+  function update() {
+    const wRaw = parseFloat(document.getElementById('w_val').value);
+    const a = parseFloat(document.getElementById('a_val').value);
+    const e = parseFloat(document.getElementById('e_val').value);
+    const n = parseFloat(document.getElementById('n_val').value);
+    const out = document.getElementById('calc_out');
+
+    if ([wRaw, a, e, n].some(isNaN) || a <= 0 || e < 0 || e >= 1 || n <= 0) {
+      out.textContent = "Invalid orbital parameters (require a > 0 AU, 0 <= e < 1, n > 0 deg/day).";
+      return;
+    }
+
+    const w = normDeg(wRaw);
+    if (Math.abs(w) < 1e-9 || Math.abs(w - 180.0) < 1e-9 || Math.abs(w - 360.0) < 1e-9) {
+      out.textContent = "Degenerate case (omega = 0 deg or 180 deg): Aphelion coincides directly with a node.";
+      return;
+    }
+
+    const nuAsc = normDeg(360.0 - w);
+    const nuDesc = normDeg(180.0 - w);
+
+    let deltaNuQ, nuStart, hemisphere;
+    if (w < 180.0) {
+      deltaNuQ = 360.0 - 2.0 * w;
+      nuStart = nuDesc;
+      hemisphere = "Southern (Desc -> Q -> Asc)";
+    } else {
+      deltaNuQ = 2.0 * w - 360.0;
+      nuStart = nuAsc;
+      hemisphere = "Northern (Asc -> Q -> Desc)";
+    }
+
+    const deltaNuP = 360.0 - deltaNuQ;
+    const sQ = integrateArcAU(a, e, nuStart, deltaNuQ);
+    const sTot = integrateArcAU(a, e, 0.0, 360.0);
+
+    const mStart = nuToMeanDeg(nuStart, e);
+    const mEnd = nuToMeanDeg(nuStart + deltaNuQ, e);
+    const deltaMQ = normDeg(mEnd - mStart);
+    const dtQ = deltaMQ / n;
+    const period = 360.0 / n;
+
+    out.innerHTML =
+      `Aphelion Arc Angle &Delta;&nu;<sub>Q</sub> = ${deltaNuQ.toFixed(5)}&deg; (&Delta;&nu;<sub>P</sub> = ${deltaNuP.toFixed(5)}&deg;)  |  Arc: ${hemisphere}<br>` +
+      `Physical Arc s<sub>Q</sub> = ${sQ.toFixed(5)} AU (${(100.0 * sQ / sTot).toFixed(2)}% of orbit)  |  Traversal &Delta;t<sub>Q</sub> = ${dtQ.toFixed(2)} d (${(100.0 * dtQ / period).toFixed(2)}% of P)`;
+  }
+
+  ['w_val', 'a_val', 'e_val', 'n_val'].forEach(id => {
+    document.getElementById(id).addEventListener('input', update);
+  });
+  update();
+})();
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mean Motion — MPCORB Orbital Dynamics</title>
+  <style>
+:root {
+  --bg-color: #f8fafc;
+  --surface-color: #ffffff;
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  --accent-color: #1e3a8a;
+  --accent-light: #eff6ff;
+  --border-color: #e2e8f0;
+  --code-bg: #f1f5f9;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-serif: "Georgia", "Times New Roman", Times, serif;
+  --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  line-height: 1.7;
+  padding: 2rem 1rem;
+}
+
+.container {
+  max-width: 920px;
+  margin: 0 auto;
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 2.5rem 3rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+header {
+  border-bottom: 2px solid var(--accent-color);
+  padding-bottom: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.category-tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent-color);
+  background-color: var(--accent-light);
+  padding: 0.25rem 0.65rem;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
+h2 {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.35rem;
+}
+
+h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+ul, ol {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+li {
+  margin-bottom: 0.4rem;
+}
+
+.equation-box {
+  background-color: var(--code-bg);
+  border-left: 4px solid var(--accent-color);
+  padding: 1rem 1.5rem;
+  margin: 1.25rem 0;
+  border-radius: 0 6px 6px 0;
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  overflow-x: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.equation-main {
+  font-style: italic;
+}
+
+.equation-label {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-style: normal;
+  margin-left: 1rem;
+}
+
+.math-var {
+  font-family: var(--font-serif);
+  font-style: italic;
+}
+
+.math-vec {
+  font-family: var(--font-serif);
+  font-weight: bold;
+  font-style: italic;
+}
+
+.figure-box {
+  background-color: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 1.25rem;
+  margin: 1.75rem 0;
+  text-align: center;
+}
+
+.figure-box svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.figure-caption {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-top: 0.85rem;
+  text-align: left;
+  line-height: 1.5;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.92rem;
+}
+
+th, td {
+  border: 1px solid var(--border-color);
+  padding: 0.65rem 0.85rem;
+  text-align: left;
+}
+
+th {
+  background-color: var(--code-bg);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+code {
+  font-family: var(--font-mono);
+  background-color: var(--code-bg);
+  padding: 0.15rem 0.35rem;
+  border-radius: 4px;
+  font-size: 0.88em;
+}
+
+.interactive-panel {
+  background-color: var(--code-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 1.25rem;
+  margin: 1.75rem 0;
+}
+
+.interactive-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 0.75rem;
+  color: var(--text-primary);
+}
+
+.controls-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.control-group label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.control-group input {
+  width: 100%;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background-color: var(--surface-color);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+}
+
+.result-bar {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--accent-color);
+  font-weight: 600;
+}
+
+footer {
+  margin-top: 2.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 1.5rem 1.25rem;
+  }
+}
+</style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <span class="category-tag">Celestial Mechanics &amp; Astrodynamics • MPCORB Reference</span>
+      <h1>Mean Motion</h1>
+      <div class="subtitle">Uniform Keplerian Orbital Frequency and Propagation Parameter in MPCORB.DAT</div>
+    </header>
+    <main>
+      
+<h2>1. Formal Definition</h2>
+<p>
+  In celestial mechanics, astrodynamics, and the Minor Planet Center Orbit Database (<strong>MPCORB</strong>), the <strong>mean motion</strong> (<span class="math-var">n</span>) is the constant, orbit-averaged angular frequency at which a minor planet completes one full sidereal revolution of <span class="math-var">2&pi;</span> radians (<span class="math-var">360&deg;</span>) around the Sun in an unperturbed two-body Keplerian system.
+</p>
+<p>
+  Whereas the instantaneous orbital angular velocity (<span class="math-var">&#x03BD;&#x0307; = d&nu;/dt</span>) varies continuously along an eccentric trajectory according to Kepler's second law, the mean motion <span class="math-var">n</span> defines the uniform angular progression of an idealized auxiliary body revolving on a concentric reference circle of radius equal to the osculating semimajor axis <span class="math-var">a</span> with the identical sidereal orbital period <span class="math-var">P</span>. By definition, <span class="math-var">n</span> is the constant time derivative of the <strong>mean anomaly</strong> <span class="math-var">M(t)</span>:
+</p>
+
+<div class="equation-box">
+  <span class="equation-main">n = dM / dt = 2&pi; / P &nbsp;[rad / time] = 360&deg; / P &nbsp;[deg / time]</span>
+  <span class="equation-label">(Eq. 1)</span>
+</div>
+
+<div class="figure-box">
+  <svg viewBox="0 0 740 310" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Geometric schematic of Mean Motion on the Auxiliary Circle and True Motion on the Keplerian Ellipse">
+    <defs>
+      <marker id="arrowBlue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#1e3a8a"/>
+      </marker>
+      <marker id="arrowSlate" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#475569"/>
+      </marker>
+      <marker id="arrowAmber" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#b45309"/>
+      </marker>
+    </defs>
+
+    <!-- Coordinate axes -->
+    <line x1="40" y1="155" x2="700" y2="155" stroke="#cbd5e1" stroke-width="1.2" stroke-dasharray="5,4"/>
+    <line x1="340" y1="20" x2="340" y2="290" stroke="#cbd5e1" stroke-width="1.2" stroke-dasharray="5,4"/>
+
+    <!-- Auxiliary Circle (radius a = 125) centered at O(340, 155) -->
+    <circle cx="340" cy="155" r="125" fill="none" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="6,5"/>
+
+    <!-- Keplerian Ellipse (a = 125, e = 0.52 -> c = 65, b = 106.7) centered at O(340, 155) -->
+    <ellipse cx="340" cy="155" rx="125" ry="106.7" fill="#eff6ff" fill-opacity="0.45" stroke="#1e3a8a" stroke-width="2.2"/>
+
+    <!-- Center O -->
+    <circle cx="340" cy="155" r="3" fill="#64748b"/>
+    <text x="328" y="170" font-family="Georgia, serif" font-style="italic" font-size="13" fill="#475569">O</text>
+
+    <!-- Primary Focus F (Sun) at x = 340 + 65 = 405, y = 155 -->
+    <circle cx="405" cy="155" r="7.5" fill="#f59e0b" stroke="#b45309" stroke-width="1.5"/>
+    <text x="394" y="176" font-family="Georgia, serif" font-style="italic" font-size="13" fill="#b45309">Sun (F)</text>
+
+    <!-- Perihelion & Aphelion markers -->
+    <circle cx="465" cy="155" r="3.5" fill="#1e3a8a"/>
+    <text x="472" y="150" font-family="sans-serif" font-size="11.5" font-weight="600" fill="#1e3a8a">Perihelion (q)</text>
+    <circle cx="215" cy="155" r="3.5" fill="#1e3a8a"/>
+    <text x="135" y="150" font-family="sans-serif" font-size="11.5" font-weight="600" fill="#1e3a8a">Aphelion (Q)</text>
+
+    <!-- Mean Motion Uniform Body on Auxiliary Circle (angle M = 52 deg from perihelion direction) -->
+    <line x1="340" y1="155" x2="417" y2="56.5" stroke="#64748b" stroke-width="1.4" stroke-dasharray="3,3"/>
+    <circle cx="417" cy="56.5" r="5" fill="#ffffff" stroke="#475569" stroke-width="2"/>
+    <text x="427" y="52" font-family="sans-serif" font-size="11.5" font-weight="600" fill="#334155">Mean Body (Uniform Rate n = dM/dt)</text>
+
+    <!-- Arc for Mean Anomaly M -->
+    <path d="M 372 155 A 32 32 0 0 0 360 130" fill="none" stroke="#475569" stroke-width="1.5" marker-end="url(#arrowSlate)"/>
+    <text x="366" y="138" font-family="Georgia, serif" font-style="italic" font-size="13" fill="#334155">M(t) = M<tspan dy="3" font-size="10">0</tspan><tspan dy="-3"> + n(t&minus;t</tspan><tspan dy="3" font-size="10">0</tspan><tspan dy="-3">)</tspan></text>
+
+    <!-- Actual Minor Planet P on Ellipse at E = 78 deg -->
+    <line x1="405" y1="155" x2="366" y2="50.6" stroke="#1e3a8a" stroke-width="1.8"/>
+    <circle cx="366" cy="50.6" r="6" fill="#1e3a8a"/>
+    <text x="230" y="38" font-family="sans-serif" font-size="12" font-weight="700" fill="#1e3a8a">Minor Planet P (True Rate &nu;&#x0307; = h/r&#x00B2;)</text>
+
+    <!-- Arc for True Anomaly nu around Focus F -->
+    <path d="M 432 155 A 27 27 0 0 0 396 130" fill="none" stroke="#b45309" stroke-width="1.6" marker-end="url(#arrowAmber)"/>
+    <text x="415" y="126" font-family="Georgia, serif" font-style="italic" font-size="13.5" fill="#b45309">&nu;(t)</text>
+
+    <!-- Semimajor axis annotation -->
+    <line x1="215" y1="278" x2="340" y2="278" stroke="#334155" stroke-width="1.3" marker-start="url(#arrowSlate)" marker-end="url(#arrowSlate)"/>
+    <text x="262" y="295" font-family="Georgia, serif" font-style="italic" font-size="13" fill="#334155">a (AU)</text>
+
+    <!-- Legend Box on Right -->
+    <rect x="520" y="212" width="205" height="78" rx="5" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
+    <text x="530" y="230" font-family="sans-serif" font-size="11" font-weight="700" fill="#0f172a">Keplerian Rate Comparison</text>
+    <text x="530" y="248" font-family="sans-serif" font-size="10.5" fill="#334155">&bull; Mean motion n: constant (k&middot;a<tspan dy="-3" font-size="8">&minus;3/2</tspan><tspan dy="3">)</tspan></text>
+    <text x="530" y="265" font-family="sans-serif" font-size="10.5" fill="#334155">&bull; True rate &nu;&#x0307;: variable (h / r<tspan dy="-3" font-size="8">2</tspan><tspan dy="3">)</tspan></text>
+    <text x="530" y="282" font-family="sans-serif" font-size="10.5" fill="#334155">&bull; Equal period P = 2&pi;/n = 360&deg;/n</text>
+  </svg>
+  <div class="figure-caption">
+    <strong>Figure 1:</strong> Schematic geometry of mean motion <span class="math-var">n</span> versus instantaneous true anomaly rate <span class="math-var">&#x03BD;&#x0307;</span>. While the physical minor planet <span class="math-var">P</span> accelerates near perihelion (<span class="math-var">q</span>) and decelerates near aphelion (<span class="math-var">Q</span>) along the osculating ellipse, the mean anomaly <span class="math-var">M(t)</span> advances at the strictly uniform angular rate <span class="math-var">n</span> on the concentric auxiliary circle of radius <span class="math-var">a</span>.
+  </div>
+</div>
+
+<h2>2. Mathematical Formulation in the MPCORB Two-Body Framework</h2>
+<p>
+  In the IAU Minor Planet Center's heliocentric dynamical model, the mean motion <span class="math-var">n</span> is uniquely determined by the osculating semimajor axis <span class="math-var">a</span> (in astronomical units, AU) through <strong>Kepler's Third Law of Planetary Motion</strong> and the Gaussian gravitational constant <span class="math-var">k</span>:
+</p>
+
+<div class="equation-box">
+  <span class="equation-main">n<sub>rad</sub> = &radic;(&mu; / a<sup>3</sup>) = k &middot; a<sup>&minus;3/2</sup> &nbsp;[rad / day]</span>
+  <span class="equation-label">(Eq. 2)</span>
+</div>
+
+<p>
+  Because orbital angles in <code>MPCORB.DAT</code> are tabulated in degrees and time is measured in ephemeris days (<span class="math-var">1 d = 86,400 s</span> of TT/TDB), the angular rate in degrees per day (commonly termed <em>mean daily motion</em>) is:
+</p>
+
+<div class="equation-box">
+  <span class="equation-main">n<sub>deg</sub> = (180 / &pi;) &middot; k &middot; a<sup>&minus;3/2</sup> &approx; 0.985607668601425 &middot; a<sup>&minus;3/2</sup> &nbsp;[deg / day]</span>
+  <span class="equation-label">(Eq. 3)</span>
+</div>
+
+<p>where:</p>
+<ul>
+  <li><span class="math-var">k = 0.01720209895 AU<sup>3/2</sup> d<sup>&minus;1</sup></span> is the classical Gaussian gravitational constant, defining the heliocentric gravitational parameter <span class="math-var">&mu; = GM<sub>&odot;</sub> = k<sup>2</sup> &approx; 2.959122082855911 &times; 10<sup>&minus;4</sup> AU<sup>3</sup> d<sup>&minus;2</sup></span> (or <span class="math-var">1.32712440018 &times; 10<sup>11</sup> km<sup>3</sup> s<sup>&minus;2</sup></span>).</li>
+  <li><span class="math-var">k<sub>deg</sub> = (180/&pi;) k &approx; 0.9856076686 deg AU<sup>3/2</sup> d<sup>&minus;1</sup></span> is the Gaussian constant expressed in degrees per day, equal to the mean motion of an idealized massless test particle at <span class="math-var">a = 1 AU</span>.</li>
+  <li><span class="math-var">a</span> is the osculating semimajor axis in AU (stored in <code>MPCORB.DAT</code> columns 93–103). In accordance with IAU MPC standards for minor planets, the asteroid's own mass <span class="math-var">m</span> is treated as negligible (<span class="math-var">m / M<sub>&odot;</sub> &lt; 10<sup>&minus;9</sup></span>), so <span class="math-var">&mu; = G(M<sub>&odot;</sub> + m) &approx; GM<sub>&odot;</sub></span>.</li>
+</ul>
+
+<h2>3. Storage &amp; Role in <code>MPCORB.DAT</code></h2>
+<p>
+  In the fixed-width ASCII schema of <code>MPCORB.DAT</code>, both the semimajor axis <span class="math-var">a</span> and the mean motion <span class="math-var">n</span> are explicitly stored in every object record. Providing <span class="math-var">n</span> directly eliminates the need to compute fractional powers (<span class="math-var">a<sup>&minus;3/2</sup></span>) during bulk ephemeris propagation across catalogs exceeding 1.4 million minor planets.
+</p>
+<table>
+  <thead>
+    <tr>
+      <th>MPCORB Field / Property</th>
+      <th>Format / Specification</th>
+      <th>Astrodynamical Interpretation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>MPCORB.DAT</code> Position</td>
+      <td>Columns 81–91 (1-based), width 11</td>
+      <td>Formatted as <code>F11.8</code> in degrees per day (e.g., <code>0.21410467</code> deg/d for (1) Ceres).</td>
+    </tr>
+    <tr>
+      <td>Domain &amp; Sign</td>
+      <td><span class="math-var">n &gt; 0</span> for all elliptical orbits (<span class="math-var">0 &le; e &lt; 1</span>)</td>
+      <td>Strictly positive regardless of inclination (including retrograde Centaurs/TNOs with <span class="math-var">i &gt; 90&deg;</span>).</td>
+    </tr>
+    <tr>
+      <td>Keplerian Propagation</td>
+      <td><span class="math-var">M(t) = (M<sub>0</sub> + n &middot; (t &minus; t<sub>0</sub>)) mod 360&deg;</span></td>
+      <td>Propagates mean anomaly <span class="math-var">M<sub>0</sub></span> (cols 27–35) from standard epoch <span class="math-var">t<sub>0</sub></span> (cols 21–25).</td>
+    </tr>
+    <tr>
+      <td>Sidereal Period (<span class="math-var">P</span>)</td>
+      <td><span class="math-var">P [d] = 360 / n</span>; &nbsp; <span class="math-var">P [yr] = 360 / (365.25 &middot; n)</span></td>
+      <td>Inversely proportional to <span class="math-var">n</span> (<span class="math-var">P &prop; a<sup>3/2</sup></span>).</td>
+    </tr>
+    <tr>
+      <td>Consistency Check</td>
+      <td><span class="math-var">n &middot; a<sup>3/2</sup> = (180/&pi;) k</span></td>
+      <td>Allows validation of numerical precision between cols 81–91 (<span class="math-var">n</span>) and cols 93–103 (<span class="math-var">a</span>).</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>4. Osculating vs. Proper Mean Motion &amp; Dynamical Resonances</h2>
+<ul>
+  <li><strong>Osculating vs. Proper Elements:</strong> Each line in <code>MPCORB.DAT</code> represents an <em>osculating</em> Keplerian orbit fitted at a common tabular epoch (typically updated every 200 days at 0<sup>h</sup> TT). Gravitational perturbations from the major planets cause <span class="math-var">a</span> and <span class="math-var">n</span> to exhibit short-period fluctuations around their long-term averages. Removing these periodic perturbations via synthetic numerical integration or analytical perturbation theory yields the <em>proper mean motion</em> (<span class="math-var">n<sub>p</sub></span>), which serves as a quasi-integral of motion used to identify collisional asteroid families.</li>
+  <li><strong>Mean-Motion Resonances (MMRs):</strong> Commensurabilities between a minor planet's mean motion <span class="math-var">n</span> and that of a perturbing planet—predominantly Jupiter (<span class="math-var">n<sub>J</sub> &approx; 0.083091 deg/d</span> at <span class="math-var">a<sub>J</sub> &approx; 5.204 AU</span>)—occur when <span class="math-var">n / n<sub>J</sub> &approx; p / q</span> for small integers <span class="math-var">p, q</span>. Unstable resonances carve the <strong>Kirkwood gaps</strong> in the main asteroid belt (e.g., the 3:1 resonance at <span class="math-var">n &approx; 0.295 deg/d</span>, <span class="math-var">a &approx; 2.50 AU</span>; 5:2 at <span class="math-var">a &approx; 2.82 AU</span>; 2:1 at <span class="math-var">a &approx; 3.28 AU</span>), whereas phase-protected resonances stabilize populations such as the <strong>Hilda asteroids</strong> (3:2, <span class="math-var">n &approx; 0.125 deg/d</span>) and <strong>Jupiter Trojans</strong> (1:1, <span class="math-var">n &approx; 0.0831 deg/d</span>).</li>
+  <li><strong>Relation to Synodic Period:</strong> With respect to Earth (<span class="math-var">n<sub>&oplus;</sub> &approx; 0.985608 deg/d</span>), the synodic period <span class="math-var">S</span> between consecutive oppositions of an exterior minor planet is governed directly by the difference in mean motions: <span class="math-var">S = 360&deg; / |n<sub>&oplus;</sub> &minus; n|</span>.</li>
+</ul>
+
+<div class="figure-box">
+  <svg viewBox="0 0 740 245" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Main Belt Asteroid Distribution and Kirkwood Gaps as a function of Mean Motion">
+    <defs>
+      <marker id="axisArrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#475569"/>
+      </marker>
+    </defs>
+
+    <!-- Plot frame -->
+    <line x1="65" y1="190" x2="695" y2="190" stroke="#475569" stroke-width="1.5" marker-end="url(#axisArrow)"/>
+    <line x1="65" y1="190" x2="65" y2="25" stroke="#475569" stroke-width="1.5" marker-end="url(#axisArrow)"/>
+    <text x="20" y="115" transform="rotate(-90 20 115)" font-family="sans-serif" font-size="11" font-weight="600" fill="#475569">Relative Population</text>
+    <text x="305" y="232" font-family="sans-serif" font-size="11.5" font-weight="600" fill="#0f172a">Mean Motion n [deg / day] &nbsp;(decreasing a &rarr;)</text>
+
+    <!-- Shaded Main Belt distribution curve with Kirkwood gaps (4:1, 3:1, 5:2, 7:3, 2:1) -->
+    <!-- x maps n from 0.10 deg/d (x=90) to 0.36 deg/d (x=660): x = 90 + (n - 0.10) * 2192.3 -->
+    <!-- 2:1 (n=0.166 -> x=235), 7:3 (n=0.194 -> x=296), 5:2 (n=0.208 -> x=327), 3:1 (n=0.249 -> x=417), 4:1 (n=0.332 -> x=599) -->
+    <path d="M 110 190
+             Q 135 188, 148 135
+             Q 155 115, 162 188
+             L 172 188
+             Q 205 185, 222 85
+             L 232 188
+             L 239 188
+             Q 265 65, 291 186
+             L 299 186
+             Q 312 52, 323 187
+             L 331 187
+             Q 375 35, 412 188
+             L 422 188
+             Q 495 45, 565 145
+             Q 585 175, 596 189
+             L 640 190 Z"
+          fill="#dbeafe" stroke="#1e3a8a" stroke-width="1.8"/>
+
+    <!-- Resonance vertical dashed markers -->
+    <!-- Hilda 3:2 (n = 0.1246 -> x = 144) -->
+    <line x1="148" y1="32" x2="148" y2="190" stroke="#047857" stroke-width="1.2" stroke-dasharray="4,3"/>
+    <text x="126" y="25" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#047857">3:2 (Hildas)</text>
+
+    <!-- 2:1 Gap (n = 0.1662 -> x = 235) -->
+    <line x1="235" y1="32" x2="235" y2="190" stroke="#b91c1c" stroke-width="1.2" stroke-dasharray="4,3"/>
+    <text x="223" y="25" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#b91c1c">2:1</text>
+
+    <!-- 7:3 Gap (n = 0.1939 -> x = 295) -->
+    <line x1="295" y1="45" x2="295" y2="190" stroke="#b91c1c" stroke-width="1.1" stroke-dasharray="3,3"/>
+    <text x="285" y="39" font-family="sans-serif" font-size="10" font-weight="600" fill="#b91c1c">7:3</text>
+
+    <!-- 5:2 Gap (n = 0.2077 -> x = 327) -->
+    <line x1="327" y1="32" x2="327" y2="190" stroke="#b91c1c" stroke-width="1.2" stroke-dasharray="4,3"/>
+    <text x="317" y="25" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#b91c1c">5:2</text>
+
+    <!-- 3:1 Gap (n = 0.2493 -> x = 417) -->
+    <line x1="417" y1="32" x2="417" y2="190" stroke="#b91c1c" stroke-width="1.2" stroke-dasharray="4,3"/>
+    <text x="407" y="25" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#b91c1c">3:1</text>
+
+    <!-- 4:1 Gap (n = 0.3324 -> x = 599) -->
+    <line x1="599" y1="32" x2="599" y2="190" stroke="#b91c1c" stroke-width="1.2" stroke-dasharray="4,3"/>
+    <text x="589" y="25" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#b91c1c">4:1</text>
+
+    <!-- X-axis ticks -->
+    <line x1="90" y1="190" x2="90" y2="196" stroke="#475569" stroke-width="1.2"/>
+    <text x="76" y="210" font-family="monospace" font-size="10.5" fill="#334155">0.10</text>
+
+    <line x1="200" y1="190" x2="200" y2="196" stroke="#475569" stroke-width="1.2"/>
+    <text x="186" y="210" font-family="monospace" font-size="10.5" fill="#334155">0.15</text>
+
+    <line x1="309" y1="190" x2="309" y2="196" stroke="#475569" stroke-width="1.2"/>
+    <text x="295" y="210" font-family="monospace" font-size="10.5" fill="#334155">0.20</text>
+
+    <line x1="419" y1="190" x2="419" y2="196" stroke="#475569" stroke-width="1.2"/>
+    <text x="405" y="210" font-family="monospace" font-size="10.5" fill="#334155">0.25</text>
+
+    <line x1="528" y1="190" x2="528" y2="196" stroke="#475569" stroke-width="1.2"/>
+    <text x="514" y="210" font-family="monospace" font-size="10.5" fill="#334155">0.30</text>
+
+    <line x1="638" y1="190" x2="638" y2="196" stroke="#475569" stroke-width="1.2"/>
+    <text x="624" y="210" font-family="monospace" font-size="10.5" fill="#334155">0.35</text>
+  </svg>
+  <div class="figure-caption">
+    <strong>Figure 2:</strong> Schematic distribution of Main-Belt minor planets across mean motion <span class="math-var">n</span>, illustrating depletion at Jovian mean-motion resonances (<span class="math-var">n / n<sub>J</sub> = p / q</span>, red dashed lines: Kirkwood gaps at 4:1, 3:1, 5:2, 7:3, and 2:1) contrasted against the dynamically protected 3:2 Hilda group (green).
+  </div>
+</div>
+
+<div class="interactive-panel">
+  <div class="interactive-title">Interactive Calculator: MPCORB Mean Motion, Period &amp; Jovian Commensurability</div>
+  <div class="controls-grid">
+    <div class="control-group">
+      <label for="a_val">Semimajor Axis a (AU)</label>
+      <input type="number" id="a_val" value="2.7675" step="0.001" min="0.001">
+    </div>
+    <div class="control-group">
+      <label for="dt_val">Elapsed Time &Delta;t = t &minus; t<sub>0</sub> (days)</label>
+      <input type="number" id="dt_val" value="200.0" step="1.0">
+    </div>
+  </div>
+  <div class="result-bar" id="calc_out">Computing...</div>
+</div>
+
+    </main>
+    <footer>
+      <span>Reference Standard: IAU Minor Planet Center (MPCORB.DAT) Two-Body Heliocentric Model</span>
+      <span>Standard Gaussian Gravitational Constant: k = 0.01720209895 AU<sup>3/2</sup> d<sup>&minus;1</sup></span>
+    </footer>
+  </div>
+  <script>
+    
+(function() {
+  const k = 0.01720209895;
+  const radToDeg = 180.0 / Math.PI;
+  const nEarthDegDay = k * radToDeg; // at a = 1.0 AU
+  const nJupiterDegDay = k * radToDeg / Math.pow(5.2044, 1.5);
+
+  function update() {
+    const a = parseFloat(document.getElementById('a_val').value);
+    const dt = parseFloat(document.getElementById('dt_val').value);
+    const out = document.getElementById('calc_out');
+
+    if (isNaN(a) || a <= 0) {
+      out.textContent = "Invalid semimajor axis (require a > 0 AU).";
+      return;
+    }
+
+    const nRadDay = k / Math.pow(a, 1.5);
+    const nDegDay = nRadDay * radToDeg;
+    const periodDays = 360.0 / nDegDay;
+    const periodYears = periodDays / 365.25;
+    const deltaM = isNaN(dt) ? 0 : (nDegDay * dt);
+    const synodicDays = Math.abs(nEarthDegDay - nDegDay) > 1e-9 ? (360.0 / Math.abs(nEarthDegDay - nDegDay)) : Infinity;
+    const resRatio = nDegDay / nJupiterDegDay;
+
+    out.textContent = `n = ${nDegDay.toFixed(8)} deg/d (${nRadDay.toExponential(6)} rad/d)  |  P = ${periodYears.toFixed(4)} yr  |  Delta_M = ${deltaM.toFixed(4)} deg  |  n/n_J = ${resRatio.toFixed(4)}  |  S = ${isFinite(synodicDays) ? synodicDays.toFixed(1) + ' d' : 'inf'}`;
+  }
+
+  ['a_val', 'dt_val'].forEach(id => {
+    document.getElementById(id).addEventListener('input', update);
+  });
+  update();
+})();
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orbital Radius of Curvature (&rho;) in the Context of MPCORB</title>
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #334155;
+            --accent-color: #1e3a8a;
+            --accent-light: #eff6ff;
+            --border-color: #cbd5e1;
+            --code-bg: #f1f5f9;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.7;
+            color: var(--text-primary);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 3rem 3.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            border: 1px solid var(--border-color);
+        }
+
+        header {
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .badge {
+            display: inline-block;
+            background-color: var(--accent-light);
+            color: var(--accent-color);
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            padding: 0.3rem 0.75rem;
+            border-radius: 4px;
+            border: 1px solid #bfdbfe;
+            margin-bottom: 0.75rem;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin: 0.25rem 0 0.5rem 0;
+            color: var(--text-primary);
+            line-height: 1.25;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            margin: 0;
+        }
+
+        h2 {
+            font-size: 1.35rem;
+            color: var(--accent-color);
+            margin-top: 2.25rem;
+            margin-bottom: 0.85rem;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 0.35rem;
+        }
+
+        h3 {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        p {
+            margin-bottom: 1.15rem;
+            color: var(--text-secondary);
+            text-align: justify;
+        }
+
+        ul, ol {
+            margin-bottom: 1.25rem;
+            padding-left: 1.5rem;
+            color: var(--text-secondary);
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        .equation-box {
+            background-color: var(--code-bg);
+            border-left: 4px solid var(--accent-color);
+            padding: 1.15rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 6px 6px 0;
+            overflow-x: auto;
+            font-family: "Cambria Math", "STIX Two Math", "Times New Roman", Times, serif;
+            font-size: 1.18rem;
+            color: var(--text-primary);
+            text-align: center;
+        }
+
+        .math-inline {
+            font-family: "Cambria Math", "STIX Two Math", "Times New Roman", Times, serif;
+            font-style: italic;
+            font-size: 1.05em;
+            color: var(--text-primary);
+        }
+
+        .math-roman {
+            font-family: "Cambria Math", "STIX Two Math", "Times New Roman", Times, serif;
+            font-style: normal;
+            font-size: 1.02em;
+            color: var(--text-primary);
+        }
+
+        .frac {
+            display: inline-flex;
+            flex-direction: column;
+            vertical-align: middle;
+            text-align: center;
+            margin: 0 0.25rem;
+        }
+
+        .frac > span:first-child {
+            border-bottom: 1px solid var(--text-primary);
+            padding: 0 0.3rem 0.15rem 0.3rem;
+        }
+
+        .frac > span:last-child {
+            padding: 0.15rem 0.3rem 0 0.3rem;
+        }
+
+        .sqrt-wrap {
+            display: inline-flex;
+            align-items: stretch;
+        }
+
+        .sqrt-rad {
+            font-size: 1.15em;
+            line-height: 1;
+            padding-right: 1px;
+        }
+
+        .sqrt-body {
+            border-top: 1px solid var(--text-primary);
+            padding: 0 0.2rem;
+        }
+
+        .spec-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.92rem;
+        }
+
+        .spec-table th, .spec-table td {
+            border: 1px solid var(--border-color);
+            padding: 0.75rem 1rem;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        .spec-table th {
+            background-color: var(--accent-color);
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .spec-table tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        code {
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+            background-color: var(--code-bg);
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.88em;
+            color: #0f172a;
+        }
+
+        pre {
+            background-color: #1e293b;
+            color: #f8fafc;
+            padding: 1rem 1.25rem;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+        }
+
+        .note-callout {
+            background-color: #fffbeb;
+            border-left: 4px solid #d97706;
+            padding: 1rem 1.25rem;
+            margin: 1.5rem 0;
+            border-radius: 0 6px 6px 0;
+            color: #78350f;
+            font-size: 0.95rem;
+        }
+
+        .terminology-callout {
+            background-color: var(--accent-light);
+            border-left: 4px solid var(--accent-color);
+            padding: 1rem 1.25rem;
+            margin: 1.5rem 0;
+            border-radius: 0 6px 6px 0;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+        }
+
+        .diagram-box {
+            background-color: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+
+        .diagram-caption {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+        }
+
+        .calculator-box {
+            background-color: var(--accent-light);
+            border: 1px solid #bfdbfe;
+            border-radius: 8px;
+            padding: 1.25rem 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .calculator-box h4 {
+            margin: 0 0 0.75rem 0;
+            color: var(--accent-color);
+            font-size: 1rem;
+        }
+
+        .calc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(185px, 1fr));
+            gap: 1rem;
+            align-items: end;
+        }
+
+        .calc-field label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.3rem;
+        }
+
+        .calc-field input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 0.5rem 0.65rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 0.95rem;
+            font-family: inherit;
+        }
+
+        .calc-output {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 0.55rem 0.75rem;
+            font-size: 0.92rem;
+            color: var(--text-primary);
+        }
+
+        footer {
+            margin-top: 3rem;
+            padding-top: 1.25rem;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.85rem;
+            color: #64748b;
+            text-align: center;
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 1.75rem 1.25rem;
+            }
+            h1 {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="badge">Celestial Mechanics &amp; Astrometry Specification</div>
+            <h1>Orbital Radius of Curvature (<span class="math-inline">&rho;</span>) in the Context of the MPCORB Database</h1>
+            <p class="subtitle">Scientific Definition, Differential-Geometric Osculating Circle, Normal Acceleration Coupling, and Evaluation from MPCORB</p>
+        </header>
+
+        <section>
+            <h2>1. Fundamental Differential-Geometric &amp; Astrodynamical Definition</h2>
+            <div class="terminology-callout">
+                <strong>Definition &amp; Nomenclature:</strong> In differential geometry and two-body celestial mechanics, the <strong>orbital radius of curvature</strong> (also termed the <em>instantaneous radius of curvature of the osculating trajectory</em> or in German astrometry <em>Kr&uuml;mmungsradius der Bahn</em>)—typically denoted by <span class="math-inline">&rho;</span> or <span class="math-inline">R</span><sub>c</sub>—is the reciprocal of the planar curvature <span class="math-roman"><em>&kappa;</em> = 1/<em>&rho;</em></span> of the instantaneous osculating Keplerian ellipse at a given orbital phase (<span class="math-inline">E</span> or <span class="math-inline">&nu;</span>). Geometrically, <span class="math-inline">&rho;</span> is the radius of the unique <strong>osculating circle</strong> sharing second-order tangency with the trajectory at the body&rsquo;s instantaneous position. It is a dimensional length quantity expressed in Astronomical Units (<span class="math-roman">AU</span>).
+            </div>
+            <p>
+                In perifocal Cartesian coordinates <span class="math-roman"><em>x</em><sub>&omega;</sub>(<em>E</em>) = <em>a</em>(cos <em>E</em> &minus; <em>e</em>)</span>, <span class="math-roman"><em>y</em><sub>&omega;</sub>(<em>E</em>) = <em>b</em> sin <em>E</em></span> (with <span class="math-roman"><em>b</em> = <em>a</em>&radic;(1 &minus; <em>e</em><sup>2</sup>)</span>), evaluating the planar curvature formula <span class="math-roman"><em>&rho;</em> = (<em>x&#775;</em><sub>&omega;</sub><sup>2</sup> + <em>y&#775;</em><sub>&omega;</sub><sup>2</sup>)<sup>3/2</sup> / |<em>x&#775;</em><sub>&omega;</sub><em>y&#776;</em><sub>&omega;</sub> &minus; <em>y&#775;</em><sub>&omega;</sub><em>x&#776;</em><sub>&omega;</sub>|</span>—or equivalently using polar conic geometry with semi-latus rectum <span class="math-roman"><em>p</em> = <em>a</em>(1 &minus; <em>e</em><sup>2</sup>)</span> and flight-path angle <span class="math-inline">&gamma;</span>—yields the exact closed-form representations of <span class="math-inline">&rho;</span>:
+            </p>
+            <div class="equation-box">
+                <span class="math-inline">&rho;</span>(<span class="math-inline">E</span>) =
+                <span class="frac">
+                    <span><span class="math-inline">a</span> (1 &minus; <span class="math-inline">e</span><sup>2</sup> cos<sup>2</sup> <span class="math-inline">E</span>)<sup>3/2</sup></span>
+                    <span>&radic;(1 &minus; <span class="math-inline">e</span><sup>2</sup>)</span>
+                </span>
+                =
+                <span class="frac">
+                    <span><span class="math-inline">p</span></span>
+                    <span>cos<sup>3</sup> <span class="math-inline">&gamma;</span></span>
+                </span>
+                = <span class="math-inline">p</span>
+                <span class="roman">[</span>
+                <span class="frac">
+                    <span>1 + 2<span class="math-inline">e</span> cos <span class="math-inline">&nu;</span> + <span class="math-inline">e</span><sup>2</sup></span>
+                    <span>(1 + <span class="math-inline">e</span> cos <span class="math-inline">&nu;</span>)<sup>2</sup></span>
+                </span>
+                <span class="roman">]</span><sup>3/2</sup>
+            </div>
+            <p>
+                where <span class="math-inline">&gamma;</span> is the instantaneous <strong>flight-path angle</strong> (elevation angle between the velocity vector <span class="math-roman"><strong>v</strong></span> and the local transverse horizontal, satisfying <span class="math-roman">tan <em>&gamma;</em> = (<em>e</em> sin <em>&nu;</em>)/(1 + <em>e</em> cos <em>&nu;</em>)</span>). Key geometric properties and extremal bounds include:
+            </p>
+            <ul>
+                <li><strong>Strict Global Bounds (<span class="math-roman"><em>p</em> = <em>b</em><sup>2</sup>/<em>a</em> &le; <em>&rho;</em> &le; <em>a</em><sup>2</sup>/<em>b</em></span>):</strong> Along any bound ellipse (<span class="math-roman">0 &le; <em>e</em> &lt; 1</span>), <span class="math-inline">&rho;</span> oscillates smoothly twice per revolution between its apsidal minima and co-vertex maxima.</li>
+                <li><strong>Apsidal Minimum at Perihelion &amp; Aphelion (<span class="math-roman"><em>E</em> = 0, &pi; &rArr; <em>&rho;</em><sub>min</sub> = <em>p</em> = <em>a</em>(1 &minus; <em>e</em><sup>2</sup>)</span>):</strong> Because <span class="math-roman"><em>&gamma;</em> = 0&deg;</span> at both apsides, the radius of curvature at <em>both</em> perihelion and aphelion equals the <strong>semi-latus rectum</strong> <span class="math-roman"><em>p</em> = <em>b</em><sup>2</sup>/<em>a</em></span> (the sharpest turning radius of the ellipse).</li>
+                <li><strong>Co-Vertex Maximum (<span class="math-roman"><em>E</em> = &plusmn;&pi;/2 &rArr; <em>&rho;</em><sub>max</sub> = <em>a</em><sup>2</sup>/<em>b</em> = <em>a</em> / &radic;(1 &minus; <em>e</em><sup>2</sup>)</span>):</strong> At the minor-axis vertices (<span class="math-roman"><em>r</em> = <em>a</em></span>), the ellipse is flattest, attaining maximum radius of curvature <span class="math-roman"><em>&rho;</em><sub>max</sub> = <em>a</em><sup>2</sup>/<em>b</em> &ge; <em>a</em></span>.</li>
+                <li><strong>Circular Invariance (<span class="math-roman"><em>e</em> = 0 &rArr; <em>&rho;</em> &equiv; <em>a</em></span>):</strong> For a circular orbit, <span class="math-roman"><em>p</em> = <em>b</em> = <em>a</em></span> and <span class="math-roman"><em>&gamma;</em> &equiv; 0&deg;</span>, so the radius of curvature is constant everywhere and identical to the orbital radius <span class="math-inline">a</span>.</li>
+            </ul>
+
+            <div class="diagram-box">
+                <svg width="560" height="245" viewBox="0 0 560 245" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Geometric diagram showing the Keplerian ellipse with its osculating circles at perihelion (minimum radius of curvature rho_min = p = b^2/a) and at the upper co-vertex (maximum radius of curvature rho_max = a^2/b)">
+                    <rect x="0" y="0" width="560" height="245" fill="#f8fafc" rx="6"/>
+                    <!-- Main Ellipse: center O = (280, 108), rx = 190 (a), ry = 85 (b) -->
+                    <!-- p = b^2/a = 7225 / 190 = 38.03 px; F1 = 280 + sqrt(190^2 - 85^2) = 280 + 169.93 = 449.93 -->
+                    <ellipse cx="280" cy="108" rx="190" ry="85" fill="#eff6ff" stroke="#1e3a8a" stroke-width="2.4"/>
+                    <!-- Osculating circle at Perihelion (470, 108) with radius p = 38 px -> center at (432, 108) -->
+                    <circle cx="432" cy="108" r="38" fill="#fef2f2" fill-opacity="0.55" stroke="#dc2626" stroke-width="1.8" stroke-dasharray="4,3"/>
+                    <line x1="432" y1="108" x2="470" y2="108" stroke="#dc2626" stroke-width="2"/>
+                    <circle cx="432" cy="108" r="2.8" fill="#dc2626"/>
+                    <text x="415" y="64" text-anchor="middle" font-family="serif" font-size="11.5" fill="#dc2626" font-weight="bold">&rho;<tspan baseline-shift="sub" font-size="8.5">min</tspan> = p = a(1 &minus; e&sup2;)</text>
+                    <!-- Osculating circle arc at upper co-vertex (280, 23): R_max = a^2/b = 36100/85 = 424.7 px (drawn as local osculating arc) -->
+                    <path d="M 155 42 A 425 425 0 0 1 405 42" fill="none" stroke="#16a34a" stroke-width="1.8" stroke-dasharray="5,3"/>
+                    <line x1="280" y1="23" x2="280" y2="108" stroke="#16a34a" stroke-width="1.8" stroke-dasharray="3,2"/>
+                    <circle cx="280" cy="23" r="4" fill="#16a34a"/>
+                    <text x="245" y="15" text-anchor="end" font-family="serif" font-size="11.5" fill="#15803d" font-weight="bold">&rho;<tspan baseline-shift="sub" font-size="8.5">max</tspan> = a&sup2;/b = a/&radic;(1 &minus; e&sup2;)</text>
+                    <!-- Major axis line -->
+                    <line x1="90" y1="108" x2="470" y2="108" stroke="#64748b" stroke-width="1" stroke-dasharray="4,4"/>
+                    <!-- Center O -->
+                    <circle cx="280" cy="108" r="3" fill="#0f172a"/>
+                    <text x="274" y="122" text-anchor="end" font-family="sans-serif" font-size="10" fill="#0f172a" font-weight="bold">O</text>
+                    <!-- Sun F1 -->
+                    <circle cx="449.9" cy="108" r="6" fill="#f59e0b" stroke="#b45309" stroke-width="1.5"/>
+                    <text x="449.9" y="125" text-anchor="middle" font-family="sans-serif" font-size="9.5" fill="#92400e" font-weight="bold">F&#8321;</text>
+                    <!-- Perihelion & Aphelion points -->
+                    <circle cx="470" cy="108" r="4" fill="#dc2626"/>
+                    <text x="476" y="111" text-anchor="start" font-family="sans-serif" font-size="9.5" fill="#0f172a" font-weight="bold">Perihelion</text>
+                    <circle cx="90" cy="108" r="4" fill="#1e3a8a"/>
+                    <text x="84" y="111" text-anchor="end" font-family="sans-serif" font-size="9.5" fill="#0f172a" font-weight="bold">Aphelion</text>
+                    <!-- Bottom summary -->
+                    <text x="280" y="218" text-anchor="middle" font-family="serif" font-size="13" fill="#1e3a8a" font-weight="bold">Instantaneous Radius of Curvature: &rho;(E) = a (1 &minus; e&sup2; cos&sup2; E)<tspan baseline-shift="super" font-size="9">3/2</tspan> / &radic;(1 &minus; e&sup2;) &isin; [p, a&sup2;/b]</text>
+                </svg>
+                <div class="diagram-caption">
+                    Figure 1: Osculating circles of the Keplerian orbit illustrating minimum radius of curvature <span class="math-roman"><em>&rho;</em><sub>min</sub> = <em>p</em></span> at the apsides (red) and maximum radius of curvature <span class="math-roman"><em>&rho;</em><sub>max</sub> = <em>a</em><sup>2</sup>/<em>b</em></span> at the minor-axis co-vertices (green).
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>2. Kinematical &amp; Dynamical Coupling in Two-Body Motion</h2>
+            <p>
+                In Newtonian orbital mechanics, the radius of curvature <span class="math-inline">&rho;</span> directly governs the centripetal (normal) acceleration and instantaneous turning rate of a minor planet along its trajectory:
+            </p>
+
+            <h3>2.1 Normal Acceleration (<span class="math-inline">a</span><sub>n</sub>) &amp; Angular Velocity of the Tangent Vector</h3>
+            <p>
+                Decomposing the heliocentric gravitational acceleration <span class="math-roman"><strong>a</strong> = &minus;(&mu;/<em>r</em><sup>2</sup>) <strong>r&#770;</strong></span> into tangential (<span class="math-roman"><strong>T&#770;</strong></span>) and inward principal normal (<span class="math-roman"><strong>N&#770;</strong></span>) Frenet&ndash;Serret components relates <span class="math-inline">&rho;</span> directly to the orbital speed <span class="math-roman"><em>v</em> = &radic;(&mu;(2/<em>r</em> &minus; 1/<em>a</em>))</span> and flight-path angle <span class="math-inline">&gamma;</span>:
+            </p>
+            <div class="equation-box">
+                <span class="math-inline">a</span><sub>n</sub> =
+                <span class="frac">
+                    <span><span class="math-inline">v</span><sup>2</sup></span>
+                    <span><span class="math-inline">&rho;</span></span>
+                </span>
+                =
+                <span class="frac">
+                    <span><span class="math-inline">&mu;</span></span>
+                    <span><span class="math-inline">r</span><sup>2</sup></span>
+                </span>
+                cos <span class="math-inline">&gamma;</span>
+                &nbsp;&nbsp;&rArr;&nbsp;&nbsp;
+                <span class="math-inline">&rho;</span> =
+                <span class="frac">
+                    <span><span class="math-inline">r</span><sup>2</sup> <span class="math-inline">v</span><sup>2</sup></span>
+                    <span><span class="math-inline">&mu;</span> cos <span class="math-inline">&gamma;</span></span>
+                </span>
+                =
+                <span class="frac">
+                    <span>(<span class="math-inline">r</span> <span class="math-inline">v</span>)<sup>3</sup></span>
+                    <span><span class="math-inline">&mu;</span> <span class="math-inline">h</span></span>
+                </span>
+            </div>
+            <p>
+                where <span class="math-roman"><em>h</em> = <em>r v</em> cos <em>&gamma;</em> = &radic;(&mu;<em>p</em>)</span> is the constant specific orbital angular momentum. Because <span class="math-roman"><em>&rho;</em> = <em>v</em> / |<em>&psi;&#775;</em>|</span>, <span class="math-inline">&rho;</span> also determines the instantaneous rate <span class="math-roman"><em>&psi;&#775;</em> = <em>v</em> / <em>&rho;</em></span> at which the heliocentric velocity vector rotates in the orbital plane.
+            </p>
+
+            <h3>2.2 Circumference-Averaged Radius of Curvature (<span class="math-roman">&#10216;<em>&rho;</em>&#10217;<sub>arc</sub></span>)</h3>
+            <p>
+                Integrating <span class="math-inline">&rho;</span> with respect to the tangent direction angle <span class="math-inline">&psi;</span> around one full closed revolution (<span class="math-roman">0 &le; <em>&psi;</em> &lt; 2&pi;</span>) yields the total orbital perimeter <span class="math-roman"><em>L</em> = &int;<sub>0</sub><sup>2&pi;</sup> <em>&rho;</em>(<em>&psi;</em>) <em>d&psi;</em> = 4<em>a E</em><sub>ell</sub>(<em>e</em>)</span>, so the tangent-angle-averaged radius of curvature is <span class="math-roman"><em>L</em>/(2&pi;)</span>.
+            </p>
+        </section>
+
+        <section>
+            <h2>3. Specific Status and Derivation in the MPCORB Catalog</h2>
+            <p>
+                In the <strong>MPCORB</strong> (<em>Minor Planet Center Orbit</em>) database published by the International Astronomical Union&rsquo;s Minor Planet Center (IAU MPC):
+            </p>
+
+            <ul>
+                <li>
+                    <strong>Implicit Derived Quantity (Not Tabulated):</strong> The orbital radius of curvature <span class="math-inline">&rho;</span> is <em>not</em> stored as an explicit column in <code>MPCORB.DAT</code>. Instead, its static extremal values (<span class="math-roman"><em>&rho;</em><sub>min</sub> = <em>p</em></span> and <span class="math-roman"><em>&rho;</em><sub>max</sub> = <em>a</em><sup>2</sup>/<em>b</em></span>) are computed solely from the osculating <strong>numeric eccentricity</strong> <span class="math-inline">e</span> (columns <code>71–79</code>, format <code>F9.7</code>) and <strong>semi-major axis</strong> <span class="math-inline">a</span> (columns <code>93–103</code>, format <code>F11.7</code>), while the instantaneous epoch value <span class="math-inline">&rho;</span>(<span class="math-inline">t</span><sub>0</sub>) additionally requires solving Kepler&rsquo;s equation <span class="math-roman"><em>M</em><sub>0</sub> = <em>E</em><sub>0</sub> &minus; <em>e</em> sin <em>E</em><sub>0</sub></span> from the tabulated <strong>mean anomaly</strong> <span class="math-inline">M</span><sub>0</sub> (columns <code>27–35</code>, format <code>F9.5</code>).
+                </li>
+                <li>
+                    <strong>Universal Finiteness &amp; Positivity Across All <code>MPCORB.DAT</code> Entries:</strong> Because every record in <code>MPCORB.DAT</code> represents a bound elliptic orbit (<span class="math-roman">0 &le; <em>e</em> &lt; 1</span>, <span class="math-roman"><em>a</em> &gt; 0</span>), <span class="math-inline">&rho;</span>(<span class="math-inline">E</span>) is strictly positive and finite everywhere along every cataloged orbit, bounded within <span class="math-roman"><em>a</em>(1 &minus; <em>e</em><sup>2</sup>) &le; <em>&rho;</em>(<em>E</em>) &le; <em>a</em> / &radic;(1 &minus; <em>e</em><sup>2</sup>)</span>.
+                </li>
+                <li>
+                    <strong>Practical Applications in Astrodynamics &amp; Orbit Determination:</strong>
+                    <ul>
+                        <li><em>Numerical Integrator Step-Size Control:</em> Local truncation error in RK4/RKF45 orbital propagators scales with trajectory curvature <span class="math-roman"><em>&kappa;</em> = 1/<em>&rho;</em></span>, peaking at perihelion where <span class="math-roman"><em>&rho;</em> = <em>&rho;</em><sub>min</sub> = <em>p</em></span>.</li>
+                        <li><em>Short-Arc &amp; Vaisala / Gauss Orbit Determination:</em> Distinguishing nearly rectilinear short-arc trajectories (<span class="math-roman"><em>&rho;</em> &gg; <em>r</em></span>, near co-vertices of high-<span class="math-inline">e</span> orbits) from strongly curved apsidal passages (<span class="math-roman"><em>&rho;</em> = <em>p</em></span>).</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <div class="note-callout">
+                <strong>Numerical Evaluation Note:</strong> When computing <span class="math-inline">&rho;</span>(<span class="math-inline">E</span>) in double precision for high-eccentricity objects (<span class="math-roman"><em>e</em> &rarr; 1<sup>&minus;</sup></span>) near perihelion (<span class="math-roman">cos <em>E</em> &approx; 1</span>), rewrite <span class="math-roman">1 &minus; <em>e</em><sup>2</sup> cos<sup>2</sup> <em>E</em> = (1 &minus; <em>e</em><sup>2</sup>) + <em>e</em><sup>2</sup> sin<sup>2</sup> <em>E</em></span> using the factored identity <span class="math-roman">1 &minus; <em>e</em><sup>2</sup> = (1 &minus; <em>e</em>)(1 + <em>e</em>)</span> to prevent catastrophic cancellation when <span class="math-roman"><em>e</em> &gt; 0.9999</span>.
+            </div>
+
+            <div class="calculator-box">
+                <h4>Interactive MPCORB Radius of Curvature (<span class="math-inline">&rho;</span>) Calculator</h4>
+                <div class="calc-grid">
+                    <div class="calc-field">
+                        <label for="inputA">Semi-Major Axis <em>a</em> (AU, Cols 93&ndash;103)</label>
+                        <input type="number" id="inputA" step="0.0000001" min="0.01" value="2.7653485">
+                    </div>
+                    <div class="calc-field">
+                        <label for="inputE">Numeric Eccentricity <em>e</em> (Cols 71&ndash;79)</label>
+                        <input type="number" id="inputE" step="0.0000001" min="0" max="0.9999999" value="0.0785354">
+                    </div>
+                    <div class="calc-field">
+                        <label for="inputM">Mean Anomaly <em>M</em> (deg, Cols 27&ndash;35)</label>
+                        <input type="number" id="inputM" step="0.00001" value="231.53975">
+                    </div>
+                    <div class="calc-output" id="calcResult">
+                        Epoch radius of curvature <em>&rho;</em>(<em>M</em>): <strong>2.7640710</strong> AU<br>
+                        Apsidal min <em>&rho;</em><sub>min</sub> = <em>p</em>: <strong>2.7482921</strong> AU<br>
+                        Co-vertex max <em>&rho;</em><sub>max</sub> = <em>a</em>&sup2;/<em>b</em>: <strong>2.7739162</strong> AU
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Fixed-Width Source Columns &amp; Curvature Metrics in <code>MPCORB.DAT</code></h2>
+            <p>
+                The table below summarizes the fixed-width columns (1-based indexing) in a standard 202-character <code>MPCORB.DAT</code> record required to compute the instantaneous and extremal radii of curvature:
+            </p>
+
+            <table class="spec-table">
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Columns (1-based)</th>
+                        <th>Python Slice (0-based)</th>
+                        <th>Fortran Format</th>
+                        <th>Unit &amp; Role</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong><code>M</code> (Mean anomaly)</strong></td>
+                        <td><code>27–35</code></td>
+                        <td><code>line[26:35]</code></td>
+                        <td><code>F9.5</code></td>
+                        <td>Degrees (<span class="math-roman">&deg;</span>); solved via Kepler&rsquo;s eq. for epoch <span class="math-inline">E</span><sub>0</sub></td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>e</code> (Numeric eccentricity)</strong></td>
+                        <td><code>71–79</code></td>
+                        <td><code>line[70:79]</code></td>
+                        <td><code>F9.7</code></td>
+                        <td>Dimensionless (<span class="math-roman">0 &le; <em>e</em> &lt; 1</span>); controls <span class="math-roman"><em>&rho;</em><sub>max</sub>/<em>&rho;</em><sub>min</sub> = (1 &minus; <em>e</em><sup>2</sup>)<sup>&minus;3/2</sup></span></td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>a</code> (Semi-major axis)</strong></td>
+                        <td><code>93–103</code></td>
+                        <td><code>line[92:103]</code></td>
+                        <td><code>F11.7</code></td>
+                        <td>Astronomical Units (<span class="math-roman">AU</span>); linear scale factor of <span class="math-inline">&rho;</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>&rho;<sub>min</sub></code> (Apsidal curvature radius)</strong></td>
+                        <td><em>Derived (not stored)</em></td>
+                        <td><code>a * (1.0 - e*e)</code></td>
+                        <td><em>Computed</em></td>
+                        <td>Astronomical Units (<span class="math-roman">AU</span>); equals semi-latus rectum <span class="math-inline">p</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>&rho;<sub>max</sub></code> (Co-vertex curvature radius)</strong></td>
+                        <td><em>Derived (not stored)</em></td>
+                        <td><code>a / sqrt(1.0 - e*e)</code></td>
+                        <td><em>Computed</em></td>
+                        <td>Astronomical Units (<span class="math-roman">AU</span>); equals <span class="math-roman"><em>a</em><sup>2</sup>/<em>b</em></span> at <span class="math-roman"><em>E</em> = &plusmn;&pi;/2</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>&rho;(E<sub>0</sub>)</code> (Epoch curvature radius)</strong></td>
+                        <td><em>Derived (not stored)</em></td>
+                        <td><code>a * (1 - e**2*cos(E0)**2)**1.5 / sqrt(1 - e**2)</code></td>
+                        <td><em>Computed</em></td>
+                        <td>Astronomical Units (<span class="math-roman">AU</span>); osculating curvature radius at epoch</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Example Record Evaluation (<code>00001</code> — (1) Ceres)</h3>
+            <pre>Col:  ... 27      35 ... 71      79 ... 93       103 ...
+Data: ... 231.53975  ... 0.0785354  ... 2.7653485    ...
+          └───┬───┘      └───┬───┘      └────┬────┘
+            M (deg)          e             a (AU)
+
+Radius of Curvature Evaluation for (1) Ceres:
+  Eccentric anomaly at epoch (E_0)          = KeplerSolve(231.53975 deg, e) = 228.08161 deg
+  Epoch radius of curvature  rho(E_0)       = a*(1 - e^2*cos^2 E_0)^1.5 / sqrt(1-e^2) = 2.7640710 AU
+  Minimum curvature radius   rho_min (= p)  = a * (1 - e^2)                           = 2.7482921 AU
+  Maximum curvature radius   rho_max (=a^2/b)= a / sqrt(1 - e^2)                      = 2.7739162 AU
+  Curvature span ratio       rho_max/rho_min= (1 - e^2)^(-3/2)                        = 1.0093237</pre>
+        </section>
+
+        <footer>
+            Self-contained scientific reference document (zero external dependencies) &bull; Conventions aligned with IAU Minor Planet Center (MPC) <code>MPCORB.DAT</code> specifications.
+        </footer>
+    </div>
+
+    <script>
+        (function () {
+            const inputA = document.getElementById("inputA");
+            const inputE = document.getElementById("inputE");
+            const inputM = document.getElementById("inputM");
+            const calcResult = document.getElementById("calcResult");
+
+            function solveKepler(mRad, e) {
+                let m = mRad % (2.0 * Math.PI);
+                if (m < 0) m += 2.0 * Math.PI;
+                let E = e < 0.8 ? m : Math.PI;
+                for (let iter = 0; iter < 50; iter++) {
+                    const f = E - e * Math.sin(E) - m;
+                    const fp = 1.0 - e * Math.cos(E);
+                    const dE = f / fp;
+                    E -= dE;
+                    if (Math.abs(dE) < 1e-15) break;
+                }
+                return E;
+            }
+
+            function updateCalculation() {
+                const a = parseFloat(inputA.value);
+                const e = parseFloat(inputE.value);
+                const mDeg = parseFloat(inputM.value);
+
+                if (!isFinite(a) || a <= 0) {
+                    calcResult.innerHTML = "Please enter a valid positive semi-major axis <em>a</em> &gt; 0.";
+                    return;
+                }
+
+                if (!isFinite(e) || e < 0 || e >= 1) {
+                    calcResult.innerHTML = "Numeric eccentricity <em>e</em> must satisfy 0 &le; <em>e</em> &lt; 1 for an elliptic MPCORB record.";
+                    return;
+                }
+
+                if (!isFinite(mDeg)) {
+                    calcResult.innerHTML = "Please enter a valid mean anomaly <em>M</em> in degrees.";
+                    return;
+                }
+
+                const oneMinusE2 = (1.0 - e) * (1.0 + e);
+                const sqrtOneMinusE2 = Math.sqrt(oneMinusE2);
+
+                const rhoMin = a * oneMinusE2;       // Semi-latus rectum p
+                const rhoMax = a / sqrtOneMinusE2;   // a^2 / b
+
+                const mRad = (mDeg * Math.PI) / 180.0;
+                const E = solveKepler(mRad, e);
+                const sinE = Math.sin(E);
+                const numeratorBase = oneMinusE2 + e * e * sinE * sinE;
+                const rhoEpoch = (a * Math.pow(numeratorBase, 1.5)) / sqrtOneMinusE2;
+
+                calcResult.innerHTML =
+                    `Epoch radius of curvature <em>&rho;</em>(<em>M</em>): <strong>${rhoEpoch.toFixed(7)}</strong> AU<br>` +
+                    `Apsidal min <em>&rho;</em><sub>min</sub> = <em>p</em>: <strong>${rhoMin.toFixed(7)}</strong> AU<br>` +
+                    `Co-vertex max <em>&rho;</em><sub>max</sub> = <em>a</em>&sup2;/<em>b</em>: <strong>${rhoMax.toFixed(7)}</strong> AU`;
+            }
+
+            inputA.addEventListener("input", updateCalculation);
+            inputE.addEventListener("input", updateCalculation);
+            inputM.addEventListener("input", updateCalculation);
+            updateCalculation();
+        })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orbital Perimeter (L) in the Context of MPCORB</title>
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #334155;
+            --accent-color: #1e3a8a;
+            --accent-light: #eff6ff;
+            --border-color: #cbd5e1;
+            --code-bg: #f1f5f9;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.7;
+            color: var(--text-primary);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 3rem 3.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            border: 1px solid var(--border-color);
+        }
+
+        header {
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .badge {
+            display: inline-block;
+            background-color: var(--accent-light);
+            color: var(--accent-color);
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            padding: 0.3rem 0.75rem;
+            border-radius: 4px;
+            border: 1px solid #bfdbfe;
+            margin-bottom: 0.75rem;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin: 0.25rem 0 0.5rem 0;
+            color: var(--text-primary);
+            line-height: 1.25;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            margin: 0;
+        }
+
+        h2 {
+            font-size: 1.35rem;
+            color: var(--accent-color);
+            margin-top: 2.25rem;
+            margin-bottom: 0.85rem;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 0.35rem;
+        }
+
+        h3 {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        p {
+            margin-bottom: 1.15rem;
+            color: var(--text-secondary);
+            text-align: justify;
+        }
+
+        ul, ol {
+            margin-bottom: 1.25rem;
+            padding-left: 1.5rem;
+            color: var(--text-secondary);
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        .equation-box {
+            background-color: var(--code-bg);
+            border-left: 4px solid var(--accent-color);
+            padding: 1.15rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 6px 6px 0;
+            overflow-x: auto;
+            font-family: "Cambria Math", "STIX Two Math", "Times New Roman", Times, serif;
+            font-size: 1.18rem;
+            color: var(--text-primary);
+            text-align: center;
+        }
+
+        .math-inline {
+            font-family: "Cambria Math", "STIX Two Math", "Times New Roman", Times, serif;
+            font-style: italic;
+            font-size: 1.05em;
+            color: var(--text-primary);
+        }
+
+        .math-roman {
+            font-family: "Cambria Math", "STIX Two Math", "Times New Roman", Times, serif;
+            font-style: normal;
+            font-size: 1.02em;
+            color: var(--text-primary);
+        }
+
+        .frac {
+            display: inline-flex;
+            flex-direction: column;
+            vertical-align: middle;
+            text-align: center;
+            margin: 0 0.25rem;
+        }
+
+        .frac > span:first-child {
+            border-bottom: 1px solid var(--text-primary);
+            padding: 0 0.3rem 0.15rem 0.3rem;
+        }
+
+        .frac > span:last-child {
+            padding: 0.15rem 0.3rem 0 0.3rem;
+        }
+
+        .sqrt-wrap {
+            display: inline-flex;
+            align-items: stretch;
+        }
+
+        .sqrt-rad {
+            font-size: 1.15em;
+            line-height: 1;
+            padding-right: 1px;
+        }
+
+        .sqrt-body {
+            border-top: 1px solid var(--text-primary);
+            padding: 0 0.2rem;
+        }
+
+        .spec-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.92rem;
+        }
+
+        .spec-table th, .spec-table td {
+            border: 1px solid var(--border-color);
+            padding: 0.75rem 1rem;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        .spec-table th {
+            background-color: var(--accent-color);
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .spec-table tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        code {
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+            background-color: var(--code-bg);
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.88em;
+            color: #0f172a;
+        }
+
+        pre {
+            background-color: #1e293b;
+            color: #f8fafc;
+            padding: 1rem 1.25rem;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+        }
+
+        .note-callout {
+            background-color: #fffbeb;
+            border-left: 4px solid #d97706;
+            padding: 1rem 1.25rem;
+            margin: 1.5rem 0;
+            border-radius: 0 6px 6px 0;
+            color: #78350f;
+            font-size: 0.95rem;
+        }
+
+        .terminology-callout {
+            background-color: var(--accent-light);
+            border-left: 4px solid var(--accent-color);
+            padding: 1rem 1.25rem;
+            margin: 1.5rem 0;
+            border-radius: 0 6px 6px 0;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+        }
+
+        .diagram-box {
+            background-color: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+
+        .diagram-caption {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+        }
+
+        .calculator-box {
+            background-color: var(--accent-light);
+            border: 1px solid #bfdbfe;
+            border-radius: 8px;
+            padding: 1.25rem 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .calculator-box h4 {
+            margin: 0 0 0.75rem 0;
+            color: var(--accent-color);
+            font-size: 1rem;
+        }
+
+        .calc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            align-items: end;
+        }
+
+        .calc-field label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.3rem;
+        }
+
+        .calc-field input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 0.5rem 0.65rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 0.95rem;
+            font-family: inherit;
+        }
+
+        .calc-output {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 0.5rem 0.75rem;
+            font-size: 0.92rem;
+            color: var(--text-primary);
+        }
+
+        footer {
+            margin-top: 3rem;
+            padding-top: 1.25rem;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.85rem;
+            color: #64748b;
+            text-align: center;
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 1.75rem 1.25rem;
+            }
+            h1 {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="badge">Celestial Mechanics &amp; Astrometry Specification</div>
+            <h1>Orbital Perimeter (<span class="math-inline">L</span> or <span class="math-inline">U</span>) in the Context of the MPCORB Database</h1>
+            <p class="subtitle">Scientific Definition, Complete Elliptic Integral Formulation, Rapid Series &amp; AGM Evaluation, and Derivation from MPCORB</p>
+        </header>
+
+        <section>
+            <h2>1. Fundamental Differential-Geometric &amp; Astrodynamical Definition</h2>
+            <div class="terminology-callout">
+                <strong>Definition &amp; Nomenclature:</strong> In differential geometry and two-body celestial mechanics, the <strong>orbital perimeter</strong> (also termed the <em>orbital circumference</em>, <em>elliptic arc-length circumference</em>, or in German astrometry <em>Bahnumfang</em>)—typically denoted by <span class="math-inline">L</span>, <span class="math-inline">U</span>, or <span class="math-inline">C</span>—is the total closed Euclidean arc length traversed by an orbiting body along its instantaneous osculating Keplerian ellipse during one complete orbital revolution (<span class="math-roman">0 &le; <em>E</em> &lt; 2&pi;</span>). It is a dimensional length quantity expressed in Astronomical Units (<span class="math-roman">AU</span>).
+            </div>
+            <p>
+                Parametrizing a closed elliptic Keplerian orbit (<span class="math-roman">0 &le; <em>e</em> &lt; 1</span>) of semi-major axis <span class="math-inline">a</span> and semi-minor axis <span class="math-roman"><em>b</em> = <em>a</em>&radic;(1 &minus; <em>e</em><sup>2</sup>)</span> in perifocal Cartesian coordinates via the eccentric anomaly <span class="math-inline">E</span> as <span class="math-roman"><em>x</em><sub>&omega;</sub>(<em>E</em>) = <em>a</em> cos <em>E</em> &minus; <em>ae</em></span>, <span class="math-roman"><em>y</em><sub>&omega;</sub>(<em>E</em>) = <em>b</em> sin <em>E</em></span>, the differential Euclidean line element is:
+            </p>
+            <div class="equation-box">
+                <span class="math-inline">ds</span> =
+                <span class="sqrt-wrap">
+                    <span class="sqrt-rad">&radic;</span>
+                    <span class="sqrt-body">
+                        <span class="math-inline">dx</span><sub>&omega;</sub><sup>2</sup> + <span class="math-inline">dy</span><sub>&omega;</sub><sup>2</sup>
+                    </span>
+                </span>
+                =
+                <span class="sqrt-wrap">
+                    <span class="sqrt-rad">&radic;</span>
+                    <span class="sqrt-body">
+                        <span class="math-inline">a</span><sup>2</sup> sin<sup>2</sup> <span class="math-inline">E</span> + <span class="math-inline">b</span><sup>2</sup> cos<sup>2</sup> <span class="math-inline">E</span>
+                    </span>
+                </span>
+                <span class="math-inline">dE</span>
+                = <span class="math-inline">a</span>
+                <span class="sqrt-wrap">
+                    <span class="sqrt-rad">&radic;</span>
+                    <span class="sqrt-body">
+                        1 &minus; <span class="math-inline">e</span><sup>2</sup> cos<sup>2</sup> <span class="math-inline">E</span>
+                    </span>
+                </span>
+                <span class="math-inline">dE</span>
+            </div>
+            <p>
+                Integrating <span class="math-inline">ds</span> around the full closed orbit (<span class="math-roman"><em>E</em> &isin; [0, 2&pi;)</span>, corresponding to four symmetric quadrant arcs of length <span class="math-roman"><em>L</em>/4</span> between perihelion and the minor-axis crossings) yields the exact expression for the <strong>orbital perimeter</strong> <span class="math-inline">L</span> in terms of the <strong>complete elliptic integral of the second kind</strong> <span class="math-roman"><em>E</em><sub>ell</sub>(<em>e</em>)</span>:
+            </p>
+            <div class="equation-box">
+                <span class="math-inline">L</span> =
+                <span class="math-roman">&#8750;</span> <span class="math-inline">ds</span>
+                = 4 <span class="math-inline">a</span>
+                <span class="math-roman">&int;</span><sub>0</sub><sup>&pi;/2</sup>
+                <span class="sqrt-wrap">
+                    <span class="sqrt-rad">&radic;</span>
+                    <span class="sqrt-body">
+                        1 &minus; <span class="math-inline">e</span><sup>2</sup> sin<sup>2</sup> <span class="math-inline">&phi;</span>
+                    </span>
+                </span>
+                <span class="math-inline">d&phi;</span>
+                = 4 <span class="math-inline">a</span> <span class="math-roman"><em>E</em><sub>ell</sub>(<em>e</em>)</span>
+            </div>
+            <p>
+                where <span class="math-roman"><em>&phi;</em> = &pi;/2 &minus; <em>E</em></span> is the complementary eccentric angle and <span class="math-roman"><em>E</em><sub>ell</sub>(<em>e</em>) = <em>E</em><sub>ell</sub>(<em>m</em> = <em>e</em><sup>2</sup>)</span> denotes Legendre&rsquo;s complete elliptic integral of the second kind with elliptic modulus <span class="math-inline">e</span> (parameter <span class="math-roman"><em>m</em> = <em>e</em><sup>2</sup></span>). Because <span class="math-roman"><em>E</em><sub>ell</sub>(<em>e</em>)</span> cannot be expressed in finite elementary algebraic functions for <span class="math-roman">0 &lt; <em>e</em> &lt; 1</span>, <span class="math-inline">L</span> exhibits the following strict monotonic bounds and asymptotic limits:
+            </p>
+            <ul>
+                <li><strong>Strict Monotonic Bounds (<span class="math-roman">4<em>a</em> &lt; <em>L</em> &le; 2&pi;<em>a</em></span>):</strong> As numeric eccentricity <span class="math-inline">e</span> increases from <span class="math-roman">0</span> to <span class="math-roman">1<sup>&minus;</sup></span> at fixed semi-major axis <span class="math-inline">a</span>, <span class="math-roman"><em>E</em><sub>ell</sub>(<em>e</em>)</span> decreases strictly monotonically from <span class="math-roman">&pi;/2</span> to <span class="math-roman">1</span>, so the orbital perimeter shrinks monotonically from <span class="math-roman">2&pi;<em>a</em> &approx; 6.2831853<em>a</em></span> down to <span class="math-roman">4<em>a</em></span>.</li>
+                <li><strong>Circular Limit (<span class="math-roman"><em>e</em> = 0 &rArr; <em>L</em> = 2&pi;<em>a</em></span>):</strong> Since <span class="math-roman"><em>E</em><sub>ell</sub>(0) = &pi;/2</span>, the orbital perimeter reduces to the classical circle circumference <span class="math-roman"><em>L</em> = 2&pi;<em>a</em></span>.</li>
+                <li><strong>Degenerate Needle Limit (<span class="math-roman"><em>e</em> &rarr; 1<sup>&minus;</sup> &rArr; <em>L</em> &rarr; 4<em>a</em><sup>+</sup></span>):</strong> Since <span class="math-roman"><em>E</em><sub>ell</sub>(1) = 1</span>, an infinitely flattened ellipse of major axis <span class="math-roman">2<em>a</em></span> collapses into a double traversal of the line segment between perihelion and aphelion of total round-trip length <span class="math-roman">2 &times; (2<em>a</em>) = 4<em>a</em></span>.</li>
+                <li><strong>Parabolic Divergence (<span class="math-roman"><em>e</em> = 1</span>):</strong> Because a parabola is an open curve (<span class="math-roman"><em>a</em> &rarr; &infin;</span>), its total orbital perimeter is infinite (<span class="math-roman"><em>L</em> = +&infin;</span>).</li>
+            </ul>
+
+            <div class="diagram-box">
+                <svg width="560" height="245" viewBox="0 0 560 245" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Geometric diagram illustrating the orbital perimeter L = 4a E(e) decomposed into four symmetric quadrant arcs of length L/4 between perihelion, aphelion, and the minor-axis crossings">
+                    <rect x="0" y="0" width="560" height="245" fill="#f8fafc" rx="6"/>
+                    <!-- Orbit Ellipse: center O = (280, 118), rx = 200 (a), ry = 100 (b) -->
+                    <!-- F1 (Sun) at x = 280 + 173.21 = 453.21 -->
+                    <ellipse cx="280" cy="118" rx="200" ry="100" fill="#eff6ff" stroke="#1e3a8a" stroke-width="3"/>
+                    <!-- Highlighted upper-right quadrant arc (L/4) from minor-axis crossing (280,18) to perihelion (480,118) -->
+                    <path d="M 280 18 A 200 100 0 0 1 480 118" fill="none" stroke="#dc2626" stroke-width="4.2"/>
+                    <!-- Major and minor axes -->
+                    <line x1="65" y1="118" x2="495" y2="118" stroke="#64748b" stroke-width="1" stroke-dasharray="4,4"/>
+                    <line x1="280" y1="12" x2="280" y2="224" stroke="#64748b" stroke-width="1" stroke-dasharray="4,4"/>
+                    <!-- Center O -->
+                    <circle cx="280" cy="118" r="3.5" fill="#0f172a"/>
+                    <text x="272" y="133" text-anchor="end" font-family="sans-serif" font-size="10" fill="#0f172a" font-weight="bold">O</text>
+                    <!-- Primary focus F1 (Sun) -->
+                    <circle cx="453.2" cy="118" r="7" fill="#f59e0b" stroke="#b45309" stroke-width="1.5"/>
+                    <text x="448" y="137" text-anchor="end" font-family="sans-serif" font-size="10" fill="#92400e" font-weight="bold">Sun (F&#8321;)</text>
+                    <!-- Quadrant boundary markers -->
+                    <circle cx="480" cy="118" r="4" fill="#dc2626"/>
+                    <text x="488" y="114" text-anchor="start" font-family="sans-serif" font-size="10" fill="#0f172a" font-weight="bold">Perihelion (E = 0)</text>
+                    <circle cx="280" cy="18" r="4" fill="#dc2626"/>
+                    <text x="280" y="11" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#0f172a" font-weight="bold">Minor-Axis Crossing (E = &pi;/2, r = a)</text>
+                    <circle cx="80" cy="118" r="4" fill="#1e3a8a"/>
+                    <text x="72" y="114" text-anchor="end" font-family="sans-serif" font-size="10" fill="#0f172a" font-weight="bold">Aphelion (E = &pi;)</text>
+                    <circle cx="280" cy="218" r="4" fill="#1e3a8a"/>
+                    <text x="280" y="234" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#0f172a" font-weight="bold">Minor-Axis Crossing (E = 3&pi;/2)</text>
+                    <!-- Quadrant arc labels -->
+                    <text x="415" y="45" text-anchor="start" font-family="serif" font-size="13" fill="#dc2626" font-weight="bold">Quadrant Arc = L / 4 = a E(&#101;)</text>
+                    <text x="165" y="55" text-anchor="end" font-family="serif" font-size="12" fill="#1e3a8a">L / 4</text>
+                    <text x="165" y="190" text-anchor="end" font-family="serif" font-size="12" fill="#1e3a8a">L / 4</text>
+                    <text x="395" y="190" text-anchor="start" font-family="serif" font-size="12" fill="#1e3a8a">L / 4</text>
+                    <!-- Central summary label -->
+                    <text x="280" y="96" text-anchor="middle" font-family="serif" font-size="14" fill="#1e3a8a" font-weight="bold">Total Orbital Perimeter L = 4a E(&#101;) &isin; (4a, 2&pi;a]</text>
+                </svg>
+                <div class="diagram-caption">
+                    Figure 1: Decomposition of the closed orbital perimeter <span class="math-roman"><em>L</em> = 4<em>a</em> <em>E</em><sub>ell</sub>(<em>e</em>)</span> into four congruent quadrant arc segments of length <span class="math-roman"><em>L</em>/4</span> bounded by the apsides (<span class="math-roman"><em>E</em> = 0, &pi;</span>) and minor-axis crossings (<span class="math-roman"><em>E</em> = &pi;/2, 3&pi;/2</span>).
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>2. Exact Series Expansions &amp; High-Precision Algorithms</h2>
+            <p>
+                Because <span class="math-roman"><em>E</em><sub>ell</sub>(<em>e</em>)</span> is non-elementary, scientific astrodynamics libraries evaluate the orbital perimeter <span class="math-inline">L</span> using rapidly convergent series or iterative quadrature schemes:
+            </p>
+
+            <h3>2.1 Ivory&ndash;Bessel Series in the Third Flattening (<span class="math-inline">h</span>)</h3>
+            <p>
+                Defining the dimensionless geometric shape parameter <span class="math-inline">h</span> (the squared third flattening, <span class="math-inline">n</span><sup>2</sup> in geodesy) in terms of <span class="math-inline">a</span> and <span class="math-inline">b</span>:
+            </p>
+            <div class="equation-box">
+                <span class="math-inline">h</span> =
+                <span class="frac">
+                    <span>(<span class="math-inline">a</span> &minus; <span class="math-inline">b</span>)<sup>2</sup></span>
+                    <span>(<span class="math-inline">a</span> + <span class="math-inline">b</span>)<sup>2</sup></span>
+                </span>
+                =
+                <span class="frac">
+                    <span>
+                        (1 &minus;
+                        <span class="sqrt-wrap">
+                            <span class="sqrt-rad">&radic;</span>
+                            <span class="sqrt-body">1 &minus; <span class="math-inline">e</span><sup>2</sup></span>
+                        </span>
+                        )<sup>2</sup>
+                    </span>
+                    <span>
+                        (1 +
+                        <span class="sqrt-wrap">
+                            <span class="sqrt-rad">&radic;</span>
+                            <span class="sqrt-body">1 &minus; <span class="math-inline">e</span><sup>2</sup></span>
+                        </span>
+                        )<sup>2</sup>
+                    </span>
+                </span>
+                =
+                <span class="frac">
+                    <span><span class="math-inline">e</span><sup>4</sup></span>
+                    <span>
+                        (1 +
+                        <span class="sqrt-wrap">
+                            <span class="sqrt-rad">&radic;</span>
+                            <span class="sqrt-body">1 &minus; <span class="math-inline">e</span><sup>2</sup></span>
+                        </span>
+                        )<sup>4</sup>
+                    </span>
+                </span>
+                &nbsp;&isin;&nbsp;[0, 1)
+            </div>
+            <p>
+                Ivory (1796) and Bessel (1825) established the rapidly converging binomial power series in <span class="math-inline">h</span>:
+            </p>
+            <div class="equation-box">
+                <span class="math-inline">L</span> = <span class="math-inline">&pi;</span> (<span class="math-inline">a</span> + <span class="math-inline">b</span>)
+                <span class="math-roman">&sum;</span><sub><span class="math-inline">k</span>=0</sub><sup>&infin;</sup>
+                <span class="frac">
+                    <span>[(2<span class="math-inline">k</span>)!]<sup>2</sup></span>
+                    <span>(2<sup><span class="math-inline">k</span></sup> <span class="math-inline">k</span>!)<sup>4</sup> (1 &minus; 2<span class="math-inline">k</span>)<sup>2</sup></span>
+                </span>
+                <span class="math-inline">h</span><sup><span class="math-inline">k</span></sup>
+                = <span class="math-inline">&pi;</span> (<span class="math-inline">a</span> + <span class="math-inline">b</span>)
+                <span class="math-roman">[</span>1 +
+                <span class="frac"><span>1</span><span>4</span></span> <span class="math-inline">h</span> +
+                <span class="frac"><span>1</span><span>64</span></span> <span class="math-inline">h</span><sup>2</sup> +
+                <span class="frac"><span>1</span><span>256</span></span> <span class="math-inline">h</span><sup>3</sup> +
+                <span class="frac"><span>25</span><span>16384</span></span> <span class="math-inline">h</span><sup>4</sup> + &middot;&middot;&middot;<span class="math-roman">]</span>
+            </div>
+            <p>
+                Notice that for main-belt asteroids (<span class="math-roman"><em>e</em> &approx; 0.15</span>), <span class="math-roman"><em>h</em> &approx; 3.2 &times; 10<sup>&minus;5</sup></span>, so truncating after the <span class="math-inline">h</span><sup>3</sup> term already yields full 16-digit IEEE-754 double precision (<span class="math-roman">&lt; 10<sup>&minus;18</sup></span> relative error).
+            </p>
+
+            <h3>2.2 Gauss&ndash;Kummer / Arithmetic-Geometric Mean (AGM) Quadrature</h3>
+            <p>
+                For extreme high-eccentricity comets or Damocloids in <code>MPCORB.DAT</code> (<span class="math-roman"><em>e</em> &rarr; 1<sup>&minus;</sup></span>, where <span class="math-roman"><em>h</em> &rarr; 1<sup>&minus;</sup></span> slows series convergence), the <strong>Arithmetic-Geometric Mean (AGM)</strong> algorithm computes <span class="math-roman"><em>E</em><sub>ell</sub>(<em>e</em>)</span> to machine precision in 4&ndash;6 iterations via <span class="math-roman"><em>a</em><sub>0</sub> = 1</span>, <span class="math-roman"><em>b</em><sub>0</sub> = &radic;(1 &minus; <em>e</em><sup>2</sup>)</span>, <span class="math-roman"><em>c</em><sub>0</sub> = <em>e</em></span>, iterating <span class="math-roman"><em>a</em><sub><em>n</em>+1</sub> = (<em>a</em><sub><em>n</em></sub> + <em>b</em><sub><em>n</em></sub>)/2</span>, <span class="math-roman"><em>b</em><sub><em>n</em>+1</sub> = &radic;(<em>a</em><sub><em>n</em></sub><em>b</em><sub><em>n</em></sub>)</span>, <span class="math-roman"><em>c</em><sub><em>n</em>+1</sub> = (<em>a</em><sub><em>n</em></sub> &minus; <em>b</em><sub><em>n</em></sub>)/2</span> until <span class="math-roman"><em>c</em><sub><em>N</em></sub> &lt; 10<sup>&minus;16</sup></span>:
+            </p>
+            <div class="equation-box">
+                <span class="math-inline">L</span> =
+                <span class="frac">
+                    <span>2 <span class="math-inline">&pi;</span> <span class="math-inline">a</span></span>
+                    <span><span class="math-inline">a</span><sub><span class="math-inline">N</span></sub></span>
+                </span>
+                <span class="math-roman">[</span>1 &minus;
+                <span class="math-roman">&sum;</span><sub><span class="math-inline">n</span>=0</sub><sup><span class="math-inline">N</span></sup>
+                2<sup><span class="math-inline">n</span>&minus;1</sup> <span class="math-inline">c</span><sub><span class="math-inline">n</span></sub><sup>2</sup><span class="math-roman">]</span>
+            </div>
+
+            <h3>2.3 Ramanujan&rsquo;s Second Closed-Form Approximation</h3>
+            <p>
+                When lightweight analytical speed is prioritized over sub-nanometer accuracy across millions of catalog rows, Ramanujan&rsquo;s second formula provides an algebraic approximation accurate to better than <span class="math-roman">4 &times; 10<sup>&minus;9</sup></span> for all <span class="math-roman"><em>e</em> &le; 0.9</span> and <span class="math-roman">4 &times; 10<sup>&minus;4</sup></span> even as <span class="math-roman"><em>e</em> &rarr; 1<sup>&minus;</sup></span>:
+            </p>
+            <div class="equation-box">
+                <span class="math-inline">L</span> &approx; <span class="math-inline">&pi;</span> (<span class="math-inline">a</span> + <span class="math-inline">b</span>)
+                <span class="math-roman">[</span>1 +
+                <span class="frac">
+                    <span>3 <span class="math-inline">h</span></span>
+                    <span>
+                        10 +
+                        <span class="sqrt-wrap">
+                            <span class="sqrt-rad">&radic;</span>
+                            <span class="sqrt-body">4 &minus; 3 <span class="math-inline">h</span></span>
+                        </span>
+                    </span>
+                </span>
+                <span class="math-roman">]</span>
+            </div>
+
+            <h3>2.4 Time-Averaged Orbital Speed (<span class="math-inline">v&#772;</span>)</h3>
+            <p>
+                Combining the orbital perimeter <span class="math-inline">L</span> with the Keplerian sidereal orbital period <span class="math-roman"><em>P</em> = 2&pi;&radic;(<em>a</em><sup>3</sup>/&mu;)</span> yields the exact <strong>time-averaged scalar orbital speed</strong> <span class="math-inline">v&#772;</span> over one complete revolution (distinct from the circular speed <span class="math-roman"><em>v</em><sub>circ</sub> = &radic;(&mu;/<em>a</em>)</span> whenever <span class="math-roman"><em>e</em> &gt; 0</span>):
+            </p>
+            <div class="equation-box">
+                <span class="math-inline">v&#772;</span> =
+                <span class="frac">
+                    <span><span class="math-inline">L</span></span>
+                    <span><span class="math-inline">P</span></span>
+                </span>
+                =
+                <span class="frac">
+                    <span>4 <span class="math-inline">a</span> <span class="math-roman"><em>E</em><sub>ell</sub>(<em>e</em>)</span></span>
+                    <span>2 <span class="math-inline">&pi;</span> <span class="math-inline">a</span><sup>3/2</sup> / &radic;<span class="math-inline">&mu;</span></span>
+                </span>
+                =
+                <span class="frac">
+                    <span>2 <span class="math-roman"><em>E</em><sub>ell</sub>(<em>e</em>)</span></span>
+                    <span><span class="math-inline">&pi;</span></span>
+                </span>
+                <span class="sqrt-wrap">
+                    <span class="sqrt-rad">&radic;</span>
+                    <span class="sqrt-body">
+                        <span class="frac">
+                            <span><span class="math-inline">&mu;</span></span>
+                            <span><span class="math-inline">a</span></span>
+                        </span>
+                    </span>
+                </span>
+                &le; <span class="math-inline">v</span><sub>circ</sub>
+            </div>
+        </section>
+
+        <section>
+            <h2>3. Specific Status and Derivation in the MPCORB Catalog</h2>
+            <p>
+                In the <strong>MPCORB</strong> (<em>Minor Planet Center Orbit</em>) database published by the International Astronomical Union&rsquo;s Minor Planet Center (IAU MPC):
+            </p>
+
+            <ul>
+                <li>
+                    <strong>Implicit Derived Quantity (Not Tabulated):</strong> The orbital perimeter <span class="math-inline">L</span> is <em>not</em> tabulated in <code>MPCORB.DAT</code>. Instead, it is computed directly from the osculating <strong>numeric eccentricity</strong> <span class="math-inline">e</span> (columns <code>71–79</code>, format <code>F9.7</code>) and osculating <strong>semi-major axis</strong> <span class="math-inline">a</span> (columns <code>93–103</code>, format <code>F11.7</code>) via <span class="math-roman"><em>L</em> = 4<em>a</em> <em>E</em><sub>ell</sub>(<em>e</em>)</span>.
+                </li>
+                <li>
+                    <strong>Universal Finiteness Across All <code>MPCORB.DAT</code> Records:</strong> Because every record in <code>MPCORB.DAT</code> represents a bound elliptic orbit (<span class="math-roman">0 &le; <em>e</em> &lt; 1</span>, <span class="math-roman"><em>a</em> &gt; 0</span>), the orbital perimeter <span class="math-inline">L</span> is strictly finite, positive, and bounded by <span class="math-roman">4<em>a</em> &lt; <em>L</em> &le; 2&pi;<em>a</em></span> across 100% of catalog entries.
+                </li>
+                <li>
+                    <strong>Osculating Heliocentric Reference &amp; Unit:</strong> Evaluated from MPCORB elements at the record&rsquo;s packed <code>Epoch</code> (columns <code>21–25</code>) in the J2000.0 mean ecliptic frame, <span class="math-inline">L</span> represents the closed path length of the instantaneous osculating Keplerian ellipse (neglecting planetary perturbations over the cycle) expressed in <strong>Astronomical Units (<span class="math-roman">AU</span>)</strong> (<span class="math-roman">1 AU &equiv; 149,597,870,700 m</span>).
+                </li>
+                <li>
+                    <strong>Applications in Astrodynamics &amp; Spatial Indexing:</strong>
+                    <ul>
+                        <li><em>Time-Averaged Orbital Velocity:</em> Computing <span class="math-roman"><em>v&#772;</em> = <em>L</em> / <em>P</em></span> for dynamical population comparisons across orbital resonances and asteroid families.</li>
+                        <li><em>Uniform Arc-Length Discretization:</em> Computing the step size <span class="math-roman">&Delta;<em>s</em> = <em>L</em> / <em>N</em><sub>seg</sub></span> when subdividing an osculating orbit into <span class="math-inline">N</span><sub>seg</sub> equal-arc-length polyline segments for 3D visualization or minimum orbit intersection distance (MOID) coarse-grid sampling.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <div class="note-callout">
+                <strong>Numerical Stability Note:</strong> When computing <span class="math-inline">h</span> for the Ivory&ndash;Bessel series or Ramanujan&rsquo;s formula at small eccentricities (<span class="math-roman"><em>e</em> &rarr; 0</span>), avoid writing <code>(a - b) / (a + b)</code> directly, as subtracting <span class="math-roman"><em>a</em> &minus; <em>b</em></span> causes catastrophic floating-point cancellation when <span class="math-roman"><em>e</em> &sim; 10<sup>&minus;6</sup></span>. Instead, use the cancellation-free algebraic identity <code>double h = Math.Pow(e / (1.0 + Math.Sqrt(1.0 - e * e)), 4);</code>, which remains exact down to <span class="math-roman"><em>e</em> = 0</span>.
+            </div>
+
+            <div class="calculator-box">
+                <h4>Interactive MPCORB Orbital Perimeter (<span class="math-inline">L</span>) &amp; Mean Speed Calculator (AGM Quadrature)</h4>
+                <div class="calc-grid">
+                    <div class="calc-field">
+                        <label for="inputA">Semi-Major Axis <em>a</em> (AU, Cols 93&ndash;103)</label>
+                        <input type="number" id="inputA" step="0.0000001" min="0.01" value="2.7653485">
+                    </div>
+                    <div class="calc-field">
+                        <label for="inputE">Numeric Eccentricity <em>e</em> (Cols 71&ndash;79)</label>
+                        <input type="number" id="inputE" step="0.0000001" min="0" max="0.9999999" value="0.0785354">
+                    </div>
+                    <div class="calc-output" id="calcResult">
+                        Orbital perimeter <em>L</em> = 4<em>aE</em>(<em>e</em>): <strong>17.3484066</strong> AU<br>
+                        Circular reference 2&pi;<em>a</em>: <strong>17.3752002</strong> AU (&Delta; = &minus;0.1542%)<br>
+                        Time-averaged speed <em>v&#772;</em> = <em>L</em>/<em>P</em>: <strong>17.8825</strong> km/s
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Fixed-Width Source Columns &amp; Perimeter Metrics in <code>MPCORB.DAT</code></h2>
+            <p>
+                The table below summarizes the fixed-width columns (1-based indexing) in a standard 202-character <code>MPCORB.DAT</code> record used to compute the orbital perimeter <span class="math-inline">L</span> and its associated kinematic quantities:
+            </p>
+
+            <table class="spec-table">
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Columns (1-based)</th>
+                        <th>Python Slice (0-based)</th>
+                        <th>Fortran Format</th>
+                        <th>Unit &amp; Role</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong><code>Epoch</code></strong></td>
+                        <td><code>21–25</code></td>
+                        <td><code>line[20:25]</code></td>
+                        <td><code>A5</code> (Packed)</td>
+                        <td>Osculation reference epoch</td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>e</code> (Numeric eccentricity)</strong></td>
+                        <td><code>71–79</code></td>
+                        <td><code>line[70:79]</code></td>
+                        <td><code>F9.7</code></td>
+                        <td>Dimensionless (<span class="math-roman">0 &le; <em>e</em> &lt; 1</span>); elliptic modulus of <span class="math-roman"><em>E</em><sub>ell</sub>(<em>e</em>)</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>a</code> (Semi-major axis)</strong></td>
+                        <td><code>93–103</code></td>
+                        <td><code>line[92:103]</code></td>
+                        <td><code>F11.7</code></td>
+                        <td>Astronomical Units (<span class="math-roman">AU</span>); linear scale factor of <span class="math-inline">L</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>L</code> (Orbital perimeter)</strong></td>
+                        <td><em>Derived (not stored)</em></td>
+                        <td><code>4.0 * a * ellipe(e**2)</code></td>
+                        <td><em>Computed</em></td>
+                        <td>Astronomical Units (<span class="math-roman">AU</span>); closed circumference <span class="math-roman">4<em>a</em> &lt; <em>L</em> &le; 2&pi;<em>a</em></span></td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>v&#772;</code> (Mean orbital speed)</strong></td>
+                        <td><em>Derived (not stored)</em></td>
+                        <td><code>L / P</code></td>
+                        <td><em>Computed</em></td>
+                        <td><span class="math-roman">AU/day</span> or <span class="math-roman">km/s</span>; time-averaged scalar speed</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Example Record Evaluation (<code>00001</code> — (1) Ceres)</h3>
+            <pre>Col:  ... 71      79 ... 93       103 ...
+Data: ... 0.0785354  ... 2.7653485    ...
+          └───┬───┘      └────┬────┘
+              e             a (AU)
+
+Orbital Perimeter &amp; Kinematic Evaluation for (1) Ceres:
+  Elliptic integral       E_ell(e)        = E_ell(0.0785354)          = 1.5683743631
+  Orbital perimeter       (L = 4a*E(e))   = 4 * 2.7653485 * E(e)      = 17.3484066 AU
+  Circular circumference  (2 * pi * a)    = 2 * pi * 2.7653485        = 17.3752002 AU
+  Quadrant arc length     (L / 4)         = 17.3484066 / 4            =  4.3371017 AU
+  Time-averaged speed     (v_mean = L/P)  = 17.3484066 AU / 4.599 yr  = 17.8825 km/s</pre>
+        </section>
+
+        <footer>
+            Self-contained scientific reference document (zero external dependencies) &bull; Conventions aligned with IAU Minor Planet Center (MPC) <code>MPCORB.DAT</code> specifications.
+        </footer>
+    </div>
+
+    <script>
+        (function () {
+            const inputA = document.getElementById("inputA");
+            const inputE = document.getElementById("inputE");
+            const calcResult = document.getElementById("calcResult");
+
+            // Exact Complete Elliptic Integral of the Second Kind E(e) via AGM
+            function completeEllipticE(e) {
+                if (e === 0) return Math.PI / 2;
+                let a = 1.0;
+                let b = Math.sqrt(1.0 - e * e);
+                let c = e;
+                let sum = c * c;
+                let powerOfTwo = 1.0;
+
+                for (let n = 1; n <= 20; n++) {
+                    const aNext = 0.5 * (a + b);
+                    const bNext = Math.sqrt(a * b);
+                    const cNext = 0.5 * (a - b);
+                    sum += powerOfTwo * cNext * cNext;
+                    a = aNext;
+                    b = bNext;
+                    c = cNext;
+                    powerOfTwo *= 2.0;
+                    if (Math.abs(c) < 1e-16) break;
+                }
+
+                return (Math.PI / (2.0 * a)) * (1.0 - 0.5 * sum);
+            }
+
+            function updateCalculation() {
+                const a = parseFloat(inputA.value);
+                const e = parseFloat(inputE.value);
+
+                if (!isFinite(a) || a <= 0) {
+                    calcResult.innerHTML = "Please enter a valid positive semi-major axis <em>a</em> &gt; 0.";
+                    return;
+                }
+
+                if (!isFinite(e) || e < 0 || e >= 1) {
+                    calcResult.innerHTML = "Numeric eccentricity <em>e</em> must satisfy 0 &le; <em>e</em> &lt; 1 for an elliptic MPCORB record.";
+                    return;
+                }
+
+                const E_e = completeEllipticE(e);
+                const L = 4.0 * a * E_e;
+                const L_circ = 2.0 * Math.PI * a;
+                const diffPct = ((L - L_circ) / L_circ) * 100.0;
+
+                // Heliocentric gravitational parameter: v_circ(1 AU) = 29.7846918 km/s
+                const v_circ_kms = 29.7846918 / Math.sqrt(a);
+                const v_mean_kms = v_circ_kms * (2.0 * E_e / Math.PI);
+
+                calcResult.innerHTML =
+                    `Orbital perimeter <em>L</em> = 4<em>aE</em>(<em>e</em>): <strong>${L.toFixed(7)}</strong> AU<br>` +
+                    `Circular reference 2&pi;<em>a</em>: <strong>${L_circ.toFixed(7)}</strong> AU (&Delta; = ${diffPct.toFixed(4)}%)<br>` +
+                    `Time-averaged speed <em>v&#772;</em> = <em>L</em>/<em>P</em>: <strong>${v_mean_kms.toFixed(4)}</strong> km/s`;
+            }
+
+            inputA.addEventListener("input", updateCalculation);
+            inputE.addEventListener("input", updateCalculation);
+            updateCalculation();
+        })();
+    </script>
+</body>
+</html>

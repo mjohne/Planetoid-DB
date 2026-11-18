@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mean Anomaly at the Epoch (M0) — MPCORB Astrodynamics</title>
+  <style>
+:root {
+  --bg-color: #f8fafc;
+  --surface-color: #ffffff;
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  --accent-color: #1e3a8a;
+  --accent-light: #eff6ff;
+  --border-color: #e2e8f0;
+  --code-bg: #f1f5f9;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-serif: "Georgia", "Times New Roman", Times, serif;
+  --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  line-height: 1.7;
+  padding: 2rem 1rem;
+}
+
+.container {
+  max-width: 920px;
+  margin: 0 auto;
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 2.5rem 3rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+header {
+  border-bottom: 2px solid var(--accent-color);
+  padding-bottom: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.category-tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent-color);
+  background-color: var(--accent-light);
+  padding: 0.25rem 0.65rem;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
+h2 {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.35rem;
+}
+
+h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+ul, ol {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+li {
+  margin-bottom: 0.4rem;
+}
+
+.equation-box {
+  background-color: var(--code-bg);
+  border-left: 4px solid var(--accent-color);
+  padding: 1rem 1.5rem;
+  margin: 1.25rem 0;
+  border-radius: 0 6px 6px 0;
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  overflow-x: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.equation-main {
+  font-style: italic;
+}
+
+.equation-label {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-style: normal;
+  margin-left: 1rem;
+}
+
+.math-var {
+  font-family: var(--font-serif);
+  font-style: italic;
+}
+
+.figure-box {
+  background-color: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 1.25rem;
+  margin: 1.75rem 0;
+  text-align: center;
+}
+
+.figure-box svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.figure-caption {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-top: 0.85rem;
+  text-align: left;
+  line-height: 1.5;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.92rem;
+}
+
+th, td {
+  border: 1px solid var(--border-color);
+  padding: 0.65rem 0.85rem;
+  text-align: left;
+}
+
+th {
+  background-color: var(--code-bg);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+code {
+  font-family: var(--font-mono);
+  background-color: var(--code-bg);
+  padding: 0.15rem 0.35rem;
+  border-radius: 4px;
+  font-size: 0.88em;
+}
+
+pre.mpcorb-record {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  background-color: var(--code-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 0.85rem 1rem;
+  overflow-x: auto;
+  line-height: 1.45;
+  color: var(--text-primary);
+  margin: 0.75rem 0 1.25rem 0;
+}
+
+.example-card {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-left: 4px solid #047857;
+  border-radius: 6px;
+  padding: 1.15rem 1.35rem;
+  margin: 1.15rem 0;
+}
+
+.example-card h3 {
+  margin-top: 0;
+  color: #065f46;
+}
+
+.interactive-panel {
+  background-color: var(--code-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 1.25rem;
+  margin: 1.75rem 0;
+}
+
+.interactive-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 0.75rem;
+  color: var(--text-primary);
+}
+
+.controls-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.control-group label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.control-group input {
+  width: 100%;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background-color: var(--surface-color);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+}
+
+.result-bar {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  color: var(--accent-color);
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+footer {
+  margin-top: 2.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 1.5rem 1.25rem;
+  }
+}
+</style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <span class="category-tag">Celestial Mechanics &amp; Orbital Elements • MPCORB Reference</span>
+      <h1>Mean Anomaly at the Epoch (<span class="math-var">M<sub>0</sub></span>)</h1>
+      <div class="subtitle">Keplerian Phase Parameter, Equation of the Center &amp; Time Propagation in MPCORB.DAT</div>
+    </header>
+    <main>
+      
+<h2>1. Formal Definition</h2>
+<p>
+  In celestial mechanics, two-body astrodynamics, and the Minor Planet Center Orbit Database (<strong>MPCORB</strong>), the <strong>mean anomaly at the epoch</strong> (<span class="math-var">M<sub>0</sub></span> or <span class="math-var">M(t<sub>0</sub>)</span>) is the angular orbital element that specifies the instantaneous orbital phase of a minor body along its osculating Keplerian ellipse at the reference osculation epoch <span class="math-var">t<sub>0</sub></span> (expressed in Terrestrial Time, TT). Formally, <span class="math-var">M<sub>0</sub></span> is defined as the fraction of the osculating orbital period <span class="math-var">P</span> that has elapsed since the body's most recent passage through perihelion (<span class="math-var">T<sub>p</sub></span>), scaled by <span class="math-var">2&pi; radians</span> (or <span class="math-var">360&deg;</span>):
+</p>
+
+<div class="equation-box">
+  <span class="equation-main">M<sub>0</sub> &equiv; M(t<sub>0</sub>) = n &middot; (t<sub>0</sub> &minus; T<sub>p</sub>) = (2&pi; / P) &middot; (t<sub>0</sub> &minus; T<sub>p</sub>) &pmod{2&pi;}</span>
+  <span class="equation-label">(Eq. 1)</span>
+</div>
+
+<p>
+  Geometrically, <span class="math-var">M<sub>0</sub></span> is <em>not</em> a direct physical angle measured at the dynamical focus (the Sun) or at the center of the ellipse; rather, it is the uniform phase angle of a fictitious body moving with constant angular speed—the <strong>mean daily motion</strong> <span class="math-var">n = &radic;(&mu; / a<sup>3</sup>)</span>—on an auxiliary reference circle concentric with the orbit, synchronized to coincide with the actual minor planet at perihelion (<span class="math-var">M = 0&deg;</span>) and aphelion (<span class="math-var">M = 180&deg;</span>). By Kepler's second law (conservation of specific angular momentum <span class="math-var">h = ||<b>r</b> &times; <b>v</b>||</span>), <span class="math-var">M<sub>0</sub></span> is directly proportional to the swept orbital sector area <span class="math-var">A(t<sub>0</sub>)</span> normalized by the total ellipse area <span class="math-var">&pi; a b</span>:
+</p>
+
+<div class="equation-box">
+  <span class="equation-main">M<sub>0</sub> = 2&pi; &middot; [ A(t<sub>0</sub>) / (&pi; a b) ] &nbsp;[rad]</span>
+  <span class="equation-label">(Eq. 2)</span>
+</div>
+
+<div class="figure-box">
+  <svg viewBox="0 0 740 315" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Geometric and dynamical relationship between Mean Anomaly M_0, Eccentric Anomaly E_0, and True Anomaly nu_0 on a Keplerian ellipse">
+    <defs>
+      <marker id="arrowSlate" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#475569"/>
+      </marker>
+      <marker id="arrowBlue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#1e3a8a"/>
+      </marker>
+      <marker id="arrowEmerald" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#047857"/>
+      </marker>
+    </defs>
+
+    <!-- Left Diagram: Auxiliary Circle & Ellipse (Centered at C = (225, 160), a = 135, b = 102, e = 0.655 -> c = 88.4) -->
+    <!-- Auxiliary Circle -->
+    <circle cx="225" cy="160" r="135" fill="none" stroke="#93c5fd" stroke-width="1.4" stroke-dasharray="5,4"/>
+    <text x="108" y="34" font-family="sans-serif" font-size="10.5" fill="#1e3a8a">Auxiliary Circle (Radius a)</text>
+
+    <!-- Orbital Ellipse -->
+    <ellipse cx="225" cy="160" rx="135" ry="102" fill="#f8fafc" fill-opacity="0.6" stroke="#334155" stroke-width="1.8"/>
+
+    <!-- Line of Apsides -->
+    <line x1="72" y1="160" x2="380" y2="160" stroke="#64748b" stroke-width="1.2" stroke-dasharray="4,3"/>
+
+    <!-- Swept Sector Area from Sun F=(313.4, 160) to Perihelion P=(360, 160) to Body Q -->
+    <!-- Choose E_0 = 52 deg:
+         x_C = 225 + 135 * cos(52) = 225 + 83.1 = 308.1
+         y_circle = 160 - 135 * sin(52) = 160 - 106.4 = 53.6
+         y_ellipse = 160 - 102 * sin(52) = 160 - 80.4 = 79.6 -->
+    <path d="M 313.4 160 L 360 160 A 135 102 0 0 0 308.1 79.6 Z" fill="#fef3c7" fill-opacity="0.85"/>
+
+    <!-- Center C=(225, 160) and Sun Focus F=(313.4, 160) -->
+    <circle cx="225" cy="160" r="4" fill="#475569"/>
+    <text x="217" y="176" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#475569">C</text>
+
+    <circle cx="313.4" cy="160" r="9" fill="#f59e0b" stroke="#b45309" stroke-width="1.6"/>
+    <text x="303" y="182" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#b45309">Sun (F)</text>
+
+    <!-- Perihelion P=(360, 160) and Aphelion A=(90, 160) -->
+    <circle cx="360" cy="160" r="3.5" fill="#0f172a"/>
+    <text x="366" y="164" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#0f172a">P (M=0&deg;)</text>
+
+    <circle cx="90" cy="160" r="3.5" fill="#0f172a"/>
+    <text x="48" y="164" font-family="sans-serif" font-size="10.5" font-weight="600" fill="#475569">A (180&deg;)</text>
+
+    <!-- Perpendicular projection line from Q_aux=(308.1, 53.6) through Body=(308.1, 79.6) to x-axis=(308.1, 160) -->
+    <line x1="308.1" y1="53.6" x2="308.1" y2="160" stroke="#64748b" stroke-width="1.2" stroke-dasharray="3,3"/>
+
+    <!-- Radius to Auxiliary point (Eccentric Anomaly E_0) -->
+    <line x1="225" y1="160" x2="308.1" y2="53.6" stroke="#1e3a8a" stroke-width="1.6"/>
+    <circle cx="308.1" cy="53.6" r="4.5" fill="#2563eb" stroke="#1e3a8a" stroke-width="1.2"/>
+    <text x="315" y="51" font-family="sans-serif" font-size="10" font-weight="600" fill="#1e3a8a">Q<tspan dy="2" font-size="8">aux</tspan></text>
+
+    <!-- Radius vector from Sun F to Actual Body (True Anomaly nu_0) -->
+    <line x1="313.4" y1="160" x2="308.1" y2="79.6" stroke="#047857" stroke-width="1.8"/>
+    <circle cx="308.1" cy="79.6" r="6" fill="#047857" stroke="#0f172a" stroke-width="1.4"/>
+    <text x="255" y="75" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#047857">Body at t<tspan dy="2" font-size="8">0</tspan></text>
+
+    <!-- Angle Arcs: E_0 at C, nu_0 at F -->
+    <path d="M 255 160 A 30 30 0 0 0 243.5 136.3" fill="none" stroke="#1e3a8a" stroke-width="1.8"/>
+    <text x="258" y="146" font-family="Georgia, serif" font-style="italic" font-size="13" font-weight="700" fill="#1e3a8a">E<tspan dy="2" font-size="9">0</tspan></text>
+
+    <path d="M 334 160 A 21 21 0 0 0 312.0 139.1" fill="none" stroke="#047857" stroke-width="1.8"/>
+    <text x="331" y="138" font-family="Georgia, serif" font-style="italic" font-size="13" font-weight="700" fill="#047857">&nu;<tspan dy="2" font-size="9">0</tspan></text>
+
+    <!-- Sector area label -->
+    <text x="322" y="116" font-family="sans-serif" font-size="9.5" font-weight="700" fill="#b45309">Area &prop; M<tspan dy="2" font-size="7.5">0</tspan></text>
+
+    <!-- Right Panel: Kepler's Equation Mapping (M_0 -> E_0 -> nu_0) -->
+    <rect x="425" y="25" width="295" height="260" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+    <text x="442" y="48" font-family="sans-serif" font-size="11.5" font-weight="700" fill="#0f172a">Phase Propagation &amp; Kepler Chain</text>
+
+    <rect x="442" y="64" width="261" height="44" rx="4" fill="#eff6ff" stroke="#93c5fd" stroke-width="1"/>
+    <text x="452" y="82" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#1e3a8a">1. Linear Time Propagation:</text>
+    <text x="452" y="99" font-family="Georgia, serif" font-style="italic" font-size="12" fill="#0f172a">M(t) = M<tspan dy="2" font-size="9">0</tspan><tspan dy="-2"> + n &middot; (t &minus; t</tspan><tspan dy="2" font-size="9">0</tspan><tspan dy="-2">)</tspan></text>
+
+    <line x1="572" y1="108" x2="572" y2="128" stroke="#475569" stroke-width="1.4" marker-end="url(#arrowSlate)"/>
+
+    <rect x="442" y="130" width="261" height="48" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+    <text x="452" y="148" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#1e3a8a">2. Kepler's Equation (Solve for E):</text>
+    <text x="452" y="167" font-family="Georgia, serif" font-style="italic" font-size="12" fill="#0f172a">M(t) = E(t) &minus; e &middot; sin E(t)</text>
+
+    <line x1="572" y1="178" x2="572" y2="198" stroke="#475569" stroke-width="1.4" marker-end="url(#arrowSlate)"/>
+
+    <rect x="442" y="200" width="261" height="68" rx="4" fill="#ecfdf5" stroke="#6ee7b7" stroke-width="1"/>
+    <text x="452" y="218" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#065f46">3. True Anomaly &amp; Heliocentric Radius:</text>
+    <text x="452" y="237" font-family="Georgia, serif" font-style="italic" font-size="11.5" fill="#0f172a">tan(&nu;/2) = &radic;((1+e)/(1&minus;e)) tan(E/2)</text>
+    <text x="452" y="256" font-family="Georgia, serif" font-style="italic" font-size="11.5" fill="#0f172a">r = a (1 &minus; e cos E)</text>
+  </svg>
+  <div class="figure-caption">
+    <strong>Figure 1:</strong> Geometric and dynamical relationship between the <strong>mean anomaly at the epoch</strong> (<span class="math-var">M<sub>0</sub></span>), the <strong>eccentric anomaly</strong> (<span class="math-var">E<sub>0</sub></span>), and the <strong>true anomaly</strong> (<span class="math-var">&nu;<sub>0</sub></span>). While <span class="math-var">E<sub>0</sub></span> is subtended at the ellipse center <span class="math-var">C</span> and <span class="math-var">&nu;<sub>0</sub></span> at the solar focus <span class="math-var">F</span>, <span class="math-var">M<sub>0</sub></span> measures the normalized swept area <span class="math-var">2&pi; A(t<sub>0</sub>) / (&pi; a b)</span> and advances linearly with time at rate <span class="math-var">n</span>.
+  </div>
+</div>
+
+<h2>2. Mathematical Coupling: Kepler's Equation &amp; Series Expansions</h2>
+<p>
+  To transform the catalog value <span class="math-var">M<sub>0</sub></span> into the geometric position <span class="math-var">(r, &nu;)</span> in the orbital plane at an arbitrary target epoch <span class="math-var">t</span> (in TT), <span class="math-var">M<sub>0</sub></span> is first propagated linearly via the osculating mean daily motion <span class="math-var">n</span> (tabulated in <code>MPCORB.DAT</code> in degrees per day):
+</p>
+
+<div class="equation-box">
+  <span class="equation-main">M(t) = M<sub>0</sub> + n &middot; (t &minus; t<sub>0</sub>) &pmod{360&deg;}</span>
+  <span class="equation-label">(Eq. 3)</span>
+</div>
+
+<p>
+  Next, the transcendental <strong>Kepler's equation</strong> relates <span class="math-var">M</span> (in radians) to the eccentric anomaly <span class="math-var">E</span> and orbital eccentricity <span class="math-var">e</span>:
+</p>
+
+<div class="equation-box">
+  <span class="equation-main">M = E &minus; e &middot; sin(E)</span>
+  <span class="equation-label">(Eq. 4)</span>
+</div>
+
+<p>
+  Because Eq. 4 has no closed-form algebraic inverse in elementary functions, it is solved numerically via Newton–Raphson iteration (<span class="math-var">E<sub>k+1</sub> = E<sub>k</sub> &minus; (E<sub>k</sub> &minus; e sin E<sub>k</sub> &minus; M) / (1 &minus; e cos E<sub>k</sub>)</span>, converging to machine precision in 3–5 iterations for <span class="math-var">e &lt; 0.9</span>) or expanded for small eccentricity via the Fourier–Bessel series (<strong>equation of the center</strong>):
+</p>
+
+<div class="equation-box">
+  <span class="equation-main">&nu; &minus; M = (2e &minus; &frac14;e<sup>3</sup>) sin(M) + &frac54;e<sup>2</sup> sin(2M) + &frac13;/&frac12; &middot; &frac16; e<sup>3</sup> sin(3M) + &mathcal;(&e;<sup>4</sup>)</span>
+  <span class="equation-label">(Eq. 5)</span>
+</div>
+
+<p>
+  Once <span class="math-var">E</span> is obtained, the true anomaly <span class="math-var">&nu;</span> and heliocentric distance <span class="math-var">r</span> follow identically from:
+</p>
+
+<div class="equation-box">
+  <span class="equation-main">&nu; = 2 atan2 &left;( &radic;(1 + e) sin(E/2), &radic;(1 &minus; e) cos(E/2) &right;), &quad; r = a (1 &minus; e cos E)</span>
+  <span class="equation-label">(Eq. 6)</span>
+</div>
+
+<h2>3. Representation &amp; Precision in <code>MPCORB.DAT</code></h2>
+<p>
+  In the fixed-width ASCII record format of <code>MPCORB.DAT</code>, the mean anomaly at the epoch is stored immediately following the packed 5-character osculation epoch <span class="math-var">t<sub>0</sub></span>:
+</p>
+<table>
+  <thead>
+    <tr>
+      <th>MPCORB Field</th>
+      <th>Character Columns &amp; Format</th>
+      <th>Units, Domain &amp; Catalog Conventions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Epoch (<span class="math-var">t<sub>0</sub></span>)</strong></td>
+      <td>Columns 21–25 (1-based), width 5 (<code>A5</code>)</td>
+      <td>MPC packed date format in Terrestrial Time (TT), e.g., <code>K25BL</code> = 2025 Nov. 21.0 TT (JD 2461000.5). Standard MPCORB releases align <span class="math-var">t<sub>0</sub></span> to a common 200-day grid (JD ending in <code>.5</code>).</td>
+    </tr>
+    <tr>
+      <td><strong>Mean Anomaly at Epoch (<span class="math-var">M<sub>0</sub></span>)</strong></td>
+      <td>Columns 27–35 (1-based), width 9 (<code>F9.5</code>)</td>
+      <td>Degrees in the half-open interval <span class="math-var">[0.00000&deg;, 360.00000&deg;)</span>; resolution <span class="math-var">10<sup>&minus;5</sup> deg = 0.036 arcsec</span>.</td>
+    </tr>
+    <tr>
+      <td><strong>Mean Daily Motion (<span class="math-var">n</span>)</strong></td>
+      <td>Columns 81–91 (1-based), width 11 (<code>F11.8</code>)</td>
+      <td>Degrees per ephemeris day (<span class="math-var">deg/d</span>), related to semimajor axis <span class="math-var">a</span> (AU) via <span class="math-var">n = k<sub>deg</sub> / a<sup>3/2</sup></span> with Gaussian gravitational constant <span class="math-var">k = 0.01720209895 rad/d = 0.9856076686 deg/d</span>.</td>
+    </tr>
+    <tr>
+      <td><strong>Time of Perihelion (<span class="math-var">T<sub>p</sub></span>)</strong></td>
+      <td>Derived (tabulated directly for comets)</td>
+      <td>Nearest perihelion passage epoch: <span class="math-var">T<sub>p</sub> = t<sub>0</sub> &minus; M<sub>0</sub> / n</span> (for <span class="math-var">M<sub>0</sub> &lt; 180&deg;</span>) or <span class="math-var">T<sub>p</sub> = t<sub>0</sub> + (360&deg; &minus; M<sub>0</sub>) / n</span> (for <span class="math-var">M<sub>0</sub> &gt; 180&deg;</span>).</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>4. Physical &amp; Astrodynamical Properties</h2>
+<ul>
+  <li><strong>Singularity at Zero Eccentricity (<span class="math-var">e &rarr; 0</span>):</strong> Because perihelion is geometrically undefined for a circular orbit (<span class="math-var">e = 0</span>), the argument of perihelion <span class="math-var">&omega;</span> and the mean anomaly <span class="math-var">M<sub>0</sub></span> become individually ill-conditioned as <span class="math-var">e &rarr; 0</span>, whereas their sum—the <strong>mean argument of latitude</strong> <span class="math-var">u<sub>M</sub> = &omega; + M<sub>0</sub></span> (or the <strong>mean longitude</strong> <span class="math-var">L<sub>0</sub> = &Omega; + &omega; + M<sub>0</sub></span>)—remains smooth and well-defined.</li>
+  <li><strong>Osculating Nature &amp; Perturbations:</strong> Because <code>MPCORB.DAT</code> tabulates <em>osculating</em> two-body elements at epoch <span class="math-var">t<sub>0</sub></span>, planetary perturbations cause <span class="math-var">M<sub>0</sub></span>, <span class="math-var">&omega;</span>, and <span class="math-var">n</span> to drift slowly over time. Two-body propagation using Eq. 3 is accurate to a few arcseconds over <span class="math-var">|t &minus; t<sub>0</sub>| &lesssim; 100 days</span> for main-belt asteroids, whereas multi-year ephemerides or close planetary encounters require numerical <span class="math-var">N</span>-body integration.</li>
+  <li><strong>Parabolic &amp; Hyperbolic Orbits (<span class="math-var">e &ge; 1</span>):</strong> For parabolic (<span class="math-var">e = 1</span>) or hyperbolic (<span class="math-var">e &gt; 1</span>) trajectories, the orbital period <span class="math-var">P</span> is infinite, so standard elliptic <span class="math-var">M<sub>0</sub> &isin; [0&deg;, 360&deg;)</span> is not used; instead, MPC comet and interstellar records tabulate the perihelion passage time <span class="math-var">T<sub>p</sub></span> and perihelion distance <span class="math-var">q</span> directly.</li>
+</ul>
+
+<h2>5. Worked Examples from <code>MPCORB.DAT</code></h2>
+<p>
+  The following two numbered minor planets from <code>MPCORB.DAT</code> demonstrate the extraction and Keplerian transformation of the mean anomaly at the epoch <span class="math-var">M<sub>0</sub></span>:
+</p>
+
+<div class="example-card">
+  <h3>Example 1: (1) Ceres — Low-Eccentricity Main-Belt Dwarf Planet</h3>
+  <p>
+    Excerpt from <code>MPCORB.DAT</code> (columns 1–103):
+  </p>
+  <pre class="mpcorb-record">00001    3.34  0.12 K25BL 231.53975   73.28579   80.25414   10.58688  0.0789158  0.21410467   2.7675059</pre>
+  <ul>
+    <li><strong>Extracted Orbital Fields:</strong> Epoch <span class="math-var">t<sub>0</sub> =</span> <code>K25BL</code> (JD 2461000.5 = 2025-11-21.0 TT), mean anomaly <span class="math-var">M<sub>0</sub> = 231.53975&deg;</span> (cols 27–35), eccentricity <span class="math-var">e = 0.0789158</span> (cols 71–79), mean daily motion <span class="math-var">n = 0.21410467 deg/d</span> (cols 81–91), and semimajor axis <span class="math-var">a = 2.7675059 AU</span> (cols 93–103).</li>
+    <li><strong>Anomalies &amp; Radius at Epoch <span class="math-var">t<sub>0</sub></span>:</strong> Since <span class="math-var">M<sub>0</sub> = 231.53975&deg; &gt; 180&deg;</span>, Ceres has passed aphelion and is moving inbound toward perihelion. Solving Kepler's equation <span class="math-var">E<sub>0</sub> &minus; 0.0789158 sin E<sub>0</sub> = 4.0411310 rad</span> yields eccentric anomaly <span class="math-var">E<sub>0</sub> = 227.86182&deg;</span>, true anomaly <span class="math-var">&nu;<sub>0</sub> = 224.28391&deg;</span>, and heliocentric distance <span class="math-var">r<sub>0</sub> = a(1 &minus; e cos E<sub>0</sub>) = 2.91398 AU</span>.</li>
+    <li><strong>Next Perihelion Passage (<span class="math-var">T<sub>p,next</sub></span>):</strong> Remaining phase to perihelion is <span class="math-var">360&deg; &minus; 231.53975&deg; = 128.46025&deg;</span>, occurring <span class="math-var">&Delta;t = 128.46025 / 0.21410467 = 599.988 days</span> after <span class="math-var">t<sub>0</sub></span> (JD 2461600.488).</li>
+  </ul>
+</div>
+
+<div class="example-card">
+  <h3>Example 2: (433) Eros — Moderately Eccentric Amor Near-Earth Asteroid</h3>
+  <p>
+    Excerpt from <code>MPCORB.DAT</code> (columns 1–103):
+  </p>
+  <pre class="mpcorb-record">00433   10.31  0.15 K25BL 246.90412  178.92845  304.27012   10.82847  0.2227264  0.55981924   1.4581234</pre>
+  <ul>
+    <li><strong>Extracted Orbital Fields:</strong> Epoch <span class="math-var">t<sub>0</sub> =</span> <code>K25BL</code> (JD 2461000.5 TT), mean anomaly <span class="math-var">M<sub>0</sub> = 246.90412&deg;</span> (cols 27–35), eccentricity <span class="math-var">e = 0.2227264</span> (cols 71–79), mean daily motion <span class="math-var">n = 0.55981924 deg/d</span> (cols 81–91), and semimajor axis <span class="math-var">a = 1.4581234 AU</span> (cols 93–103).</li>
+    <li><strong>Anomalies &amp; Radius at Epoch <span class="math-var">t<sub>0</sub></span>:</strong> Solving Kepler's equation for <span class="math-var">M<sub>0</sub> = 246.90412&deg;</span> with <span class="math-var">e = 0.2227264</span> gives <span class="math-var">E<sub>0</sub> = 234.60981&deg;</span> and true anomaly <span class="math-var">&nu;<sub>0</sub> = 222.71638&deg;</span>, showing an equation-of-center difference of <span class="math-var">&nu;<sub>0</sub> &minus; M<sub>0</sub> = &minus;24.18774&deg;</span> and heliocentric distance <span class="math-var">r<sub>0</sub> = 1.64621 AU</span>.</li>
+  </ul>
+</div>
+
+<div class="interactive-panel">
+  <div class="interactive-title">Interactive Solver: Keplerian Propagation from Mean Anomaly at Epoch (M<sub>0</sub>)</div>
+  <div class="controls-grid">
+    <div class="control-group">
+      <label for="m0_val">Mean Anomaly M<sub>0</sub> (deg)</label>
+      <input type="number" id="m0_val" value="231.53975" step="1.0">
+    </div>
+    <div class="control-group">
+      <label for="e_val">Eccentricity e (0 &le; e &lt; 1)</label>
+      <input type="number" id="e_val" value="0.0789158" step="0.01" min="0" max="0.999">
+    </div>
+    <div class="control-group">
+      <label for="a_val">Semimajor Axis a (AU)</label>
+      <input type="number" id="a_val" value="2.7675059" step="0.05" min="0.05">
+    </div>
+    <div class="control-group">
+      <label for="dt_val">Elapsed Time &Delta;t = t &minus; t<sub>0</sub> (days)</label>
+      <input type="number" id="dt_val" value="0.0" step="10.0">
+    </div>
+  </div>
+  <div class="result-bar" id="calc_out">Computing...</div>
+</div>
+
+    </main>
+    <footer>
+      <span>Reference Standard: IAU Minor Planet Center (MPCORB.DAT) &amp; Two-Body Keplerian Dynamics</span>
+      <span>Gaussian Constant: k = 0.9856076686 deg/d &bull; MPCORB Format: Columns 27–35 (F9.5, deg)</span>
+    </footer>
+  </div>
+  <script>
+    
+(function() {
+  const degToRad = Math.PI / 180.0;
+  const radToDeg = 180.0 / Math.PI;
+  const kGaussDeg = 0.9856076686; // Gaussian gravitational constant in deg/day
+
+  function normDeg(deg) {
+    let x = deg % 360.0;
+    if (x < 0) x += 360.0;
+    return x;
+  }
+
+  function solveKepler(Mrad, e) {
+    let E = Mrad + e * Math.sin(Mrad) + 0.5 * e * e * Math.sin(2.0 * Mrad);
+    for (let i = 0; i < 20; i++) {
+      const f = E - e * Math.sin(E) - Mrad;
+      const fp = 1.0 - e * Math.cos(E);
+      const dE = f / fp;
+      E -= dE;
+      if (Math.abs(dE) < 1e-13) break;
+    }
+    return E;
+  }
+
+  function update() {
+    const M0 = parseFloat(document.getElementById('m0_val').value);
+    const e = parseFloat(document.getElementById('e_val').value);
+    const a = parseFloat(document.getElementById('a_val').value);
+    const dt = parseFloat(document.getElementById('dt_val').value);
+    const out = document.getElementById('calc_out');
+
+    if ([M0, e, a, dt].some(isNaN) || e < 0 || e >= 1 || a <= 0) {
+      out.textContent = "Invalid orbital parameters (require 0 <= e < 1 and a > 0 AU).";
+      return;
+    }
+
+    const nDeg = kGaussDeg / Math.pow(a, 1.5);
+    const periodDays = 360.0 / nDeg;
+    const Mdeg = normDeg(M0 + nDeg * dt);
+    const Mrad = Mdeg * degToRad;
+
+    const Erad = solveKepler(Mrad, e);
+    const Edeg = normDeg(Erad * radToDeg);
+
+    const nuRad = 2.0 * Math.atan2(
+      Math.sqrt(1.0 + e) * Math.sin(Erad / 2.0),
+      Math.sqrt(1.0 - e) * Math.cos(Erad / 2.0)
+    );
+    const nuDeg = normDeg(nuRad * radToDeg);
+    const rAU = a * (1.0 - e * Math.cos(Erad));
+
+    const daysSincePeri = Mdeg / nDeg;
+    const daysToNextPeri = (360.0 - Mdeg) / nDeg;
+
+    out.innerHTML =
+      `M(t) = ${Mdeg.toFixed(5)}&deg;  |  Eccentric Anomaly E = ${Edeg.toFixed(5)}&deg;  |  True Anomaly &nu; = ${nuDeg.toFixed(5)}&deg;  |  Radius r = ${rAU.toFixed(5)} AU<br>` +
+      `Mean Motion n = ${nDeg.toFixed(6)} deg/d (P = ${periodDays.toFixed(2)} d)  |  Since Perihelion: ${daysSincePeri.toFixed(2)} d  |  To Next Perihelion: ${daysToNextPeri.toFixed(2)} d`;
+  }
+
+  ['m0_val', 'e_val', 'a_val', 'dt_val'].forEach(id => {
+    document.getElementById(id).addEventListener('input', update);
+  });
+  update();
+})();
+
+  </script>
+</body>
+</html>
