@@ -253,6 +253,10 @@ partial class LicenseForm
 		Text = "License: GPL-3.0";
 		FormClosing += LicenseForm_FormClosing;
 		Load += LicenseForm_Load;
+		Enter += Control_Enter;
+		Leave += Control_Enter;
+		MouseEnter += Control_Enter;
+		MouseLeave += Control_Enter;
 		((ISupportInitialize)kryptonPanelMain).EndInit();
 		kryptonPanelMain.ResumeLayout(false);
 		kryptonPanelMain.PerformLayout();
@@ -264,14 +268,33 @@ partial class LicenseForm
 
 	#endregion
 
+	/// <summary>Gets or sets the main Krypton panel.</summary>
 	private KryptonPanel kryptonPanelMain;
+	
+	/// <summary>Gets or sets the status strip used in the form.</summary>
 	private KryptonStatusStrip kryptonStatusStrip;
+	
+	/// <summary>The status bar label that displays application information.</summary>
 	private ToolStripStatusLabel labelInformation;
+	
+	/// <summary>Represents the text box used to enter the license key.</summary>
 	private KryptonTextBox kryptonTextBoxLicense;
+	
+	/// <summary>Displays the license logo.</summary>
 	private KryptonPictureBox kryptonPictureBoxLicenseLogo;
+
+	/// <summary>Gets or sets the button that closes the license form.</summary>
 	private KryptonButton kryptonButtonClose;
+	
+	/// <summary>The Krypton button that saves the license information.</summary>
 	private KryptonButton kryptonButtonSaveLicense;
+
+	/// <summary>Gets or sets the dialog used to select a file location for saving.</summary>
 	private SaveFileDialog saveFileDialog;
+
+	/// <summary>The button that copies the license text to the clipboard.</summary>
 	private KryptonButton kryptonButtonCopyLicenseToClipboard;
+
+	/// <summary>Manages Krypton theme and palette settings for the form.</summary>
 	private KryptonManager kryptonManager;
 }
