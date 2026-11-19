@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Index No. (Sequential Record Index) — MPCORB Orbital Reference</title>
+  <style>
+:root {
+  --bg-color: #f8fafc;
+  --surface-color: #ffffff;
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  --accent-color: #1e3a8a;
+  --accent-light: #eff6ff;
+  --border-color: #e2e8f0;
+  --code-bg: #f1f5f9;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-serif: "Georgia", "Times New Roman", Times, serif;
+  --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  line-height: 1.7;
+  padding: 2rem 1rem;
+}
+
+.container {
+  max-width: 940px;
+  margin: 0 auto;
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 2.5rem 3rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+header {
+  border-bottom: 2px solid var(--accent-color);
+  padding-bottom: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.category-tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent-color);
+  background-color: var(--accent-light);
+  padding: 0.25rem 0.65rem;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
+h2 {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.35rem;
+}
+
+h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+ul, ol {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+li {
+  margin-bottom: 0.4rem;
+}
+
+.equation-box {
+  background-color: var(--code-bg);
+  border-left: 4px solid var(--accent-color);
+  padding: 1rem 1.5rem;
+  margin: 1.25rem 0;
+  border-radius: 0 6px 6px 0;
+  font-family: var(--font-serif);
+  font-size: 1.12rem;
+  overflow-x: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.equation-main {
+  font-style: italic;
+}
+
+.equation-main .fn,
+.math-fn {
+  font-style: normal;
+  font-family: var(--font-serif);
+}
+
+.equation-label {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-style: normal;
+  margin-left: 1rem;
+}
+
+.math-var {
+  font-family: var(--font-serif);
+  font-style: italic;
+}
+
+.figure-box {
+  background-color: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 1.25rem;
+  margin: 1.75rem 0;
+  text-align: center;
+}
+
+.figure-box svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.figure-caption {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-top: 0.85rem;
+  text-align: left;
+  line-height: 1.5;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.9rem;
+}
+
+th, td {
+  border: 1px solid var(--border-color);
+  padding: 0.6rem 0.8rem;
+  text-align: left;
+}
+
+th {
+  background-color: var(--code-bg);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+code {
+  font-family: var(--font-mono);
+  background-color: var(--code-bg);
+  padding: 0.15rem 0.35rem;
+  border-radius: 4px;
+  font-size: 0.88em;
+}
+
+pre.mpcorb-record {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  background-color: var(--code-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 0.85rem 1rem;
+  overflow-x: auto;
+  line-height: 1.45;
+  color: var(--text-primary);
+  margin: 0.75rem 0 1.25rem 0;
+}
+
+.example-card {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-left: 4px solid #047857;
+  border-radius: 6px;
+  padding: 1.15rem 1.35rem;
+  margin: 1.15rem 0;
+}
+
+.example-card h3 {
+  margin-top: 0;
+  color: #065f46;
+}
+
+.interactive-panel {
+  background-color: var(--code-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 1.25rem;
+  margin: 1.75rem 0;
+}
+
+.interactive-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 0.75rem;
+  color: var(--text-primary);
+}
+
+.controls-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.control-group label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.control-group input,
+.control-group select {
+  width: 100%;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background-color: var(--surface-color);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+}
+
+.result-bar {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.86rem;
+  color: var(--accent-color);
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+footer {
+  margin-top: 2.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+@media (max-width: 680px) {
+  .container {
+    padding: 1.5rem 1.25rem;
+  }
+}
+</style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <span class="category-tag">Catalog Indexing &amp; Record Addressing • MPCORB Reference</span>
+      <h1>Index No. (Sequential 1-Based Record Index)</h1>
+      <div class="subtitle">Derived Ordinal Record Position in MPCORB.DAT (<code>k &isin; [1, N]</code>, 0-Based Offset <code>k &minus; 1</code>)</div>
+    </header>
+    <main>
+      
+<h2>1. Formal Definition</h2>
+<p>
+  In the Minor Planet Center Orbit Database (<strong>MPCORB</strong>), the <strong>Index No.</strong> (<em>Index Number</em>; also referred to in astronomical software and database schemas as the <strong>Record Index</strong>, <strong>1-Based Sequential Catalog Index</strong> <span class="math-var">k</span>, or <strong>MPCORB Line Position</strong>) is a <strong>derived, non-persistent ordinal integer</strong> <span class="math-var">k &isin; &#8469;<sub>1</sub></span> (or 0-based offset <span class="math-var">i = k &minus; 1 &isin; &#8469;<sub>0</sub></span>) that uniquely identifies a minor planet's sequential row position within a specific release snapshot of <code>MPCORB.DAT</code> after skipping the ASCII header block:
+</p>
+
+<div class="equation-box">
+  <span class="equation-main">
+    <span class="fn">IndexNo</span>(<span class="math-var">r</span>) = <span class="math-var">L</span>(<span class="math-var">r</span>) &minus; <span class="math-var">L</span><sub>hdr</sub> = <span class="math-var">i</span><sub>0</sub> + 1 &isin; [1, <span class="math-var">N</span><sub>records</sub>]
+  </span>
+  <span class="equation-label">(Eq. 1)</span>
+</div>
+
+<p>where:</p>
+<ul>
+  <li><strong>Critical Schema Distinction (Not a Fixed-Width Column):</strong> Unlike the <em>Number/Provisional Designation</em> (columns 1–7), <em>H</em> (columns 9–13), or <em>Readable Designation</em> (columns 167–194), <strong>Index No. is NOT stored inside the 202-character fixed-width ASCII record</strong>. Instead, it is generated sequentially at ingestion/parse time (<code>1, 2, 3, &hellip;, N</code>) to index virtualized tables, memory-mapped record arrays, and cross-referenced derived-element collections.</li>
+  <li><strong>Header Offset (<span class="math-var">L</span><sub>hdr</sub>):</strong> Standard <code>MPCORB.DAT</code> files open with a multi-line textual metadata header (typically 41–43 lines describing the epoch, column specification, and download date) terminated by a dashed separator line (<code>----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</code>). Record <code>Index No. = 1</code> is the very first 202-character data line immediately following that delimiter (typically <code>00001</code>, i.e., <code>(1) Ceres</code>).</li>
+  <li><strong>Release-Dependent Volatility:</strong> Because <code>MPCORB.DAT</code> is ordered into three contiguous structural blocks—(1) permanently numbered minor planets sorted ascending by catalog number, (2) multi-opposition unnumbered minor planets, and (3) single-opposition unnumbered minor planets—the <strong>Index No.</strong> of any unnumbered object (and even numbered objects if a record is superseded or re-sorted) shifts whenever new objects are numbered or added between MPCORB releases.</li>
+</ul>
+
+<div class="figure-box">
+  <svg viewBox="0 0 740 315" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="MPCORB.DAT file structure showing the header block followed by sequential 1-based Index No. 1 to N across numbered, multi-opposition, and single-opposition blocks">
+    <text x="370" y="24" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="700" fill="#0f172a">Derivation of Sequential 1-Based "Index No." Across MPCORB.DAT File Structure</text>
+
+    <!-- Header Block -->
+    <rect x="24" y="42" width="692" height="44" rx="5" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.3"/>
+    <text x="38" y="61" font-family="monospace" font-size="9.5" font-weight="700" fill="#334155">Lines 1 .. L_hdr (Header &amp; Dashed Separator "----...----")</text>
+    <text x="38" y="76" font-family="sans-serif" font-size="8.6" fill="#64748b">Skipped during parsing; not assigned an Index No. (Header line count L_hdr varies slightly across MPCORB editions, typically 41–43 lines).</text>
+
+    <!-- Three Sequential Data Blocks -->
+    <rect x="24" y="102" width="220" height="192" rx="6" fill="#ecfdf5" stroke="#6ee7b7" stroke-width="1.4"/>
+    <text x="36" y="123" font-family="monospace" font-size="10" font-weight="700" fill="#065f46">Block 1: Numbered Minor Planets</text>
+    <text x="36" y="140" font-family="sans-serif" font-size="8.8" font-weight="700" fill="#047857">Index No. 1 .. N_num</text>
+    <text x="36" y="159" font-family="sans-serif" font-size="8.4" fill="#334155">&bull; Strictly ordered by permanent</text>
+    <text x="44" y="172" font-family="sans-serif" font-size="8.4" fill="#334155">IAU catalog number <code>(1)</code>, <code>(2)</code>, &hellip;</text>
+    <text x="36" y="190" font-family="sans-serif" font-size="8.4" fill="#334155">&bull; Identity holds: <code>IndexNo == N_IAU</code></text>
+    <text x="44" y="203" font-family="sans-serif" font-size="8.4" fill="#334155">across all complete MPCORB</text>
+    <text x="44" y="216" font-family="sans-serif" font-size="8.4" fill="#334155">builds (e.g., Ceres = 1, Pallas = 2,</text>
+    <text x="44" y="229" font-family="sans-serif" font-size="8.4" fill="#334155">Apophis = 99,942).</text>
+    <text x="36" y="253" font-family="monospace" font-size="8.2" fill="#065f46">Invariant in full MPCORB.DAT</text>
+    <text x="36" y="270" font-family="monospace" font-size="8.0" fill="#047857">(Shifts in filtered subsets!)</text>
+
+    <rect x="260" y="102" width="220" height="192" rx="6" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.4"/>
+    <text x="272" y="123" font-family="monospace" font-size="10" font-weight="700" fill="#1e3a8a">Block 2: Multi-Opposition</text>
+    <text x="272" y="140" font-family="sans-serif" font-size="8.8" font-weight="700" fill="#1e40af">Index No. (N_num + 1) .. N_multi</text>
+    <text x="272" y="159" font-family="sans-serif" font-size="8.4" fill="#334155">&bull; Unnumbered objects observed</text>
+    <text x="280" y="172" font-family="sans-serif" font-size="8.4" fill="#334155">at &ge; 2 oppositions, sorted by</text>
+    <text x="280" y="185" font-family="sans-serif" font-size="8.4" fill="#334155">packed designation (cols 1–7).</text>
+    <text x="272" y="203" font-family="sans-serif" font-size="8.4" fill="#334155">&bull; <strong>Volatile Index No.:</strong> Shifts upward</text>
+    <text x="280" y="216" font-family="sans-serif" font-size="8.4" fill="#334155">whenever new objects are</text>
+    <text x="280" y="229" font-family="sans-serif" font-size="8.4" fill="#334155">numbered in Block 1 or new</text>
+    <text x="280" y="242" font-family="sans-serif" font-size="8.4" fill="#334155">multi-opp linkages occur.</text>
+    <text x="272" y="268" font-family="monospace" font-size="8.0" fill="#1d4ed8">Session/release-specific key</text>
+
+    <rect x="496" y="102" width="220" height="192" rx="6" fill="#fffbeb" stroke="#fcd34d" stroke-width="1.4"/>
+    <text x="508" y="123" font-family="monospace" font-size="10" font-weight="700" fill="#92400e">Block 3: Single-Opposition</text>
+    <text x="508" y="140" font-family="sans-serif" font-size="8.8" font-weight="700" fill="#78350f">Index No. (N_multi + 1) .. N_total</text>
+    <text x="508" y="159" font-family="sans-serif" font-size="8.4" fill="#334155">&bull; Unnumbered single-opposition</text>
+    <text x="516" y="172" font-family="sans-serif" font-size="8.4" fill="#334155">discoveries (e.g., <code>2025 QA14</code>),</text>
+    <text x="516" y="185" font-family="sans-serif" font-size="8.4" fill="#334155">sorted by packed designation.</text>
+    <text x="508" y="203" font-family="sans-serif" font-size="8.4" fill="#334155">&bull; Appended at the tail of</text>
+    <text x="516" y="216" font-family="sans-serif" font-size="8.4" fill="#334155"><code>MPCORB.DAT</code>; highest</text>
+    <text x="516" y="229" font-family="sans-serif" font-size="8.4" fill="#334155">Index No. values (&gt; 1.4 &times; 10<sup>6</sup></text>
+    <text x="516" y="242" font-family="sans-serif" font-size="8.4" fill="#334155">in 2025–2026 releases).</text>
+    <text x="508" y="268" font-family="monospace" font-size="8.0" fill="#b45309">Highly volatile across updates</text>
+  </svg>
+  <div class="figure-caption">
+    <strong>Figure 1:</strong> Structural derivation of the 1-based sequential <strong>Index No.</strong> (<span class="math-var">k = 1 &hellip; N<sub>total</sub></span>) in <code>MPCORB.DAT</code> across the permanently numbered block (<span class="math-var">k = N<sub>IAU</sub></span>), the multi-opposition unnumbered block, and the single-opposition discovery block.
+  </div>
+</div>
+
+<h2>2. Mathematical &amp; Computational Properties</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Property</th>
+      <th>Mathematical / Algorithmic Specification</th>
+      <th>Engineering Implications in Orbital Software</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Domain &amp; Indexing Convention</strong></td>
+      <td>1-based user-facing ordinal <span class="math-var">k &isin; {1, 2, &hellip;, N}</span>;<br>0-based array/ListView index <span class="math-var">i = k &minus; 1 &isin; {0, 1, &hellip;, N &minus; 1}</span>.</td>
+      <td>Bridges human-readable row numbering (<code>#1</code> for Ceres) with zero-indexed <code>List&lt;T&gt;</code>, <code>Span&lt;T&gt;</code>, and WinForms <code>VirtualMode</code> <code>ListView</code> item indices.</td>
+    </tr>
+    <tr>
+      <td><strong>Identity Law for Numbered Asteroids</strong></td>
+      <td>In an unfiltered, complete <code>MPCORB.DAT</code>:<br><span class="math-var">IndexNo(r) = N<sub>IAU</sub>(r) &forall; k &le; N<sub>numbered</sub></span></td>
+      <td>Allows <span class="math-fn">O</span>(1) direct random-access lookup of any numbered minor planet <span class="math-var">N<sub>IAU</sub></span> at zero-based array slot <span class="math-var">N<sub>IAU</sub> &minus; 1</span> without hash-table probing.</td>
+    </tr>
+    <tr>
+      <td><strong>Invariance Under Sorting vs. Filtering</strong></td>
+      <td>Preserved as an intrinsic record property (<span class="math-var">r.IndexNo</span>) even when UI tables are re-sorted by <span class="math-var">a</span>, <span class="math-var">e</span>, <span class="math-var">i</span>, <span class="math-var">H</span>, or MOID, or filtered by dynamical class.</td>
+      <td>Enables “Jump to Index No.” navigation and deterministic mapping back to the exact raw 202-byte line in the loaded <code>MPCORB.DAT</code> file.</td>
+    </tr>
+    <tr>
+      <td><strong>Non-Portability Across Catalog Releases</strong></td>
+      <td><span class="math-var">IndexNo<sub>t<sub>1</sub></sub>(r) &ne; IndexNo<sub>t<sub>2</sub></sub>(r)</span> for unnumbered objects when <span class="math-var">t<sub>1</sub> &ne; t<sub>2</sub></span>.</td>
+      <td>Must <strong>never</strong> be used as a persistent external primary key across different <code>MPCORB.DAT</code> epochs; persistent references must use the 7-character packed designation (columns 1–7).</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>3. Fixed-Width File Context &amp; Parsing Semantics</h2>
+<ul>
+  <li><strong>No Byte Columns Assigned:</strong> In the official 202-column IAU MPCORB specification, columns <code>1–202</code> are fully allocated to orbital elements, uncertainty parameters, perturbation codes, and designations. Therefore, <strong>Index No.</strong> occupies <strong>0 bytes</strong> in the file and is synthesized monotonically by the parser counter after encountering the 202-hyphen header delimiter line.</li>
+  <li><strong>Distinction from Packed Designation (Cols 1–7) and IAU Number:</strong>
+    <ul>
+      <li>For numbered minor planets (e.g., <code>00001</code> = <code>(1) Ceres</code>, <code>99942</code> = <code>(99942) Apophis</code>, <code>A0001</code> = <code>(100001)</code>), the <em>Index No.</em> in a complete <code>MPCORB.DAT</code> equals the permanent IAU catalog number (<span class="math-var">1</span>, <span class="math-var">99942</span>, <span class="math-var">100001</span>).</li>
+      <li>For unnumbered minor planets (e.g., <code>K25Q14A</code> = <code>2025 QA14</code>), there is <strong>no IAU catalog number</strong>; the <em>Index No.</em> (e.g., <code>1,482,917</code>) is solely its ordinal position within that specific <code>MPCORB.DAT</code> file.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2>4. Worked Examples from <code>MPCORB.DAT</code></h2>
+<p>
+  The following two examples illustrate how <strong>Index No.</strong> behaves for a permanently numbered object versus a newly discovered single-opposition object in <code>MPCORB.DAT</code> (epoch <code>K25BL</code> = 2025 Nov 21.0 TT = JD 2461000.5):
+</p>
+
+<div class="example-card">
+  <h3>Example 1: (1) Ceres — First Data Record (<code>Index No. = 1</code>)</h3>
+  <p>
+    First 202-character record immediately following the dashed header line in <code>MPCORB.DAT</code>:
+  </p>
+  <pre class="mpcorb-record">00001    3.35  0.15 K25BL 231.53975   73.28579   80.24963   10.58790  0.0795763  0.21417972   2.7666198  0 MPO925614 11432  98 1801-2025 0.61 M-v 30h JPL 48     1000   (1) Ceres                  20251018</pre>
+  <ul>
+    <li><strong>Assigned Index No.:</strong> <code>1</code> (0-based array index <code>0</code>).</li>
+    <li><strong>Identity Verification:</strong> Matches permanent IAU catalog number <code>1</code> decoded from columns 1–7 (<code>00001</code>) and columns 167–194 (<code>(1) Ceres</code>).</li>
+  </ul>
+</div>
+
+<div class="example-card">
+  <h3>Example 2: 2025 QA14 — Tail Single-Opposition Record (<code>Index No. &gt; 1.4 &times; 10<sup>6</sup></code>)</h3>
+  <p>
+    Single-opposition record located in Block 3 near the end of <code>MPCORB.DAT</code>:
+  </p>
+  <pre class="mpcorb-record">K25Q14A 27.64  0.15 K25BL 353.30750  347.90466  352.66257    5.38873  0.2564143  0.65913384   1.3073812  0 E2025-R84    27   1    14 days 0.28 M-v 38k MPCLINUX   8403            2025 QA14          20250911</pre>
+  <ul>
+    <li><strong>Assigned Index No.:</strong> Ordinal row count <span class="math-var">k</span> in Block 3 (e.g., <code>1,482,917</code> in a 1.5-million-object catalog snapshot).</li>
+    <li><strong>Interpretation:</strong> Because <code>2025 QA14</code> is unnumbered (1 opposition, 27 observations), its <code>Index No.</code> has no astronomical meaning outside the loaded file snapshot and must not be confused with an IAU permanent number.</li>
+  </ul>
+</div>
+
+<div class="interactive-panel">
+  <div class="interactive-title">Interactive MPCORB Index No. &amp; File-Offset Calculator</div>
+  <div class="controls-grid">
+    <div class="control-group">
+      <label for="idx_in">1-Based Index No. (k &ge; 1)</label>
+      <input type="number" id="idx_in" value="99942" min="1" max="5000000" step="1">
+    </div>
+    <div class="control-group">
+      <label for="hdr_in">Header Lines (L_hdr)</label>
+      <input type="number" id="hdr_in" value="43" min="0" max="200" step="1">
+    </div>
+    <div class="control-group">
+      <label for="num_cnt_in">Numbered Block Size (N_num)</label>
+      <input type="number" id="num_cnt_in" value="850000" min="1" max="3000000" step="1000">
+    </div>
+  </div>
+  <div class="result-bar" id="calc_out">Computing...</div>
+</div>
+
+    </main>
+    <footer>
+      <span>Reference Standard: IAU Minor Planet Center (MPCORB.DAT Sequential Record Architecture)</span>
+      <span>Derived Field: 0 Bytes in File &bull; 1-Based Ordinal k = Line &minus; L_hdr (k = N_IAU for Numbered Block)</span>
+    </footer>
+  </div>
+  <script>
+    
+(function() {
+  function update() {
+    const k = Math.max(1, Math.floor(parseFloat(document.getElementById('idx_in').value) || 1));
+    const lHdr = Math.max(0, Math.floor(parseFloat(document.getElementById('hdr_in').value) || 43));
+    const nNum = Math.max(1, Math.floor(parseFloat(document.getElementById('num_cnt_in').value) || 850000));
+    const out = document.getElementById('calc_out');
+
+    const zeroIdx = k - 1;
+    const fileLine = lHdr + k;
+    // Standard MPCORB.DAT uses 202 chars + LF (203 bytes) or CRLF (204 bytes)
+    const blockDesc = k <= nNum
+      ? `Block 1 (Permanently Numbered Minor Planet: IAU #${k.toLocaleString()})`
+      : `Block 2/3 (Unnumbered Multi-/Single-Opposition Object; volatile release-specific ordinal)`;
+
+    out.innerHTML =
+      `1-Based Index No.: <strong>${k.toLocaleString()}</strong>  |  0-Based List/Array Index: <code>${zeroIdx.toLocaleString()}</code>  |  1-Based File Line: <code>${fileLine.toLocaleString()}</code><br>` +
+      `Catalog Region: <strong>${blockDesc}</strong>`;
+  }
+
+  ['idx_in', 'hdr_in', 'num_cnt_in'].forEach(id => {
+    document.getElementById(id).addEventListener('input', update);
+  });
+  update();
+})();
+
+  </script>
+</body>
+</html>

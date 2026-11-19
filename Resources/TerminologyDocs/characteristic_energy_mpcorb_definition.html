@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Characteristic Energy (C3) — MPCORB Orbital Reference</title>
+  <style>
+:root {
+  --bg-color: #f8fafc;
+  --surface-color: #ffffff;
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  --accent-color: #1e3a8a;
+  --accent-light: #eff6ff;
+  --border-color: #e2e8f0;
+  --code-bg: #f1f5f9;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-serif: "Georgia", "Times New Roman", Times, serif;
+  --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  line-height: 1.7;
+  padding: 2rem 1rem;
+}
+
+.container {
+  max-width: 920px;
+  margin: 0 auto;
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 2.5rem 3rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+header {
+  border-bottom: 2px solid var(--accent-color);
+  padding-bottom: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.category-tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent-color);
+  background-color: var(--accent-light);
+  padding: 0.25rem 0.65rem;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
+h2 {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.35rem;
+}
+
+h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+ul, ol {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+li {
+  margin-bottom: 0.4rem;
+}
+
+.equation-box {
+  background-color: var(--code-bg);
+  border-left: 4px solid var(--accent-color);
+  padding: 1rem 1.5rem;
+  margin: 1.25rem 0;
+  border-radius: 0 6px 6px 0;
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  overflow-x: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.equation-main {
+  font-style: italic;
+}
+
+.equation-main .fn,
+.math-fn {
+  font-style: normal;
+  font-family: var(--font-serif);
+}
+
+.equation-label {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-style: normal;
+  margin-left: 1rem;
+}
+
+.math-var {
+  font-family: var(--font-serif);
+  font-style: italic;
+}
+
+.frac {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  vertical-align: middle;
+  margin: 0 0.25rem;
+  font-size: 0.94em;
+  line-height: 1.15;
+}
+
+.frac > span:first-child {
+  border-bottom: 1px solid currentColor;
+  padding: 0 0.25rem 0.12rem 0.25rem;
+}
+
+.frac > span:last-child {
+  padding: 0.12rem 0.25rem 0 0.25rem;
+}
+
+.figure-box {
+  background-color: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 1.25rem;
+  margin: 1.75rem 0;
+  text-align: center;
+}
+
+.figure-box svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.figure-caption {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-top: 0.85rem;
+  text-align: left;
+  line-height: 1.5;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.92rem;
+}
+
+th, td {
+  border: 1px solid var(--border-color);
+  padding: 0.65rem 0.85rem;
+  text-align: left;
+}
+
+th {
+  background-color: var(--code-bg);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+code {
+  font-family: var(--font-mono);
+  background-color: var(--code-bg);
+  padding: 0.15rem 0.35rem;
+  border-radius: 4px;
+  font-size: 0.88em;
+}
+
+pre.mpcorb-record {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  background-color: var(--code-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 0.85rem 1rem;
+  overflow-x: auto;
+  line-height: 1.45;
+  color: var(--text-primary);
+  margin: 0.75rem 0 1.25rem 0;
+}
+
+.example-card {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-left: 4px solid #047857;
+  border-radius: 6px;
+  padding: 1.15rem 1.35rem;
+  margin: 1.15rem 0;
+}
+
+.example-card h3 {
+  margin-top: 0;
+  color: #065f46;
+}
+
+.interactive-panel {
+  background-color: var(--code-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 1.25rem;
+  margin: 1.75rem 0;
+}
+
+.interactive-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 0.75rem;
+  color: var(--text-primary);
+}
+
+.controls-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(185px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.control-group label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.control-group input {
+  width: 100%;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background-color: var(--surface-color);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+}
+
+.result-bar {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  color: var(--accent-color);
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+footer {
+  margin-top: 2.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 1.5rem 1.25rem;
+  }
+}
+</style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <span class="category-tag">Astrodynamics &amp; Mission Design • MPCORB Reference</span>
+      <h1>Characteristic Energy (<span class="math-var">C<sub>3</sub></span>)</h1>
+      <div class="subtitle">Vis-Viva Energy Constant, Hyperbolic Excess Speed &amp; Transfer Energetics in MPCORB.DAT</div>
+    </header>
+    <main>
+      
+<h2>1. Formal Definition</h2>
+<p>
+  In astrodynamics, mission design, and dynamical classification of bodies in the Minor Planet Center Orbit Database (<strong>MPCORB</strong>), the <strong>characteristic energy</strong> (<span class="math-var">C<sub>3</sub></span>, historically also denoted as the <strong>vis-viva integral constant</strong> <span class="math-var">h<sub>vis</sub> = 2&epsilon;</span>) is a scalar mechanical energy invariant equal to <strong>twice the specific orbital energy</strong> (<span class="math-var">&epsilon;</span>) of a body in a central two-body gravitational field:
+</p>
+
+<div class="equation-box">
+  <span class="equation-main">
+    C<sub>3</sub> = 2&epsilon; = v<sup>2</sup> &minus; <span class="frac"><span>2&mu;</span><span>r</span></span> = &minus;<span class="frac"><span>&mu;</span><span>a</span></span> &isin; (&minus;&infin;, +&infin;)
+  </span>
+  <span class="equation-label">(Eq. 1)</span>
+</div>
+
+<p>where:</p>
+<ul>
+  <li><span class="math-var">a</span> is the <strong>osculating semimajor axis</strong> tabulated directly in <code>MPCORB.DAT</code> (columns 93–103, in astronomical units <span class="math-var">AU</span>), satisfying <span class="math-var">a &gt; 0</span> for bound elliptical orbits (<span class="math-var">C<sub>3</sub> &lt; 0</span>), <span class="math-var">a &rarr; &infin;</span> for parabolic escape trajectories (<span class="math-var">C<sub>3</sub> = 0</span>), and <span class="math-var">a &lt; 0</span> for hyperbolic trajectories (<span class="math-var">C<sub>3</sub> &gt; 0</span>).</li>
+  <li><span class="math-var">&mu; = GM</span> is the <strong>standard gravitational parameter</strong> of the central primary:
+    <ul>
+      <li><strong>Heliocentric Context (<code>MPCORB.DAT</code> Orbital Invariant):</strong> <span class="math-var">&mu; = &mu;<sub>&#9737;</sub> = 1.32712440018 &times; 10<sup>11</sup> km<sup>3</sup>/s<sup>2</sup> = 887.12815 km<sup>2</sup>/s<sup>2</sup> &middot; AU</span> (or <span class="math-var">k<sup>2</sup> = 2.959122082855911 &times; 10<sup>&minus;4</sup> AU<sup>3</sup>/d<sup>2</sup></span> in Gaussian units).</li>
+      <li><strong>Geocentric Context (Rendezvous &amp; Earth-Departure Launch Energy):</strong> <span class="math-var">&mu; = &mu;<sub>&oplus;</sub> = 3.986004418 &times; 10<sup>5</sup> km<sup>3</sup>/s<sup>2</sup></span>, where <span class="math-var">C<sub>3,launch</sub> = v<sub>&infin;,&oplus;</sub><sup>2</sup> &gt; 0</span> measures the excess specific energy required at Earth departure to inject a spacecraft onto a heliocentric transfer orbit to a target minor planet in <code>MPCORB.DAT</code>.</li>
+    </ul>
+  </li>
+  <li><span class="math-var">v<sup>2</sup> &minus; v<sub>esc</sub>(r)<sup>2</sup> = C<sub>3</sub></span>: Because local escape speed is <span class="math-var">v<sub>esc</sub>(r) = &radic;<span style="text-decoration: overline;">2&mu; / r</span></span>, <span class="math-var">C<sub>3</sub></span> equals the exact excess of squared speed above local escape squared at every point along the trajectory.</li>
+</ul>
+
+<div class="figure-box">
+  <svg viewBox="0 0 740 315" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Characteristic energy C3 = 2 epsilon = -mu/a diagram showing bound heliocentric C3 < 0, parabolic C3 = 0, and hyperbolic asymptotic speed C3 = +v_infinity^2 > 0">
+    <defs>
+      <marker id="arrowSlate" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#475569"/>
+      </marker>
+      <marker id="arrowBlue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#1e3a8a"/>
+      </marker>
+      <marker id="arrowEmerald" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#047857"/>
+      </marker>
+      <marker id="arrowCrimson" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#be123c"/>
+      </marker>
+    </defs>
+
+    <!-- Left Diagram: Characteristic Energy C3 = v^2 - 2mu/r vs Radial Distance r -->
+    <rect x="64" y="24" width="356" height="84" fill="#fff1f2" fill-opacity="0.55"/>
+    <rect x="64" y="108" width="356" height="178" fill="#eff6ff" fill-opacity="0.55"/>
+
+    <!-- Zero C3 axis (Parabolic Escape Boundary C3 = 0) -->
+    <line x1="64" y1="108" x2="424" y2="108" stroke="#be123c" stroke-width="1.8" stroke-dasharray="6,3"/>
+    <text x="276" y="101" font-family="sans-serif" font-size="9.5" font-weight="700" fill="#be123c">Parabolic Escape (C<tspan dy="2" font-size="7.5">3</tspan><tspan dy="-2"> = 0, e = 1)</tspan></text>
+
+    <!-- Vertical Axis: Characteristic Energy C3 -->
+    <line x1="64" y1="290" x2="64" y2="20" stroke="#334155" stroke-width="1.6" marker-end="url(#arrowSlate)"/>
+    <text x="20" y="34" font-family="Georgia, serif" font-style="italic" font-size="13" font-weight="700" fill="#0f172a">C<tspan dy="2" font-size="9">3</tspan></text>
+    <text x="48" y="112" font-family="sans-serif" font-size="9.5" font-weight="700" fill="#0f172a">0</text>
+    <text x="415" y="124" font-family="Georgia, serif" font-style="italic" font-size="12" font-weight="700" fill="#334155">r</text>
+
+    <!-- Negative Escape Potential Curve -2mu / r = -v_esc(r)^2 -->
+    <path d="M 94 284 L 110 242 L 130 208 L 154 183 L 184 164 L 224 148 L 274 136 L 334 127 L 414 120" fill="none" stroke="#0f172a" stroke-width="2.4"/>
+    <text x="118" y="262" font-family="Georgia, serif" font-style="italic" font-size="11.5" font-weight="700" fill="#0f172a">&minus;v<tspan dy="2" font-size="8.5">esc</tspan><tspan dy="-2">(r)&sup2; = &minus;2&mu; / r</tspan></text>
+
+    <!-- Hyperbolic Positive C3 Level: C3 = +v_infinity^2 > 0 at y = 58 -->
+    <line x1="64" y1="58" x2="414" y2="58" stroke="#be123c" stroke-width="2.1"/>
+    <text x="72" y="51" font-family="Georgia, serif" font-style="italic" font-size="11" font-weight="700" fill="#9f1239">Hyperbolic: C<tspan dy="2" font-size="8.5">3</tspan><tspan dy="-2"> = +v</tspan><tspan dy="2" font-size="8.5">&infin;</tspan><tspan dy="-2">&sup2; = &minus;&mu; / a &gt; 0</tspan></text>
+
+    <!-- Vertical span from -2mu/r up to C3 = +v_inf^2 showing v^2 = C3 + 2mu/r -->
+    <line x1="340" y1="126" x2="340" y2="61" stroke="#be123c" stroke-width="1.6" marker-end="url(#arrowCrimson)"/>
+    <text x="346" y="84" font-family="sans-serif" font-size="9.2" font-weight="700" fill="#9f1239">v&sup2; &rarr; v<tspan dy="2" font-size="7.5">&infin;</tspan><tspan dy="-2">&sup2;</tspan></text>
+
+    <!-- Bound Elliptical Negative C3 Level: C3 = -mu / a < 0 at y = 158 -->
+    <line x1="64" y1="158" x2="200" y2="158" stroke="#1e3a8a" stroke-width="2.2"/>
+    <text x="72" y="151" font-family="Georgia, serif" font-style="italic" font-size="11" font-weight="700" fill="#1e3a8a">Bound: C<tspan dy="2" font-size="8.5">3</tspan><tspan dy="-2"> = &minus;&mu; / a &lt; 0</tspan></text>
+
+    <!-- Perihelion vertical arrow v_q^2 -->
+    <line x1="130" y1="205" x2="130" y2="161" stroke="#047857" stroke-width="2" marker-end="url(#arrowEmerald)"/>
+    <text x="135" y="191" font-family="sans-serif" font-size="9.2" font-weight="700" fill="#047857">v<tspan dy="2" font-size="7.5">q</tspan><tspan dy="-2">&sup2;</tspan></text>
+    <circle cx="200" cy="158" r="4" fill="#1e3a8a"/>
+    <text x="205" y="167" font-family="sans-serif" font-size="9.2" font-weight="700" fill="#1e3a8a">Q (v<tspan dy="2" font-size="7.5">Q</tspan><tspan dy="-2">&sup2; min)</tspan></text>
+
+    <!-- Right Panel: Heliocentric vs Geocentric Launch C3 -->
+    <rect x="455" y="24" width="265" height="266" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+    <text x="470" y="47" font-family="sans-serif" font-size="11.5" font-weight="700" fill="#0f172a">Two Roles of C<tspan dy="2" font-size="8.5">3</tspan><tspan dy="-2"> in MPCORB</tspan></text>
+
+    <rect x="470" y="62" width="235" height="65" rx="4" fill="#eff6ff" stroke="#93c5fd" stroke-width="1"/>
+    <text x="480" y="79" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#1e3a8a">1. Heliocentric Orbital C<tspan dy="2" font-size="8">3</tspan><tspan dy="-2"> (MPCORB):</tspan></text>
+    <text x="480" y="97" font-family="Georgia, serif" font-style="italic" font-size="11" fill="#0f172a">C<tspan dy="2" font-size="8.5">3,helio</tspan><tspan dy="-2"> = &minus;&mu;</tspan><tspan dy="2" font-size="8.5">&#9737;</tspan><tspan dy="-2"> / a = &minus;887.12815 / a</tspan><tspan dy="2" font-size="8">AU</tspan></text>
+    <text x="480" y="116" font-family="sans-serif" font-size="9.3" fill="#475569">Units: km&sup2;/s&sup2; (C<tspan dy="2" font-size="7.5">3</tspan><tspan dy="-2"> = 2&epsilon;; a in Cols 93–103)</tspan></text>
+
+    <line x1="587" y1="127" x2="587" y2="143" stroke="#475569" stroke-width="1.4" marker-end="url(#arrowSlate)"/>
+
+    <rect x="470" y="145" width="235" height="65" rx="4" fill="#fff1f2" stroke="#fda4af" stroke-width="1"/>
+    <text x="480" y="162" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#9f1239">2. Hyperbolic Asymptotic Speed:</text>
+    <text x="480" y="180" font-family="Georgia, serif" font-style="italic" font-size="11" fill="#0f172a">C<tspan dy="2" font-size="8.5">3</tspan><tspan dy="-2"> &gt; 0 &rArr; v</tspan><tspan dy="2" font-size="8.5">&infin;</tspan><tspan dy="-2"> = &radic;C</tspan><tspan dy="2" font-size="8.5">3</tspan><tspan dy="-2"> = &radic;(&minus;&mu; / a)</tspan></text>
+    <text x="480" y="199" font-family="sans-serif" font-size="9.3" fill="#475569">Interstellar objects (a &lt; 0, e &gt; 1)</text>
+
+    <line x1="587" y1="210" x2="587" y2="226" stroke="#475569" stroke-width="1.4" marker-end="url(#arrowSlate)"/>
+
+    <rect x="470" y="228" width="235" height="50" rx="4" fill="#ecfdf5" stroke="#6ee7b7" stroke-width="1"/>
+    <text x="480" y="245" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#065f46">3. Earth-Departure Launch C<tspan dy="2" font-size="8">3</tspan><tspan dy="-2">:</tspan></text>
+    <text x="480" y="263" font-family="Georgia, serif" font-style="italic" font-size="11" fill="#0f172a">C<tspan dy="2" font-size="8.5">3,launch</tspan><tspan dy="-2"> = v</tspan><tspan dy="2" font-size="8.5">&infin;,&oplus;</tspan><tspan dy="-2">&sup2; = v</tspan><tspan dy="2" font-size="8.5">0</tspan><tspan dy="-2">&sup2; &minus; 2&mu;</tspan><tspan dy="2" font-size="8.5">&oplus;</tspan><tspan dy="-2">/r</tspan><tspan dy="2" font-size="8.5">0</tspan></text>
+  </svg>
+  <div class="figure-caption">
+    <strong>Figure 1:</strong> Characteristic energy <span class="math-var">C<sub>3</sub> = 2&epsilon; = v<sup>2</sup> &minus; 2&mu;/r = &minus;&mu;/a</span> across bound and unbound regimes. For bound minor planets in <code>MPCORB.DAT</code> (<span class="math-var">a &gt; 0</span>), <span class="math-var">C<sub>3</sub> &lt; 0</span> lies below the parabolic escape threshold (<span class="math-var">C<sub>3</sub> = 0</span>); for hyperbolic trajectories (<span class="math-var">a &lt; 0, e &gt; 1</span>), <span class="math-var">C<sub>3</sub> = +v<sub>&infin;</sub><sup>2</sup> &gt; 0</span> equals the square of the hyperbolic excess speed at infinity.
+  </div>
+</div>
+
+<h2>2. Evaluation from <code>MPCORB.DAT</code> &amp; Relation to Orbital Elements</h2>
+<p>
+  In <code>MPCORB.DAT</code>, the <strong>semimajor axis</strong> <span class="math-var">a</span> is given in columns 93–103 (in <span class="math-var">AU</span>, formatted as <code>F11.7</code>), and the <strong>mean daily motion</strong> <span class="math-var">n</span> is given in columns 81–91 (in deg/day, formatted as <code>F11.8</code>). Using <span class="math-var">n<sub>rad</sub> = n(&pi; / 180&deg;)</span> and Kepler's third law (<span class="math-var">n<sub>rad</sub><sup>2</sup> a<sup>3</sup> = &mu;<sub>&#9737;</sub></span>), the heliocentric characteristic energy <span class="math-var">C<sub>3</sub></span> is:
+</p>
+
+<div class="equation-box">
+  <span class="equation-main">
+    C<sub>3</sub> = 2&epsilon; = &minus;<span class="frac"><span>&mu;<sub>&#9737;</sub></span><span>a</span></span> = &minus;(&mu;<sub>&#9737;</sub> n<sub>rad</sub>)<sup>2/3</sup> = &minus;<span class="frac"><span>887.1281506</span><span>a<sub>AU</sub></span></span> &nbsp; <span class="fn">km</span><sup>2</sup>/<span class="fn">s</span><sup>2</sup>
+  </span>
+  <span class="equation-label">(Eq. 2)</span>
+</div>
+
+<p>
+  For <strong>unperturbed hyperbolic trajectories</strong> (<span class="math-var">e &gt; 1, a &lt; 0</span>, such as interstellar objects or gravitationally ejected comets in <code>MPCORB.DAT</code>), <span class="math-var">C<sub>3</sub></span> is strictly positive and directly yields the <strong>hyperbolic excess speed</strong> <span class="math-var">v<sub>&infin;</sub></span> (asymptotic speed as <span class="math-var">r &rarr; &infin;</span>):
+</p>
+
+<div class="equation-box">
+  <span class="equation-main">
+    C<sub>3</sub> = v<sub>&infin;</sub><sup>2</sup> = &minus;<span class="frac"><span>&mu;</span><span>a</span></span> = <span class="frac"><span>&mu;(e &minus; 1)</span><span>q</span></span> &gt; 0 &nbsp;&nbsp;&rArr;&nbsp;&nbsp; v<sub>&infin;</sub> = &radic;<span style="text-decoration: overline;">C<sub>3</sub></span>
+  </span>
+  <span class="equation-label">(Eq. 3)</span>
+</div>
+
+<p>
+  where <span class="math-var">q = a(1 &minus; e) &gt; 0</span> is the perihelion distance (since both <span class="math-var">a &lt; 0</span> and <span class="math-var">1 &minus; e &lt; 0</span>).
+</p>
+
+<h2>3. Dynamical Regimes &amp; Mission-Design Applications</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Regime / Context</th>
+      <th>Characteristic Energy (<span class="math-var">C<sub>3</sub></span>)</th>
+      <th>Semimajor Axis (<span class="math-var">a</span>) &amp; Eccentricity (<span class="math-var">e</span>)</th>
+      <th>Physical &amp; Astrodynamical Interpretation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Bound Heliocentric Orbit (<code>MPCORB</code>)</strong></td>
+      <td><span class="math-var">C<sub>3</sub> = &minus;&mu;<sub>&#9737;</sub> / a &lt; 0</span></td>
+      <td><span class="math-var">0 &lt; a &lt; &infin;, &nbsp; 0 &le; e &lt; 1</span></td>
+      <td>Gravitationally bound to the Sun; <span class="math-var">&minus;C<sub>3</sub> = v<sub>circ</sub>(a)<sup>2</sup></span> is the square of the circular orbital speed at <span class="math-var">r = a</span>.</td>
+    </tr>
+    <tr>
+      <td><strong>Parabolic Escape Threshold</strong></td>
+      <td><span class="math-var">C<sub>3</sub> = 0</span></td>
+      <td><span class="math-var">a &rarr; &infin;, &nbsp; e = 1</span></td>
+      <td>Exact solar escape energy (<span class="math-var">v(r) = v<sub>esc</sub>(r) = &radic;<span style="text-decoration: overline;">2&mu;<sub>&#9737;</sub> / r</span></span> everywhere; <span class="math-var">v<sub>&infin;</sub> = 0</span>).</td>
+    </tr>
+    <tr>
+      <td><strong>Hyperbolic Trajectory / Interstellar</strong></td>
+      <td><span class="math-var">C<sub>3</sub> = +v<sub>&infin;</sub><sup>2</sup> &gt; 0</span></td>
+      <td><span class="math-var">a &lt; 0, &nbsp; e &gt; 1</span></td>
+      <td>Unbound solar escape or interstellar flyby (e.g., 1I/‘Oumuamua, 2I/Borisov) with asymptotic speed <span class="math-var">v<sub>&infin;</sub> = &radic;<span style="text-decoration: overline;">C<sub>3</sub></span></span>.</td>
+    </tr>
+    <tr>
+      <td><strong>Earth-Departure Transfer (<span class="math-var">C<sub>3,launch</sub></span>)</strong></td>
+      <td><span class="math-var">C<sub>3,launch</sub> = v<sub>&infin;,&oplus;</sub><sup>2</sup> &ge; 0</span></td>
+      <td>Geocentric departure hyperbola (<span class="math-var">a<sub>&oplus;</sub> &lt; 0</span>)</td>
+      <td>Launch vehicle performance metric for Near-Earth Object (NEO) and asteroid missions (<span class="math-var">C<sub>3,launch</sub> = 0</span> corresponds to Earth-escape speed <span class="math-var">11.186 km/s</span> at <span class="math-var">r<sub>0</sub> = R<sub>&oplus;</sub></span>).</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>4. Astrodynamical &amp; Mission-Analysis Significance</h2>
+<ul>
+  <li><strong>Identity with Circular Speed Squared:</strong> For any bound minor planet in <code>MPCORB.DAT</code> (<span class="math-var">a &gt; 0</span>), the magnitude <span class="math-var">|C<sub>3</sub>| = &mu;<sub>&#9737;</sub> / a = v<sub>circ</sub>(a)<sup>2</sup></span> equals the square of the circular Keplerian speed at radius <span class="math-var">r = a</span>, and equals half the squared local escape speed <span class="math-var"><span class="frac"><span>1</span><span>2</span></span> v<sub>esc</sub>(a)<sup>2</sup></span>.</li>
+  <li><strong>Near-Earth Asteroid (NEA) Accessibility &amp; Coplanar Hohmann <span class="math-var">C<sub>3,launch</sub></span>:</strong> When selecting mission targets from <code>MPCORB.DAT</code>, a first-order coplanar Hohmann transfer from Earth (<span class="math-var">a<sub>&oplus;</sub> = 1.000 AU</span>) to an asteroid with semimajor axis <span class="math-var">a</span> requires a transfer semimajor axis <span class="math-var">a<sub>t</sub> = (1 + a) / 2</span>, giving a hyperbolic excess departure velocity <span class="math-var">v<sub>&infin;,&oplus;</sub> = &radic;<span style="text-decoration: overline;">&mu;<sub>&#9737;</sub></span> &left| &radic;<span style="text-decoration: overline;">2 &minus; <span class="frac"><span>1</span><span>a<sub>t</sub></span></span></span> &minus; 1 &right|</span> and characteristic launch energy <span class="math-var">C<sub>3,launch</sub> = v<sub>&infin;,&oplus;</sub><sup>2</sup></span> (typically <span class="math-var">0 &le; C<sub>3,launch</sub> &le; 25 km<sup>2</sup>/s<sup>2</sup></span> for accessible NEAs, versus <span class="math-var">&sim;25–50 km<sup>2</sup>/s<sup>2</sup></span> for main-belt asteroids).</li>
+  <li><strong>Distinction from Specific Orbital Energy (<span class="math-var">&epsilon;</span>):</strong> While <span class="math-var">&epsilon; = &minus;&mu; / (2a)</span> represents energy per unit mass in Hamiltonian mechanics, aerospace engineers and JPL/MPC mission tables standardize on <span class="math-var">C<sub>3</sub> = 2&epsilon; = &minus;&mu; / a</span> because <span class="math-var">C<sub>3</sub> = v<sub>&infin;</sub><sup>2</sup></span> eliminates the factor of <span class="math-var">1/2</span> when converting directly between launch vehicle injection energy (<span class="math-var">km<sup>2</sup>/s<sup>2</sup></span>) and asymptotic hyperbolic excess velocity (<span class="math-var">km/s</span>).</li>
+</ul>
+
+<h2>5. Worked Examples from <code>MPCORB.DAT</code></h2>
+<p>
+  The following two objects—a bound main-belt minor planet from <code>MPCORB.DAT</code> and an unbound interstellar object following the same MPC orbital element convention—contrast negative (bound) and positive (hyperbolic) characteristic energy <span class="math-var">C<sub>3</sub></span>:
+</p>
+
+<div class="example-card">
+  <h3>Example 1: (1) Ceres — Bound Main-Belt Dwarf Planet (<span class="math-var">C<sub>3</sub> = &minus;320.55148 km<sup>2</sup>/s<sup>2</sup></span>)</h3>
+  <p>
+    Excerpt from <code>MPCORB.DAT</code> (columns 1–103, epoch <code>K25BL</code>):
+  </p>
+  <pre class="mpcorb-record">00001    3.34  0.12 K25BL 231.53975   73.28579   80.25414   10.58688  0.0789158  0.21410467   2.7675059</pre>
+  <ul>
+    <li><strong>Extracted Epoch Elements:</strong> <span class="math-var">a = 2.7675059 AU</span> (columns 93–103), <span class="math-var">e = 0.0789158</span> (columns 71–79), and <span class="math-var">n = 0.21410467&deg;/d</span> (columns 81–91).</li>
+    <li><strong>Heliocentric Characteristic Energy Evaluation:</strong> From Eq. (2), <span class="math-var">C<sub>3</sub> = 2&epsilon; = &minus;887.1281506 / 2.7675059 = &minus;320.55148 km<sup>2</sup>/s<sup>2</sup></span> (<span class="math-var">&minus;1.06925 &times; 10<sup>&minus;4</sup> AU<sup>2</sup>/d<sup>2</sup></span> in Gaussian units). Because <span class="math-var">C<sub>3</sub> &lt; 0</span>, Ceres is deeply bound to the Sun; <span class="math-var">&radic;<span style="text-decoration: overline;">&minus;C<sub>3</sub></span> = 17.90395 km/s</span> equals its mean circular orbital speed at <span class="math-var">r = a</span>, and at every point in its orbit <span class="math-var">v(r)<sup>2</sup> &minus; v<sub>esc</sub>(r)<sup>2</sup> = &minus;320.55148 km<sup>2</sup>/s<sup>2</sup></span>.</li>
+  </ul>
+</div>
+
+<div class="example-card">
+  <h3>Example 2: 1I/2017 U1 (‘Oumuamua) — Hyperbolic Interstellar Trajectory (<span class="math-var">C<sub>3</sub> = +693.12412 km<sup>2</sup>/s<sup>2</sup></span>)</h3>
+  <p>
+    Osculating heliocentric hyperbolic elements (MPC orbital convention):
+  </p>
+  <pre class="mpcorb-record">0001I   22.40  0.15 K1794  51.49811  241.81053   24.59691  122.74171  1.2011337  1.27975361  -1.2798982</pre>
+  <ul>
+    <li><strong>Extracted Elements:</strong> <span class="math-var">a = &minus;1.2798982 AU</span> (negative semimajor axis characteristic of a hyperbola), <span class="math-var">e = 1.2011337 &gt; 1</span>, and perihelion distance <span class="math-var">q = a(1 &minus; e) = 0.2574307 AU</span>.</li>
+    <li><strong>Heliocentric Characteristic Energy &amp; Excess Speed:</strong> Because <span class="math-var">a &lt; 0</span>, Eq. (3) yields a strictly positive characteristic energy <span class="math-var">C<sub>3</sub> = &minus;887.1281506 / (&minus;1.2798982) = +693.12412 km<sup>2</sup>/s<sup>2</sup></span> (<span class="math-var">+2.31200 &times; 10<sup>&minus;4</sup> AU<sup>2</sup>/d<sup>2</sup></span>). Taking the square root gives the heliocentric hyperbolic excess (interstellar arrival/departure) speed <span class="math-var">v<sub>&infin;</sub> = &radic;<span style="text-decoration: overline;">C<sub>3</sub></span> = 26.32725 km/s</span> (<span class="math-var">5.5535 AU/yr</span>).</li>
+  </ul>
+</div>
+
+<div class="interactive-panel">
+  <div class="interactive-title">Interactive Calculator: Characteristic Energy C<sub>3</sub> (Bound a &gt; 0 or Hyperbolic a &lt; 0) &amp; Hohmann Launch C<sub>3</sub></div>
+  <div class="controls-grid">
+    <div class="control-group">
+      <label for="a_val">Semimajor Axis a (AU, &ne; 0)</label>
+      <input type="number" id="a_val" value="2.7675059" step="0.1">
+    </div>
+    <div class="control-group">
+      <label for="r_val">Heliocentric Distance r (AU)</label>
+      <input type="number" id="r_val" value="2.54911" step="0.05" min="0.01">
+    </div>
+  </div>
+  <div class="result-bar" id="calc_out">Computing...</div>
+</div>
+
+    </main>
+    <footer>
+      <span>Reference Standard: IAU Minor Planet Center (MPCORB.DAT) &amp; Two-Body Vis-Viva Conservation</span>
+      <span>Governing Relation: C<sub>3</sub> = 2&epsilon; = v&sup2; &minus; 2&mu;/r = &minus;&mu;/a = v<sub>&infin;</sub>&sup2; &bull; MPCORB Sources: a (Cols 93–103), n (Cols 81–91)</span>
+    </footer>
+  </div>
+  <script>
+    
+(function() {
+  const GM_SUN_KMS = 1.32712440018e11; // km^3 / s^2
+  const AU_KM = 149597870.7;
+  const MU_AU_KMS = GM_SUN_KMS / AU_KM; // 887.1281506 km^2 / s^2 * AU
+  const K_GAUSS = 0.01720209895;
+  const MU_GAUSS = K_GAUSS * K_GAUSS; // AU^3 / d^2
+
+  function update() {
+    const a = parseFloat(document.getElementById('a_val').value);
+    const r = parseFloat(document.getElementById('r_val').value);
+    const out = document.getElementById('calc_out');
+
+    if ([a, r].some(isNaN) || Math.abs(a) < 1e-6 || r <= 0) {
+      out.textContent = "Invalid parameters (require a != 0 AU and r > 0 AU).";
+      return;
+    }
+
+    const c3Kms = -MU_AU_KMS / a;
+    const c3Gauss = -MU_GAUSS / a;
+    const vEsc = Math.sqrt(2.0 * MU_AU_KMS / r);
+    const vSq = c3Kms + 2.0 * MU_AU_KMS / r;
+
+    if (vSq < 0) {
+      out.textContent = `Unphysical r = ${r.toFixed(4)} AU for bound orbit a = ${a.toFixed(4)} AU (exceeds aphelion limit 2a = ${(2 * a).toFixed(4)} AU).`;
+      return;
+    }
+
+    const vLocal = Math.sqrt(vSq);
+
+    if (a > 0) {
+      const vCirc = Math.sqrt(-c3Kms);
+      const aTrans = 0.5 * (1.0 + a);
+      const vInfEarth = Math.sqrt(MU_AU_KMS) * Math.abs(Math.sqrt(2.0 - 1.0 / aTrans) - 1.0);
+      const c3Launch = vInfEarth * vInfEarth;
+      out.innerHTML =
+        `Bound Orbit: C<sub>3</sub> = 2&epsilon; = ${c3Kms.toFixed(5)} km&sup2;/s&sup2; (${c3Gauss.toExponential(5)} AU&sup2;/d&sup2;)  |  v<sub>circ</sub>(a) = ${vCirc.toFixed(3)} km/s<br>` +
+        `At r = ${r.toFixed(4)} AU: v = ${vLocal.toFixed(3)} km/s (v<sub>esc</sub> = ${vEsc.toFixed(3)} km/s)  |  Coplanar Hohmann C<sub>3,launch</sub> = ${c3Launch.toFixed(2)} km&sup2;/s&sup2;`;
+    } else {
+      const vInf = Math.sqrt(c3Kms);
+      out.innerHTML =
+        `Hyperbolic Orbit: C<sub>3</sub> = 2&epsilon; = +${c3Kms.toFixed(5)} km&sup2;/s&sup2; (+${c3Gauss.toExponential(5)} AU&sup2;/d&sup2;)  |  Excess Speed v<sub>&infin;</sub> = &radic;C<sub>3</sub> = ${vInf.toFixed(4)} km/s<br>` +
+        `At r = ${r.toFixed(4)} AU: v = ${vLocal.toFixed(3)} km/s (exceeds local v<sub>esc</sub> = ${vEsc.toFixed(3)} km/s)`;
+    }
+  }
+
+  ['a_val', 'r_val'].forEach(id => {
+    document.getElementById(id).addEventListener('input', update);
+  });
+  update();
+})();
+
+  </script>
+</body>
+</html>

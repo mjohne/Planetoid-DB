@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coarse Indicator of Perturbers (Columns 143–145) — MPCORB Orbital Reference</title>
+  <style>
+:root {
+  --bg-color: #f8fafc;
+  --surface-color: #ffffff;
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  --accent-color: #1e3a8a;
+  --accent-light: #eff6ff;
+  --border-color: #e2e8f0;
+  --code-bg: #f1f5f9;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-serif: "Georgia", "Times New Roman", Times, serif;
+  --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  line-height: 1.7;
+  padding: 2rem 1rem;
+}
+
+.container {
+  max-width: 940px;
+  margin: 0 auto;
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 2.5rem 3rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+header {
+  border-bottom: 2px solid var(--accent-color);
+  padding-bottom: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.category-tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent-color);
+  background-color: var(--accent-light);
+  padding: 0.25rem 0.65rem;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
+h2 {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.35rem;
+}
+
+h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+ul, ol {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+li {
+  margin-bottom: 0.4rem;
+}
+
+.equation-box {
+  background-color: var(--code-bg);
+  border-left: 4px solid var(--accent-color);
+  padding: 1rem 1.5rem;
+  margin: 1.25rem 0;
+  border-radius: 0 6px 6px 0;
+  font-family: var(--font-serif);
+  font-size: 1.12rem;
+  overflow-x: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.equation-main {
+  font-style: italic;
+}
+
+.equation-main .fn,
+.math-fn {
+  font-style: normal;
+  font-family: var(--font-serif);
+}
+
+.equation-label {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-style: normal;
+  margin-left: 1rem;
+}
+
+.math-var {
+  font-family: var(--font-serif);
+  font-style: italic;
+}
+
+.figure-box {
+  background-color: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 1.25rem;
+  margin: 1.75rem 0;
+  text-align: center;
+}
+
+.figure-box svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.figure-caption {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-top: 0.85rem;
+  text-align: left;
+  line-height: 1.5;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.9rem;
+}
+
+th, td {
+  border: 1px solid var(--border-color);
+  padding: 0.6rem 0.8rem;
+  text-align: left;
+}
+
+th {
+  background-color: var(--code-bg);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+code {
+  font-family: var(--font-mono);
+  background-color: var(--code-bg);
+  padding: 0.15rem 0.35rem;
+  border-radius: 4px;
+  font-size: 0.88em;
+}
+
+pre.mpcorb-record {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  background-color: var(--code-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 0.85rem 1rem;
+  overflow-x: auto;
+  line-height: 1.45;
+  color: var(--text-primary);
+  margin: 0.75rem 0 1.25rem 0;
+}
+
+.example-card {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-left: 4px solid #047857;
+  border-radius: 6px;
+  padding: 1.15rem 1.35rem;
+  margin: 1.15rem 0;
+}
+
+.example-card h3 {
+  margin-top: 0;
+  color: #065f46;
+}
+
+.interactive-panel {
+  background-color: var(--code-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 1.25rem;
+  margin: 1.75rem 0;
+}
+
+.interactive-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 0.75rem;
+  color: var(--text-primary);
+}
+
+.controls-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.control-group label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.control-group input,
+.control-group select {
+  width: 100%;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background-color: var(--surface-color);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+}
+
+.result-bar {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.86rem;
+  color: var(--accent-color);
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+footer {
+  margin-top: 2.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+@media (max-width: 680px) {
+  .container {
+    padding: 1.5rem 1.25rem;
+  }
+}
+</style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <span class="category-tag">N-Body Force Model &amp; Planetary Perturbations • MPCORB Reference</span>
+      <h1>Coarse Indicator of Perturbers (Columns 143–145)</h1>
+      <div class="subtitle">Planetary Perturbation Span Mnemonic (FORTRAN A3: <code>"M-v"</code>) in MPCORB.DAT</div>
+    </header>
+    <main>
+      
+<h2>1. Formal Definition</h2>
+<p>
+  In the Minor Planet Center Orbit Database (<strong>MPCORB</strong>), the <strong>Coarse Indicator of Perturbers</strong> (officially specified by the IAU Minor Planet Center as the <em>“Coarse indicator of perturbers”</em> field in <strong>columns 143–145</strong>, 1-indexed, 3-character left-justified ASCII string formatted as FORTRAN <code>A3</code>, with 0-based substring slice <code>[142..145]</code>) is a compact mnemonic code denoting the <strong>planetary and massive minor-planet N-body gravitational force model</strong> utilized during the numerical integration and differential least-squares orbit determination:
+</p>
+
+<div class="equation-box">
+  <span class="equation-main">
+    <span class="fn">Perturbers</span><sub>coarse</sub> = <span class="fn">Record</span>[142 : 145] &isin; {<code>"M-v"</code>, <code>"M-h"</code>, <code>"   "</code>, &hellip;}
+  </span>
+  <span class="equation-label">(Eq. 1)</span>
+</div>
+
+<p>where:</p>
+<ul>
+  <li><strong>Physical Meaning in the Equations of Motion:</strong> In high-precision solar-system orbit determination, the heliocentric acceleration of a minor planet <span class="math-var">&#x1D45F;&#776;</span> is integrated under the Newtonian N-body and post-Newtonian relativistic equations of motion:
+    <div class="equation-box">
+      <span class="equation-main">
+        &#x1D45F;&#776; = &minus;&mu;<sub>&odot;</sub> <span class="math-var">&#x1D45F;</span> / <span class="math-var">r</span><sup>3</sup> + &sum;<sub>j &isin; &#119979;</sub> &mu;<sub>j</sub> ( (<span class="math-var">&#x1D45F;<sub>j</sub> &minus; &#x1D45F;</span>) / |<span class="math-var">&#x1D45F;<sub>j</sub> &minus; &#x1D45F;</span>|<sup>3</sup> &minus; <span class="math-var">&#x1D45F;<sub>j</sub></span> / <span class="math-var">r<sub>j</sub></span><sup>3</sup> ) + &#x1D44E;<sub>rel</sub> + &#x1D44E;<sub>non-grav</sub>
+      </span>
+      <span class="equation-label">(Eq. 2)</span>
+    </div>
+    Here, <span class="math-var">&#119979;</span> is the set of active perturbing bodies (planetary ephemeris + massive asteroids). The 3-character <em>coarse indicator</em> (cols 143–145) summarizes the planetary span of <span class="math-var">&#119979;</span>, while the immediately following 3-character <em>Precise indicator of perturbers</em> (cols 147–149, e.g., <code>30h</code> or <code>38k</code>) encodes the exact planetary ephemeris and massive-perturber configuration in hexadecimal/base-36 notation.</li>
+  <li><strong>Field Delimitation:</strong> Columns 143–145 are preceded by a space at column 142 (after the RMS residual in columns 138–141) and followed by a space at column 146 (before the <em>Precise indicator of perturbers</em> in columns 147–149).</li>
+</ul>
+
+<div class="figure-box">
+  <svg viewBox="0 0 740 315" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="MPCORB.DAT columns 138-160 force-model metadata layout and decoding of M-v, M-h, and blank two-body codes">
+    <text x="370" y="24" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="700" fill="#0f172a">MPCORB.DAT Columns 138–160 &amp; Coarse Perturber Force-Model Regimes (A3)</text>
+
+    <!-- Top Fixed-Width Context Strip -->
+    <rect x="24" y="42" width="128" height="48" rx="4" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.2"/>
+    <text x="88" y="60" text-anchor="middle" font-family="monospace" font-size="9" font-weight="700" fill="#334155">Cols 138–141 (F4.2)</text>
+    <text x="88" y="77" text-anchor="middle" font-family="monospace" font-size="9.2" fill="#0f172a">RMS Residual</text>
+
+    <rect x="164" y="42" width="248" height="48" rx="4" fill="#eff6ff" stroke="#1e3a8a" stroke-width="1.8"/>
+    <text x="288" y="60" text-anchor="middle" font-family="monospace" font-size="9.5" font-weight="700" fill="#1e3a8a">Cols 143–145 (FORTRAN A3)</text>
+    <text x="288" y="77" text-anchor="middle" font-family="sans-serif" font-size="10.2" font-weight="700" fill="#0f172a">Coarse Perturbers ([142..145])</text>
+
+    <rect x="424" y="42" width="144" height="48" rx="4" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.2"/>
+    <text x="496" y="60" text-anchor="middle" font-family="monospace" font-size="9" font-weight="700" fill="#334155">Cols 147–149 (A3)</text>
+    <text x="496" y="77" text-anchor="middle" font-family="monospace" font-size="9.2" fill="#0f172a">Precise Perturbers</text>
+
+    <rect x="580" y="42" width="136" height="48" rx="4" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.2"/>
+    <text x="648" y="60" text-anchor="middle" font-family="monospace" font-size="9" font-weight="700" fill="#334155">Cols 151–160 (A10)</text>
+    <text x="648" y="77" text-anchor="middle" font-family="monospace" font-size="9.2" fill="#0f172a">Computer Name</text>
+
+    <!-- Three Force Model Cards -->
+    <rect x="24" y="108" width="220" height="188" rx="6" fill="#ecfdf5" stroke="#6ee7b7" stroke-width="1.3"/>
+    <text x="36" y="130" font-family="monospace" font-size="11" font-weight="700" fill="#065f46">"M-v"</text>
+    <text x="36" y="147" font-family="sans-serif" font-size="9.5" font-weight="700" fill="#047857">Mercury through Neptune (+Pluto)</text>
+    <text x="36" y="166" font-family="sans-serif" font-size="8.5" fill="#334155">&bull; <strong>M</strong> = Mercury (innermost major planet)</text>
+    <text x="36" y="182" font-family="sans-serif" font-size="8.5" fill="#334155">&bull; <strong>v</strong> = Verrier / Neptune (historically</text>
+    <text x="44" y="195" font-family="sans-serif" font-size="8.5" fill="#334155">lowercase <code>v</code>; includes Pluto &amp;</text>
+    <text x="44" y="208" font-family="sans-serif" font-size="8.5" fill="#334155">massive asteroids per Cols 147–149).</text>
+    <text x="36" y="226" font-family="sans-serif" font-size="8.5" fill="#334155">&bull; Standard production force model for</text>
+    <text x="44" y="239" font-family="sans-serif" font-size="8.5" fill="#334155">&gt;99.9% of MPCORB records.</text>
+    <text x="36" y="266" font-family="monospace" font-size="8.3" fill="#065f46">Paired with: 30h, 38k, 3Eh, 00h</text>
+
+    <rect x="260" y="108" width="220" height="188" rx="6" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.3"/>
+    <text x="272" y="130" font-family="monospace" font-size="11" font-weight="700" fill="#1e3a8a">"M-h" / "V-n" / Subset</text>
+    <text x="272" y="147" font-family="sans-serif" font-size="9.5" font-weight="700" fill="#1e40af">Legacy / Partial Planetary Span</text>
+    <text x="272" y="166" font-family="sans-serif" font-size="8.5" fill="#334155">&bull; <strong>M-h</strong>: Mercury through Uranus</text>
+    <text x="280" y="179" font-family="sans-serif" font-size="8.5" fill="#334155">(Herschel) — omits Neptune.</text>
+    <text x="272" y="196" font-family="sans-serif" font-size="8.5" fill="#334155">&bull; <strong>V-n</strong> / <strong>E-n</strong>: Venus or Earth–Moon</text>
+    <text x="280" y="209" font-family="sans-serif" font-size="8.5" fill="#334155">barycenter through Neptune (used</text>
+    <text x="280" y="222" font-family="sans-serif" font-size="8.5" fill="#334155">in older main-belt integrations).</text>
+    <text x="272" y="239" font-family="sans-serif" font-size="8.5" fill="#334155">&bull; Rare in modern MPCORB releases.</text>
+    <text x="272" y="266" font-family="monospace" font-size="8.3" fill="#1d4ed8">Historical MPC / early MPO runs</text>
+
+    <rect x="496" y="108" width="220" height="188" rx="6" fill="#fff1f2" stroke="#fda4af" stroke-width="1.3"/>
+    <text x="508" y="130" font-family="monospace" font-size="11" font-weight="700" fill="#9f1239">"   " (Blank / 3 Spaces)</text>
+    <text x="508" y="147" font-family="sans-serif" font-size="9.5" font-weight="700" fill="#881337">Unperturbed Two-Body Solution</text>
+    <text x="508" y="166" font-family="sans-serif" font-size="8.5" fill="#334155">&bull; Pure Keplerian heliocentric two-body</text>
+    <text x="516" y="179" font-family="sans-serif" font-size="8.5" fill="#334155">orbit (no planetary perturbations).</text>
+    <text x="508" y="196" font-family="sans-serif" font-size="8.5" fill="#334155">&bull; Occurs for short-arc single-night</text>
+    <text x="516" y="209" font-family="sans-serif" font-size="8.5" fill="#334155">or 2- to 3-observation V&auml;is&auml;l&auml; /</text>
+    <text x="516" y="222" font-family="sans-serif" font-size="8.5" fill="#334155">circular discovery orbits.</text>
+    <text x="508" y="239" font-family="sans-serif" font-size="8.5" fill="#334155">&bull; Also if precise code is omitted.</text>
+    <text x="508" y="266" font-family="monospace" font-size="8.3" fill="#be123c">Paired with: blank Cols 147–149</text>
+  </svg>
+  <div class="figure-caption">
+    <strong>Figure 1:</strong> Fixed-width placement of the <strong>Coarse Indicator of Perturbers</strong> (columns 143–145, FORTRAN <code>A3</code>) in <code>MPCORB.DAT</code> and its primary force-model categories (<code>"M-v"</code> full planetary N-body integration, legacy partial spans, and blank unperturbed Keplerian two-body orbits).
+  </div>
+</div>
+
+<h2>2. Planetary Mnemonic &amp; Coupling with Columns 147–149</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Code (Cols 143–145)</th>
+      <th>Mnemonic Expansion</th>
+      <th>Dynamical Force-Model Interpretation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>M-v</code></td>
+      <td><strong>M</strong>ercury through Ne<strong>v</strong>errier / Neptune</td>
+      <td>Full planetary N-body integration spanning all eight major planets from Mercury (<code>M</code>) to Neptune (historically denoted by lowercase <code>v</code> for Le Verrier, the co-discoverer of Neptune, alongside Pluto and the major perturbing main-belt asteroids such as Ceres, Pallas, and Vesta as specified in columns 147–149).</td>
+    </tr>
+    <tr>
+      <td><code>M-h</code></td>
+      <td><strong>M</strong>ercury through <strong>h</strong>erschel (Uranus)</td>
+      <td>Legacy planetary integration spanning Mercury through Uranus (<code>h</code> = Herschel), omitting Neptune and trans-Neptunian perturbers.</td>
+    </tr>
+    <tr>
+      <td><code>V-n</code> / <code>E-n</code></td>
+      <td><strong>V</strong>enus or <strong>E</strong>arth through <strong>n</strong>eptune</td>
+      <td>Historical approximation used in early mainframe integrations of outer main-belt asteroids where Mercury's mass was folded into the solar gravitational parameter <span class="math-var">&mu;<sub>&odot;</sub></span>.</td>
+    </tr>
+    <tr>
+      <td><code>&nbsp;&nbsp;&nbsp;</code> (3 spaces)</td>
+      <td>Unperturbed / Two-Body</td>
+      <td>Pure Keplerian two-body orbit (<span class="math-var">&#119979; = &empty;</span>) without planetary perturbations—characteristic of preliminary single-opposition discovery tracklets (<span class="math-var">N<sub>obs</sub> = 2–3</span>) or circular/V&auml;is&auml;l&auml; initial orbits.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Coupling with the Precise Indicator of Perturbers (Columns 147–149)</h3>
+<p>
+  Whereas columns 143–145 give a human-readable 3-character summary (<code>M-v</code>), columns <strong>147–149</strong> (0-based <code>[146..149]</code>) encode the exact bitmask and ephemeris version:
+</p>
+<ul>
+  <li><code>M-v 30h</code>: Full planetary perturbations from JPL DE430/DE431 plus the 16/24 massive minor-planet perturbers (standard for recent JPL Horizons / MPC updates).</li>
+  <li><code>M-v 38k</code>: Full planetary perturbations plus the 300+ asteroid perturber model used by the MPC's <code>MPCLINUX</code> / <code>ORBFIT</code> production pipeline.</li>
+  <li><code>M-v 00h</code>: Full planetary perturbations (Mercury–Neptune + Pluto) with zero massive minor-planet perturbers included.</li>
+</ul>
+
+<h2>3. Fixed-Width Format Specifications &amp; Parsing Rules</h2>
+<ul>
+  <li><strong>Exact Column Slice:</strong> Columns <strong>143–145</strong> (1-indexed), corresponding to 0-based substring <code>line[142..145]</code> (length 3 characters).</li>
+  <li><strong>FORTRAN Format Descriptor:</strong> <code>A3</code> (3-character ASCII string), bounded by ASCII spaces at column 142 and column 146.</li>
+  <li><strong>Case Sensitivity:</strong> Case-sensitive! The first character is uppercase (<code>M</code> = Mercury) while the terminal planet character is lowercase (<code>v</code> = Neptune/Le Verrier, <code>h</code> = Uranus/Herschel). Parsers must preserve exact case when comparing against <code>"M-v"</code>.</li>
+</ul>
+
+<h2>4. Worked Examples from <code>MPCORB.DAT</code></h2>
+<p>
+  The following two records from <code>MPCORB.DAT</code> (epoch <code>K25BL</code> = 2025 Nov 21.0 TT = JD 2461000.5) illustrate <code>M-v</code> in columns 143–145 paired with different precise perturber codes in columns 147–149:
+</p>
+
+<div class="example-card">
+  <h3>Example 1: (1) Ceres — Full Planetary + Massive Asteroid Perturbers (<code>M-v</code> + <code>30h</code>)</h3>
+  <p>
+    Excerpt of <code>MPCORB.DAT</code> columns 108–202 for <code>00001</code>:
+  </p>
+  <pre class="mpcorb-record">MPO925614 11432  98 1801-2025 0.61 M-v 30h JPL 48     1000   (1) Ceres                  20251018</pre>
+  <ul>
+    <li><strong>Parsed Coarse Indicator (Cols 143–145):</strong> <code>"M-v"</code> (Mercury through Neptune/Pluto).</li>
+    <li><strong>Force-Model Context:</strong> Combined with <code>"30h"</code> (cols 147–149) and <code>"JPL 48"</code> (cols 151–160), indicating a full solar-system N-body integration including mutual perturbations among the massive main-belt asteroids.</li>
+  </ul>
+</div>
+
+<div class="example-card">
+  <h3>Example 2: 2025 QA14 — MPC Production Pipeline Integration (<code>M-v</code> + <code>38k</code>)</h3>
+  <p>
+    Excerpt of <code>MPCORB.DAT</code> columns 108–202 for <code>2025 QA14</code>:
+  </p>
+  <pre class="mpcorb-record">E2025-R84    27   1    14 days 0.28 M-v 38k MPCLINUX   8403            2025 QA14          20250911</pre>
+  <ul>
+    <li><strong>Parsed Coarse Indicator (Cols 143–145):</strong> <code>"M-v"</code> (Mercury through Neptune/Pluto).</li>
+    <li><strong>Force-Model Context:</strong> Paired with <code>"38k"</code> (cols 147–149) and <code>"MPCLINUX"</code> (cols 151–160), confirming that even this 14-day discovery arc was integrated using full planetary plus asteroid-belt N-body perturbations rather than a two-body approximation.</li>
+  </ul>
+</div>
+
+<div class="interactive-panel">
+  <div class="interactive-title">Interactive MPCORB Perturber Force-Model Inspector (Cols 143–149)</div>
+  <div class="controls-grid">
+    <div class="control-group">
+      <label for="coarse_in">Coarse Perturbers (Cols 143–145)</label>
+      <select id="coarse_in">
+        <option value="M-v" selected>"M-v" (Mercury through Neptune)</option>
+        <option value="M-h">"M-h" (Mercury through Uranus — Legacy)</option>
+        <option value="V-n">"V-n" (Venus through Neptune — Legacy)</option>
+        <option value="   ">"   " (Blank — Unperturbed Two-Body)</option>
+      </select>
+    </div>
+    <div class="control-group">
+      <label for="precise_in">Precise Perturbers (Cols 147–149)</label>
+      <select id="precise_in">
+        <option value="30h" selected>"30h" (JPL Planetary + Massive Asteroids)</option>
+        <option value="38k">"38k" (MPCLINUX Planetary + 300+ Asteroids)</option>
+        <option value="00h">"00h" (Planets Only, No Asteroid Perturbers)</option>
+        <option value="   ">"   " (Blank / None)</option>
+      </select>
+    </div>
+  </div>
+  <div class="result-bar" id="calc_out">Inspecting...</div>
+</div>
+
+    </main>
+    <footer>
+      <span>Reference Standard: IAU Minor Planet Center (MPCORB.DAT Fixed-Width Format Specification)</span>
+      <span>Governing Slice: Cols 143–145 (FORTRAN A3 / [142..145]) &bull; Paired with Cols 147–149</span>
+    </footer>
+  </div>
+  <script>
+    
+(function() {
+  const coarseMap = {
+    'M-v': 'Full Major Planetary Span (Mercury, Venus, Earth-Moon, Mars, Jupiter, Saturn, Uranus, Neptune + Pluto)',
+    'M-h': 'Legacy Inner-to-Uranus Span (Mercury through Uranus; omits Neptune)',
+    'V-n': 'Legacy Venus-to-Neptune Span (Mercury mass folded into Sun)',
+    '   ': 'Unperturbed Keplerian Two-Body Orbit (Sun only; no planetary perturbers)'
+  };
+
+  const preciseMap = {
+    '30h': 'JPL Planetary Ephemeris + 16/24 Massive Main-Belt Perturbers',
+    '38k': 'MPC Production Ephemeris + 300+ Main-Belt Asteroid Perturbers',
+    '00h': 'Major Planets Only (Zero Asteroid Perturbers)',
+    '   ': 'No Extended Perturber Bitmask (Two-Body or Legacy)'
+  };
+
+  function update() {
+    const c = document.getElementById('coarse_in').value;
+    const p = document.getElementById('precise_in').value;
+    const out = document.getElementById('calc_out');
+
+    const cDesc = coarseMap[c] || 'Custom / Legacy Coarse Indicator';
+    const pDesc = preciseMap[p] || 'Custom Precise Perturber Code';
+
+    out.innerHTML =
+      `MPCORB Slice [142..149] (Cols 143–149): <code>"${c} ${p}"</code><br>` +
+      `Coarse Model (143–145): <strong>${cDesc}</strong><br>` +
+      `Precise Model (147–149): ${pDesc}`;
+  }
+
+  document.getElementById('coarse_in').addEventListener('change', update);
+  document.getElementById('precise_in').addEventListener('change', update);
+  update();
+})();
+
+  </script>
+</body>
+</html>

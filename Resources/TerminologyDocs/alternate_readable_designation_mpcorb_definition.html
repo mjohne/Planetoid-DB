@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alternate Readable Designation — MPCORB Orbital Reference</title>
+  <style>
+:root {
+  --bg-color: #f8fafc;
+  --surface-color: #ffffff;
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  --accent-color: #1e3a8a;
+  --accent-light: #eff6ff;
+  --border-color: #e2e8f0;
+  --code-bg: #f1f5f9;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-serif: "Georgia", "Times New Roman", Times, serif;
+  --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  line-height: 1.7;
+  padding: 2rem 1rem;
+}
+
+.container {
+  max-width: 940px;
+  margin: 0 auto;
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 2.5rem 3rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+header {
+  border-bottom: 2px solid var(--accent-color);
+  padding-bottom: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.category-tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent-color);
+  background-color: var(--accent-light);
+  padding: 0.25rem 0.65rem;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
+h2 {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.35rem;
+}
+
+h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+ul, ol {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+li {
+  margin-bottom: 0.4rem;
+}
+
+.equation-box {
+  background-color: var(--code-bg);
+  border-left: 4px solid var(--accent-color);
+  padding: 1rem 1.5rem;
+  margin: 1.25rem 0;
+  border-radius: 0 6px 6px 0;
+  font-family: var(--font-serif);
+  font-size: 1.12rem;
+  overflow-x: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.equation-main {
+  font-style: italic;
+}
+
+.equation-main .fn,
+.math-fn {
+  font-style: normal;
+  font-family: var(--font-serif);
+}
+
+.equation-label {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-style: normal;
+  margin-left: 1rem;
+}
+
+.math-var {
+  font-family: var(--font-serif);
+  font-style: italic;
+}
+
+.figure-box {
+  background-color: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 1.25rem;
+  margin: 1.75rem 0;
+  text-align: center;
+}
+
+.figure-box svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.figure-caption {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-top: 0.85rem;
+  text-align: left;
+  line-height: 1.5;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.9rem;
+}
+
+th, td {
+  border: 1px solid var(--border-color);
+  padding: 0.6rem 0.8rem;
+  text-align: left;
+}
+
+th {
+  background-color: var(--code-bg);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+code {
+  font-family: var(--font-mono);
+  background-color: var(--code-bg);
+  padding: 0.15rem 0.35rem;
+  border-radius: 4px;
+  font-size: 0.88em;
+}
+
+pre.mpcorb-record {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  background-color: var(--code-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 0.85rem 1rem;
+  overflow-x: auto;
+  line-height: 1.45;
+  color: var(--text-primary);
+  margin: 0.75rem 0 1.25rem 0;
+}
+
+.example-card {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-left: 4px solid #047857;
+  border-radius: 6px;
+  padding: 1.15rem 1.35rem;
+  margin: 1.15rem 0;
+}
+
+.example-card h3 {
+  margin-top: 0;
+  color: #065f46;
+}
+
+.interactive-panel {
+  background-color: var(--code-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 1.25rem;
+  margin: 1.75rem 0;
+}
+
+.interactive-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 0.75rem;
+  color: var(--text-primary);
+}
+
+.controls-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.control-group label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.control-group input,
+.control-group select {
+  width: 100%;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background-color: var(--surface-color);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+}
+
+.result-bar {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.86rem;
+  color: var(--accent-color);
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+footer {
+  margin-top: 2.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+@media (max-width: 680px) {
+  .container {
+    padding: 1.5rem 1.25rem;
+  }
+}
+</style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <span class="category-tag">Nomenclature Normalization &amp; Cross-Identification • MPCORB Reference</span>
+      <h1>Alternate Readable Designation</h1>
+      <div class="subtitle">Name-First Reordering (<code>"Name (N)"</code>), Unparenthesized JPL Form &amp; Principal Provisional Discovery Aliases</div>
+    </header>
+    <main>
+      
+<h2>1. Formal Definition</h2>
+<p>
+  In the Minor Planet Center Orbit Database (<strong>MPCORB</strong>) ecosystem and extended minor-planet catalog schemas, the <strong>Alternate Readable Designation</strong> (<span class="math-var">Desig<sub>alt</sub></span>) is a <strong>derived, canonicalized, or cross-referenced human-readable identifier</strong> constructed alongside the primary <em>Readable Designation</em> (columns 167–194, FORTRAN <code>A28</code>) to resolve structural ambiguities in name-based search, alphabetical sorting, and multi-designation linkage:
+</p>
+
+<div class="equation-box">
+  <span class="equation-main">
+    <span class="fn">Desig</span><sub>alt</sub>(<span class="math-var">r</span>) = &#x1D447;<sub>alt</sub>( <span class="fn">Desig</span><sub>read</sub>(<span class="math-var">r</span>), <span class="fn">Desig</span><sub>packed</sub>(<span class="math-var">r</span>) )
+  </span>
+  <span class="equation-label">(Eq. 1)</span>
+</div>
+
+<p>where:</p>
+<ul>
+  <li><strong>Architectural Distinction (Derived/Normalized View vs. Raw Column 167–194):</strong> In the strict 202-column IAU <code>MPCORB.DAT</code> flat file, there is only a single 28-character <em>Readable Designation</em> field (columns 167–194, e.g., <code>   (1) Ceres</code> or <code>         2025 QA14</code>). In astronomical catalogs, MPC web/JSON exports (<code>mpcorb_extended.json</code>), and orbital analysis software, <strong>Alternate Readable Designation</strong> refers to the complementary human-readable representation that exposes the <em>other</em> side of an object's nomenclature identity:
+    <ol>
+      <li><strong>Name-First / Unparenthesized Normalization (for Numbered Minor Planets):</strong> Stripping or reordering the parenthesized permanent number <code>(N)</code> from <code>(N) Name</code> so the object is indexed directly by its IAU proper name or unadorned number—i.e., <code>"Ceres (1)"</code> or <code>"Ceres"</code> / <code>"1 Ceres"</code> instead of <code>"(1) Ceres"</code>—enabling direct alphabetical lookup by proper name rather than numeric prefix.</li>
+      <li><strong>Principal / Secondary Provisional Discovery Designations (for Numbered &amp; Multi-Designation Objects):</strong> Providing the historical provisional discovery designation(s) under which a numbered asteroid was originally discovered and observed prior to numbering—for example, <code>1930 SH</code> for <code>(1176) Lucidor</code>, <code>2004 MN4</code> for <code>(99942) Apophis</code>, <code>2003 UB313</code> for <code>(136199) Eris</code>, or <code>A801 AA</code> for <code>(1) Ceres</code>.</li>
+    </ol>
+  </li>
+  <li><strong>Role in Catalog Cross-Identification:</strong> Because minor planets frequently accumulate multiple provisional designations across independent survey detections before orbit linkage (e.g., <code>(99942) Apophis</code> = <code>2004 MN4</code>), retaining an <em>Alternate Readable Designation</em> column alongside the primary <em>Readable Designation</em> ensures zero-ambiguity resolution whether a user or external ephemeris service (JPL Horizons, MPC Explorer, Lowell Astorb, SkyBot) queries by permanent number, IAU proper name, or historical provisional code.</li>
+</ul>
+
+<div class="figure-box">
+  <svg viewBox="0 0 740 315" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Mapping from MPCORB packed key and raw Readable Designation (cols 167-194) to Alternate Readable Designation forms">
+    <text x="370" y="24" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="700" fill="#0f172a">Derivation &amp; Semantic Roles of "Alternate Readable Designation" in MPCORB Schemas</text>
+
+    <!-- Top Source Boxes -->
+    <rect x="24" y="42" width="215" height="50" rx="4" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.3"/>
+    <text x="131" y="60" text-anchor="middle" font-family="monospace" font-size="9" font-weight="700" fill="#334155">Cols 1–7 (A7 Primary Key)</text>
+    <text x="131" y="77" text-anchor="middle" font-family="monospace" font-size="9.5" fill="#0f172a">"99942  " / "K25Q14A"</text>
+
+    <rect x="255" y="42" width="245" height="50" rx="4" fill="#eff6ff" stroke="#1e3a8a" stroke-width="1.8"/>
+    <text x="377" y="60" text-anchor="middle" font-family="monospace" font-size="9.2" font-weight="700" fill="#1e3a8a">Cols 167–194 (Primary Readable)</text>
+    <text x="377" y="77" text-anchor="middle" font-family="monospace" font-size="9.5" fill="#0f172a">"(99942) Apophis" / "2025 QA14"</text>
+
+    <rect x="516" y="42" width="200" height="50" rx="4" fill="#ecfdf5" stroke="#047857" stroke-width="1.8"/>
+    <text x="616" y="60" text-anchor="middle" font-family="monospace" font-size="9.2" font-weight="700" fill="#065f46">Alternate Readable Desig.</text>
+    <text x="616" y="77" text-anchor="middle" font-family="sans-serif" font-size="9.2" font-weight="700" fill="#0f172a">Normalized / Provisional Alias</text>
+
+    <!-- Three Functional Cards -->
+    <rect x="24" y="108" width="220" height="188" rx="6" fill="#ecfdf5" stroke="#6ee7b7" stroke-width="1.3"/>
+    <text x="36" y="130" font-family="monospace" font-size="10" font-weight="700" fill="#065f46">1. Name-First / Reordered</text>
+    <text x="36" y="147" font-family="sans-serif" font-size="8.8" font-weight="700" fill="#047857">Lexicographic Name Indexing</text>
+    <rect x="36" y="156" width="196" height="24" rx="3" fill="#ffffff" stroke="#a7f3d0" stroke-width="1"/>
+    <text x="42" y="172" font-family="monospace" font-size="8.6" fill="#0f172a">"Apophis (99942)" / "Ceres (1)"</text>
+    <text x="36" y="198" font-family="sans-serif" font-size="8.3" fill="#334155">&bull; Moves proper name ahead of</text>
+    <text x="44" y="211" font-family="sans-serif" font-size="8.3" fill="#334155">the parenthesized catalog</text>
+    <text x="44" y="224" font-family="sans-serif" font-size="8.3" fill="#334155">number <code>(N)</code>.</text>
+    <text x="36" y="242" font-family="sans-serif" font-size="8.3" fill="#334155">&bull; Enables alphabetical sorting</text>
+    <text x="44" y="255" font-family="sans-serif" font-size="8.3" fill="#334155">by proper name in UI tables</text>
+    <text x="44" y="268" font-family="sans-serif" font-size="8.3" fill="#334155">(<code>A–Z</code> instead of <code>(1)..(N)</code>).</text>
+
+    <rect x="260" y="108" width="220" height="188" rx="6" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.3"/>
+    <text x="272" y="130" font-family="monospace" font-size="10" font-weight="700" fill="#1e3a8a">2. Principal Provisional Alias</text>
+    <text x="272" y="147" font-family="sans-serif" font-size="8.8" font-weight="700" fill="#1e40af">Pre-Numbering Discovery ID</text>
+    <rect x="272" y="156" width="196" height="24" rx="3" fill="#ffffff" stroke="#bfdbfe" stroke-width="1"/>
+    <text x="278" y="172" font-family="monospace" font-size="8.6" fill="#0f172a">"2004 MN4" / "2003 UB313"</text>
+    <text x="272" y="198" font-family="sans-serif" font-size="8.3" fill="#334155">&bull; Preserves the principal</text>
+    <text x="280" y="211" font-family="sans-serif" font-size="8.3" fill="#334155">provisional designation once</text>
+    <text x="280" y="224" font-family="sans-serif" font-size="8.3" fill="#334155">an asteroid is numbered.</text>
+    <text x="272" y="242" font-family="sans-serif" font-size="8.3" fill="#334155">&bull; Essential for matching legacy</text>
+    <text x="280" y="255" font-family="sans-serif" font-size="8.3" fill="#334155">literature &amp; discovery MPECs</text>
+    <text x="280" y="268" font-family="sans-serif" font-size="8.3" fill="#334155">(e.g., <code>2004 MN4</code> = Apophis).</text>
+
+    <rect x="496" y="108" width="220" height="188" rx="6" fill="#fffbeb" stroke="#fcd34d" stroke-width="1.3"/>
+    <text x="508" y="130" font-family="monospace" font-size="10" font-weight="700" fill="#92400e">3. Unadorned / Compact Form</text>
+    <text x="508" y="147" font-family="sans-serif" font-size="8.8" font-weight="700" fill="#78350f">Syntax-Stripped Identifier</text>
+    <rect x="508" y="156" width="196" height="24" rx="3" fill="#ffffff" stroke="#fde68a" stroke-width="1"/>
+    <text x="514" y="172" font-family="monospace" font-size="8.6" fill="#0f172a">"1 Ceres" / "2025QA14"</text>
+    <text x="508" y="198" font-family="sans-serif" font-size="8.3" fill="#334155">&bull; Removes parentheses around</text>
+    <text x="516" y="211" font-family="sans-serif" font-size="8.3" fill="#334155"><code>(N)</code> or collapses internal</text>
+    <text x="516" y="224" font-family="sans-serif" font-size="8.3" fill="#334155">whitespace in provisional IDs.</text>
+    <text x="508" y="242" font-family="sans-serif" font-size="8.3" fill="#334155">&bull; Matches JPL Small-Body DB</text>
+    <text x="516" y="255" font-family="sans-serif" font-size="8.3" fill="#334155">(<code>1 Ceres</code>) and URL/CLI</text>
+    <text x="516" y="268" font-family="sans-serif" font-size="8.3" fill="#334155">query parameters.</text>
+  </svg>
+  <div class="figure-caption">
+    <strong>Figure 1:</strong> Derivation of the <strong>Alternate Readable Designation</strong> from the primary <code>MPCORB.DAT</code> identifiers (packed key in columns 1–7 and raw readable designation in columns 167–194) across its three operational forms: name-first lexicographic indexing, principal provisional discovery aliases, and syntax-stripped external catalog strings.
+  </div>
+</div>
+
+<h2>2. Formal Transformation Rules &amp; Schema Comparison</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Identifier Variant</th>
+      <th>Primary <code>MPCORB.DAT</code> (Cols 167–194)</th>
+      <th>Alternate Readable Designation</th>
+      <th>Algorithmic Mapping &amp; Use Case</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Numbered + Named (Name-First Form)</strong></td>
+      <td><code>(1) Ceres</code><br><code>(99942) Apophis</code></td>
+      <td><code>Ceres (1)</code><br><code>Apophis (99942)</code></td>
+      <td>Swap capture groups of <code>^\((\d+)\)\s+(.+)$</code> &rarr; <code>"$2 ($1)"</code>. Enables natural <code>A–Z</code> alphabetical sorting by proper name while retaining the IAU catalog number.</td>
+    </tr>
+    <tr>
+      <td><strong>Numbered + Named (Unparenthesized Form)</strong></td>
+      <td><code>(433) Eros</code><br><code>(136199) Eris</code></td>
+      <td><code>433 Eros</code><br><code>136199 Eris</code></td>
+      <td>Strip parentheses: <code>"$1 $2"</code>. Matches the canonical primary designation syntax of the NASA/JPL Small-Body Database (SBDB) and Horizons API.</td>
+    </tr>
+    <tr>
+      <td><strong>Numbered + Named (Principal Provisional Alias)</strong></td>
+      <td><code>(99942) Apophis</code><br><code>(136199) Eris</code></td>
+      <td><code>2004 MN4</code><br><code>2003 UB313</code></td>
+      <td>Supplied via MPC extended catalog metadata (<code>mpcorb_extended.json</code> <code>Principal_desig</code> / <code>Other_desigs</code>); links numbered bodies to their pre-numbering discovery designations.</td>
+    </tr>
+    <tr>
+      <td><strong>Numbered, Unnamed</strong></td>
+      <td><code>(654321)</code></td>
+      <td><code>654321</code> (or Principal Provisional ID)</td>
+      <td>When no proper name exists, name-first reordering is an identity operation; the alternate form strips parentheses (<code>"654321"</code>) or displays the principal provisional designation (e.g., <code>2014 YD50</code>).</td>
+    </tr>
+    <tr>
+      <td><strong>Unnumbered Provisional</strong></td>
+      <td><code>2025 QA14</code><br><code>6344 P-L</code></td>
+      <td><code>2025QA14</code> (compact) or Secondary Provisional Alias</td>
+      <td>For single-designation provisional objects, the raw string has no proper name to reorder; alternate representations provide compact whitespace-free keys (<code>"2025QA14"</code>) or secondary linked tracklet designations.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>3. Fixed-Width File Context &amp; Software Engineering Semantics</h2>
+<ul>
+  <li><strong>Not a Separate Byte Slice in <code>MPCORB.DAT</code>:</strong> In the classic 202-character <code>MPCORB.DAT</code> format, only a single 28-character designation field exists at columns <strong>167–194</strong> (0-based <code>[166..194]</code>). Therefore, <em>Alternate Readable Designation</em> is either:
+    <ul>
+      <li>Synthesized deterministically at parse time from columns 167–194 (transforming <code>"(N) Name"</code> &harr; <code>"Name (N)"</code> or <code>"N Name"</code>), or</li>
+      <li>Populated from the MPC's extended JSON distribution (<code>mpcorb_extended.json</code>), which separates <code>Number</code>, <code>Name</code>, <code>Principal_desig</code>, and <code>Other_desigs</code> into distinct attributes.</li>
+    </ul>
+  </li>
+  <li><strong>Why Both Primary and Alternate Columns Coexist in Virtual Tables:</strong> Sorting a table of 1.5 million minor planets by raw <em>Readable Designation</em> (<code>"(1) Ceres"</code>, <code>"(2) Pallas"</code>, &hellip;, <code>"(99942) Apophis"</code>) orders rows numerically because every numbered entry starts with <code>'('</code>. Providing an <strong>Alternate Readable Designation</strong> column formatted as <code>"Name (N)"</code> (e.g., <code>"Ceres (1)"</code>, <code>"Pallas (2)"</code>) allows users to sort and incrementally search by proper name (e.g., typing <code>"Vesta"</code> jumps straight to <code>"Vesta (4)"</code>) without losing the permanent catalog number.</li>
+</ul>
+
+<h2>4. Worked Examples from <code>MPCORB.DAT</code></h2>
+<p>
+  The following two records from <code>MPCORB.DAT</code> (epoch <code>K25BL</code> = 2025 Nov 21.0 TT = JD 2461000.5) illustrate how <em>Readable Designation</em> (columns 167–194) maps to its <em>Alternate Readable Designation</em> forms:
+</p>
+
+<div class="example-card">
+  <h3>Example 1: (1) Ceres — Numbered &amp; Named Minor Planet</h3>
+  <p>
+    Excerpt of <code>MPCORB.DAT</code> columns 151–202 for <code>00001</code>:
+  </p>
+  <pre class="mpcorb-record">JPL 48     1000   (1) Ceres                  20251018</pre>
+  <ul>
+    <li><strong>Primary Readable Designation (Cols 167–194):</strong> <code>"(1) Ceres"</code></li>
+    <li><strong>Alternate Readable Designations:</strong>
+      <ul>
+        <li><strong>Name-First Lexicographic Form:</strong> <code>"Ceres (1)"</code></li>
+        <li><strong>JPL / Unparenthesized Form:</strong> <code>"1 Ceres"</code></li>
+        <li><strong>Historical Discovery Provisional Alias:</strong> <code>"A801 AA"</code> (discovered 1801 Jan 1 by G. Piazzi)</li>
+      </ul>
+    </li>
+  </ul>
+</div>
+
+<div class="example-card">
+  <h3>Example 2: 2025 QA14 — Unnumbered Provisional Minor Planet</h3>
+  <p>
+    Excerpt of <code>MPCORB.DAT</code> columns 151–202 for <code>K25Q14A</code>:
+  </p>
+  <pre class="mpcorb-record">MPCLINUX   8403            2025 QA14          20250911</pre>
+  <ul>
+    <li><strong>Primary Readable Designation (Cols 167–194):</strong> <code>"2025 QA14"</code></li>
+    <li><strong>Alternate Readable Designations:</strong>
+      <ul>
+        <li><strong>Name-First Form:</strong> <code>"2025 QA14"</code> (invariant, as no permanent number or proper name is assigned yet)</li>
+        <li><strong>Compact / Packed-Equivalent Form:</strong> <code>"2025QA14"</code> (packed key in cols 1–7: <code>"K25Q14A"</code>)</li>
+      </ul>
+    </li>
+  </ul>
+</div>
+
+<div class="interactive-panel">
+  <div class="interactive-title">Interactive Alternate Readable Designation Generator</div>
+  <div class="controls-grid">
+    <div class="control-group">
+      <label for="raw_in">Primary Readable Designation (Cols 167–194)</label>
+      <input type="text" id="raw_in" value="(99942) Apophis" maxlength="28" placeholder="e.g. (1) Ceres or 2025 QA14">
+    </div>
+    <div class="control-group">
+      <label for="preset_in">Canonical MPCORB Presets</label>
+      <select id="preset_in">
+        <option value="(99942) Apophis" selected>(99942) Apophis — Numbered &amp; Named</option>
+        <option value="(1) Ceres">(1) Ceres — First Numbered Asteroid</option>
+        <option value="(136199) Eris">(136199) Eris — Dwarf Planet</option>
+        <option value="(654321)">(654321) — Numbered, Unnamed</option>
+        <option value="2025 QA14">2025 QA14 — Provisional Discovery</option>
+      </select>
+    </div>
+  </div>
+  <div class="result-bar" id="calc_out">Generating...</div>
+</div>
+
+    </main>
+    <footer>
+      <span>Reference Standard: IAU Minor Planet Center (MPCORB / Extended JSON Nomenclature Specification)</span>
+      <span>Derived from Cols 167–194 (FORTRAN A28) &amp; Cols 1–7 &bull; Enables Alphabetical Name Indexing &amp; Alias Resolution</span>
+    </footer>
+  </div>
+  <script>
+    
+(function() {
+  const knownProvAliases = {
+    '1': 'A801 AA',
+    '433': '1898 DQ',
+    '99942': '2004 MN4',
+    '136199': '2003 UB313'
+  };
+
+  function update() {
+    const trimmed = document.getElementById('raw_in').value.trim();
+    const out = document.getElementById('calc_out');
+
+    if (!trimmed) {
+      out.textContent = "Enter a primary Readable Designation (e.g. (1) Ceres or 2025 QA14).";
+      return;
+    }
+
+    const numNamed = /^\((\d+)\)\s+(.+)$/.exec(trimmed);
+    const numOnly = /^\((\d+)\)$/.exec(trimmed);
+
+    if (numNamed) {
+      const num = numNamed[1];
+      const name = numNamed[2];
+      const nameFirst = `${name} (${num})`;
+      const jplForm = `${num} ${name}`;
+      const provAlias = knownProvAliases[num] ? `  |  Principal Provisional Alias: <code>${knownProvAliases[num]}</code>` : '';
+      out.innerHTML =
+        `Primary (Cols 167–194): <code>"${trimmed}"</code><br>` +
+        `Alternate (Name-First): <strong>"${nameFirst}"</strong>  |  Alternate (JPL/Unparenthesized): <code>"${jplForm}"</code>${provAlias}`;
+    } else if (numOnly) {
+      const num = numOnly[1];
+      out.innerHTML =
+        `Primary (Cols 167–194): <code>"${trimmed}"</code> (Numbered, Unnamed)<br>` +
+        `Alternate (Unparenthesized): <strong>"${num}"</strong>  |  Name-First: <code>"${trimmed}"</code> (no proper name assigned)`;
+    } else {
+      const compact = trimmed.replace(/\s+/g, '');
+      out.innerHTML =
+        `Primary (Cols 167–194): <code>"${trimmed}"</code> (Unnumbered Provisional)<br>` +
+        `Alternate (Name-First): <strong>"${trimmed}"</strong>  |  Alternate (Compact): <code>"${compact}"</code>`;
+    }
+  }
+
+  const rawInput = document.getElementById('raw_in');
+  const presetSelect = document.getElementById('preset_in');
+
+  rawInput.addEventListener('input', update);
+  presetSelect.addEventListener('change', () => {
+    rawInput.value = presetSelect.value;
+    update();
+  });
+
+  update();
+})();
+
+  </script>
+</body>
+</html>

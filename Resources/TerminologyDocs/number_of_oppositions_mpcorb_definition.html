@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Number of Oppositions (Columns 124–126) — MPCORB Orbital Reference</title>
+  <style>
+:root {
+  --bg-color: #f8fafc;
+  --surface-color: #ffffff;
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  --accent-color: #1e3a8a;
+  --accent-light: #eff6ff;
+  --border-color: #e2e8f0;
+  --code-bg: #f1f5f9;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-serif: "Georgia", "Times New Roman", Times, serif;
+  --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  line-height: 1.7;
+  padding: 2rem 1rem;
+}
+
+.container {
+  max-width: 940px;
+  margin: 0 auto;
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 2.5rem 3rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+header {
+  border-bottom: 2px solid var(--accent-color);
+  padding-bottom: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.category-tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent-color);
+  background-color: var(--accent-light);
+  padding: 0.25rem 0.65rem;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
+h2 {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.35rem;
+}
+
+h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+ul, ol {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+li {
+  margin-bottom: 0.4rem;
+}
+
+.equation-box {
+  background-color: var(--code-bg);
+  border-left: 4px solid var(--accent-color);
+  padding: 1rem 1.5rem;
+  margin: 1.25rem 0;
+  border-radius: 0 6px 6px 0;
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  overflow-x: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.equation-main {
+  font-style: italic;
+}
+
+.equation-main .fn,
+.math-fn {
+  font-style: normal;
+  font-family: var(--font-serif);
+}
+
+.equation-label {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-style: normal;
+  margin-left: 1rem;
+}
+
+.math-var {
+  font-family: var(--font-serif);
+  font-style: italic;
+}
+
+.frac {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  vertical-align: middle;
+  margin: 0 0.25rem;
+  font-size: 0.94em;
+  line-height: 1.15;
+}
+
+.frac > span:first-child {
+  border-bottom: 1px solid currentColor;
+  padding: 0 0.25rem 0.12rem 0.25rem;
+}
+
+.frac > span:last-child {
+  padding: 0.12rem 0.25rem 0 0.25rem;
+}
+
+.figure-box {
+  background-color: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 1.25rem;
+  margin: 1.75rem 0;
+  text-align: center;
+}
+
+.figure-box svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.figure-caption {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-top: 0.85rem;
+  text-align: left;
+  line-height: 1.5;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.9rem;
+}
+
+th, td {
+  border: 1px solid var(--border-color);
+  padding: 0.6rem 0.8rem;
+  text-align: left;
+}
+
+th {
+  background-color: var(--code-bg);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+code {
+  font-family: var(--font-mono);
+  background-color: var(--code-bg);
+  padding: 0.15rem 0.35rem;
+  border-radius: 4px;
+  font-size: 0.88em;
+}
+
+pre.mpcorb-record {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  background-color: var(--code-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 0.85rem 1rem;
+  overflow-x: auto;
+  line-height: 1.45;
+  color: var(--text-primary);
+  margin: 0.75rem 0 1.25rem 0;
+}
+
+.example-card {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-left: 4px solid #047857;
+  border-radius: 6px;
+  padding: 1.15rem 1.35rem;
+  margin: 1.15rem 0;
+}
+
+.example-card h3 {
+  margin-top: 0;
+  color: #065f46;
+}
+
+.interactive-panel {
+  background-color: var(--code-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 1.25rem;
+  margin: 1.75rem 0;
+}
+
+.interactive-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 0.75rem;
+  color: var(--text-primary);
+}
+
+.controls-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.control-group label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.control-group input,
+.control-group select {
+  width: 100%;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background-color: var(--surface-color);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+}
+
+.result-bar {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.86rem;
+  color: var(--accent-color);
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+footer {
+  margin-top: 2.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+@media (max-width: 680px) {
+  .container {
+    padding: 1.5rem 1.25rem;
+  }
+}
+</style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <span class="category-tag">Multi-Apparition Geometry &amp; Catalog Governance • MPCORB Reference</span>
+      <h1>Number of Oppositions (<span class="math-var">N<sub>opp</sub></span>, Columns 124–126)</h1>
+      <div class="subtitle">Synodic Apparition Count (FORTRAN I3), IAU Numbering Criteria &amp; Span Format Discriminator in MPCORB.DAT</div>
+    </header>
+    <main>
+      
+<h2>1. Formal Definition</h2>
+<p>
+  In the Minor Planet Center Orbit Database (<strong>MPCORB</strong>), the <strong>Number of Oppositions</strong> (<span class="math-var">N<sub>opp</sub></span>, officially specified by the IAU Minor Planet Center as the <em>“Number of oppositions”</em> field in <strong>columns 124–126</strong>, 1-indexed, right-justified integer formatted as FORTRAN <code>I3</code>, with 0-based substring slice <code>[123..126]</code>) counts the number of distinct <strong>observational apparitions (synodic visibility windows)</strong>—separated by solar conjunctions—during which accepted astrometric observations of the minor planet were recorded and included in the orbit solution:
+</p>
+
+<div class="equation-box">
+  <span class="equation-main">
+    N<sub>opp</sub> = <span class="fn">int</span>(<span class="fn">Record</span>[123 : 126]) &isin; &#8469;<sub>1</sub>, &nbsp;&nbsp;
+    P<sub>syn</sub> = <span class="frac"><span>1</span><span>|1 / P<sub>&oplus;</sub> &minus; 1 / P<sub>ast</sub>|</span></span>
+  </span>
+  <span class="equation-label">(Eq. 1)</span>
+</div>
+
+<p>where:</p>
+<ul>
+  <li><strong>Synodic Apparition Meaning:</strong> Although the astronomical term <em>opposition</em> strictly denotes the geometric configuration where a superior body's geocentric ecliptic longitude differs from the Sun's by <span class="math-var">&Delta;&lambda; = &lambda;<sub>ast</sub> &minus; &lambda;<sub>&odot;</sub> = 180&deg;</span>, in MPC nomenclature <span class="math-var">N<sub>opp</sub></span> denotes the number of distinct <strong>observational apparitions</strong> (observing seasons bounded by solar-elongation conjunction gaps). For inferior/Atira objects (<span class="math-var">a &lt; 1 au</span>) or high-eccentricity NEAs observed near elongation maxima rather than <span class="math-var">180&deg;</span> opposition, each separated apparition increments <span class="math-var">N<sub>opp</sub></span> by 1.</li>
+  <li><strong>Synodic Period (<span class="math-var">P<sub>syn</sub></span>):</strong> For an exterior minor planet with sidereal orbital period <span class="math-var">P<sub>ast</sub> = a<sup>3/2</sup></span> yr (<span class="math-var">a &gt; 1 au</span>), successive solar oppositions recur at the synodic interval <span class="math-var">P<sub>syn</sub> = (1 &minus; a<sup>&minus;3/2</sup>)<sup>&minus;1</sup></span> yr (e.g., <span class="math-var">P<sub>syn</sub> &approx; 1.28 yr</span> for a main-belt asteroid at <span class="math-var">a = 2.7 au</span>, and <span class="math-var">P<sub>syn</sub> &approx; 1.004 yr</span> for a distant Kuiper-belt object at <span class="math-var">a = 42 au</span>).</li>
+  <li><strong>Format Switch Controller for Columns 128–136:</strong> Within <code>MPCORB.DAT</code>, <span class="math-var">N<sub>opp</sub></span> directly governs the encoding of the immediately following <em>Observation Span</em> field (columns 128–136): <span class="math-var">N<sub>opp</sub> = 1</span> selects the integer day format (<code>NNNNN days</code>), whereas <span class="math-var">N<sub>opp</sub> &ge; 2</span> selects the calendar year-range format (<code>YYYY-YYYY</code>).</li>
+</ul>
+
+<div class="figure-box">
+  <svg viewBox="0 0 740 315" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Heliocentric synodic opposition geometry and MPCORB.DAT columns 124-126 IAU numbering threshold">
+    <defs>
+      <marker id="arrowBlue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#1e3a8a"/>
+      </marker>
+    </defs>
+
+    <!-- Left Panel: Heliocentric Synodic Opposition Geometry -->
+    <rect x="20" y="18" width="340" height="278" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+    <text x="190" y="40" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="700" fill="#0f172a">Synodic Apparition &amp; Opposition Geometry</text>
+
+    <!-- Orbits centered at Sun (175, 175) -->
+    <!-- Asteroid Orbit (outer circle r=105) -->
+    <circle cx="175" cy="175" r="105" fill="none" stroke="#94a3b8" stroke-width="1.3" stroke-dasharray="4,3"/>
+    <!-- Earth Orbit (inner circle r=48) -->
+    <circle cx="175" cy="175" r="48" fill="none" stroke="#3b82f6" stroke-width="1.3"/>
+
+    <!-- Sun -->
+    <circle cx="175" cy="175" r="9" fill="#f59e0b" stroke="#b45309" stroke-width="1.2"/>
+    <text x="175" y="196" text-anchor="middle" font-family="sans-serif" font-size="8.8" font-weight="700" fill="#92400e">Sun</text>
+
+    <!-- Opposition 1 line (horizontal right: Sun -> Earth_1 -> Ast_1) -->
+    <line x1="175" y1="175" x2="280" y2="175" stroke="#047857" stroke-width="1.8" stroke-dasharray="3,2"/>
+    <circle cx="223" cy="175" r="4.5" fill="#1d4ed8"/>
+    <text x="223" y="166" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="700" fill="#1d4ed8">&oplus;<tspan dy="2" font-size="6.5">1</tspan></text>
+    <circle cx="280" cy="175" r="5" fill="#047857"/>
+    <text x="290" y="172" font-family="sans-serif" font-size="8.5" font-weight="700" fill="#065f46">Opp #1</text>
+    <text x="290" y="183" font-family="sans-serif" font-size="7.5" fill="#047857">(t<tspan dy="1.5" font-size="6">1</tspan><tspan dy="-1.5">)</tspan></text>
+
+    <!-- Opposition 2 line (rotated -100 deg: Earth_2 and Ast_2 after P_syn) -->
+    <!-- Angle -100 deg: cos = -0.1736, sin = -0.9848 -->
+    <line x1="175" y1="175" x2="156.8" y2="71.6" stroke="#1e3a8a" stroke-width="1.8" stroke-dasharray="3,2"/>
+    <circle cx="166.7" cy="127.7" r="4.5" fill="#1d4ed8"/>
+    <text x="155" y="128" text-anchor="end" font-family="sans-serif" font-size="8" font-weight="700" fill="#1d4ed8">&oplus;<tspan dy="2" font-size="6.5">2</tspan></text>
+    <circle cx="156.8" cy="71.6" r="5" fill="#1e3a8a"/>
+    <text x="148" y="67" text-anchor="end" font-family="sans-serif" font-size="8.5" font-weight="700" fill="#1e3a8a">Opp #2 (t<tspan dy="1.5" font-size="6">1</tspan><tspan dy="-1.5"> + P</tspan><tspan dy="1.5" font-size="6">syn</tspan><tspan dy="-1.5">)</tspan></text>
+
+    <!-- Solar Conjunction Zone (left side) -->
+    <circle cx="127" cy="175" r="4" fill="#94a3b8"/>
+    <text x="90" y="165" text-anchor="middle" font-family="sans-serif" font-size="7.8" fill="#be123c">Solar Conjunction</text>
+    <text x="90" y="176" text-anchor="middle" font-family="sans-serif" font-size="7.5" fill="#be123c">(Unobservable Gap)</text>
+
+    <!-- Bottom Caption inside left panel -->
+    <text x="32" y="258" font-family="sans-serif" font-size="8.4" fill="#334155">&bull; Each apparition separated by conjunction increments N<tspan dy="1.5" font-size="6.5">opp</tspan><tspan dy="-1.5">.</tspan></text>
+    <text x="32" y="274" font-family="sans-serif" font-size="8.4" fill="#334155">&bull; 2nd opposition eliminates range-rate degeneracy.</text>
+
+    <!-- Right Panel: MPCORB Columns 124-126 & IAU Numbering Criterion -->
+    <rect x="376" y="18" width="344" height="278" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+    <text x="548" y="40" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="700" fill="#0f172a">MPCORB.DAT Field Layout &amp; Numbering Threshold</text>
+
+    <!-- Fixed-width slot diagram for cols 124-126 -->
+    <rect x="396" y="54" width="304" height="46" rx="4" fill="#eff6ff" stroke="#1e3a8a" stroke-width="1.5"/>
+    <text x="548" y="71" text-anchor="middle" font-family="monospace" font-size="9.5" font-weight="700" fill="#1e3a8a">Columns 124–126 (3 chars, FORTRAN I3)</text>
+    <text x="548" y="88" text-anchor="middle" font-family="monospace" font-size="9.5" fill="#0f172a">0-based [123..126]: e.g. "  1", " 14", " 98"</text>
+
+    <!-- Criterion Boxes -->
+    <rect x="396" y="114" width="304" height="52" rx="4" fill="#fffbeb" stroke="#fcd34d" stroke-width="1"/>
+    <text x="406" y="130" font-family="monospace" font-size="9" font-weight="700" fill="#92400e">N<tspan dy="2" font-size="7">opp</tspan><tspan dy="-2"> = 1 — Unnumbered Provisional Designation</tspan></text>
+    <text x="406" y="144" font-family="sans-serif" font-size="8.2" fill="#78350f">Single apparition; Cols 128–136 encode "NNNNN days".</text>
+    <text x="406" y="157" font-family="sans-serif" font-size="8.2" fill="#78350f">Not eligible for permanent IAU catalog number.</text>
+
+    <rect x="396" y="174" width="304" height="52" rx="4" fill="#eff6ff" stroke="#93c5fd" stroke-width="1"/>
+    <text x="406" y="190" font-family="monospace" font-size="9" font-weight="700" fill="#1e3a8a">N<tspan dy="2" font-size="7">opp</tspan><tspan dy="-2"> = 2–3 — Multi-Opposition Linkage</tspan></text>
+    <text x="406" y="204" font-family="sans-serif" font-size="8.2" fill="#1e40af">Cols 128–136 switch to "YYYY-YYYY"; NEAs with</text>
+    <text x="406" y="217" font-family="sans-serif" font-size="8.2" fill="#1e40af">&ge;2 oppositions (or radar) become eligible for numbering.</text>
+
+    <rect x="396" y="234" width="304" height="52" rx="4" fill="#ecfdf5" stroke="#6ee7b7" stroke-width="1"/>
+    <text x="406" y="250" font-family="monospace" font-size="9" font-weight="700" fill="#065f46">N<tspan dy="2" font-size="7">opp</tspan><tspan dy="-2"> &ge; 4 — Standard Permanent IAU Numbering</tspan></text>
+    <text x="406" y="264" font-family="sans-serif" font-size="8.2" fill="#047857">IAU WG Small Bodies Nomenclature standard for</text>
+    <text x="406" y="277" font-family="sans-serif" font-size="8.2" fill="#047857">main-belt &amp; outer-system permanent numbering (U &le; 1).</text>
+  </svg>
+  <div class="figure-caption">
+    <strong>Figure 1:</strong> Heliocentric synodic opposition cycle (<span class="math-var">P<sub>syn</sub></span>) separating consecutive observational apparitions, alongside the fixed-width representation of <strong>Number of Oppositions</strong> (<span class="math-var">N<sub>opp</sub></span>, columns 124–126, FORTRAN <code>I3</code>) and its role in IAU permanent minor planet numbering.
+  </div>
+</div>
+
+<h2>2. Astrodynamical Significance &amp; Catalog Governance</h2>
+<ul>
+  <li><strong>Why <span class="math-var">N<sub>opp</sub></span> Is Orthogonal to <span class="math-var">N<sub>obs</sub></span>:</strong> A single-opposition asteroid observed intensively during a close Earth flyby may accumulate <span class="math-var">N<sub>obs</sub> = 500</span> observations over 20 days (<span class="math-var">N<sub>opp</sub> = 1</span>), yet its semi-major axis <span class="math-var">a</span> and orbital period <span class="math-var">P</span> remain substantially less constrained than an object with only <span class="math-var">N<sub>obs</sub> = 24</span> observations distributed across <span class="math-var">N<sub>opp</sub> = 4</span> distinct oppositions. Sampling multiple orbital phases around the heliocentric ellipse decorrelates eccentricity <span class="math-var">e</span>, argument of perihelion <span class="math-var">&omega;</span>, and mean motion <span class="math-var">n</span>.</li>
+  <li><strong>Permanent IAU Numbering Thresholds:</strong> Under the rules of the IAU Working Group for Small Bodies Nomenclature (WGSBN) and Minor Planet Center:
+    <ul>
+      <li><strong>Main-Belt &amp; Distant Minor Planets:</strong> Typically require <span class="math-var">N<sub>opp</sub> &ge; 4</span> well-observed oppositions (with well-constrained perihelion/aphelion geometry and Condition Code <span class="math-var">U &le; 1</span>) before receiving a permanent sequential catalog number (columns 1–7 in <code>MPCORB.DAT</code>).</li>
+      <li><strong>Near-Earth Asteroids (NEAs):</strong> May be numbered once observed across <span class="math-var">N<sub>opp</sub> &ge; 2</span> oppositions (or during a single apparition if high-precision planetary radar astrometry eliminates orbital covariance).</li>
+    </ul>
+  </li>
+  <li><strong>Structural Coupling with Columns 128–136:</strong> Programmatic parsers of <code>MPCORB.DAT</code> use <span class="math-var">N<sub>opp</sub></span> (columns 124–126) as the primary discriminator for interpreting columns 128–136:
+    <div class="equation-box">
+      <span class="equation-main">
+        N<sub>opp</sub> = 1 &rArr; <span class="fn">Span</span> = <span class="fn">I5</span>(N<sub>days</sub>) <code>days</code>, &nbsp;&nbsp;
+        N<sub>opp</sub> &ge; 2 &rArr; <span class="fn">Span</span> = <span class="fn">YYYY</span><sub>1</sub><code>-</code><span class="fn">YYYY</span><sub>2</sub>
+      </span>
+      <span class="equation-label">(Eq. 2)</span>
+    </div>
+  </li>
+</ul>
+
+<h2>3. Fixed-Width Format Specifications &amp; Edge Cases in <code>MPCORB.DAT</code></h2>
+<table>
+  <thead>
+    <tr>
+      <th>Property</th>
+      <th>Specification / Behavior in <code>MPCORB.DAT</code></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Column Positions</strong></td>
+      <td><strong>Columns 124–126</strong> (1-indexed), corresponding to 0-based substring slice <code>[123..126]</code> (length 3 characters), preceded by a space at column 123 (after <span class="math-var">N<sub>obs</sub></span> in cols 118–122) and followed by a space at column 127 (before Observation Span in cols 128–136).</td>
+    </tr>
+    <tr>
+      <td><strong>FORTRAN Format Descriptor</strong></td>
+      <td><code>I3</code> (3-character right-justified base-10 integer, e.g., <code>"  1"</code>, <code>" 14"</code>, <code>" 98"</code>, up to <code>"999"</code>).</td>
+    </tr>
+    <tr>
+      <td><strong>Minimum Value (<span class="math-var">N<sub>opp</sub> = 1</span>)</strong></td>
+      <td>Every cataloged orbit in <code>MPCORB.DAT</code> has at least <span class="math-var">N<sub>opp</sub> = 1</span> (formatted as <code>"  1"</code>), even if all observations occurred on a single UTC night (<code>    0 days</code>).</td>
+    </tr>
+    <tr>
+      <td><strong>Maximum Historical Values</strong></td>
+      <td>The earliest discovered minor planets (e.g., <code>(1) Ceres</code>, <code>(2) Pallas</code>, <code>(4) Vesta</code>, <code>(433) Eros</code>) have <span class="math-var">N<sub>opp</sub> &approx; 95–125</span> (well within the <code>I3</code> ceiling of <code>999</code>, which will not saturate until the 29th century).</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>4. Worked Examples from <code>MPCORB.DAT</code></h2>
+<p>
+  The following two records from <code>MPCORB.DAT</code> (epoch <code>K25BL</code> = 2025 Nov 21.0 TT = JD 2461000.5) illustrate <span class="math-var">N<sub>opp</sub></span> in columns 124–126 and its direct control over columns 128–136:
+</p>
+
+<div class="example-card">
+  <h3>Example 1: (1) Ceres — 98 Observed Oppositions Since 1801 (<code> 98</code>)</h3>
+  <p>
+    Excerpt of <code>MPCORB.DAT</code> columns 108–202 for <code>00001</code>:
+  </p>
+  <pre class="mpcorb-record">MPO925614 11432  98 1801-2025 0.61 M-v 30h JPL 48     1000   (1) Ceres                  20251018</pre>
+  <ul>
+    <li><strong>Parsed <span class="math-var">N<sub>opp</sub></span> (Cols 124–126):</strong> <code>" 98"</code> &rarr; <span class="math-var">N<sub>opp</sub> = 98</span> oppositions.</li>
+    <li><strong>Synodic Consistency Check:</strong> For Ceres (<span class="math-var">a = 2.766 au</span>, <span class="math-var">P<sub>ast</sub> = 4.60 yr</span>), the synodic opposition period is <span class="math-var">P<sub>syn</sub> = (1 &minus; 2.766<sup>&minus;1.5</sup>)<sup>&minus;1</sup> = 1.278 yr</span>. Over the 224-year interval <code>1801-2025</code>, <span class="math-var">224 / 1.278 &approx; 175</span> geometric oppositions occurred, of which <span class="math-var">N<sub>opp</sub> = 98</span> apparitions yielded accepted astrometric observations.</li>
+  </ul>
+</div>
+
+<div class="example-card">
+  <h3>Example 2: (99942) Apophis — 14 Observed Oppositions (<code> 14</code>)</h3>
+  <p>
+    Excerpt of <code>MPCORB.DAT</code> columns 108–202 for <code>99942</code>:
+  </p>
+  <pre class="mpcorb-record">MPO618902  7361  14 2004-2021 0.34 M-v 38k JPL 218    1D02   (99942) Apophis            20210512</pre>
+  <ul>
+    <li><strong>Parsed <span class="math-var">N<sub>opp</sub></span> (Cols 124–126):</strong> <code>" 14"</code> &rarr; <span class="math-var">N<sub>opp</sub> = 14</span> distinct apparitions between 2004 and 2021 (<code>2004-2021</code>), providing a dense multi-apparition baseline that pins down Apophis's post-2029 Earth-encounter trajectory.</li>
+  </ul>
+</div>
+
+<div class="interactive-panel">
+  <div class="interactive-title">Interactive Synodic Opposition Period &amp; MPCORB Cols 124–136 Explorer</div>
+  <div class="controls-grid">
+    <div class="control-group">
+      <label for="a_in">Semi-Major Axis a (au)</label>
+      <input type="number" id="a_in" value="2.766" min="0.5" max="100" step="0.01">
+    </div>
+    <div class="control-group">
+      <label for="nopp_in">Number of Oppositions N<sub>opp</sub> (Cols 124–126)</label>
+      <input type="number" id="nopp_in" value="98" min="1" max="999" step="1">
+    </div>
+    <div class="control-group">
+      <label for="span_yrs_in">Observed Year Span &Delta;Y (if N<sub>opp</sub> &gt; 1)</label>
+      <input type="number" id="span_yrs_in" value="224" min="0" max="300" step="1">
+    </div>
+  </div>
+  <div class="result-bar" id="calc_out">Calculating...</div>
+</div>
+
+    </main>
+    <footer>
+      <span>Reference Standard: IAU Minor Planet Center (MPCORB.DAT Fixed-Width Format Specification)</span>
+      <span>Governing Slice: Cols 124–126 (FORTRAN I3 / [123..126]) &bull; Synodic Period: P<sub>syn</sub> = |1 &minus; a<sup>&minus;3/2</sup>|<sup>&minus;1</sup> yr</span>
+    </footer>
+  </div>
+  <script>
+    
+(function() {
+  function update() {
+    const a = parseFloat(document.getElementById('a_in').value);
+    const nOpp = parseInt(document.getElementById('nopp_in').value, 10);
+    const spanYrs = parseFloat(document.getElementById('span_yrs_in').value);
+    const out = document.getElementById('calc_out');
+
+    if (!Number.isFinite(a) || a <= 0 || !Number.isFinite(nOpp) || nOpp < 1 || nOpp > 999) {
+      out.textContent = "Enter positive semi-major axis a (au) and N_opp in [1..999].";
+      return;
+    }
+
+    const pAst = Math.pow(a, 1.5);
+    const freqDiff = Math.abs(1.0 - 1.0 / pAst);
+    const pSyn = freqDiff > 1e-6 ? 1.0 / freqDiff : Infinity;
+    const i3Str = String(nOpp).padStart(3, ' ');
+    const spanFormat = nOpp === 1 ? 'Single-Opp Integer Days ("NNNNN days")' : 'Multi-Opp Year Range ("YYYY-YYYY")';
+
+    let completenessStr = "";
+    if (nOpp > 1 && Number.isFinite(spanYrs) && spanYrs > 0 && Number.isFinite(pSyn)) {
+      const maxOpps = Math.floor(spanYrs / pSyn) + 1;
+      const dutyCycle = Math.min(100, (nOpp / maxOpps) * 100);
+      completenessStr = `  |  Est. Possible Apparitions in ${spanYrs} yr: ~${maxOpps} (${dutyCycle.toFixed(0)}% observed)`;
+    }
+
+    out.innerHTML =
+      `MPCORB Cols 124–126 (I3): <code>"${i3Str}"</code>  |  Cols 128–136 Mode: <strong>${spanFormat}</strong><br>` +
+      `Sidereal Period P<sub>ast</sub>: ${pAst.toFixed(3)} yr  |  Synodic Opposition Interval P<sub>syn</sub>: ${Number.isFinite(pSyn) ? pSyn.toFixed(3) + ' yr (' + (pSyn * 365.25).toFixed(1) + ' d)' : 'Co-orbital (&infin;)'}${completenessStr}`;
+  }
+
+  ['a_in', 'nopp_in', 'span_yrs_in'].forEach(id => {
+    document.getElementById(id).addEventListener('input', update);
+  });
+  update();
+})();
+
+  </script>
+</body>
+</html>

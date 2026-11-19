@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Precise Indicator of Perturbers (Columns 147–149) — MPCORB Orbital Reference</title>
+  <style>
+:root {
+  --bg-color: #f8fafc;
+  --surface-color: #ffffff;
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  --accent-color: #1e3a8a;
+  --accent-light: #eff6ff;
+  --border-color: #e2e8f0;
+  --code-bg: #f1f5f9;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-serif: "Georgia", "Times New Roman", Times, serif;
+  --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  line-height: 1.7;
+  padding: 2rem 1rem;
+}
+
+.container {
+  max-width: 940px;
+  margin: 0 auto;
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 2.5rem 3rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+header {
+  border-bottom: 2px solid var(--accent-color);
+  padding-bottom: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.category-tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent-color);
+  background-color: var(--accent-light);
+  padding: 0.25rem 0.65rem;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
+h2 {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.35rem;
+}
+
+h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+ul, ol {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+li {
+  margin-bottom: 0.4rem;
+}
+
+.equation-box {
+  background-color: var(--code-bg);
+  border-left: 4px solid var(--accent-color);
+  padding: 1rem 1.5rem;
+  margin: 1.25rem 0;
+  border-radius: 0 6px 6px 0;
+  font-family: var(--font-serif);
+  font-size: 1.12rem;
+  overflow-x: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.equation-main {
+  font-style: italic;
+}
+
+.equation-main .fn,
+.math-fn {
+  font-style: normal;
+  font-family: var(--font-serif);
+}
+
+.equation-label {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-style: normal;
+  margin-left: 1rem;
+}
+
+.math-var {
+  font-family: var(--font-serif);
+  font-style: italic;
+}
+
+.figure-box {
+  background-color: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 1.25rem;
+  margin: 1.75rem 0;
+  text-align: center;
+}
+
+.figure-box svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.figure-caption {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-top: 0.85rem;
+  text-align: left;
+  line-height: 1.5;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.9rem;
+}
+
+th, td {
+  border: 1px solid var(--border-color);
+  padding: 0.6rem 0.8rem;
+  text-align: left;
+}
+
+th {
+  background-color: var(--code-bg);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+code {
+  font-family: var(--font-mono);
+  background-color: var(--code-bg);
+  padding: 0.15rem 0.35rem;
+  border-radius: 4px;
+  font-size: 0.88em;
+}
+
+pre.mpcorb-record {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  background-color: var(--code-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 0.85rem 1rem;
+  overflow-x: auto;
+  line-height: 1.45;
+  color: var(--text-primary);
+  margin: 0.75rem 0 1.25rem 0;
+}
+
+.example-card {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-left: 4px solid #047857;
+  border-radius: 6px;
+  padding: 1.15rem 1.35rem;
+  margin: 1.15rem 0;
+}
+
+.example-card h3 {
+  margin-top: 0;
+  color: #065f46;
+}
+
+.interactive-panel {
+  background-color: var(--code-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 1.25rem;
+  margin: 1.75rem 0;
+}
+
+.interactive-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 0.75rem;
+  color: var(--text-primary);
+}
+
+.controls-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.control-group label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.control-group input,
+.control-group select {
+  width: 100%;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background-color: var(--surface-color);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+}
+
+.result-bar {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.86rem;
+  color: var(--accent-color);
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+footer {
+  margin-top: 2.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+@media (max-width: 680px) {
+  .container {
+    padding: 1.5rem 1.25rem;
+  }
+}
+</style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <span class="category-tag">Force-Model Bitmask &amp; Ephemeris Version • MPCORB Reference</span>
+      <h1>Precise Indicator of Perturbers (Columns 147–149)</h1>
+      <div class="subtitle">Hexadecimal Asteroid-Perturber Bitmask &amp; JPL Planetary Ephemeris Code (FORTRAN A3: <code>"30h"</code>, <code>"38k"</code>)</div>
+    </header>
+    <main>
+      
+<h2>1. Formal Definition</h2>
+<p>
+  In the Minor Planet Center Orbit Database (<strong>MPCORB</strong>), the <strong>Precise Indicator of Perturbers</strong> (officially specified by the IAU Minor Planet Center as the <em>“Precise indicator of perturbers”</em> field in <strong>columns 147–149</strong>, 1-indexed, 3-character ASCII string formatted as FORTRAN <code>A3</code>, with 0-based substring slice <code>[146..149]</code>) is a structured two-part alphanumeric code—consisting of a <strong>2-digit hexadecimal bitmask</strong> (columns 147–148) followed by a <strong>1-character planetary ephemeris identifier</strong> (column 149)—that specifies the exact set of massive minor-planet perturbers, relativistic post-Newtonian corrections, and JPL planetary ephemeris version used in the N-body orbit integration:
+</p>
+
+<div class="equation-box">
+  <span class="equation-main">
+    <span class="fn">Perturbers</span><sub>precise</sub> = <span class="fn">Record</span>[146 : 149] = <span class="fn">HexMask</span><sub>2</sub> || <span class="fn">EphChar</span><sub>1</sub>
+  </span>
+  <span class="equation-label">(Eq. 1)</span>
+</div>
+
+<p>where:</p>
+<ul>
+  <li><strong>Columns 147–148 (2-Digit Hexadecimal Perturber &amp; Physics Bitmask, <code>00</code>–<code>FF</code>):</strong> Encodes an 8-bit integer <span class="math-var">B = <span class="fn">int</span>(Record[146:148], 16) &isin; [0, 255]</span> whose individual binary flags indicate which massive main-belt asteroids (such as <code>(1) Ceres</code>, <code>(2) Pallas</code>, <code>(4) Vesta</code>, <code>(10) Hygiea</code>, and extended 16- to 300+-body asteroid sets), Pluto, and general-relativistic Schwarzschild terms were active alongside the major planets listed in columns 143–145 (<code>M-v</code>).</li>
+  <li><strong>Column 149 (1-Character Planetary Ephemeris Version Code):</strong> A single lowercase/alphanumeric character identifying the underlying solar-system planetary development ephemeris (e.g., <code>h</code> = JPL DE405/DE406 or modern DE430/DE431 compatibility class, <code>k</code> = extended MPC production ephemeris / DE431+300 asteroid suite, <code>f</code> = JPL DE403, <code>e</code> = JPL DE200).</li>
+  <li><strong>Field Delimitation:</strong> Columns 147–149 are preceded by a space at column 146 (after the <em>Coarse indicator of perturbers</em> in columns 143–145) and followed by a space at column 150 (before the <em>Computer name</em> in columns 151–160).</li>
+</ul>
+
+<div class="figure-box">
+  <svg viewBox="0 0 740 315" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Anatomy of MPCORB.DAT columns 147-149 showing 2-character hexadecimal bitmask in cols 147-148 and 1-character ephemeris code in col 149">
+    <text x="370" y="24" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="700" fill="#0f172a">Anatomy of the Precise Indicator of Perturbers (MPCORB Columns 147–149, FORTRAN A3)</text>
+
+    <!-- Top Context Strip -->
+    <rect x="24" y="42" width="144" height="48" rx="4" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.2"/>
+    <text x="96" y="60" text-anchor="middle" font-family="monospace" font-size="9" font-weight="700" fill="#334155">Cols 143–145 (A3)</text>
+    <text x="96" y="77" text-anchor="middle" font-family="monospace" font-size="9.2" fill="#0f172a">Coarse ("M-v")</text>
+
+    <rect x="184" y="42" width="236" height="54" rx="4" fill="#eff6ff" stroke="#1e3a8a" stroke-width="1.8"/>
+    <text x="302" y="59" text-anchor="middle" font-family="monospace" font-size="9.5" font-weight="700" fill="#1e3a8a">Cols 147–148 (Hex Bitmask)</text>
+    <text x="302" y="77" text-anchor="middle" font-family="monospace" font-size="11" font-weight="700" fill="#0f172a">0x30 / 0x38 / 0x3E / 0x00</text>
+    <text x="302" y="90" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#1e40af">0-based [146..148] (8-bit flags)</text>
+
+    <rect x="432" y="42" width="140" height="54" rx="4" fill="#ecfdf5" stroke="#047857" stroke-width="1.8"/>
+    <text x="502" y="59" text-anchor="middle" font-family="monospace" font-size="9.5" font-weight="700" fill="#065f46">Col 149 (Ephemeris)</text>
+    <text x="502" y="77" text-anchor="middle" font-family="monospace" font-size="11" font-weight="700" fill="#0f172a">'h' / 'k' / 'f' / 'e'</text>
+    <text x="502" y="90" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#047857">0-based [148..149]</text>
+
+    <rect x="584" y="42" width="132" height="48" rx="4" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.2"/>
+    <text x="650" y="60" text-anchor="middle" font-family="monospace" font-size="9" font-weight="700" fill="#334155">Cols 151–160 (A10)</text>
+    <text x="650" y="77" text-anchor="middle" font-family="monospace" font-size="9.2" fill="#0f172a">Computer Name</text>
+
+    <!-- Bottom Three Cards -->
+    <rect x="24" y="114" width="220" height="182" rx="6" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.2"/>
+    <text x="36" y="135" font-family="monospace" font-size="10.5" font-weight="700" fill="#1e3a8a">"30h" (0x30 + 'h')</text>
+    <text x="36" y="151" font-family="sans-serif" font-size="9" font-weight="700" fill="#1e40af">JPL Horizons Standard Model</text>
+    <text x="36" y="169" font-family="sans-serif" font-size="8.4" fill="#334155">&bull; Bitmask <code>0x30</code> (<code>0011 0000</code><sub>2</sub>):</text>
+    <text x="44" y="182" font-family="sans-serif" font-size="8.4" fill="#334155">includes Pluto, relativity, and</text>
+    <text x="44" y="195" font-family="sans-serif" font-size="8.4" fill="#334155">the 16–24 massive main-belt</text>
+    <text x="44" y="208" font-family="sans-serif" font-size="8.4" fill="#334155">asteroid perturbers (Ceres,</text>
+    <text x="44" y="221" font-family="sans-serif" font-size="8.4" fill="#334155">Pallas, Vesta, Hygiea, etc.).</text>
+    <text x="36" y="239" font-family="sans-serif" font-size="8.4" fill="#334155">&bull; Ephemeris <code>'h'</code>: JPL DE405+</text>
+    <text x="44" y="252" font-family="sans-serif" font-size="8.4" fill="#334155">standard compatibility tag.</text>
+    <text x="36" y="274" font-family="monospace" font-size="8.1" fill="#1d4ed8">Seen in: JPL 48, JPL 218</text>
+
+    <rect x="260" y="114" width="220" height="182" rx="6" fill="#ecfdf5" stroke="#6ee7b7" stroke-width="1.2"/>
+    <text x="272" y="135" font-family="monospace" font-size="10.5" font-weight="700" fill="#065f46">"38k" (0x38 + 'k')</text>
+    <text x="272" y="151" font-family="sans-serif" font-size="9" font-weight="700" fill="#047857">MPC Production Pipeline</text>
+    <text x="272" y="169" font-family="sans-serif" font-size="8.4" fill="#334155">&bull; Bitmask <code>0x38</code> (<code>0011 1000</code><sub>2</sub>):</text>
+    <text x="280" y="182" font-family="sans-serif" font-size="8.4" fill="#334155">activates the extended 300+</text>
+    <text x="280" y="195" font-family="sans-serif" font-size="8.4" fill="#334155">asteroid perturber suite</text>
+    <text x="280" y="208" font-family="sans-serif" font-size="8.4" fill="#334155">alongside Pluto &amp; general</text>
+    <text x="280" y="221" font-family="sans-serif" font-size="8.4" fill="#334155">relativistic terms.</text>
+    <text x="272" y="239" font-family="sans-serif" font-size="8.4" fill="#334155">&bull; Ephemeris <code>'k'</code>: modern</text>
+    <text x="280" y="252" font-family="sans-serif" font-size="8.4" fill="#334155">DE431+ MPC integration.</text>
+    <text x="272" y="274" font-family="monospace" font-size="8.1" fill="#065f46">Seen in: MPCLINUX, MPCW</text>
+
+    <rect x="496" y="114" width="220" height="182" rx="6" fill="#fffbeb" stroke="#fcd34d" stroke-width="1.2"/>
+    <text x="508" y="135" font-family="monospace" font-size="10.5" font-weight="700" fill="#92400e">"00h" / "3Eh" / "   "</text>
+    <text x="508" y="151" font-family="sans-serif" font-size="9" font-weight="700" fill="#78350f">Planets-Only, Custom &amp; Blank</text>
+    <text x="508" y="169" font-family="sans-serif" font-size="8.4" fill="#334155">&bull; <code>"00h"</code>: major planets only</text>
+    <text x="516" y="182" font-family="sans-serif" font-size="8.4" fill="#334155">(bitmask <code>0x00</code>, zero minor-</text>
+    <text x="516" y="195" font-family="sans-serif" font-size="8.4" fill="#334155">planet perturbers).</text>
+    <text x="508" y="213" font-family="sans-serif" font-size="8.4" fill="#334155">&bull; <code>"3Eh"</code>: <code>0x3E</code> extended custom</text>
+    <text x="516" y="226" font-family="sans-serif" font-size="8.4" fill="#334155">asteroid/TNO perturber set.</text>
+    <text x="508" y="244" font-family="sans-serif" font-size="8.4" fill="#334155">&bull; <code>"   "</code> (blank): unperturbed</text>
+    <text x="516" y="257" font-family="sans-serif" font-size="8.4" fill="#334155">two-body or legacy orbit.</text>
+    <text x="508" y="274" font-family="monospace" font-size="8.1" fill="#b45309">Seen in: Preliminary / legacy</text>
+  </svg>
+  <div class="figure-caption">
+    <strong>Figure 1:</strong> Internal decomposition of the 3-character <strong>Precise Indicator of Perturbers</strong> (columns 147–149, FORTRAN <code>A3</code>) into its 2-digit hexadecimal perturber bitmask (columns 147–148) and 1-character planetary ephemeris identifier (column 149).
+  </div>
+</div>
+
+<h2>2. Bitmask &amp; Ephemeris Code Reference Tables</h2>
+<h3>2.1 Hexadecimal Perturber Bitmask (Columns 147–148)</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Hex Code</th>
+      <th>Binary (8-bit)</th>
+      <th>Active Non-Planetary Perturbers &amp; Force-Model Components</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>00</code></td>
+      <td><code>0000 0000</code></td>
+      <td>Major planets only (as specified in columns 143–145); no asteroid perturbers.</td>
+    </tr>
+    <tr>
+      <td><code>30</code></td>
+      <td><code>0011 0000</code></td>
+      <td>Standard JPL Horizons small-body perturber set: Pluto + post-Newtonian relativity + the 16/24 massive main-belt perturbers (<code>(1) Ceres</code>, <code>(2) Pallas</code>, <code>(4) Vesta</code>, <code>(10) Hygiea</code>, etc.).</td>
+    </tr>
+    <tr>
+      <td><code>38</code></td>
+      <td><code>0011 1000</code></td>
+      <td>Modern MPC production force model (<code>MPCLINUX</code>): Pluto + post-Newtonian relativity + extended ~300 main-belt asteroid perturber set.</td>
+    </tr>
+    <tr>
+      <td><code>3E</code></td>
+      <td><code>0011 1110</code></td>
+      <td>Specialized extended perturber mask used for high-precision multi-decade or resonant minor-planet solutions requiring additional massive asteroids/TNOs.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>2.2 Planetary Ephemeris Character (Column 149)</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Char (Col 149)</th>
+      <th>Underlying JPL Planetary Ephemeris</th>
+      <th>Historical &amp; Operational Era</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>e</code></td>
+      <td>JPL <strong>DE200 / LE200</strong> (B1950/J2000 transition)</td>
+      <td>Legacy MPC orbits integrated in the 1990s.</td>
+    </tr>
+    <tr>
+      <td><code>f</code></td>
+      <td>JPL <strong>DE403 / LE403</strong></td>
+      <td>Late-1990s MPC and JPL orbits prior to DE405 adoption.</td>
+    </tr>
+    <tr>
+      <td><code>h</code></td>
+      <td>JPL <strong>DE405 / DE406</strong> (and compatible DE430/DE431 exports)</td>
+      <td>Standard ICRS/J2000 planetary ephemeris identifier used across JPL Horizons imports and post-2000 MPC solutions.</td>
+    </tr>
+    <tr>
+      <td><code>k</code></td>
+      <td>JPL <strong>DE431+</strong> (MPC modern production baseline)</td>
+      <td>Current default ephemeris code emitted by the MPC <code>MPCLINUX</code> / <code>ORBFIT</code> orbit-determination pipeline.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>3. Fixed-Width Format Specifications &amp; Parsing Rules</h2>
+<ul>
+  <li><strong>Exact Column Slice:</strong> Columns <strong>147–149</strong> (1-indexed), corresponding to 0-based substring <code>line[146..149]</code> (length 3 characters), delimited by spaces at columns 146 and 150.</li>
+  <li><strong>Case Sensitivity:</strong> Hexadecimal letters in columns 147–148 are uppercase (<code>0</code>–<code>9</code>, <code>A</code>–<code>F</code>), whereas the ephemeris identifier in column 149 is lowercase (<code>e</code>, <code>f</code>, <code>h</code>, <code>k</code>). Parsers should preserve exact string casing or split into <code>bitmaskHex = slice[0..2]</code> and <code>ephemerisChar = slice[2]</code>.</li>
+  <li><strong>Blank Handling:</strong> When columns 143–145 are blank (unperturbed two-body orbit), columns 147–149 are likewise 3 spaces (<code>"   "</code>).</li>
+</ul>
+
+<h2>4. Worked Examples from <code>MPCORB.DAT</code></h2>
+<p>
+  The following two records from <code>MPCORB.DAT</code> (epoch <code>K25BL</code> = 2025 Nov 21.0 TT = JD 2461000.5) illustrate the two most prevalent precise perturber codes in modern catalogs:
+</p>
+
+<div class="example-card">
+  <h3>Example 1: (1) Ceres — JPL Horizons Force Model (<code>30h</code>)</h3>
+  <p>
+    Excerpt of <code>MPCORB.DAT</code> columns 108–202 for <code>00001</code>:
+  </p>
+  <pre class="mpcorb-record">MPO925614 11432  98 1801-2025 0.61 M-v 30h JPL 48     1000   (1) Ceres                  20251018</pre>
+  <ul>
+    <li><strong>Parsed Precise Indicator (Cols 147–149):</strong> <code>"30h"</code> &rarr; hex bitmask <code>0x30</code> (<code>48</code> decimal; Pluto, relativistic terms, and 16/24 massive asteroid perturbers) + ephemeris <code>'h'</code> (JPL DE405/DE430/DE431 compatibility class).</li>
+    <li><strong>Consistency with Computer Name:</strong> Directly matches <code>"JPL 48"</code> in columns 151–160.</li>
+  </ul>
+</div>
+
+<div class="example-card">
+  <h3>Example 2: 2025 QA14 — MPC Production Pipeline Force Model (<code>38k</code>)</h3>
+  <p>
+    Excerpt of <code>MPCORB.DAT</code> columns 108–202 for <code>2025 QA14</code>:
+  </p>
+  <pre class="mpcorb-record">E2025-R84    27   1    14 days 0.28 M-v 38k MPCLINUX   8403            2025 QA14          20250911</pre>
+  <ul>
+    <li><strong>Parsed Precise Indicator (Cols 147–149):</strong> <code>"38k"</code> &rarr; hex bitmask <code>0x38</code> (<code>56</code> decimal; Pluto, relativistic terms, and ~300 main-belt asteroid perturbers) + ephemeris <code>'k'</code> (MPC DE431+ production baseline).</li>
+    <li><strong>Consistency with Computer Name:</strong> Directly matches <code>"MPCLINUX"</code> in columns 151–160.</li>
+  </ul>
+</div>
+
+<div class="interactive-panel">
+  <div class="interactive-title">Interactive Precise Perturber Bitmask &amp; Ephemeris Decoder (Cols 147–149)</div>
+  <div class="controls-grid">
+    <div class="control-group">
+      <label for="prec_in">3-Char Precise Code (Cols 147–149)</label>
+      <input type="text" id="prec_in" value="38k" maxlength="3" placeholder="e.g. 30h">
+    </div>
+    <div class="control-group">
+      <label for="preset_in">Standard MPCORB Presets</label>
+      <select id="preset_in">
+        <option value="38k" selected>"38k" (MPCLINUX + 300+ Asteroids + DE431+)</option>
+        <option value="30h">"30h" (JPL Horizons + 16/24 Massive Asteroids)</option>
+        <option value="00h">"00h" (Major Planets Only, No Asteroids)</option>
+        <option value="3Eh">"3Eh" (Extended Custom Asteroid/TNO Suite)</option>
+        <option value="   ">"   " (Blank / Two-Body Unperturbed)</option>
+      </select>
+    </div>
+  </div>
+  <div class="result-bar" id="calc_out">Decoding...</div>
+</div>
+
+    </main>
+    <footer>
+      <span>Reference Standard: IAU Minor Planet Center (MPCORB.DAT Fixed-Width Format Specification)</span>
+      <span>Governing Slice: Cols 147–149 (FORTRAN A3 / [146..149]) &bull; Hex Mask [146..148] + Ephemeris [148]</span>
+    </footer>
+  </div>
+  <script>
+    
+(function() {
+  const ephMap = {
+    'e': 'JPL DE200 / LE200 (Legacy 1990s)',
+    'f': 'JPL DE403 / LE403 (Late-1990s)',
+    'h': 'JPL DE405 / DE406 / DE430+ Standard Compatibility Class',
+    'k': 'JPL DE431+ Modern MPC Production Baseline'
+  };
+
+  const maskNotes = {
+    '00': 'Major planets only (no minor-planet perturbers)',
+    '30': 'Pluto + General Relativity + 16/24 Massive Main-Belt Perturbers (JPL standard)',
+    '38': 'Pluto + General Relativity + ~300 Main-Belt Asteroid Perturbers (MPCLINUX standard)',
+    '3E': 'Pluto + General Relativity + Extended High-Order Asteroid/TNO Perturber Suite'
+  };
+
+  function decodePrecise(raw) {
+    const padded = raw.padEnd(3, ' ').slice(0, 3);
+    const out = document.getElementById('calc_out');
+
+    if (!padded.trim()) {
+      out.innerHTML = `MPCORB Cols 147–149 (A3): <code>"${padded}"</code>  |  Status: <strong>Blank (Unperturbed Two-Body or Legacy Orbit)</strong>`;
+      return;
+    }
+
+    const hexPart = padded.slice(0, 2).toUpperCase();
+    const ephChar = padded.slice(2, 3);
+    const maskVal = /^[0-9A-F]{2}$/.test(hexPart) ? parseInt(hexPart, 16) : NaN;
+
+    const binStr = Number.isFinite(maskVal) ? maskVal.toString(2).padStart(8, '0') + '₂' : 'Non-hex';
+    const maskDesc = maskNotes[hexPart] || (Number.isFinite(maskVal) ? `Custom bitmask 0x${hexPart} (decimal ${maskVal})` : 'Unrecognized bitmask format');
+    const ephDesc = ephMap[ephChar] || `Custom / Legacy ephemeris code '${ephChar}'`;
+
+    out.innerHTML =
+      `MPCORB Cols 147–149 (A3): <code>"${padded}"</code>  |  Hex Bitmask: <code>0x${hexPart}</code> (${binStr})<br>` +
+      `Perturber Suite: <strong>${maskDesc}</strong>  |  Ephemeris ('${ephChar}'): ${ephDesc}`;
+  }
+
+  const precInput = document.getElementById('prec_in');
+  const presetSelect = document.getElementById('preset_in');
+
+  precInput.addEventListener('input', () => decodePrecise(precInput.value));
+  presetSelect.addEventListener('change', () => {
+    precInput.value = presetSelect.value;
+    decodePrecise(precInput.value);
+  });
+
+  decodePrecise(precInput.value);
+})();
+
+  </script>
+</body>
+</html>

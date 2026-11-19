@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Specific Angular Momentum (h) — MPCORB Orbital Reference</title>
+  <style>
+:root {
+  --bg-color: #f8fafc;
+  --surface-color: #ffffff;
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  --accent-color: #1e3a8a;
+  --accent-light: #eff6ff;
+  --border-color: #e2e8f0;
+  --code-bg: #f1f5f9;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-serif: "Georgia", "Times New Roman", Times, serif;
+  --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  line-height: 1.7;
+  padding: 2rem 1rem;
+}
+
+.container {
+  max-width: 920px;
+  margin: 0 auto;
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 2.5rem 3rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+header {
+  border-bottom: 2px solid var(--accent-color);
+  padding-bottom: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.category-tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent-color);
+  background-color: var(--accent-light);
+  padding: 0.25rem 0.65rem;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
+h2 {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.35rem;
+}
+
+h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+ul, ol {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+li {
+  margin-bottom: 0.4rem;
+}
+
+.equation-box {
+  background-color: var(--code-bg);
+  border-left: 4px solid var(--accent-color);
+  padding: 1rem 1.5rem;
+  margin: 1.25rem 0;
+  border-radius: 0 6px 6px 0;
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  overflow-x: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.equation-main {
+  font-style: italic;
+}
+
+.equation-main .fn,
+.math-fn {
+  font-style: normal;
+  font-family: var(--font-serif);
+}
+
+.equation-label {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-style: normal;
+  margin-left: 1rem;
+}
+
+.math-var {
+  font-family: var(--font-serif);
+  font-style: italic;
+}
+
+.frac {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  vertical-align: middle;
+  margin: 0 0.25rem;
+  font-size: 0.94em;
+  line-height: 1.15;
+}
+
+.frac > span:first-child {
+  border-bottom: 1px solid currentColor;
+  padding: 0 0.25rem 0.12rem 0.25rem;
+}
+
+.frac > span:last-child {
+  padding: 0.12rem 0.25rem 0 0.25rem;
+}
+
+.figure-box {
+  background-color: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 1.25rem;
+  margin: 1.75rem 0;
+  text-align: center;
+}
+
+.figure-box svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.figure-caption {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-top: 0.85rem;
+  text-align: left;
+  line-height: 1.5;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.92rem;
+}
+
+th, td {
+  border: 1px solid var(--border-color);
+  padding: 0.65rem 0.85rem;
+  text-align: left;
+}
+
+th {
+  background-color: var(--code-bg);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+code {
+  font-family: var(--font-mono);
+  background-color: var(--code-bg);
+  padding: 0.15rem 0.35rem;
+  border-radius: 4px;
+  font-size: 0.88em;
+}
+
+pre.mpcorb-record {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  background-color: var(--code-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 0.85rem 1rem;
+  overflow-x: auto;
+  line-height: 1.45;
+  color: var(--text-primary);
+  margin: 0.75rem 0 1.25rem 0;
+}
+
+.example-card {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-left: 4px solid #047857;
+  border-radius: 6px;
+  padding: 1.15rem 1.35rem;
+  margin: 1.15rem 0;
+}
+
+.example-card h3 {
+  margin-top: 0;
+  color: #065f46;
+}
+
+.interactive-panel {
+  background-color: var(--code-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 1.25rem;
+  margin: 1.75rem 0;
+}
+
+.interactive-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 0.75rem;
+  color: var(--text-primary);
+}
+
+.controls-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(185px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.control-group label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.control-group input {
+  width: 100%;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background-color: var(--surface-color);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+}
+
+.result-bar {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  color: var(--accent-color);
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+footer {
+  margin-top: 2.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 1.5rem 1.25rem;
+  }
+}
+</style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <span class="category-tag">Astrodynamics &amp; Conservation Laws • MPCORB Reference</span>
+      <h1>Specific Relative Angular Momentum (<span class="math-var"><b>h</b></span>)</h1>
+      <div class="subtitle">Vector Invariant, Orbit-Normal Orientation &amp; Kepler's Second Law in MPCORB.DAT</div>
+    </header>
+    <main>
+      
+<h2>1. Formal Definition</h2>
+<p>
+  In astrodynamics, celestial mechanics, and derived vectorial invariants computed from the Minor Planet Center Orbit Database (<strong>MPCORB</strong>), the <strong>specific relative angular momentum</strong> (<span class="math-var"><b>h</b></span>, with scalar magnitude <span class="math-var">h = &Vert;<b>h</b>&Vert;</span>) of an orbiting minor body is the conserved cross product of its instantaneous heliocentric position vector <span class="math-var"><b>r</b></span> and heliocentric velocity vector <span class="math-var"><b>v</b></span> per unit reduced mass in the central two-body problem:
+</p>
+
+<div class="equation-box">
+  <span class="equation-main">
+    <b>h</b> = <b>r</b> &times; <b>v</b> = h \, \hat{<b>w</b>}, &nbsp;&nbsp; h = &Vert;<b>h</b>&Vert; = r v <span class="fn">cos</span> &gamma; = &radic;<span style="text-decoration: overline;">&mu; p</span> = &radic;<span style="text-decoration: overline;">&mu; a (1 &minus; e<sup>2</sup>)</span> &ge; 0
+  </span>
+  <span class="equation-label">(Eq. 1)</span>
+</div>
+
+<p>where:</p>
+<ul>
+  <li><span class="math-var">a</span> is the <strong>osculating semimajor axis</strong> (columns 93–103 of <code>MPCORB.DAT</code>, in <span class="math-var">AU</span>), <span class="math-var">e</span> is the <strong>orbital eccentricity</strong> (columns 71–79), and <span class="math-var">p = a(1 &minus; e<sup>2</sup>) = h<sup>2</sup> / &mu;</span> is the <strong>semi-latus rectum</strong> (orbital parameter).</li>
+  <li><span class="math-var">\hat{<b>w</b>} = <b>h</b> / h</span> is the <strong>orbit-normal unit vector</strong> perpendicular to the osculating orbital plane (pointing toward the northern orbital pole in the right-hand sense of orbital motion), whose orientation in the <strong>J2000.0 mean ecliptic coordinate system</strong> is uniquely fixed by the <strong>longitude of the ascending node</strong> <span class="math-var">&Omega;</span> (columns 49–57) and the <strong>orbital inclination</strong> <span class="math-var">i</span> (columns 60–68).</li>
+  <li><span class="math-var">&mu; = GM<sub>&#9737;</sub>(1 + m/M<sub>&#9737;</sub>) &approx; GM<sub>&#9737;</sub></span> is the <strong>heliocentric gravitational parameter</strong>, equal to <span class="math-var">k<sup>2</sup> = 2.959122082855911 &times; 10<sup>&minus;4</sup> AU<sup>3</sup>/d<sup>2</sup></span> in canonical Gaussian units or <span class="math-var">1.32712440018 &times; 10<sup>11</sup> km<sup>3</sup>/s<sup>2</sup></span> in SI/astronautical units.</li>
+</ul>
+
+<div class="figure-box">
+  <svg viewBox="0 0 740 315" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="3D J2000.0 ecliptic geometry showing specific angular momentum vector h = r x v tilted by inclination i from the north ecliptic pole +Z, and projected onto the XY plane perpendicular to the line of nodes">
+    <defs>
+      <marker id="arrowSlate" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#475569"/>
+      </marker>
+      <marker id="arrowBlue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#1e3a8a"/>
+      </marker>
+      <marker id="arrowEmerald" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#047857"/>
+      </marker>
+      <marker id="arrowCrimson" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#be123c"/>
+      </marker>
+    </defs>
+
+    <!-- Left Diagram: 3D J2000.0 Ecliptic Plane, +Z North Ecliptic Pole, Inclined Orbit, and h = r x v -->
+    <!-- Ecliptic Plane Parallelogram -->
+    <polygon points="34,242 152,148 436,148 318,242" fill="#eff6ff" fill-opacity="0.72" stroke="#93c5fd" stroke-width="1.3"/>
+    <text x="52" y="233" font-family="sans-serif" font-size="10" font-weight="600" fill="#1e3a8a">J2000.0 Ecliptic Plane (Z = 0)</text>
+
+    <!-- +X Axis (Vernal Equinox) from Sun (215, 195) to (78, 208) -->
+    <line x1="215" y1="195" x2="82" y2="208" stroke="#334155" stroke-width="1.6" marker-end="url(#arrowSlate)"/>
+    <text x="45" y="206" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#0f172a">+X (&#9800;)</text>
+
+    <!-- +Z Axis (North Ecliptic Pole k) from Sun (215, 195) straight up to (215, 42) -->
+    <line x1="215" y1="195" x2="215" y2="46" stroke="#334155" stroke-width="1.8" marker-end="url(#arrowSlate)"/>
+    <text x="195" y="37" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#0f172a">+Z (NEP k)</text>
+
+    <!-- Line of Nodes through Sun (215, 195) toward Ascending Node (288, 224) -->
+    <line x1="154" y1="171" x2="296" y2="227" stroke="#047857" stroke-width="1.8"/>
+    <circle cx="288" cy="224" r="4.5" fill="#047857" stroke="#0f172a" stroke-width="1.1"/>
+    <text x="296" y="229" font-family="sans-serif" font-size="9.8" font-weight="700" fill="#047857">Asc. Node &#9738;</text>
+
+    <!-- Longitude of Ascending Node Omega arc from +X (170, 199) CCW to Line of Nodes (252, 210) -->
+    <path d="M 170 199 A 45 20 0 0 0 252 210" fill="none" stroke="#047857" stroke-width="1.8"/>
+    <text x="202" y="223" font-family="Georgia, serif" font-style="italic" font-size="12.5" font-weight="700" fill="#047857">&Omega;</text>
+
+    <!-- Inclined Orbital Plane patch (tilted by i around Line of Nodes) -->
+    <polygon points="154,171 288,224 338,136 204,83" fill="#ecfdf5" fill-opacity="0.48" stroke="#047857" stroke-width="1.4"/>
+
+    <!-- Position vector r and velocity vector v in the inclined orbital plane -->
+    <line x1="215" y1="195" x2="302" y2="152" stroke="#1e3a8a" stroke-width="1.9" marker-end="url(#arrowBlue)"/>
+    <text x="268" y="182" font-family="Georgia, serif" font-style="italic" font-size="12.5" font-weight="700" fill="#1e3a8a">r</text>
+
+    <line x1="304" y1="151" x2="275" y2="112" stroke="#be123c" stroke-width="1.9" marker-end="url(#arrowCrimson)"/>
+    <text x="291" y="121" font-family="Georgia, serif" font-style="italic" font-size="12.5" font-weight="700" fill="#be123c">v</text>
+
+    <!-- Specific Angular Momentum Vector h = r x v tilted by i from +Z toward (282, 65) -->
+    <line x1="215" y1="195" x2="279" y2="68" stroke="#be123c" stroke-width="2.6" marker-end="url(#arrowCrimson)"/>
+    <text x="285" y="69" font-family="Georgia, serif" font-style="italic" font-size="13.5" font-weight="700" fill="#be123c">h = r &times; v</text>
+
+    <!-- Right-angle symbol between h and orbital plane -->
+    <polyline points="222,181 235,187 228,200" fill="none" stroke="#be123c" stroke-width="1.1"/>
+
+    <!-- Inclination angle i arc between +Z (215, 128) and h vector (245, 135) -->
+    <path d="M 215 128 A 67 67 0 0 1 245 135" fill="none" stroke="#1e3a8a" stroke-width="2"/>
+    <text x="225" y="121" font-family="Georgia, serif" font-style="italic" font-size="13" font-weight="700" fill="#1e3a8a">i</text>
+
+    <!-- Projection of h onto Ecliptic Plane (h_xy) and vertical component h_z -->
+    <line x1="279" y1="68" x2="279" y2="170" stroke="#64748b" stroke-width="1.2" stroke-dasharray="3,3"/>
+    <line x1="215" y1="195" x2="279" y2="170" stroke="#64748b" stroke-width="1.3" stroke-dasharray="4,2"/>
+    <text x="284" y="159" font-family="sans-serif" font-size="9" font-weight="600" fill="#475569">h<tspan dy="2" font-size="7.5">z</tspan><tspan dy="-2"> = h cos i</tspan></text>
+
+    <!-- Sun at Focus (215, 195) -->
+    <circle cx="215" cy="195" r="8.5" fill="#f59e0b" stroke="#b45309" stroke-width="1.5"/>
+    <text x="184" y="191" font-family="sans-serif" font-size="9.5" font-weight="700" fill="#b45309">Sun</text>
+
+    <!-- Right Panel: Cartesian Components & Conservation Laws -->
+    <rect x="455" y="24" width="265" height="266" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+    <text x="470" y="47" font-family="sans-serif" font-size="11.5" font-weight="700" fill="#0f172a">3-D Ecliptic Vector Components</text>
+
+    <rect x="470" y="62" width="235" height="62" rx="4" fill="#eff6ff" stroke="#93c5fd" stroke-width="1"/>
+    <text x="480" y="79" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#1e3a8a">1. Scalar Magnitude (h):</text>
+    <text x="480" y="97" font-family="Georgia, serif" font-style="italic" font-size="11.2" fill="#0f172a">h = &radic;(&mu; a (1 &minus; e&sup2;)) = r&sup2; d&nu;/dt</text>
+    <text x="480" y="114" font-family="sans-serif" font-size="9.5" fill="#475569">(a: Cols 93–103, e: Cols 71–79)</text>
+
+    <line x1="587" y1="124" x2="587" y2="141" stroke="#475569" stroke-width="1.4" marker-end="url(#arrowSlate)"/>
+
+    <rect x="470" y="143" width="235" height="68" rx="4" fill="#fff1f2" stroke="#fda4af" stroke-width="1"/>
+    <text x="480" y="160" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#9f1239">2. J2000.0 Ecliptic Vector h = (h<tspan dy="2" font-size="8">x</tspan><tspan dy="-2">, h</tspan><tspan dy="2" font-size="8">y</tspan><tspan dy="-2">, h</tspan><tspan dy="2" font-size="8">z</tspan><tspan dy="-2">):</tspan></text>
+    <text x="480" y="178" font-family="Georgia, serif" font-style="italic" font-size="10.8" fill="#0f172a">h<tspan dy="2" font-size="8">x</tspan><tspan dy="-2"> = h sin i sin &Omega;, &nbsp; h</tspan><tspan dy="2" font-size="8">y</tspan><tspan dy="-2"> = &minus;h sin i cos &Omega;</tspan></text>
+    <text x="480" y="197" font-family="Georgia, serif" font-style="italic" font-size="10.8" fill="#0f172a">h<tspan dy="2" font-size="8">z</tspan><tspan dy="-2"> = h cos i &nbsp; (&Omega;: Cols 49–57, i: 60–68)</tspan></text>
+
+    <line x1="587" y1="211" x2="587" y2="226" stroke="#475569" stroke-width="1.4" marker-end="url(#arrowSlate)"/>
+
+    <rect x="470" y="228" width="235" height="48" rx="4" fill="#ecfdf5" stroke="#6ee7b7" stroke-width="1"/>
+    <text x="480" y="245" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#065f46">3. Kepler's Second Law (Areal Velocity):</text>
+    <text x="480" y="263" font-family="Georgia, serif" font-style="italic" font-size="11.2" fill="#0f172a">dA / dt = h / 2 = const.</text>
+  </svg>
+  <div class="figure-caption">
+    <strong>Figure 1:</strong> Orientation of the <strong>specific relative angular momentum vector</strong> <span class="math-var"><b>h</b> = <b>r</b> &times; <b>v</b></span> in the J2000.0 heliocentric mean ecliptic frame. Perpendicular to the osculating orbital plane, <span class="math-var"><b>h</b></span> is tilted from the north ecliptic pole (<span class="math-var">+Z</span>) by the orbital inclination <span class="math-var">i</span> (columns 60–68 of <code>MPCORB.DAT</code>), with its ecliptic projection oriented <span class="math-var">90&deg;</span> clockwise behind the ascending node <span class="math-var">&Omega;</span> (columns 49–57).
+  </div>
+</div>
+
+<h2>2. Evaluation from <code>MPCORB.DAT</code> Orbital Elements</h2>
+<p>
+  In the central two-body problem (<span class="math-var"><b>r&#776;</b> = &minus;(&mu; / r<sup>3</sup>)<b>r</b></span>), the time derivative <span class="math-var">d<b>h</b>/dt = <b>r</b> &times; <b>r&#776;</b> = <b>0</b></span> vanishes identically, making both the magnitude <span class="math-var">h</span> and the spatial direction <span class="math-var">\hat{<b>w</b>}</span> exact constants of unperturbed Keplerian motion. Using the osculating elements tabulated in <code>MPCORB.DAT</code>—<strong>longitude of the ascending node</strong> <span class="math-var">&Omega;</span> (columns 49–57), <strong>inclination</strong> <span class="math-var">i</span> (columns 60–68), <strong>eccentricity</strong> <span class="math-var">e</span> (columns 71–79), and <strong>semimajor axis</strong> <span class="math-var">a</span> (columns 93–103)—the complete 3-D J2000.0 ecliptic angular momentum vector is:
+</p>
+
+<div class="equation-box">
+  <span class="equation-main">
+    <b>h</b> = &radic;<span style="text-decoration: overline;">&mu; a (1 &minus; e<sup>2</sup>)</span>
+    &nbsp;
+    ( <span class="fn">sin</span> i <span class="fn">sin</span> &Omega;, &nbsp; &minus;<span class="fn">sin</span> i <span class="fn">cos</span> &Omega;, &nbsp; <span class="fn">cos</span> i )<sup>T</sup>
+  </span>
+  <span class="equation-label">(Eq. 2)</span>
+</div>
+
+<p>
+  Because the heliocentric radius vector <span class="math-var"><b>r</b></span> and velocity vector <span class="math-var"><b>v</b></span> always lie within the osculating orbital plane, <span class="math-var"><b>h</b></span> is strictly orthogonal to every instantaneous state vector (<span class="math-var"><b>h</b> &middot; <b>r</b> = 0</span> and <span class="math-var"><b>h</b> &middot; <b>v</b> = 0</span>). Conversely, given a Cartesian state vector <span class="math-var">(<b>r</b>, <b>v</b>)</span> from a numerical integrator, <span class="math-var"><b>h</b> = <b>r</b> &times; <b>v</b></span> recovers <span class="math-var">i</span>, <span class="math-var">&Omega;</span>, and <span class="math-var">p</span> directly:
+</p>
+
+<div class="equation-box">
+  <span class="equation-main">
+    p = <span class="frac"><span>h<sup>2</sup></span><span>&mu;</span></span> = a(1 &minus; e<sup>2</sup>), &nbsp;&nbsp; i = <span class="fn">arccos</span> &left(<span class="frac"><span>h<sub>z</sub></span><span>h</span></span>&right), &nbsp;&nbsp; &Omega; = <span class="fn">atan2</span>(h<sub>x</sub>, &minus;h<sub>y</sub>) <span class="fn">mod</span> 360&deg;
+  </span>
+  <span class="equation-label">(Eq. 3)</span>
+</div>
+
+<h2>3. Physical &amp; Geometric Interpretations</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Physical / Mathematical Law</th>
+      <th>Governing Relation</th>
+      <th>Interpretation in <code>MPCORB.DAT</code></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Kepler's Second Law (Areal Velocity)</strong></td>
+      <td><span class="math-var"><span class="frac"><span>dA</span><span>dt</span></span> = <span class="frac"><span>1</span><span>2</span></span> &Vert;<b>r</b> &times; <b>v</b>&Vert; = <span class="frac"><span>h</span><span>2</span></span> = <span class="fn">const.</span></span></td>
+      <td>The heliocentric radius vector sweeps equal areas in equal times; total orbital area is <span class="math-var">A = &pi; a b = <span class="frac"><span>1</span><span>2</span></span> h P</span>.</td>
+    </tr>
+    <tr>
+      <td><strong>Azimuthal Velocity Law</strong></td>
+      <td><span class="math-var">v<sub>&theta;</sub> = r <span class="frac"><span>d&nu;</span><span>dt</span></span> = <span class="frac"><span>h</span><span>r</span></span></span></td>
+      <td>Transverse speed scales inversely with heliocentric distance <span class="math-var">r</span>: <span class="math-var">v<sub>q</sub> / v<sub>Q</sub> = Q / q = (1 + e)/(1 &minus; e)</span>.</td>
+    </tr>
+    <tr>
+      <td><strong>Ecliptic Normal Component (<span class="math-var">h<sub>z</sub></span>)</strong></td>
+      <td><span class="math-var">h<sub>z</sub> = h <span class="fn">cos</span> i = &radic;<span style="text-decoration: overline;">&mu; a (1 &minus; e<sup>2</sup>)</span> <span class="fn">cos</span> i</span></td>
+      <td>Determines orbital sense: prograde (<span class="math-var">h<sub>z</sub> &gt; 0, i &lt; 90&deg;</span>), polar (<span class="math-var">h<sub>z</sub> = 0, i = 90&deg;</span>), or retrograde (<span class="math-var">h<sub>z</sub> &lt; 0, i &gt; 90&deg;</span>).</td>
+    </tr>
+    <tr>
+      <td><strong>Energy–Momentum Coupling</strong></td>
+      <td><span class="math-var">e = &radic;<span style="text-decoration: overline;">1 + <span class="frac"><span>2 &epsilon; h<sup>2</sup></span><span>&mu;<sup>2</sup></span></span></span></span></td>
+      <td>Together with specific orbital energy <span class="math-var">&epsilon; = &minus;&mu;/(2a)</span>, <span class="math-var">h</span> uniquely fixes orbital eccentricity <span class="math-var">e</span>.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>4. Astrodynamical &amp; Secular Perturbation Significance</h2>
+<ul>
+  <li><strong>Kozai–Lidov Oscillations &amp; Conservation of <span class="math-var">h<sub>z</sub></span>:</strong> In the hierarchical three-body problem (Sun–Jupiter–minor body), quadrupole secular perturbations induce coupled oscillations between eccentricity <span class="math-var">e</span> and inclination <span class="math-var">i</span> while conserving the vertical component of specific angular momentum <span class="math-var">h<sub>z</sub> = &radic;<span style="text-decoration: overline;">&mu; a (1 &minus; e<sup>2</sup>)</span> <span class="fn">cos</span> i</span> (the Kozai integral <span class="math-var">&Theta;<sub>K</sub> = (1 &minus; e<sup>2</sup>)<span class="fn">cos</span><sup>2</sup> i = h<sub>z</sub><sup>2</sup> / (&mu; a)</span>).</li>
+  <li><strong>Proper Elements &amp; Asteroid Family Identification:</strong> While osculating <span class="math-var"><b>h</b></span> precesses around the invariable plane of the Solar System under planetary torques (<span class="math-var">d<b>h</b>/dt = <b>r</b> &times; <b>a</b><sub>pert</sub></span>), filtering out short-period and secular perturbations yields quasi-invariant proper actions (<span class="math-var">a<sub>p</sub>, e<sub>p</sub>, <span class="fn">sin</span> i<sub>p</sub></span>) used to identify collisional asteroid families in <code>MPCORB.DAT</code>.</li>
+  <li><strong>Unit Systems in Astrodynamics:</strong> In SI/astronautical units, <span class="math-var">h</span> is expressed in <span class="math-var">km<sup>2</sup>/s</span> (or <span class="math-var">AU &middot; km/s</span>), where Earth's circular orbit at <span class="math-var">a = 1 AU</span> has <span class="math-var">h<sub>&oplus;</sub> = &radic;<span style="text-decoration: overline;">&mu; &middot; 1 AU</span> = 4.45550 &times; 10<sup>9</sup> km<sup>2</sup>/s = 29.78469 AU &middot; km/s</span>; in canonical Gaussian units, <span class="math-var">h</span> is expressed in <span class="math-var">AU<sup>2</sup>/d</span> with <span class="math-var">h<sub>&oplus;</sub> = k = 0.01720209895 AU<sup>2</sup>/d</span>.</li>
+</ul>
+
+<h2>5. Worked Examples from <code>MPCORB.DAT</code></h2>
+<p>
+  The following two numbered minor planets from <code>MPCORB.DAT</code> (epoch <code>K25BL</code> = 2025 Nov 21.0 TT = JD 2461000.5) demonstrate the evaluation of the scalar specific angular momentum <span class="math-var">h</span>, its J2000.0 ecliptic Cartesian components <span class="math-var">(h<sub>x</sub>, h<sub>y</sub>, h<sub>z</sub>)</span>, and the areal velocity <span class="math-var">dA/dt = h / 2</span>:
+</p>
+
+<div class="example-card">
+  <h3>Example 1: (1) Ceres — Moderate-Inclination Main-Belt Orbit (<span class="math-var">h = 7.39246 &times; 10<sup>9</sup> km<sup>2</sup>/s</span>)</h3>
+  <p>
+    Excerpt from <code>MPCORB.DAT</code> (columns 1–103):
+  </p>
+  <pre class="mpcorb-record">00001    3.34  0.12 K25BL 231.53975   73.28579   80.25414   10.58688  0.0789158  0.21410467   2.7675059</pre>
+  <ul>
+    <li><strong>Extracted Epoch Elements:</strong> <span class="math-var">&Omega; = 80.25414&deg;</span> (columns 49–57), <span class="math-var">i = 10.58688&deg;</span> (columns 60–68), <span class="math-var">e = 0.0789158</span> (columns 71–79), and <span class="math-var">a = 2.7675059 AU</span> (columns 93–103).</li>
+    <li><strong>Specific Angular Momentum Evaluation:</strong> The semi-latus rectum is <span class="math-var">p = a(1 &minus; e<sup>2</sup>) = 2.7502704 AU</span>, yielding scalar magnitude <span class="math-var">h = 49.41553 AU &middot; km/s = 7.39246 &times; 10<sup>9</sup> km<sup>2</sup>/s</span> (<span class="math-var">0.0285271 AU<sup>2</sup>/d</span> in Gaussian units). Evaluating Eq. (2) gives the J2000.0 ecliptic vector <span class="math-var"><b>h</b> = (+1.33969, &minus;0.23015, +7.26641)<sup>T</sup> &times; 10<sup>9</sup> km<sup>2</sup>/s</span>, corresponding to an areal velocity of <span class="math-var">dA/dt = 3.69623 &times; 10<sup>9</sup> km<sup>2</sup>/s</span> (<span class="math-var">0.0142636 AU<sup>2</sup>/d</span>).</li>
+  </ul>
+</div>
+
+<div class="example-card">
+  <h3>Example 2: (2) Pallas — High-Inclination Main-Belt Orbit (<span class="math-var">h = 7.21942 &times; 10<sup>9</sup> km<sup>2</sup>/s</span>)</h3>
+  <p>
+    Excerpt from <code>MPCORB.DAT</code> (columns 1–103):
+  </p>
+  <pre class="mpcorb-record">00002    4.12  0.11 K25BL 142.88412  310.91024  172.90561   34.92502  0.2305124  0.21378192   2.7702891</pre>
+  <ul>
+    <li><strong>Extracted Epoch Elements:</strong> <span class="math-var">&Omega; = 172.90561&deg;</span> (columns 49–57), <span class="math-var">i = 34.92502&deg;</span> (columns 60–68), <span class="math-var">e = 0.2305124</span> (columns 71–79), and <span class="math-var">a = 2.7702891 AU</span> (columns 93–103).</li>
+    <li><strong>Specific Angular Momentum Evaluation:</strong> Because Pallas has a higher eccentricity (<span class="math-var">e = 0.2305124</span>), its semi-latus rectum is smaller (<span class="math-var">p = 2.6230824 AU</span>), giving a <span class="math-var">2.34%</span> lower scalar magnitude <span class="math-var">h = 48.25884 AU &middot; km/s = 7.21942 &times; 10<sup>9</sup> km<sup>2</sup>/s</span> (<span class="math-var">0.0278594 AU<sup>2</sup>/d</span>). Due to its high inclination (<span class="math-var">i = 34.92502&deg;</span>), <span class="math-var"><b>h</b></span> is strongly tilted away from the north ecliptic pole: <span class="math-var"><b>h</b> = (+0.51058, +4.10144, +5.91937)<sup>T</sup> &times; 10<sup>9</sup> km<sup>2</sup>/s</span> (<span class="math-var">h<sub>z</sub> / h = <span class="math-fn">cos</span> i = 0.81992</span>).</li>
+  </ul>
+</div>
+
+<div class="interactive-panel">
+  <div class="interactive-title">Interactive Calculator: Specific Angular Momentum h, 3-D Vector (h<sub>x</sub>, h<sub>y</sub>, h<sub>z</sub>) &amp; Areal Velocity</div>
+  <div class="controls-grid">
+    <div class="control-group">
+      <label for="a_val">Semimajor Axis a (AU)</label>
+      <input type="number" id="a_val" value="2.7702891" step="0.05" min="0.05">
+    </div>
+    <div class="control-group">
+      <label for="e_val">Eccentricity e (0 &le; e &lt; 1)</label>
+      <input type="number" id="e_val" value="0.2305124" step="0.01" min="0" max="0.9999">
+    </div>
+    <div class="control-group">
+      <label for="i_val">Inclination i (deg)</label>
+      <input type="number" id="i_val" value="34.92502" step="1.0" min="0" max="180">
+    </div>
+    <div class="control-group">
+      <label for="om_val">Asc. Node &Omega; (deg)</label>
+      <input type="number" id="om_val" value="172.90561" step="1.0" min="0" max="360">
+    </div>
+  </div>
+  <div class="result-bar" id="calc_out">Computing...</div>
+</div>
+
+    </main>
+    <footer>
+      <span>Reference Standard: IAU Minor Planet Center (MPCORB.DAT) &amp; J2000.0 Mean Ecliptic Frame</span>
+      <span>Governing Relation: h = r &times; v, &Vert;h&Vert; = &radic;(&mu; a (1 &minus; e&sup2;)), dA/dt = h/2 &bull; MPCORB Sources: &Omega;, i, e, a</span>
+    </footer>
+  </div>
+  <script>
+    
+(function() {
+  const degToRad = Math.PI / 180.0;
+  const GM_SUN_KMS = 1.32712440018e11; // km^3 / s^2
+  const AU_KM = 149597870.7;
+  const MU_AU_KMS = GM_SUN_KMS / AU_KM; // 887.1281506 km^2 / s^2 * AU
+  const K_GAUSS = 0.01720209895;
+  const MU_GAUSS = K_GAUSS * K_GAUSS; // AU^3 / d^2
+
+  function update() {
+    const a = parseFloat(document.getElementById('a_val').value);
+    const e = parseFloat(document.getElementById('e_val').value);
+    const inc = parseFloat(document.getElementById('i_val').value);
+    const om = parseFloat(document.getElementById('om_val').value);
+    const out = document.getElementById('calc_out');
+
+    if ([a, e, inc, om].some(isNaN) || a <= 0 || e < 0 || e >= 1 || inc < 0 || inc > 180) {
+      out.textContent = "Invalid orbital parameters (require a > 0 AU, 0 <= e < 1, 0 <= i <= 180 deg).";
+      return;
+    }
+
+    const pAU = a * (1.0 - e * e);
+    const hAuKms = Math.sqrt(MU_AU_KMS * pAU);
+    const hKm2s = hAuKms * AU_KM;
+    const hGauss = Math.sqrt(MU_GAUSS * pAU);
+    const dAdtKm2s = 0.5 * hKm2s;
+
+    const iRad = inc * degToRad;
+    const omRad = om * degToRad;
+    const sinI = Math.sin(iRad);
+    const cosI = Math.cos(iRad);
+
+    const hx = hKm2s * sinI * Math.sin(omRad);
+    const hy = -hKm2s * sinI * Math.cos(omRad);
+    const hz = hKm2s * cosI;
+
+    out.innerHTML =
+      `Scalar Magnitude h = ${hKm2s.toExponential(5)} km&sup2;/s (${hAuKms.toFixed(4)} AU&middot;km/s | ${hGauss.toFixed(6)} AU&sup2;/d)<br>` +
+      `J2000.0 Vector h = (${(hx / 1e9) >= 0 ? '+' : ''}${(hx / 1e9).toFixed(4)}, ${(hy / 1e9) >= 0 ? '+' : ''}${(hy / 1e9).toFixed(4)}, ${(hz / 1e9) >= 0 ? '+' : ''}${(hz / 1e9).toFixed(4)}) &times; 10&#8313; km&sup2;/s  |  dA/dt = ${dAdtKm2s.toExponential(4)} km&sup2;/s`;
+  }
+
+  ['a_val', 'e_val', 'i_val', 'om_val'].forEach(id => {
+    document.getElementById(id).addEventListener('input', update);
+  });
+  update();
+})();
+
+  </script>
+</body>
+</html>
