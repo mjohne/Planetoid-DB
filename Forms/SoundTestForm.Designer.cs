@@ -89,6 +89,9 @@ partial class SoundTestForm
 		kryptonButtonPlayCloseSound.Name = "kryptonButtonPlayCloseSound";
 		kryptonButtonPlayCloseSound.Size = new Size(166, 25);
 		kryptonButtonPlayCloseSound.TabIndex = 9;
+		kryptonButtonPlayCloseSound.ToolTipValues.Description = "Plays the close sound";
+		kryptonButtonPlayCloseSound.ToolTipValues.EnableToolTips = true;
+		kryptonButtonPlayCloseSound.ToolTipValues.Heading = "Close sound";
 		kryptonButtonPlayCloseSound.Values.DropDownArrowColor = Color.Empty;
 		kryptonButtonPlayCloseSound.Values.Image = Resources.FatcowIcons16px.fatcow_control_play_16px;
 		kryptonButtonPlayCloseSound.Values.Text = "&Close";
@@ -107,6 +110,9 @@ partial class SoundTestForm
 		kryptonButtonPlayOpenSound.Name = "kryptonButtonPlayOpenSound";
 		kryptonButtonPlayOpenSound.Size = new Size(166, 25);
 		kryptonButtonPlayOpenSound.TabIndex = 8;
+		kryptonButtonPlayOpenSound.ToolTipValues.Description = "Plays the open sound";
+		kryptonButtonPlayOpenSound.ToolTipValues.EnableToolTips = true;
+		kryptonButtonPlayOpenSound.ToolTipValues.Heading = "Open sound";
 		kryptonButtonPlayOpenSound.Values.DropDownArrowColor = Color.Empty;
 		kryptonButtonPlayOpenSound.Values.Image = Resources.FatcowIcons16px.fatcow_control_play_16px;
 		kryptonButtonPlayOpenSound.Values.Text = "&Open";
@@ -125,6 +131,9 @@ partial class SoundTestForm
 		kryptonButtonPlayShutDownSound.Name = "kryptonButtonPlayShutDownSound";
 		kryptonButtonPlayShutDownSound.Size = new Size(166, 25);
 		kryptonButtonPlayShutDownSound.TabIndex = 7;
+		kryptonButtonPlayShutDownSound.ToolTipValues.Description = "Plays the shut down sound";
+		kryptonButtonPlayShutDownSound.ToolTipValues.EnableToolTips = true;
+		kryptonButtonPlayShutDownSound.ToolTipValues.Heading = "Shut down sound";
 		kryptonButtonPlayShutDownSound.Values.DropDownArrowColor = Color.Empty;
 		kryptonButtonPlayShutDownSound.Values.Image = Resources.FatcowIcons16px.fatcow_control_play_16px;
 		kryptonButtonPlayShutDownSound.Values.Text = "Shut do&wn";
@@ -143,6 +152,9 @@ partial class SoundTestForm
 		kryptonButtonPlaySendDataSound.Name = "kryptonButtonPlaySendDataSound";
 		kryptonButtonPlaySendDataSound.Size = new Size(166, 25);
 		kryptonButtonPlaySendDataSound.TabIndex = 6;
+		kryptonButtonPlaySendDataSound.ToolTipValues.Description = "Plays the send data sound";
+		kryptonButtonPlaySendDataSound.ToolTipValues.EnableToolTips = true;
+		kryptonButtonPlaySendDataSound.ToolTipValues.Heading = "Send data sound";
 		kryptonButtonPlaySendDataSound.Values.DropDownArrowColor = Color.Empty;
 		kryptonButtonPlaySendDataSound.Values.Image = Resources.FatcowIcons16px.fatcow_control_play_16px;
 		kryptonButtonPlaySendDataSound.Values.Text = "Send &data";
@@ -161,6 +173,9 @@ partial class SoundTestForm
 		kryptonButtonPlayStartSound.Name = "kryptonButtonPlayStartSound";
 		kryptonButtonPlayStartSound.Size = new Size(166, 25);
 		kryptonButtonPlayStartSound.TabIndex = 5;
+		kryptonButtonPlayStartSound.ToolTipValues.Description = "Plays the start sound";
+		kryptonButtonPlayStartSound.ToolTipValues.EnableToolTips = true;
+		kryptonButtonPlayStartSound.ToolTipValues.Heading = "Start sound";
 		kryptonButtonPlayStartSound.Values.DropDownArrowColor = Color.Empty;
 		kryptonButtonPlayStartSound.Values.Image = Resources.FatcowIcons16px.fatcow_control_play_16px;
 		kryptonButtonPlayStartSound.Values.Text = "&Start";
