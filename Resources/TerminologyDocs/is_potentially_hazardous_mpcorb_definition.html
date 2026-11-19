@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Is Potentially Hazardous? (PHA Classification) — MPCORB Orbital Reference</title>
+  <style>
+:root {
+  --bg-color: #f8fafc;
+  --surface-color: #ffffff;
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  --accent-color: #1e3a8a;
+  --accent-light: #eff6ff;
+  --border-color: #e2e8f0;
+  --code-bg: #f1f5f9;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-serif: "Georgia", "Times New Roman", Times, serif;
+  --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  line-height: 1.7;
+  padding: 2rem 1rem;
+}
+
+.container {
+  max-width: 920px;
+  margin: 0 auto;
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 2.5rem 3rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+header {
+  border-bottom: 2px solid var(--accent-color);
+  padding-bottom: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.category-tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent-color);
+  background-color: var(--accent-light);
+  padding: 0.25rem 0.65rem;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
+h2 {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.35rem;
+}
+
+h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+ul, ol {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+li {
+  margin-bottom: 0.4rem;
+}
+
+.equation-box {
+  background-color: var(--code-bg);
+  border-left: 4px solid var(--accent-color);
+  padding: 1rem 1.5rem;
+  margin: 1.25rem 0;
+  border-radius: 0 6px 6px 0;
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  overflow-x: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.equation-main {
+  font-style: italic;
+}
+
+.equation-main .fn,
+.math-fn {
+  font-style: normal;
+  font-family: var(--font-serif);
+}
+
+.equation-label {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-style: normal;
+  margin-left: 1rem;
+}
+
+.math-var {
+  font-family: var(--font-serif);
+  font-style: italic;
+}
+
+.frac {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  vertical-align: middle;
+  margin: 0 0.25rem;
+  font-size: 0.94em;
+  line-height: 1.15;
+}
+
+.frac > span:first-child {
+  border-bottom: 1px solid currentColor;
+  padding: 0 0.25rem 0.12rem 0.25rem;
+}
+
+.frac > span:last-child {
+  padding: 0.12rem 0.25rem 0 0.25rem;
+}
+
+.figure-box {
+  background-color: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 1.25rem;
+  margin: 1.75rem 0;
+  text-align: center;
+}
+
+.figure-box svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.figure-caption {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-top: 0.85rem;
+  text-align: left;
+  line-height: 1.5;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.92rem;
+}
+
+th, td {
+  border: 1px solid var(--border-color);
+  padding: 0.65rem 0.85rem;
+  text-align: left;
+}
+
+th {
+  background-color: var(--code-bg);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+code {
+  font-family: var(--font-mono);
+  background-color: var(--code-bg);
+  padding: 0.15rem 0.35rem;
+  border-radius: 4px;
+  font-size: 0.88em;
+}
+
+pre.mpcorb-record {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  background-color: var(--code-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 0.85rem 1rem;
+  overflow-x: auto;
+  line-height: 1.45;
+  color: var(--text-primary);
+  margin: 0.75rem 0 1.25rem 0;
+}
+
+.example-card {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-left: 4px solid #047857;
+  border-radius: 6px;
+  padding: 1.15rem 1.35rem;
+  margin: 1.15rem 0;
+}
+
+.example-card h3 {
+  margin-top: 0;
+  color: #065f46;
+}
+
+.interactive-panel {
+  background-color: var(--code-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 1.25rem;
+  margin: 1.75rem 0;
+}
+
+.interactive-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 0.75rem;
+  color: var(--text-primary);
+}
+
+.controls-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.control-group label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.control-group input {
+  width: 100%;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background-color: var(--surface-color);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+}
+
+.result-bar {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  color: var(--accent-color);
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+footer {
+  margin-top: 2.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 1.5rem 1.25rem;
+  }
+}
+</style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <span class="category-tag">Planetary Defense &amp; NEO Classification • MPCORB Reference</span>
+      <h1>Is Potentially Hazardous? (<span class="math-var"><span class="fn">IsPHA</span></span>)</h1>
+      <div class="subtitle">Earth MOID Proximity Threshold, Absolute Magnitude Cutoff &amp; MPCORB Bitmask in MPCORB.DAT</div>
+    </header>
+    <main>
+      
+<h2>1. Formal Definition</h2>
+<p>
+  In planetary defense, near-Earth object (NEO) population dynamics, and derived classification flags computed from the Minor Planet Center Orbit Database (<strong>MPCORB</strong>), the boolean predicate <strong>“Is potentially hazardous?”</strong> identifies whether a minor planet belongs to the official IAU Minor Planet Center / NASA CNEOS class of <strong>Potentially Hazardous Asteroids (PHAs)</strong>. A body is classified as a PHA (<span class="math-var"><span class="fn">IsPHA</span> = <span class="fn">true</span></span>) if and only if it simultaneously satisfies two strict orbital and photometric criteria:
+</p>
+
+<div class="equation-box">
+  <span class="equation-main">
+    <span class="fn">IsPHA</span> &iff; &left( <span class="fn">MOID</span><sub>&oplus;</sub> &le; 0.05 <span class="fn">AU</span> &right) &and; &left( H &le; 22.0 <span class="fn">mag</span> &right)
+  </span>
+  <span class="equation-label">(Eq. 1)</span>
+</div>
+
+<p>where:</p>
+<ul>
+  <li><span class="math-var"><span class="fn">MOID</span><sub>&oplus;</sub></span> is the <strong>Earth Minimum Orbit Intersection Distance</strong> (in astronomical units, <span class="math-var">AU</span>), defined as the global minimum Euclidean distance between the osculating Keplerian ellipse of the minor planet and the osculating Keplerian ellipse of Earth (<span class="math-var">0.05 AU = 7,479,893.5 km &approx; 19.46 LD</span>, where <span class="math-var">1 LD = 384,400 km</span> is the mean Earth–Moon lunar distance).</li>
+  <li><span class="math-var">H</span> is the <strong>absolute visual magnitude</strong> tabulated directly in <code>MPCORB.DAT</code> (columns 9–13, formatted as <code>F5.2</code> in the IAU <span class="math-var">H</span>–<span class="math-var">G</span> magnitude system). Under the canonical PHA calibration visual geometric albedo of <span class="math-var">p<sub>V</sub> = 0.14</span>, the brightness cutoff <span class="math-var">H &le; 22.0 mag</span> corresponds to a minimum effective diameter threshold of:
+    <div style="margin-top: 0.35rem;">
+      <span class="math-var">D(H = 22.0, p<sub>V</sub> = 0.14) = <span class="frac"><span>1329.0</span><span>&radic;<span style="text-decoration: overline;">0.14</span></span></span> &middot; 10<sup>&minus;22.0 / 5</sup> = 3551.90 &times; 3.98107 &times; 10<sup>&minus;5</sup> = 141.4 m &approx; 140 m</span>.
+    </div>
+  </li>
+  <li><strong>Direct Catalog Flag in <code>MPCORB.DAT</code>:</strong> In addition to first-principles evaluation via Eq. (1), <code>MPCORB.DAT</code> encodes a 4-character hexadecimal orbital-type bitmask in <strong>columns 162–165</strong>, where bit <code>0x0800</code> (mask <code>(flags &amp; 0x0800) != 0</code>) explicitly designates a <strong>Potentially Hazardous Asteroid (PHA)</strong>.</li>
+</ul>
+
+<div class="figure-box">
+  <svg viewBox="0 0 740 315" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="2D parameter space diagram of H (absolute magnitude) vs Earth MOID (AU) highlighting the Potentially Hazardous Asteroid (PHA) region where MOID_Earth <= 0.05 AU and H <= 22.0 mag">
+    <defs>
+      <marker id="arrowSlate" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#475569"/>
+      </marker>
+    </defs>
+
+    <!-- Left Diagram: PHA Parameter Space (x: MOID_Earth from 0 to 0.12 AU, y: H from 14 to 28 mag) -->
+    <!-- Plot box: x from 68 to 418 (width 350 -> 0.12 AU, so 0.05 AU is at x = 68 + (0.05/0.12)*350 = 213.8) -->
+    <!-- y from 28 (H=13) to 272 (H=28), 16.27 px/mag -> H=22.0 is at y = 28 + 9 * 16.27 = 174.4 -->
+    <rect x="68" y="28" width="350" height="244" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
+
+    <!-- Shaded PHA Quadrant: MOID <= 0.05 AU (x <= 213.8) AND H <= 22.0 (y <= 174.4) -->
+    <rect x="68" y="28" width="145.8" height="146.4" fill="#ffe4e6" fill-opacity="0.78"/>
+    <text x="80" y="54" font-family="sans-serif" font-size="11.5" font-weight="700" fill="#9f1239">PHA Region (IsPHA = true)</text>
+    <text x="80" y="71" font-family="sans-serif" font-size="9.5" font-weight="600" fill="#be123c">MOID<tspan dy="2" font-size="7.5">&oplus;</tspan><tspan dy="-2"> &le; 0.05 AU &and; H &le; 22.0</tspan></text>
+    <text x="80" y="87" font-family="sans-serif" font-size="9" fill="#881337">(D &gtrsim; 140 m at p<tspan dy="2" font-size="7.5">V</tspan><tspan dy="-2"> = 0.14)</tspan></text>
+
+    <!-- Non-PHA Sub-regions -->
+    <text x="230" y="96" font-family="sans-serif" font-size="10" font-weight="600" fill="#475569">Large Non-PHA NEO</text>
+    <text x="230" y="111" font-family="sans-serif" font-size="9" fill="#64748b">(MOID<tspan dy="2" font-size="7.5">&oplus;</tspan><tspan dy="-2"> &gt; 0.05 AU, H &le; 22.0)</tspan></text>
+
+    <text x="80" y="216" font-family="sans-serif" font-size="10" font-weight="600" fill="#1e3a8a">Close-Approaching Small NEO</text>
+    <text x="80" y="231" font-family="sans-serif" font-size="9" fill="#3b82f6">(MOID<tspan dy="2" font-size="7.5">&oplus;</tspan><tspan dy="-2"> &le; 0.05 AU, H &gt; 22.0; D &lt; 140 m)</tspan></text>
+
+    <text x="230" y="216" font-family="sans-serif" font-size="10" font-weight="600" fill="#64748b">Distant Small NEO</text>
+    <text x="230" y="231" font-family="sans-serif" font-size="9" fill="#94a3b8">(MOID<tspan dy="2" font-size="7.5">&oplus;</tspan><tspan dy="-2"> &gt; 0.05 AU, H &gt; 22.0)</tspan></text>
+
+    <!-- Threshold Lines -->
+    <line x1="213.8" y1="28" x2="213.8" y2="272" stroke="#be123c" stroke-width="2" stroke-dasharray="5,3"/>
+    <text x="190" y="285" font-family="monospace" font-size="9" font-weight="700" fill="#be123c">0.05 AU</text>
+
+    <line x1="68" y1="174.4" x2="418" y2="174.4" stroke="#1e3a8a" stroke-width="2" stroke-dasharray="5,3"/>
+    <text x="24" y="178" font-family="monospace" font-size="9" font-weight="700" fill="#1e3a8a">H=22.0</text>
+
+    <!-- Plotted Sample Objects:
+         1. (99942) Apophis: MOID = 0.00026 AU (x=68.8), H = 19.09 (y = 28 + 6.09*16.27 = 127.1) -> PHA!
+         2. (433) Eros: MOID = 0.148 AU (clamped near right edge x=406), H = 10.41 (y=36) -> Non-PHA
+         3. 2024 YR4 / small impactor H=24.0, MOID=0.002 AU (x=74, y=207) -> Non-PHA (too small)
+    -->
+    <circle cx="71" cy="127" r="4.8" fill="#be123c" stroke="#0f172a" stroke-width="1"/>
+    <text x="80" y="131" font-family="sans-serif" font-size="9.2" font-weight="700" fill="#0f172a">(99942) Apophis (PHA)</text>
+
+    <circle cx="76" cy="252" r="4.2" fill="#1e3a8a" stroke="#0f172a" stroke-width="1"/>
+    <text x="85" y="255" font-family="sans-serif" font-size="8.8" font-weight="600" fill="#1e3a8a">Chelyabinsk-class (H &approx; 24–26)</text>
+
+    <!-- Axes -->
+    <line x1="68" y1="272" x2="424" y2="272" stroke="#334155" stroke-width="1.5" marker-end="url(#arrowSlate)"/>
+    <line x1="68" y1="272" x2="68" y2="20" stroke="#334155" stroke-width="1.5" marker-end="url(#arrowSlate)"/>
+    <text x="155" y="304" font-family="sans-serif" font-size="10" font-weight="700" fill="#0f172a">Earth MOID<tspan dy="2" font-size="8">&oplus;</tspan><tspan dy="-2"> (AU) &nbsp; [0.05 AU &approx; 19.46 LD]</tspan></text>
+    <text x="26" y="42" font-family="monospace" font-size="9" fill="#475569">H=13</text>
+    <text x="26" y="268" font-family="monospace" font-size="9" fill="#475569">H=28</text>
+
+    <!-- Right Panel: Evaluation Pipeline & MPCORB Bitmask -->
+    <rect x="455" y="24" width="265" height="266" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+    <text x="470" y="47" font-family="sans-serif" font-size="11.5" font-weight="700" fill="#0f172a">MPCORB PHA Evaluation</text>
+
+    <rect x="470" y="62" width="235" height="62" rx="4" fill="#eff6ff" stroke="#93c5fd" stroke-width="1"/>
+    <text x="480" y="79" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#1e3a8a">1. Geometric Proximity Test:</text>
+    <text x="480" y="97" font-family="Georgia, serif" font-style="italic" font-size="11" fill="#0f172a">MOID<tspan dy="2" font-size="8.5">&oplus;</tspan><tspan dy="-2"> = min</tspan><tspan dy="2" font-size="8">(f<tspan dy="1" font-size="7">1</tspan><tspan dy="-1">,f</tspan><tspan dy="1" font-size="7">2</tspan><tspan dy="-1">)</tspan></tspan><tspan dy="-2"> &Vert;r</tspan><tspan dy="2" font-size="8">ast</tspan><tspan dy="-2">(f</tspan><tspan dy="2" font-size="8">1</tspan><tspan dy="-2">) &minus; r</tspan><tspan dy="2" font-size="8">&oplus;</tspan><tspan dy="-2">(f</tspan><tspan dy="2" font-size="8">2</tspan><tspan dy="-2">)&Vert; &le; 0.05 AU</tspan></text>
+    <text x="480" y="116" font-family="sans-serif" font-size="9.2" fill="#475569">Computed from (a, e, i, &Omega;, &omega;) vs Earth</text>
+
+    <line x1="587" y1="124" x2="587" y2="140" stroke="#475569" stroke-width="1.4" marker-end="url(#arrowSlate)"/>
+
+    <rect x="470" y="142" width="235" height="62" rx="4" fill="#fff1f2" stroke="#fda4af" stroke-width="1"/>
+    <text x="480" y="159" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#9f1239">2. Size / Brightness Test:</text>
+    <text x="480" y="177" font-family="Georgia, serif" font-style="italic" font-size="11" fill="#0f172a">H &le; 22.0 mag &nbsp;(Cols 9–13)</text>
+    <text x="480" y="195" font-family="sans-serif" font-size="9.2" fill="#475569">&hArr; D &ge; 141.4 m at p<tspan dy="2" font-size="7.5">V</tspan><tspan dy="-2"> = 0.14 (regional hazard)</tspan></text>
+
+    <line x1="587" y1="204" x2="587" y2="220" stroke="#475569" stroke-width="1.4" marker-end="url(#arrowSlate)"/>
+
+    <rect x="470" y="222" width="235" height="56" rx="4" fill="#ecfdf5" stroke="#6ee7b7" stroke-width="1"/>
+    <text x="480" y="239" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#065f46">3. MPCORB Hex Flag (Cols 162–165):</text>
+    <text x="480" y="257" font-family="monospace" font-size="10.2" fill="#0f172a">(flags &amp; 0x0800) != 0</text>
+    <text x="480" y="271" font-family="sans-serif" font-size="9.2" fill="#475569">Bit 11 of 16-bit MPC orbit type bitmask</text>
+  </svg>
+  <div class="figure-caption">
+    <strong>Figure 1:</strong> Two-dimensional classification domain for <strong>Potentially Hazardous Asteroids (PHAs)</strong> in <span class="math-var">(<span class="fn">MOID</span><sub>&oplus;</sub>, H)</span> space. An object in <code>MPCORB.DAT</code> satisfies <em>“Is potentially hazardous?”</em> if and only if its Earth Minimum Orbit Intersection Distance is <span class="math-var">&le; 0.05 AU</span> (<span class="math-var">&approx; 19.46</span> lunar distances) and its absolute magnitude is <span class="math-var">H &le; 22.0 mag</span> (<span class="math-var">D &gtrsim; 140 m</span> for <span class="math-var">p<sub>V</sub> = 0.14</span>).
+  </div>
+</div>
+
+<h2>2. Mathematical Formulation of <span class="math-var"><span class="fn">MOID</span><sub>&oplus;</sub></span> &amp; MPCORB Bitmask Decoding</h2>
+<p>
+  Unlike the perihelion distance <span class="math-var">q = a(1 &minus; e)</span>, which tests only radial overlap with <span class="math-var">1 AU</span>, <span class="math-var"><span class="fn">MOID</span><sub>&oplus;</sub></span> accounts for the full three-dimensional orientation (<span class="math-var">i, &Omega;, &omega;</span>) of both orbits. Parameterizing the asteroid's heliocentric position vector <span class="math-var"><b>r</b><sub>ast</sub>(f<sub>1</sub>)</span> by its true anomaly <span class="math-var">f<sub>1</sub> &isin; [0, 2&pi;)</span> and Earth's heliocentric position vector <span class="math-var"><b>r</b><sub>&oplus;</sub>(f<sub>2</sub>)</span> by <span class="math-var">f<sub>2</sub> &isin; [0, 2&pi;)</span> (neglecting instantaneous orbital phase along each ellipse), <span class="math-var"><span class="fn">MOID</span><sub>&oplus;</sub></span> is the global minimum of the squared Euclidean distance function <span class="math-var">D<sup>2</sup>(f<sub>1</sub>, f<sub>2</sub>) = &Vert;<b>r</b><sub>ast</sub>(f<sub>1</sub>) &minus; <b>r</b><sub>&oplus;</sub>(f<sub>2</sub>)&Vert;<sup>2</sup></span>:
+</p>
+
+<div class="equation-box">
+  <span class="equation-main">
+    <span class="fn">MOID</span><sub>&oplus;</sub> = <span class="fn">min</span><sub>(f<sub>1</sub>, f<sub>2</sub>) &isin; [0, 2&pi;)<sup>2</sup></sub> &Vert;<b>r</b><sub>ast</sub>(f<sub>1</sub>) &minus; <b>r</b><sub>&oplus;</sub>(f<sub>2</sub>)&Vert;<sub>2</sub>, &nbsp;&nbsp; <span class="fn">s.t.</span> &nbsp; <span class="frac"><span>&part;D<sup>2</sup></span><span>&part;f<sub>1</sub></span></span> = 0, &nbsp; <span class="frac"><span>&part;D<sup>2</sup></span><span>&part;f<sub>2</sub></span></span> = 0
+  </span>
+  <span class="equation-label">(Eq. 2)</span>
+</div>
+
+<p>
+  Because two confocal ellipses can possess up to <strong>four local distance minima</strong> (including two near the ascending and descending nodes of the asteroid's orbit relative to the ecliptic), computing <span class="math-var"><span class="fn">MOID</span><sub>&oplus;</sub></span> requires global minimization over <span class="math-var">(f<sub>1</sub>, f<sub>2</sub>)</span>—typically solved via Baluev–Mikryukov algebraic resultant methods or coarse grid seeding followed by damped Newton–Raphson refinement. In <code>MPCORB.DAT</code>, columns 162–165 provide a 4-hex-digit bitfield summarizing the MPC's precomputed dynamical and PHA flags:
+</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Hex Mask (Cols 162–165)</th>
+      <th>Bit Index</th>
+      <th>Orbit / Hazard Classification</th>
+      <th>Defining Orbital &amp; Photometric Conditions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>0x0002</code></td>
+      <td>Bit 1</td>
+      <td><strong>Aten</strong></td>
+      <td><span class="math-var">a &lt; 1.0 AU</span> and aphelion distance <span class="math-var">Q = a(1 + e) &gt; 0.983 AU</span> (Earth-crossing NEO).</td>
+    </tr>
+    <tr>
+      <td><code>0x0003</code></td>
+      <td>Bits 0–1</td>
+      <td><strong>Apollo</strong></td>
+      <td><span class="math-var">a &ge; 1.0 AU</span> and perihelion distance <span class="math-var">q = a(1 &minus; e) &le; 1.017 AU</span> (Earth-crossing NEO).</td>
+    </tr>
+    <tr>
+      <td><code>0x0004</code></td>
+      <td>Bit 2</td>
+      <td><strong>Amor</strong></td>
+      <td><span class="math-var">a &gt; 1.0 AU</span> and <span class="math-var">1.017 AU &lt; q &le; 1.300 AU</span> (Earth-approaching NEO).</td>
+    </tr>
+    <tr>
+      <td><code>0x0800</code></td>
+      <td>Bit 11</td>
+      <td><strong>Potentially Hazardous Asteroid (PHA)</strong></td>
+      <td><span class="math-var"><span class="fn">MOID</span><sub>&oplus;</sub> &le; 0.05 AU</span> and <span class="math-var">H &le; 22.0 mag</span> (subset of NEOs; predominantly Apollos and Atens, plus low-<span class="math-var">q</span> Amors).</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>3. Necessary Perihelion/Aphelion Bounds &amp; Astrodynamical Caveats</h2>
+<ul>
+  <li><strong>Necessary (but Not Sufficient) Radial Intersection Bounds:</strong> Because Earth's orbit spans heliocentric distances <span class="math-var">r<sub>&oplus;</sub> &isin; [q<sub>&oplus;</sub>, Q<sub>&oplus;</sub>] = [0.98329 AU, 1.01671 AU]</span>, any asteroid with <span class="math-var"><span class="fn">MOID</span><sub>&oplus;</sub> &le; 0.05 AU</span> must satisfy <span class="math-var">q &le; Q<sub>&oplus;</sub> + 0.05 = 1.06671 AU</span> and <span class="math-var">Q &ge; q<sub>&oplus;</sub> &minus; 0.05 = 0.93329 AU</span>. However, an object with <span class="math-var">q &lt; 1.0 AU</span> and high inclination <span class="math-var">i</span> whose nodes lie far from <span class="math-var">1 AU</span> can still have <span class="math-var"><span class="fn">MOID</span><sub>&oplus;</sub> &gt; 0.05 AU</span> and thus fail the PHA criterion.</li>
+  <li><strong>PHA Status Does Not Imply Imminent Impact:</strong> A PHA classification measures purely geometric orbit proximity (<span class="math-var"><span class="fn">MOID</span><sub>&oplus;</sub> &le; 0.05 AU</span>) and minimum impact energy (<span class="math-var">D &gtrsim; 140 m</span>, corresponding to kinetic energies <span class="math-var">E<sub>kin</sub> &gtrsim; 60–100 Mt TNT</span> capable of regional/continental devastation), independent of whether Earth and the asteroid currently occupy the close-approach point simultaneously.</li>
+  <li><strong>Secular Evolution of <span class="math-var"><span class="fn">MOID</span><sub>&oplus;</sub></span>:</strong> Planetary gravitational perturbations (primarily from Jupiter, Venus, and Earth) cause an asteroid's osculating <span class="math-var">(e, i, &Omega;, &omega;)</span>—and therefore <span class="math-var"><span class="fn">MOID</span><sub>&oplus;</sub></span>—to evolve over decadal to millennial timescales. Consequently, non-PHA NEAs near the boundary (<span class="math-var"><span class="fn">MOID</span><sub>&oplus;</sub> &approx; 0.05–0.08 AU, H &le; 22.0</span>) can transition into or out of PHA status across successive <code>MPCORB.DAT</code> epochs.</li>
+</ul>
+
+<h2>4. Worked Examples from <code>MPCORB.DAT</code></h2>
+<p>
+  The following two numbered Near-Earth Objects from <code>MPCORB.DAT</code> (epoch <code>K25BL</code> = 2025 Nov 21.0 TT = JD 2461000.5) demonstrate how both the dual condition (<span class="math-var"><span class="fn">MOID</span><sub>&oplus;</sub> &le; 0.05 AU</span> and <span class="math-var">H &le; 22.0 mag</span>) and the <code>MPCORB.DAT</code> bitmask distinguish a PHA from a non-PHA NEO:
+</p>
+
+<div class="example-card">
+  <h3>Example 1: (99942) Apophis — Aten-Class Potentially Hazardous Asteroid (<span class="math-var"><span class="fn">IsPHA</span> = <span class="fn">true</span></span>)</h3>
+  <p>
+    Excerpt from <code>MPCORB.DAT</code> (columns 1–103 and hex flag <code>0802</code> in columns 162–165):
+  </p>
+  <pre class="mpcorb-record">99942   19.09  0.15 K25BL 204.38214  126.67418  203.89612    3.34092  0.1914921  1.11268941   0.9224382  [... flags: 0802]</pre>
+  <ul>
+    <li><strong>Extracted Parameters:</strong> <span class="math-var">H = 19.09 mag</span> (columns 9–13), <span class="math-var">a = 0.9224382 AU</span>, <span class="math-var">e = 0.1914921</span> (<span class="math-var">q = 0.74580 AU, Q = 1.09908 AU</span>), <span class="math-var">i = 3.34092&deg;</span>, and hex flag <code>0x0802 = 0x0800 (PHA) | 0x0002 (Aten)</code>.</li>
+    <li><strong>PHA Evaluation:</strong> Apophis's low inclination and node placement yield <span class="math-var"><span class="fn">MOID</span><sub>&oplus;</sub> = 0.00026 AU &approx; 38,900 km</span> (<span class="math-var">0.101 LD &le; 0.05 AU</span>), while <span class="math-var">H = 19.09 mag &le; 22.0 mag</span> (<span class="math-var">D &approx; 340–370 m</span>). Because both criteria in Eq. (1) hold and <code>(0x0802 &amp; 0x0800) != 0</code>, <span class="math-var"><span class="fn">IsPHA</span> = <span class="fn">true</span></span>.</li>
+  </ul>
+</div>
+
+<div class="example-card">
+  <h3>Example 2: (433) Eros — Amor-Class Non-Hazardous NEO (<span class="math-var"><span class="fn">IsPHA</span> = <span class="fn">false</span></span>)</h3>
+  <p>
+    Excerpt from <code>MPCORB.DAT</code> (columns 1–103 and hex flag <code>0004</code> in columns 162–165):
+  </p>
+  <pre class="mpcorb-record">00433   10.41  0.46 K25BL  71.23914  178.92841  304.27012   10.82756  0.2227214  0.55978912   1.4582734  [... flags: 0004]</pre>
+  <ul>
+    <li><strong>Extracted Parameters:</strong> <span class="math-var">H = 10.41 mag</span> (columns 9–13), <span class="math-var">a = 1.4582734 AU</span>, <span class="math-var">e = 0.2227214</span> (<span class="math-var">q = 1.13349 AU</span>), and hex flag <code>0x0004 (Amor)</code>.</li>
+    <li><strong>PHA Evaluation:</strong> Although Eros easily satisfies the size threshold (<span class="math-var">H = 10.41 mag &le; 22.0 mag</span>, <span class="math-var">D &approx; 16.84 km</span>), its perihelion distance <span class="math-var">q = 1.13349 AU</span> keeps its entire orbit well outside Earth's aphelion (<span class="math-var"><span class="fn">MOID</span><sub>&oplus;</sub> = 0.1484 AU &gt; 0.05 AU</span>). Because the proximity condition fails and <code>(0x0004 &amp; 0x0800) == 0</code>, <span class="math-var"><span class="fn">IsPHA</span> = <span class="fn">false</span></span>.</li>
+  </ul>
+</div>
+
+<div class="interactive-panel">
+  <div class="interactive-title">Interactive Evaluator: PHA Classification (MOID<sub>&oplus;</sub> &le; 0.05 AU &and; H &le; 22.0) &amp; MPCORB Hex Flag Decoder</div>
+  <div class="controls-grid">
+    <div class="control-group">
+      <label for="moid_val">Earth MOID<sub>&oplus;</sub> (AU)</label>
+      <input type="number" id="moid_val" value="0.00026" step="0.005" min="0" max="50">
+    </div>
+    <div class="control-group">
+      <label for="h_val">Absolute Magnitude H (mag)</label>
+      <input type="number" id="h_val" value="19.09" step="0.2" min="-2" max="35">
+    </div>
+    <div class="control-group">
+      <label for="flag_val">MPCORB Hex Flag (Cols 162–165)</label>
+      <input type="text" id="flag_val" value="0802" maxlength="4">
+    </div>
+  </div>
+  <div class="result-bar" id="calc_out">Computing...</div>
+</div>
+
+    </main>
+    <footer>
+      <span>Reference Standard: IAU Minor Planet Center (MPCORB.DAT) &amp; NASA/JPL CNEOS PHA Criteria</span>
+      <span>Governing Predicate: (MOID<sub>&oplus;</sub> &le; 0.05 AU) &and; (H &le; 22.0 mag) &bull; MPCORB Sources: H (Cols 9–13), Orbit Elements, Flags (Cols 162–165, bit 0x0800)</span>
+    </footer>
+  </div>
+  <script>
+    
+(function() {
+  const AU_KM = 149597870.7;
+  const LD_KM = 384400.0;
+  const D0_KM = 1329.0;
+
+  function update() {
+    const moid = parseFloat(document.getElementById('moid_val').value);
+    const H = parseFloat(document.getElementById('h_val').value);
+    const flagStr = document.getElementById('flag_val').value.trim();
+    const out = document.getElementById('calc_out');
+
+    if ([moid, H].some(isNaN) || moid < 0) {
+      out.textContent = "Invalid parameters (require MOID_Earth >= 0 AU and valid H magnitude).";
+      return;
+    }
+
+    const passMoid = moid <= 0.05;
+    const passH = H <= 22.0;
+    const isPha = passMoid && passH;
+
+    const moidKm = moid * AU_KM;
+    const moidLd = moidKm / LD_KM;
+    const dNominalM = (D0_KM / Math.sqrt(0.14)) * Math.pow(10.0, -0.2 * H) * 1000.0;
+
+    let bitmaskNote = "";
+    if (/^[0-9a-fA-F]{1,4}$/.test(flagStr)) {
+      const code = parseInt(flagStr, 16);
+      const hexBit = (code & 0x0800) !== 0;
+      bitmaskNote = ` | Hex 0x${flagStr.toUpperCase().padStart(4, '0')} bit 0x0800: ${hexBit ? 'SET (PHA)' : 'UNSET'}`;
+    }
+
+    const statusBadge = isPha
+      ? '<span style="color:#be123c;">TRUE — Potentially Hazardous Asteroid (PHA)</span>'
+      : '<span style="color:#047857;">FALSE — Not Potentially Hazardous</span>';
+
+    out.innerHTML =
+      `Is potentially hazardous?: ${statusBadge}${bitmaskNote}<br>` +
+      `MOID<sub>&oplus;</sub> = ${moid.toFixed(5)} AU (${moidLd.toFixed(2)} LD) [${passMoid ? 'PASS &le; 0.05 AU' : 'FAIL &gt; 0.05 AU'}]  |  ` +
+      `H = ${H.toFixed(2)} mag (D<sub>pV=0.14</sub> &approx; ${dNominalM >= 1000 ? (dNominalM/1000).toFixed(2) + ' km' : dNominalM.toFixed(1) + ' m'}) [${passH ? 'PASS &le; 22.0' : 'FAIL &gt; 22.0'}]`;
+  }
+
+  ['moid_val', 'h_val', 'flag_val'].forEach(id => {
+    document.getElementById(id).addEventListener('input', update);
+  });
+  update();
+})();
+
+  </script>
+</body>
+</html>

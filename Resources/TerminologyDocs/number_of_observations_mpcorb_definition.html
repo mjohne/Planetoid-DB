@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Number of Observations (Columns 118–122) — MPCORB Orbital Reference</title>
+  <style>
+:root {
+  --bg-color: #f8fafc;
+  --surface-color: #ffffff;
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  --accent-color: #1e3a8a;
+  --accent-light: #eff6ff;
+  --border-color: #e2e8f0;
+  --code-bg: #f1f5f9;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-serif: "Georgia", "Times New Roman", Times, serif;
+  --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  line-height: 1.7;
+  padding: 2rem 1rem;
+}
+
+.container {
+  max-width: 940px;
+  margin: 0 auto;
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 2.5rem 3rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+header {
+  border-bottom: 2px solid var(--accent-color);
+  padding-bottom: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.category-tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent-color);
+  background-color: var(--accent-light);
+  padding: 0.25rem 0.65rem;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
+h2 {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.35rem;
+}
+
+h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+ul, ol {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+li {
+  margin-bottom: 0.4rem;
+}
+
+.equation-box {
+  background-color: var(--code-bg);
+  border-left: 4px solid var(--accent-color);
+  padding: 1rem 1.5rem;
+  margin: 1.25rem 0;
+  border-radius: 0 6px 6px 0;
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  overflow-x: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.equation-main {
+  font-style: italic;
+}
+
+.equation-main .fn,
+.math-fn {
+  font-style: normal;
+  font-family: var(--font-serif);
+}
+
+.equation-label {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-style: normal;
+  margin-left: 1rem;
+}
+
+.math-var {
+  font-family: var(--font-serif);
+  font-style: italic;
+}
+
+.frac {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  vertical-align: middle;
+  margin: 0 0.25rem;
+  font-size: 0.94em;
+  line-height: 1.15;
+}
+
+.frac > span:first-child {
+  border-bottom: 1px solid currentColor;
+  padding: 0 0.25rem 0.12rem 0.25rem;
+}
+
+.frac > span:last-child {
+  padding: 0.12rem 0.25rem 0 0.25rem;
+}
+
+.figure-box {
+  background-color: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 1.25rem;
+  margin: 1.75rem 0;
+  text-align: center;
+}
+
+.figure-box svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.figure-caption {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-top: 0.85rem;
+  text-align: left;
+  line-height: 1.5;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.9rem;
+}
+
+th, td {
+  border: 1px solid var(--border-color);
+  padding: 0.6rem 0.8rem;
+  text-align: left;
+}
+
+th {
+  background-color: var(--code-bg);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+code {
+  font-family: var(--font-mono);
+  background-color: var(--code-bg);
+  padding: 0.15rem 0.35rem;
+  border-radius: 4px;
+  font-size: 0.88em;
+}
+
+pre.mpcorb-record {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  background-color: var(--code-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 0.85rem 1rem;
+  overflow-x: auto;
+  line-height: 1.45;
+  color: var(--text-primary);
+  margin: 0.75rem 0 1.25rem 0;
+}
+
+.example-card {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-left: 4px solid #047857;
+  border-radius: 6px;
+  padding: 1.15rem 1.35rem;
+  margin: 1.15rem 0;
+}
+
+.example-card h3 {
+  margin-top: 0;
+  color: #065f46;
+}
+
+.interactive-panel {
+  background-color: var(--code-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 1.25rem;
+  margin: 1.75rem 0;
+}
+
+.interactive-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 0.75rem;
+  color: var(--text-primary);
+}
+
+.controls-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.control-group label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.control-group input,
+.control-group select {
+  width: 100%;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background-color: var(--surface-color);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+}
+
+.result-bar {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.86rem;
+  color: var(--accent-color);
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+footer {
+  margin-top: 2.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+@media (max-width: 680px) {
+  .container {
+    padding: 1.5rem 1.25rem;
+  }
+}
+</style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <span class="category-tag">Astrometric Sample Size &amp; Degrees of Freedom • MPCORB Reference</span>
+      <h1>Number of Observations (<span class="math-var">N<sub>obs</sub></span>, Columns 118–122)</h1>
+      <div class="subtitle">Accepted Optical Astrometric Position Count (FORTRAN I5) &amp; Covariance Scaling in MPCORB.DAT</div>
+    </header>
+    <main>
+      
+<h2>1. Formal Definition</h2>
+<p>
+  In the Minor Planet Center Orbit Database (<strong>MPCORB</strong>), the <strong>Number of Observations</strong> (<span class="math-var">N<sub>obs</sub></span>, officially specified by the IAU Minor Planet Center as the <em>“Number of observations”</em> field in <strong>columns 118–122</strong>, 1-indexed, right-justified integer formatted as FORTRAN <code>I5</code>, with 0-based substring slice <code>[117..122]</code>) denotes the total count of accepted, non-rejected optical astrometric position pairs <span class="math-var">(&alpha;<sub>k</sub>, &delta;<sub>k</sub>)</span> included in the differential least-squares orbit determination:
+</p>
+
+<div class="equation-box">
+  <span class="equation-main">
+    N<sub>obs</sub> = <span class="fn">int</span>(<span class="fn">Record</span>[117 : 122]) &isin; &#8469;<sub>0</sub>, &nbsp;&nbsp;
+    &nu;<sub>dof</sub> = 2 N<sub>obs</sub> &minus; p<sub>fit</sub>
+  </span>
+  <span class="equation-label">(Eq. 1)</span>
+</div>
+
+<p>where:</p>
+<ul>
+  <li>Each optical astrometric record in an 80-column MPC1992 or ADES submission provides <strong>two scalar angular observables</strong>—Right Ascension (<span class="math-var">&alpha;<sub>k</sub></span>) and Declination (<span class="math-var">&delta;<sub>k</sub></span>)—so <span class="math-var">N<sub>obs</sub></span> observations supply <span class="math-var">2 N<sub>obs</sub></span> scalar residual equations to the normal-equations matrix <span class="math-var">A<sup>T</sup> W A</span>.</li>
+  <li><span class="math-var">p<sub>fit</sub></span> is the number of solved dynamical parameters (typically <span class="math-var">p<sub>fit</sub> = 6</span> osculating Keplerian/Cartesian state components at epoch <span class="math-var">t<sub>0</sub></span>, or <span class="math-var">p<sub>fit</sub> = 7</span> when solving simultaneously for the transverse non-gravitational Yarkovsky parameter <span class="math-var">A<sub>2</sub></span>).</li>
+  <li><span class="math-var">&nu;<sub>dof</sub> = 2 N<sub>obs</sub> &minus; p<sub>fit</sub></span> is the statistical <strong>degrees of freedom</strong> of the orbit fit: <span class="math-var">N<sub>obs</sub> = 3</span> (<span class="math-var">2 N<sub>obs</sub> = 6</span>) corresponds to an exact, zero-degree-of-freedom deterministic boundary-value orbit (Gauss/Laplace method), whereas <span class="math-var">N<sub>obs</sub> &ge; 4</span> yields an overdetermined least-squares regression.</li>
+</ul>
+
+<div class="figure-box">
+  <svg viewBox="0 0 740 310" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="MPCORB.DAT columns 108-136 fixed-width context and statistical regimes of Number of Observations N_obs from deterministic N_obs=3 to high-precision multi-opposition N_obs > 1000">
+    <text x="370" y="24" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="700" fill="#0f172a">MPCORB.DAT Columns 108–136 &amp; Statistical Degrees-of-Freedom Regimes of N<tspan dy="2" font-size="9">obs</tspan></text>
+
+    <!-- Fixed-width strip across top: cols 108-136 -->
+    <rect x="24" y="42" width="160" height="48" rx="4" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.2"/>
+    <text x="104" y="60" text-anchor="middle" font-family="monospace" font-size="9" font-weight="700" fill="#334155">Cols 108–116 (A9)</text>
+    <text x="104" y="77" text-anchor="middle" font-family="monospace" font-size="9.2" fill="#0f172a">Reference (MPO/MPC)</text>
+
+    <rect x="194" y="42" width="212" height="48" rx="4" fill="#eff6ff" stroke="#1e3a8a" stroke-width="1.8"/>
+    <text x="300" y="60" text-anchor="middle" font-family="monospace" font-size="9.5" font-weight="700" fill="#1e3a8a">Cols 118–122 (FORTRAN I5)</text>
+    <text x="300" y="77" text-anchor="middle" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#0f172a">N<tspan dy="2" font-size="8">obs</tspan><tspan dy="-2"> (0-based [117..122])</tspan></text>
+
+    <rect x="416" y="42" width="128" height="48" rx="4" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.2"/>
+    <text x="480" y="60" text-anchor="middle" font-family="monospace" font-size="9" font-weight="700" fill="#334155">Cols 124–126 (I3)</text>
+    <text x="480" y="77" text-anchor="middle" font-family="monospace" font-size="9.2" fill="#0f172a">N<tspan dy="2" font-size="7">opp</tspan><tspan dy="-2"> (Oppositions)</tspan></text>
+
+    <rect x="554" y="42" width="162" height="48" rx="4" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.2"/>
+    <text x="635" y="60" text-anchor="middle" font-family="monospace" font-size="9" font-weight="700" fill="#334155">Cols 128–136 (A9)</text>
+    <text x="635" y="77" text-anchor="middle" font-family="monospace" font-size="9.2" fill="#0f172a">Observation Span</text>
+
+    <!-- Four Regime Cards -->
+    <rect x="24" y="108" width="164" height="184" rx="6" fill="#fff1f2" stroke="#fda4af" stroke-width="1.2"/>
+    <text x="34" y="129" font-family="monospace" font-size="9.5" font-weight="700" fill="#9f1239">N<tspan dy="2" font-size="7">obs</tspan><tspan dy="-2"> = 2–3</tspan></text>
+    <text x="34" y="145" font-family="sans-serif" font-size="9" font-weight="700" fill="#881337">Deterministic / V&auml;is&auml;l&auml;</text>
+    <text x="34" y="164" font-family="sans-serif" font-size="8.4" fill="#475569">&bull; 2N<tspan dy="2" font-size="6.5">obs</tspan><tspan dy="-2"> = 4 or 6 scalars.</tspan></text>
+    <text x="34" y="180" font-family="sans-serif" font-size="8.4" fill="#475569">&bull; Zero degrees of freedom</text>
+    <text x="42" y="193" font-family="sans-serif" font-size="8.4" fill="#475569">(&nu;<tspan dy="2" font-size="6.5">dof</tspan><tspan dy="-2"> = 0 for N=3).</tspan></text>
+    <text x="34" y="209" font-family="sans-serif" font-size="8.4" fill="#475569">&bull; Assumed circular (e=0)</text>
+    <text x="42" y="222" font-family="sans-serif" font-size="8.4" fill="#475569">or V&auml;is&auml;l&auml; perihelion</text>
+    <text x="42" y="235" font-family="sans-serif" font-size="8.4" fill="#475569">constraint if N=2.</text>
+    <text x="34" y="254" font-family="sans-serif" font-size="8.4" fill="#be123c">&bull; RMS field left blank.</text>
+
+    <rect x="200" y="108" width="164" height="184" rx="6" fill="#fffbeb" stroke="#fcd34d" stroke-width="1.2"/>
+    <text x="210" y="129" font-family="monospace" font-size="9.5" font-weight="700" fill="#92400e">4 &le; N<tspan dy="2" font-size="7">obs</tspan><tspan dy="-2"> &le; 30</tspan></text>
+    <text x="210" y="145" font-family="sans-serif" font-size="9" font-weight="700" fill="#78350f">Discovery Tracklet Arc</text>
+    <text x="210" y="164" font-family="sans-serif" font-size="8.4" fill="#475569">&bull; Typically N<tspan dy="2" font-size="6.5">opp</tspan><tspan dy="-2"> = 1 over</tspan></text>
+    <text x="218" y="177" font-family="sans-serif" font-size="8.4" fill="#475569">1–30 days.</text>
+    <text x="210" y="193" font-family="sans-serif" font-size="8.4" fill="#475569">&bull; &nu;<tspan dy="2" font-size="6.5">dof</tspan><tspan dy="-2"> = 2 to 54.</tspan></text>
+    <text x="210" y="209" font-family="sans-serif" font-size="8.4" fill="#475569">&bull; Covariance dominated</text>
+    <text x="218" y="222" font-family="sans-serif" font-size="8.4" fill="#475569">by geometric arc span</text>
+    <text x="218" y="235" font-family="sans-serif" font-size="8.4" fill="#475569">rather than 1/&radic;N<tspan dy="2" font-size="6.5">obs</tspan><tspan dy="-2">.</tspan></text>
+    <text x="210" y="254" font-family="sans-serif" font-size="8.4" fill="#b45309">&bull; U-parameter: 4–9.</text>
+
+    <rect x="376" y="108" width="164" height="184" rx="6" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.2"/>
+    <text x="386" y="129" font-family="monospace" font-size="9.5" font-weight="700" fill="#1e3a8a">30 &lt; N<tspan dy="2" font-size="7">obs</tspan><tspan dy="-2"> &le; 1,000</tspan></text>
+    <text x="386" y="145" font-family="sans-serif" font-size="9" font-weight="700" fill="#1e40af">Multi-Opposition Arc</text>
+    <text x="386" y="164" font-family="sans-serif" font-size="8.4" fill="#475569">&bull; Typically N<tspan dy="2" font-size="6.5">opp</tspan><tspan dy="-2"> = 2–15.</tspan></text>
+    <text x="386" y="180" font-family="sans-serif" font-size="8.4" fill="#475569">&bull; &nu;<tspan dy="2" font-size="6.5">dof</tspan><tspan dy="-2"> &sim; 10</tspan><tspan dy="-3" font-size="6.5">2</tspan><tspan dy="3">–10</tspan><tspan dy="-3" font-size="6.5">3</tspan><tspan dy="3">.</tspan></text>
+    <text x="386" y="196" font-family="sans-serif" font-size="8.4" fill="#475569">&bull; Full planetary N-body</text>
+    <text x="394" y="209" font-family="sans-serif" font-size="8.4" fill="#475569">perturbation fit.</text>
+    <text x="386" y="225" font-family="sans-serif" font-size="8.4" fill="#475569">&bull; Eligible for permanent</text>
+    <text x="394" y="238" font-family="sans-serif" font-size="8.4" fill="#475569">IAU numbering (U=0).</text>
+    <text x="386" y="254" font-family="sans-serif" font-size="8.4" fill="#1d4ed8">&bull; Standard numbered MBA.</text>
+
+    <rect x="552" y="108" width="164" height="184" rx="6" fill="#ecfdf5" stroke="#6ee7b7" stroke-width="1.2"/>
+    <text x="562" y="129" font-family="monospace" font-size="9.5" font-weight="700" fill="#065f46">N<tspan dy="2" font-size="7">obs</tspan><tspan dy="-2"> &gt; 1,000 (to 99,999)</tspan></text>
+    <text x="562" y="145" font-family="sans-serif" font-size="9" font-weight="700" fill="#065f46">High-Density Survey Arc</text>
+    <text x="562" y="164" font-family="sans-serif" font-size="8.4" fill="#475569">&bull; Bright numbered MBAs,</text>
+    <text x="570" y="177" font-family="sans-serif" font-size="8.4" fill="#475569">NEAs, radar/spacecraft</text>
+    <text x="570" y="190" font-family="sans-serif" font-size="8.4" fill="#475569">targets (e.g. Ceres).</text>
+    <text x="562" y="206" font-family="sans-serif" font-size="8.4" fill="#475569">&bull; Sensitive to Yarkovsky</text>
+    <text x="570" y="219" font-family="sans-serif" font-size="8.4" fill="#475569">drift &amp; asteroid masses.</text>
+    <text x="562" y="235" font-family="sans-serif" font-size="8.4" fill="#475569">&bull; Capped at I5 (99,999)</text>
+    <text x="570" y="248" font-family="sans-serif" font-size="8.4" fill="#475569">in legacy MPCORB.DAT.</text>
+  </svg>
+  <div class="figure-caption">
+    <strong>Figure 1:</strong> Fixed-width placement of <strong>Number of Observations</strong> (<span class="math-var">N<sub>obs</sub></span>, columns 118–122, FORTRAN <code>I5</code>) within <code>MPCORB.DAT</code> and its statistical regimes ranging from deterministic zero-degree-of-freedom fits (<span class="math-var">N<sub>obs</sub> = 3</span>) to high-density multi-decade survey arcs (<span class="math-var">N<sub>obs</sub> &gt; 10<sup>4</sup></span>).
+  </div>
+</div>
+
+<h2>2. Statistical &amp; Astrodynamical Properties</h2>
+<ul>
+  <li><strong>Covariance Scaling (<span class="math-var">N<sub>obs</sub><sup>&minus;1/2</sup></span> vs. Arc Length <span class="math-var">&Delta;t<sub>arc</sub><sup>&minus;3/2</sup></span>):</strong> Under uncorrelated Gaussian astrometric errors of standard deviation <span class="math-var">&sigma;<sub>ast</sub></span>, the formal covariance matrix of the fitted orbital state <span class="math-var">&mathbf{x}<sub>0</sub></span> is
+    <div class="equation-box">
+      <span class="equation-main">
+        &Sigma;<sub>x</sub> = (A<sup>T</sup> W A)<sup>&minus;1</sup> &prop; <span class="frac"><span>&sigma;<sub>ast</sub><sup>2</sup></span><span>N<sub>obs</sub></span></span> &middot; G(&Delta;t<sub>arc</sub>, geometry)
+      </span>
+      <span class="equation-label">(Eq. 2)</span>
+    </div>
+    Consequently, standard errors on the orbital elements decrease with <span class="math-var">1 / &radic;N<sub>obs</sub></span> when observations are distributed across independent nights/oppositions, whereas dense same-night bursts of hundreds of exposures suffer from correlated systematic catalog/timing errors and yield diminishing returns until <span class="math-var">&Delta;t<sub>arc</sub></span> (columns 128–136) expands.
+  </li>
+  <li><strong>Exclusion of Outliers &amp; Radar/Spacecraft Measurements:</strong>
+    <ul>
+      <li><strong>Rejected Optical Outliers:</strong> Observations exceeding the pipeline's rejection threshold (typically <span class="math-var">&gt; 2.5&sigma;–3.5&sigma;</span> in post-fit O&minus;C residuals, or flagged as misidentifications) are excluded from the differential correction and are <strong>not</strong> counted in <span class="math-var">N<sub>obs</sub></span>.</li>
+      <li><strong>Optical vs. Radar Counts:</strong> In standard MPC <code>MPCORB.DAT</code> records, columns 118–122 report the count of <strong>optical</strong> astrometric observations; when JPL Horizons solutions (e.g., <code>JPL 218</code> for <code>(99942) Apophis</code>) are imported, delay-Doppler radar range/Doppler measurements are incorporated into the force-model fit alongside the <span class="math-var">N<sub>obs</sub></span> optical positions.</li>
+    </ul>
+  </li>
+  <li><strong>Relation to the MPC Condition Code (<span class="math-var">U</span> Parameter):</strong> In <code>MPCORB.DAT</code>, the orbit uncertainty parameter <span class="math-var">U &isin; [0..9]</span> (encoded in columns 106–107) depends jointly on <span class="math-var">N<sub>obs</sub></span>, <span class="math-var">N<sub>opp</sub></span>, <span class="math-var">&Delta;t<sub>arc</sub></span>, and <span class="math-var">&sigma;<sub>rms</sub></span>. Low <span class="math-var">N<sub>obs</sub></span> (&le; 6) on a short single-opposition arc almost invariably yields <span class="math-var">U = 7–9</span> (high ephemeris uncertainty).</li>
+</ul>
+
+<h2>3. Fixed-Width Format Specifications &amp; Edge Cases in <code>MPCORB.DAT</code></h2>
+<table>
+  <thead>
+    <tr>
+      <th>Property</th>
+      <th>Specification / Behavior in <code>MPCORB.DAT</code></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Column Positions</strong></td>
+      <td><strong>Columns 118–122</strong> (1-indexed), corresponding to 0-based substring slice <code>[117..122]</code> (length 5 characters), preceded by a space at column 117 (after the 9-character Reference field in cols 108–116) and followed by a space at column 123 (before <span class="math-var">N<sub>opp</sub></span> in cols 124–126).</td>
+    </tr>
+    <tr>
+      <td><strong>FORTRAN Format Descriptor</strong></td>
+      <td><code>I5</code> (5-character right-justified base-10 integer, e.g., <code>"   27"</code>, <code>" 7361"</code>, <code>"11432"</code>).</td>
+    </tr>
+    <tr>
+      <td><strong>Blank Field (<code>"     "</code>)</strong></td>
+      <td>Occasionally left blank (5 spaces) for historical or preliminary orbits imported from external sources where the exact observation count was omitted; parsers should handle whitespace-only slices gracefully (e.g., returning <code>int?</code> = <code>null</code> or <code>0</code>).</td>
+    </tr>
+    <tr>
+      <td><strong>5-Digit Field Ceiling (<code>99999</code>)</strong></td>
+      <td>Because <code>I5</code> allocates 5 ASCII characters, the maximum representable value in standard fixed-width <code>MPCORB.DAT</code> is <code>99999</code> (saturated at <code>99999</code> if an object exceeds 99,999 optical observations, whereas extended JSON/ADES catalogs store arbitrary 32-bit integers).</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>4. Worked Examples from <code>MPCORB.DAT</code></h2>
+<p>
+  The following two records from <code>MPCORB.DAT</code> (epoch <code>K25BL</code> = 2025 Nov 21.0 TT = JD 2461000.5) illustrate <span class="math-var">N<sub>obs</sub></span> in columns 118–122 alongside <span class="math-var">N<sub>opp</sub></span> (columns 124–126) and the Observation Span (columns 128–136):
+</p>
+
+<div class="example-card">
+  <h3>Example 1: (1) Ceres — High-Count Multi-Century Dataset (<code>11432</code>)</h3>
+  <p>
+    Excerpt of <code>MPCORB.DAT</code> columns 108–202 for <code>00001</code>:
+  </p>
+  <pre class="mpcorb-record">MPO925614 11432  98 1801-2025 0.61 M-v 30h JPL 48     1000   (1) Ceres                  20251018</pre>
+  <ul>
+    <li><strong>Parsed <span class="math-var">N<sub>obs</sub></span> (Cols 118–122):</strong> <code>"11432"</code> &rarr; <span class="math-var">N<sub>obs</sub> = 11,432</span> accepted optical observations.</li>
+    <li><strong>Degrees of Freedom &amp; Density:</strong> Provides <span class="math-var">&nu;<sub>dof</sub> = 2(11,432) &minus; 6 = 22,858</span> scalar constraints across <span class="math-var">N<sub>opp</sub> = 98</span> oppositions (an average of <span class="math-var">&approx; 116.7</span> observations per opposition).</li>
+  </ul>
+</div>
+
+<div class="example-card">
+  <h3>Example 2: Single-Opposition Discovery — Low-Count Short Arc (<code>   27</code>)</h3>
+  <p>
+    Excerpt of <code>MPCORB.DAT</code> columns 108–202 for a newly discovered NEO:
+  </p>
+  <pre class="mpcorb-record">E2025-R84    27   1    14 days 0.28 M-v 38k MPCLINUX   8403            2025 QA14          20250911</pre>
+  <ul>
+    <li><strong>Parsed <span class="math-var">N<sub>obs</sub></span> (Cols 118–122):</strong> <code>"   27"</code> &rarr; <span class="math-var">N<sub>obs</sub> = 27</span> accepted optical observations.</li>
+    <li><strong>Degrees of Freedom &amp; Density:</strong> Provides <span class="math-var">&nu;<sub>dof</sub> = 2(27) &minus; 6 = 48</span> scalar constraints over a 14-day single-opposition arc (<span class="math-var">&approx; 1.93</span> observations/day).</li>
+  </ul>
+</div>
+
+<div class="interactive-panel">
+  <div class="interactive-title">Interactive Degrees-of-Freedom &amp; Astrometric Precision Scaling Explorer</div>
+  <div class="controls-grid">
+    <div class="control-group">
+      <label for="nobs_in">Number of Observations N<sub>obs</sub> (Cols 118–122)</label>
+      <input type="number" id="nobs_in" value="27" min="2" max="99999" step="1">
+    </div>
+    <div class="control-group">
+      <label for="pfit_in">Fitted Parameters p<sub>fit</sub></label>
+      <select id="pfit_in">
+        <option value="6" selected>6 (Standard 6-Element Orbit)</option>
+        <option value="7">7 (6 Elements + Yarkovsky A2)</option>
+      </select>
+    </div>
+    <div class="control-group">
+      <label for="rms_in">RMS Residual &sigma;<sub>rms</sub> (arcsec)</label>
+      <input type="number" id="rms_in" value="0.28" min="0.01" max="20" step="0.01">
+    </div>
+  </div>
+  <div class="result-bar" id="calc_out">Calculating...</div>
+</div>
+
+    </main>
+    <footer>
+      <span>Reference Standard: IAU Minor Planet Center (MPCORB.DAT Fixed-Width Format Specification)</span>
+      <span>Governing Slice: Cols 118–122 (FORTRAN I5 / [117..122]) &bull; Degrees of Freedom: &nu;<sub>dof</sub> = 2N<sub>obs</sub> &minus; p<sub>fit</sub></span>
+    </footer>
+  </div>
+  <script>
+    
+(function() {
+  function update() {
+    const nObs = parseInt(document.getElementById('nobs_in').value, 10);
+    const pFit = parseInt(document.getElementById('pfit_in').value, 10);
+    const rms = parseFloat(document.getElementById('rms_in').value);
+    const out = document.getElementById('calc_out');
+
+    if (!Number.isFinite(nObs) || nObs < 2 || nObs > 99999 || !Number.isFinite(rms) || rms <= 0) {
+      out.textContent = "Enter N_obs in [2..99999] and positive RMS residual in arcseconds.";
+      return;
+    }
+
+    const scalars = 2 * nObs;
+    const dof = scalars - pFit;
+    const i5Str = String(nObs).padStart(5, ' ');
+    const stdErrMean = rms / Math.sqrt(nObs);
+
+    let regime = "Overdetermined Least-Squares Fit";
+    if (dof <= 0) regime = "Under/Exactly Determined (Zero/Negative DOF — Constrained Orbit Required)";
+    else if (nObs <= 30) regime = "Short-Arc / Discovery Regime";
+    else if (nObs <= 1000) regime = "Multi-Opposition Standard Regime";
+    else regime = "High-Density Survey / Legacy Regime";
+
+    out.innerHTML =
+      `MPCORB Cols 118–122 (I5): <code>"${i5Str}"</code>  |  Scalar Observables (2&middot;N<sub>obs</sub>): ${scalars.toLocaleString()}  |  Degrees of Freedom (&nu;<sub>dof</sub>): ${dof.toLocaleString()}<br>` +
+      `Regime: <strong>${regime}</strong>  |  Idealized Mean-Position Error (&sigma;<sub>rms</sub> / &radic;N<sub>obs</sub>): ${stdErrMean.toFixed(4)}&Prime;`;
+  }
+
+  ['nobs_in', 'pfit_in', 'rms_in'].forEach(id => {
+    document.getElementById(id).addEventListener('input', update);
+    document.getElementById(id).addEventListener('change', update);
+  });
+  update();
+})();
+
+  </script>
+</body>
+</html>

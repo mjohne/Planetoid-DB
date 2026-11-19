@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>4-Hexdigit Flags (Columns 162–165) — MPCORB Orbital Reference</title>
+  <style>
+:root {
+  --bg-color: #f8fafc;
+  --surface-color: #ffffff;
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  --accent-color: #1e3a8a;
+  --accent-light: #eff6ff;
+  --border-color: #e2e8f0;
+  --code-bg: #f1f5f9;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-serif: "Georgia", "Times New Roman", Times, serif;
+  --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  line-height: 1.7;
+  padding: 2rem 1rem;
+}
+
+.container {
+  max-width: 940px;
+  margin: 0 auto;
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 2.5rem 3rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+header {
+  border-bottom: 2px solid var(--accent-color);
+  padding-bottom: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.category-tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent-color);
+  background-color: var(--accent-light);
+  padding: 0.25rem 0.65rem;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
+h2 {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.35rem;
+}
+
+h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+ul, ol {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+li {
+  margin-bottom: 0.4rem;
+}
+
+.equation-box {
+  background-color: var(--code-bg);
+  border-left: 4px solid var(--accent-color);
+  padding: 1rem 1.5rem;
+  margin: 1.25rem 0;
+  border-radius: 0 6px 6px 0;
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  overflow-x: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.equation-main {
+  font-style: italic;
+}
+
+.equation-main .fn,
+.math-fn {
+  font-style: normal;
+  font-family: var(--font-serif);
+}
+
+.equation-label {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-style: normal;
+  margin-left: 1rem;
+}
+
+.math-var {
+  font-family: var(--font-serif);
+  font-style: italic;
+}
+
+.figure-box {
+  background-color: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 1.25rem;
+  margin: 1.75rem 0;
+  text-align: center;
+}
+
+.figure-box svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.figure-caption {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-top: 0.85rem;
+  text-align: left;
+  line-height: 1.5;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.9rem;
+}
+
+th, td {
+  border: 1px solid var(--border-color);
+  padding: 0.6rem 0.8rem;
+  text-align: left;
+}
+
+th {
+  background-color: var(--code-bg);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+code {
+  font-family: var(--font-mono);
+  background-color: var(--code-bg);
+  padding: 0.15rem 0.35rem;
+  border-radius: 4px;
+  font-size: 0.88em;
+}
+
+pre.mpcorb-record {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  background-color: var(--code-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 0.85rem 1rem;
+  overflow-x: auto;
+  line-height: 1.45;
+  color: var(--text-primary);
+  margin: 0.75rem 0 1.25rem 0;
+}
+
+.example-card {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-left: 4px solid #047857;
+  border-radius: 6px;
+  padding: 1.15rem 1.35rem;
+  margin: 1.15rem 0;
+}
+
+.example-card h3 {
+  margin-top: 0;
+  color: #065f46;
+}
+
+.interactive-panel {
+  background-color: var(--code-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 1.25rem;
+  margin: 1.75rem 0;
+}
+
+.interactive-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 0.75rem;
+  color: var(--text-primary);
+}
+
+.controls-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.control-group label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.control-group input,
+.control-group select {
+  width: 100%;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background-color: var(--surface-color);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+}
+
+.bit-grid {
+  display: grid;
+  grid-template-columns: repeat(16, 1fr);
+  gap: 3px;
+  margin-bottom: 0.85rem;
+}
+
+.bit-cell {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: 0.3rem 0.1rem;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.bit-cell.active {
+  background-color: #dbeafe;
+  border-color: #1e3a8a;
+  color: #1e3a8a;
+  font-weight: 700;
+}
+
+.bit-cell.nibble-sep {
+  margin-right: 4px;
+}
+
+.result-bar {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.86rem;
+  color: var(--accent-color);
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+footer {
+  margin-top: 2.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+@media (max-width: 680px) {
+  .container {
+    padding: 1.5rem 1.25rem;
+  }
+  .bit-grid {
+    grid-template-columns: repeat(8, 1fr);
+  }
+}
+</style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <span class="category-tag">Catalog Data Schema &amp; Bitwise Taxonomy • MPCORB Reference</span>
+      <h1>4-Hexdigit Flags (Columns 162–165)</h1>
+      <div class="subtitle">16-Bit Orbital Type Enumeration &amp; Special Attribute Bitmasks in MPCORB.DAT</div>
+    </header>
+    <main>
+      
+<h2>1. Formal Definition</h2>
+<p>
+  In the Minor Planet Center Orbit Database (<strong>MPCORB</strong>), the <strong>4-hexdigit flags</strong> (formally defined by the IAU Minor Planet Center as the <em>4-hex-digit orbital type and special classification flags</em>, stored as a fixed-width 4-character hexadecimal string in <strong>columns 162–165</strong>, 1-indexed, of each 202-character <code>MPCORB.DAT</code> record) constitute a <strong>16-bit unsigned integer bitfield</strong> (<span class="math-var">F &isin; [0x0000, 0xFFFF]</span>) encoding both the dynamical orbit class (low 6 bits) and special observational, perturbation, or planetary-defense attributes (upper 10 bits):
+</p>
+
+<div class="equation-box">
+  <span class="equation-main">
+    F = &sum;<sub>k=0</sub><sup>15</sup> b<sub>k</sub> &middot; 2<sup>k</sup> = (N<sub>3</sub> N<sub>2</sub> N<sub>1</sub> N<sub>0</sub>)<sub>16</sub>, &nbsp;&nbsp; <span class="fn">OrbitClass</span> = F &amp; <code>0x003F</code>, &nbsp;&nbsp; <span class="fn">SpecialFlags</span> = F &amp; <code>0xFFC0</code>
+  </span>
+  <span class="equation-label">(Eq. 1)</span>
+</div>
+
+<p>where:</p>
+<ul>
+  <li><span class="math-var">N<sub>3</sub>, N<sub>2</sub>, N<sub>1</sub>, N<sub>0</sub> &isin; {0, &hellip;, 9, A, &hellip;, F}</span> are the four hexadecimal nibbles occupying character positions 162, 163, 164, and 165 of <code>MPCORB.DAT</code> (<code>%04X</code> formatting in C/FORTRAN I/O).</li>
+  <li>The <strong>low 6 bits</strong> (<span class="math-var">b<sub>5</sub> &hellip; b<sub>0</sub></span>, mask <code>0x003F</code>) form a <strong>mutually exclusive enumeration</strong> (<span class="math-var">0</span> through <span class="math-var">63</span>) specifying the primary dynamical orbit taxonomy (e.g., <code>0</code> = general main-belt/unclassified, <code>1</code> = Atira, <code>2</code> = Aten, <code>3</code> = Apollo, <code>4</code> = Amor, <code>5</code> = Mars-crosser, <code>6</code> = Hungaria, <code>7</code> = Phocaea, <code>8</code> = Hilda, <code>9</code> = Jupiter Trojan, <code>10</code> = Distant Object / TNO / Centaur).</li>
+  <li>The <strong>upper 10 bits</strong> (<span class="math-var">b<sub>15</sub> &hellip; b<sub>6</sub></span>, mask <code>0xFFC0</code>) act as <strong>independent boolean bitmasks</strong> combined via bitwise OR (<code>|</code>), flagging whether the orbit is perturbed by major planets, multi-opposition, single-opposition, critical-list numbered/unnumbered, or a <strong>Potentially Hazardous Asteroid (PHA)</strong>.</li>
+</ul>
+
+<div class="figure-box">
+  <svg viewBox="0 0 740 315" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="16-bit architecture of the MPCORB 4-hexdigit flags field (columns 162-165), showing nibbles N3 N2 N1 N0, upper boolean bitmasks b15..b6, and lower 6-bit mutually exclusive orbit type enumeration b5..b0">
+    <!-- Title Banner -->
+    <text x="370" y="24" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="700" fill="#0f172a">16-Bit Architecture of MPCORB 4-Hexdigit Flags (Columns 162–165)</text>
+
+    <!-- Nibble Headers: N3 (Col 162), N2 (Col 163), N1 (Col 164), N0 (Col 165) -->
+    <!-- 16 bit boxes across x = 22 to 718: each box width = 41, gap = 2.5 -> 16*43.5 = 696 -->
+    <rect x="22" y="36" width="171.5" height="22" rx="4" fill="#eff6ff" stroke="#93c5fd" stroke-width="1"/>
+    <text x="107" y="51" text-anchor="middle" font-family="monospace" font-size="10" font-weight="700" fill="#1e3a8a">Col 162: Nibble N3 (0xF000)</text>
+
+    <rect x="196" y="36" width="171.5" height="22" rx="4" fill="#eff6ff" stroke="#93c5fd" stroke-width="1"/>
+    <text x="281" y="51" text-anchor="middle" font-family="monospace" font-size="10" font-weight="700" fill="#1e3a8a">Col 163: Nibble N2 (0x0F00)</text>
+
+    <rect x="370" y="36" width="171.5" height="22" rx="4" fill="#f0fdf4" stroke="#86efac" stroke-width="1"/>
+    <text x="455" y="51" text-anchor="middle" font-family="monospace" font-size="10" font-weight="700" fill="#065f46">Col 164: Nibble N1 (0x00F0)</text>
+
+    <rect x="544" y="36" width="171.5" height="22" rx="4" fill="#ecfdf5" stroke="#6ee7b7" stroke-width="1"/>
+    <text x="629" y="51" text-anchor="middle" font-family="monospace" font-size="10" font-weight="700" fill="#065f46">Col 165: Nibble N0 (0x000F)</text>
+
+    <!-- 16 Individual Bit Cells (b15 down to b0) -->
+    <!-- b15..b6: Upper Boolean Flags (fill #fff1f2 or #eff6ff) | b5..b0: Orbit Class Enum (fill #ecfdf5) -->
+    <!-- x_k = 22 + (15 - k) * 43.5, width = 41 -->
+    <!-- b15 -->
+    <rect x="22" y="64" width="41" height="44" rx="3" fill="#fff1f2" stroke="#fda4af" stroke-width="1.2"/>
+    <text x="42.5" y="79" text-anchor="middle" font-family="monospace" font-size="9.5" font-weight="700" fill="#9f1239">b15</text>
+    <text x="42.5" y="96" text-anchor="middle" font-family="monospace" font-size="8" fill="#475569">0x8000</text>
+
+    <!-- b14 -->
+    <rect x="65.5" y="64" width="41" height="44" rx="3" fill="#fff1f2" stroke="#fda4af" stroke-width="1.2"/>
+    <text x="86" y="79" text-anchor="middle" font-family="monospace" font-size="9.5" font-weight="700" fill="#9f1239">b14</text>
+    <text x="86" y="96" text-anchor="middle" font-family="monospace" font-size="8" fill="#475569">0x4000</text>
+
+    <!-- b13 -->
+    <rect x="109" y="64" width="41" height="44" rx="3" fill="#fff1f2" stroke="#fda4af" stroke-width="1.2"/>
+    <text x="129.5" y="79" text-anchor="middle" font-family="monospace" font-size="9.5" font-weight="700" fill="#9f1239">b13</text>
+    <text x="129.5" y="96" text-anchor="middle" font-family="monospace" font-size="8" fill="#475569">0x2000</text>
+
+    <!-- b12 -->
+    <rect x="152.5" y="64" width="41" height="44" rx="3" fill="#fff1f2" stroke="#fda4af" stroke-width="1.2"/>
+    <text x="173" y="79" text-anchor="middle" font-family="monospace" font-size="9.5" font-weight="700" fill="#9f1239">b12</text>
+    <text x="173" y="96" text-anchor="middle" font-family="monospace" font-size="8" fill="#475569">0x1000</text>
+
+    <!-- b11 (PHA) -->
+    <rect x="196" y="64" width="41" height="44" rx="3" fill="#ffe4e6" stroke="#be123c" stroke-width="1.6"/>
+    <text x="216.5" y="79" text-anchor="middle" font-family="monospace" font-size="9.5" font-weight="700" fill="#be123c">b11</text>
+    <text x="216.5" y="96" text-anchor="middle" font-family="monospace" font-size="8" font-weight="700" fill="#be123c">0x0800</text>
+
+    <!-- b10 -->
+    <rect x="239.5" y="64" width="41" height="44" rx="3" fill="#fff1f2" stroke="#fda4af" stroke-width="1.2"/>
+    <text x="260" y="79" text-anchor="middle" font-family="monospace" font-size="9.5" font-weight="700" fill="#9f1239">b10</text>
+    <text x="260" y="96" text-anchor="middle" font-family="monospace" font-size="8" fill="#475569">0x0400</text>
+
+    <!-- b9 -->
+    <rect x="283" y="64" width="41" height="44" rx="3" fill="#fff1f2" stroke="#fda4af" stroke-width="1.2"/>
+    <text x="303.5" y="79" text-anchor="middle" font-family="monospace" font-size="9.5" font-weight="700" fill="#9f1239">b9</text>
+    <text x="303.5" y="96" text-anchor="middle" font-family="monospace" font-size="8" fill="#475569">0x0200</text>
+
+    <!-- b8 -->
+    <rect x="326.5" y="64" width="41" height="44" rx="3" fill="#fff1f2" stroke="#fda4af" stroke-width="1.2"/>
+    <text x="347" y="79" text-anchor="middle" font-family="monospace" font-size="9.5" font-weight="700" fill="#9f1239">b8</text>
+    <text x="347" y="96" text-anchor="middle" font-family="monospace" font-size="8" fill="#475569">0x0100</text>
+
+    <!-- b7 -->
+    <rect x="370" y="64" width="41" height="44" rx="3" fill="#fff1f2" stroke="#fda4af" stroke-width="1.2"/>
+    <text x="390.5" y="79" text-anchor="middle" font-family="monospace" font-size="9.5" font-weight="700" fill="#9f1239">b7</text>
+    <text x="390.5" y="96" text-anchor="middle" font-family="monospace" font-size="8" fill="#475569">0x0080</text>
+
+    <!-- b6 -->
+    <rect x="413.5" y="64" width="41" height="44" rx="3" fill="#fff1f2" stroke="#fda4af" stroke-width="1.2"/>
+    <text x="434" y="79" text-anchor="middle" font-family="monospace" font-size="9.5" font-weight="700" fill="#9f1239">b6</text>
+    <text x="434" y="96" text-anchor="middle" font-family="monospace" font-size="8" fill="#475569">0x0040</text>
+
+    <!-- b5..b0: Orbit Class 6-bit integer (0..63) -->
+    <rect x="457" y="64" width="41" height="44" rx="3" fill="#ecfdf5" stroke="#10b981" stroke-width="1.2"/>
+    <text x="477.5" y="79" text-anchor="middle" font-family="monospace" font-size="9.5" font-weight="700" fill="#065f46">b5</text>
+    <text x="477.5" y="96" text-anchor="middle" font-family="monospace" font-size="8" fill="#047857">32</text>
+
+    <rect x="500.5" y="64" width="41" height="44" rx="3" fill="#ecfdf5" stroke="#10b981" stroke-width="1.2"/>
+    <text x="521" y="79" text-anchor="middle" font-family="monospace" font-size="9.5" font-weight="700" fill="#065f46">b4</text>
+    <text x="521" y="96" text-anchor="middle" font-family="monospace" font-size="8" fill="#047857">16</text>
+
+    <rect x="544" y="64" width="41" height="44" rx="3" fill="#ecfdf5" stroke="#10b981" stroke-width="1.2"/>
+    <text x="564.5" y="79" text-anchor="middle" font-family="monospace" font-size="9.5" font-weight="700" fill="#065f46">b3</text>
+    <text x="564.5" y="96" text-anchor="middle" font-family="monospace" font-size="8" fill="#047857">8</text>
+
+    <rect x="587.5" y="64" width="41" height="44" rx="3" fill="#ecfdf5" stroke="#10b981" stroke-width="1.2"/>
+    <text x="608" y="79" text-anchor="middle" font-family="monospace" font-size="9.5" font-weight="700" fill="#065f46">b2</text>
+    <text x="608" y="96" text-anchor="middle" font-family="monospace" font-size="8" fill="#047857">4</text>
+
+    <rect x="631" y="64" width="41" height="44" rx="3" fill="#ecfdf5" stroke="#10b981" stroke-width="1.2"/>
+    <text x="651.5" y="79" text-anchor="middle" font-family="monospace" font-size="9.5" font-weight="700" fill="#065f46">b1</text>
+    <text x="651.5" y="96" text-anchor="middle" font-family="monospace" font-size="8" fill="#047857">2</text>
+
+    <rect x="674.5" y="64" width="41" height="44" rx="3" fill="#ecfdf5" stroke="#10b981" stroke-width="1.2"/>
+    <text x="695" y="79" text-anchor="middle" font-family="monospace" font-size="9.5" font-weight="700" fill="#065f46">b0</text>
+    <text x="695" y="96" text-anchor="middle" font-family="monospace" font-size="8" fill="#047857">1</text>
+
+    <!-- Partition Brackets Below Bit Grid -->
+    <path d="M 22 114 L 22 121 L 454.5 121 L 454.5 114" fill="none" stroke="#be123c" stroke-width="1.5"/>
+    <text x="238" y="135" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="700" fill="#9f1239">Upper 10 Bits (F &amp; 0xFFC0): Independent Boolean Attribute Bitmasks</text>
+
+    <path d="M 457 114 L 457 121 L 715.5 121 L 715.5 114" fill="none" stroke="#047857" stroke-width="1.5"/>
+    <text x="586" y="135" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="700" fill="#065f46">Low 6 Bits (F &amp; 0x003F): Orbit Type ID (0–63)</text>
+
+    <!-- Legend Callout Boxes -->
+    <rect x="22" y="150" width="338" height="145" rx="6" fill="#fff1f2" stroke="#fda4af" stroke-width="1"/>
+    <text x="34" y="170" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#9f1239">Key Boolean Bitmasks (F &amp; 0xFFC0):</text>
+    <text x="34" y="188" font-family="monospace" font-size="9.2" fill="#0f172a">&bull; 0x8000 (b15): 1-opposition object</text>
+    <text x="34" y="204" font-family="monospace" font-size="9.2" fill="#0f172a">&bull; 0x4000 (b14): Critical-list numbered object</text>
+    <text x="34" y="220" font-family="monospace" font-size="9.2" fill="#0f172a">&bull; 0x2000 (b13): 2-opposition object</text>
+    <text x="34" y="236" font-family="monospace" font-size="9.2" fill="#0f172a">&bull; 0x1000 (b12): Orbit perturbed by major planets</text>
+    <text x="34" y="252" font-family="monospace" font-size="9.2" font-weight="700" fill="#be123c">&bull; 0x0800 (b11): Potentially Hazardous Asteroid (PHA)</text>
+    <text x="34" y="268" font-family="monospace" font-size="9.2" fill="#0f172a">&bull; 0x0400 (b10): NEO (q &le; 1.3 AU, aggregate flag)</text>
+    <text x="34" y="284" font-family="monospace" font-size="9.2" fill="#0f172a">&bull; 0x0100 (b8) / 0x0080 (b7): Radar / Precise orbit</text>
+
+    <rect x="378" y="150" width="338" height="145" rx="6" fill="#ecfdf5" stroke="#6ee7b7" stroke-width="1"/>
+    <text x="390" y="170" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#065f46">Orbit Type Enumeration (F &amp; 0x003F):</text>
+    <text x="390" y="188" font-family="monospace" font-size="9.2" fill="#0f172a">&bull; 0 (0x00): Unclassified / General Main Belt</text>
+    <text x="390" y="204" font-family="monospace" font-size="9.2" fill="#0f172a">&bull; 1 (0x01): Atira (Q &lt; 0.983 AU, IEO)</text>
+    <text x="390" y="220" font-family="monospace" font-size="9.2" fill="#0f172a">&bull; 2 (0x02): Aten (a &lt; 1.0 AU, Q &gt; 0.983 AU)</text>
+    <text x="390" y="236" font-family="monospace" font-size="9.2" fill="#0f172a">&bull; 3 (0x03): Apollo (a &ge; 1.0 AU, q &le; 1.017 AU)</text>
+    <text x="390" y="252" font-family="monospace" font-size="9.2" fill="#0f172a">&bull; 4 (0x04): Amor (1.017 &lt; q &le; 1.300 AU)</text>
+    <text x="390" y="268" font-family="monospace" font-size="9.2" fill="#0f172a">&bull; 5..8: Mars-crosser (5), Hungaria (6), Phocaea (7), Hilda (8)</text>
+    <text x="390" y="284" font-family="monospace" font-size="9.2" fill="#0f172a">&bull; 9..10: Jupiter Trojan (9), Distant Object / TNO (10)</text>
+  </svg>
+  <div class="figure-caption">
+    <strong>Figure 1:</strong> Bit-level layout of the <strong>4-hexdigit flags</strong> in columns 162–165 of <code>MPCORB.DAT</code>. The 16-bit word partitions cleanly into a <strong>6-bit mutually exclusive dynamical class ID</strong> (<span class="math-var">F &amp; <code>0x003F</code></span>) in bits <span class="math-var">b<sub>0</sub>–b<sub>5</sub></span> and <strong>10 independent boolean attribute flags</strong> (<span class="math-var">F &amp; <code>0xFFC0</code></span>) in bits <span class="math-var">b<sub>6</sub>–b<sub>15</sub></span>.
+  </div>
+</div>
+
+<h2>2. Complete Bit-Level Specification of <code>MPCORB.DAT</code> Columns 162–165</h2>
+<p>
+  According to the official IAU Minor Planet Center <code>MPCORB.DAT</code> format specification (<em>Orbit Type / Special Flags</em>), every 16-bit flag word <span class="math-var">F</span> is decoded by separating the low-order 6-bit integer (<span class="math-var"><span class="fn">OrbitType</span> = F &amp; <code>0x003F</code></span>) from the individual high-order bitmasks (<span class="math-var">(F &amp; <span class="fn">Mask</span>) &ne; 0</span>):
+</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Bit / Mask</th>
+      <th>Hex Mask</th>
+      <th>Field Type</th>
+      <th>Official MPCORB Meaning &amp; Astrodynamical Criterion</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Bits 0–5</strong></td>
+      <td><code>0x003F</code></td>
+      <td>6-Bit Enum (<span class="math-var">0–63</span>)</td>
+      <td>
+        <strong>Primary Dynamical Orbit Class:</strong><br>
+        <code>0</code> = General / Unclassified (Main-Belt &amp; non-resonant);
+        <code>1</code> = Atira (<span class="math-var">Q &lt; 0.983 AU</span>);
+        <code>2</code> = Aten (<span class="math-var">a &lt; 1.0 AU, Q &gt; 0.983 AU</span>);
+        <code>3</code> = Apollo (<span class="math-var">a &ge; 1.0 AU, q &le; 1.017 AU</span>);
+        <code>4</code> = Amor (<span class="math-var">a &gt; 1.0 AU, 1.017 &lt; q &le; 1.300 AU</span>);
+        <code>5</code> = Mars-crosser (<span class="math-var">q &lt; 1.666 AU, q &gt; 1.300 AU</span>);
+        <code>6</code> = Hungaria (<span class="math-var">1.78 &lt; a &lt; 2.00 AU, e &lt; 0.18, 16&deg; &lt; i &lt; 34&deg;</span>);
+        <code>7</code> = Phocaea (<span class="math-var">2.25 &lt; a &lt; 2.50 AU, e &gt; 0.10, 18&deg; &lt; i &lt; 32&deg;</span>);
+        <code>8</code> = Hilda (<span class="math-var">3.7 &lt; a &lt; 4.2 AU, e &lt; 0.30, i &lt; 20&deg;</span>, 3:2 JMR);
+        <code>9</code> = Jupiter Trojan (<span class="math-var">5.05 &lt; a &lt; 5.40 AU, e &lt; 0.30</span>, 1:1 L4/L5);
+        <code>10</code> = Distant Object (<span class="math-var">q &gt; 5.5 AU</span> or <span class="math-var">a &gt; 5.5 AU</span>: Centaurs, KBOs/TNOs, SDOs).
+      </td>
+    </tr>
+    <tr>
+      <td><strong>Bit 6</strong></td>
+      <td><code>0x0040</code></td>
+      <td>Boolean Bitmask</td>
+      <td><strong>Reserved / Legacy Orbit Sub-flag</strong> (historically unused or internal MPC flag).</td>
+    </tr>
+    <tr>
+      <td><strong>Bit 7</strong></td>
+      <td><code>0x0080</code></td>
+      <td>Boolean Bitmask</td>
+      <td><strong>Precise / Multi-Apparition Orbit Fit</strong> (high-precision astrometric solution).</td>
+    </tr>
+    <tr>
+      <td><strong>Bit 8</strong></td>
+      <td><code>0x0100</code></td>
+      <td>Boolean Bitmask</td>
+      <td><strong>Radar-Observed Object</strong> (orbit constrained by planetary radar delay/Doppler astrometry).</td>
+    </tr>
+    <tr>
+      <td><strong>Bit 9</strong></td>
+      <td><code>0x0200</code></td>
+      <td>Boolean Bitmask</td>
+      <td><strong>Unnumbered Object with Multiple Oppositions</strong> (or special multi-opposition flag).</td>
+    </tr>
+    <tr>
+      <td><strong>Bit 10</strong></td>
+      <td><code>0x0400</code></td>
+      <td>Boolean Bitmask</td>
+      <td><strong>Near-Earth Object (NEO) Aggregate Flag</strong> (<span class="math-var">q &le; 1.300 AU</span>; set alongside orbit class <code>1..4</code> in newer MPCORB releases).</td>
+    </tr>
+    <tr>
+      <td><strong>Bit 11</strong></td>
+      <td><code>0x0800</code></td>
+      <td>Boolean Bitmask</td>
+      <td><strong>Potentially Hazardous Asteroid (PHA)</strong> (<span class="math-var"><span class="fn">MOID</span><sub>&oplus;</sub> &le; 0.05 AU</span> and <span class="math-var">H &le; 22.0 mag</span>).</td>
+    </tr>
+    <tr>
+      <td><strong>Bit 12</strong></td>
+      <td><code>0x1000</code></td>
+      <td>Boolean Bitmask</td>
+      <td><strong>Perturbed Solution</strong> (orbit integrated including gravitational perturbations of all major planets, as opposed to an unperturbed two-body conic fit).</td>
+    </tr>
+    <tr>
+      <td><strong>Bit 13</strong></td>
+      <td><code>0x2000</code></td>
+      <td>Boolean Bitmask</td>
+      <td><strong>Two-Opposition Object</strong> (unnumbered minor planet observed across exactly two oppositions).</td>
+    </tr>
+    <tr>
+      <td><strong>Bit 14</strong></td>
+      <td><code>0x4000</code></td>
+      <td>Boolean Bitmask</td>
+      <td><strong>Critical-List Numbered Object</strong> (numbered minor planet needing astrometric recovery/follow-up due to growing ephemeris uncertainty).</td>
+    </tr>
+    <tr>
+      <td><strong>Bit 15</strong></td>
+      <td><code>0x8000</code></td>
+      <td>Boolean Bitmask</td>
+      <td><strong>Single-Opposition Object</strong> (unnumbered minor planet observed during only one opposition).</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>3. Parsing Semantics &amp; Implementation Nuances in <code>MPCORB.DAT</code></h2>
+<ul>
+  <li><strong>Why Bitwise Masking (<code>&amp;</code>) Is Mandatory Instead of Equality (<code>==</code>):</strong> A common parsing error is testing <code>flags == "0003"</code> to detect Apollo asteroids. Because upper boolean flags (such as <code>0x1000</code> for a perturbed solution or <code>0x0800</code> for a PHA) are bitwise-ORed into the same 16-bit integer, a perturbed Apollo PHA has hexadecimal string <code>"1803"</code> (or <code>"1C03"</code> if <code>0x0400</code> is also set). Consequently, the dynamical class must <em>always</em> be extracted via <code>(flags &amp; 0x003F) == 3</code>, and boolean attributes via <code>(flags &amp; mask) != 0</code>.</li>
+  <li><strong>Mutual Exclusivity of Opposition Flags (<code>0x8000</code>, <code>0x2000</code>) and Numbered Status:</strong> Numbered minor planets (columns 1–7 containing a 5-digit integer or packed number such as <code>00001</code> or <code>A0001</code>) have neither <code>0x8000</code> (1-opposition) nor <code>0x2000</code> (2-opposition) set, though they may carry <code>0x4000</code> if placed on the MPC Critical List. Unnumbered objects with 3 or more oppositions likewise have both <code>0x8000</code> and <code>0x2000</code> cleared.</li>
+  <li><strong>Fixed-Column Layout in <code>MPCORB.DAT</code>:</strong> In the standard 202-character fixed-width ASCII format of <code>MPCORB.DAT</code>, columns 162–165 (0-based substring indices <code>161..165</code>, length 4) immediately follow the 11-character computer/orbital-arc designation (columns 151–161) and immediately precede the human-readable number and name/designation (columns 167–194) and last-observation date <code>YYYYMMDD</code> (columns 195–202).</li>
+</ul>
+
+<h2>4. Worked Examples from <code>MPCORB.DAT</code></h2>
+<p>
+  The following two records from <code>MPCORB.DAT</code> (epoch <code>K25BL</code> = 2025 Nov 21.0 TT = JD 2461000.5) demonstrate how the 4-hexdigit flag field in columns 162–165 decomposes into its constituent dynamical class and boolean attribute bits:
+</p>
+
+<div class="example-card">
+  <h3>Example 1: (1) Ceres — Perturbed Main-Belt Dwarf Planet (<code>1000</code>)</h3>
+  <p>
+    Tail fields of <code>MPCORB.DAT</code> record for <code>00001</code> (columns 151–202):
+  </p>
+  <pre class="mpcorb-record">...  JPL 48    1000   (1) Ceres                  20251018</pre>
+  <ul>
+    <li><strong>Hexadecimal Value:</strong> <code>0x1000</code> (binary <code>0001 0000 0000 0000</code>, decimal <code>4096</code>).</li>
+    <li><strong>Bitwise Decomposition:</strong>
+      <ul>
+        <li><code>0x1000 &amp; 0x003F = 0</code> &rarr; <strong>General / Main-Belt orbit</strong> (not an NEO, Trojan, Hilda, or TNO).</li>
+        <li><code>(0x1000 &amp; 0x1000) != 0</code> &rarr; <strong>Perturbed orbital solution</strong> (integrated with full planetary perturbations).</li>
+        <li>All opposition/PHA flags (<code>0x8000</code>, <code>0x2000</code>, <code>0x0800</code>) are <code>0</code> (numbered multi-opposition non-PHA object).</li>
+      </ul>
+    </li>
+  </ul>
+</div>
+
+<div class="example-card">
+  <h3>Example 2: (99942) Apophis — Perturbed Radar-Observed Aten PHA (<code>1902</code> / <code>1D02</code>)</h3>
+  <p>
+    Tail fields of <code>MPCORB.DAT</code> record for <code>99942</code> (columns 151–202):
+  </p>
+  <pre class="mpcorb-record">...  JPL 218   1D02   (99942) Apophis            20210512</pre>
+  <ul>
+    <li><strong>Hexadecimal Value:</strong> <code>0x1D02</code> (binary <code>0001 1101 0000 0010</code>, decimal <code>7426</code>).</li>
+    <li><strong>Bitwise Decomposition:</strong>
+      <ul>
+        <li><code>0x1D02 &amp; 0x003F = 2</code> &rarr; <strong>Aten</strong> (<span class="math-var">a = 0.9224 AU &lt; 1.0 AU</span>, <span class="math-var">Q = 1.0991 AU &gt; 0.983 AU</span>).</li>
+        <li><code>(0x1D02 &amp; 0x1000) != 0</code> &rarr; <strong>Perturbed orbital solution</strong>.</li>
+        <li><code>(0x1D02 &amp; 0x0800) != 0</code> &rarr; <strong>Potentially Hazardous Asteroid (PHA)</strong> (<span class="math-var"><span class="fn">MOID</span><sub>&oplus;</sub> = 0.00026 AU &le; 0.05 AU</span> and <span class="math-var">H = 19.09 &le; 22.0</span>).</li>
+        <li><code>(0x1D02 &amp; 0x0400) != 0</code> &rarr; <strong>Near-Earth Object (NEO)</strong> aggregate flag set.</li>
+        <li><code>(0x1D02 &amp; 0x0100) != 0</code> &rarr; <strong>Radar-observed</strong> (Goldstone/Arecibo delay-Doppler astrometry included).</li>
+      </ul>
+    </li>
+  </ul>
+</div>
+
+<div class="interactive-panel">
+  <div class="interactive-title">Interactive 16-Bit MPCORB Flag Decoder &amp; Bitmask Builder (Columns 162–165)</div>
+  <div class="controls-grid">
+    <div class="control-group">
+      <label for="hex_in">4-Hexdigit Flag (0000–FFFF)</label>
+      <input type="text" id="hex_in" value="1D02" maxlength="4">
+    </div>
+    <div class="control-group">
+      <label for="preset_in">Common MPCORB Flag Presets</label>
+      <select id="preset_in">
+        <option value="custom">Custom Hex / Bit Toggle</option>
+        <option value="0000">0000 — Unperturbed Main-Belt (Numbered)</option>
+        <option value="1000">1000 — Perturbed Main-Belt (Ceres)</option>
+        <option value="8000">8000 — Unperturbed 1-Opposition Main-Belt</option>
+        <option value="100A">100A — Perturbed Distant Object / TNO</option>
+        <option value="1403">1403 — Perturbed Apollo NEO (Non-PHA)</option>
+        <option value="1C03">1C03 — Perturbed Apollo PHA</option>
+        <option value="1D02" selected>1D02 — Perturbed Radar Aten PHA (Apophis)</option>
+      </select>
+    </div>
+  </div>
+  <div class="bit-grid" id="bit_grid" title="Click any bit b15..b0 to toggle"></div>
+  <div class="result-bar" id="calc_out">Decoding...</div>
+</div>
+
+    </main>
+    <footer>
+      <span>Reference Standard: IAU Minor Planet Center (MPCORB.DAT Fixed-Width Format Specification)</span>
+      <span>Governing Partition: F = (N<sub>3</sub>N<sub>2</sub>N<sub>1</sub>N<sub>0</sub>)<sub>16</sub> &bull; OrbitClass = F &amp; 0x003F &bull; SpecialFlags = F &amp; 0xFFC0 (Cols 162–165)</span>
+    </footer>
+  </div>
+  <script>
+    
+(function() {
+  const ORBIT_CLASSES = {
+    0: "General / Unclassified (Main Belt)",
+    1: "Atira (IEO: Q < 0.983 AU)",
+    2: "Aten (a < 1.0 AU, Q > 0.983 AU)",
+    3: "Apollo (a >= 1.0 AU, q <= 1.017 AU)",
+    4: "Amor (1.017 < q <= 1.300 AU)",
+    5: "Mars-crosser (1.300 < q < 1.666 AU)",
+    6: "Hungaria (1.78 < a < 2.00 AU, high i)",
+    7: "Phocaea (2.25 < a < 2.50 AU, high i)",
+    8: "Hilda (3.7 < a < 4.2 AU, 3:2 JMR)",
+    9: "Jupiter Trojan (5.05 < a < 5.40 AU, 1:1)",
+    10: "Distant Object (Centaur / TNO / KBO)"
+  };
+
+  const HIGH_BITS = [
+    { bit: 15, mask: 0x8000, label: "1-Opposition (0x8000)" },
+    { bit: 14, mask: 0x4000, label: "Critical-List Numbered (0x4000)" },
+    { bit: 13, mask: 0x2000, label: "2-Opposition (0x2000)" },
+    { bit: 12, mask: 0x1000, label: "Perturbed Solution (0x1000)" },
+    { bit: 11, mask: 0x0800, label: "PHA (0x0800)" },
+    { bit: 10, mask: 0x0400, label: "NEO Flag (0x0400)" },
+    { bit: 9,  mask: 0x0200, label: "Multi-Opposition Unnumbered (0x0200)" },
+    { bit: 8,  mask: 0x0100, label: "Radar-Observed (0x0100)" },
+    { bit: 7,  mask: 0x0080, label: "Precise Orbit Fit (0x0080)" },
+    { bit: 6,  mask: 0x0040, label: "Reserved Sub-flag (0x0040)" }
+  ];
+
+  let currentVal = 0x1D02;
+  const grid = document.getElementById('bit_grid');
+
+  for (let b = 15; b >= 0; b--) {
+    const cell = document.createElement('div');
+    cell.className = 'bit-cell' + (b % 4 === 0 && b !== 0 ? ' nibble-sep' : '');
+    cell.dataset.bit = b;
+    cell.addEventListener('click', function() {
+      currentVal ^= (1 << b);
+      document.getElementById('hex_in').value = currentVal.toString(16).toUpperCase().padStart(4, '0');
+      document.getElementById('preset_in').value = 'custom';
+      render();
+    });
+    grid.appendChild(cell);
+  }
+
+  function render() {
+    const out = document.getElementById('calc_out');
+    const cells = grid.querySelectorAll('.bit-cell');
+    cells.forEach(cell => {
+      const b = parseInt(cell.dataset.bit, 10);
+      const isSet = ((currentVal >> b) & 1) === 1;
+      cell.classList.toggle('active', isSet);
+      cell.innerHTML = `b${b}<br>${isSet ? '1' : '0'}`;
+    });
+
+    const hexFmt = currentVal.toString(16).toUpperCase().padStart(4, '0');
+    const binFmt = currentVal.toString(2).padStart(16, '0').replace(/(.{4})/g, '$1 ').trim();
+    const orbitId = currentVal & 0x003F;
+    const orbitName = ORBIT_CLASSES[orbitId] || `Reserved / Extended Orbit Class (${orbitId})`;
+    const activeFlags = HIGH_BITS.filter(f => (currentVal & f.mask) !== 0).map(f => f.label);
+
+    out.innerHTML =
+      `Hex: 0x${hexFmt}  |  Decimal: ${currentVal}  |  Binary: ${binFmt}<br>` +
+      `Orbit Class (F &amp; 0x003F = ${orbitId}): ${orbitName}<br>` +
+      `Active Boolean Flags (F &amp; 0xFFC0): ${activeFlags.length ? activeFlags.join(' | ') : 'None (0x0000)'}`;
+  }
+
+  document.getElementById('hex_in').addEventListener('input', function() {
+    const raw = this.value.trim();
+    if (/^[0-9a-fA-F]{1,4}$/.test(raw)) {
+      currentVal = parseInt(raw, 16);
+      document.getElementById('preset_in').value = 'custom';
+      render();
+    } else {
+      document.getElementById('calc_out').textContent = "Invalid hexadecimal string (enter 1 to 4 hex digits 0–9, A–F).";
+    }
+  });
+
+  document.getElementById('preset_in').addEventListener('change', function() {
+    if (this.value !== 'custom') {
+      currentVal = parseInt(this.value, 16);
+      document.getElementById('hex_in').value = this.value;
+      render();
+    }
+  });
+
+  render();
+})();
+
+  </script>
+</body>
+</html>

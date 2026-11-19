@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Readable Designation (Columns 167–194) — MPCORB Orbital Reference</title>
+  <style>
+:root {
+  --bg-color: #f8fafc;
+  --surface-color: #ffffff;
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  --accent-color: #1e3a8a;
+  --accent-light: #eff6ff;
+  --border-color: #e2e8f0;
+  --code-bg: #f1f5f9;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-serif: "Georgia", "Times New Roman", Times, serif;
+  --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  line-height: 1.7;
+  padding: 2rem 1rem;
+}
+
+.container {
+  max-width: 940px;
+  margin: 0 auto;
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 2.5rem 3rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+header {
+  border-bottom: 2px solid var(--accent-color);
+  padding-bottom: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.category-tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent-color);
+  background-color: var(--accent-light);
+  padding: 0.25rem 0.65rem;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
+h2 {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.35rem;
+}
+
+h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+ul, ol {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+li {
+  margin-bottom: 0.4rem;
+}
+
+.equation-box {
+  background-color: var(--code-bg);
+  border-left: 4px solid var(--accent-color);
+  padding: 1rem 1.5rem;
+  margin: 1.25rem 0;
+  border-radius: 0 6px 6px 0;
+  font-family: var(--font-serif);
+  font-size: 1.12rem;
+  overflow-x: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.equation-main {
+  font-style: italic;
+}
+
+.equation-main .fn,
+.math-fn {
+  font-style: normal;
+  font-family: var(--font-serif);
+}
+
+.equation-label {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-style: normal;
+  margin-left: 1rem;
+}
+
+.math-var {
+  font-family: var(--font-serif);
+  font-style: italic;
+}
+
+.figure-box {
+  background-color: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 1.25rem;
+  margin: 1.75rem 0;
+  text-align: center;
+}
+
+.figure-box svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.figure-caption {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-top: 0.85rem;
+  text-align: left;
+  line-height: 1.5;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.9rem;
+}
+
+th, td {
+  border: 1px solid var(--border-color);
+  padding: 0.6rem 0.8rem;
+  text-align: left;
+}
+
+th {
+  background-color: var(--code-bg);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+code {
+  font-family: var(--font-mono);
+  background-color: var(--code-bg);
+  padding: 0.15rem 0.35rem;
+  border-radius: 4px;
+  font-size: 0.88em;
+}
+
+pre.mpcorb-record {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  background-color: var(--code-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 0.85rem 1rem;
+  overflow-x: auto;
+  line-height: 1.45;
+  color: var(--text-primary);
+  margin: 0.75rem 0 1.25rem 0;
+}
+
+.example-card {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-left: 4px solid #047857;
+  border-radius: 6px;
+  padding: 1.15rem 1.35rem;
+  margin: 1.15rem 0;
+}
+
+.example-card h3 {
+  margin-top: 0;
+  color: #065f46;
+}
+
+.interactive-panel {
+  background-color: var(--code-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 1.25rem;
+  margin: 1.75rem 0;
+}
+
+.interactive-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 0.75rem;
+  color: var(--text-primary);
+}
+
+.controls-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.control-group label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.control-group input,
+.control-group select {
+  width: 100%;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background-color: var(--surface-color);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+}
+
+.result-bar {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.86rem;
+  color: var(--accent-color);
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+footer {
+  margin-top: 2.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+@media (max-width: 680px) {
+  .container {
+    padding: 1.5rem 1.25rem;
+  }
+}
+</style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <span class="category-tag">IAU Nomenclature &amp; Catalog Identity • MPCORB Reference</span>
+      <h1>Readable Designation (Columns 167–194)</h1>
+      <div class="subtitle">Human-Readable Permanent Number, WGSBN Name &amp; Provisional Designation Field (FORTRAN A28) in MPCORB.DAT</div>
+    </header>
+    <main>
+      
+<h2>1. Formal Definition</h2>
+<p>
+  In the Minor Planet Center Orbit Database (<strong>MPCORB</strong>), the <strong>Readable Designation</strong> (<span class="math-var">Desig<sub>read</sub></span>, officially specified by the IAU Minor Planet Center as the <em>“Readable designation”</em> field in <strong>columns 167–194</strong>, 1-indexed, 28-character ASCII string formatted as FORTRAN <code>A28</code>, with 0-based substring slice <code>[166..194]</code>) is the unencoded, human-readable IAU minor planet identifier—comprising either a <strong>permanently numbered designation</strong> (with optional IAU-approved name) or a <strong>provisional/survey discovery designation</strong>—that corresponds bijectively to the 7-character base-62 packed primary key in columns 1–7:
+</p>
+
+<div class="equation-box">
+  <span class="equation-main">
+    <span class="fn">Desig</span><sub>read</sub> = <span class="fn">trim</span>(<span class="fn">Record</span>[166 : 194]) &hArr; <span class="fn">Unpack7</span>(<span class="fn">Record</span>[0 : 7])
+  </span>
+  <span class="equation-label">(Eq. 1)</span>
+</div>
+
+<p>where:</p>
+<ul>
+  <li><strong>Field Boundaries:</strong> Columns 167–194 span 28 ASCII characters, preceded by a space at column 166 (immediately after the 4-hexdigit classification/attribute flags in columns 162–165) and followed immediately (with <strong>no intervening blank column</strong>—or utilizing column 194 as trailing padding) by the 8-character <em>Date of Last Observation</em> (<code>YYYYMMDD</code>) in columns 195–202.</li>
+  <li><strong>Dual Internal Sub-Alignment Architecture:</strong> Unlike purely left-justified strings, the 28-character field exhibits a structured internal alignment distinguishing numbered minor planets from unnumbered provisional discoveries:
+    <ul>
+      <li><strong>Numbered Minor Planets (<code>(N) Name</code> or <code>(N)</code>):</strong> The parenthesized permanent catalog number <code>(N)</code> is aligned so that its closing parenthesis <code>)</code> sits consistently near column 174 (for 1- to 5-digit numbers) or shifts right for 6-digit numbers, followed by a single space and the official IAU name (up to 18 characters, e.g., <code>   (1) Ceres</code>, <code>(99942) Apophis</code>, <code>(136199) Eris</code>, or <code>(654321)</code> if numbered but unnamed).</li>
+      <li><strong>Unnumbered Provisional Designations:</strong> Right-shifted into the secondary name sub-column starting around column 176 (leaving leading spaces in columns 167–175, e.g., <code>         2025 QA14</code> or <code>         6344 P-L</code>).</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="figure-box">
+  <svg viewBox="0 0 740 315" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="MPCORB.DAT columns 162-202 fixed-width layout showing the 28-character Readable Designation field and its sub-alignment for numbered vs provisional minor planets">
+    <text x="370" y="24" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="700" fill="#0f172a">MPCORB.DAT Columns 162–202 &amp; Sub-Alignment of Readable Designation (A28)</text>
+
+    <!-- Top Context Strip -->
+    <rect x="24" y="42" width="118" height="48" rx="4" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.2"/>
+    <text x="83" y="60" text-anchor="middle" font-family="monospace" font-size="9" font-weight="700" fill="#334155">Cols 162–165</text>
+    <text x="83" y="77" text-anchor="middle" font-family="monospace" font-size="9.2" fill="#0f172a">Hex Flags (Z4)</text>
+
+    <rect x="154" y="42" width="414" height="48" rx="4" fill="#eff6ff" stroke="#1e3a8a" stroke-width="1.8"/>
+    <text x="361" y="60" text-anchor="middle" font-family="monospace" font-size="9.5" font-weight="700" fill="#1e3a8a">Columns 167–194 (28 chars, FORTRAN A28 • 0-based [166..194])</text>
+    <text x="361" y="77" text-anchor="middle" font-family="sans-serif" font-size="10.2" font-weight="700" fill="#0f172a">Readable Designation (Numbered &amp; Named vs. Provisional)</text>
+
+    <rect x="580" y="42" width="136" height="48" rx="4" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.2"/>
+    <text x="648" y="60" text-anchor="middle" font-family="monospace" font-size="9" font-weight="700" fill="#334155">Cols 195–202</text>
+    <text x="648" y="77" text-anchor="middle" font-family="monospace" font-size="9.2" fill="#0f172a">Last Obs (I8)</text>
+
+    <!-- Three Classification Cards -->
+    <rect x="24" y="108" width="220" height="188" rx="6" fill="#ecfdf5" stroke="#6ee7b7" stroke-width="1.3"/>
+    <text x="36" y="130" font-family="monospace" font-size="10.2" font-weight="700" fill="#065f46">1. Numbered + Named</text>
+    <text x="36" y="147" font-family="sans-serif" font-size="9" font-weight="700" fill="#047857">IAU Permanent Catalog + Name</text>
+    <rect x="36" y="156" width="196" height="24" rx="3" fill="#ffffff" stroke="#a7f3d0" stroke-width="1"/>
+    <text x="42" y="172" font-family="monospace" font-size="8.6" fill="#0f172a">"   (1) Ceres              "</text>
+    <text x="36" y="198" font-family="sans-serif" font-size="8.3" fill="#334155">&bull; Parenthesized integer <code>(N)</code></text>
+    <text x="44" y="211" font-family="sans-serif" font-size="8.3" fill="#334155">right-aligned to col 174 for</text>
+    <text x="44" y="224" font-family="sans-serif" font-size="8.3" fill="#334155">1–5 digits; shifts right for</text>
+    <text x="44" y="237" font-family="sans-serif" font-size="8.3" fill="#334155">6-digit numbers <code>(100000+)</code>.</text>
+    <text x="36" y="255" font-family="sans-serif" font-size="8.3" fill="#334155">&bull; Followed by 1 space + official</text>
+    <text x="44" y="268" font-family="sans-serif" font-size="8.3" fill="#334155">WGSBN name (&le; 18 chars).</text>
+
+    <rect x="260" y="108" width="220" height="188" rx="6" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.3"/>
+    <text x="272" y="130" font-family="monospace" font-size="10.2" font-weight="700" fill="#1e3a8a">2. Numbered, Unnamed</text>
+    <text x="272" y="147" font-family="sans-serif" font-size="9" font-weight="700" fill="#1e40af">Permanent Number Only</text>
+    <rect x="272" y="156" width="196" height="24" rx="3" fill="#ffffff" stroke="#bfdbfe" stroke-width="1"/>
+    <text x="278" y="172" font-family="monospace" font-size="8.6" fill="#0f172a">"(654321)                    "</text>
+    <text x="272" y="198" font-family="sans-serif" font-size="8.3" fill="#334155">&bull; Assigned permanent IAU</text>
+    <text x="280" y="211" font-family="sans-serif" font-size="8.3" fill="#334155">number, but no name yet</text>
+    <text x="280" y="224" font-family="sans-serif" font-size="8.3" fill="#334155">proposed or approved.</text>
+    <text x="272" y="242" font-family="sans-serif" font-size="8.3" fill="#334155">&bull; Remaining trailing bytes</text>
+    <text x="280" y="255" font-family="sans-serif" font-size="8.3" fill="#334155">padded with ASCII spaces.</text>
+    <text x="272" y="273" font-family="monospace" font-size="8" fill="#1d4ed8">Packed Cols 1–7: "654321 "</text>
+
+    <rect x="496" y="108" width="220" height="188" rx="6" fill="#fffbeb" stroke="#fcd34d" stroke-width="1.3"/>
+    <text x="508" y="130" font-family="monospace" font-size="10.2" font-weight="700" fill="#92400e">3. Provisional / Survey</text>
+    <text x="508" y="147" font-family="sans-serif" font-size="9" font-weight="700" fill="#78350f">Unnumbered Discovery</text>
+    <rect x="508" y="156" width="196" height="24" rx="3" fill="#ffffff" stroke="#fde68a" stroke-width="1"/>
+    <text x="514" y="172" font-family="monospace" font-size="8.6" fill="#0f172a">"         2025 QA14          "</text>
+    <text x="508" y="198" font-family="sans-serif" font-size="8.3" fill="#334155">&bull; 9 leading spaces (cols 167–175)</text>
+    <text x="516" y="211" font-family="sans-serif" font-size="8.3" fill="#334155">where <code>(N)</code> would sit.</text>
+    <text x="508" y="229" font-family="sans-serif" font-size="8.3" fill="#334155">&bull; Modern format: <code>YYYY LL###</code></text>
+    <text x="516" y="242" font-family="sans-serif" font-size="8.3" fill="#334155">(year + half-month + order).</text>
+    <text x="508" y="260" font-family="sans-serif" font-size="8.3" fill="#334155">&bull; Survey format: <code>#### P-L</code>,</text>
+    <text x="516" y="273" font-family="sans-serif" font-size="8.3" fill="#334155"><code>T-1</code>, <code>T-2</code>, or <code>T-3</code>.</text>
+  </svg>
+  <div class="figure-caption">
+    <strong>Figure 1:</strong> Fixed-width placement of the <strong>Readable Designation</strong> (columns 167–194, FORTRAN <code>A28</code>) in <code>MPCORB.DAT</code> and its three canonical syntactic forms: permanently numbered and named objects, numbered unnamed objects, and provisional/survey discoveries.
+  </div>
+</div>
+
+<h2>2. Syntactic Taxonomy &amp; IAU Nomenclature Rules</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Designation Category</th>
+      <th>Canonical Syntax</th>
+      <th>Nomenclature Rules &amp; Mathematical Encoding</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Permanently Numbered &amp; Named</strong></td>
+      <td><code>(N) Name</code><br>e.g. <code>(1) Ceres</code>,<br><code>(99942) Apophis</code></td>
+      <td>Sequential catalog number <span class="math-var">N &isin; &#8469;<sub>1</sub></span> enclosed in parentheses, followed by a single space and an IAU WGSBN-approved name (&le; 18 characters, Latin letters, digits, hyphens, apostrophes; no spaces in modern names except legacy multi-word names like <code>(2101) Adonis</code> or <code>(4179) Toutatis</code>).</td>
+    </tr>
+    <tr>
+      <td><strong>Permanently Numbered, Unnamed</strong></td>
+      <td><code>(N)</code><br>e.g. <code>(654321)</code></td>
+      <td>Assigned permanent catalog number (<span class="math-var">N<sub>opp</sub> &ge; 4</span> for MBAs or <span class="math-var">N<sub>opp</sub> &ge; 2</span> for NEAs) prior to name citation approval.</td>
+    </tr>
+    <tr>
+      <td><strong>Standard Provisional Designation (Post-1925)</strong></td>
+      <td><code>YYYY H<sub>1</sub>H<sub>2</sub>n</code><br>e.g. <code>2025 QA14</code>,<br><code>1998 KY26</code></td>
+      <td>4-digit discovery year + space + half-month letter <span class="math-var">H<sub>1</sub> &isin; {A..Y} \ {I}</span> + order-within-half-month letter <span class="math-var">H<sub>2</sub> &isin; {A..Z} \ {I}</span> + cycle count <span class="math-var">n &isin; &#8469;<sub>1</sub></span> (omitted if <span class="math-var">n = 0</span>, e.g., <code>2025 QA</code> = 1st object; <code>2025 QA14</code> = <span class="math-var">14 &times; 25 + 1 = 351</span>st object in half-month <code>Q</code> = Aug 16–31).</td>
+    </tr>
+    <tr>
+      <td><strong>Historical Survey Designations (1960–1977)</strong></td>
+      <td><code>NNNN S-id</code><br>e.g. <code>6344 P-L</code>,<br><code>3138 T-2</code></td>
+      <td>4-digit survey sequence number + space + survey tag: <code>P-L</code> (Palomar–Leiden, 1960), <code>T-1</code> (First Trojan Survey, 1971), <code>T-2</code> (Second Trojan Survey, 1973), or <code>T-3</code> (Third Trojan Survey, 1977).</td>
+    </tr>
+    <tr>
+      <td><strong>Pre-1925 Historical Provisional</strong></td>
+      <td><code>A### XX</code><br>e.g. <code>A904 OA</code></td>
+      <td>Prefix <code>A</code> replacing the leading digit <code>1</code> of the discovery year (<code>A904</code> = 1904) followed by two uppercase letters.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>3. Fixed-Width Format Specifications &amp; Parsing Rules</h2>
+<ul>
+  <li><strong>Exact Column Slice:</strong> Columns <strong>167–194</strong> (1-indexed), corresponding to 0-based substring <code>line[166..194]</code> (length 28 characters).</li>
+  <li><strong>Critical Boundary Check at Column 194:</strong> Because the <em>Date of Last Observation</em> (<code>YYYYMMDD</code>) begins immediately at column <strong>195</strong> (0-based index <code>194</code>), the longest possible 28-character designation (such as <code>(123456) SeventeenCharName</code>, length 26, or a 27-character designation ending at column 193) leaves column 194 as a space separator; however, robust parsers must slice strictly by fixed column offsets <code>line[166..194].Trim()</code> rather than splitting on whitespace!</li>
+  <li><strong>Bijection with Columns 1–7:</strong> For any valid record in <code>MPCORB.DAT</code>, unpacking the 7-character primary designation in columns 1–7 (e.g., <code>00001</code> &rarr; <code>(1)</code>; <code>K25Q14A</code> &rarr; <code>2025 QA14</code>) must match the designation prefix of columns 167–194, while columns 167–194 uniquely supply the human-readable <strong>proper name</strong> (e.g., <code>Ceres</code>, <code>Apophis</code>), which is not encoded anywhere else in the 202-column record.</li>
+</ul>
+
+<h2>4. Worked Examples from <code>MPCORB.DAT</code></h2>
+<p>
+  The following two records from <code>MPCORB.DAT</code> (epoch <code>K25BL</code> = 2025 Nov 21.0 TT = JD 2461000.5) contrast a permanently numbered, named minor planet with an unnumbered provisional discovery:
+</p>
+
+<div class="example-card">
+  <h3>Example 1: (1) Ceres — Numbered &amp; Named Minor Planet (<code>   (1) Ceres</code>)</h3>
+  <p>
+    Excerpt of <code>MPCORB.DAT</code> columns 151–202 for <code>00001</code>:
+  </p>
+  <pre class="mpcorb-record">JPL 48     1000   (1) Ceres                  20251018</pre>
+  <ul>
+    <li><strong>Raw 28-Char Slice (Cols 167–194):</strong> <code>"   (1) Ceres                "</code> &rarr; trimmed: <code>"(1) Ceres"</code>.</li>
+    <li><strong>Structural Breakdown:</strong> 3 leading spaces align <code>(1)</code> so <code>)</code> sits at column 172 (or 174 in newer builds), followed by a space and the name <code>Ceres</code>, padded with trailing spaces up to column 194 immediately before <code>20251018</code> (col 195).</li>
+  </ul>
+</div>
+
+<div class="example-card">
+  <h3>Example 2: 2025 QA14 — Provisional Discovery Designation (<code>         2025 QA14</code>)</h3>
+  <p>
+    Excerpt of <code>MPCORB.DAT</code> columns 151–202 for <code>K25Q14A</code>:
+  </p>
+  <pre class="mpcorb-record">MPCLINUX   8403            2025 QA14          20250911</pre>
+  <ul>
+    <li><strong>Raw 28-Char Slice (Cols 167–194):</strong> <code>"         2025 QA14          "</code> &rarr; trimmed: <code>"2025 QA14"</code>.</li>
+    <li><strong>Provisional Cycle Calculation:</strong> Half-month <code>Q</code> = August 16–31, 2025; second letter <code>A</code> = 1st in cycle; cycle number <code>14</code> &rarr; <span class="math-var">14 &times; 25 + 1 = 351</span>st minor planet reported in the second half of August 2025.</li>
+  </ul>
+</div>
+
+<div class="interactive-panel">
+  <div class="interactive-title">Interactive Readable Designation Parser &amp; Provisional Order Calculator (Cols 167–194)</div>
+  <div class="controls-grid">
+    <div class="control-group">
+      <label for="desig_in">Readable Designation (Cols 167–194)</label>
+      <input type="text" id="desig_in" value="2025 QA14" maxlength="28" placeholder="e.g. (99942) Apophis or 2025 QA14">
+    </div>
+    <div class="control-group">
+      <label for="preset_in">Canonical MPCORB Presets</label>
+      <select id="preset_in">
+        <option value="   (1) Ceres                ">(1) Ceres — Numbered &amp; Named</option>
+        <option value="(99942) Apophis             ">(99942) Apophis — 5-Digit Numbered</option>
+        <option value="(654321)                    ">(654321) — Numbered, Unnamed</option>
+        <option value="         2025 QA14          " selected>2025 QA14 — Provisional (Cycle 14)</option>
+        <option value="         6344 P-L           ">6344 P-L — Palomar-Leiden Survey</option>
+      </select>
+    </div>
+  </div>
+  <div class="result-bar" id="calc_out">Parsing...</div>
+</div>
+
+    </main>
+    <footer>
+      <span>Reference Standard: IAU Minor Planet Center (MPCORB.DAT Fixed-Width Format Specification)</span>
+      <span>Governing Slice: Cols 167–194 (FORTRAN A28 / [166..194]) &bull; Bijective to Packed Cols 1–7</span>
+    </footer>
+  </div>
+  <script>
+    
+(function() {
+  const halfMonthInfo = {
+    'A': 'Jan 1–15', 'B': 'Jan 16–31', 'C': 'Feb 1–15', 'D': 'Feb 16–29',
+    'E': 'Mar 1–15', 'F': 'Mar 16–31', 'G': 'Apr 1–15', 'H': 'Apr 16–30',
+    'J': 'May 1–15', 'K': 'May 16–31', 'L': 'Jun 1–15', 'M': 'Jun 16–30',
+    'N': 'Jul 1–15', 'O': 'Jul 16–31', 'P': 'Aug 1–15', 'Q': 'Aug 16–31',
+    'R': 'Sep 1–15', 'S': 'Sep 16–30', 'T': 'Oct 1–15', 'U': 'Oct 16–31',
+    'V': 'Nov 1–15', 'W': 'Nov 16–30', 'X': 'Dec 1–15', 'Y': 'Dec 16–31'
+  };
+
+  const letters25 = "ABCDEFGHJKLMNOPQRSTUVWXYZ"; // 25 letters (I omitted)
+
+  function parseDesig(raw) {
+    const trimmed = raw.trim();
+    const out = document.getElementById('calc_out');
+
+    if (!trimmed) {
+      out.textContent = "Enter a numbered or provisional minor planet designation.";
+      return;
+    }
+
+    const numNamed = /^\((\d+)\)\s+(.+)$/.exec(trimmed);
+    const numOnly = /^\((\d+)\)$/.exec(trimmed);
+    const provMatch = /^(\d{4})\s+([A-HJ-Y])([A-HJ-Z])(\d*)$/.exec(trimmed);
+    const surveyMatch = /^(\d{4})\s+(P-L|T-[123])$/.exec(trimmed);
+
+    if (numNamed) {
+      const num = parseInt(numNamed[1], 10);
+      const name = numNamed[2];
+      out.innerHTML =
+        `Category: <strong>Permanently Numbered &amp; Named Minor Planet</strong><br>` +
+        `IAU Catalog Number: <strong>#${num.toLocaleString()}</strong>  |  Approved WGSBN Name: <strong>"${name}"</strong> (${name.length} chars)`;
+    } else if (numOnly) {
+      const num = parseInt(numOnly[1], 10);
+      out.innerHTML =
+        `Category: <strong>Permanently Numbered, Unnamed Minor Planet</strong><br>` +
+        `IAU Catalog Number: <strong>#${num.toLocaleString()}</strong>  |  Status: Awaiting formal name citation`;
+    } else if (provMatch) {
+      const yr = provMatch[1];
+      const hm = provMatch[2];
+      const ordLet = provMatch[3];
+      const cyc = provMatch[4] ? parseInt(provMatch[4], 10) : 0;
+      const letIdx = letters25.indexOf(ordLet) + 1;
+      const totalSeq = cyc * 25 + letIdx;
+      const hmDesc = halfMonthInfo[hm] || 'Unknown half-month';
+      out.innerHTML =
+        `Category: <strong>Modern Provisional Designation (Post-1925 Standard)</strong><br>` +
+        `Discovery Window: <strong>${hmDesc}, ${yr}</strong> (Half-month '${hm}')  |  Cycle ${cyc}, Letter '${ordLet}' (#${letIdx}/25) &rarr; <strong>${totalSeq.toLocaleString()}${totalSeq === 1 ? 'st' : totalSeq === 2 ? 'nd' : totalSeq === 3 ? 'rd' : 'th'} discovery in window</strong>`;
+    } else if (surveyMatch) {
+      const seq = parseInt(surveyMatch[1], 10);
+      const tag = surveyMatch[2];
+      const surveyNames = {
+        'P-L': 'Palomar–Leiden Survey (1960)',
+        'T-1': 'First Trojan Survey (1971)',
+        'T-2': 'Second Trojan Survey (1973)',
+        'T-3': 'Third Trojan Survey (1977)'
+      };
+      out.innerHTML =
+        `Category: <strong>Historical Survey Provisional Designation</strong><br>` +
+        `Survey: <strong>${surveyNames[tag]}</strong>  |  Sequence Number: <strong>#${seq.toLocaleString()}</strong>`;
+    } else {
+      out.innerHTML =
+        `Parsed String: <code>"${trimmed}"</code> (${trimmed.length}/28 chars)<br>` +
+        `Category: <strong>Custom / Pre-1925 Historical Designation Format</strong>`;
+    }
+  }
+
+  const desigInput = document.getElementById('desig_in');
+  const presetSelect = document.getElementById('preset_in');
+
+  desigInput.addEventListener('input', () => parseDesig(desigInput.value));
+  presetSelect.addEventListener('change', () => {
+    desigInput.value = presetSelect.value.trim();
+    parseDesig(desigInput.value);
+  });
+
+  parseDesig(desigInput.value);
+})();
+
+  </script>
+</body>
+</html>

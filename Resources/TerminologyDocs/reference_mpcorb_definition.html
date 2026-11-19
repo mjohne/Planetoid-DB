@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reference (Columns 108–116) — MPCORB Orbital Reference</title>
+  <style>
+:root {
+  --bg-color: #f8fafc;
+  --surface-color: #ffffff;
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  --accent-color: #1e3a8a;
+  --accent-light: #eff6ff;
+  --border-color: #e2e8f0;
+  --code-bg: #f1f5f9;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-serif: "Georgia", "Times New Roman", Times, serif;
+  --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  line-height: 1.7;
+  padding: 2rem 1rem;
+}
+
+.container {
+  max-width: 940px;
+  margin: 0 auto;
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 2.5rem 3rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+header {
+  border-bottom: 2px solid var(--accent-color);
+  padding-bottom: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.category-tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent-color);
+  background-color: var(--accent-light);
+  padding: 0.25rem 0.65rem;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
+h2 {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.35rem;
+}
+
+h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+ul, ol {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+li {
+  margin-bottom: 0.4rem;
+}
+
+.equation-box {
+  background-color: var(--code-bg);
+  border-left: 4px solid var(--accent-color);
+  padding: 1rem 1.5rem;
+  margin: 1.25rem 0;
+  border-radius: 0 6px 6px 0;
+  font-family: var(--font-serif);
+  font-size: 1.12rem;
+  overflow-x: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.equation-main {
+  font-style: italic;
+}
+
+.equation-main .fn,
+.math-fn {
+  font-style: normal;
+  font-family: var(--font-serif);
+}
+
+.equation-label {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-style: normal;
+  margin-left: 1rem;
+}
+
+.math-var {
+  font-family: var(--font-serif);
+  font-style: italic;
+}
+
+.figure-box {
+  background-color: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 1.25rem;
+  margin: 1.75rem 0;
+  text-align: center;
+}
+
+.figure-box svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.figure-caption {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-top: 0.85rem;
+  text-align: left;
+  line-height: 1.5;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.9rem;
+}
+
+th, td {
+  border: 1px solid var(--border-color);
+  padding: 0.6rem 0.8rem;
+  text-align: left;
+}
+
+th {
+  background-color: var(--code-bg);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+code {
+  font-family: var(--font-mono);
+  background-color: var(--code-bg);
+  padding: 0.15rem 0.35rem;
+  border-radius: 4px;
+  font-size: 0.88em;
+}
+
+pre.mpcorb-record {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  background-color: var(--code-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 0.85rem 1rem;
+  overflow-x: auto;
+  line-height: 1.45;
+  color: var(--text-primary);
+  margin: 0.75rem 0 1.25rem 0;
+}
+
+.example-card {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-left: 4px solid #047857;
+  border-radius: 6px;
+  padding: 1.15rem 1.35rem;
+  margin: 1.15rem 0;
+}
+
+.example-card h3 {
+  margin-top: 0;
+  color: #065f46;
+}
+
+.interactive-panel {
+  background-color: var(--code-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 1.25rem;
+  margin: 1.75rem 0;
+}
+
+.interactive-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 0.75rem;
+  color: var(--text-primary);
+}
+
+.controls-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.control-group label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.control-group input,
+.control-group select {
+  width: 100%;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background-color: var(--surface-color);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+}
+
+.result-bar {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.86rem;
+  color: var(--accent-color);
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+footer {
+  margin-top: 2.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+@media (max-width: 680px) {
+  .container {
+    padding: 1.5rem 1.25rem;
+  }
+}
+</style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <span class="category-tag">Bibliographic Provenance &amp; Publication Stream • MPCORB Reference</span>
+      <h1>Reference (<span class="math-var">Ref</span>, Columns 108–116)</h1>
+      <div class="subtitle">IAU Minor Planet Center Publication Identifier (FORTRAN A9: MPO, MPEC, MPC &amp; MPS) in MPCORB.DAT</div>
+    </header>
+    <main>
+      
+<h2>1. Formal Definition</h2>
+<p>
+  In the Minor Planet Center Orbit Database (<strong>MPCORB</strong>), the <strong>Reference</strong> (<span class="math-var">Ref</span>, officially specified by the IAU Minor Planet Center as the <em>“Reference”</em> field in <strong>columns 108–116</strong>, 1-indexed, 9-character left-justified ASCII string formatted as FORTRAN <code>A9</code>, with 0-based substring slice <code>[107..116]</code>) is a compact bibliographic provenance identifier recording the <strong>exact publication, circular, or electronic batch</strong> in which the osculating orbital elements (columns 1–105) were officially published or updated:
+</p>
+
+<div class="equation-box">
+  <span class="equation-main">
+    <span class="fn">Ref</span> = <span class="fn">trim</span>(<span class="fn">Record</span>[107 : 116]) &isin; &Sigma;<sub>ASCII</sub><sup>&le;9</sup>
+  </span>
+  <span class="equation-label">(Eq. 1)</span>
+</div>
+
+<p>where:</p>
+<ul>
+  <li><strong>Bibliographic Traceability:</strong> Every orbital solution in <code>MPCORB.DAT</code> represents a specific, reproducible least-squares parameter estimation performed by an orbit computer (recorded in columns 151–160) using a frozen astrometric dataset (<span class="math-var">N<sub>obs</sub></span> in columns 118–122). The 9-character <code>Reference</code> field links the numeric state vector directly to the archival MPC publication stream where the differential correction, observation weights, and residuals were announced.</li>
+  <li><strong>Field Delimitation:</strong> Columns 108–116 are bounded on the left by a single space at column 107 (immediately following the 1-character Uncertainty Parameter <span class="math-var">U</span> at column 106) and on the right by a single space at column 117 (preceding <span class="math-var">N<sub>obs</sub></span> in columns 118–122).</li>
+</ul>
+
+<div class="figure-box">
+  <svg viewBox="0 0 740 315" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="MPCORB.DAT columns 106-122 layout and taxonomy of 9-character MPC Reference codes MPO, MPC, MPS, MPEC, and EYYYY">
+    <text x="370" y="24" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="700" fill="#0f172a">MPCORB.DAT Columns 106–122 &amp; Taxonomy of 9-Character Publication References (A9)</text>
+
+    <!-- Top Fixed-Width Context Strip -->
+    <rect x="24" y="42" width="110" height="48" rx="4" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.2"/>
+    <text x="79" y="60" text-anchor="middle" font-family="monospace" font-size="9" font-weight="700" fill="#334155">Col 106 (A1)</text>
+    <text x="79" y="77" text-anchor="middle" font-family="monospace" font-size="9.2" fill="#0f172a">U (Uncertainty)</text>
+
+    <rect x="148" y="42" width="380" height="48" rx="4" fill="#eff6ff" stroke="#1e3a8a" stroke-width="1.8"/>
+    <text x="338" y="60" text-anchor="middle" font-family="monospace" font-size="9.5" font-weight="700" fill="#1e3a8a">Columns 108–116 (FORTRAN A9 • 0-based [107..116])</text>
+    <text x="338" y="77" text-anchor="middle" font-family="sans-serif" font-size="10.2" font-weight="700" fill="#0f172a">Bibliographic Publication Reference (e.g. "MPO925614", "E2025-R84")</text>
+
+    <rect x="542" y="42" width="174" height="48" rx="4" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.2"/>
+    <text x="629" y="60" text-anchor="middle" font-family="monospace" font-size="9" font-weight="700" fill="#334155">Cols 118–122 (I5)</text>
+    <text x="629" y="77" text-anchor="middle" font-family="monospace" font-size="9.2" fill="#0f172a">N<tspan dy="2" font-size="7">obs</tspan><tspan dy="-2"> (Observations)</tspan></text>
+
+    <!-- Four Publication Stream Cards -->
+    <rect x="24" y="108" width="164" height="188" rx="6" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.2"/>
+    <text x="34" y="129" font-family="monospace" font-size="10" font-weight="700" fill="#1e3a8a">MPO######</text>
+    <text x="34" y="145" font-family="sans-serif" font-size="9" font-weight="700" fill="#1e40af">Minor Planet Orbit</text>
+    <text x="34" y="164" font-family="sans-serif" font-size="8.3" fill="#475569">&bull; Prefix <code>MPO</code> + 6-digit</text>
+    <text x="42" y="177" font-family="sans-serif" font-size="8.3" fill="#475569">sequential page number.</text>
+    <text x="34" y="193" font-family="sans-serif" font-size="8.3" fill="#475569">&bull; Monthly MPC orbit</text>
+    <text x="42" y="206" font-family="sans-serif" font-size="8.3" fill="#475569">supplement (post-2000).</text>
+    <text x="34" y="222" font-family="sans-serif" font-size="8.3" fill="#475569">&bull; Primary archive for</text>
+    <text x="42" y="235" font-family="sans-serif" font-size="8.3" fill="#475569">numbered &amp; multi-opp</text>
+    <text x="42" y="248" font-family="sans-serif" font-size="8.3" fill="#475569">main-belt updates.</text>
+    <text x="34" y="268" font-family="monospace" font-size="8.2" fill="#1d4ed8">Ex: "MPO925614"</text>
+
+    <rect x="200" y="108" width="164" height="188" rx="6" fill="#ecfdf5" stroke="#6ee7b7" stroke-width="1.2"/>
+    <text x="210" y="129" font-family="monospace" font-size="10" font-weight="700" fill="#065f46">EYYYY-X##</text>
+    <text x="210" y="145" font-family="sans-serif" font-size="9" font-weight="700" fill="#047857">MPEC Electronic</text>
+    <text x="210" y="164" font-family="sans-serif" font-size="8.3" fill="#475569">&bull; <code>E</code> + 4-digit year + <code>-</code></text>
+    <text x="218" y="177" font-family="sans-serif" font-size="8.3" fill="#475569">+ half-month letter +</text>
+    <text x="218" y="190" font-family="sans-serif" font-size="8.3" fill="#475569">2- or 3-char issue ID.</text>
+    <text x="210" y="206" font-family="sans-serif" font-size="8.3" fill="#475569">&bull; Minor Planet Electronic</text>
+    <text x="218" y="219" font-family="sans-serif" font-size="8.3" fill="#475569">Circulars (rapid NEA,</text>
+    <text x="218" y="232" font-family="sans-serif" font-size="8.3" fill="#475569">comet &amp; TNO releases).</text>
+    <text x="210" y="268" font-family="monospace" font-size="8.2" fill="#047857">Ex: "E2025-R84"</text>
+
+    <rect x="376" y="108" width="164" height="188" rx="6" fill="#fffbeb" stroke="#fcd34d" stroke-width="1.2"/>
+    <text x="386" y="129" font-family="monospace" font-size="10" font-weight="700" fill="#92400e">MPC######</text>
+    <text x="386" y="145" font-family="sans-serif" font-size="9" font-weight="700" fill="#78350f">Minor Planet Circular</text>
+    <text x="386" y="164" font-family="sans-serif" font-size="8.3" fill="#475569">&bull; Prefix <code>MPC</code> + 5- or</text>
+    <text x="394" y="177" font-family="sans-serif" font-size="8.3" fill="#475569">6-digit page number.</text>
+    <text x="386" y="193" font-family="sans-serif" font-size="8.3" fill="#475569">&bull; Flagship IAU monthly</text>
+    <text x="394" y="206" font-family="sans-serif" font-size="8.3" fill="#475569">publication (1947–</text>
+    <text x="394" y="219" font-family="sans-serif" font-size="8.3" fill="#475569">present); carried all</text>
+    <text x="394" y="232" font-family="sans-serif" font-size="8.3" fill="#475569">orbits prior to MPO.</text>
+    <text x="386" y="268" font-family="monospace" font-size="8.2" fill="#b45309">Ex: "MPC 35412"</text>
+
+    <rect x="552" y="108" width="164" height="188" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+    <text x="562" y="129" font-family="monospace" font-size="10" font-weight="700" fill="#334155">MPS / Daily</text>
+    <text x="562" y="145" font-family="sans-serif" font-size="9" font-weight="700" fill="#1e293b">Supplement &amp; DOU</text>
+    <text x="562" y="164" font-family="sans-serif" font-size="8.3" fill="#475569">&bull; <code>MPS######</code>: Minor</text>
+    <text x="570" y="177" font-family="sans-serif" font-size="8.3" fill="#475569">Planet Circulars</text>
+    <text x="570" y="190" font-family="sans-serif" font-size="8.3" fill="#475569">Supplement.</text>
+    <text x="562" y="206" font-family="sans-serif" font-size="8.3" fill="#475569">&bull; Daily Orbit Update</text>
+    <text x="570" y="219" font-family="sans-serif" font-size="8.3" fill="#475569">automated MPECs</text>
+    <text x="570" y="232" font-family="sans-serif" font-size="8.3" fill="#475569">(encoded as <code>EYYYY-...</code>).</text>
+    <text x="562" y="268" font-family="monospace" font-size="8.2" fill="#475569">Ex: "MPS142810"</text>
+  </svg>
+  <div class="figure-caption">
+    <strong>Figure 1:</strong> Fixed-width placement of the <strong>Reference</strong> field (columns 108–116, FORTRAN <code>A9</code>) in <code>MPCORB.DAT</code> and the four primary IAU Minor Planet Center publication prefixes (<code>MPO</code>, <code>EYYYY-...</code>, <code>MPC</code>, and <code>MPS</code>).
+  </div>
+</div>
+
+<h2>2. Taxonomy of MPC Reference Prefixes</h2>
+<p>
+  Because the FORTRAN <code>A9</code> container is strictly 9 ASCII characters wide, the Minor Planet Center uses standardized prefix codes to compress full bibliographic citations into 9 bytes:
+</p>
+<table>
+  <thead>
+    <tr>
+      <th>Prefix Pattern</th>
+      <th>Full Publication Name</th>
+      <th>Format Structure &amp; Astronomical Scope</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>MPO######</code></td>
+      <td><em>Minor Planet Circulars Orbit Supplement</em></td>
+      <td><code>MPO</code> followed by a 6-digit page number (e.g., <code>MPO925614</code>). Introduced in June 2000 to separate bulk orbit updates of numbered and multi-opposition minor planets from the main <em>Minor Planet Circulars</em>.</td>
+    </tr>
+    <tr>
+      <td><code>EYYYY-H##</code></td>
+      <td><em>Minor Planet Electronic Circular</em> (MPEC)</td>
+      <td><code>E</code> + 4-digit year + hyphen + half-month letter (<code>A</code> = Jan 1–15, <code>B</code> = Jan 16–31, …, <code>Y</code> = Dec 16–31; <code>I</code> omitted) + 2- or 3-character issue number (e.g., <code>E2025-R84</code>, <code>E2024-X112</code>). Used for Daily Orbit Updates (DOUs) and urgent NEA/TNO/comet orbit announcements.</td>
+    </tr>
+    <tr>
+      <td><code>MPC######</code> / <code>MPC #####</code></td>
+      <td><em>Minor Planet Circulars</em> (MPCs)</td>
+      <td><code>MPC</code> followed by a 5- or 6-digit page number (space-padded for legacy 5-digit pages like <code>MPC 35412</code>, contiguous for 6-digit pages like <code>MPC112450</code>). Primary pre-2000 orbit archive and ongoing venue for new permanent numberings and names.</td>
+    </tr>
+    <tr>
+      <td><code>MPS######</code></td>
+      <td><em>Minor Planet Circulars Supplement</em></td>
+      <td><code>MPS</code> followed by a 6-digit page number (e.g., <code>MPS142810</code>). Electronic supplement archiving bulk astrometric observations and associated preliminary orbital updates.</td>
+    </tr>
+    <tr>
+      <td><code>MPEC...</code> / Legacy</td>
+      <td>Pre-1998 MPEC or Special Catalog Tag</td>
+      <td>Before the 9-character compression <code>EYYYY-H##</code> was standardized, early electronic circulars appeared as <code>MPEC YYYY-H##</code> (truncated or compressed to fit <code>A9</code>), and rare imported orbits carry source tags (e.g., <code>JPL...</code> or blank).</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>3. Fixed-Width Format Specifications &amp; Parsing Rules</h2>
+<ul>
+  <li><strong>Exact Column Slice:</strong> Columns <strong>108–116</strong> (1-indexed), corresponding to 0-based substring <code>line[107..116]</code> (length 9).</li>
+  <li><strong>Alignment &amp; Padding:</strong> Left-justified (<code>A9</code>) with trailing ASCII spaces (<code>0x20</code>) when the trimmed string has fewer than 9 characters (for example, <code>"E2025-R8"</code> + <code>" "</code>, whereas <code>"MPO925614"</code> and <code>"E2025-R84"</code> fill all 9 bytes completely, leaving only the single separator space at column 117 before <span class="math-var">N<sub>obs</sub></span>).</li>
+  <li><strong>Chronological &amp; Version Ordering:</strong> Within a given publication series (such as <code>MPO######</code> or <code>EYYYY-H##</code>), monotonically increasing page/issue numbers indicate more recent orbital solutions; however, across different series (e.g., an <code>MPO</code> monthly batch vs. a Daily Orbit Update <code>EYYYY-...</code>), the exact date of the last included observation is explicitly given in columns 195–202 (<code>YYYYMMDD</code>).</li>
+</ul>
+
+<h2>4. Worked Examples from <code>MPCORB.DAT</code></h2>
+<p>
+  The following two records from <code>MPCORB.DAT</code> (epoch <code>K25BL</code> = 2025 Nov 21.0 TT = JD 2461000.5) demonstrate how the 9-character Reference field sits at the start of the post-epoch metadata block (columns 108–202):
+</p>
+
+<div class="example-card">
+  <h3>Example 1: (1) Ceres — Monthly Orbit Supplement Reference (<code>MPO925614</code>)</h3>
+  <p>
+    Excerpt of <code>MPCORB.DAT</code> columns 108–202 for <code>00001</code>:
+  </p>
+  <pre class="mpcorb-record">MPO925614 11432  98 1801-2025 0.61 M-v 30h JPL 48     1000   (1) Ceres                  20251018</pre>
+  <ul>
+    <li><strong>Parsed Reference (Cols 108–116):</strong> <code>"MPO925614"</code> (all 9 character slots occupied).</li>
+    <li><strong>Bibliographic Decoding:</strong> Published on page <strong>925,614</strong> of the <em>Minor Planet Circulars Orbit Supplement</em> (<code>MPO</code>), documenting the JPL solution <code>JPL 48</code> fitted to 11,432 observations across 1801–2025.</li>
+  </ul>
+</div>
+
+<div class="example-card">
+  <h3>Example 2: 2025 QA14 — Minor Planet Electronic Circular Reference (<code>E2025-R84</code>)</h3>
+  <p>
+    Excerpt of <code>MPCORB.DAT</code> columns 108–202 for <code>2025 QA14</code>:
+  </p>
+  <pre class="mpcorb-record">E2025-R84    27   1    14 days 0.28 M-v 38k MPCLINUX   8403            2025 QA14          20250911</pre>
+  <ul>
+    <li><strong>Parsed Reference (Cols 108–116):</strong> <code>"E2025-R84"</code> (all 9 character slots occupied).</li>
+    <li><strong>Bibliographic Decoding:</strong> Published in <strong>MPEC 2025-R84</strong> (<code>E</code> = Electronic Circular, year <code>2025</code>, half-month <code>R</code> = September 1–15, issue <code>84</code>), announcing the initial 14-day discovery orbit computed via <code>MPCLINUX</code>.</li>
+  </ul>
+</div>
+
+<div class="interactive-panel">
+  <div class="interactive-title">Interactive MPCORB Reference Code Decoder (Columns 108–116)</div>
+  <div class="controls-grid">
+    <div class="control-group">
+      <label for="ref_in">9-Char Reference String (Cols 108–116)</label>
+      <input type="text" id="ref_in" value="E2025-R84" maxlength="9" placeholder="e.g. MPO925614">
+    </div>
+    <div class="control-group">
+      <label for="preset_in">Quick Real-World Presets</label>
+      <select id="preset_in">
+        <option value="E2025-R84" selected>E2025-R84 (MPEC 2025-R84)</option>
+        <option value="MPO925614">MPO925614 (MPC Orbit Supplement)</option>
+        <option value="MPC 35412">MPC 35412 (Legacy 5-Digit MPC)</option>
+        <option value="MPS142810">MPS142810 (MPC Supplement)</option>
+      </select>
+    </div>
+  </div>
+  <div class="result-bar" id="calc_out">Decoding...</div>
+</div>
+
+    </main>
+    <footer>
+      <span>Reference Standard: IAU Minor Planet Center (MPCORB.DAT Fixed-Width Format Specification)</span>
+      <span>Governing Slice: Cols 108–116 (FORTRAN A9 / [107..116]) &bull; Delimited by Col 107 &amp; Col 117</span>
+    </footer>
+  </div>
+  <script>
+    
+(function() {
+  const halfMonthMap = {
+    'A': 'Jan 1–15', 'B': 'Jan 16–31', 'C': 'Feb 1–15', 'D': 'Feb 16–29',
+    'E': 'Mar 1–15', 'F': 'Mar 16–31', 'G': 'Apr 1–15', 'H': 'Apr 16–30',
+    'J': 'May 1–15', 'K': 'May 16–31', 'L': 'Jun 1–15', 'M': 'Jun 16–30',
+    'N': 'Jul 1–15', 'O': 'Jul 16–31', 'P': 'Aug 1–15', 'Q': 'Aug 16–31',
+    'R': 'Sep 1–15', 'S': 'Sep 16–30', 'T': 'Oct 1–15', 'U': 'Oct 16–31',
+    'V': 'Nov 1–15', 'W': 'Nov 16–30', 'X': 'Dec 1–15', 'Y': 'Dec 16–31'
+  };
+
+  function decodeRef(raw) {
+    const padded = raw.padEnd(9, ' ').slice(0, 9);
+    const trimmed = padded.trim();
+    const out = document.getElementById('calc_out');
+
+    if (!trimmed) {
+      out.innerHTML = `MPCORB Cols 108–116 (A9): <code>"${padded}"</code>  |  Status: <strong>Blank / Unattributed Reference</strong>`;
+      return;
+    }
+
+    let pubType = "Unrecognized / Custom Reference Tag";
+    let citation = trimmed;
+
+    if (/^MPO\s*\d+$/.test(trimmed)) {
+      const page = trimmed.replace(/^MPO\s*/, '');
+      pubType = "Minor Planet Circulars Orbit Supplement (MPO)";
+      citation = `MPO p. ${Number(page).toLocaleString()}`;
+    } else if (/^MPC\s*\d+$/.test(trimmed)) {
+      const page = trimmed.replace(/^MPC\s*/, '');
+      pubType = "Minor Planet Circulars (MPC)";
+      citation = `MPC p. ${Number(page).toLocaleString()}`;
+    } else if (/^MPS\s*\d+$/.test(trimmed)) {
+      const page = trimmed.replace(/^MPS\s*/, '');
+      pubType = "Minor Planet Circulars Supplement (MPS)";
+      citation = `MPS p. ${Number(page).toLocaleString()}`;
+    } else if (/^E(\d{4})-([A-HJ-Y])([A-Z0-9]{1,3})$/.test(trimmed)) {
+      const m = trimmed.match(/^E(\d{4})-([A-HJ-Y])([A-Z0-9]{1,3})$/);
+      const yr = m[1];
+      const hm = m[2];
+      const num = m[3];
+      const windowDesc = halfMonthMap[hm] || 'Unknown half-month';
+      pubType = "Minor Planet Electronic Circular (MPEC)";
+      citation = `MPEC ${yr}-${hm}${num} (Half-month "${hm}": ${windowDesc}, ${yr})`;
+    }
+
+    out.innerHTML =
+      `MPCORB Cols 108–116 (A9): <code>"${padded}"</code>  |  Series: <strong>${pubType}</strong><br>` +
+      `Decoded Bibliographic Citation: <strong>${citation}</strong>`;
+  }
+
+  const refInput = document.getElementById('ref_in');
+  const presetSelect = document.getElementById('preset_in');
+
+  refInput.addEventListener('input', () => decodeRef(refInput.value));
+  presetSelect.addEventListener('change', () => {
+    refInput.value = presetSelect.value;
+    decodeRef(refInput.value);
+  });
+
+  decodeRef(refInput.value);
+})();
+
+  </script>
+</body>
+</html>

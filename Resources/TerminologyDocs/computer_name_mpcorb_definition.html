@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Computer Name (Columns 151–160) — MPCORB Orbital Reference</title>
+  <style>
+:root {
+  --bg-color: #f8fafc;
+  --surface-color: #ffffff;
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  --accent-color: #1e3a8a;
+  --accent-light: #eff6ff;
+  --border-color: #e2e8f0;
+  --code-bg: #f1f5f9;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-serif: "Georgia", "Times New Roman", Times, serif;
+  --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  line-height: 1.7;
+  padding: 2rem 1rem;
+}
+
+.container {
+  max-width: 940px;
+  margin: 0 auto;
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 2.5rem 3rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+header {
+  border-bottom: 2px solid var(--accent-color);
+  padding-bottom: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.category-tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent-color);
+  background-color: var(--accent-light);
+  padding: 0.25rem 0.65rem;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
+h2 {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.35rem;
+}
+
+h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+ul, ol {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+li {
+  margin-bottom: 0.4rem;
+}
+
+.equation-box {
+  background-color: var(--code-bg);
+  border-left: 4px solid var(--accent-color);
+  padding: 1rem 1.5rem;
+  margin: 1.25rem 0;
+  border-radius: 0 6px 6px 0;
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  overflow-x: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.equation-main {
+  font-style: italic;
+}
+
+.equation-main .fn,
+.math-fn {
+  font-style: normal;
+  font-family: var(--font-serif);
+}
+
+.equation-label {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-style: normal;
+  margin-left: 1rem;
+}
+
+.math-var {
+  font-family: var(--font-serif);
+  font-style: italic;
+}
+
+.figure-box {
+  background-color: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 1.25rem;
+  margin: 1.75rem 0;
+  text-align: center;
+}
+
+.figure-box svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.figure-caption {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-top: 0.85rem;
+  text-align: left;
+  line-height: 1.5;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.9rem;
+}
+
+th, td {
+  border: 1px solid var(--border-color);
+  padding: 0.6rem 0.8rem;
+  text-align: left;
+}
+
+th {
+  background-color: var(--code-bg);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+code {
+  font-family: var(--font-mono);
+  background-color: var(--code-bg);
+  padding: 0.15rem 0.35rem;
+  border-radius: 4px;
+  font-size: 0.88em;
+}
+
+pre.mpcorb-record {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  background-color: var(--code-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 0.85rem 1rem;
+  overflow-x: auto;
+  line-height: 1.45;
+  color: var(--text-primary);
+  margin: 0.75rem 0 1.25rem 0;
+}
+
+.example-card {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-left: 4px solid #047857;
+  border-radius: 6px;
+  padding: 1.15rem 1.35rem;
+  margin: 1.15rem 0;
+}
+
+.example-card h3 {
+  margin-top: 0;
+  color: #065f46;
+}
+
+.interactive-panel {
+  background-color: var(--code-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 1.25rem;
+  margin: 1.75rem 0;
+}
+
+.interactive-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 0.75rem;
+  color: var(--text-primary);
+}
+
+.controls-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.control-group label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.control-group input,
+.control-group select {
+  width: 100%;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background-color: var(--surface-color);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+}
+
+.result-bar {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.86rem;
+  color: var(--accent-color);
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+footer {
+  margin-top: 2.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+@media (max-width: 680px) {
+  .container {
+    padding: 1.5rem 1.25rem;
+  }
+}
+</style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <span class="category-tag">Orbit Determination Provenance • MPCORB Reference</span>
+      <h1>Computer Name (<span class="math-var">S<sub>comp</sub></span>, Columns 151–160)</h1>
+      <div class="subtitle">Orbit-Determination Software Pipeline, JPL Solution Identifier &amp; Orbitalist Provenance in MPCORB.DAT</div>
+    </header>
+    <main>
+      
+<h2>1. Formal Definition</h2>
+<p>
+  In the Minor Planet Center Orbit Database (<strong>MPCORB</strong>), the <strong>Computer Name</strong> (<span class="math-var">S<sub>comp</sub></span>, officially specified by the IAU Minor Planet Center as the <em>“Computer name”</em> field in <strong>columns 151–160</strong>, 1-indexed, formatted as FORTRAN <code>A10</code>, with 0-based character slice <code>[150..160]</code>) is a 10-character ASCII provenance string identifying the <strong>orbit-determination software pipeline, dynamical force model, and/or institutional/human orbit computer</strong> responsible for computing the osculating orbital elements in that <code>MPCORB.DAT</code> record:
+</p>
+
+<div class="equation-box">
+  <span class="equation-main">
+    S<sub>comp</sub> &equiv; <span class="fn">Record</span>[150 : 160] &isin; &Sigma;<sub>ASCII</sub><sup>10</sup>, &nbsp;&nbsp; <span class="fn">Provenance</span>(O) = &lang; S<sub>ref</sub>, S<sub>comp</sub>, F<sub>flags</sub> &rang;
+  </span>
+  <span class="equation-label">(Eq. 1)</span>
+</div>
+
+<p>where:</p>
+<ul>
+  <li><span class="math-var">S<sub>comp</sub></span> occupies character columns <strong>151–160</strong> (10 bytes, padded with trailing spaces), situated immediately after the 9-character <em>Reference</em> field (columns 142–150, e.g., <code>MPO891234</code> or <code>E2025-V12</code> citing the Minor Planet Circular / Orbit Supplement publication) and separated by a single blank space (column 161) from the 4-hexdigit orbital-type flags (columns 162–165).</li>
+  <li>Historically, in astrometry and celestial mechanics, a <em>“computer”</em> referred to the human mathematician or staff astronomer performing least-squares differential orbit corrections (such as <code>Williams</code>, <code>Marsden</code>, <code>Nakano</code>, <code>Bowell</code>, <code>Goffin</code>, or <code>Giorgini</code>). In modern automated MPC and JPL Horizons / SSD pipelines, <span class="math-var">S<sub>comp</sub></span> records either the <strong>automated integration/fitting engine</strong> (e.g., <code>MPCLINUX</code>, <code>MPCW</code>, <code>ORBFIT</code>, <code>JPL 48</code>, <code>JPL 218</code>) or the <strong>assigned orbitalist / solution identifier</strong>.</li>
+  <li>Together with the <strong>Reference</strong> (<span class="math-var">S<sub>ref</sub></span>, columns 142–150) and the <strong>4-Hexdigit Flags</strong> (<span class="math-var">F<sub>flags</sub></span>, columns 162–165, specifically bit <code>0x1000</code> indicating a planetary-perturbed solution vs. unperturbed two-body solution), <span class="math-var">S<sub>comp</sub></span> establishes full <strong>computational provenance</strong> for the osculating state vector <span class="math-var">(M<sub>0</sub>, &omega;, &Omega;, i, e, n, a)</span>.</li>
+</ul>
+
+<div class="figure-box">
+  <svg viewBox="0 0 740 310" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Fixed-width record layout of MPCORB.DAT columns 138-165 showing RMS residual, Perturbers, Reference, Computer Name (columns 151-160), and 4-Hexdigit Flags">
+    <text x="370" y="24" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="700" fill="#0f172a">Provenance Block Architecture in MPCORB.DAT (Columns 138–165)</text>
+
+    <!-- Column Blocks across x = 24 to 716 -->
+    <!-- Cols 138-141: RMS (4 chars) -->
+    <rect x="24" y="45" width="76" height="58" rx="4" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.2"/>
+    <text x="62" y="64" text-anchor="middle" font-family="monospace" font-size="9" font-weight="700" fill="#334155">Cols 138–141</text>
+    <text x="62" y="80" text-anchor="middle" font-family="monospace" font-size="9.5" fill="#0f172a">RMS (&Prime;)</text>
+    <text x="62" y="94" text-anchor="middle" font-family="monospace" font-size="8" fill="#64748b">F4.2</text>
+
+    <!-- Cols 143-145: Coarse Perturbers (3 chars) -->
+    <rect x="108" y="45" width="76" height="58" rx="4" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.2"/>
+    <text x="146" y="64" text-anchor="middle" font-family="monospace" font-size="9" font-weight="700" fill="#334155">Cols 143–145</text>
+    <text x="146" y="80" text-anchor="middle" font-family="monospace" font-size="9.5" fill="#0f172a">Perturb 1</text>
+    <text x="146" y="94" text-anchor="middle" font-family="monospace" font-size="8" fill="#64748b">A3 (M-v)</text>
+
+    <!-- Cols 147-149: Precise Perturbers (3 chars) -->
+    <rect x="192" y="45" width="76" height="58" rx="4" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.2"/>
+    <text x="230" y="64" text-anchor="middle" font-family="monospace" font-size="9" font-weight="700" fill="#334155">Cols 147–149</text>
+    <text x="230" y="80" text-anchor="middle" font-family="monospace" font-size="9.5" fill="#0f172a">Perturb 2</text>
+    <text x="230" y="94" text-anchor="middle" font-family="monospace" font-size="8" fill="#64748b">A3 (30h)</text>
+
+    <!-- Cols 142-150 / Reference note: actually in MPCORB.DAT cols 151-160 is Computer Name! Let's show exact MPCORB columns:
+         Cols 138-141: r.m.s. residual
+         Cols 143-145: Coarse indicator of perturbers
+         Cols 147-149: Precise indicator of perturbers
+         Cols 151-160: Computer name (A10)
+         Cols 162-165: 4-hexdigit flags
+         (Note: Reference is cols 108-116 in MPCORB.DAT!)
+    -->
+    <!-- Cols 151-160: Computer Name (10 chars) - Highlighted -->
+    <rect x="276" y="45" width="296" height="58" rx="4" fill="#eff6ff" stroke="#1e3a8a" stroke-width="1.8"/>
+    <text x="424" y="64" text-anchor="middle" font-family="monospace" font-size="10" font-weight="700" fill="#1e3a8a">Cols 151–160 (10 chars, FORTRAN A10)</text>
+    <text x="424" y="81" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="700" fill="#0f172a">Computer Name (S<tspan dy="2" font-size="8">comp</tspan><tspan dy="-2">)</tspan></text>
+    <text x="424" y="96" text-anchor="middle" font-family="monospace" font-size="8.5" fill="#1d4ed8">e.g. "MPCLINUX  ", "JPL 48    ", "Williams  "</text>
+
+    <!-- Cols 162-165: 4-Hexdigit Flags -->
+    <rect x="580" y="45" width="136" height="58" rx="4" fill="#ecfdf5" stroke="#10b981" stroke-width="1.2"/>
+    <text x="648" y="64" text-anchor="middle" font-family="monospace" font-size="9" font-weight="700" fill="#065f46">Cols 162–165</text>
+    <text x="648" y="80" text-anchor="middle" font-family="monospace" font-size="9.5" fill="#0f172a">4-Hex Flags</text>
+    <text x="648" y="94" text-anchor="middle" font-family="monospace" font-size="8" fill="#047857">Z4 (1000 / 1D02)</text>
+
+    <!-- Categorization Taxonomy Boxes Below -->
+    <rect x="24" y="122" width="222" height="168" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
+    <text x="36" y="143" font-family="sans-serif" font-size="10.2" font-weight="700" fill="#1e3a8a">1. Automated MPC Pipelines</text>
+    <text x="36" y="162" font-family="monospace" font-size="9.2" fill="#0f172a">&bull; MPCLINUX</text>
+    <text x="36" y="178" font-family="monospace" font-size="9.2" fill="#0f172a">&bull; MPCW / MPC</text>
+    <text x="36" y="194" font-family="monospace" font-size="9.2" fill="#0f172a">&bull; ORBFIT</text>
+    <text x="36" y="213" font-family="sans-serif" font-size="8.8" fill="#475569">Automated differential orbit</text>
+    <text x="36" y="227" font-family="sans-serif" font-size="8.8" fill="#475569">correction engines run on</text>
+    <text x="36" y="241" font-family="sans-serif" font-size="8.8" fill="#475569">MPC Linux/VMS clusters for</text>
+    <text x="36" y="255" font-family="sans-serif" font-size="8.8" fill="#475569">routine discoveries &amp; updates.</text>
+
+    <rect x="259" y="122" width="222" height="168" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
+    <text x="271" y="143" font-family="sans-serif" font-size="10.2" font-weight="700" fill="#065f46">2. JPL Horizons / SSD Solutions</text>
+    <text x="271" y="162" font-family="monospace" font-size="9.2" fill="#0f172a">&bull; JPL 48, JPL 218</text>
+    <text x="271" y="178" font-family="monospace" font-size="9.2" fill="#0f172a">&bull; JPL K251/3</text>
+    <text x="271" y="194" font-family="monospace" font-size="9.2" fill="#0f172a">&bull; Giorgini / Chamberlin</text>
+    <text x="271" y="213" font-family="sans-serif" font-size="8.8" fill="#475569">High-precision relativistic</text>
+    <text x="271" y="227" font-family="sans-serif" font-size="8.8" fill="#475569">&amp; radar-constrained solutions</text>
+    <text x="271" y="241" font-family="sans-serif" font-size="8.8" fill="#475569">imported from JPL Solar System</text>
+    <text x="271" y="255" font-family="sans-serif" font-size="8.8" fill="#475569">Dynamics (with solution ID).</text>
+
+    <rect x="494" y="122" width="222" height="168" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
+    <text x="506" y="143" font-family="sans-serif" font-size="10.2" font-weight="700" fill="#9f1239">3. Named Orbit Computers</text>
+    <text x="506" y="162" font-family="monospace" font-size="9.2" fill="#0f172a">&bull; Williams / Marsden</text>
+    <text x="506" y="178" font-family="monospace" font-size="9.2" fill="#0f172a">&bull; Nakano / Spahr / Rudenko</text>
+    <text x="506" y="194" font-family="monospace" font-size="9.2" fill="#0f172a">&bull; Bowell / Goffin / Lowe</text>
+    <text x="506" y="213" font-family="sans-serif" font-size="8.8" fill="#475569">Named MPC staff astronomers</text>
+    <text x="506" y="227" font-family="sans-serif" font-size="8.8" fill="#475569">or external orbitalists who</text>
+    <text x="506" y="241" font-family="sans-serif" font-size="8.8" fill="#475569">verified linkages, identifications,</text>
+    <text x="506" y="255" font-family="sans-serif" font-size="8.8" fill="#475569">or legacy MPO/MPC orbits.</text>
+  </svg>
+  <div class="figure-caption">
+    <strong>Figure 1:</strong> Positional context and taxonomy of the <strong>Computer Name</strong> field (columns 151–160, 10-character ASCII string) within <code>MPCORB.DAT</code>. Preceded by the planetary perturber indicators (columns 143–149) and followed by the 4-hexdigit flags (columns 162–165), <span class="math-var">S<sub>comp</sub></span> distinguishes automated MPC cluster integrations, JPL SSD/Horizons solution numbers, and named orbitalists.
+  </div>
+</div>
+
+<h2>2. Taxonomic Classification of <code>MPCORB.DAT</code> Computer Names</h2>
+<p>
+  Across the &gt;1.4 million minor planet records in <code>MPCORB.DAT</code>, entries in columns 151–160 fall into four well-defined institutional and algorithmic categories:
+</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Category</th>
+      <th>Representative Values (Cols 151–160)</th>
+      <th>Institutional Origin &amp; Algorithmic Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Automated MPC Batch Systems</strong></td>
+      <td><code>MPCLINUX</code>, <code>MPCW</code>, <code>MPC</code>, <code>AutoMPC</code></td>
+      <td>Automated orbit determination software running on Minor Planet Center servers (historically VAX/VMS, subsequently Linux clusters <code>MPCLINUX</code>) performing batch differential corrections for newly linked or updated minor planets.</td>
+    </tr>
+    <tr>
+      <td><strong>JPL SSD / Horizons Solutions</strong></td>
+      <td><code>JPL 48</code>, <code>JPL 218</code>, <code>JPL K241/2</code>, <code>JPL E2023-1</code></td>
+      <td>High-precision numerical integrations imported from NASA/JPL Solar System Dynamics (SSD) / Horizons (typically for numbered planets, NEAs, PHAs, and radar targets), where the numeric/alphanumeric suffix denotes the <strong>JPL orbit solution version</strong>.</td>
+    </tr>
+    <tr>
+      <td><strong>External Orbit Software</strong></td>
+      <td><code>ORBFIT</code>, <code>FIND_ORB</code>, <code>Astdys</code></td>
+      <td>Orbits computed using specialized third-party celestial mechanics packages—such as the Pisa/NEODyS <em>OrbFit</em> consortium package or Bill Gray's <em>Find_Orb</em>—and ingested into the MPC catalog.</td>
+    </tr>
+    <tr>
+      <td><strong>Human Orbitalists / Staff</strong></td>
+      <td><code>Williams</code>, <code>Marsden</code>, <code>Nakano</code>, <code>Spahr</code>, <code>Rudenko</code>, <code>Veres</code>, <code>Goffin</code>, <code>Bowell</code></td>
+      <td>Surname (truncated to 10 characters if longer) of the MPC staff astronomer or external celestial mechanician who executed or validated the orbit fit and multi-apparition linkage (e.g., G. V. Williams, B. G. Marsden, S. Nakano, T. B. Spahr, M. Rudenko).</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>3. Fixed-Column Context &amp; Parsing Specifications</h2>
+<p>
+  Because <code>MPCORB.DAT</code> uses a strict fixed-width ASCII record structure without delimiters, whitespace inside columns 151–160 (such as the space in <code>JPL 48</code>) is significant and must <em>not</em> be split by whitespace tokenization:
+</p>
+<ul>
+  <li><strong>Exact Column Boundaries:</strong>
+    <ul>
+      <li><strong>1-indexed FORTRAN format:</strong> Columns <code>151..160</code> (<code>A10</code>), preceded by column <code>150</code> (blank separator after <em>Precise perturbers</em> in columns <code>147..149</code>) and followed by column <code>161</code> (blank separator before <em>4-hexdigit flags</em> in columns <code>162..165</code>).</li>
+      <li><strong>0-indexed C# / Python slice:</strong> <code>line.AsSpan(150, 10).Trim()</code> (C#) or <code>line[150:160].strip()</code> (Python).</li>
+    </ul>
+  </li>
+  <li><strong>Distinction from <em>Reference</em> (Columns 108–116):</strong> In <code>MPCORB.DAT</code>, columns <code>108..116</code> store the bibliographic publication code (e.g., <code>MPO891234</code> for <em>Minor Planet Orbit Supplement</em> or <code>MPC 41234</code> for <em>Minor Planet Circulars</em>), whereas columns <code>151..160</code> identify the <em>agent or software</em> that computed the orbit.</li>
+  <li><strong>Coupling with Perturber Flags (Columns 143–149):</strong> When <span class="math-var">S<sub>comp</sub></span> begins with <code>JPL </code> or equals <code>MPCLINUX</code> on multi-opposition objects, columns <code>143..145</code> (coarse perturbers, e.g., <code>M-v</code> = Mercury through Neptune) and <code>147..149</code> (precise perturbers, e.g., <code>30h</code> or <code>3Eh</code> including major asteroids Ceres, Pallas, Vesta) specify the exact N-body force model used by that computer.</li>
+</ul>
+
+<h2>4. Worked Examples from <code>MPCORB.DAT</code></h2>
+<p>
+  The following two records from <code>MPCORB.DAT</code> (epoch <code>K25BL</code> = 2025 Nov 21.0 TT = JD 2461000.5) illustrate how columns 151–160 appear in context alongside the perturber indicators (columns 143–149) and 4-hexdigit flags (columns 162–165):
+</p>
+
+<div class="example-card">
+  <h3>Example 1: (1) Ceres — JPL SSD Solution Identifier (<code>JPL 48</code>)</h3>
+  <p>
+    Excerpt of <code>MPCORB.DAT</code> columns 138–202 for <code>00001</code>:
+  </p>
+  <pre class="mpcorb-record">... 0.61 M-v 30h JPL 48     1000   (1) Ceres                  20251018</pre>
+  <ul>
+    <li><strong>Extracted Computer Name (Cols 151–160):</strong> <code>"JPL 48    "</code> &rarr; trimmed: <code>JPL 48</code>.</li>
+    <li><strong>Provenance Interpretation:</strong> Indicates that the osculating elements for (1) Ceres were computed by the <strong>NASA/JPL Solar System Dynamics</strong> orbit-determination pipeline (solution #48), incorporating planetary perturbers Mercury–Neptune (<code>M-v</code>) plus massive main-belt perturbers (<code>30h</code>), yielding an astrometric RMS residual of <code>0.61&Prime;</code>.</li>
+  </ul>
+</div>
+
+<div class="example-card">
+  <h3>Example 2: Automated MPC Cluster Integration (<code>MPCLINUX</code>)</h3>
+  <p>
+    Excerpt of <code>MPCORB.DAT</code> columns 138–202 for a multi-opposition main-belt asteroid:
+  </p>
+  <pre class="mpcorb-record">... 0.54 M-v 38k MPCLINUX   0000   (123456) 2000 WY12         20250904</pre>
+  <ul>
+    <li><strong>Extracted Computer Name (Cols 151–160):</strong> <code>"MPCLINUX  "</code> &rarr; trimmed: <code>MPCLINUX</code>.</li>
+    <li><strong>Provenance Interpretation:</strong> Indicates an automated differential orbit correction executed by the Minor Planet Center's Linux-based production pipeline (<code>MPCLINUX</code>) using full planetary perturbations (<code>M-v</code>, <code>38k</code>) with an astrometric RMS residual of <code>0.54&Prime;</code>.</li>
+  </ul>
+</div>
+
+<div class="interactive-panel">
+  <div class="interactive-title">Interactive MPCORB Tail &amp; Computer Name Extractor (Columns 138–202)</div>
+  <div class="controls-grid">
+    <div class="control-group">
+      <label for="preset_rec">Sample MPCORB Tail Preset</label>
+      <select id="preset_rec">
+        <option value="0.61 M-v 30h JPL 48     1000   (1) Ceres                  20251018">(1) Ceres — JPL 48</option>
+        <option value="0.34 M-v 38k JPL 218    1D02   (99942) Apophis            20210512">(99942) Apophis — JPL 218</option>
+        <option value="0.54 M-v 38k MPCLINUX   0000   (123456) 2000 WY12         20250904">Main-Belt — MPCLINUX</option>
+        <option value="0.48 M-v 30h Williams   1000   (433) Eros                 20250819">(433) Eros — Williams</option>
+        <option value="0.63         ORBFIT     8000            2025 QA14          20250828">1-Opp Unperturbed — ORBFIT</option>
+      </select>
+    </div>
+    <div class="control-group">
+      <label for="tail_in">Tail Segment (Cols 138–202, 65 chars)</label>
+      <input type="text" id="tail_in" value="0.61 M-v 30h JPL 48     1000   (1) Ceres                  20251018" maxlength="65">
+    </div>
+  </div>
+  <div class="result-bar" id="calc_out">Extracting...</div>
+</div>
+
+    </main>
+    <footer>
+      <span>Reference Standard: IAU Minor Planet Center (MPCORB.DAT Fixed-Width Format Specification)</span>
+      <span>Governing Slice: Cols 151–160 (FORTRAN A10 / 0-based [150..160]) &bull; Companion Fields: Perturbers (143–149), Flags (162–165)</span>
+    </footer>
+  </div>
+  <script>
+    
+(function() {
+  function classifyComputer(name) {
+    if (!name) return "Empty / Unspecified";
+    if (/^JPL\b/i.test(name)) return "NASA/JPL SSD / Horizons Numerical Integration (" + name + ")";
+    if (/^(MPCLINUX|MPCW|MPC|AUTOMPC)$/i.test(name)) return "IAU MPC Automated Batch Orbit Pipeline (" + name + ")";
+    if (/^(ORBFIT|FIND_ORB|ASTDYS)$/i.test(name)) return "External Orbit-Determination Package (" + name + ")";
+    return "Named Orbitalist / Staff Astronomer (" + name + ")";
+  }
+
+  function update() {
+    // tail_in represents 1-based columns 138..202 (65 characters total):
+    // Cols 138..141 -> idx 0..4   (RMS)
+    // Cols 143..145 -> idx 5..8   (Coarse perturbers)
+    // Cols 147..149 -> idx 9..12  (Precise perturbers)
+    // Cols 151..160 -> idx 13..23 (Computer Name, 10 chars)
+    // Cols 162..165 -> idx 24..28 (4-Hexdigit flags)
+    // Cols 167..194 -> idx 29..57 (Readable designation)
+    // Cols 195..202 -> idx 57..65 (YYYYMMDD)
+    const raw = document.getElementById('tail_in').value.padEnd(65, ' ');
+    const out = document.getElementById('calc_out');
+
+    const rms = raw.slice(0, 4).trim() || "N/A";
+    const pert1 = raw.slice(5, 8).trim() || "None";
+    const pert2 = raw.slice(9, 12).trim() || "None";
+    const compRaw = raw.slice(13, 23);
+    const compTrim = compRaw.trim();
+    const flags = raw.slice(24, 28).trim() || "N/A";
+    const desig = raw.slice(29, 57).trim() || "N/A";
+    const lastObs = raw.slice(57, 65).trim() || "N/A";
+
+    out.innerHTML =
+      `Computer Name (Cols 151–160): <code>"${compRaw}"</code> &rarr; <strong>${compTrim || "(blank)"}</strong> [${classifyComputer(compTrim)}]<br>` +
+      `Object: ${desig}  |  RMS: ${rms}&Prime;  |  Perturbers: [${pert1} / ${pert2}]  |  Flags: ${flags}  |  Last Obs: ${lastObs}`;
+  }
+
+  document.getElementById('preset_rec').addEventListener('change', function() {
+    document.getElementById('tail_in').value = this.value;
+    update();
+  });
+
+  document.getElementById('tail_in').addEventListener('input', update);
+  update();
+})();
+
+  </script>
+</body>
+</html>

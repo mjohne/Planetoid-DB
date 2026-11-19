@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Specific Orbital Energy (&epsilon;) — MPCORB Orbital Reference</title>
+  <style>
+:root {
+  --bg-color: #f8fafc;
+  --surface-color: #ffffff;
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  --accent-color: #1e3a8a;
+  --accent-light: #eff6ff;
+  --border-color: #e2e8f0;
+  --code-bg: #f1f5f9;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-serif: "Georgia", "Times New Roman", Times, serif;
+  --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  line-height: 1.7;
+  padding: 2rem 1rem;
+}
+
+.container {
+  max-width: 920px;
+  margin: 0 auto;
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 2.5rem 3rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+header {
+  border-bottom: 2px solid var(--accent-color);
+  padding-bottom: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.category-tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent-color);
+  background-color: var(--accent-light);
+  padding: 0.25rem 0.65rem;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
+h2 {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.35rem;
+}
+
+h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+ul, ol {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+li {
+  margin-bottom: 0.4rem;
+}
+
+.equation-box {
+  background-color: var(--code-bg);
+  border-left: 4px solid var(--accent-color);
+  padding: 1rem 1.5rem;
+  margin: 1.25rem 0;
+  border-radius: 0 6px 6px 0;
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  overflow-x: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.equation-main {
+  font-style: italic;
+}
+
+.equation-main .fn,
+.math-fn {
+  font-style: normal;
+  font-family: var(--font-serif);
+}
+
+.equation-label {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-style: normal;
+  margin-left: 1rem;
+}
+
+.math-var {
+  font-family: var(--font-serif);
+  font-style: italic;
+}
+
+.frac {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  vertical-align: middle;
+  margin: 0 0.25rem;
+  font-size: 0.94em;
+  line-height: 1.15;
+}
+
+.frac > span:first-child {
+  border-bottom: 1px solid currentColor;
+  padding: 0 0.25rem 0.12rem 0.25rem;
+}
+
+.frac > span:last-child {
+  padding: 0.12rem 0.25rem 0 0.25rem;
+}
+
+.figure-box {
+  background-color: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 1.25rem;
+  margin: 1.75rem 0;
+  text-align: center;
+}
+
+.figure-box svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.figure-caption {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-top: 0.85rem;
+  text-align: left;
+  line-height: 1.5;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.92rem;
+}
+
+th, td {
+  border: 1px solid var(--border-color);
+  padding: 0.65rem 0.85rem;
+  text-align: left;
+}
+
+th {
+  background-color: var(--code-bg);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+code {
+  font-family: var(--font-mono);
+  background-color: var(--code-bg);
+  padding: 0.15rem 0.35rem;
+  border-radius: 4px;
+  font-size: 0.88em;
+}
+
+pre.mpcorb-record {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  background-color: var(--code-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 0.85rem 1rem;
+  overflow-x: auto;
+  line-height: 1.45;
+  color: var(--text-primary);
+  margin: 0.75rem 0 1.25rem 0;
+}
+
+.example-card {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-left: 4px solid #047857;
+  border-radius: 6px;
+  padding: 1.15rem 1.35rem;
+  margin: 1.15rem 0;
+}
+
+.example-card h3 {
+  margin-top: 0;
+  color: #065f46;
+}
+
+.interactive-panel {
+  background-color: var(--code-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 1.25rem;
+  margin: 1.75rem 0;
+}
+
+.interactive-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 0.75rem;
+  color: var(--text-primary);
+}
+
+.controls-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(185px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.control-group label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.control-group input {
+  width: 100%;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background-color: var(--surface-color);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+}
+
+.result-bar {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  color: var(--accent-color);
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+footer {
+  margin-top: 2.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 1.5rem 1.25rem;
+  }
+}
+</style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <span class="category-tag">Astrodynamics &amp; Conservation Laws • MPCORB Reference</span>
+      <h1>Specific Orbital Energy (<span class="math-var">&epsilon;</span>)</h1>
+      <div class="subtitle">Vis-Viva Mechanical Energy Invariant, Gravitational Binding &amp; Energy Partition in MPCORB.DAT</div>
+    </header>
+    <main>
+      
+<h2>1. Formal Definition</h2>
+<p>
+  In astrodynamics, celestial mechanics, and derived dynamical invariants computed from the Minor Planet Center Orbit Database (<strong>MPCORB</strong>), the <strong>specific orbital energy</strong> (<span class="math-var">&epsilon;</span> or <span class="math-var">E<sub>spec</sub></span>, also termed the <strong>vis-viva energy</strong>) of an orbiting minor body is the constant sum of its specific kinetic energy (<span class="math-var">v<sup>2</sup> / 2</span>) and specific gravitational potential energy (<span class="math-var">&minus;&mu; / r</span>) per unit reduced mass in the heliocentric two-body problem:
+</p>
+
+<div class="equation-box">
+  <span class="equation-main">
+    &epsilon; = <span class="frac"><span>v<sup>2</sup></span><span>2</span></span> &minus; <span class="frac"><span>&mu;</span><span>r</span></span> = &minus;<span class="frac"><span>&mu;</span><span>2a</span></span> &isin; (&minus;&infin;, +&infin;)
+  </span>
+  <span class="equation-label">(Eq. 1)</span>
+</div>
+
+<p>where:</p>
+<ul>
+  <li><span class="math-var">a</span> is the <strong>osculating semimajor axis</strong> tabulated directly in <code>MPCORB.DAT</code> (columns 93–103, in astronomical units <span class="math-var">AU</span>), satisfying <span class="math-var">a &gt; 0</span> for bound elliptical orbits (<span class="math-var">&epsilon; &lt; 0</span>), <span class="math-var">a &rarr; &infin;</span> for parabolic trajectories (<span class="math-var">&epsilon; = 0</span>), and <span class="math-var">a &lt; 0</span> for hyperbolic escape trajectories (<span class="math-var">&epsilon; &gt; 0</span>).</li>
+  <li><span class="math-var">&mu; = GM<sub>&#9737;</sub>(1 + m/M<sub>&#9737;</sub>) &approx; GM<sub>&#9737;</sub></span> is the <strong>heliocentric gravitational parameter</strong>, equal to <span class="math-var">&mu; = k<sup>2</sup> = 2.959122082855911 &times; 10<sup>&minus;4</sup> AU<sup>3</sup>/d<sup>2</sup></span> (Gaussian gravitational constant squared) or <span class="math-var">&mu; = 1.32712440018 &times; 10<sup>20</sup> m<sup>3</sup>/s<sup>2</sup> = 1.32712440018 &times; 10<sup>11</sup> km<sup>3</sup>/s<sup>2</sup> = 887.12815 km<sup>2</sup>/s<sup>2</sup> &middot; AU</span> in SI/astronautical units.</li>
+  <li><span class="math-var">r = &Vert;<b>r</b>&Vert;</span> and <span class="math-var">v = &Vert;<b>v</b>&Vert;</span> are the instantaneous heliocentric distance and speed; because <span class="math-var">&epsilon;</span> depends solely on <span class="math-var">a</span> and is strictly independent of orbital eccentricity <span class="math-var">e</span> and inclination <span class="math-var">i</span>, all Keplerian orbits sharing the same semimajor axis <span class="math-var">a</span> possess identical specific orbital energy.</li>
+</ul>
+
+<div class="figure-box">
+  <svg viewBox="0 0 740 315" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Heliocentric gravitational potential well showing bound elliptical specific orbital energy epsilon = -mu/(2a) < 0, parabolic threshold epsilon = 0, and hyperbolic regime epsilon > 0">
+    <defs>
+      <marker id="arrowSlate" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#475569"/>
+      </marker>
+      <marker id="arrowBlue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#1e3a8a"/>
+      </marker>
+      <marker id="arrowEmerald" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#047857"/>
+      </marker>
+      <marker id="arrowCrimson" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#be123c"/>
+      </marker>
+    </defs>
+
+    <!-- Left Diagram: Heliocentric Potential Well U(r) = -mu/r vs Radial Distance r -->
+    <rect x="64" y="26" width="356" height="58" fill="#fff1f2" fill-opacity="0.55"/>
+    <rect x="64" y="84" width="356" height="202" fill="#eff6ff" fill-opacity="0.55"/>
+
+    <!-- Zero-energy axis (Escape Threshold epsilon = 0) -->
+    <line x1="64" y1="84" x2="424" y2="84" stroke="#be123c" stroke-width="1.8" stroke-dasharray="6,3"/>
+    <text x="275" y="77" font-family="sans-serif" font-size="9.5" font-weight="700" fill="#be123c">Parabolic Escape (&epsilon; = 0, e = 1)</text>
+    <text x="292" y="45" font-family="sans-serif" font-size="9.5" font-weight="700" fill="#9f1239">Hyperbolic (&epsilon; &gt; 0, e &gt; 1)</text>
+
+    <!-- Vertical Axis: Specific Energy epsilon -->
+    <line x1="64" y1="290" x2="64" y2="22" stroke="#334155" stroke-width="1.6" marker-end="url(#arrowSlate)"/>
+    <text x="24" y="34" font-family="Georgia, serif" font-style="italic" font-size="13" font-weight="700" fill="#0f172a">&epsilon;</text>
+    <text x="48" y="88" font-family="sans-serif" font-size="9.5" font-weight="700" fill="#0f172a">0</text>
+    <text x="415" y="100" font-family="Georgia, serif" font-style="italic" font-size="12" font-weight="700" fill="#334155">r</text>
+
+    <!-- Gravitational Potential Well Curve U(r) = -mu / r -->
+    <rect x="70" y="96" width="348" height="190" fill="#eff6ff"/>
+    <path d="M 92 284 L 106 239 L 124 204 L 144 180 L 164 164 L 194 147 L 234 133 L 284 124 L 344 116 L 414 110" fill="none" stroke="#0f172a" stroke-width="2.4"/>
+    <text x="115" y="256" font-family="Georgia, serif" font-style="italic" font-size="11.5" font-weight="700" fill="#0f172a">U(r) = &minus;&mu; / r</text>
+
+    <!-- Energy level epsilon = -mu/(2a) at y = 133 -->
+    <line x1="64" y1="133" x2="234" y2="133" stroke="#1e3a8a" stroke-width="2.2"/>
+    <text x="72" y="126" font-family="Georgia, serif" font-style="italic" font-size="11" font-weight="700" fill="#1e3a8a">&epsilon; = &minus;&mu; / (2a) &lt; 0</text>
+
+    <!-- Perihelion q and Aphelion Q -->
+    <line x1="124" y1="84" x2="124" y2="204" stroke="#047857" stroke-width="1.3" stroke-dasharray="3,2"/>
+    <circle cx="124" cy="133" r="4" fill="#047857"/>
+    <text x="114" y="78" font-family="sans-serif" font-size="9.5" font-weight="700" fill="#047857">q</text>
+
+    <line x1="124" y1="201" x2="124" y2="137" stroke="#047857" stroke-width="2" marker-end="url(#arrowEmerald)"/>
+    <text x="129" y="176" font-family="sans-serif" font-size="9.2" font-weight="700" fill="#047857">K = v&sup2;/2</text>
+
+    <circle cx="234" cy="133" r="4.5" fill="#1e3a8a" stroke="#ffffff" stroke-width="1.2"/>
+    <line x1="234" y1="84" x2="234" y2="133" stroke="#1e3a8a" stroke-width="1.3" stroke-dasharray="3,2"/>
+    <text x="230" y="78" font-family="sans-serif" font-size="9.5" font-weight="700" fill="#1e3a8a">Q</text>
+
+    <!-- Right Panel: Unit Conversions & MPCORB Formulas -->
+    <rect x="455" y="24" width="265" height="266" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+    <text x="470" y="47" font-family="sans-serif" font-size="11.5" font-weight="700" fill="#0f172a">Unit Systems &amp; MPCORB Relations</text>
+
+    <rect x="470" y="62" width="235" height="62" rx="4" fill="#eff6ff" stroke="#93c5fd" stroke-width="1"/>
+    <text x="480" y="79" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#1e3a8a">1. SI / Astronautical Units (km&sup2;/s&sup2;):</text>
+    <text x="480" y="97" font-family="Georgia, serif" font-style="italic" font-size="11.2" fill="#0f172a">&epsilon; = &minus;443.564075 / a<tspan dy="2" font-size="8.5">AU</tspan><tspan dy="-2"> km&sup2;/s&sup2;</tspan></text>
+    <text x="480" y="114" font-family="sans-serif" font-size="9.5" fill="#475569">(1 km&sup2;/s&sup2; = 1 MJ/kg)</text>
+
+    <line x1="587" y1="124" x2="587" y2="141" stroke="#475569" stroke-width="1.4" marker-end="url(#arrowSlate)"/>
+
+    <rect x="470" y="143" width="235" height="62" rx="4" fill="#ecfdf5" stroke="#6ee7b7" stroke-width="1"/>
+    <text x="480" y="160" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#065f46">2. Canonical Gaussian Units (AU&sup2;/d&sup2;):</text>
+    <text x="480" y="178" font-family="Georgia, serif" font-style="italic" font-size="11.2" fill="#0f172a">&epsilon; = &minus;k&sup2; / (2a<tspan dy="2" font-size="8.5">AU</tspan><tspan dy="-2">) AU&sup2;/d&sup2;</tspan></text>
+    <text x="480" y="195" font-family="sans-serif" font-size="9.5" fill="#475569">(k&sup2;/2 = 1.47956104 &times; 10&sup;&minus;4 AU&sup3;/d&sup2;)</text>
+
+    <line x1="587" y1="205" x2="587" y2="222" stroke="#475569" stroke-width="1.4" marker-end="url(#arrowSlate)"/>
+
+    <rect x="470" y="224" width="235" height="52" rx="4" fill="#fff1f2" stroke="#fda4af" stroke-width="1"/>
+    <text x="480" y="241" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#9f1239">3. Mean-Motion &amp; Vis-Viva Form:</text>
+    <text x="480" y="259" font-family="Georgia, serif" font-style="italic" font-size="11.2" fill="#0f172a">&epsilon; = &minus;&frac12; (&mu; n<tspan dy="2" font-size="8.5">rad/s</tspan><tspan dy="-2">)&sup2;&sup3; = v&sup2;/2 &minus; &mu;/r</tspan></text>
+  </svg>
+  <div class="figure-caption">
+    <strong>Figure 1:</strong> Heliocentric gravitational potential well <span class="math-var">U(r) = &minus;&mu; / r</span> illustrating the conservation of <strong>specific orbital energy</strong> <span class="math-var">&epsilon; = v<sup>2</sup> / 2 &minus; &mu; / r = &minus;&mu; / (2a)</span>. For any bound minor planet in <code>MPCORB.DAT</code> (<span class="math-var">a &gt; 0</span>), <span class="math-var">&epsilon; &lt; 0</span> is constant throughout the orbit: as heliocentric distance <span class="math-var">r</span> oscillates between perihelion <span class="math-var">q = a(1 &minus; e)</span> and aphelion <span class="math-var">Q = a(1 + e)</span>, specific kinetic energy <span class="math-var">K = v<sup>2</sup> / 2 = &epsilon; + &mu; / r</span> trades off exactly against specific potential energy <span class="math-var">U(r)</span>.
+  </div>
+</div>
+
+<h2>2. Evaluation from <code>MPCORB.DAT</code> &amp; Vis-Viva Conservation</h2>
+<p>
+  In <code>MPCORB.DAT</code>, the <strong>semimajor axis</strong> <span class="math-var">a</span> is tabulated directly in columns 93–103 (in AU, formatted as <code>F11.7</code>), and the <strong>mean daily motion</strong> <span class="math-var">n</span> is tabulated in columns 81–91 (in deg/day, formatted as <code>F11.8</code>). Because Kepler's third law links them via <span class="math-var">n<sub>rad</sub><sup>2</sup> a<sup>3</sup> = &mu;</span> (where <span class="math-var">n<sub>rad</sub> = n(&pi; / 180&deg;)</span> in rad/day), the specific orbital energy <span class="math-var">&epsilon;</span> can be evaluated directly from <span class="math-var">a</span> or cross-checked against <span class="math-var">n</span>:
+</p>
+
+<div class="equation-box">
+  <span class="equation-main">
+    &epsilon; = &minus;<span class="frac"><span>&mu;</span><span>2a</span></span> = &minus;<span class="frac"><span>1</span><span>2</span></span> (&mu; n<sub>rad</sub>)<sup>2/3</sup> = &minus;<span class="frac"><span>GM<sub>&#9737;</sub></span><span>2 a<sub>AU</sub> &middot; <span class="fn">AU</span></span></span>
+  </span>
+  <span class="equation-label">(Eq. 2)</span>
+</div>
+
+<p>
+  Equating Eq. (1) and Eq. (2) yields the <strong>vis-viva equation</strong>, which determines the instantaneous heliocentric orbital speed <span class="math-var">v(r)</span> at any distance <span class="math-var">r = a(1 &minus; e <span class="math-fn">cos</span> E)</span>, as well as the specific kinetic energy <span class="math-var">K(r) = v(r)<sup>2</sup> / 2</span> and specific potential energy <span class="math-var">U(r) = &minus;&mu; / r</span>:
+</p>
+
+<div class="equation-box">
+  <span class="equation-main">
+    v(r) = &radic;<span style="text-decoration: overline;">2 &left(&epsilon; + <span class="frac"><span>&mu;</span><span>r</span></span>&right)</span> = &radic;<span style="text-decoration: overline;">&mu; &left(<span class="frac"><span>2</span><span>r</span></span> &minus; <span class="frac"><span>1</span><span>a</span></span>&right)</span>, &nbsp;&nbsp; &langle;K&rangle;<sub>t</sub> = &minus;&epsilon; = <span class="frac"><span>&mu;</span><span>2a</span></span>, &nbsp;&nbsp; &langle;U&rangle;<sub>t</sub> = 2&epsilon; = &minus;<span class="frac"><span>&mu;</span><span>a</span></span>
+  </span>
+  <span class="equation-label">(Eq. 3)</span>
+</div>
+
+<p>
+  where <span class="math-var">&langle;K&rangle;<sub>t</sub></span> and <span class="math-var">&langle;U&rangle;<sub>t</sub></span> denote the time-averaged specific kinetic and potential energies over one complete orbital period <span class="math-var">P = 360&deg; / n</span>, satisfying the <strong>virial theorem</strong> (<span class="math-var">2&langle;K&rangle;<sub>t</sub> + &langle;U&rangle;<sub>t</sub> = 0</span>).
+</p>
+
+<h2>3. Orbital Energy Regimes &amp; Dynamical Classification</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Orbital Regime</th>
+      <th>Specific Energy (<span class="math-var">&epsilon;</span>)</th>
+      <th>Semimajor Axis (<span class="math-var">a</span>) &amp; Eccentricity (<span class="math-var">e</span>)</th>
+      <th>Dynamical Behavior in Solar System</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Bound Elliptical (Minor Planets)</strong></td>
+      <td><span class="math-var">&epsilon; = &minus;&mu; / (2a) &lt; 0</span></td>
+      <td><span class="math-var">0 &lt; a &lt; &infin;, &nbsp; 0 &le; e &lt; 1</span></td>
+      <td>Closed periodic orbit; body cannot escape solar gravity (<span class="math-var">v &lt; v<sub>esc</sub> = &radic;<span style="text-decoration: overline;">2&mu; / r</span></span>).</td>
+    </tr>
+    <tr>
+      <td><strong>Parabolic Escape Boundary</strong></td>
+      <td><span class="math-var">&epsilon; = 0</span></td>
+      <td><span class="math-var">a &rarr; &infin;, &nbsp; e = 1</span></td>
+      <td>Zero asymptotic speed (<span class="math-var">v<sub>&infin;</sub> = 0</span>); body reaches <span class="math-var">r &rarr; &infin;</span> with vanishing kinetic energy.</td>
+    </tr>
+    <tr>
+      <td><strong>Hyperbolic Escape / Interstellar</strong></td>
+      <td><span class="math-var">&epsilon; = +v<sub>&infin;</sub><sup>2</sup> / 2 = &minus;&mu; / (2a) &gt; 0</span></td>
+      <td><span class="math-var">a &lt; 0, &nbsp; e &gt; 1</span></td>
+      <td>Unbound trajectory (e.g., 1I/‘Oumuamua, 2I/Borisov) with excess speed <span class="math-var">v<sub>&infin;</sub> = &radic;<span style="text-decoration: overline;">2&epsilon;</span> &gt; 0</span>.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>4. Astrodynamical &amp; Observational Significance</h2>
+<ul>
+  <li><strong>Binding Energy &amp; Gravitational Capture:</strong> The magnitude <span class="math-var">|&epsilon;| = &mu; / (2a)</span> represents the specific mechanical energy required to unbind the minor body from the Sun's gravitational well and eject it to infinity (<span class="math-var">&epsilon; = 0</span>). Conversely, planetary close encounters (such as Jupiter flybys of Jupiter-family comets or Oort-cloud comets) alter <span class="math-var">&epsilon;</span> by <span class="math-var">&Delta;&epsilon; = &minus;&mu; &Delta;(1/a) / 2</span>, either capturing long-period comets (<span class="math-var">&Delta;&epsilon; &lt; 0</span>) or ejecting bodies onto hyperbolic escape trajectories (<span class="math-var">&epsilon; + &Delta;&epsilon; &gt; 0</span>).</li>
+  <li><strong>Mean-Motion Resonances &amp; Kirkwood Gaps:</strong> Because <span class="math-var">&epsilon;</span> is uniquely tied to <span class="math-var">a</span> (and orbital period <span class="math-var">P &prop; (&minus;&epsilon;)<sup>&minus;3/2</sup></span>), resonant asteroid populations (such as the Hilda group at 3:2 or Jupiter Trojans at 1:1) occupy narrow bands of specific orbital energy, whereas chaotic diffusion near mean-motion resonances pumps eccentricity without changing <span class="math-var">&epsilon;</span> until planetary encounters occur.</li>
+  <li><strong>Tisserand Parameter Invariant:</strong> In the circular restricted three-body problem (Sun–Jupiter–asteroid), the Tisserand invariant <span class="math-var">T<sub>J</sub> = a<sub>J</sub> / a + 2&radic;<span style="text-decoration: overline;">(a / a<sub>J</sub>)(1 &minus; e<sup>2</sup>)</span> <span class="math-fn">cos</span> i</span> couples the dimensionless specific energy (<span class="math-var">a<sub>J</sub> / a = &epsilon; / &epsilon;<sub>J</sub></span>) with angular momentum orientation to separate dynamical comet families from main-belt asteroids.</li>
+</ul>
+
+<h2>5. Worked Examples from <code>MPCORB.DAT</code></h2>
+<p>
+  The following two numbered minor planets from <code>MPCORB.DAT</code> (epoch <code>K25BL</code> = 2025 Nov 21.0 TT = JD 2461000.5) demonstrate the evaluation of specific orbital energy <span class="math-var">&epsilon;</span> and its partition into specific kinetic and potential energies at perihelion, aphelion, and catalog epoch:
+</p>
+
+<div class="example-card">
+  <h3>Example 1: (1) Ceres — Inner-Belt Dwarf Planet (<span class="math-var">&epsilon; = &minus;160.27574 km<sup>2</sup>/s<sup>2</sup></span>)</h3>
+  <p>
+    Excerpt from <code>MPCORB.DAT</code> (columns 1–103):
+  </p>
+  <pre class="mpcorb-record">00001    3.34  0.12 K25BL 231.53975   73.28579   80.25414   10.58688  0.0789158  0.21410467   2.7675059</pre>
+  <ul>
+    <li><strong>Extracted Epoch Elements:</strong> <span class="math-var">a = 2.7675059 AU</span> (columns 93–103), <span class="math-var">e = 0.0789158</span> (columns 71–79), <span class="math-var">n = 0.21410467&deg;/d</span> (columns 81–91), and <span class="math-var">M<sub>0</sub> = 231.53975&deg;</span>.</li>
+    <li><strong>Specific Orbital Energy Evaluation:</strong> Eq. (2) yields <span class="math-var">&epsilon; = &minus;443.564075 / 2.7675059 = &minus;160.27574 km<sup>2</sup>/s<sup>2</sup></span> (<span class="math-var">&minus;160.27574 MJ/kg</span>, or <span class="math-var">&minus;5.34625 &times; 10<sup>&minus;5</sup> AU<sup>2</sup>/d<sup>2</sup></span> in Gaussian units). At perihelion (<span class="math-var">q = 2.54911 AU</span>), <span class="math-var">K<sub>q</sub> = +187.730 km<sup>2</sup>/s<sup>2</sup></span> (<span class="math-var">v<sub>max</sub> = 19.377 km/s</span>) and <span class="math-var">U<sub>q</sub> = &minus;348.006 km<sup>2</sup>/s<sup>2</sup></span>; at aphelion (<span class="math-var">Q = 2.98591 AU</span>), <span class="math-var">K<sub>Q</sub> = +136.821 km<sup>2</sup>/s<sup>2</sup></span> (<span class="math-var">v<sub>min</sub> = 16.542 km/s</span>) and <span class="math-var">U<sub>Q</sub> = &minus;297.097 km<sup>2</sup>/s<sup>2</sup></span>, summing identically to <span class="math-var">&epsilon; = &minus;160.27574 km<sup>2</sup>/s<sup>2</sup></span>.</li>
+  </ul>
+</div>
+
+<div class="example-card">
+  <h3>Example 2: (2) Pallas — High-Inclination, High-Eccentricity Main-Belt Body (<span class="math-var">&epsilon; = &minus;160.11472 km<sup>2</sup>/s<sup>2</sup></span>)</h3>
+  <p>
+    Excerpt from <code>MPCORB.DAT</code> (columns 1–103):
+  </p>
+  <pre class="mpcorb-record">00002    4.12  0.11 K25BL 142.88412  310.91024  172.90561   34.92502  0.2305124  0.21378192   2.7702891</pre>
+  <ul>
+    <li><strong>Extracted Epoch Elements:</strong> <span class="math-var">a = 2.7702891 AU</span> (columns 93–103), <span class="math-var">e = 0.2305124</span> (columns 71–79), <span class="math-var">n = 0.21378192&deg;/d</span> (columns 81–91), and <span class="math-var">M<sub>0</sub> = 142.88412&deg;</span>.</li>
+    <li><strong>Specific Orbital Energy Evaluation:</strong> Although Pallas has nearly three times Ceres's eccentricity (<span class="math-var">e = 0.2305124</span> vs. <span class="math-var">0.0789158</span>) and over three times its inclination (<span class="math-var">i = 34.92502&deg;</span>), its semimajor axis is within <span class="math-var">0.10%</span> of Ceres's, giving nearly identical specific orbital energy <span class="math-var">&epsilon; = &minus;160.11472 km<sup>2</sup>/s<sup>2</sup></span> (<span class="math-var">&minus;5.34088 &times; 10<sup>&minus;5</sup> AU<sup>2</sup>/d<sup>2</sup></span>). Over its much wider radial excursion from <span class="math-var">q = 2.13170 AU</span> (<span class="math-var">K<sub>q</sub> = +256.017 km<sup>2</sup>/s<sup>2</sup>, v<sub>max</sub> = 22.628 km/s</span>) to <span class="math-var">Q = 3.40888 AU</span> (<span class="math-var">K<sub>Q</sub> = +100.126 km<sup>2</sup>/s<sup>2</sup>, v<sub>min</sub> = 14.151 km/s</span>), <span class="math-var">K + U = &epsilon;</span> remains strictly conserved.</li>
+  </ul>
+</div>
+
+<div class="interactive-panel">
+  <div class="interactive-title">Interactive Calculator: Specific Orbital Energy &epsilon;, Vis-Viva Speeds &amp; Energy Partition</div>
+  <div class="controls-grid">
+    <div class="control-group">
+      <label for="a_val">Semimajor Axis a (AU)</label>
+      <input type="number" id="a_val" value="2.7702891" step="0.05" min="0.05">
+    </div>
+    <div class="control-group">
+      <label for="e_val">Eccentricity e (0 &le; e &lt; 1)</label>
+      <input type="number" id="e_val" value="0.2305124" step="0.01" min="0" max="0.9999">
+    </div>
+    <div class="control-group">
+      <label for="m0_val">Mean Anomaly M<sub>0</sub> (deg)</label>
+      <input type="number" id="m0_val" value="142.88412" step="5.0">
+    </div>
+  </div>
+  <div class="result-bar" id="calc_out">Computing...</div>
+</div>
+
+    </main>
+    <footer>
+      <span>Reference Standard: IAU Minor Planet Center (MPCORB.DAT) &amp; Two-Body Vis-Viva Conservation</span>
+      <span>Governing Relation: &epsilon; = v&sup2;/2 &minus; &mu;/r = &minus;&mu;/(2a) = &minus;&frac12;(&mu; n<sub>rad</sub>)&sup2;&sup3; &bull; MPCORB Sources: a (Cols 93–103), n (Cols 81–91), e, M<sub>0</sub></span>
+    </footer>
+  </div>
+  <script>
+    
+(function() {
+  const degToRad = Math.PI / 180.0;
+  const GM_SUN_KMS = 1.32712440018e11; // km^3 / s^2
+  const AU_KM = 149597870.7;
+  const MU_AU_KMS = GM_SUN_KMS / AU_KM; // 887.1281506 km^2 / s^2 * AU
+  const K_GAUSS = 0.01720209895;
+  const MU_GAUSS = K_GAUSS * K_GAUSS; // AU^3 / d^2
+
+  function normDeg(deg) {
+    let x = deg % 360.0;
+    if (x < 0) x += 360.0;
+    return x;
+  }
+
+  function solveKepler(Mrad, e) {
+    let E = Mrad + e * Math.sin(Mrad);
+    for (let iter = 0; iter < 30; iter++) {
+      const f = E - e * Math.sin(E) - Mrad;
+      const fp = 1.0 - e * Math.cos(E);
+      const dE = f / fp;
+      E -= dE;
+      if (Math.abs(dE) < 1e-13) break;
+    }
+    return E;
+  }
+
+  function update() {
+    const a = parseFloat(document.getElementById('a_val').value);
+    const e = parseFloat(document.getElementById('e_val').value);
+    const m0 = parseFloat(document.getElementById('m0_val').value);
+    const out = document.getElementById('calc_out');
+
+    if ([a, e, m0].some(isNaN) || a <= 0 || e < 0 || e >= 1) {
+      out.textContent = "Invalid orbital parameters (require a > 0 AU, 0 <= e < 1).";
+      return;
+    }
+
+    const epsKms = -MU_AU_KMS / (2.0 * a);
+    const epsGauss = -MU_GAUSS / (2.0 * a);
+
+    const Mrad = normDeg(m0) * degToRad;
+    const E = solveKepler(Mrad, e);
+    const rAU = a * (1.0 - e * Math.cos(E));
+
+    const uEpoch = -MU_AU_KMS / rAU;
+    const kEpoch = epsKms - uEpoch;
+    const vEpoch = Math.sqrt(2.0 * kEpoch);
+
+    const qAU = a * (1.0 - e);
+    const QAU = a * (1.0 + e);
+    const vMax = Math.sqrt(MU_AU_KMS * (2.0 / qAU - 1.0 / a));
+    const vMin = Math.sqrt(MU_AU_KMS * (2.0 / QAU - 1.0 / a));
+
+    out.innerHTML =
+      `Specific Orbital Energy &epsilon; = ${epsKms.toFixed(5)} km&sup2;/s&sup2; (MJ/kg)  |  Gaussian: ${epsGauss.toExponential(5)} AU&sup2;/d&sup2;<br>` +
+      `At Epoch (r = ${rAU.toFixed(5)} AU): K = +${kEpoch.toFixed(3)} km&sup2;/s&sup2;, U = ${uEpoch.toFixed(3)} km&sup2;/s&sup2;, v = ${vEpoch.toFixed(3)} km/s  |  v<sub>q</sub>/v<sub>Q</sub>: ${vMax.toFixed(3)} / ${vMin.toFixed(3)} km/s`;
+  }
+
+  ['a_val', 'e_val', 'm0_val'].forEach(id => {
+    document.getElementById(id).addEventListener('input', update);
+  });
+  update();
+})();
+
+  </script>
+</body>
+</html>

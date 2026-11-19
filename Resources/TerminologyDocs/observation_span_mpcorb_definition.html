@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Observation Span (Columns 128–136) — MPCORB Orbital Reference</title>
+  <style>
+:root {
+  --bg-color: #f8fafc;
+  --surface-color: #ffffff;
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  --accent-color: #1e3a8a;
+  --accent-light: #eff6ff;
+  --border-color: #e2e8f0;
+  --code-bg: #f1f5f9;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-serif: "Georgia", "Times New Roman", Times, serif;
+  --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  line-height: 1.7;
+  padding: 2rem 1rem;
+}
+
+.container {
+  max-width: 940px;
+  margin: 0 auto;
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 2.5rem 3rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+header {
+  border-bottom: 2px solid var(--accent-color);
+  padding-bottom: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.category-tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent-color);
+  background-color: var(--accent-light);
+  padding: 0.25rem 0.65rem;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
+h2 {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.35rem;
+}
+
+h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+ul, ol {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+li {
+  margin-bottom: 0.4rem;
+}
+
+.equation-box {
+  background-color: var(--code-bg);
+  border-left: 4px solid var(--accent-color);
+  padding: 1rem 1.5rem;
+  margin: 1.25rem 0;
+  border-radius: 0 6px 6px 0;
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  overflow-x: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.equation-main {
+  font-style: italic;
+}
+
+.equation-main .fn,
+.math-fn {
+  font-style: normal;
+  font-family: var(--font-serif);
+}
+
+.equation-label {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-style: normal;
+  margin-left: 1rem;
+}
+
+.math-var {
+  font-family: var(--font-serif);
+  font-style: italic;
+}
+
+.frac {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  vertical-align: middle;
+  margin: 0 0.25rem;
+  font-size: 0.94em;
+  line-height: 1.15;
+}
+
+.frac > span:first-child {
+  border-bottom: 1px solid currentColor;
+  padding: 0 0.25rem 0.12rem 0.25rem;
+}
+
+.frac > span:last-child {
+  padding: 0.12rem 0.25rem 0 0.25rem;
+}
+
+.figure-box {
+  background-color: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 1.25rem;
+  margin: 1.75rem 0;
+  text-align: center;
+}
+
+.figure-box svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.figure-caption {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-top: 0.85rem;
+  text-align: left;
+  line-height: 1.5;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.9rem;
+}
+
+th, td {
+  border: 1px solid var(--border-color);
+  padding: 0.6rem 0.8rem;
+  text-align: left;
+}
+
+th {
+  background-color: var(--code-bg);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+code {
+  font-family: var(--font-mono);
+  background-color: var(--code-bg);
+  padding: 0.15rem 0.35rem;
+  border-radius: 4px;
+  font-size: 0.88em;
+}
+
+pre.mpcorb-record {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  background-color: var(--code-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 0.85rem 1rem;
+  overflow-x: auto;
+  line-height: 1.45;
+  color: var(--text-primary);
+  margin: 0.75rem 0 1.25rem 0;
+}
+
+.example-card {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-left: 4px solid #047857;
+  border-radius: 6px;
+  padding: 1.15rem 1.35rem;
+  margin: 1.15rem 0;
+}
+
+.example-card h3 {
+  margin-top: 0;
+  color: #065f46;
+}
+
+.interactive-panel {
+  background-color: var(--code-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 1.25rem;
+  margin: 1.75rem 0;
+}
+
+.interactive-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 0.75rem;
+  color: var(--text-primary);
+}
+
+.controls-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.control-group label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.control-group input,
+.control-group select {
+  width: 100%;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background-color: var(--surface-color);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+}
+
+.result-bar {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.86rem;
+  color: var(--accent-color);
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+footer {
+  margin-top: 2.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+@media (max-width: 680px) {
+  .container {
+    padding: 1.5rem 1.25rem;
+  }
+}
+</style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <span class="category-tag">Observational Arc Geometry &amp; Covariance • MPCORB Reference</span>
+      <h1>Observation Span (<span class="math-var">&Delta;t<sub>arc</sub></span>, Columns 128–136)</h1>
+      <div class="subtitle">Polymorphic Year-Range (YYYY-YYYY) &amp; Single-Opposition Day-Arc (NNNNN days) Specification in MPCORB.DAT</div>
+    </header>
+    <main>
+      
+<h2>1. Formal Definition</h2>
+<p>
+  In the Minor Planet Center Orbit Database (<strong>MPCORB</strong>), the <strong>Observation Span</strong> (also termed the <strong>observational arc</strong> or <em>“Year of first and last observation / Arc length”</em>, stored in <strong>columns 128–136</strong>, 1-indexed, as a 9-character polymorphic ASCII field formatted as FORTRAN <code>A9</code>, with 0-based substring slice <code>[127..136]</code>) quantifies the temporal baseline <span class="math-var">&Delta;t<sub>arc</sub></span> between the earliest (<span class="math-var">t<sub>first</sub></span>) and latest (<span class="math-var">t<sub>last</sub></span>) accepted astrometric observations used in the orbit determination:
+</p>
+
+<div class="equation-box">
+  <span class="equation-main">
+    &Delta;t<sub>arc</sub> = t<sub>last</sub> &minus; t<sub>first</sub>, &nbsp;&nbsp;
+    <span class="fn">Field</span>[127 : 136] =
+    <span style="font-style: normal;">{</span>
+    <span class="fn">YYYY</span><sub>first</sub><code>-</code><span class="fn">YYYY</span><sub>last</sub> &nbsp;(N<sub>opp</sub> &gt; 1), &nbsp;&nbsp;
+    <span class="fn">I5</span>(N<sub>days</sub>) <code>days</code> &nbsp;(N<sub>opp</sub> = 1)
+  </span>
+  <span class="equation-label">(Eq. 1)</span>
+</div>
+
+<p>where:</p>
+<ul>
+  <li><span class="math-var">N<sub>opp</sub></span> is the <strong>Number of Oppositions</strong> stored immediately beforehand in <strong>columns 124–126</strong> (<code>I3</code>, 0-based slice <code>[123..126]</code>).</li>
+  <li><strong>Multi-Opposition Regime (<span class="math-var">N<sub>opp</sub> &gt; 1</span>):</strong> Columns 128–136 contain a 9-character hyphen-delimited Gregorian year interval <code>YYYY-YYYY</code> (e.g., <code>1801-2025</code> or <code>2004-2021</code>), encoding the calendar year of <span class="math-var">t<sub>first</sub></span> and the calendar year of <span class="math-var">t<sub>last</sub></span> (the latter matching the leading 4 digits of the <em>Date of Last Observation</em> in columns 195–202).</li>
+  <li><strong>Single-Opposition Regime (<span class="math-var">N<sub>opp</sub> = 1</span>):</strong> Columns 128–136 switch representation to an integer day count right-justified in 5 columns followed by a space and the literal unit <code>days</code>: <code>NNNNN days</code> (e.g., <code>   14 days</code>, <code>  237 days</code>, or <code>    1 days</code>), giving the exact integer-rounded temporal span <span class="math-var">N<sub>days</sub> = &lfloor;(t<sub>last</sub> &minus; t<sub>first</sub>) / 1 d + 0.5&rfloor;</span>.</li>
+</ul>
+
+<div class="figure-box">
+  <svg viewBox="0 0 740 315" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Polymorphic encoding of Observation Span in MPCORB.DAT columns 128-136 showing Multi-Opposition YYYY-YYYY format vs Single-Opposition I5 days format and its scaling impact on orbital semimajor axis uncertainty">
+    <defs>
+      <marker id="arrowBlue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#1e3a8a"/>
+      </marker>
+    </defs>
+
+    <text x="370" y="24" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="700" fill="#0f172a">Polymorphic Encoding &amp; Astrodynamical Scaling of Observation Span (Cols 128–136)</text>
+
+    <!-- Top Strip: Fixed-width columns 118-141 -->
+    <rect x="24" y="42" width="120" height="46" rx="4" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.2"/>
+    <text x="84" y="60" text-anchor="middle" font-family="monospace" font-size="9" font-weight="700" fill="#334155">Cols 118–122</text>
+    <text x="84" y="76" text-anchor="middle" font-family="monospace" font-size="9.2" fill="#0f172a">N<tspan dy="2" font-size="7">obs</tspan><tspan dy="-2"> (I5)</tspan></text>
+
+    <rect x="152" y="42" width="120" height="46" rx="4" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.2"/>
+    <text x="212" y="60" text-anchor="middle" font-family="monospace" font-size="9" font-weight="700" fill="#334155">Cols 124–126</text>
+    <text x="212" y="76" text-anchor="middle" font-family="monospace" font-size="9.2" fill="#0f172a">N<tspan dy="2" font-size="7">opp</tspan><tspan dy="-2"> (I3)</tspan></text>
+
+    <rect x="280" y="42" width="308" height="46" rx="4" fill="#eff6ff" stroke="#1e3a8a" stroke-width="1.8"/>
+    <text x="434" y="60" text-anchor="middle" font-family="monospace" font-size="9.5" font-weight="700" fill="#1e3a8a">Cols 128–136 (9 chars, FORTRAN A9 / [127..136])</text>
+    <text x="434" y="76" text-anchor="middle" font-family="sans-serif" font-size="10.2" font-weight="700" fill="#0f172a">Observation Span / Year Range (&Delta;t<tspan dy="2" font-size="7.5">arc</tspan><tspan dy="-2">)</tspan></text>
+
+    <rect x="596" y="42" width="120" height="46" rx="4" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.2"/>
+    <text x="656" y="60" text-anchor="middle" font-family="monospace" font-size="9" font-weight="700" fill="#334155">Cols 138–141</text>
+    <text x="656" y="76" text-anchor="middle" font-family="monospace" font-size="9.2" fill="#0f172a">RMS (F4.2)</text>
+
+    <!-- Branch 1: Multi-Opposition (left box) -->
+    <rect x="24" y="106" width="338" height="190" rx="6" fill="#f8fafc" stroke="#93c5fd" stroke-width="1.3"/>
+    <text x="38" y="128" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#1e3a8a">Branch A: Multi-Opposition (N<tspan dy="2" font-size="8">opp</tspan><tspan dy="-2"> &gt; 1)</tspan></text>
+    <rect x="38" y="138" width="310" height="30" rx="4" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1"/>
+    <text x="193" y="157" text-anchor="middle" font-family="monospace" font-size="10" font-weight="700" fill="#1e3a8a">Format: "YYYY-YYYY" (e.g. "1801-2025")</text>
+    <text x="38" y="186" font-family="sans-serif" font-size="9" fill="#334155">&bull; <strong>Index 4 = '-':</strong> Hyphen separates start &amp; end years.</text>
+    <text x="38" y="203" font-family="sans-serif" font-size="9" fill="#334155">&bull; <strong>Year Span:</strong> &Delta;Y = Y<tspan dy="2" font-size="7">last</tspan><tspan dy="-2"> &minus; Y</tspan><tspan dy="2" font-size="7">first</tspan><tspan dy="-2"> (up to &gt;220 years).</tspan></text>
+    <text x="38" y="220" font-family="sans-serif" font-size="9" fill="#334155">&bull; <strong>Orbital Precision:</strong> Multi-year baseline breaks</text>
+    <text x="48" y="234" font-family="sans-serif" font-size="9" fill="#334155">degeneracy between (a, e) and nodal/apsidal rates,</text>
+    <text x="48" y="248" font-family="sans-serif" font-size="9" fill="#334155">yielding &sigma;<tspan dy="2" font-size="7">a</tspan><tspan dy="-2">/a &sim; 10</tspan><tspan dy="-3" font-size="7">&minus;8</tspan><tspan dy="3">–10</tspan><tspan dy="-3" font-size="7">&minus;10</tspan><tspan dy="3"> (&sigma;</tspan><tspan dy="2" font-size="7">n</tspan><tspan dy="-2"> &prop; &Delta;t</tspan><tspan dy="2" font-size="7">arc</tspan><tspan dy="-2"></tspan><tspan dy="-3" font-size="7">&minus;3/2</tspan><tspan dy="3">).</tspan></text>
+    <text x="38" y="274" font-family="sans-serif" font-size="8.6" font-style="italic" fill="#64748b">Note: Two oppositions in the same calendar year still format as YYYY-YYYY (e.g. "2024-2024").</text>
+
+    <!-- Branch 2: Single-Opposition (right box) -->
+    <rect x="378" y="106" width="338" height="190" rx="6" fill="#f8fafc" stroke="#6ee7b7" stroke-width="1.3"/>
+    <text x="392" y="128" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#065f46">Branch B: Single-Opposition (N<tspan dy="2" font-size="8">opp</tspan><tspan dy="-2"> = 1)</tspan></text>
+    <rect x="392" y="138" width="310" height="30" rx="4" fill="#ecfdf5" stroke="#a7f3d0" stroke-width="1"/>
+    <text x="547" y="157" text-anchor="middle" font-family="monospace" font-size="10" font-weight="700" fill="#065f46">Format: "NNNNN days" (e.g. "   14 days")</text>
+    <text x="392" y="186" font-family="sans-serif" font-size="9" fill="#334155">&bull; <strong>Suffix " days":</strong> Slice [0..5] parses as integer N<tspan dy="2" font-size="7">days</tspan><tspan dy="-2">.</tspan></text>
+    <text x="392" y="203" font-family="sans-serif" font-size="9" fill="#334155">&bull; <strong>First Obs Date:</strong> t<tspan dy="2" font-size="7">first</tspan><tspan dy="-2"> = t</tspan><tspan dy="2" font-size="7">last</tspan><tspan dy="-2"> (Cols 195–202) &minus; N</tspan><tspan dy="2" font-size="7">days</tspan><tspan dy="-2">.</tspan></text>
+    <text x="392" y="220" font-family="sans-serif" font-size="9" fill="#334155">&bull; <strong>Short-Arc Regime:</strong> When N<tspan dy="2" font-size="7">days</tspan><tspan dy="-2"> &lt; 30 d, curvature</tspan></text>
+    <text x="402" y="234" font-family="sans-serif" font-size="9" fill="#334155">is weakly constrained (&sigma;<tspan dy="2" font-size="7">n</tspan><tspan dy="-2"> &prop; &Delta;t</tspan><tspan dy="2" font-size="7">arc</tspan><tspan dy="-2"></tspan><tspan dy="-3" font-size="7">&minus;3/2</tspan><tspan dy="3">), causing</tspan></text>
+    <text x="402" y="248" font-family="sans-serif" font-size="9" fill="#334155">rapid along-track ephemeris dispersion.</text>
+    <text x="392" y="274" font-family="sans-serif" font-size="8.6" font-style="italic" fill="#64748b">Note: Same-night discovery arcs appear as "    0 days" or "    1 days".</text>
+  </svg>
+  <div class="figure-caption">
+    <strong>Figure 1:</strong> Dual-format encoding of the <strong>Observation Span</strong> in columns 128–136 (<code>A9</code>) of <code>MPCORB.DAT</code>, governed by the opposition count <span class="math-var">N<sub>opp</sub></span> in columns 124–126, together with its inverse-power-law control over semi-major axis and mean-motion uncertainty.
+  </div>
+</div>
+
+<h2>2. Astrodynamical Scaling Laws Governed by Observation Span</h2>
+<p>
+  In orbit determination theory, the observational arc length <span class="math-var">&Delta;t<sub>arc</sub></span> is the dominant geometric lever arm determining the formal covariance matrix of the orbital elements:
+</p>
+<ul>
+  <li><strong>Mean-Motion and Semi-Major Axis Uncertainty Scaling:</strong> For <span class="math-var">N<sub>obs</sub></span> uniformly distributed astrometric measurements of individual positional precision <span class="math-var">&sigma;<sub>ast</sub></span> spanning a single-opposition arc <span class="math-var">&Delta;t<sub>arc</sub></span> (short compared to the orbital period <span class="math-var">P</span>), the formal standard uncertainties in mean motion <span class="math-var">n</span> and semi-major axis <span class="math-var">a</span> scale according to the classical Gauss–Moulton / Bernstein–Khushalani power laws:
+    <div class="equation-box">
+      <span class="equation-main">
+        &sigma;<sub>n</sub> &prop; <span class="frac"><span>&sigma;<sub>ast</sub></span><span>&radic;<span style="text-decoration: overline;">N<sub>obs</sub></span> &middot; &Delta;t<sub>arc</sub><sup>3/2</sup></span></span>, &nbsp;&nbsp;
+        <span class="frac"><span>&sigma;<sub>a</sub></span><span>a</span></span> = <span class="frac"><span>2</span><span>3</span></span> <span class="frac"><span>&sigma;<sub>n</sub></span><span>n</span></span> &prop; &Delta;t<sub>arc</sub><sup>&minus;3/2</sup>
+      </span>
+      <span class="equation-label">(Eq. 2)</span>
+    </div>
+    Doubling the observation span <span class="math-var">&Delta;t<sub>arc</sub></span> reduces the uncertainty in <span class="math-var">a</span> and <span class="math-var">n</span> by a factor of <span class="math-var">2<sup>3/2</sup> &approx; 2.83</span>, whereas doubling <span class="math-var">N<sub>obs</sub></span> without extending <span class="math-var">&Delta;t<sub>arc</sub></span> yields only a <span class="math-var">&radic;2 &approx; 1.41</span> improvement.
+  </li>
+  <li><strong>Transition from Single-Opposition (<span class="math-var">N<sub>days</sub></span>) to Multi-Opposition (<span class="math-var">YYYY-YYYY</span>):</strong> Once an asteroid is recovered at a second solar opposition (<span class="math-var">N<sub>opp</sub> &ge; 2</span>, typically <span class="math-var">&Delta;t<sub>arc</sub> &gtrsim; 1–2 years</span>), the baseline spans a substantial fraction of a full heliocentric revolution, collapsing the range-rate degeneracy and transitioning the MPCORB representation from an integer day count (<code>NNNNN days</code>) to a calendar year range (<code>YYYY-YYYY</code>).</li>
+  <li><strong>Secular Non-Gravitational Parameter Detectability:</strong> Multi-decade observation spans (e.g., <span class="math-var">&Delta;t<sub>arc</sub> &ge; 15–30 years</span>) allow secular orbital perturbations such as the <strong>Yarkovsky transverse drift</strong> (<span class="math-var">da/dt</span>, quadratic in time <span class="math-var">&Delta;&lambda; &prop; &Delta;t<sub>arc</sub><sup>2</sup></span>) to accumulate above astrometric noise, enabling direct dynamical mass/density constraints on near-Earth asteroids.</li>
+</ul>
+
+<h2>3. Parsing Grammar &amp; Edge Cases in <code>MPCORB.DAT</code></h2>
+<table>
+  <thead>
+    <tr>
+      <th>Case / Feature</th>
+      <th>Exact Pattern in Cols 128–136</th>
+      <th>Parsing Rule &amp; Astrodynamical Interpretation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Multi-Opposition Year Range</strong></td>
+      <td><code>YYYY-YYYY</code><br>(e.g., <code>1801-2025</code>)</td>
+      <td>Detected when <code>span[4] == '-'</code> (and <span class="math-var">N<sub>opp</sub> &gt; 1</span>). Start year = <code>int(span[0..4])</code>, end year = <code>int(span[5..9])</code>. Note that approximate calendar span is <span class="math-var">Y<sub>last</sub> &minus; Y<sub>first</sub></span> years, while the exact end date <span class="math-var">t<sub>last</sub></span> is given in columns 195–202.</td>
+    </tr>
+    <tr>
+      <td><strong>Single-Opposition Day Span</strong></td>
+      <td><code>NNNNN days</code><br>(e.g., <code>   14 days</code>)</td>
+      <td>Detected when <code>span.EndsWith("days")</code> (and <span class="math-var">N<sub>opp</sub> == 1</span>). Integer arc days = <code>int(span[0..5].Trim())</code>. Exact first observation date is <span class="math-var">t<sub>first</sub> = t<sub>last</sub> &minus; N<sub>days</sub></span>.</td>
+    </tr>
+    <tr>
+      <td><strong>Zero-Day Single-Night Arc</strong></td>
+      <td><code>    0 days</code></td>
+      <td>Occurs when all <span class="math-var">N<sub>obs</sub></span> measurements (e.g., a discovery tracklet of 3–4 exposures over 45 minutes) fall on the same UTC calendar date (<span class="math-var">t<sub>first</sub></span> and <span class="math-var">t<sub>last</sub></span> have identical <code>YYYYMMDD</code>).</td>
+    </tr>
+    <tr>
+      <td><strong>Long Single-Opposition Arc (&gt;1 Year)</strong></td>
+      <td><code>  412 days</code></td>
+      <td>Distant objects (Centaurs, TNOs, Jupiter Trojans) or favorable low-eccentricity NEAs can remain observable for &gt;365 days within a single solar opposition; columns 128–136 continue using <code>NNNNN days</code> (up to 5 digits, i.e., <code>99999 days</code>) until <span class="math-var">N<sub>opp</sub> &ge; 2</span>.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>4. Worked Examples from <code>MPCORB.DAT</code></h2>
+<p>
+  The following two records from <code>MPCORB.DAT</code> (epoch <code>K25BL</code> = 2025 Nov 21.0 TT = JD 2461000.5) contrast the multi-opposition <code>YYYY-YYYY</code> format with the single-opposition <code>NNNNN days</code> format:
+</p>
+
+<div class="example-card">
+  <h3>Example 1: (1) Ceres — 224-Year Multi-Opposition Span (<code>1801-2025</code>)</h3>
+  <p>
+    Excerpt of <code>MPCORB.DAT</code> columns 118–202 for <code>00001</code>:
+  </p>
+  <pre class="mpcorb-record">... 11432  98 1801-2025 0.61 M-v 30h JPL 48     1000   (1) Ceres                  20251018</pre>
+  <ul>
+    <li><strong>Parsed Span (Cols 128–136):</strong> <code>1801-2025</code> (<span class="math-var">N<sub>opp</sub> = 98</span> oppositions, <span class="math-var">N<sub>obs</sub> = 11,432</span> observations).</li>
+    <li><strong>Astrodynamical Interpretation:</strong> Spans 224 years from Giuseppe Piazzi's discovery observations in January 1801 through 2025 October 18 (<code>20251018</code> in columns 195–202), constraining Ceres's semi-major axis to sub-meter accuracy.</li>
+  </ul>
+</div>
+
+<div class="example-card">
+  <h3>Example 2: Single-Opposition Discovery — Integer Day Arc (<code>   14 days</code>)</h3>
+  <p>
+    Excerpt of <code>MPCORB.DAT</code> columns 118–202 for a single-opposition NEO:
+  </p>
+  <pre class="mpcorb-record">...    27   1    14 days 0.28 M-v 38k MPCLINUX   8403            2025 QA14          20250911</pre>
+  <ul>
+    <li><strong>Parsed Span (Cols 128–136):</strong> <code>"   14 days"</code> &rarr; <span class="math-var">N<sub>days</sub> = 14 days</span> (<span class="math-var">N<sub>opp</sub> = 1</span>, <span class="math-var">N<sub>obs</sub> = 27</span>).</li>
+    <li><strong>Astrodynamical Interpretation:</strong> Subtracting <span class="math-var">14 days</span> from <span class="math-var">t<sub>last</sub> = 2025-09-11</span> (<code>20250911</code> in columns 195–202) yields the exact discovery date <span class="math-var">t<sub>first</sub> = 2025-08-28 UTC</span>.</li>
+  </ul>
+</div>
+
+<div class="interactive-panel">
+  <div class="interactive-title">Interactive MPCORB Observation Span Parser &amp; Arc Scaling Explorer (Cols 128–136)</div>
+  <div class="controls-grid">
+    <div class="control-group">
+      <label for="preset_span">Sample Span Preset</label>
+      <select id="preset_span">
+        <option value="1801-2025|20251018|98">1801-2025 — (1) Ceres (Multi-Opp)</option>
+        <option value="2004-2021|20210512|14">2004-2021 — (99942) Apophis (Multi-Opp)</option>
+        <option value="   14 days|20250911|1" selected>   14 days — Short-Arc NEO (Single-Opp)</option>
+        <option value="  237 days|20251002|1">  237 days — Extended Single-Opp</option>
+        <option value="    1 days|20251118|1">    1 days — 2-Night Discovery Tracklet</option>
+      </select>
+    </div>
+    <div class="control-group">
+      <label for="span_in">Cols 128–136 (9 chars)</label>
+      <input type="text" id="span_in" value="   14 days" maxlength="9">
+    </div>
+    <div class="control-group">
+      <label for="last_in">Last Obs Cols 195–202 (YYYYMMDD)</label>
+      <input type="text" id="last_in" value="20250911" maxlength="8">
+    </div>
+  </div>
+  <div class="result-bar" id="calc_out">Parsing...</div>
+</div>
+
+    </main>
+    <footer>
+      <span>Reference Standard: IAU Minor Planet Center (MPCORB.DAT Fixed-Width Format Specification)</span>
+      <span>Governing Slice: Cols 128–136 (FORTRAN A9 / [127..136]) &bull; Scaling Law: &sigma;<sub>a</sub>/a &prop; &Delta;t<sub>arc</sub><sup>&minus;3/2</sup></span>
+    </footer>
+  </div>
+  <script>
+    
+(function() {
+  function parseYyyyMmDd(str) {
+    if (!/^\d{8}$/.test(str)) return null;
+    const y = parseInt(str.slice(0, 4), 10);
+    const m = parseInt(str.slice(4, 6), 10);
+    const d = parseInt(str.slice(6, 8), 10);
+    const dt = new Date(Date.UTC(y, m - 1, d));
+    if (dt.getUTCFullYear() !== y || dt.getUTCMonth() !== m - 1 || dt.getUTCDate() !== d) return null;
+    return dt;
+  }
+
+  function fmtDate(dt) {
+    const y = String(dt.getUTCFullYear()).padStart(4, '0');
+    const m = String(dt.getUTCMonth() + 1).padStart(2, '0');
+    const d = String(dt.getUTCDate()).padStart(2, '0');
+    return `${y}-${m}-${d}`;
+  }
+
+  function update() {
+    const rawSpan = document.getElementById('span_in').value;
+    const lastStr = document.getElementById('last_in').value.trim();
+    const out = document.getElementById('calc_out');
+    const lastDt = parseYyyyMmDd(lastStr);
+
+    const yearMatch = /^(\d{4})-(\d{4})$/.exec(rawSpan.trim());
+    const dayMatch = /^(\d{1,5})\s+days$/i.exec(rawSpan.trim());
+
+    if (yearMatch) {
+      const y1 = parseInt(yearMatch[1], 10);
+      const y2 = parseInt(yearMatch[2], 10);
+      const yrs = y2 - y1;
+      const approxDays = Math.round(yrs * 365.25);
+      out.innerHTML =
+        `Mode: <strong>Multi-Opposition Year Range (YYYY-YYYY)</strong>  |  Start Year: ${y1}, End Year: ${y2} (&Delta;Y = ${yrs} yr &approx; ${approxDays.toLocaleString()} d)<br>` +
+        `Last Observation (Cols 195–202): ${lastDt ? fmtDate(lastDt) + ' UTC' : 'Invalid/Unset'}`;
+    } else if (dayMatch) {
+      const days = parseInt(dayMatch[1], 10);
+      let firstStr = "Requires valid Last Obs YYYYMMDD";
+      if (lastDt) {
+        const firstDt = new Date(lastDt.getTime() - days * 86400000);
+        firstStr = `${fmtDate(firstDt)} UTC (t<sub>last</sub> &minus; ${days} d)`;
+      }
+      const relGainVs1Day = days > 0 ? Math.pow(days, 1.5).toFixed(1) : "1.0";
+      out.innerHTML =
+        `Mode: <strong>Single-Opposition Integer Arc (I5 + " days")</strong>  |  Arc Length &Delta;t<sub>arc</sub> = <strong>${days} days</strong><br>` +
+        `Reconstructed First Observation t<sub>first</sub>: ${firstStr}  |  &sigma;<sub>a</sub> Leverage vs 1-Day Arc (&Delta;t<sup>3/2</sup>): ${relGainVs1Day}&times; tighter`;
+    } else {
+      out.textContent = 'Invalid Cols 128–136 format (expected "YYYY-YYYY" for multi-opp or "NNNNN days" for single-opp).';
+    }
+  }
+
+  document.getElementById('preset_span').addEventListener('change', function() {
+    const [span, last] = this.value.split('|');
+    document.getElementById('span_in').value = span;
+    document.getElementById('last_in').value = last;
+    update();
+  });
+
+  ['span_in', 'last_in'].forEach(id => {
+    document.getElementById(id).addEventListener('input', update);
+  });
+  update();
+})();
+
+  </script>
+</body>
+</html>

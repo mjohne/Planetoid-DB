@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Discoverer (Astrometric Provenance) — MPCORB Orbital Reference</title>
+  <style>
+:root {
+  --bg-color: #f8fafc;
+  --surface-color: #ffffff;
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  --accent-color: #1e3a8a;
+  --accent-light: #eff6ff;
+  --border-color: #e2e8f0;
+  --code-bg: #f1f5f9;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-serif: "Georgia", "Times New Roman", Times, serif;
+  --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  line-height: 1.7;
+  padding: 2rem 1rem;
+}
+
+.container {
+  max-width: 940px;
+  margin: 0 auto;
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 2.5rem 3rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+header {
+  border-bottom: 2px solid var(--accent-color);
+  padding-bottom: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.category-tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent-color);
+  background-color: var(--accent-light);
+  padding: 0.25rem 0.65rem;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
+h2 {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.35rem;
+}
+
+h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+ul, ol {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+li {
+  margin-bottom: 0.4rem;
+}
+
+.equation-box {
+  background-color: var(--code-bg);
+  border-left: 4px solid var(--accent-color);
+  padding: 1rem 1.5rem;
+  margin: 1.25rem 0;
+  border-radius: 0 6px 6px 0;
+  font-family: var(--font-serif);
+  font-size: 1.12rem;
+  overflow-x: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.equation-main {
+  font-style: italic;
+}
+
+.equation-main .fn,
+.math-fn {
+  font-style: normal;
+  font-family: var(--font-serif);
+}
+
+.equation-label {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-style: normal;
+  margin-left: 1rem;
+}
+
+.math-var {
+  font-family: var(--font-serif);
+  font-style: italic;
+}
+
+.figure-box {
+  background-color: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 1.25rem;
+  margin: 1.75rem 0;
+  text-align: center;
+}
+
+.figure-box svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.figure-caption {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-top: 0.85rem;
+  text-align: left;
+  line-height: 1.5;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.9rem;
+}
+
+th, td {
+  border: 1px solid var(--border-color);
+  padding: 0.6rem 0.8rem;
+  text-align: left;
+}
+
+th {
+  background-color: var(--code-bg);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+code {
+  font-family: var(--font-mono);
+  background-color: var(--code-bg);
+  padding: 0.15rem 0.35rem;
+  border-radius: 4px;
+  font-size: 0.88em;
+}
+
+pre.mpcorb-record {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  background-color: var(--code-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 0.85rem 1rem;
+  overflow-x: auto;
+  line-height: 1.45;
+  color: var(--text-primary);
+  margin: 0.75rem 0 1.25rem 0;
+}
+
+.example-card {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-left: 4px solid #047857;
+  border-radius: 6px;
+  padding: 1.15rem 1.35rem;
+  margin: 1.15rem 0;
+}
+
+.example-card h3 {
+  margin-top: 0;
+  color: #065f46;
+}
+
+.interactive-panel {
+  background-color: var(--code-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 1.25rem;
+  margin: 1.75rem 0;
+}
+
+.interactive-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 0.75rem;
+  color: var(--text-primary);
+}
+
+.controls-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.control-group label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.control-group input,
+.control-group select {
+  width: 100%;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background-color: var(--surface-color);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+}
+
+.result-bar {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.86rem;
+  color: var(--accent-color);
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+footer {
+  margin-top: 2.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+@media (max-width: 680px) {
+  .container {
+    padding: 1.5rem 1.25rem;
+  }
+}
+</style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <span class="category-tag">Astrometric Provenance &amp; Attribution • MPCORB Ecosystem Reference</span>
+      <h1>Discoverer</h1>
+      <div class="subtitle">Human Observer, Sky Survey Project, Robotic Facility &amp; Pipeline Attribution in Minor Planet Metadata</div>
+    </header>
+    <main>
+      
+<h2>1. Formal Definition &amp; Schema Scope</h2>
+<p>
+  In the broader Minor Planet Center ecosystem and extended minor-planet catalog databases (such as <code>mpcorb_extended.json</code> or relational MPC tables), the <strong>Discoverer</strong> (<span class="math-var">Disc</span>) is an <strong>astrometric provenance attribute</strong> recording the human discoverer(s), astronomical observatory, dedicated sky survey project, or automated robotic pipeline credited with the initial discovery astrometric observations of a minor planet:
+</p>
+
+<div class="equation-box">
+  <span class="equation-main">
+    <span class="fn">Discoverer</span>(<span class="math-var">r</span>) = <span class="fn">Metadata</span><sub>ext</sub>(<span class="fn">Desig</span><sub>packed</sub>(<span class="math-var">r</span>)).<span class="math-var">discoverer_string</span> &isin; &Sigma;<sub>ASCII</sub><sup>*</sup>
+  </span>
+  <span class="equation-label">(Eq. 1)</span>
+</div>
+
+<p>where:</p>
+<ul>
+  <li><strong>Architectural Separation from Core <code>MPCORB.DAT</code>:</strong> In the classic 202-character fixed-width <code>MPCORB.DAT</code> flat file, columns 1–202 are strictly dedicated to numerical orbital elements, epoch strings, uncertainty parameters, perturber flags, and names/designations. <strong>The <code>Discoverer</code> attribute is NOT stored within the 202-byte flat-file record</strong>; instead, it resides in auxiliary metadata tables maintained by the IAU Minor Planet Center and is cross-referenced via the minor planet's unique packed primary key (columns 1–7) or readable designation (columns 167–194).</li>
+  <li><strong>Taxonomy of Discoverer Attribution:</strong> Discoverer credits fall into four distinct operational categories:
+    <ol>
+      <li><strong>Individual Visual / Photographic Discoverers:</strong> Human astronomers credited by surname or initials in historical discoveries (e.g., <em>“G. Piazzi”</em> for (1) Ceres, <em>“J. Palisa”</em>, <em>“Max Wolf”</em>).</li>
+      <li><strong>Dedicated Automated Sky Surveys &amp; Projects:</strong> Major photographic and CCD surveys cataloging thousands of objects (e.g., <em>“Palomar–Leiden Survey”</em> [P-L], <em>“LINEAR”</em>, <em>“NEAT”</em>, <em>“Lowell Observatory Near-Earth-Object Search”</em> [LONEOS], <em>“Spacewatch”</em>, <em>“Catalina Sky Survey”</em> [CSS], <em>“Pan-STARRS”</em>).</li>
+      <li><strong>Modern Robotic Survey Telescopes:</strong> Automated wide-field survey facilities credited as the discoverer institution/telescope (e.g., <em>“Mount Lemmon Survey”</em>, <em>“Siding Spring Survey”</em>).</li>
+      <li><strong>Amateur Astrometric Discoverers:</strong> Dedicated amateur astronomers operating private robotic observatories who report astrometric discoveries validated by the MPC.</li>
+    </ol>
+  </li>
+</ul>
+
+<div class="figure-box">
+  <svg viewBox="0 0 740 315" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Mapping from MPCORB flat-file record and packed key to Discoverer metadata fields in extended databases">
+    <text x="370" y="24" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="700" fill="#0f172a">Attribution Workflow &amp; Taxonomy of the "Discoverer" Metadata in MPC Archives</text>
+
+    <!-- Top Source Boxes -->
+    <rect x="24" y="42" width="215" height="50" rx="4" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.3"/>
+    <text x="131" y="60" text-anchor="middle" font-family="monospace" font-size="9" font-weight="700" fill="#334155">Cols 1–7 (Packed Key)</text>
+    <text x="131" y="77" text-anchor="middle" font-family="monospace" font-size="9.5" fill="#0f172a">"00001" / "K25Q14A"</text>
+
+    <rect x="255" y="42" width="245" height="50" rx="4" fill="#eff6ff" stroke="#1e3a8a" stroke-width="1.8"/>
+    <text x="377" y="60" text-anchor="middle" font-family="monospace" font-size="9.2" font-weight="700" fill="#1e3a8a">Cols 167–194 (Readable Desig.)</text>
+    <text x="377" y="77" text-anchor="middle" font-family="monospace" font-size="9.5" fill="#0f172a">"(1) Ceres" / "2025 QA14"</text>
+
+    <rect x="516" y="42" width="200" height="50" rx="4" fill="#ecfdf5" stroke="#047857" stroke-width="1.8"/>
+    <text x="616" y="60" text-anchor="middle" font-family="monospace" font-size="9.2" font-weight="700" fill="#065f46">Discoverer Metadata</text>
+    <text x="616" y="77" text-anchor="middle" font-family="sans-serif" font-size="9.2" font-weight="700" fill="#0f172a">Person / Survey / Facility</text>
+
+    <!-- Three Functional Cards -->
+    <rect x="24" y="108" width="220" height="188" rx="6" fill="#ecfdf5" stroke="#6ee7b7" stroke-width="1.3"/>
+    <text x="36" y="130" font-family="monospace" font-size="10" font-weight="700" fill="#065f46">1. Individual Astronomers</text>
+    <text x="36" y="147" font-family="sans-serif" font-size="8.8" font-weight="700" fill="#047857">Historical &amp; Visual Discoveries</text>
+    <rect x="36" y="156" width="196" height="24" rx="3" fill="#ffffff" stroke="#a7f3d0" stroke-width="1"/>
+    <text x="42" y="172" font-family="monospace" font-size="8.6" fill="#0f172a">"G. Piazzi" / "J. Palisa"</text>
+    <text x="36" y="198" font-family="sans-serif" font-size="8.3" fill="#334155">&bull; Credits human visual observers</text>
+    <text x="44" y="211" font-family="sans-serif" font-size="8.3" fill="#334155">or photographic pioneers who</text>
+    <text x="44" y="224" font-family="sans-serif" font-size="8.3" fill="#334155">first sighted the object.</text>
+    <text x="36" y="242" font-family="sans-serif" font-size="8.3" fill="#334155">&bull; Predominantly associated with</text>
+    <text x="44" y="255" font-family="sans-serif" font-size="8.3" fill="#334155">19th- and early 20th-century</text>
+    <text x="44" y="268" font-family="sans-serif" font-size="8.3" fill="#334155">numbered asteroid discoveries.</text>
+
+    <rect x="260" y="108" width="220" height="188" rx="6" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.3"/>
+    <text x="272" y="130" font-family="monospace" font-size="10" font-weight="700" fill="#1e3a8a">2. Dedicated Sky Surveys</text>
+    <text x="272" y="147" font-family="sans-serif" font-size="8.8" font-weight="700" fill="#1e40af">Photographic &amp; CCD Projects</text>
+    <rect x="272" y="156" width="196" height="24" rx="3" fill="#ffffff" stroke="#bfdbfe" stroke-width="1"/>
+    <text x="278" y="172" font-family="monospace" font-size="8.6" fill="#0f172a">"Palomar-Leiden" / "LINEAR"</text>
+    <text x="272" y="198" font-family="sans-serif" font-size="8.3" fill="#334155">&bull; Credits large-scale institutional</text>
+    <text x="280" y="211" font-family="sans-serif" font-size="8.3" fill="#334155">surveys (P-L, LINEAR, NEAT,</text>
+    <text x="280" y="224" font-family="sans-serif" font-size="8.3" fill="#334155">Spacewatch, CSS, Pan-STARRS).</text>
+    <text x="272" y="242" font-family="sans-serif" font-size="8.3" fill="#334155">&bull; Responsible for discovering</text>
+    <text x="280" y="255" font-family="sans-serif" font-size="8.3" fill="#334155">&gt;95% of all known minor</text>
+    <text x="280" y="268" font-family="sans-serif" font-size="8.3" fill="#334155">planets in modern catalogs.</text>
+
+    <rect x="496" y="108" width="220" height="188" rx="6" fill="#fffbeb" stroke="#fcd34d" stroke-width="1.3"/>
+    <text x="508" y="130" font-family="monospace" font-size="10" font-weight="700" fill="#92400e">3. Robotic Observatories</text>
+    <text x="508" y="147" font-family="sans-serif" font-size="8.8" font-weight="700" fill="#78350f">Automated Pipeline Discoveries</text>
+    <rect x="508" y="156" width="196" height="24" rx="3" fill="#ffffff" stroke="#fde68a" stroke-width="1"/>
+    <text x="514" y="172" font-family="monospace" font-size="8.6" fill="#0f172a">"Mount Lemmon Survey"</text>
+    <text x="508" y="198" font-family="sans-serif" font-size="8.3" fill="#334155">&bull; Credits specific telescope</text>
+    <text x="516" y="211" font-family="sans-serif" font-size="8.3" fill="#334155">stations and automated streak</text>
+    <text x="516" y="224" font-family="sans-serif" font-size="8.3" fill="#334155">detection software pipelines.</text>
+    <text x="508" y="242" font-family="sans-serif" font-size="8.3" fill="#334155">&bull; Linked directly to MPC</text>
+    <text x="516" y="255" font-family="sans-serif" font-size="8.3" fill="#334155">observatory station codes</text>
+    <text x="516" y="268" font-family="sans-serif" font-size="8.3" fill="#334155">(e.g., MPC Code 703, G96).</text>
+  </svg>
+  <div class="figure-caption">
+    <strong>Figure 1:</strong> Structural role of the <strong>Discoverer</strong> attribute in auxiliary MPC metadata tables, linking <code>MPCORB.DAT</code> entries to individual astronomers, photographic surveys, and automated robotic sky surveillance pipelines.
+  </div>
+</div>
+
+<h2>2. Scientific &amp; Historical Significance in Minor Planet Catalogs</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Discoverer Category</th>
+      <th>Historical Era</th>
+      <th>Representative Discoverer / Project</th>
+      <th>Catalog Impact &amp; Attribution Rules</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Visual Pioneers</strong></td>
+      <td>1801 – ~1890</td>
+      <td>Giuseppe Piazzi, J. R. Hind, H. Goldschmidt</td>
+      <td>Single-telescope visual discoveries; required meticulous micrometric position measurements over multiple nights.</td>
+    </tr>
+    <tr>
+      <td><strong>Astrophotographic Pioneers</strong></td>
+      <td>~1890 – 1950s</td>
+      <td>Max Wolf, Karl Reinmuth, S. B. Nicholson</td>
+      <td>Introduction of long-exposure astrophotography (trail detection on glass plates); multiplied discovery rates tenfold.</td>
+    </tr>
+    <tr>
+      <td><strong>Grand Photographic Surveys</strong></td>
+      <td>1960 – 1995</td>
+      <td>Palomar–Leiden Survey (C. J. van Houten, I. van Houten-Groeneveld, T. Gehrels)</td>
+      <td>Massive Schmidt telescope plate sweeps yielding thousands of co-moving minor planets in designated survey fields (P-L, T-1, T-2, T-3).</td>
+    </tr>
+    <tr>
+      <td><strong>Automated CCD Survey Era</strong></td>
+      <td>1995 – Present</td>
+      <td>LINEAR, NEAT, Spacewatch, Catalina Sky Survey, Pan-STARRS, ZTF</td>
+      <td>Robotic telescope arrays scanning the sky nightly; accounts for &gt;99% of modern NEA, main-belt, and TNO discoveries. Discoverer credit is assigned to the survey team or facility.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>3. Software Engineering Integration &amp; Database Architecture</h2>
+<ul>
+  <li><strong>Separation of Concerns:</strong> Because <code>MPCORB.DAT</code> is optimized for high-performance astrodynamic integration (containing precisely formatted orbital elements, ephemeris epochs, and uncertainty metrics in 202 columns), dynamic text strings like <em>Discoverer names</em> and <em>bibliography citations</em> are deliberately decoupled from the flat-file binary stream.</li>
+  <li><strong>Relational &amp; JSON Cross-Referencing:</strong> In modern Python or C# pipelines parsing MPCORB alongside extended metadata (e.g., <code>mpcorb_extended.json</code> or Lowell Astorb), the primary key (columns 1–7) acts as the foreign key joining the numerical state vector to the discoverer attribution string.</li>
+  <li><strong>Distinction Between Discoverer and Observatory:</strong> While an observatory code (e.g., <code>703</code> for Catalina or <code>F51</code> for Pan-STARRS 1) identifies where the discovery observations were reported, the <em>Discoverer</em> field specifically credits the individual(s) or survey project responsible for recognizing and submitting the initial moving object candidate.</li>
+</ul>
+
+<h2>4. Worked Examples from the MPCORB Ecosystem</h2>
+<p>
+  The following two examples illustrate how the <strong>Discoverer</strong> attribute links to <code>MPCORB.DAT</code> records for a classical numbered asteroid versus a modern survey discovery:
+</p>
+
+<div class="example-card">
+  <h3>Example 1: (1) Ceres — Historical Visual Discoverer</h3>
+  <p>
+    <code>MPCORB.DAT</code> record for <code>00001</code>:
+  </p>
+  <pre class="mpcorb-record">00001    3.35  0.15 K25BL 231.53975   73.28579   80.24963   10.58790  0.0795763  0.21417972   2.7666198  0 MPO925614 11432  98 1801-2025 0.61 M-v 30h JPL 48     1000   (1) Ceres                  20251018</pre>
+  <ul>
+    <li><strong>Primary Designation (Cols 1–7):</strong> <code>00001</code> &rarr; <strong>Readable Designation (Cols 167–194):</strong> <code>"(1) Ceres"</code></li>
+    <li><strong>Linked Discoverer Metadata:</strong> <code>"G. Piazzi"</code> (Giuseppe Piazzi, Palermo Astronomical Observatory, discovered January 1, 1801).</li>
+  </ul>
+</div>
+
+<div class="example-card">
+  <h3>Example 2: 2025 QA14 — Modern Survey Discoverer</h3>
+  <p>
+    <code>MPCORB.DAT</code> record for <code>K25Q14A</code>:
+  </p>
+  <pre class="mpcorb-record">K25Q14A 27.64  0.15 K25BL 353.30750  347.90466  352.66257    5.38873  0.2564143  0.65913384   1.3073812  0 E2025-R84    27   1    14 days 0.28 M-v 38k MPCLINUX   8403            2025 QA14          20250911</pre>
+  <ul>
+    <li><strong>Primary Designation (Cols 1–7):</strong> <code>K25Q14A</code> &rarr; <strong>Readable Designation (Cols 167–194):</strong> <code>"2025 QA14"</code></li>
+    <li><strong>Linked Discoverer Metadata:</strong> <code>"Catalina Sky Survey"</code> (or specific survey telescope station code).</li>
+  </ul>
+</div>
+
+<div class="interactive-panel">
+  <div class="interactive-title">Interactive MPCORB Discoverer Attribution Inspector</div>
+  <div class="controls-grid">
+    <div class="control-group">
+      <label for="disc_in">Select or Enter Asteroid / Survey</label>
+      <input type="text" id="disc_in" value="(1) Ceres" maxlength="30" placeholder="e.g. (1) Ceres or LINEAR">
+    </div>
+    <div class="control-group">
+      <label for="preset_in">Canonical MPCORB Presets</label>
+      <select id="preset_in">
+        <option value="(1) Ceres" selected>(1) Ceres — G. Piazzi (1801)</option>
+        <option value="(433) Eros">(433) Eros — G. Witt (1898)</option>
+        <option value="(99942) Apophis">(99942) Apophis — LPL / Roy A. Tucker et al. (2004)</option>
+        <option value="Palomar-Leiden Survey">Palomar-Leiden Survey (1960)</option>
+        <option value="LINEAR">LINEAR Survey (MIT Lincoln Laboratory)</option>
+      </select>
+    </div>
+  </div>
+  <div class="result-bar" id="calc_out">Inspecting...</div>
+</div>
+
+    </main>
+    <footer>
+      <span>Reference Standard: IAU Minor Planet Center (MPCORB Extended Metadata Architecture)</span>
+      <span>Cross-Referenced via Packed Key (Cols 1–7) &bull; Credits Observers, Surveys &amp; Robotic Telescopes</span>
+    </footer>
+  </div>
+  <script>
+    
+(function() {
+  const discovererDb = {
+    '(1) Ceres': { discoverer: 'Giuseppe Piazzi', date: 'January 1, 1801', site: 'Palermo Astronomical Observatory', type: 'Visual Discovery' },
+    '(433) Eros': { discoverer: 'Carl Gustav Witt', date: 'August 13, 1898', site: 'Urania Observatory, Berlin', type: 'Astrophotographic Discovery' },
+    '(99942) Apophis': { discoverer: 'Roy A. Tucker, David J. Tholen, Fabrizio Bernardi', date: 'June 19, 2004', site: 'Kitt Peak (Bok Telescope / Steward Obs)', type: 'CCD Survey Follow-up Discovery' },
+    'Palomar-Leiden Survey': { discoverer: 'C. J. van Houten, I. van Houten-Groeneveld, T. Gehrels', date: '1960 (Processed 1960s–1970s)', site: 'Palomar Observatory / Leiden Observatory', type: 'Grand Photographic Survey' },
+    'LINEAR': { discoverer: 'MIT Lincoln Laboratory Near Earth Asteroid Research', date: '1998–present', site: 'Socorro, New Mexico (ETS / Magdalena Ridge)', type: 'Automated CCD Survey' }
+  };
+
+  function update() {
+    const raw = document.getElementById('disc_in').value.trim();
+    const out = document.getElementById('calc_out');
+
+    const match = discovererDb[raw] || {
+      discoverer: 'Custom / Extended Survey Database Entry',
+      date: 'Various / Multi-night linkage',
+      site: 'MPC Astrometric Station',
+      type: 'Automated or Dedicated Survey'
+    };
+
+    out.innerHTML =
+      `Query Target: <strong>"${raw}"</strong><br>` +
+      `Credit / Discoverer: <strong>${match.discoverer}</strong><br>` +
+      `Discovery Date: ${match.date}  |  Facility: ${match.site}  |  Method: <strong>${match.type}</strong>`;
+  }
+
+  const discInput = document.getElementById('disc_in');
+  const presetSelect = document.getElementById('preset_in');
+
+  discInput.addEventListener('input', update);
+  presetSelect.addEventListener('change', () => {
+    discInput.value = presetSelect.value;
+    update();
+  });
+
+  update();
+})();
+
+  </script>
+</body>
+</html>

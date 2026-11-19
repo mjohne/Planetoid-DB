@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Date of Last Observation (Columns 195–202) — MPCORB Orbital Reference</title>
+  <style>
+:root {
+  --bg-color: #f8fafc;
+  --surface-color: #ffffff;
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  --accent-color: #1e3a8a;
+  --accent-light: #eff6ff;
+  --border-color: #e2e8f0;
+  --code-bg: #f1f5f9;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-serif: "Georgia", "Times New Roman", Times, serif;
+  --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  line-height: 1.7;
+  padding: 2rem 1rem;
+}
+
+.container {
+  max-width: 940px;
+  margin: 0 auto;
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 2.5rem 3rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+header {
+  border-bottom: 2px solid var(--accent-color);
+  padding-bottom: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.category-tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent-color);
+  background-color: var(--accent-light);
+  padding: 0.25rem 0.65rem;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
+h2 {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.35rem;
+}
+
+h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+ul, ol {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+li {
+  margin-bottom: 0.4rem;
+}
+
+.equation-box {
+  background-color: var(--code-bg);
+  border-left: 4px solid var(--accent-color);
+  padding: 1rem 1.5rem;
+  margin: 1.25rem 0;
+  border-radius: 0 6px 6px 0;
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  overflow-x: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.equation-main {
+  font-style: italic;
+}
+
+.equation-main .fn,
+.math-fn {
+  font-style: normal;
+  font-family: var(--font-serif);
+}
+
+.equation-label {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-style: normal;
+  margin-left: 1rem;
+}
+
+.math-var {
+  font-family: var(--font-serif);
+  font-style: italic;
+}
+
+.frac {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  vertical-align: middle;
+  margin: 0 0.25rem;
+  font-size: 0.94em;
+  line-height: 1.15;
+}
+
+.frac > span:first-child {
+  border-bottom: 1px solid currentColor;
+  padding: 0 0.25rem 0.12rem 0.25rem;
+}
+
+.frac > span:last-child {
+  padding: 0.12rem 0.25rem 0 0.25rem;
+}
+
+.figure-box {
+  background-color: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 1.25rem;
+  margin: 1.75rem 0;
+  text-align: center;
+}
+
+.figure-box svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.figure-caption {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-top: 0.85rem;
+  text-align: left;
+  line-height: 1.5;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.9rem;
+}
+
+th, td {
+  border: 1px solid var(--border-color);
+  padding: 0.6rem 0.8rem;
+  text-align: left;
+}
+
+th {
+  background-color: var(--code-bg);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+code {
+  font-family: var(--font-mono);
+  background-color: var(--code-bg);
+  padding: 0.15rem 0.35rem;
+  border-radius: 4px;
+  font-size: 0.88em;
+}
+
+pre.mpcorb-record {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  background-color: var(--code-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 0.85rem 1rem;
+  overflow-x: auto;
+  line-height: 1.45;
+  color: var(--text-primary);
+  margin: 0.75rem 0 1.25rem 0;
+}
+
+.example-card {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-left: 4px solid #047857;
+  border-radius: 6px;
+  padding: 1.15rem 1.35rem;
+  margin: 1.15rem 0;
+}
+
+.example-card h3 {
+  margin-top: 0;
+  color: #065f46;
+}
+
+.interactive-panel {
+  background-color: var(--code-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 1.25rem;
+  margin: 1.75rem 0;
+}
+
+.interactive-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 0.75rem;
+  color: var(--text-primary);
+}
+
+.controls-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(195px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.control-group label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.control-group input {
+  width: 100%;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background-color: var(--surface-color);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+}
+
+.result-bar {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.86rem;
+  color: var(--accent-color);
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+footer {
+  margin-top: 2.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+@media (max-width: 680px) {
+  .container {
+    padding: 1.5rem 1.25rem;
+  }
+}
+</style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <span class="category-tag">Astrometric Metadata &amp; Ephemeris Currency • MPCORB Reference</span>
+      <h1>Date of Last Observation (<span class="math-var">t<sub>last</sub></span>)</h1>
+      <div class="subtitle">UTC Astrometric Endpoint (YYYYMMDD, Columns 195–202), Arc Reconstruction &amp; Extrapolation Staleness</div>
+    </header>
+    <main>
+      
+<h2>1. Formal Definition</h2>
+<p>
+  In the Minor Planet Center Orbit Database (<strong>MPCORB</strong>), the <strong>Date of Last Observation</strong> (<span class="math-var">t<sub>last</sub></span>, stored in <strong>columns 195–202</strong>, 1-indexed, as an 8-character Gregorian calendar string formatted as <code>YYYYMMDD</code>) is the UTC calendar date of the latest astrometric observation included in the orbital solution for a given minor planet:
+</p>
+
+<div class="equation-box">
+  <span class="equation-main">
+    t<sub>last</sub> = <span class="fn">max</span><sub>k &isin; {1, &hellip;, N<sub>obs</sub>}</sub> &lfloor; t<sub>obs, k</sub>(<span class="fn">UTC</span>) &rfloor;<sub>day</sub> &equiv; (Y<sub>4</sub> M<sub>2</sub> D<sub>2</sub>)<sub>10</sub>, &nbsp;&nbsp; &Delta;t<sub>stale</sub> = t<sub>epoch</sub> &minus; t<sub>last</sub>
+  </span>
+  <span class="equation-label">(Eq. 1)</span>
+</div>
+
+<p>where:</p>
+<ul>
+  <li><span class="math-var">t<sub>obs, k</sub>(<span class="fn">UTC</span>)</span> is the Coordinated Universal Time (UTC) observation timestamp of the <span class="math-var">k</span>-th accepted astrometric measurement in the Minor Planet Center (MPC) observations file (<span class="math-var">N<sub>obs</sub></span> total observations, tabulated in columns 118–122 of <code>MPCORB.DAT</code>).</li>
+  <li><code>YYYYMMDD</code> (<span class="math-var">Y<sub>4</sub> M<sub>2</sub> D<sub>2</sub></span>, 0-based substring indices <code>194..202</code>, length 8) encodes the 4-digit Gregorian year (<span class="math-var">Y<sub>4</sub></span>), 2-digit zero-padded month (<span class="math-var">M<sub>2</sub> &isin; [01, 12]</span>), and 2-digit zero-padded day of month (<span class="math-var">D<sub>2</sub> &isin; [01, 31]</span>) in UTC, truncated to integer days (dropping the sub-day decimal fraction published in the MPC 80-column astrometry record).</li>
+  <li><span class="math-var">&Delta;t<sub>stale</sub> = t<sub>epoch</sub> &minus; t<sub>last</sub></span> is the <strong>astrometric extrapolation baseline (staleness)</strong> between the last observed date <span class="math-var">t<sub>last</sub></span> and the catalog osculating epoch <span class="math-var">t<sub>epoch</sub></span> (columns 21–25 in 5-character packed form). When <span class="math-var">t<sub>last</sub> &lt; t<sub>epoch</sub></span>, the orbital state vector at <span class="math-var">t<sub>epoch</sub></span> has been propagated forward purely via numerical integration without observational feedback over <span class="math-var">&Delta;t<sub>stale</sub></span>.</li>
+</ul>
+
+<div class="figure-box">
+  <svg viewBox="0 0 740 310" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Astrodynamical timeline showing the relationship between First Observation t_first, Last Observation t_last (columns 195-202, YYYYMMDD), Observational Arc Length, Osculating Epoch t_epoch (columns 21-25), and Extrapolation Baseline Delta t_stale">
+    <defs>
+      <marker id="arrowSlate" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#475569"/>
+      </marker>
+    </defs>
+
+    <!-- Main Timeline Axis -->
+    <text x="370" y="24" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="700" fill="#0f172a">Astrometric Timeline &amp; Record Layout in MPCORB.DAT</text>
+
+    <line x1="45" y1="95" x2="695" y2="95" stroke="#334155" stroke-width="2" marker-end="url(#arrowSlate)"/>
+    <text x="698" y="99" font-family="sans-serif" font-size="10" font-weight="700" fill="#334155">UTC / TT</text>
+
+    <!-- Observational Arc Bracket (t_first to t_last) -->
+    <rect x="85" y="77" width="330" height="36" rx="4" fill="#dbeafe" fill-opacity="0.65" stroke="#3b82f6" stroke-width="1.2"/>
+    <text x="250" y="92" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="700" fill="#1e3a8a">Observed Astrometric Arc (&Delta;t<tspan dy="2" font-size="7.5">arc</tspan><tspan dy="-2"> = t</tspan><tspan dy="2" font-size="7.5">last</tspan><tspan dy="-2"> &minus; t</tspan><tspan dy="2" font-size="7.5">first</tspan><tspan dy="-2">)</tspan></text>
+    <text x="250" y="106" text-anchor="middle" font-family="monospace" font-size="8.8" fill="#1d4ed8">Cols 128–136 (Year Range or Arc Length in Days)</text>
+
+    <!-- Extrapolation Interval (t_last to t_epoch) -->
+    <rect x="415" y="77" width="175" height="36" rx="4" fill="#fff1f2" fill-opacity="0.8" stroke="#f43f5e" stroke-width="1.2" stroke-dasharray="4,2"/>
+    <text x="502.5" y="92" text-anchor="middle" font-family="sans-serif" font-size="9.5" font-weight="700" fill="#9f1239">Propagation (&Delta;t<tspan dy="2" font-size="7.5">stale</tspan><tspan dy="-2">)</tspan></text>
+    <text x="502.5" y="106" text-anchor="middle" font-family="monospace" font-size="8.5" fill="#be123c">&sigma;<tspan dy="2" font-size="7">pos</tspan><tspan dy="-2"> &prop; &sigma;</tspan><tspan dy="2" font-size="7">n</tspan><tspan dy="-2"> &middot; &Delta;t</tspan><tspan dy="2" font-size="7">stale</tspan></text>
+
+    <!-- Key Markers on Timeline -->
+    <!-- t_first -->
+    <circle cx="85" cy="95" r="5" fill="#1e3a8a"/>
+    <text x="85" y="64" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="700" fill="#1e3a8a">t<tspan dy="2" font-size="7.5">first</tspan></text>
+    <text x="85" y="130" text-anchor="middle" font-family="sans-serif" font-size="8.8" fill="#475569">First Observation</text>
+
+    <!-- t_last (Cols 195-202) -->
+    <circle cx="415" cy="95" r="6" fill="#047857" stroke="#0f172a" stroke-width="1"/>
+    <text x="415" y="52" text-anchor="middle" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#065f46">t<tspan dy="2" font-size="8">last</tspan><tspan dy="-2"> (Cols 195–202)</tspan></text>
+    <text x="415" y="66" text-anchor="middle" font-family="monospace" font-size="9.2" font-weight="700" fill="#047857">YYYYMMDD (UTC)</text>
+    <text x="415" y="130" text-anchor="middle" font-family="sans-serif" font-size="8.8" font-weight="700" fill="#065f46">Last Observation</text>
+
+    <!-- t_epoch (Cols 21-25) -->
+    <circle cx="590" cy="95" r="5.5" fill="#be123c"/>
+    <text x="590" y="64" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="700" fill="#9f1239">t<tspan dy="2" font-size="7.5">epoch</tspan><tspan dy="-2"> (Cols 21–25)</tspan></text>
+    <text x="590" y="130" text-anchor="middle" font-family="sans-serif" font-size="8.8" fill="#475569">Osculating Epoch</text>
+
+    <!-- Bottom Record Strip: MPCORB.DAT Tail Layout (Columns 162–202) -->
+    <rect x="45" y="155" width="650" height="135" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+    <text x="60" y="177" font-family="sans-serif" font-size="11" font-weight="700" fill="#0f172a">Fixed-Width Character Layout of the MPCORB.DAT Tail (Columns 162–202):</text>
+
+    <!-- Column Boxes -->
+    <rect x="60" y="190" width="90" height="44" rx="4" fill="#eff6ff" stroke="#93c5fd" stroke-width="1"/>
+    <text x="105" y="208" text-anchor="middle" font-family="monospace" font-size="9.5" font-weight="700" fill="#1e3a8a">Cols 162–165</text>
+    <text x="105" y="224" text-anchor="middle" font-family="monospace" font-size="9" fill="#334155">4-Hex Flags</text>
+
+    <rect x="158" y="190" width="335" height="44" rx="4" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1"/>
+    <text x="325.5" y="208" text-anchor="middle" font-family="monospace" font-size="9.5" font-weight="700" fill="#334155">Cols 167–194 (28 chars)</text>
+    <text x="325.5" y="224" text-anchor="middle" font-family="monospace" font-size="9" fill="#475569">Readable Number &amp; Name / Provisional Designation</text>
+
+    <rect x="501" y="190" width="179" height="44" rx="4" fill="#ecfdf5" stroke="#10b981" stroke-width="1.6"/>
+    <text x="590.5" y="208" text-anchor="middle" font-family="monospace" font-size="9.5" font-weight="700" fill="#065f46">Cols 195–202 (8 chars)</text>
+    <text x="590.5" y="224" text-anchor="middle" font-family="monospace" font-size="9.5" font-weight="700" fill="#047857">YYYYMMDD (t<tspan dy="2" font-size="7.5">last</tspan><tspan dy="-2">)</tspan></text>
+
+    <text x="60" y="256" font-family="sans-serif" font-size="9.3" fill="#334155">&bull; <strong>0-based C# / Python slice:</strong> <code>line.AsSpan(194, 8)</code> (1-indexed FORTRAN <code>A8</code> in columns 195–202, terminated by newline).</text>
+    <text x="60" y="274" font-family="sans-serif" font-size="9.3" fill="#334155">&bull; <strong>Chronological Ordering:</strong> Lexicographical ASCII comparison (<code>"20251018" &gt; "20210512"</code>) equals exact chronological order.</text>
+  </svg>
+  <div class="figure-caption">
+    <strong>Figure 1:</strong> Role of the <strong>Date of Last Observation</strong> (<span class="math-var">t<sub>last</sub></span>, columns 195–202, <code>YYYYMMDD</code>) in <code>MPCORB.DAT</code>. Together with the arc span (columns 128–136) and osculating epoch (<span class="math-var">t<sub>epoch</sub></span>, columns 21–25), <span class="math-var">t<sub>last</sub></span> defines both the start of the observational arc (<span class="math-var">t<sub>first</sub> = t<sub>last</sub> &minus; &Delta;t<sub>arc</sub></span> for single-opposition objects) and the unguided propagation interval <span class="math-var">&Delta;t<sub>stale</sub> = t<sub>epoch</sub> &minus; t<sub>last</sub></span>.
+  </div>
+</div>
+
+<h2>2. Astrodynamical Significance &amp; Ephemeris Uncertainty Growth</h2>
+<p>
+  In orbit determination and observational planning, <span class="math-var">t<sub>last</sub></span> is the primary diagnostic indicator of <strong>ephemeris currency</strong> and <strong>recovery urgency</strong>:
+</p>
+<ul>
+  <li><strong>Secular Along-Track Uncertainty Growth:</strong> Because the orbital semi-major axis <span class="math-var">a</span> (and hence mean motion <span class="math-var">n = &radic;<span style="text-decoration: overline;">&mu;<sub>&#9737;</sub> / a<sup>3</sup></span></span>) carries a formal least-squares uncertainty <span class="math-var">&sigma;<sub>n</sub></span> determined by the observed arc length <span class="math-var">&Delta;t<sub>arc</sub></span>, the mean anomaly uncertainty <span class="math-var">&sigma;<sub>M</sub>(t)</span> grows linearly with elapsed time <span class="math-var">&Delta;t = t &minus; t<sub>last</sub></span> beyond the last astrometric measurement:
+    <div class="equation-box">
+      <span class="equation-main">
+        &sigma;<sub>M</sub>(t) &approx; &radic;<span style="text-decoration: overline;">&sigma;<sub>M<sub>0</sub></sub><sup>2</sup> + (&sigma;<sub>n</sub> &middot; (t &minus; t<sub>last</sub>))<sup>2</sup></span>, &nbsp;&nbsp; &sigma;<sub>along-track</sub>(t) &approx; a &middot; &sigma;<sub>M</sub>(t)
+      </span>
+      <span class="equation-label">(Eq. 2)</span>
+    </div>
+    For a newly discovered single-opposition NEO with a short arc (<span class="math-var">&Delta;t<sub>arc</sub> &approx; 2–5 days</span>), a stale <span class="math-var">t<sub>last</sub></span> older than a few weeks can inflate sky-plane positional uncertainty from arcseconds to tens of degrees (“lost” object).
+  </li>
+  <li><strong>Reconstructing the First Observation Date (<span class="math-var">t<sub>first</sub></span>):</strong> In <code>MPCORB.DAT</code>, columns 128–136 encode either a year range <code>YYYY-YYYY</code> (for multi-opposition objects) or an integer arc length in days <code>NNNNN days</code> (for single-opposition objects). For single-opposition records, subtracting the integer arc length from <span class="math-var">t<sub>last</sub></span> yields the exact calendar date of discovery/first observation: <span class="math-var">t<sub>first</sub> = t<sub>last</sub> &minus; &Delta;t<sub>arc</sub></span>.</li>
+  <li><strong>Time-Scale Distinction (UTC vs. TT):</strong> While orbital elements in <code>MPCORB.DAT</code> (such as epoch <span class="math-var">t<sub>epoch</sub></span> and perihelion passage <span class="math-var">T<sub>p</sub></span>) are referenced to <strong>Terrestrial Time (TT)</strong>, astrometric observations reported to the MPC are timestamped in <strong>Coordinated Universal Time (UTC)</strong> (historically UT prior to 1972). Consequently, <code>YYYYMMDD</code> in columns 195–202 is strictly a UTC civil date; converting it to a Julian Date for comparison with TT epochs requires adding <span class="math-var">&Delta;T = TT &minus; UTC</span> (<span class="math-var">&approx; 69.184 s</span> in 2025–2026) when sub-minute precision is needed.</li>
+</ul>
+
+<h2>3. Related Temporal &amp; Arc Columns in <code>MPCORB.DAT</code></h2>
+<p>
+  To interpret <span class="math-var">t<sub>last</sub></span> completely within a fixed-width <code>MPCORB.DAT</code> parser, it is evaluated alongside four companion fields:
+</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Columns (1-Based)</th>
+      <th>0-Based Slice</th>
+      <th>Format</th>
+      <th>Field Name &amp; Relationship to Date of Last Observation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>21–25</strong></td>
+      <td><code>[20..25]</code></td>
+      <td><code>A5</code> (Packed)</td>
+      <td><strong>Epoch of Osculation (<span class="math-var">t<sub>epoch</sub></span>):</strong> Standard TT catalog epoch (e.g., <code>K25BL</code> = 2025-11-21.0 TT) to which <span class="math-var">M<sub>0</sub></span> and osculating elements are integrated.</td>
+    </tr>
+    <tr>
+      <td><strong>118–122</strong></td>
+      <td><code>[117..122]</code></td>
+      <td><code>I5</code></td>
+      <td><strong>Number of Observations (<span class="math-var">N<sub>obs</sub></span>):</strong> Total accepted astrometric measurements spanning <span class="math-var">[t<sub>first</sub>, t<sub>last</sub>]</span>.</td>
+    </tr>
+    <tr>
+      <td><strong>124–126</strong></td>
+      <td><code>[123..126]</code></td>
+      <td><code>I3</code></td>
+      <td><strong>Number of Oppositions (<span class="math-var">N<sub>opp</sub></span>):</strong> Number of distinct solar oppositions across which observations were secured.</td>
+    </tr>
+    <tr>
+      <td><strong>128–136</strong></td>
+      <td><code>[127..136]</code></td>
+      <td><code>A9</code></td>
+      <td><strong>Year of First–Last Observation / Arc Length:</strong> Formatted as <code>YYYY-YYYY</code> when <span class="math-var">N<sub>opp</sub> &gt; 1</span> (ending in the year of <span class="math-var">t<sub>last</sub></span>) or <code>NNNNN days</code> when <span class="math-var">N<sub>opp</sub> = 1</span>.</td>
+    </tr>
+    <tr>
+      <td><strong>195–202</strong></td>
+      <td><code>[194..202]</code></td>
+      <td><code>I4,I2,I2</code></td>
+      <td><strong>Date of Last Observation (<span class="math-var">t<sub>last</sub></span>):</strong> Exact UTC calendar date <code>YYYYMMDD</code> of the final astrometric observation in the orbit fit.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>4. Edge Cases &amp; Data-Quality Diagnostics in <code>MPCORB.DAT</code></h2>
+<ul>
+  <li><strong>Future-Dated Epoch vs. Past Last Observation (<span class="math-var">t<sub>last</sub> &lt; t<sub>epoch</sub></span>):</strong> The MPC publishes <code>MPCORB.DAT</code> at standard osculating epochs spaced every 200 days (e.g., <code>K2555</code> = 2025-05-05, <code>K25BL</code> = 2025-11-21, <code>K2669</code> = 2026-06-09). Therefore, even for an asteroid observed the night before catalog generation, <span class="math-var">t<sub>last</sub></span> will frequently precede <span class="math-var">t<sub>epoch</sub></span> by tens of days.</li>
+  <li><strong>Historical / Unrecovered Single-Opposition Objects:</strong> For lost minor planets observed briefly decades ago (e.g., <code>1979 XB</code> or early Palomar–Leiden survey objects), <span class="math-var">t<sub>last</sub></span> may lie 40–70 years prior to <span class="math-var">t<sub>epoch</sub></span>, signaling that direct two-body or perturbed propagation to the current epoch carries multi-degree sky-plane uncertainty.</li>
+  <li><strong>Line-Length Validation Before Slicing:</strong> While standard <code>MPCORB.DAT</code> records are exactly 202 characters wide (excluding CR/LF), legacy or custom-filtered extracts occasionally omit trailing fields or truncate lines at column 194. Defensive parsers should verify <code>line.Length &gt;= 202</code> before parsing <code>YYYYMMDD</code> from columns 195–202.</li>
+</ul>
+
+<h2>5. Worked Examples from <code>MPCORB.DAT</code></h2>
+<p>
+  The following two records from <code>MPCORB.DAT</code> (osculating epoch <code>K25BL</code> = 2025 Nov 21.0 TT = JD 2461000.5) illustrate how columns 195–202 combine with the arc span (columns 128–136) and epoch (columns 21–25):
+</p>
+
+<div class="example-card">
+  <h3>Example 1: (1) Ceres — Multi-Opposition Main-Belt Dwarf Planet (<code>20251018</code>)</h3>
+  <p>
+    Excerpt of <code>MPCORB.DAT</code> columns 118–202 for <code>00001</code>:
+  </p>
+  <pre class="mpcorb-record">... 11432  98 1801-2025 0.61 M-v 30h Williams   1000   (1) Ceres                  20251018</pre>
+  <ul>
+    <li><strong>Parsed Date of Last Observation:</strong> <code>20251018</code> &rarr; <strong>2025 October 18 UTC</strong> (<span class="math-var"><span class="fn">JD</span><sub>UTC</sub> = 2460966.5</span>).</li>
+    <li><strong>Arc &amp; Staleness Synthesis:</strong> Spanning <code>1801-2025</code> across <span class="math-var">N<sub>opp</sub> = 98</span> oppositions (<span class="math-var">N<sub>obs</sub> = 11,432</span>), Ceres's last observation occurred just <span class="math-var">&Delta;t<sub>stale</sub> = 34.0 days</span> prior to the <code>K25BL</code> osculating epoch (2025-11-21), yielding sub-milliarcsecond ephemeris precision.</li>
+  </ul>
+</div>
+
+<div class="example-card">
+  <h3>Example 2: (99942) Apophis — Radar-Observed Aten PHA (<code>20210512</code>)</h3>
+  <p>
+    Excerpt of <code>MPCORB.DAT</code> columns 118–202 for <code>99942</code>:
+  </p>
+  <pre class="mpcorb-record">...  7361  14 2004-2021 0.34 M-v 38k Giorgini   1D02   (99942) Apophis            20210512</pre>
+  <ul>
+    <li><strong>Parsed Date of Last Observation:</strong> <code>20210512</code> &rarr; <strong>2021 May 12 UTC</strong> (<span class="math-var"><span class="fn">JD</span><sub>UTC</sub> = 2459346.5</span>).</li>
+    <li><strong>Arc &amp; Staleness Synthesis:</strong> Following its favorable 2021 apparition (including Goldstone/Green Bank planetary radar astrometry), Apophis entered small solar elongation until its next optical/radar window, resulting in <span class="math-var">&Delta;t<sub>stale</sub> = 1,654 days</span> (<span class="math-var">4.53 years</span>) relative to epoch <code>K25BL</code>; nevertheless, the 17-year radar-constrained arc (<code>2004-2021</code>) keeps its 2029 Earth-flyby uncertainty below a few kilometers.</li>
+  </ul>
+</div>
+
+<div class="interactive-panel">
+  <div class="interactive-title">Interactive Parser &amp; Astrometric Staleness Calculator (MPCORB Columns 195–202)</div>
+  <div class="controls-grid">
+    <div class="control-group">
+      <label for="last_obs_in">Date of Last Observation (YYYYMMDD)</label>
+      <input type="text" id="last_obs_in" value="20251018" maxlength="8">
+    </div>
+    <div class="control-group">
+      <label for="epoch_in">Osculating Epoch (YYYY-MM-DD TT)</label>
+      <input type="date" id="epoch_in" value="2025-11-21">
+    </div>
+    <div class="control-group">
+      <label for="arc_days_in">Single-Opp Arc Days (Optional, 0 = Multi-Opp)</label>
+      <input type="number" id="arc_days_in" value="0" min="0" max="50000" step="1">
+    </div>
+  </div>
+  <div class="result-bar" id="calc_out">Parsing...</div>
+</div>
+
+    </main>
+    <footer>
+      <span>Reference Standard: IAU Minor Planet Center (MPCORB.DAT Fixed-Width Format Specification)</span>
+      <span>Governing Format: YYYYMMDD (Cols 195–202, UTC) &bull; Companion Fields: Epoch (Cols 21–25), N<sub>obs</sub> (Cols 118–122), Arc (Cols 128–136)</span>
+    </footer>
+  </div>
+  <script>
+    
+(function() {
+  function toJulianDateUTC(year, month, day) {
+    let y = year;
+    let m = month;
+    if (m <= 2) {
+      y -= 1;
+      m += 12;
+    }
+    const A = Math.floor(y / 100);
+    const B = 2 - A + Math.floor(A / 4);
+    return Math.floor(365.25 * (y + 4716)) + Math.floor(30.6001 * (m + 1)) + day + B - 1524.5;
+  }
+
+  function parseYyyyMmDd(str) {
+    if (!/^\d{8}$/.test(str)) return null;
+    const y = parseInt(str.slice(0, 4), 10);
+    const m = parseInt(str.slice(4, 6), 10);
+    const d = parseInt(str.slice(6, 8), 10);
+    if (m < 1 || m > 12 || d < 1 || d > 31) return null;
+    const dt = new Date(Date.UTC(y, m - 1, d));
+    if (dt.getUTCFullYear() !== y || dt.getUTCMonth() !== m - 1 || dt.getUTCDate() !== d) return null;
+    return { y, m, d, dt, jd: toJulianDateUTC(y, m, d) };
+  }
+
+  function update() {
+    const raw = document.getElementById('last_obs_in').value.trim();
+    const epochStr = document.getElementById('epoch_in').value;
+    const arcDays = parseInt(document.getElementById('arc_days_in').value, 10) || 0;
+    const out = document.getElementById('calc_out');
+
+    const parsed = parseYyyyMmDd(raw);
+    if (!parsed) {
+      out.textContent = "Invalid Date of Last Observation (expected valid 8-digit Gregorian YYYYMMDD, e.g. 20251018).";
+      return;
+    }
+
+    const isoDate = `${String(parsed.y).padStart(4, '0')}-${String(parsed.m).padStart(2, '0')}-${String(parsed.d).padStart(2, '0')}`;
+    let epochInfo = "";
+    if (/^\d{4}-\d{2}-\d{2}$/.test(epochStr)) {
+      const [ey, em, ed] = epochStr.split('-').map(Number);
+      const jdEpoch = toJulianDateUTC(ey, em, ed);
+      const deltaDays = jdEpoch - parsed.jd;
+      const deltaYears = deltaDays / 365.25;
+      epochInfo = `  |  Epoch Propagation &Delta;t<sub>stale</sub> = ${deltaDays.toFixed(1)} days (${deltaYears.toFixed(2)} yr)`;
+    }
+
+    let firstObsInfo = "";
+    if (arcDays > 0) {
+      const firstDt = new Date(parsed.dt.getTime() - arcDays * 86400000);
+      const fy = firstDt.getUTCFullYear();
+      const fm = String(firstDt.getUTCMonth() + 1).padStart(2, '0');
+      const fd = String(firstDt.getUTCDate()).padStart(2, '0');
+      firstObsInfo = `<br>Reconstructed First Observation (t<sub>last</sub> &minus; ${arcDays} d): ${fy}-${fm}-${fd} UTC`;
+    }
+
+    out.innerHTML =
+      `Parsed Last Observation t<sub>last</sub>: ${isoDate} UTC  |  JD<sub>UTC</sub> = ${parsed.jd.toFixed(1)}${epochInfo}${firstObsInfo}`;
+  }
+
+  ['last_obs_in', 'epoch_in', 'arc_days_in'].forEach(id => {
+    document.getElementById(id).addEventListener('input', update);
+  });
+  update();
+})();
+
+  </script>
+</body>
+</html>

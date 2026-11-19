@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Geometric Albedo-Adjusted Diameter (D) — MPCORB Orbital Reference</title>
+  <style>
+:root {
+  --bg-color: #f8fafc;
+  --surface-color: #ffffff;
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  --accent-color: #1e3a8a;
+  --accent-light: #eff6ff;
+  --border-color: #e2e8f0;
+  --code-bg: #f1f5f9;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-serif: "Georgia", "Times New Roman", Times, serif;
+  --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  line-height: 1.7;
+  padding: 2rem 1rem;
+}
+
+.container {
+  max-width: 920px;
+  margin: 0 auto;
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 2.5rem 3rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+header {
+  border-bottom: 2px solid var(--accent-color);
+  padding-bottom: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.category-tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent-color);
+  background-color: var(--accent-light);
+  padding: 0.25rem 0.65rem;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
+h2 {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.35rem;
+}
+
+h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+ul, ol {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+li {
+  margin-bottom: 0.4rem;
+}
+
+.equation-box {
+  background-color: var(--code-bg);
+  border-left: 4px solid var(--accent-color);
+  padding: 1rem 1.5rem;
+  margin: 1.25rem 0;
+  border-radius: 0 6px 6px 0;
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  overflow-x: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.equation-main {
+  font-style: italic;
+}
+
+.equation-main .fn,
+.math-fn {
+  font-style: normal;
+  font-family: var(--font-serif);
+}
+
+.equation-label {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-style: normal;
+  margin-left: 1rem;
+}
+
+.math-var {
+  font-family: var(--font-serif);
+  font-style: italic;
+}
+
+.frac {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  vertical-align: middle;
+  margin: 0 0.25rem;
+  font-size: 0.94em;
+  line-height: 1.15;
+}
+
+.frac > span:first-child {
+  border-bottom: 1px solid currentColor;
+  padding: 0 0.25rem 0.12rem 0.25rem;
+}
+
+.frac > span:last-child {
+  padding: 0.12rem 0.25rem 0 0.25rem;
+}
+
+.figure-box {
+  background-color: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 1.25rem;
+  margin: 1.75rem 0;
+  text-align: center;
+}
+
+.figure-box svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.figure-caption {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-top: 0.85rem;
+  text-align: left;
+  line-height: 1.5;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.92rem;
+}
+
+th, td {
+  border: 1px solid var(--border-color);
+  padding: 0.65rem 0.85rem;
+  text-align: left;
+}
+
+th {
+  background-color: var(--code-bg);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+code {
+  font-family: var(--font-mono);
+  background-color: var(--code-bg);
+  padding: 0.15rem 0.35rem;
+  border-radius: 4px;
+  font-size: 0.88em;
+}
+
+pre.mpcorb-record {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  background-color: var(--code-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 0.85rem 1rem;
+  overflow-x: auto;
+  line-height: 1.45;
+  color: var(--text-primary);
+  margin: 0.75rem 0 1.25rem 0;
+}
+
+.example-card {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-left: 4px solid #047857;
+  border-radius: 6px;
+  padding: 1.15rem 1.35rem;
+  margin: 1.15rem 0;
+}
+
+.example-card h3 {
+  margin-top: 0;
+  color: #065f46;
+}
+
+.interactive-panel {
+  background-color: var(--code-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 1.25rem;
+  margin: 1.75rem 0;
+}
+
+.interactive-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 0.75rem;
+  color: var(--text-primary);
+}
+
+.controls-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(185px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.control-group label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.control-group input,
+.control-group select {
+  width: 100%;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background-color: var(--surface-color);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+}
+
+.result-bar {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  color: var(--accent-color);
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+footer {
+  margin-top: 2.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 1.5rem 1.25rem;
+  }
+}
+</style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <span class="category-tag">Planetary Photometry &amp; Physical Parameters • MPCORB Reference</span>
+      <h1>Geometric Albedo-Adjusted Diameter (<span class="math-var">D</span>)</h1>
+      <div class="subtitle">Photometric Diameter Scaling, Albedo Priors &amp; Radiometric Error Propagation in MPCORB.DAT</div>
+    </header>
+    <main>
+      
+<h2>1. Formal Definition</h2>
+<p>
+  In planetary photometry, asteroid physical characterization, and derived physical parameters computed from the Minor Planet Center Orbit Database (<strong>MPCORB</strong>), the <strong>geometric albedo-adjusted diameter</strong> (<span class="math-var">D</span>, in kilometers) is the effective area-equivalent spherical diameter of a minor body inferred from its tabulated <strong>absolute visual magnitude</strong> <span class="math-var">H</span> (columns 9–13 of <code>MPCORB.DAT</code>, in the IAU <span class="math-var">H</span>–<span class="math-var">G</span> magnitude system) and an assumed or measured <strong>visual geometric albedo</strong> <span class="math-var">p<sub>V</sub></span>:
+</p>
+
+<div class="equation-box">
+  <span class="equation-main">
+    D(H, p<sub>V</sub>) = <span class="frac"><span>D<sub>0</sub></span><span>&radic;<span style="text-decoration: overline;">p<sub>V</sub></span></span></span> &middot; 10<sup>&minus;H / 5</sup> = <span class="frac"><span>1329.0</span><span>&radic;<span style="text-decoration: overline;">p<sub>V</sub></span></span></span> &middot; 10<sup>&minus;0.2 H</sup> &nbsp; <span class="fn">km</span>
+  </span>
+  <span class="equation-label">(Eq. 1)</span>
+</div>
+
+<p>where:</p>
+<ul>
+  <li><span class="math-var">H</span> is the <strong>absolute magnitude</strong> tabulated directly in <code>MPCORB.DAT</code> (columns 9–13, formatted as <code>F5.2</code> in the Johnson <span class="math-var">V</span> band), defined as the apparent visual magnitude the minor body would have if observed at zero solar phase angle (<span class="math-var">&alpha; = 0&deg;</span>) at unit heliocentric and geocentric distances (<span class="math-var">r = &Delta; = 1 AU</span>).</li>
+  <li><span class="math-var">p<sub>V</sub> &isin; (0, 1]</span> is the <strong>visual geometric albedo</strong> (dimensionless), defined as the ratio of the body's zero-phase-angle brightness at <span class="math-var">&alpha; = 0&deg;</span> to that of an idealized, flat, perfectly diffusing Lambertian disk of the same cross-sectional area <span class="math-var">A<sub>eff</sub> = &pi; D<sup>2</sup> / 4</span> illuminated normally. Because <code>MPCORB.DAT</code> does not store individual albedos, <span class="math-var">p<sub>V</sub></span> is supplied either from external radiometric/polarimetric catalogs (e.g., NEOWISE, IRAS, AKARI) or via taxonomically/dynamically calibrated prior ranges (typically <span class="math-var">p<sub>V</sub> &isin; [0.04, 0.25]</span>).</li>
+  <li><span class="math-var">D<sub>0</sub> = 2 <span class="fn">AU</span> &middot; 10<sup>V<sub>&#9737;</sub> / 5</sup> &approx; 1329.0 km</span> is the <strong>photometric diameter calibration constant</strong> (Fowler &amp; Chillemi 1992; Bowell et al. 1989; Pravec &amp; Harris 2007), derived from the apparent visual magnitude of the Sun at <span class="math-var">1 AU</span> (<span class="math-var">V<sub>&#9737;</sub> = &minus;26.76 mag</span>, giving <span class="math-var">D<sub>0</sub> = 2 &times; 149597870.7 &times; 10<sup>&minus;26.76/5</sup> = 1328.9 km &approx; 1329 km</span>).</li>
+</ul>
+
+<div class="figure-box">
+  <svg viewBox="0 0 740 315" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Photometric radiometry and D(H, pV) scaling curves showing diameter D in km as a function of absolute magnitude H across dark C-type (pV = 0.05), average (pV = 0.14), and bright S/E-type (pV = 0.25) geometric albedos">
+    <defs>
+      <marker id="arrowSlate" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#475569"/>
+      </marker>
+    </defs>
+
+    <!-- Left Diagram: Photometric Diameter Curves D(H, pV) vs H (for H = 3 to 22) -->
+    <rect x="68" y="26" width="352" height="248" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
+
+    <!-- Horizontal log-grid lines: D = 1000 km (y=42), 100 km (y=98), 10 km (y=154), 1 km (y=210), 0.1 km (y=266) -->
+    <line x1="68" y1="42" x2="420" y2="42" stroke="#e2e8f0" stroke-width="1"/>
+    <text x="22" y="46" font-family="monospace" font-size="9" fill="#475569">1000 km</text>
+
+    <line x1="68" y1="98" x2="420" y2="98" stroke="#e2e8f0" stroke-width="1"/>
+    <text x="28" y="102" font-family="monospace" font-size="9" fill="#475569">100 km</text>
+
+    <line x1="68" y1="154" x2="420" y2="154" stroke="#e2e8f0" stroke-width="1"/>
+    <text x="34" y="158" font-family="monospace" font-size="9" fill="#475569">10 km</text>
+
+    <line x1="68" y1="210" x2="420" y2="210" stroke="#e2e8f0" stroke-width="1"/>
+    <text x="38" y="214" font-family="monospace" font-size="9" fill="#475569">1 km</text>
+
+    <line x1="68" y1="266" x2="420" y2="266" stroke="#e2e8f0" stroke-width="1"/>
+    <text x="30" y="270" font-family="monospace" font-size="9" fill="#475569">0.1 km</text>
+
+    <!-- Vertical grid lines for H = 4, 8, 12, 16, 20: x = 78 + (H - 3) * 18 -->
+    <line x1="96" y1="26" x2="96" y2="274" stroke="#e2e8f0" stroke-width="1"/>
+    <text x="90" y="288" font-family="monospace" font-size="9" fill="#475569">H=4</text>
+
+    <line x1="168" y1="26" x2="168" y2="274" stroke="#e2e8f0" stroke-width="1"/>
+    <text x="165" y="288" font-family="monospace" font-size="9" fill="#475569">8</text>
+
+    <line x1="240" y1="26" x2="240" y2="274" stroke="#e2e8f0" stroke-width="1"/>
+    <text x="234" y="288" font-family="monospace" font-size="9" fill="#475569">12</text>
+
+    <line x1="312" y1="26" x2="312" y2="274" stroke="#e2e8f0" stroke-width="1"/>
+    <text x="306" y="288" font-family="monospace" font-size="9" fill="#475569">16</text>
+
+    <line x1="384" y1="26" x2="384" y2="274" stroke="#e2e8f0" stroke-width="1"/>
+    <text x="378" y="288" font-family="monospace" font-size="9" fill="#475569">20</text>
+
+    <!-- Axes -->
+    <line x1="68" y1="274" x2="424" y2="274" stroke="#334155" stroke-width="1.5" marker-end="url(#arrowSlate)"/>
+    <line x1="68" y1="274" x2="68" y2="20" stroke="#334155" stroke-width="1.5" marker-end="url(#arrowSlate)"/>
+    <text x="165" y="305" font-family="sans-serif" font-size="10" font-weight="700" fill="#0f172a">Absolute Magnitude H (mag, MPCORB Cols 9–13)</text>
+
+    <!-- Shaded Albedo Uncertainty Band between pV = 0.04 (dark) and pV = 0.25 (bright):
+         y(D) = 210 - 56 * log10(D)
+         For H=3 (x=78):
+           pV=0.04: D = 1329 / 0.2 * 10^-0.6 = 1669 km -> y = 210 - 56*(3.222) = 29.5
+           pV=0.25: D = 1329 / 0.5 * 10^-0.6 = 667.7 km -> y = 210 - 56*(2.825) = 51.8
+         For H=21 (x=402):
+           pV=0.04: D = 0.419 km -> y = 210 - 56*(-0.378) = 231.2
+           pV=0.25: D = 0.168 km -> y = 210 - 56*(-0.775) = 253.4
+    -->
+    <polygon points="78,29.5 402,231.2 402,253.4 78,51.8" fill="#93c5fd" fill-opacity="0.28"/>
+
+    <!-- Upper Curve: Dark C/D-type (pV = 0.04) -->
+    <line x1="78" y1="29.5" x2="402" y2="231.2" stroke="#1e3a8a" stroke-width="2.2"/>
+    <text x="172" y="76" font-family="sans-serif" font-size="9.2" font-weight="700" fill="#1e3a8a" transform="rotate(31.9 172 76)">Dark Primitive: p<tspan dy="2" font-size="7.5">V</tspan><tspan dy="-2"> = 0.04 (2.5&times; wider than p</tspan><tspan dy="2" font-size="7.5">V</tspan><tspan dy="-2">=0.25)</tspan></text>
+
+    <!-- Middle Curve: Canonical Nominal (pV = 0.14) -->
+    <line x1="78" y1="44.8" x2="402" y2="246.5" stroke="#047857" stroke-width="1.8" stroke-dasharray="5,3"/>
+
+    <!-- Lower Curve: Bright S/E-type (pV = 0.25) -->
+    <line x1="78" y1="51.8" x2="402" y2="253.4" stroke="#be123c" stroke-width="2.2"/>
+    <text x="122" y="106" font-family="sans-serif" font-size="9.2" font-weight="700" fill="#9f1239" transform="rotate(31.9 122 106)">Bright Silicaceous: p<tspan dy="2" font-size="7.5">V</tspan><tspan dy="-2"> = 0.25</tspan></text>
+
+    <!-- Right Panel: First-Principles Derivation & Uncertainty Scaling -->
+    <rect x="455" y="24" width="265" height="266" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+    <text x="470" y="47" font-family="sans-serif" font-size="11.5" font-weight="700" fill="#0f172a">Photometric Radiometry Laws</text>
+
+    <rect x="470" y="62" width="235" height="65" rx="4" fill="#eff6ff" stroke="#93c5fd" stroke-width="1"/>
+    <text x="480" y="79" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#1e3a8a">1. Zero-Phase Flux Equivalence:</text>
+    <text x="480" y="97" font-family="Georgia, serif" font-style="italic" font-size="11" fill="#0f172a">p<tspan dy="2" font-size="8.5">V</tspan><tspan dy="-2"> (&pi; D&sup2;/4) / (1 AU)&sup2; = &pi; 10</tspan><tspan dy="-4" font-size="8.5">&minus;0.4(H &minus; V&#9737;)</tspan></text>
+    <text x="480" y="116" font-family="sans-serif" font-size="9.3" fill="#475569">(V<tspan dy="2" font-size="7.5">&#9737;</tspan><tspan dy="-2"> = &minus;26.76 mag &rArr; D</tspan><tspan dy="2" font-size="7.5">0</tspan><tspan dy="-2"> = 1329 km)</tspan></text>
+
+    <line x1="587" y1="127" x2="587" y2="143" stroke="#475569" stroke-width="1.4" marker-end="url(#arrowSlate)"/>
+
+    <rect x="470" y="145" width="235" height="62" rx="4" fill="#ecfdf5" stroke="#6ee7b7" stroke-width="1"/>
+    <text x="480" y="162" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#065f46">2. Diameter &amp; Inverse Albedo:</text>
+    <text x="480" y="180" font-family="Georgia, serif" font-style="italic" font-size="11" fill="#0f172a">D = (1329 / &radic;p<tspan dy="2" font-size="8.5">V</tspan><tspan dy="-2">) &middot; 10</tspan><tspan dy="-4" font-size="8.5">&minus;0.2 H</tspan><tspan dy="4"> km</tspan></text>
+    <text x="480" y="198" font-family="Georgia, serif" font-style="italic" font-size="10.8" fill="#0f172a">p<tspan dy="2" font-size="8.5">V</tspan><tspan dy="-2"> = (1329 / D)&sup2; &middot; 10</tspan><tspan dy="-4" font-size="8.5">&minus;0.4 H</tspan></text>
+
+    <line x1="587" y1="207" x2="587" y2="223" stroke="#475569" stroke-width="1.4" marker-end="url(#arrowSlate)"/>
+
+    <rect x="470" y="225" width="235" height="53" rx="4" fill="#fff1f2" stroke="#fda4af" stroke-width="1"/>
+    <text x="480" y="242" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#9f1239">3. Propagated Error Law:</text>
+    <text x="480" y="261" font-family="Georgia, serif" font-style="italic" font-size="10.8" fill="#0f172a">&sigma;<tspan dy="2" font-size="8.5">D</tspan><tspan dy="-2">/D = &radic;[(0.4605 &sigma;</tspan><tspan dy="2" font-size="8.5">H</tspan><tspan dy="-2">)&sup2; + (&sigma;</tspan><tspan dy="2" font-size="8.5">pV</tspan><tspan dy="-2">/(2p</tspan><tspan dy="2" font-size="8.5">V</tspan><tspan dy="-2">))&sup2;]</tspan></text>
+  </svg>
+  <div class="figure-caption">
+    <strong>Figure 1:</strong> Photometric scaling of the <strong>geometric albedo-adjusted diameter</strong> <span class="math-var">D(H, p<sub>V</sub>) = (1329 / &radic;<span style="text-decoration: overline;">p<sub>V</sub></span>) &middot; 10<sup>&minus;0.2 H</sup></span> across the <code>MPCORB.DAT</code> absolute magnitude domain (<span class="math-var">H = 3</span> to <span class="math-var">22 mag</span>). Because <span class="math-var">D &prop; p<sub>V</sub><sup>&minus;1/2</sup></span>, a factor-of-6.25 variation in albedo between dark primitive asteroids (<span class="math-var">p<sub>V</sub> = 0.04</span>) and bright silicaceous asteroids (<span class="math-var">p<sub>V</sub> = 0.25</span>) produces a factor-of-2.5 spread in inferred diameter at fixed <span class="math-var">H</span>.
+  </div>
+</div>
+
+<h2>2. First-Principles Derivation &amp; Error Propagation</h2>
+<p>
+  At zero solar phase angle (<span class="math-var">&alpha; = 0&deg;</span>) and unit distances (<span class="math-var">r = &Delta; = 1 AU</span>), the visual flux <span class="math-var">F<sub>ast</sub></span> reflected by a spherical body of diameter <span class="math-var">D</span> and geometric albedo <span class="math-var">p<sub>V</sub></span> is proportional to the product of its geometric cross-section (<span class="math-var">&pi; D<sup>2</sup> / 4</span>) and <span class="math-var">p<sub>V</sub></span>, normalized by the solar flux <span class="math-var">F<sub>&#9737;</sub></span> at <span class="math-var">1 AU</span>:
+</p>
+
+<div class="equation-box">
+  <span class="equation-main">
+    <span class="frac"><span>F<sub>ast</sub></span><span>F<sub>&#9737;</sub></span></span> = 10<sup>&minus;0.4 (H &minus; V<sub>&#9737;</sub>)</sup> = p<sub>V</sub> <span class="frac"><span>&pi; D<sup>2</sup> / 4</span><span>&pi; (1 <span class="fn">AU</span>)<sup>2</sup></span></span> = p<sub>V</sub> &left(<span class="frac"><span>D</span><span>2 <span class="fn">AU</span></span></span>&right)<sup>2</sup>
+  </span>
+  <span class="equation-label">(Eq. 2)</span>
+</div>
+
+<p>
+  Solving Eq. (2) for <span class="math-var">D</span> recovers Eq. (1), while solving for <span class="math-var">p<sub>V</sub></span> allows independent thermal-infrared or occultation diameters (<span class="math-var">D<sub>obs</sub></span>) to be combined with <code>MPCORB.DAT</code> <span class="math-var">H</span> values to derive <span class="math-var">p<sub>V</sub> = (1329.0 / D<sub>obs</sub>)<sup>2</sup> &middot; 10<sup>&minus;0.4 H</sup></span>. Taking partial derivatives of <span class="math-var"><span class="fn">ln</span> D = <span class="fn">ln</span> D<sub>0</sub> &minus; <span class="frac"><span>1</span><span>2</span></span> <span class="fn">ln</span> p<sub>V</sub> &minus; (<span class="fn">ln</span> 10 / 5) H</span> yields the relative uncertainty <span class="math-var">&sigma;<sub>D</sub> / D</span>:
+</p>
+
+<div class="equation-box">
+  <span class="equation-main">
+    <span class="frac"><span>&sigma;<sub>D</sub></span><span>D</span></span> = &radic;<span style="text-decoration: overline;">&left(<span class="frac"><span><span class="fn">ln</span> 10</span><span>5</span></span> &sigma;<sub>H</sub>&right)<sup>2</sup> + &left(<span class="frac"><span>&sigma;<sub>p<sub>V</sub></sub></span><span>2 p<sub>V</sub></span></span>&right)<sup>2</sup></span> &approx; &radic;<span style="text-decoration: overline;">(0.46052 &sigma;<sub>H</sub>)<sup>2</sup> + &left(<span class="frac"><span>&sigma;<sub>p<sub>V</sub></sub></span><span>2 p<sub>V</sub></span></span>&right)<sup>2</sup></span>
+  </span>
+  <span class="equation-label">(Eq. 3)</span>
+</div>
+
+<p>
+  where a typical catalog magnitude uncertainty of <span class="math-var">&sigma;<sub>H</sub> = 0.25 mag</span> induces an <span class="math-var">11.5%</span> diameter uncertainty, whereas an unmeasured albedo prior <span class="math-var">p<sub>V</sub> &isin; [0.05, 0.25]</span> dominates the error budget with a <span class="math-var">&sim;40–55%</span> spread.
+</p>
+
+<h2>3. Taxonomic &amp; Dynamical Albedo Priors for <code>MPCORB.DAT</code></h2>
+<p>
+  When individual radiometric albedos are unavailable for an entry in <code>MPCORB.DAT</code>, asteroid survey pipelines (such as the MPC/IAU Minor Planet Center, JPL Small-Body Database, and CNEOS) evaluate <span class="math-var">D(H, p<sub>V</sub>)</span> using either the canonical single-value standard (<span class="math-var">p<sub>V</sub> = 0.14</span> or <span class="math-var">0.15</span>) or the bracketing range <span class="math-var">[D(H, 0.25), D(H, 0.05)]</span> stratified by taxonomic/dynamical population:
+</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Taxonomic / Dynamical Class</th>
+      <th>Typical <span class="math-var">p<sub>V</sub></span> Range</th>
+      <th>Nominal <span class="math-var">p<sub>V</sub></span></th>
+      <th>Scale Factor <span class="math-var">1329 / &radic;<span style="text-decoration: overline;">p<sub>V</sub></span></span> (km)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Cometary Nuclei / D- &amp; P-Types (Trojans, Outer Belt)</strong></td>
+      <td><span class="math-var">0.03 – 0.07</span></td>
+      <td><span class="math-var">0.045</span></td>
+      <td><span class="math-var">6265 km</span></td>
+    </tr>
+    <tr>
+      <td><strong>C-Complex (Carbonaceous, Outer Main Belt)</strong></td>
+      <td><span class="math-var">0.04 – 0.09</span></td>
+      <td><span class="math-var">0.060</span></td>
+      <td><span class="math-var">5426 km</span></td>
+    </tr>
+    <tr>
+      <td><strong>Canonical Unclassified <code>MPCORB</code> Standard</strong></td>
+      <td><span class="math-var">0.05 – 0.25</span></td>
+      <td><span class="math-var">0.140</span></td>
+      <td><span class="math-var">3552 km</span></td>
+    </tr>
+    <tr>
+      <td><strong>S-Complex (Silicaceous, Inner Main Belt &amp; NEAs)</strong></td>
+      <td><span class="math-var">0.15 – 0.28</span></td>
+      <td><span class="math-var">0.200</span></td>
+      <td><span class="math-var">2972 km</span></td>
+    </tr>
+    <tr>
+      <td><strong>V- &amp; E-Types (Basaltic Vestoids, Hungarias)</strong></td>
+      <td><span class="math-var">0.30 – 0.55</span></td>
+      <td><span class="math-var">0.400</span></td>
+      <td><span class="math-var">2101 km</span></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>4. Astrodynamical &amp; Observational Caveats</h2>
+<ul>
+  <li><strong>Slope Parameter (<span class="math-var">G</span>) Coupling in <code>MPCORB.DAT</code>:</strong> In <code>MPCORB.DAT</code>, <span class="math-var">H</span> (columns 9–13) is fitted jointly with the phase-curve slope parameter <span class="math-var">G</span> (columns 15–19, defaulting to <span class="math-var">G = 0.15</span> when phase coverage is sparse). Because dark C-type asteroids typically exhibit steeper opposition surges (<span class="math-var">G &approx; 0.08–0.12</span>) than bright S/E-type bodies (<span class="math-var">G &approx; 0.20–0.40</span>), assuming <span class="math-var">G = 0.15</span> can bias <span class="math-var">H</span> by <span class="math-var">&plusmn;0.15–0.30 mag</span>, propagating into a <span class="math-var">7–15%</span> systematic shift in <span class="math-var">D(H, p<sub>V</sub>)</span>.</li>
+  <li><strong>Non-Spherical Shape &amp; Rotational Lightcurve Amplitude:</strong> Eq. (1) yields the diameter of an equivalent sphere with cross-sectional area <span class="math-var">A<sub>eff</sub> = &pi; D<sup>2</sup> / 4</span>. For elongated triaxial ellipsoids (<span class="math-var">a<sub>body</sub> &gt; b<sub>body</sub> &ge; c<sub>body</sub></span>), <span class="math-var">D &approx; 2(a<sub>body</sub> b<sub>body</sub> c<sub>body</sub>)<sup>1/3</sup></span> corresponds to the rotationally averaged projected area, while instantaneous apparent magnitudes oscillate by <span class="math-var">&Delta;m = 2.5 <span class="fn">log</span><sub>10</sub>(a<sub>body</sub> / b<sub>body</sub>)</span>.</li>
+  <li><strong>Cometary Coma Contamination:</strong> For active minor bodies in <code>MPCORB.DAT</code> exhibiting dust or gas comae near perihelion, the catalog magnitude reflects integrated coma + nucleus brightness rather than bare-nucleus <span class="math-var">H<sub>N</sub></span>, causing Eq. (1) to overestimate the true nuclear diameter unless quiescent-aphelion photometry is used.</li>
+</ul>
+
+<h2>5. Worked Examples from <code>MPCORB.DAT</code></h2>
+<p>
+  The following two numbered minor planets from <code>MPCORB.DAT</code> (epoch <code>K25BL</code> = 2025 Nov 21.0 TT = JD 2461000.5) illustrate the calculation of <span class="math-var">D(H, p<sub>V</sub>)</span> using both measured radiometric albedos and standard unmeasured albedo brackets (<span class="math-var">p<sub>V</sub> &isin; [0.05, 0.25]</span>):
+</p>
+
+<div class="example-card">
+  <h3>Example 1: (1) Ceres — Dark G/C-Type Dwarf Planet (<span class="math-var">D = 939.4 km</span> at <span class="math-var">p<sub>V</sub> = 0.090</span>)</h3>
+  <p>
+    Excerpt from <code>MPCORB.DAT</code> (columns 1–103):
+  </p>
+  <pre class="mpcorb-record">00001    3.34  0.12 K25BL 231.53975   73.28579   80.25414   10.58688  0.0789158  0.21410467   2.7675059</pre>
+  <ul>
+    <li><strong>Extracted Photometric Elements:</strong> <span class="math-var">H = 3.34 mag</span> (columns 9–13) and <span class="math-var">G = 0.12</span> (columns 15–19).</li>
+    <li><strong>Albedo-Adjusted Diameter Evaluation:</strong> Applying Dawn/radiometric visual geometric albedo <span class="math-var">p<sub>V</sub> = 0.090</span> in Eq. (1) gives <span class="math-var">D = (1329.0 / &radic;<span style="text-decoration: overline;">0.090</span>) &middot; 10<sup>&minus;0.2(3.34)</sup> = 4430.0 &times; 0.214783 = 951.5 km</span> (closely matching Dawn's volume-equivalent sphere <span class="math-var">D = 939.4 km</span>, which corresponds to <span class="math-var">p<sub>V</sub> = 0.0923</span> at <span class="math-var">H = 3.34</span>). Without prior albedo knowledge, the standard <span class="math-var">p<sub>V</sub> &isin; [0.05, 0.25]</span> bracket yields <span class="math-var">D &isin; [570.9 km, 1276.6 km]</span> (nominal <span class="math-var">p<sub>V</sub> = 0.14 &rArr; 762.9 km</span>).</li>
+  </ul>
+</div>
+
+<div class="example-card">
+  <h3>Example 2: (433) Eros — Bright S-Type Near-Earth Asteroid (<span class="math-var">D = 16.84 km</span> at <span class="math-var">p<sub>V</sub> = 0.250</span>)</h3>
+  <p>
+    Excerpt from <code>MPCORB.DAT</code> (columns 1–103):
+  </p>
+  <pre class="mpcorb-record">00433   10.41  0.46 K25BL  71.23914  178.92841  304.27012   10.82756  0.2227214  0.55978912   1.4582734</pre>
+  <ul>
+    <li><strong>Extracted Photometric Elements:</strong> <span class="math-var">H = 10.41 mag</span> (columns 9–13) and steep S-type slope parameter <span class="math-var">G = 0.46</span> (columns 15–19).</li>
+    <li><strong>Albedo-Adjusted Diameter Evaluation:</strong> Using NEAR Shoemaker's S-type visual geometric albedo <span class="math-var">p<sub>V</sub> = 0.250</span> in Eq. (1) yields <span class="math-var">D = (1329.0 / &radic;<span style="text-decoration: overline;">0.250</span>) &middot; 10<sup>&minus;0.2(10.41)</sup> = 2658.0 &times; 0.0082794 = 22.01 km</span> at <span class="math-var">H = 10.41</span> (or <span class="math-var">16.84 km</span> at NEAR's mean <span class="math-var">H<sub>V</sub> = 10.99 mag</span>, matching Eros's <span class="math-var">34.4 &times; 11.2 &times; 11.2 km</span> triaxial volume-equivalent diameter of <span class="math-var">16.84 km</span>). Under the canonical unclassified <span class="math-var">p<sub>V</sub> = 0.14</span> assumption, <span class="math-var">H = 10.41</span> gives <span class="math-var">D = 29.41 km</span>.</li>
+  </ul>
+</div>
+
+<div class="interactive-panel">
+  <div class="interactive-title">Interactive Calculator: Geometric Albedo-Adjusted Diameter D(H, p<sub>V</sub>), Inverse Albedo &amp; Error Propagation</div>
+  <div class="controls-grid">
+    <div class="control-group">
+      <label for="h_val">Absolute Magnitude H (mag)</label>
+      <input type="number" id="h_val" value="10.41" step="0.1" min="-2" max="35">
+    </div>
+    <div class="control-group">
+      <label for="pv_val">Geometric Albedo p<sub>V</sub> (0 &lt; p<sub>V</sub> &le; 1)</label>
+      <input type="number" id="pv_val" value="0.250" step="0.01" min="0.005" max="1.0">
+    </div>
+    <div class="control-group">
+      <label for="preset_val">Taxonomic Albedo Preset</label>
+      <select id="preset_val">
+        <option value="custom">Custom pV</option>
+        <option value="0.045">D/P-Type / Cometary (0.045)</option>
+        <option value="0.060">C-Complex Carbonaceous (0.060)</option>
+        <option value="0.140">MPCORB Canonical Standard (0.140)</option>
+        <option value="0.200">S-Complex Silicaceous (0.200)</option>
+        <option value="0.250" selected>Bright S-Type / Eros (0.250)</option>
+        <option value="0.400">V/E-Type Basaltic (0.400)</option>
+      </select>
+    </div>
+  </div>
+  <div class="result-bar" id="calc_out">Computing...</div>
+</div>
+
+    </main>
+    <footer>
+      <span>Reference Standard: IAU Minor Planet Center (MPCORB.DAT) &amp; Bowell/Fowler–Chillemi Photometry</span>
+      <span>Governing Relation: D = (1329 / &radic;p<sub>V</sub>) &middot; 10<sup>&minus;0.2 H</sup> km &bull; MPCORB Sources: H (Cols 9–13), G (Cols 15–19)</span>
+    </footer>
+  </div>
+  <script>
+    
+(function() {
+  const D0_KM = 1329.0;
+
+  function formatDiam(dKm) {
+    if (dKm >= 1.0) return `${dKm.toFixed(3)} km`;
+    return `${(dKm * 1000.0).toFixed(1)} m (${dKm.toFixed(5)} km)`;
+  }
+
+  function update() {
+    const H = parseFloat(document.getElementById('h_val').value);
+    const pV = parseFloat(document.getElementById('pv_val').value);
+    const out = document.getElementById('calc_out');
+
+    if ([H, pV].some(isNaN) || pV <= 0 || pV > 1.0) {
+      out.textContent = "Invalid parameters (require 0 < pV <= 1.0 and valid H magnitude).";
+      return;
+    }
+
+    const scale = Math.pow(10.0, -0.2 * H);
+    const dKm = (D0_KM / Math.sqrt(pV)) * scale;
+    const dDark = (D0_KM / Math.sqrt(0.05)) * scale;
+    const dBright = (D0_KM / Math.sqrt(0.25)) * scale;
+    const areaKm2 = Math.PI * 0.25 * dKm * dKm;
+
+    out.innerHTML =
+      `Albedo-Adjusted Diameter D(H=${H.toFixed(2)}, p<sub>V</sub>=${pV.toFixed(3)}) = ${formatDiam(dKm)}  |  Cross-Section A<sub>eff</sub> = ${areaKm2.toExponential(4)} km&sup2;<br>` +
+      `Standard Albedo Bracket [p<sub>V</sub> = 0.25 .. 0.05]: ${formatDiam(dBright)} &ndash; ${formatDiam(dDark)}`;
+  }
+
+  document.getElementById('preset_val').addEventListener('change', function() {
+    if (this.value !== 'custom') {
+      document.getElementById('pv_val').value = this.value;
+      update();
+    }
+  });
+
+  document.getElementById('pv_val').addEventListener('input', function() {
+    document.getElementById('preset_val').value = 'custom';
+    update();
+  });
+
+  document.getElementById('h_val').addEventListener('input', update);
+  update();
+})();
+
+  </script>
+</body>
+</html>

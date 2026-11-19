@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RMS Residual (Columns 138–141) — MPCORB Orbital Reference</title>
+  <style>
+:root {
+  --bg-color: #f8fafc;
+  --surface-color: #ffffff;
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  --accent-color: #1e3a8a;
+  --accent-light: #eff6ff;
+  --border-color: #e2e8f0;
+  --code-bg: #f1f5f9;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-serif: "Georgia", "Times New Roman", Times, serif;
+  --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  line-height: 1.7;
+  padding: 2rem 1rem;
+}
+
+.container {
+  max-width: 940px;
+  margin: 0 auto;
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 2.5rem 3rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+header {
+  border-bottom: 2px solid var(--accent-color);
+  padding-bottom: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.category-tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent-color);
+  background-color: var(--accent-light);
+  padding: 0.25rem 0.65rem;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
+h2 {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.35rem;
+}
+
+h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+ul, ol {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+li {
+  margin-bottom: 0.4rem;
+}
+
+.equation-box {
+  background-color: var(--code-bg);
+  border-left: 4px solid var(--accent-color);
+  padding: 1rem 1.5rem;
+  margin: 1.25rem 0;
+  border-radius: 0 6px 6px 0;
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  overflow-x: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.equation-main {
+  font-style: italic;
+}
+
+.equation-main .fn,
+.math-fn {
+  font-style: normal;
+  font-family: var(--font-serif);
+}
+
+.equation-label {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-style: normal;
+  margin-left: 1rem;
+}
+
+.math-var {
+  font-family: var(--font-serif);
+  font-style: italic;
+}
+
+.frac {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  vertical-align: middle;
+  margin: 0 0.25rem;
+  font-size: 0.94em;
+  line-height: 1.15;
+}
+
+.frac > span:first-child {
+  border-bottom: 1px solid currentColor;
+  padding: 0 0.25rem 0.12rem 0.25rem;
+}
+
+.frac > span:last-child {
+  padding: 0.12rem 0.25rem 0 0.25rem;
+}
+
+.figure-box {
+  background-color: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 1.25rem;
+  margin: 1.75rem 0;
+  text-align: center;
+}
+
+.figure-box svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.figure-caption {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-top: 0.85rem;
+  text-align: left;
+  line-height: 1.5;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.9rem;
+}
+
+th, td {
+  border: 1px solid var(--border-color);
+  padding: 0.6rem 0.8rem;
+  text-align: left;
+}
+
+th {
+  background-color: var(--code-bg);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+code {
+  font-family: var(--font-mono);
+  background-color: var(--code-bg);
+  padding: 0.15rem 0.35rem;
+  border-radius: 4px;
+  font-size: 0.88em;
+}
+
+pre.mpcorb-record {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  background-color: var(--code-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 0.85rem 1rem;
+  overflow-x: auto;
+  line-height: 1.45;
+  color: var(--text-primary);
+  margin: 0.75rem 0 1.25rem 0;
+}
+
+.example-card {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-left: 4px solid #047857;
+  border-radius: 6px;
+  padding: 1.15rem 1.35rem;
+  margin: 1.15rem 0;
+}
+
+.example-card h3 {
+  margin-top: 0;
+  color: #065f46;
+}
+
+.interactive-panel {
+  background-color: var(--code-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 1.25rem;
+  margin: 1.75rem 0;
+}
+
+.interactive-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 0.75rem;
+  color: var(--text-primary);
+}
+
+.controls-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.control-group label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.control-group input,
+.control-group select {
+  width: 100%;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background-color: var(--surface-color);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+}
+
+.result-bar {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.86rem;
+  color: var(--accent-color);
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+footer {
+  margin-top: 2.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+@media (max-width: 680px) {
+  .container {
+    padding: 1.5rem 1.25rem;
+  }
+}
+</style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <span class="category-tag">Orbit Determination Precision &amp; Astrometry • MPCORB Reference</span>
+      <h1>RMS Residual (<span class="math-var">&sigma;<sub>rms</sub></span>, Columns 138–141)</h1>
+      <div class="subtitle">Root-Mean-Square Post-Fit Astrometric (O&minus;C) Residual in Arcseconds (FORTRAN F4.2) in MPCORB.DAT</div>
+    </header>
+    <main>
+      
+<h2>1. Formal Definition</h2>
+<p>
+  In the Minor Planet Center Orbit Database (<strong>MPCORB</strong>), the <strong>RMS Residual</strong> (<span class="math-var">&sigma;<sub>rms</sub></span>, officially specified by the IAU Minor Planet Center as the <em>“r.m.s. residual (")”</em> in <strong>columns 138–141</strong>, 1-indexed, formatted as FORTRAN <code>F4.2</code>, with 0-based character slice <code>[137..141]</code>) is the root-mean-square post-fit astrometric residual—expressed in <strong>arcseconds (<code>&Prime;</code>)</strong>—between the observed topocentric equatorial coordinates <span class="math-var">(&alpha;<sub>obs, k</sub>, &delta;<sub>obs, k</sub>)</span> and the computed ephemeris coordinates <span class="math-var">(&alpha;<sub>calc, k</sub>, &delta;<sub>calc, k</sub>)</span> across all <span class="math-var">N<sub>obs</sub></span> accepted observations in the differential orbit correction:
+</p>
+
+<div class="equation-box">
+  <span class="equation-main">
+    &sigma;<sub>rms</sub> = &radic;<span style="text-decoration: overline;"><span class="frac"><span>1</span><span>N<sub>obs</sub></span></span> &sum;<sub>k=1</sub><sup>N<sub>obs</sub></sup> &Bigl[ (&Delta;&alpha;<sub>k</sub> &middot; cos &delta;<sub>k</sub>)<sup>2</sup> + (&Delta;&delta;<sub>k</sub>)<sup>2</sup> &Bigr]</span> &nbsp;&nbsp; [arcsec]
+  </span>
+  <span class="equation-label">(Eq. 1)</span>
+</div>
+
+<p>where:</p>
+<ul>
+  <li><span class="math-var">&Delta;&alpha;<sub>k</sub> &middot; cos &delta;<sub>k</sub> = (&alpha;<sub>obs, k</sub> &minus; &alpha;<sub>calc, k</sub>) &middot; cos &delta;<sub>k</sub></span> is the <strong>Observed-minus-Computed (O&minus;C) residual in Right Ascension</strong> projected onto the tangent plane of the celestial sphere (great-circle angular offset in arcseconds), removing the <span class="math-var">sec &delta;</span> coordinate singularity near the celestial poles.</li>
+  <li><span class="math-var">&Delta;&delta;<sub>k</sub> = &delta;<sub>obs, k</sub> &minus; &delta;<sub>calc, k</sub></span> is the <strong>O&minus;C residual in Declination</strong> in arcseconds.</li>
+  <li><span class="math-var">N<sub>obs</sub></span> (stored in columns 118–122 of <code>MPCORB.DAT</code>) is the number of accepted optical astrometric observations included in the least-squares orbit fit. (When <span class="math-var">N<sub>obs</sub> &gg; 6</span>, <span class="math-var">N<sub>obs</sub> &approx; N<sub>obs</sub> &minus; 3</span> degrees of freedom for the 6 osculating Keplerian state parameters <span class="math-var">(M<sub>0</sub>, &omega;, &Omega;, i, e, n)</span>.)</li>
+</ul>
+
+<div class="figure-box">
+  <svg viewBox="0 0 740 315" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Tangent-plane O-C astrometric residual geometry showing Delta alpha cos delta, Delta delta, great-circle separation d_k, and MPCORB columns 138-141 F4.2 formatting">
+    <defs>
+      <marker id="arrowBlue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#1e3a8a"/>
+      </marker>
+      <marker id="arrowEmerald" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#047857"/>
+      </marker>
+      <marker id="arrowRose" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#be123c"/>
+      </marker>
+    </defs>
+
+    <!-- Left Panel: Tangent-Plane O-C Residual Geometry -->
+    <rect x="20" y="18" width="345" height="278" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+    <text x="192.5" y="40" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="700" fill="#0f172a">Tangent-Plane (O&minus;C) Astrometric Residual</text>
+
+    <!-- Axes centered at Computed Position (C) at (125, 210) -->
+    <line x1="75" y1="210" x2="325" y2="210" stroke="#64748b" stroke-width="1.2" stroke-dasharray="3,3"/>
+    <line x1="125" y1="255" x2="125" y2="62" stroke="#64748b" stroke-width="1.2" stroke-dasharray="3,3"/>
+    <text x="328" y="214" font-family="sans-serif" font-size="9" font-weight="700" fill="#475569">+&Delta;&alpha; cos &delta; (East)</text>
+    <text x="125" y="55" text-anchor="middle" font-family="sans-serif" font-size="9" font-weight="700" fill="#475569">+&Delta;&delta; (North)</text>
+
+    <!-- 1-sigma RMS circle around Computed Ephemeris C(125, 210) -->
+    <circle cx="125" cy="210" r="95" fill="#dbeafe" fill-opacity="0.35" stroke="#3b82f6" stroke-width="1.3" stroke-dasharray="5,3"/>
+    <text x="235" y="122" font-family="sans-serif" font-size="9" font-weight="700" fill="#1d4ed8">Radius = &sigma;<tspan dy="2" font-size="7">rms</tspan></text>
+
+    <!-- Right-triangle components from C(125,210) to O(265, 115) -->
+    <!-- Horizontal leg: Delta alpha cos delta -->
+    <line x1="125" y1="210" x2="262" y2="210" stroke="#1e3a8a" stroke-width="2" marker-end="url(#arrowBlue)"/>
+    <text x="195" y="227" text-anchor="middle" font-family="serif" font-style="italic" font-size="11" font-weight="700" fill="#1e3a8a">&Delta;&alpha;<tspan dy="2" font-size="8">k</tspan><tspan dy="-2"> cos &delta;</tspan><tspan dy="2" font-size="8">k</tspan></text>
+
+    <!-- Vertical leg: Delta delta -->
+    <line x1="265" y1="210" x2="265" y2="119" stroke="#047857" stroke-width="2" marker-end="url(#arrowEmerald)"/>
+    <text x="273" y="166" font-family="serif" font-style="italic" font-size="11" font-weight="700" fill="#047857">&Delta;&delta;<tspan dy="2" font-size="8">k</tspan></text>
+
+    <!-- Hypotenuse: Total angular separation d_k -->
+    <line x1="125" y1="210" x2="261" y2="118" stroke="#be123c" stroke-width="2.2" marker-end="url(#arrowRose)"/>
+    <text x="178" y="152" text-anchor="middle" font-family="serif" font-style="italic" font-size="11" font-weight="700" fill="#be123c" transform="rotate(-34, 178, 152)">d<tspan dy="2" font-size="8">k</tspan><tspan dy="-2"> = &radic;((&Delta;&alpha; cos &delta;)</tspan><tspan dy="-3" font-size="7.5">2</tspan><tspan dy="3"> + &Delta;&delta;</tspan><tspan dy="-3" font-size="7.5">2</tspan><tspan dy="3">)</tspan></text>
+
+    <!-- Points C and O -->
+    <circle cx="125" cy="210" r="4.5" fill="#0f172a"/>
+    <text x="115" y="226" text-anchor="end" font-family="sans-serif" font-size="9.5" font-weight="700" fill="#0f172a">Computed (C)</text>
+
+    <circle cx="265" cy="115" r="5" fill="#be123c"/>
+    <text x="265" y="104" text-anchor="middle" font-family="sans-serif" font-size="9.5" font-weight="700" fill="#be123c">Observed (O<tspan dy="2" font-size="7.5">k</tspan><tspan dy="-2">)</tspan></text>
+
+    <!-- Right Panel: MPCORB Columns 138-141 Schema & Quality Regimes -->
+    <rect x="380" y="18" width="340" height="278" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+    <text x="550" y="40" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="700" fill="#0f172a">MPCORB.DAT Field Layout &amp; Precision Regimes</text>
+
+    <!-- Fixed-width slot diagram for cols 138-141 -->
+    <rect x="405" y="54" width="290" height="46" rx="4" fill="#eff6ff" stroke="#1e3a8a" stroke-width="1.5"/>
+    <text x="550" y="71" text-anchor="middle" font-family="monospace" font-size="9.5" font-weight="700" fill="#1e3a8a">Columns 138–141 (4 chars, FORTRAN F4.2)</text>
+    <text x="550" y="88" text-anchor="middle" font-family="monospace" font-size="9.5" fill="#0f172a">0-based [137..141]: e.g. "0.34", "0.61", "1.42"</text>
+
+    <!-- Precision regime bars -->
+    <text x="405" y="120" font-family="sans-serif" font-size="9.8" font-weight="700" fill="#0f172a">Typical Astrometric Quality Benchmarks:</text>
+
+    <rect x="405" y="130" width="290" height="32" rx="4" fill="#ecfdf5" stroke="#6ee7b7" stroke-width="1"/>
+    <text x="415" y="144" font-family="monospace" font-size="9" font-weight="700" fill="#065f46">&sigma;<tspan dy="2" font-size="7">rms</tspan><tspan dy="-2"> &le; 0.35&Prime; — Gaia-Era CCD Precision</tspan></text>
+    <text x="415" y="156" font-family="sans-serif" font-size="8.2" fill="#047857">Modern surveys (Pan-STARRS, Catalina, ZTF) reduced with Gaia DR2/DR3.</text>
+
+    <rect x="405" y="168" width="290" height="32" rx="4" fill="#eff6ff" stroke="#93c5fd" stroke-width="1"/>
+    <text x="415" y="182" font-family="monospace" font-size="9" font-weight="700" fill="#1e3a8a">0.35&Prime; &lt; &sigma;<tspan dy="2" font-size="7">rms</tspan><tspan dy="-2"> &le; 0.80&Prime; — Multi-Decade Mixed Arc</tspan></text>
+    <text x="415" y="194" font-family="sans-serif" font-size="8.2" fill="#1d4ed8">Blends modern CCD astrometry with legacy photographic/UCAC plates.</text>
+
+    <rect x="405" y="206" width="290" height="32" rx="4" fill="#fffbeb" stroke="#fcd34d" stroke-width="1"/>
+    <text x="415" y="220" font-family="monospace" font-size="9" font-weight="700" fill="#92400e">0.80&Prime; &lt; &sigma;<tspan dy="2" font-size="7">rms</tspan><tspan dy="-2"> &le; 2.00&Prime; — Legacy / Unperturbed Fit</tspan></text>
+    <text x="415" y="232" font-family="sans-serif" font-size="8.2" fill="#b45309">Pre-CCD photographic arcs or unperturbed two-body preliminary orbits.</text>
+
+    <rect x="405" y="244" width="290" height="38" rx="4" fill="#fff1f2" stroke="#fda4af" stroke-width="1"/>
+    <text x="415" y="258" font-family="monospace" font-size="9" font-weight="700" fill="#9f1239">&sigma;<tspan dy="2" font-size="7">rms</tspan><tspan dy="-2"> &gt; 2.00&Prime; (or "    ") — Poor / 2-Body / Vaisala</tspan></text>
+    <text x="415" y="271" font-family="sans-serif" font-size="8.2" fill="#be123c">High scatter, suspect linkage, or blank when N<tspan dy="2" font-size="6.5">obs</tspan><tspan dy="-2"> &le; 3 (exact conic fit).</tspan></text>
+  </svg>
+  <div class="figure-caption">
+    <strong>Figure 1:</strong> Tangent-plane projection of individual Observed-minus-Computed (O&minus;C) residuals <span class="math-var">(&Delta;&alpha;<sub>k</sub> cos &delta;<sub>k</sub>, &Delta;&delta;<sub>k</sub>)</span> whose quadratic mean defines the <strong>RMS Residual</strong> <span class="math-var">&sigma;<sub>rms</sub></span> stored in columns 138–141 (<code>F4.2</code>) of <code>MPCORB.DAT</code>.
+  </div>
+</div>
+
+<h2>2. Statistical Properties &amp; Physical Interpretation</h2>
+<ul>
+  <li><strong>Relationship to Residual Variance and Bias:</strong> By the standard identity relating the root-mean-square to the arithmetic mean <span class="math-var">&mu;<sub>O&minus;C</sub></span> and sample standard deviation <span class="math-var">s<sub>O&minus;C</sub></span>,
+    <div class="equation-box">
+      <span class="equation-main">
+        &sigma;<sub>rms</sub><sup>2</sup> = &mu;<sub>&Delta;&alpha; cos &delta;</sub><sup>2</sup> + &mu;<sub>&Delta;&delta;</sub><sup>2</sup> + s<sub>&Delta;&alpha; cos &delta;</sub><sup>2</sup> + s<sub>&Delta;&delta;</sub><sup>2</sup>
+      </span>
+      <span class="equation-label">(Eq. 2)</span>
+    </div>
+    Because an unconstrained 6-parameter differential correction minimizes the sum of squared residuals <span class="math-var">&sum; d<sub>k</sub><sup>2</sup></span>, systematic biases (<span class="math-var">&mu;<sub>&Delta;&alpha; cos &delta;</sub>, &mu;<sub>&Delta;&delta;</sub> &ne; 0</span>) arise primarily when unmodeled non-gravitational accelerations (Yarkovsky drift <span class="math-var">da/dt</span>, cometary outgassing), unmodeled planetary perturbations (in two-body orbits), or false observation linkages distort the trajectory.
+  </li>
+  <li><strong>Weighted Least Squares vs. Unweighted Reported RMS:</strong> In modern MPC and JPL orbit-determination pipelines (e.g., Vere&scaron; et al. 2017 weighting schemes), observations are weighted inversely by observatory- and catalog-specific astrometric error variances <span class="math-var">w<sub>k</sub> = 1 / &sigma;<sub>cat, k</sub><sup>2</sup></span> during parameter estimation. However, the single scalar value <span class="math-var">&sigma;<sub>rms</sub></span> printed in columns 138–141 of <code>MPCORB.DAT</code> is the <strong>unweighted</strong> root-mean-square residual in arcseconds across all accepted optical observations.</li>
+  <li><strong>Why Multi-Century Orbits Often Show Slightly Higher <span class="math-var">&sigma;<sub>rms</sub></span> than Modern NEOs:</strong> A newly discovered Gaia-calibrated NEO observed over 30 nights by Pan-STARRS1/2 and Catalina frequently achieves <span class="math-var">&sigma;<sub>rms</sub> &approx; 0.15&Prime;–0.30&Prime;</span>, whereas numbered main-belt asteroids discovered in the 19th or 20th century (such as <code>(1) Ceres</code> with <span class="math-var">&sigma;<sub>rms</sub> = 0.61&Prime;</span>) combine sub-0.1&Prime; modern CCD positions with 1&Prime;–2&Prime; historical visual micrometer and photographic plate measurements.</li>
+</ul>
+
+<h2>3. Fixed-Width Format Specifications &amp; Edge Cases in <code>MPCORB.DAT</code></h2>
+<table>
+  <thead>
+    <tr>
+      <th>Property</th>
+      <th>Specification / Behavior in <code>MPCORB.DAT</code></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Column Positions</strong></td>
+      <td><strong>Columns 138–141</strong> (1-indexed), corresponding to 0-based substring slice <code>[137..141]</code> (length 4 characters), preceded by a space at column 137 (after the arc/year-span field in cols 128–136) and followed by a space at column 142 (before coarse perturbers in cols 143–145).</td>
+    </tr>
+    <tr>
+      <td><strong>FORTRAN Format Descriptor</strong></td>
+      <td><code>F4.2</code> (4-character fixed-point floating-point number with 2 decimal digits, e.g., <code>0.34</code>, <code>1.25</code>, <code>9.99</code>).</td>
+    </tr>
+    <tr>
+      <td><strong>Blank Field (<code>"    "</code>)</strong></td>
+      <td>Left blank (4 spaces) when an orbit is computed from <span class="math-var">N<sub>obs</sub> &le; 3</span> observations (exact deterministic Gauss/Laplace/V&auml;is&auml;l&auml; solution with zero degrees of freedom, where <span class="math-var">d<sub>k</sub> &equiv; 0</span> identically) or when <span class="math-var">&sigma;<sub>rms</sub></span> is unavailable.</td>
+    </tr>
+    <tr>
+      <td><strong>Overflow / Large Residuals</strong></td>
+      <td>If <span class="math-var">&sigma;<sub>rms</sub> &ge; 10.00&Prime;</span> (exceeding <code>F4.2</code> width), the MPC formats the field as <code>F4.1</code> (e.g., <code>12.4</code>) or <code>I4</code>/<code>F4.0</code>; defensive parsers should parse with invariant-culture floating-point parsing after checking <code>!span.IsWhiteSpace()</code>.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>4. Worked Examples from <code>MPCORB.DAT</code></h2>
+<p>
+  The following two records from <code>MPCORB.DAT</code> (epoch <code>K25BL</code> = 2025 Nov 21.0 TT = JD 2461000.5) demonstrate how columns 138–141 contextualize orbital fit precision alongside <span class="math-var">N<sub>obs</sub></span> (columns 118–122) and <span class="math-var">N<sub>opp</sub></span> (columns 124–126):
+</p>
+
+<div class="example-card">
+  <h3>Example 1: (1) Ceres — Multi-Century Blended Astrometric Arc (<code>0.61&Prime;</code>)</h3>
+  <p>
+    Excerpt of <code>MPCORB.DAT</code> columns 118–202 for <code>00001</code>:
+  </p>
+  <pre class="mpcorb-record">... 11432  98 1801-2025 0.61 M-v 30h JPL 48     1000   (1) Ceres                  20251018</pre>
+  <ul>
+    <li><strong>Parsed RMS Residual (Cols 138–141):</strong> <code>0.61&Prime;</code> (<span class="math-var">&sigma;<sub>rms</sub> = 0.61 arcsec</span>).</li>
+    <li><strong>Astrodynamical Interpretation:</strong> Averaged across <span class="math-var">N<sub>obs</sub> = 11,432</span> optical observations spanning 224 years (<code>1801-2025</code>, <span class="math-var">N<sub>opp</sub> = 98</span>), the <code>0.61&Prime;</code> RMS reflects the inclusion of 19th-century meridian-circle and early photographic observations alongside modern sub-0.1&Prime; CCD measurements in the <code>JPL 48</code> integration.</li>
+  </ul>
+</div>
+
+<div class="example-card">
+  <h3>Example 2: (99942) Apophis — Modern CCD &amp; Radar-Constrained NEA (<code>0.34&Prime;</code>)</h3>
+  <p>
+    Excerpt of <code>MPCORB.DAT</code> columns 118–202 for <code>99942</code>:
+  </p>
+  <pre class="mpcorb-record">...  7361  14 2004-2021 0.34 M-v 38k JPL 218    1D02   (99942) Apophis            20210512</pre>
+  <ul>
+    <li><strong>Parsed RMS Residual (Cols 138–141):</strong> <code>0.34&Prime;</code> (<span class="math-var">&sigma;<sub>rms</sub> = 0.34 arcsec</span>).</li>
+    <li><strong>Astrodynamical Interpretation:</strong> Because all <span class="math-var">N<sub>obs</sub> = 7,361</span> optical observations were acquired in the CCD era (<code>2004-2021</code>, <span class="math-var">N<sub>opp</sub> = 14</span>) and re-reduced against modern star catalogs, the unweighted optical RMS is tightly constrained at <code>0.34&Prime;</code>.</li>
+  </ul>
+</div>
+
+<div class="interactive-panel">
+  <div class="interactive-title">Interactive Tangent-Plane (O&minus;C) &amp; RMS Residual Calculator</div>
+  <div class="controls-grid">
+    <div class="control-group">
+      <label for="da_in">RA Residuals &Delta;&alpha; cos &delta; (arcsec, comma-sep)</label>
+      <input type="text" id="da_in" value="0.22, -0.31, 0.18, -0.14, 0.29">
+    </div>
+    <div class="control-group">
+      <label for="dd_in">Dec Residuals &Delta;&delta; (arcsec, comma-sep)</label>
+      <input type="text" id="dd_in" value="-0.19, 0.25, 0.30, -0.21, 0.12">
+    </div>
+  </div>
+  <div class="result-bar" id="calc_out">Calculating...</div>
+</div>
+
+    </main>
+    <footer>
+      <span>Reference Standard: IAU Minor Planet Center (MPCORB.DAT Fixed-Width Format Specification)</span>
+      <span>Governing Equation: &sigma;<sub>rms</sub> = &radic;[(1/N<sub>obs</sub>)&sum;((&Delta;&alpha; cos &delta;)<sup>2</sup> + &Delta;&delta;<sup>2</sup>)] &bull; Cols 138–141 (F4.2)</span>
+    </footer>
+  </div>
+  <script>
+    
+(function() {
+  function parseList(str) {
+    return str.split(',')
+      .map(s => parseFloat(s.trim()))
+      .filter(v => Number.isFinite(v));
+  }
+
+  function update() {
+    const da = parseList(document.getElementById('da_in').value);
+    const dd = parseList(document.getElementById('dd_in').value);
+    const out = document.getElementById('calc_out');
+
+    const n = Math.min(da.length, dd.length);
+    if (n === 0 || da.length !== dd.length) {
+      out.textContent = "Enter matching comma-separated lists of RA (Delta_alpha * cos(delta)) and Dec (Delta_delta) residuals in arcseconds.";
+      return;
+    }
+
+    let sumSq = 0;
+    let sumDa = 0;
+    let sumDd = 0;
+    for (let i = 0; i < n; i++) {
+      sumSq += da[i] * da[i] + dd[i] * dd[i];
+      sumDa += da[i];
+      sumDd += dd[i];
+    }
+
+    const rms = Math.sqrt(sumSq / n);
+    const meanDa = sumDa / n;
+    const meanDd = sumDd / n;
+    const mpcorbFmt = rms < 10 ? rms.toFixed(2).padStart(4, ' ') : rms.toFixed(1).padStart(4, ' ');
+
+    out.innerHTML =
+      `N_obs = ${n}  |  RMS Residual &sigma;<sub>rms</sub> = ${rms.toFixed(4)}&Prime;  |  MPCORB Cols 138–141 (F4.2): <code>"${mpcorbFmt}"</code><br>` +
+      `Mean Bias: &mu;(&Delta;&alpha; cos &delta;) = ${meanDa >= 0 ? '+' : ''}${meanDa.toFixed(3)}&Prime;,  &mu;(&Delta;&delta;) = ${meanDd >= 0 ? '+' : ''}${meanDd.toFixed(3)}&Prime;`;
+  }
+
+  ['da_in', 'dd_in'].forEach(id => {
+    document.getElementById(id).addEventListener('input', update);
+  });
+  update();
+})();
+
+  </script>
+</body>
+</html>
