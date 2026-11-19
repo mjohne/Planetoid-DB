@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ascending Node Distance in the Context of MPCORB</title>
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #334155;
+            --accent-color: #1e3a8a;
+            --accent-light: #eff6ff;
+            --border-color: #cbd5e1;
+            --code-bg: #f1f5f9;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.7;
+            color: var(--text-primary);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 3rem 3.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            border: 1px solid var(--border-color);
+        }
+
+        header {
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .badge {
+            display: inline-block;
+            background-color: var(--accent-light);
+            color: var(--accent-color);
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            padding: 0.3rem 0.75rem;
+            border-radius: 4px;
+            border: 1px solid #bfdbfe;
+            margin-bottom: 0.75rem;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin: 0.25rem 0 0.5rem 0;
+            color: var(--text-primary);
+            line-height: 1.25;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            margin: 0;
+        }
+
+        h2 {
+            font-size: 1.35rem;
+            color: var(--accent-color);
+            margin-top: 2.25rem;
+            margin-bottom: 0.85rem;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 0.35rem;
+        }
+
+        h3 {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        p {
+            margin-bottom: 1.15rem;
+            color: var(--text-secondary);
+            text-align: justify;
+        }
+
+        ul, ol {
+            margin-bottom: 1.25rem;
+            padding-left: 1.5rem;
+            color: var(--text-secondary);
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        .equation-box {
+            background-color: var(--code-bg);
+            border-left: 4px solid var(--accent-color);
+            padding: 1.15rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 6px 6px 0;
+            overflow-x: auto;
+            font-family: "Cambria Math", "STIX Two Math", "Times New Roman", Times, serif;
+            font-size: 1.18rem;
+            color: var(--text-primary);
+            text-align: center;
+        }
+
+        .math-inline {
+            font-family: "Cambria Math", "STIX Two Math", "Times New Roman", Times, serif;
+            font-style: italic;
+            font-size: 1.05em;
+            color: var(--text-primary);
+        }
+
+        .math-roman {
+            font-family: "Cambria Math", "STIX Two Math", "Times New Roman", Times, serif;
+            font-style: normal;
+            font-size: 1.02em;
+            color: var(--text-primary);
+        }
+
+        .frac {
+            display: inline-flex;
+            flex-direction: column;
+            vertical-align: middle;
+            text-align: center;
+            margin: 0 0.25rem;
+        }
+
+        .frac > span:first-child {
+            border-bottom: 1px solid var(--text-primary);
+            padding: 0 0.3rem 0.15rem 0.3rem;
+        }
+
+        .frac > span:last-child {
+            padding: 0.15rem 0.3rem 0 0.3rem;
+        }
+
+        .spec-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.92rem;
+        }
+
+        .spec-table th, .spec-table td {
+            border: 1px solid var(--border-color);
+            padding: 0.75rem 1rem;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        .spec-table th {
+            background-color: var(--accent-color);
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .spec-table tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        code {
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+            background-color: var(--code-bg);
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.88em;
+            color: #0f172a;
+        }
+
+        pre {
+            background-color: #1e293b;
+            color: #f8fafc;
+            padding: 1rem 1.25rem;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+        }
+
+        .note-callout {
+            background-color: #fffbeb;
+            border-left: 4px solid #d97706;
+            padding: 1rem 1.25rem;
+            margin: 1.5rem 0;
+            border-radius: 0 6px 6px 0;
+            color: #78350f;
+            font-size: 0.95rem;
+        }
+
+        .terminology-callout {
+            background-color: var(--accent-light);
+            border-left: 4px solid var(--accent-color);
+            padding: 1rem 1.25rem;
+            margin: 1.5rem 0;
+            border-radius: 0 6px 6px 0;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+        }
+
+        .diagram-box {
+            background-color: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+
+        .diagram-caption {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+        }
+
+        .calculator-box {
+            background-color: var(--accent-light);
+            border: 1px solid #bfdbfe;
+            border-radius: 8px;
+            padding: 1.25rem 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .calculator-box h4 {
+            margin: 0 0 0.75rem 0;
+            color: var(--accent-color);
+            font-size: 1rem;
+        }
+
+        .calc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+            gap: 1rem;
+            align-items: end;
+        }
+
+        .calc-field label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.3rem;
+        }
+
+        .calc-field input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 0.5rem 0.65rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 0.95rem;
+            font-family: inherit;
+        }
+
+        .calc-output {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 0.55rem 0.75rem;
+            font-size: 0.92rem;
+            color: var(--text-primary);
+        }
+
+        footer {
+            margin-top: 3rem;
+            padding-top: 1.25rem;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.85rem;
+            color: #64748b;
+            text-align: center;
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 1.75rem 1.25rem;
+            }
+            h1 {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="badge">Celestial Mechanics &amp; Astrometry Specification</div>
+            <h1>Ascending Node Distance (<span class="math-inline">r</span><sub>&Omega;</sub>) in the Context of the MPCORB Database</h1>
+            <p class="subtitle">Scientific Definition, Polar Conic-Section Formulation, Nodal-Chord Harmonic Identity, and Evaluation from MPCORB</p>
+        </header>
+
+        <section>
+            <h2>1. Fundamental Astrodynamical &amp; Geometric Definition</h2>
+            <div class="terminology-callout">
+                <strong>Definition &amp; Nomenclature:</strong> In two-body Keplerian celestial mechanics and planetary encounter dynamics, the <strong>ascending node distance</strong> (denoted <span class="math-inline">r</span><sub>&Omega;</sub> or <span class="math-inline">R</span><sub>&Omega;</sub>, and paired with the <strong>descending node distance</strong> <span class="math-inline">r</span><sub>&mldr;</sub>)—is the heliocentric radial distance (measured in Astronomical Units, <span class="math-roman">AU</span>) from the primary focus (the Sun) to the point on the osculating Keplerian trajectory where the body crosses the J2000.0 reference ecliptic plane from south to north (<span class="math-roman"><em>&beta;</em> : &minus; &rarr; +</span>), corresponding to true anomaly <span class="math-roman"><em>&nu;</em><sub>&Omega;</sub> = &minus;<em>&omega;</em></span> (or <span class="math-roman">360&deg; &minus; <em>&omega;</em></span>).
+            </div>
+            <p>
+                In heliocentric polar coordinates <span class="math-roman">(<em>r</em>, <em>&nu;</em>)</span> within the orbital plane, any conic-section orbit is governed by the polar trajectory equation:
+            </p>
+            <div class="equation-box">
+                <span class="math-inline">r</span>(<span class="math-inline">&nu;</span>) =
+                <span class="frac">
+                    <span><span class="math-inline">p</span><sub>slr</sub></span>
+                    <span>1 + <span class="math-inline">e</span> cos <span class="math-inline">&nu;</span></span>
+                </span>
+                =
+                <span class="frac">
+                    <span><span class="math-inline">a</span>(1 &minus; <span class="math-inline">e</span><sup>2</sup>)</span>
+                    <span>1 + <span class="math-inline">e</span> cos <span class="math-inline">&nu;</span></span>
+                </span>
+            </div>
+            <p>
+                where <span class="math-roman"><em>p</em><sub>slr</sub> = <em>a</em>(1 &minus; <em>e</em><sup>2</sup>)</span> is the orbital <strong>semi-latus rectum</strong> (<span class="math-roman">AU</span>), <span class="math-inline">a</span> is the semi-major axis (<span class="math-roman">AU</span>), <span class="math-inline">e</span> is the numeric eccentricity, and <span class="math-inline">&nu;</span> is the true anomaly measured from perihelion. Because the argument of latitude <span class="math-roman"><em>u</em> = <em>&omega;</em> + <em>&nu;</em></span> equals <span class="math-roman">0&deg;</span> (<span class="math-roman">0 rad</span>) at the <strong>ascending node</strong> (<span class="math-inline">&Omega;</span>), the true anomaly at the ascending node is <span class="math-roman"><em>&nu;</em><sub>&Omega;</sub> = &minus;<em>&omega;</em></span>. Substituting <span class="math-roman">cos(&minus;<em>&omega;</em>) = cos <em>&omega;</em></span> yields the exact <strong>ascending node distance</strong>:
+            </p>
+            <div class="equation-box">
+                <span class="math-inline">r</span><sub>&Omega;</sub> =
+                <span class="frac">
+                    <span><span class="math-inline">a</span>(1 &minus; <span class="math-inline">e</span><sup>2</sup>)</span>
+                    <span>1 + <span class="math-inline">e</span> cos <span class="math-inline">&omega;</span></span>
+                </span>
+                =
+                <span class="frac">
+                    <span><span class="math-inline">q</span>(1 + <span class="math-inline">e</span>)</span>
+                    <span>1 + <span class="math-inline">e</span> cos <span class="math-inline">&omega;</span></span>
+                </span>
+            </div>
+            <p>
+                where <span class="math-roman"><em>q</em> = <em>a</em>(1 &minus; <em>e</em>)</span> is the perihelion distance (<span class="math-roman">AU</span>), making the second form directly applicable to parabolic (<span class="math-roman"><em>e</em> = 1</span>, <span class="math-roman"><em>r</em><sub>&Omega;</sub> = 2<em>q</em> / (1 + cos <em>&omega;</em>)</span>) and hyperbolic (<span class="math-roman"><em>e</em> &gt; 1</span>, provided <span class="math-roman">1 + <em>e</em> cos <em>&omega;</em> &gt; 0</span>) trajectories as well as bound ellipses (<span class="math-roman">0 &le; <em>e</em> &lt; 1</span>).
+            </p>
+            <p>
+                Key geometric and astrodynamical properties of the ascending node distance <span class="math-inline">r</span><sub>&Omega;</sub> include:
+            </p>
+            <ul>
+                <li><strong>Harmonic Mean Identity with the Descending Node Distance (<span class="math-inline">r</span><sub>&mldr;</sub>):</strong> At the antipodal descending node (<span class="math-roman"><em>u</em> = 180&deg;</span>, <span class="math-roman"><em>&nu;</em><sub>&mldr;</sub> = 180&deg; &minus; <em>&omega;</em></span>), <span class="math-roman"><em>r</em><sub>&mldr;</sub> = <em>p</em><sub>slr</sub> / (1 &minus; <em>e</em> cos <em>&omega;</em>)</span>. Because the line of nodes is a focal chord of the conic section, <span class="math-inline">r</span><sub>&Omega;</sub> and <span class="math-inline">r</span><sub>&mldr;</sub> satisfy the exact projective conic identity:
+                    <div class="equation-box">
+                        <span class="frac">
+                            <span>1</span>
+                            <span><span class="math-inline">r</span><sub>&Omega;</sub></span>
+                        </span>
+                        +
+                        <span class="frac">
+                            <span>1</span>
+                            <span><span class="math-inline">r</span><sub>&mldr;</sub></span>
+                        </span>
+                        =
+                        <span class="frac">
+                            <span>2</span>
+                            <span><span class="math-inline">p</span><sub>slr</sub></span>
+                        </span>
+                        =
+                        <span class="frac">
+                            <span>2</span>
+                            <span><span class="math-inline">a</span>(1 &minus; <span class="math-inline">e</span><sup>2</sup>)</span>
+                        </span>
+                    </div>
+                </li>
+                <li><strong>Apsidal Alignment Extrema (<span class="math-roman"><em>&omega;</em> = 0&deg;, 180&deg;</span>):</strong> When <span class="math-roman"><em>&omega;</em> = 0&deg;</span>, the ascending node coincides with perihelion and <span class="math-inline">r</span><sub>&Omega;</sub> attains its global minimum <span class="math-roman"><em>r</em><sub>&Omega;</sub> = <em>q</em> = <em>a</em>(1 &minus; <em>e</em>)</span>. When <span class="math-roman"><em>&omega;</em> = 180&deg;</span>, the ascending node coincides with aphelion and <span class="math-inline">r</span><sub>&Omega;</sub> attains its global maximum <span class="math-roman"><em>r</em><sub>&Omega;</sub> = <em>Q</em> = <em>a</em>(1 + <em>e</em>)</span>.</li>
+                <li><strong>Orthogonal Latus-Rectum Configuration (<span class="math-roman"><em>&omega;</em> = 90&deg;, 270&deg;</span>):</strong> When the line of nodes is perpendicular to the line of apsides (<span class="math-roman">cos <em>&omega;</em> = 0</span>), both nodal distances equal the semi-latus rectum: <span class="math-roman"><em>r</em><sub>&Omega;</sub> = <em>r</em><sub>&mldr;</sub> = <em>p</em><sub>slr</sub> = <em>a</em>(1 &minus; <em>e</em><sup>2</sup>)</span>.</li>
+                <li><strong>3D Heliocentric Ecliptic Position Vector at the Ascending Node:</strong> At the instant of ascending-node passage, the body&rsquo;s J2000.0 ecliptic latitude vanishes (<span class="math-roman"><em>Z</em><sub>&Omega;</sub> = 0</span>) and its 3D heliocentric ecliptic Cartesian coordinates are completely determined by <span class="math-inline">r</span><sub>&Omega;</sub> and the longitude of the ascending node <span class="math-inline">&Omega;</span>:
+                    <div class="equation-box">
+                        <strong>r</strong><sub>&Omega;</sub> =
+                        <span class="roman">[</span>
+                        <span class="math-inline">r</span><sub>&Omega;</sub> cos <span class="math-inline">&Omega;</span>, &nbsp;
+                        <span class="math-inline">r</span><sub>&Omega;</sub> sin <span class="math-inline">&Omega;</span>, &nbsp;
+                        0
+                        <span class="roman">]</span><sup>T</sup>
+                    </div>
+                </li>
+            </ul>
+
+            <div class="diagram-box">
+                <svg width="560" height="250" viewBox="0 0 560 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Orbital diagram showing the heliocentric focus S, the line of nodes passing through S, the ascending node distance r_Omega from S to the ascending node, and the descending node distance r_desc">
+                    <rect x="0" y="0" width="560" height="250" fill="#f8fafc" rx="6"/>
+                    <!-- Left panel: Orbital ellipse with focal line of nodes -->
+                    <!-- Center of ellipse at (165, 125), a = 115, b = 78, c = 84.5 -->
+                    <!-- Perihelion q on right: (280, 125); Aphelion Q on left: (50, 125); Sun S at (249.5, 125) -->
+                    <ellipse cx="165" cy="125" rx="115" ry="78" fill="#eff6ff" stroke="#64748b" stroke-width="1.6"/>
+                    <!-- Apsidal line Q - S - q -->
+                    <line x1="42" y1="125" x2="288" y2="125" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3,3"/>
+                    <!-- Descending node radius vector r_desc from Sun S (249.5, 125) to Descending Node (197.1, 50.1) -->
+                    <line x1="249.5" y1="125" x2="197.1" y2="50.1" stroke="#0284c7" stroke-width="2" stroke-dasharray="4,3"/>
+                    <!-- Ascending node radius vector r_Omega from Sun S (249.5, 125) to Ascending Node (270.8, 155.5) -->
+                    <line x1="249.5" y1="125" x2="270.8" y2="155.5" stroke="#dc2626" stroke-width="3.2"/>
+                    <!-- Sun S -->
+                    <circle cx="249.5" cy="125" r="5.5" fill="#f59e0b" stroke="#b45309" stroke-width="1.2"/>
+                    <text x="245" y="114" text-anchor="end" font-family="serif" font-size="11" fill="#92400e" font-weight="bold">S (Sun)</text>
+                    <!-- Aphelion Q -->
+                    <circle cx="50" cy="125" r="3.2" fill="#64748b"/>
+                    <text x="43" y="129" text-anchor="end" font-family="serif" font-style="italic" font-size="12" fill="#475569">Q</text>
+                    <!-- Perihelion q -->
+                    <circle cx="280" cy="125" r="3.2" fill="#64748b"/>
+                    <text x="286" y="129" text-anchor="start" font-family="serif" font-style="italic" font-size="12" fill="#475569">q</text>
+                    <!-- Descending node -->
+                    <circle cx="197.1" cy="50.1" r="4" fill="#0284c7"/>
+                    <text x="192" y="42" text-anchor="end" font-family="serif" font-size="11" fill="#0369a1" font-weight="bold">&mldr; (Desc. Node)</text>
+                    <text x="215" y="92" text-anchor="end" font-family="serif" font-style="italic" font-size="12" fill="#0369a1">r<tspan baseline-shift="sub" font-size="8" font-style="normal">&mldr;</tspan></text>
+                    <!-- Ascending node -->
+                    <circle cx="270.8" cy="155.5" r="4.5" fill="#dc2626"/>
+                    <text x="276" y="167" text-anchor="start" font-family="serif" font-size="11" fill="#dc2626" font-weight="bold">&Omega; (Asc. Node)</text>
+                    <text x="255" y="151" text-anchor="end" font-family="serif" font-style="italic" font-size="12.5" fill="#dc2626" font-weight="bold">r<tspan baseline-shift="sub" font-size="9" font-style="normal">&Omega;</tspan></text>
+                    <!-- True anomaly arc omega between S-q and S-Omega -->
+                    <path d="M 266 125 A 16.5 16.5 0 0 1 259 138.5" fill="none" stroke="#1e3a8a" stroke-width="1.4"/>
+                    <text x="272" y="138" text-anchor="start" font-family="serif" font-size="10.5" fill="#1e3a8a">&omega;</text>
+
+                    <!-- Right panel: Analytical identities -->
+                    <text x="430" y="52" text-anchor="middle" font-family="serif" font-size="13.5" fill="#1e3a8a" font-weight="bold">Ascending Node Distance (r<tspan baseline-shift="sub" font-size="9">&Omega;</tspan>):</text>
+                    <text x="430" y="82" text-anchor="middle" font-family="serif" font-size="13" fill="#dc2626" font-weight="bold">r<tspan baseline-shift="sub" font-size="9">&Omega;</tspan> = a(1 &minus; e&sup2;) / (1 + e cos &omega;)</text>
+                    <text x="430" y="108" text-anchor="middle" font-family="serif" font-size="12" fill="#0369a1">1/r<tspan baseline-shift="sub" font-size="9">&Omega;</tspan> + 1/r<tspan baseline-shift="sub" font-size="9">&mldr;</tspan> = 2 / [a(1 &minus; e&sup2;)]</text>
+                    <text x="430" y="138" text-anchor="middle" font-family="sans-serif" font-size="10.5" fill="#334155">True anomaly at &Omega;: &nu;<tspan baseline-shift="sub" font-size="8">&Omega;</tspan> = &minus;&omega;</text>
+                    <text x="430" y="156" text-anchor="middle" font-family="sans-serif" font-size="10.5" fill="#334155">Ecliptic crossing: &beta; : &minus; &rarr; + (Z = 0)</text>
+                    <text x="430" y="186" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#475569">Extrema: q &le; r<tspan baseline-shift="sub" font-size="8">&Omega;</tspan> &le; Q (for &omega; = 0&deg;, 180&deg;)</text>
+                    <text x="430" y="202" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#475569">Orthogonal nodes (&omega; = 90&deg;, 270&deg;): r<tspan baseline-shift="sub" font-size="8">&Omega;</tspan> = p<tspan baseline-shift="sub" font-size="8">slr</tspan></text>
+                </svg>
+                <div class="diagram-caption">
+                    Figure 1: Focal chord along the line of nodes showing the <strong>ascending node distance</strong> <span class="math-inline">r</span><sub>&Omega;</sub> (red, at true anomaly <span class="math-roman"><em>&nu;</em><sub>&Omega;</sub> = &minus;<em>&omega;</em></span>) and the complementary <strong>descending node distance</strong> <span class="math-inline">r</span><sub>&mldr;</sub> (blue).
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>2. Planetary Orbit-Intersection &amp; Nodal-Crossing Kinematics</h2>
+            <p>
+                Because the major planets (and Earth in particular, with orbital radius <span class="math-roman"><em>r</em><sub>&oplus;</sub> &approx; 1.000 AU</span> and negligible inclination <span class="math-roman"><em>i</em><sub>&oplus;</sub> &approx; 0&deg;</span> to the J2000.0 ecliptic) move very close to the ecliptic plane, a minor planet can experience a close physical encounter with Earth or an outer planet <em>only</em> in the immediate vicinity of its ascending or descending ecliptic node. Consequently, comparing <span class="math-inline">r</span><sub>&Omega;</sub> and <span class="math-inline">r</span><sub>&mldr;</sub> against planetary semi-major axes <span class="math-inline">a</span><sub>planet</sub> is the primary first-order geometric filter for identifying potential planet-crossing bodies:
+            </p>
+            <div class="equation-box">
+                <span class="math-inline">&Delta;r</span><sub>&Omega;,&oplus;</sub> = |<span class="math-inline">r</span><sub>&Omega;</sub> &minus; 1.000 AU|
+                &nbsp;,&nbsp;&nbsp;&nbsp;&nbsp;
+                <span class="math-inline">&Delta;r</span><sub>&Omega;,Jup</sub> = |<span class="math-inline">r</span><sub>&Omega;</sub> &minus; 5.204 AU|
+            </div>
+            <p>
+                When <span class="math-roman"><em>r</em><sub>&Omega;</sub> &approx; 1.000 AU</span> (a <strong>nodal Earth-crosser</strong>), the minor planet&rsquo;s trajectory physically pierces Earth&rsquo;s orbital ring at heliocentric ecliptic longitude <span class="math-roman"><em>&lambda;</em> = &Omega;</span>, producing a small Ascending-Node Minimum Orbital Intersection Distance (<span class="math-roman">MOID<sub>&Omega;</sub></span>) and generating annual meteor showers whenever Earth passes ecliptic longitude <span class="math-inline">&Omega;</span>.
+            </p>
+        </section>
+
+        <section>
+            <h2>3. Specific Status and Derivation in the MPCORB Catalog</h2>
+            <p>
+                In the <strong>MPCORB</strong> (<em>Minor Planet Center Orbit</em>) database published by the International Astronomical Union&rsquo;s Minor Planet Center (IAU MPC):
+            </p>
+
+            <ul>
+                <li>
+                    <strong>Implicit Derived Quantity (Not Tabulated):</strong> <code>MPCORB.DAT</code> distributes osculating orbits exclusively in classical Keplerian elements and does <em>not</em> store <span class="math-inline">r</span><sub>&Omega;</sub> (or <span class="math-inline">r</span><sub>&mldr;</sub>) as an explicit column. Instead, <span class="math-inline">r</span><sub>&Omega;</sub> is computed algebraically in closed form from three osculating columns present in every record:
+                    <ul>
+                        <li><strong>Argument of perihelion <span class="math-inline">&omega;</span></strong> (columns <code>38–46</code>, format <code>F9.5</code>, degrees);</li>
+                        <li><strong>Numeric eccentricity <span class="math-inline">e</span></strong> (columns <code>71–79</code>, format <code>F9.7</code>, dimensionless);</li>
+                        <li><strong>Semi-major axis <span class="math-inline">a</span></strong> (columns <code>93–103</code>, format <code>F11.7</code>, <span class="math-roman">AU</span>).</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Note on Inclination &amp; Coplanar Convention (<span class="math-roman"><em>i</em> = 0&deg;</span>):</strong> While <span class="math-inline">i</span> (columns <code>60–68</code>) and <span class="math-inline">&Omega;</span> (columns <code>49–57</code>) do not appear explicitly in the scalar expression for <span class="math-inline">r</span><sub>&Omega;</sub>, the ascending node is physically defined as a unique ecliptic crossing only for inclined orbits (<span class="math-roman">0&deg; &lt; <em>i</em> &lt; 180&deg;</span>). For strictly coplanar orbits (<span class="math-roman"><em>i</em> = 0&deg;</span>, <span class="math-roman"><em>&Omega;</em> = 0&deg;</span> by convention), the expression evaluates smoothly at <span class="math-roman"><em>&nu;</em> = &minus;<em>&omega;</em></span> (corresponding to the radial distance along the J2000.0 vernal equinox direction <span class="math-roman">&#9800;</span>).
+                </li>
+                <li>
+                    <strong>Practical Applications in MPCORB Catalog Analysis:</strong>
+                    <ul>
+                        <li><em>Potentially Hazardous Asteroid (PHA) &amp; NEO Screening:</em> Rapidly flags Apollo and Aten objects whose ascending node crosses near <span class="math-roman">1 AU</span> (<span class="math-roman">0.95 AU &le; <em>r</em><sub>&Omega;</sub> &le; 1.05 AU</span>) without iterative numerical MOID minimization.</li>
+                        <li><em>Cometary &amp; Centaur Dynamical Classification:</em> Identifies Jupiter-family comets and Centaurs whose ascending node lies near Jupiter&rsquo;s (<span class="math-roman">&approx; 5.20 AU</span>) or Saturn&rsquo;s (<span class="math-roman">&approx; 9.58 AU</span>) orbital radius, indicating strong secular Kozai&ndash;Lidov or close-encounter coupling.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <div class="note-callout">
+                <strong>Implementation &amp; Numerical Stability Note:</strong> For bound elliptic orbits (<span class="math-roman">0 &le; <em>e</em> &lt; 1</span>) in <code>MPCORB.DAT</code>, the denominator <span class="math-roman">1 + <em>e</em> cos <em>&omega;</em></span> is strictly positive and bounded within <span class="math-roman">[1 &minus; <em>e</em>, 1 + <em>e</em>] &sub; (0, 2)</span>, guaranteeing complete absence of division-by-zero singularities. For near-parabolic trajectories (<span class="math-roman"><em>e</em> &rarr; 1</span>), compute <span class="math-roman"><em>p</em><sub>slr</sub> = <em>q</em>(1 + <em>e</em>)</span> rather than <span class="math-roman"><em>a</em>(1 &minus; <em>e</em><sup>2</sup>)</span> to avoid catastrophic cancellation in floating-point arithmetic.
+            </div>
+
+            <div class="calculator-box">
+                <h4>Interactive MPCORB Ascending Node Distance (<span class="math-inline">r</span><sub>&Omega;</sub>) Calculator</h4>
+                <div class="calc-grid">
+                    <div class="calc-field">
+                        <label for="inputA">Semi-Major Axis <em>a</em> (AU, Cols 93&ndash;103)</label>
+                        <input type="number" id="inputA" step="0.0000001" min="0.01" value="2.7675059">
+                    </div>
+                    <div class="calc-field">
+                        <label for="inputE">Eccentricity <em>e</em> (Cols 71&ndash;79)</label>
+                        <input type="number" id="inputE" step="0.0000001" min="0" max="0.9999999" value="0.0785354">
+                    </div>
+                    <div class="calc-field">
+                        <label for="inputOmega">Arg. of Perihelion <em>&omega;</em> (deg, Cols 38&ndash;46)</label>
+                        <input type="number" id="inputOmega" step="0.00001" value="73.28574">
+                    </div>
+                    <div class="calc-output" id="calcResult">
+                        Ascending node dist. <em>r</em><sub>&Omega;</sub>: <strong>2.6897381 AU</strong><br>
+                        Descending node dist. <em>r</em><sub>&mldr;</sub>: <strong>2.8139652 AU</strong><br>
+                        Semi-latus rectum <em>p</em><sub>slr</sub>: <strong>2.7504365 AU</strong>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Fixed-Width Source Columns &amp; Computation from <code>MPCORB.DAT</code></h2>
+            <p>
+                The table below summarizes the fixed-width columns (1-based indexing) in a standard 202-character <code>MPCORB.DAT</code> record required to compute <span class="math-inline">r</span><sub>&Omega;</sub>:
+            </p>
+
+            <table class="spec-table">
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Columns (1-based)</th>
+                        <th>Python Slice (0-based)</th>
+                        <th>Fortran Format</th>
+                        <th>Unit &amp; Role</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong><code>&omega;</code> (Argument of perihelion)</strong></td>
+                        <td><code>38–46</code></td>
+                        <td><code>line[37:46]</code></td>
+                        <td><code>F9.5</code></td>
+                        <td>Degrees (<span class="math-roman">&deg;</span>); sets true anomaly at ascending node <span class="math-roman"><em>&nu;</em><sub>&Omega;</sub> = &minus;<em>&omega;</em></span></td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>e</code> (Numeric eccentricity)</strong></td>
+                        <td><code>71–79</code></td>
+                        <td><code>line[70:79]</code></td>
+                        <td><code>F9.7</code></td>
+                        <td>Dimensionless (<span class="math-roman">0 &le; <em>e</em> &lt; 1</span>); orbital shape parameter</td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>a</code> (Semi-major axis)</strong></td>
+                        <td><code>93–103</code></td>
+                        <td><code>line[92:103]</code></td>
+                        <td><code>F11.7</code></td>
+                        <td>Astronomical Units (<span class="math-roman">AU</span>); linear radial scale factor</td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>r<sub>&Omega;</sub></code> (Ascending node distance)</strong></td>
+                        <td><em>Derived (not stored)</em></td>
+                        <td><code>a * (1 - e**2) / (1 + e * cos(radians(w)))</code></td>
+                        <td><em>Computed</em></td>
+                        <td>Astronomical Units (<span class="math-roman">AU</span>); heliocentric radius at <span class="math-roman"><em>u</em> = 0&deg;</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Example Record Evaluation (<code>00001</code> — (1) Ceres)</h3>
+            <pre>Col:  ... 38      46 ... 71      79 ... 93        103
+Data: ... 73.28574   ... 0.0785354  ... 2.7675059
+          └───┬───┘      └───┬───┘      └────┬────┘
+           w (deg)           e             a (AU)
+
+Ascending Node Distance Evaluation for (1) Ceres:
+  Semi-latus rectum              p_slr = a * (1 - e^2)                    = 2.7504365 AU
+  Denominator factor             1 + e * cos(73.28574 deg)                = 1.0225667
+  Ascending node distance (r_Om) r_Om = p_slr / (1 + e * cos(w))          = 2.6897381 AU
+  Descending node distance (r_dn) r_dn = p_slr / (1 - e * cos(w))         = 2.8139652 AU
+  Harmonic mean check            2 / (1/r_Om + 1/r_dn)                    = 2.7504365 AU (= p_slr)</pre>
+        </section>
+
+        <footer>
+            Self-contained scientific reference document (zero external dependencies) &bull; Conventions aligned with IAU Minor Planet Center (MPC) <code>MPCORB.DAT</code> specifications.
+        </footer>
+    </div>
+
+    <script>
+        (function () {
+            const inputA = document.getElementById("inputA");
+            const inputE = document.getElementById("inputE");
+            const inputOmega = document.getElementById("inputOmega");
+            const calcResult = document.getElementById("calcResult");
+
+            function updateCalculation() {
+                const a = parseFloat(inputA.value);
+                const e = parseFloat(inputE.value);
+                const omegaDeg = parseFloat(inputOmega.value);
+
+                if (!isFinite(a) || a <= 0) {
+                    calcResult.innerHTML = "Semi-major axis <em>a</em> must be strictly positive (&gt; 0 AU).";
+                    return;
+                }
+
+                if (!isFinite(e) || e < 0 || e >= 1) {
+                    calcResult.innerHTML = "Numeric eccentricity <em>e</em> must satisfy 0 &le; <em>e</em> &lt; 1 for a bound elliptic orbit.";
+                    return;
+                }
+
+                if (!isFinite(omegaDeg)) {
+                    calcResult.innerHTML = "Please enter a valid argument of perihelion <em>&omega;</em> in degrees.";
+                    return;
+                }
+
+                const omegaRad = (omegaDeg * Math.PI) / 180.0;
+                const pSlr = a * (1.0 - e * e);
+                const eCosOmega = e * Math.cos(omegaRad);
+
+                const rAsc = pSlr / (1.0 + eCosOmega);
+                const rDesc = pSlr / (1.0 - eCosOmega);
+
+                calcResult.innerHTML =
+                    `Ascending node dist. <em>r</em><sub>&Omega;</sub>: <strong>${rAsc.toFixed(7)} AU</strong><br>` +
+                    `Descending node dist. <em>r</em><sub>&mldr;</sub>: <strong>${rDesc.toFixed(7)} AU</strong><br>` +
+                    `Semi-latus rectum <em>p</em><sub>slr</sub>: <strong>${pSlr.toFixed(7)} AU</strong>`;
+            }
+
+            inputA.addEventListener("input", updateCalculation);
+            inputE.addEventListener("input", updateCalculation);
+            inputOmega.addEventListener("input", updateCalculation);
+            updateCalculation();
+        })();
+    </script>
+</body>
+</html>

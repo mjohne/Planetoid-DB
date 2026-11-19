@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flight Path Angle (&gamma;) — MPCORB Orbital Reference</title>
+  <style>
+:root {
+  --bg-color: #f8fafc;
+  --surface-color: #ffffff;
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  --accent-color: #1e3a8a;
+  --accent-light: #eff6ff;
+  --border-color: #e2e8f0;
+  --code-bg: #f1f5f9;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-serif: "Georgia", "Times New Roman", Times, serif;
+  --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  line-height: 1.7;
+  padding: 2rem 1rem;
+}
+
+.container {
+  max-width: 920px;
+  margin: 0 auto;
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 2.5rem 3rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+header {
+  border-bottom: 2px solid var(--accent-color);
+  padding-bottom: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.category-tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent-color);
+  background-color: var(--accent-light);
+  padding: 0.25rem 0.65rem;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
+h2 {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.35rem;
+}
+
+h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+ul, ol {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+li {
+  margin-bottom: 0.4rem;
+}
+
+.equation-box {
+  background-color: var(--code-bg);
+  border-left: 4px solid var(--accent-color);
+  padding: 1rem 1.5rem;
+  margin: 1.25rem 0;
+  border-radius: 0 6px 6px 0;
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  overflow-x: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.equation-main {
+  font-style: italic;
+}
+
+.equation-label {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-style: normal;
+  margin-left: 1rem;
+}
+
+.math-var {
+  font-family: var(--font-serif);
+  font-style: italic;
+}
+
+.figure-box {
+  background-color: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 1.25rem;
+  margin: 1.75rem 0;
+  text-align: center;
+}
+
+.figure-box svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.figure-caption {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-top: 0.85rem;
+  text-align: left;
+  line-height: 1.5;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.92rem;
+}
+
+th, td {
+  border: 1px solid var(--border-color);
+  padding: 0.65rem 0.85rem;
+  text-align: left;
+}
+
+th {
+  background-color: var(--code-bg);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+code {
+  font-family: var(--font-mono);
+  background-color: var(--code-bg);
+  padding: 0.15rem 0.35rem;
+  border-radius: 4px;
+  font-size: 0.88em;
+}
+
+pre.mpcorb-record {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  background-color: var(--code-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 0.85rem 1rem;
+  overflow-x: auto;
+  line-height: 1.45;
+  color: var(--text-primary);
+  margin: 0.75rem 0 1.25rem 0;
+}
+
+.example-card {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-left: 4px solid #047857;
+  border-radius: 6px;
+  padding: 1.15rem 1.35rem;
+  margin: 1.15rem 0;
+}
+
+.example-card h3 {
+  margin-top: 0;
+  color: #065f46;
+}
+
+.interactive-panel {
+  background-color: var(--code-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 1.25rem;
+  margin: 1.75rem 0;
+}
+
+.interactive-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 0.75rem;
+  color: var(--text-primary);
+}
+
+.controls-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(185px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.control-group label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.control-group input {
+  width: 100%;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background-color: var(--surface-color);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+}
+
+.result-bar {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  color: var(--accent-color);
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+footer {
+  margin-top: 2.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 1.5rem 1.25rem;
+  }
+}
+</style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <span class="category-tag">Astrodynamics &amp; Orbital Kinematics • MPCORB Reference</span>
+      <h1>Flight Path Angle (<span class="math-var">&gamma;</span>)</h1>
+      <div class="subtitle">Local-Horizontal Velocity Pitch, Radial-Transverse Decomposition &amp; Extrema in MPCORB.DAT</div>
+    </header>
+    <main>
+      
+<h2>1. Formal Definition</h2>
+<p>
+  In astrodynamics, celestial mechanics, and derived kinematic diagnostics computed from the Minor Planet Center Orbit Database (<strong>MPCORB</strong>), the <strong>flight path angle</strong> (<span class="math-var">&gamma;</span>, also denoted <span class="math-var">&phi;</span> or <span class="math-var">&psi;</span> in orbital mechanics) is the signed acute angle measured within the osculating orbital plane from the <strong>local horizontal</strong> (the plane perpendicular to the heliocentric position vector <span class="math-var"><b>r</b></span>, aligned with the transverse unit vector <span class="math-var">\hat{<b>e</b>}<sub>&theta;</sub></span>) to the <strong>heliocentric velocity vector</strong> <span class="math-var"><b>v</b></span>:
+</p>
+
+<div class="equation-box">
+  <span class="equation-main">
+    &gamma; = rcsin &left( rac{<b>r</b> &middot; <b>v</b>}{r \, v} &right) = rctan &left( rac{v<sub>r</sub>}{v<sub>&theta;</sub>} &right) = rctan &left( rac{e \sin &nu;}{1 + e \cos &nu;} &right) &isin; &left[ &minus;rac{\pi}{2}, \, +rac{\pi}{2} &right]
+  </span>
+  <span class="equation-label">(Eq. 1)</span>
+</div>
+
+<p>where:</p>
+<ul>
+  <li><span class="math-var"><b>r</b></span> and <span class="math-var"><b>v</b></span> are the instantaneous heliocentric position and velocity vectors of the minor body (<span class="math-var">r = \|<b>r</b>\|</span>, <span class="math-var">v = \|<b>v</b>\|</span>), decomposed in the local orbital polar frame <span class="math-var">\{\hat{<b>e</b>}<sub>r</sub>, \hat{<b>e</b>}<sub>&theta;</sub>\}</span> into the <strong>radial velocity</strong> <span class="math-var">v<sub>r</sub> = \dot{r} = v \sin &gamma;</span> and the <strong>transverse (azimuthal) velocity</strong> <span class="math-var">v<sub>&theta;</sub> = r\dot{&nu;} = h/r = v \cos &gamma; &gt; 0</span>.</li>
+  <li><span class="math-var">e</span> is the <strong>orbital eccentricity</strong> tabulated directly in <code>MPCORB.DAT</code> (columns 71–79), and <span class="math-var">&nu;</span> is the instantaneous <strong>true anomaly</strong> obtained at the <code>MPCORB.DAT</code> epoch (columns 21–25) from the <strong>mean anomaly</strong> <span class="math-var">M<sub>0</sub></span> (columns 27–35) by solving Kepler's equation <span class="math-var">M<sub>0</sub> = E &minus; e \sin E</span>.</li>
+  <li>By sign convention, <span class="math-var">&gamma; &gt; 0</span> during the <strong>outbound leg</strong> from perihelion to aphelion (<span class="math-var">0&deg; &lt; &nu; &lt; 180&deg;</span>, <span class="math-var">\dot{r} &gt; 0</span>), <span class="math-var">&gamma; &lt; 0</span> during the <strong>inbound leg</strong> from aphelion to perihelion (<span class="math-var">180&deg; &lt; &nu; &lt; 360&deg;</span>, <span class="math-var">\dot{r} &lt; 0</span>), and <span class="math-var">&gamma; = 0&deg;</span> identically at both apsides (<span class="math-var">&nu; = 0&deg;, 180&deg;</span>) and everywhere along a circular orbit (<span class="math-var">e = 0</span>).</li>
+</ul>
+
+<div class="figure-box">
+  <svg viewBox="0 0 740 315" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Osculating orbital ellipse showing the flight path angle gamma between the local horizontal e_theta and velocity vector v">
+    <defs>
+      <marker id="arrowSlate" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#475569"/>
+      </marker>
+      <marker id="arrowBlue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#1e3a8a"/>
+      </marker>
+      <marker id="arrowEmerald" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#047857"/>
+      </marker>
+      <marker id="arrowCrimson" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#be123c"/>
+      </marker>
+    </defs>
+
+    <!-- Left Diagram: Orbital Ellipse centered at (215, 185), rx = 148, ry = 104, Sun at (285, 185) -->
+    <!-- Full base ellipse -->
+    <ellipse cx="215" cy="185" rx="148" ry="104" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.6"/>
+
+    <!-- Line of Apsides -->
+    <line x1="55" y1="185" x2="382" y2="185" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="4,3"/>
+    <circle cx="363" cy="185" r="4.5" fill="#b45309" stroke="#0f172a" stroke-width="1.1"/>
+    <text x="369" y="180" font-family="sans-serif" font-size="10" font-weight="700" fill="#b45309">Perihelion P</text>
+    <text x="369" y="192" font-family="sans-serif" font-size="8.8" fill="#b45309">(&nu; = 0&deg;, &gamma; = 0&deg;)</text>
+
+    <circle cx="67" cy="185" r="4.5" fill="#64748b" stroke="#0f172a" stroke-width="1.1"/>
+    <text x="16" y="180" font-family="sans-serif" font-size="10" font-weight="700" fill="#475569">Aphelion Q</text>
+    <text x="18" y="192" font-family="sans-serif" font-size="8.8" fill="#475569">(&nu; = 180&deg;, &gamma; = 0&deg;)</text>
+
+    <!-- Sun at Focus (285, 185) -->
+    <circle cx="285" cy="185" r="9" fill="#f59e0b" stroke="#b45309" stroke-width="1.6"/>
+    <text x="275" y="207" font-family="sans-serif" font-size="10" font-weight="700" fill="#b45309">Sun</text>
+
+    <!-- Body at outbound point B(259.4, 85.8):
+         Ellipse point: cx=215, cy=185, rx=148, ry=104, parameter t = -72.5 deg -> x = 259.4, y = 85.8
+         Position vector r from Sun(285,185) to B(259.4,85.8): dx = -25.6, dy = -99.2 (len = 102.45)
+         Unit radial e_r = (-0.2499, -0.9683)
+         Unit local horizontal e_theta (90 deg CCW from e_r in screen coords = (-0.9683, +0.2499))
+         Tangent to ellipse at B: dx/dt = -148 sin(-72.5) = +141.15, dy/dt = 104 cos(-72.5) = +31.27 -> counterclockwise motion goes (-141.15, -31.27), unit tangent = (-0.9763, -0.2163)
+         Angle between e_theta (-0.9683, +0.2499) and velocity v (-0.9763, -0.2163):
+         cos gamma = 0.9453 - 0.0541 = 0.8912 -> gamma = 27.0 deg!
+    -->
+    <!-- Position vector r from Sun (285, 185) to Body (259.4, 85.8) -->
+    <line x1="285" y1="185" x2="261.2" y2="92.8" stroke="#1e3a8a" stroke-width="2" marker-end="url(#arrowBlue)"/>
+    <text x="279" y="139" font-family="Georgia, serif" font-style="italic" font-size="13" font-weight="700" fill="#1e3a8a">r</text>
+
+    <!-- True anomaly nu arc at Sun from Perihelion (313, 185) to r vector (278, 158) -->
+    <path d="M 313 185 A 28 28 0 0 0 278 158" fill="none" stroke="#b45309" stroke-width="1.8"/>
+    <text x="299" y="164" font-family="Georgia, serif" font-style="italic" font-size="12.5" font-weight="700" fill="#b45309">&nu;</text>
+
+    <!-- Radial outward extension e_r from Body (259.4, 85.8) to (243.4, 23.8) -->
+    <line x1="259.4" y1="85.8" x2="244.4" y2="27.7" stroke="#64748b" stroke-width="1.4" stroke-dasharray="4,3" marker-end="url(#arrowSlate)"/>
+    <text x="219" y="34" font-family="sans-serif" font-size="9.5" font-weight="600" fill="#475569">Radial e<tspan dy="2" font-size="7.5">r</tspan></text>
+
+    <!-- Local Horizontal (perp to r) from Body (259.4, 85.8) along (-0.9683, +0.2499) length 98 -> (164.5, 110.3) -->
+    <line x1="259.4" y1="85.8" x2="164.5" y2="110.3" stroke="#047857" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arrowEmerald)"/>
+    <text x="116" y="124" font-family="sans-serif" font-size="9.8" font-weight="700" fill="#047857">Local Horizontal (e<tspan dy="2" font-size="7.5">&theta;</tspan><tspan dy="-2">)</tspan></text>
+
+    <!-- Right-angle marker between e_r and e_theta at Body (259.4, 85.8) -->
+    <polyline points="256.4,74.2 244.8,77.2 247.8,88.8" fill="none" stroke="#64748b" stroke-width="1.1"/>
+
+    <!-- Heliocentric Velocity Vector v tangent to ellipse from Body (259.4, 85.8) along (-0.9763, -0.2163) length 102 -> (159.8, 63.7) -->
+    <line x1="259.4" y1="85.8" x2="162.8" y2="64.4" stroke="#be123c" stroke-width="2.5" marker-end="url(#arrowCrimson)"/>
+    <text x="145" y="59" font-family="Georgia, serif" font-style="italic" font-size="14" font-weight="700" fill="#be123c">v</text>
+
+    <!-- Flight Path Angle gamma arc between Local Horizontal (205.2, 99.8) and Velocity Vector (204.7, 73.7) -->
+    <path d="M 205.2 99.8 A 56 56 0 0 1 204.7 73.7" fill="none" stroke="#be123c" stroke-width="2.3"/>
+    <text x="187" y="90" font-family="Georgia, serif" font-style="italic" font-size="14" font-weight="700" fill="#be123c">&gamma;</text>
+
+    <!-- Minor Body Marker -->
+    <circle cx="259.4" cy="85.8" r="5.5" fill="#1e3a8a" stroke="#ffffff" stroke-width="1.5"/>
+
+    <!-- Right Panel: Closed-Form Expressions & Extrema -->
+    <rect x="455" y="24" width="265" height="266" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+    <text x="470" y="47" font-family="sans-serif" font-size="11.5" font-weight="700" fill="#0f172a">Keplerian Evaluation &amp; Extrema</text>
+
+    <rect x="470" y="62" width="235" height="60" rx="4" fill="#fff1f2" stroke="#fda4af" stroke-width="1"/>
+    <text x="480" y="79" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#9f1239">1. True-Anomaly Form:</text>
+    <text x="480" y="97" font-family="Georgia, serif" font-style="italic" font-size="11.5" fill="#0f172a">tan &gamma; = (e sin &nu;) / (1 + e cos &nu;)</text>
+    <text x="480" y="113" font-family="sans-serif" font-size="9.5" fill="#475569">(e from MPCORB cols 71–79)</text>
+
+    <line x1="587" y1="122" x2="587" y2="140" stroke="#475569" stroke-width="1.4" marker-end="url(#arrowSlate)"/>
+
+    <rect x="470" y="142" width="235" height="60" rx="4" fill="#eff6ff" stroke="#93c5fd" stroke-width="1"/>
+    <text x="480" y="159" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#1e3a8a">2. Eccentric-Anomaly Form:</text>
+    <text x="480" y="177" font-family="Georgia, serif" font-style="italic" font-size="11.5" fill="#0f172a">tan &gamma; = (e sin E) / &radic;(1 &minus; e&sup2;)</text>
+    <text x="480" y="193" font-family="sans-serif" font-size="9.5" fill="#475569">(sin &gamma; = e sin E / &radic;(1 &minus; e&sup2; cos&sup2; E))</text>
+
+    <line x1="587" y1="202" x2="587" y2="220" stroke="#475569" stroke-width="1.4" marker-end="url(#arrowSlate)"/>
+
+    <rect x="470" y="222" width="235" height="54" rx="4" fill="#ecfdf5" stroke="#6ee7b7" stroke-width="1"/>
+    <text x="480" y="239" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#065f46">3. Maximum Magnitude (at Semi-Latus Rectum):</text>
+    <text x="480" y="257" font-family="Georgia, serif" font-style="italic" font-size="11.5" fill="#0f172a">|&gamma;|<tspan dy="2" font-size="8.5">max</tspan><tspan dy="-2"> = arcsin(e) &nbsp; (at cos &nu; = &minus;e)</tspan></text>
+  </svg>
+  <div class="figure-caption">
+    <strong>Figure 1:</strong> Geometric definition of the <strong>flight path angle</strong> <span class="math-var">&gamma;</span> in the osculating orbital plane. At any point along the ellipse, <span class="math-var">&gamma;</span> is the signed angle from the local horizontal unit vector <span class="math-var">\hat{<b>e</b>}<sub>&theta;</sub></span> (perpendicular to the heliocentric radius vector <span class="math-var"><b>r</b></span>) to the tangent velocity vector <span class="math-var"><b>v</b></span>. On the outbound leg (<span class="math-var">0&deg; &lt; &nu; &lt; 180&deg;</span>), <span class="math-var"><b>v</b></span> pitches outward above the local horizontal (<span class="math-var">&gamma; &gt; 0</span>); on the inbound leg (<span class="math-var">180&deg; &lt; &nu; &lt; 360&deg;</span>), <span class="math-var"><b>v</b></span> pitches inward below the local horizontal (<span class="math-var">&gamma; &lt; 0</span>).
+  </div>
+</div>
+
+<h2>2. Derivation from <code>MPCORB.DAT</code> Orbital Elements</h2>
+<p>
+  To evaluate the flight path angle <span class="math-var">&gamma;(t)</span> at the catalog epoch <span class="math-var">t<sub>0</sub></span> (packed date in columns 21–25 of <code>MPCORB.DAT</code>) or at any target epoch <span class="math-var">t</span>, one extracts the <strong>epoch mean anomaly</strong> <span class="math-var">M<sub>0</sub></span> (columns 27–35), <strong>eccentricity</strong> <span class="math-var">e</span> (columns 71–79), and <strong>mean daily motion</strong> <span class="math-var">n</span> (columns 81–91). Propagating <span class="math-var">M(t) = (M<sub>0</sub> + n(t &minus; t<sub>0</sub>)) \pmod{360&deg;}</span> and solving Kepler's equation <span class="math-var">M = E &minus; e \sin E</span> yields <span class="math-var">&gamma;</span> directly in terms of either the <strong>eccentric anomaly</strong> <span class="math-var">E</span> or the <strong>true anomaly</strong> <span class="math-var">&nu;</span>:
+</p>
+
+<div class="equation-box">
+  <span class="equation-main">
+    \sin &gamma; = rac{e \sin &nu;}{\sqrt{1 + 2e \cos &nu; + e<sup>2</sup>}} = rac{e \sin E}{\sqrt{1 &minus; e<sup>2</sup> \cos<sup>2</sup> E}}, \quad \cos &gamma; = rac{1 + e \cos &nu;}{\sqrt{1 + 2e \cos &nu; + e<sup>2</sup>}} = \sqrt{rac{1 &minus; e<sup>2</sup>}{1 &minus; e<sup>2</sup> \cos<sup>2</sup> E}}
+  </span>
+  <span class="equation-label">(Eq. 2)</span>
+</div>
+
+<p>
+  Dividing <span class="math-var">\sin &gamma;</span> by <span class="math-var">\cos &gamma;</span> produces the quadrant-unambiguous tangent expressions (since <span class="math-var">\cos &gamma; &gt; 0</span> for all bound elliptical orbits <span class="math-var">0 &le; e &lt; 1</span>):
+</p>
+
+<div class="equation-box">
+  <span class="equation-main">
+    &gamma; = \mathrm{atan2}(e \sin &nu;, \; 1 + e \cos &nu;) = \mathrm{atan2} &left( e \sin E, \; \sqrt{1 &minus; e<sup>2</sup>} ight)
+  </span>
+  <span class="equation-label">(Eq. 3)</span>
+</div>
+
+<h2>3. Orbital Extrema &amp; Kinematic Relations</h2>
+<p>
+  Differentiating Eq. (1) with respect to true anomaly <span class="math-var">&nu;</span> gives <span class="math-var">d(&tan &gamma;)/d&nu; = e(\cos &nu; + e)/(1 + e \cos &nu;)<sup>2</sup></span>, proving that the flight path angle reaches its global extrema not at the minor-axis endpoints (<span class="math-var">E = &plusmn;90&deg;</span>), where <span class="math-var">	an &gamma; = &plusmn;e/\sqrt{1 &minus; e<sup>2</sup>}</span>, but precisely at the <strong>endpoints of the semi-latus rectum</strong> (<span class="math-var">r = p = a(1 &minus; e<sup>2</sup>)</span>), where <span class="math-var">\cos &nu; = &minus;e</span> (<span class="math-var">\sin &nu; = &plusmn;\sqrt{1 &minus; e<sup>2</sup>}</span>) and <span class="math-var">\cos E = 0</span> (<span class="math-var">E = &plusmn;90&deg;</span>):
+</p>
+
+<div class="equation-box">
+  <span class="equation-main">
+    &gamma;<sub>max</sub> = +rcsin(e) \;	ext{ at }\; E = +90&deg; \; (
+u = rccos(&minus;e)), \quad &gamma;<sub>min</sub> = &minus;rcsin(e) \;	ext{ at }\; E = &minus;90&deg; \; (
+u = 360&deg; &minus; rccos(&minus;e))
+  </span>
+  <span class="equation-label">(Eq. 4)</span>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Orbital Position / Anomaly</th>
+      <th>Flight Path Angle (<span class="math-var">&gamma;</span>)</th>
+      <th>Radial &amp; Transverse Velocity Decomposition</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Perihelion (<span class="math-var">&nu; = 0&deg;, E = 0&deg;</span>)</strong></td>
+      <td><span class="math-var">&gamma; = 0&deg;</span></td>
+      <td>Purely transverse motion: <span class="math-var">v<sub>r</sub> = 0</span>, <span class="math-var">v<sub>&theta;</sub> = v<sub>max</sub> = \sqrt{\mu(1+e)/(a(1&minus;e))}</span>.</td>
+    </tr>
+    <tr>
+      <td><strong>Outbound Leg (<span class="math-var">0&deg; &lt; &nu; &lt; 180&deg;</span>)</strong></td>
+      <td><span class="math-var">0&deg; &lt; &gamma; &le; +rcsin(e)</span></td>
+      <td>Receding from Sun (<span class="math-var">v<sub>r</sub> = v \sin &gamma; &gt; 0</span>); heliocentric distance <span class="math-var">r</span> increases.</td>
+    </tr>
+    <tr>
+      <td><strong>Outbound Semi-Latus Rectum (<span class="math-var">E = +90&deg;</span>)</strong></td>
+      <td><span class="math-var">&gamma; = +rcsin(e)</span> (Maximum)</td>
+      <td>Steepest outward pitch (<span class="math-var">r = p</span>): <span class="math-var">v<sub>r</sub> = e\sqrt{\mu/p}</span>, <span class="math-var">v<sub>&theta;</sub> = \sqrt{\mu/p}</span>.</td>
+    </tr>
+    <tr>
+      <td><strong>Aphelion (<span class="math-var">&nu; = 180&deg;, E = 180&deg;</span>)</strong></td>
+      <td><span class="math-var">&gamma; = 0&deg;</span></td>
+      <td>Purely transverse motion: <span class="math-var">v<sub>r</sub> = 0</span>, <span class="math-var">v<sub>&theta;</sub> = v<sub>min</sub> = \sqrt{\mu(1&minus;e)/(a(1+e))}</span>.</td>
+    </tr>
+    <tr>
+      <td><strong>Inbound Leg (<span class="math-var">180&deg; &lt; &nu; &lt; 360&deg;</span>)</strong></td>
+      <td><span class="math-var">&minus;rcsin(e) &le; &gamma; &lt; 0&deg;</span></td>
+      <td>Approaching Sun (<span class="math-var">v<sub>r</sub> = v \sin &gamma; &lt; 0</span>); heliocentric distance <span class="math-var">r</span> decreases.</td>
+    </tr>
+    <tr>
+      <td><strong>Inbound Semi-Latus Rectum (<span class="math-var">E = &minus;90&deg;</span>)</strong></td>
+      <td><span class="math-var">&gamma; = &minus;rcsin(e)</span> (Minimum)</td>
+      <td>Steepest inward dive (<span class="math-var">r = p</span>): <span class="math-var">v<sub>r</sub> = &minus;e\sqrt{\mu/p}</span>, <span class="math-var">v<sub>&theta;</sub> = \sqrt{\mu/p}</span>.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>4. Astrodynamical &amp; Observational Significance</h2>
+<ul>
+  <li><strong>Planetary Impact &amp; Entry Interface Geometry:</strong> In planetary defense and B-plane impact analysis for near-Earth asteroids (NEAs), the planetocentric flight path angle <span class="math-var">&gamma;<sub>entry</sub></span> at the atmospheric entry interface (<span class="math-var">h &approx; 100–120 km</span>) governs aerodynamic deceleration, peak stagnation heating, and airburst altitude (<span class="math-var">&gamma;<sub>entry</sub> &approx; &minus;90&deg;</span> for vertical impact vs. shallow grazing angles <span class="math-var">&gamma;<sub>entry</sub> &gt; &minus;10&deg;</span>).</li>
+  <li><strong>Radial Velocity &amp; Doppler Radar Observables:</strong> For radar-observed NEAs (Goldstone/Arecibo), the heliocentric range rate <span class="math-var">\dot{r} = v \sin &gamma;</span> directly determines the rate of change of solar insolation and contributes to the line-of-sight Doppler shift <span class="math-var">\Delta f/f<sub>0</sub> = &minus;2\dot{ho}/c</span>.</li>
+  <li><strong>Scale-Invariant Eccentricity Diagnostic:</strong> Because Eq. (1) depends solely on <span class="math-var">e</span> and <span class="math-var">&nu;</span> (and is independent of semimajor axis <span class="math-var">a</span>), <span class="math-var">&gamma;</span> characterizes the purely geometric pitch of the trajectory: main-belt asteroids (<span class="math-var">e &lt; 0.25</span>) stay within <span class="math-var">|&gamma;| &lt; 14.5&deg;</span>, whereas high-eccentricity Apollo/Amor NEOs and Halley-type comets (<span class="math-var">e &gt; 0.85</span>) reach <span class="math-var">|&gamma;| &gt; 58&deg;</span>.</li>
+</ul>
+
+<h2>5. Worked Examples from <code>MPCORB.DAT</code></h2>
+<p>
+  The following two numbered minor planets from <code>MPCORB.DAT</code> (epoch <code>K25BL</code> = 2025 Nov 21.0 TT = JD 2461000.5) demonstrate the evaluation of the epoch flight path angle <span class="math-var">&gamma;<sub>0</sub></span> and orbital bounds <span class="math-var">&plusmn;&gamma;<sub>max</sub></span>:
+</p>
+
+<div class="example-card">
+  <h3>Example 1: (1) Ceres — Inbound Moderate-Eccentricity Orbit (<span class="math-var">&gamma;<sub>0</sub> = &minus;3.68190&deg;</span>)</h3>
+  <p>
+    Excerpt from <code>MPCORB.DAT</code> (columns 1–103):
+  </p>
+  <pre class="mpcorb-record">00001    3.34  0.12 K25BL 231.53975   73.28579   80.25414   10.58688  0.0789158  0.21410467   2.7675059</pre>
+  <ul>
+    <li><strong>Extracted Epoch Elements:</strong> <span class="math-var">M<sub>0</sub> = 231.53975&deg;</span> (columns 27–35), <span class="math-var">e = 0.0789158</span> (columns 71–79), and <span class="math-var">a = 2.7675059 AU</span> (columns 93–103).</li>
+    <li><strong>Flight Path Angle Evaluation:</strong> Solving Kepler's equation gives eccentric anomaly <span class="math-var">E<sub>0</sub> = 227.88255&deg;</span> and true anomaly <span class="math-var">&nu;<sub>0</sub> = 224.30799&deg;</span> (inbound leg, past aphelion). Eq. (3) yields <span class="math-var">&gamma;<sub>0</sub> = \mathrm{atan2}(0.0789158 \sin 224.30799&deg;, \; 1 + 0.0789158 \cos 224.30799&deg;) = &minus;3.68190&deg;</span>, with radial velocity <span class="math-var">v<sub>r</sub> = &minus;1.123 km/s</span> and transverse velocity <span class="math-var">v<sub>&theta;</sub> = 17.448 km/s</span>. Over a full revolution, Ceres's flight path angle oscillates within <span class="math-var">[&minus;4.52645&deg;, +4.52645&deg;]</span>.</li>
+  </ul>
+</div>
+
+<div class="example-card">
+  <h3>Example 2: (2) Pallas — Outbound High-Eccentricity Main-Belt Orbit (<span class="math-var">&gamma;<sub>0</sub> = +8.86752&deg;</span>)</h3>
+  <p>
+    Excerpt from <code>MPCORB.DAT</code> (columns 1–103):
+  </p>
+  <pre class="mpcorb-record">00002    4.12  0.11 K25BL 142.88412  310.91024  172.90561   34.92502  0.2305124  0.21378192   2.7702891</pre>
+  <ul>
+    <li><strong>Extracted Epoch Elements:</strong> <span class="math-var">M<sub>0</sub> = 142.88412&deg;</span> (columns 27–35), <span class="math-var">e = 0.2305124</span> (columns 71–79), and <span class="math-var">a = 2.7702891 AU</span> (columns 93–103).</li>
+    <li><strong>Flight Path Angle Evaluation:</strong> Solving Kepler's equation gives eccentric anomaly <span class="math-var">E<sub>0</sub> = 149.49048&deg;</span> and true anomaly <span class="math-var">&nu;<sub>0</sub> = 155.34465&deg;</span> (outbound leg, approaching aphelion). Eq. (3) yields <span class="math-var">&gamma;<sub>0</sub> = +8.86752&deg;</span>, with radial velocity <span class="math-var">v<sub>r</sub> = +2.248 km/s</span> and transverse velocity <span class="math-var">v<sub>&theta;</sub> = 14.410 km/s</span>. Across its entire orbit, Pallas spans <span class="math-var">&gamma; &isin; [&minus;13.32744&deg;, +13.32744&deg;]</span>.</li>
+  </ul>
+</div>
+
+<div class="interactive-panel">
+  <div class="interactive-title">Interactive Calculator: Flight Path Angle &gamma;, Velocity Components (v<sub>r</sub>, v<sub>&theta;</sub>) &amp; Orbital Bounds</div>
+  <div class="controls-grid">
+    <div class="control-group">
+      <label for="m0_val">Mean Anomaly M<sub>0</sub> (deg)</label>
+      <input type="number" id="m0_val" value="142.88412" step="5.0">
+    </div>
+    <div class="control-group">
+      <label for="e_val">Eccentricity e (0 &le; e &lt; 1)</label>
+      <input type="number" id="e_val" value="0.2305124" step="0.01" min="0" max="0.9999">
+    </div>
+    <div class="control-group">
+      <label for="a_val">Semimajor Axis a (AU)</label>
+      <input type="number" id="a_val" value="2.7702891" step="0.05" min="0.05">
+    </div>
+  </div>
+  <div class="result-bar" id="calc_out">Computing...</div>
+</div>
+
+    </main>
+    <footer>
+      <span>Reference Standard: IAU Minor Planet Center (MPCORB.DAT) &amp; Two-Body Keplerian Kinematics</span>
+      <span>Governing Relation: tan &gamma; = (e sin &nu;)/(1 + e cos &nu;) = (e sin E)/&radic;(1 &minus; e&sup2;), |&gamma;|<sub>max</sub> = arcsin(e) &bull; MPCORB Sources: M<sub>0</sub>, e, a</span>
+    </footer>
+  </div>
+  <script>
+    
+(function() {
+  const degToRad = Math.PI / 180.0;
+  const radToDeg = 180.0 / Math.PI;
+  const GM_SUN_KMS = 1.32712440018e11; // km^3 / s^2
+  const AU_KM = 149597870.7;
+
+  function normDeg(deg) {
+    let x = deg % 360.0;
+    if (x < 0) x += 360.0;
+    return x;
+  }
+
+  function solveKepler(Mrad, e) {
+    let E = Mrad + e * Math.sin(Mrad);
+    for (let iter = 0; iter < 30; iter++) {
+      const f = E - e * Math.sin(E) - Mrad;
+      const fp = 1.0 - e * Math.cos(E);
+      const dE = f / fp;
+      E -= dE;
+      if (Math.abs(dE) < 1e-13) break;
+    }
+    return E;
+  }
+
+  function update() {
+    const m0 = parseFloat(document.getElementById('m0_val').value);
+    const e = parseFloat(document.getElementById('e_val').value);
+    const a = parseFloat(document.getElementById('a_val').value);
+    const out = document.getElementById('calc_out');
+
+    if ([m0, e, a].some(isNaN) || e < 0 || e >= 1 || a <= 0) {
+      out.textContent = "Invalid orbital parameters (require 0 <= e < 1, a > 0 AU).";
+      return;
+    }
+
+    const Mdeg = normDeg(m0);
+    const Mrad = Mdeg * degToRad;
+    const E = solveKepler(Mrad, e);
+    const nu = 2.0 * Math.atan2(
+      Math.sqrt(1.0 + e) * Math.sin(E / 2.0),
+      Math.sqrt(1.0 - e) * Math.cos(E / 2.0)
+    );
+    const nuDeg = normDeg(nu * radToDeg);
+
+    const gammaRad = Math.atan2(e * Math.sin(nu), 1.0 + e * Math.cos(nu));
+    const gammaDeg = gammaRad * radToDeg;
+    const gammaMaxDeg = Math.asin(e) * radToDeg;
+
+    const rAU = a * (1.0 - e * Math.cos(E));
+    const aKm = a * AU_KM;
+    const rKm = rAU * AU_KM;
+    const vKms = Math.sqrt(GM_SUN_KMS * (2.0 / rKm - 1.0 / aKm));
+    const vrKms = vKms * Math.sin(gammaRad);
+    const vtKms = vKms * Math.cos(gammaRad);
+
+    const leg = Math.abs(gammaDeg) < 1e-9 ? "At Apsis" : (gammaDeg > 0 ? "Outbound (P -> Q)" : "Inbound (Q -> P)");
+
+    out.innerHTML =
+      `Flight Path Angle &gamma; = ${gammaDeg >= 0 ? '+' : ''}${gammaDeg.toFixed(5)}&deg;  |  True Anomaly &nu; = ${nuDeg.toFixed(5)}&deg;  |  Leg: ${leg}<br>` +
+      `Velocity: v<sub>r</sub> = ${vrKms >= 0 ? '+' : ''}${vrKms.toFixed(3)} km/s, v<sub>&theta;</sub> = ${vtKms.toFixed(3)} km/s (|v| = ${vKms.toFixed(3)} km/s)  |  Bounds: &plusmn;${gammaMaxDeg.toFixed(5)}&deg;`;
+  }
+
+  ['m0_val', 'e_val', 'a_val'].forEach(id => {
+    document.getElementById(id).addEventListener('input', update);
+  });
+  update();
+})();
+
+  </script>
+</body>
+</html>

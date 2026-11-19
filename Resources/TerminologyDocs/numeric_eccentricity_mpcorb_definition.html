@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Numeric Eccentricity (e) in the Context of MPCORB</title>
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #334155;
+            --accent-color: #1e3a8a;
+            --accent-light: #eff6ff;
+            --border-color: #cbd5e1;
+            --code-bg: #f1f5f9;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.7;
+            color: var(--text-primary);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 3rem 3.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            border: 1px solid var(--border-color);
+        }
+
+        header {
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .badge {
+            display: inline-block;
+            background-color: var(--accent-light);
+            color: var(--accent-color);
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            padding: 0.3rem 0.75rem;
+            border-radius: 4px;
+            border: 1px solid #bfdbfe;
+            margin-bottom: 0.75rem;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin: 0.25rem 0 0.5rem 0;
+            color: var(--text-primary);
+            line-height: 1.25;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            margin: 0;
+        }
+
+        h2 {
+            font-size: 1.35rem;
+            color: var(--accent-color);
+            margin-top: 2.25rem;
+            margin-bottom: 0.85rem;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 0.35rem;
+        }
+
+        h3 {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        p {
+            margin-bottom: 1.15rem;
+            color: var(--text-secondary);
+            text-align: justify;
+        }
+
+        ul, ol {
+            margin-bottom: 1.25rem;
+            padding-left: 1.5rem;
+            color: var(--text-secondary);
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        .equation-box {
+            background-color: var(--code-bg);
+            border-left: 4px solid var(--accent-color);
+            padding: 1.15rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 6px 6px 0;
+            overflow-x: auto;
+            font-family: "Cambria Math", "STIX Two Math", "Times New Roman", Times, serif;
+            font-size: 1.18rem;
+            color: var(--text-primary);
+            text-align: center;
+        }
+
+        .math-inline {
+            font-family: "Cambria Math", "STIX Two Math", "Times New Roman", Times, serif;
+            font-style: italic;
+            font-size: 1.05em;
+            color: var(--text-primary);
+        }
+
+        .math-roman {
+            font-family: "Cambria Math", "STIX Two Math", "Times New Roman", Times, serif;
+            font-style: normal;
+            font-size: 1.02em;
+            color: var(--text-primary);
+        }
+
+        .frac {
+            display: inline-flex;
+            flex-direction: column;
+            vertical-align: middle;
+            text-align: center;
+            margin: 0 0.25rem;
+        }
+
+        .frac > span:first-child {
+            border-bottom: 1px solid var(--text-primary);
+            padding: 0 0.3rem 0.15rem 0.3rem;
+        }
+
+        .frac > span:last-child {
+            padding: 0.15rem 0.3rem 0 0.3rem;
+        }
+
+        .sqrt-wrap {
+            display: inline-flex;
+            align-items: stretch;
+        }
+
+        .sqrt-rad {
+            font-size: 1.15em;
+            line-height: 1;
+            padding-right: 1px;
+        }
+
+        .sqrt-body {
+            border-top: 1px solid var(--text-primary);
+            padding: 0 0.2rem;
+        }
+
+        .spec-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.92rem;
+        }
+
+        .spec-table th, .spec-table td {
+            border: 1px solid var(--border-color);
+            padding: 0.75rem 1rem;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        .spec-table th {
+            background-color: var(--accent-color);
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .spec-table tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        code {
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+            background-color: var(--code-bg);
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.88em;
+            color: #0f172a;
+        }
+
+        pre {
+            background-color: #1e293b;
+            color: #f8fafc;
+            padding: 1rem 1.25rem;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+        }
+
+        .note-callout {
+            background-color: #fffbeb;
+            border-left: 4px solid #d97706;
+            padding: 1rem 1.25rem;
+            margin: 1.5rem 0;
+            border-radius: 0 6px 6px 0;
+            color: #78350f;
+            font-size: 0.95rem;
+        }
+
+        .terminology-callout {
+            background-color: var(--accent-light);
+            border-left: 4px solid var(--accent-color);
+            padding: 1rem 1.25rem;
+            margin: 1.5rem 0;
+            border-radius: 0 6px 6px 0;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+        }
+
+        .diagram-box {
+            background-color: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+
+        .diagram-caption {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+        }
+
+        .calculator-box {
+            background-color: var(--accent-light);
+            border: 1px solid #bfdbfe;
+            border-radius: 8px;
+            padding: 1.25rem 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .calculator-box h4 {
+            margin: 0 0 0.75rem 0;
+            color: var(--accent-color);
+            font-size: 1rem;
+        }
+
+        .calc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            align-items: end;
+        }
+
+        .calc-field label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.3rem;
+        }
+
+        .calc-field input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 0.5rem 0.65rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 0.95rem;
+            font-family: inherit;
+        }
+
+        .calc-output {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 0.5rem 0.75rem;
+            font-size: 0.92rem;
+            color: var(--text-primary);
+        }
+
+        footer {
+            margin-top: 3rem;
+            padding-top: 1.25rem;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.85rem;
+            color: #64748b;
+            text-align: center;
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 1.75rem 1.25rem;
+            }
+            h1 {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="badge">Celestial Mechanics &amp; Astrometry Specification</div>
+            <h1>Numeric Eccentricity (<span class="math-inline">e</span>) in the Context of the MPCORB Database</h1>
+            <p class="subtitle">Scientific Definition, Dimensionless Conic Shape Parameter, Dynamical Invariants, and MPCORB Encoding</p>
+        </header>
+
+        <section>
+            <h2>1. Fundamental Geometric &amp; Astrodynamical Definition</h2>
+            <div class="terminology-callout">
+                <strong>Terminological Precision (&ldquo;Numeric&rdquo; vs. &ldquo;Linear&rdquo; Eccentricity):</strong> In analytical geometry and European celestial mechanics (e.g., German <em>numerische Exzentrizit&auml;t</em> vs. <em>lineare Exzentrizit&auml;t</em>), the qualifier <strong>&ldquo;numeric&rdquo;</strong> explicitly distinguishes the <strong>dimensionless ratio <span class="math-roman"><em>e</em> = <em>c</em>/<em>a</em></span></strong> from the dimensional <strong>linear eccentricity</strong> <span class="math-roman"><em>c</em> = <em>ae</em> = &radic;(<em>a</em><sup>2</sup> &minus; <em>b</em><sup>2</sup>)</span> (which carries units of length, such as AU). In English astrodynamics and IAU Minor Planet Center documentation, &ldquo;numeric eccentricity&rdquo; is universally referred to simply as <strong>orbital eccentricity</strong> and denoted by the lowercase symbol <span class="math-inline">e</span>.
+            </div>
+            <p>
+                Mathematically, the <strong>numeric eccentricity</strong> <span class="math-inline">e</span> of a Keplerian trajectory is a non-negative, dimensionless scalar (<span class="math-roman"><em>e</em> &ge; 0</span>) that uniquely classifies the geometric shape and topological boundedness of the conic section traversed by a Solar System body around the Sun:
+            </p>
+            <div class="equation-box">
+                <span class="math-inline">e</span> =
+                <span class="frac">
+                    <span><span class="math-inline">c</span></span>
+                    <span><span class="math-inline">a</span></span>
+                </span>
+                =
+                <span class="sqrt-wrap">
+                    <span class="sqrt-rad">&radic;</span>
+                    <span class="sqrt-body">
+                        1 &minus;
+                        <span class="frac">
+                            <span><span class="math-inline">b</span><sup>2</sup></span>
+                            <span><span class="math-inline">a</span><sup>2</sup></span>
+                        </span>
+                    </span>
+                </span>
+                =
+                <span class="sqrt-wrap">
+                    <span class="sqrt-rad">&radic;</span>
+                    <span class="sqrt-body">
+                        1 &minus;
+                        <span class="frac">
+                            <span><span class="math-inline">p</span></span>
+                            <span><span class="math-inline">a</span></span>
+                        </span>
+                    </span>
+                </span>
+                =
+                <span class="frac">
+                    <span><span class="math-inline">Q</span> &minus; <span class="math-inline">q</span></span>
+                    <span><span class="math-inline">Q</span> + <span class="math-inline">q</span></span>
+                </span>
+                =
+                <span class="frac">
+                    <span><span class="math-inline">r</span></span>
+                    <span><span class="math-inline">d</span><sub>dir</sub></span>
+                </span>
+            </div>
+            <p>
+                where <span class="math-inline">c</span> is the linear eccentricity (distance from the ellipse center to either focus), <span class="math-inline">a</span> is the semi-major axis, <span class="math-inline">b</span> is the semi-minor axis, <span class="math-inline">p</span> is the semi-latus rectum, <span class="math-inline">q</span> is the perihelion distance, <span class="math-inline">Q</span> is the aphelion distance, and <span class="math-inline">d</span><sub>dir</sub> is the perpendicular distance from the body to the primary directrix.
+            </p>
+
+            <h3>1.1 Conic-Section Classification Regimes</h3>
+            <ul>
+                <li><strong><span class="math-roman"><em>e</em> = 0</span> (Circle):</strong> Degenerate ellipse with coincident foci (<span class="math-roman"><em>c</em> = 0</span>), constant heliocentric radius <span class="math-roman"><em>r</em> = <em>a</em> = <em>q</em> = <em>Q</em></span>, and uniform orbital speed.</li>
+                <li><strong><span class="math-roman">0 &lt; <em>e</em> &lt; 1</span> (Ellipse — Bound Minor Planets):</strong> Closed periodic orbit with negative specific orbital energy (<span class="math-roman">&Escr; &lt; 0</span>). Every record in <code>MPCORB.DAT</code> belongs strictly to this domain.</li>
+                <li><strong><span class="math-roman"><em>e</em> = 1</span> (Parabola — Zero-Energy Escape):</strong> Unbound open trajectory with zero specific orbital energy (<span class="math-roman">&Escr; = 0</span>), infinite semi-major axis (<span class="math-roman"><em>a</em> &rarr; &infin;</span>), and <span class="math-roman"><em>p</em> = 2<em>q</em></span>.</li>
+                <li><strong><span class="math-roman"><em>e</em> &gt; 1</span> (Hyperbola — Interstellar/Unbound):</strong> Unbound open trajectory with positive specific orbital energy (<span class="math-roman">&Escr; &gt; 0</span>), negative semi-major axis (<span class="math-roman"><em>a</em> &lt; 0</span>), and asymptotic excess speed <span class="math-roman"><em>v</em><sub>&infin;</sub> = &radic;(&minus;<em>&mu;</em>/<em>a</em>)</span>.</li>
+            </ul>
+
+            <div class="diagram-box">
+                <svg width="560" height="235" viewBox="0 0 560 235" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Geometric diagram comparing concentric ellipses of identical semi-major axis a = 210 px across eccentricities e = 0, e = 0.5, and e = 0.85">
+                    <rect x="0" y="0" width="560" height="235" fill="#f8fafc" rx="6"/>
+                    <!-- Major axis reference line -->
+                    <line x1="40" y1="118" x2="520" y2="118" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4,4"/>
+                    <!-- Center at (280, 118), shared a = 210 -->
+                    <!-- e = 0 (Circle: rx = 210, ry = 210 -> scaled vertically to fit: use rx = 180, ry = 95 for visual clarity with shared a = 180) -->
+                    <!-- Let shared semi-major axis a = 180 px, center (260, 118) -->
+                    <!-- e = 0: rx = 180, ry = 98 (representing circular aspect ratio in perspective/scaled box? Better: true aspect ratio with a = 98 px!) -->
+                    <!-- True aspect ratio with a = 98 px, center (250, 118): -->
+                    <!-- e = 0.00: rx = 98, ry = 98, focus at 250 -->
+                    <ellipse cx="250" cy="118" rx="98" ry="98" fill="none" stroke="#94a3b8" stroke-width="1.6" stroke-dasharray="5,3"/>
+                    <!-- e = 0.60: rx = 98, ry = 98 * sqrt(1 - 0.36) = 78.4, focus at 250 + 58.8 = 308.8 -->
+                    <ellipse cx="250" cy="118" rx="98" ry="78.4" fill="none" stroke="#0284c7" stroke-width="2"/>
+                    <!-- e = 0.88: rx = 98, ry = 98 * sqrt(1 - 0.7744) = 46.5, focus at 250 + 86.2 = 336.2 -->
+                    <ellipse cx="250" cy="118" rx="98" ry="46.5" fill="#eff6ff" fill-opacity="0.55" stroke="#dc2626" stroke-width="2.2"/>
+                    <!-- Center and Foci -->
+                    <circle cx="250" cy="118" r="3.5" fill="#0f172a"/>
+                    <text x="250" y="134" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#334155">Center (e=0)</text>
+                    <circle cx="308.8" cy="118" r="4.5" fill="#0284c7"/>
+                    <text x="308.8" y="108" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#0369a1" font-weight="bold">F(e=0.6)</text>
+                    <circle cx="336.2" cy="118" r="5.5" fill="#f59e0b" stroke="#b45309" stroke-width="1.2"/>
+                    <text x="332" y="135" text-anchor="end" font-family="sans-serif" font-size="10" fill="#92400e" font-weight="bold">F(e=0.88)</text>
+                    <!-- Legend on right -->
+                    <rect x="375" y="42" width="165" height="132" rx="6" fill="#ffffff" stroke="#cbd5e1"/>
+                    <text x="387" y="62" font-family="sans-serif" font-size="11" fill="#0f172a" font-weight="bold">Fixed Semi-Major Axis a</text>
+                    <line x1="387" y1="80" x2="412" y2="80" stroke="#94a3b8" stroke-width="2" stroke-dasharray="4,2"/>
+                    <text x="418" y="84" font-family="serif" font-size="12" fill="#475569">e = 0.00 (Circle)</text>
+                    <line x1="387" y1="106" x2="412" y2="106" stroke="#0284c7" stroke-width="2"/>
+                    <text x="418" y="110" font-family="serif" font-size="12" fill="#0369a1">e = 0.60 (b = 0.80 a)</text>
+                    <line x1="387" y1="132" x2="412" y2="132" stroke="#dc2626" stroke-width="2.2"/>
+                    <text x="418" y="136" font-family="serif" font-size="12" fill="#dc2626">e = 0.88 (b = 0.47 a)</text>
+                    <text x="387" y="160" font-family="serif" font-size="11" fill="#334155">e = c/a &isin; [0, 1)</text>
+                </svg>
+                <div class="diagram-caption">
+                    Figure 1: True-aspect-ratio comparison of elliptic orbits sharing the same semi-major axis <span class="math-inline">a</span> for numeric eccentricities <span class="math-roman"><em>e</em> = 0.00</span>, <span class="math-roman"><em>e</em> = 0.60</span>, and <span class="math-roman"><em>e</em> = 0.88</span>, illustrating focal shift <span class="math-roman"><em>c</em> = <em>ae</em></span> and minor-axis flattening <span class="math-roman"><em>b</em> = <em>a</em>&radic;(1 &minus; <em>e</em><sup>2</sup>)</span>.
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>2. Physical &amp; Vectorial Invariants in Two-Body Dynamics</h2>
+            <p>
+                Dynamically, the numeric eccentricity <span class="math-inline">e</span> is the Euclidean norm of the conserved <strong>Laplace–Runge–Lenz (eccentricity) vector</strong> <span class="math-roman"><strong>e</strong></span>, which points from the primary focus (the Sun) directly toward the perihelion vertex:
+            </p>
+            <div class="equation-box">
+                <span class="math-roman"><strong>e</strong></span> =
+                <span class="frac">
+                    <span><span class="math-roman"><strong>v</strong> &times; <strong>h</strong></span></span>
+                    <span><span class="math-inline">&mu;</span></span>
+                </span>
+                &minus;
+                <span class="frac">
+                    <span><span class="math-roman"><strong>r</strong></span></span>
+                    <span><span class="math-inline">r</span></span>
+                </span>
+                =
+                <span class="math-roman">&Bigl( </span>
+                <span class="frac">
+                    <span><span class="math-inline">v</span><sup>2</sup></span>
+                    <span><span class="math-inline">&mu;</span></span>
+                </span>
+                &minus;
+                <span class="frac">
+                    <span>1</span>
+                    <span><span class="math-inline">r</span></span>
+                </span>
+                <span class="math-roman">&Bigr) <strong>r</strong></span>
+                &minus;
+                <span class="frac">
+                    <span><span class="math-roman"><strong>r</strong> &middot; <strong>v</strong></span></span>
+                    <span><span class="math-inline">&mu;</span></span>
+                </span>
+                <span class="math-roman"><strong>v</strong></span>
+                &nbsp;,&nbsp;&nbsp;&nbsp;
+                <span class="math-inline">e</span> = <span class="math-roman">|<strong>e</strong>|</span>
+            </div>
+            <p>
+                In terms of the conserved specific orbital energy <span class="math-roman">&Escr; = <em>v</em><sup>2</sup>/2 &minus; <em>&mu;</em>/<em>r</em> = &minus;<em>&mu;</em>/(2<em>a</em>)</span> and specific relative orbital angular momentum <span class="math-roman"><em>h</em> = |<strong>r</strong> &times; <strong>v</strong>| = &radic;(<em>&mu; p</em>)</span>, the numeric eccentricity is governed by the fundamental energy–angular-momentum invariant:
+            </p>
+            <div class="equation-box">
+                <span class="math-inline">e</span> =
+                <span class="sqrt-wrap">
+                    <span class="sqrt-rad">&radic;</span>
+                    <span class="sqrt-body">
+                        1 +
+                        <span class="frac">
+                            <span>2 <span class="math-inline">&Escr;</span> <span class="math-inline">h</span><sup>2</sup></span>
+                            <span><span class="math-inline">&mu;</span><sup>2</sup></span>
+                        </span>
+                    </span>
+                </span>
+            </div>
+            <p>
+                Furthermore, <span class="math-inline">e</span> appears directly in <strong>Kepler&rsquo;s equation</strong> relating mean anomaly <span class="math-inline">M</span> to eccentric anomaly <span class="math-inline">E</span> (<span class="math-roman"><em>M</em> = <em>E</em> &minus; <em>e</em> sin <em>E</em></span>), as well as in the <strong>eccentricity angle</strong> <span class="math-roman"><em>&varphi;</em> = arcsin(<em>e</em>)</span> (historically tabulated in astronomical almanacs so that <span class="math-roman"><em>b</em> = <em>a</em> cos <em>&varphi;</em></span> and <span class="math-roman"><em>p</em> = <em>a</em> cos<sup>2</sup> <em>&varphi;</em></span>).
+            </p>
+        </section>
+
+        <section>
+            <h2>3. Specific Encoding, Conventions &amp; Role in the MPCORB Catalog</h2>
+            <p>
+                In the <strong>MPCORB</strong> (<em>Minor Planet Center Orbit</em>) database published by the International Astronomical Union&rsquo;s Minor Planet Center (IAU MPC):
+            </p>
+
+            <ul>
+                <li>
+                    <strong>Exact Fixed-Width Field in <code>MPCORB.DAT</code>:</strong> The osculating numeric eccentricity <span class="math-inline">e</span> is stored explicitly as a primary orbital element in <strong>columns <code>71–79</code></strong> (0-based slice <code>line[70:79]</code>) using the fixed-point Fortran format specifier <code>F9.7</code> (1 integer digit, decimal point, and 7 fractional digits, e.g., <code>0.0785354</code> for (1) Ceres).
+                </li>
+                <li>
+                    <strong>Strict Domain Constraint (<span class="math-roman">0 &le; <em>e</em> &lt; 1</span>):</strong> By catalog specification, <code>MPCORB.DAT</code> includes only bound heliocentric minor planets with <span class="math-roman">0.0000000 &le; <em>e</em> &lt; 1.0000000</span>. Objects whose osculating heliocentric eccentricity reaches or exceeds unity (<span class="math-roman"><em>e</em> &ge; 1</span>)—such as parabolic/hyperbolic comets and interstellar objects like 1I/&#699;Oumuamua (<span class="math-roman"><em>e</em> &approx; 1.201</span>) or 2I/Borisov (<span class="math-roman"><em>e</em> &approx; 3.357</span>)—are excluded from <code>MPCORB.DAT</code> and published in <code>COMET.DAT</code> (which uses format <code>F10.8</code> for <span class="math-inline">e</span>).
+                </li>
+                <li>
+                    <strong>Osculating Heliocentric Reference Frame:</strong> The tabulated value of <span class="math-inline">e</span> in <code>MPCORB.DAT</code> is an <em>osculating heliocentric</em> quantity referred to the solar center of mass (not the Solar System barycenter) at the record&rsquo;s packed <code>Epoch</code> (columns <code>21–25</code>) in the J2000.0 mean ecliptic coordinate system.
+                </li>
+                <li>
+                    <strong>Universal Coupling to Derived Orbital Dimensions:</strong> Every derived radial and chord metric of an MPCORB record is generated by combining <span class="math-inline">e</span> (columns <code>71–79</code>) with the semi-major axis <span class="math-inline">a</span> (columns <code>93–103</code>):
+                    <ul>
+                        <li>Perihelion distance: <span class="math-roman"><em>q</em> = <em>a</em>(1 &minus; <em>e</em>)</span></li>
+                        <li>Aphelion distance: <span class="math-roman"><em>Q</em> = <em>a</em>(1 + <em>e</em>)</span></li>
+                        <li>Linear eccentricity (focal offset): <span class="math-roman"><em>c</em> = <em>ae</em></span></li>
+                        <li>Semi-minor axis: <span class="math-roman"><em>b</em> = <em>a</em>&radic;(1 &minus; <em>e</em><sup>2</sup>)</span></li>
+                        <li>Semi-latus rectum (focal parameter): <span class="math-roman"><em>p</em> = <em>a</em>(1 &minus; <em>e</em><sup>2</sup>)</span></li>
+                    </ul>
+                </li>
+            </ul>
+
+            <div class="note-callout">
+                <strong>Singularity &amp; Precision Considerations in MPCORB Pipelines:</strong>
+                <br>1) <em>Low-eccentricity singularity (<span class="math-roman"><em>e</em> &rarr; 0</span>):</em> When <span class="math-inline">e</span> approaches zero, the argument of perihelion <span class="math-inline">&omega;</span> and mean anomaly <span class="math-inline">M</span> become poorly conditioned (ill-defined at <span class="math-roman"><em>e</em> = 0</span>), and directrix distances (<span class="math-roman"><em>p</em>/<em>e</em></span>) diverge. Equinoctial elements <span class="math-roman">(<em>h</em><sub>eq</sub> = <em>e</em> sin(<em>&Omega;</em> + <em>&omega;</em>), <em>k</em><sub>eq</sub> = <em>e</em> cos(<em>&Omega;</em> + <em>&omega;</em>))</span> eliminate this coordinate singularity during numerical integration.
+                <br>2) <em>High-eccentricity cancellation (<span class="math-roman"><em>e</em> &rarr; 1<sup>&minus;</sup></span>):</em> Because <code>MPCORB.DAT</code> truncates <span class="math-inline">e</span> to 7 decimal places (resolution <span class="math-roman">&Delta;<em>e</em> = 10<sup>&minus;7</sup></span>), for an object with <span class="math-roman"><em>a</em> = 1000 AU</span> and <span class="math-roman"><em>e</em> = 0.9990000</span>, a 1-ULP rounding step in <span class="math-inline">e</span> shifts <span class="math-roman"><em>q</em> = <em>a</em>(1 &minus; <em>e</em>)</span> by <span class="math-roman">10<sup>&minus;4</sup> AU (&approx; 15,000 km)</span>.
+            </div>
+
+            <div class="calculator-box">
+                <h4>Interactive MPCORB Numeric Eccentricity (<span class="math-inline">e</span>) &amp; Shape Metrics Calculator</h4>
+                <div class="calc-grid">
+                    <div class="calc-field">
+                        <label for="inputA">Semi-Major Axis <em>a</em> (AU, Cols 93&ndash;103)</label>
+                        <input type="number" id="inputA" step="0.0000001" min="0.01" value="2.7653485">
+                    </div>
+                    <div class="calc-field">
+                        <label for="inputE">Numeric Eccentricity <em>e</em> (Cols 71&ndash;79)</label>
+                        <input type="number" id="inputE" step="0.0000001" min="0" max="0.9999999" value="0.0785354">
+                    </div>
+                    <div class="calc-output" id="calcResult">
+                        Linear eccentricity <em>c</em> = <em>ae</em>: <strong>0.2171778</strong> AU<br>
+                        Eccentricity angle <em>&varphi;</em>: <strong>4.50445&deg;</strong> | <em>b</em>/<em>a</em>: <strong>0.9969113</strong><br>
+                        <em>q</em>: <strong>2.5481707</strong> AU | <em>Q</em>: <strong>2.9825263</strong> AU
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Fixed-Width Record Specification &amp; Catalog Extremes in <code>MPCORB.DAT</code></h2>
+            <p>
+                The table below summarizes the exact fixed-width field specification (1-based column indexing) for numeric eccentricity and its directly coupled size/orientation elements in a standard 202-character <code>MPCORB.DAT</code> line:
+            </p>
+
+            <table class="spec-table">
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Columns (1-based)</th>
+                        <th>Python Slice (0-based)</th>
+                        <th>Fortran Format</th>
+                        <th>Domain &amp; Astrometric Role</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong><code>M</code> (Mean anomaly)</strong></td>
+                        <td><code>27–35</code></td>
+                        <td><code>line[26:35]</code></td>
+                        <td><code>F9.5</code></td>
+                        <td><span class="math-roman">[0&deg;, 360&deg;)</span>; enters Kepler&rsquo;s eq. <span class="math-roman"><em>M</em> = <em>E</em> &minus; <em>e</em> sin <em>E</em></span></td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>&omega;</code> (Arg. of perihelion)</strong></td>
+                        <td><code>38–46</code></td>
+                        <td><code>line[37:46]</code></td>
+                        <td><code>F9.5</code></td>
+                        <td><span class="math-roman">[0&deg;, 360&deg;)</span>; orientation of eccentricity vector <span class="math-roman"><strong>e</strong></span></td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>e</code> (Numeric eccentricity)</strong></td>
+                        <td><code>71–79</code></td>
+                        <td><code>line[70:79]</code></td>
+                        <td><code>F9.7</code></td>
+                        <td>Dimensionless (<span class="math-roman">0.0000000 &le; <em>e</em> &lt; 1.0000000</span>)</td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>a</code> (Semi-major axis)</strong></td>
+                        <td><code>93–103</code></td>
+                        <td><code>line[92:103]</code></td>
+                        <td><code>F11.7</code></td>
+                        <td>Astronomical Units (<span class="math-roman">AU</span>); radial scale factor</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Representative MPCORB Record Examples Across the Eccentricity Spectrum</h3>
+            <pre>1) Near-Circular Main-Belt Asteroid: (2083) Smither
+   Cols 71-79 (e) = 0.0001421,  Cols 93-103 (a) = 1.8721450 AU
+   Linear eccentricity c = a*e = 0.0002660 AU | b/a = 0.99999999
+
+2) Typical Main-Belt Asteroid: (1) Ceres
+   Cols 71-79 (e) = 0.0785354,  Cols 93-103 (a) = 2.7653485 AU
+   Linear eccentricity c = a*e = 0.2171778 AU | b/a = 0.99691134
+   q = 2.5481707 AU | Q = 2.9825263 AU
+
+3) Extreme-Eccentricity Near-Earth Asteroid: (3200) Phaethon
+   Cols 71-79 (e) = 0.8898316,  Cols 93-103 (a) = 1.2713659 AU
+   Linear eccentricity c = a*e = 1.1313016 AU | b/a = 0.45628922
+   q = 0.1400643 AU | Q = 2.4026675 AU</pre>
+        </section>
+
+        <footer>
+            Self-contained scientific reference document (zero external dependencies) &bull; Conventions aligned with IAU Minor Planet Center (MPC) <code>MPCORB.DAT</code> specifications.
+        </footer>
+    </div>
+
+    <script>
+        (function () {
+            const inputA = document.getElementById("inputA");
+            const inputE = document.getElementById("inputE");
+            const calcResult = document.getElementById("calcResult");
+
+            function updateCalculation() {
+                const a = parseFloat(inputA.value);
+                const e = parseFloat(inputE.value);
+
+                if (!isFinite(a) || a <= 0) {
+                    calcResult.innerHTML = "Please enter a valid positive semi-major axis <em>a</em> &gt; 0.";
+                    return;
+                }
+
+                if (!isFinite(e) || e < 0 || e >= 1) {
+                    calcResult.innerHTML = "Numeric eccentricity <em>e</em> must satisfy 0 &le; <em>e</em> &lt; 1 for an elliptic MPCORB record.";
+                    return;
+                }
+
+                const c = a * e;
+                const phiDeg = Math.asin(e) * (180 / Math.PI);
+                const bOverA = Math.sqrt((1 - e) * (1 + e));
+                const q = a * (1 - e);
+                const Q = a * (1 + e);
+
+                calcResult.innerHTML =
+                    `Linear eccentricity <em>c</em> = <em>ae</em>: <strong>${c.toFixed(7)}</strong> AU<br>` +
+                    `Eccentricity angle <em>&varphi;</em>: <strong>${phiDeg.toFixed(5)}&deg;</strong> | <em>b</em>/<em>a</em>: <strong>${bOverA.toFixed(7)}</strong><br>` +
+                    `<em>q</em>: <strong>${q.toFixed(7)}</strong> AU | <em>Q</em>: <strong>${Q.toFixed(7)}</strong> AU`;
+            }
+
+            inputA.addEventListener("input", updateCalculation);
+            inputE.addEventListener("input", updateCalculation);
+            updateCalculation();
+        })();
+    </script>
+</body>
+</html>

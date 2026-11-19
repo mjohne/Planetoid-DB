@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eccentricity Factor in the Context of MPCORB</title>
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #334155;
+            --accent-color: #1e3a8a;
+            --accent-light: #eff6ff;
+            --border-color: #cbd5e1;
+            --code-bg: #f1f5f9;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.7;
+            color: var(--text-primary);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 3rem 3.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            border: 1px solid var(--border-color);
+        }
+
+        header {
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .badge {
+            display: inline-block;
+            background-color: var(--accent-light);
+            color: var(--accent-color);
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            padding: 0.3rem 0.75rem;
+            border-radius: 4px;
+            border: 1px solid #bfdbfe;
+            margin-bottom: 0.75rem;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin: 0.25rem 0 0.5rem 0;
+            color: var(--text-primary);
+            line-height: 1.25;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            margin: 0;
+        }
+
+        h2 {
+            font-size: 1.35rem;
+            color: var(--accent-color);
+            margin-top: 2.25rem;
+            margin-bottom: 0.85rem;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 0.35rem;
+        }
+
+        h3 {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        p {
+            margin-bottom: 1.15rem;
+            color: var(--text-secondary);
+            text-align: justify;
+        }
+
+        ul, ol {
+            margin-bottom: 1.25rem;
+            padding-left: 1.5rem;
+            color: var(--text-secondary);
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        .equation-box {
+            background-color: var(--code-bg);
+            border-left: 4px solid var(--accent-color);
+            padding: 1.15rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 6px 6px 0;
+            overflow-x: auto;
+            font-family: "Cambria Math", "STIX Two Math", "Times New Roman", Times, serif;
+            font-size: 1.18rem;
+            color: var(--text-primary);
+            text-align: center;
+        }
+
+        .math-inline {
+            font-family: "Cambria Math", "STIX Two Math", "Times New Roman", Times, serif;
+            font-style: italic;
+            font-size: 1.05em;
+            color: var(--text-primary);
+        }
+
+        .math-roman {
+            font-family: "Cambria Math", "STIX Two Math", "Times New Roman", Times, serif;
+            font-style: normal;
+            font-size: 1.02em;
+            color: var(--text-primary);
+        }
+
+        .frac {
+            display: inline-flex;
+            flex-direction: column;
+            vertical-align: middle;
+            text-align: center;
+            margin: 0 0.25rem;
+        }
+
+        .frac > span:first-child {
+            border-bottom: 1px solid var(--text-primary);
+            padding: 0 0.3rem 0.15rem 0.3rem;
+        }
+
+        .frac > span:last-child {
+            padding: 0.15rem 0.3rem 0 0.3rem;
+        }
+
+        .spec-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.92rem;
+        }
+
+        .spec-table th, .spec-table td {
+            border: 1px solid var(--border-color);
+            padding: 0.75rem 1rem;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        .spec-table th {
+            background-color: var(--accent-color);
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .spec-table tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        code {
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+            background-color: var(--code-bg);
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.88em;
+            color: #0f172a;
+        }
+
+        pre {
+            background-color: #1e293b;
+            color: #f8fafc;
+            padding: 1rem 1.25rem;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+        }
+
+        .note-callout {
+            background-color: #fffbeb;
+            border-left: 4px solid #d97706;
+            padding: 1rem 1.25rem;
+            margin: 1.5rem 0;
+            border-radius: 0 6px 6px 0;
+            color: #78350f;
+            font-size: 0.95rem;
+        }
+
+        .terminology-callout {
+            background-color: var(--accent-light);
+            border-left: 4px solid var(--accent-color);
+            padding: 1rem 1.25rem;
+            margin: 1.5rem 0;
+            border-radius: 0 6px 6px 0;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+        }
+
+        .diagram-box {
+            background-color: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+
+        .diagram-caption {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+        }
+
+        .calculator-box {
+            background-color: var(--accent-light);
+            border: 1px solid #bfdbfe;
+            border-radius: 8px;
+            padding: 1.25rem 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .calculator-box h4 {
+            margin: 0 0 0.75rem 0;
+            color: var(--accent-color);
+            font-size: 1rem;
+        }
+
+        .calc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+            gap: 1rem;
+            align-items: end;
+        }
+
+        .calc-field label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.3rem;
+        }
+
+        .calc-field input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 0.5rem 0.65rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 0.95rem;
+            font-family: inherit;
+        }
+
+        .calc-output {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 0.55rem 0.75rem;
+            font-size: 0.92rem;
+            color: var(--text-primary);
+        }
+
+        footer {
+            margin-top: 3rem;
+            padding-top: 1.25rem;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.85rem;
+            color: #64748b;
+            text-align: center;
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 1.75rem 1.25rem;
+            }
+            h1 {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="badge">Celestial Mechanics &amp; Astrodynamics Specification</div>
+            <h1>Eccentricity Factor in the Context of the MPCORB Database</h1>
+            <p class="subtitle">Scientific Definition, Dimensionless Eccentricity Scaling Functions in Keplerian Mechanics, and Derivation from MPCORB</p>
+        </header>
+
+        <section>
+            <h2>1. Fundamental Astrodynamical &amp; Mathematical Definition</h2>
+            <div class="terminology-callout">
+                <strong>Definition &amp; Nomenclature:</strong> In two-body Keplerian celestial mechanics and minor-planet catalog analysis, the <strong>eccentricity factor</strong> (also termed <strong>dimensionless eccentricity scaling factor</strong> or <strong>eccentricity multiplier</strong>) denotes a pure, dimensionless function of the orbital eccentricity <span class="math-inline">e</span> alone—independent of the semi-major axis <span class="math-inline">a</span> and solar gravitational parameter <span class="math-inline">&mu;</span><sub>&odot;</sub>—that modulates the circular-orbit baseline (<span class="math-roman"><em>e</em> = 0</span>, where the factor equals unity) to yield the corresponding geometric, kinematic, or anomaly-conversion quantity of an eccentric orbit.
+            </div>
+            <p>
+                In Keplerian orbital dynamics, almost every canonical property <span class="math-roman"><em>X</em>(<em>a</em>, <em>e</em>)</span> of a bound elliptic orbit (<span class="math-roman">0 &le; <em>e</em> &lt; 1</span>) factorizes multiplicatively into a circular-orbit scale <span class="math-roman"><em>X</em><sub>0</sub>(<em>a</em>)</span> and a dimensionless <strong>eccentricity factor</strong> <span class="math-roman"><em>f</em><sub>X</sub>(<em>e</em>)</span> normalized such that <span class="math-roman"><em>f</em><sub>X</sub>(0) = 1</span>:
+            </p>
+            <div class="equation-box">
+                <span class="math-inline">X</span>(<span class="math-inline">a</span>, <span class="math-inline">e</span>)
+                = <span class="math-inline">X</span><sub>0</sub>(<span class="math-inline">a</span>) &middot; <span class="math-inline">f</span><sub>X</sub>(<span class="math-inline">e</span>),
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <span class="math-roman">with</span>
+                &nbsp;
+                <span class="math-inline">f</span><sub>X</sub>(0) = 1
+            </div>
+            <p>
+                Depending on the physical quantity under evaluation, the term <strong>eccentricity factor</strong> refers specifically to one of the following foundational dimensionless functions of <span class="math-inline">e</span>:
+            </p>
+
+            <h3>A. Kinematic &amp; Velocity Eccentricity Factors (Scaling <span class="math-inline">v</span><sub>c</sub> = &radic;(<span class="math-inline">&mu;</span><sub>&odot;</sub>/<span class="math-inline">a</span>))</h3>
+            <div class="equation-box">
+                <span class="math-inline">f</span><sub>q</sub>(<span class="math-inline">e</span>)
+                &equiv;
+                <span class="frac">
+                    <span><span class="math-inline">v</span><sub>q</sub></span>
+                    <span><span class="math-inline">v</span><sub>c</sub></span>
+                </span>
+                = &radic;<span style="text-decoration: overline;">
+                    <span class="frac">
+                        <span>1 + <span class="math-inline">e</span></span>
+                        <span>1 &minus; <span class="math-inline">e</span></span>
+                    </span>
+                </span>
+                &nbsp;&nbsp;(Perihelion velocity factor, <span class="math-roman">1 &le; <em>f</em><sub>q</sub> &lt; &infin;</span>)
+            </div>
+            <div class="equation-box">
+                <span class="math-inline">f</span><sub>Q</sub>(<span class="math-inline">e</span>)
+                &equiv;
+                <span class="frac">
+                    <span><span class="math-inline">v</span><sub>Q</sub></span>
+                    <span><span class="math-inline">v</span><sub>c</sub></span>
+                </span>
+                = &radic;<span style="text-decoration: overline;">
+                    <span class="frac">
+                        <span>1 &minus; <span class="math-inline">e</span></span>
+                        <span>1 + <span class="math-inline">e</span></span>
+                    </span>
+                </span>
+                =
+                <span class="frac">
+                    <span>1</span>
+                    <span><span class="math-inline">f</span><sub>q</sub>(<span class="math-inline">e</span>)</span>
+                </span>
+                &nbsp;&nbsp;(Aphelion velocity factor, <span class="math-roman">0 &lt; <em>f</em><sub>Q</sub> &le; 1</span>)
+            </div>
+            <div class="equation-box">
+                <span class="math-inline">f</span><sub>&lang;v&rang;</sub>(<span class="math-inline">e</span>)
+                &equiv;
+                <span class="frac">
+                    <span>&lang;<span class="math-inline">v</span>&rang;<sub>t</sub></span>
+                    <span><span class="math-inline">v</span><sub>c</sub></span>
+                </span>
+                =
+                <span class="frac">
+                    <span>2 <span class="math-inline">E</span>(<span class="math-inline">e</span>)</span>
+                    <span><span class="math-inline">&pi;</span></span>
+                </span>
+                &approx; 1 &minus; <span class="frac"><span>1</span><span>4</span></span><span class="math-inline">e</span><sup>2</sup> &minus; <span class="frac"><span>3</span><span>64</span></span><span class="math-inline">e</span><sup>4</sup>
+                &nbsp;&nbsp;(Time-averaged speed factor, <span class="math-roman">2/<em>&pi;</em> &lt; <em>f</em><sub>&lang;v&rang;</sub> &le; 1</span>)
+            </div>
+
+            <h3>B. Geometric &amp; Dynamical Eccentricity Factors (Scaling <span class="math-inline">a</span> and <span class="math-inline">h</span><sub>c</sub> = &radic;(<span class="math-inline">&mu;</span><sub>&odot;</sub><span class="math-inline">a</span>))</h3>
+            <ul>
+                <li><strong>Apsidal Distance Factors (<span class="math-roman">1 &mp; <em>e</em></span>):</strong> Scale the semi-major axis <span class="math-inline">a</span> to perihelion distance <span class="math-roman"><em>q</em> = <em>a</em>(1 &minus; <em>e</em>)</span> and aphelion distance <span class="math-roman"><em>Q</em> = <em>a</em>(1 + <em>e</em>)</span>.</li>
+                <li><strong>Semi-Minor Axis &amp; Angular Momentum Factor (<span class="math-roman">&radic;(1 &minus; <em>e</em><sup>2</sup>)</span>):</strong> Scales semi-major axis to semi-minor axis <span class="math-roman"><em>b</em> = <em>a</em>&radic;(1 &minus; <em>e</em><sup>2</sup>)</span>, circular area <span class="math-roman"><em>A</em> = <em>&pi;a</em><sup>2</sup>&radic;(1 &minus; <em>e</em><sup>2</sup>)</span>, and circular specific angular momentum <span class="math-roman"><em>h</em> = &radic;(<em>&mu;</em><sub>&odot;</sub><em>a</em>)&radic;(1 &minus; <em>e</em><sup>2</sup>)</span>.</li>
+                <li><strong>Semi-Latus Rectum Factor (<span class="math-roman">1 &minus; <em>e</em><sup>2</sup></span>):</strong> Scales semi-major axis to semi-latus rectum <span class="math-roman"><em>p</em> = <em>a</em>(1 &minus; <em>e</em><sup>2</sup>)</span> and specific angular momentum squared <span class="math-roman"><em>h</em><sup>2</sup> = <em>&mu;</em><sub>&odot;</sub><em>a</em>(1 &minus; <em>e</em><sup>2</sup>)</span>.</li>
+                <li><strong>True-to-Eccentric Anomaly Conversion Factor (<span class="math-roman">&radic;[(1 + <em>e</em>)/(1 &minus; <em>e</em>)]</span>):</strong> Also serves as the exact tangent half-angle multiplier linking eccentric anomaly <span class="math-inline">E</span> to true anomaly <span class="math-inline">&nu;</span> via <span class="math-roman">tan(<em>&nu;</em>/2) = &radic;[(1 + <em>e</em>)/(1 &minus; <em>e</em>)] tan(<em>E</em>/2)</span>.</li>
+            </ul>
+
+            <div class="diagram-box">
+                <svg width="560" height="255" viewBox="0 0 560 255" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Comparison plot of key dimensionless eccentricity factors across e from 0 to 0.9: perihelion velocity factor sqrt((1+e)/(1-e)), aphelion velocity factor sqrt((1-e)/(1+e)), time-averaged speed factor 2E(e)/pi, and angular momentum factor sqrt(1-e^2)">
+                    <rect x="0" y="0" width="560" height="255" fill="#f8fafc" rx="6"/>
+                    <!-- Left panel: Plot of dimensionless eccentricity factors vs e in [0, 0.9] -->
+                    <!-- Plot box: x in [50, 275] (width 225 for e in [0, 0.9] -> 250 px per unit e) -->
+                    <!-- Y-axis: factor in [0, 4.5] mapped to y in [210, 25] (height 185 -> 41.11 px per unit) -->
+                    <!-- y(val) = 210 - val * 41.111 -->
+                    <!-- Grid lines at y = 0, 1, 2, 3, 4:
+                         val=0 -> 210
+                         val=1 -> 168.9
+                         val=2 -> 127.8
+                         val=3 -> 86.7
+                         val=4 -> 45.6 -->
+                    <line x1="50" y1="168.9" x2="275" y2="168.9" stroke="#93c5fd" stroke-width="1.2" stroke-dasharray="4,3"/>
+                    <line x1="50" y1="127.8" x2="275" y2="127.8" stroke="#e2e8f0" stroke-width="1"/>
+                    <line x1="50" y1="86.7" x2="275" y2="86.7" stroke="#e2e8f0" stroke-width="1"/>
+                    <line x1="50" y1="45.6" x2="275" y2="45.6" stroke="#e2e8f0" stroke-width="1"/>
+
+                    <!-- Axes -->
+                    <line x1="50" y1="22" x2="50" y2="210" stroke="#334155" stroke-width="1.4"/>
+                    <line x1="50" y1="210" x2="280" y2="210" stroke="#334155" stroke-width="1.4"/>
+
+                    <!-- Y-axis labels -->
+                    <text x="44" y="213" text-anchor="end" font-family="sans-serif" font-size="9" fill="#475569">0.0</text>
+                    <text x="44" y="172" text-anchor="end" font-family="sans-serif" font-size="9.5" fill="#1e3a8a" font-weight="bold">1.0</text>
+                    <text x="44" y="131" text-anchor="end" font-family="sans-serif" font-size="9" fill="#475569">2.0</text>
+                    <text x="44" y="90" text-anchor="end" font-family="sans-serif" font-size="9" fill="#475569">3.0</text>
+                    <text x="44" y="49" text-anchor="end" font-family="sans-serif" font-size="9" fill="#475569">4.0</text>
+
+                    <!-- X-axis labels (e = 0 to 0.9) -->
+                    <text x="50" y="223" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#475569">0.0</text>
+                    <text x="100" y="223" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#475569">0.2</text>
+                    <text x="150" y="223" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#475569">0.4</text>
+                    <text x="200" y="223" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#475569">0.6</text>
+                    <text x="250" y="223" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#475569">0.8</text>
+                    <text x="275" y="223" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#475569">0.9</text>
+                    <text x="162" y="241" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#1e293b" font-weight="bold">Orbital Eccentricity e</text>
+
+                    <!-- Curve 1: f_q(e) = sqrt((1+e)/(1-e)) (Blue, solid):
+                         e=0.0: 1.000 -> (50, 168.9)
+                         e=0.2: 1.225 -> (100, 159.6)
+                         e=0.4: 1.528 -> (150, 147.2)
+                         e=0.6: 2.000 -> (200, 127.8)
+                         e=0.7: 2.380 -> (225, 112.1)
+                         e=0.8: 3.000 -> (250, 86.7)
+                         e=0.85: 3.512 -> (262.5, 65.6)
+                         e=0.90: 4.359 -> (275, 30.8) -->
+                    <polyline fill="none" stroke="#1d4ed8" stroke-width="2.2"
+                        points="50,168.9 100,159.6 150,147.2 200,127.8 225,112.1 250,86.7 262.5,65.6 275,30.8"/>
+
+                    <!-- Curve 2: f_<v>(e) = 2*E(e)/pi (Teal, dashed):
+                         e=0.0: 1.000 -> (50, 168.9)
+                         e=0.2: 0.990 -> (100, 169.3)
+                         e=0.4: 0.959 -> (150, 170.6)
+                         e=0.6: 0.903 -> (200, 172.9)
+                         e=0.8: 0.813 -> (250, 176.6)
+                         e=0.9: 0.746 -> (275, 179.3) -->
+                    <polyline fill="none" stroke="#0d9488" stroke-width="2" stroke-dasharray="4,2"
+                        points="50,168.9 100,169.3 150,170.6 200,172.9 250,176.6 275,179.3"/>
+
+                    <!-- Curve 3: sqrt(1 - e^2) (Slate, dotted):
+                         e=0.0: 1.000 -> (50, 168.9)
+                         e=0.2: 0.980 -> (100, 169.7)
+                         e=0.4: 0.917 -> (150, 172.3)
+                         e=0.6: 0.800 -> (200, 177.1)
+                         e=0.8: 0.600 -> (250, 185.3)
+                         e=0.9: 0.436 -> (275, 192.1) -->
+                    <polyline fill="none" stroke="#64748b" stroke-width="1.8" stroke-dasharray="2,2"
+                        points="50,168.9 100,169.7 150,172.3 200,177.1 250,185.3 275,192.1"/>
+
+                    <!-- Curve 4: f_Q(e) = sqrt((1-e)/(1+e)) (Amber, solid):
+                         e=0.0: 1.000 -> (50, 168.9)
+                         e=0.2: 0.816 -> (100, 176.4)
+                         e=0.4: 0.655 -> (150, 183.1)
+                         e=0.6: 0.500 -> (200, 189.4)
+                         e=0.8: 0.333 -> (250, 196.3)
+                         e=0.9: 0.229 -> (275, 200.6) -->
+                    <polyline fill="none" stroke="#d97706" stroke-width="2.1"
+                        points="50,168.9 100,176.4 150,183.1 200,189.4 250,196.3 275,200.6"/>
+
+                    <circle cx="50" cy="168.9" r="3.5" fill="#1e3a8a"/>
+
+                    <!-- Right panel: Legend & Equations -->
+                    <text x="425" y="40" text-anchor="middle" font-family="serif" font-size="13.5" fill="#1e3a8a" font-weight="bold">Dimensionless Eccentricity Factors:</text>
+
+                    <line x1="305" y1="66" x2="328" y2="66" stroke="#1d4ed8" stroke-width="2.4"/>
+                    <text x="334" y="70" text-anchor="start" font-family="serif" font-size="11.5" fill="#1d4ed8" font-weight="bold">f<tspan baseline-shift="sub" font-size="8.5">q</tspan>(e) = &radic;[(1+e)/(1&minus;e)] &nbsp;(v<tspan baseline-shift="sub" font-size="8.5">q</tspan> / v<tspan baseline-shift="sub" font-size="8.5">c</tspan>)</text>
+
+                    <line x1="305" y1="94" x2="328" y2="94" stroke="#0d9488" stroke-width="2.1" stroke-dasharray="4,2"/>
+                    <text x="334" y="98" text-anchor="start" font-family="serif" font-size="11.5" fill="#0f766e" font-weight="bold">f<tspan baseline-shift="sub" font-size="8.5">&lang;v&rang;</tspan>(e) = 2E(e)/&pi; &nbsp;(&lang;v&rang;<tspan baseline-shift="sub" font-size="8.5">t</tspan> / v<tspan baseline-shift="sub" font-size="8.5">c</tspan>)</text>
+
+                    <line x1="305" y1="122" x2="328" y2="122" stroke="#64748b" stroke-width="2" stroke-dasharray="2,2"/>
+                    <text x="334" y="126" text-anchor="start" font-family="serif" font-size="11.5" fill="#475569" font-weight="bold">f<tspan baseline-shift="sub" font-size="8.5">h</tspan>(e) = &radic;(1 &minus; e<tspan baseline-shift="super" font-size="8">2</tspan>) &nbsp;(h / h<tspan baseline-shift="sub" font-size="8.5">c</tspan>, b / a)</text>
+
+                    <line x1="305" y1="150" x2="328" y2="150" stroke="#d97706" stroke-width="2.2"/>
+                    <text x="334" y="154" text-anchor="start" font-family="serif" font-size="11.5" fill="#b45309" font-weight="bold">f<tspan baseline-shift="sub" font-size="8.5">Q</tspan>(e) = &radic;[(1&minus;e)/(1+e)] &nbsp;(v<tspan baseline-shift="sub" font-size="8.5">Q</tspan> / v<tspan baseline-shift="sub" font-size="8.5">c</tspan>)</text>
+
+                    <text x="425" y="184" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#334155">All normalized to f(0) = 1 at e = 0</text>
+                    <text x="425" y="200" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#475569">Reciprocal symmetry: f<tspan baseline-shift="sub" font-size="8">q</tspan>(e) &middot; f<tspan baseline-shift="sub" font-size="8">Q</tspan>(e) = 1</text>
+                </svg>
+                <div class="diagram-caption">
+                    Figure 1: Evolution of the four principal dimensionless eccentricity factors across <span class="math-roman">0 &le; <em>e</em> &le; 0.9</span>. At <span class="math-roman"><em>e</em> = 0</span>, every factor equals <span class="math-roman">1</span>; as <span class="math-inline">e</span> increases, <span class="math-roman"><em>f</em><sub>q</sub>(<em>e</em>) = &radic;[(1+<em>e</em>)/(1&minus;<em>e</em>)]</span> diverges as <span class="math-roman">(1 &minus; <em>e</em>)<sup>&minus;1/2</sup></span>, whereas <span class="math-roman"><em>f</em><sub>Q</sub>(<em>e</em>)</span> vanishes as <span class="math-roman">(1 &minus; <em>e</em>)<sup>+1/2</sup></span>.
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>2. Taxonomy of Canonical Eccentricity Factors in Keplerian Mechanics</h2>
+            <p>
+                In astrodynamical software and derived-element tables built on <code>MPCORB.DAT</code>, isolating the dimensionless <strong>eccentricity factor</strong> separates semi-major-axis scaling (<span class="math-inline">a</span>) from orbital-shape modulation (<span class="math-inline">e</span>):
+            </p>
+            <table class="spec-table">
+                <thead>
+                    <tr>
+                        <th>Eccentricity Factor</th>
+                        <th>Exact Formula</th>
+                        <th>Range on <span class="math-roman">0 &le; <em>e</em> &lt; 1</span></th>
+                        <th>Circular Baseline &amp; Derived Quantity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Perihelion Velocity Factor (<span class="math-inline">f</span><sub>q</sub>)</strong></td>
+                        <td><span class="math-roman">&radic;[(1 + <em>e</em>) / (1 &minus; <em>e</em>)]</span></td>
+                        <td><span class="math-roman">[1, &infin;)</span></td>
+                        <td>Multiplies <span class="math-inline">v</span><sub>c</sub> to give <span class="math-inline">v</span><sub>q</sub>; also equals <span class="math-roman">tan(<em>&nu;</em>/2) / tan(<em>E</em>/2)</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Aphelion Velocity Factor (<span class="math-inline">f</span><sub>Q</sub>)</strong></td>
+                        <td><span class="math-roman">&radic;[(1 &minus; <em>e</em>) / (1 + <em>e</em>)]</span></td>
+                        <td><span class="math-roman">(0, 1]</span></td>
+                        <td>Multiplies <span class="math-inline">v</span><sub>c</sub> to give <span class="math-inline">v</span><sub>Q</sub>; exact reciprocal of <span class="math-inline">f</span><sub>q</sub> (<span class="math-roman"><em>f</em><sub>q</sub><em>f</em><sub>Q</sub> = 1</span>)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Time-Averaged Speed Factor (<span class="math-inline">f</span><sub>&lang;v&rang;</sub>)</strong></td>
+                        <td><span class="math-roman">2 <em>E</em>(<em>e</em>) / <em>&pi;</em></span></td>
+                        <td><span class="math-roman">(2/<em>&pi;</em>, 1]</span></td>
+                        <td>Multiplies <span class="math-inline">v</span><sub>c</sub> to give <span class="math-roman">&lang;<em>v</em>&rang;<sub>t</sub></span> and <span class="math-roman">2<em>&pi;a</em></span> to give perimeter <span class="math-inline">L</span><sub>ellipse</sub></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Angular Momentum / Axis Factor (<span class="math-inline">f</span><sub>h</sub>)</strong></td>
+                        <td><span class="math-roman">&radic;(1 &minus; <em>e</em><sup>2</sup>)</span></td>
+                        <td><span class="math-roman">(0, 1]</span></td>
+                        <td>Multiplies <span class="math-roman">&radic;(<em>&mu;</em><sub>&odot;</sub><em>a</em>)</span> to give <span class="math-inline">h</span>, and <span class="math-inline">a</span> to give semi-minor axis <span class="math-inline">b</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Semi-Latus Rectum Factor (<span class="math-inline">f</span><sub>p</sub>)</strong></td>
+                        <td><span class="math-roman">1 &minus; <em>e</em><sup>2</sup></span></td>
+                        <td><span class="math-roman">(0, 1]</span></td>
+                        <td>Multiplies <span class="math-inline">a</span> to give semi-latus rectum <span class="math-inline">p</span> (<span class="math-roman"><em>f</em><sub>p</sub> = <em>f</em><sub>h</sub><sup>2</sup></span>)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Apsidal Distance Factors (<span class="math-inline">f</span><sub>r,&mp;</sub>)</strong></td>
+                        <td><span class="math-roman">1 &minus; <em>e</em></span> &nbsp;and&nbsp; <span class="math-roman">1 + <em>e</em></span></td>
+                        <td><span class="math-roman">(0, 1]</span> &amp; <span class="math-roman">[1, 2)</span></td>
+                        <td>Multiply <span class="math-inline">a</span> to give perihelion <span class="math-inline">q</span> and aphelion <span class="math-inline">Q</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>3. Specific Status and Role in the MPCORB Catalog</h2>
+            <p>
+                In the <strong>MPCORB</strong> (<em>Minor Planet Center Orbit</em>) database published by the International Astronomical Union&rsquo;s Minor Planet Center (IAU MPC):
+            </p>
+
+            <ul>
+                <li>
+                    <strong>Direct Evaluation from Tabulated Eccentricity <code>e</code>:</strong> <code>MPCORB.DAT</code> tabulates the osculating orbital eccentricity <span class="math-inline">e</span> in fixed-width columns <code>71–79</code> (Fortran format <code>F9.7</code>, 7 decimal places). Because every eccentricity factor depends exclusively on <span class="math-inline">e</span>, it can be evaluated directly from columns <code>71–79</code> without requiring semi-major axis <span class="math-inline">a</span> or mean motion <span class="math-inline">n</span>.
+                </li>
+                <li>
+                    <strong>Computational Factorization &amp; Decoupled Evaluation:</strong> In high-throughput catalog pipelines processing over <span class="math-roman">1.4 &times; 10<sup>6</sup></span> minor-planet records in <code>MPCORB.DAT</code>, computing <span class="math-inline">v</span><sub>c</sub> once from <span class="math-inline">a</span> and multiplying by the respective eccentricity factors <span class="math-inline">f</span><sub>q</sub>(<span class="math-inline">e</span>), <span class="math-inline">f</span><sub>Q</sub>(<span class="math-inline">e</span>), and <span class="math-inline">f</span><sub>&lang;v&rang;</sub>(<span class="math-inline">e</span>) exposes the pure departure from circular motion:
+                    <ul>
+                        <li><em>Perihelion &amp; Aphelion Velocity Factors:</em> <span class="math-roman"><em>v</em><sub>q</sub> = <em>v</em><sub>c</sub> &middot; <em>f</em><sub>q</sub>(<em>e</em>)</span> and <span class="math-roman"><em>v</em><sub>Q</sub> = <em>v</em><sub>c</sub> / <em>f</em><sub>q</sub>(<em>e</em>)</span> require only a single square root <span class="math-roman">&radic;[(1 + <em>e</em>)/(1 &minus; <em>e</em>)]</span> for both apsidal speeds simultaneously.</li>
+                        <li><em>True-Anomaly Kepler Solver Factor:</em> The same factor <span class="math-roman"><em>f</em><sub>q</sub>(<em>e</em>) = &radic;[(1 + <em>e</em>)/(1 &minus; <em>e</em>)]</span> converts eccentric anomaly <span class="math-inline">E</span> (solved from Kepler&rsquo;s equation <span class="math-roman"><em>M</em> = <em>E</em> &minus; <em>e</em> sin <em>E</em></span>) to true anomaly <span class="math-inline">&nu;</span> at every propagation epoch.</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Domain &amp; Precision Behavior Across MPCORB Populations:</strong>
+                    <ul>
+                        <li><em>Main-Belt Asteroids (<span class="math-roman">0 &le; <em>e</em> &lesssim; 0.35</span>):</em> The apsidal velocity factor stays close to unity (<span class="math-roman">1.00 &le; <em>f</em><sub>q</sub>(<em>e</em>) &lesssim; 1.44</span>), while <span class="math-roman"><em>f</em><sub>&lang;v&rang;</sub>(<em>e</em>) &gt; 0.969</span>.</li>
+                        <li><em>High-Eccentricity NEAs, Damocloids &amp; Comets (<span class="math-roman">0.7 &le; <em>e</em> &lt; 1</span>):</em> As <span class="math-roman"><em>e</em> &rarr; 1<sup>&minus;</sup></span>, <span class="math-roman"><em>f</em><sub>q</sub>(<em>e</em>) = &radic;[(1 + <em>e</em>)/(1 &minus; <em>e</em>)]</span> grows steeply (e.g., <span class="math-roman"><em>f</em><sub>q</sub>(0.99) = 14.1067</span>), magnifying numerical sensitivity to the <code>F9.7</code> precision (<span class="math-roman">&Delta;<em>e</em> = &plusmn;5 &times; 10<sup>&minus;8</sup></span>) of <code>MPCORB.DAT</code> via <span class="math-roman">&Delta;<em>f</em><sub>q</sub> / <em>f</em><sub>q</sub> = &Delta;<em>e</em> / (1 &minus; <em>e</em><sup>2</sup>)</span>.</li>
+                        <li><em>Hyperbolic Records (<span class="math-roman"><em>e</em> &gt; 1</span>):</em> Bound-orbit eccentricity factors containing <span class="math-roman">(1 &minus; <em>e</em>)</span> or <span class="math-roman">(1 &minus; <em>e</em><sup>2</sup>)</span> become imaginary for <span class="math-roman"><em>e</em> &gt; 1</span> and must be replaced by their hyperbolic counterparts <span class="math-roman">&radic;(<em>e</em><sup>2</sup> &minus; 1)</span> and <span class="math-roman">&radic;[(<em>e</em> + 1)/(<em>e</em> &minus; 1)]</span>.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <div class="note-callout">
+                <strong>Disambiguation Note:</strong> Because &ldquo;eccentricity factor&rdquo; is a contextual umbrella term in astrodynamics, always specify which scaling function is meant when documenting catalog columns—most commonly <span class="math-roman"><em>f</em><sub>q</sub>(<em>e</em>) = &radic;[(1 + <em>e</em>)/(1 &minus; <em>e</em>)]</span> (perihelion velocity / true-anomaly multiplier), <span class="math-roman"><em>f</em><sub>Q</sub>(<em>e</em>) = &radic;[(1 &minus; <em>e</em>)/(1 + <em>e</em>)]</span> (aphelion velocity multiplier), or <span class="math-roman"><em>f</em><sub>h</sub>(<em>e</em>) = &radic;(1 &minus; <em>e</em><sup>2</sup>)</span> (angular momentum / semi-minor axis multiplier).
+            </div>
+
+            <div class="calculator-box">
+                <h4>Interactive MPCORB Eccentricity Factors Calculator</h4>
+                <div class="calc-grid">
+                    <div class="calc-field">
+                        <label for="inputE">Orbital Eccentricity <em>e</em> (Cols 71&ndash;79, <code>F9.7</code>)</label>
+                        <input type="number" id="inputE" step="0.0000001" min="0" max="0.9999999" value="0.0785354">
+                    </div>
+                    <div class="calc-output" id="calcResult" style="grid-column: 1 / -1;">
+                        Perihelion Factor &radic;[(1+<em>e</em>)/(1&minus;<em>e</em>)]: <strong>1.08179543</strong> &bull; Aphelion Factor &radic;[(1&minus;<em>e</em>)/(1+<em>e</em>)]: <strong>0.92438922</strong><br>
+                        Time-Avg Speed Factor 2<em>E</em>(<em>e</em>)/&pi;: <strong>0.99845691</strong> &bull; Angular Momentum Factor &radic;(1&minus;<em>e</em><sup>2</sup>): <strong>0.99691133</strong> &bull; Semi-Latus Factor (1&minus;<em>e</em><sup>2</sup>): <strong>0.99383219</strong>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Fixed-Width Source Column &amp; Evaluation from <code>MPCORB.DAT</code></h2>
+            <p>
+                In a standard 202-character <code>MPCORB.DAT</code> record, all dimensionless eccentricity factors depend solely on the eccentricity field in columns <code>71–79</code>:
+            </p>
+
+            <table class="spec-table">
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Columns (1-based)</th>
+                        <th>0-Based Slice</th>
+                        <th>Fortran Format</th>
+                        <th>Unit &amp; Role</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong><code>e</code> (Eccentricity)</strong></td>
+                        <td><code>71–79</code></td>
+                        <td><code>line[70:79]</code></td>
+                        <td><code>F9.7</code></td>
+                        <td>Dimensionless (<span class="math-roman">0 &le; <em>e</em> &lt; 1</span> for bound orbits); sole input variable</td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>f<sub>q</sub>(e)</code> (Perihelion factor)</strong></td>
+                        <td><em>Derived (not stored)</em></td>
+                        <td><code>sqrt((1+e)/(1-e))</code></td>
+                        <td><em>Computed</em></td>
+                        <td>Dimensionless (<span class="math-roman">&ge; 1</span>); <span class="math-roman"><em>v</em><sub>q</sub> / <em>v</em><sub>c</sub></span> and <span class="math-roman">tan(<em>&nu;</em>/2) / tan(<em>E</em>/2)</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>f<sub>Q</sub>(e)</code> (Aphelion factor)</strong></td>
+                        <td><em>Derived (not stored)</em></td>
+                        <td><code>sqrt((1-e)/(1+e))</code></td>
+                        <td><em>Computed</em></td>
+                        <td>Dimensionless (<span class="math-roman">&le; 1</span>); <span class="math-roman"><em>v</em><sub>Q</sub> / <em>v</em><sub>c</sub> = 1 / <em>f</em><sub>q</sub>(<em>e</em>)</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>f<sub>&lang;v&rang;</sub>(e)</code> (Mean-speed factor)</strong></td>
+                        <td><em>Derived (not stored)</em></td>
+                        <td><code>2 * E(e) / pi</code></td>
+                        <td><em>Computed</em></td>
+                        <td>Dimensionless (<span class="math-roman">2/<em>&pi;</em> &lt; <em>f</em> &le; 1</span>); <span class="math-roman">&lang;<em>v</em>&rang;<sub>t</sub> / <em>v</em><sub>c</sub></span> and <span class="math-roman"><em>L</em><sub>ellipse</sub> / (2<em>&pi;a</em>)</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>f<sub>h</sub>(e)</code> (Angular-momentum factor)</strong></td>
+                        <td><em>Derived (not stored)</em></td>
+                        <td><code>sqrt(1 - e * e)</code></td>
+                        <td><em>Computed</em></td>
+                        <td>Dimensionless (<span class="math-roman">&le; 1</span>); <span class="math-roman"><em>h</em> / &radic;(<em>&mu;</em><sub>&odot;</sub><em>a</em>)</span> and <span class="math-roman"><em>b</em> / <em>a</em></span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Example Record Evaluations (<code>MPCORB.DAT</code>)</h3>
+            <pre>1) Low-Eccentricity Main-Belt Asteroid: 00001 — (1) Ceres
+   e = 0.0785354 (Cols 71-79)
+   Perihelion velocity factor  sqrt((1 + e) / (1 - e))   = 1.08179543  (+8.180% vs v_c)
+   Aphelion velocity factor    sqrt((1 - e) / (1 + e))   = 0.92438922  (-7.561% vs v_c)
+   Time-averaged speed factor  2 * E(e) / pi             = 0.99845691  (-0.154% vs v_c)
+   Angular momentum factor     sqrt(1 - e^2)             = 0.99691133  (-0.309% vs h_c)
+   Semi-latus rectum factor    1 - e^2                   = 0.99383219  (-0.617% vs a)
+
+2) High-Eccentricity Near-Earth Asteroid: 03200 — (3200) Phaethon
+   e = 0.8898316 (Cols 71-79)
+   Perihelion velocity factor  sqrt((1 + e) / (1 - e))   = 4.14182700  (+314.18% vs v_c)
+   Aphelion velocity factor    sqrt((1 - e) / (1 + e))   = 0.24143934  (-75.856% vs v_c)
+   Time-averaged speed factor  2 * E(e) / pi             = 0.75320013  (-24.680% vs v_c)
+   Angular momentum factor     sqrt(1 - e^2)             = 0.45628895  (-54.371% vs h_c)
+   Semi-latus rectum factor    1 - e^2                   = 0.20819961  (-79.180% vs a)</pre>
+        </section>
+
+        <footer>
+            Self-contained scientific reference document (zero external dependencies) &bull; Conventions aligned with IAU Minor Planet Center (MPC) <code>MPCORB.DAT</code> specifications.
+        </footer>
+    </div>
+
+    <script>
+        (function () {
+            const inputE = document.getElementById("inputE");
+            const calcResult = document.getElementById("calcResult");
+
+            function completeEllipticE(e) {
+                if (e === 0) return Math.PI / 2.0;
+                let a = 1.0;
+                let b = Math.sqrt(1.0 - e * e);
+                let sum = e * e;
+                let pow2 = 1.0;
+                for (let i = 0; i < 30; i++) {
+                    const aNext = 0.5 * (a + b);
+                    const bNext = Math.sqrt(a * b);
+                    const c = 0.5 * (a - b);
+                    pow2 *= 2.0;
+                    sum += pow2 * c * c;
+                    a = aNext;
+                    b = bNext;
+                    if (Math.abs(c) < 1e-15) break;
+                }
+                return (Math.PI / (2.0 * a)) * (1.0 - 0.5 * sum);
+            }
+
+            function updateCalculation() {
+                const e = parseFloat(inputE.value);
+
+                if (!isFinite(e) || e < 0 || e >= 1) {
+                    calcResult.innerHTML = "Eccentricity <em>e</em> must satisfy 0 &le; <em>e</em> &lt; 1 for bound-orbit eccentricity factors.";
+                    return;
+                }
+
+                const fPeri = Math.sqrt((1.0 + e) / (1.0 - e));
+                const fAph = Math.sqrt((1.0 - e) / (1.0 + e));
+                const fAvg = (2.0 * completeEllipticE(e)) / Math.PI;
+                const fAngMom = Math.sqrt(1.0 - e * e);
+                const fSemiLatus = 1.0 - e * e;
+
+                calcResult.innerHTML =
+                    `Perihelion Factor &radic;[(1+<em>e</em>)/(1&minus;<em>e</em>)]: <strong>${fPeri.toFixed(8)}</strong> &bull; Aphelion Factor &radic;[(1&minus;<em>e</em>)/(1+<em>e</em>)]: <strong>${fAph.toFixed(8)}</strong><br>` +
+                    `Time-Avg Speed Factor 2<em>E</em>(<em>e</em>)/&pi;: <strong>${fAvg.toFixed(8)}</strong> &bull; Angular Momentum Factor &radic;(1&minus;<em>e</em><sup>2</sup>): <strong>${fAngMom.toFixed(8)}</strong> &bull; Semi-Latus Factor (1&minus;<em>e</em><sup>2</sup>): <strong>${fSemiLatus.toFixed(8)}</strong>`;
+            }
+
+            inputE.addEventListener("input", updateCalculation);
+            updateCalculation();
+        })();
+    </script>
+</body>
+</html>

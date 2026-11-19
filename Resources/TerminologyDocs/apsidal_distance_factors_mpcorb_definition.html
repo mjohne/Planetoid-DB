@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apsidal Distance Factors (1 &minus; <em>e</em>, 1 + <em>e</em>) in the Context of MPCORB</title>
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #334155;
+            --accent-color: #1e3a8a;
+            --accent-light: #eff6ff;
+            --border-color: #cbd5e1;
+            --code-bg: #f1f5f9;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.7;
+            color: var(--text-primary);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 3rem 3.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            border: 1px solid var(--border-color);
+        }
+
+        header {
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .badge {
+            display: inline-block;
+            background-color: var(--accent-light);
+            color: var(--accent-color);
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            padding: 0.3rem 0.75rem;
+            border-radius: 4px;
+            border: 1px solid #bfdbfe;
+            margin-bottom: 0.75rem;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin: 0.25rem 0 0.5rem 0;
+            color: var(--text-primary);
+            line-height: 1.25;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            margin: 0;
+        }
+
+        h2 {
+            font-size: 1.35rem;
+            color: var(--accent-color);
+            margin-top: 2.25rem;
+            margin-bottom: 0.85rem;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 0.35rem;
+        }
+
+        h3 {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        p {
+            margin-bottom: 1.15rem;
+            color: var(--text-secondary);
+            text-align: justify;
+        }
+
+        ul, ol {
+            margin-bottom: 1.25rem;
+            padding-left: 1.5rem;
+            color: var(--text-secondary);
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        .equation-box {
+            background-color: var(--code-bg);
+            border-left: 4px solid var(--accent-color);
+            padding: 1.15rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 6px 6px 0;
+            overflow-x: auto;
+            font-family: "Cambria Math", "STIX Two Math", "Times New Roman", Times, serif;
+            font-size: 1.18rem;
+            color: var(--text-primary);
+            text-align: center;
+        }
+
+        .math-inline {
+            font-family: "Cambria Math", "STIX Two Math", "Times New Roman", Times, serif;
+            font-style: italic;
+            font-size: 1.05em;
+            color: var(--text-primary);
+        }
+
+        .math-roman {
+            font-family: "Cambria Math", "STIX Two Math", "Times New Roman", Times, serif;
+            font-style: normal;
+            font-size: 1.02em;
+            color: var(--text-primary);
+        }
+
+        .frac {
+            display: inline-flex;
+            flex-direction: column;
+            vertical-align: middle;
+            text-align: center;
+            margin: 0 0.25rem;
+        }
+
+        .frac > span:first-child {
+            border-bottom: 1px solid var(--text-primary);
+            padding: 0 0.3rem 0.15rem 0.3rem;
+        }
+
+        .frac > span:last-child {
+            padding: 0.15rem 0.3rem 0 0.3rem;
+        }
+
+        .spec-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.92rem;
+        }
+
+        .spec-table th, .spec-table td {
+            border: 1px solid var(--border-color);
+            padding: 0.75rem 1rem;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        .spec-table th {
+            background-color: var(--accent-color);
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .spec-table tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        code {
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+            background-color: var(--code-bg);
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.88em;
+            color: #0f172a;
+        }
+
+        pre {
+            background-color: #1e293b;
+            color: #f8fafc;
+            padding: 1rem 1.25rem;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+        }
+
+        .note-callout {
+            background-color: #fffbeb;
+            border-left: 4px solid #d97706;
+            padding: 1rem 1.25rem;
+            margin: 1.5rem 0;
+            border-radius: 0 6px 6px 0;
+            color: #78350f;
+            font-size: 0.95rem;
+        }
+
+        .terminology-callout {
+            background-color: var(--accent-light);
+            border-left: 4px solid var(--accent-color);
+            padding: 1rem 1.25rem;
+            margin: 1.5rem 0;
+            border-radius: 0 6px 6px 0;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+        }
+
+        .diagram-box {
+            background-color: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+
+        .diagram-caption {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+        }
+
+        .calculator-box {
+            background-color: var(--accent-light);
+            border: 1px solid #bfdbfe;
+            border-radius: 8px;
+            padding: 1.25rem 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .calculator-box h4 {
+            margin: 0 0 0.75rem 0;
+            color: var(--accent-color);
+            font-size: 1rem;
+        }
+
+        .calc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+            gap: 1rem;
+            align-items: end;
+        }
+
+        .calc-field label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.3rem;
+        }
+
+        .calc-field input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 0.5rem 0.65rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 0.95rem;
+            font-family: inherit;
+        }
+
+        .calc-output {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 0.55rem 0.75rem;
+            font-size: 0.92rem;
+            color: var(--text-primary);
+        }
+
+        footer {
+            margin-top: 3rem;
+            padding-top: 1.25rem;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.85rem;
+            color: #64748b;
+            text-align: center;
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 1.75rem 1.25rem;
+            }
+            h1 {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="badge">Celestial Mechanics &amp; Astrodynamics Specification</div>
+            <h1>Apsidal Distance Factors (1 &minus; <em>e</em>, 1 + <em>e</em>) in the Context of the MPCORB Database</h1>
+            <p class="subtitle">Scientific Definition, Radial Extremum Scaling of the Semi-Major Axis, and Derivation from MPCORB</p>
+        </header>
+
+        <section>
+            <h2>1. Fundamental Astrodynamical &amp; Geometric Definition</h2>
+            <div class="terminology-callout">
+                <strong>Definition &amp; Nomenclature:</strong> In two-body Keplerian celestial mechanics, the <strong>apsidal distance factors</strong> (also termed <strong>perihelion and aphelion distance factors</strong> or <strong>radial extremum multipliers</strong>, denoted <span class="math-roman"><em>f</em><sub>q,r</sub>(<em>e</em>) = 1 &minus; <em>e</em></span> and <span class="math-roman"><em>f</em><sub>Q,r</sub>(<em>e</em>) = 1 + <em>e</em></span>) are the two dimensionless linear functions of orbital eccentricity <span class="math-inline">e</span> that scale the semi-major axis <span class="math-inline">a</span> to the minimum (perihelion, <span class="math-inline">q</span>) and maximum (aphelion, <span class="math-inline">Q</span>) heliocentric distances of a Keplerian orbit.
+            </div>
+            <p>
+                Evaluating the polar conic equation <span class="math-roman"><em>r</em>(<em>&nu;</em>) = <em>a</em>(1 &minus; <em>e</em><sup>2</sup>) / (1 + <em>e</em> cos <em>&nu;</em>)</span> at the two apsides—perihelion (<span class="math-roman"><em>&nu;</em> = 0&deg;</span>, <span class="math-roman">cos <em>&nu;</em> = +1</span>) and aphelion (<span class="math-roman"><em>&nu;</em> = 180&deg;</span>, <span class="math-roman">cos <em>&nu;</em> = &minus;1</span>)—yields the exact factorization:
+            </p>
+            <div class="equation-box">
+                <span class="math-inline">f</span><sub>r,&minus;</sub>(<span class="math-inline">e</span>) &equiv;
+                <span class="frac"><span><span class="math-inline">q</span></span><span><span class="math-inline">a</span></span></span>
+                = 1 &minus; <span class="math-inline">e</span>,
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <span class="math-inline">f</span><sub>r,+</sub>(<span class="math-inline">e</span>) &equiv;
+                <span class="frac"><span><span class="math-inline">Q</span></span><span><span class="math-inline">a</span></span></span>
+                = 1 + <span class="math-inline">e</span>
+            </div>
+            <p>
+                For bound elliptic orbits (<span class="math-roman">0 &le; <em>e</em> &lt; 1</span>, <span class="math-roman"><em>a</em> &gt; 0</span>), the perihelion factor lies in <span class="math-roman">(0, 1]</span> and the aphelion factor lies in <span class="math-roman">[1, 2)</span>, collapsing to <span class="math-roman"><em>f</em><sub>r,&minus;</sub>(0) = <em>f</em><sub>r,+</sub>(0) = 1</span> in the circular limit.
+            </p>
+            <h3>Algebraic &amp; Geometric Identities</h3>
+            <ul>
+                <li><strong>Additive Symmetry (Mean Apsidal Distance):</strong> Their arithmetic mean equals unity for every bound ellipse, <span class="math-roman">&frac12;[(1 &minus; <em>e</em>) + (1 + <em>e</em>)] = 1</span>, expressing the identity <span class="math-roman">&frac12;(<em>q</em> + <em>Q</em>) = <em>a</em></span>.</li>
+                <li><strong>Linear Eccentricity Separation:</strong> Their half-difference equals the orbital eccentricity itself, <span class="math-roman">&frac12;[(1 + <em>e</em>) &minus; (1 &minus; <em>e</em>)] = <em>e</em> = <em>c</em> / <em>a</em></span>, where <span class="math-roman"><em>c</em> = <em>ae</em></span> is the focal offset from the geometric center of the ellipse to the Sun.</li>
+                <li><strong>Product &amp; Ratio Identities:</strong> Their product yields the semi-latus rectum factor <span class="math-roman">(1 &minus; <em>e</em>)(1 + <em>e</em>) = 1 &minus; <em>e</em><sup>2</sup> = <em>p</em> / <em>a</em> = <em>qQ</em> / <em>a</em><sup>2</sup></span>, while their ratio gives the apsidal ratio <span class="math-roman">(1 + <em>e</em>)/(1 &minus; <em>e</em>) = <em>Q</em> / <em>q</em> = (<em>v</em><sub>q</sub> / <em>v</em><sub>c</sub>)<sup>2</sup></span>.</li>
+                <li><strong>Solar Insolation Scaling:</strong> Because radiative flux varies as <span class="math-roman"><em>r</em><sup>&minus;2</sup></span>, the apsidal distance factors govern peak and minimum insolation relative to mean circular flux <span class="math-roman"><em>F</em>(<em>a</em>)</span> via <span class="math-roman"><em>F</em><sub>q</sub> / <em>F</em>(<em>a</em>) = (1 &minus; <em>e</em>)<sup>&minus;2</sup></span> and <span class="math-roman"><em>F</em><sub>Q</sub> / <em>F</em>(<em>a</em>) = (1 + <em>e</em>)<sup>&minus;2</sup></span>.</li>
+            </ul>
+            <div class="diagram-box">
+                <svg width="560" height="235" viewBox="0 0 560 235" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Geometry of apsidal distance factors 1-e and 1+e scaling semi-major axis a to perihelion q and aphelion Q">
+                    <rect x="0" y="0" width="560" height="235" fill="#f8fafc" rx="6"/>
+                    <ellipse cx="165" cy="118" rx="105" ry="90" fill="#eff6ff" fill-opacity="0.55" stroke="#0f172a" stroke-width="1.5"/>
+                    <line x1="45" y1="118" x2="285" y2="118" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3,3"/>
+                    <!-- Center C at (165, 118), e=0.5 -> Sun S at (217.5, 118), q at (270, 118), Q at (60, 118) -->
+                    <circle cx="165" cy="118" r="3" fill="#475569"/>
+                    <text x="165" y="109" text-anchor="middle" font-family="serif" font-size="10.5" fill="#475569" font-weight="bold">C</text>
+                    <circle cx="217.5" cy="118" r="6" fill="#f59e0b" stroke="#b45309" stroke-width="1.3"/>
+                    <text x="217.5" y="136" text-anchor="middle" font-family="serif" font-size="11" fill="#92400e" font-weight="bold">S</text>
+                    <!-- q = a(1-e) -->
+                    <line x1="223.5" y1="118" x2="270" y2="118" stroke="#1d4ed8" stroke-width="2.5"/>
+                    <circle cx="270" cy="118" r="4" fill="#1d4ed8"/>
+                    <text x="247" y="109" text-anchor="middle" font-family="serif" font-style="italic" font-size="10.5" fill="#1d4ed8" font-weight="bold">q = a(1&minus;e)</text>
+                    <!-- Q = a(1+e) -->
+                    <line x1="60" y1="118" x2="211.5" y2="118" stroke="#d97706" stroke-width="2.2"/>
+                    <circle cx="60" cy="118" r="4" fill="#d97706"/>
+                    <text x="120" y="134" text-anchor="middle" font-family="serif" font-style="italic" font-size="10.5" fill="#b45309" font-weight="bold">Q = a(1+e)</text>
+                    <!-- Semi-major axis a bracket -->
+                    <line x1="165" y1="158" x2="270" y2="158" stroke="#334155" stroke-width="1.3"/>
+                    <line x1="165" y1="153" x2="165" y2="163" stroke="#334155" stroke-width="1.3"/>
+                    <line x1="270" y1="153" x2="270" y2="163" stroke="#334155" stroke-width="1.3"/>
+                    <text x="217.5" y="172" text-anchor="middle" font-family="serif" font-style="italic" font-size="11" fill="#334155" font-weight="bold">a</text>
+                    <!-- Right summary -->
+                    <text x="430" y="48" text-anchor="middle" font-family="serif" font-size="13.5" fill="#1e3a8a" font-weight="bold">Apsidal Distance Factors:</text>
+                    <text x="430" y="80" text-anchor="middle" font-family="serif" font-size="12.5" fill="#1d4ed8" font-weight="bold">Perihelion Factor: f<tspan baseline-shift="sub" font-size="8.5">r,&minus;</tspan>(e) = 1 &minus; e = q / a</text>
+                    <text x="430" y="108" text-anchor="middle" font-family="serif" font-size="12.5" fill="#b45309" font-weight="bold">Aphelion Factor: f<tspan baseline-shift="sub" font-size="8.5">r,+</tspan>(e) = 1 + e = Q / a</text>
+                    <text x="430" y="140" text-anchor="middle" font-family="serif" font-size="11.5" fill="#334155">Mean: &frac12;[(1 &minus; e) + (1 + e)] = 1</text>
+                    <text x="430" y="164" text-anchor="middle" font-family="serif" font-size="11.5" fill="#334155">Product: (1 &minus; e)(1 + e) = 1 &minus; e<tspan baseline-shift="super" font-size="8">2</tspan> = p / a</text>
+                    <text x="430" y="188" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#475569">Circular limit (e = 0): both equal 1.0</text>
+                </svg>
+                <div class="diagram-caption">Figure 1: Scaling of the semi-major axis <span class="math-inline">a</span> by the perihelion distance factor <span class="math-roman">(1 &minus; <em>e</em>)</span> and aphelion distance factor <span class="math-roman">(1 + <em>e</em>)</span> for <span class="math-roman"><em>e</em> = 0.5</span>.</div>
+            </div>
+        </section>
+
+        <section>
+            <h2>2. Comparative Overview Across Orbital Regimes</h2>
+            <table class="spec-table">
+                <thead>
+                    <tr>
+                        <th>Orbital Regime</th>
+                        <th>Eccentricity <span class="math-inline">e</span></th>
+                        <th>Perihelion Factor <span class="math-roman">(1 &minus; <em>e</em>)</span></th>
+                        <th>Aphelion Factor <span class="math-roman">(1 + <em>e</em>)</span></th>
+                        <th>Physical Interpretation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Circular Orbit</strong></td>
+                        <td><span class="math-roman"><em>e</em> = 0</span></td>
+                        <td><span class="math-roman">1.0</span></td>
+                        <td><span class="math-roman">1.0</span></td>
+                        <td><span class="math-roman"><em>q</em> = <em>Q</em> = <em>a</em></span> (no radial excursion)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Bound Elliptic Orbit</strong></td>
+                        <td><span class="math-roman">0 &lt; <em>e</em> &lt; 1</span></td>
+                        <td><span class="math-roman">(0, 1)</span></td>
+                        <td><span class="math-roman">(1, 2)</span></td>
+                        <td><span class="math-roman">0 &lt; <em>q</em> &lt; <em>a</em> &lt; <em>Q</em> &lt; 2<em>a</em></span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Parabolic Limit</strong></td>
+                        <td><span class="math-roman"><em>e</em> = 1</span></td>
+                        <td><span class="math-roman">0</span> (<span class="math-roman"><em>a</em> &rarr; &infin;</span>)</td>
+                        <td><span class="math-roman">2</span> (<span class="math-roman"><em>Q</em> &rarr; &infin;</span>)</td>
+                        <td><span class="math-roman"><em>q</em> = <em>p</em>/2</span> must be parameterized directly</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Hyperbolic Trajectory</strong></td>
+                        <td><span class="math-roman"><em>e</em> &gt; 1</span> (<span class="math-roman"><em>a</em> &lt; 0</span>)</td>
+                        <td><span class="math-roman">&lt; 0</span> (with <span class="math-roman"><em>a</em> &lt; 0</span>)</td>
+                        <td><span class="math-roman">&gt; 2</span></td>
+                        <td><span class="math-roman"><em>q</em> = <em>a</em>(1 &minus; <em>e</em>) &gt; 0</span> remains positive; <span class="math-inline">Q</span> undefined</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>3. Specific Status and Derivation in the MPCORB Catalog</h2>
+            <ul>
+                <li><strong>Direct Evaluation from Tabulated Eccentricity <code>e</code>:</strong> In <code>MPCORB.DAT</code>, orbital eccentricity <span class="math-inline">e</span> is stored in columns <code>71–79</code> (<code>F9.7</code>). Both apsidal distance factors <span class="math-roman">(1 &minus; <em>e</em>)</span> and <span class="math-roman">(1 + <em>e</em>)</span> are computed directly from this single field without requiring <span class="math-inline">a</span>.</li>
+                <li><strong>Gateway to Derived Apsidal Distances (<span class="math-inline">q</span> and <span class="math-inline">Q</span>):</strong> Neither <span class="math-inline">q</span> nor <span class="math-inline">Q</span> is stored in <code>MPCORB.DAT</code>; both are obtained by multiplying semi-major axis <span class="math-inline">a</span> (columns <code>93–103</code>, <code>F11.7</code>) by <span class="math-roman">(1 &minus; <em>e</em>)</span> and <span class="math-roman">(1 + <em>e</em>)</span>, respectively, which underpin MPC dynamical class boundaries (e.g., Amor <span class="math-roman">1.017 &lt; <em>q</em> &le; 1.3 AU</span>, Apollo <span class="math-roman"><em>q</em> &le; 1.017 AU, <em>a</em> &ge; 1.0 AU</span>, Aten <span class="math-roman"><em>Q</em> &gt; 0.983 AU, <em>a</em> &lt; 1.0 AU</span>, Atira <span class="math-roman"><em>Q</em> &lt; 0.983 AU</span>).</li>
+                <li><strong>Numerical Precision Near <span class="math-roman"><em>e</em> &rarr; 1<sup>&minus;</sup></span>:</strong> Because <span class="math-inline">e</span> in <code>MPCORB.DAT</code> has 7-decimal-place resolution (<span class="math-roman">&Delta;<em>e</em> = &plusmn;5 &times; 10<sup>&minus;8</sup></span>), the relative uncertainty of the perihelion factor <span class="math-roman">&Delta;(1 &minus; <em>e</em>)/(1 &minus; <em>e</em>) = &Delta;<em>e</em>/(1 &minus; <em>e</em>)</span> increases for high-eccentricity comets and sungrazers, whereas <span class="math-roman">(1 + <em>e</em>)</span> remains well-conditioned everywhere.</li>
+            </ul>
+            <div class="calculator-box">
+                <h4>Interactive MPCORB Apsidal Distance Factors Calculator</h4>
+                <div class="calc-grid">
+                    <div class="calc-field">
+                        <label for="inputE">Orbital Eccentricity <em>e</em> (Cols 71&ndash;79, <code>F9.7</code>)</label>
+                        <input type="number" id="inputE" step="0.0000001" min="0" value="0.0785354">
+                    </div>
+                    <div class="calc-output" id="calcResult" style="grid-column: 1 / -1;"></div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Fixed-Width Source Column &amp; Evaluation from <code>MPCORB.DAT</code></h2>
+            <table class="spec-table">
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Columns (1-based)</th>
+                        <th>0-Based Slice</th>
+                        <th>Fortran Format</th>
+                        <th>Unit &amp; Role</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong><code>e</code> (Eccentricity)</strong></td>
+                        <td><code>71–79</code></td>
+                        <td><code>line[70:79]</code></td>
+                        <td><code>F9.7</code></td>
+                        <td>Dimensionless (<span class="math-roman"><em>e</em> &ge; 0</span>); sole input variable</td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>1 - e</code> (Perihelion distance factor)</strong></td>
+                        <td><em>Derived (not stored)</em></td>
+                        <td><code>1.0 - e</code></td>
+                        <td><em>Computed</em></td>
+                        <td>Dimensionless (<span class="math-roman"><em>q</em> / <em>a</em></span>); scales <span class="math-inline">a</span> to perihelion <span class="math-inline">q</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>1 + e</code> (Aphelion distance factor)</strong></td>
+                        <td><em>Derived (not stored)</em></td>
+                        <td><code>1.0 + e</code></td>
+                        <td><em>Computed</em></td>
+                        <td>Dimensionless (<span class="math-roman"><em>Q</em> / <em>a</em></span> for <span class="math-roman"><em>e</em> &lt; 1</span>); scales <span class="math-inline">a</span> to aphelion <span class="math-inline">Q</span></td>
+                    </tr>
+                </tbody>
+            </table>
+            <h3>Example Record Evaluations (<code>MPCORB.DAT</code>)</h3>
+            <pre>1) Low-Eccentricity Main-Belt Asteroid: 00001 — (1) Ceres
+   e = 0.0785354 (Cols 71-79),  a = 2.7671819 AU (Cols 93-103)
+   Perihelion distance factor (1 - e) = 0.9214646  ->  q = a*(1 - e) = 2.5498601 AU
+   Aphelion distance factor   (1 + e) = 1.0785354  ->  Q = a*(1 + e) = 2.9845037 AU
+
+2) High-Eccentricity Near-Earth Asteroid: 03200 — (3200) Phaethon
+   e = 0.8898316 (Cols 71-79),  a = 1.2713672 AU (Cols 93-103)
+   Perihelion distance factor (1 - e) = 0.1101684  ->  q = a*(1 - e) = 0.1400645 AU
+   Aphelion distance factor   (1 + e) = 1.8898316  ->  Q = a*(1 + e) = 2.4026699 AU</pre>
+        </section>
+
+        <footer>
+            Self-contained scientific reference document (zero external dependencies) &bull; Conventions aligned with IAU Minor Planet Center (MPC) <code>MPCORB.DAT</code> specifications.
+        </footer>
+    </div>
+
+    <script>
+        (function () {
+            const inputE = document.getElementById("inputE");
+            const calcResult = document.getElementById("calcResult");
+            function update() {
+                const e = parseFloat(inputE.value);
+                if (!isFinite(e) || e < 0) {
+                    calcResult.innerHTML = "Please enter a valid eccentricity <em>e</em> &ge; 0.";
+                    return;
+                }
+                const fMin = 1.0 - e;
+                const fMax = 1.0 + e;
+                const fluxRatioQ = e < 1 ? (1.0 / (fMin * fMin)).toFixed(4) + "&times;" : "&infin;";
+                const fluxRatioAph = e < 1 ? (1.0 / (fMax * fMax)).toFixed(4) + "&times;" : "N/A";
+                calcResult.innerHTML =
+                    `Perihelion Factor (1 &minus; <em>e</em>): <strong>${fMin.toFixed(7)}</strong> &bull; ` +
+                    `Aphelion Factor (1 + <em>e</em>): <strong>${fMax.toFixed(7)}</strong><br>` +
+                    `Insolation vs. <em>r</em> = <em>a</em>: Perihelion <strong>${fluxRatioQ}</strong> &bull; Aphelion <strong>${fluxRatioAph}</strong>`;
+            }
+            inputE.addEventListener("input", update);
+            update();
+        })();
+    </script>
+</body>
+</html>

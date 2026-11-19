@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Equinoctial Orbital Element (h) in the Context of MPCORB</title>
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #334155;
+            --accent-color: #1e3a8a;
+            --accent-light: #eff6ff;
+            --border-color: #cbd5e1;
+            --code-bg: #f1f5f9;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.7;
+            color: var(--text-primary);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 3rem 3.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            border: 1px solid var(--border-color);
+        }
+
+        header {
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .badge {
+            display: inline-block;
+            background-color: var(--accent-light);
+            color: var(--accent-color);
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            padding: 0.3rem 0.75rem;
+            border-radius: 4px;
+            border: 1px solid #bfdbfe;
+            margin-bottom: 0.75rem;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin: 0.25rem 0 0.5rem 0;
+            color: var(--text-primary);
+            line-height: 1.25;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            margin: 0;
+        }
+
+        h2 {
+            font-size: 1.35rem;
+            color: var(--accent-color);
+            margin-top: 2.25rem;
+            margin-bottom: 0.85rem;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 0.35rem;
+        }
+
+        h3 {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        p {
+            margin-bottom: 1.15rem;
+            color: var(--text-secondary);
+            text-align: justify;
+        }
+
+        ul, ol {
+            margin-bottom: 1.25rem;
+            padding-left: 1.5rem;
+            color: var(--text-secondary);
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        .equation-box {
+            background-color: var(--code-bg);
+            border-left: 4px solid var(--accent-color);
+            padding: 1.15rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 6px 6px 0;
+            overflow-x: auto;
+            font-family: "Cambria Math", "STIX Two Math", "Times New Roman", Times, serif;
+            font-size: 1.18rem;
+            color: var(--text-primary);
+            text-align: center;
+        }
+
+        .math-inline {
+            font-family: "Cambria Math", "STIX Two Math", "Times New Roman", Times, serif;
+            font-style: italic;
+            font-size: 1.05em;
+            color: var(--text-primary);
+        }
+
+        .math-roman {
+            font-family: "Cambria Math", "STIX Two Math", "Times New Roman", Times, serif;
+            font-style: normal;
+            font-size: 1.02em;
+            color: var(--text-primary);
+        }
+
+        .frac {
+            display: inline-flex;
+            flex-direction: column;
+            vertical-align: middle;
+            text-align: center;
+            margin: 0 0.25rem;
+        }
+
+        .frac > span:first-child {
+            border-bottom: 1px solid var(--text-primary);
+            padding: 0 0.3rem 0.15rem 0.3rem;
+        }
+
+        .frac > span:last-child {
+            padding: 0.15rem 0.3rem 0 0.3rem;
+        }
+
+        .sqrt-wrap {
+            display: inline-flex;
+            align-items: stretch;
+        }
+
+        .sqrt-rad {
+            font-size: 1.15em;
+            line-height: 1;
+            padding-right: 1px;
+        }
+
+        .sqrt-body {
+            border-top: 1px solid var(--text-primary);
+            padding: 0 0.2rem;
+        }
+
+        .spec-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.92rem;
+        }
+
+        .spec-table th, .spec-table td {
+            border: 1px solid var(--border-color);
+            padding: 0.75rem 1rem;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        .spec-table th {
+            background-color: var(--accent-color);
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .spec-table tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        code {
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+            background-color: var(--code-bg);
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.88em;
+            color: #0f172a;
+        }
+
+        pre {
+            background-color: #1e293b;
+            color: #f8fafc;
+            padding: 1rem 1.25rem;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+        }
+
+        .note-callout {
+            background-color: #fffbeb;
+            border-left: 4px solid #d97706;
+            padding: 1rem 1.25rem;
+            margin: 1.5rem 0;
+            border-radius: 0 6px 6px 0;
+            color: #78350f;
+            font-size: 0.95rem;
+        }
+
+        .terminology-callout {
+            background-color: var(--accent-light);
+            border-left: 4px solid var(--accent-color);
+            padding: 1rem 1.25rem;
+            margin: 1.5rem 0;
+            border-radius: 0 6px 6px 0;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+        }
+
+        .diagram-box {
+            background-color: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+
+        .diagram-caption {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+        }
+
+        .calculator-box {
+            background-color: var(--accent-light);
+            border: 1px solid #bfdbfe;
+            border-radius: 8px;
+            padding: 1.25rem 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .calculator-box h4 {
+            margin: 0 0 0.75rem 0;
+            color: var(--accent-color);
+            font-size: 1rem;
+        }
+
+        .calc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+            gap: 1rem;
+            align-items: end;
+        }
+
+        .calc-field label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.3rem;
+        }
+
+        .calc-field input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 0.5rem 0.65rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 0.95rem;
+            font-family: inherit;
+        }
+
+        .calc-output {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 0.55rem 0.75rem;
+            font-size: 0.92rem;
+            color: var(--text-primary);
+        }
+
+        footer {
+            margin-top: 3rem;
+            padding-top: 1.25rem;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.85rem;
+            color: #64748b;
+            text-align: center;
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 1.75rem 1.25rem;
+            }
+            h1 {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="badge">Celestial Mechanics &amp; Astrometry Specification</div>
+            <h1>Equinoctial Orbital Element (<span class="math-inline">h</span>) in the Context of the MPCORB Database</h1>
+            <p class="subtitle">Scientific Definition, Non-Singular Broucke&ndash;Cefola &amp; Walker Formulations, Equinoctial Reference Frame, and Evaluation from MPCORB</p>
+        </header>
+
+        <section>
+            <h2>1. Fundamental Astrodynamical &amp; Geometric Definition</h2>
+            <div class="terminology-callout">
+                <strong>Definition &amp; Nomenclature:</strong> In non-singular celestial mechanics and perturbation theory, the <strong>equinoctial orbital element <span class="math-inline">h</span></strong> (the quadrature component of the eccentricity vector in the equinoctial coordinate frame, paired with <span class="math-roman"><em>k</em> = <em>e</em> cos(&Omega; + <em>I</em>&omega;)</span>)—is a dimensionless canonical/non-singular parameter designed to eliminate the <span class="math-roman">0/0</span> coordinate singularity of the classical Keplerian argument of perihelion <span class="math-inline">&omega;</span> at zero eccentricity (<span class="math-roman"><em>e</em> &rarr; 0</span>) and the longitude of the ascending node <span class="math-inline">&Omega;</span> at zero inclination (<span class="math-roman"><em>i</em> &rarr; 0&deg;</span>).
+            </div>
+            <p>
+                In the standard <strong>direct equinoctial orbital element set</strong> <span class="math-roman">(<em>a</em>, <em>h</em>, <em>k</em>, <em>p</em>, <em>q</em>, <em>&lambda;</em>)</span> formulated by Broucke &amp; Cefola (1972) and Walker, Ireland &amp; Owens (1985), <span class="math-inline">h</span> and its conjugate cosine partner <span class="math-inline">k</span> are defined in terms of the classical Keplerian eccentricity <span class="math-inline">e</span>, argument of perihelion <span class="math-inline">&omega;</span>, longitude of the ascending node <span class="math-inline">&Omega;</span>, and retrograde factor <span class="math-roman"><em>I</em> &isin; {+1, &minus;1}</span>:
+            </p>
+            <div class="equation-box">
+                <span class="math-inline">h</span> = <span class="math-inline">e</span> sin(<span class="math-inline">&omega;</span> + <span class="math-inline">I</span> <span class="math-inline">&Omega;</span>) = <span class="math-inline">e</span> sin <span class="math-inline">&varpi;</span><sub>eq</sub>
+                &nbsp;,&nbsp;&nbsp;&nbsp;&nbsp;
+                <span class="math-inline">k</span> = <span class="math-inline">e</span> cos(<span class="math-inline">&omega;</span> + <span class="math-inline">I</span> <span class="math-inline">&Omega;</span>) = <span class="math-inline">e</span> cos <span class="math-inline">&varpi;</span><sub>eq</sub>
+            </div>
+            <p>
+                where <span class="math-roman"><em>I</em> = +1</span> for <strong>prograde (direct)</strong> orbits (<span class="math-roman">0&deg; &le; <em>i</em> &lt; 180&deg;</span>, standard direct equinoctial convention) and <span class="math-roman"><em>I</em> = &minus;1</span> for <strong>retrograde</strong> equinoctial formulations (<span class="math-roman">0&deg; &lt; <em>i</em> &le; 180&deg;</span>, shifting the coordinate singularity from <span class="math-roman"><em>i</em> = 0&deg;</span> to <span class="math-roman"><em>i</em> = 180&deg;</span>), and <span class="math-roman"><em>&varpi;</em><sub>eq</sub> = <em>&omega;</em> + <em>I</em>&Omega;</span> is the <strong>equinoctial longitude of perihelion</strong>. Geometrically, <span class="math-inline">h</span> is the projection of the dimensionless Laplace&ndash;Runge&ndash;Lenz eccentricity vector <span class="math-roman"><strong>e</strong></span> onto the <span class="math-roman"><strong>g&#770;</strong></span> basis axis of the equinoctial frame <span class="math-roman">(<strong>f&#770;</strong>, <strong>g&#770;</strong>, <strong>w&#770;</strong>)</span>:
+            </p>
+            <div class="equation-box">
+                <span class="math-inline">h</span> = <span class="math-roman"><strong>e</strong> &middot; <strong>g&#770;</strong></span>
+                &nbsp;,&nbsp;&nbsp;&nbsp;&nbsp;
+                <span class="math-inline">k</span> = <span class="math-roman"><strong>e</strong> &middot; <strong>f&#770;</strong></span>
+                &nbsp;,&nbsp;&nbsp;&nbsp;&nbsp;
+                <span class="math-inline">e</span> = &radic;(<span class="math-inline">h</span><sup>2</sup> + <span class="math-inline">k</span><sup>2</sup>)
+                &nbsp;,&nbsp;&nbsp;&nbsp;&nbsp;
+                <span class="math-inline">&varpi;</span><sub>eq</sub> = atan2(<span class="math-inline">h</span>, <span class="math-inline">k</span>)
+            </div>
+            <p>
+                Key mathematical and astrodynamical properties of the equinoctial element <span class="math-inline">h</span> include:
+            </p>
+            <ul>
+                <li><strong>Strict Unit-Disk Boundedness (<span class="math-roman">&minus;1 &lt; <em>h</em> &lt; +1</span>, <span class="math-roman"><em>h</em><sup>2</sup> + <em>k</em><sup>2</sup> = <em>e</em><sup>2</sup> &lt; 1</span>):</strong> For all bound elliptic orbits (<span class="math-roman">0 &le; <em>e</em> &lt; 1</span>), the pair <span class="math-roman">(<em>k</em>, <em>h</em>)</span> lies strictly inside the open unit disk <span class="math-roman"><em>k</em><sup>2</sup> + <em>h</em><sup>2</sup> &lt; 1</span>, attaining <span class="math-roman"><em>h</em> = 0</span> whenever <span class="math-roman"><em>e</em> = 0</span> (circular orbit) or <span class="math-roman"><em>&omega;</em> + <em>I</em>&Omega; = 0&deg;, 180&deg;</span>.</li>
+                <li><strong>Complete Removal of Near-Circular &amp; Low-Inclination Singularities:</strong> In Lagrange&rsquo;s planetary equations and Gauss&rsquo;s variational equations, classical derivatives <span class="math-roman"><em>d&omega;/dt</em></span> and <span class="math-roman"><em>d&Omega;/dt</em></span> contain divisors <span class="math-roman"><em>e</em></span> and <span class="math-roman">sin <em>i</em></span> that blow up as <span class="math-roman"><em>e</em> &rarr; 0</span> or <span class="math-roman"><em>i</em> &rarr; 0&deg;</span>. The time derivatives <span class="math-roman"><em>dh/dt</em></span> and <span class="math-roman"><em>dk/dt</em></span> remain smooth, analytic, and non-singular across <span class="math-roman"><em>e</em> = 0</span> and <span class="math-roman"><em>i</em> = 0&deg;</span>.</li>
+                <li><strong>Distinction from Specific Angular Momentum (<span class="math-inline">h</span><sub>ang</sub>) and Absolute Magnitude (<span class="math-inline">H</span>):</strong> Care must be taken in notation: lowercase <span class="math-inline">h</span> denotes the equinoctial eccentricity sine component (<span class="math-roman">dimensionless</span>), whereas uppercase <span class="math-inline">H</span> in <code>MPCORB.DAT</code> (columns <code>9–13</code>) denotes the photometric <strong>absolute magnitude</strong> (<span class="math-roman">mag</span>), and <span class="math-roman"><em>h</em><sub>ang</sub> = &radic;(&mu;<em>p</em>)</span> denotes specific orbital angular momentum (<span class="math-roman">AU<sup>2</sup>/d</span>).</li>
+            </ul>
+
+            <div class="diagram-box">
+                <svg width="560" height="245" viewBox="0 0 560 245" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Geometric diagram showing the equinoctial coordinate basis (f-hat, g-hat) in the orbital plane obtained by rotating from the ascending node by -Omega, and the eccentricity vector e decomposed into k = e cos(omega + Omega) along f-hat and h = e sin(omega + Omega) along g-hat">
+                    <rect x="0" y="0" width="560" height="245" fill="#f8fafc" rx="6"/>
+                    <!-- Left panel: Equinoctial (k, h) disk -->
+                    <circle cx="155" cy="122" r="88" fill="#eff6ff" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,3"/>
+                    <!-- k and h axes -->
+                    <line x1="55" y1="122" x2="258" y2="122" stroke="#475569" stroke-width="1.5"/>
+                    <text x="263" y="125" text-anchor="start" font-family="serif" font-style="italic" font-size="13" fill="#0f172a" font-weight="bold">k (f&#770;)</text>
+                    <line x1="155" y1="220" x2="155" y2="22" stroke="#475569" stroke-width="1.5"/>
+                    <text x="155" y="16" text-anchor="middle" font-family="serif" font-style="italic" font-size="13" fill="#0f172a" font-weight="bold">h (g&#770;)</text>
+                    <!-- Unit circle radius label -->
+                    <text x="90" y="54" text-anchor="end" font-family="sans-serif" font-size="9" fill="#64748b">e = 1 boundary</text>
+                    <!-- Eccentricity vector e at angle 52 deg -->
+                    <!-- r_e = 68 px; cos(52)=0.6157 -> dx = 41.9; sin(52)=0.7880 -> dy = -53.6 -->
+                    <line x1="155" y1="122" x2="196.9" y2="68.4" stroke="#1e3a8a" stroke-width="2.5"/>
+                    <circle cx="196.9" cy="68.4" r="4.5" fill="#1e3a8a"/>
+                    <text x="203" y="64" text-anchor="start" font-family="serif" font-size="12" fill="#1e3a8a" font-weight="bold">(k, h)</text>
+                    <!-- Projection lines for k and h -->
+                    <line x1="196.9" y1="68.4" x2="196.9" y2="122" stroke="#0284c7" stroke-width="1.5" stroke-dasharray="3,3"/>
+                    <line x1="196.9" y1="68.4" x2="155" y2="68.4" stroke="#dc2626" stroke-width="1.8" stroke-dasharray="3,3"/>
+                    <!-- Highlighted h segment on vertical axis -->
+                    <line x1="155" y1="122" x2="155" y2="68.4" stroke="#dc2626" stroke-width="3.2"/>
+                    <text x="148" y="96" text-anchor="end" font-family="serif" font-style="italic" font-size="13" fill="#dc2626" font-weight="bold">h</text>
+                    <!-- Highlighted k segment on horizontal axis -->
+                    <line x1="155" y1="122" x2="196.9" y2="122" stroke="#0284c7" stroke-width="3"/>
+                    <text x="176" y="135" text-anchor="middle" font-family="serif" font-style="italic" font-size="13" fill="#0369a1" font-weight="bold">k</text>
+                    <!-- Angle arc varpi_eq -->
+                    <path d="M 180 122 A 25 25 0 0 0 170.4 102.3" fill="none" stroke="#1e3a8a" stroke-width="1.5"/>
+                    <text x="184" y="109" text-anchor="start" font-family="serif" font-size="11" fill="#1e3a8a">&varpi;<tspan baseline-shift="sub" font-size="8">eq</tspan></text>
+
+                    <!-- Right panel: Analytical identities -->
+                    <text x="415" y="55" text-anchor="middle" font-family="serif" font-size="13.5" fill="#1e3a8a" font-weight="bold">Equinoctial Decomposition:</text>
+                    <text x="415" y="82" text-anchor="middle" font-family="serif" font-size="13" fill="#dc2626" font-weight="bold">h = e sin(&omega; + I&Omega;)</text>
+                    <text x="415" y="105" text-anchor="middle" font-family="serif" font-size="13" fill="#0369a1" font-weight="bold">k = e cos(&omega; + I&Omega;)</text>
+                    <text x="415" y="138" text-anchor="middle" font-family="sans-serif" font-size="10.5" fill="#334155">Direct (prograde): I = +1</text>
+                    <text x="415" y="156" text-anchor="middle" font-family="sans-serif" font-size="10.5" fill="#334155">Retrograde convention: I = &minus;1</text>
+                    <text x="415" y="186" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#475569">Smooth &amp; non-singular at e = 0, i = 0&deg;</text>
+                    <text x="415" y="202" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#475569">Bounded in open disk: h&sup2; + k&sup2; = e&sup2; &lt; 1</text>
+                </svg>
+                <div class="diagram-caption">
+                    Figure 1: Decomposition of the eccentricity vector <span class="math-roman"><strong>e</strong></span> in the equinoctial orbital plane <span class="math-roman">(<strong>f&#770;</strong>, <strong>g&#770;</strong>)</span> into <span class="math-roman"><em>k</em> = <em>e</em> cos(<em>&omega;</em> + <em>I</em>&Omega;)</span> and <span class="math-roman"><em>h</em> = <em>e</em> sin(<em>&omega;</em> + <em>I</em>&Omega;)</span> inside the unit disk <span class="math-roman"><em>e</em> &lt; 1</span>.
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>2. Complete Equinoctial Set &amp; Position/Velocity Mapping</h2>
+            <p>
+                Within the six-element equinoctial state <span class="math-roman">(<em>a</em>, <em>h</em>, <em>k</em>, <em>p</em>, <em>q</em>, <em>&lambda;</em>)</span>, <span class="math-inline">h</span> operates alongside the remaining five elements to permit singularity-free propagation and Cartesian state conversion:
+            </p>
+            <div class="equation-box">
+                <span class="math-inline">p</span> = tan<sup><span class="math-inline">I</span></sup>(<span class="math-inline">i</span>/2) sin <span class="math-inline">&Omega;</span>
+                &nbsp;,&nbsp;&nbsp;&nbsp;
+                <span class="math-inline">q</span> = tan<sup><span class="math-inline">I</span></sup>(<span class="math-inline">i</span>/2) cos <span class="math-inline">&Omega;</span>
+                &nbsp;,&nbsp;&nbsp;&nbsp;
+                <span class="math-inline">&lambda;</span> = <span class="math-inline">M</span> + <span class="math-inline">&omega;</span> + <span class="math-inline">I</span> <span class="math-inline">&Omega;</span>
+            </div>
+            <p>
+                where <span class="math-inline">&lambda;</span> is the <strong>mean longitude</strong> (or equinoctial mean longitude for <span class="math-roman"><em>I</em> = &minus;1</span>). Given <span class="math-roman">(<em>a</em>, <em>h</em>, <em>k</em>, <em>&lambda;</em>)</span>, the generalized <strong>equinoctial Kepler&rsquo;s equation</strong> solves directly for the eccentric longitude <span class="math-roman"><em>F</em> = <em>E</em> + <em>&omega;</em> + <em>I</em>&Omega;</span> without ever referencing <span class="math-inline">&omega;</span> or <span class="math-inline">&Omega;</span> individually:
+            </p>
+            <div class="equation-box">
+                <span class="math-inline">&lambda;</span> = <span class="math-inline">F</span> + <span class="math-inline">h</span> cos <span class="math-inline">F</span> &minus; <span class="math-inline">k</span> sin <span class="math-inline">F</span>
+                &nbsp;,&nbsp;&nbsp;&nbsp;&nbsp;
+                <span class="math-inline">r</span> = <span class="math-inline">a</span> (1 &minus; <span class="math-inline">k</span> cos <span class="math-inline">F</span> &minus; <span class="math-inline">h</span> sin <span class="math-inline">F</span>)
+            </div>
+            <p>
+                Furthermore, in secular perturbation theory (Laplace&ndash;Lagrange theory for asteroid families and proper elements), the pairs <span class="math-roman">(<em>k</em>, <em>h</em>) = <em>e</em>(cos <em>&varpi;</em>, sin <em>&varpi;</em>)</span> and <span class="math-roman">(<em>q</em>, <em>p</em>) = tan(<em>i</em>/2)(cos &Omega;, sin &Omega;)</span> serve as the fundamental complex state variables <span class="math-roman"><em>z</em> = <em>k</em> + i<em>h</em> = <em>e</em> exp(i<em>&varpi;</em>)</span> whose linear eigenmodes define proper eccentricity <span class="math-inline">e</span><sub>p</sub> and forced eccentricity <span class="math-inline">e</span><sub>forced</sub>.
+            </p>
+        </section>
+
+        <section>
+            <h2>3. Specific Status and Derivation in the MPCORB Catalog</h2>
+            <p>
+                In the <strong>MPCORB</strong> (<em>Minor Planet Center Orbit</em>) database published by the International Astronomical Union&rsquo;s Minor Planet Center (IAU MPC):
+            </p>
+
+            <ul>
+                <li>
+                    <strong>Implicit Derived Quantity (Not Tabulated):</strong> <code>MPCORB.DAT</code> distributes orbits exclusively in classical Keplerian elements and does <em>not</em> store <span class="math-inline">h</span> (or <span class="math-inline">k</span>, <span class="math-inline">p</span>, <span class="math-inline">q</span>, <span class="math-inline">&lambda;</span>) as explicit columns. Instead, <span class="math-inline">h</span> is derived directly from three osculating angular/eccentricity columns in every record:
+                    <ul>
+                        <li><strong>Argument of perihelion <span class="math-inline">&omega;</span></strong> (columns <code>38–46</code>, format <code>F9.5</code>, degrees);</li>
+                        <li><strong>Longitude of the ascending node <span class="math-inline">&Omega;</span></strong> (columns <code>49–57</code>, format <code>F9.5</code>, degrees);</li>
+                        <li><strong>Numeric eccentricity <span class="math-inline">e</span></strong> (columns <code>71–79</code>, format <code>F9.7</code>, dimensionless);</li>
+                        <li><em>Optional:</em> <strong>Inclination <span class="math-inline">i</span></strong> (columns <code>60–68</code>, format <code>F9.5</code>, degrees) if switching to the retrograde equinoctial chart (<span class="math-roman"><em>I</em> = &minus;1</span> when <span class="math-roman"><em>i</em> &gt; 90&deg;</span>).</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Convention Specification (<span class="math-roman"><em>I</em> = +1</span> Direct vs. <span class="math-roman"><em>I</em> = &minus;1</span> Retrograde):</strong> Standard direct equinoctial elements use <span class="math-roman"><em>I</em> = +1</span> (<span class="math-roman"><em>h</em> = <em>e</em> sin(<em>&omega;</em> + &Omega;)</span>) universally across all prograde and moderately inclined orbits, which covers over <span class="math-roman">99.98%</span> of <code>MPCORB.DAT</code> (where <span class="math-roman"><em>i</em> = 180&deg;</span> is absent). When working with retrograde Centaurs or Damocloids (<span class="math-roman"><em>i</em> &gt; 90&deg;</span>), explicitly document whether the direct (<span class="math-roman"><em>I</em> = +1</span>) or retrograde (<span class="math-roman"><em>I</em> = &minus;1</span>) equinoctial chart is used.
+                </li>
+                <li>
+                    <strong>Applications in MPCORB Orbit Fitting &amp; Propagation:</strong>
+                    <ul>
+                        <li><em>Differential Correction of Low-<span class="math-inline">e</span> / Low-<span class="math-inline">i</span> Main-Belt &amp; TNO Orbits:</em> Classical TNOs (e.g., cold classical Kuiper Belt objects with <span class="math-roman"><em>e</em> &approx; 0.01</span>, <span class="math-roman"><em>i</em> &approx; 1&deg;</span>) have poorly constrained <span class="math-inline">&omega;</span> and <span class="math-inline">&Omega;</span> individually, whereas <span class="math-roman">(<em>h</em>, <em>k</em>)</span> remain tightly constrained and well-conditioned in least-squares covariance matrices.</li>
+                        <li><em>Encke &amp; Variation-of-Parameters Integrators:</em> Eliminates small-divisor stiffness in Gauss/Lagrange planetary equations during numerical integration of nearly circular asteroids.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <div class="note-callout">
+                <strong>Implementation &amp; Angle-Wrapping Note:</strong> When computing <code>h = e * Math.Sin(omega + I * Omega)</code> in double precision, convert <span class="math-inline">&omega;</span> and <span class="math-inline">&Omega;</span> from degrees to radians first, and optionally reduce <span class="math-roman">(<em>&omega;</em> + <em>I</em>&Omega;) mod 360&deg;</span> prior to trigonometric evaluation to preserve full 53-bit significand accuracy. Always pair <span class="math-inline">h</span> with <span class="math-roman"><em>k</em> = <em>e</em> cos(<em>&omega;</em> + <em>I</em>&Omega;)</span> when inverting back to <span class="math-roman"><em>e</em> = Math.Hypot(<em>h</em>, <em>k</em>)</span> and <span class="math-roman"><em>&varpi;</em><sub>eq</sub> = Math.Atan2(<em>h</em>, <em>k</em>)</span>.
+            </div>
+
+            <div class="calculator-box">
+                <h4>Interactive MPCORB Equinoctial Element (<span class="math-inline">h</span> &amp; <span class="math-inline">k</span>) Calculator</h4>
+                <div class="calc-grid">
+                    <div class="calc-field">
+                        <label for="inputE">Eccentricity <em>e</em> (Cols 71&ndash;79)</label>
+                        <input type="number" id="inputE" step="0.0000001" min="0" max="0.9999999" value="0.0785354">
+                    </div>
+                    <div class="calc-field">
+                        <label for="inputOmega">Arg. of Perihelion <em>&omega;</em> (deg, Cols 38&ndash;46)</label>
+                        <input type="number" id="inputOmega" step="0.00001" value="73.28574">
+                    </div>
+                    <div class="calc-field">
+                        <label for="inputNode">Ascending Node <em>&Omega;</em> (deg, Cols 49&ndash;57)</label>
+                        <input type="number" id="inputNode" step="0.00001" value="80.25498">
+                    </div>
+                    <div class="calc-field">
+                        <label for="inputI">Inclination <em>i</em> (deg, Cols 60&ndash;68)</label>
+                        <input type="number" id="inputI" step="0.00001" min="0" max="180" value="10.58789">
+                    </div>
+                    <div class="calc-output" id="calcResult">
+                        Equinoctial <em>h</em> (<em>I</em> = +1): <strong>+0.0348660</strong><br>
+                        Equinoctial <em>k</em> (<em>I</em> = +1): <strong>&minus;0.0703715</strong><br>
+                        Long. of perihelion <em>&varpi;</em>: <strong>153.54072&deg;</strong>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Fixed-Width Source Columns &amp; Equinoctial Conversion in <code>MPCORB.DAT</code></h2>
+            <p>
+                The table below summarizes the fixed-width columns (1-based indexing) in a standard 202-character <code>MPCORB.DAT</code> record required to compute <span class="math-inline">h</span> (and the companion equinoctial eccentricity component <span class="math-inline">k</span>):
+            </p>
+
+            <table class="spec-table">
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Columns (1-based)</th>
+                        <th>Python Slice (0-based)</th>
+                        <th>Fortran Format</th>
+                        <th>Unit &amp; Role</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong><code>&omega;</code> (Argument of perihelion)</strong></td>
+                        <td><code>38–46</code></td>
+                        <td><code>line[37:46]</code></td>
+                        <td><code>F9.5</code></td>
+                        <td>Degrees (<span class="math-roman">&deg;</span>); J2000.0 ecliptic perihelion angle from node</td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>&Omega;</code> (Longitude of ascending node)</strong></td>
+                        <td><code>49–57</code></td>
+                        <td><code>line[48:57]</code></td>
+                        <td><code>F9.5</code></td>
+                        <td>Degrees (<span class="math-roman">&deg;</span>); J2000.0 ecliptic nodal angle from <span class="math-roman">&#9800;</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>i</code> (Inclination to ecliptic)</strong></td>
+                        <td><code>60–68</code></td>
+                        <td><code>line[59:68]</code></td>
+                        <td><code>F9.5</code></td>
+                        <td>Degrees (<span class="math-roman">&deg;</span>); determines chart sign <span class="math-roman"><em>I</em> &isin; {+1, &minus;1}</span> if adaptive</td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>e</code> (Numeric eccentricity)</strong></td>
+                        <td><code>71–79</code></td>
+                        <td><code>line[70:79]</code></td>
+                        <td><code>F9.7</code></td>
+                        <td>Dimensionless (<span class="math-roman">0 &le; <em>e</em> &lt; 1</span>); radial modulus <span class="math-roman">&radic;(<em>h</em><sup>2</sup> + <em>k</em><sup>2</sup>)</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>h</code> (Equinoctial element <span class="math-inline">h</span>)</strong></td>
+                        <td><em>Derived (not stored)</em></td>
+                        <td><code>e * sin(radians(w + I * Om))</code></td>
+                        <td><em>Computed</em></td>
+                        <td>Dimensionless (<span class="math-roman">&minus;1 &lt; <em>h</em> &lt; 1</span>); <span class="math-roman"><strong>e</strong> &middot; <strong>g&#770;</strong></span> quadrature component</td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>k</code> (Equinoctial element <span class="math-inline">k</span>)</strong></td>
+                        <td><em>Derived (not stored)</em></td>
+                        <td><code>e * cos(radians(w + I * Om))</code></td>
+                        <td><em>Computed</em></td>
+                        <td>Dimensionless (<span class="math-roman">&minus;1 &lt; <em>k</em> &lt; 1</span>); <span class="math-roman"><strong>e</strong> &middot; <strong>f&#770;</strong></span> in-phase component</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Example Record Evaluation (<code>00001</code> — (1) Ceres)</h3>
+            <pre>Col:  ... 38      46 ... 49      57 ... 60       68 ... 71      79 ...
+Data: ... 73.28574   ... 80.25498   ... 10.58789    ... 0.0785354  ...
+          └───┬───┘      └───┬───┘      └───┬───┘       └───┬───┘
+           w (deg)       Om (deg)        i (deg)            e
+
+Equinoctial Element (h) Evaluation for (1) Ceres (Direct Chart, I = +1):
+  Longitude of perihelion  varpi = w + Om              = 73.28574 + 80.25498 = 153.54072 deg
+  Equinoctial element h    h = e * sin(varpi)          = 0.0785354 * sin(153.54072 deg) = +0.0348660
+  Equinoctial element k    k = e * cos(varpi)          = 0.0785354 * cos(153.54072 deg) = -0.0703715
+  Norm consistency check   sqrt(h^2 + k^2)             = 0.0785354 (recovers e exactly)</pre>
+        </section>
+
+        <footer>
+            Self-contained scientific reference document (zero external dependencies) &bull; Conventions aligned with IAU Minor Planet Center (MPC) <code>MPCORB.DAT</code> specifications.
+        </footer>
+    </div>
+
+    <script>
+        (function () {
+            const inputE = document.getElementById("inputE");
+            const inputOmega = document.getElementById("inputOmega");
+            const inputNode = document.getElementById("inputNode");
+            const inputI = document.getElementById("inputI");
+            const calcResult = document.getElementById("calcResult");
+
+            function formatSigned(val) {
+                const sign = val >= 0 ? "+" : "&minus;";
+                return `${sign}${Math.abs(val).toFixed(7)}`;
+            }
+
+            function updateCalculation() {
+                const e = parseFloat(inputE.value);
+                const omegaDeg = parseFloat(inputOmega.value);
+                const nodeDeg = parseFloat(inputNode.value);
+                const incDeg = parseFloat(inputI.value);
+
+                if (!isFinite(e) || e < 0 || e >= 1) {
+                    calcResult.innerHTML = "Numeric eccentricity <em>e</em> must satisfy 0 &le; <em>e</em> &lt; 1 for an elliptic MPCORB record.";
+                    return;
+                }
+
+                if (!isFinite(omegaDeg) || !isFinite(nodeDeg)) {
+                    calcResult.innerHTML = "Please enter valid angles for <em>&omega;</em> and <em>&Omega;</em> in degrees.";
+                    return;
+                }
+
+                if (!isFinite(incDeg) || incDeg < 0 || incDeg > 180) {
+                    calcResult.innerHTML = "Inclination <em>i</em> must satisfy 0&deg; &le; <em>i</em> &le; 180&deg;.";
+                    return;
+                }
+
+                // Direct equinoctial convention (I = +1)
+                const varpiDeg = (((omegaDeg + nodeDeg) % 360.0) + 360.0) % 360.0;
+                const varpiRad = (varpiDeg * Math.PI) / 180.0;
+
+                const hDirect = e * Math.sin(varpiRad);
+                const kDirect = e * Math.cos(varpiRad);
+
+                calcResult.innerHTML =
+                    `Equinoctial <em>h</em> (<em>I</em> = +1): <strong>${formatSigned(hDirect)}</strong><br>` +
+                    `Equinoctial <em>k</em> (<em>I</em> = +1): <strong>${formatSigned(kDirect)}</strong><br>` +
+                    `Long. of perihelion <em>&varpi;</em>: <strong>${varpiDeg.toFixed(5)}&deg;</strong>`;
+            }
+
+            inputE.addEventListener("input", updateCalculation);
+            inputOmega.addEventListener("input", updateCalculation);
+            inputNode.addEventListener("input", updateCalculation);
+            inputI.addEventListener("input", updateCalculation);
+            updateCalculation();
+        })();
+    </script>
+</body>
+</html>

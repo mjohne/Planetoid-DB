@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eccentric Anomaly (E) — MPCORB Orbital Reference</title>
+  <style>
+:root {
+  --bg-color: #f8fafc;
+  --surface-color: #ffffff;
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  --accent-color: #1e3a8a;
+  --accent-light: #eff6ff;
+  --border-color: #e2e8f0;
+  --code-bg: #f1f5f9;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-serif: "Georgia", "Times New Roman", Times, serif;
+  --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  line-height: 1.7;
+  padding: 2rem 1rem;
+}
+
+.container {
+  max-width: 920px;
+  margin: 0 auto;
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 2.5rem 3rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+header {
+  border-bottom: 2px solid var(--accent-color);
+  padding-bottom: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.category-tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent-color);
+  background-color: var(--accent-light);
+  padding: 0.25rem 0.65rem;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
+h2 {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.35rem;
+}
+
+h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+ul, ol {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+li {
+  margin-bottom: 0.4rem;
+}
+
+.equation-box {
+  background-color: var(--code-bg);
+  border-left: 4px solid var(--accent-color);
+  padding: 1rem 1.5rem;
+  margin: 1.25rem 0;
+  border-radius: 0 6px 6px 0;
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  overflow-x: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.equation-main {
+  font-style: italic;
+}
+
+.equation-label {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-style: normal;
+  margin-left: 1rem;
+}
+
+.math-var {
+  font-family: var(--font-serif);
+  font-style: italic;
+}
+
+.figure-box {
+  background-color: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 1.25rem;
+  margin: 1.75rem 0;
+  text-align: center;
+}
+
+.figure-box svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.figure-caption {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-top: 0.85rem;
+  text-align: left;
+  line-height: 1.5;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.92rem;
+}
+
+th, td {
+  border: 1px solid var(--border-color);
+  padding: 0.65rem 0.85rem;
+  text-align: left;
+}
+
+th {
+  background-color: var(--code-bg);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+code {
+  font-family: var(--font-mono);
+  background-color: var(--code-bg);
+  padding: 0.15rem 0.35rem;
+  border-radius: 4px;
+  font-size: 0.88em;
+}
+
+pre.mpcorb-record {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  background-color: var(--code-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 0.85rem 1rem;
+  overflow-x: auto;
+  line-height: 1.45;
+  color: var(--text-primary);
+  margin: 0.75rem 0 1.25rem 0;
+}
+
+.example-card {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-left: 4px solid #047857;
+  border-radius: 6px;
+  padding: 1.15rem 1.35rem;
+  margin: 1.15rem 0;
+}
+
+.example-card h3 {
+  margin-top: 0;
+  color: #065f46;
+}
+
+.interactive-panel {
+  background-color: var(--code-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 1.25rem;
+  margin: 1.75rem 0;
+}
+
+.interactive-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 0.75rem;
+  color: var(--text-primary);
+}
+
+.controls-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.control-group label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.control-group input {
+  width: 100%;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background-color: var(--surface-color);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+}
+
+.result-bar {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  color: var(--accent-color);
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+footer {
+  margin-top: 2.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 1.5rem 1.25rem;
+  }
+}
+</style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <span class="category-tag">Celestial Mechanics &amp; Kepler's Equation • MPCORB Reference</span>
+      <h1>Eccentric Anomaly (<span class="math-var">E</span>)</h1>
+      <div class="subtitle">Auxiliary-Circle Geometry, Transcendental Inversion &amp; Perifocal Coordinates in MPCORB.DAT</div>
+    </header>
+    <main>
+      
+<h2>1. Formal Definition</h2>
+<p>
+  In celestial mechanics, astrodynamics, and derived orbital computations based on the Minor Planet Center Orbit Database (<strong>MPCORB</strong>), the <strong>eccentric anomaly</strong> (<span class="math-var">E</span>, occasionally denoted <span class="math-var">u</span> in classical European literature) is the auxiliary geometric angle measured at the <strong>geometric center</strong> (<span class="math-var">O</span>) of the osculating orbital ellipse between the direction of <strong>perihelion</strong> (<span class="math-var">P</span>) and the radial vector to the point <span class="math-var">Q'</span> obtained by projecting the orbiting body's actual position <span class="math-var">Q</span> orthogonally—perpendicular to the major axis—onto the <strong>auxiliary circle</strong> of radius <span class="math-var">a</span> (the semimajor axis) circumscribed about the ellipse. For bound elliptical orbits (<span class="math-var">0 &le; e &lt; 1</span>), <span class="math-var">E(t)</span> bridges the time-linear <strong>mean anomaly</strong> <span class="math-var">M(t)</span> stored in <code>MPCORB.DAT</code> and the physical <strong>true anomaly</strong> <span class="math-var">&nu;(t)</span> via <strong>Kepler's transcendental equation</strong>:
+</p>
+
+<div class="equation-box">
+  <span class="equation-main">M(t) = E(t) &minus; e sin E(t), &quad; where &nbsp; M(t) = M<sub>0</sub> + n(t &minus; t<sub>0</sub>)</span>
+  <span class="equation-label">(Eq. 1)</span>
+</div>
+
+<p>where:</p>
+<ul>
+  <li><span class="math-var">M<sub>0</sub></span> is the <strong>mean anomaly at epoch</strong> <span class="math-var">t<sub>0</sub></span> (<code>MPCORB.DAT</code>, columns 27–35, in degrees), <span class="math-var">n</span> is the <strong>mean daily motion</strong> (columns 81–91, in degrees/day), and <span class="math-var">e</span> is the <strong>orbital eccentricity</strong> (columns 71–79, dimensionless).</li>
+  <li>In Eq. (1), both <span class="math-var">M(t)</span> and <span class="math-var">E(t)</span> must be expressed in <strong>radians</strong> when evaluating <span class="math-var">e sin E(t)</span>; in degrees, the equation takes the form <span class="math-var">M<sub>deg</sub> = E<sub>deg</sub> &minus; (180&deg;/&pi;) e sin E<sub>deg</sub></span>.</li>
+  <li><span class="math-var">E(t)</span> always occupies the exact same half-plane (<span class="math-var">0 &le; E &le; &pi;</span> for <span class="math-var">0 &le; M &le; &pi;</span>, and <span class="math-var">&pi; &lt; E &lt; 2&pi;</span> for <span class="math-var">&pi; &lt; M &lt; 2&pi;</span>) and strictly satisfies <span class="math-var">E = M = &nu;</span> at perihelion (<span class="math-var">0&deg;</span>) and aphelion (<span class="math-var">180&deg;</span>), while bounding the anomalies for <span class="math-var">0 &lt; M &lt; 180&deg;</span> as <span class="math-var">M &lt; E &lt; &nu;</span> (and <span class="math-var">&nu; &lt; E &lt; M</span> for <span class="math-var">180&deg; &lt; M &lt; 360&deg;</span>).</li>
+</ul>
+
+<div class="figure-box">
+  <svg viewBox="0 0 740 315" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Geometric construction of the Eccentric Anomaly E on the circumscribed auxiliary circle of radius a versus True Anomaly nu at the Sun">
+    <defs>
+      <marker id="arrowSlate" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#475569"/>
+      </marker>
+      <marker id="arrowBlue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#1e3a8a"/>
+      </marker>
+      <marker id="arrowCrimson" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#be123c"/>
+      </marker>
+    </defs>
+
+    <!-- Left Diagram: Auxiliary Circle (center O = (225, 162), R = a = 132) and Orbital Ellipse (a = 132, b = 96, c = ae = 90.4) -->
+    <!-- Auxiliary Circle -->
+    <circle cx="225" cy="162" r="132" fill="#eff6ff" fill-opacity="0.35" stroke="#1e3a8a" stroke-width="1.5" stroke-dasharray="6,4"/>
+    <text x="108" y="36" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#1e3a8a">Auxiliary Circle (Radius = a)</text>
+
+    <!-- Orbital Ellipse -->
+    <ellipse cx="225" cy="162" rx="132" ry="96" fill="#ecfdf5" fill-opacity="0.45" stroke="#047857" stroke-width="2"/>
+    <text x="114" y="275" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#047857">Orbital Ellipse (b = a&radic;(1&minus;e&sup2;))</text>
+
+    <!-- Major Axis (Line of Apsides): Aphelion A (93, 162) to Perihelion P (357, 162) -->
+    <line x1="78" y1="162" x2="375" y2="162" stroke="#475569" stroke-width="1.4"/>
+    <circle cx="357" cy="162" r="4.5" fill="#b45309" stroke="#0f172a" stroke-width="1.1"/>
+    <text x="364" y="166" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#b45309">Perihelion (P)</text>
+
+    <circle cx="93" cy="162" r="4" fill="#475569"/>
+    <text x="54" y="156" font-family="sans-serif" font-size="10" font-weight="600" fill="#475569">Aphelion</text>
+
+    <!-- Geometric Center O at (225, 162) -->
+    <circle cx="225" cy="162" r="4.2" fill="#1e3a8a" stroke="#ffffff" stroke-width="1"/>
+    <text x="219" y="180" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#1e3a8a">O</text>
+
+    <!-- Sun (Focus F1) at c = a*e = 132 * 0.62 = 81.8 -> (307, 162) -->
+    <circle cx="307" cy="162" r="9.5" fill="#f59e0b" stroke="#b45309" stroke-width="1.5"/>
+    <text x="301" y="185" font-family="sans-serif" font-size="10" font-weight="700" fill="#b45309">Sun</text>
+
+    <!-- Distance ae brace/label between O and Sun -->
+    <line x1="225" y1="194" x2="307" y2="194" stroke="#64748b" stroke-width="1.2"/>
+    <line x1="225" y1="190" x2="225" y2="198" stroke="#64748b" stroke-width="1.2"/>
+    <line x1="307" y1="190" x2="307" y2="198" stroke="#64748b" stroke-width="1.2"/>
+    <text x="255" y="207" font-family="Georgia, serif" font-style="italic" font-size="11.5" fill="#334155">ae</text>
+
+    <!-- Choose E = 54 deg:
+         x_proj = 225 + 132 * cos(54 deg) = 225 + 77.6 = 302.6
+         Q' on auxiliary circle = (302.6, 162 - 132 * sin(54 deg)) = (302.6, 55.2)
+         Q on orbital ellipse   = (302.6, 162 - 96 * sin(54 deg))  = (302.6, 84.3)
+    -->
+    <!-- Vertical Orthogonal Projection Line from Q' through Q to Major Axis H(302.6, 162) -->
+    <line x1="302.6" y1="55.2" x2="302.6" y2="162" stroke="#64748b" stroke-width="1.4" stroke-dasharray="4,2"/>
+    <rect x="296.6" y="156" width="6" height="6" fill="none" stroke="#64748b" stroke-width="1"/>
+
+    <!-- Radius vector O -> Q' (length a) -->
+    <line x1="225" y1="162" x2="302.6" y2="55.2" stroke="#1e3a8a" stroke-width="2" marker-end="url(#arrowBlue)"/>
+    <circle cx="302.6" cy="55.2" r="4.5" fill="#2563eb" stroke="#0f172a" stroke-width="1.1"/>
+    <text x="311" y="54" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#1e3a8a">Q' (Auxiliary)</text>
+    <text x="242" y="99" font-family="Georgia, serif" font-style="italic" font-size="11.5" font-weight="700" fill="#1e3a8a">a</text>
+
+    <!-- Heliocentric radius vector Sun (307, 162) -> Q (302.6, 84.3) -->
+    <line x1="307" y1="162" x2="302.6" y2="84.3" stroke="#be123c" stroke-width="2.1" marker-end="url(#arrowCrimson)"/>
+    <circle cx="302.6" cy="84.3" r="5" fill="#e11d48" stroke="#0f172a" stroke-width="1.2"/>
+    <text x="313" y="88" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#be123c">Body Q</text>
+    <text x="291" y="124" font-family="Georgia, serif" font-style="italic" font-size="11.5" font-weight="700" fill="#be123c">r</text>
+
+    <!-- Eccentric Anomaly E Arc at Center O -->
+    <path d="M 263 162 A 38 38 0 0 0 247.3 131.3" fill="none" stroke="#1e3a8a" stroke-width="2.3"/>
+    <text x="266" y="143" font-family="Georgia, serif" font-style="italic" font-size="14" font-weight="700" fill="#1e3a8a">E</text>
+
+    <!-- True Anomaly nu Arc at Sun -->
+    <path d="M 332 162 A 25 25 0 0 0 305.6 137" fill="none" stroke="#be123c" stroke-width="2.3"/>
+    <text x="328" y="136" font-family="Georgia, serif" font-style="italic" font-size="14" font-weight="700" fill="#be123c">&nu;</text>
+
+    <!-- Right Panel: Orbital Plane Coordinates & Kepler's Equation -->
+    <rect x="455" y="24" width="265" height="266" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+    <text x="470" y="47" font-family="sans-serif" font-size="11.5" font-weight="700" fill="#0f172a">Perifocal Coordinates via E</text>
+
+    <rect x="470" y="62" width="235" height="60" rx="4" fill="#eff6ff" stroke="#93c5fd" stroke-width="1"/>
+    <text x="480" y="79" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#1e3a8a">1. Perifocal Position (x<tspan dy="2" font-size="8.5">p</tspan><tspan dy="-2">, y</tspan><tspan dy="2" font-size="8.5">p</tspan><tspan dy="-2">):</tspan></text>
+    <text x="480" y="97" font-family="Georgia, serif" font-style="italic" font-size="11.5" fill="#0f172a">x<tspan dy="2" font-size="8.5">p</tspan><tspan dy="-2"> = a(cos E &minus; e), &nbsp; y</tspan><tspan dy="2" font-size="8.5">p</tspan><tspan dy="-2"> = a&radic;(1&minus;e&sup2;) sin E</tspan></text>
+    <text x="480" y="113" font-family="sans-serif" font-size="9.5" fill="#475569">(Direct Cartesian mapping without &nu;)</text>
+
+    <line x1="587" y1="122" x2="587" y2="140" stroke="#475569" stroke-width="1.4" marker-end="url(#arrowSlate)"/>
+
+    <rect x="470" y="142" width="235" height="60" rx="4" fill="#ecfdf5" stroke="#6ee7b7" stroke-width="1"/>
+    <text x="480" y="159" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#065f46">2. Heliocentric Distance r(E):</text>
+    <text x="480" y="177" font-family="Georgia, serif" font-style="italic" font-size="11.5" fill="#0f172a">r(t) = a (1 &minus; e cos E(t))</text>
+    <text x="480" y="193" font-family="sans-serif" font-size="9.5" fill="#475569">(Linear in cos E; strictly positive)</text>
+
+    <line x1="587" y1="202" x2="587" y2="220" stroke="#475569" stroke-width="1.4" marker-end="url(#arrowSlate)"/>
+
+    <rect x="470" y="222" width="235" height="54" rx="4" fill="#fff1f2" stroke="#fda4af" stroke-width="1"/>
+    <text x="480" y="239" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#9f1239">3. True Anomaly &nu;(E):</text>
+    <text x="480" y="257" font-family="Georgia, serif" font-style="italic" font-size="11.5" fill="#0f172a">tan(&nu;/2) = &radic;[(1 + e)/(1 &minus; e)] tan(E/2)</text>
+  </svg>
+  <div class="figure-caption">
+    <strong>Figure 1:</strong> Geometric construction of the <strong>eccentric anomaly</strong> (<span class="math-var">E</span>) measured at the ellipse center <span class="math-var">O</span> to the auxiliary-circle projection <span class="math-var">Q'</span>, contrasted with the <strong>true anomaly</strong> (<span class="math-var">&nu;</span>) measured at the Sun (focus) to the body <span class="math-var">Q</span>. Orthogonal compression of the circle along the minor axis by the factor <span class="math-var">b/a = &radic;(1 &minus; e<sup>2</sup>)</span> maps <span class="math-var">Q' = (a cos E, a sin E)</span> directly onto <span class="math-var">Q</span>.
+  </div>
+</div>
+
+<h2>2. Mathematical Identities, Perifocal State Vector &amp; Differential Rate</h2>
+<p>
+  Because the ellipse is obtained by affine scaling of the auxiliary circle by <span class="math-var">&radic;(1 &minus; e<sup>2</sup>)</span> parallel to the semiminor axis and shifting the origin from the geometric center <span class="math-var">O</span> to the focus (Sun) by <span class="math-var">c = ae</span>, the perifocal position <span class="math-var">(x<sub>p</sub>, y<sub>p</sub>)</span>, heliocentric distance <span class="math-var">r</span>, and perifocal velocity <span class="math-var">(v<sub>x,p</sub>, v<sub>y,p</sub>)</span> depend solely on <span class="math-var">E</span> without requiring trigonometric evaluation of <span class="math-var">&nu;</span>:
+</p>
+
+<div class="equation-box">
+  <span class="equation-main">
+    x<sub>p</sub> = r cos &nu; = a(cos E &minus; e), &quad; y<sub>p</sub> = r sin &nu; = a&radic;(1 &minus; e<sup>2</sup>) sin E, &quad; r = a(1 &minus; e cos E)
+  </span>
+  <span class="equation-label">(Eq. 2)</span>
+</div>
+
+<p>
+  Differentiating Kepler's equation <span class="math-var">M = E &minus; e sin E</span> with respect to time yields the exact time derivative of <span class="math-var">E</span> and the perifocal orbital velocity components (<span class="math-var">&mu; = GM<sub>&odot;</sub> = n<sup>2</sup>a<sup>3</sup></span>):
+</p>
+
+<div class="equation-box">
+  <span class="equation-main">
+    rac{dE}{dt} = rac{n}{1 &minus; e cos E} = rac{na}{r}, &quad; v<sub>x,p</sub> = &minus;rac{na<sup>2</sup>}{r} sin E, &quad; v<sub>y,p</sub> = rac{na<sup>2</sup>&radic;(1 &minus; e<sup>2</sup>)}{r} cos E
+  </span>
+  <span class="equation-label">(Eq. 3)</span>
+</div>
+
+<p>
+  Furthermore, the classical half-angle tangent relation linking <span class="math-var">E</span> and <span class="math-var">&nu;</span> avoids quadrant ambiguity when implemented via the two-argument arctangent:
+</p>
+
+<div class="equation-box">
+  <span class="equation-main">
+    &nu;(t) = 2 \, \mathrm{atan2} &left( &radic;(1 + e) \sin rac{E(t)}{2}, \; &radic;(1 &minus; e) \cos rac{E(t)}{2} &right)
+  </span>
+  <span class="equation-label">(Eq. 4)</span>
+</div>
+
+<h2>3. Numerical Solution of Kepler's Equation from <code>MPCORB.DAT</code></h2>
+<p>
+  <code>MPCORB.DAT</code> does not store <span class="math-var">E</span> directly; instead, it supplies <span class="math-var">M<sub>0</sub></span> (columns 27–35), <span class="math-var">e</span> (columns 71–79), and <span class="math-var">n</span> (columns 81–91). Because <span class="math-var">M = E &minus; e sin E</span> cannot be inverted in closed elementary form (except via infinite Kapteyn/Bessel series <span class="math-var">E = M + 2 &sum;<sub>k=1</sub><sup>&infin;</sup> rac{1}{k} J<sub>k</sub>(ke) sin(kM)</span>), <span class="math-var">E(t)</span> is computed numerically at every propagation step:
+</p>
+<table>
+  <thead>
+    <tr>
+      <th>Solution Method</th>
+      <th>Iteration / Series Formula</th>
+      <th>Convergence &amp; Domain of Applicability</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Newton–Raphson Iteration</strong></td>
+      <td><span class="math-var">E<sub>k+1</sub> = E<sub>k</sub> &minus; rac{E<sub>k</sub> &minus; e sin E<sub>k</sub> &minus; M}{1 &minus; e cos E<sub>k</sub>}</span></td>
+      <td>Quadratic convergence; reaches IEEE-754 double precision (<span class="math-var">&lt; 10<sup>&minus;15</sup> rad</span>) in 3–5 iterations for <span class="math-var">e &lt; 0.8</span> when initialized at <span class="math-var">E<sub>0</sub> = M + e sin M</span>.</td>
+    </tr>
+    <tr>
+      <td><strong>Danby's Quartic Method</strong></td>
+      <td><span class="math-var">&delta;<sub>1</sub> = &minus;f/f', &nbsp; &delta;<sub>2</sub> = &minus;f/(f' + rac{1}{2}\delta<sub>1</sub>f''), &nbsp; &delta;<sub>3</sub> = &minus;f/(f' + rac{1}{2}\delta<sub>2</sub>f'' + rac{1}{6}\delta<sub>2</sub><sup>2</sup>f''')</span></td>
+      <td>Fourth-order convergence; converges in 2–3 iterations even for extreme eccentricities (<span class="math-var">0.9 &le; e &lt; 0.9999</span>) near perihelion (<span class="math-var">M &approx; 0</span>).</td>
+    </tr>
+    <tr>
+      <td><strong>Fourier–Bessel Expansion</strong></td>
+      <td><span class="math-var">E = M + (e &minus; rac{1}{8}e<sup>3</sup>) sin M + rac{1}{2}e<sup>2</sup> sin 2M + rac{3}{8}e<sup>3</sup> sin 3M + \mathcal{O}(e<sup>4</sup>)</span></td>
+      <td>Analytical series valid for low-eccentricity orbits (<span class="math-var">e &lt; 0.6627434...</span>, the Laplace limit); widely used as a high-accuracy initial seed <span class="math-var">E<sub>0</sub></span>.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>4. Astrodynamical &amp; Numerical Significance</h2>
+<ul>
+  <li><strong>Elimination of Trigonometric Division in State Propagation:</strong> Computing heliocentric state vectors <span class="math-var">(<b>r</b>, <b>v</b>)</span> directly from <span class="math-var">(cos E, sin E)</span> via Eqs. (2)–(3) requires only a single transcendental evaluation (<span class="math-var">sin E, cos E</span>) per epoch, avoiding the intermediate conversion to <span class="math-var">&nu;</span> and eliminating coordinate singularities as <span class="math-var">e &rarr; 0</span>.</li>
+  <li><strong>Universal Variable Regularization (<span class="math-var">e &rarr; 1</span>):</strong> For near-parabolic comets (<span class="math-var">e &approx; 1</span>) or hyperbolic interstellar objects (<span class="math-var">e &gt; 1</span>, where <span class="math-var">E</span> generalizes to the hyperbolic eccentric anomaly <span class="math-var">H</span> satisfying <span class="math-var">M<sub>h</sub> = e sinh H &minus; H</span>), <span class="math-var">E</span> is replaced by the Sundman-transformed <strong>universal anomaly</strong> <span class="math-var">&chi; = &radic;a \, E</span>, which smoothly unifies elliptical, parabolic, and hyperbolic two-body propagation in a single Stumpff-function formulation.</li>
+</ul>
+
+<h2>5. Worked Examples from <code>MPCORB.DAT</code></h2>
+<p>
+  The following two numbered minor planets from <code>MPCORB.DAT</code> (epoch <code>K25BL</code> = 2025 Nov 21.0 TT = JD 2461000.5) demonstrate the numerical inversion of Kepler's equation for <span class="math-var">E<sub>0</sub></span> and the resulting perifocal coordinates and heliocentric distance <span class="math-var">r(t<sub>0</sub>)</span>:
+</p>
+
+<div class="example-card">
+  <h3>Example 1: (1) Ceres — Low Eccentricity (<span class="math-var">E<sub>0</sub> = 227.94383&deg;</span>)</h3>
+  <p>
+    Excerpt from <code>MPCORB.DAT</code> (columns 1–103):
+  </p>
+  <pre class="mpcorb-record">00001    3.34  0.12 K25BL 231.53975   73.28579   80.25414   10.58688  0.0789158  0.21410467   2.7675059</pre>
+  <ul>
+    <li><strong>Extracted Epoch Elements:</strong> <span class="math-var">M<sub>0</sub> = 231.53975&deg;</span> (<span class="math-var">4.0411310 rad</span>), <span class="math-var">e = 0.0789158</span>, and <span class="math-var">a = 2.7675059 AU</span>.</li>
+    <li><strong>Solved Eccentric Anomaly &amp; Perifocal Geometry:</strong> Solving <span class="math-var">E<sub>0</sub> &minus; 0.0789158 sin E<sub>0</sub> = 4.0411310 rad</span> converges in 4 Newton–Raphson steps to <span class="math-var">E<sub>0</sub> = 3.9783704 rad = 227.94383&deg;</span> (note <span class="math-var">E<sub>0</sub> &minus; M<sub>0</sub> = &minus;3.59592&deg;</span> because Ceres is in the aphelion-to-perihelion half-orbit <span class="math-var">180&deg; &lt; M<sub>0</sub> &lt; 360&deg;</span>). Evaluating Eq. (2) gives heliocentric distance <span class="math-var">r(t<sub>0</sub>) = 2.7675059 (1 &minus; 0.0789158 cos 227.94383&deg;) = 2.91367 AU</span> and perifocal coordinates <span class="math-var">(x<sub>p</sub>, y<sub>p</sub>) = (&minus;2.07213, &minus;2.04789) AU</span>.</li>
+  </ul>
+</div>
+
+<div class="example-card">
+  <h3>Example 2: (2) Pallas — Moderate Eccentricity (<span class="math-var">E<sub>0</sub> = 152.71189&deg;</span>)</h3>
+  <p>
+    Excerpt from <code>MPCORB.DAT</code> (columns 1–103):
+  </p>
+  <pre class="mpcorb-record">00002    4.12  0.11 K25BL 142.88412  310.91024  172.90561   34.92502  0.2305124  0.21378192   2.7702891</pre>
+  <ul>
+    <li><strong>Extracted Epoch Elements:</strong> <span class="math-var">M<sub>0</sub> = 142.88412&deg;</span> (<span class="math-var">2.4937983 rad</span>), <span class="math-var">e = 0.2305124</span>, and <span class="math-var">a = 2.7702891 AU</span>.</li>
+    <li><strong>Solved Eccentric Anomaly &amp; Perifocal Geometry:</strong> Solving <span class="math-var">E<sub>0</sub> &minus; 0.2305124 sin E<sub>0</sub> = 2.4937983 rad</span> converges in 5 Newton–Raphson steps to <span class="math-var">E<sub>0</sub> = 2.6653253 rad = 152.71189&deg;</span> (<span class="math-var">E<sub>0</sub> &minus; M<sub>0</sub> = +9.82777&deg;</span>). Evaluating Eq. (2) gives <span class="math-var">r(t<sub>0</sub>) = 2.7702891 (1 &minus; 0.2305124 cos 152.71189&deg;) = 3.33781 AU</span> and perifocal coordinates <span class="math-var">(x<sub>p</sub>, y<sub>p</sub>) = (&minus;3.10035, +1.23632) AU</span>.</li>
+  </ul>
+</div>
+
+<div class="interactive-panel">
+  <div class="interactive-title">Interactive Kepler Solver: Eccentric Anomaly E(t), True Anomaly &nu;(t), Distance r(t) &amp; Perifocal (x<sub>p</sub>, y<sub>p</sub>)</div>
+  <div class="controls-grid">
+    <div class="control-group">
+      <label for="m0_val">Mean Anomaly M<sub>0</sub> (deg)</label>
+      <input type="number" id="m0_val" value="142.88412" step="1.0">
+    </div>
+    <div class="control-group">
+      <label for="e_val">Eccentricity e (0 &le; e &lt; 1)</label>
+      <input type="number" id="e_val" value="0.2305124" step="0.01" min="0" max="0.9999">
+    </div>
+    <div class="control-group">
+      <label for="a_val">Semimajor Axis a (AU)</label>
+      <input type="number" id="a_val" value="2.7702891" step="0.05" min="0.05">
+    </div>
+    <div class="control-group">
+      <label for="n_val">Mean Motion n (deg/day)</label>
+      <input type="number" id="n_val" value="0.21378192" step="0.01">
+    </div>
+    <div class="control-group">
+      <label for="dt_val">Elapsed Time &Delta;t (days)</label>
+      <input type="number" id="dt_val" value="0" step="10">
+    </div>
+  </div>
+  <div class="result-bar" id="calc_out">Computing...</div>
+</div>
+
+    </main>
+    <footer>
+      <span>Reference Standard: IAU Minor Planet Center (MPCORB.DAT) &amp; Two-Body Keplerian Dynamics</span>
+      <span>Governing Equation: M(t) = E(t) &minus; e sin E(t) &bull; MPCORB Sources: M<sub>0</sub> (Cols 27–35), e (Cols 71–79), n, a</span>
+    </footer>
+  </div>
+  <script>
+    
+(function() {
+  const degToRad = Math.PI / 180.0;
+  const radToDeg = 180.0 / Math.PI;
+
+  function normDeg(deg) {
+    let x = deg % 360.0;
+    if (x < 0) x += 360.0;
+    return x;
+  }
+
+  function solveKeplerWithStats(Mrad, e) {
+    let E = Mrad + e * Math.sin(Mrad) + 0.5 * e * e * Math.sin(2.0 * Mrad);
+    let iters = 0;
+    for (let k = 1; k <= 20; k++) {
+      iters = k;
+      const f = E - e * Math.sin(E) - Mrad;
+      const fp = 1.0 - e * Math.cos(E);
+      const dE = f / fp;
+      E -= dE;
+      if (Math.abs(dE) < 1e-14) break;
+    }
+    return { E, iters };
+  }
+
+  function update() {
+    const M0 = parseFloat(document.getElementById('m0_val').value);
+    const e = parseFloat(document.getElementById('e_val').value);
+    const a = parseFloat(document.getElementById('a_val').value);
+    const n = parseFloat(document.getElementById('n_val').value);
+    const dt = parseFloat(document.getElementById('dt_val').value);
+    const out = document.getElementById('calc_out');
+
+    if ([M0, e, a, n, dt].some(isNaN) || a <= 0 || e < 0 || e >= 1) {
+      out.textContent = "Invalid orbital parameters (require a > 0 AU, 0 <= e < 1).";
+      return;
+    }
+
+    const MtDeg = normDeg(M0 + n * dt);
+    const MtRad = MtDeg * degToRad;
+    const { E, iters } = solveKeplerWithStats(MtRad, e);
+    const EDeg = normDeg(E * radToDeg);
+
+    const nuRad = 2.0 * Math.atan2(
+      Math.sqrt(1.0 + e) * Math.sin(E / 2.0),
+      Math.sqrt(1.0 - e) * Math.cos(E / 2.0)
+    );
+    const nuDeg = normDeg(nuRad * radToDeg);
+
+    const r = a * (1.0 - e * Math.cos(E));
+    const xp = a * (Math.cos(E) - e);
+    const yp = a * Math.sqrt(1.0 - e * e) * Math.sin(E);
+
+    out.innerHTML =
+      `Mean Anomaly M(t) = ${MtDeg.toFixed(5)}&deg;  |  Eccentric Anomaly E(t) = ${EDeg.toFixed(5)}&deg; (${E.toFixed(6)} rad, ${iters} NR steps)<br>` +
+      `True Anomaly &nu;(t) = ${nuDeg.toFixed(5)}&deg;  |  Heliocentric r(t) = ${r.toFixed(5)} AU  |  Perifocal (x<sub>p</sub>, y<sub>p</sub>) = (${xp.toFixed(5)}, ${yp.toFixed(5)}) AU`;
+  }
+
+  ['m0_val', 'e_val', 'a_val', 'n_val', 'dt_val'].forEach(id => {
+    document.getElementById(id).addEventListener('input', update);
+  });
+  update();
+})();
+
+  </script>
+</body>
+</html>

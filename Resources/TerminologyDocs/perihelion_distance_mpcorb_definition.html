@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perihelion Distance (q) in the Context of MPCORB</title>
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #334155;
+            --accent-color: #1e3a8a;
+            --accent-light: #eff6ff;
+            --border-color: #cbd5e1;
+            --code-bg: #f1f5f9;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.7;
+            color: var(--text-primary);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 3rem 3.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            border: 1px solid var(--border-color);
+        }
+
+        header {
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .badge {
+            display: inline-block;
+            background-color: var(--accent-light);
+            color: var(--accent-color);
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            padding: 0.3rem 0.75rem;
+            border-radius: 4px;
+            border: 1px solid #bfdbfe;
+            margin-bottom: 0.75rem;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin: 0.25rem 0 0.5rem 0;
+            color: var(--text-primary);
+            line-height: 1.25;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            margin: 0;
+        }
+
+        h2 {
+            font-size: 1.35rem;
+            color: var(--accent-color);
+            margin-top: 2.25rem;
+            margin-bottom: 0.85rem;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 0.35rem;
+        }
+
+        h3 {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        p {
+            margin-bottom: 1.15rem;
+            color: var(--text-secondary);
+            text-align: justify;
+        }
+
+        ul, ol {
+            margin-bottom: 1.25rem;
+            padding-left: 1.5rem;
+            color: var(--text-secondary);
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        .equation-box {
+            background-color: var(--code-bg);
+            border-left: 4px solid var(--accent-color);
+            padding: 1.15rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 6px 6px 0;
+            overflow-x: auto;
+            font-family: "Cambria Math", "STIX Two Math", "Times New Roman", Times, serif;
+            font-size: 1.18rem;
+            color: var(--text-primary);
+            text-align: center;
+        }
+
+        .math-inline {
+            font-family: "Cambria Math", "STIX Two Math", "Times New Roman", Times, serif;
+            font-style: italic;
+            font-size: 1.05em;
+            color: var(--text-primary);
+        }
+
+        .math-roman {
+            font-family: "Cambria Math", "STIX Two Math", "Times New Roman", Times, serif;
+            font-style: normal;
+            font-size: 1.02em;
+            color: var(--text-primary);
+        }
+
+        .frac {
+            display: inline-flex;
+            flex-direction: column;
+            vertical-align: middle;
+            text-align: center;
+            margin: 0 0.25rem;
+        }
+
+        .frac > span:first-child {
+            border-bottom: 1px solid var(--text-primary);
+            padding: 0 0.3rem 0.15rem 0.3rem;
+        }
+
+        .frac > span:last-child {
+            padding: 0.15rem 0.3rem 0 0.3rem;
+        }
+
+        .sqrt-wrap {
+            display: inline-flex;
+            align-items: stretch;
+        }
+
+        .sqrt-rad {
+            font-size: 1.15em;
+            line-height: 1;
+            padding-right: 1px;
+        }
+
+        .sqrt-body {
+            border-top: 1px solid var(--text-primary);
+            padding: 0 0.2rem;
+        }
+
+        .spec-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.92rem;
+        }
+
+        .spec-table th, .spec-table td {
+            border: 1px solid var(--border-color);
+            padding: 0.75rem 1rem;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        .spec-table th {
+            background-color: var(--accent-color);
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .spec-table tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        code {
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+            background-color: var(--code-bg);
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.88em;
+            color: #0f172a;
+        }
+
+        pre {
+            background-color: #1e293b;
+            color: #f8fafc;
+            padding: 1rem 1.25rem;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+        }
+
+        .note-callout {
+            background-color: #fffbeb;
+            border-left: 4px solid #d97706;
+            padding: 1rem 1.25rem;
+            margin: 1.5rem 0;
+            border-radius: 0 6px 6px 0;
+            color: #78350f;
+            font-size: 0.95rem;
+        }
+
+        .diagram-box {
+            background-color: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+
+        .diagram-caption {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+        }
+
+        .calculator-box {
+            background-color: var(--accent-light);
+            border: 1px solid #bfdbfe;
+            border-radius: 8px;
+            padding: 1.25rem 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .calculator-box h4 {
+            margin: 0 0 0.75rem 0;
+            color: var(--accent-color);
+            font-size: 1rem;
+        }
+
+        .calc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            align-items: end;
+        }
+
+        .calc-field label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.3rem;
+        }
+
+        .calc-field input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 0.5rem 0.65rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 0.95rem;
+            font-family: inherit;
+        }
+
+        .calc-output {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 0.5rem 0.75rem;
+            font-size: 0.92rem;
+            color: var(--text-primary);
+        }
+
+        footer {
+            margin-top: 3rem;
+            padding-top: 1.25rem;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.85rem;
+            color: #64748b;
+            text-align: center;
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 1.75rem 1.25rem;
+            }
+            h1 {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="badge">Celestial Mechanics &amp; Astrometry Specification</div>
+            <h1>Perihelion Distance (<span class="math-inline">q</span>) in the Context of the MPCORB Database</h1>
+            <p class="subtitle">Scientific Definition, Minimum Solar Approach Dynamics, and Derivation from the IAU Minor Planet Center Orbit Catalog</p>
+        </header>
+
+        <section>
+            <h2>1. Fundamental Astrodynamical &amp; Geometric Definition</h2>
+            <p>
+                In celestial mechanics and orbital astrometry, the <strong>perihelion distance</strong>, universally denoted by the lowercase symbol <span class="math-inline">q</span> (occasionally <span class="math-inline">r</span><sub>p</sub> or <span class="math-inline">r</span><sub>min</sub>), is the minimum heliocentric radial distance attained by a Solar System body (asteroid, centaur, trans-Neptunian object, or comet) along its osculating Keplerian trajectory.
+            </p>
+            <p>
+                Geometrically, <strong>perihelion</strong> (from Greek <em>peri</em>, &ldquo;near,&rdquo; and <em>helios</em>, &ldquo;Sun&rdquo;) is the apsidal vertex situated at the endpoint of the major axis closest to the primary focus occupied by the Sun, corresponding to a true anomaly of <span class="math-roman"><em>&nu;</em> = 0 rad (0&deg;)</span>, an eccentric anomaly of <span class="math-roman"><em>E</em> = 0 rad (0&deg;)</span>, and a mean anomaly of <span class="math-roman"><em>M</em> = 0 rad (0&deg;)</span>. Unlike the aphelion distance <span class="math-inline">Q</span>, which exists solely for bound ellipses, the perihelion distance <span class="math-inline">q</span> is well-defined and finite across <em>all</em> non-rectilinear conic sections (<span class="math-roman"><em>e</em> &ge; 0</span>):
+            </p>
+            <div class="equation-box">
+                <span class="math-inline">q</span> = <span class="math-inline">a</span>(1 &minus; <span class="math-inline">e</span>)
+                &nbsp;&nbsp;(for <span class="math-roman">0 &le; <em>e</em> &lt; 1</span> and <span class="math-roman"><em>e</em> &gt; 1</span> with <span class="math-roman"><em>a</em> &lt; 0</span>)
+                &nbsp;&nbsp;&Longleftrightarrow;&nbsp;&nbsp;
+                <span class="math-inline">q</span> =
+                <span class="frac">
+                    <span><span class="math-inline">p</span></span>
+                    <span>1 + <span class="math-inline">e</span></span>
+                </span>
+            </div>
+            <p>
+                where <span class="math-inline">a</span> is the semi-major axis, <span class="math-inline">e</span> is the orbital eccentricity, and <span class="math-roman"><em>p</em> = <em>h</em><sup>2</sup>/<em>&mu;</em></span> is the semi-latus rectum (which remains finite and positive even at the parabolic boundary <span class="math-roman"><em>e</em> = 1</span>, where <span class="math-roman"><em>q</em> = <em>p</em>/2</span>). For bound elliptic orbits (<span class="math-roman">0 &le; <em>e</em> &lt; 1</span>), <span class="math-inline">q</span> is coupled to the aphelion distance <span class="math-inline">Q</span> and full major axis <span class="math-roman">2<em>a</em></span> via <span class="math-roman"><em>q</em> = 2<em>a</em> &minus; <em>Q</em></span>. For a circular orbit (<span class="math-roman"><em>e</em> = 0</span>), <span class="math-roman"><em>q</em> = <em>a</em> = <em>Q</em></span>.
+            </p>
+
+            <div class="diagram-box">
+                <svg width="560" height="230" viewBox="0 0 560 230" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Geometric diagram showing perihelion distance q from the Sun at focus F1 to the perihelion vertex, compared with semi-major axis a and focal offset ae">
+                    <rect x="0" y="0" width="560" height="230" fill="#f8fafc" rx="6"/>
+                    <!-- Orbit Ellipse: center (280, 105), rx = 210 (a), ry = 85 (b), focal distance ae = 155 -->
+                    <ellipse cx="280" cy="105" rx="210" ry="85" fill="#eff6ff" stroke="#1e3a8a" stroke-width="2"/>
+                    <!-- Major axis dashed -->
+                    <line x1="70" y1="105" x2="490" y2="105" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4,4"/>
+                    <!-- Semi-major axis segment from center (280, 105) to perihelion (490, 105) -->
+                    <line x1="280" y1="105" x2="435" y2="105" stroke="#1e3a8a" stroke-width="2.5"/>
+                    <!-- Perihelion Distance q from Sun (435, 105) to Perihelion (490, 105) -->
+                    <line x1="435" y1="105" x2="490" y2="105" stroke="#dc2626" stroke-width="3.5"/>
+                    <!-- Dimension bracket below for q = a(1-e) -->
+                    <line x1="435" y1="196" x2="490" y2="196" stroke="#dc2626" stroke-width="1.8"/>
+                    <line x1="435" y1="115" x2="435" y2="202" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3,3"/>
+                    <line x1="490" y1="112" x2="490" y2="202" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3,3"/>
+                    <text x="462" y="216" text-anchor="middle" font-family="serif" font-size="14" fill="#dc2626" font-weight="bold">q = a(1 &minus; e)</text>
+                    <!-- Center point -->
+                    <circle cx="280" cy="105" r="3.5" fill="#0f172a"/>
+                    <text x="280" y="92" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#334155">Center</text>
+                    <!-- Sun at primary focus F1 at (435, 105) -->
+                    <circle cx="435" cy="105" r="7.5" fill="#f59e0b" stroke="#b45309" stroke-width="1.5"/>
+                    <text x="425" y="88" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#92400e" font-weight="bold">Sun (F&#8321;)</text>
+                    <!-- Aphelion & Perihelion vertices -->
+                    <circle cx="70" cy="105" r="3.5" fill="#64748b"/>
+                    <text x="60" y="128" text-anchor="end" font-family="sans-serif" font-size="11" fill="#475569">Aphelion (&nu; = 180&deg;)</text>
+                    <circle cx="490" cy="105" r="4" fill="#dc2626"/>
+                    <text x="500" y="128" text-anchor="start" font-family="sans-serif" font-size="11" fill="#dc2626" font-weight="bold">Perihelion (&nu; = 0&deg;)</text>
+                    <!-- Segment labels -->
+                    <text x="175" y="96" text-anchor="middle" font-family="serif" font-style="italic" font-size="14" fill="#1e3a8a">a</text>
+                    <text x="358" y="96" text-anchor="middle" font-family="serif" font-style="italic" font-size="14" fill="#1e3a8a">ae</text>
+                    <text x="462" y="123" text-anchor="middle" font-family="serif" font-style="italic" font-size="14" fill="#dc2626" font-weight="bold">q</text>
+                </svg>
+                <div class="diagram-caption">
+                    Figure 1: Geometric relation <span class="math-roman"><em>q</em> = <em>a</em> &minus; <em>ae</em> = <em>a</em>(1 &minus; <em>e</em>)</span> measuring the minimum heliocentric distance from the Sun at focus <span class="math-inline">F</span><sub>1</sub> to the perihelion vertex (<span class="math-roman"><em>&nu;</em> = 0&deg;</span>).
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>2. Physical &amp; Dynamical Significance at Perihelion</h2>
+            <p>
+                At perihelion (<span class="math-roman"><em>r</em> = <em>q</em></span>), a minor planet achieves its global maximum in kinetic energy, heliocentric velocity, angular rate, solar irradiance, and thermal/sublimation forcing along its orbit.
+            </p>
+
+            <h3>2.1 Maximum Orbital Velocity &amp; Angular Velocity</h3>
+            <p>
+                Evaluating the vis-viva equation at <span class="math-roman"><em>r</em> = <em>q</em> = <em>a</em>(1 &minus; <em>e</em>)</span> yields the maximum instantaneous heliocentric speed (<span class="math-inline">v</span><sub>peri</sub>) and peak true anomaly rate (<span class="math-inline">&nu;&dot;</span><sub>peri</sub>):
+            </p>
+            <div class="equation-box">
+                <span class="math-inline">v</span><sub>peri</sub> =
+                <span class="sqrt-wrap">
+                    <span class="sqrt-rad">&radic;</span>
+                    <span class="sqrt-body">
+                        <span class="math-inline">&mu;</span>
+                        <span class="math-roman">&Bigl(</span>
+                        <span class="frac">
+                            <span>2</span>
+                            <span><span class="math-inline">q</span></span>
+                        </span>
+                        &minus;
+                        <span class="frac">
+                            <span>1</span>
+                            <span><span class="math-inline">a</span></span>
+                        </span>
+                        <span class="math-roman">&Bigr)</span>
+                    </span>
+                </span>
+                =
+                <span class="sqrt-wrap">
+                    <span class="sqrt-rad">&radic;</span>
+                    <span class="sqrt-body">
+                        <span class="frac">
+                            <span><span class="math-inline">&mu;</span></span>
+                            <span><span class="math-inline">a</span></span>
+                        </span>
+                        <span class="frac">
+                            <span>1 + <span class="math-inline">e</span></span>
+                            <span>1 &minus; <span class="math-inline">e</span></span>
+                        </span>
+                    </span>
+                </span>
+                =
+                <span class="frac">
+                    <span><span class="math-inline">h</span></span>
+                    <span><span class="math-inline">q</span></span>
+                </span>
+            </div>
+            <p>
+                where <span class="math-roman"><em>&mu;</em> = <em>G</em>(<em>M</em><sub>&#9737;</sub> + <em>m</em>) &approx; <em>GM</em><sub>&#9737;</sub></span> is the heliocentric gravitational parameter. At the parabolic escape threshold (<span class="math-roman"><em>e</em> = 1, <em>a</em> &rarr; &infin;</span>), <span class="math-roman"><em>v</em><sub>peri</sub> = &radic;(2<em>&mu;</em>/<em>q</em>)</span> equals the exact local heliocentric escape speed at distance <span class="math-inline">q</span>.
+            </p>
+
+            <h3>2.2 Thermal Radiative Equilibrium &amp; Non-Gravitational Forces</h3>
+            <p>
+                Because solar irradiance scales as <span class="math-roman"><em>S</em>(<em>r</em>) = <em>S</em><sub>0</sub> (1 AU / <em>r</em>)<sup>2</sup></span>, peak radiative heating occurs at <span class="math-roman"><em>r</em> = <em>q</em></span>, driving volatile sublimation (cometary outgassing and active asteroid mass loss), thermal fracturing, and peak Yarkovsky/YORP radiative recoil accelerations. Furthermore, at small perihelion distances (<span class="math-roman"><em>q</em> &lesssim; 0.2 AU</span>), general-relativistic Schwarzschild perihelion precession (<span class="math-roman">&Delta;<em>&omega;</em><sub>GR</sub> = 6&pi;<em>&mu;</em> / [<em>c</em><sup>2</sup><em>a</em>(1 &minus; <em>e</em><sup>2</sup>)]</span> per revolution) becomes astrometrically significant.
+            </p>
+        </section>
+
+        <section>
+            <h2>3. Specific Status and Derivation in the MPCORB Catalog</h2>
+            <p>
+                In the <strong>MPCORB</strong> (<em>Minor Planet Center Orbit</em>) database published by the International Astronomical Union's Minor Planet Center (IAU MPC), orbital parameterization distinguishes rigorously between bound minor planets and near-parabolic/hyperbolic comets:
+            </p>
+
+            <ul>
+                <li>
+                    <strong>Computational Derivation in <code>MPCORB.DAT</code>:</strong> In the standard <code>MPCORB.DAT</code> catalog (which contains closed elliptic minor planet orbits with <span class="math-roman">0 &le; <em>e</em> &lt; 1</span>), the perihelion distance <span class="math-inline">q</span> is <em>not</em> stored as a separate column. Instead, it is derived deterministically from the osculating <strong>eccentricity</strong> <span class="math-inline">e</span> (columns <code>71–79</code>, Fortran format <code>F9.7</code>) and osculating <strong>semi-major axis</strong> <span class="math-inline">a</span> (columns <code>93–103</code>, Fortran format <code>F11.7</code>) via <span class="math-roman"><em>q</em> = <em>a</em>(1 &minus; <em>e</em>)</span>.
+                </li>
+                <li>
+                    <strong>Primary Parameter in <code>COMET.DAT</code>:</strong> By contrast, in the companion IAU MPC comet catalog (<code>COMET.DAT</code>), where eccentricities span elliptic, parabolic (<span class="math-roman"><em>e</em> = 1</span>), and hyperbolic (<span class="math-roman"><em>e</em> &gt; 1</span>) regimes and <span class="math-inline">a</span> becomes infinite or negative, the perihelion distance <span class="math-inline">q</span> (along with the epoch of perihelion passage <span class="math-inline">T</span><sub>p</sub>) replaces <span class="math-inline">a</span> and <span class="math-inline">M</span> as the primary canonical size element.
+                </li>
+                <li>
+                    <strong>Osculating Heliocentric Reference &amp; Unit:</strong> In <code>MPCORB.DAT</code>, the derived <span class="math-inline">q</span> is an <em>osculating heliocentric</em> distance referred to the J2000.0 mean ecliptic frame at the record's packed <code>Epoch</code> (columns <code>21–25</code>), expressed in <strong>Astronomical Units (<span class="math-roman">AU</span>)</strong> (<span class="math-roman">1 AU &equiv; 149,597,870,700 m</span>).
+                </li>
+                <li>
+                    <strong>Primary Criterion for Near-Earth Object (NEO) &amp; Outer-System Taxonomy:</strong> Within MPCORB orbital classification, the perihelion distance <span class="math-inline">q</span> is the foundational threshold defining Near-Earth Objects and exterior planetary-crossing groups:
+                    <ul>
+                        <li><strong>Near-Earth Objects (NEOs):</strong> Defined universally by <span class="math-roman"><em>q</em> &le; 1.3 AU</span> (specifically <span class="math-roman"><em>q</em> &lt; 1.3 AU</span> for NEAs), subdivided into:
+                            <ul>
+                                <li><strong>Amor:</strong> <span class="math-roman">1.017 AU &lt; <em>q</em> &le; 1.3 AU</span> and <span class="math-roman"><em>a</em> &gt; 1.0 AU</span> (exterior to Earth's aphelion, Mars-crossing/Earth-approaching).</li>
+                                <li><strong>Apollo:</strong> <span class="math-roman"><em>a</em> &gt; 1.0 AU</span> and <span class="math-roman"><em>q</em> &lt; 1.017 AU</span> (Earth-crossing orbits with periods &gt; 1 yr).</li>
+                            </ul>
+                        </li>
+                        <li><strong>Mars-Crossers (MCs):</strong> Typically defined by <span class="math-roman">1.3 AU &lt; <em>q</em> &lt; 1.666 AU</span> (penetrating inside Mars's aphelion distance).</li>
+                        <li><strong>Centaurs &amp; Trans-Neptunian Objects (TNOs):</strong> Separated by Neptune's semi-major axis (<span class="math-roman"><em>q</em> &gt; 30.1 AU</span> for classical/detached TNOs vs. <span class="math-roman">5.2 AU &lt; <em>q</em> &lt; 30.1 AU</span> for Centaurs).</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <div class="note-callout">
+                <strong>Numerical Precision Consideration at High Eccentricity:</strong> When parsing <code>MPCORB.DAT</code> records for high-eccentricity comets or damocloids (<span class="math-roman"><em>e</em> &rarr; 1<sup>&minus;</sup></span>), the factor <span class="math-roman">(1 &minus; <em>e</em>)</span> suffers from catastrophic floating-point cancellation if <span class="math-inline">e</span> is stored with limited precision. Always use 64-bit IEEE-754 double precision (<code>double</code> / Python <code>float</code>) when computing <span class="math-roman"><em>q</em> = <em>a</em>(1 &minus; <em>e</em>)</span> from columns <code>71–79</code> and <code>93–103</code>.
+            </div>
+
+            <div class="calculator-box">
+                <h4>Interactive MPCORB Perihelion Distance (<span class="math-inline">q</span>), Velocity &amp; Dynamical Class Calculator</h4>
+                <div class="calc-grid">
+                    <div class="calc-field">
+                        <label for="inputA">Semi-Major Axis <em>a</em> (AU, Cols 93&ndash;103)</label>
+                        <input type="number" id="inputA" step="0.0000001" min="0.01" value="1.4582734">
+                    </div>
+                    <div class="calc-field">
+                        <label for="inputE">Eccentricity <em>e</em> (Cols 71&ndash;79)</label>
+                        <input type="number" id="inputE" step="0.0000001" min="0" max="0.9999999" value="0.2225891">
+                    </div>
+                    <div class="calc-output" id="calcResult">
+                        Perihelion distance <em>q</em>: <strong>1.1336776</strong> AU<br>
+                        <em>v</em><sub>peri</sub>: <strong>30.924</strong> km/s | Class: <strong>NEO (Amor)</strong>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Fixed-Width Source Columns in <code>MPCORB.DAT</code></h2>
+            <p>
+                The table below specifies the exact fixed-width columns (1-based indexing) in a standard 202-character <code>MPCORB.DAT</code> record required to compute the perihelion distance <span class="math-inline">q</span> and time of perihelion passage:
+            </p>
+
+            <table class="spec-table">
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Columns (1-based)</th>
+                        <th>Python Slice (0-based)</th>
+                        <th>Fortran Format</th>
+                        <th>Unit &amp; Role</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong><code>Epoch</code></strong></td>
+                        <td><code>21–25</code></td>
+                        <td><code>line[20:25]</code></td>
+                        <td><code>A5</code> (Packed)</td>
+                        <td>Osculation reference epoch <span class="math-inline">t</span><sub>0</sub></td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>M</code> (Mean anomaly)</strong></td>
+                        <td><code>27–35</code></td>
+                        <td><code>line[26:35]</code></td>
+                        <td><code>F9.5</code></td>
+                        <td>Degrees; gives perihelion epoch <span class="math-roman"><em>T</em><sub>p</sub> = <em>t</em><sub>0</sub> &minus; <em>M</em>/<em>n</em></span></td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>e</code> (Eccentricity)</strong></td>
+                        <td><code>71–79</code></td>
+                        <td><code>line[70:79]</code></td>
+                        <td><code>F9.7</code></td>
+                        <td>Dimensionless (<span class="math-roman">0 &le; <em>e</em> &lt; 1</span>); input for <span class="math-inline">q</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>a</code> (Semi-major axis)</strong></td>
+                        <td><code>93–103</code></td>
+                        <td><code>line[92:103]</code></td>
+                        <td><code>F11.7</code></td>
+                        <td>Astronomical Units (<span class="math-roman">AU</span>); input for <span class="math-inline">q</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>q</code> (Perihelion distance)</strong></td>
+                        <td><em>Derived (not stored)</em></td>
+                        <td><code>a * (1.0 - e)</code></td>
+                        <td><em>Computed</em></td>
+                        <td>Astronomical Units (<span class="math-roman">AU</span>); minimum heliocentric radius</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Example Record Calculations from <code>MPCORB.DAT</code></h3>
+            <pre>(433) Eros (Amor-class Near-Earth Asteroid, 1.017 &lt; q &le; 1.3 AU):
+  Cols 71-79 (e) = 0.2225891,   Cols 93-103 (a) = 1.4582734 AU
+  Perihelion distance (q) = 1.4582734 * (1 - 0.2225891) = 1.1336776 AU
+  Aphelion distance   (Q) = 1.4582734 * (1 + 0.2225891) = 1.7828692 AU
+
+(1) Ceres (Main-Belt Asteroid):
+  Cols 71-79 (e) = 0.0785354,   Cols 93-103 (a) = 2.7653485 AU
+  Perihelion distance (q) = 2.7653485 * (1 - 0.0785354) = 2.5481707 AU</pre>
+        </section>
+
+        <footer>
+            Self-contained scientific reference document (zero external dependencies) &bull; Conventions aligned with IAU Minor Planet Center (MPC) <code>MPCORB.DAT</code> specifications.
+        </footer>
+    </div>
+
+    <script>
+        (function () {
+            const inputA = document.getElementById("inputA");
+            const inputE = document.getElementById("inputE");
+            const calcResult = document.getElementById("calcResult");
+            // Circular velocity at 1 AU in km/s: sqrt(GM_sun / 1 AU) ≈ 29.7846918 km/s
+            const vEarthKmS = 29.7846918;
+
+            function classifyOrbit(a, q, Q) {
+                if (q <= 1.3) {
+                    if (a < 1.0 && Q < 0.983) return "NEO (Atira)";
+                    if (a < 1.0 && Q >= 0.983) return "NEO (Aten)";
+                    if (a >= 1.0 && q <= 1.017) return "NEO (Apollo)";
+                    return "NEO (Amor)";
+                }
+                if (q < 1.666 && a < 3.2) return "Mars-Crosser";
+                if (a >= 2.0 && a <= 3.27 && q >= 1.666) return "Main Belt";
+                if (q > 30.1) return "Trans-Neptunian (TNO)";
+                if (q > 5.2 && q <= 30.1) return "Centaur";
+                return "Other Heliocentric";
+            }
+
+            function updateCalculation() {
+                const a = parseFloat(inputA.value);
+                const e = parseFloat(inputE.value);
+
+                if (!isFinite(a) || a <= 0) {
+                    calcResult.innerHTML = "Please enter a valid positive semi-major axis <em>a</em> &gt; 0.";
+                    return;
+                }
+
+                if (!isFinite(e) || e < 0 || e >= 1) {
+                    calcResult.innerHTML = "Eccentricity <em>e</em> must satisfy 0 &le; <em>e</em> &lt; 1 for an elliptic MPCORB record.";
+                    return;
+                }
+
+                const q = a * (1 - e);
+                const Q = a * (1 + e);
+                const vPeri = vEarthKmS * Math.sqrt(((1 + e) / (1 - e)) / a);
+                const orbitClass = classifyOrbit(a, q, Q);
+
+                calcResult.innerHTML =
+                    `Perihelion distance <em>q</em>: <strong>${q.toFixed(7)}</strong> AU<br>` +
+                    `<em>v</em><sub>peri</sub>: <strong>${vPeri.toFixed(3)}</strong> km/s | Class: <strong>${orbitClass}</strong>`;
+            }
+
+            inputA.addEventListener("input", updateCalculation);
+            inputE.addEventListener("input", updateCalculation);
+            updateCalculation();
+        })();
+    </script>
+</body>
+</html>

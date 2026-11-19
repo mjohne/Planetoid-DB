@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Equinoctial Orbital Element (p) in the Context of MPCORB</title>
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #334155;
+            --accent-color: #1e3a8a;
+            --accent-light: #eff6ff;
+            --border-color: #cbd5e1;
+            --code-bg: #f1f5f9;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.7;
+            color: var(--text-primary);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 3rem 3.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            border: 1px solid var(--border-color);
+        }
+
+        header {
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .badge {
+            display: inline-block;
+            background-color: var(--accent-light);
+            color: var(--accent-color);
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            padding: 0.3rem 0.75rem;
+            border-radius: 4px;
+            border: 1px solid #bfdbfe;
+            margin-bottom: 0.75rem;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin: 0.25rem 0 0.5rem 0;
+            color: var(--text-primary);
+            line-height: 1.25;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            margin: 0;
+        }
+
+        h2 {
+            font-size: 1.35rem;
+            color: var(--accent-color);
+            margin-top: 2.25rem;
+            margin-bottom: 0.85rem;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 0.35rem;
+        }
+
+        h3 {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        p {
+            margin-bottom: 1.15rem;
+            color: var(--text-secondary);
+            text-align: justify;
+        }
+
+        ul, ol {
+            margin-bottom: 1.25rem;
+            padding-left: 1.5rem;
+            color: var(--text-secondary);
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        .equation-box {
+            background-color: var(--code-bg);
+            border-left: 4px solid var(--accent-color);
+            padding: 1.15rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 6px 6px 0;
+            overflow-x: auto;
+            font-family: "Cambria Math", "STIX Two Math", "Times New Roman", Times, serif;
+            font-size: 1.18rem;
+            color: var(--text-primary);
+            text-align: center;
+        }
+
+        .math-inline {
+            font-family: "Cambria Math", "STIX Two Math", "Times New Roman", Times, serif;
+            font-style: italic;
+            font-size: 1.05em;
+            color: var(--text-primary);
+        }
+
+        .math-roman {
+            font-family: "Cambria Math", "STIX Two Math", "Times New Roman", Times, serif;
+            font-style: normal;
+            font-size: 1.02em;
+            color: var(--text-primary);
+        }
+
+        .frac {
+            display: inline-flex;
+            flex-direction: column;
+            vertical-align: middle;
+            text-align: center;
+            margin: 0 0.25rem;
+        }
+
+        .frac > span:first-child {
+            border-bottom: 1px solid var(--text-primary);
+            padding: 0 0.3rem 0.15rem 0.3rem;
+        }
+
+        .frac > span:last-child {
+            padding: 0.15rem 0.3rem 0 0.3rem;
+        }
+
+        .spec-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.92rem;
+        }
+
+        .spec-table th, .spec-table td {
+            border: 1px solid var(--border-color);
+            padding: 0.75rem 1rem;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        .spec-table th {
+            background-color: var(--accent-color);
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .spec-table tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        code {
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+            background-color: var(--code-bg);
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.88em;
+            color: #0f172a;
+        }
+
+        pre {
+            background-color: #1e293b;
+            color: #f8fafc;
+            padding: 1rem 1.25rem;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+        }
+
+        .note-callout {
+            background-color: #fffbeb;
+            border-left: 4px solid #d97706;
+            padding: 1rem 1.25rem;
+            margin: 1.5rem 0;
+            border-radius: 0 6px 6px 0;
+            color: #78350f;
+            font-size: 0.95rem;
+        }
+
+        .terminology-callout {
+            background-color: var(--accent-light);
+            border-left: 4px solid var(--accent-color);
+            padding: 1rem 1.25rem;
+            margin: 1.5rem 0;
+            border-radius: 0 6px 6px 0;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+        }
+
+        .diagram-box {
+            background-color: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+
+        .diagram-caption {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+        }
+
+        .calculator-box {
+            background-color: var(--accent-light);
+            border: 1px solid #bfdbfe;
+            border-radius: 8px;
+            padding: 1.25rem 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .calculator-box h4 {
+            margin: 0 0 0.75rem 0;
+            color: var(--accent-color);
+            font-size: 1rem;
+        }
+
+        .calc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+            gap: 1rem;
+            align-items: end;
+        }
+
+        .calc-field label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.3rem;
+        }
+
+        .calc-field input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 0.5rem 0.65rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 0.95rem;
+            font-family: inherit;
+        }
+
+        .calc-output {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 0.55rem 0.75rem;
+            font-size: 0.92rem;
+            color: var(--text-primary);
+        }
+
+        footer {
+            margin-top: 3rem;
+            padding-top: 1.25rem;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.85rem;
+            color: #64748b;
+            text-align: center;
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 1.75rem 1.25rem;
+            }
+            h1 {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="badge">Celestial Mechanics &amp; Astrometry Specification</div>
+            <h1>Equinoctial Orbital Element (<span class="math-inline">p</span>) in the Context of the MPCORB Database</h1>
+            <p class="subtitle">Scientific Definition, Non-Singular Broucke&ndash;Cefola &amp; Walker Formulations, Orbital Plane Orientation, and Evaluation from MPCORB</p>
+        </header>
+
+        <section>
+            <h2>1. Fundamental Astrodynamical &amp; Geometric Definition</h2>
+            <div class="terminology-callout">
+                <strong>Definition &amp; Nomenclature:</strong> In non-singular celestial mechanics and perturbation theory, the <strong>equinoctial orbital element <span class="math-inline">p</span></strong> (the quadrature or sine component of the ascending-node inclination vector, paired with <span class="math-roman"><em>q</em> = tan<sup><em>I</em></sup>(<em>i</em>/2) cos &Omega;</span>)—is a dimensionless stereographic orientation parameter designed to eliminate the <span class="math-roman">0/0</span> coordinate singularity of the classical Keplerian longitude of the ascending node <span class="math-inline">&Omega;</span> when the orbital inclination vanishes (<span class="math-roman"><em>i</em> &rarr; 0&deg;</span>).
+            </div>
+            <p>
+                In the standard <strong>equinoctial orbital element set</strong> <span class="math-roman">(<em>a</em>, <em>h</em>, <em>k</em>, <em>p</em>, <em>q</em>, <em>&lambda;</em>)</span> formulated by Broucke &amp; Cefola (1972) and Walker, Ireland &amp; Owens (1985), <span class="math-inline">p</span> and its conjugate cosine partner <span class="math-inline">q</span> are defined in terms of the classical Keplerian inclination <span class="math-inline">i</span>, longitude of the ascending node <span class="math-inline">&Omega;</span>, and retrograde indicator <span class="math-roman"><em>I</em> &isin; {+1, &minus;1}</span>:
+            </p>
+            <div class="equation-box">
+                <span class="math-inline">p</span> = tan<sup><span class="math-inline">I</span></sup>(<span class="math-inline">i</span>/2) sin <span class="math-inline">&Omega;</span>
+                &nbsp;,&nbsp;&nbsp;&nbsp;&nbsp;
+                <span class="math-inline">q</span> = tan<sup><span class="math-inline">I</span></sup>(<span class="math-inline">i</span>/2) cos <span class="math-inline">&Omega;</span>
+            </div>
+            <p>
+                where <span class="math-roman"><em>I</em> = +1</span> for <strong>prograde (direct)</strong> equinoctial elements (<span class="math-roman">0&deg; &le; <em>i</em> &lt; 180&deg;</span>, yielding <span class="math-roman"><em>p</em> = tan(<em>i</em>/2) sin &Omega;</span>) and <span class="math-roman"><em>I</em> = &minus;1</span> for <strong>retrograde</strong> equinoctial elements (<span class="math-roman">0&deg; &lt; <em>i</em> &le; 180&deg;</span>, yielding <span class="math-roman"><em>p</em> = cot(<em>i</em>/2) sin &Omega;</span>, which moves the coordinate singularity from <span class="math-roman"><em>i</em> = 0&deg;</span> to <span class="math-roman"><em>i</em> = 180&deg;</span>). Geometrically, <span class="math-roman">(<em>q</em>, <em>p</em>)</span> is the stereographic projection of the unit orbital angular momentum normal vector <span class="math-roman"><strong>w&#770;</strong> = (sin <em>i</em> sin &Omega;, &minus;sin <em>i</em> cos &Omega;, cos <em>i</em>)<sup>T</sup></span> onto the J2000.0 ecliptic plane:
+            </p>
+            <div class="equation-box">
+                <span class="math-inline">p</span><sup>2</sup> + <span class="math-inline">q</span><sup>2</sup> = tan<sup>2<span class="math-inline">I</span></sup>(<span class="math-inline">i</span>/2)
+                &nbsp;,&nbsp;&nbsp;&nbsp;&nbsp;
+                <span class="math-inline">i</span> = 2 arctan
+                <span class="roman">(</span>
+                (<span class="math-inline">p</span><sup>2</sup> + <span class="math-inline">q</span><sup>2</sup>)<sup><span class="math-inline">I</span>/2</sup>
+                <span class="roman">)</span>
+                &nbsp;,&nbsp;&nbsp;&nbsp;&nbsp;
+                <span class="math-inline">&Omega;</span> = atan2(<span class="math-inline">p</span>, <span class="math-inline">q</span>)
+            </div>
+            <p>
+                Key mathematical and astrodynamical properties of the equinoctial element <span class="math-inline">p</span> include:
+            </p>
+            <ul>
+                <li><strong>Complete Removal of the Coplanar Node Singularity (<span class="math-roman"><em>i</em> &rarr; 0&deg;</span>):</strong> In Lagrange&rsquo;s and Gauss&rsquo;s planetary equations, <span class="math-roman"><em>d&Omega;/dt</em></span> diverges as <span class="math-roman">1/sin <em>i</em></span> when <span class="math-roman"><em>i</em> &rarr; 0&deg;</span>, whereas <span class="math-roman"><em>dp/dt</em></span> and <span class="math-roman"><em>dq/dt</em></span> remain smooth, regular, and globally analytic across <span class="math-roman"><em>i</em> = 0&deg;</span> (with <span class="math-roman"><em>p</em> = <em>q</em> = 0</span> at <span class="math-roman"><em>i</em> = 0&deg;</span>).</li>
+                <li><strong>Unit-Disk Prograde Domain (<span class="math-roman"><em>p</em><sup>2</sup> + <em>q</em><sup>2</sup> &lt; 1</span> for <span class="math-roman"><em>i</em> &lt; 90&deg;</span>):</strong> For all prograde orbits (<span class="math-roman">0&deg; &le; <em>i</em> &lt; 90&deg;</span>) in the direct chart (<span class="math-roman"><em>I</em> = +1</span>), <span class="math-roman">0 &le; tan(<em>i</em>/2) &lt; 1</span>, so <span class="math-roman">(<em>q</em>, <em>p</em>)</span> lies strictly inside the open unit disk <span class="math-roman"><em>q</em><sup>2</sup> + <em>p</em><sup>2</sup> &lt; 1</span>. At <span class="math-roman"><em>i</em> = 90&deg;</span> (polar orbit), <span class="math-roman"><em>p</em><sup>2</sup> + <em>q</em><sup>2</sup> = 1</span>; for retrograde orbits (<span class="math-roman">90&deg; &lt; <em>i</em> &lt; 180&deg;</span>), <span class="math-roman">tan(<em>i</em>/2) &gt; 1</span> and diverges only as <span class="math-roman"><em>i</em> &rarr; 180&deg;</span>.</li>
+                <li><strong>Terminological Disambiguation from Semi-Latus Rectum (<span class="math-inline">p</span><sub>slr</sub>):</strong> In astrodynamics, lowercase <span class="math-inline">p</span> is used both for the equinoctial node-inclination element <span class="math-roman">tan<sup><em>I</em></sup>(<em>i</em>/2) sin &Omega;</span> (<span class="math-roman">dimensionless</span>) and for the orbital <strong>semi-latus rectum</strong> <span class="math-roman"><em>p</em><sub>slr</sub> = <em>a</em>(1 &minus; <em>e</em><sup>2</sup>)</span> (<span class="math-roman">AU</span>). Always specify the equinoctial context (<span class="math-roman">(<em>a</em>, <em>h</em>, <em>k</em>, <em>p</em>, <em>q</em>, <em>&lambda;</em>)</span>) to avoid symbol collision.</li>
+            </ul>
+
+            <div class="diagram-box">
+                <svg width="560" height="245" viewBox="0 0 560 245" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Geometric diagram showing the stereographic inclination-node plane (q, p) with the unit circle i = 90 deg, and the vector (q, p) = tan(i/2)(cos Omega, sin Omega) decomposed into q along the vernal equinox axis and p perpendicular to it">
+                    <rect x="0" y="0" width="560" height="245" fill="#f8fafc" rx="6"/>
+                    <!-- Left panel: Stereographic (q, p) plane -->
+                    <circle cx="155" cy="122" r="88" fill="#eff6ff" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,3"/>
+                    <!-- q and p axes -->
+                    <line x1="55" y1="122" x2="258" y2="122" stroke="#475569" stroke-width="1.5"/>
+                    <text x="263" y="125" text-anchor="start" font-family="serif" font-style="italic" font-size="13" fill="#0f172a" font-weight="bold">q (&#9800;)</text>
+                    <line x1="155" y1="220" x2="155" y2="22" stroke="#475569" stroke-width="1.5"/>
+                    <text x="155" y="16" text-anchor="middle" font-family="serif" font-style="italic" font-size="13" fill="#0f172a" font-weight="bold">p</text>
+                    <!-- Unit circle radius label -->
+                    <text x="90" y="54" text-anchor="end" font-family="sans-serif" font-size="9" fill="#64748b">i = 90&deg; (r = 1)</text>
+                    <!-- Inclination-node vector (q, p) at Omega = 54 deg -->
+                    <!-- r_pq = 68 px; cos(54)=0.5878 -> dx = 40.0; sin(54)=0.8090 -> dy = -55.0 -->
+                    <line x1="155" y1="122" x2="195.0" y2="67.0" stroke="#1e3a8a" stroke-width="2.5"/>
+                    <circle cx="195.0" cy="67.0" r="4.5" fill="#1e3a8a"/>
+                    <text x="201" y="63" text-anchor="start" font-family="serif" font-size="12" fill="#1e3a8a" font-weight="bold">(q, p)</text>
+                    <!-- Projection lines for q and p -->
+                    <line x1="195.0" y1="67.0" x2="195.0" y2="122" stroke="#0284c7" stroke-width="1.5" stroke-dasharray="3,3"/>
+                    <line x1="195.0" y1="67.0" x2="155" y2="67.0" stroke="#dc2626" stroke-width="1.8" stroke-dasharray="3,3"/>
+                    <!-- Highlighted p segment on vertical axis -->
+                    <line x1="155" y1="122" x2="155" y2="67.0" stroke="#dc2626" stroke-width="3.2"/>
+                    <text x="148" y="95" text-anchor="end" font-family="serif" font-style="italic" font-size="13" fill="#dc2626" font-weight="bold">p</text>
+                    <!-- Highlighted q segment on horizontal axis -->
+                    <line x1="155" y1="122" x2="195.0" y2="122" stroke="#0284c7" stroke-width="3"/>
+                    <text x="175" y="136" text-anchor="middle" font-family="serif" font-style="italic" font-size="13" fill="#0369a1" font-weight="bold">q</text>
+                    <!-- Angle arc Omega -->
+                    <path d="M 180 122 A 25 25 0 0 0 169.7 101.8" fill="none" stroke="#1e3a8a" stroke-width="1.5"/>
+                    <text x="184" y="109" text-anchor="start" font-family="serif" font-size="11" fill="#1e3a8a">&Omega;</text>
+
+                    <!-- Right panel: Analytical identities -->
+                    <text x="415" y="55" text-anchor="middle" font-family="serif" font-size="13.5" fill="#1e3a8a" font-weight="bold">Node&ndash;Inclination Components:</text>
+                    <text x="415" y="82" text-anchor="middle" font-family="serif" font-size="13" fill="#dc2626" font-weight="bold">p = tan<tspan baseline-shift="super" font-size="9">I</tspan>(i/2) sin &Omega;</text>
+                    <text x="415" y="105" text-anchor="middle" font-family="serif" font-size="13" fill="#0369a1" font-weight="bold">q = tan<tspan baseline-shift="super" font-size="9">I</tspan>(i/2) cos &Omega;</text>
+                    <text x="415" y="138" text-anchor="middle" font-family="sans-serif" font-size="10.5" fill="#334155">Direct (prograde): I = +1</text>
+                    <text x="415" y="156" text-anchor="middle" font-family="sans-serif" font-size="10.5" fill="#334155">Retrograde convention: I = &minus;1</text>
+                    <text x="415" y="186" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#475569">Smooth &amp; non-singular at i = 0&deg;</text>
+                    <text x="415" y="202" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#475569">Prograde domain: p&sup2; + q&sup2; &lt; 1 (i &lt; 90&deg;)</text>
+                </svg>
+                <div class="diagram-caption">
+                    Figure 1: Stereographic inclination&ndash;node plane <span class="math-roman">(<em>q</em>, <em>p</em>)</span> showing the decomposition of <span class="math-roman">tan<sup><em>I</em></sup>(<em>i</em>/2)</span> into <span class="math-roman"><em>q</em> = tan<sup><em>I</em></sup>(<em>i</em>/2) cos &Omega;</span> and <span class="math-roman"><em>p</em> = tan<sup><em>I</em></sup>(<em>i</em>/2) sin &Omega;</span>.
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>2. Equinoctial Basis Vectors &amp; Coordinate Transformation</h2>
+            <p>
+                Together with <span class="math-inline">q</span>, the equinoctial element <span class="math-inline">p</span> completely defines the 3D orientation of the equinoctial reference triad <span class="math-roman">(<strong>f&#770;</strong>, <strong>g&#770;</strong>, <strong>w&#770;</strong>)</span> relative to the J2000.0 heliocentric ecliptic Cartesian basis <span class="math-roman">(<strong>I&#770;</strong>, <strong>J&#770;</strong>, <strong>K&#770;</strong>)</span> via rational algebraic expressions free of trigonometric evaluations of <span class="math-inline">i</span> or <span class="math-inline">&Omega;</span>:
+            </p>
+            <div class="equation-box">
+                <strong>f&#770;</strong> =
+                <span class="frac">
+                    <span>1</span>
+                    <span>1 + <span class="math-inline">p</span><sup>2</sup> + <span class="math-inline">q</span><sup>2</sup></span>
+                </span>
+                <span class="roman">[</span>
+                1 &minus; <span class="math-inline">p</span><sup>2</sup> + <span class="math-inline">q</span><sup>2</sup>, &nbsp;
+                2<span class="math-inline">p</span><span class="math-inline">q</span>, &nbsp;
+                &minus;2<span class="math-inline">p</span>
+                <span class="roman">]</span><sup>T</sup>
+                &nbsp;,&nbsp;&nbsp;&nbsp;
+                <strong>w&#770;</strong> =
+                <span class="frac">
+                    <span>1</span>
+                    <span>1 + <span class="math-inline">p</span><sup>2</sup> + <span class="math-inline">q</span><sup>2</sup></span>
+                </span>
+                <span class="roman">[</span>
+                2<span class="math-inline">p</span>, &nbsp;
+                &minus;2<span class="math-inline">q</span>, &nbsp;
+                1 &minus; <span class="math-inline">p</span><sup>2</sup> &minus; <span class="math-inline">q</span><sup>2</sup>
+                <span class="roman">]</span><sup>T</sup>
+            </div>
+            <p>
+                (shown here for the direct chart <span class="math-roman"><em>I</em> = +1</span>; for <span class="math-roman"><em>I</em> = &minus;1</span>, the signs of the third component of <span class="math-roman"><strong>f&#770;</strong></span> and the first two components of <span class="math-roman"><strong>w&#770;</strong></span> invert accordingly). Note that the heliocentric ecliptic <span class="math-inline">Z</span>-coordinate of the body is proportional to <span class="math-roman">&minus;2<em>p X</em><sub>1</sub> + 2<em>q Y</em><sub>1</sub></span>, directly linking <span class="math-inline">p</span> and <span class="math-inline">q</span> to out-of-ecliptic excursion.
+            </p>
+            <p>
+                In linear Laplace&ndash;Lagrange secular perturbation theory (for asteroid proper elements and collisional family identification), the pair <span class="math-roman">(<em>q</em>, <em>p</em>) = tan(<em>i</em>/2)(cos &Omega;, sin &Omega;)</span> forms the complex inclination variable <span class="math-roman"><em>&zeta;</em> = <em>q</em> + i<em>p</em> = tan(<em>i</em>/2) exp(i&Omega;)</span>, whose linear superposition separates proper inclination <span class="math-inline">i</span><sub>p</sub> from planetary forced inclination <span class="math-roman">(<em>q</em><sub>forced</sub>, <em>p</em><sub>forced</sub>)</span>.
+            </p>
+        </section>
+
+        <section>
+            <h2>3. Specific Status and Derivation in the MPCORB Catalog</h2>
+            <p>
+                In the <strong>MPCORB</strong> (<em>Minor Planet Center Orbit</em>) database published by the International Astronomical Union&rsquo;s Minor Planet Center (IAU MPC):
+            </p>
+
+            <ul>
+                <li>
+                    <strong>Implicit Derived Quantity (Not Tabulated):</strong> <code>MPCORB.DAT</code> distributes osculating orbits exclusively in classical Keplerian elements and does <em>not</em> store <span class="math-inline">p</span> (or <span class="math-inline">q</span>, <span class="math-inline">h</span>, <span class="math-inline">k</span>, <span class="math-inline">&lambda;</span>) as an explicit column. Instead, <span class="math-inline">p</span> is computed directly from two osculating angular columns present in every record:
+                    <ul>
+                        <li><strong>Longitude of the ascending node <span class="math-inline">&Omega;</span></strong> (columns <code>49–57</code>, format <code>F9.5</code>, degrees);</li>
+                        <li><strong>Orbital inclination <span class="math-inline">i</span></strong> (columns <code>60–68</code>, format <code>F9.5</code>, degrees).</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Chart Convention (<span class="math-roman"><em>I</em> = +1</span> Direct vs. <span class="math-roman"><em>I</em> = &minus;1</span> Retrograde):</strong> Under the standard direct equinoctial convention (<span class="math-roman"><em>I</em> = +1</span>), <span class="math-roman"><em>p</em> = tan(<em>i</em>/2) sin &Omega;</span> is completely non-singular at <span class="math-roman"><em>i</em> = 0&deg;</span> and bounded within <span class="math-roman">(&minus;1, +1)</span> for all prograde minor planets (<span class="math-roman"><em>i</em> &lt; 90&deg;</span>, representing over <span class="math-roman">99.98%</span> of <code>MPCORB.DAT</code>). For retrograde objects (<span class="math-roman"><em>i</em> &gt; 90&deg;</span>, such as retrograde Centaurs or Damocloids), <span class="math-roman">tan(<em>i</em>/2) &gt; 1</span> remains finite for all <span class="math-roman"><em>i</em> &lt; 180&deg;</span>, or can be mapped into the unit disk via the retrograde chart <span class="math-roman"><em>I</em> = &minus;1</span> (<span class="math-roman"><em>p</em> = cot(<em>i</em>/2) sin &Omega;</span>).
+                </li>
+                <li>
+                    <strong>Practical Role in MPCORB Orbit Fitting &amp; Propagation:</strong>
+                    <ul>
+                        <li><em>Regularized Covariance for Low-Inclination Populations:</em> Near-ecliptic Main-Belt asteroids, Hilda/Trojan librators, and cold classical Kuiper Belt objects (<span class="math-roman"><em>i</em> &lesssim; 1&deg;</span>) exhibit large, ill-conditioned uncertainties in <span class="math-inline">&Omega;</span> alone, whereas <span class="math-roman">(<em>p</em>, <em>q</em>)</span> remain well-behaved, small, and Gaussian in differential orbit corrections.</li>
+                        <li><em>Algebraic State Propagation:</em> Eliminates all trigonometric evaluations of <span class="math-inline">i</span> and <span class="math-inline">&Omega;</span> inside Cartesian ephemeris transformations and planetary perturbation integrators.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <div class="note-callout">
+                <strong>Implementation &amp; Precision Note:</strong> When computing <code>p = Math.Tan(0.5 * iRad) * Math.Sin(nodeRad)</code> in double precision, convert <span class="math-inline">i</span> and <span class="math-inline">&Omega;</span> from degrees to radians first. Always compute <span class="math-inline">p</span> together with <span class="math-roman"><em>q</em> = tan(<em>i</em>/2) cos &Omega;</span> so that <span class="math-roman"><em>i</em> = 2 * Math.Atan(Math.Hypot(<em>p</em>, <em>q</em>))</span> and <span class="math-roman">&Omega; = Math.Atan2(<em>p</em>, <em>q</em>)</span> invert cleanly across all four quadrants and down to <span class="math-roman"><em>i</em> = 0&deg;</span>.
+            </div>
+
+            <div class="calculator-box">
+                <h4>Interactive MPCORB Equinoctial Element (<span class="math-inline">p</span> &amp; <span class="math-inline">q</span>) Calculator</h4>
+                <div class="calc-grid">
+                    <div class="calc-field">
+                        <label for="inputI">Inclination <em>i</em> (deg, Cols 60&ndash;68)</label>
+                        <input type="number" id="inputI" step="0.00001" min="0" max="179.99999" value="10.58789">
+                    </div>
+                    <div class="calc-field">
+                        <label for="inputNode">Ascending Node <em>&Omega;</em> (deg, Cols 49&ndash;57)</label>
+                        <input type="number" id="inputNode" step="0.00001" value="80.25498">
+                    </div>
+                    <div class="calc-output" id="calcResult">
+                        Equinoctial <em>p</em> (<em>I</em> = +1): <strong>+0.0913148</strong><br>
+                        Equinoctial <em>q</em> (<em>I</em> = +1): <strong>+0.0156862</strong><br>
+                        Half-angle tan(<em>i</em>/2): <strong>0.0926523</strong>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Fixed-Width Source Columns &amp; Equinoctial Conversion in <code>MPCORB.DAT</code></h2>
+            <p>
+                The table below summarizes the fixed-width columns (1-based indexing) in a standard 202-character <code>MPCORB.DAT</code> record required to compute <span class="math-inline">p</span> (and its conjugate node-inclination component <span class="math-inline">q</span>):
+            </p>
+
+            <table class="spec-table">
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Columns (1-based)</th>
+                        <th>Python Slice (0-based)</th>
+                        <th>Fortran Format</th>
+                        <th>Unit &amp; Role</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong><code>&Omega;</code> (Longitude of ascending node)</strong></td>
+                        <td><code>49–57</code></td>
+                        <td><code>line[48:57]</code></td>
+                        <td><code>F9.5</code></td>
+                        <td>Degrees (<span class="math-roman">&deg;</span>); J2000.0 ecliptic nodal angle from <span class="math-roman">&#9800;</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>i</code> (Inclination to ecliptic)</strong></td>
+                        <td><code>60–68</code></td>
+                        <td><code>line[59:68]</code></td>
+                        <td><code>F9.5</code></td>
+                        <td>Degrees (<span class="math-roman">&deg;</span>); J2000.0 orbital tilt angle</td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>p</code> (Equinoctial element <span class="math-inline">p</span>)</strong></td>
+                        <td><em>Derived (not stored)</em></td>
+                        <td><code>tan(radians(i)/2) * sin(radians(Om))</code></td>
+                        <td><em>Computed</em></td>
+                        <td>Dimensionless (<span class="math-roman"><em>I</em> = +1</span>); quadrature node-inclination component</td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>q</code> (Equinoctial element <span class="math-inline">q</span>)</strong></td>
+                        <td><em>Derived (not stored)</em></td>
+                        <td><code>tan(radians(i)/2) * cos(radians(Om))</code></td>
+                        <td><em>Computed</em></td>
+                        <td>Dimensionless (<span class="math-roman"><em>I</em> = +1</span>); in-phase node-inclination component</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Example Record Evaluation (<code>00001</code> — (1) Ceres)</h3>
+            <pre>Col:  ... 49      57 ... 60       68 ...
+Data: ... 80.25498   ... 10.58789    ...
+          └───┬───┘      └───┬───┘
+           Om (deg)       i (deg)
+
+Equinoctial Element (p) Evaluation for (1) Ceres (Direct Chart, I = +1):
+  Half-inclination tangent tan(i / 2) = tan(5.293945 deg)                 = 0.0926523
+  Equinoctial element p    p = tan(i / 2) * sin(Om)                       = +0.0913148
+  Equinoctial element q    q = tan(i / 2) * cos(Om)                       = +0.0156862
+  Inversion consistency    2 * atan(sqrt(p^2 + q^2))                      = 10.58789 deg (recovers i)</pre>
+        </section>
+
+        <footer>
+            Self-contained scientific reference document (zero external dependencies) &bull; Conventions aligned with IAU Minor Planet Center (MPC) <code>MPCORB.DAT</code> specifications.
+        </footer>
+    </div>
+
+    <script>
+        (function () {
+            const inputI = document.getElementById("inputI");
+            const inputNode = document.getElementById("inputNode");
+            const calcResult = document.getElementById("calcResult");
+
+            function formatSigned(val) {
+                const sign = val >= 0 ? "+" : "&minus;";
+                return `${sign}${Math.abs(val).toFixed(7)}`;
+            }
+
+            function updateCalculation() {
+                const incDeg = parseFloat(inputI.value);
+                const nodeDeg = parseFloat(inputNode.value);
+
+                if (!isFinite(incDeg) || incDeg < 0 || incDeg >= 180) {
+                    calcResult.innerHTML = "Inclination <em>i</em> must satisfy 0&deg; &le; <em>i</em> &lt; 180&deg; in the direct equinoctial chart (<em>I</em> = +1).";
+                    return;
+                }
+
+                if (!isFinite(nodeDeg)) {
+                    calcResult.innerHTML = "Please enter a valid ascending node <em>&Omega;</em> in degrees.";
+                    return;
+                }
+
+                const halfIncRad = (0.5 * incDeg * Math.PI) / 180.0;
+                const nodeRad = (nodeDeg * Math.PI) / 180.0;
+
+                const tanHalfI = Math.tan(halfIncRad);
+                const pDirect = tanHalfI * Math.sin(nodeRad);
+                const qDirect = tanHalfI * Math.cos(nodeRad);
+
+                calcResult.innerHTML =
+                    `Equinoctial <em>p</em> (<em>I</em> = +1): <strong>${formatSigned(pDirect)}</strong><br>` +
+                    `Equinoctial <em>q</em> (<em>I</em> = +1): <strong>${formatSigned(qDirect)}</strong><br>` +
+                    `Half-angle tan(<em>i</em>/2): <strong>${tanHalfI.toFixed(7)}</strong>`;
+            }
+
+            inputI.addEventListener("input", updateCalculation);
+            inputNode.addEventListener("input", updateCalculation);
+            updateCalculation();
+        })();
+    </script>
+</body>
+</html>

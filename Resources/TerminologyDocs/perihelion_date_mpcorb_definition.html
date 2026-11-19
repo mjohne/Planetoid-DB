@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perihelion Date in the Context of MPCORB</title>
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #334155;
+            --accent-color: #1e3a8a;
+            --accent-light: #eff6ff;
+            --border-color: #cbd5e1;
+            --code-bg: #f1f5f9;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.7;
+            color: var(--text-primary);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 3rem 3.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            border: 1px solid var(--border-color);
+        }
+
+        header {
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .badge {
+            display: inline-block;
+            background-color: var(--accent-light);
+            color: var(--accent-color);
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            padding: 0.3rem 0.75rem;
+            border-radius: 4px;
+            border: 1px solid #bfdbfe;
+            margin-bottom: 0.75rem;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin: 0.25rem 0 0.5rem 0;
+            color: var(--text-primary);
+            line-height: 1.25;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            margin: 0;
+        }
+
+        h2 {
+            font-size: 1.35rem;
+            color: var(--accent-color);
+            margin-top: 2.25rem;
+            margin-bottom: 0.85rem;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 0.35rem;
+        }
+
+        h3 {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        p {
+            margin-bottom: 1.15rem;
+            color: var(--text-secondary);
+            text-align: justify;
+        }
+
+        ul, ol {
+            margin-bottom: 1.25rem;
+            padding-left: 1.5rem;
+            color: var(--text-secondary);
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        .equation-box {
+            background-color: var(--code-bg);
+            border-left: 4px solid var(--accent-color);
+            padding: 1.15rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 6px 6px 0;
+            overflow-x: auto;
+            font-family: "Cambria Math", "STIX Two Math", "Times New Roman", Times, serif;
+            font-size: 1.18rem;
+            color: var(--text-primary);
+            text-align: center;
+        }
+
+        .math-inline {
+            font-family: "Cambria Math", "STIX Two Math", "Times New Roman", Times, serif;
+            font-style: italic;
+            font-size: 1.05em;
+            color: var(--text-primary);
+        }
+
+        .math-roman {
+            font-family: "Cambria Math", "STIX Two Math", "Times New Roman", Times, serif;
+            font-style: normal;
+            font-size: 1.02em;
+            color: var(--text-primary);
+        }
+
+        .frac {
+            display: inline-flex;
+            flex-direction: column;
+            vertical-align: middle;
+            text-align: center;
+            margin: 0 0.25rem;
+        }
+
+        .frac > span:first-child {
+            border-bottom: 1px solid var(--text-primary);
+            padding: 0 0.3rem 0.15rem 0.3rem;
+        }
+
+        .frac > span:last-child {
+            padding: 0.15rem 0.3rem 0 0.3rem;
+        }
+
+        .spec-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.92rem;
+        }
+
+        .spec-table th, .spec-table td {
+            border: 1px solid var(--border-color);
+            padding: 0.75rem 1rem;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        .spec-table th {
+            background-color: var(--accent-color);
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .spec-table tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        code {
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+            background-color: var(--code-bg);
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.88em;
+            color: #0f172a;
+        }
+
+        pre {
+            background-color: #1e293b;
+            color: #f8fafc;
+            padding: 1rem 1.25rem;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+        }
+
+        .note-callout {
+            background-color: #fffbeb;
+            border-left: 4px solid #d97706;
+            padding: 1rem 1.25rem;
+            margin: 1.5rem 0;
+            border-radius: 0 6px 6px 0;
+            color: #78350f;
+            font-size: 0.95rem;
+        }
+
+        .terminology-callout {
+            background-color: var(--accent-light);
+            border-left: 4px solid var(--accent-color);
+            padding: 1rem 1.25rem;
+            margin: 1.5rem 0;
+            border-radius: 0 6px 6px 0;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+        }
+
+        .diagram-box {
+            background-color: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+
+        .diagram-caption {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+        }
+
+        .calculator-box {
+            background-color: var(--accent-light);
+            border: 1px solid #bfdbfe;
+            border-radius: 8px;
+            padding: 1.25rem 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .calculator-box h4 {
+            margin: 0 0 0.75rem 0;
+            color: var(--accent-color);
+            font-size: 1rem;
+        }
+
+        .calc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+            gap: 1rem;
+            align-items: end;
+        }
+
+        .calc-field label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.3rem;
+        }
+
+        .calc-field input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 0.5rem 0.65rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 0.95rem;
+            font-family: inherit;
+        }
+
+        .calc-output {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 0.55rem 0.75rem;
+            font-size: 0.92rem;
+            color: var(--text-primary);
+        }
+
+        footer {
+            margin-top: 3rem;
+            padding-top: 1.25rem;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.85rem;
+            color: #64748b;
+            text-align: center;
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 1.75rem 1.25rem;
+            }
+            h1 {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="badge">Celestial Mechanics &amp; Astrometry Specification</div>
+            <h1>Perihelion Date (<span class="math-inline">T</span><sub>q</sub> / <span class="math-inline">T</span><sub>p</sub>) in the Context of the MPCORB Database</h1>
+            <p class="subtitle">Scientific Definition, Keplerian Mean-Motion Kinematics, Elliptic vs. Open-Conic Parameterizations, and Derivation from MPCORB</p>
+        </header>
+
+        <section>
+            <h2>1. Fundamental Astrodynamical &amp; Chronological Definition</h2>
+            <div class="terminology-callout">
+                <strong>Definition &amp; Nomenclature:</strong> In two-body Keplerian celestial mechanics and ephemeris chronology, the <strong>perihelion date</strong> (or <strong>time / epoch of perihelion passage</strong>, denoted <span class="math-inline">T</span><sub>q</sub>, <span class="math-inline">T</span><sub>p</sub>, <span class="math-inline">T</span>, or <span class="math-inline">JD</span><sub>q</sub>, and paired half a revolution away on bound orbits with the <strong>aphelion date</strong> <span class="math-inline">T</span><sub>Q</sub>)—is the instant in Terrestrial Time (<span class="math-roman">TT</span>, expressed as a Julian Date <span class="math-inline">JD</span><sub>TT</sub>, Modified Julian Date <span class="math-inline">MJD</span>, or Gregorian calendar timestamp) at which a heliocentric body reaches the <strong>perihelion</strong> (<span class="math-inline">q</span>) of its osculating Keplerian conic—the point of minimum heliocentric radial distance <span class="math-roman"><em>r</em><sub>min</sub> = <em>q</em> = <em>a</em>(1 &minus; <em>e</em>)</span>, maximum orbital speed <span class="math-roman"><em>v</em><sub>max</sub> = &radic;[<em>&mu;</em>(1 + <em>e</em>) / (<em>a</em>(1 &minus; <em>e</em>))] = &radic;[<em>&mu;</em>(1 + <em>e</em>) / <em>q</em>]</span>, true anomaly <span class="math-roman"><em>&nu;</em> = 0&deg;</span> (<span class="math-roman">0 rad</span>), eccentric anomaly <span class="math-roman"><em>E</em> = 0&deg;</span>, and mean anomaly <span class="math-roman"><em>M</em> = 0&deg;</span>.
+            </div>
+            <p>
+                Under unperturbed two-body Keplerian motion on a bound elliptic orbit (<span class="math-roman">0 &le; <em>e</em> &lt; 1</span>), the mean anomaly <span class="math-inline">M</span> evolves linearly with Terrestrial Time <span class="math-inline">t</span> according to:
+            </p>
+            <div class="equation-box">
+                <span class="math-inline">M</span>(<span class="math-inline">t</span>) = <span class="math-inline">M</span><sub>0</sub> + <span class="math-inline">n</span> (<span class="math-inline">t</span> &minus; <span class="math-inline">t</span><sub>0</sub>)
+                &nbsp;&nbsp;(mod 360&deg;)
+            </div>
+            <p>
+                where <span class="math-inline">t</span><sub>0</sub> is the osculating epoch (<span class="math-roman">JD<sub>TT</sub></span>), <span class="math-inline">M</span><sub>0</sub> is the mean anomaly at epoch <span class="math-inline">t</span><sub>0</sub> (degrees), and <span class="math-inline">n</span> is the daily mean motion (<span class="math-roman">deg/day</span>), related to the semi-major axis <span class="math-inline">a</span> (<span class="math-roman">AU</span>) via Kepler&rsquo;s third law <span class="math-roman"><em>n</em> = <em>k</em><sub>deg</sub> <em>a</em><sup>&minus;3/2</sup></span> with the Gaussian gravitational constant <span class="math-roman"><em>k</em> = 0.01720209895 rad/day</span> (<span class="math-roman"><em>k</em><sub>deg</sub> = 0.9856076686 deg/day</span>, neglecting minor-planet mass <span class="math-roman"><em>m</em> &ll; <em>M</em><sub>&odot;</sub></span>).
+            </p>
+            <p>
+                Setting <span class="math-roman"><em>M</em>(<em>T</em><sub>q</sub>) &equiv; 0&deg; (mod 360&deg;)</span> yields the exact <strong>osculating perihelion date</strong> <span class="math-inline">T</span><sub>q</sub> (<span class="math-roman">JD<sub>TT</sub></span>). Depending on the chronological convention required, three canonical branches of <span class="math-inline">T</span><sub>q</sub> are defined relative to the osculating epoch <span class="math-inline">t</span><sub>0</sub> and orbital period <span class="math-roman"><em>P</em> = 360&deg; / <em>n</em></span> (days):
+            </p>
+            <div class="equation-box">
+                <span class="math-inline">T</span><sub>q,nearest</sub> = <span class="math-inline">t</span><sub>0</sub> +
+                <span class="frac">
+                    <span>&Delta;<span class="math-inline">M</span><sub>q,nearest</sub></span>
+                    <span><span class="math-inline">n</span></span>
+                </span>
+                &nbsp;,&nbsp;&nbsp;&nbsp;&nbsp;
+                &Delta;<span class="math-inline">M</span><sub>q,nearest</sub> =
+                <span class="math-roman">[</span>(&minus;<span class="math-inline">M</span><sub>0</sub> + 180&deg;) mod 360&deg;<span class="math-roman">]</span> &minus; 180&deg; &isin; (&minus;180&deg;, +180&deg;]
+            </div>
+            <div class="equation-box">
+                <span class="math-inline">T</span><sub>q,next</sub> = <span class="math-inline">t</span><sub>0</sub> +
+                <span class="frac">
+                    <span>(&minus;<span class="math-inline">M</span><sub>0</sub>) mod 360&deg;</span>
+                    <span><span class="math-inline">n</span></span>
+                </span>
+                &nbsp;,&nbsp;&nbsp;&nbsp;&nbsp;
+                <span class="math-inline">T</span><sub>q,prev</sub> = <span class="math-inline">T</span><sub>q,next</sub> &minus; <span class="math-inline">P</span>
+            </div>
+            <p>
+                Key dynamical and chronological properties of the perihelion date <span class="math-inline">T</span><sub>q</sub> include:
+            </p>
+            <ul>
+                <li><strong>Fundamental Sixth Orbital Element (<span class="math-roman"><em>T</em><sub>q</sub> vs. <em>M</em><sub>0</sub></span>):</strong> In classical six-element Keplerian parameterization <span class="math-roman">(<em>a</em>, <em>e</em>, <em>i</em>, &Omega;, <em>&omega;</em>, <em>T</em><sub>q</sub>)</span> or <span class="math-roman">(<em>q</em>, <em>e</em>, <em>i</em>, &Omega;, <em>&omega;</em>, <em>T</em><sub>q</sub>)</span>, the perihelion date <span class="math-inline">T</span><sub>q</sub> serves directly as the sixth (time-of-passage) orbital element, uniquely fixing the body&rsquo;s position along its orbit at any instant <span class="math-inline">t</span> via <span class="math-roman"><em>M</em>(<em>t</em>) = <em>n</em>(<em>t</em> &minus; <em>T</em><sub>q</sub>)</span>.</li>
+                <li><strong>Universal Validity Across All Conic Sections (<span class="math-roman"><em>e</em> &ge; 0</span>):</strong> Unlike the aphelion date <span class="math-inline">T</span><sub>Q</sub>—which exists only for bound elliptic orbits (<span class="math-roman">0 &le; <em>e</em> &lt; 1</span>)—every non-rectilinear Keplerian trajectory (elliptic <span class="math-roman">0 &le; <em>e</em> &lt; 1</span>, parabolic <span class="math-roman"><em>e</em> = 1</span> via Barker&rsquo;s equation, and hyperbolic <span class="math-roman"><em>e</em> &gt; 1</span> via <span class="math-roman"><em>M</em><sub>H</sub> = <em>e</em> sinh <em>H</em> &minus; <em>H</em> = <em>k</em> |<em>a</em>|<sup>&minus;3/2</sup>(<em>t</em> &minus; <em>T</em><sub>q</sub>)</span>) possesses a unique, well-defined perihelion passage <span class="math-inline">T</span><sub>q</sub>.</li>
+                <li><strong>Half-Period Conjugacy with the Aphelion Date (<span class="math-inline">T</span><sub>Q</sub>):</strong> For bound orbits (<span class="math-roman">0 &le; <em>e</em> &lt; 1</span>), perihelion (<span class="math-roman"><em>M</em> = 0&deg;</span>) and aphelion (<span class="math-roman"><em>M</em> = 180&deg;</span>) are separated by <span class="math-roman">&Delta;<em>M</em> = &plusmn;180&deg;</span>, displacing their osculating passage epochs by exactly half an orbital period:
+                    <div class="equation-box">
+                        <span class="math-inline">T</span><sub>q</sub> = <span class="math-inline">T</span><sub>Q</sub> &plusmn;
+                        <span class="frac">
+                            <span><span class="math-inline">P</span></span>
+                            <span>2</span>
+                        </span>
+                        = <span class="math-inline">T</span><sub>Q</sub> &plusmn;
+                        <span class="frac">
+                            <span>180&deg;</span>
+                            <span><span class="math-inline">n</span></span>
+                        </span>
+                    </div>
+                </li>
+                <li><strong>Circular Orbit Degeneracy (<span class="math-roman"><em>e</em> = 0</span>):</strong> For an exact circular orbit (<span class="math-roman"><em>e</em> = 0</span>), the perihelion direction (longitude of perihelion <span class="math-roman">&varpi; = &Omega; + <em>&omega;</em></span>) is geometrically indeterminate; by formal convention using the tabulated <span class="math-inline">M</span><sub>0</sub>, the equations evaluate smoothly to the instant where <span class="math-roman"><em>M</em>(<em>t</em>) &equiv; 0&deg; (mod 360&deg;)</span>.</li>
+            </ul>
+
+            <div class="diagram-box">
+                <svg width="560" height="250" viewBox="0 0 560 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Orbital timeline diagram showing an eccentric ellipse with aphelion Q (M=180 deg), perihelion q (M=0 deg, T_q), the epoch position M_0 at t_0, and propagation to perihelion date T_q">
+                    <rect x="0" y="0" width="560" height="250" fill="#f8fafc" rx="6"/>
+                    <!-- Left panel: Orbital ellipse with Epoch M_0 -> Perihelion q (T_q) -->
+                    <ellipse cx="165" cy="125" rx="115" ry="78" fill="#eff6ff" stroke="#64748b" stroke-width="1.6"/>
+                    <!-- Apsidal line Q - S - q -->
+                    <line x1="42" y1="125" x2="288" y2="125" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3,3"/>
+                    <!-- Arc from Epoch M_0 (~295 deg -> lower right: x = 165 + 115*cos(295) = 213.6, y = 125 - 78*sin(295) = 195.7) counter-clockwise to Perihelion q (280, 125) -->
+                    <path d="M 213.6 195.7 A 115 78 0 0 0 280 125" fill="none" stroke="#1d4ed8" stroke-width="3.2"/>
+                    <!-- Sun S -->
+                    <circle cx="249.5" cy="125" r="5.5" fill="#f59e0b" stroke="#b45309" stroke-width="1.2"/>
+                    <text x="249.5" y="143" text-anchor="middle" font-family="serif" font-size="11" fill="#92400e" font-weight="bold">S (Sun)</text>
+                    <!-- Aphelion Q -->
+                    <circle cx="50" cy="125" r="3.6" fill="#64748b"/>
+                    <text x="44" y="129" text-anchor="end" font-family="serif" font-style="italic" font-size="12" fill="#475569">Q (M=180&deg;)</text>
+                    <!-- Perihelion q -->
+                    <circle cx="280" cy="125" r="5" fill="#1d4ed8"/>
+                    <text x="286" y="114" text-anchor="start" font-family="serif" font-size="11.5" fill="#1d4ed8" font-weight="bold">q (Perihelion)</text>
+                    <text x="286" y="139" text-anchor="start" font-family="serif" font-size="10.5" fill="#1d4ed8" font-weight="bold">M = 0&deg;, T<tspan baseline-shift="sub" font-size="8">q</tspan></text>
+                    <!-- Body at Epoch t_0 -->
+                    <circle cx="213.6" cy="195.7" r="4.2" fill="#0f172a"/>
+                    <text x="210" y="213" text-anchor="end" font-family="sans-serif" font-size="10.5" fill="#0f172a" font-weight="bold">Epoch t<tspan baseline-shift="sub" font-size="8">0</tspan> (M<tspan baseline-shift="sub" font-size="8">0</tspan>)</text>
+                    <!-- Arrow label along arc -->
+                    <text x="275" y="182" text-anchor="start" font-family="serif" font-size="10.5" fill="#1d4ed8" font-weight="bold">&Delta;t = &Delta;M<tspan baseline-shift="sub" font-size="7.5">q</tspan> / n</text>
+
+                    <!-- Right panel: Analytical equations -->
+                    <text x="445" y="52" text-anchor="middle" font-family="serif" font-size="13.5" fill="#1e3a8a" font-weight="bold">Osculating Perihelion Date (T<tspan baseline-shift="sub" font-size="9">q</tspan>):</text>
+                    <text x="445" y="82" text-anchor="middle" font-family="serif" font-size="13" fill="#1d4ed8" font-weight="bold">T<tspan baseline-shift="sub" font-size="9">q</tspan> = t<tspan baseline-shift="sub" font-size="9">0</tspan> + &Delta;M<tspan baseline-shift="sub" font-size="8">q</tspan> / n &nbsp;&nbsp;(JD<tspan baseline-shift="sub" font-size="8">TT</tspan>)</text>
+                    <text x="445" y="108" text-anchor="middle" font-family="serif" font-size="12" fill="#334155">T<tspan baseline-shift="sub" font-size="9">q</tspan> = T<tspan baseline-shift="sub" font-size="9">Q</tspan> &plusmn; P/2 = T<tspan baseline-shift="sub" font-size="9">Q</tspan> &plusmn; 180&deg;/n</text>
+                    <text x="445" y="138" text-anchor="middle" font-family="sans-serif" font-size="10.5" fill="#334155">At Perihelion q: M = E = &nu; = 0&deg;</text>
+                    <text x="445" y="156" text-anchor="middle" font-family="sans-serif" font-size="10.5" fill="#334155">Min heliocentric dist.: r<tspan baseline-shift="sub" font-size="8">q</tspan> = a(1 &minus; e)</text>
+                    <text x="445" y="186" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#475569">Nearest branch: &Delta;M<tspan baseline-shift="sub" font-size="8">q</tspan> &isin; (&minus;180&deg;, +180&deg;]</text>
+                    <text x="445" y="202" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#475569">Time scale: Terrestrial Time (TT)</text>
+                </svg>
+                <div class="diagram-caption">
+                    Figure 1: Propagation from the osculating epoch <span class="math-inline">t</span><sub>0</sub> (mean anomaly <span class="math-inline">M</span><sub>0</sub>) to the <strong>perihelion date</strong> <span class="math-inline">T</span><sub>q</sub> (<span class="math-roman"><em>M</em> = <em>E</em> = <em>&nu;</em> = 0&deg;</span>, blue arc), located half an orbital period (<span class="math-roman"><em>P</em>/2</span>) from aphelion <span class="math-inline">Q</span>.
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>2. Architectural Distinction Between <code>MPCORB.DAT</code> and <code>COMET.DAT</code></h2>
+            <p>
+                Within the IAU Minor Planet Center&rsquo;s orbital element distribution suite, the parameterization of orbital phase differs fundamentally between minor planets and comets:
+            </p>
+            <table class="spec-table">
+                <thead>
+                    <tr>
+                        <th>MPC Catalog File</th>
+                        <th>Target Population</th>
+                        <th>Radial Scale Element</th>
+                        <th>Time / Phase Element</th>
+                        <th>Status of Perihelion Date (<span class="math-inline">T</span><sub>q</sub>)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong><code>MPCORB.DAT</code></strong></td>
+                        <td>Numbered &amp; unnumbered minor planets (<span class="math-roman">0 &le; <em>e</em> &lt; 1</span>)</td>
+                        <td>Semi-major axis <span class="math-inline">a</span> (<span class="math-roman">AU</span>, cols <code>93–103</code>)</td>
+                        <td>Mean anomaly <span class="math-inline">M</span><sub>0</sub> (<span class="math-roman">deg</span>, cols <code>27–35</code>) at packed epoch <span class="math-inline">t</span><sub>0</sub> (cols <code>21–25</code>)</td>
+                        <td><strong>Derived quantity</strong> (<span class="math-roman"><em>T</em><sub>q</sub> = <em>t</em><sub>0</sub> + &Delta;<em>M</em><sub>q</sub> / <em>n</em></span>); not explicitly tabulated</td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>COMET.DAT</code></strong></td>
+                        <td>Comets &amp; open-orbit objects (<span class="math-roman"><em>e</em> &lt; 1</span>, <span class="math-roman"><em>e</em> = 1</span>, <span class="math-roman"><em>e</em> &gt; 1</span>)</td>
+                        <td>Perihelion distance <span class="math-inline">q</span> (<span class="math-roman">AU</span>, cols <code>31–39</code>)</td>
+                        <td><strong>Perihelion date <span class="math-inline">T</span><sub>q</sub></strong> directly tabulated as <code>YYYY MM DD.DDDD</code> (<span class="math-roman">TT</span>, cols <code>15–29</code>)</td>
+                        <td><strong>Primary tabulated element</strong> (needed because <span class="math-inline">M</span><sub>0</sub> and <span class="math-inline">n</span> are undefined when <span class="math-roman"><em>e</em> &ge; 1</span>)</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>
+                Because <code>MPCORB.DAT</code> uses a common standard osculating epoch <span class="math-inline">t</span><sub>0</sub> across all ~1.4 million minor planets (updated every 200 days by the MPC), storing <span class="math-inline">M</span><sub>0</sub> at <span class="math-inline">t</span><sub>0</sub> avoids integrating each asteroid to its individual perihelion date during catalog generation, while allowing <span class="math-inline">T</span><sub>q</sub> to be recovered instantaneously via <span class="math-roman"><em>T</em><sub>q</sub> = <em>t</em><sub>0</sub> + &Delta;<em>M</em><sub>q</sub> / <em>n</em></span>.
+            </p>
+        </section>
+
+        <section>
+            <h2>3. Specific Status, Decoding, and Significance in <code>MPCORB.DAT</code></h2>
+            <p>
+                To compute <span class="math-inline">T</span><sub>q</sub> from any elliptic record in <strong><code>MPCORB.DAT</code></strong>:
+            </p>
+
+            <ul>
+                <li>
+                    <strong>Three Fixed-Width Source Columns:</strong>
+                    <ul>
+                        <li><strong>Packed Epoch <span class="math-inline">t</span><sub>0</sub></strong> (columns <code>21–25</code>, format <code>A5</code>, <span class="math-roman">0<sup>h</sup> TT</span>): Encoded as <code>CYYMD</code> where century <code>C</code> &isin; {<code>I</code>: 1800, <code>J</code>: 1900, <code>K</code>: 2000, <code>L</code>: 2100}, <code>YY</code> is the 2-digit year, and <code>M</code>, <code>D</code> are base-36 digits (<code>1</code>&ndash;<code>9</code>, <code>A</code>=10 &hellip; <code>V</code>=31). For example, <code>K25BL</code> decodes to <span class="math-roman">2025-11-21 00:00:00 TT</span> (<span class="math-roman">JD<sub>TT</sub> = 2461000.5</span>).</li>
+                        <li><strong>Mean anomaly at epoch <span class="math-inline">M</span><sub>0</sub></strong> (columns <code>27–35</code>, format <code>F9.5</code>, degrees): Orbital phase at <span class="math-inline">t</span><sub>0</sub>.</li>
+                        <li><strong>Daily mean motion <span class="math-inline">n</span></strong> (columns <code>81–91</code>, format <code>F11.8</code>, <span class="math-roman">deg/day</span>)—or equivalently from <strong>semi-major axis <span class="math-inline">a</span></strong> (columns <code>93–103</code>, format <code>F11.7</code>, <span class="math-roman">AU</span>) via <span class="math-roman"><em>n</em> = 0.9856076686 <em>a</em><sup>&minus;3/2</sup></span>.</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Physical &amp; Observational Significance in Minor-Planet Studies:</strong>
+                    <ul>
+                        <li><em>Maximum Heliocentric Insolation &amp; Volatile Activation:</em> At <span class="math-inline">T</span><sub>q</sub>, solar irradiance <span class="math-roman"><em>S</em>(<em>r</em>) = <em>S</em><sub>0</sub> / <em>r</em><sup>2</sup></span> reaches its orbital peak <span class="math-roman"><em>S</em><sub>max</sub> = <em>S</em><sub>0</sub> / <em>q</em><sup>2</sup></span>, triggering dust ejection, sublimation-driven comae, and non-gravitational jet accelerations in active asteroids and main-belt comets (MBCs).</li>
+                        <li><em>Meteoroid Stream &amp; NEO Encounter Timing:</em> For Near-Earth Objects (NEOs) and parent bodies of meteoroid showers, <span class="math-inline">T</span><sub>q</sub> anchors the orbital phase of peak thermal stress, tidal/rotational disruption risk, and inner-solar-system node crossings.</li>
+                        <li><em>Peak Intrinsic Brightness:</em> At fixed phase angle and geocentric distance, a minor planet reaches its maximum intrinsic solar illumination at <span class="math-inline">T</span><sub>q</sub>.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <div class="note-callout">
+                <strong>Osculating Two-Body Approximation Caveat:</strong> Computing <span class="math-roman"><em>T</em><sub>q</sub> = <em>t</em><sub>0</sub> + &Delta;<em>M</em><sub>q</sub> / <em>n</em></span> propagates the osculating Keplerian ellipse at <span class="math-inline">t</span><sub>0</sub> without planetary perturbations. Selecting the <strong>nearest perihelion branch</strong> (<span class="math-roman">&Delta;<em>M</em><sub>q,nearest</sub> &isin; (&minus;180&deg;, +180&deg;]</span>, so <span class="math-roman">|<em>T</em><sub>q,nearest</sub> &minus; <em>t</em><sub>0</sub>| &le; <em>P</em>/2</span>) minimizes perturbation drift between <span class="math-inline">t</span><sub>0</sub> and <span class="math-inline">T</span><sub>q</sub>; for bodies undergoing close planetary encounters (e.g., Apollo/Aten NEOs or Jupiter-family comets), numerical <em>N</em>-body integration provides sub-minute perihelion passage accuracy.
+            </div>
+
+            <div class="calculator-box">
+                <h4>Interactive MPCORB Perihelion Date (<span class="math-inline">T</span><sub>q</sub>) Calculator</h4>
+                <div class="calc-grid">
+                    <div class="calc-field">
+                        <label for="inputEpoch">Packed Epoch (Cols 21&ndash;25)</label>
+                        <input type="text" id="inputEpoch" maxlength="5" value="K25BL">
+                    </div>
+                    <div class="calc-field">
+                        <label for="inputM0">Mean Anomaly <em>M</em><sub>0</sub> (deg, Cols 27&ndash;35)</label>
+                        <input type="number" id="inputM0" step="0.00001" value="231.53975">
+                    </div>
+                    <div class="calc-field">
+                        <label for="inputN">Mean Motion <em>n</em> (deg/d, Cols 81&ndash;91)</label>
+                        <input type="number" id="inputN" step="0.00000001" min="0.00000001" value="0.21401711">
+                    </div>
+                    <div class="calc-output" id="calcResult">
+                        Epoch <em>t</em><sub>0</sub>: <strong>2025-11-21.00 TT (JD 2461000.5000)</strong><br>
+                        Nearest Perihelion <em>T</em><sub>q,nearest</sub>: <strong>2027-07-14.21 TT (JD 2461599.7137)</strong><br>
+                        Previous Perihelion <em>T</em><sub>q,prev</sub>: <strong>2022-12-05.11 TT (JD 2459917.6052)</strong>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Fixed-Width Source Columns &amp; Computation from <code>MPCORB.DAT</code></h2>
+            <p>
+                The table below summarizes the fixed-width columns (1-based indexing) in a standard 202-character <code>MPCORB.DAT</code> record required to compute <span class="math-inline">T</span><sub>q</sub>:
+            </p>
+
+            <table class="spec-table">
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Columns (1-based)</th>
+                        <th>0-Based Slice</th>
+                        <th>Fortran Format</th>
+                        <th>Unit &amp; Role</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong><code>Epoch</code> (<span class="math-inline">t</span><sub>0</sub>)</strong></td>
+                        <td><code>21–25</code></td>
+                        <td><code>line[20:25]</code></td>
+                        <td><code>A5</code></td>
+                        <td>Packed MPC date (<span class="math-roman">0<sup>h</sup> TT</span>); reference Julian Date <span class="math-inline">t</span><sub>0</sub></td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>M</code> (<span class="math-inline">M</span><sub>0</sub>, Mean anomaly)</strong></td>
+                        <td><code>27–35</code></td>
+                        <td><code>line[26:35]</code></td>
+                        <td><code>F9.5</code></td>
+                        <td>Degrees (<span class="math-roman">&deg;</span>); orbital phase at <span class="math-inline">t</span><sub>0</sub> (<span class="math-roman"><em>M</em> = 0&deg;</span> at perihelion)</td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>n</code> (Daily mean motion)</strong></td>
+                        <td><code>81–91</code></td>
+                        <td><code>line[80:91]</code></td>
+                        <td><code>F11.8</code></td>
+                        <td>Degrees per day (<span class="math-roman">deg/day</span>); angular rate <span class="math-roman"><em>dM</em>/<em>dt</em></span></td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>T<sub>q</sub></code> (Perihelion date)</strong></td>
+                        <td><em>Derived (not stored)</em></td>
+                        <td><code>t0_jd + (((-M0 + 180) % 360) - 180) / n</code></td>
+                        <td><em>Computed</em></td>
+                        <td>Julian Date (<span class="math-roman">JD<sub>TT</sub></span>) / Gregorian TT timestamp at <span class="math-roman"><em>M</em> = 0&deg;</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Example Record Evaluation (<code>00001</code> — (1) Ceres)</h3>
+            <pre>Col:  ... 21  25 27       35 ... 81         91 ... 93        103
+Data: ... K25BL  231.53975   ... 0.21401711    ... 2.7675059
+          └─┬─┘  └────┬────┘     └────┬─────┘      └────┬────┘
+          Epoch      M0 (deg)     n (deg/day)         a (AU)
+
+Perihelion Date Evaluation for (1) Ceres:
+  Decoded epoch (t0)               K25BL -> 2025-11-21 00:00:00 TT   = JD 2461000.50000 TT
+  Orbital period (P)               P = 360.0 / 0.21401711            = 1682.10850 days (4.6054 yr)
+  Nearest perihelion phase offset  dM_q,near = 360.0 - 231.53975     = +128.46025 deg (in (-180, +180])
+  Nearest perihelion date (T_q,nr) t0 + (+128.46025 / 0.21401711)    = JD 2461599.71365 TT (2027-07-14.21 TT)
+  Previous perihelion date (T_q,pr)T_q,near - P                      = JD 2459917.60515 TT (2022-12-05.11 TT)
+  Nearest aphelion date (T_Q,near) T_q,near - P/2                    = JD 2460758.65940 TT (2025-03-24.16 TT)</pre>
+        </section>
+
+        <footer>
+            Self-contained scientific reference document (zero external dependencies) &bull; Conventions aligned with IAU Minor Planet Center (MPC) <code>MPCORB.DAT</code> specifications.
+        </footer>
+    </div>
+
+    <script>
+        (function () {
+            const inputEpoch = document.getElementById("inputEpoch");
+            const inputM0 = document.getElementById("inputM0");
+            const inputN = document.getElementById("inputN");
+            const calcResult = document.getElementById("calcResult");
+
+            const CENTURY_MAP = { I: 1800, J: 1900, K: 2000, L: 2100 };
+
+            function decodeBase36Char(ch) {
+                const code = ch.charCodeAt(0);
+                if (code >= 48 && code <= 57) return code - 48;
+                if (code >= 65 && code <= 90) return code - 55;
+                return NaN;
+            }
+
+            function gregorianToJD(year, month, dayFraction) {
+                let y = year;
+                let m = month;
+                if (m <= 2) {
+                    y -= 1;
+                    m += 12;
+                }
+                const A = Math.floor(y / 100);
+                const B = 2 - A + Math.floor(A / 4);
+                return Math.floor(365.25 * (y + 4716)) + Math.floor(30.6001 * (m + 1)) + dayFraction + B - 1524.5;
+            }
+
+            function jdToGregorianString(jd) {
+                const z = Math.floor(jd + 0.5);
+                const f = (jd + 0.5) - z;
+                let alpha = Math.floor((z - 1867216.25) / 36524.25);
+                let a = z + 1 + alpha - Math.floor(alpha / 4);
+                const b = a + 1524;
+                const c = Math.floor((b - 122.1) / 365.25);
+                const d = Math.floor(365.25 * c);
+                const e = Math.floor((b - d) / 30.6001);
+
+                const day = b - d - Math.floor(30.6001 * e) + f;
+                const month = e < 14 ? e - 1 : e - 13;
+                const year = month > 2 ? c - 4716 : c - 4715;
+
+                const pad2 = (v) => (v < 10 ? "0" + v : String(v));
+                const dayInt = Math.floor(day);
+                const dayFracStr = (day - dayInt).toFixed(2).substring(1);
+                return `${year}-${pad2(month)}-${pad2(dayInt)}${dayFracStr} TT`;
+            }
+
+            function parseMpcPackedEpoch(str) {
+                const s = str.trim().toUpperCase();
+                if (s.length !== 5) return NaN;
+                const century = CENTURY_MAP[s[0]];
+                const yy = parseInt(s.substring(1, 3), 10);
+                const month = decodeBase36Char(s[3]);
+                const day = decodeBase36Char(s[4]);
+                if (!isFinite(century) || !isFinite(yy) || !(month >= 1 && month <= 12) || !(day >= 1 && day <= 31)) {
+                    return NaN;
+                }
+                return gregorianToJD(century + yy, month, day);
+            }
+
+            function updateCalculation() {
+                const t0 = parseMpcPackedEpoch(inputEpoch.value);
+                const m0 = parseFloat(inputM0.value);
+                const n = parseFloat(inputN.value);
+
+                if (!isFinite(t0)) {
+                    calcResult.innerHTML = "Invalid 5-character MPC packed epoch (e.g., <code>K25BL</code> for 2025-11-21).";
+                    return;
+                }
+                if (!isFinite(m0)) {
+                    calcResult.innerHTML = "Please enter a valid mean anomaly <em>M</em><sub>0</sub> in degrees.";
+                    return;
+                }
+                if (!isFinite(n) || n <= 0) {
+                    calcResult.innerHTML = "Daily mean motion <em>n</em> must be strictly positive (&gt; 0 deg/day).";
+                    return;
+                }
+
+                const period = 360.0 / n;
+                const dmNearest = (((-m0 + 180.0) % 360.0) + 360.0) % 360.0 - 180.0;
+                const dmNext = (((-m0) % 360.0) + 360.0) % 360.0;
+
+                const tqNearest = t0 + dmNearest / n;
+                const tqNext = t0 + dmNext / n;
+                const tqPrev = tqNext - period;
+
+                calcResult.innerHTML =
+                    `Epoch <em>t</em><sub>0</sub>: <strong>${jdToGregorianString(t0)} (JD ${t0.toFixed(4)})</strong><br>` +
+                    `Nearest Perihelion <em>T</em><sub>q,nearest</sub>: <strong>${jdToGregorianString(tqNearest)} (JD ${tqNearest.toFixed(4)})</strong><br>` +
+                    `Next / Prev Perihelion: <strong>${jdToGregorianString(tqNext)}</strong> / <strong>${jdToGregorianString(tqPrev)}</strong>`;
+            }
+
+            inputEpoch.addEventListener("input", updateCalculation);
+            inputM0.addEventListener("input", updateCalculation);
+            inputN.addEventListener("input", updateCalculation);
+            updateCalculation();
+        })();
+    </script>
+</body>
+</html>

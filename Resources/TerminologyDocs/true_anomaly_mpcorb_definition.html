@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>True Anomaly (&nu;) — MPCORB Orbital Reference</title>
+  <style>
+:root {
+  --bg-color: #f8fafc;
+  --surface-color: #ffffff;
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  --accent-color: #1e3a8a;
+  --accent-light: #eff6ff;
+  --border-color: #e2e8f0;
+  --code-bg: #f1f5f9;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-serif: "Georgia", "Times New Roman", Times, serif;
+  --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  line-height: 1.7;
+  padding: 2rem 1rem;
+}
+
+.container {
+  max-width: 920px;
+  margin: 0 auto;
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 2.5rem 3rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+header {
+  border-bottom: 2px solid var(--accent-color);
+  padding-bottom: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.category-tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent-color);
+  background-color: var(--accent-light);
+  padding: 0.25rem 0.65rem;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
+h2 {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.35rem;
+}
+
+h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+ul, ol {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+li {
+  margin-bottom: 0.4rem;
+}
+
+.equation-box {
+  background-color: var(--code-bg);
+  border-left: 4px solid var(--accent-color);
+  padding: 1rem 1.5rem;
+  margin: 1.25rem 0;
+  border-radius: 0 6px 6px 0;
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  overflow-x: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.equation-main {
+  font-style: italic;
+}
+
+.equation-label {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-style: normal;
+  margin-left: 1rem;
+}
+
+.math-var {
+  font-family: var(--font-serif);
+  font-style: italic;
+}
+
+.figure-box {
+  background-color: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 1.25rem;
+  margin: 1.75rem 0;
+  text-align: center;
+}
+
+.figure-box svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.figure-caption {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-top: 0.85rem;
+  text-align: left;
+  line-height: 1.5;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.92rem;
+}
+
+th, td {
+  border: 1px solid var(--border-color);
+  padding: 0.65rem 0.85rem;
+  text-align: left;
+}
+
+th {
+  background-color: var(--code-bg);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+code {
+  font-family: var(--font-mono);
+  background-color: var(--code-bg);
+  padding: 0.15rem 0.35rem;
+  border-radius: 4px;
+  font-size: 0.88em;
+}
+
+pre.mpcorb-record {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  background-color: var(--code-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 0.85rem 1rem;
+  overflow-x: auto;
+  line-height: 1.45;
+  color: var(--text-primary);
+  margin: 0.75rem 0 1.25rem 0;
+}
+
+.example-card {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-left: 4px solid #047857;
+  border-radius: 6px;
+  padding: 1.15rem 1.35rem;
+  margin: 1.15rem 0;
+}
+
+.example-card h3 {
+  margin-top: 0;
+  color: #065f46;
+}
+
+.interactive-panel {
+  background-color: var(--code-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 1.25rem;
+  margin: 1.75rem 0;
+}
+
+.interactive-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 0.75rem;
+  color: var(--text-primary);
+}
+
+.controls-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.control-group label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.control-group input {
+  width: 100%;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background-color: var(--surface-color);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+}
+
+.result-bar {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  color: var(--accent-color);
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+footer {
+  margin-top: 2.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 1.5rem 1.25rem;
+  }
+}
+</style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <span class="category-tag">Celestial Mechanics &amp; Polar Conic Geometry • MPCORB Reference</span>
+      <h1>True Anomaly (<span class="math-var">&nu;</span>)</h1>
+      <div class="subtitle">Focal Polar Angle, Conic Trajectory Equation &amp; Polar Kinematics in MPCORB.DAT</div>
+    </header>
+    <main>
+      
+<h2>1. Formal Definition</h2>
+<p>
+  In celestial mechanics, astrodynamics, and derived orbital parameterizations computed from the Minor Planet Center Orbit Database (<strong>MPCORB</strong>), the <strong>true anomaly</strong> (<span class="math-var">&nu;</span>, also denoted <span class="math-var">f</span> or <span class="math-var">&theta;</span>) is the actual physical polar angle measured at the <strong>Sun</strong> (the occupied focus <span class="math-var">F<sub>1</sub></span> of the osculating conic section) within the minor body's orbital plane between the direction of <strong>perihelion</strong> (<span class="math-var">P</span>, defined by the eccentricity vector <span class="math-var"><b>e</b></span>) and the instantaneous heliocentric position vector <span class="math-var"><b>r</b>(t)</span> in the direction of orbital motion:
+</p>
+
+<div class="equation-box">
+  <span class="equation-main">
+    \cos &nu;(t) = rac{<b>e</b> &middot; <b>r</b>(t)}{e \, r(t)}, &quad; \sin &nu;(t) = rac{(<b>h</b> &times; <b>e</b>) &middot; <b>r</b>(t)}{h \, e \, r(t)}, &quad; &nu;(t) &isin; [0&deg;, 360&deg;)
+  </span>
+  <span class="equation-label">(Eq. 1)</span>
+</div>
+
+<p>where:</p>
+<ul>
+  <li><span class="math-var"><b>e</b> = rac{1}{\mu}\left[(v<sup>2</sup> &minus; rac{\mu}{r})<b>r</b> &minus; (<b>r</b> &middot; <b>v</b>)<b>v</b>ight]</span> is the <strong>Laplace–Runge–Lenz eccentricity vector</strong> pointing toward perihelion with magnitude <span class="math-var">e = |<b>e</b>|</span> (<code>MPCORB.DAT</code>, columns 71–79), and <span class="math-var"><b>h</b> = <b>r</b> &times; <b>v</b></span> is the specific relative angular momentum vector.</li>
+  <li>Unlike the <strong>mean anomaly</strong> <span class="math-var">M(t) = M<sub>0</sub> + n(t &minus; t<sub>0</sub>)</span> stored in <code>MPCORB.DAT</code> (columns 27–35) or the auxiliary <strong>eccentric anomaly</strong> <span class="math-var">E(t)</span>, <span class="math-var">&nu;(t)</span> is a <em>direct physical angle</em> in three-dimensional space that locates the body on its Keplerian trajectory and governs the polar conic equation <span class="math-var">r(&nu;) = rac{p}{1 + e \cos &nu;}</span>.</li>
+  <li>The difference <span class="math-var">&nu;(t) &minus; M(t)</span> is known classically as the <strong>equation of the center</strong>; for <span class="math-var">0 &lt; e &lt; 1</span> and <span class="math-var">0&deg; &lt; M &lt; 180&deg;</span>, Kepler's second law enforces <span class="math-var">M(t) &lt; E(t) &lt; &nu;(t)</span> because the body moves fastest near perihelion.</li>
+</ul>
+
+<div class="figure-box">
+  <svg viewBox="0 0 740 315" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Polar conic geometry of True Anomaly nu measured at the Sun from Perihelion P to the Body r(t), governing radial distance r and velocity components">
+    <defs>
+      <marker id="arrowSlate" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#475569"/>
+      </marker>
+      <marker id="arrowBlue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#1e3a8a"/>
+      </marker>
+      <marker id="arrowEmerald" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#047857"/>
+      </marker>
+      <marker id="arrowAmber" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#b45309"/>
+      </marker>
+      <marker id="arrowCrimson" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#be123c"/>
+      </marker>
+    </defs>
+
+    <!-- Left Diagram: Orbital Ellipse centered at (215, 162), a = 148, b = 108, e = 0.68 -> c = 100.6, Sun at (315.6, 162) -->
+    <ellipse cx="215" cy="162" rx="148" ry="108" fill="#ecfdf5" fill-opacity="0.45" stroke="#047857" stroke-width="2"/>
+    <text x="86" y="45" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#047857">Osculating Orbital Plane (Perifocal Frame)</text>
+
+    <!-- Line of Apsides: Aphelion Q (67, 162) through Sun (315.6, 162) to Perihelion P (363, 162) -->
+    <line x1="56" y1="162" x2="386" y2="162" stroke="#475569" stroke-width="1.4" stroke-dasharray="5,3"/>
+    <circle cx="363" cy="162" r="4.8" fill="#b45309" stroke="#0f172a" stroke-width="1.2"/>
+    <text x="369" y="154" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#b45309">Perihelion P</text>
+    <text x="369" y="168" font-family="sans-serif" font-size="9.5" fill="#b45309">(&nu; = 0&deg;, r = q)</text>
+
+    <circle cx="67" cy="162" r="4.2" fill="#475569"/>
+    <text x="48" y="148" font-family="sans-serif" font-size="10" font-weight="600" fill="#475569">Aphelion Q</text>
+    <text x="48" y="177" font-family="sans-serif" font-size="9" fill="#475569">(&nu; = 180&deg;)</text>
+
+    <!-- Semi-latus rectum p vertical chord at Sun x = 315.6:
+         y_slr = 108 * sqrt(1 - (100.6/148)^2) = 108 * 0.733 = 79.2 -> (315.6, 82.8)
+    -->
+    <line x1="315.6" y1="162" x2="315.6" y2="82.8" stroke="#94a3b8" stroke-width="1.4" stroke-dasharray="3,2"/>
+    <text x="321" y="114" font-family="Georgia, serif" font-style="italic" font-size="11.5" fill="#475569">p = a(1&minus;e&sup2;)</text>
+
+    <!-- Body Position on Ellipse at nu = 122 deg from Sun (315.6, 162):
+         p_px = 79.2, e = 0.68 -> r_px = 79.2 / (1 + 0.68 * cos(122 deg)) = 79.2 / (1 - 0.3603) = 123.8
+         x_body = 315.6 + 123.8 * cos(122 deg) = 315.6 - 65.6 = 250.0
+         y_body = 162 - 123.8 * sin(122 deg) = 162 - 105.0 = 57.0
+    -->
+    <!-- Heliocentric Radius Vector r(t) from Sun (315.6, 162) to Body (250, 57) -->
+    <line x1="315.6" y1="162" x2="250" y2="57" stroke="#be123c" stroke-width="2.3" marker-end="url(#arrowCrimson)"/>
+    <circle cx="250" cy="57" r="5.2" fill="#e11d48" stroke="#0f172a" stroke-width="1.2"/>
+    <text x="172" y="54" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#be123c">Minor Body r(t)</text>
+    <text x="242" y="112" font-family="Georgia, serif" font-style="italic" font-size="12.5" font-weight="700" fill="#be123c">r(&nu;)</text>
+
+    <!-- Radial & Transverse Velocity Vectors at Body (250, 57) -->
+    <!-- Radial unit vector u_r = (-0.530, -0.848) -> v_r arrow -->
+    <line x1="250" y1="57" x2="228" y2="22" stroke="#b45309" stroke-width="1.7" marker-end="url(#arrowAmber)"/>
+    <text x="234" y="24" font-family="Georgia, serif" font-style="italic" font-size="10.5" font-weight="700" fill="#b45309">v<tspan dy="2" font-size="8">r</tspan></text>
+
+    <!-- Transverse unit vector u_theta = (-0.848, +0.530) -> v_theta arrow -->
+    <line x1="250" y1="57" x2="206" y2="85" stroke="#1e3a8a" stroke-width="1.7" marker-end="url(#arrowBlue)"/>
+    <text x="186" y="92" font-family="Georgia, serif" font-style="italic" font-size="10.5" font-weight="700" fill="#1e3a8a">v<tspan dy="2" font-size="8">&nu;</tspan></text>
+
+    <!-- True Anomaly Arc nu from Perihelion direction (351, 162) counterclockwise to Radius Vector (297, 132) -->
+    <path d="M 351 162 A 35.4 35.4 0 0 0 297 132" fill="none" stroke="#1e3a8a" stroke-width="2.5"/>
+    <text x="333" y="132" font-family="Georgia, serif" font-style="italic" font-size="15" font-weight="700" fill="#1e3a8a">&nu;</text>
+
+    <!-- Sun at Focus (315.6, 162) -->
+    <circle cx="315.6" cy="162" r="9.5" fill="#f59e0b" stroke="#b45309" stroke-width="1.6"/>
+    <text x="307" y="186" font-family="sans-serif" font-size="10" font-weight="700" fill="#b45309">Sun</text>
+
+    <!-- Right Panel: Polar Conic Equation & Velocity Decomposition -->
+    <rect x="455" y="24" width="265" height="266" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+    <text x="470" y="47" font-family="sans-serif" font-size="11.5" font-weight="700" fill="#0f172a">Polar Conic &amp; Kinematics via &nu;</text>
+
+    <rect x="470" y="62" width="235" height="60" rx="4" fill="#fff1f2" stroke="#fda4af" stroke-width="1"/>
+    <text x="480" y="79" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#9f1239">1. Polar Conic Trajectory:</text>
+    <text x="480" y="97" font-family="Georgia, serif" font-style="italic" font-size="11.5" fill="#0f172a">r(&nu;) = a(1 &minus; e&sup2;) / (1 + e cos &nu;)</text>
+    <text x="480" y="113" font-family="sans-serif" font-size="9.5" fill="#475569">(Unified for e &lt; 1, e = 1, e &gt; 1)</text>
+
+    <line x1="587" y1="122" x2="587" y2="140" stroke="#475569" stroke-width="1.4" marker-end="url(#arrowSlate)"/>
+
+    <rect x="470" y="142" width="235" height="60" rx="4" fill="#eff6ff" stroke="#93c5fd" stroke-width="1"/>
+    <text x="480" y="159" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#1e3a8a">2. Polar Velocity Components:</text>
+    <text x="480" y="177" font-family="Georgia, serif" font-style="italic" font-size="11.5" fill="#0f172a">v<tspan dy="2" font-size="8.5">r</tspan><tspan dy="-2"> = (&mu;/h) e sin &nu;, &nbsp; v</tspan><tspan dy="2" font-size="8.5">&nu;</tspan><tspan dy="-2"> = (&mu;/h)(1 + e cos &nu;)</tspan></text>
+    <text x="480" y="193" font-family="sans-serif" font-size="9.5" fill="#475569">(Hodograph circle in velocity space)</text>
+
+    <line x1="587" y1="202" x2="587" y2="220" stroke="#475569" stroke-width="1.4" marker-end="url(#arrowSlate)"/>
+
+    <rect x="470" y="222" width="235" height="54" rx="4" fill="#ecfdf5" stroke="#6ee7b7" stroke-width="1"/>
+    <text x="480" y="239" font-family="sans-serif" font-size="10.5" font-weight="700" fill="#065f46">3. Flight-Path Angle (&gamma;):</text>
+    <text x="480" y="257" font-family="Georgia, serif" font-style="italic" font-size="11.5" fill="#0f172a">tan &gamma; = v<tspan dy="2" font-size="8.5">r</tspan><tspan dy="-2"> / v</tspan><tspan dy="2" font-size="8.5">&nu;</tspan><tspan dy="-2"> = e sin &nu; / (1 + e cos &nu;)</tspan></text>
+  </svg>
+  <div class="figure-caption">
+    <strong>Figure 1:</strong> Polar conic geometry of the <strong>true anomaly</strong> (<span class="math-var">&nu;</span>) measured counterclockwise at the Sun from perihelion <span class="math-var">P</span> to the minor body's position vector <span class="math-var"><b>r</b>(t)</span>. Unlike the eccentric anomaly <span class="math-var">E</span> (measured at the ellipse center), <span class="math-var">&nu;</span> directly sets the heliocentric distance <span class="math-var">r(&nu;) = p/(1 + e cos &nu;)</span>, the radial and transverse velocities <span class="math-var">(v<sub>r</sub>, v<sub>&nu;</sub>)</span>, and the flight-path elevation angle <span class="math-var">&gamma;</span>.
+  </div>
+</div>
+
+<h2>2. Derivation from <code>MPCORB.DAT</code> &amp; Exact Conversion Identities</h2>
+<p>
+  <code>MPCORB.DAT</code> stores the <strong>mean anomaly at epoch</strong> <span class="math-var">M<sub>0</sub></span> (columns 27–35), <strong>eccentricity</strong> <span class="math-var">e</span> (columns 71–79), <strong>mean motion</strong> <span class="math-var">n</span> (columns 81–91), and <strong>semimajor axis</strong> <span class="math-var">a</span> (columns 93–103). Obtaining <span class="math-var">&nu;(t)</span> at target epoch <span class="math-var">t</span> proceeds in two stages: (i) advancing <span class="math-var">M(t) = M<sub>0</sub> + n(t &minus; t<sub>0</sub>)</span> and solving Kepler's equation <span class="math-var">M(t) = E(t) &minus; e sin E(t)</span> for the eccentric anomaly <span class="math-var">E(t)</span>, and (ii) mapping <span class="math-var">E(t)</span> to <span class="math-var">&nu;(t)</span> via the quadrant-preserving half-angle tangent formula:
+</p>
+
+<div class="equation-box">
+  <span class="equation-main">
+    &nu;(t) = 2 \, \mathrm{atan2} &left( &radic;(1 + e) \sin rac{E(t)}{2}, \; &radic;(1 &minus; e) \cos rac{E(t)}{2} &right), \quad \cos &nu; = rac{\cos E &minus; e}{1 &minus; e \cos E}, \quad \sin &nu; = rac{&radic;(1 &minus; e<sup>2</sup>) \sin E}{1 &minus; e \cos E}
+  </span>
+  <span class="equation-label">(Eq. 2)</span>
+</div>
+
+<p>
+  For low-eccentricity orbits (<span class="math-var">e &ll; 1</span>), <span class="math-var">&nu;(t)</span> can alternatively be expanded directly in terms of <span class="math-var">M(t)</span> via the classical <strong>equation-of-the-center Fourier series</strong>:
+</p>
+
+<div class="equation-box">
+  <span class="equation-main">
+    &nu;(t) = M(t) + &left(2e &minus; rac{1}{4}e<sup>3</sup> + rac{5}{96}e<sup>5</sup>&right) \sin M(t) + &left(rac{5}{4}e<sup>2</sup> &minus; rac{11}{24}e<sup>4</sup>&right) \sin 2M(t) + &left(rac{13}{12}e<sup>3</sup> &minus; rac{43}{64}e<sup>5</sup>&right) \sin 3M(t) + \mathcal{O}(e<sup>4</sup>)
+  </span>
+  <span class="equation-label">(Eq. 3)</span>
+</div>
+
+<h2>3. Kinematics, Angular Rate &amp; Cardinal Orbital Points</h2>
+<p>
+  By Kepler's second law (conservation of specific angular momentum <span class="math-var">h = r<sup>2</sup> \dot{&nu;} = &radic;{\mu a(1 &minus; e<sup>2</sup>)} = na<sup>2</sup>&radic;(1 &minus; e<sup>2</sup>)</span>), the instantaneous angular velocity <span class="math-var">d&nu;/dt</span> and polar velocity components <span class="math-var">(v<sub>r</sub>, v<sub>&nu;</sub>)</span> are governed explicitly by <span class="math-var">&nu;(t)</span>:
+</p>
+
+<div class="equation-box">
+  <span class="equation-main">
+    rac{d&nu;}{dt} = rac{h}{r<sup>2</sup>} = rac{n(1 + e \cos &nu;)<sup>2</sup>}{(1 &minus; e<sup>2</sup>)<sup>3/2</sup>}, \quad v<sub>r</sub> = \dot{r} = \sqrt{rac{\mu}{p}} \, e \sin &nu;, \quad v<sub>&nu;</sub> = r\dot{&nu;} = \sqrt{rac{\mu}{p}} (1 + e \cos &nu;)
+  </span>
+  <span class="equation-label">(Eq. 4)</span>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>True Anomaly (<span class="math-var">&nu;</span>)</th>
+      <th>Orbital Point</th>
+      <th>Heliocentric Distance (<span class="math-var">r</span>) &amp; Velocity</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong><span class="math-var">&nu; = 0&deg;</span></strong> (<span class="math-var">E = M = 0&deg;</span>)</td>
+      <td><strong>Perihelion (<span class="math-var">P</span>):</strong> Closest approach to the Sun</td>
+      <td><span class="math-var">r = q = a(1 &minus; e)</span>; <span class="math-var">v<sub>r</sub> = 0</span>; maximum speed <span class="math-var">v<sub>P</sub> = &radic;[\mu(1+e)/(a(1&minus;e))]</span></td>
+    </tr>
+    <tr>
+      <td><strong><span class="math-var">&nu; = 90&deg;</span></strong> (<span class="math-var">\cos E = e</span>)</td>
+      <td><strong>Semi-latus Rectum (<span class="math-var">+p</span>):</strong> Outbound quadrature to line of apsides</td>
+      <td><span class="math-var">r = p = a(1 &minus; e<sup>2</sup>)</span>; maximum outward radial speed <span class="math-var">v<sub>r,max</sub> = &radic;(\mu/p) \, e</span></td>
+    </tr>
+    <tr>
+      <td><strong><span class="math-var">&nu; = 180&deg;</span></strong> (<span class="math-var">E = M = 180&deg;</span>)</td>
+      <td><strong>Aphelion (<span class="math-var">Q</span>):</strong> Farthest recession from the Sun</td>
+      <td><span class="math-var">r = Q = a(1 + e)</span>; <span class="math-var">v<sub>r</sub> = 0</span>; minimum speed <span class="math-var">v<sub>Q</sub> = &radic;[\mu(1&minus;e)/(a(1+e))]</span></td>
+    </tr>
+    <tr>
+      <td><strong><span class="math-var">&nu; = 270&deg;</span></strong> (<span class="math-var">\cos E = e</span>)</td>
+      <td><strong>Semi-latus Rectum (<span class="math-var">&minus;p</span>):</strong> Inbound quadrature to line of apsides</td>
+      <td><span class="math-var">r = p = a(1 &minus; e<sup>2</sup>)</span>; maximum inward radial speed <span class="math-var">v<sub>r,min</sub> = &minus;&radic;(\mu/p) \, e</span></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>4. Astrodynamical &amp; Observational Significance</h2>
+<ul>
+  <li><strong>3D Ephemeris &amp; Argument of Latitude Coupling:</strong> Adding <span class="math-var">&nu;(t)</span> to the <code>MPCORB.DAT</code> argument of perihelion <span class="math-var">&omega;</span> gives the instantaneous <strong>argument of latitude</strong> <span class="math-var">u(t) = (&omega; + &nu;(t)) &pmod{360&deg;}</span>, which directly determines the minor planet's heliocentric ecliptic coordinates <span class="math-var">(X, Y, Z)</span> and topocentric right ascension and declination <span class="math-var">(&alpha;, &delta;)</span> for telescope pointing.</li>
+  <li><strong>Gauss's Planetary Equations (Osculating Element Evolution):</strong> Under non-Keplerian perturbations (planetary third-body gravity, Yarkovsky drift, or solar radiation pressure) decomposed into radial (<span class="math-var">f<sub>r</sub></span>), transverse (<span class="math-var">f<sub>&nu;</sub></span>), and normal (<span class="math-var">f<sub>w</sub></span>) components, the osculating rates <span class="math-var">da/dt</span>, <span class="math-var">de/dt</span>, and <span class="math-var">d&omega;/dt</span> depend explicitly on <span class="math-var">\sin &nu;</span> and <span class="math-var">\cos &nu;</span>:
+    <div class="equation-box">
+      <span class="equation-main">
+        rac{da}{dt} = rac{2a<sup>2</sup>}{h} &left( e \sin &nu; \, f<sub>r</sub> + rac{p}{r} f<sub>&nu;</sub> &right), \quad rac{de}{dt} = rac{1}{h} &left( p \sin &nu; \, f<sub>r</sub> + [(p + r)\cos &nu; + r e] f<sub>&nu;</sub> &right)
+      </span>
+      <span class="equation-label">(Eq. 5)</span>
+    </div>
+  </li>
+  <li><strong>Circular Orbit Singularity (<span class="math-var">e = 0</span>):</strong> When <span class="math-var">e = 0</span>, perihelion is undefined and <span class="math-var">&nu;</span> becomes indeterminate; in this limit, <span class="math-var">&nu;</span> is absorbed into the non-singular <strong>argument of latitude</strong> <span class="math-var">u = &omega; + &nu;</span> or <strong>true longitude</strong> <span class="math-var">L<sub>true</sub> = &Omega; + &omega; + &nu;</span>.</li>
+</ul>
+
+<h2>5. Worked Examples from <code>MPCORB.DAT</code></h2>
+<p>
+  The following two numbered minor planets from <code>MPCORB.DAT</code> (epoch <code>K25BL</code> = 2025 Nov 21.0 TT = JD 2461000.5) demonstrate the evaluation of <span class="math-var">&nu;(t<sub>0</sub>)</span>, the equation of the center <span class="math-var">&nu;<sub>0</sub> &minus; M<sub>0</sub></span>, and the radial/transverse velocity components:
+</p>
+
+<div class="example-card">
+  <h3>Example 1: (1) Ceres — Inbound Toward Perihelion (<span class="math-var">&nu;<sub>0</sub> = 224.54123&deg;</span>)</h3>
+  <p>
+    Excerpt from <code>MPCORB.DAT</code> (columns 1–103):
+  </p>
+  <pre class="mpcorb-record">00001    3.34  0.12 K25BL 231.53975   73.28579   80.25414   10.58688  0.0789158  0.21410467   2.7675059</pre>
+  <ul>
+    <li><strong>Extracted Epoch Elements:</strong> <span class="math-var">M<sub>0</sub> = 231.53975&deg;</span>, <span class="math-var">e = 0.0789158</span>, and <span class="math-var">a = 2.7675059 AU</span> (<span class="math-var">p = 2.75027 AU</span>).</li>
+    <li><strong>Derived True Anomaly &amp; Kinematics:</strong> From <span class="math-var">E<sub>0</sub> = 227.94383&deg;</span>, Eq. (2) yields <span class="math-var">&nu;<sub>0</sub> = 224.54123&deg;</span>, giving an equation of the center <span class="math-var">&nu;<sub>0</sub> &minus; M<sub>0</sub> = &minus;6.99852&deg;</span>. Because <span class="math-var">180&deg; &lt; &nu;<sub>0</sub> &lt; 360&deg;</span>, Ceres is moving inbound toward perihelion with negative radial velocity <span class="math-var">v<sub>r</sub> = &minus;0.992 km/s</span>, transverse speed <span class="math-var">v<sub>&nu;</sub> = 16.951 km/s</span>, total orbital speed <span class="math-var">v = 16.980 km/s</span>, and heliocentric distance <span class="math-var">r(t<sub>0</sub>) = 2.91367 AU</span>.</li>
+  </ul>
+</div>
+
+<div class="example-card">
+  <h3>Example 2: (2) Pallas — Outbound Near Aphelion (<span class="math-var">&nu;<sub>0</sub> = 162.13238&deg;</span>)</h3>
+  <p>
+    Excerpt from <code>MPCORB.DAT</code> (columns 1–103):
+  </p>
+  <pre class="mpcorb-record">00002    4.12  0.11 K25BL 142.88412  310.91024  172.90561   34.92502  0.2305124  0.21378192   2.7702891</pre>
+  <ul>
+    <li><strong>Extracted Epoch Elements:</strong> <span class="math-var">M<sub>0</sub> = 142.88412&deg;</span>, <span class="math-var">e = 0.2305124</span>, and <span class="math-var">a = 2.7702891 AU</span> (<span class="math-var">p = 2.62308 AU</span>).</li>
+    <li><strong>Derived True Anomaly &amp; Kinematics:</strong> From <span class="math-var">E<sub>0</sub> = 152.71189&deg;</span>, Eq. (2) yields <span class="math-var">&nu;<sub>0</sub> = 162.13238&deg;</span>, giving a large positive equation of the center <span class="math-var">&nu;<sub>0</sub> &minus; M<sub>0</sub> = +19.24826&deg;</span>. Positioned <span class="math-var">17.86762&deg;</span> prior to aphelion, Pallas has radial speed <span class="math-var">v<sub>r</sub> = +1.301 km/s</span>, transverse speed <span class="math-var">v<sub>&nu;</sub> = 14.375 km/s</span>, total speed <span class="math-var">v = 14.434 km/s</span>, and distance <span class="math-var">r(t<sub>0</sub>) = 3.33781 AU</span>.</li>
+  </ul>
+</div>
+
+<div class="interactive-panel">
+  <div class="interactive-title">Interactive Calculator: True Anomaly &nu;(t), Equation of the Center (&nu; &minus; M), Distance r(t) &amp; Polar Velocity</div>
+  <div class="controls-grid">
+    <div class="control-group">
+      <label for="m0_val">Mean Anomaly M<sub>0</sub> (deg)</label>
+      <input type="number" id="m0_val" value="142.88412" step="1.0">
+    </div>
+    <div class="control-group">
+      <label for="e_val">Eccentricity e (0 &le; e &lt; 1)</label>
+      <input type="number" id="e_val" value="0.2305124" step="0.01" min="0" max="0.9999">
+    </div>
+    <div class="control-group">
+      <label for="a_val">Semimajor Axis a (AU)</label>
+      <input type="number" id="a_val" value="2.7702891" step="0.05" min="0.05">
+    </div>
+    <div class="control-group">
+      <label for="n_val">Mean Motion n (deg/day)</label>
+      <input type="number" id="n_val" value="0.21378192" step="0.01">
+    </div>
+    <div class="control-group">
+      <label for="dt_val">Elapsed Time &Delta;t (days)</label>
+      <input type="number" id="dt_val" value="0" step="10">
+    </div>
+  </div>
+  <div class="result-bar" id="calc_out">Computing...</div>
+</div>
+
+    </main>
+    <footer>
+      <span>Reference Standard: IAU Minor Planet Center (MPCORB.DAT) &amp; Two-Body Keplerian Dynamics</span>
+      <span>Polar Conic Relation: r(&nu;) = a(1 &minus; e&sup2;)/(1 + e cos &nu;) &bull; MPCORB Sources: M<sub>0</sub> (Cols 27–35), e, n, a</span>
+    </footer>
+  </div>
+  <script>
+    
+(function() {
+  const degToRad = Math.PI / 180.0;
+  const radToDeg = 180.0 / Math.PI;
+  const vEarthKms = 29.7846918; // sqrt(GM_sun / 1 AU) in km/s
+
+  function normDeg(deg) {
+    let x = deg % 360.0;
+    if (x < 0) x += 360.0;
+    return x;
+  }
+
+  function wrapSignedDeg(deg) {
+    let x = ((deg + 180.0) % 360.0);
+    if (x < 0) x += 360.0;
+    return x - 180.0;
+  }
+
+  function solveKepler(Mrad, e) {
+    let E = Mrad + e * Math.sin(Mrad) + 0.5 * e * e * Math.sin(2.0 * Mrad);
+    for (let k = 0; k < 20; k++) {
+      const f = E - e * Math.sin(E) - Mrad;
+      const fp = 1.0 - e * Math.cos(E);
+      const dE = f / fp;
+      E -= dE;
+      if (Math.abs(dE) < 1e-14) break;
+    }
+    return E;
+  }
+
+  function update() {
+    const M0 = parseFloat(document.getElementById('m0_val').value);
+    const e = parseFloat(document.getElementById('e_val').value);
+    const a = parseFloat(document.getElementById('a_val').value);
+    const n = parseFloat(document.getElementById('n_val').value);
+    const dt = parseFloat(document.getElementById('dt_val').value);
+    const out = document.getElementById('calc_out');
+
+    if ([M0, e, a, n, dt].some(isNaN) || a <= 0 || e < 0 || e >= 1) {
+      out.textContent = "Invalid orbital parameters (require a > 0 AU, 0 <= e < 1).";
+      return;
+    }
+
+    const MtDeg = normDeg(M0 + n * dt);
+    const MtRad = MtDeg * degToRad;
+    const E = solveKepler(MtRad, e);
+
+    const nuRad = 2.0 * Math.atan2(
+      Math.sqrt(1.0 + e) * Math.sin(E / 2.0),
+      Math.sqrt(1.0 - e) * Math.cos(E / 2.0)
+    );
+    const nuDeg = normDeg(nuRad * radToDeg);
+    const eqCenter = wrapSignedDeg(nuDeg - MtDeg);
+
+    const p = a * (1.0 - e * e);
+    const r = p / (1.0 + e * Math.cos(nuRad));
+
+    const sqrtMuOverP = vEarthKms / Math.sqrt(p);
+    const vr = sqrtMuOverP * e * Math.sin(nuRad);
+    const vnu = sqrtMuOverP * (1.0 + e * Math.cos(nuRad));
+    const vTot = Math.hypot(vr, vnu);
+
+    out.innerHTML =
+      `True Anomaly &nu;(t) = ${nuDeg.toFixed(5)}&deg;  |  Eq. of Center (&nu; &minus; M) = ${eqCenter >= 0 ? '+' : ''}${eqCenter.toFixed(5)}&deg;  |  Distance r(t) = ${r.toFixed(5)} AU<br>` +
+      `Polar Velocities: v<sub>r</sub> = ${vr >= 0 ? '+' : ''}${vr.toFixed(3)} km/s, v<sub>&nu;</sub> = ${vnu.toFixed(3)} km/s  |  Total Speed v = ${vTot.toFixed(3)} km/s`;
+  }
+
+  ['m0_val', 'e_val', 'a_val', 'n_val', 'dt_val'].forEach(id => {
+    document.getElementById(id).addEventListener('input', update);
+  });
+  update();
+})();
+
+  </script>
+</body>
+</html>

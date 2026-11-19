@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minor Axis (2b) in the Context of MPCORB</title>
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #334155;
+            --accent-color: #1e3a8a;
+            --accent-light: #eff6ff;
+            --border-color: #cbd5e1;
+            --code-bg: #f1f5f9;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.7;
+            color: var(--text-primary);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 3rem 3.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            border: 1px solid var(--border-color);
+        }
+
+        header {
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .badge {
+            display: inline-block;
+            background-color: var(--accent-light);
+            color: var(--accent-color);
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            padding: 0.3rem 0.75rem;
+            border-radius: 4px;
+            border: 1px solid #bfdbfe;
+            margin-bottom: 0.75rem;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin: 0.25rem 0 0.5rem 0;
+            color: var(--text-primary);
+            line-height: 1.25;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            margin: 0;
+        }
+
+        h2 {
+            font-size: 1.35rem;
+            color: var(--accent-color);
+            margin-top: 2.25rem;
+            margin-bottom: 0.85rem;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 0.35rem;
+        }
+
+        h3 {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        p {
+            margin-bottom: 1.15rem;
+            color: var(--text-secondary);
+            text-align: justify;
+        }
+
+        ul, ol {
+            margin-bottom: 1.25rem;
+            padding-left: 1.5rem;
+            color: var(--text-secondary);
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        .equation-box {
+            background-color: var(--code-bg);
+            border-left: 4px solid var(--accent-color);
+            padding: 1.15rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 6px 6px 0;
+            overflow-x: auto;
+            font-family: "Cambria Math", "STIX Two Math", "Times New Roman", Times, serif;
+            font-size: 1.18rem;
+            color: var(--text-primary);
+            text-align: center;
+        }
+
+        .math-inline {
+            font-family: "Cambria Math", "STIX Two Math", "Times New Roman", Times, serif;
+            font-style: italic;
+            font-size: 1.05em;
+            color: var(--text-primary);
+        }
+
+        .math-roman {
+            font-family: "Cambria Math", "STIX Two Math", "Times New Roman", Times, serif;
+            font-style: normal;
+            font-size: 1.02em;
+            color: var(--text-primary);
+        }
+
+        .frac {
+            display: inline-flex;
+            flex-direction: column;
+            vertical-align: middle;
+            text-align: center;
+            margin: 0 0.25rem;
+        }
+
+        .frac > span:first-child {
+            border-bottom: 1px solid var(--text-primary);
+            padding: 0 0.3rem 0.15rem 0.3rem;
+        }
+
+        .frac > span:last-child {
+            padding: 0.15rem 0.3rem 0 0.3rem;
+        }
+
+        .sqrt-wrap {
+            display: inline-flex;
+            align-items: stretch;
+        }
+
+        .sqrt-rad {
+            font-size: 1.15em;
+            line-height: 1;
+            padding-right: 1px;
+        }
+
+        .sqrt-body {
+            border-top: 1px solid var(--text-primary);
+            padding: 0 0.2rem;
+        }
+
+        .spec-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.92rem;
+        }
+
+        .spec-table th, .spec-table td {
+            border: 1px solid var(--border-color);
+            padding: 0.75rem 1rem;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        .spec-table th {
+            background-color: var(--accent-color);
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .spec-table tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        code {
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+            background-color: var(--code-bg);
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.88em;
+            color: #0f172a;
+        }
+
+        pre {
+            background-color: #1e293b;
+            color: #f8fafc;
+            padding: 1rem 1.25rem;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+        }
+
+        .note-callout {
+            background-color: #fffbeb;
+            border-left: 4px solid #d97706;
+            padding: 1rem 1.25rem;
+            margin: 1.5rem 0;
+            border-radius: 0 6px 6px 0;
+            color: #78350f;
+            font-size: 0.95rem;
+        }
+
+        .diagram-box {
+            background-color: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+
+        .diagram-caption {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+        }
+
+        .calculator-box {
+            background-color: var(--accent-light);
+            border: 1px solid #bfdbfe;
+            border-radius: 8px;
+            padding: 1.25rem 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .calculator-box h4 {
+            margin: 0 0 0.75rem 0;
+            color: var(--accent-color);
+            font-size: 1rem;
+        }
+
+        .calc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            align-items: end;
+        }
+
+        .calc-field label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.3rem;
+        }
+
+        .calc-field input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 0.5rem 0.65rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 0.95rem;
+            font-family: inherit;
+        }
+
+        .calc-output {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 0.5rem 0.75rem;
+            font-size: 0.92rem;
+            color: var(--text-primary);
+        }
+
+        footer {
+            margin-top: 3rem;
+            padding-top: 1.25rem;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.85rem;
+            color: #64748b;
+            text-align: center;
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 1.75rem 1.25rem;
+            }
+            h1 {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="badge">Celestial Mechanics &amp; Astrometry Specification</div>
+            <h1>Minor Axis (<span class="math-roman">2<em>b</em></span>) in the Context of the MPCORB Database</h1>
+            <p class="subtitle">Scientific Definition, Transverse Orbital Diameter, and Derivation from the IAU Minor Planet Center Orbit Catalog</p>
+        </header>
+
+        <section>
+            <h2>1. Fundamental Astrodynamical &amp; Geometric Definition</h2>
+            <p>
+                In celestial mechanics, orbital astrometry, and analytic conic geometry, the <strong>minor axis</strong>—denoted algebraically as <span class="math-roman">2<em>b</em></span> (twice the semi-minor axis <span class="math-inline">b</span>)—is the shortest principal diameter of a bound elliptic Keplerian trajectory (<span class="math-roman">0 &le; <em>e</em> &lt; 1</span>). Geometrically, it is the unique chord of the orbital ellipse that passes orthogonally through the geometric center of the ellipse, bisecting the line of apsides (the major axis <span class="math-roman">2<em>a</em></span>) at right angles and terminating at the two <strong>co-vertices</strong> (minor-axis vertices) of the orbit.
+            </p>
+            <p>
+                In terms of the canonical Keplerian orbital elements—the semi-major axis (<span class="math-inline">a</span>) and the orbital eccentricity (<span class="math-inline">e</span>)—the total scalar length of the minor axis is rigorously given by:
+            </p>
+            <div class="equation-box">
+                <span class="math-inline">D</span><sub>minor</sub> = <span class="math-roman">2<em>b</em></span> = <span class="math-roman">2<em>a</em></span>
+                <span class="sqrt-wrap">
+                    <span class="sqrt-rad">&radic;</span>
+                    <span class="sqrt-body">1 &minus; <span class="math-inline">e</span><sup>2</sup></span>
+                </span>
+                = 2
+                <span class="sqrt-wrap">
+                    <span class="sqrt-rad">&radic;</span>
+                    <span class="sqrt-body"><span class="math-inline">q</span> &middot; <span class="math-inline">Q</span></span>
+                </span>
+            </div>
+            <p>
+                where <span class="math-roman"><em>q</em> = <em>a</em>(1 &minus; <em>e</em>)</span> is the perihelion distance and <span class="math-roman"><em>Q</em> = <em>a</em>(1 + <em>e</em>)</span> is the aphelion distance. Equivalently, the minor axis <span class="math-roman">2<em>b</em></span> is twice the geometric mean of the apsidal distances, and satisfies the Euclidean right-triangle relation connecting the center, either focus (at distance <span class="math-inline">ae</span> from the center), and either co-vertex:
+            </p>
+            <div class="equation-box">
+                <span class="math-roman">(2<em>b</em>)<sup>2</sup> = (2<em>a</em>)<sup>2</sup> &minus; (2<em>ae</em>)<sup>2</sup> = 4<em>a</em><sup>2</sup>(1 &minus; <em>e</em><sup>2</sup>)</span>
+            </div>
+            <p>
+                For a strictly circular orbit (<span class="math-roman"><em>e</em> = 0</span>), the minor axis equals the major axis and coincides with the uniform orbital diameter (<span class="math-roman">2<em>b</em> = 2<em>a</em> = 2<em>r</em></span>). As <span class="math-roman"><em>e</em> &rarr; 1<sup>&minus;</sup></span>, the ratio <span class="math-roman">2<em>b</em> / 2<em>a</em> = &radic;(1 &minus; <em>e</em><sup>2</sup>) &rarr; 0</span>, producing an increasingly needle-like (high-eccentricity) elliptic trajectory.
+            </p>
+
+            <div class="diagram-box">
+                <svg width="560" height="240" viewBox="0 0 560 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Geometric diagram showing the full minor axis 2b spanning vertically between the two co-vertices perpendicular to the major axis 2a">
+                    <rect x="0" y="0" width="560" height="240" fill="#f8fafc" rx="6"/>
+                    <!-- Orbit Ellipse: center (260, 120), rx = 195 (a), ry = 85 (b), focal distance c = sqrt(195^2 - 85^2) = 175.5 -->
+                    <ellipse cx="260" cy="120" rx="195" ry="85" fill="#eff6ff" stroke="#1e3a8a" stroke-width="2"/>
+                    <!-- Major Axis dashed -->
+                    <line x1="65" y1="120" x2="455" y2="120" stroke="#64748b" stroke-width="1" stroke-dasharray="4,4"/>
+                    <!-- Full Minor Axis (2b) highlighted vertically from y=35 to y=205 -->
+                    <line x1="260" y1="35" x2="260" y2="205" stroke="#dc2626" stroke-width="3"/>
+                    <!-- Horizontal ticks at Co-vertices -->
+                    <line x1="250" y1="35" x2="270" y2="35" stroke="#dc2626" stroke-width="2"/>
+                    <line x1="250" y1="205" x2="270" y2="205" stroke="#dc2626" stroke-width="2"/>
+                    <!-- Right angle symbol at center -->
+                    <polyline points="260,108 272,108 272,120" fill="none" stroke="#334155" stroke-width="1.2"/>
+                    <!-- Dimension bracket on right for 2b -->
+                    <line x1="485" y1="35" x2="485" y2="205" stroke="#0f172a" stroke-width="1.5"/>
+                    <line x1="272" y1="35" x2="492" y2="35" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3,3"/>
+                    <line x1="272" y1="205" x2="492" y2="205" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3,3"/>
+                    <rect x="462" y="102" width="88" height="36" fill="#f8fafc"/>
+                    <text x="506" y="117" text-anchor="middle" font-family="serif" font-size="14" fill="#dc2626" font-weight="bold">Minor Axis</text>
+                    <text x="506" y="134" text-anchor="middle" font-family="serif" font-size="13" fill="#dc2626" font-weight="bold">2b = 2a&radic;(1&minus;e&sup2;)</text>
+                    <!-- Center point -->
+                    <circle cx="260" cy="120" r="3.5" fill="#0f172a"/>
+                    <text x="248" y="135" text-anchor="end" font-family="sans-serif" font-size="11" fill="#334155">Center</text>
+                    <!-- Co-vertices labels -->
+                    <text x="260" y="24" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#0f172a" font-weight="bold">Co-vertex (Upper)</text>
+                    <text x="260" y="224" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#0f172a" font-weight="bold">Co-vertex (Lower)</text>
+                    <!-- Sun at primary focus F1: 260 + 175.5 = 435.5 -->
+                    <circle cx="435" cy="120" r="7" fill="#f59e0b" stroke="#b45309" stroke-width="1.5"/>
+                    <text x="415" y="140" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#92400e" font-weight="bold">Sun (F&#8321;)</text>
+                </svg>
+                <div class="diagram-caption">
+                    Figure 1: Full minor axis (<span class="math-roman">2<em>b</em> = 2<em>a</em>&radic;(1 &minus; <em>e</em><sup>2</sup>)</span>) spanning the transverse diameter between the upper and lower co-vertices orthogonally through the geometric center of the orbital ellipse.
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>2. Physical and Dynamical Significance</h2>
+            <p>
+                In two-body astrodynamics, the minor axis <span class="math-roman">2<em>b</em></span> measures the full transverse width of the orbital ellipse perpendicular to the line of apsides and is directly coupled to the specific orbital angular momentum (<span class="math-inline">h</span>), the total enclosed orbital area (<span class="math-inline">A</span><sub>orb</sub>), and the instantaneous heliocentric speed at the co-vertices.
+            </p>
+
+            <h3>2.1 Specific Orbital Angular Momentum &amp; Enclosed Area</h3>
+            <p>
+                For a minor planet moving under the heliocentric gravitational parameter <span class="math-roman"><em>&mu;</em> = <em>G</em>(<em>M</em><sub>&#9737;</sub> + <em>m</em>) &approx; <em>GM</em><sub>&#9737;</sub></span>, the specific relative angular momentum magnitude <span class="math-roman"><em>h</em> = |<strong>r</strong> &times; <strong>v</strong>|</span> is directly proportional to the minor axis <span class="math-roman">2<em>b</em></span> at a given orbital energy (fixed <span class="math-inline">a</span>):
+            </p>
+            <div class="equation-box">
+                <span class="math-inline">h</span> =
+                <span class="frac">
+                    <span><span class="math-roman">2<em>b</em></span></span>
+                    <span>2</span>
+                </span>
+                <span class="sqrt-wrap">
+                    <span class="sqrt-rad">&radic;</span>
+                    <span class="sqrt-body">
+                        <span class="frac">
+                            <span><span class="math-inline">&mu;</span></span>
+                            <span><span class="math-inline">a</span></span>
+                        </span>
+                    </span>
+                </span>
+                &nbsp;&nbsp;&Longleftrightarrow;&nbsp;&nbsp;
+                <span class="math-roman">2<em>b</em></span> = <span class="math-roman">2<em>h</em></span>
+                <span class="sqrt-wrap">
+                    <span class="sqrt-rad">&radic;</span>
+                    <span class="sqrt-body">
+                        <span class="frac">
+                            <span><span class="math-inline">a</span></span>
+                            <span><span class="math-inline">&mu;</span></span>
+                        </span>
+                    </span>
+                </span>
+            </div>
+            <p>
+                The total geometric area enclosed by the orbital ellipse is expressed symmetrically in terms of the full major axis (<span class="math-roman">2<em>a</em></span>) and full minor axis (<span class="math-roman">2<em>b</em></span>) as:
+            </p>
+            <div class="equation-box">
+                <span class="math-inline">A</span><sub>orb</sub> = <span class="math-roman">&pi; <em>a b</em></span> =
+                <span class="frac">
+                    <span>&pi;</span>
+                    <span>4</span>
+                </span>
+                <span class="math-roman">(2<em>a</em>)(2<em>b</em>)</span>
+            </div>
+
+            <h3>2.2 Kinematics at the Minor-Axis Co-Vertices</h3>
+            <p>
+                When a minor planet passes either co-vertex (end of the minor axis <span class="math-roman">2<em>b</em></span>), its heliocentric radial distance equals exactly the semi-major axis (<span class="math-roman"><em>r</em> = <em>a</em></span>), and its instantaneous heliocentric orbital speed equals the circular speed at distance <span class="math-inline">a</span> (<span class="math-roman"><em>v</em> = &radic;(<em>&mu;</em>/<em>a</em>)</span>), directed parallel to the major axis.
+            </p>
+        </section>
+
+        <section>
+            <h2>3. Specific Status and Derivation in the MPCORB Catalog</h2>
+            <p>
+                In the <strong>MPCORB</strong> (<em>Minor Planet Center Orbit</em>) database maintained by the International Astronomical Union's Minor Planet Center (IAU MPC), neither the semi-minor axis (<span class="math-inline">b</span>) nor the full minor axis (<span class="math-roman">2<em>b</em></span>) is explicitly tabulated. Instead, <span class="math-roman">2<em>b</em></span> is derived deterministically from two primary osculating elements stored in each record:
+            </p>
+
+            <ul>
+                <li>
+                    <strong>Computational Derivation from <code>MPCORB.DAT</code>:</strong> Parse the osculating <strong>orbital eccentricity</strong> <span class="math-inline">e</span> (columns <code>71–79</code>, Fortran format <code>F9.7</code>) and the osculating <strong>semi-major axis</strong> <span class="math-inline">a</span> (columns <code>93–103</code>, Fortran format <code>F11.7</code>), and evaluate <span class="math-roman">2<em>b</em> = 2<em>a</em>&radic;(1 &minus; <em>e</em><sup>2</sup>)</span>.
+                </li>
+                <li>
+                    <strong>Osculating Heliocentric Reference:</strong> Because <span class="math-inline">a</span> and <span class="math-inline">e</span> in MPCORB are <em>osculating heliocentric</em> elements valid at the record's packed <code>Epoch</code> (columns <code>21–25</code>) and oriented in the J2000.0 mean ecliptic frame, the derived minor axis <span class="math-roman">2<em>b</em></span> is likewise an instantaneous osculating heliocentric quantity subject to planetary <span class="math-inline">N</span>-body perturbations (such as secular eccentricity cycles).
+                </li>
+                <li>
+                    <strong>Unit of Measurement:</strong> Expressed in <strong>Astronomical Units (<span class="math-roman">AU</span>)</strong>, where <span class="math-roman">1 AU &equiv; 149,597,870,700 m</span> (exact, per IAU 2012 Resolution B2).
+                </li>
+            </ul>
+
+            <div class="note-callout">
+                <strong>Conic Section Restriction (<span class="math-roman">0 &le; <em>e</em> &lt; 1</span>):</strong> A real, finite minor axis (<span class="math-roman">2<em>b</em> &gt; 0</span>) exists strictly for bound elliptic orbits (<span class="math-roman">0 &le; <em>e</em> &lt; 1</span>), which form the standard domain of <code>MPCORB.DAT</code>. At the parabolic limit (<span class="math-roman"><em>e</em> = 1</span>), <span class="math-roman">2<em>b</em> &rarr; &infin;</span>; for hyperbolic interstellar or comet trajectories (<span class="math-roman"><em>e</em> &gt; 1</span>, <span class="math-roman"><em>a</em> &lt; 0</span>), the conjugate axis is given by <span class="math-roman">2<em>b</em> = 2|<em>a</em>|&radic;(<em>e</em><sup>2</sup> &minus; 1)</span>, equal to twice the asymptotic impact parameter.
+            </div>
+
+            <div class="calculator-box">
+                <h4>Interactive MPCORB Minor Axis (<span class="math-roman">2<em>b</em></span>) Calculator</h4>
+                <div class="calc-grid">
+                    <div class="calc-field">
+                        <label for="inputA">Semi-Major Axis <em>a</em> (AU, Cols 93&ndash;103)</label>
+                        <input type="number" id="inputA" step="0.0000001" min="0.01" value="2.7653485">
+                    </div>
+                    <div class="calc-field">
+                        <label for="inputE">Eccentricity <em>e</em> (Cols 71&ndash;79)</label>
+                        <input type="number" id="inputE" step="0.0000001" min="0" max="0.9999999" value="0.0785354">
+                    </div>
+                    <div class="calc-output" id="calcResult">
+                        Minor axis 2<em>b</em>: <strong>5.5136130</strong> AU<br>
+                        Semi-minor <em>b</em>: <strong>2.7568065</strong> AU | Major axis 2<em>a</em>: <strong>5.5306970</strong> AU
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Fixed-Width Source Columns in <code>MPCORB.DAT</code></h2>
+            <p>
+                The table below specifies the exact fixed-width columns (1-based indexing) in a standard 202-character <code>MPCORB.DAT</code> record required to compute the minor axis <span class="math-roman">2<em>b</em></span>:
+            </p>
+
+            <table class="spec-table">
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Columns (1-based)</th>
+                        <th>Python Slice (0-based)</th>
+                        <th>Fortran Format</th>
+                        <th>Unit &amp; Role</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong><code>Epoch</code></strong></td>
+                        <td><code>21–25</code></td>
+                        <td><code>line[20:25]</code></td>
+                        <td><code>A5</code> (Packed)</td>
+                        <td>Osculation reference epoch</td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>e</code> (Eccentricity)</strong></td>
+                        <td><code>71–79</code></td>
+                        <td><code>line[70:79]</code></td>
+                        <td><code>F9.7</code></td>
+                        <td>Dimensionless (<span class="math-roman">0 &le; <em>e</em> &lt; 1</span>); input for <span class="math-roman">2<em>b</em></span></td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>a</code> (Semi-major axis)</strong></td>
+                        <td><code>93–103</code></td>
+                        <td><code>line[92:103]</code></td>
+                        <td><code>F11.7</code></td>
+                        <td>Astronomical Units (<span class="math-roman">AU</span>); input for <span class="math-roman">2<em>b</em></span></td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>2b</code> (Minor axis)</strong></td>
+                        <td><em>Derived (not stored)</em></td>
+                        <td><code>2.0 * a * math.sqrt(1 - e**2)</code></td>
+                        <td><em>Computed</em></td>
+                        <td>Astronomical Units (<span class="math-roman">AU</span>); transverse orbital width</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Example Record Calculation (<code>00001</code> — (1) Ceres)</h3>
+            <pre>Col:  ... 71      79 ... 93       103 ...
+Data: ... 0.0785354  ... 2.7653485    ...
+          └───┬───┘      └────┬────┘
+              e             a (AU)
+
+Computation:
+  Semi-minor axis (b) = 2.7653485 * sqrt(1 - 0.0785354^2) = 2.7568065 AU
+  Minor axis     (2b) = 2 * 2.7568065 AU                   = 5.5136130 AU
+  Major axis     (2a) = 2 * 2.7653485 AU                   = 5.5306970 AU</pre>
+        </section>
+
+        <footer>
+            Self-contained scientific reference document (zero external dependencies) &bull; Conventions aligned with IAU Minor Planet Center (MPC) <code>MPCORB.DAT</code> specifications.
+        </footer>
+    </div>
+
+    <script>
+        (function () {
+            const inputA = document.getElementById("inputA");
+            const inputE = document.getElementById("inputE");
+            const calcResult = document.getElementById("calcResult");
+
+            function updateCalculation() {
+                const a = parseFloat(inputA.value);
+                const e = parseFloat(inputE.value);
+
+                if (!isFinite(a) || a <= 0) {
+                    calcResult.innerHTML = "Please enter a valid positive semi-major axis <em>a</em> &gt; 0.";
+                    return;
+                }
+
+                if (!isFinite(e) || e < 0 || e >= 1) {
+                    calcResult.innerHTML = "Eccentricity <em>e</em> must satisfy 0 &le; <em>e</em> &lt; 1 for an elliptic minor axis.";
+                    return;
+                }
+
+                const b = a * Math.sqrt(1 - e * e);
+                const minorAxis = 2 * b;
+                const majorAxis = 2 * a;
+
+                calcResult.innerHTML =
+                    `Minor axis 2<em>b</em>: <strong>${minorAxis.toFixed(7)}</strong> AU<br>` +
+                    `Semi-minor <em>b</em>: <strong>${b.toFixed(7)}</strong> AU | Major axis 2<em>a</em>: <strong>${majorAxis.toFixed(7)}</strong> AU`;
+            }
+
+            inputA.addEventListener("input", updateCalculation);
+            inputE.addEventListener("input", updateCalculation);
+            updateCalculation();
+        })();
+    </script>
+</body>
+</html>

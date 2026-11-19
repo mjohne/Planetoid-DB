@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mean Distance from Focus in the Context of MPCORB</title>
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #334155;
+            --accent-color: #1e3a8a;
+            --accent-light: #eff6ff;
+            --border-color: #cbd5e1;
+            --code-bg: #f1f5f9;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.7;
+            color: var(--text-primary);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 3rem 3.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            border: 1px solid var(--border-color);
+        }
+
+        header {
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .badge {
+            display: inline-block;
+            background-color: var(--accent-light);
+            color: var(--accent-color);
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            padding: 0.3rem 0.75rem;
+            border-radius: 4px;
+            border: 1px solid #bfdbfe;
+            margin-bottom: 0.75rem;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin: 0.25rem 0 0.5rem 0;
+            color: var(--text-primary);
+            line-height: 1.25;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            margin: 0;
+        }
+
+        h2 {
+            font-size: 1.35rem;
+            color: var(--accent-color);
+            margin-top: 2.25rem;
+            margin-bottom: 0.85rem;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 0.35rem;
+        }
+
+        h3 {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        p {
+            margin-bottom: 1.15rem;
+            color: var(--text-secondary);
+            text-align: justify;
+        }
+
+        ul, ol {
+            margin-bottom: 1.25rem;
+            padding-left: 1.5rem;
+            color: var(--text-secondary);
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        .equation-box {
+            background-color: var(--code-bg);
+            border-left: 4px solid var(--accent-color);
+            padding: 1.15rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 6px 6px 0;
+            overflow-x: auto;
+            font-family: "Cambria Math", "STIX Two Math", "Times New Roman", Times, serif;
+            font-size: 1.18rem;
+            color: var(--text-primary);
+            text-align: center;
+        }
+
+        .math-inline {
+            font-family: "Cambria Math", "STIX Two Math", "Times New Roman", Times, serif;
+            font-style: italic;
+            font-size: 1.05em;
+            color: var(--text-primary);
+        }
+
+        .math-roman {
+            font-family: "Cambria Math", "STIX Two Math", "Times New Roman", Times, serif;
+            font-style: normal;
+            font-size: 1.02em;
+            color: var(--text-primary);
+        }
+
+        .frac {
+            display: inline-flex;
+            flex-direction: column;
+            vertical-align: middle;
+            text-align: center;
+            margin: 0 0.25rem;
+        }
+
+        .frac > span:first-child {
+            border-bottom: 1px solid var(--text-primary);
+            padding: 0 0.3rem 0.15rem 0.3rem;
+        }
+
+        .frac > span:last-child {
+            padding: 0.15rem 0.3rem 0 0.3rem;
+        }
+
+        .sqrt-wrap {
+            display: inline-flex;
+            align-items: stretch;
+        }
+
+        .sqrt-rad {
+            font-size: 1.15em;
+            line-height: 1;
+            padding-right: 1px;
+        }
+
+        .sqrt-body {
+            border-top: 1px solid var(--text-primary);
+            padding: 0 0.2rem;
+        }
+
+        .spec-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.92rem;
+        }
+
+        .spec-table th, .spec-table td {
+            border: 1px solid var(--border-color);
+            padding: 0.75rem 1rem;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        .spec-table th {
+            background-color: var(--accent-color);
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .spec-table tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        code {
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+            background-color: var(--code-bg);
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.88em;
+            color: #0f172a;
+        }
+
+        pre {
+            background-color: #1e293b;
+            color: #f8fafc;
+            padding: 1rem 1.25rem;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+        }
+
+        .note-callout {
+            background-color: #fffbeb;
+            border-left: 4px solid #d97706;
+            padding: 1rem 1.25rem;
+            margin: 1.5rem 0;
+            border-radius: 0 6px 6px 0;
+            color: #78350f;
+            font-size: 0.95rem;
+        }
+
+        .diagram-box {
+            background-color: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+
+        .diagram-caption {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+        }
+
+        .calculator-box {
+            background-color: var(--accent-light);
+            border: 1px solid #bfdbfe;
+            border-radius: 8px;
+            padding: 1.25rem 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .calculator-box h4 {
+            margin: 0 0 0.75rem 0;
+            color: var(--accent-color);
+            font-size: 1rem;
+        }
+
+        .calc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            align-items: end;
+        }
+
+        .calc-field label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.3rem;
+        }
+
+        .calc-field input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 0.5rem 0.65rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 0.95rem;
+            font-family: inherit;
+        }
+
+        .calc-output {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 0.5rem 0.75rem;
+            font-size: 0.92rem;
+            color: var(--text-primary);
+        }
+
+        footer {
+            margin-top: 3rem;
+            padding-top: 1.25rem;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.85rem;
+            color: #64748b;
+            text-align: center;
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 1.75rem 1.25rem;
+            }
+            h1 {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="badge">Celestial Mechanics &amp; Astrometry Specification</div>
+            <h1>Mean Distance from Focus (<span class="math-inline">a</span> vs. <span class="math-roman">&lang;<em>r</em>&rang;</span>) in the Context of the MPCORB Database</h1>
+            <p class="subtitle">Scientific Definition, Averaging Conventions Across Orbital Anomalies, and Evaluation from the IAU Minor Planet Center Orbit Catalog</p>
+        </header>
+
+        <section>
+            <h2>1. Dual Scientific Meaning: Classical Synonym vs. Dynamical Averages</h2>
+            <p>
+                In celestial mechanics, orbital astrometry, and classical astronomical nomenclature, the expression <strong>&ldquo;mean distance from focus&rdquo;</strong> (or simply <em>mean distance</em>) carries a crucial terminological distinction that must be resolved rigorously when processing records from the <strong>MPCORB</strong> catalog:
+            </p>
+            <ol>
+                <li>
+                    <strong>Classical Keplerian Definition (Identical to the Semi-Major Axis <span class="math-inline">a</span>):</strong> Historically and throughout standard astrometric literature (including IAU Minor Planet Center conventions), the &ldquo;mean distance&rdquo; of a minor planet from the primary focus (the Sun) is defined as the <strong>arithmetic mean of its minimum (perihelion, <span class="math-inline">q</span>) and maximum (aphelion, <span class="math-inline">Q</span>) heliocentric distances</strong>—which equals the <strong>eccentric-anomaly average</strong> <span class="math-roman">&lang;<em>r</em>&rang;<sub><em>E</em></sub></span> and is identically equal to the <strong>semi-major axis <span class="math-inline">a</span></strong>:
+                    <div class="equation-box">
+                        <span class="math-inline">r</span><sub>mean, classical</sub> &equiv;
+                        <span class="frac">
+                            <span><span class="math-inline">q</span> + <span class="math-inline">Q</span></span>
+                            <span>2</span>
+                        </span>
+                        =
+                        <span class="frac">
+                            <span><span class="math-inline">a</span>(1 &minus; <span class="math-inline">e</span>) + <span class="math-inline">a</span>(1 + <span class="math-inline">e</span>)</span>
+                            <span>2</span>
+                        </span>
+                        =
+                        <span class="frac">
+                            <span>1</span>
+                            <span>2<span class="math-inline">&pi;</span></span>
+                        </span>
+                        <span class="math-roman">&int;<sub>0</sub><sup>2&pi;</sup> <em>r</em>(<em>E</em>) d<em>E</em></span>
+                        = <span class="math-inline">a</span>
+                    </div>
+                </li>
+                <li>
+                    <strong>Analytical Integral Averages Over Other Orbital Angles/Time (<span class="math-roman">&lang;<em>r</em>&rang;<sub><em>M</em></sub></span> and <span class="math-roman">&lang;<em>r</em>&rang;<sub><em>&nu;</em></sub></span>):</strong> Because a minor planet moves slower near aphelion and faster near perihelion in accordance with Kepler&rsquo;s second law, its <em>time-averaged</em> (mean-anomaly) distance from the focus exceeds <span class="math-inline">a</span>, whereas its <em>true-anomaly-averaged</em> distance is smaller than <span class="math-inline">a</span>.
+                </li>
+            </ol>
+
+            <div class="diagram-box">
+                <svg width="560" height="235" viewBox="0 0 560 235" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Geometric diagram comparing perihelion distance q, aphelion distance Q, semi-major axis a = (q+Q)/2, and time-averaged heliocentric distance">
+                    <rect x="0" y="0" width="560" height="235" fill="#f8fafc" rx="6"/>
+                    <!-- Orbit Ellipse: center (260, 115), rx = 200 (a), ry = 100 (b), focal distance ae = sqrt(200^2 - 100^2) = 173.2 -->
+                    <ellipse cx="260" cy="115" rx="200" ry="100" fill="#eff6ff" stroke="#1e3a8a" stroke-width="2"/>
+                    <!-- Line of apsides -->
+                    <line x1="60" y1="115" x2="460" y2="115" stroke="#64748b" stroke-width="1" stroke-dasharray="4,4"/>
+                    <!-- Aphelion distance Q bracket (from left aphelion x=60 to Sun x=433.2) -->
+                    <line x1="60" y1="150" x2="433.2" y2="150" stroke="#0284c7" stroke-width="1.8"/>
+                    <line x1="60" y1="115" x2="60" y2="155" stroke="#0284c7" stroke-width="1" stroke-dasharray="2,2"/>
+                    <line x1="433.2" y1="123" x2="433.2" y2="155" stroke="#0284c7" stroke-width="1" stroke-dasharray="2,2"/>
+                    <text x="246" y="166" text-anchor="middle" font-family="serif" font-size="13" fill="#0369a1" font-weight="bold">Q = a(1 + e) [Aphelion]</text>
+                    <!-- Perihelion distance q bracket (from Sun x=433.2 to right perihelion x=460) -->
+                    <line x1="433.2" y1="150" x2="460" y2="150" stroke="#dc2626" stroke-width="2.2"/>
+                    <line x1="460" y1="115" x2="460" y2="155" stroke="#dc2626" stroke-width="1" stroke-dasharray="2,2"/>
+                    <text x="452" y="166" text-anchor="start" font-family="serif" font-size="13" fill="#dc2626" font-weight="bold">q = a(1 &minus; e)</text>
+                    <!-- Semi-major axis a = (q+Q)/2 above line -->
+                    <line x1="60" y1="90" x2="260" y2="90" stroke="#1e3a8a" stroke-width="2.4"/>
+                    <line x1="260" y1="84" x2="260" y2="120" stroke="#0f172a" stroke-width="1.2"/>
+                    <text x="160" y="81" text-anchor="middle" font-family="serif" font-size="14" fill="#1e3a8a" font-weight="bold">a = (q + Q)/2 = &lang;r&rang;_E</text>
+                    <!-- Center point -->
+                    <circle cx="260" cy="115" r="3.5" fill="#0f172a"/>
+                    <text x="260" y="131" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#334155">Center</text>
+                    <!-- Sun at primary focus F1 at (433.2, 115) -->
+                    <circle cx="433.2" cy="115" r="7.5" fill="#f59e0b" stroke="#b45309" stroke-width="1.5"/>
+                    <text x="420" y="103" text-anchor="end" font-family="sans-serif" font-size="11" fill="#92400e" font-weight="bold">Sun (F&#8321;)</text>
+                    <!-- Aphelion and Perihelion markers -->
+                    <circle cx="60" cy="115" r="3.5" fill="#0284c7"/>
+                    <circle cx="460" cy="115" r="3.5" fill="#dc2626"/>
+                </svg>
+                <div class="diagram-caption">
+                    Figure 1: Geometric equivalence between the classical &ldquo;mean distance from the focus&rdquo; (<span class="math-roman">(<em>q</em> + <em>Q</em>)/2</span>), the eccentric-anomaly average <span class="math-roman">&lang;<em>r</em>&rang;<sub><em>E</em></sub></span>, and the semi-major axis <span class="math-inline">a</span>.
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>2. Exact Analytical Formulations Across Orbital Averaging Measures</h2>
+            <p>
+                For any bound Keplerian orbit (<span class="math-roman">0 &le; <em>e</em> &lt; 1</span>) with semi-major axis <span class="math-inline">a</span>, semi-minor axis <span class="math-roman"><em>b</em> = <em>a</em>&radic;(1 &minus; <em>e</em><sup>2</sup>)</span>, and semi-latus rectum <span class="math-roman"><em>p</em> = <em>a</em>(1 &minus; <em>e</em><sup>2</sup>)</span>, the instantaneous heliocentric distance <span class="math-inline">r</span> admits three distinct closed-form integral averages depending on the uniform integration variable:
+            </p>
+
+            <h3>2.1 Eccentric-Anomaly Average (<span class="math-roman">&lang;<em>r</em>&rang;<sub><em>E</em></sub></span>) — Classical &ldquo;Mean Distance&rdquo;</h3>
+            <p>
+                Using the Keplerian radius relation <span class="math-roman"><em>r</em>(<em>E</em>) = <em>a</em>(1 &minus; <em>e</em> cos <em>E</em>)</span>, integrating uniformly over the eccentric anomaly <span class="math-inline">E</span> cancels the cosine term identically:
+            </p>
+            <div class="equation-box">
+                <span class="math-roman">&lang;<em>r</em>&rang;<sub><em>E</em></sub></span> =
+                <span class="frac">
+                    <span>1</span>
+                    <span>2<span class="math-inline">&pi;</span></span>
+                </span>
+                <span class="math-roman">&int;<sub>0</sub><sup>2&pi;</sup> <em>a</em>(1 &minus; <em>e</em> cos <em>E</em>) d<em>E</em></span>
+                = <span class="math-inline">a</span> =
+                <span class="frac">
+                    <span><span class="math-inline">q</span> + <span class="math-inline">Q</span></span>
+                    <span>2</span>
+                </span>
+            </div>
+            <p>
+                This exact identity explains why 18th- and 19th-century celestial mechanicians (including Gauss in <em>Theoria Motus</em>) referred to <span class="math-inline">a</span> interchangeably as the <em>semi-major axis</em> and the <em>mean distance</em> (<em>distantia media</em>), and why Kepler&rsquo;s third law is traditionally stated as: <em>&ldquo;The square of the orbital period is proportional to the cube of the mean distance from the Sun.&rdquo;</em>
+            </p>
+
+            <h3>2.2 Time / Mean-Anomaly Average (<span class="math-roman">&lang;<em>r</em>&rang;<sub><em>t</em></sub> = &lang;<em>r</em>&rang;<sub><em>M</em></sub></span>)</h3>
+            <p>
+                When averaging heliocentric distance over uniform elapsed time <span class="math-inline">t</span> (equivalently over the mean anomaly <span class="math-roman"><em>M</em> = <em>n</em>(<em>t</em> &minus; <em>t</em><sub>0</sub>)</span>, where <span class="math-roman">d<em>M</em> = (1 &minus; <em>e</em> cos <em>E</em>) d<em>E</em></span> via Kepler&rsquo;s equation <span class="math-roman"><em>M</em> = <em>E</em> &minus; <em>e</em> sin <em>E</em></span>), the body spends disproportionately more time in the aphelion half of its orbit (<span class="math-roman"><em>r</em> &gt; <em>a</em></span>), yielding:
+            </p>
+            <div class="equation-box">
+                <span class="math-roman">&lang;<em>r</em>&rang;<sub><em>t</em></sub></span> = <span class="math-roman">&lang;<em>r</em>&rang;<sub><em>M</em></sub></span> =
+                <span class="frac">
+                    <span>1</span>
+                    <span><span class="math-inline">P</span></span>
+                </span>
+                <span class="math-roman">&int;<sub>0</sub><sup><em>P</em></sup> <em>r</em>(<em>t</em>) d<em>t</em></span>
+                =
+                <span class="frac">
+                    <span>1</span>
+                    <span>2<span class="math-inline">&pi;</span></span>
+                </span>
+                <span class="math-roman">&int;<sub>0</sub><sup>2&pi;</sup> <em>a</em>(1 &minus; <em>e</em> cos <em>E</em>)<sup>2</sup> d<em>E</em></span>
+                = <span class="math-inline">a</span>
+                <span class="math-roman">&Bigl( 1 + </span>
+                <span class="frac">
+                    <span><span class="math-inline">e</span><sup>2</sup></span>
+                    <span>2</span>
+                </span>
+                <span class="math-roman">&Bigr)</span>
+            </div>
+            <p>
+                For any non-circular orbit (<span class="math-roman"><em>e</em> &gt; 0</span>), the time-averaged distance from the focus strictly exceeds the semi-major axis by <span class="math-roman">&Delta;<em>r</em> = +&frac12;<em>ae</em><sup>2</sup></span>. By contrast, the <em>time-averaged inverse distance</em> satisfies <span class="math-roman">&lang;1/<em>r</em>&rang;<sub><em>t</em></sub> = 1/<em>a</em></span> (consistent with the virial theorem, <span class="math-roman">&lang;<em>v</em><sup>2</sup>&rang;<sub><em>t</em></sub> = <em>&mu;</em>/<em>a</em></span>).
+            </p>
+
+            <h3>2.3 True-Anomaly Average (<span class="math-roman">&lang;<em>r</em>&rang;<sub><em>&nu;</em></sub></span>)</h3>
+            <p>
+                Averaging the polar conic equation <span class="math-roman"><em>r</em>(<em>&nu;</em>) = <em>p</em> / (1 + <em>e</em> cos <em>&nu;</em>)</span> uniformly over the true anomaly <span class="math-inline">&nu;</span> yields the semi-minor axis <span class="math-inline">b</span>:
+            </p>
+            <div class="equation-box">
+                <span class="math-roman">&lang;<em>r</em>&rang;<sub><em>&nu;</em></sub></span> =
+                <span class="frac">
+                    <span>1</span>
+                    <span>2<span class="math-inline">&pi;</span></span>
+                </span>
+                <span class="math-roman">&int;<sub>0</sub><sup>2&pi;</sup> </span>
+                <span class="frac">
+                    <span><span class="math-inline">a</span>(1 &minus; <span class="math-inline">e</span><sup>2</sup>)</span>
+                    <span>1 + <span class="math-inline">e</span> cos <span class="math-inline">&nu;</span></span>
+                </span>
+                <span class="math-roman"> d<em>&nu;</em></span>
+                = <span class="math-inline">a</span>
+                <span class="sqrt-wrap">
+                    <span class="sqrt-rad">&radic;</span>
+                    <span class="sqrt-body">1 &minus; <span class="math-inline">e</span><sup>2</sup></span>
+                </span>
+                = <span class="math-inline">b</span> =
+                <span class="sqrt-wrap">
+                    <span class="sqrt-rad">&radic;</span>
+                    <span class="sqrt-body"><span class="math-inline">q</span> <span class="math-inline">Q</span></span>
+                </span>
+            </div>
+            <p>
+                Together with the semi-latus rectum <span class="math-roman"><em>p</em> = 2<em>qQ</em>/(<em>q</em> + <em>Q</em>)</span>, these measures satisfy the strict inequality chain for every elliptic orbit (<span class="math-roman">0 &lt; <em>e</em> &lt; 1</span>):
+            </p>
+            <div class="equation-box">
+                <span class="math-inline">q</span> &lt; <span class="math-inline">p</span> &lt; <span class="math-roman">&lang;<em>r</em>&rang;<sub><em>&nu;</em></sub></span> (= <span class="math-inline">b</span>) &lt; <span class="math-roman">&lang;<em>r</em>&rang;<sub><em>E</em></sub></span> (= <span class="math-inline">a</span>) &lt; <span class="math-roman">&lang;<em>r</em>&rang;<sub><em>t</em></sub></span> (= <span class="math-roman"><em>a</em>(1 + <em>e</em><sup>2</sup>/2)</span>) &lt; <span class="math-inline">Q</span>
+            </div>
+        </section>
+
+        <section>
+            <h2>3. Specific Status and Usage in the MPCORB Catalog</h2>
+            <p>
+                In the <strong>MPCORB</strong> (<em>Minor Planet Center Orbit</em>) database distributed by the International Astronomical Union&rsquo;s Minor Planet Center (IAU MPC):
+            </p>
+
+            <ul>
+                <li>
+                    <strong>Direct Storage of Classical Mean Distance (<span class="math-inline">a</span>):</strong> Every record in <code>MPCORB.DAT</code> directly tabulates the osculating heliocentric <strong>semi-major axis</strong> <span class="math-inline">a</span> in <strong>Astronomical Units (<span class="math-roman">AU</span>)</strong> in columns <code>93–103</code> (Fortran format <code>F11.7</code>). In MPC documentation, orbital element tables, and Minor Planet Circulars (MPCs), this column represents the classical <em>mean distance from the focus (Sun)</em> <span class="math-roman"><em>a</em> = (<em>q</em> + <em>Q</em>)/2 = &lang;<em>r</em>&rang;<sub><em>E</em></sub></span>.
+                </li>
+                <li>
+                    <strong>Coupling to Mean Daily Motion (<span class="math-inline">n</span>) in <code>MPCORB.DAT</code>:</strong> Columns <code>81–91</code> (Fortran format <code>F11.8</code>) store the osculating <strong>mean daily motion</strong> <span class="math-inline">n</span> (in <span class="math-roman">&deg;/day</span>), which is dynamically linked to the classical mean distance <span class="math-inline">a</span> via Kepler&rsquo;s third law using the Gaussian gravitational constant <span class="math-roman"><em>k</em> = 0.01720209895 rad/day</span> (<span class="math-roman"><em>k</em><sub>deg</sub> = 0.9856076686&deg;/day</span>):
+                    <div class="equation-box">
+                        <span class="math-inline">n</span> =
+                        <span class="frac">
+                            <span><span class="math-inline">k</span><sub>deg</sub></span>
+                            <span><span class="math-inline">a</span><sup>3/2</sup></span>
+                        </span>
+                        &nbsp;&nbsp;&Longleftrightarrow;&nbsp;&nbsp;
+                        <span class="math-inline">a</span> =
+                        <span class="math-roman">&Bigl( </span>
+                        <span class="frac">
+                            <span><span class="math-inline">k</span><sub>deg</sub></span>
+                            <span><span class="math-inline">n</span></span>
+                        </span>
+                        <span class="math-roman">&Bigr)<sup>2/3</sup></span>
+                    </div>
+                </li>
+                <li>
+                    <strong>Computation of Time-Averaged Distance (<span class="math-roman">&lang;<em>r</em>&rang;<sub><em>t</em></sub></span>):</strong> When physical or thermal modeling of an MPCORB body requires the true <em>time-averaged</em> heliocentric distance (for example, in equilibrium insolation or Yarkovsky thermal drift integrals), it is not stored as a separate column in <code>MPCORB.DAT</code>; rather, it is evaluated from columns <code>71–79</code> (<span class="math-inline">e</span>) and columns <code>93–103</code> (<span class="math-inline">a</span>) via <span class="math-roman">&lang;<em>r</em>&rang;<sub><em>t</em></sub> = <em>a</em>(1 + <em>e</em><sup>2</sup>/2)</span>.
+                </li>
+                <li>
+                    <strong>Parabolic/Hyperbolic Limitation:</strong> Because <span class="math-inline">a</span> (and every radial mean <span class="math-roman">&lang;<em>r</em>&rang;</span>) diverges to infinity as <span class="math-roman"><em>e</em> &rarr; 1</span>, <code>MPCORB.DAT</code> contains exclusively elliptic minor planet orbits (<span class="math-roman">0 &le; <em>e</em> &lt; 1</span>, <span class="math-roman"><em>a</em> &gt; 0</span>). Parabolic and hyperbolic trajectories are segregated into <code>COMET.DAT</code>, where perihelion distance <span class="math-inline">q</span> replaces <span class="math-inline">a</span>.
+                </li>
+            </ul>
+
+            <div class="note-callout">
+                <strong>Terminology Disambiguation for Software &amp; UI Labels:</strong> In astrometric catalogs and legacy orbital software, labeling column <code>93–103</code> (<span class="math-inline">a</span>) as <em>&ldquo;Mean Distance&rdquo;</em> refers strictly to the geometric/eccentric-anomaly mean <span class="math-roman">(<em>q</em> + <em>Q</em>)/2 = &lang;<em>r</em>&rang;<sub><em>E</em></sub></span>. If displaying the time-averaged heliocentric distance <span class="math-roman"><em>a</em>(1 + <em>e</em><sup>2</sup>/2)</span> alongside <span class="math-inline">a</span>, label it explicitly as <em>&ldquo;Time-Averaged Heliocentric Distance &lang;r&rang;<sub>t</sub>&rdquo;</em> to prevent confusion with the semi-major axis.
+            </div>
+
+            <div class="calculator-box">
+                <h4>Interactive MPCORB Radial Averages Calculator (<span class="math-inline">a</span>, <span class="math-roman">&lang;<em>r</em>&rang;<sub><em>t</em></sub></span>, and <span class="math-roman">&lang;<em>r</em>&rang;<sub><em>&nu;</em></sub></span>)</h4>
+                <div class="calc-grid">
+                    <div class="calc-field">
+                        <label for="inputA">Semi-Major Axis <em>a</em> (AU, Cols 93&ndash;103)</label>
+                        <input type="number" id="inputA" step="0.0000001" min="0.01" value="2.7653485">
+                    </div>
+                    <div class="calc-field">
+                        <label for="inputE">Eccentricity <em>e</em> (Cols 71&ndash;79)</label>
+                        <input type="number" id="inputE" step="0.0000001" min="0" max="0.9999999" value="0.0785354">
+                    </div>
+                    <div class="calc-output" id="calcResult">
+                        Classical mean distance <em>a</em> = &lang;<em>r</em>&rang;<sub><em>E</em></sub>: <strong>2.7653485</strong> AU<br>
+                        Time-averaged &lang;<em>r</em>&rang;<sub><em>t</em></sub>: <strong>2.7738766</strong> AU (+0.308%)<br>
+                        True-anomaly avg &lang;<em>r</em>&rang;<sub><em>&nu;</em></sub> (= <em>b</em>): <strong>2.7568065</strong> AU
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Fixed-Width Source Columns &amp; Radial Average Formulas in <code>MPCORB.DAT</code></h2>
+            <p>
+                The table below summarizes the fixed-width columns (1-based indexing) in a standard 202-character <code>MPCORB.DAT</code> record relevant to evaluating the classical mean distance and integral radial averages:
+            </p>
+
+            <table class="spec-table">
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Columns (1-based)</th>
+                        <th>Python Slice (0-based)</th>
+                        <th>Fortran Format</th>
+                        <th>Definition &amp; Formula</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong><code>e</code> (Eccentricity)</strong></td>
+                        <td><code>71–79</code></td>
+                        <td><code>line[70:79]</code></td>
+                        <td><code>F9.7</code></td>
+                        <td>Dimensionless (<span class="math-roman">0 &le; <em>e</em> &lt; 1</span>)</td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>n</code> (Mean daily motion)</strong></td>
+                        <td><code>81–91</code></td>
+                        <td><code>line[80:91]</code></td>
+                        <td><code>F11.8</code></td>
+                        <td><span class="math-roman">&deg;/day</span>; <span class="math-roman"><em>n</em> = <em>k</em><sub>deg</sub> <em>a</em><sup>&minus;3/2</sup></span></td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>a</code> (Semi-major axis)</strong></td>
+                        <td><code>93–103</code></td>
+                        <td><code>line[92:103]</code></td>
+                        <td><code>F11.7</code></td>
+                        <td><strong>Classical mean distance</strong> (<span class="math-roman">AU</span>): <span class="math-roman">(<em>q</em> + <em>Q</em>)/2 = &lang;<em>r</em>&rang;<sub><em>E</em></sub></span></td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>&lang;r&rang;<sub>t</sub></code> (Time-averaged)</strong></td>
+                        <td><em>Derived (not stored)</em></td>
+                        <td><code>a * (1.0 + 0.5 * e * e)</code></td>
+                        <td><em>Computed</em></td>
+                        <td>Mean-anomaly / time average (<span class="math-roman">AU</span>): <span class="math-roman"><em>a</em>(1 + <em>e</em><sup>2</sup>/2)</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>&lang;r&rang;<sub>&nu;</sub></code> (Angle-averaged)</strong></td>
+                        <td><em>Derived (not stored)</em></td>
+                        <td><code>a * math.sqrt(1.0 - e * e)</code></td>
+                        <td><em>Computed</em></td>
+                        <td>True-anomaly average (<span class="math-roman">AU</span>): <span class="math-roman"><em>b</em> = &radic;(<em>qQ</em>)</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Example Record Evaluation (<code>00001</code> — (1) Ceres &amp; High-Eccentricity Contrast <code>03200</code> — (3200) Phaethon)</h3>
+            <pre>1) Low-Eccentricity Main-Belt Asteroid: (1) Ceres (e = 0.0785354, a = 2.7653485 AU)
+   q = 2.5481707 AU | Q = 2.9825263 AU
+   Classical Mean Distance  a = (q + Q)/2 = &lt;r&gt;_E = 2.7653485 AU
+   Time-Averaged Distance   &lt;r&gt;_t = a*(1 + e^2/2) = 2.7738766 AU  (+0.31% above a)
+   True-Anomaly Average     &lt;r&gt;_nu = b            = 2.7568065 AU  (-0.31% below a)
+
+2) High-Eccentricity Apollo Asteroid: (3200) Phaethon (e = 0.8898316, a = 1.2713659 AU)
+   q = 0.1400643 AU | Q = 2.4026675 AU
+   Classical Mean Distance  a = (q + Q)/2 = &lt;r&gt;_E = 1.2713659 AU
+   Time-Averaged Distance   &lt;r&gt;_t = a*(1 + e^2/2) = 1.7747010 AU  (+39.59% above a!)
+   True-Anomaly Average     &lt;r&gt;_nu = b            = 0.5801157 AU  (-54.37% below a!)</pre>
+        </section>
+
+        <footer>
+            Self-contained scientific reference document (zero external dependencies) &bull; Conventions aligned with IAU Minor Planet Center (MPC) <code>MPCORB.DAT</code> specifications.
+        </footer>
+    </div>
+
+    <script>
+        (function () {
+            const inputA = document.getElementById("inputA");
+            const inputE = document.getElementById("inputE");
+            const calcResult = document.getElementById("calcResult");
+
+            function updateCalculation() {
+                const a = parseFloat(inputA.value);
+                const e = parseFloat(inputE.value);
+
+                if (!isFinite(a) || a <= 0) {
+                    calcResult.innerHTML = "Please enter a valid positive semi-major axis <em>a</em> &gt; 0.";
+                    return;
+                }
+
+                if (!isFinite(e) || e < 0 || e >= 1) {
+                    calcResult.innerHTML = "Eccentricity <em>e</em> must satisfy 0 &le; <em>e</em> &lt; 1 for an elliptic MPCORB record.";
+                    return;
+                }
+
+                const rTimeAvg = a * (1 + 0.5 * e * e);
+                const rNuAvg = a * Math.sqrt((1 - e) * (1 + e));
+                const pctDiff = ((rTimeAvg - a) / a) * 100;
+
+                calcResult.innerHTML =
+                    `Classical mean distance <em>a</em> = &lang;<em>r</em>&rang;<sub><em>E</em></sub>: <strong>${a.toFixed(7)}</strong> AU<br>` +
+                    `Time-averaged &lang;<em>r</em>&rang;<sub><em>t</em></sub>: <strong>${rTimeAvg.toFixed(7)}</strong> AU (+${pctDiff.toFixed(3)}%)<br>` +
+                    `True-anomaly avg &lang;<em>r</em>&rang;<sub><em>&nu;</em></sub> (= <em>b</em>): <strong>${rNuAvg.toFixed(7)}</strong> AU`;
+            }
+
+            inputA.addEventListener("input", updateCalculation);
+            inputE.addEventListener("input", updateCalculation);
+            updateCalculation();
+        })();
+    </script>
+</body>
+</html>

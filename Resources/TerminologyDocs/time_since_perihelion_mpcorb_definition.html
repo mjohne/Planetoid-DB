@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time Since Perihelion in the Context of MPCORB</title>
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #334155;
+            --accent-color: #1e3a8a;
+            --accent-light: #eff6ff;
+            --border-color: #cbd5e1;
+            --code-bg: #f1f5f9;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.7;
+            color: var(--text-primary);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 3rem 3.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            border: 1px solid var(--border-color);
+        }
+
+        header {
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .badge {
+            display: inline-block;
+            background-color: var(--accent-light);
+            color: var(--accent-color);
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            padding: 0.3rem 0.75rem;
+            border-radius: 4px;
+            border: 1px solid #bfdbfe;
+            margin-bottom: 0.75rem;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin: 0.25rem 0 0.5rem 0;
+            color: var(--text-primary);
+            line-height: 1.25;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            margin: 0;
+        }
+
+        h2 {
+            font-size: 1.35rem;
+            color: var(--accent-color);
+            margin-top: 2.25rem;
+            margin-bottom: 0.85rem;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 0.35rem;
+        }
+
+        h3 {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        p {
+            margin-bottom: 1.15rem;
+            color: var(--text-secondary);
+            text-align: justify;
+        }
+
+        ul, ol {
+            margin-bottom: 1.25rem;
+            padding-left: 1.5rem;
+            color: var(--text-secondary);
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        .equation-box {
+            background-color: var(--code-bg);
+            border-left: 4px solid var(--accent-color);
+            padding: 1.15rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 6px 6px 0;
+            overflow-x: auto;
+            font-family: "Cambria Math", "STIX Two Math", "Times New Roman", Times, serif;
+            font-size: 1.18rem;
+            color: var(--text-primary);
+            text-align: center;
+        }
+
+        .math-inline {
+            font-family: "Cambria Math", "STIX Two Math", "Times New Roman", Times, serif;
+            font-style: italic;
+            font-size: 1.05em;
+            color: var(--text-primary);
+        }
+
+        .math-roman {
+            font-family: "Cambria Math", "STIX Two Math", "Times New Roman", Times, serif;
+            font-style: normal;
+            font-size: 1.02em;
+            color: var(--text-primary);
+        }
+
+        .frac {
+            display: inline-flex;
+            flex-direction: column;
+            vertical-align: middle;
+            text-align: center;
+            margin: 0 0.25rem;
+        }
+
+        .frac > span:first-child {
+            border-bottom: 1px solid var(--text-primary);
+            padding: 0 0.3rem 0.15rem 0.3rem;
+        }
+
+        .frac > span:last-child {
+            padding: 0.15rem 0.3rem 0 0.3rem;
+        }
+
+        .spec-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.92rem;
+        }
+
+        .spec-table th, .spec-table td {
+            border: 1px solid var(--border-color);
+            padding: 0.75rem 1rem;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        .spec-table th {
+            background-color: var(--accent-color);
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .spec-table tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        code {
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+            background-color: var(--code-bg);
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.88em;
+            color: #0f172a;
+        }
+
+        pre {
+            background-color: #1e293b;
+            color: #f8fafc;
+            padding: 1rem 1.25rem;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+        }
+
+        .note-callout {
+            background-color: #fffbeb;
+            border-left: 4px solid #d97706;
+            padding: 1rem 1.25rem;
+            margin: 1.5rem 0;
+            border-radius: 0 6px 6px 0;
+            color: #78350f;
+            font-size: 0.95rem;
+        }
+
+        .terminology-callout {
+            background-color: var(--accent-light);
+            border-left: 4px solid var(--accent-color);
+            padding: 1rem 1.25rem;
+            margin: 1.5rem 0;
+            border-radius: 0 6px 6px 0;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+        }
+
+        .diagram-box {
+            background-color: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+
+        .diagram-caption {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+        }
+
+        .calculator-box {
+            background-color: var(--accent-light);
+            border: 1px solid #bfdbfe;
+            border-radius: 8px;
+            padding: 1.25rem 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .calculator-box h4 {
+            margin: 0 0 0.75rem 0;
+            color: var(--accent-color);
+            font-size: 1rem;
+        }
+
+        .calc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+            gap: 1rem;
+            align-items: end;
+        }
+
+        .calc-field label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.3rem;
+        }
+
+        .calc-field input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 0.5rem 0.65rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 0.95rem;
+            font-family: inherit;
+        }
+
+        .calc-output {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 0.55rem 0.75rem;
+            font-size: 0.92rem;
+            color: var(--text-primary);
+        }
+
+        footer {
+            margin-top: 3rem;
+            padding-top: 1.25rem;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.85rem;
+            color: #64748b;
+            text-align: center;
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 1.75rem 1.25rem;
+            }
+            h1 {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="badge">Celestial Mechanics &amp; Astrometry Specification</div>
+            <h1>Time Since Perihelion (&Delta;<span class="math-inline">t</span><sub>q,elapsed</sub>) in the Context of the MPCORB Database</h1>
+            <p class="subtitle">Scientific Definition, Keplerian Post-Perihelion Elapsed Interval, Outbound vs. Inbound Phase Progression, and Derivation from MPCORB</p>
+        </header>
+
+        <section>
+            <h2>1. Fundamental Astrodynamical &amp; Chronological Definition</h2>
+            <div class="terminology-callout">
+                <strong>Definition &amp; Nomenclature:</strong> In two-body Keplerian celestial mechanics and ephemeris chronology, <strong>time since perihelion</strong> (or <strong>elapsed time since the most recent perihelion passage</strong>, denoted <span class="math-roman">&Delta;<em>t</em><sub>q,elapsed</sub></span>, <span class="math-roman">&Delta;<em>t</em><sub>p</sub><sup>+</sup></span>, or <span class="math-roman">&tau;<sub>q</sub></span>, and complementary within one orbital period <span class="math-inline">P</span> to <strong>time to perihelion</strong> <span class="math-roman">&Delta;<em>t</em><sub>q,rem</sub></span>)—is the non-negative scalar duration in Terrestrial Time (<span class="math-roman">TT</span>, expressed in days, Julian years <span class="math-roman">yr<sub>J</sub> = 365.25 d</span>, or dimensionless orbital phase fraction <span class="math-roman">&Delta;<em>t</em><sub>q,elapsed</sub> / <em>P</em> &isin; [0, 1)</span>) that has elapsed from the minor planet&rsquo;s <strong>previous perihelion passage</strong> (<span class="math-inline">T</span><sub>q,prev</sub>, where <span class="math-roman"><em>M</em> &equiv; 0&deg; (mod 360&deg;)</span>, <span class="math-roman"><em>E</em> = 0&deg;</span>, <span class="math-roman"><em>&nu;</em> = 0&deg;</span>, minimum heliocentric radial distance <span class="math-roman"><em>r</em><sub>min</sub> = <em>q</em> = <em>a</em>(1 &minus; <em>e</em>)</span>) up to a specified reference epoch <span class="math-inline">t</span><sub>ref</sub> (by default, the osculating catalog epoch <span class="math-inline">t</span><sub>0</sub>).
+            </div>
+            <p>
+                Under unperturbed two-body Keplerian motion on a bound elliptic orbit (<span class="math-roman">0 &le; <em>e</em> &lt; 1</span>) with orbital period <span class="math-roman"><em>P</em> = 360&deg; / <em>n</em></span> (days), the <strong>time since perihelion</strong> at the osculating epoch <span class="math-inline">t</span><sub>0</sub> is directly proportional to the normalized mean anomaly <span class="math-inline">M</span><sub>0,norm</sub>:
+            </p>
+            <div class="equation-box">
+                &Delta;<span class="math-inline">t</span><sub>q,elapsed</sub>(<span class="math-inline">t</span><sub>0</sub>) = <span class="math-inline">t</span><sub>0</sub> &minus; <span class="math-inline">T</span><sub>q,prev</sub> =
+                <span class="frac">
+                    <span>&Delta;<span class="math-inline">M</span><sub>q,elapsed</sub></span>
+                    <span><span class="math-inline">n</span></span>
+                </span>
+                =
+                <span class="frac">
+                    <span><span class="math-inline">M</span><sub>0</sub> mod 360&deg;</span>
+                    <span><span class="math-inline">n</span></span>
+                </span>
+                &isin; [0, <span class="math-inline">P</span>)
+            </div>
+            <p>
+                where <span class="math-inline">M</span><sub>0</sub> is the mean anomaly at osculating epoch <span class="math-inline">t</span><sub>0</sub> (degrees), <span class="math-inline">n</span> is the daily mean motion (<span class="math-roman">deg/day</span>), and <span class="math-roman">&Delta;<em>M</em><sub>q,elapsed</sub> = <em>M</em><sub>0</sub> mod 360&deg; &isin; [0&deg;, 360&deg;)</span> is the <strong>non-negative post-perihelion mean anomaly phase</strong>:
+            </p>
+            <div class="equation-box">
+                &Delta;<span class="math-inline">M</span><sub>q,elapsed</sub> = <span class="math-inline">M</span><sub>0</sub> mod 360&deg;
+                =
+                <span class="math-roman">[</span>(<span class="math-inline">M</span><sub>0</sub> % 360&deg;) + 360&deg;<span class="math-roman">]</span> % 360&deg;
+                &isin; [0&deg;, 360&deg;)
+            </div>
+            <p>
+                Key mathematical and astrodynamical properties of <span class="math-roman">&Delta;<em>t</em><sub>q,elapsed</sub></span> include:
+            </p>
+            <ul>
+                <li><strong>Hemispheric Kinematics (Outbound vs. Inbound Leg):</strong>
+                    <ul>
+                        <li>If <span class="math-roman">0&deg; &le; <em>M</em><sub>0,norm</sub> &lt; 180&deg;</span> (body is at perihelion or ascending along the <strong>outbound leg</strong> toward aphelion), less than half an orbital period has elapsed since perihelion: <span class="math-roman">0 &le; &Delta;<em>t</em><sub>q,elapsed</sub> &lt; <em>P</em>/2</span>.</li>
+                        <li>If <span class="math-roman">180&deg; &le; <em>M</em><sub>0,norm</sub> &lt; 360&deg;</span> (body has passed aphelion and is descending along the <strong>inbound leg</strong> toward the next perihelion), half an orbital period or more has elapsed since the previous perihelion: <span class="math-roman"><em>P</em>/2 &le; &Delta;<em>t</em><sub>q,elapsed</sub> &lt; <em>P</em></span>.</li>
+                        <li>At exact perihelion (<span class="math-roman"><em>M</em><sub>0,norm</sub> = 0&deg;</span>), the half-open convention <span class="math-roman">[0, <em>P</em>)</span> sets <span class="math-roman">&Delta;<em>t</em><sub>q,elapsed</sub> = 0</span>; at exact aphelion (<span class="math-roman"><em>M</em><sub>0,norm</sub> = 180&deg;</span>), exactly half an orbital period has elapsed since perihelion: <span class="math-roman">&Delta;<em>t</em><sub>q,elapsed</sub> = <em>P</em>/2</span>.</li>
+                    </ul>
+                </li>
+                <li><strong>Period Complementarity with Time to Perihelion (<span class="math-roman">&Delta;<em>t</em><sub>q,rem</sub></span>):</strong> For any bound orbit (<span class="math-roman">0 &le; <em>e</em> &lt; 1</span>) and any instant <span class="math-inline">t</span> not exactly at perihelion (<span class="math-roman"><em>M</em>(<em>t</em>) &not;&equiv; 0&deg;</span>), the elapsed time since the previous perihelion and the remaining time until the next perihelion sum identically to one orbital period:
+                    <div class="equation-box">
+                        &Delta;<span class="math-inline">t</span><sub>q,elapsed</sub>(<span class="math-inline">t</span>) + &Delta;<span class="math-inline">t</span><sub>q,rem</sub>(<span class="math-inline">t</span>) = <span class="math-inline">P</span> =
+                        <span class="frac">
+                            <span>360&deg;</span>
+                            <span><span class="math-inline">n</span></span>
+                        </span>
+                    </div>
+                </li>
+                <li><strong>Half-Period Shift Relative to Time Since Aphelion (<span class="math-roman">&Delta;<em>t</em><sub>Q,elapsed</sub></span>):</strong> Because perihelion (<span class="math-roman"><em>M</em> = 0&deg;</span>) and aphelion (<span class="math-roman"><em>M</em> = 180&deg;</span>) are separated by half an orbital period <span class="math-roman"><em>P</em>/2</span>:
+                    <div class="equation-box">
+                        &Delta;<span class="math-inline">t</span><sub>q,elapsed</sub>(<span class="math-inline">t</span>) =
+                        <span class="math-roman">(</span>&Delta;<span class="math-inline">t</span><sub>Q,elapsed</sub>(<span class="math-inline">t</span>) + <span class="math-inline">P</span>/2<span class="math-roman">)</span> mod <span class="math-inline">P</span>
+                    </div>
+                </li>
+                <li><strong>Generalization to an Arbitrary Observation Epoch (<span class="math-inline">t</span><sub>obs</sub>):</strong> For any target date <span class="math-roman"><em>t</em><sub>obs</sub> &ne; <em>t</em><sub>0</sub></span> (such as <span class="math-roman">2026-11-18</span>), propagate <span class="math-roman"><em>M</em>(<em>t</em><sub>obs</sub>) = [<em>M</em><sub>0</sub> + <em>n</em>(<em>t</em><sub>obs</sub> &minus; <em>t</em><sub>0</sub>)] mod 360&deg;</span> and evaluate:
+                    <div class="equation-box">
+                        &Delta;<span class="math-inline">t</span><sub>q,elapsed</sub>(<span class="math-inline">t</span><sub>obs</sub>) =
+                        <span class="frac">
+                            <span><span class="math-inline">M</span>(<span class="math-inline">t</span><sub>obs</sub>) mod 360&deg;</span>
+                            <span><span class="math-inline">n</span></span>
+                        </span>
+                    </div>
+                </li>
+            </ul>
+
+            <div class="diagram-box">
+                <svg width="560" height="250" viewBox="0 0 560 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Orbital phase diagram showing the elapsed arc since perihelion q (M=0 deg) counter-clockwise through aphelion Q to epoch t_0 (M_0 = 231.5 deg), representing Time Since Perihelion dt_q,elapsed">
+                    <rect x="0" y="0" width="560" height="250" fill="#f8fafc" rx="6"/>
+                    <!-- Left panel: Orbital ellipse showing elapsed arc from Perihelion q (280, 125) counter-clockwise through Aphelion Q (50, 125) to Epoch M_0 (lower right: x=213.6, y=195.7) -->
+                    <ellipse cx="165" cy="125" rx="115" ry="78" fill="#eff6ff" stroke="#94a3b8" stroke-width="1.4"/>
+                    <!-- Bold blue elapsed arc from Perihelion q (280,125) counter-clockwise through Aphelion Q (50,125) to Epoch M_0 (213.6, 195.7) -->
+                    <path d="M 280 125 A 115 78 0 0 0 50 125 A 115 78 0 0 0 213.6 195.7" fill="none" stroke="#1d4ed8" stroke-width="3.4"/>
+                    <!-- Apsidal line Q - S - q -->
+                    <line x1="42" y1="125" x2="288" y2="125" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3,3"/>
+                    <!-- Sun S -->
+                    <circle cx="249.5" cy="125" r="5.5" fill="#f59e0b" stroke="#b45309" stroke-width="1.2"/>
+                    <text x="249.5" y="143" text-anchor="middle" font-family="serif" font-size="11" fill="#92400e" font-weight="bold">S</text>
+                    <!-- Aphelion Q -->
+                    <circle cx="50" cy="125" r="4" fill="#64748b"/>
+                    <text x="44" y="129" text-anchor="end" font-family="serif" font-style="italic" font-size="11.5" fill="#475569">Q (180&deg;)</text>
+                    <!-- Perihelion q (start of elapsed interval) -->
+                    <circle cx="280" cy="125" r="5.5" fill="#1e3a8a"/>
+                    <text x="286" y="114" text-anchor="start" font-family="serif" font-size="11.5" fill="#1e3a8a" font-weight="bold">q (0&deg;)</text>
+                    <text x="286" y="139" text-anchor="start" font-family="serif" font-size="9.5" fill="#1e3a8a" font-weight="bold">T<tspan baseline-shift="sub" font-size="7.5">q,prev</tspan> (&Delta;t=0)</text>
+                    <!-- Body at Epoch t_0 -->
+                    <circle cx="213.6" cy="195.7" r="4.8" fill="#0f172a"/>
+                    <text x="210" y="213" text-anchor="end" font-family="sans-serif" font-size="10" fill="#0f172a" font-weight="bold">Epoch t<tspan baseline-shift="sub" font-size="7.5">0</tspan> (M<tspan baseline-shift="sub" font-size="7.5">0</tspan> = 231.5&deg;)</text>
+                    <!-- Arc annotation -->
+                    <text x="165" y="34" text-anchor="middle" font-family="serif" font-size="10.5" fill="#1d4ed8" font-weight="bold">&Delta;t<tspan baseline-shift="sub" font-size="7.5">q,elapsed</tspan> = (M<tspan baseline-shift="sub" font-size="7.5">0</tspan> mod 360&deg;) / n</text>
+
+                    <!-- Right panel: Analytical equations -->
+                    <text x="445" y="50" text-anchor="middle" font-family="serif" font-size="13.5" fill="#1e3a8a" font-weight="bold">Time Since Perihelion (&Delta;t<tspan baseline-shift="sub" font-size="9">q,elapsed</tspan>):</text>
+                    <text x="445" y="80" text-anchor="middle" font-family="serif" font-size="13" fill="#1d4ed8" font-weight="bold">&Delta;t<tspan baseline-shift="sub" font-size="9">q,elapsed</tspan> = t<tspan baseline-shift="sub" font-size="9">0</tspan> &minus; T<tspan baseline-shift="sub" font-size="9">q,prev</tspan> = &Delta;M<tspan baseline-shift="sub" font-size="8">q,el</tspan> / n</text>
+                    <text x="445" y="106" text-anchor="middle" font-family="serif" font-size="11.5" fill="#334155">&Delta;M<tspan baseline-shift="sub" font-size="8">q,el</tspan> = M<tspan baseline-shift="sub" font-size="8">0</tspan> mod 360&deg;</text>
+                    <text x="445" y="136" text-anchor="middle" font-family="sans-serif" font-size="10.5" fill="#334155">Duration bounds: 0 &le; &Delta;t<tspan baseline-shift="sub" font-size="8">q,elapsed</tspan> &lt; P</text>
+                    <text x="445" y="154" text-anchor="middle" font-family="sans-serif" font-size="10.5" fill="#334155">Phase bounds: &Delta;M<tspan baseline-shift="sub" font-size="8">q,el</tspan> &isin; [0&deg;, 360&deg;)</text>
+                    <text x="445" y="184" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#475569">Valid for bound orbits: 0 &le; e &lt; 1</text>
+                    <text x="445" y="200" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#475569">Time scale: Terrestrial Time (TT)</text>
+                </svg>
+                <div class="diagram-caption">
+                    Figure 1: Non-negative post-perihelion elapsed interval <span class="math-roman">&Delta;<em>t</em><sub>q,elapsed</sub> = <em>t</em><sub>0</sub> &minus; <em>T</em><sub>q,prev</sub> &isin; [0, <em>P</em>)</span> measured counter-clockwise from perihelion <span class="math-inline">q</span> (<span class="math-roman"><em>M</em> = 0&deg;</span>) to the body&rsquo;s position <span class="math-inline">M</span><sub>0</sub> at epoch <span class="math-inline">t</span><sub>0</sub> (blue arc).
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>2. Contrast Among Apsidal Interval &amp; Epoch Metrics</h2>
+            <p>
+                In astrodynamical catalog applications built on <code>MPCORB.DAT</code>, <strong>time since perihelion</strong> (<span class="math-roman">&Delta;<em>t</em><sub>q,elapsed</sub></span>) is a <em>scalar elapsed duration</em> (in days or years), whereas <strong>previous perihelion date</strong> (<span class="math-inline">T</span><sub>q,prev</sub>) is the corresponding <em>absolute epoch</em> (<span class="math-roman">JD<sub>TT</sub></span>):
+            </p>
+            <table class="spec-table">
+                <thead>
+                    <tr>
+                        <th>Apsidal Metric</th>
+                        <th>Mathematical Definition</th>
+                        <th>Domain &amp; Unit</th>
+                        <th>Primary Physical &amp; Astrometric Role</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Time Since Perihelion (<span class="math-roman">&Delta;<em>t</em><sub>q,elapsed</sub></span>)</strong></td>
+                        <td><span class="math-roman">(<em>M</em><sub>0</sub> mod 360&deg;) / <em>n</em></span></td>
+                        <td><span class="math-roman">[0, <em>P</em>)</span> (days / yr / <span class="math-roman">%<em>P</em></span>)</td>
+                        <td>Measures post-perihelion thermal wave lag, volatile sublimation decay, and outbound-leg age</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Time to Perihelion (<span class="math-roman">&Delta;<em>t</em><sub>q,rem</sub></span>)</strong></td>
+                        <td><span class="math-roman">[(&minus;<em>M</em><sub>0</sub>) mod 360&deg;] / <em>n</em></span></td>
+                        <td><span class="math-roman">[0, <em>P</em>)</span> (days / yr / <span class="math-roman">%<em>P</em></span>)</td>
+                        <td>Measures remaining wait until next perihelion (<span class="math-roman">&Delta;<em>t</em><sub>q,elapsed</sub> + &Delta;<em>t</em><sub>q,rem</sub> = <em>P</em></span> for <span class="math-roman"><em>M</em><sub>0</sub> &ne; 0&deg;</span>)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Time Since Aphelion (<span class="math-roman">&Delta;<em>t</em><sub>Q,elapsed</sub></span>)</strong></td>
+                        <td><span class="math-roman">[(<em>M</em><sub>0</sub> &minus; 180&deg;) mod 360&deg;] / <em>n</em></span></td>
+                        <td><span class="math-roman">[0, <em>P</em>)</span> (days / yr / <span class="math-roman">%<em>P</em></span>)</td>
+                        <td>Measures post-aphelion elapsed duration (<span class="math-roman">(&Delta;<em>t</em><sub>Q,el</sub> + <em>P</em>/2) mod <em>P</em> = &Delta;<em>t</em><sub>q,el</sub></span>)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Previous Perihelion Date (<span class="math-inline">T</span><sub>q,prev</sub>)</strong></td>
+                        <td><span class="math-roman"><em>t</em><sub>0</sub> &minus; &Delta;<em>t</em><sub>q,elapsed</sub></span></td>
+                        <td><span class="math-roman">(<em>t</em><sub>0</sub> &minus; <em>P</em>, <em>t</em><sub>0</sub>]</span> (<span class="math-roman">JD<sub>TT</sub></span>)</td>
+                        <td>Absolute calendar/Julian timestamp of the preceding perihelion passage</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>3. Specific Status and Derivation in the MPCORB Catalog</h2>
+            <p>
+                In the <strong>MPCORB</strong> (<em>Minor Planet Center Orbit</em>) database published by the International Astronomical Union&rsquo;s Minor Planet Center (IAU MPC):
+            </p>
+
+            <ul>
+                <li>
+                    <strong>Implicit Derived Scalar Duration (Not Tabulated):</strong> <code>MPCORB.DAT</code> parameterizes orbital phase at epoch via the mean anomaly <span class="math-inline">M</span><sub>0</sub> and does not explicitly store <span class="math-roman">&Delta;<em>t</em><sub>q,elapsed</sub></span>. Instead, <span class="math-roman">&Delta;<em>t</em><sub>q,elapsed</sub></span> is computed directly in closed form from two fixed-width columns present in every <code>MPCORB.DAT</code> record (and optionally anchored to a calendar date via the packed epoch <span class="math-inline">t</span><sub>0</sub> in columns <code>21–25</code>):
+                    <ul>
+                        <li><strong>Mean anomaly at epoch <span class="math-inline">M</span><sub>0</sub></strong> (columns <code>27–35</code>, format <code>F9.5</code>, degrees);</li>
+                        <li><strong>Daily mean motion <span class="math-inline">n</span></strong> (columns <code>81–91</code>, format <code>F11.8</code>, <span class="math-roman">deg/day</span>)—or equivalently from <strong>semi-major axis <span class="math-inline">a</span></strong> (columns <code>93–103</code>, format <code>F11.7</code>, <span class="math-roman">AU</span>) via <span class="math-roman"><em>n</em> = 0.9856076686 <em>a</em><sup>&minus;3/2</sup></span>.</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Domain Guard on Eccentricity (<span class="math-inline">e</span>, Columns <code>71–79</code>):</strong> Verify <span class="math-roman">0 &le; <em>e</em> &lt; 1</span> and <span class="math-roman"><em>n</em> &gt; 0</span> before evaluating <span class="math-roman">&Delta;<em>t</em><sub>q,elapsed</sub> = (<em>M</em><sub>0</sub> mod 360&deg;) / <em>n</em></span>. For parabolic (<span class="math-roman"><em>e</em> = 1</span>) or hyperbolic (<span class="math-roman"><em>e</em> &gt; 1</span>) trajectories, orbital period <span class="math-roman"><em>P</em> &rarr; &infin;</span> and elapsed time since perihelion is instead governed by Barker&rsquo;s equation or the hyperbolic Kepler equation relative to the single perihelion epoch <span class="math-inline">T</span><sub>q</sub>.
+                </li>
+                <li>
+                    <strong>Physical &amp; Observational Relevance in Minor-Planet Studies:</strong>
+                    <ul>
+                        <li><em>Thermal Inertia &amp; Post-Perihelion Activity Asymmetry:</em> Subsurface heat conduction delays peak volatile sublimation and dust production in active asteroids and short-period comets past perihelion (<span class="math-roman">0 &lt; &Delta;<em>t</em><sub>q,elapsed</sub> &lt; <em>P</em>/2</span>); <span class="math-roman">&Delta;<em>t</em><sub>q,elapsed</sub></span> directly indexes lightcurve and coma-brightness asymmetry models.</li>
+                        <li><em>Normalized Perihelion-Referenced Phase:</em> Expressing <span class="math-roman">&Delta;<em>t</em><sub>q,elapsed</sub> / <em>P</em> &isin; [0, 1)</span> provides the standard scale-free orbital phase (<span class="math-roman">0.0</span> at perihelion, <span class="math-roman">0.5</span> at aphelion) used in secular activity profiles and rotational-acceleration (YORP) thermal modeling.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <div class="note-callout">
+                <strong>Euclidean Modulo Implementation Note:</strong> In C, C#, Java, and JavaScript, the built-in <code>%</code> operator returns a negative remainder if <span class="math-roman"><em>M</em><sub>0</sub> &lt; 0</span> (for example, <code>(-15.0) % 360.0</code> yields <code>-15.0</code> instead of <code>+345.0</code>). Always normalize <span class="math-inline">M</span><sub>0</sub> via <code>dmPeriElapsed = ((m0 % 360.0) + 360.0) % 360.0</code> and compute <code>dtPeriElapsed = dmPeriElapsed / n</code> so that <span class="math-roman">&Delta;<em>t</em><sub>q,elapsed</sub> &isin; [0, <em>P</em>)</span> holds unconditionally for all input angles <span class="math-roman"><em>M</em><sub>0</sub> &isin; &#8477;</span>.
+            </div>
+
+            <div class="calculator-box">
+                <h4>Interactive MPCORB Time Since Perihelion (&Delta;<span class="math-inline">t</span><sub>q,elapsed</sub>) Calculator</h4>
+                <div class="calc-grid">
+                    <div class="calc-field">
+                        <label for="inputEpoch">Packed Epoch (Cols 21&ndash;25)</label>
+                        <input type="text" id="inputEpoch" maxlength="5" value="K25BL">
+                    </div>
+                    <div class="calc-field">
+                        <label for="inputM0">Mean Anomaly <em>M</em><sub>0</sub> (deg, Cols 27&ndash;35)</label>
+                        <input type="number" id="inputM0" step="0.00001" value="231.53975">
+                    </div>
+                    <div class="calc-field">
+                        <label for="inputN">Mean Motion <em>n</em> (deg/d, Cols 81&ndash;91)</label>
+                        <input type="number" id="inputN" step="0.00000001" min="0.00000001" value="0.21401711">
+                    </div>
+                    <div class="calc-output" id="calcResult">
+                        Time Since Perihelion &Delta;<em>t</em><sub>q,elapsed</sub>: <strong>1082.8948 days (2.9648 yr, 0.6438 P)</strong><br>
+                        Post-Perihelion Phase &Delta;<em>M</em><sub>q,elapsed</sub>: <strong>+231.53975&deg; (Inbound leg)</strong><br>
+                        Previous Perihelion <em>T</em><sub>q,prev</sub>: <strong>2022-12-05.11 TT (JD 2459917.6052)</strong>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Fixed-Width Source Columns &amp; Computation from <code>MPCORB.DAT</code></h2>
+            <p>
+                The table below summarizes the fixed-width columns (1-based indexing) in a standard 202-character <code>MPCORB.DAT</code> record required to compute <span class="math-roman">&Delta;<em>t</em><sub>q,elapsed</sub></span>:
+            </p>
+
+            <table class="spec-table">
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Columns (1-based)</th>
+                        <th>0-Based Slice</th>
+                        <th>Fortran Format</th>
+                        <th>Unit &amp; Role</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong><code>Epoch</code> (<span class="math-inline">t</span><sub>0</sub>)</strong></td>
+                        <td><code>21–25</code></td>
+                        <td><code>line[20:25]</code></td>
+                        <td><code>A5</code></td>
+                        <td>Packed MPC date (<span class="math-roman">0<sup>h</sup> TT</span>); reference epoch <span class="math-inline">t</span><sub>0</sub></td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>M</code> (<span class="math-inline">M</span><sub>0</sub>, Mean anomaly)</strong></td>
+                        <td><code>27–35</code></td>
+                        <td><code>line[26:35]</code></td>
+                        <td><code>F9.5</code></td>
+                        <td>Degrees (<span class="math-roman">&deg;</span>); orbital phase at <span class="math-inline">t</span><sub>0</sub> (<span class="math-roman"><em>M</em> = 0&deg;</span> at perihelion)</td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>e</code> (Eccentricity)</strong></td>
+                        <td><code>71–79</code></td>
+                        <td><code>line[70:79]</code></td>
+                        <td><code>F9.7</code></td>
+                        <td>Dimensionless; domain check <span class="math-roman">0 &le; <em>e</em> &lt; 1</span> (bound ellipse)</td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>n</code> (Daily mean motion)</strong></td>
+                        <td><code>81–91</code></td>
+                        <td><code>line[80:91]</code></td>
+                        <td><code>F11.8</code></td>
+                        <td>Degrees per day (<span class="math-roman">deg/day</span>); angular rate <span class="math-roman"><em>dM</em>/<em>dt</em></span></td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>&Delta;t<sub>q,elapsed</sub></code> (Time since perihelion)</strong></td>
+                        <td><em>Derived (not stored)</em></td>
+                        <td><code>((M0 % 360 + 360) % 360) / n</code></td>
+                        <td><em>Computed</em></td>
+                        <td>Days (<span class="math-roman">TT</span>) in <span class="math-roman">[0, <em>P</em>)</span> elapsed since <span class="math-inline">T</span><sub>q,prev</sub></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Example Record Evaluation (<code>00001</code> — (1) Ceres)</h3>
+            <pre>Col:  ... 21  25 27       35 ... 71      79 81         91
+Data: ... K25BL  231.53975   ... 0.0785354  0.21401711
+          └─┬─┘  └────┬────┘     └───┬───┘  └────┬─────┘
+          Epoch      M0 (deg)        e       n (deg/day)
+
+Time Since Perihelion Evaluation for (1) Ceres at Epoch t0:
+  Decoded epoch (t0)               K25BL -> 2025-11-21 00:00:00 TT   = JD 2461000.50000 TT
+  Bound-orbit check (e < 1)        e = 0.0785354 < 1                 = Valid (bound ellipse)
+  Orbital period (P)               P = 360.0 / 0.21401711            = 1682.10850 days (4.6054 yr)
+  Post-perihelion phase (dM_q,el)  231.53975 mod 360                 = +231.53975 deg (Inbound leg)
+  Time since perihelion (dt_q,el)  +231.53975 / 0.21401711           = +1082.89485 days (2.9648 yr, 0.6438 P)
+  Previous perihelion date (T_q,pr)2461000.50000 - 1082.89485        = JD 2459917.60515 TT (2022-12-05.11 TT)
+  Complement: Time to perihelion   P - 1082.89485                    = 599.21365 days (1.6406 yr, 0.3562 P)</pre>
+        </section>
+
+        <footer>
+            Self-contained scientific reference document (zero external dependencies) &bull; Conventions aligned with IAU Minor Planet Center (MPC) <code>MPCORB.DAT</code> specifications.
+        </footer>
+    </div>
+
+    <script>
+        (function () {
+            const inputEpoch = document.getElementById("inputEpoch");
+            const inputM0 = document.getElementById("inputM0");
+            const inputN = document.getElementById("inputN");
+            const calcResult = document.getElementById("calcResult");
+
+            const CENTURY_MAP = { I: 1800, J: 1900, K: 2000, L: 2100 };
+
+            function decodeBase36Char(ch) {
+                const code = ch.charCodeAt(0);
+                if (code >= 48 && code <= 57) return code - 48;
+                if (code >= 65 && code <= 90) return code - 55;
+                return NaN;
+            }
+
+            function gregorianToJD(year, month, dayFraction) {
+                let y = year;
+                let m = month;
+                if (m <= 2) {
+                    y -= 1;
+                    m += 12;
+                }
+                const A = Math.floor(y / 100);
+                const B = 2 - A + Math.floor(A / 4);
+                return Math.floor(365.25 * (y + 4716)) + Math.floor(30.6001 * (m + 1)) + dayFraction + B - 1524.5;
+            }
+
+            function jdToGregorianString(jd) {
+                const z = Math.floor(jd + 0.5);
+                const f = (jd + 0.5) - z;
+                let alpha = Math.floor((z - 1867216.25) / 36524.25);
+                let a = z + 1 + alpha - Math.floor(alpha / 4);
+                const b = a + 1524;
+                const c = Math.floor((b - 122.1) / 365.25);
+                const d = Math.floor(365.25 * c);
+                const e = Math.floor((b - d) / 30.6001);
+
+                const day = b - d - Math.floor(30.6001 * e) + f;
+                const month = e < 14 ? e - 1 : e - 13;
+                const year = month > 2 ? c - 4716 : c - 4715;
+
+                const pad2 = (v) => (v < 10 ? "0" + v : String(v));
+                const dayInt = Math.floor(day);
+                const dayFracStr = (day - dayInt).toFixed(2).substring(1);
+                return `${year}-${pad2(month)}-${pad2(dayInt)}${dayFracStr} TT`;
+            }
+
+            function parseMpcPackedEpoch(str) {
+                const s = str.trim().toUpperCase();
+                if (s.length !== 5) return NaN;
+                const century = CENTURY_MAP[s[0]];
+                const yy = parseInt(s.substring(1, 3), 10);
+                const month = decodeBase36Char(s[3]);
+                const day = decodeBase36Char(s[4]);
+                if (!isFinite(century) || !isFinite(yy) || !(month >= 1 && month <= 12) || !(day >= 1 && day <= 31)) {
+                    return NaN;
+                }
+                return gregorianToJD(century + yy, month, day);
+            }
+
+            function updateCalculation() {
+                const t0 = parseMpcPackedEpoch(inputEpoch.value);
+                const m0 = parseFloat(inputM0.value);
+                const n = parseFloat(inputN.value);
+
+                if (!isFinite(t0)) {
+                    calcResult.innerHTML = "Invalid 5-character MPC packed epoch (e.g., <code>K25BL</code> for 2025-11-21).";
+                    return;
+                }
+                if (!isFinite(m0)) {
+                    calcResult.innerHTML = "Please enter a valid mean anomaly <em>M</em><sub>0</sub> in degrees.";
+                    return;
+                }
+                if (!isFinite(n) || n <= 0) {
+                    calcResult.innerHTML = "Daily mean motion <em>n</em> must be strictly positive (&gt; 0 deg/day).";
+                    return;
+                }
+
+                const period = 360.0 / n;
+                const dmPeriElapsed = ((m0 % 360.0) + 360.0) % 360.0; // in [0, 360)
+                const dtPeriElapsed = dmPeriElapsed / n;
+                const tPeriPrev = t0 - dtPeriElapsed;
+
+                const yearsElapsed = (dtPeriElapsed / 365.25).toFixed(4);
+                const periodFrac = (dtPeriElapsed / period).toFixed(4);
+                const legLabel = dmPeriElapsed === 0 ? "Exact perihelion" : (dmPeriElapsed < 180.0 ? "Outbound leg" : "Inbound leg");
+
+                calcResult.innerHTML =
+                    `Time Since Perihelion &Delta;<em>t</em><sub>q,elapsed</sub>: <strong>${dtPeriElapsed.toFixed(4)} days (${yearsElapsed} yr, ${periodFrac} P)</strong><br>` +
+                    `Post-Perihelion Phase &Delta;<em>M</em><sub>q,elapsed</sub>: <strong>+${dmPeriElapsed.toFixed(5)}&deg; (${legLabel})</strong><br>` +
+                    `Previous Perihelion <em>T</em><sub>q,prev</sub>: <strong>${jdToGregorianString(tPeriPrev)} (JD ${tPeriPrev.toFixed(4)})</strong>`;
+            }
+
+            inputEpoch.addEventListener("input", updateCalculation);
+            inputM0.addEventListener("input", updateCalculation);
+            inputN.addEventListener("input", updateCalculation);
+            updateCalculation();
+        })();
+    </script>
+</body>
+</html>
