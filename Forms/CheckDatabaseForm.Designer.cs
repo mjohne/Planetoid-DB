@@ -117,6 +117,8 @@ partial class CheckDatabaseForm
 		menuitemCopyToClipboardDatabaseOnlineModifiedDate = new ToolStripMenuItem();
 		menuitemCopyToClipboardDatabaseOnlineContentLength = new ToolStripMenuItem();
 		kryptonManager = new KryptonManager(components);
+		contextMenuShowControlsInStatusBar = new ContextMenuStrip(components);
+		toolStripMenuItemShowInformationLabel = new ToolStripMenuItem();
 		contextMenuCopyToClipboard.SuspendLayout();
 		tableLayoutPanel.SuspendLayout();
 		contextMenuSaveToFile.SuspendLayout();
@@ -127,6 +129,7 @@ partial class CheckDatabaseForm
 		kryptonStatusStrip.SuspendLayout();
 		toolStripIcons.SuspendLayout();
 		contextMenuFullCopyToClipboard.SuspendLayout();
+		contextMenuShowControlsInStatusBar.SuspendLayout();
 		SuspendLayout();
 		// 
 		// labelUpdateNeeded
@@ -1044,6 +1047,7 @@ partial class CheckDatabaseForm
 		kryptonStatusStrip.AccessibleRole = AccessibleRole.StatusBar;
 		kryptonStatusStrip.AllowClickThrough = true;
 		kryptonStatusStrip.AllowItemReorder = true;
+		kryptonStatusStrip.ContextMenuStrip = contextMenuShowControlsInStatusBar;
 		kryptonStatusStrip.Dock = DockStyle.None;
 		kryptonStatusStrip.Font = new Font("Segoe UI", 9F);
 		kryptonStatusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
@@ -1133,7 +1137,7 @@ partial class CheckDatabaseForm
 		menuitemCopyToClipboardDatabaseLocalModifiedDate.Name = "menuitemCopyToClipboardDatabaseLocalModifiedDate";
 		menuitemCopyToClipboardDatabaseLocalModifiedDate.Size = new Size(239, 22);
 		menuitemCopyToClipboardDatabaseLocalModifiedDate.Text = "Database local modified date";
-		menuitemCopyToClipboardDatabaseLocalModifiedDate.Click += MenuitemCopyToClipboardDatabaseLocalModifiedDate_Click;
+		menuitemCopyToClipboardDatabaseLocalModifiedDate.Click += MenuItemCopyToClipboardDatabaseLocalModifiedDate_Click;
 		menuitemCopyToClipboardDatabaseLocalModifiedDate.MouseEnter += Control_Enter;
 		menuitemCopyToClipboardDatabaseLocalModifiedDate.MouseLeave += Control_Leave;
 		// 
@@ -1147,7 +1151,7 @@ partial class CheckDatabaseForm
 		menuitemCopyToClipboardDatabaseLocalContentLength.Name = "menuitemCopyToClipboardDatabaseLocalContentLength";
 		menuitemCopyToClipboardDatabaseLocalContentLength.Size = new Size(239, 22);
 		menuitemCopyToClipboardDatabaseLocalContentLength.Text = "Database local content length";
-		menuitemCopyToClipboardDatabaseLocalContentLength.Click += MenuitemCopyToClipboardDatabaseLocalContentLength_Click;
+		menuitemCopyToClipboardDatabaseLocalContentLength.Click += MenuItemCopyToClipboardDatabaseLocalContentLength_Click;
 		menuitemCopyToClipboardDatabaseLocalContentLength.MouseEnter += Control_Enter;
 		menuitemCopyToClipboardDatabaseLocalContentLength.MouseLeave += Control_Leave;
 		// 
@@ -1161,7 +1165,7 @@ partial class CheckDatabaseForm
 		menuitemCopyToClipboardDatabaseOnlineModifiedDate.Name = "menuitemCopyToClipboardDatabaseOnlineModifiedDate";
 		menuitemCopyToClipboardDatabaseOnlineModifiedDate.Size = new Size(239, 22);
 		menuitemCopyToClipboardDatabaseOnlineModifiedDate.Text = "Database online modified date";
-		menuitemCopyToClipboardDatabaseOnlineModifiedDate.Click += MenuitemCopyToClipboardDatabaseOnlineModifiedDate_Click;
+		menuitemCopyToClipboardDatabaseOnlineModifiedDate.Click += MenuItemCopyToClipboardDatabaseOnlineModifiedDate_Click;
 		menuitemCopyToClipboardDatabaseOnlineModifiedDate.MouseEnter += Control_Enter;
 		menuitemCopyToClipboardDatabaseOnlineModifiedDate.MouseLeave += Control_Leave;
 		// 
@@ -1175,7 +1179,7 @@ partial class CheckDatabaseForm
 		menuitemCopyToClipboardDatabaseOnlineContentLength.Name = "menuitemCopyToClipboardDatabaseOnlineContentLength";
 		menuitemCopyToClipboardDatabaseOnlineContentLength.Size = new Size(239, 22);
 		menuitemCopyToClipboardDatabaseOnlineContentLength.Text = "Database online content length";
-		menuitemCopyToClipboardDatabaseOnlineContentLength.Click += MenuitemCopyToClipboardDatabaseOnlineContentLength_Click;
+		menuitemCopyToClipboardDatabaseOnlineContentLength.Click += MenuItemCopyToClipboardDatabaseOnlineContentLength_Click;
 		menuitemCopyToClipboardDatabaseOnlineContentLength.MouseEnter += Control_Enter;
 		menuitemCopyToClipboardDatabaseOnlineContentLength.MouseLeave += Control_Leave;
 		// 
@@ -1185,9 +1189,41 @@ partial class CheckDatabaseForm
 		kryptonManager.ToolkitStrings.MessageBoxStrings.LessDetails = "L&ess Details...";
 		kryptonManager.ToolkitStrings.MessageBoxStrings.MoreDetails = "&More Details...";
 		// 
+		// contextMenuShowControlsInStatusBar
+		// 
+		contextMenuShowControlsInStatusBar.AccessibleDescription = "Shows the context menu for the visibility of controls in the status bar";
+		contextMenuShowControlsInStatusBar.AccessibleName = "Context menu for the visibility of controls in the status bar";
+		contextMenuShowControlsInStatusBar.AccessibleRole = AccessibleRole.MenuPopup;
+		contextMenuShowControlsInStatusBar.AllowClickThrough = true;
+		contextMenuShowControlsInStatusBar.Font = new Font("Segoe UI", 9F);
+		contextMenuShowControlsInStatusBar.Items.AddRange(new ToolStripItem[] { toolStripMenuItemShowInformationLabel });
+		contextMenuShowControlsInStatusBar.Name = "contextMenuStrip";
+		contextMenuShowControlsInStatusBar.Size = new Size(198, 26);
+		contextMenuShowControlsInStatusBar.TabStop = true;
+		contextMenuShowControlsInStatusBar.Text = "Show controls in status bar";
+		contextMenuShowControlsInStatusBar.MouseEnter += Control_Enter;
+		contextMenuShowControlsInStatusBar.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemShowInformationLabel
+		// 
+		toolStripMenuItemShowInformationLabel.AccessibleDescription = "Determines whether the information label is visible or hidden";
+		toolStripMenuItemShowInformationLabel.AccessibleName = "Information label";
+		toolStripMenuItemShowInformationLabel.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemShowInformationLabel.AutoToolTip = true;
+		toolStripMenuItemShowInformationLabel.Checked = true;
+		toolStripMenuItemShowInformationLabel.CheckOnClick = true;
+		toolStripMenuItemShowInformationLabel.CheckState = CheckState.Checked;
+		toolStripMenuItemShowInformationLabel.Name = "toolStripMenuItemShowInformationLabel";
+		toolStripMenuItemShowInformationLabel.ShortcutKeyDisplayString = "";
+		toolStripMenuItemShowInformationLabel.Size = new Size(197, 22);
+		toolStripMenuItemShowInformationLabel.Text = "Show &information label";
+		toolStripMenuItemShowInformationLabel.Click += ToolStripMenuItemShowInformationLabel_Click;
+		toolStripMenuItemShowInformationLabel.MouseEnter += Control_Enter;
+		toolStripMenuItemShowInformationLabel.MouseLeave += Control_Leave;
+		// 
 		// CheckDatabaseForm
 		// 
-		AccessibleDescription = "Shows the informations about the database local and online";
+		AccessibleDescription = "Shows the information about the database local and online";
 		AccessibleName = "Check database";
 		AccessibleRole = AccessibleRole.Dialog;
 		AutoScaleDimensions = new SizeF(7F, 15F);
@@ -1222,6 +1258,7 @@ partial class CheckDatabaseForm
 		toolStripIcons.ResumeLayout(false);
 		toolStripIcons.PerformLayout();
 		contextMenuFullCopyToClipboard.ResumeLayout(false);
+		contextMenuShowControlsInStatusBar.ResumeLayout(false);
 		ResumeLayout(false);
 
 	}
@@ -1292,4 +1329,6 @@ partial class CheckDatabaseForm
 	private ToolStripMenuItem menuitemCopyToClipboardDatabaseLocalContentLength;
 	private ToolStripMenuItem menuitemCopyToClipboardDatabaseOnlineModifiedDate;
 	private ToolStripMenuItem menuitemCopyToClipboardDatabaseOnlineContentLength;
+	private ContextMenuStrip contextMenuShowControlsInStatusBar;
+	private ToolStripMenuItem toolStripMenuItemShowInformationLabel;
 }

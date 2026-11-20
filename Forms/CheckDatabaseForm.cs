@@ -293,7 +293,7 @@ internal partial class CheckDatabaseForm : BaseKryptonForm
 	/// <remarks>If the local modified date is not available, a warning message is displayed and nothing is copied to the clipboard.</remarks>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
-	private void MenuitemCopyToClipboardDatabaseLocalModifiedDate_Click(object sender, EventArgs e)
+	private void MenuItemCopyToClipboardDatabaseLocalModifiedDate_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying local modified date to clipboard: {labelModifiedDateValueLocal.Text}");
 		// Ensure that an event source was supplied
@@ -307,7 +307,7 @@ internal partial class CheckDatabaseForm : BaseKryptonForm
 	/// <remarks>If the local content length value is not available, a warning message is displayed and nothing is copied to the clipboard.</remarks>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
-	private void MenuitemCopyToClipboardDatabaseLocalContentLength_Click(object sender, EventArgs e)
+	private void MenuItemCopyToClipboardDatabaseLocalContentLength_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying local content length to clipboard: {labelContentLengthValueLocal.Text}");
 		// Ensure that an event source was supplied
@@ -321,7 +321,7 @@ internal partial class CheckDatabaseForm : BaseKryptonForm
 	/// <remarks>If the online modified date value is not available, a warning message is displayed and nothing is copied to the clipboard.</remarks>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
-	private void MenuitemCopyToClipboardDatabaseOnlineModifiedDate_Click(object sender, EventArgs e)
+	private void MenuItemCopyToClipboardDatabaseOnlineModifiedDate_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying online modified date to clipboard: {labelModifiedDateValueOnline.Text}");
 		// Ensure that an event source was supplied
@@ -335,7 +335,7 @@ internal partial class CheckDatabaseForm : BaseKryptonForm
 	/// <remarks>If the online content length value is not available, a warning message is displayed and nothing is copied to the clipboard.</remarks>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
-	private void MenuitemCopyToClipboardDatabaseOnlineContentLength_Click(object sender, EventArgs e)
+	private void MenuItemCopyToClipboardDatabaseOnlineContentLength_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying online content length to clipboard: {labelContentLengthValueOnline.Text}");
 		// Ensure that an event source was supplied
@@ -343,6 +343,22 @@ internal partial class CheckDatabaseForm : BaseKryptonForm
 		// Ensure that the event data was supplied
 		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboardSafe(value: labelContentLengthValueOnline.Text, propertyName: "online content length");
+	}
+
+	/// <summary>Shows or hides the information label according to the menu item's checked state.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data.</param>
+	private void ToolStripMenuItemShowInformationLabel_Click(object sender, EventArgs e)
+	{
+		// Log the action of clicking of ToolStripMenuItemShowInformationLabel
+		logger.Info(message: $"ToolStripMenuItemShowInformationLabel clicked.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		labelInformation.Visible = toolStripMenuItemShowInformationLabel.Checked;
+		// Log the new state of the visibility of the information label
+		logger.Info(message: $"Set the visibility of the information label to {labelInformation.Visible}.");
 	}
 
 	#endregion
