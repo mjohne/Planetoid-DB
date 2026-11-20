@@ -40,6 +40,7 @@ partial class AEIDiagram3DForm
 
 	private void InitializeComponent()
 	{
+		components = new System.ComponentModel.Container();
 		System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AEIDiagram3DForm));
 		_container = new ToolStripContainer();
 		_statusStrip = new KryptonStatusStrip();
@@ -57,6 +58,8 @@ partial class AEIDiagram3DForm
 		_buttonLog = new ToolStripButton();
 		_toolStripProgress = new KryptonToolStrip();
 		_progressBar = new KryptonProgressBarToolStripItem();
+		contextMenuShowControlsInStatusBar = new ContextMenuStrip(components);
+		toolStripMenuItemShowInformationLabel = new ToolStripMenuItem();
 		_container.BottomToolStripPanel.SuspendLayout();
 		_container.ContentPanel.SuspendLayout();
 		_container.TopToolStripPanel.SuspendLayout();
@@ -67,6 +70,7 @@ partial class AEIDiagram3DForm
 		_toolStripScaling.SuspendLayout();
 		_toolStripMain.SuspendLayout();
 		_toolStripProgress.SuspendLayout();
+		contextMenuShowControlsInStatusBar.SuspendLayout();
 		SuspendLayout();
 		// 
 		// _container
@@ -96,6 +100,7 @@ partial class AEIDiagram3DForm
 		// 
 		_statusStrip.AllowClickThrough = true;
 		_statusStrip.AllowItemReorder = true;
+		_statusStrip.ContextMenuStrip = contextMenuShowControlsInStatusBar;
 		_statusStrip.Dock = DockStyle.None;
 		_statusStrip.Font = new Font("Segoe UI", 9F);
 		_statusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
@@ -282,6 +287,38 @@ partial class AEIDiagram3DForm
 		_progressBar.MouseEnter += Control_Enter;
 		_progressBar.MouseLeave += Control_Leave;
 		// 
+		// contextMenuShowControlsInStatusBar
+		// 
+		contextMenuShowControlsInStatusBar.AccessibleDescription = "Shows the context menu for the visibility of controls in the status bar";
+		contextMenuShowControlsInStatusBar.AccessibleName = "Context menu for the visibility of controls in the status bar";
+		contextMenuShowControlsInStatusBar.AccessibleRole = AccessibleRole.MenuPopup;
+		contextMenuShowControlsInStatusBar.AllowClickThrough = true;
+		contextMenuShowControlsInStatusBar.Font = new Font("Segoe UI", 9F);
+		contextMenuShowControlsInStatusBar.Items.AddRange(new ToolStripItem[] { toolStripMenuItemShowInformationLabel });
+		contextMenuShowControlsInStatusBar.Name = "contextMenuStrip";
+		contextMenuShowControlsInStatusBar.Size = new Size(198, 48);
+		contextMenuShowControlsInStatusBar.TabStop = true;
+		contextMenuShowControlsInStatusBar.Text = "Show controls in status bar";
+		contextMenuShowControlsInStatusBar.MouseEnter += Control_Enter;
+		contextMenuShowControlsInStatusBar.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemShowInformationLabel
+		// 
+		toolStripMenuItemShowInformationLabel.AccessibleDescription = "Determines whether the information label is visible or hidden";
+		toolStripMenuItemShowInformationLabel.AccessibleName = "Information label";
+		toolStripMenuItemShowInformationLabel.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemShowInformationLabel.AutoToolTip = true;
+		toolStripMenuItemShowInformationLabel.Checked = true;
+		toolStripMenuItemShowInformationLabel.CheckOnClick = true;
+		toolStripMenuItemShowInformationLabel.CheckState = CheckState.Checked;
+		toolStripMenuItemShowInformationLabel.Name = "toolStripMenuItemShowInformationLabel";
+		toolStripMenuItemShowInformationLabel.ShortcutKeyDisplayString = "";
+		toolStripMenuItemShowInformationLabel.Size = new Size(197, 22);
+		toolStripMenuItemShowInformationLabel.Text = "Show &information label";
+		toolStripMenuItemShowInformationLabel.Click += ToolStripMenuItemShowInformationLabel_Click;
+		toolStripMenuItemShowInformationLabel.MouseEnter += Control_Enter;
+		toolStripMenuItemShowInformationLabel.MouseLeave += Control_Leave;
+		// 
 		// AEIDiagram3DForm
 		// 
 		ClientSize = new Size(980, 680);
@@ -314,6 +351,7 @@ partial class AEIDiagram3DForm
 		_toolStripMain.PerformLayout();
 		_toolStripProgress.ResumeLayout(false);
 		_toolStripProgress.PerformLayout();
+		contextMenuShowControlsInStatusBar.ResumeLayout(false);
 		ResumeLayout(false);
 	}
 
@@ -358,4 +396,7 @@ partial class AEIDiagram3DForm
 	private Panel _panelGl;
 
 	#endregion
+
+	private ContextMenuStrip contextMenuShowControlsInStatusBar;
+	private ToolStripMenuItem toolStripMenuItemShowInformationLabel;
 }
