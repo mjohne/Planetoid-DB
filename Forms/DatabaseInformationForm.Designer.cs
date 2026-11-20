@@ -123,6 +123,8 @@ namespace Planetoid_DB;
 		menuitemCopyToClipboardLastWriteDate = new ToolStripMenuItem();
 		menuitemCopyToClipboardAttributes = new ToolStripMenuItem();
 		kryptonManager = new KryptonManager(components);
+		contextMenuShowControlsInStatusBar = new ContextMenuStrip(components);
+		toolStripMenuItemShowInformationLabel = new ToolStripMenuItem();
 		contextMenuCopyToClipboard.SuspendLayout();
 		tableLayoutPanel.SuspendLayout();
 		contextMenuSaveToFile.SuspendLayout();
@@ -133,6 +135,7 @@ namespace Planetoid_DB;
 		kryptonStatusStrip.SuspendLayout();
 		kryptonToolStripIcons.SuspendLayout();
 		contextMenuFullCopyToClipboard.SuspendLayout();
+		contextMenuShowControlsInStatusBar.SuspendLayout();
 		SuspendLayout();
 		// 
 		// labelName
@@ -507,7 +510,7 @@ namespace Planetoid_DB;
 		tableLayoutPanel.RowStyles.Add(new RowStyle());
 		tableLayoutPanel.RowStyles.Add(new RowStyle());
 		tableLayoutPanel.RowStyles.Add(new RowStyle());
-		tableLayoutPanel.Size = new Size(408, 148);
+		tableLayoutPanel.Size = new Size(408, 145);
 		tableLayoutPanel.TabIndex = 0;
 		tableLayoutPanel.TabStop = true;
 		tableLayoutPanel.Enter += Control_Enter;
@@ -1131,7 +1134,7 @@ namespace Planetoid_DB;
 		// 
 		// toolStripContainer
 		// 
-		toolStripContainer.AccessibleDescription = "Container to arrange the toolbars";
+		toolStripContainer.AccessibleDescription = "Arranged the toolbars";
 		toolStripContainer.AccessibleName = "Container to arrange the toolbars";
 		toolStripContainer.AccessibleRole = AccessibleRole.Grouping;
 		// 
@@ -1149,7 +1152,7 @@ namespace Planetoid_DB;
 		toolStripContainer.ContentPanel.AccessibleRole = AccessibleRole.Pane;
 		toolStripContainer.ContentPanel.Controls.Add(tableLayoutPanel);
 		toolStripContainer.ContentPanel.Margin = new Padding(4, 3, 4, 3);
-		toolStripContainer.ContentPanel.Size = new Size(408, 148);
+		toolStripContainer.ContentPanel.Size = new Size(408, 145);
 		toolStripContainer.Dock = DockStyle.Fill;
 		// 
 		// toolStripContainer.LeftToolStripPanel
@@ -1165,7 +1168,7 @@ namespace Planetoid_DB;
 		toolStripContainer.RightToolStripPanel.AccessibleDescription = "Just a panel";
 		toolStripContainer.RightToolStripPanel.AccessibleName = "Right panel";
 		toolStripContainer.RightToolStripPanel.AccessibleRole = AccessibleRole.Pane;
-		toolStripContainer.Size = new Size(408, 195);
+		toolStripContainer.Size = new Size(408, 192);
 		toolStripContainer.TabIndex = 3;
 		toolStripContainer.Text = "toolStripContainer";
 		// 
@@ -1183,6 +1186,7 @@ namespace Planetoid_DB;
 		kryptonStatusStrip.AccessibleRole = AccessibleRole.StatusBar;
 		kryptonStatusStrip.AllowClickThrough = true;
 		kryptonStatusStrip.AllowItemReorder = true;
+		kryptonStatusStrip.ContextMenuStrip = contextMenuShowControlsInStatusBar;
 		kryptonStatusStrip.Dock = DockStyle.None;
 		kryptonStatusStrip.Font = new Font("Segoe UI", 9F);
 		kryptonStatusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
@@ -1365,14 +1369,46 @@ namespace Planetoid_DB;
 		kryptonManager.ToolkitStrings.MessageBoxStrings.LessDetails = "L&ess Details...";
 		kryptonManager.ToolkitStrings.MessageBoxStrings.MoreDetails = "&More Details...";
 		// 
+		// contextMenuShowControlsInStatusBar
+		// 
+		contextMenuShowControlsInStatusBar.AccessibleDescription = "Shows the context menu for the visibility of controls in the status bar";
+		contextMenuShowControlsInStatusBar.AccessibleName = "Context menu for the visibility of controls in the status bar";
+		contextMenuShowControlsInStatusBar.AccessibleRole = AccessibleRole.MenuPopup;
+		contextMenuShowControlsInStatusBar.AllowClickThrough = true;
+		contextMenuShowControlsInStatusBar.Font = new Font("Segoe UI", 9F);
+		contextMenuShowControlsInStatusBar.Items.AddRange(new ToolStripItem[] { toolStripMenuItemShowInformationLabel });
+		contextMenuShowControlsInStatusBar.Name = "contextMenuStrip";
+		contextMenuShowControlsInStatusBar.Size = new Size(198, 26);
+		contextMenuShowControlsInStatusBar.TabStop = true;
+		contextMenuShowControlsInStatusBar.Text = "Show controls in status bar";
+		contextMenuShowControlsInStatusBar.MouseEnter += Control_Enter;
+		contextMenuShowControlsInStatusBar.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemShowInformationLabel
+		// 
+		toolStripMenuItemShowInformationLabel.AccessibleDescription = "Determines whether the information label is visible or hidden";
+		toolStripMenuItemShowInformationLabel.AccessibleName = "Information label";
+		toolStripMenuItemShowInformationLabel.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemShowInformationLabel.AutoToolTip = true;
+		toolStripMenuItemShowInformationLabel.Checked = true;
+		toolStripMenuItemShowInformationLabel.CheckOnClick = true;
+		toolStripMenuItemShowInformationLabel.CheckState = CheckState.Checked;
+		toolStripMenuItemShowInformationLabel.Name = "toolStripMenuItemShowInformationLabel";
+		toolStripMenuItemShowInformationLabel.ShortcutKeyDisplayString = "";
+		toolStripMenuItemShowInformationLabel.Size = new Size(197, 22);
+		toolStripMenuItemShowInformationLabel.Text = "Show &information label";
+		toolStripMenuItemShowInformationLabel.Click += ToolStripMenuItemShowInformationLabel_Click;
+		toolStripMenuItemShowInformationLabel.MouseEnter += Control_Enter;
+		toolStripMenuItemShowInformationLabel.MouseLeave += Control_Leave;
+		// 
 		// DatabaseInformationForm
 		// 
-		AccessibleDescription = "Shows the informations about the MPCORB.DAT database";
+		AccessibleDescription = "Shows the information about the MPCORB.DAT database";
 		AccessibleName = "Database Information";
 		AccessibleRole = AccessibleRole.Dialog;
 		AutoScaleDimensions = new SizeF(7F, 15F);
 		AutoScaleMode = AutoScaleMode.Font;
-		ClientSize = new Size(408, 195);
+		ClientSize = new Size(408, 192);
 		ControlBox = false;
 		Controls.Add(toolStripContainer);
 		FormBorderStyle = FormBorderStyle.SizableToolWindow;
@@ -1402,6 +1438,7 @@ namespace Planetoid_DB;
 		kryptonToolStripIcons.ResumeLayout(false);
 		kryptonToolStripIcons.PerformLayout();
 		contextMenuFullCopyToClipboard.ResumeLayout(false);
+		contextMenuShowControlsInStatusBar.ResumeLayout(false);
 		ResumeLayout(false);
 
 	}
@@ -1480,4 +1517,6 @@ namespace Planetoid_DB;
 	private ToolStripMenuItem toolStripMenuItemSaveAsFictionBook2;
 	private ToolStripMenuItem toolStripMenuItemSaveAsChm;
 	private ToolStripDropDownButton toolStripDropDownButtonCopyToClipboard;
+	private ContextMenuStrip contextMenuShowControlsInStatusBar;
+	private ToolStripMenuItem toolStripMenuItemShowInformationLabel;
 }
