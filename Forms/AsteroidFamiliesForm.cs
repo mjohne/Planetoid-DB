@@ -76,7 +76,7 @@ internal partial class AsteroidFamiliesForm : BaseKryptonForm
 		InitializeComponent();
 		_planetoids = planetoids;
 		// Log that the form has been successfully initialized
-		logger.Info(message: "AsteroidFamiliesForm initialized.");		
+		logger.Info(message: "AsteroidFamiliesForm initialized.");
 	}
 
 	#endregion
@@ -220,7 +220,7 @@ internal partial class AsteroidFamiliesForm : BaseKryptonForm
 		{
 			// Phase 1: Parse planetoid orbital elements (progress 0–40 %)
 			// We read the raw data lines and extract the relevant orbital parameters (a, e, i, M, ω, Ω) for each planetoid.
-			List<PlanetoidEntry> parsedData = new(capacity: _planetoids.Count);
+			List<PlanetoidEntry> parsedData = [with(capacity: _planetoids.Count)];
 			int total = _planetoids.Count;
 			// We loop through each line of the planetoid data, parsing the necessary fields and creating PlanetoidEntry objects. Progress is reported every 5000 entries to keep the user informed.
 			for (int i = 0; i < total; i++)
@@ -589,6 +589,22 @@ internal partial class AsteroidFamiliesForm : BaseKryptonForm
 		// Ensure that the event data was supplied
 		ArgumentNullException.ThrowIfNull(argument: e);
 		NavigateToSelectedMember(closeAfterNavigation: true);
+	}
+
+	/// <summary>Shows or hides the information label according to the menu item's checked state.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data.</param>
+	private void ToolStripMenuItemShowInformationLabel_Click(object sender, EventArgs e)
+	{
+		// Log the action of clicking of ToolStripMenuItemShowInformationLabel
+		logger.Info(message: $"ToolStripMenuItemShowInformationLabel clicked.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		labelInformation.Visible = toolStripMenuItemShowInformationLabel.Checked;
+		// Log the new state of the visibility of the information label
+		logger.Info(message: $"Set the visibility of the information label to {labelInformation.Visible}.");
 	}
 
 	#endregion
