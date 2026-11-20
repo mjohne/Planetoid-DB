@@ -38,11 +38,11 @@ internal partial class EncounterVelocityOfOneMinorPlanetForm : BaseKryptonForm
 
 	/// <summary>Gets the title used for exported data.</summary>
 	/// <remarks>Overrides the base export title for this form's content.</remarks>
-	protected override string ExportTitle => "Encounter velocitys of a minor planet";
+	protected override string ExportTitle => "Encounter velocities of a minor planet";
 
 	/// <summary>Gets the file name prefix used for exported files.</summary>
 	/// <remarks>Overrides the default export file prefix for this form.</remarks>
-	protected override string ExportFilePrefix => "Encounter-velocitys";
+	protected override string ExportFilePrefix => "Encounter-velocities";
 
 	#endregion
 
@@ -194,7 +194,7 @@ internal partial class EncounterVelocityOfOneMinorPlanetForm : BaseKryptonForm
 	{
 		_ = KryptonMessageBox.Show(
 			owner: this,
-			text: $"Encounter velocity is the relative speed of a small body as it enters a planet's sphere of influence.\n\nIt measures the unpertured speed of approach before the planet's gravitational pull accelerates the object.\n\nThe value is calculated using orbital elements an the Tisserand parameter.\n\nIt determines both the flyby tracectory an the minimum velocity of a potential impact.",
+			text: $"Encounter velocity is the relative speed of a small body as it enters a planet's sphere of influence.\n\nIt measures the unperturbed speed of approach before the planet's gravitational pull accelerates the object.\n\nThe value is calculated using orbital elements an the Tisserand parameter.\n\nIt determines both the flyby trajectory an the minimum velocity of a potential impact.",
 			caption: I18nStrings.InformationCaption,
 			buttons: KryptonMessageBoxButtons.OK,
 			icon: KryptonMessageBoxIcon.Information,
@@ -205,7 +205,7 @@ internal partial class EncounterVelocityOfOneMinorPlanetForm : BaseKryptonForm
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	/// <remarks>This event handler retrieves the encounter velocity value relative to Mercury from the corresponding label and copies it to the clipboard using the <see cref="BaseKryptonForm.CopyToClipboard(string)"/> helper method.</remarks>
-	private void MenuitemCopyToClipboardEncounterVelocityRelativeToMercury_Click(object sender, EventArgs e)
+	private void MenuItemCopyToClipboardEncounterVelocityRelativeToMercury_Click(object sender, EventArgs e)
 	{
 		// Log the action of copying the encounter velocity relative to Mercury to the clipboard
 		logger.Info(message: $"Copying the encounter velocity relative to Mercury to clipboard: {labelMercuryData.Text}");
@@ -221,7 +221,7 @@ internal partial class EncounterVelocityOfOneMinorPlanetForm : BaseKryptonForm
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	/// <remarks>This event handler retrieves the encounter velocity value relative to Venus from the corresponding label and copies it to the clipboard using the <see cref="BaseKryptonForm.CopyToClipboard(string)"/> helper method.</remarks>
-	private void MenuitemCopyToClipboardEncounterVelocityRelativeToVenus_Click(object sender, EventArgs e)
+	private void MenuItemCopyToClipboardEncounterVelocityRelativeToVenus_Click(object sender, EventArgs e)
 	{
 		// Log the action of copying the encounter velocity relative to Venus to the clipboard
 		logger.Info(message: $"Copying the encounter velocity relative to Venus to clipboard: {labelVenusData.Text}");
@@ -237,7 +237,7 @@ internal partial class EncounterVelocityOfOneMinorPlanetForm : BaseKryptonForm
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	/// <remarks>This event handler retrieves the encounter velocity value relative to Earth from the corresponding label and copies it to the clipboard using the <see cref="BaseKryptonForm.CopyToClipboard(string)"/> helper method.</remarks>
-	private void MenuitemCopyToClipboardEncounterVelocityRelativeToEarth_Click(object sender, EventArgs e)
+	private void MenuItemCopyToClipboardEncounterVelocityRelativeToEarth_Click(object sender, EventArgs e)
 	{
 		// Log the action of copying the encounter velocity relative to Earth to the clipboard
 		logger.Info(message: $"Copying the encounter velocity relative to Earth to clipboard: {labelEarthData.Text}");
@@ -253,7 +253,7 @@ internal partial class EncounterVelocityOfOneMinorPlanetForm : BaseKryptonForm
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	/// <remarks>This event handler retrieves the encounter velocity value relative to Mars from the corresponding label and copies it to the clipboard using the <see cref="BaseKryptonForm.CopyToClipboard(string)"/> helper method.</remarks>
-	private void MenuitemCopyToClipboardEncounterVelocityRelativeToMars_Click(object sender, EventArgs e)
+	private void MenuItemCopyToClipboardEncounterVelocityRelativeToMars_Click(object sender, EventArgs e)
 	{
 		// Log the action of copying the encounter velocity relative to Mars to the clipboard
 		logger.Info(message: $"Copying the encounter velocity relative to Mars to clipboard: {labelMarsData.Text}");
@@ -269,7 +269,7 @@ internal partial class EncounterVelocityOfOneMinorPlanetForm : BaseKryptonForm
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	/// <remarks>This event handler retrieves the encounter velocity value relative to Jupiter from the corresponding label and copies it to the clipboard using the <see cref="BaseKryptonForm.CopyToClipboard(string)"/> helper method.</remarks>
-	private void MenuitemCopyToClipboardEncounterVelocityRelativeToJupiter_Click(object sender, EventArgs e)
+	private void MenuItemCopyToClipboardEncounterVelocityRelativeToJupiter_Click(object sender, EventArgs e)
 	{
 		// Log the action of copying the encounter velocity relative to Jupiter to the clipboard
 		logger.Info(message: $"Copying the encounter velocity relative to Jupiter to clipboard: {labelJupiterData.Text}");
@@ -285,7 +285,7 @@ internal partial class EncounterVelocityOfOneMinorPlanetForm : BaseKryptonForm
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	/// <remarks>This event handler retrieves the encounter velocity value relative to Saturn from the corresponding label and copies it to the clipboard using the <see cref="BaseKryptonForm.CopyToClipboard(string)"/> helper method.</remarks>
-	private void MenuitemCopyToClipboardEncounterVelocityRelativeToSaturn_Click(object sender, EventArgs e)
+	private void MenuItemCopyToClipboardEncounterVelocityRelativeToSaturn_Click(object sender, EventArgs e)
 	{
 		// Log the action of copying the encounter velocity relative to Saturn to the clipboard
 		logger.Info(message: $"Copying the encounter velocity relative to Saturn to clipboard: {labelSaturnData.Text}");
@@ -301,7 +301,7 @@ internal partial class EncounterVelocityOfOneMinorPlanetForm : BaseKryptonForm
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	/// <remarks>This event handler retrieves the encounter velocity value relative to Uranus from the corresponding label and copies it to the clipboard using the <see cref="BaseKryptonForm.CopyToClipboard(string)"/> helper method.</remarks>
-	private void MenuitemCopyToClipboardEncounterVelocityRelativeToUranus_Click(object sender, EventArgs e)
+	private void MenuItemCopyToClipboardEncounterVelocityRelativeToUranus_Click(object sender, EventArgs e)
 	{
 		// Log the action of copying the encounter velocity relative to Uranus to the clipboard
 		logger.Info(message: $"Copying the encounter velocity relative to Uranus to clipboard: {labelUranusData.Text}");
@@ -317,7 +317,7 @@ internal partial class EncounterVelocityOfOneMinorPlanetForm : BaseKryptonForm
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	/// <remarks>This event handler retrieves the encounter velocity value relative to Neptune from the corresponding label and copies it to the clipboard using the <see cref="BaseKryptonForm.CopyToClipboard(string)"/> helper method.</remarks>
-	private void MenuitemCopyToClipboardEncounterVelocityRelativeToNeptune_Click(object sender, EventArgs e)
+	private void MenuItemCopyToClipboardEncounterVelocityRelativeToNeptune_Click(object sender, EventArgs e)
 	{
 		// Log the action of copying the encounter velocity relative to Neptune to the clipboard
 		logger.Info(message: $"Copying the encounter velocity relative to Neptune to clipboard: {labelNeptuneData.Text}");
@@ -327,6 +327,22 @@ internal partial class EncounterVelocityOfOneMinorPlanetForm : BaseKryptonForm
 		ArgumentNullException.ThrowIfNull(argument: e);
 		// Use the base class method to copy the text from the label to the clipboard
 		CopyToClipboard(text: labelNeptuneData.Text);
+	}
+
+	/// <summary>Shows or hides the information label according to the menu item's checked state.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data.</param>
+	private void ToolStripMenuItemShowInformationLabel_Click(object sender, EventArgs e)
+	{
+		// Log the action of clicking of ToolStripMenuItemShowInformationLabel
+		logger.Info(message: $"ToolStripMenuItemShowInformationLabel clicked.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		labelInformation.Visible = toolStripMenuItemShowInformationLabel.Checked;
+		// Log the new state of the visibility of the information label
+		logger.Info(message: $"Set the visibility of the information label to {labelInformation.Visible}.");
 	}
 
 	#endregion
