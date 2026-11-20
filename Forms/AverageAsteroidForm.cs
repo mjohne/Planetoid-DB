@@ -84,7 +84,7 @@ internal partial class AverageAsteroidForm : BaseKryptonForm
 		// Ensure the planetoids database is not null
 		planetoidsDatabase = planetoids ?? throw new ArgumentNullException(paramName: nameof(planetoids));
 		// Log the number of planetoids loaded into the form for informational purposes
-		logger.Info(message: $"AverageAsteroidForm initialized with {planetoidsDatabase.Count} planetoids");
+		logger.Info(message: $"AverageAsteroidForm initialized with {planetoidsDatabase.Count} planetoids.");
 	}
 
 	#endregion
@@ -563,6 +563,22 @@ internal partial class AverageAsteroidForm : BaseKryptonForm
 		string text = string.Join(separator: "\t", values: subItemTexts);
 		logger.Info(message: $"Copying selected item to clipboard: {text}");
 		CopyToClipboard(text: text);
+	}
+
+	/// <summary>Shows or hides the information label according to the menu item's checked state.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data.</param>
+	private void ToolStripMenuItemShowInformationLabel_Click(object sender, EventArgs e)
+	{
+		// Log the action of clicking of ToolStripMenuItemShowInformationLabel
+		logger.Info(message: $"ToolStripMenuItemShowInformationLabel clicked.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		labelInformation.Visible = toolStripMenuItemShowInformationLabel.Checked;
+		// Log the new state of the visibility of the information label
+		logger.Info(message: $"Set the visibility of the information label to {labelInformation.Visible}.");
 	}
 
 	#endregion
