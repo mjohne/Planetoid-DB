@@ -119,7 +119,7 @@ partial class GeometricAlbedoAdjustedDiameterForm
 		kryptonTrackBarGeometricAlbedo = new Krypton.Toolkit.KryptonTrackBar();
 		kryptonTrackBarAbsoluteMagnitude = new Krypton.Toolkit.KryptonTrackBar();
 		kryptonStatusStrip = new Krypton.Toolkit.KryptonStatusStrip();
-		contextMenuShowControlsInStatus = new ContextMenuStrip(components);
+		contextMenuShowControlsInStatusBar = new ContextMenuStrip(components);
 		toolStripMenuItemShowInformationLabel = new ToolStripMenuItem();
 		labelInformation = new ToolStripStatusLabel();
 		kryptonGroupBoxAbsoluteMagnitude = new Krypton.Toolkit.KryptonGroupBox();
@@ -132,7 +132,7 @@ partial class GeometricAlbedoAdjustedDiameterForm
 		contextMenuSaveToFile.SuspendLayout();
 		contextMenuCopyToClipboard.SuspendLayout();
 		kryptonStatusStrip.SuspendLayout();
-		contextMenuShowControlsInStatus.SuspendLayout();
+		contextMenuShowControlsInStatusBar.SuspendLayout();
 		((System.ComponentModel.ISupportInitialize)kryptonGroupBoxAbsoluteMagnitude).BeginInit();
 		((System.ComponentModel.ISupportInitialize)kryptonGroupBoxAbsoluteMagnitude.Panel).BeginInit();
 		((System.ComponentModel.ISupportInitialize)kryptonGroupBoxGeometricAlbedo).BeginInit();
@@ -1544,7 +1544,7 @@ partial class GeometricAlbedoAdjustedDiameterForm
 		kryptonStatusStrip.AccessibleRole = AccessibleRole.StatusBar;
 		kryptonStatusStrip.AllowClickThrough = true;
 		kryptonStatusStrip.AllowItemReorder = true;
-		kryptonStatusStrip.ContextMenuStrip = contextMenuShowControlsInStatus;
+		kryptonStatusStrip.ContextMenuStrip = contextMenuShowControlsInStatusBar;
 		kryptonStatusStrip.Font = new Font("Segoe UI", 9F);
 		kryptonStatusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
 		kryptonStatusStrip.Location = new Point(0, 483);
@@ -1561,18 +1561,20 @@ partial class GeometricAlbedoAdjustedDiameterForm
 		kryptonStatusStrip.MouseEnter += Control_Enter;
 		kryptonStatusStrip.MouseLeave += Control_Leave;
 		// 
-		// contextMenuShowControlsInStatus
+		// contextMenuShowControlsInStatusBar
 		// 
-		contextMenuShowControlsInStatus.AccessibleDescription = "Shows the context menu for controls in the status bar";
-		contextMenuShowControlsInStatus.AccessibleName = "Context menu for for controls in the status bar";
-		contextMenuShowControlsInStatus.AccessibleRole = AccessibleRole.MenuPopup;
-		contextMenuShowControlsInStatus.AllowClickThrough = true;
-		contextMenuShowControlsInStatus.Font = new Font("Segoe UI", 9F);
-		contextMenuShowControlsInStatus.Items.AddRange(new ToolStripItem[] { toolStripMenuItemShowInformationLabel });
-		contextMenuShowControlsInStatus.Name = "contextMenuStrip";
-		contextMenuShowControlsInStatus.Size = new Size(198, 26);
-		contextMenuShowControlsInStatus.TabStop = true;
-		contextMenuShowControlsInStatus.Text = "Show in status bar";
+		contextMenuShowControlsInStatusBar.AccessibleDescription = "Shows the context menu for the visibility of controls in the status bar";
+		contextMenuShowControlsInStatusBar.AccessibleName = "Context menu for the visibility of controls in the status bar";
+		contextMenuShowControlsInStatusBar.AccessibleRole = AccessibleRole.MenuPopup;
+		contextMenuShowControlsInStatusBar.AllowClickThrough = true;
+		contextMenuShowControlsInStatusBar.Font = new Font("Segoe UI", 9F);
+		contextMenuShowControlsInStatusBar.Items.AddRange(new ToolStripItem[] { toolStripMenuItemShowInformationLabel });
+		contextMenuShowControlsInStatusBar.Name = "contextMenuStrip";
+		contextMenuShowControlsInStatusBar.Size = new Size(198, 48);
+		contextMenuShowControlsInStatusBar.TabStop = true;
+		contextMenuShowControlsInStatusBar.Text = "Show controls in status bar";
+		contextMenuShowControlsInStatusBar.MouseEnter += Control_Enter;
+		contextMenuShowControlsInStatusBar.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemShowInformationLabel
 		// 
@@ -1705,7 +1707,7 @@ partial class GeometricAlbedoAdjustedDiameterForm
 		contextMenuCopyToClipboard.ResumeLayout(false);
 		kryptonStatusStrip.ResumeLayout(false);
 		kryptonStatusStrip.PerformLayout();
-		contextMenuShowControlsInStatus.ResumeLayout(false);
+		contextMenuShowControlsInStatusBar.ResumeLayout(false);
 		((System.ComponentModel.ISupportInitialize)kryptonGroupBoxAbsoluteMagnitude.Panel).EndInit();
 		((System.ComponentModel.ISupportInitialize)kryptonGroupBoxAbsoluteMagnitude).EndInit();
 		((System.ComponentModel.ISupportInitialize)kryptonGroupBoxGeometricAlbedo.Panel).EndInit();
@@ -1870,6 +1872,6 @@ partial class GeometricAlbedoAdjustedDiameterForm
 	private ToolStripMenuItem toolStripMenuItemSaveAsChm;
 	private ContextMenuStrip contextMenuCopyToClipboard;
 	private ToolStripMenuItem toolStripMenuItemCopyToClipboard;
-	private ContextMenuStrip contextMenuShowControlsInStatus;
+	private ContextMenuStrip contextMenuShowControlsInStatusBar;
 	private ToolStripMenuItem toolStripMenuItemShowInformationLabel;
 }
