@@ -1,17 +1,30 @@
-﻿using Planetoid_DB.Resources;
+﻿/*
+ * File:        EncounterParameterOfOneMinorPlanetForm.Designer.cs
+ * Project:     Planetoid-DB
+ * Namespace:   Planetoid_DB.Forms
+ * Description: Form for displaying the encounter velocity of a minor planet relative to each of the eight solar system planets.
+ *
+ * Author:      Michael Johne
+ * Company:     Mijo Software
+ * 
+ * Copyright (c) 2026 Michael Johne
+ *
+ * Licensed under the GNU General Public License v3.0.
+ * See LICENSE file in the project root for license information.
+ */
+
+using Planetoid_DB.Resources;
 
 namespace Planetoid_DB.Forms;
 
+/// <summary>Displays a minor planet’s encounter velocities relative to the eight planets of the Solar System.</summary>
+/// <remarks>Encounter velocity values are displayed in kilometers per second and can be copied to the clipboard or exported to a file.</remarks>
 partial class EncounterVelocityOfOneMinorPlanetForm
 {
-	/// <summary>
-	/// Required designer variable.
-	/// </summary>
+	/// <summary>Required designer variable.</summary>
 	private System.ComponentModel.IContainer components = null;
 
-	/// <summary>
-	/// Clean up any resources being used.
-	/// </summary>
+	/// <summary>Clean up any resources being used.</summary>
 	/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
 	protected override void Dispose(bool disposing)
 	{
@@ -19,15 +32,12 @@ partial class EncounterVelocityOfOneMinorPlanetForm
 		{
 			components.Dispose();
 		}
-		base.Dispose(disposing);
+		base.Dispose(disposing: disposing);
 	}
 
 	#region Windows Form Designer generated code
 
-	/// <summary>
-	/// Required method for Designer support - do not modify
-	/// the contents of this method with the code editor.
-	/// </summary>
+	/// <summary>Required method for Designer support - do not modify the contents of this method with the code editor.</summary>
 	private void InitializeComponent()
 	{
 		components = new System.ComponentModel.Container();
@@ -110,6 +120,8 @@ partial class EncounterVelocityOfOneMinorPlanetForm
 		toolStripSeparator1 = new ToolStripSeparator();
 		toolStripButtonInfo = new ToolStripButton();
 		kryptonManager = new Krypton.Toolkit.KryptonManager(components);
+		contextMenuShowControlsInStatusBar = new ContextMenuStrip(components);
+		toolStripMenuItemShowInformationLabel = new ToolStripMenuItem();
 		toolStripContainer.BottomToolStripPanel.SuspendLayout();
 		toolStripContainer.ContentPanel.SuspendLayout();
 		toolStripContainer.TopToolStripPanel.SuspendLayout();
@@ -120,6 +132,7 @@ partial class EncounterVelocityOfOneMinorPlanetForm
 		contextMenuCopyToClipboard.SuspendLayout();
 		toolStripIcons.SuspendLayout();
 		contextMenuFullCopyToClipboard.SuspendLayout();
+		contextMenuShowControlsInStatusBar.SuspendLayout();
 		SuspendLayout();
 		// 
 		// toolStripContainer
@@ -180,6 +193,7 @@ partial class EncounterVelocityOfOneMinorPlanetForm
 		kryptonStatusStrip.AccessibleRole = AccessibleRole.StatusBar;
 		kryptonStatusStrip.AllowClickThrough = true;
 		kryptonStatusStrip.AllowItemReorder = true;
+		kryptonStatusStrip.ContextMenuStrip = contextMenuShowControlsInStatusBar;
 		kryptonStatusStrip.Dock = DockStyle.None;
 		kryptonStatusStrip.Font = new Font("Segoe UI", 9F);
 		kryptonStatusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
@@ -1332,7 +1346,7 @@ partial class EncounterVelocityOfOneMinorPlanetForm
 		menuitemCopyToClipboardEncounterVelocityRelativeToMercury.Name = "menuitemCopyToClipboardEncounterVelocityRelativeToMercury";
 		menuitemCopyToClipboardEncounterVelocityRelativeToMercury.Size = new Size(120, 22);
 		menuitemCopyToClipboardEncounterVelocityRelativeToMercury.Text = "&Mercury";
-		menuitemCopyToClipboardEncounterVelocityRelativeToMercury.Click += MenuitemCopyToClipboardEncounterVelocityRelativeToMercury_Click;
+		menuitemCopyToClipboardEncounterVelocityRelativeToMercury.Click += MenuItemCopyToClipboardEncounterVelocityRelativeToMercury_Click;
 		menuitemCopyToClipboardEncounterVelocityRelativeToMercury.MouseEnter += Control_Enter;
 		menuitemCopyToClipboardEncounterVelocityRelativeToMercury.MouseLeave += Control_Leave;
 		// 
@@ -1346,7 +1360,7 @@ partial class EncounterVelocityOfOneMinorPlanetForm
 		menuitemCopyToClipboardEncounterVelocityRelativeToVenus.Name = "menuitemCopyToClipboardEncounterVelocityRelativeToVenus";
 		menuitemCopyToClipboardEncounterVelocityRelativeToVenus.Size = new Size(120, 22);
 		menuitemCopyToClipboardEncounterVelocityRelativeToVenus.Text = "&Venus";
-		menuitemCopyToClipboardEncounterVelocityRelativeToVenus.Click += MenuitemCopyToClipboardEncounterVelocityRelativeToVenus_Click;
+		menuitemCopyToClipboardEncounterVelocityRelativeToVenus.Click += MenuItemCopyToClipboardEncounterVelocityRelativeToVenus_Click;
 		menuitemCopyToClipboardEncounterVelocityRelativeToVenus.MouseEnter += Control_Enter;
 		menuitemCopyToClipboardEncounterVelocityRelativeToVenus.MouseLeave += Control_Leave;
 		// 
@@ -1360,7 +1374,7 @@ partial class EncounterVelocityOfOneMinorPlanetForm
 		menuitemCopyToClipboardEncounterVelocityRelativeToEarth.Name = "menuitemCopyToClipboardEncounterVelocityRelativeToEarth";
 		menuitemCopyToClipboardEncounterVelocityRelativeToEarth.Size = new Size(120, 22);
 		menuitemCopyToClipboardEncounterVelocityRelativeToEarth.Text = "&Earth";
-		menuitemCopyToClipboardEncounterVelocityRelativeToEarth.Click += MenuitemCopyToClipboardEncounterVelocityRelativeToEarth_Click;
+		menuitemCopyToClipboardEncounterVelocityRelativeToEarth.Click += MenuItemCopyToClipboardEncounterVelocityRelativeToEarth_Click;
 		menuitemCopyToClipboardEncounterVelocityRelativeToEarth.MouseEnter += Control_Enter;
 		menuitemCopyToClipboardEncounterVelocityRelativeToEarth.MouseLeave += Control_Leave;
 		// 
@@ -1374,7 +1388,7 @@ partial class EncounterVelocityOfOneMinorPlanetForm
 		menuitemCopyToClipboardEncounterVelocityRelativeToMars.Name = "menuitemCopyToClipboardEncounterVelocityRelativeToMars";
 		menuitemCopyToClipboardEncounterVelocityRelativeToMars.Size = new Size(120, 22);
 		menuitemCopyToClipboardEncounterVelocityRelativeToMars.Text = "M&ars";
-		menuitemCopyToClipboardEncounterVelocityRelativeToMars.Click += MenuitemCopyToClipboardEncounterVelocityRelativeToMars_Click;
+		menuitemCopyToClipboardEncounterVelocityRelativeToMars.Click += MenuItemCopyToClipboardEncounterVelocityRelativeToMars_Click;
 		menuitemCopyToClipboardEncounterVelocityRelativeToMars.MouseEnter += Control_Enter;
 		menuitemCopyToClipboardEncounterVelocityRelativeToMars.MouseLeave += Control_Leave;
 		// 
@@ -1388,7 +1402,7 @@ partial class EncounterVelocityOfOneMinorPlanetForm
 		menuitemCopyToClipboardEncounterVelocityRelativeToJupiter.Name = "menuitemCopyToClipboardEncounterVelocityRelativeToJupiter";
 		menuitemCopyToClipboardEncounterVelocityRelativeToJupiter.Size = new Size(120, 22);
 		menuitemCopyToClipboardEncounterVelocityRelativeToJupiter.Text = "&Jupiter";
-		menuitemCopyToClipboardEncounterVelocityRelativeToJupiter.Click += MenuitemCopyToClipboardEncounterVelocityRelativeToJupiter_Click;
+		menuitemCopyToClipboardEncounterVelocityRelativeToJupiter.Click += MenuItemCopyToClipboardEncounterVelocityRelativeToJupiter_Click;
 		menuitemCopyToClipboardEncounterVelocityRelativeToJupiter.MouseEnter += Control_Enter;
 		menuitemCopyToClipboardEncounterVelocityRelativeToJupiter.MouseLeave += Control_Leave;
 		// 
@@ -1402,7 +1416,7 @@ partial class EncounterVelocityOfOneMinorPlanetForm
 		menuitemCopyToClipboardEncounterVelocityRelativeToSaturn.Name = "menuitemCopyToClipboardEncounterVelocityRelativeToSaturn";
 		menuitemCopyToClipboardEncounterVelocityRelativeToSaturn.Size = new Size(120, 22);
 		menuitemCopyToClipboardEncounterVelocityRelativeToSaturn.Text = "&Saturn";
-		menuitemCopyToClipboardEncounterVelocityRelativeToSaturn.Click += MenuitemCopyToClipboardEncounterVelocityRelativeToSaturn_Click;
+		menuitemCopyToClipboardEncounterVelocityRelativeToSaturn.Click += MenuItemCopyToClipboardEncounterVelocityRelativeToSaturn_Click;
 		menuitemCopyToClipboardEncounterVelocityRelativeToSaturn.MouseEnter += Control_Enter;
 		menuitemCopyToClipboardEncounterVelocityRelativeToSaturn.MouseLeave += Control_Leave;
 		// 
@@ -1416,7 +1430,7 @@ partial class EncounterVelocityOfOneMinorPlanetForm
 		menuitemCopyToClipboardEncounterVelocityRelativeToUranus.Name = "menuitemCopyToClipboardEncounterVelocityRelativeToUranus";
 		menuitemCopyToClipboardEncounterVelocityRelativeToUranus.Size = new Size(120, 22);
 		menuitemCopyToClipboardEncounterVelocityRelativeToUranus.Text = "&Uranus";
-		menuitemCopyToClipboardEncounterVelocityRelativeToUranus.Click += MenuitemCopyToClipboardEncounterVelocityRelativeToUranus_Click;
+		menuitemCopyToClipboardEncounterVelocityRelativeToUranus.Click += MenuItemCopyToClipboardEncounterVelocityRelativeToUranus_Click;
 		menuitemCopyToClipboardEncounterVelocityRelativeToUranus.MouseEnter += Control_Enter;
 		menuitemCopyToClipboardEncounterVelocityRelativeToUranus.MouseLeave += Control_Leave;
 		// 
@@ -1430,7 +1444,7 @@ partial class EncounterVelocityOfOneMinorPlanetForm
 		menuitemCopyToClipboardEncounterVelocityRelativeToNeptune.Name = "menuitemCopyToClipboardEncounterVelocityRelativeToNeptune";
 		menuitemCopyToClipboardEncounterVelocityRelativeToNeptune.Size = new Size(120, 22);
 		menuitemCopyToClipboardEncounterVelocityRelativeToNeptune.Text = "&Neptune";
-		menuitemCopyToClipboardEncounterVelocityRelativeToNeptune.Click += MenuitemCopyToClipboardEncounterVelocityRelativeToNeptune_Click;
+		menuitemCopyToClipboardEncounterVelocityRelativeToNeptune.Click += MenuItemCopyToClipboardEncounterVelocityRelativeToNeptune_Click;
 		menuitemCopyToClipboardEncounterVelocityRelativeToNeptune.MouseEnter += Control_Enter;
 		menuitemCopyToClipboardEncounterVelocityRelativeToNeptune.MouseLeave += Control_Leave;
 		// 
@@ -1465,10 +1479,42 @@ partial class EncounterVelocityOfOneMinorPlanetForm
 		kryptonManager.ToolkitStrings.MessageBoxStrings.LessDetails = "L&ess Details...";
 		kryptonManager.ToolkitStrings.MessageBoxStrings.MoreDetails = "&More Details...";
 		// 
+		// contextMenuShowControlsInStatusBar
+		// 
+		contextMenuShowControlsInStatusBar.AccessibleDescription = "Shows the context menu for the visibility of controls in the status bar";
+		contextMenuShowControlsInStatusBar.AccessibleName = "Context menu for the visibility of controls in the status bar";
+		contextMenuShowControlsInStatusBar.AccessibleRole = AccessibleRole.MenuPopup;
+		contextMenuShowControlsInStatusBar.AllowClickThrough = true;
+		contextMenuShowControlsInStatusBar.Font = new Font("Segoe UI", 9F);
+		contextMenuShowControlsInStatusBar.Items.AddRange(new ToolStripItem[] { toolStripMenuItemShowInformationLabel });
+		contextMenuShowControlsInStatusBar.Name = "contextMenuStrip";
+		contextMenuShowControlsInStatusBar.Size = new Size(198, 48);
+		contextMenuShowControlsInStatusBar.TabStop = true;
+		contextMenuShowControlsInStatusBar.Text = "Show controls in status bar";
+		contextMenuShowControlsInStatusBar.MouseEnter += Control_Enter;
+		contextMenuShowControlsInStatusBar.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemShowInformationLabel
+		// 
+		toolStripMenuItemShowInformationLabel.AccessibleDescription = "Determines whether the information label is visible or hidden";
+		toolStripMenuItemShowInformationLabel.AccessibleName = "Information label";
+		toolStripMenuItemShowInformationLabel.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemShowInformationLabel.AutoToolTip = true;
+		toolStripMenuItemShowInformationLabel.Checked = true;
+		toolStripMenuItemShowInformationLabel.CheckOnClick = true;
+		toolStripMenuItemShowInformationLabel.CheckState = CheckState.Checked;
+		toolStripMenuItemShowInformationLabel.Name = "toolStripMenuItemShowInformationLabel";
+		toolStripMenuItemShowInformationLabel.ShortcutKeyDisplayString = "";
+		toolStripMenuItemShowInformationLabel.Size = new Size(197, 22);
+		toolStripMenuItemShowInformationLabel.Text = "Show &information label";
+		toolStripMenuItemShowInformationLabel.Click += ToolStripMenuItemShowInformationLabel_Click;
+		toolStripMenuItemShowInformationLabel.MouseEnter += Control_Enter;
+		toolStripMenuItemShowInformationLabel.MouseLeave += Control_Leave;
+		// 
 		// EncounterVelocityOfOneMinorPlanetForm
 		// 
-		AccessibleDescription = "Shows the encounter velocitys values of a minor planet relative to the eight solar system planets";
-		AccessibleName = "Encounter velocitys of a minor planet";
+		AccessibleDescription = "Shows the encounter velocities values of a minor planet relative to the eight solar system planets";
+		AccessibleName = "Encounter velocities of a minor planet";
 		AccessibleRole = AccessibleRole.Window;
 		AutoScaleDimensions = new SizeF(7F, 15F);
 		AutoScaleMode = AutoScaleMode.Font;
@@ -1482,7 +1528,7 @@ partial class EncounterVelocityOfOneMinorPlanetForm
 		Name = "EncounterVelocityOfOneMinorPlanetForm";
 		SizeGripStyle = SizeGripStyle.Hide;
 		StartPosition = FormStartPosition.CenterScreen;
-		Text = "Encounter velocitys of a minor planet";
+		Text = "Encounter velocities of a minor planet";
 		FormClosing += EncounterVelocityOfOneMinorPlanetForm_FormClosing;
 		Load += EncounterVelocityOfOneMinorPlanetForm_Load;
 		toolStripContainer.BottomToolStripPanel.ResumeLayout(false);
@@ -1501,6 +1547,7 @@ partial class EncounterVelocityOfOneMinorPlanetForm
 		toolStripIcons.ResumeLayout(false);
 		toolStripIcons.PerformLayout();
 		contextMenuFullCopyToClipboard.ResumeLayout(false);
+		contextMenuShowControlsInStatusBar.ResumeLayout(false);
 		ResumeLayout(false);
 	}
 
@@ -1584,4 +1631,6 @@ partial class EncounterVelocityOfOneMinorPlanetForm
 	private ToolStripMenuItem menuitemCopyToClipboardEncounterVelocityRelativeToNeptune;
 	private ToolStripButton toolStripButtonInfo;
 	private ToolStripSeparator toolStripSeparator1;
+	private ContextMenuStrip contextMenuShowControlsInStatusBar;
+	private ToolStripMenuItem toolStripMenuItemShowInformationLabel;
 }
