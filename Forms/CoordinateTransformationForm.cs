@@ -59,7 +59,7 @@ internal partial class CoordinateTransformationForm : BaseKryptonForm
 		// Call the method to initialize the form's components and controls.
 		InitializeComponent();
 		// Enable double buffering for the TableLayoutPanel to prevent flickering
-		DoubleBufferingHelper.EnableDoubleBuffering(control: kryptonTableLayoutPanel);
+		DoubleBufferingHelper.EnableDoubleBuffering(control: tableLayoutPanel);
 		// Set the form's title text using the localized string for coordinate conversion.
 		Text = I18nStrings.CoordinateConversionTitle;
 		// Populate the source and target combo boxes with the available astronomical coordinate systems.
@@ -454,6 +454,22 @@ internal partial class CoordinateTransformationForm : BaseKryptonForm
 			// Display an error message to the user indicating invalid coordinates.
 			kryptonLabelResult.Text = I18nStrings.CoordinateConversionInvalidCoordinates;
 		}
+	}
+
+	/// <summary>Shows or hides the information label according to the menu item's checked state.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data.</param>
+	private void ToolStripMenuItemShowInformationLabel_Click(object sender, EventArgs e)
+	{
+		// Log the action of clicking of ToolStripMenuItemShowInformationLabel
+		logger.Info(message: $"ToolStripMenuItemShowInformationLabel clicked.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		labelInformation.Visible = toolStripMenuItemShowInformationLabel.Checked;
+		// Log the new state of the visibility of the information label
+		logger.Info(message: $"Set the visibility of the information label to {labelInformation.Visible}.");
 	}
 
 	#endregion

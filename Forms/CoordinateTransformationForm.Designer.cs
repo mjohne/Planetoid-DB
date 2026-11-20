@@ -34,7 +34,7 @@ partial class CoordinateTransformationForm
 	{
 		components = new Container();
 		ComponentResourceManager resources = new ComponentResourceManager(typeof(CoordinateTransformationForm));
-		kryptonTableLayoutPanel = new KryptonTableLayoutPanel();
+		tableLayoutPanel = new KryptonTableLayoutPanel();
 		kryptonLabelSource = new KryptonLabel();
 		kryptonComboBoxSource = new KryptonComboBox();
 		kryptonLabelTarget = new KryptonLabel();
@@ -58,17 +58,20 @@ partial class CoordinateTransformationForm
 		contextMenuCopyToClipboard = new ContextMenuStrip(components);
 		toolStripMenuItemCopyToClipboard = new ToolStripMenuItem();
 		kryptonStatusStrip = new KryptonStatusStrip();
+		contextMenuShowControlsInStatusBar = new ContextMenuStrip(components);
+		toolStripMenuItemShowInformationLabel = new ToolStripMenuItem();
 		labelInformation = new ToolStripStatusLabel();
 		toolStripContainer = new ToolStripContainer();
 		kryptonToolStrip = new KryptonToolStrip();
 		toolStripButtonButtonConvert = new ToolStripButton();
-		kryptonTableLayoutPanel.SuspendLayout();
+		tableLayoutPanel.SuspendLayout();
 		((ISupportInitialize)kryptonComboBoxSource).BeginInit();
 		((ISupportInitialize)kryptonComboBoxTarget).BeginInit();
 		((ISupportInitialize)kryptonComboBoxFirstCoordinateType).BeginInit();
 		((ISupportInitialize)kryptonComboBoxAngleUnit).BeginInit();
 		contextMenuCopyToClipboard.SuspendLayout();
 		kryptonStatusStrip.SuspendLayout();
+		contextMenuShowControlsInStatusBar.SuspendLayout();
 		toolStripContainer.BottomToolStripPanel.SuspendLayout();
 		toolStripContainer.ContentPanel.SuspendLayout();
 		toolStripContainer.TopToolStripPanel.SuspendLayout();
@@ -76,54 +79,55 @@ partial class CoordinateTransformationForm
 		kryptonToolStrip.SuspendLayout();
 		SuspendLayout();
 		// 
-		// kryptonTableLayoutPanel
+		// tableLayoutPanel
 		// 
-		kryptonTableLayoutPanel.AccessibleDescription = "Groups the data";
-		kryptonTableLayoutPanel.AccessibleName = "pane";
-		kryptonTableLayoutPanel.AccessibleRole = AccessibleRole.Grouping;
-		kryptonTableLayoutPanel.ColumnCount = 4;
-		kryptonTableLayoutPanel.ColumnStyles.Add(new ColumnStyle());
-		kryptonTableLayoutPanel.ColumnStyles.Add(new ColumnStyle());
-		kryptonTableLayoutPanel.ColumnStyles.Add(new ColumnStyle());
-		kryptonTableLayoutPanel.ColumnStyles.Add(new ColumnStyle());
-		kryptonTableLayoutPanel.Controls.Add(kryptonLabelSource, 0, 0);
-		kryptonTableLayoutPanel.Controls.Add(kryptonComboBoxSource, 1, 0);
-		kryptonTableLayoutPanel.Controls.Add(kryptonLabelTarget, 2, 0);
-		kryptonTableLayoutPanel.Controls.Add(kryptonComboBoxTarget, 3, 0);
-		kryptonTableLayoutPanel.Controls.Add(kryptonLabelFirstCoordinate, 0, 1);
-		kryptonTableLayoutPanel.Controls.Add(kryptonTextBoxFirstCoordinate, 1, 1);
-		kryptonTableLayoutPanel.Controls.Add(kryptonLabelFirstCoordinateType, 2, 1);
-		kryptonTableLayoutPanel.Controls.Add(kryptonComboBoxFirstCoordinateType, 3, 1);
-		kryptonTableLayoutPanel.Controls.Add(kryptonLabelSecondCoordinate, 0, 2);
-		kryptonTableLayoutPanel.Controls.Add(kryptonTextBoxSecondCoordinate, 1, 2);
-		kryptonTableLayoutPanel.Controls.Add(kryptonLabelAngleUnit, 2, 2);
-		kryptonTableLayoutPanel.Controls.Add(kryptonComboBoxAngleUnit, 3, 2);
-		kryptonTableLayoutPanel.Controls.Add(kryptonLabelDateTimeUtc, 0, 3);
-		kryptonTableLayoutPanel.Controls.Add(kryptonDateTimePickerUtc, 1, 3);
-		kryptonTableLayoutPanel.Controls.Add(kryptonLabelObserverLatitude, 0, 4);
-		kryptonTableLayoutPanel.Controls.Add(kryptonTextBoxObserverLatitude, 1, 4);
-		kryptonTableLayoutPanel.Controls.Add(kryptonLabelObserverLongitude, 2, 4);
-		kryptonTableLayoutPanel.Controls.Add(kryptonTextBoxObserverLongitude, 3, 4);
-		kryptonTableLayoutPanel.Controls.Add(kryptonLabelResultTitle, 0, 5);
-		kryptonTableLayoutPanel.Controls.Add(kryptonLabelResult, 0, 6);
-		kryptonTableLayoutPanel.Dock = DockStyle.Fill;
-		kryptonTableLayoutPanel.Location = new Point(0, 0);
-		kryptonTableLayoutPanel.Name = "kryptonTableLayoutPanel";
-		kryptonTableLayoutPanel.RowCount = 7;
-		kryptonTableLayoutPanel.RowStyles.Add(new RowStyle());
-		kryptonTableLayoutPanel.RowStyles.Add(new RowStyle());
-		kryptonTableLayoutPanel.RowStyles.Add(new RowStyle());
-		kryptonTableLayoutPanel.RowStyles.Add(new RowStyle());
-		kryptonTableLayoutPanel.RowStyles.Add(new RowStyle());
-		kryptonTableLayoutPanel.RowStyles.Add(new RowStyle());
-		kryptonTableLayoutPanel.RowStyles.Add(new RowStyle());
-		kryptonTableLayoutPanel.Size = new Size(755, 179);
-		kryptonTableLayoutPanel.TabIndex = 0;
-		kryptonTableLayoutPanel.TabStop = true;
-		kryptonTableLayoutPanel.Enter += Control_Enter;
-		kryptonTableLayoutPanel.Leave += Control_Leave;
-		kryptonTableLayoutPanel.MouseEnter += Control_Enter;
-		kryptonTableLayoutPanel.MouseLeave += Control_Leave;
+		tableLayoutPanel.AccessibleDescription = "Groups the data";
+		tableLayoutPanel.AccessibleName = "pane";
+		tableLayoutPanel.AccessibleRole = AccessibleRole.Grouping;
+		tableLayoutPanel.AutoScroll = true;
+		tableLayoutPanel.ColumnCount = 4;
+		tableLayoutPanel.ColumnStyles.Add(new ColumnStyle());
+		tableLayoutPanel.ColumnStyles.Add(new ColumnStyle());
+		tableLayoutPanel.ColumnStyles.Add(new ColumnStyle());
+		tableLayoutPanel.ColumnStyles.Add(new ColumnStyle());
+		tableLayoutPanel.Controls.Add(kryptonLabelSource, 0, 0);
+		tableLayoutPanel.Controls.Add(kryptonComboBoxSource, 1, 0);
+		tableLayoutPanel.Controls.Add(kryptonLabelTarget, 2, 0);
+		tableLayoutPanel.Controls.Add(kryptonComboBoxTarget, 3, 0);
+		tableLayoutPanel.Controls.Add(kryptonLabelFirstCoordinate, 0, 1);
+		tableLayoutPanel.Controls.Add(kryptonTextBoxFirstCoordinate, 1, 1);
+		tableLayoutPanel.Controls.Add(kryptonLabelFirstCoordinateType, 2, 1);
+		tableLayoutPanel.Controls.Add(kryptonComboBoxFirstCoordinateType, 3, 1);
+		tableLayoutPanel.Controls.Add(kryptonLabelSecondCoordinate, 0, 2);
+		tableLayoutPanel.Controls.Add(kryptonTextBoxSecondCoordinate, 1, 2);
+		tableLayoutPanel.Controls.Add(kryptonLabelAngleUnit, 2, 2);
+		tableLayoutPanel.Controls.Add(kryptonComboBoxAngleUnit, 3, 2);
+		tableLayoutPanel.Controls.Add(kryptonLabelDateTimeUtc, 0, 3);
+		tableLayoutPanel.Controls.Add(kryptonDateTimePickerUtc, 1, 3);
+		tableLayoutPanel.Controls.Add(kryptonLabelObserverLatitude, 0, 4);
+		tableLayoutPanel.Controls.Add(kryptonTextBoxObserverLatitude, 1, 4);
+		tableLayoutPanel.Controls.Add(kryptonLabelObserverLongitude, 2, 4);
+		tableLayoutPanel.Controls.Add(kryptonTextBoxObserverLongitude, 3, 4);
+		tableLayoutPanel.Controls.Add(kryptonLabelResultTitle, 0, 5);
+		tableLayoutPanel.Controls.Add(kryptonLabelResult, 0, 6);
+		tableLayoutPanel.Dock = DockStyle.Fill;
+		tableLayoutPanel.Location = new Point(0, 0);
+		tableLayoutPanel.Name = "tableLayoutPanel";
+		tableLayoutPanel.RowCount = 7;
+		tableLayoutPanel.RowStyles.Add(new RowStyle());
+		tableLayoutPanel.RowStyles.Add(new RowStyle());
+		tableLayoutPanel.RowStyles.Add(new RowStyle());
+		tableLayoutPanel.RowStyles.Add(new RowStyle());
+		tableLayoutPanel.RowStyles.Add(new RowStyle());
+		tableLayoutPanel.RowStyles.Add(new RowStyle());
+		tableLayoutPanel.RowStyles.Add(new RowStyle());
+		tableLayoutPanel.Size = new Size(755, 179);
+		tableLayoutPanel.TabIndex = 0;
+		tableLayoutPanel.TabStop = true;
+		tableLayoutPanel.Enter += Control_Enter;
+		tableLayoutPanel.Leave += Control_Leave;
+		tableLayoutPanel.MouseEnter += Control_Enter;
+		tableLayoutPanel.MouseLeave += Control_Leave;
 		// 
 		// kryptonLabelSource
 		// 
@@ -348,7 +352,7 @@ partial class CoordinateTransformationForm
 		kryptonDateTimePickerUtc.AccessibleDescription = I18nStrings.CoordinateConversionDateTimeAccessibleDescription;
 		kryptonDateTimePickerUtc.AccessibleName = I18nStrings.CoordinateConversionDateTimeLabel;
 		kryptonDateTimePickerUtc.AccessibleRole = AccessibleRole.SpinButton;
-		kryptonTableLayoutPanel.SetColumnSpan(kryptonDateTimePickerUtc, 3);
+		tableLayoutPanel.SetColumnSpan(kryptonDateTimePickerUtc, 3);
 		kryptonDateTimePickerUtc.CustomFormat = "yyyy-MM-dd HH:mm:ss";
 		kryptonDateTimePickerUtc.Dock = DockStyle.Left;
 		kryptonDateTimePickerUtc.Format = DateTimePickerFormat.Custom;
@@ -437,7 +441,7 @@ partial class CoordinateTransformationForm
 		kryptonLabelResultTitle.AccessibleName = I18nStrings.CoordinateConversionResultLabel;
 		kryptonLabelResultTitle.AccessibleRole = AccessibleRole.StaticText;
 		kryptonLabelResultTitle.Anchor = AnchorStyles.Left;
-		kryptonTableLayoutPanel.SetColumnSpan(kryptonLabelResultTitle, 4);
+		tableLayoutPanel.SetColumnSpan(kryptonLabelResultTitle, 4);
 		kryptonLabelResultTitle.Location = new Point(0, 115);
 		kryptonLabelResultTitle.Margin = new Padding(0);
 		kryptonLabelResultTitle.Name = "kryptonLabelResultTitle";
@@ -454,7 +458,7 @@ partial class CoordinateTransformationForm
 		kryptonLabelResult.AccessibleDescription = I18nStrings.CoordinateConversionResultAccessibleDescription;
 		kryptonLabelResult.AccessibleName = I18nStrings.CoordinateConversionResultLabel;
 		kryptonLabelResult.AccessibleRole = AccessibleRole.StaticText;
-		kryptonTableLayoutPanel.SetColumnSpan(kryptonLabelResult, 4);
+		tableLayoutPanel.SetColumnSpan(kryptonLabelResult, 4);
 		kryptonLabelResult.ContextMenuStrip = contextMenuCopyToClipboard;
 		kryptonLabelResult.Dock = DockStyle.Fill;
 		kryptonLabelResult.LabelStyle = LabelStyle.BoldPanel;
@@ -511,6 +515,7 @@ partial class CoordinateTransformationForm
 		kryptonStatusStrip.AccessibleRole = AccessibleRole.StatusBar;
 		kryptonStatusStrip.AllowClickThrough = true;
 		kryptonStatusStrip.AllowItemReorder = true;
+		kryptonStatusStrip.ContextMenuStrip = contextMenuShowControlsInStatusBar;
 		kryptonStatusStrip.Dock = DockStyle.None;
 		kryptonStatusStrip.Font = new Font("Segoe UI", 9F);
 		kryptonStatusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
@@ -528,6 +533,38 @@ partial class CoordinateTransformationForm
 		kryptonStatusStrip.Leave += Control_Leave;
 		kryptonStatusStrip.MouseEnter += Control_Enter;
 		kryptonStatusStrip.MouseLeave += Control_Leave;
+		// 
+		// contextMenuShowControlsInStatusBar
+		// 
+		contextMenuShowControlsInStatusBar.AccessibleDescription = "Shows the context menu for the visibility of controls in the status bar";
+		contextMenuShowControlsInStatusBar.AccessibleName = "Context menu for the visibility of controls in the status bar";
+		contextMenuShowControlsInStatusBar.AccessibleRole = AccessibleRole.MenuPopup;
+		contextMenuShowControlsInStatusBar.AllowClickThrough = true;
+		contextMenuShowControlsInStatusBar.Font = new Font("Segoe UI", 9F);
+		contextMenuShowControlsInStatusBar.Items.AddRange(new ToolStripItem[] { toolStripMenuItemShowInformationLabel });
+		contextMenuShowControlsInStatusBar.Name = "contextMenuStrip";
+		contextMenuShowControlsInStatusBar.Size = new Size(198, 26);
+		contextMenuShowControlsInStatusBar.TabStop = true;
+		contextMenuShowControlsInStatusBar.Text = "Show controls in status bar";
+		contextMenuShowControlsInStatusBar.MouseEnter += Control_Enter;
+		contextMenuShowControlsInStatusBar.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemShowInformationLabel
+		// 
+		toolStripMenuItemShowInformationLabel.AccessibleDescription = "Determines whether the information label is visible or hidden";
+		toolStripMenuItemShowInformationLabel.AccessibleName = "Information label";
+		toolStripMenuItemShowInformationLabel.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemShowInformationLabel.AutoToolTip = true;
+		toolStripMenuItemShowInformationLabel.Checked = true;
+		toolStripMenuItemShowInformationLabel.CheckOnClick = true;
+		toolStripMenuItemShowInformationLabel.CheckState = CheckState.Checked;
+		toolStripMenuItemShowInformationLabel.Name = "toolStripMenuItemShowInformationLabel";
+		toolStripMenuItemShowInformationLabel.ShortcutKeyDisplayString = "";
+		toolStripMenuItemShowInformationLabel.Size = new Size(197, 22);
+		toolStripMenuItemShowInformationLabel.Text = "Show &information label";
+		toolStripMenuItemShowInformationLabel.Click += ToolStripMenuItemShowInformationLabel_Click;
+		toolStripMenuItemShowInformationLabel.MouseEnter += Control_Enter;
+		toolStripMenuItemShowInformationLabel.MouseLeave += Control_Leave;
 		// 
 		// labelInformation
 		// 
@@ -558,7 +595,7 @@ partial class CoordinateTransformationForm
 		// 
 		toolStripContainer.ContentPanel.AccessibleDescription = "Just a panel";
 		toolStripContainer.ContentPanel.AccessibleName = "Content panel";
-		toolStripContainer.ContentPanel.Controls.Add(kryptonTableLayoutPanel);
+		toolStripContainer.ContentPanel.Controls.Add(tableLayoutPanel);
 		toolStripContainer.ContentPanel.Size = new Size(755, 179);
 		toolStripContainer.Dock = DockStyle.Fill;
 		// 
@@ -642,8 +679,8 @@ partial class CoordinateTransformationForm
 		Text = "Astronomical coordinate conversion";
 		FormClosing += CoordinateTransformationForm_FormClosing;
 		Load += CoordinateTransformationForm_Load;
-		kryptonTableLayoutPanel.ResumeLayout(false);
-		kryptonTableLayoutPanel.PerformLayout();
+		tableLayoutPanel.ResumeLayout(false);
+		tableLayoutPanel.PerformLayout();
 		((ISupportInitialize)kryptonComboBoxSource).EndInit();
 		((ISupportInitialize)kryptonComboBoxTarget).EndInit();
 		((ISupportInitialize)kryptonComboBoxFirstCoordinateType).EndInit();
@@ -651,6 +688,7 @@ partial class CoordinateTransformationForm
 		contextMenuCopyToClipboard.ResumeLayout(false);
 		kryptonStatusStrip.ResumeLayout(false);
 		kryptonStatusStrip.PerformLayout();
+		contextMenuShowControlsInStatusBar.ResumeLayout(false);
 		toolStripContainer.BottomToolStripPanel.ResumeLayout(false);
 		toolStripContainer.BottomToolStripPanel.PerformLayout();
 		toolStripContainer.ContentPanel.ResumeLayout(false);
@@ -665,7 +703,7 @@ partial class CoordinateTransformationForm
 
 	#endregion
 
-	private KryptonTableLayoutPanel kryptonTableLayoutPanel = null!;
+	private KryptonTableLayoutPanel tableLayoutPanel = null!;
 	private KryptonLabel kryptonLabelSource = null!;
 	private KryptonComboBox kryptonComboBoxSource = null!;
 	private KryptonLabel kryptonLabelTarget = null!;
@@ -693,4 +731,6 @@ partial class CoordinateTransformationForm
 	private ToolStripButton toolStripButtonButtonConvert;
 	private ContextMenuStrip contextMenuCopyToClipboard;
 	private ToolStripMenuItem toolStripMenuItemCopyToClipboard;
+	private ContextMenuStrip contextMenuShowControlsInStatusBar;
+	private ToolStripMenuItem toolStripMenuItemShowInformationLabel;
 }
