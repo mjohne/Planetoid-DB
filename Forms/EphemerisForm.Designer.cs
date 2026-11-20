@@ -41,6 +41,8 @@ partial class EphemerisForm
 		components = new Container();
 		ComponentResourceManager resources = new ComponentResourceManager(typeof(EphemerisForm));
 		kryptonStatusStrip = new KryptonStatusStrip();
+		contextMenuShowControlsInStatusBar = new ContextMenuStrip(components);
+		toolStripMenuItemShowInformationLabel = new ToolStripMenuItem();
 		labelInformation = new ToolStripStatusLabel();
 		toolStripContainer = new ToolStripContainer();
 		kryptonPanelMain = new KryptonPanel();
@@ -122,6 +124,7 @@ partial class EphemerisForm
 		labelEphemeridesBegin = new KryptonLabel();
 		kryptonManager = new KryptonManager(components);
 		kryptonStatusStrip.SuspendLayout();
+		contextMenuShowControlsInStatusBar.SuspendLayout();
 		toolStripContainer.BottomToolStripPanel.SuspendLayout();
 		toolStripContainer.ContentPanel.SuspendLayout();
 		toolStripContainer.SuspendLayout();
@@ -138,6 +141,7 @@ partial class EphemerisForm
 		kryptonStatusStrip.AccessibleRole = AccessibleRole.StatusBar;
 		kryptonStatusStrip.AllowClickThrough = true;
 		kryptonStatusStrip.AllowItemReorder = true;
+		kryptonStatusStrip.ContextMenuStrip = contextMenuShowControlsInStatusBar;
 		kryptonStatusStrip.Dock = DockStyle.None;
 		kryptonStatusStrip.Font = new Font("Segoe UI", 9F);
 		kryptonStatusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
@@ -150,6 +154,38 @@ partial class EphemerisForm
 		kryptonStatusStrip.TabIndex = 0;
 		kryptonStatusStrip.TabStop = true;
 		kryptonStatusStrip.Text = "Status bar";
+		// 
+		// contextMenuShowControlsInStatusBar
+		// 
+		contextMenuShowControlsInStatusBar.AccessibleDescription = "Shows the context menu for the visibility of controls in the status bar";
+		contextMenuShowControlsInStatusBar.AccessibleName = "Context menu for the visibility of controls in the status bar";
+		contextMenuShowControlsInStatusBar.AccessibleRole = AccessibleRole.MenuPopup;
+		contextMenuShowControlsInStatusBar.AllowClickThrough = true;
+		contextMenuShowControlsInStatusBar.Font = new Font("Segoe UI", 9F);
+		contextMenuShowControlsInStatusBar.Items.AddRange(new ToolStripItem[] { toolStripMenuItemShowInformationLabel });
+		contextMenuShowControlsInStatusBar.Name = "contextMenuStrip";
+		contextMenuShowControlsInStatusBar.Size = new Size(198, 48);
+		contextMenuShowControlsInStatusBar.TabStop = true;
+		contextMenuShowControlsInStatusBar.Text = "Show controls in status bar";
+		contextMenuShowControlsInStatusBar.MouseEnter += Control_Enter;
+		contextMenuShowControlsInStatusBar.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemShowInformationLabel
+		// 
+		toolStripMenuItemShowInformationLabel.AccessibleDescription = "Determines whether the information label is visible or hidden";
+		toolStripMenuItemShowInformationLabel.AccessibleName = "Information label";
+		toolStripMenuItemShowInformationLabel.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemShowInformationLabel.AutoToolTip = true;
+		toolStripMenuItemShowInformationLabel.Checked = true;
+		toolStripMenuItemShowInformationLabel.CheckOnClick = true;
+		toolStripMenuItemShowInformationLabel.CheckState = CheckState.Checked;
+		toolStripMenuItemShowInformationLabel.Name = "toolStripMenuItemShowInformationLabel";
+		toolStripMenuItemShowInformationLabel.ShortcutKeyDisplayString = "";
+		toolStripMenuItemShowInformationLabel.Size = new Size(197, 22);
+		toolStripMenuItemShowInformationLabel.Text = "Show &information label";
+		toolStripMenuItemShowInformationLabel.Click += ToolStripMenuItemShowInformationLabel_Click;
+		toolStripMenuItemShowInformationLabel.MouseEnter += Control_Enter;
+		toolStripMenuItemShowInformationLabel.MouseLeave += Control_Leave;
 		// 
 		// labelInformation
 		// 
@@ -214,6 +250,7 @@ partial class EphemerisForm
 		kryptonPanelMain.AccessibleDescription = "Groups the data";
 		kryptonPanelMain.AccessibleName = "Panel";
 		kryptonPanelMain.AccessibleRole = AccessibleRole.Pane;
+		kryptonPanelMain.AutoScroll = true;
 		kryptonPanelMain.Controls.Add(kryptonDropButtonSaveList);
 		kryptonPanelMain.Controls.Add(kryptonDropButtonLoadEphemerisFile);
 		kryptonPanelMain.Controls.Add(kryptonButtonOpenWorldMap);
@@ -1560,6 +1597,7 @@ partial class EphemerisForm
 		Load += EphemerisForm_Load;
 		kryptonStatusStrip.ResumeLayout(false);
 		kryptonStatusStrip.PerformLayout();
+		contextMenuShowControlsInStatusBar.ResumeLayout(false);
 		toolStripContainer.BottomToolStripPanel.ResumeLayout(false);
 		toolStripContainer.BottomToolStripPanel.PerformLayout();
 		toolStripContainer.ContentPanel.ResumeLayout(false);
@@ -1656,4 +1694,6 @@ partial class EphemerisForm
 	private ToolStripMenuItem toolStripMenuItemSaveAsFictionBook2;
 	private ToolStripMenuItem toolStripMenuItemSaveAsChm;
 	private KryptonDropButton kryptonDropButtonSaveList;
+	private ContextMenuStrip contextMenuShowControlsInStatusBar;
+	private ToolStripMenuItem toolStripMenuItemShowInformationLabel;
 }
