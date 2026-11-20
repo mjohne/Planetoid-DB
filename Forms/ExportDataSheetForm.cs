@@ -224,7 +224,23 @@ internal partial class ExportDataSheetForm : BaseKryptonForm
 
 	#endregion
 
-	#region Click & ButtonClick event handlers
+	#region Click event handlers
+
+	/// <summary>Shows or hides the information label according to the menu item's checked state.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data.</param>
+	private void ToolStripMenuItemShowInformationLabel_Click(object sender, EventArgs e)
+	{
+		// Log the action of clicking of ToolStripMenuItemShowInformationLabel
+		logger.Info(message: $"ToolStripMenuItemShowInformationLabel clicked.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		labelInformation.Visible = toolStripMenuItemShowInformationLabel.Checked;
+		// Log the new state of the visibility of the information label
+		logger.Info(message: $"Set the visibility of the information label to {labelInformation.Visible}.");
+	}
 
 	/// <summary>Handles the Click event of the Mark All tool strip button. Marks all items in the orbital elements checklist.</summary>
 	/// <param name="sender">Event source (the Mark All tool strip button).</param>
