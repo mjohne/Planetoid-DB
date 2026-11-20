@@ -1,9 +1,11 @@
 /*
- * File:        DownloaderForm.Designer.cs
+ * File:        DownloaderForm.Designer.cs
+
  * Project:     Planetoid-DB
  * Namespace:   Planetoid_DB
  * Description: Represents a Windows Form that provides a user interface for downloading files from a database and monitoring download progress.
- * Remarks:     This file contains the Windows Forms designer-generated code for the DownloaderForm. Do not modify this file manually.
+ * Remarks:     This file contains the Windows Forms designer-generated code for the DownloaderForm. Do not modify this file manually.
+
  *
  * Author:      Michael Johne
  * Company:     Mijo Software
@@ -116,6 +118,8 @@ partial class DownloaderForm
 		toolStripSeparator = new ToolStripSeparator();
 		toolStripLabelProgress = new ToolStripLabel();
 		kryptonProgressBarDownload = new Krypton.Toolkit.KryptonProgressBarToolStripItem();
+		contextMenuShowControlsInStatusBar = new ContextMenuStrip(components);
+		toolStripMenuItemShowInformationLabel = new ToolStripMenuItem();
 		tableLayoutPanel.SuspendLayout();
 		contextMenuSaveToFile.SuspendLayout();
 		contextMenuCopyToClipboard.SuspendLayout();
@@ -127,6 +131,7 @@ partial class DownloaderForm
 		toolStripContainer.TopToolStripPanel.SuspendLayout();
 		toolStripContainer.SuspendLayout();
 		kryptonToolStripIcons.SuspendLayout();
+		contextMenuShowControlsInStatusBar.SuspendLayout();
 		SuspendLayout();
 		// 
 		// kryptonManager
@@ -1049,6 +1054,7 @@ partial class DownloaderForm
 		kryptonStatusStrip.AccessibleRole = AccessibleRole.StatusBar;
 		kryptonStatusStrip.AllowClickThrough = true;
 		kryptonStatusStrip.AllowItemReorder = true;
+		kryptonStatusStrip.ContextMenuStrip = contextMenuShowControlsInStatusBar;
 		kryptonStatusStrip.Dock = DockStyle.None;
 		kryptonStatusStrip.Font = new Font("Segoe UI", 9F);
 		kryptonStatusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
@@ -1078,6 +1084,7 @@ partial class DownloaderForm
 		kryptoPanelMain.AccessibleDescription = "Groups the data";
 		kryptoPanelMain.AccessibleName = "Panel";
 		kryptoPanelMain.AccessibleRole = AccessibleRole.Pane;
+		kryptoPanelMain.AutoScroll = true;
 		kryptoPanelMain.Controls.Add(tableLayoutPanel);
 		kryptoPanelMain.Dock = DockStyle.Fill;
 		kryptoPanelMain.Location = new Point(0, 0);
@@ -1206,6 +1213,38 @@ partial class DownloaderForm
 		kryptonProgressBarDownload.StateNormal.Back.ColorStyle = Krypton.Toolkit.PaletteColorStyle.OneNote;
 		kryptonProgressBarDownload.Values.Text = "";
 		// 
+		// contextMenuShowControlsInStatusBar
+		// 
+		contextMenuShowControlsInStatusBar.AccessibleDescription = "Shows the context menu for the visibility of controls in the status bar";
+		contextMenuShowControlsInStatusBar.AccessibleName = "Context menu for the visibility of controls in the status bar";
+		contextMenuShowControlsInStatusBar.AccessibleRole = AccessibleRole.MenuPopup;
+		contextMenuShowControlsInStatusBar.AllowClickThrough = true;
+		contextMenuShowControlsInStatusBar.Font = new Font("Segoe UI", 9F);
+		contextMenuShowControlsInStatusBar.Items.AddRange(new ToolStripItem[] { toolStripMenuItemShowInformationLabel });
+		contextMenuShowControlsInStatusBar.Name = "contextMenuStrip";
+		contextMenuShowControlsInStatusBar.Size = new Size(198, 48);
+		contextMenuShowControlsInStatusBar.TabStop = true;
+		contextMenuShowControlsInStatusBar.Text = "Show controls in status bar";
+		contextMenuShowControlsInStatusBar.MouseEnter += Control_Enter;
+		contextMenuShowControlsInStatusBar.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemShowInformationLabel
+		// 
+		toolStripMenuItemShowInformationLabel.AccessibleDescription = "Determines whether the information label is visible or hidden";
+		toolStripMenuItemShowInformationLabel.AccessibleName = "Information label";
+		toolStripMenuItemShowInformationLabel.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemShowInformationLabel.AutoToolTip = true;
+		toolStripMenuItemShowInformationLabel.Checked = true;
+		toolStripMenuItemShowInformationLabel.CheckOnClick = true;
+		toolStripMenuItemShowInformationLabel.CheckState = CheckState.Checked;
+		toolStripMenuItemShowInformationLabel.Name = "toolStripMenuItemShowInformationLabel";
+		toolStripMenuItemShowInformationLabel.ShortcutKeyDisplayString = "";
+		toolStripMenuItemShowInformationLabel.Size = new Size(197, 22);
+		toolStripMenuItemShowInformationLabel.Text = "Show &information label";
+		toolStripMenuItemShowInformationLabel.Click += ToolStripMenuItemShowInformationLabel_Click;
+		toolStripMenuItemShowInformationLabel.MouseEnter += Control_Enter;
+		toolStripMenuItemShowInformationLabel.MouseLeave += Control_Leave;
+		// 
 		// DownloaderForm
 		// 
 		AccessibleDescription = "Downloads the files";
@@ -1243,6 +1282,7 @@ partial class DownloaderForm
 		toolStripContainer.PerformLayout();
 		kryptonToolStripIcons.ResumeLayout(false);
 		kryptonToolStripIcons.PerformLayout();
+		contextMenuShowControlsInStatusBar.ResumeLayout(false);
 		ResumeLayout(false);
 	}
 	private Krypton.Toolkit.KryptonManager kryptonManager;
@@ -1312,4 +1352,6 @@ partial class DownloaderForm
 	private ToolStripMenuItem toolStripMenuItemSaveAsXps;
 	private ToolStripMenuItem toolStripMenuItemSaveAsFictionBook2;
 	private ToolStripMenuItem toolStripMenuItemSaveAsChm;
+	private ContextMenuStrip contextMenuShowControlsInStatusBar;
+	private ToolStripMenuItem toolStripMenuItemShowInformationLabel;
 }
