@@ -370,7 +370,7 @@ internal partial class LogViewerForm : BaseKryptonForm
 			sortedIndices = [.. Enumerable.Range(start: 0, count: count)];
 		}
 		// Precompute sort keys once per index to avoid repeated work during comparison
-		Dictionary<int, (bool HasNumeric, long NumericValue, string TextValue)> sortKeyCache = new(capacity: count);
+		Dictionary<int, (bool HasNumeric, long NumericValue, string TextValue)> sortKeyCache = [with(capacity: count)];
 		// Populate the sort key cache for each index in sortedIndices
 		foreach (int index in sortedIndices)
 		{
@@ -483,6 +483,22 @@ internal partial class LogViewerForm : BaseKryptonForm
 		// Update button states and status bar
 		UpdateButtonStates();
 		SetStatusBar(label: labelInformation, text: "All log entries deleted");
+	}
+
+	/// <summary>Shows or hides the information label according to the menu item's checked state.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data.</param>
+	private void ToolStripMenuItemShowInformationLabel_Click(object sender, EventArgs e)
+	{
+		// Log the action of clicking of ToolStripMenuItemShowInformationLabel
+		logger.Info(message: $"ToolStripMenuItemShowInformationLabel clicked.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		labelInformation.Visible = toolStripMenuItemShowInformationLabel.Checked;
+		// Log the new state of the visibility of the information label
+		logger.Info(message: $"Set the visibility of the information label to {labelInformation.Visible}.");
 	}
 
 	#endregion
