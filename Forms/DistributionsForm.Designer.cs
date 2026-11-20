@@ -50,8 +50,7 @@ partial class DistributionsForm
 
 			components?.Dispose();
 		}
-
-		base.Dispose(disposing);
+		base.Dispose(disposing: disposing);
 	}
 
 	/// <summary>Initializes the components of the form.</summary>
@@ -88,6 +87,8 @@ partial class DistributionsForm
 		toolStripLabelStepSize = new ToolStripLabel();
 		toolStripComboBoxStepSize = new ToolStripComboBox();
 		kryptonManager = new KryptonManager(components);
+		contextMenuShowControlsInStatusBar = new ContextMenuStrip(components);
+		toolStripMenuItemShowInformationLabel = new ToolStripMenuItem();
 		toolStripContainer.BottomToolStripPanel.SuspendLayout();
 		toolStripContainer.ContentPanel.SuspendLayout();
 		toolStripContainer.TopToolStripPanel.SuspendLayout();
@@ -103,6 +104,7 @@ partial class DistributionsForm
 		kryptonPanelChart.SuspendLayout();
 		kryptonToolStripProgress.SuspendLayout();
 		kryptonToolStripToolbar.SuspendLayout();
+		contextMenuShowControlsInStatusBar.SuspendLayout();
 		SuspendLayout();
 		// 
 		// toolStripContainer
@@ -163,6 +165,7 @@ partial class DistributionsForm
 		kryptonStatusStrip.AccessibleRole = AccessibleRole.StatusBar;
 		kryptonStatusStrip.AllowClickThrough = true;
 		kryptonStatusStrip.AllowItemReorder = true;
+		kryptonStatusStrip.ContextMenuStrip = contextMenuShowControlsInStatusBar;
 		kryptonStatusStrip.Dock = DockStyle.None;
 		kryptonStatusStrip.Font = new Font("Segoe UI", 9F);
 		kryptonStatusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
@@ -198,6 +201,7 @@ partial class DistributionsForm
 		kryptonPanelMain.AccessibleDescription = "Contains the histogram and the counted ranges list";
 		kryptonPanelMain.AccessibleName = "Main panel";
 		kryptonPanelMain.AccessibleRole = AccessibleRole.Pane;
+		kryptonPanelMain.AutoScroll = true;
 		kryptonPanelMain.Controls.Add(splitContainerMain);
 		kryptonPanelMain.Dock = DockStyle.Fill;
 		kryptonPanelMain.Location = new Point(0, 0);
@@ -241,6 +245,7 @@ partial class DistributionsForm
 		kryptonPanelChart.AccessibleDescription = "Displays the histogram using ScottPlot";
 		kryptonPanelChart.AccessibleName = "Histogram panel";
 		kryptonPanelChart.AccessibleRole = AccessibleRole.Pane;
+		kryptonPanelChart.AutoScroll = true;
 		kryptonPanelChart.Controls.Add(formsPlotHistogram);
 		kryptonPanelChart.Dock = DockStyle.Fill;
 		kryptonPanelChart.Location = new Point(0, 0);
@@ -260,6 +265,7 @@ partial class DistributionsForm
 		formsPlotHistogram.AccessibleDescription = "Shows the histogram of the counted planetoids";
 		formsPlotHistogram.AccessibleName = "Histogram chart";
 		formsPlotHistogram.AccessibleRole = AccessibleRole.Chart;
+		formsPlotHistogram.AutoScroll = true;
 		formsPlotHistogram.Dock = DockStyle.Fill;
 		formsPlotHistogram.Location = new Point(0, 0);
 		formsPlotHistogram.Name = "formsPlotHistogram";
@@ -524,6 +530,38 @@ partial class DistributionsForm
 		kryptonManager.ToolkitStrings.MessageBoxStrings.LessDetails = "L&ess Details...";
 		kryptonManager.ToolkitStrings.MessageBoxStrings.MoreDetails = "&More Details...";
 		// 
+		// contextMenuShowControlsInStatusBar
+		// 
+		contextMenuShowControlsInStatusBar.AccessibleDescription = "Shows the context menu for the visibility of controls in the status bar";
+		contextMenuShowControlsInStatusBar.AccessibleName = "Context menu for the visibility of controls in the status bar";
+		contextMenuShowControlsInStatusBar.AccessibleRole = AccessibleRole.MenuPopup;
+		contextMenuShowControlsInStatusBar.AllowClickThrough = true;
+		contextMenuShowControlsInStatusBar.Font = new Font("Segoe UI", 9F);
+		contextMenuShowControlsInStatusBar.Items.AddRange(new ToolStripItem[] { toolStripMenuItemShowInformationLabel });
+		contextMenuShowControlsInStatusBar.Name = "contextMenuStrip";
+		contextMenuShowControlsInStatusBar.Size = new Size(198, 48);
+		contextMenuShowControlsInStatusBar.TabStop = true;
+		contextMenuShowControlsInStatusBar.Text = "Show controls in status bar";
+		contextMenuShowControlsInStatusBar.MouseEnter += Control_Enter;
+		contextMenuShowControlsInStatusBar.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemShowInformationLabel
+		// 
+		toolStripMenuItemShowInformationLabel.AccessibleDescription = "Determines whether the information label is visible or hidden";
+		toolStripMenuItemShowInformationLabel.AccessibleName = "Information label";
+		toolStripMenuItemShowInformationLabel.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemShowInformationLabel.AutoToolTip = true;
+		toolStripMenuItemShowInformationLabel.Checked = true;
+		toolStripMenuItemShowInformationLabel.CheckOnClick = true;
+		toolStripMenuItemShowInformationLabel.CheckState = CheckState.Checked;
+		toolStripMenuItemShowInformationLabel.Name = "toolStripMenuItemShowInformationLabel";
+		toolStripMenuItemShowInformationLabel.ShortcutKeyDisplayString = "";
+		toolStripMenuItemShowInformationLabel.Size = new Size(197, 22);
+		toolStripMenuItemShowInformationLabel.Text = "Show &information label";
+		toolStripMenuItemShowInformationLabel.Click += ToolStripMenuItemShowInformationLabel_Click;
+		toolStripMenuItemShowInformationLabel.MouseEnter += Control_Enter;
+		toolStripMenuItemShowInformationLabel.MouseLeave += Control_Leave;
+		// 
 		// DistributionsForm
 		// 
 		AccessibleDescription = "Counts planetoids in orbital-element ranges and displays the result as a histogram";
@@ -565,6 +603,7 @@ partial class DistributionsForm
 		kryptonToolStripProgress.PerformLayout();
 		kryptonToolStripToolbar.ResumeLayout(false);
 		kryptonToolStripToolbar.PerformLayout();
+		contextMenuShowControlsInStatusBar.ResumeLayout(false);
 		ResumeLayout(false);
 	}
 
@@ -596,4 +635,6 @@ partial class DistributionsForm
 	private ToolStripLabel toolStripLabelProgress;
 	private KryptonProgressBarToolStripItem kryptonProgressBar;
 	private KryptonManager kryptonManager;
+	private ContextMenuStrip contextMenuShowControlsInStatusBar;
+	private ToolStripMenuItem toolStripMenuItemShowInformationLabel;
 }
