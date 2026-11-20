@@ -562,14 +562,30 @@ internal partial class ListReadableDesignationsForm : BaseKryptonForm
 	/// <remarks>This method calls the TriggerNavigation method to navigate to the selected planetoid record in the main form.</remarks>
 	private void ToolStripButtonGoToObject_Click(object sender, EventArgs e)
 	{
+		// Log the button click event
+		logger.Info(message: "Go to Object button clicked.");
 		// Ensure that an event source was supplied
 		ArgumentNullException.ThrowIfNull(argument: sender);
 		// Ensure that the event data was supplied
 		ArgumentNullException.ThrowIfNull(argument: e);
-		// Log the button click event
-		logger.Info(message: "Go to Object button clicked.");
 		// Trigger navigation to the selected planetoid record
 		TriggerNavigation();
+	}
+
+	/// <summary>Shows or hides the information label according to the menu item's checked state.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data.</param>
+	private void ToolStripMenuItemShowInformationLabel_Click(object sender, EventArgs e)
+	{
+		// Log the action of clicking of ToolStripMenuItemShowInformationLabel
+		logger.Info(message: $"ToolStripMenuItemShowInformationLabel clicked.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		labelInformation.Visible = toolStripMenuItemShowInformationLabel.Checked;
+		// Log the new state of the visibility of the information label
+		logger.Info(message: $"Set the visibility of the information label to {labelInformation.Visible}.");
 	}
 
 	#endregion
