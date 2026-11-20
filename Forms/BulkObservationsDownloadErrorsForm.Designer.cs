@@ -90,15 +90,17 @@ partial class BulkObservationsDownloadErrorsForm
 		toolStripMenuItemSaveAsXps = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsFictionBook2 = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsChm = new ToolStripMenuItem();
+		toolStripDropDownButtonSaveList = new ToolStripDropDownButton();
 		toolStripContainer = new ToolStripContainer();
 		kryptonStatusStrip = new Krypton.Toolkit.KryptonStatusStrip();
 		labelInformation = new ToolStripStatusLabel();
 		kryptonPanelMain = new Krypton.Toolkit.KryptonPanel();
 		kryptonToolStrip = new Krypton.Toolkit.KryptonToolStrip();
-		toolStripDropDownButtonSaveList = new ToolStripDropDownButton();
 		contextMenuCopyToClipboard = new ContextMenuStrip(components);
 		toolStripMenuItemCopyToClipboard = new ToolStripMenuItem();
 		kryptonManager = new Krypton.Toolkit.KryptonManager(components);
+		contextMenuShowControlsInStatusBar = new ContextMenuStrip(components);
+		toolStripMenuItemShowInformationLabel = new ToolStripMenuItem();
 		contextMenuSaveToFile.SuspendLayout();
 		toolStripContainer.BottomToolStripPanel.SuspendLayout();
 		toolStripContainer.ContentPanel.SuspendLayout();
@@ -109,6 +111,7 @@ partial class BulkObservationsDownloadErrorsForm
 		kryptonPanelMain.SuspendLayout();
 		kryptonToolStrip.SuspendLayout();
 		contextMenuCopyToClipboard.SuspendLayout();
+		contextMenuShowControlsInStatusBar.SuspendLayout();
 		SuspendLayout();
 		// 
 		// listView
@@ -725,6 +728,20 @@ partial class BulkObservationsDownloadErrorsForm
 		toolStripMenuItemSaveAsChm.MouseEnter += Control_Enter;
 		toolStripMenuItemSaveAsChm.MouseLeave += Control_Leave;
 		// 
+		// toolStripDropDownButtonSaveList
+		// 
+		toolStripDropDownButtonSaveList.AccessibleDescription = "Saves the list as file";
+		toolStripDropDownButtonSaveList.AccessibleName = "Save list";
+		toolStripDropDownButtonSaveList.AccessibleRole = AccessibleRole.ButtonDropDown;
+		toolStripDropDownButtonSaveList.DropDown = contextMenuSaveToFile;
+		toolStripDropDownButtonSaveList.Image = FatcowIcons16px.fatcow_diskette_16px;
+		toolStripDropDownButtonSaveList.ImageTransparentColor = Color.Magenta;
+		toolStripDropDownButtonSaveList.Name = "toolStripDropDownButtonSaveList";
+		toolStripDropDownButtonSaveList.Size = new Size(78, 22);
+		toolStripDropDownButtonSaveList.Text = "&Save list";
+		toolStripDropDownButtonSaveList.MouseEnter += Control_Enter;
+		toolStripDropDownButtonSaveList.MouseLeave += Control_Leave;
+		// 
 		// toolStripContainer
 		// 
 		toolStripContainer.AccessibleDescription = "Container";
@@ -782,6 +799,7 @@ partial class BulkObservationsDownloadErrorsForm
 		kryptonStatusStrip.AccessibleRole = AccessibleRole.StatusBar;
 		kryptonStatusStrip.AllowClickThrough = true;
 		kryptonStatusStrip.AllowItemReorder = true;
+		kryptonStatusStrip.ContextMenuStrip = contextMenuShowControlsInStatusBar;
 		kryptonStatusStrip.Dock = DockStyle.None;
 		kryptonStatusStrip.Font = new Font("Segoe UI", 9F);
 		kryptonStatusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
@@ -817,6 +835,7 @@ partial class BulkObservationsDownloadErrorsForm
 		kryptonPanelMain.AccessibleDescription = "Groups the download information";
 		kryptonPanelMain.AccessibleName = "Panel";
 		kryptonPanelMain.AccessibleRole = AccessibleRole.Pane;
+		kryptonPanelMain.AutoScroll = true;
 		kryptonPanelMain.Controls.Add(listView);
 		kryptonPanelMain.Dock = DockStyle.Fill;
 		kryptonPanelMain.Location = new Point(0, 0);
@@ -851,20 +870,6 @@ partial class BulkObservationsDownloadErrorsForm
 		kryptonToolStrip.Leave += Control_Leave;
 		kryptonToolStrip.MouseEnter += Control_Enter;
 		kryptonToolStrip.MouseLeave += Control_Leave;
-		// 
-		// toolStripDropDownButtonSaveList
-		// 
-		toolStripDropDownButtonSaveList.AccessibleDescription = "Saves the list as file";
-		toolStripDropDownButtonSaveList.AccessibleName = "Save list";
-		toolStripDropDownButtonSaveList.AccessibleRole = AccessibleRole.ButtonDropDown;
-		toolStripDropDownButtonSaveList.DropDown = contextMenuSaveToFile;
-		toolStripDropDownButtonSaveList.Image = FatcowIcons16px.fatcow_diskette_16px;
-		toolStripDropDownButtonSaveList.ImageTransparentColor = Color.Magenta;
-		toolStripDropDownButtonSaveList.Name = "toolStripDropDownButtonSaveList";
-		toolStripDropDownButtonSaveList.Size = new Size(78, 22);
-		toolStripDropDownButtonSaveList.Text = "&Save list";
-		toolStripDropDownButtonSaveList.MouseEnter += Control_Enter;
-		toolStripDropDownButtonSaveList.MouseLeave += Control_Leave;
 		// 
 		// contextMenuCopyToClipboard
 		// 
@@ -902,6 +907,38 @@ partial class BulkObservationsDownloadErrorsForm
 		kryptonManager.GlobalPaletteMode = Krypton.Toolkit.PaletteMode.Global;
 		kryptonManager.ToolkitStrings.MessageBoxStrings.LessDetails = "L&ess Details...";
 		kryptonManager.ToolkitStrings.MessageBoxStrings.MoreDetails = "&More Details...";
+		// 
+		// contextMenuShowControlsInStatusBar
+		// 
+		contextMenuShowControlsInStatusBar.AccessibleDescription = "Shows the context menu for the visibility of controls in the status bar";
+		contextMenuShowControlsInStatusBar.AccessibleName = "Context menu for the visibility of controls in the status bar";
+		contextMenuShowControlsInStatusBar.AccessibleRole = AccessibleRole.MenuPopup;
+		contextMenuShowControlsInStatusBar.AllowClickThrough = true;
+		contextMenuShowControlsInStatusBar.Font = new Font("Segoe UI", 9F);
+		contextMenuShowControlsInStatusBar.Items.AddRange(new ToolStripItem[] { toolStripMenuItemShowInformationLabel });
+		contextMenuShowControlsInStatusBar.Name = "contextMenuStrip";
+		contextMenuShowControlsInStatusBar.Size = new Size(198, 26);
+		contextMenuShowControlsInStatusBar.TabStop = true;
+		contextMenuShowControlsInStatusBar.Text = "Show controls in status bar";
+		contextMenuShowControlsInStatusBar.MouseEnter += Control_Enter;
+		contextMenuShowControlsInStatusBar.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemShowInformationLabel
+		// 
+		toolStripMenuItemShowInformationLabel.AccessibleDescription = "Determines whether the information label is visible or hidden";
+		toolStripMenuItemShowInformationLabel.AccessibleName = "Information label";
+		toolStripMenuItemShowInformationLabel.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemShowInformationLabel.AutoToolTip = true;
+		toolStripMenuItemShowInformationLabel.Checked = true;
+		toolStripMenuItemShowInformationLabel.CheckOnClick = true;
+		toolStripMenuItemShowInformationLabel.CheckState = CheckState.Checked;
+		toolStripMenuItemShowInformationLabel.Name = "toolStripMenuItemShowInformationLabel";
+		toolStripMenuItemShowInformationLabel.ShortcutKeyDisplayString = "";
+		toolStripMenuItemShowInformationLabel.Size = new Size(197, 22);
+		toolStripMenuItemShowInformationLabel.Text = "Show &information label";
+		toolStripMenuItemShowInformationLabel.Click += ToolStripMenuItemShowInformationLabel_Click;
+		toolStripMenuItemShowInformationLabel.MouseEnter += Control_Enter;
+		toolStripMenuItemShowInformationLabel.MouseLeave += Control_Leave;
 		// 
 		// BulkObservationsDownloadErrorsForm
 		// 
@@ -942,6 +979,7 @@ partial class BulkObservationsDownloadErrorsForm
 		kryptonToolStrip.ResumeLayout(false);
 		kryptonToolStrip.PerformLayout();
 		contextMenuCopyToClipboard.ResumeLayout(false);
+		contextMenuShowControlsInStatusBar.ResumeLayout(false);
 		ResumeLayout(false);
 	}
 
@@ -1001,4 +1039,6 @@ partial class BulkObservationsDownloadErrorsForm
 	private ToolStripMenuItem toolStripMenuItemSaveAsChm;
 	private Krypton.Toolkit.KryptonManager kryptonManager;
 	private ToolStripDropDownButton toolStripDropDownButtonSaveList;
+	private ContextMenuStrip contextMenuShowControlsInStatusBar;
+	private ToolStripMenuItem toolStripMenuItemShowInformationLabel;
 }
