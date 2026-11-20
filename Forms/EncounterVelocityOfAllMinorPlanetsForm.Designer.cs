@@ -18,8 +18,8 @@ using Planetoid_DB.Resources;
 
 namespace Planetoid_DB.Forms;
 
-/// <summary>Form for displaying the encounter velocitys of all minor planets relative to each of the eight solar system planets.</summary>
-/// <remarks>This form iterates over all planetoids in the database and computes their encounter velocitys with respect to all eight planets. Results are presented in a ListView where each row corresponds to one planetoid and the eight encounter velocitys columns correspond to Mercury through Neptune. The user can start and cancel the calculation at any time and track progress via the integrated progress bar.</remarks>
+/// <summary>Form for displaying the encounter velocities of all minor planets relative to each of the eight solar system planets.</summary>
+/// <remarks>This form iterates over all planetoids in the database and computes their encounter velocities with respect to all eight planets. Results are presented in a ListView where each row corresponds to one planetoid and the eight encounter velocities columns correspond to Mercury through Neptune. The user can start and cancel the calculation at any time and track progress via the integrated progress bar.</remarks>
 partial class EncounterVelocityOfAllMinorPlanetsForm
 {
 	/// <summary>Required designer variable.</summary>
@@ -73,6 +73,14 @@ partial class EncounterVelocityOfAllMinorPlanetsForm
 		columnHeaderUranus = new ColumnHeader();
 		columnHeaderNeptune = new ColumnHeader();
 		contextMenuSaveToFile = new ContextMenuStrip(components);
+		toolStripMenuItemTextFiles = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsText = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsLatex = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsMarkdown = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsAsciiDoc = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsReStructuredText = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsTextile = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsTypst = new ToolStripMenuItem();
 		toolStripMenuItemWriterDocuments = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsWord = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsOdt = new ToolStripMenuItem();
@@ -105,25 +113,19 @@ partial class EncounterVelocityOfAllMinorPlanetsForm
 		toolStripMenuItemSaveAsXps = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsFictionBook2 = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsChm = new ToolStripMenuItem();
-		toolStripMenuItemTextFiles = new ToolStripMenuItem();
-		toolStripMenuItemSaveAsText = new ToolStripMenuItem();
-		toolStripMenuItemSaveAsLatex = new ToolStripMenuItem();
-		toolStripMenuItemSaveAsMarkdown = new ToolStripMenuItem();
-		toolStripMenuItemSaveAsAsciiDoc = new ToolStripMenuItem();
-		toolStripMenuItemSaveAsReStructuredText = new ToolStripMenuItem();
-		toolStripMenuItemSaveAsTextile = new ToolStripMenuItem();
-		toolStripMenuItemSaveAsTypst = new ToolStripMenuItem();
 		toolStripIcons = new ToolStrip();
 		toolStripButtonStart = new ToolStripButton();
 		toolStripButtonCancel = new ToolStripButton();
 		toolStripSeparator1 = new ToolStripSeparator();
 		toolStripDropDownButtonSaveToFile = new ToolStripDropDownButton();
 		toolStripButtonGoToObject = new ToolStripButton();
-		toolStripButtonFilterEncounterVelocitys = new ToolStripButton();
+		toolStripButtonFilterEncounterVelocities = new ToolStripButton();
 		toolStripProgress = new ToolStrip();
 		toolStripLabelProgress = new ToolStripLabel();
 		kryptonProgressBar = new Krypton.Toolkit.KryptonProgressBarToolStripItem();
 		kryptonManager = new Krypton.Toolkit.KryptonManager(components);
+		contextMenuShowControlsInStatusBar = new ContextMenuStrip(components);
+		toolStripMenuItemShowInformationLabel = new ToolStripMenuItem();
 		toolStripContainer.BottomToolStripPanel.SuspendLayout();
 		toolStripContainer.ContentPanel.SuspendLayout();
 		toolStripContainer.TopToolStripPanel.SuspendLayout();
@@ -134,6 +136,7 @@ partial class EncounterVelocityOfAllMinorPlanetsForm
 		contextMenuSaveToFile.SuspendLayout();
 		toolStripIcons.SuspendLayout();
 		toolStripProgress.SuspendLayout();
+		contextMenuShowControlsInStatusBar.SuspendLayout();
 		SuspendLayout();
 		// 
 		// toolStripContainer
@@ -190,6 +193,7 @@ partial class EncounterVelocityOfAllMinorPlanetsForm
 		kryptonStatusStrip.AccessibleRole = AccessibleRole.StatusBar;
 		kryptonStatusStrip.AllowClickThrough = true;
 		kryptonStatusStrip.AllowItemReorder = true;
+		kryptonStatusStrip.ContextMenuStrip = contextMenuShowControlsInStatusBar;
 		kryptonStatusStrip.Dock = DockStyle.None;
 		kryptonStatusStrip.Font = new Font("Segoe UI", 9F);
 		kryptonStatusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
@@ -226,6 +230,7 @@ partial class EncounterVelocityOfAllMinorPlanetsForm
 		kryptonPanelMain.AccessibleDescription = "Groups the data";
 		kryptonPanelMain.AccessibleName = "Panel";
 		kryptonPanelMain.AccessibleRole = AccessibleRole.Pane;
+		kryptonPanelMain.AutoScroll = true;
 		kryptonPanelMain.Controls.Add(listView);
 		kryptonPanelMain.Dock = DockStyle.Fill;
 		kryptonPanelMain.Location = new Point(0, 0);
@@ -327,6 +332,7 @@ partial class EncounterVelocityOfAllMinorPlanetsForm
 		contextMenuSaveToFile.Font = new Font("Segoe UI", 9F);
 		contextMenuSaveToFile.Items.AddRange(new ToolStripItem[] { toolStripMenuItemTextFiles, toolStripMenuItemWriterDocuments, toolStripMenuItemSpreadsheetDocuments, toolStripMenuItemXmlDocuments, toolStripMenuItemConfigurationFiles, toolStripMenuItemDatabaseScripts, toolStripMenuItemPortableDocuments });
 		contextMenuSaveToFile.Name = "contextMenuSaveList";
+		contextMenuSaveToFile.OwnerItem = toolStripDropDownButtonSaveToFile;
 		contextMenuSaveToFile.Size = new Size(202, 158);
 		contextMenuSaveToFile.TabStop = true;
 		contextMenuSaveToFile.Text = "&Save list";
@@ -334,6 +340,118 @@ partial class EncounterVelocityOfAllMinorPlanetsForm
 		contextMenuSaveToFile.Leave += Control_Leave;
 		contextMenuSaveToFile.MouseEnter += Control_Enter;
 		contextMenuSaveToFile.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemTextFiles
+		// 
+		toolStripMenuItemTextFiles.AccessibleDescription = "Saves the list as text file";
+		toolStripMenuItemTextFiles.AccessibleName = "Save as text file";
+		toolStripMenuItemTextFiles.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemTextFiles.AutoToolTip = true;
+		toolStripMenuItemTextFiles.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsText, toolStripMenuItemSaveAsLatex, toolStripMenuItemSaveAsMarkdown, toolStripMenuItemSaveAsAsciiDoc, toolStripMenuItemSaveAsReStructuredText, toolStripMenuItemSaveAsTextile, toolStripMenuItemSaveAsTypst });
+		toolStripMenuItemTextFiles.Image = FatcowIcons16px.fatcow_file_extension_txt_16px;
+		toolStripMenuItemTextFiles.Name = "toolStripMenuItemTextFiles";
+		toolStripMenuItemTextFiles.Size = new Size(201, 22);
+		toolStripMenuItemTextFiles.Text = "&Text files";
+		toolStripMenuItemTextFiles.MouseEnter += Control_Enter;
+		toolStripMenuItemTextFiles.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSaveAsText
+		// 
+		toolStripMenuItemSaveAsText.AccessibleDescription = "Saves the list as text file";
+		toolStripMenuItemSaveAsText.AccessibleName = "Save as text";
+		toolStripMenuItemSaveAsText.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsText.AutoToolTip = true;
+		toolStripMenuItemSaveAsText.Image = FatcowIcons16px.fatcow_page_white_text_16px;
+		toolStripMenuItemSaveAsText.Name = "toolStripMenuItemSaveAsText";
+		toolStripMenuItemSaveAsText.Size = new Size(201, 22);
+		toolStripMenuItemSaveAsText.Text = "Save as &text";
+		toolStripMenuItemSaveAsText.Click += SaveAsText_Click;
+		toolStripMenuItemSaveAsText.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsText.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSaveAsLatex
+		// 
+		toolStripMenuItemSaveAsLatex.AccessibleDescription = "Saves the list as Latex file";
+		toolStripMenuItemSaveAsLatex.AccessibleName = "Save as Latex";
+		toolStripMenuItemSaveAsLatex.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsLatex.AutoToolTip = true;
+		toolStripMenuItemSaveAsLatex.Image = FatcowIcons16px.fatcow_page_white_text_16px;
+		toolStripMenuItemSaveAsLatex.Name = "toolStripMenuItemSaveAsLatex";
+		toolStripMenuItemSaveAsLatex.Size = new Size(201, 22);
+		toolStripMenuItemSaveAsLatex.Text = "Save as &Latex";
+		toolStripMenuItemSaveAsLatex.Click += SaveAsLatex_Click;
+		toolStripMenuItemSaveAsLatex.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsLatex.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSaveAsMarkdown
+		// 
+		toolStripMenuItemSaveAsMarkdown.AccessibleDescription = "Saves the list as Markdown file";
+		toolStripMenuItemSaveAsMarkdown.AccessibleName = "Save as Markdown";
+		toolStripMenuItemSaveAsMarkdown.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsMarkdown.AutoToolTip = true;
+		toolStripMenuItemSaveAsMarkdown.Image = FatcowIcons16px.fatcow_page_white_text_16px;
+		toolStripMenuItemSaveAsMarkdown.Name = "toolStripMenuItemSaveAsMarkdown";
+		toolStripMenuItemSaveAsMarkdown.Size = new Size(201, 22);
+		toolStripMenuItemSaveAsMarkdown.Text = "Save as &Markdown";
+		toolStripMenuItemSaveAsMarkdown.Click += SaveAsMarkdown_Click;
+		toolStripMenuItemSaveAsMarkdown.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsMarkdown.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSaveAsAsciiDoc
+		// 
+		toolStripMenuItemSaveAsAsciiDoc.AccessibleDescription = "Saves the list as AsciiDoc file";
+		toolStripMenuItemSaveAsAsciiDoc.AccessibleName = "Save as AsciiDoc";
+		toolStripMenuItemSaveAsAsciiDoc.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsAsciiDoc.AutoToolTip = true;
+		toolStripMenuItemSaveAsAsciiDoc.Image = FatcowIcons16px.fatcow_page_white_text_16px;
+		toolStripMenuItemSaveAsAsciiDoc.Name = "toolStripMenuItemSaveAsAsciiDoc";
+		toolStripMenuItemSaveAsAsciiDoc.Size = new Size(201, 22);
+		toolStripMenuItemSaveAsAsciiDoc.Text = "Save as &AsciiDoc";
+		toolStripMenuItemSaveAsAsciiDoc.Click += SaveAsAsciiDoc_Click;
+		toolStripMenuItemSaveAsAsciiDoc.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsAsciiDoc.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSaveAsReStructuredText
+		// 
+		toolStripMenuItemSaveAsReStructuredText.AccessibleDescription = "Saves the list as reStructuredText file";
+		toolStripMenuItemSaveAsReStructuredText.AccessibleName = "Save as reStructuredText";
+		toolStripMenuItemSaveAsReStructuredText.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsReStructuredText.AutoToolTip = true;
+		toolStripMenuItemSaveAsReStructuredText.Image = FatcowIcons16px.fatcow_page_white_text_16px;
+		toolStripMenuItemSaveAsReStructuredText.Name = "toolStripMenuItemSaveAsReStructuredText";
+		toolStripMenuItemSaveAsReStructuredText.Size = new Size(201, 22);
+		toolStripMenuItemSaveAsReStructuredText.Text = "Save as &reStructuredText";
+		toolStripMenuItemSaveAsReStructuredText.Click += SaveAsReStructuredText_Click;
+		toolStripMenuItemSaveAsReStructuredText.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsReStructuredText.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSaveAsTextile
+		// 
+		toolStripMenuItemSaveAsTextile.AccessibleDescription = "Saves the list as Textile file";
+		toolStripMenuItemSaveAsTextile.AccessibleName = "Save as Textile";
+		toolStripMenuItemSaveAsTextile.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsTextile.AutoToolTip = true;
+		toolStripMenuItemSaveAsTextile.Image = FatcowIcons16px.fatcow_page_white_text_16px;
+		toolStripMenuItemSaveAsTextile.Name = "toolStripMenuItemSaveAsTextile";
+		toolStripMenuItemSaveAsTextile.Size = new Size(201, 22);
+		toolStripMenuItemSaveAsTextile.Text = "Save as Te&xtile";
+		toolStripMenuItemSaveAsTextile.Click += SaveAsTextile_Click;
+		toolStripMenuItemSaveAsTextile.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsTextile.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSaveAsTypst
+		// 
+		toolStripMenuItemSaveAsTypst.AccessibleDescription = "Saves the list as Typst file";
+		toolStripMenuItemSaveAsTypst.AccessibleName = "Save as Typst";
+		toolStripMenuItemSaveAsTypst.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsTypst.AutoToolTip = true;
+		toolStripMenuItemSaveAsTypst.Image = FatcowIcons16px.fatcow_page_white_text_16px;
+		toolStripMenuItemSaveAsTypst.Name = "toolStripMenuItemSaveAsTypst";
+		toolStripMenuItemSaveAsTypst.Size = new Size(201, 22);
+		toolStripMenuItemSaveAsTypst.Text = "Save as T&ypst";
+		toolStripMenuItemSaveAsTypst.Click += SaveAsTypst_Click;
+		toolStripMenuItemSaveAsTypst.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsTypst.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemWriterDocuments
 		// 
@@ -783,118 +901,6 @@ partial class EncounterVelocityOfAllMinorPlanetsForm
 		toolStripMenuItemSaveAsChm.MouseEnter += Control_Enter;
 		toolStripMenuItemSaveAsChm.MouseLeave += Control_Leave;
 		// 
-		// toolStripMenuItemTextFiles
-		// 
-		toolStripMenuItemTextFiles.AccessibleDescription = "Saves the list as text file";
-		toolStripMenuItemTextFiles.AccessibleName = "Save as text file";
-		toolStripMenuItemTextFiles.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemTextFiles.AutoToolTip = true;
-		toolStripMenuItemTextFiles.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsText, toolStripMenuItemSaveAsLatex, toolStripMenuItemSaveAsMarkdown, toolStripMenuItemSaveAsAsciiDoc, toolStripMenuItemSaveAsReStructuredText, toolStripMenuItemSaveAsTextile, toolStripMenuItemSaveAsTypst });
-		toolStripMenuItemTextFiles.Image = FatcowIcons16px.fatcow_file_extension_txt_16px;
-		toolStripMenuItemTextFiles.Name = "toolStripMenuItemTextFiles";
-		toolStripMenuItemTextFiles.Size = new Size(201, 22);
-		toolStripMenuItemTextFiles.Text = "&Text files";
-		toolStripMenuItemTextFiles.MouseEnter += Control_Enter;
-		toolStripMenuItemTextFiles.MouseLeave += Control_Leave;
-		// 
-		// toolStripMenuItemSaveAsText
-		// 
-		toolStripMenuItemSaveAsText.AccessibleDescription = "Saves the list as text file";
-		toolStripMenuItemSaveAsText.AccessibleName = "Save as text";
-		toolStripMenuItemSaveAsText.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemSaveAsText.AutoToolTip = true;
-		toolStripMenuItemSaveAsText.Image = FatcowIcons16px.fatcow_page_white_text_16px;
-		toolStripMenuItemSaveAsText.Name = "toolStripMenuItemSaveAsText";
-		toolStripMenuItemSaveAsText.Size = new Size(201, 22);
-		toolStripMenuItemSaveAsText.Text = "Save as &text";
-		toolStripMenuItemSaveAsText.Click += SaveAsText_Click;
-		toolStripMenuItemSaveAsText.MouseEnter += Control_Enter;
-		toolStripMenuItemSaveAsText.MouseLeave += Control_Leave;
-		// 
-		// toolStripMenuItemSaveAsLatex
-		// 
-		toolStripMenuItemSaveAsLatex.AccessibleDescription = "Saves the list as Latex file";
-		toolStripMenuItemSaveAsLatex.AccessibleName = "Save as Latex";
-		toolStripMenuItemSaveAsLatex.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemSaveAsLatex.AutoToolTip = true;
-		toolStripMenuItemSaveAsLatex.Image = FatcowIcons16px.fatcow_page_white_text_16px;
-		toolStripMenuItemSaveAsLatex.Name = "toolStripMenuItemSaveAsLatex";
-		toolStripMenuItemSaveAsLatex.Size = new Size(201, 22);
-		toolStripMenuItemSaveAsLatex.Text = "Save as &Latex";
-		toolStripMenuItemSaveAsLatex.Click += SaveAsLatex_Click;
-		toolStripMenuItemSaveAsLatex.MouseEnter += Control_Enter;
-		toolStripMenuItemSaveAsLatex.MouseLeave += Control_Leave;
-		// 
-		// toolStripMenuItemSaveAsMarkdown
-		// 
-		toolStripMenuItemSaveAsMarkdown.AccessibleDescription = "Saves the list as Markdown file";
-		toolStripMenuItemSaveAsMarkdown.AccessibleName = "Save as Markdown";
-		toolStripMenuItemSaveAsMarkdown.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemSaveAsMarkdown.AutoToolTip = true;
-		toolStripMenuItemSaveAsMarkdown.Image = FatcowIcons16px.fatcow_page_white_text_16px;
-		toolStripMenuItemSaveAsMarkdown.Name = "toolStripMenuItemSaveAsMarkdown";
-		toolStripMenuItemSaveAsMarkdown.Size = new Size(201, 22);
-		toolStripMenuItemSaveAsMarkdown.Text = "Save as &Markdown";
-		toolStripMenuItemSaveAsMarkdown.Click += SaveAsMarkdown_Click;
-		toolStripMenuItemSaveAsMarkdown.MouseEnter += Control_Enter;
-		toolStripMenuItemSaveAsMarkdown.MouseLeave += Control_Leave;
-		// 
-		// toolStripMenuItemSaveAsAsciiDoc
-		// 
-		toolStripMenuItemSaveAsAsciiDoc.AccessibleDescription = "Saves the list as AsciiDoc file";
-		toolStripMenuItemSaveAsAsciiDoc.AccessibleName = "Save as AsciiDoc";
-		toolStripMenuItemSaveAsAsciiDoc.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemSaveAsAsciiDoc.AutoToolTip = true;
-		toolStripMenuItemSaveAsAsciiDoc.Image = FatcowIcons16px.fatcow_page_white_text_16px;
-		toolStripMenuItemSaveAsAsciiDoc.Name = "toolStripMenuItemSaveAsAsciiDoc";
-		toolStripMenuItemSaveAsAsciiDoc.Size = new Size(201, 22);
-		toolStripMenuItemSaveAsAsciiDoc.Text = "Save as &AsciiDoc";
-		toolStripMenuItemSaveAsAsciiDoc.Click += SaveAsAsciiDoc_Click;
-		toolStripMenuItemSaveAsAsciiDoc.MouseEnter += Control_Enter;
-		toolStripMenuItemSaveAsAsciiDoc.MouseLeave += Control_Leave;
-		// 
-		// toolStripMenuItemSaveAsReStructuredText
-		// 
-		toolStripMenuItemSaveAsReStructuredText.AccessibleDescription = "Saves the list as reStructuredText file";
-		toolStripMenuItemSaveAsReStructuredText.AccessibleName = "Save as reStructuredText";
-		toolStripMenuItemSaveAsReStructuredText.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemSaveAsReStructuredText.AutoToolTip = true;
-		toolStripMenuItemSaveAsReStructuredText.Image = FatcowIcons16px.fatcow_page_white_text_16px;
-		toolStripMenuItemSaveAsReStructuredText.Name = "toolStripMenuItemSaveAsReStructuredText";
-		toolStripMenuItemSaveAsReStructuredText.Size = new Size(201, 22);
-		toolStripMenuItemSaveAsReStructuredText.Text = "Save as &reStructuredText";
-		toolStripMenuItemSaveAsReStructuredText.Click += SaveAsReStructuredText_Click;
-		toolStripMenuItemSaveAsReStructuredText.MouseEnter += Control_Enter;
-		toolStripMenuItemSaveAsReStructuredText.MouseLeave += Control_Leave;
-		// 
-		// toolStripMenuItemSaveAsTextile
-		// 
-		toolStripMenuItemSaveAsTextile.AccessibleDescription = "Saves the list as Textile file";
-		toolStripMenuItemSaveAsTextile.AccessibleName = "Save as Textile";
-		toolStripMenuItemSaveAsTextile.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemSaveAsTextile.AutoToolTip = true;
-		toolStripMenuItemSaveAsTextile.Image = FatcowIcons16px.fatcow_page_white_text_16px;
-		toolStripMenuItemSaveAsTextile.Name = "toolStripMenuItemSaveAsTextile";
-		toolStripMenuItemSaveAsTextile.Size = new Size(201, 22);
-		toolStripMenuItemSaveAsTextile.Text = "Save as Te&xtile";
-		toolStripMenuItemSaveAsTextile.Click += SaveAsTextile_Click;
-		toolStripMenuItemSaveAsTextile.MouseEnter += Control_Enter;
-		toolStripMenuItemSaveAsTextile.MouseLeave += Control_Leave;
-		// 
-		// toolStripMenuItemSaveAsTypst
-		// 
-		toolStripMenuItemSaveAsTypst.AccessibleDescription = "Saves the list as Typst file";
-		toolStripMenuItemSaveAsTypst.AccessibleName = "Save as Typst";
-		toolStripMenuItemSaveAsTypst.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemSaveAsTypst.AutoToolTip = true;
-		toolStripMenuItemSaveAsTypst.Image = FatcowIcons16px.fatcow_page_white_text_16px;
-		toolStripMenuItemSaveAsTypst.Name = "toolStripMenuItemSaveAsTypst";
-		toolStripMenuItemSaveAsTypst.Size = new Size(201, 22);
-		toolStripMenuItemSaveAsTypst.Text = "Save as T&ypst";
-		toolStripMenuItemSaveAsTypst.Click += SaveAsTypst_Click;
-		toolStripMenuItemSaveAsTypst.MouseEnter += Control_Enter;
-		toolStripMenuItemSaveAsTypst.MouseLeave += Control_Leave;
-		// 
 		// toolStripIcons
 		// 
 		toolStripIcons.AccessibleDescription = "Toolbar for starting and cancelling the Tisserand parameter calculation";
@@ -905,7 +911,7 @@ partial class EncounterVelocityOfAllMinorPlanetsForm
 		toolStripIcons.BackColor = Color.Transparent;
 		toolStripIcons.Dock = DockStyle.None;
 		toolStripIcons.Font = new Font("Segoe UI", 9F);
-		toolStripIcons.Items.AddRange(new ToolStripItem[] { toolStripButtonStart, toolStripButtonCancel, toolStripSeparator1, toolStripDropDownButtonSaveToFile, toolStripButtonGoToObject, toolStripButtonFilterEncounterVelocitys });
+		toolStripIcons.Items.AddRange(new ToolStripItem[] { toolStripButtonStart, toolStripButtonCancel, toolStripSeparator1, toolStripDropDownButtonSaveToFile, toolStripButtonGoToObject, toolStripButtonFilterEncounterVelocities });
 		toolStripIcons.Location = new Point(0, 0);
 		toolStripIcons.Name = "toolStripIcons";
 		toolStripIcons.Size = new Size(1028, 25);
@@ -987,19 +993,19 @@ partial class EncounterVelocityOfAllMinorPlanetsForm
 		toolStripButtonGoToObject.MouseEnter += Control_Enter;
 		toolStripButtonGoToObject.MouseLeave += Control_Leave;
 		// 
-		// toolStripButtonFilterEncounterVelocitys
+		// toolStripButtonFilterEncounterVelocities
 		// 
-		toolStripButtonFilterEncounterVelocitys.AccessibleDescription = "Filter to show only encounter velocitys";
-		toolStripButtonFilterEncounterVelocitys.AccessibleName = "Encounter velocitys";
-		toolStripButtonFilterEncounterVelocitys.AccessibleRole = AccessibleRole.CheckButton;
-		toolStripButtonFilterEncounterVelocitys.CheckOnClick = true;
-		toolStripButtonFilterEncounterVelocitys.Enabled = false;
-		toolStripButtonFilterEncounterVelocitys.Image = FatcowIcons16px.fatcow_filter_reapply_16px;
-		toolStripButtonFilterEncounterVelocitys.Name = "toolStripButtonFilterEncounterVelocitys";
-		toolStripButtonFilterEncounterVelocitys.Size = new Size(115, 22);
-		toolStripButtonFilterEncounterVelocitys.Text = "Filter resonances";
-		toolStripButtonFilterEncounterVelocitys.ToolTipText = "Encounter velocitys";
-		toolStripButtonFilterEncounterVelocitys.Click += ToolStripButtonFilterEncounterVelocitys_Click;
+		toolStripButtonFilterEncounterVelocities.AccessibleDescription = "Filter to show only encounter velocities";
+		toolStripButtonFilterEncounterVelocities.AccessibleName = "Encounter velocities";
+		toolStripButtonFilterEncounterVelocities.AccessibleRole = AccessibleRole.CheckButton;
+		toolStripButtonFilterEncounterVelocities.CheckOnClick = true;
+		toolStripButtonFilterEncounterVelocities.Enabled = false;
+		toolStripButtonFilterEncounterVelocities.Image = FatcowIcons16px.fatcow_filter_reapply_16px;
+		toolStripButtonFilterEncounterVelocities.Name = "toolStripButtonFilterEncounterVelocities";
+		toolStripButtonFilterEncounterVelocities.Size = new Size(115, 22);
+		toolStripButtonFilterEncounterVelocities.Text = "Filter resonances";
+		toolStripButtonFilterEncounterVelocities.ToolTipText = "Encounter velocities";
+		toolStripButtonFilterEncounterVelocities.Click += ToolStripButtonFilterEncounterVelocities_Click;
 		// 
 		// toolStripProgress
 		// 
@@ -1059,10 +1065,42 @@ partial class EncounterVelocityOfAllMinorPlanetsForm
 		kryptonManager.ToolkitStrings.MessageBoxStrings.LessDetails = "L&ess Details...";
 		kryptonManager.ToolkitStrings.MessageBoxStrings.MoreDetails = "&More Details...";
 		// 
+		// contextMenuShowControlsInStatusBar
+		// 
+		contextMenuShowControlsInStatusBar.AccessibleDescription = "Shows the context menu for the visibility of controls in the status bar";
+		contextMenuShowControlsInStatusBar.AccessibleName = "Context menu for the visibility of controls in the status bar";
+		contextMenuShowControlsInStatusBar.AccessibleRole = AccessibleRole.MenuPopup;
+		contextMenuShowControlsInStatusBar.AllowClickThrough = true;
+		contextMenuShowControlsInStatusBar.Font = new Font("Segoe UI", 9F);
+		contextMenuShowControlsInStatusBar.Items.AddRange(new ToolStripItem[] { toolStripMenuItemShowInformationLabel });
+		contextMenuShowControlsInStatusBar.Name = "contextMenuStrip";
+		contextMenuShowControlsInStatusBar.Size = new Size(198, 48);
+		contextMenuShowControlsInStatusBar.TabStop = true;
+		contextMenuShowControlsInStatusBar.Text = "Show controls in status bar";
+		contextMenuShowControlsInStatusBar.MouseEnter += Control_Enter;
+		contextMenuShowControlsInStatusBar.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemShowInformationLabel
+		// 
+		toolStripMenuItemShowInformationLabel.AccessibleDescription = "Determines whether the information label is visible or hidden";
+		toolStripMenuItemShowInformationLabel.AccessibleName = "Information label";
+		toolStripMenuItemShowInformationLabel.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemShowInformationLabel.AutoToolTip = true;
+		toolStripMenuItemShowInformationLabel.Checked = true;
+		toolStripMenuItemShowInformationLabel.CheckOnClick = true;
+		toolStripMenuItemShowInformationLabel.CheckState = CheckState.Checked;
+		toolStripMenuItemShowInformationLabel.Name = "toolStripMenuItemShowInformationLabel";
+		toolStripMenuItemShowInformationLabel.ShortcutKeyDisplayString = "";
+		toolStripMenuItemShowInformationLabel.Size = new Size(197, 22);
+		toolStripMenuItemShowInformationLabel.Text = "Show &information label";
+		toolStripMenuItemShowInformationLabel.Click += ToolStripMenuItemShowInformationLabel_Click;
+		toolStripMenuItemShowInformationLabel.MouseEnter += Control_Enter;
+		toolStripMenuItemShowInformationLabel.MouseLeave += Control_Leave;
+		// 
 		// EncounterVelocityOfAllMinorPlanetsForm
 		// 
-		AccessibleDescription = "Shows the encounter velocitys of all minor planets relative to the 8 solar system planets";
-		AccessibleName = "Encounter velocitys of all minor planets";
+		AccessibleDescription = "Shows the encounter velocities of all minor planets relative to the 8 solar system planets";
+		AccessibleName = "Encounter velocities of all minor planets";
 		AccessibleRole = AccessibleRole.Window;
 		AutoScaleDimensions = new SizeF(7F, 15F);
 		AutoScaleMode = AutoScaleMode.Font;
@@ -1076,7 +1114,7 @@ partial class EncounterVelocityOfAllMinorPlanetsForm
 		Name = "EncounterVelocityOfAllMinorPlanetsForm";
 		SizeGripStyle = SizeGripStyle.Hide;
 		StartPosition = FormStartPosition.CenterScreen;
-		Text = "Encounter velocitys of all minor planets";
+		Text = "Encounter velocities of all minor planets";
 		FormClosing += EncounterVelocityOfAllMinorPlanetsForm_FormClosing;
 		Load += EncounterVelocityOfAllMinorPlanetsForm_Load;
 		toolStripContainer.BottomToolStripPanel.ResumeLayout(false);
@@ -1095,6 +1133,7 @@ partial class EncounterVelocityOfAllMinorPlanetsForm
 		toolStripIcons.PerformLayout();
 		toolStripProgress.ResumeLayout(false);
 		toolStripProgress.PerformLayout();
+		contextMenuShowControlsInStatusBar.ResumeLayout(false);
 		ResumeLayout(false);
 	}
 
@@ -1165,5 +1204,7 @@ partial class EncounterVelocityOfAllMinorPlanetsForm
 	private ToolStripMenuItem toolStripMenuItemSaveAsXps;
 	private ToolStripMenuItem toolStripMenuItemSaveAsFictionBook2;
 	private ToolStripMenuItem toolStripMenuItemSaveAsChm;
-	private ToolStripButton toolStripButtonFilterEncounterVelocitys;
+	private ToolStripButton toolStripButtonFilterEncounterVelocities;
+	private ContextMenuStrip contextMenuShowControlsInStatusBar;
+	private ToolStripMenuItem toolStripMenuItemShowInformationLabel;
 }

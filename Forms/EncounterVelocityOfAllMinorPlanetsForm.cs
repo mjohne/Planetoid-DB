@@ -2,7 +2,7 @@
  * File:        EncounterVelocityOfAllMinorPlanetsForm.cs
  * Project:     Planetoid-DB
  * Namespace:   Planetoid_DB
- * Description: Form for displaying the encounter velocitys of all minor planets relative to each of the eight solar system planets.
+ * Description: Form for displaying the encounter velocities of all minor planets relative to each of the eight solar system planets.
  *
  * Author:      Michael Johne
  * Company:     Mijo Software
@@ -22,8 +22,8 @@ using System.Globalization;
 
 namespace Planetoid_DB.Forms;
 
-/// <summary>Form for displaying the encounter velocitys of all minor planets relative to each of the eight solar system planets.</summary>
-/// <remarks>This form iterates over all planetoids in the database and computes their encounter velocitys with respect to all eight planets. Results are presented in a ListView where each row corresponds to one planetoid and the eight encounter velocitys columns correspond to Mercury through Neptune. The user can start and cancel the calculation at any time and track progress via the integrated progress bar.</remarks>
+/// <summary>Form for displaying the encounter velocities of all minor planets relative to each of the eight solar system planets.</summary>
+/// <remarks>This form iterates over all planetoids in the database and computes their encounter velocities with respect to all eight planets. Results are presented in a ListView where each row corresponds to one planetoid and the eight encounter velocities columns correspond to Mercury through Neptune. The user can start and cancel the calculation at any time and track progress via the integrated progress bar.</remarks>
 // You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
 [DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
 internal partial class EncounterVelocityOfAllMinorPlanetsForm : BaseKryptonForm
@@ -36,7 +36,7 @@ internal partial class EncounterVelocityOfAllMinorPlanetsForm : BaseKryptonForm
 
 	/// <summary>Gets the title used for exported data.</summary>
 	/// <remarks>Overrides the base export title for this form's content.</remarks>
-	protected override string ExportTitle => "Encounter velocitys of all minor planets";
+	protected override string ExportTitle => "Encounter velocities of all minor planets";
 
 	/// <summary>Gets the file name prefix used for exported files.</summary>
 	/// <remarks>Overrides the default export file prefix for this form.</remarks>
@@ -278,7 +278,7 @@ internal partial class EncounterVelocityOfAllMinorPlanetsForm : BaseKryptonForm
 	private void FilterResults()
 	{
 		// Determine the filter mode based on the state of the filter button
-		bool filterEnabled = toolStripButtonFilterEncounterVelocitys.Checked;
+		bool filterEnabled = toolStripButtonFilterEncounterVelocities.Checked;
 		// Log the current filter state for debugging purposes
 		logger.Info(message: $"Filter state: {filterEnabled}");
 		// Apply the filter to the results based on the filterEnabled flag
@@ -321,7 +321,7 @@ internal partial class EncounterVelocityOfAllMinorPlanetsForm : BaseKryptonForm
 		// Clear the status bar to ensure no residual messages are displayed from previous operations
 		ClearStatusBar(label: labelInformation);
 		// Disable the filter button initially since no results are available yet
-		toolStripButtonFilterEncounterVelocitys.Enabled = false;
+		toolStripButtonFilterEncounterVelocities.Enabled = false;
 		// Play the open sound in the background to indicate that the form has been opened
 		AudioPlayback.PlayOpenSound();
 	}
@@ -508,7 +508,7 @@ internal partial class EncounterVelocityOfAllMinorPlanetsForm : BaseKryptonForm
 		// Ensure that the event data was supplied
 		ArgumentNullException.ThrowIfNull(argument: e);
 		// Disable the filter button during calculation to prevent user interaction
-		toolStripButtonFilterEncounterVelocitys.Enabled = false;
+		toolStripButtonFilterEncounterVelocities.Enabled = false;
 		if (_planetoids.Count == 0)
 		{
 			// Log a warning if there are no planetoid records and show an informational message box to the user
@@ -530,7 +530,7 @@ internal partial class EncounterVelocityOfAllMinorPlanetsForm : BaseKryptonForm
 		_cancellationTokenSource = new CancellationTokenSource();
 		CancellationToken token = _cancellationTokenSource.Token;
 		// Create a local list to store results from the background calculation
-		List<RowResult> localResults = new(capacity: _planetoids.Count);
+		List<RowResult> localResults = [with(capacity: _planetoids.Count)];
 		// Create a progress reporter that updates the progress bar on the UI thread
 		IProgress<int> progress = new Progress<int>(handler: UpdateProgress);
 		try
@@ -612,8 +612,8 @@ internal partial class EncounterVelocityOfAllMinorPlanetsForm : BaseKryptonForm
 			// Ensure that the filter button is enabled if there are results and the cancellation token source is disposed of
 			finally
 			{
-				toolStripButtonFilterEncounterVelocitys.Enabled = _results.Count > 0;
-				toolStripButtonFilterEncounterVelocitys.Checked = false;
+				toolStripButtonFilterEncounterVelocities.Enabled = _results.Count > 0;
+				toolStripButtonFilterEncounterVelocities.Checked = false;
 				_cancellationTokenSource?.Dispose();
 				_cancellationTokenSource = null;
 			}
@@ -670,15 +670,15 @@ internal partial class EncounterVelocityOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
 	/// <remarks>When the filter button is checked, only rows with at least one valid numeric value are displayed. When unchecked, all rows are displayed.</remarks>
-	private void ToolStripButtonFilterEncounterVelocitys_Click(object sender, EventArgs e)
+	private void ToolStripButtonFilterEncounterVelocities_Click(object sender, EventArgs e)
 	{
 		// Log the current state of the filter button and apply or remove the filter accordingly
-		logger.Info(message: $"Filter button clicked. Checked state: {toolStripButtonFilterEncounterVelocitys.Checked}");
+		logger.Info(message: $"Filter button clicked. Checked state: {toolStripButtonFilterEncounterVelocities.Checked}");
 		// Ensure that an event source was supplied
 		ArgumentNullException.ThrowIfNull(argument: sender);
 		// Ensure that the event data was supplied
 		ArgumentNullException.ThrowIfNull(argument: e);
-		if (toolStripButtonFilterEncounterVelocitys.Checked)
+		if (toolStripButtonFilterEncounterVelocities.Checked)
 		{
 			// Log the action of enabling the filter and apply the filter to the ListView
 			logger.Info(message: "Filter button checked. Applying filter to ListView.");
@@ -700,6 +700,22 @@ internal partial class EncounterVelocityOfAllMinorPlanetsForm : BaseKryptonForm
 			logger.Info(message: "Filter button unchecked. Removing filter from ListView.");
 			FilterResults();
 		}
+	}
+
+	/// <summary>Shows or hides the information label according to the menu item's checked state.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data.</param>
+	private void ToolStripMenuItemShowInformationLabel_Click(object sender, EventArgs e)
+	{
+		// Log the action of clicking of ToolStripMenuItemShowInformationLabel
+		logger.Info(message: $"ToolStripMenuItemShowInformationLabel clicked.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		labelInformation.Visible = toolStripMenuItemShowInformationLabel.Checked;
+		// Log the new state of the visibility of the information label
+		logger.Info(message: $"Set the visibility of the information label to {labelInformation.Visible}.");
 	}
 
 	#endregion
