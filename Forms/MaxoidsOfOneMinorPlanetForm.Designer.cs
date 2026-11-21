@@ -39,7 +39,7 @@ internal partial class MaxoidsOfOneMinorPlanetForm
 		{
 			components.Dispose();
 		}
-		base.Dispose(disposing);
+		base.Dispose(disposing: disposing);
 	}
 
 	#region Windows Form Designer generated code
@@ -119,15 +119,17 @@ internal partial class MaxoidsOfOneMinorPlanetForm
 		toolStripIcons = new ToolStrip();
 		toolStripDropDownButtonCopyToClipboard = new ToolStripDropDownButton();
 		contextMenuFullCopyToClipboard = new ContextMenuStrip(components);
-		menuitemCopyToClipboardMaxoidRelativeToMercury = new ToolStripMenuItem();
-		menuitemCopyToClipboardMaxoidRelativeToVenus = new ToolStripMenuItem();
-		menuitemCopyToClipboardMaxoidRelativeToEarth = new ToolStripMenuItem();
-		menuitemCopyToClipboardMaxoidRelativeToMars = new ToolStripMenuItem();
-		menuitemCopyToClipboardMaxoidRelativeToJupiter = new ToolStripMenuItem();
-		menuitemCopyToClipboardMaxoidRelativeToSaturn = new ToolStripMenuItem();
-		menuitemCopyToClipboardMaxoidRelativeToUranus = new ToolStripMenuItem();
-		menuitemCopyToClipboardMaxoidRelativeToNeptune = new ToolStripMenuItem();
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToMercury = new ToolStripMenuItem();
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToVenus = new ToolStripMenuItem();
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToEarth = new ToolStripMenuItem();
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToMars = new ToolStripMenuItem();
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToJupiter = new ToolStripMenuItem();
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToSaturn = new ToolStripMenuItem();
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToUranus = new ToolStripMenuItem();
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToNeptune = new ToolStripMenuItem();
 		kryptonManager = new KryptonManager(components);
+		contextMenuShowControlsInStatusBar = new ContextMenuStrip(components);
+		toolStripMenuItemShowInformationLabel = new ToolStripMenuItem();
 		contextMenuCopyToClipboard.SuspendLayout();
 		toolStripContainer.BottomToolStripPanel.SuspendLayout();
 		toolStripContainer.ContentPanel.SuspendLayout();
@@ -138,6 +140,7 @@ internal partial class MaxoidsOfOneMinorPlanetForm
 		contextMenuSaveToFile.SuspendLayout();
 		toolStripIcons.SuspendLayout();
 		contextMenuFullCopyToClipboard.SuspendLayout();
+		contextMenuShowControlsInStatusBar.SuspendLayout();
 		SuspendLayout();
 		// 
 		// labelMercuryDesc
@@ -631,6 +634,7 @@ internal partial class MaxoidsOfOneMinorPlanetForm
 		kryptonStatusStrip.AccessibleRole = AccessibleRole.StatusBar;
 		kryptonStatusStrip.AllowClickThrough = true;
 		kryptonStatusStrip.AllowItemReorder = true;
+		kryptonStatusStrip.ContextMenuStrip = contextMenuShowControlsInStatusBar;
 		kryptonStatusStrip.Dock = DockStyle.None;
 		kryptonStatusStrip.Font = new Font("Segoe UI", 9F);
 		kryptonStatusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
@@ -1343,7 +1347,7 @@ internal partial class MaxoidsOfOneMinorPlanetForm
 		contextMenuFullCopyToClipboard.AccessibleName = "Context menu for copying MAXOID values to the clipboard";
 		contextMenuFullCopyToClipboard.AccessibleRole = AccessibleRole.MenuPopup;
 		contextMenuFullCopyToClipboard.Font = new Font("Segoe UI", 9F);
-		contextMenuFullCopyToClipboard.Items.AddRange(new ToolStripItem[] { menuitemCopyToClipboardMaxoidRelativeToMercury, menuitemCopyToClipboardMaxoidRelativeToVenus, menuitemCopyToClipboardMaxoidRelativeToEarth, menuitemCopyToClipboardMaxoidRelativeToMars, menuitemCopyToClipboardMaxoidRelativeToJupiter, menuitemCopyToClipboardMaxoidRelativeToSaturn, menuitemCopyToClipboardMaxoidRelativeToUranus, menuitemCopyToClipboardMaxoidRelativeToNeptune });
+		contextMenuFullCopyToClipboard.Items.AddRange(new ToolStripItem[] { toolStripMenuItemCopyToClipboardMaxoidRelativeToMercury, toolStripMenuItemCopyToClipboardMaxoidRelativeToVenus, toolStripMenuItemCopyToClipboardMaxoidRelativeToEarth, toolStripMenuItemCopyToClipboardMaxoidRelativeToMars, toolStripMenuItemCopyToClipboardMaxoidRelativeToJupiter, toolStripMenuItemCopyToClipboardMaxoidRelativeToSaturn, toolStripMenuItemCopyToClipboardMaxoidRelativeToUranus, toolStripMenuItemCopyToClipboardMaxoidRelativeToNeptune });
 		contextMenuFullCopyToClipboard.Name = "Context menu for copying MAXOID values to the clipboard";
 		contextMenuFullCopyToClipboard.Size = new Size(121, 180);
 		contextMenuFullCopyToClipboard.Text = "Copy to clipboard";
@@ -1352,123 +1356,147 @@ internal partial class MaxoidsOfOneMinorPlanetForm
 		contextMenuFullCopyToClipboard.MouseEnter += Control_Enter;
 		contextMenuFullCopyToClipboard.MouseLeave += Control_Leave;
 		// 
-		// menuitemCopyToClipboardMaxoidRelativeToMercury
+		// toolStripMenuItemCopyToClipboardMaxoidRelativeToMercury
 		// 
-		menuitemCopyToClipboardMaxoidRelativeToMercury.AccessibleDescription = "Copies to clipboard: MAXOID relative to Mercury";
-		menuitemCopyToClipboardMaxoidRelativeToMercury.AccessibleName = "Copy to clipboard: MAXOID relative to Mercury";
-		menuitemCopyToClipboardMaxoidRelativeToMercury.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemCopyToClipboardMaxoidRelativeToMercury.AutoToolTip = true;
-		menuitemCopyToClipboardMaxoidRelativeToMercury.Image = (Image)resources.GetObject("menuitemCopyToClipboardMaxoidRelativeToMercury.Image");
-		menuitemCopyToClipboardMaxoidRelativeToMercury.Name = "menuitemCopyToClipboardMaxoidRelativeToMercury";
-		menuitemCopyToClipboardMaxoidRelativeToMercury.Size = new Size(120, 22);
-		menuitemCopyToClipboardMaxoidRelativeToMercury.Text = "&Mercury";
-		menuitemCopyToClipboardMaxoidRelativeToMercury.Click += MenuitemCopyToClipboardMaxoidRelativeToMercury_Click;
-		menuitemCopyToClipboardMaxoidRelativeToMercury.MouseEnter += Control_Enter;
-		menuitemCopyToClipboardMaxoidRelativeToMercury.MouseLeave += Control_Leave;
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToMercury.AccessibleDescription = "Copies to clipboard: MAXOID relative to Mercury";
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToMercury.AccessibleName = "Copy to clipboard: MAXOID relative to Mercury";
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToMercury.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToMercury.AutoToolTip = true;
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToMercury.Name = "toolStripMenuItemCopyToClipboardMaxoidRelativeToMercury";
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToMercury.Size = new Size(120, 22);
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToMercury.Text = "&Mercury";
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToMercury.Click += MenuItemCopyToClipboardMaxoidRelativeToMercury_Click;
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToMercury.MouseEnter += Control_Enter;
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToMercury.MouseLeave += Control_Leave;
 		// 
-		// menuitemCopyToClipboardMaxoidRelativeToVenus
+		// toolStripMenuItemCopyToClipboardMaxoidRelativeToVenus
 		// 
-		menuitemCopyToClipboardMaxoidRelativeToVenus.AccessibleDescription = "Copies to clipboard: MAXOID relative to Venus";
-		menuitemCopyToClipboardMaxoidRelativeToVenus.AccessibleName = "Copy to clipboard: MAXOID relative to Venus";
-		menuitemCopyToClipboardMaxoidRelativeToVenus.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemCopyToClipboardMaxoidRelativeToVenus.AutoToolTip = true;
-		menuitemCopyToClipboardMaxoidRelativeToVenus.Image = (Image)resources.GetObject("menuitemCopyToClipboardMaxoidRelativeToVenus.Image");
-		menuitemCopyToClipboardMaxoidRelativeToVenus.Name = "menuitemCopyToClipboardMaxoidRelativeToVenus";
-		menuitemCopyToClipboardMaxoidRelativeToVenus.Size = new Size(120, 22);
-		menuitemCopyToClipboardMaxoidRelativeToVenus.Text = "&Venus";
-		menuitemCopyToClipboardMaxoidRelativeToVenus.Click += MenuitemCopyToClipboardMaxoidRelativeToVenus_Click;
-		menuitemCopyToClipboardMaxoidRelativeToVenus.MouseEnter += Control_Enter;
-		menuitemCopyToClipboardMaxoidRelativeToVenus.MouseLeave += Control_Leave;
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToVenus.AccessibleDescription = "Copies to clipboard: MAXOID relative to Venus";
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToVenus.AccessibleName = "Copy to clipboard: MAXOID relative to Venus";
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToVenus.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToVenus.AutoToolTip = true;
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToVenus.Name = "toolStripMenuItemCopyToClipboardMaxoidRelativeToVenus";
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToVenus.Size = new Size(120, 22);
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToVenus.Text = "&Venus";
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToVenus.Click += MenuItemCopyToClipboardMaxoidRelativeToVenus_Click;
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToVenus.MouseEnter += Control_Enter;
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToVenus.MouseLeave += Control_Leave;
 		// 
-		// menuitemCopyToClipboardMaxoidRelativeToEarth
+		// toolStripMenuItemCopyToClipboardMaxoidRelativeToEarth
 		// 
-		menuitemCopyToClipboardMaxoidRelativeToEarth.AccessibleDescription = "Copies to clipboard: MAXOID relative to Earth";
-		menuitemCopyToClipboardMaxoidRelativeToEarth.AccessibleName = "Copy to clipboard: MAXOID relative to Earth";
-		menuitemCopyToClipboardMaxoidRelativeToEarth.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemCopyToClipboardMaxoidRelativeToEarth.AutoToolTip = true;
-		menuitemCopyToClipboardMaxoidRelativeToEarth.Image = (Image)resources.GetObject("menuitemCopyToClipboardMaxoidRelativeToEarth.Image");
-		menuitemCopyToClipboardMaxoidRelativeToEarth.Name = "menuitemCopyToClipboardMaxoidRelativeToEarth";
-		menuitemCopyToClipboardMaxoidRelativeToEarth.Size = new Size(120, 22);
-		menuitemCopyToClipboardMaxoidRelativeToEarth.Text = "&Earth";
-		menuitemCopyToClipboardMaxoidRelativeToEarth.Click += MenuitemCopyToClipboardMaxoidRelativeToEarth_Click;
-		menuitemCopyToClipboardMaxoidRelativeToEarth.MouseEnter += Control_Enter;
-		menuitemCopyToClipboardMaxoidRelativeToEarth.MouseLeave += Control_Leave;
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToEarth.AccessibleDescription = "Copies to clipboard: MAXOID relative to Earth";
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToEarth.AccessibleName = "Copy to clipboard: MAXOID relative to Earth";
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToEarth.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToEarth.AutoToolTip = true;
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToEarth.Name = "toolStripMenuItemCopyToClipboardMaxoidRelativeToEarth";
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToEarth.Size = new Size(120, 22);
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToEarth.Text = "&Earth";
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToEarth.Click += MenuItemCopyToClipboardMaxoidRelativeToEarth_Click;
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToEarth.MouseEnter += Control_Enter;
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToEarth.MouseLeave += Control_Leave;
 		// 
-		// menuitemCopyToClipboardMaxoidRelativeToMars
+		// toolStripMenuItemCopyToClipboardMaxoidRelativeToMars
 		// 
-		menuitemCopyToClipboardMaxoidRelativeToMars.AccessibleDescription = "Copies to clipboard: MAXOID relative to Mars";
-		menuitemCopyToClipboardMaxoidRelativeToMars.AccessibleName = "Copy to clipboard: MAXOID relative to Mars";
-		menuitemCopyToClipboardMaxoidRelativeToMars.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemCopyToClipboardMaxoidRelativeToMars.AutoToolTip = true;
-		menuitemCopyToClipboardMaxoidRelativeToMars.Image = (Image)resources.GetObject("menuitemCopyToClipboardMaxoidRelativeToMars.Image");
-		menuitemCopyToClipboardMaxoidRelativeToMars.Name = "menuitemCopyToClipboardMaxoidRelativeToMars";
-		menuitemCopyToClipboardMaxoidRelativeToMars.Size = new Size(120, 22);
-		menuitemCopyToClipboardMaxoidRelativeToMars.Text = "M&ars";
-		menuitemCopyToClipboardMaxoidRelativeToMars.Click += MenuitemCopyToClipboardMaxoidRelativeToMars_Click;
-		menuitemCopyToClipboardMaxoidRelativeToMars.MouseEnter += Control_Enter;
-		menuitemCopyToClipboardMaxoidRelativeToMars.MouseLeave += Control_Leave;
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToMars.AccessibleDescription = "Copies to clipboard: MAXOID relative to Mars";
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToMars.AccessibleName = "Copy to clipboard: MAXOID relative to Mars";
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToMars.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToMars.AutoToolTip = true;
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToMars.Name = "toolStripMenuItemCopyToClipboardMaxoidRelativeToMars";
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToMars.Size = new Size(120, 22);
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToMars.Text = "M&ars";
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToMars.Click += MenuItemCopyToClipboardMaxoidRelativeToMars_Click;
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToMars.MouseEnter += Control_Enter;
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToMars.MouseLeave += Control_Leave;
 		// 
-		// menuitemCopyToClipboardMaxoidRelativeToJupiter
+		// toolStripMenuItemCopyToClipboardMaxoidRelativeToJupiter
 		// 
-		menuitemCopyToClipboardMaxoidRelativeToJupiter.AccessibleDescription = "Copies to clipboard: MAXOID relative to Jupiter";
-		menuitemCopyToClipboardMaxoidRelativeToJupiter.AccessibleName = "Copy to clipboard: MAXOID relative to Jupiter";
-		menuitemCopyToClipboardMaxoidRelativeToJupiter.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemCopyToClipboardMaxoidRelativeToJupiter.AutoToolTip = true;
-		menuitemCopyToClipboardMaxoidRelativeToJupiter.Image = (Image)resources.GetObject("menuitemCopyToClipboardMaxoidRelativeToJupiter.Image");
-		menuitemCopyToClipboardMaxoidRelativeToJupiter.Name = "menuitemCopyToClipboardMaxoidRelativeToJupiter";
-		menuitemCopyToClipboardMaxoidRelativeToJupiter.Size = new Size(120, 22);
-		menuitemCopyToClipboardMaxoidRelativeToJupiter.Text = "&Jupiter";
-		menuitemCopyToClipboardMaxoidRelativeToJupiter.Click += MenuitemCopyToClipboardMaxoidRelativeToJupiter_Click;
-		menuitemCopyToClipboardMaxoidRelativeToJupiter.MouseEnter += Control_Enter;
-		menuitemCopyToClipboardMaxoidRelativeToJupiter.MouseLeave += Control_Leave;
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToJupiter.AccessibleDescription = "Copies to clipboard: MAXOID relative to Jupiter";
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToJupiter.AccessibleName = "Copy to clipboard: MAXOID relative to Jupiter";
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToJupiter.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToJupiter.AutoToolTip = true;
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToJupiter.Name = "toolStripMenuItemCopyToClipboardMaxoidRelativeToJupiter";
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToJupiter.Size = new Size(120, 22);
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToJupiter.Text = "&Jupiter";
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToJupiter.Click += MenuItemCopyToClipboardMaxoidRelativeToJupiter_Click;
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToJupiter.MouseEnter += Control_Enter;
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToJupiter.MouseLeave += Control_Leave;
 		// 
-		// menuitemCopyToClipboardMaxoidRelativeToSaturn
+		// toolStripMenuItemCopyToClipboardMaxoidRelativeToSaturn
 		// 
-		menuitemCopyToClipboardMaxoidRelativeToSaturn.AccessibleDescription = "Copies to clipboard: MAXOID relative to Saturn";
-		menuitemCopyToClipboardMaxoidRelativeToSaturn.AccessibleName = "Copy to clipboard: MAXOID relative to Saturn";
-		menuitemCopyToClipboardMaxoidRelativeToSaturn.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemCopyToClipboardMaxoidRelativeToSaturn.AutoToolTip = true;
-		menuitemCopyToClipboardMaxoidRelativeToSaturn.Image = (Image)resources.GetObject("menuitemCopyToClipboardMaxoidRelativeToSaturn.Image");
-		menuitemCopyToClipboardMaxoidRelativeToSaturn.Name = "menuitemCopyToClipboardMaxoidRelativeToSaturn";
-		menuitemCopyToClipboardMaxoidRelativeToSaturn.Size = new Size(120, 22);
-		menuitemCopyToClipboardMaxoidRelativeToSaturn.Text = "&Saturn";
-		menuitemCopyToClipboardMaxoidRelativeToSaturn.Click += MenuitemCopyToClipboardMaxoidRelativeToSaturn_Click;
-		menuitemCopyToClipboardMaxoidRelativeToSaturn.MouseEnter += Control_Enter;
-		menuitemCopyToClipboardMaxoidRelativeToSaturn.MouseLeave += Control_Leave;
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToSaturn.AccessibleDescription = "Copies to clipboard: MAXOID relative to Saturn";
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToSaturn.AccessibleName = "Copy to clipboard: MAXOID relative to Saturn";
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToSaturn.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToSaturn.AutoToolTip = true;
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToSaturn.Name = "toolStripMenuItemCopyToClipboardMaxoidRelativeToSaturn";
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToSaturn.Size = new Size(120, 22);
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToSaturn.Text = "&Saturn";
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToSaturn.Click += MenuItemCopyToClipboardMaxoidRelativeToSaturn_Click;
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToSaturn.MouseEnter += Control_Enter;
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToSaturn.MouseLeave += Control_Leave;
 		// 
-		// menuitemCopyToClipboardMaxoidRelativeToUranus
+		// toolStripMenuItemCopyToClipboardMaxoidRelativeToUranus
 		// 
-		menuitemCopyToClipboardMaxoidRelativeToUranus.AccessibleDescription = "Copies to clipboard: MAXOID relative to Uranus";
-		menuitemCopyToClipboardMaxoidRelativeToUranus.AccessibleName = "Copy to clipboard: MAXOID relative to Uranus";
-		menuitemCopyToClipboardMaxoidRelativeToUranus.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemCopyToClipboardMaxoidRelativeToUranus.AutoToolTip = true;
-		menuitemCopyToClipboardMaxoidRelativeToUranus.Image = (Image)resources.GetObject("menuitemCopyToClipboardMaxoidRelativeToUranus.Image");
-		menuitemCopyToClipboardMaxoidRelativeToUranus.Name = "menuitemCopyToClipboardMaxoidRelativeToUranus";
-		menuitemCopyToClipboardMaxoidRelativeToUranus.Size = new Size(120, 22);
-		menuitemCopyToClipboardMaxoidRelativeToUranus.Text = "&Uranus";
-		menuitemCopyToClipboardMaxoidRelativeToUranus.Click += MenuitemCopyToClipboardMaxoidRelativeToUranus_Click;
-		menuitemCopyToClipboardMaxoidRelativeToUranus.MouseEnter += Control_Enter;
-		menuitemCopyToClipboardMaxoidRelativeToUranus.MouseLeave += Control_Leave;
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToUranus.AccessibleDescription = "Copies to clipboard: MAXOID relative to Uranus";
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToUranus.AccessibleName = "Copy to clipboard: MAXOID relative to Uranus";
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToUranus.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToUranus.AutoToolTip = true;
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToUranus.Name = "toolStripMenuItemCopyToClipboardMaxoidRelativeToUranus";
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToUranus.Size = new Size(120, 22);
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToUranus.Text = "&Uranus";
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToUranus.Click += MenuItemCopyToClipboardMaxoidRelativeToUranus_Click;
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToUranus.MouseEnter += Control_Enter;
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToUranus.MouseLeave += Control_Leave;
 		// 
-		// menuitemCopyToClipboardMaxoidRelativeToNeptune
+		// toolStripMenuItemCopyToClipboardMaxoidRelativeToNeptune
 		// 
-		menuitemCopyToClipboardMaxoidRelativeToNeptune.AccessibleDescription = "Copies to clipboard: MAXOID relative to Neptune";
-		menuitemCopyToClipboardMaxoidRelativeToNeptune.AccessibleName = "Copy to clipboard: MAXOID relative to Neptune";
-		menuitemCopyToClipboardMaxoidRelativeToNeptune.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemCopyToClipboardMaxoidRelativeToNeptune.AutoToolTip = true;
-		menuitemCopyToClipboardMaxoidRelativeToNeptune.Image = (Image)resources.GetObject("menuitemCopyToClipboardMaxoidRelativeToNeptune.Image");
-		menuitemCopyToClipboardMaxoidRelativeToNeptune.Name = "menuitemCopyToClipboardMaxoidRelativeToNeptune";
-		menuitemCopyToClipboardMaxoidRelativeToNeptune.Size = new Size(120, 22);
-		menuitemCopyToClipboardMaxoidRelativeToNeptune.Text = "&Neptune";
-		menuitemCopyToClipboardMaxoidRelativeToNeptune.Click += MenuitemCopyToClipboardMaxoidRelativeToNeptune_Click;
-		menuitemCopyToClipboardMaxoidRelativeToNeptune.MouseEnter += Control_Enter;
-		menuitemCopyToClipboardMaxoidRelativeToNeptune.MouseLeave += Control_Leave;
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToNeptune.AccessibleDescription = "Copies to clipboard: MAXOID relative to Neptune";
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToNeptune.AccessibleName = "Copy to clipboard: MAXOID relative to Neptune";
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToNeptune.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToNeptune.AutoToolTip = true;
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToNeptune.Name = "toolStripMenuItemCopyToClipboardMaxoidRelativeToNeptune";
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToNeptune.Size = new Size(120, 22);
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToNeptune.Text = "&Neptune";
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToNeptune.Click += MenuItemCopyToClipboardMaxoidRelativeToNeptune_Click;
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToNeptune.MouseEnter += Control_Enter;
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToNeptune.MouseLeave += Control_Leave;
 		// 
 		// kryptonManager
 		// 
 		kryptonManager.GlobalPaletteMode = PaletteMode.Global;
 		kryptonManager.ToolkitStrings.MessageBoxStrings.LessDetails = "L&ess Details...";
 		kryptonManager.ToolkitStrings.MessageBoxStrings.MoreDetails = "&More Details...";
+		// 
+		// contextMenuShowControlsInStatusBar
+		// 
+		contextMenuShowControlsInStatusBar.AccessibleDescription = "Shows the context menu for the visibility of controls in the status bar";
+		contextMenuShowControlsInStatusBar.AccessibleName = "Context menu for the visibility of controls in the status bar";
+		contextMenuShowControlsInStatusBar.AccessibleRole = AccessibleRole.MenuPopup;
+		contextMenuShowControlsInStatusBar.AllowClickThrough = true;
+		contextMenuShowControlsInStatusBar.Font = new Font("Segoe UI", 9F);
+		contextMenuShowControlsInStatusBar.Items.AddRange(new ToolStripItem[] { toolStripMenuItemShowInformationLabel });
+		contextMenuShowControlsInStatusBar.Name = "contextMenuStrip";
+		contextMenuShowControlsInStatusBar.Size = new Size(198, 48);
+		contextMenuShowControlsInStatusBar.TabStop = true;
+		contextMenuShowControlsInStatusBar.Text = "Show controls in status bar";
+		contextMenuShowControlsInStatusBar.MouseEnter += Control_Enter;
+		contextMenuShowControlsInStatusBar.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemShowInformationLabel
+		// 
+		toolStripMenuItemShowInformationLabel.AccessibleDescription = "Determines whether the information label is visible or hidden";
+		toolStripMenuItemShowInformationLabel.AccessibleName = "Information label";
+		toolStripMenuItemShowInformationLabel.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemShowInformationLabel.AutoToolTip = true;
+		toolStripMenuItemShowInformationLabel.Checked = true;
+		toolStripMenuItemShowInformationLabel.CheckOnClick = true;
+		toolStripMenuItemShowInformationLabel.CheckState = CheckState.Checked;
+		toolStripMenuItemShowInformationLabel.Name = "toolStripMenuItemShowInformationLabel";
+		toolStripMenuItemShowInformationLabel.ShortcutKeyDisplayString = "";
+		toolStripMenuItemShowInformationLabel.Size = new Size(197, 22);
+		toolStripMenuItemShowInformationLabel.Text = "Show &information label";
+		toolStripMenuItemShowInformationLabel.Click += ToolStripMenuItemShowInformationLabel_Click;
+		toolStripMenuItemShowInformationLabel.MouseEnter += Control_Enter;
+		toolStripMenuItemShowInformationLabel.MouseLeave += Control_Leave;
 		// 
 		// MaxoidsOfOneMinorPlanetForm
 		// 
@@ -1511,6 +1539,7 @@ internal partial class MaxoidsOfOneMinorPlanetForm
 		toolStripIcons.ResumeLayout(false);
 		toolStripIcons.PerformLayout();
 		contextMenuFullCopyToClipboard.ResumeLayout(false);
+		contextMenuShowControlsInStatusBar.ResumeLayout(false);
 		ResumeLayout(false);
 	}
 
@@ -1595,12 +1624,14 @@ internal partial class MaxoidsOfOneMinorPlanetForm
 	// ── copy-to-clipboard toolbar button ────────────────────────────────────────
 	private ToolStripDropDownButton toolStripDropDownButtonCopyToClipboard;
 	private ContextMenuStrip contextMenuFullCopyToClipboard;
-	private ToolStripMenuItem menuitemCopyToClipboardMaxoidRelativeToMercury;
-	private ToolStripMenuItem menuitemCopyToClipboardMaxoidRelativeToVenus;
-	private ToolStripMenuItem menuitemCopyToClipboardMaxoidRelativeToEarth;
-	private ToolStripMenuItem menuitemCopyToClipboardMaxoidRelativeToMars;
-	private ToolStripMenuItem menuitemCopyToClipboardMaxoidRelativeToJupiter;
-	private ToolStripMenuItem menuitemCopyToClipboardMaxoidRelativeToSaturn;
-	private ToolStripMenuItem menuitemCopyToClipboardMaxoidRelativeToUranus;
-	private ToolStripMenuItem menuitemCopyToClipboardMaxoidRelativeToNeptune;
+	private ToolStripMenuItem toolStripMenuItemCopyToClipboardMaxoidRelativeToMercury;
+	private ToolStripMenuItem toolStripMenuItemCopyToClipboardMaxoidRelativeToVenus;
+	private ToolStripMenuItem toolStripMenuItemCopyToClipboardMaxoidRelativeToEarth;
+	private ToolStripMenuItem toolStripMenuItemCopyToClipboardMaxoidRelativeToMars;
+	private ToolStripMenuItem toolStripMenuItemCopyToClipboardMaxoidRelativeToJupiter;
+	private ToolStripMenuItem toolStripMenuItemCopyToClipboardMaxoidRelativeToSaturn;
+	private ToolStripMenuItem toolStripMenuItemCopyToClipboardMaxoidRelativeToUranus;
+	private ToolStripMenuItem toolStripMenuItemCopyToClipboardMaxoidRelativeToNeptune;
+	private ContextMenuStrip contextMenuShowControlsInStatusBar;
+	private ToolStripMenuItem toolStripMenuItemShowInformationLabel;
 }
