@@ -274,8 +274,8 @@ internal partial class ScatterplotsForm : BaseKryptonForm
 			bool logY = toolStripButtonLogScaleY.Checked;
 			// Extract the X and Y coordinate arrays from the data points in a single pass.
 			// When log scale is active, values are log10-transformed so the axis spacing is logarithmic.
-			List<double> xList = new(capacity: results.Count);
-			List<double> yList = new(capacity: results.Count);
+			List<double> xList = [with(capacity: results.Count)];
+			List<double> yList = [with(capacity: results.Count)];
 			for (int i = 0; i < results.Count; i++)
 			{
 				double x = results[index: i].X;
@@ -418,7 +418,7 @@ internal partial class ScatterplotsForm : BaseKryptonForm
 		// Calculate the step size to sample points evenly across the full list.
 		int step = (int)Math.Ceiling(a: (double)points.Count / maxPreviewPoints);
 		// Create a new list to hold the sampled preview points.
-		List<ScatterPoint> previewPoints = new(capacity: maxPreviewPoints);
+		List<ScatterPoint> previewPoints = [with(capacity: maxPreviewPoints)];
 		// Sample points at regular intervals based on the calculated step size.
 		for (int i = 0; i < points.Count; i += step)
 		{
@@ -699,6 +699,22 @@ internal partial class ScatterplotsForm : BaseKryptonForm
 			_cancellationTokenSource = null;
 			UpdateRunningState(isRunning: false);
 		}
+	}
+
+	/// <summary>Shows or hides the information label according to the menu item's checked state.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data.</param>
+	private void ToolStripMenuItemShowInformationLabel_Click(object sender, EventArgs e)
+	{
+		// Log the action of clicking of ToolStripMenuItemShowInformationLabel
+		logger.Info(message: $"ToolStripMenuItemShowInformationLabel clicked.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		labelInformation.Visible = toolStripMenuItemShowInformationLabel.Checked;
+		// Log the new state of the visibility of the information label
+		logger.Info(message: $"Set the visibility of the information label to {labelInformation.Visible}.");
 	}
 
 	#endregion
