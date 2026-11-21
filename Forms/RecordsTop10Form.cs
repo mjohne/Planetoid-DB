@@ -100,7 +100,7 @@ internal partial class RecordsTop10Form : BaseKryptonForm
 
 	#endregion
 
-	#region helper methods
+	#region Helper methods
 
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
@@ -757,6 +757,22 @@ internal partial class RecordsTop10Form : BaseKryptonForm
 		// Ensure that only one sort order button is checked at a time by setting the opposite button's checked state to the inverse of the current button's checked state. This maintains a consistent state where either ascending or descending is selected, but not both.
 		toolStripButtonSortOrderAscending.Checked = !toolStripButtonSortOrderDescending.Checked;
 		logger.Info(message: $"Sort order changed to {(toolStripButtonSortOrderAscending.Checked ? "ascending" : "descending")}.");
+	}
+
+	/// <summary>Shows or hides the information label according to the menu item's checked state.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data.</param>
+	private void ToolStripMenuItemShowInformationLabel_Click(object sender, EventArgs e)
+	{
+		// Log the action of clicking of ToolStripMenuItemShowInformationLabel
+		logger.Info(message: $"ToolStripMenuItemShowInformationLabel clicked.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		labelInformation.Visible = toolStripMenuItemShowInformationLabel.Checked;
+		// Log the new state of the visibility of the information label
+		logger.Info(message: $"Set the visibility of the information label to {labelInformation.Visible}.");
 	}
 
 	#endregion
