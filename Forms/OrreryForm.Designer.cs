@@ -42,7 +42,7 @@ partial class OrreryForm
 			_animationTimer?.Dispose();
 			_overlayFont?.Dispose();
 		}
-		base.Dispose(disposing);
+		base.Dispose(disposing: disposing);
 	}
 
 	/// <summary>Initializes the components of the <see cref="OrreryForm"/>.</summary>
