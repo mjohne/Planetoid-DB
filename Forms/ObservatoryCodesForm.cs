@@ -109,7 +109,7 @@ internal partial class ObservatoryCodesForm : BaseKryptonForm
 			// Use a StringReader to read the resource text line by line
 			using StringReader reader = new(s: resourceText);
 			// Preallocate a list to hold the ListViewItems for performance
-			List<ListViewItem> items = new(capacity: 4000);
+			List<ListViewItem> items = [with(capacity: 4000)];
 			// Read each line from the resource text
 			string? line;
 			// Process each line to extract the observatory code and location
@@ -390,7 +390,7 @@ internal partial class ObservatoryCodesForm : BaseKryptonForm
 		// Ensure that the event data was supplied
 		ArgumentNullException.ThrowIfNull(argument: e);
 		// Require at least one row
-		List<(decimal Latitude, decimal Longitude, string Label)> markers = new(capacity: listView.Items.Count);
+		List<(decimal Latitude, decimal Longitude, string Label)> markers = [with(capacity: listView.Items.Count)];
 		// Iterate through all items in the ListView to collect valid coordinates
 		foreach (ListViewItem item in listView.Items)
 		{
@@ -428,6 +428,22 @@ internal partial class ObservatoryCodesForm : BaseKryptonForm
 		using WorldMapForm worldMapForm = new(markers: markers);
 		// Show the world map form as a modal dialog
 		_ = worldMapForm.ShowDialog(owner: this);
+	}
+
+	/// <summary>Shows or hides the information label according to the menu item's checked state.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data.</param>
+	private void ToolStripMenuItemShowInformationLabel_Click(object sender, EventArgs e)
+	{
+		// Log the action of clicking of ToolStripMenuItemShowInformationLabel
+		logger.Info(message: $"ToolStripMenuItemShowInformationLabel clicked.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		labelInformation.Visible = toolStripMenuItemShowInformationLabel.Checked;
+		// Log the new state of the visibility of the information label
+		logger.Info(message: $"Set the visibility of the information label to {labelInformation.Visible}.");
 	}
 
 	#endregion
