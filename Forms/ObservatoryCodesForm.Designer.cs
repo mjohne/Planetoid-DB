@@ -39,7 +39,7 @@ partial class ObservatoryCodesForm
 		{
 			components.Dispose();
 		}
-		base.Dispose(disposing);
+		base.Dispose(disposing: disposing);
 	}
 
 	#region Windows Form Designer generated code
@@ -112,6 +112,8 @@ partial class ObservatoryCodesForm
 		toolStripButtonOpenMpcObsCodesPage = new ToolStripButton();
 		toolStripSplitButtonMarkOnMap = new ToolStripSplitButton();
 		toolStripMenuItemMarkAllOnMap = new ToolStripMenuItem();
+		contextMenuShowControlsInStatusBar = new ContextMenuStrip(components);
+		toolStripMenuItemShowInformationLabel = new ToolStripMenuItem();
 		((ISupportInitialize)kryptonPanelMain).BeginInit();
 		kryptonPanelMain.SuspendLayout();
 		contextMenuSaveToFile.SuspendLayout();
@@ -121,6 +123,7 @@ partial class ObservatoryCodesForm
 		toolStripContainer.TopToolStripPanel.SuspendLayout();
 		toolStripContainer.SuspendLayout();
 		kryptonToolStripMain.SuspendLayout();
+		contextMenuShowControlsInStatusBar.SuspendLayout();
 		SuspendLayout();
 		// 
 		// kryptonPanelMain
@@ -128,6 +131,7 @@ partial class ObservatoryCodesForm
 		kryptonPanelMain.AccessibleDescription = "Groups the observatory code data";
 		kryptonPanelMain.AccessibleName = "Panel";
 		kryptonPanelMain.AccessibleRole = AccessibleRole.Pane;
+		kryptonPanelMain.AutoScroll = true;
 		kryptonPanelMain.Controls.Add(listView);
 		kryptonPanelMain.Dock = DockStyle.Fill;
 		kryptonPanelMain.Location = new Point(0, 0);
@@ -819,6 +823,7 @@ partial class ObservatoryCodesForm
 		kryptonStatusStrip.AccessibleRole = AccessibleRole.StatusBar;
 		kryptonStatusStrip.AllowClickThrough = true;
 		kryptonStatusStrip.AllowItemReorder = true;
+		kryptonStatusStrip.ContextMenuStrip = contextMenuShowControlsInStatusBar;
 		kryptonStatusStrip.Dock = DockStyle.None;
 		kryptonStatusStrip.Font = new Font("Segoe UI", 9F);
 		kryptonStatusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
@@ -964,11 +969,43 @@ partial class ObservatoryCodesForm
 		toolStripMenuItemMarkAllOnMap.AutoToolTip = true;
 		toolStripMenuItemMarkAllOnMap.Image = FatcowIcons16px.fatcow_map_16px;
 		toolStripMenuItemMarkAllOnMap.Name = "toolStripMenuItemMarkAllOnMap";
-		toolStripMenuItemMarkAllOnMap.Size = new Size(180, 22);
+		toolStripMenuItemMarkAllOnMap.Size = new Size(160, 22);
 		toolStripMenuItemMarkAllOnMap.Text = "Mark all on map";
 		toolStripMenuItemMarkAllOnMap.Click += ToolStripMenuItemMarkAllOnMap_Click;
 		toolStripMenuItemMarkAllOnMap.MouseEnter += Control_Enter;
 		toolStripMenuItemMarkAllOnMap.MouseLeave += Control_Leave;
+		// 
+		// contextMenuShowControlsInStatusBar
+		// 
+		contextMenuShowControlsInStatusBar.AccessibleDescription = "Shows the context menu for the visibility of controls in the status bar";
+		contextMenuShowControlsInStatusBar.AccessibleName = "Context menu for the visibility of controls in the status bar";
+		contextMenuShowControlsInStatusBar.AccessibleRole = AccessibleRole.MenuPopup;
+		contextMenuShowControlsInStatusBar.AllowClickThrough = true;
+		contextMenuShowControlsInStatusBar.Font = new Font("Segoe UI", 9F);
+		contextMenuShowControlsInStatusBar.Items.AddRange(new ToolStripItem[] { toolStripMenuItemShowInformationLabel });
+		contextMenuShowControlsInStatusBar.Name = "contextMenuStrip";
+		contextMenuShowControlsInStatusBar.Size = new Size(198, 48);
+		contextMenuShowControlsInStatusBar.TabStop = true;
+		contextMenuShowControlsInStatusBar.Text = "Show controls in status bar";
+		contextMenuShowControlsInStatusBar.MouseEnter += Control_Enter;
+		contextMenuShowControlsInStatusBar.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemShowInformationLabel
+		// 
+		toolStripMenuItemShowInformationLabel.AccessibleDescription = "Determines whether the information label is visible or hidden";
+		toolStripMenuItemShowInformationLabel.AccessibleName = "Information label";
+		toolStripMenuItemShowInformationLabel.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemShowInformationLabel.AutoToolTip = true;
+		toolStripMenuItemShowInformationLabel.Checked = true;
+		toolStripMenuItemShowInformationLabel.CheckOnClick = true;
+		toolStripMenuItemShowInformationLabel.CheckState = CheckState.Checked;
+		toolStripMenuItemShowInformationLabel.Name = "toolStripMenuItemShowInformationLabel";
+		toolStripMenuItemShowInformationLabel.ShortcutKeyDisplayString = "";
+		toolStripMenuItemShowInformationLabel.Size = new Size(197, 22);
+		toolStripMenuItemShowInformationLabel.Text = "Show &information label";
+		toolStripMenuItemShowInformationLabel.Click += ToolStripMenuItemShowInformationLabel_Click;
+		toolStripMenuItemShowInformationLabel.MouseEnter += Control_Enter;
+		toolStripMenuItemShowInformationLabel.MouseLeave += Control_Leave;
 		// 
 		// ObservatoryCodesForm
 		// 
@@ -989,6 +1026,7 @@ partial class ObservatoryCodesForm
 		SizeGripStyle = SizeGripStyle.Hide;
 		StartPosition = FormStartPosition.CenterScreen;
 		Text = "Observatory Codes";
+		FormClosing += ObservatoryCodesForm_FormClosing;
 		Load += ObservatoryCodesForm_Load;
 		((ISupportInitialize)kryptonPanelMain).EndInit();
 		kryptonPanelMain.ResumeLayout(false);
@@ -1004,6 +1042,7 @@ partial class ObservatoryCodesForm
 		toolStripContainer.PerformLayout();
 		kryptonToolStripMain.ResumeLayout(false);
 		kryptonToolStripMain.PerformLayout();
+		contextMenuShowControlsInStatusBar.ResumeLayout(false);
 		ResumeLayout(false);
 	}
 
@@ -1071,4 +1110,6 @@ partial class ObservatoryCodesForm
 	private ToolStripButton toolStripButtonOpenMpcObsCodesPage;
 	private ToolStripSplitButton toolStripSplitButtonMarkOnMap;
 	private ToolStripMenuItem toolStripMenuItemMarkAllOnMap;
+	private ContextMenuStrip contextMenuShowControlsInStatusBar;
+	private ToolStripMenuItem toolStripMenuItemShowInformationLabel;
 }
