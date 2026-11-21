@@ -39,7 +39,7 @@ partial class PreloadForm
 		{
 			components.Dispose();
 		}
-		base.Dispose(disposing);
+		base.Dispose(disposing: disposing);
 	}
 
 	#region Windows Form Designer generated code
@@ -52,7 +52,7 @@ partial class PreloadForm
 		ComponentResourceManager resources = new ComponentResourceManager(typeof(PreloadForm));
 		kryptonCommandLinkButtonExit = new KryptonCommandLinkButton();
 		kryptonCommandLinkButtonLoadInternalDemoData = new KryptonCommandLinkButton();
-		kryptonCommandLinkButtonDownloadMprcorbDat = new KryptonCommandLinkButton();
+		kryptonCommandLinkButtonDownloadMpcorbDat = new KryptonCommandLinkButton();
 		kryptonCommandLinkButtonOpenLocalFile = new KryptonCommandLinkButton();
 		kryptonStatusStrip = new KryptonStatusStrip();
 		labelInformation = new ToolStripStatusLabel();
@@ -60,9 +60,12 @@ partial class PreloadForm
 		kryptonCommandLinkButtonAppInfo = new KryptonCommandLinkButton();
 		openFileDialog = new OpenFileDialog();
 		kryptonManager = new KryptonManager(components);
+		contextMenuShowControlsInStatusBar = new ContextMenuStrip(components);
+		toolStripMenuItemShowInformationLabel = new ToolStripMenuItem();
 		kryptonStatusStrip.SuspendLayout();
 		((ISupportInitialize)kryptonPanelMain).BeginInit();
 		kryptonPanelMain.SuspendLayout();
+		contextMenuShowControlsInStatusBar.SuspendLayout();
 		SuspendLayout();
 		// 
 		// kryptonCommandLinkButtonExit
@@ -121,33 +124,33 @@ partial class PreloadForm
 		kryptonCommandLinkButtonLoadInternalDemoData.MouseEnter += Control_Enter;
 		kryptonCommandLinkButtonLoadInternalDemoData.MouseLeave += Control_Leave;
 		// 
-		// kryptonCommandLinkButtonDownloadMprcorbDat
+		// kryptonCommandLinkButtonDownloadMpcorbDat
 		// 
-		kryptonCommandLinkButtonDownloadMprcorbDat.AccessibleDescription = "Downloads MPCORB.DAT from the IAU Minor Planet Center";
-		kryptonCommandLinkButtonDownloadMprcorbDat.AccessibleName = "Download MPCORB.DAT";
-		kryptonCommandLinkButtonDownloadMprcorbDat.AccessibleRole = AccessibleRole.PushButton;
-		kryptonCommandLinkButtonDownloadMprcorbDat.CommandLinkTextValues.Description = "Download MPCORB.DAT from the IAU Minor Planet Center";
-		kryptonCommandLinkButtonDownloadMprcorbDat.CommandLinkTextValues.Heading = "Download MPCORB.DAT";
-		kryptonCommandLinkButtonDownloadMprcorbDat.Location = new Point(0, 12);
-		kryptonCommandLinkButtonDownloadMprcorbDat.Name = "kryptonCommandLinkButtonDownloadMprcorbDat";
-		kryptonCommandLinkButtonDownloadMprcorbDat.OverrideFocus.Border.Draw = InheritBool.True;
-		kryptonCommandLinkButtonDownloadMprcorbDat.OverrideFocus.Border.DrawBorders = PaletteDrawBorders.Top | PaletteDrawBorders.Bottom | PaletteDrawBorders.Left | PaletteDrawBorders.Right;
-		kryptonCommandLinkButtonDownloadMprcorbDat.OverrideFocus.Border.GraphicsHint = PaletteGraphicsHint.AntiAlias;
-		kryptonCommandLinkButtonDownloadMprcorbDat.Size = new Size(356, 60);
-		kryptonCommandLinkButtonDownloadMprcorbDat.StateCommon.Content.LongText.TextH = PaletteRelativeAlign.Near;
-		kryptonCommandLinkButtonDownloadMprcorbDat.StateCommon.Content.LongText.TextV = PaletteRelativeAlign.Far;
-		kryptonCommandLinkButtonDownloadMprcorbDat.StateCommon.Content.ShortText.TextH = PaletteRelativeAlign.Near;
-		kryptonCommandLinkButtonDownloadMprcorbDat.StateCommon.Content.ShortText.TextV = PaletteRelativeAlign.Center;
-		kryptonCommandLinkButtonDownloadMprcorbDat.TabIndex = 0;
-		kryptonCommandLinkButtonDownloadMprcorbDat.ToolTipValues.Description = "Downloads MPCORB.DAT from the IAU Minor Planet Center.";
-		kryptonCommandLinkButtonDownloadMprcorbDat.ToolTipValues.EnableToolTips = true;
-		kryptonCommandLinkButtonDownloadMprcorbDat.ToolTipValues.Heading = "Download MPCORB.DAT";
-		kryptonCommandLinkButtonDownloadMprcorbDat.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		kryptonCommandLinkButtonDownloadMprcorbDat.Click += KryptonCommandLinkButtonDownloadMpcorbDat_Click;
-		kryptonCommandLinkButtonDownloadMprcorbDat.Enter += Control_Enter;
-		kryptonCommandLinkButtonDownloadMprcorbDat.Leave += Control_Leave;
-		kryptonCommandLinkButtonDownloadMprcorbDat.MouseEnter += Control_Enter;
-		kryptonCommandLinkButtonDownloadMprcorbDat.MouseLeave += Control_Leave;
+		kryptonCommandLinkButtonDownloadMpcorbDat.AccessibleDescription = "Downloads MPCORB.DAT from the IAU Minor Planet Center";
+		kryptonCommandLinkButtonDownloadMpcorbDat.AccessibleName = "Download MPCORB.DAT";
+		kryptonCommandLinkButtonDownloadMpcorbDat.AccessibleRole = AccessibleRole.PushButton;
+		kryptonCommandLinkButtonDownloadMpcorbDat.CommandLinkTextValues.Description = "Download MPCORB.DAT from the IAU Minor Planet Center";
+		kryptonCommandLinkButtonDownloadMpcorbDat.CommandLinkTextValues.Heading = "Download MPCORB.DAT";
+		kryptonCommandLinkButtonDownloadMpcorbDat.Location = new Point(0, 12);
+		kryptonCommandLinkButtonDownloadMpcorbDat.Name = "kryptonCommandLinkButtonDownloadMpcorbDat";
+		kryptonCommandLinkButtonDownloadMpcorbDat.OverrideFocus.Border.Draw = InheritBool.True;
+		kryptonCommandLinkButtonDownloadMpcorbDat.OverrideFocus.Border.DrawBorders = PaletteDrawBorders.Top | PaletteDrawBorders.Bottom | PaletteDrawBorders.Left | PaletteDrawBorders.Right;
+		kryptonCommandLinkButtonDownloadMpcorbDat.OverrideFocus.Border.GraphicsHint = PaletteGraphicsHint.AntiAlias;
+		kryptonCommandLinkButtonDownloadMpcorbDat.Size = new Size(356, 60);
+		kryptonCommandLinkButtonDownloadMpcorbDat.StateCommon.Content.LongText.TextH = PaletteRelativeAlign.Near;
+		kryptonCommandLinkButtonDownloadMpcorbDat.StateCommon.Content.LongText.TextV = PaletteRelativeAlign.Far;
+		kryptonCommandLinkButtonDownloadMpcorbDat.StateCommon.Content.ShortText.TextH = PaletteRelativeAlign.Near;
+		kryptonCommandLinkButtonDownloadMpcorbDat.StateCommon.Content.ShortText.TextV = PaletteRelativeAlign.Center;
+		kryptonCommandLinkButtonDownloadMpcorbDat.TabIndex = 0;
+		kryptonCommandLinkButtonDownloadMpcorbDat.ToolTipValues.Description = "Downloads MPCORB.DAT from the IAU Minor Planet Center.";
+		kryptonCommandLinkButtonDownloadMpcorbDat.ToolTipValues.EnableToolTips = true;
+		kryptonCommandLinkButtonDownloadMpcorbDat.ToolTipValues.Heading = "Download MPCORB.DAT";
+		kryptonCommandLinkButtonDownloadMpcorbDat.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		kryptonCommandLinkButtonDownloadMpcorbDat.Click += KryptonCommandLinkButtonDownloadMpcorbDat_Click;
+		kryptonCommandLinkButtonDownloadMpcorbDat.Enter += Control_Enter;
+		kryptonCommandLinkButtonDownloadMpcorbDat.Leave += Control_Leave;
+		kryptonCommandLinkButtonDownloadMpcorbDat.MouseEnter += Control_Enter;
+		kryptonCommandLinkButtonDownloadMpcorbDat.MouseLeave += Control_Leave;
 		// 
 		// kryptonCommandLinkButtonOpenLocalFile
 		// 
@@ -184,6 +187,7 @@ partial class PreloadForm
 		kryptonStatusStrip.AccessibleRole = AccessibleRole.StatusBar;
 		kryptonStatusStrip.AllowClickThrough = true;
 		kryptonStatusStrip.AllowItemReorder = true;
+		kryptonStatusStrip.ContextMenuStrip = contextMenuShowControlsInStatusBar;
 		kryptonStatusStrip.Font = new Font("Segoe UI", 9F);
 		kryptonStatusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
 		kryptonStatusStrip.Location = new Point(0, 340);
@@ -212,10 +216,11 @@ partial class PreloadForm
 		kryptonPanelMain.AccessibleDescription = "Groups the data";
 		kryptonPanelMain.AccessibleName = "Panel";
 		kryptonPanelMain.AccessibleRole = AccessibleRole.Pane;
+		kryptonPanelMain.AutoScroll = true;
 		kryptonPanelMain.Controls.Add(kryptonCommandLinkButtonAppInfo);
 		kryptonPanelMain.Controls.Add(kryptonCommandLinkButtonExit);
 		kryptonPanelMain.Controls.Add(kryptonCommandLinkButtonLoadInternalDemoData);
-		kryptonPanelMain.Controls.Add(kryptonCommandLinkButtonDownloadMprcorbDat);
+		kryptonPanelMain.Controls.Add(kryptonCommandLinkButtonDownloadMpcorbDat);
 		kryptonPanelMain.Controls.Add(kryptonCommandLinkButtonOpenLocalFile);
 		kryptonPanelMain.Dock = DockStyle.Fill;
 		kryptonPanelMain.Location = new Point(0, 0);
@@ -266,6 +271,38 @@ partial class PreloadForm
 		kryptonManager.ToolkitStrings.MessageBoxStrings.LessDetails = "L&ess Details...";
 		kryptonManager.ToolkitStrings.MessageBoxStrings.MoreDetails = "&More Details...";
 		// 
+		// contextMenuShowControlsInStatusBar
+		// 
+		contextMenuShowControlsInStatusBar.AccessibleDescription = "Shows the context menu for the visibility of controls in the status bar";
+		contextMenuShowControlsInStatusBar.AccessibleName = "Context menu for the visibility of controls in the status bar";
+		contextMenuShowControlsInStatusBar.AccessibleRole = AccessibleRole.MenuPopup;
+		contextMenuShowControlsInStatusBar.AllowClickThrough = true;
+		contextMenuShowControlsInStatusBar.Font = new Font("Segoe UI", 9F);
+		contextMenuShowControlsInStatusBar.Items.AddRange(new ToolStripItem[] { toolStripMenuItemShowInformationLabel });
+		contextMenuShowControlsInStatusBar.Name = "contextMenuStrip";
+		contextMenuShowControlsInStatusBar.Size = new Size(198, 48);
+		contextMenuShowControlsInStatusBar.TabStop = true;
+		contextMenuShowControlsInStatusBar.Text = "Show controls in status bar";
+		contextMenuShowControlsInStatusBar.MouseEnter += Control_Enter;
+		contextMenuShowControlsInStatusBar.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemShowInformationLabel
+		// 
+		toolStripMenuItemShowInformationLabel.AccessibleDescription = "Determines whether the information label is visible or hidden";
+		toolStripMenuItemShowInformationLabel.AccessibleName = "Information label";
+		toolStripMenuItemShowInformationLabel.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemShowInformationLabel.AutoToolTip = true;
+		toolStripMenuItemShowInformationLabel.Checked = true;
+		toolStripMenuItemShowInformationLabel.CheckOnClick = true;
+		toolStripMenuItemShowInformationLabel.CheckState = CheckState.Checked;
+		toolStripMenuItemShowInformationLabel.Name = "toolStripMenuItemShowInformationLabel";
+		toolStripMenuItemShowInformationLabel.ShortcutKeyDisplayString = "";
+		toolStripMenuItemShowInformationLabel.Size = new Size(197, 22);
+		toolStripMenuItemShowInformationLabel.Text = "Show &information label";
+		toolStripMenuItemShowInformationLabel.Click += ToolStripMenuItemShowInformationLabel_Click;
+		toolStripMenuItemShowInformationLabel.MouseEnter += Control_Enter;
+		toolStripMenuItemShowInformationLabel.MouseLeave += Control_Leave;
+		// 
 		// PreloadForm
 		// 
 		AccessibleDescription = "Indicates that the MPCORB.DAT file is missing";
@@ -295,6 +332,7 @@ partial class PreloadForm
 		kryptonStatusStrip.PerformLayout();
 		((ISupportInitialize)kryptonPanelMain).EndInit();
 		kryptonPanelMain.ResumeLayout(false);
+		contextMenuShowControlsInStatusBar.ResumeLayout(false);
 		ResumeLayout(false);
 		PerformLayout();
 	}
@@ -327,7 +365,7 @@ partial class PreloadForm
 
 	/// <summary>Required designer variable for the KryptonCommandLinkButton component that downloads the MPCORB.DAT file.</summary>
 	/// <remarks>This variable is used by the designer to manage the KryptonCommandLinkButton component that downloads the MPCORB.DAT file.</remarks>
-	private KryptonCommandLinkButton kryptonCommandLinkButtonDownloadMprcorbDat;
+	private KryptonCommandLinkButton kryptonCommandLinkButtonDownloadMpcorbDat;
 	
 	/// <summary>Required designer variable for the OpenFileDialog component.</summary>
 	/// <remarks>This variable is used by the designer to manage the OpenFileDialog component.</remarks>
@@ -340,4 +378,6 @@ partial class PreloadForm
 	/// <summary>Required designer variable for the KryptonCommandLinkButton component that shows application information.</summary>
 	/// <remarks>This variable is used by the designer to manage the KryptonCommandLinkButton component that shows application information.</remarks>
 	private KryptonCommandLinkButton kryptonCommandLinkButtonAppInfo;
+	private ContextMenuStrip contextMenuShowControlsInStatusBar;
+	private ToolStripMenuItem toolStripMenuItemShowInformationLabel;
 }
