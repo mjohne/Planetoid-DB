@@ -373,7 +373,7 @@ internal partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 		toolStripButtonGoToObject.Enabled = false;
 		listView.Enabled = false;
 		// Clear previous results and reset the ListView
-		_results = new List<MoidRowResult>(_planetoids.Count);
+		_results = [with(capacity: _planetoids.Count)];
 		listView.VirtualListSize = 0;
 		// Reset the progress bar and status label
 		UpdateProgress(percent: 0);
@@ -394,7 +394,7 @@ internal partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 			List<MoidRowResult> localResults = await Task.Run(() =>
 			{
 				// Use a thread-safe list to collect results from parallel tasks
-				List<MoidRowResult> threadSafeResults = new(capacity: total);
+				List<MoidRowResult> threadSafeResults = [with(capacity: total)];
 				// Use Parallel.For to process each planetoid line in parallel
 				_ = Parallel.For(
 					// Define the range of indices to process
@@ -520,6 +520,22 @@ internal partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 			// If successful, close this form to return focus to the main form
 			Close();
 		}
+	}
+
+	/// <summary>Shows or hides the information label according to the menu item's checked state.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data.</param>
+	private void ToolStripMenuItemShowInformationLabel_Click(object sender, EventArgs e)
+	{
+		// Log the action of clicking of ToolStripMenuItemShowInformationLabel
+		logger.Info(message: $"ToolStripMenuItemShowInformationLabel clicked.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		labelInformation.Visible = toolStripMenuItemShowInformationLabel.Checked;
+		// Log the new state of the visibility of the information label
+		logger.Info(message: $"Set the visibility of the information label to {labelInformation.Visible}.");
 	}
 
 	#endregion
