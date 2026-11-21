@@ -146,6 +146,22 @@ internal partial class RegionCheckerForm : BaseKryptonForm
 
 	#region Click event handlers
 
+	/// <summary>Shows or hides the information label according to the menu item's checked state.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data.</param>
+	private void ToolStripMenuItemShowInformationLabel_Click(object sender, EventArgs e)
+	{
+		// Log the action of clicking of ToolStripMenuItemShowInformationLabel
+		logger.Info(message: $"ToolStripMenuItemShowInformationLabel clicked.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		labelInformation.Visible = toolStripMenuItemShowInformationLabel.Checked;
+		// Log the new state of the visibility of the information label
+		logger.Info(message: $"Set the visibility of the information label to {labelInformation.Visible}.");
+	}
+
 	private void ToolStripButtonCheck_Click(object sender, EventArgs e)
 	{
 		// Ensure that an event source was supplied
@@ -182,6 +198,10 @@ internal partial class RegionCheckerForm : BaseKryptonForm
 
 	#region Leave event handlers
 
+	/// <summary>Handles the event raised when the minimum right ascension numeric control loses focus.</summary>
+	/// <remarks>Ensures that the minimum and maximum right ascension values are ordered correctly before applying the common leave-event handling.</remarks>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data.</param>
 	private void KryptonNumericUpDownRectascensionMinimum_Leave(object sender, EventArgs e)
 	{
 		// Ensure that an event source was supplied
@@ -192,6 +212,9 @@ internal partial class RegionCheckerForm : BaseKryptonForm
 		Control_Leave(sender: sender, e: e);
 	}
 
+	/// <summary>Handles the leave event for the minimum declination numeric control.</summary>
+	/// <param name="sender">The control that raised the event.</param>
+	/// <param name="e">The event data associated with the leave event.</param>
 	private void KryptonNumericUpDownDeclinationMinimum_Leave(object sender, EventArgs e)
 	{
 		// Ensure that an event source was supplied
@@ -202,6 +225,9 @@ internal partial class RegionCheckerForm : BaseKryptonForm
 		Control_Leave(sender: sender, e: e);
 	}
 
+	/// <summary>Handles the event raised when the maximum rectascension control loses focus.</summary>
+	/// <param name="sender">The control that raised the event.</param>
+	/// <param name="e">The event data.</param>
 	private void KryptonNumericUpDownRectascensionMaximum_Leave(object sender, EventArgs e)
 	{
 		// Ensure that an event source was supplied
@@ -212,6 +238,9 @@ internal partial class RegionCheckerForm : BaseKryptonForm
 		Control_Leave(sender: sender, e: e);
 	}
 
+	/// <summary>Handles the leave event for the maximum declination numeric control.</summary>
+	/// <param name="sender">The control that raised the event.</param>
+	/// <param name="e">The event data.</param>
 	private void KryptonNumericUpDownDeclinationMaximum_Leave(object sender, EventArgs e)
 	{
 		// Ensure that an event source was supplied

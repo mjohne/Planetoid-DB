@@ -33,7 +33,7 @@ internal partial class RegionCheckerForm
 		{
 			components.Dispose();
 		}
-		base.Dispose(disposing);
+		base.Dispose(disposing: disposing);
 	}
 
 	#region Windows Form Designer generated code
@@ -112,6 +112,8 @@ internal partial class RegionCheckerForm
 		toolStripLabelProgress = new ToolStripLabel();
 		kryptonProgressBarToolStripItem = new Krypton.Toolkit.KryptonProgressBarToolStripItem();
 		kryptonManager = new Krypton.Toolkit.KryptonManager(components);
+		contextMenuShowControlsInStatusBar = new ContextMenuStrip(components);
+		toolStripMenuItemShowInformationLabel = new ToolStripMenuItem();
 		kryptonStatusStrip.SuspendLayout();
 		toolStripContainer.BottomToolStripPanel.SuspendLayout();
 		toolStripContainer.ContentPanel.SuspendLayout();
@@ -121,6 +123,7 @@ internal partial class RegionCheckerForm
 		kryptonPanelMain.SuspendLayout();
 		contextMenuSaveToFile.SuspendLayout();
 		kryptonToolStrip.SuspendLayout();
+		contextMenuShowControlsInStatusBar.SuspendLayout();
 		SuspendLayout();
 		// 
 		// kryptonStatusStrip
@@ -130,6 +133,7 @@ internal partial class RegionCheckerForm
 		kryptonStatusStrip.AccessibleRole = AccessibleRole.StatusBar;
 		kryptonStatusStrip.AllowClickThrough = true;
 		kryptonStatusStrip.AllowItemReorder = true;
+		kryptonStatusStrip.ContextMenuStrip = contextMenuSaveToFile;
 		kryptonStatusStrip.Dock = DockStyle.None;
 		kryptonStatusStrip.Font = new Font("Segoe UI", 9F);
 		kryptonStatusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
@@ -215,6 +219,7 @@ internal partial class RegionCheckerForm
 		kryptonPanelMain.AccessibleDescription = "Groups the data";
 		kryptonPanelMain.AccessibleName = "Panel";
 		kryptonPanelMain.AccessibleRole = AccessibleRole.Pane;
+		kryptonPanelMain.AutoScroll = true;
 		kryptonPanelMain.Controls.Add(kryptonButtonConversionRectascension);
 		kryptonPanelMain.Controls.Add(kryptonButtonConversionDeclination);
 		kryptonPanelMain.Controls.Add(kryptonLabelDeclinationMaximum);
@@ -907,7 +912,6 @@ internal partial class RegionCheckerForm
 		kryptonCheckboxInclusiveBorders.ToolTipValues.Image = Resources.FatcowIcons16px.fatcow_information_16px;
 		kryptonCheckboxInclusiveBorders.Values.Text = "inclusive borders";
 		kryptonCheckboxInclusiveBorders.MouseEnter += Control_Enter;
-		toolStripMenuItemSaveAsXps.MouseLeave += Control_Leave;
 		// 
 		// kryptonNumericUpDownDeclinationMaximum
 		// 
@@ -1132,7 +1136,6 @@ internal partial class RegionCheckerForm
 		toolStripSeparator2.AccessibleName = "Separator";
 		toolStripSeparator2.AccessibleRole = AccessibleRole.Separator;
 		toolStripSeparator2.Name = "toolStripSeparator2";
-		toolStripSeparator2.Text = "toolStripSeparator2";
 		toolStripSeparator2.Size = new Size(6, 25);
 		toolStripSeparator2.MouseEnter += Control_Enter;
 		toolStripSeparator2.MouseLeave += Control_Leave;
@@ -1157,7 +1160,6 @@ internal partial class RegionCheckerForm
 		toolStripSeparator3.AccessibleName = "Separator";
 		toolStripSeparator3.AccessibleRole = AccessibleRole.Separator;
 		toolStripSeparator3.Name = "toolStripSeparator3";
-		toolStripSeparator3.Text = "toolStripSeparator3";
 		toolStripSeparator3.Size = new Size(6, 25);
 		toolStripSeparator3.MouseEnter += Control_Enter;
 		toolStripSeparator3.MouseLeave += Control_Leave;
@@ -1196,6 +1198,38 @@ internal partial class RegionCheckerForm
 		kryptonManager.ToolkitStrings.MessageBoxStrings.LessDetails = "L&ess Details...";
 		kryptonManager.ToolkitStrings.MessageBoxStrings.MoreDetails = "&More Details...";
 		// 
+		// contextMenuShowControlsInStatusBar
+		// 
+		contextMenuShowControlsInStatusBar.AccessibleDescription = "Shows the context menu for the visibility of controls in the status bar";
+		contextMenuShowControlsInStatusBar.AccessibleName = "Context menu for the visibility of controls in the status bar";
+		contextMenuShowControlsInStatusBar.AccessibleRole = AccessibleRole.MenuPopup;
+		contextMenuShowControlsInStatusBar.AllowClickThrough = true;
+		contextMenuShowControlsInStatusBar.Font = new Font("Segoe UI", 9F);
+		contextMenuShowControlsInStatusBar.Items.AddRange(new ToolStripItem[] { toolStripMenuItemShowInformationLabel });
+		contextMenuShowControlsInStatusBar.Name = "contextMenuStrip";
+		contextMenuShowControlsInStatusBar.Size = new Size(198, 48);
+		contextMenuShowControlsInStatusBar.TabStop = true;
+		contextMenuShowControlsInStatusBar.Text = "Show controls in status bar";
+		contextMenuShowControlsInStatusBar.MouseEnter += Control_Enter;
+		contextMenuShowControlsInStatusBar.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemShowInformationLabel
+		// 
+		toolStripMenuItemShowInformationLabel.AccessibleDescription = "Determines whether the information label is visible or hidden";
+		toolStripMenuItemShowInformationLabel.AccessibleName = "Information label";
+		toolStripMenuItemShowInformationLabel.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemShowInformationLabel.AutoToolTip = true;
+		toolStripMenuItemShowInformationLabel.Checked = true;
+		toolStripMenuItemShowInformationLabel.CheckOnClick = true;
+		toolStripMenuItemShowInformationLabel.CheckState = CheckState.Checked;
+		toolStripMenuItemShowInformationLabel.Name = "toolStripMenuItemShowInformationLabel";
+		toolStripMenuItemShowInformationLabel.ShortcutKeyDisplayString = "";
+		toolStripMenuItemShowInformationLabel.Size = new Size(197, 22);
+		toolStripMenuItemShowInformationLabel.Text = "Show &information label";
+		toolStripMenuItemShowInformationLabel.Click += ToolStripMenuItemShowInformationLabel_Click;
+		toolStripMenuItemShowInformationLabel.MouseEnter += Control_Enter;
+		toolStripMenuItemShowInformationLabel.MouseLeave += Control_Leave;
+		// 
 		// RegionCheckerForm
 		// 
 		AccessibleDescription = "Provides information on minor planets located in a specific region of the sky";
@@ -1231,6 +1265,7 @@ internal partial class RegionCheckerForm
 		contextMenuSaveToFile.ResumeLayout(false);
 		kryptonToolStrip.ResumeLayout(false);
 		kryptonToolStrip.PerformLayout();
+		contextMenuShowControlsInStatusBar.ResumeLayout(false);
 		ResumeLayout(false);
 	}
 
@@ -1304,4 +1339,6 @@ internal partial class RegionCheckerForm
 	private Krypton.Toolkit.KryptonLabel kryptonLabelDeclinationMaximum;
 	private Krypton.Toolkit.KryptonButton kryptonButtonConversionDeclination;
 	private Krypton.Toolkit.KryptonButton kryptonButtonConversionRectascension;
+	private ContextMenuStrip contextMenuShowControlsInStatusBar;
+	private ToolStripMenuItem toolStripMenuItemShowInformationLabel;
 }
