@@ -205,7 +205,7 @@ internal partial class TisserandParameterOfOneMinorPlanetForm : BaseKryptonForm
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	/// <remarks>This event handler retrieves the Tisserand parameter value relative to Mercury from the corresponding label and copies it to the clipboard using the <see cref="BaseKryptonForm.CopyToClipboard(string)"/> helper method.</remarks>
-	private void MenuitemCopyToClipboardTisserandParameterRelativeToMercury_Click(object sender, EventArgs e)
+	private void MenuItemCopyToClipboardTisserandParameterRelativeToMercury_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying Tisserand parameter relative to Mercury to clipboard: {labelMercuryData.Text}");
 		// Ensure that an event source was supplied
@@ -219,7 +219,7 @@ internal partial class TisserandParameterOfOneMinorPlanetForm : BaseKryptonForm
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	/// <remarks>This event handler retrieves the Tisserand parameter value relative to Venus from the corresponding label and copies it to the clipboard using the <see cref="BaseKryptonForm.CopyToClipboard(string)"/> helper method.</remarks>
-	private void MenuitemCopyToClipboardTisserandParameterRelativeToVenus_Click(object sender, EventArgs e)
+	private void MenuItemCopyToClipboardTisserandParameterRelativeToVenus_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying Tisserand parameter relative to Venus to clipboard: {labelVenusData.Text}");
 		// Ensure that an event source was supplied
@@ -233,7 +233,7 @@ internal partial class TisserandParameterOfOneMinorPlanetForm : BaseKryptonForm
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	/// <remarks>This event handler retrieves the Tisserand parameter value relative to Earth from the corresponding label and copies it to the clipboard using the <see cref="BaseKryptonForm.CopyToClipboard(string)"/> helper method.</remarks>
-	private void MenuitemCopyToClipboardTisserandParameterRelativeToEarth_Click(object sender, EventArgs e)
+	private void MenuItemCopyToClipboardTisserandParameterRelativeToEarth_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying Tisserand parameter relative to Earth to clipboard: {labelEarthData.Text}");
 		// Ensure that an event source was supplied
@@ -247,7 +247,7 @@ internal partial class TisserandParameterOfOneMinorPlanetForm : BaseKryptonForm
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	/// <remarks>This event handler retrieves the Tisserand parameter value relative to Mars from the corresponding label and copies it to the clipboard using the <see cref="BaseKryptonForm.CopyToClipboard(string)"/> helper method.</remarks>
-	private void MenuitemCopyToClipboardTisserandParameterRelativeToMars_Click(object sender, EventArgs e)
+	private void MenuItemCopyToClipboardTisserandParameterRelativeToMars_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying Tisserand parameter relative to Mars to clipboard: {labelMarsData.Text}");
 		// Ensure that an event source was supplied
@@ -261,7 +261,7 @@ internal partial class TisserandParameterOfOneMinorPlanetForm : BaseKryptonForm
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	/// <remarks>This event handler retrieves the Tisserand parameter value relative to Jupiter from the corresponding label and copies it to the clipboard using the <see cref="BaseKryptonForm.CopyToClipboard(string)"/> helper method.</remarks>
-	private void MenuitemCopyToClipboardTisserandParameterRelativeToJupiter_Click(object sender, EventArgs e)
+	private void MenuItemCopyToClipboardTisserandParameterRelativeToJupiter_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying Tisserand parameter relative to Jupiter to clipboard: {labelJupiterData.Text}");
 		// Ensure that an event source was supplied
@@ -275,7 +275,7 @@ internal partial class TisserandParameterOfOneMinorPlanetForm : BaseKryptonForm
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	/// <remarks>This event handler retrieves the Tisserand parameter value relative to Saturn from the corresponding label and copies it to the clipboard using the <see cref="BaseKryptonForm.CopyToClipboard(string)"/> helper method.</remarks>
-	private void MenuitemCopyToClipboardTisserandParameterRelativeToSaturn_Click(object sender, EventArgs e)
+	private void MenuItemCopyToClipboardTisserandParameterRelativeToSaturn_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying Tisserand parameter relative to Saturn to clipboard: {labelSaturnData.Text}");
 		// Ensure that an event source was supplied
@@ -289,7 +289,7 @@ internal partial class TisserandParameterOfOneMinorPlanetForm : BaseKryptonForm
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	/// <remarks>This event handler retrieves the Tisserand parameter value relative to Uranus from the corresponding label and copies it to the clipboard using the <see cref="BaseKryptonForm.CopyToClipboard(string)"/> helper method.</remarks>
-	private void MenuitemCopyToClipboardTisserandParameterRelativeToUranus_Click(object sender, EventArgs e)
+	private void MenuItemCopyToClipboardTisserandParameterRelativeToUranus_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying Tisserand parameter relative to Uranus to clipboard: {labelUranusData.Text}");
 		// Ensure that an event source was supplied
@@ -303,7 +303,7 @@ internal partial class TisserandParameterOfOneMinorPlanetForm : BaseKryptonForm
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	/// <remarks>This event handler retrieves the Tisserand parameter value relative to Neptune from the corresponding label and copies it to the clipboard using the <see cref="BaseKryptonForm.CopyToClipboard(string)"/> helper method.</remarks>
-	private void MenuitemCopyToClipboardTisserandParameterRelativeToNeptune_Click(object sender, EventArgs e)
+	private void MenuItemCopyToClipboardTisserandParameterRelativeToNeptune_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Copying Tisserand parameter relative to Neptune to clipboard: {labelNeptuneData.Text}");
 		// Ensure that an event source was supplied
@@ -311,6 +311,22 @@ internal partial class TisserandParameterOfOneMinorPlanetForm : BaseKryptonForm
 		// Ensure that the event data was supplied
 		ArgumentNullException.ThrowIfNull(argument: e);
 		CopyToClipboard(text: labelNeptuneData.Text);
+	}
+
+	/// <summary>Shows or hides the information label according to the menu item's checked state.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data.</param>
+	private void ToolStripMenuItemShowInformationLabel_Click(object sender, EventArgs e)
+	{
+		// Log the action of clicking of ToolStripMenuItemShowInformationLabel
+		logger.Info(message: $"ToolStripMenuItemShowInformationLabel clicked.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		labelInformation.Visible = toolStripMenuItemShowInformationLabel.Checked;
+		// Log the new state of the visibility of the information label
+		logger.Info(message: $"Set the visibility of the information label to {labelInformation.Visible}.");
 	}
 
 	#endregion

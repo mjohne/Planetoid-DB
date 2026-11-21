@@ -39,7 +39,7 @@ partial class TisserandParameterOfOneMinorPlanetForm
 		{
 			components.Dispose();
 		}
-		base.Dispose(disposing);
+		base.Dispose(disposing: disposing);
 	}
 
 	#region Windows Form Designer generated code
@@ -117,17 +117,19 @@ partial class TisserandParameterOfOneMinorPlanetForm
 		toolStripIcons = new ToolStrip();
 		toolStripDropDownButtonCopyToClipboard = new ToolStripDropDownButton();
 		contextMenuFullCopyToClipboard = new ContextMenuStrip(components);
-		menuitemCopyToClipboardTisserandParameterRelativeToMercury = new ToolStripMenuItem();
-		menuitemCopyToClipboardTisserandParameterRelativeToVenus = new ToolStripMenuItem();
-		menuitemCopyToClipboardTisserandParameterRelativeToEarth = new ToolStripMenuItem();
-		menuitemCopyToClipboardTisserandParameterRelativeToMars = new ToolStripMenuItem();
-		menuitemCopyToClipboardTisserandParameterRelativeToJupiter = new ToolStripMenuItem();
-		menuitemCopyToClipboardTisserandParameterRelativeToSaturn = new ToolStripMenuItem();
-		menuitemCopyToClipboardTisserandParameterRelativeToUranus = new ToolStripMenuItem();
-		menuitemCopyToClipboardTisserandParameterRelativeToNeptune = new ToolStripMenuItem();
-		kryptonManager = new KryptonManager(components);
+		menuItemCopyToClipboardTisserandParameterRelativeToMercury = new ToolStripMenuItem();
+		menuItemCopyToClipboardTisserandParameterRelativeToVenus = new ToolStripMenuItem();
+		menuItemCopyToClipboardTisserandParameterRelativeToEarth = new ToolStripMenuItem();
+		menuItemCopyToClipboardTisserandParameterRelativeToMars = new ToolStripMenuItem();
+		menuItemCopyToClipboardTisserandParameterRelativeToJupiter = new ToolStripMenuItem();
+		menuItemCopyToClipboardTisserandParameterRelativeToSaturn = new ToolStripMenuItem();
+		menuItemCopyToClipboardTisserandParameterRelativeToUranus = new ToolStripMenuItem();
+		menuItemCopyToClipboardTisserandParameterRelativeToNeptune = new ToolStripMenuItem();
 		toolStripSeparator1 = new ToolStripSeparator();
 		toolStripButtonInfo = new ToolStripButton();
+		kryptonManager = new KryptonManager(components);
+		contextMenuShowControlsInStatusBar = new ContextMenuStrip(components);
+		toolStripMenuItemShowInformationLabel = new ToolStripMenuItem();
 		contextMenuCopyToClipboard.SuspendLayout();
 		toolStripContainer.BottomToolStripPanel.SuspendLayout();
 		toolStripContainer.ContentPanel.SuspendLayout();
@@ -138,6 +140,7 @@ partial class TisserandParameterOfOneMinorPlanetForm
 		contextMenuSaveToFile.SuspendLayout();
 		toolStripIcons.SuspendLayout();
 		contextMenuFullCopyToClipboard.SuspendLayout();
+		contextMenuShowControlsInStatusBar.SuspendLayout();
 		SuspendLayout();
 		// 
 		// labelMercuryDesc
@@ -607,6 +610,7 @@ partial class TisserandParameterOfOneMinorPlanetForm
 		kryptonStatusStrip.AccessibleRole = AccessibleRole.StatusBar;
 		kryptonStatusStrip.AllowClickThrough = true;
 		kryptonStatusStrip.AllowItemReorder = true;
+		kryptonStatusStrip.ContextMenuStrip = contextMenuCopyToClipboard;
 		kryptonStatusStrip.Dock = DockStyle.None;
 		kryptonStatusStrip.Font = new Font("Segoe UI", 9F);
 		kryptonStatusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
@@ -1319,9 +1323,8 @@ partial class TisserandParameterOfOneMinorPlanetForm
 		contextMenuFullCopyToClipboard.AccessibleName = "Context menu for copying Tisserand parameters to the clipboard";
 		contextMenuFullCopyToClipboard.AccessibleRole = AccessibleRole.MenuPopup;
 		contextMenuFullCopyToClipboard.Font = new Font("Segoe UI", 9F);
-		contextMenuFullCopyToClipboard.Items.AddRange(new ToolStripItem[] { menuitemCopyToClipboardTisserandParameterRelativeToMercury, menuitemCopyToClipboardTisserandParameterRelativeToVenus, menuitemCopyToClipboardTisserandParameterRelativeToEarth, menuitemCopyToClipboardTisserandParameterRelativeToMars, menuitemCopyToClipboardTisserandParameterRelativeToJupiter, menuitemCopyToClipboardTisserandParameterRelativeToSaturn, menuitemCopyToClipboardTisserandParameterRelativeToUranus, menuitemCopyToClipboardTisserandParameterRelativeToNeptune });
+		contextMenuFullCopyToClipboard.Items.AddRange(new ToolStripItem[] { menuItemCopyToClipboardTisserandParameterRelativeToMercury, menuItemCopyToClipboardTisserandParameterRelativeToVenus, menuItemCopyToClipboardTisserandParameterRelativeToEarth, menuItemCopyToClipboardTisserandParameterRelativeToMars, menuItemCopyToClipboardTisserandParameterRelativeToJupiter, menuItemCopyToClipboardTisserandParameterRelativeToSaturn, menuItemCopyToClipboardTisserandParameterRelativeToUranus, menuItemCopyToClipboardTisserandParameterRelativeToNeptune });
 		contextMenuFullCopyToClipboard.Name = "Context menu for copying Tisserand parameters to the clipboard";
-		contextMenuFullCopyToClipboard.OwnerItem = toolStripDropDownButtonCopyToClipboard;
 		contextMenuFullCopyToClipboard.Size = new Size(121, 180);
 		contextMenuFullCopyToClipboard.Text = "Copy to clipboard";
 		contextMenuFullCopyToClipboard.Enter += Control_Enter;
@@ -1329,121 +1332,115 @@ partial class TisserandParameterOfOneMinorPlanetForm
 		contextMenuFullCopyToClipboard.MouseEnter += Control_Enter;
 		contextMenuFullCopyToClipboard.MouseLeave += Control_Leave;
 		// 
-		// menuitemCopyToClipboardTisserandParameterRelativeToMercury
+		// menuItemCopyToClipboardTisserandParameterRelativeToMercury
 		// 
-		menuitemCopyToClipboardTisserandParameterRelativeToMercury.AccessibleDescription = "Copies to clipboard: Tisserand parameter relative to Mercury";
-		menuitemCopyToClipboardTisserandParameterRelativeToMercury.AccessibleName = "Copy to clipboard: Tisserand parameter relative to Mercury";
-		menuitemCopyToClipboardTisserandParameterRelativeToMercury.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemCopyToClipboardTisserandParameterRelativeToMercury.AutoToolTip = true;
-		menuitemCopyToClipboardTisserandParameterRelativeToMercury.Image = (Image)resources.GetObject("menuitemCopyToClipboardTisserandParameterRelativeToMercury.Image");
-		menuitemCopyToClipboardTisserandParameterRelativeToMercury.Name = "menuitemCopyToClipboardTisserandParameterRelativeToMercury";
-		menuitemCopyToClipboardTisserandParameterRelativeToMercury.Size = new Size(120, 22);
-		menuitemCopyToClipboardTisserandParameterRelativeToMercury.Text = "&Mercury";
-		menuitemCopyToClipboardTisserandParameterRelativeToMercury.Click += MenuitemCopyToClipboardTisserandParameterRelativeToMercury_Click;
-		menuitemCopyToClipboardTisserandParameterRelativeToMercury.MouseEnter += Control_Enter;
-		menuitemCopyToClipboardTisserandParameterRelativeToMercury.MouseLeave += Control_Leave;
+		menuItemCopyToClipboardTisserandParameterRelativeToMercury.AccessibleDescription = "Copies to clipboard: Tisserand parameter relative to Mercury";
+		menuItemCopyToClipboardTisserandParameterRelativeToMercury.AccessibleName = "Copy to clipboard: Tisserand parameter relative to Mercury";
+		menuItemCopyToClipboardTisserandParameterRelativeToMercury.AccessibleRole = AccessibleRole.MenuItem;
+		menuItemCopyToClipboardTisserandParameterRelativeToMercury.AutoToolTip = true;
+		menuItemCopyToClipboardTisserandParameterRelativeToMercury.Image = (Image)resources.GetObject("menuItemCopyToClipboardTisserandParameterRelativeToMercury.Image");
+		menuItemCopyToClipboardTisserandParameterRelativeToMercury.Name = "menuItemCopyToClipboardTisserandParameterRelativeToMercury";
+		menuItemCopyToClipboardTisserandParameterRelativeToMercury.Size = new Size(120, 22);
+		menuItemCopyToClipboardTisserandParameterRelativeToMercury.Text = "&Mercury";
+		menuItemCopyToClipboardTisserandParameterRelativeToMercury.Click += MenuItemCopyToClipboardTisserandParameterRelativeToMercury_Click;
+		menuItemCopyToClipboardTisserandParameterRelativeToMercury.MouseEnter += Control_Enter;
+		menuItemCopyToClipboardTisserandParameterRelativeToMercury.MouseLeave += Control_Leave;
 		// 
-		// menuitemCopyToClipboardTisserandParameterRelativeToVenus
+		// menuItemCopyToClipboardTisserandParameterRelativeToVenus
 		// 
-		menuitemCopyToClipboardTisserandParameterRelativeToVenus.AccessibleDescription = "Copies to clipboard: Tisserand parameter relative to Venus";
-		menuitemCopyToClipboardTisserandParameterRelativeToVenus.AccessibleName = "Copy to clipboard: Tisserand parameter relative to Venus";
-		menuitemCopyToClipboardTisserandParameterRelativeToVenus.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemCopyToClipboardTisserandParameterRelativeToVenus.AutoToolTip = true;
-		menuitemCopyToClipboardTisserandParameterRelativeToVenus.Image = (Image)resources.GetObject("menuitemCopyToClipboardTisserandParameterRelativeToVenus.Image");
-		menuitemCopyToClipboardTisserandParameterRelativeToVenus.Name = "menuitemCopyToClipboardTisserandParameterRelativeToVenus";
-		menuitemCopyToClipboardTisserandParameterRelativeToVenus.Size = new Size(120, 22);
-		menuitemCopyToClipboardTisserandParameterRelativeToVenus.Text = "&Venus";
-		menuitemCopyToClipboardTisserandParameterRelativeToVenus.Click += MenuitemCopyToClipboardTisserandParameterRelativeToVenus_Click;
-		menuitemCopyToClipboardTisserandParameterRelativeToVenus.MouseEnter += Control_Enter;
-		menuitemCopyToClipboardTisserandParameterRelativeToVenus.MouseLeave += Control_Leave;
+		menuItemCopyToClipboardTisserandParameterRelativeToVenus.AccessibleDescription = "Copies to clipboard: Tisserand parameter relative to Venus";
+		menuItemCopyToClipboardTisserandParameterRelativeToVenus.AccessibleName = "Copy to clipboard: Tisserand parameter relative to Venus";
+		menuItemCopyToClipboardTisserandParameterRelativeToVenus.AccessibleRole = AccessibleRole.MenuItem;
+		menuItemCopyToClipboardTisserandParameterRelativeToVenus.AutoToolTip = true;
+		menuItemCopyToClipboardTisserandParameterRelativeToVenus.Image = (Image)resources.GetObject("menuItemCopyToClipboardTisserandParameterRelativeToVenus.Image");
+		menuItemCopyToClipboardTisserandParameterRelativeToVenus.Name = "menuItemCopyToClipboardTisserandParameterRelativeToVenus";
+		menuItemCopyToClipboardTisserandParameterRelativeToVenus.Size = new Size(120, 22);
+		menuItemCopyToClipboardTisserandParameterRelativeToVenus.Text = "&Venus";
+		menuItemCopyToClipboardTisserandParameterRelativeToVenus.Click += MenuItemCopyToClipboardTisserandParameterRelativeToVenus_Click;
+		menuItemCopyToClipboardTisserandParameterRelativeToVenus.MouseEnter += Control_Enter;
+		menuItemCopyToClipboardTisserandParameterRelativeToVenus.MouseLeave += Control_Leave;
 		// 
-		// menuitemCopyToClipboardTisserandParameterRelativeToEarth
+		// menuItemCopyToClipboardTisserandParameterRelativeToEarth
 		// 
-		menuitemCopyToClipboardTisserandParameterRelativeToEarth.AccessibleDescription = "Copies to clipboard: Tisserand parameter relative to Earth";
-		menuitemCopyToClipboardTisserandParameterRelativeToEarth.AccessibleName = "Copy to clipboard: Tisserand parameter relative to Earth";
-		menuitemCopyToClipboardTisserandParameterRelativeToEarth.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemCopyToClipboardTisserandParameterRelativeToEarth.AutoToolTip = true;
-		menuitemCopyToClipboardTisserandParameterRelativeToEarth.Image = (Image)resources.GetObject("menuitemCopyToClipboardTisserandParameterRelativeToEarth.Image");
-		menuitemCopyToClipboardTisserandParameterRelativeToEarth.Name = "menuitemCopyToClipboardTisserandParameterRelativeToEarth";
-		menuitemCopyToClipboardTisserandParameterRelativeToEarth.Size = new Size(120, 22);
-		menuitemCopyToClipboardTisserandParameterRelativeToEarth.Text = "&Earth";
-		menuitemCopyToClipboardTisserandParameterRelativeToEarth.Click += MenuitemCopyToClipboardTisserandParameterRelativeToEarth_Click;
-		menuitemCopyToClipboardTisserandParameterRelativeToEarth.MouseEnter += Control_Enter;
-		menuitemCopyToClipboardTisserandParameterRelativeToEarth.MouseLeave += Control_Leave;
+		menuItemCopyToClipboardTisserandParameterRelativeToEarth.AccessibleDescription = "Copies to clipboard: Tisserand parameter relative to Earth";
+		menuItemCopyToClipboardTisserandParameterRelativeToEarth.AccessibleName = "Copy to clipboard: Tisserand parameter relative to Earth";
+		menuItemCopyToClipboardTisserandParameterRelativeToEarth.AccessibleRole = AccessibleRole.MenuItem;
+		menuItemCopyToClipboardTisserandParameterRelativeToEarth.AutoToolTip = true;
+		menuItemCopyToClipboardTisserandParameterRelativeToEarth.Image = (Image)resources.GetObject("menuItemCopyToClipboardTisserandParameterRelativeToEarth.Image");
+		menuItemCopyToClipboardTisserandParameterRelativeToEarth.Name = "menuItemCopyToClipboardTisserandParameterRelativeToEarth";
+		menuItemCopyToClipboardTisserandParameterRelativeToEarth.Size = new Size(120, 22);
+		menuItemCopyToClipboardTisserandParameterRelativeToEarth.Text = "&Earth";
+		menuItemCopyToClipboardTisserandParameterRelativeToEarth.Click += MenuItemCopyToClipboardTisserandParameterRelativeToEarth_Click;
+		menuItemCopyToClipboardTisserandParameterRelativeToEarth.MouseEnter += Control_Enter;
+		menuItemCopyToClipboardTisserandParameterRelativeToEarth.MouseLeave += Control_Leave;
 		// 
-		// menuitemCopyToClipboardTisserandParameterRelativeToMars
+		// menuItemCopyToClipboardTisserandParameterRelativeToMars
 		// 
-		menuitemCopyToClipboardTisserandParameterRelativeToMars.AccessibleDescription = "Copies to clipboard: Tisserand parameter relative to Mars";
-		menuitemCopyToClipboardTisserandParameterRelativeToMars.AccessibleName = "Copy to clipboard: Tisserand parameter relative to Mars";
-		menuitemCopyToClipboardTisserandParameterRelativeToMars.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemCopyToClipboardTisserandParameterRelativeToMars.AutoToolTip = true;
-		menuitemCopyToClipboardTisserandParameterRelativeToMars.Image = (Image)resources.GetObject("menuitemCopyToClipboardTisserandParameterRelativeToMars.Image");
-		menuitemCopyToClipboardTisserandParameterRelativeToMars.Name = "menuitemCopyToClipboardTisserandParameterRelativeToMars";
-		menuitemCopyToClipboardTisserandParameterRelativeToMars.Size = new Size(120, 22);
-		menuitemCopyToClipboardTisserandParameterRelativeToMars.Text = "M&ars";
-		menuitemCopyToClipboardTisserandParameterRelativeToMars.Click += MenuitemCopyToClipboardTisserandParameterRelativeToMars_Click;
-		menuitemCopyToClipboardTisserandParameterRelativeToMars.MouseEnter += Control_Enter;
-		menuitemCopyToClipboardTisserandParameterRelativeToMars.MouseLeave += Control_Leave;
+		menuItemCopyToClipboardTisserandParameterRelativeToMars.AccessibleDescription = "Copies to clipboard: Tisserand parameter relative to Mars";
+		menuItemCopyToClipboardTisserandParameterRelativeToMars.AccessibleName = "Copy to clipboard: Tisserand parameter relative to Mars";
+		menuItemCopyToClipboardTisserandParameterRelativeToMars.AccessibleRole = AccessibleRole.MenuItem;
+		menuItemCopyToClipboardTisserandParameterRelativeToMars.AutoToolTip = true;
+		menuItemCopyToClipboardTisserandParameterRelativeToMars.Image = (Image)resources.GetObject("menuItemCopyToClipboardTisserandParameterRelativeToMars.Image");
+		menuItemCopyToClipboardTisserandParameterRelativeToMars.Name = "menuItemCopyToClipboardTisserandParameterRelativeToMars";
+		menuItemCopyToClipboardTisserandParameterRelativeToMars.Size = new Size(120, 22);
+		menuItemCopyToClipboardTisserandParameterRelativeToMars.Text = "M&ars";
+		menuItemCopyToClipboardTisserandParameterRelativeToMars.Click += MenuItemCopyToClipboardTisserandParameterRelativeToMars_Click;
+		menuItemCopyToClipboardTisserandParameterRelativeToMars.MouseEnter += Control_Enter;
+		menuItemCopyToClipboardTisserandParameterRelativeToMars.MouseLeave += Control_Leave;
 		// 
-		// menuitemCopyToClipboardTisserandParameterRelativeToJupiter
+		// menuItemCopyToClipboardTisserandParameterRelativeToJupiter
 		// 
-		menuitemCopyToClipboardTisserandParameterRelativeToJupiter.AccessibleDescription = "Copies to clipboard: Tisserand parameter relative to Jupiter";
-		menuitemCopyToClipboardTisserandParameterRelativeToJupiter.AccessibleName = "Copy to clipboard: Tisserand parameter relative to Jupiter";
-		menuitemCopyToClipboardTisserandParameterRelativeToJupiter.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemCopyToClipboardTisserandParameterRelativeToJupiter.AutoToolTip = true;
-		menuitemCopyToClipboardTisserandParameterRelativeToJupiter.Image = (Image)resources.GetObject("menuitemCopyToClipboardTisserandParameterRelativeToJupiter.Image");
-		menuitemCopyToClipboardTisserandParameterRelativeToJupiter.Name = "menuitemCopyToClipboardTisserandParameterRelativeToJupiter";
-		menuitemCopyToClipboardTisserandParameterRelativeToJupiter.Size = new Size(120, 22);
-		menuitemCopyToClipboardTisserandParameterRelativeToJupiter.Text = "&Jupiter";
-		menuitemCopyToClipboardTisserandParameterRelativeToJupiter.Click += MenuitemCopyToClipboardTisserandParameterRelativeToJupiter_Click;
-		menuitemCopyToClipboardTisserandParameterRelativeToJupiter.MouseEnter += Control_Enter;
-		menuitemCopyToClipboardTisserandParameterRelativeToJupiter.MouseLeave += Control_Leave;
+		menuItemCopyToClipboardTisserandParameterRelativeToJupiter.AccessibleDescription = "Copies to clipboard: Tisserand parameter relative to Jupiter";
+		menuItemCopyToClipboardTisserandParameterRelativeToJupiter.AccessibleName = "Copy to clipboard: Tisserand parameter relative to Jupiter";
+		menuItemCopyToClipboardTisserandParameterRelativeToJupiter.AccessibleRole = AccessibleRole.MenuItem;
+		menuItemCopyToClipboardTisserandParameterRelativeToJupiter.AutoToolTip = true;
+		menuItemCopyToClipboardTisserandParameterRelativeToJupiter.Image = (Image)resources.GetObject("menuItemCopyToClipboardTisserandParameterRelativeToJupiter.Image");
+		menuItemCopyToClipboardTisserandParameterRelativeToJupiter.Name = "menuItemCopyToClipboardTisserandParameterRelativeToJupiter";
+		menuItemCopyToClipboardTisserandParameterRelativeToJupiter.Size = new Size(120, 22);
+		menuItemCopyToClipboardTisserandParameterRelativeToJupiter.Text = "&Jupiter";
+		menuItemCopyToClipboardTisserandParameterRelativeToJupiter.Click += MenuItemCopyToClipboardTisserandParameterRelativeToJupiter_Click;
+		menuItemCopyToClipboardTisserandParameterRelativeToJupiter.MouseEnter += Control_Enter;
+		menuItemCopyToClipboardTisserandParameterRelativeToJupiter.MouseLeave += Control_Leave;
 		// 
-		// menuitemCopyToClipboardTisserandParameterRelativeToSaturn
+		// menuItemCopyToClipboardTisserandParameterRelativeToSaturn
 		// 
-		menuitemCopyToClipboardTisserandParameterRelativeToSaturn.AccessibleDescription = "Copies to clipboard: Tisserand parameter relative to Saturn";
-		menuitemCopyToClipboardTisserandParameterRelativeToSaturn.AccessibleName = "Copy to clipboard: Tisserand parameter relative to Saturn";
-		menuitemCopyToClipboardTisserandParameterRelativeToSaturn.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemCopyToClipboardTisserandParameterRelativeToSaturn.AutoToolTip = true;
-		menuitemCopyToClipboardTisserandParameterRelativeToSaturn.Image = (Image)resources.GetObject("menuitemCopyToClipboardTisserandParameterRelativeToSaturn.Image");
-		menuitemCopyToClipboardTisserandParameterRelativeToSaturn.Name = "menuitemCopyToClipboardTisserandParameterRelativeToSaturn";
-		menuitemCopyToClipboardTisserandParameterRelativeToSaturn.Size = new Size(120, 22);
-		menuitemCopyToClipboardTisserandParameterRelativeToSaturn.Text = "&Saturn";
-		menuitemCopyToClipboardTisserandParameterRelativeToSaturn.Click += MenuitemCopyToClipboardTisserandParameterRelativeToSaturn_Click;
+		menuItemCopyToClipboardTisserandParameterRelativeToSaturn.AccessibleDescription = "Copies to clipboard: Tisserand parameter relative to Saturn";
+		menuItemCopyToClipboardTisserandParameterRelativeToSaturn.AccessibleName = "Copy to clipboard: Tisserand parameter relative to Saturn";
+		menuItemCopyToClipboardTisserandParameterRelativeToSaturn.AccessibleRole = AccessibleRole.MenuItem;
+		menuItemCopyToClipboardTisserandParameterRelativeToSaturn.AutoToolTip = true;
+		menuItemCopyToClipboardTisserandParameterRelativeToSaturn.Image = (Image)resources.GetObject("menuItemCopyToClipboardTisserandParameterRelativeToSaturn.Image");
+		menuItemCopyToClipboardTisserandParameterRelativeToSaturn.Name = "menuItemCopyToClipboardTisserandParameterRelativeToSaturn";
+		menuItemCopyToClipboardTisserandParameterRelativeToSaturn.Size = new Size(120, 22);
+		menuItemCopyToClipboardTisserandParameterRelativeToSaturn.Text = "&Saturn";
+		menuItemCopyToClipboardTisserandParameterRelativeToSaturn.Click += MenuItemCopyToClipboardTisserandParameterRelativeToSaturn_Click;
 		// 
-		// menuitemCopyToClipboardTisserandParameterRelativeToUranus
+		// menuItemCopyToClipboardTisserandParameterRelativeToUranus
 		// 
-		menuitemCopyToClipboardTisserandParameterRelativeToUranus.AccessibleDescription = "Copies to clipboard: Tisserand parameter relative to Uranus";
-		menuitemCopyToClipboardTisserandParameterRelativeToUranus.AccessibleName = "Copy to clipboard: Tisserand parameter relative to Uranus";
-		menuitemCopyToClipboardTisserandParameterRelativeToUranus.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemCopyToClipboardTisserandParameterRelativeToUranus.AutoToolTip = true;
-		menuitemCopyToClipboardTisserandParameterRelativeToUranus.Image = (Image)resources.GetObject("menuitemCopyToClipboardTisserandParameterRelativeToUranus.Image");
-		menuitemCopyToClipboardTisserandParameterRelativeToUranus.Name = "menuitemCopyToClipboardTisserandParameterRelativeToUranus";
-		menuitemCopyToClipboardTisserandParameterRelativeToUranus.Size = new Size(120, 22);
-		menuitemCopyToClipboardTisserandParameterRelativeToUranus.Text = "&Uranus";
-		menuitemCopyToClipboardTisserandParameterRelativeToUranus.Click += MenuitemCopyToClipboardTisserandParameterRelativeToUranus_Click;
-		menuitemCopyToClipboardTisserandParameterRelativeToUranus.MouseEnter += Control_Enter;
-		menuitemCopyToClipboardTisserandParameterRelativeToUranus.MouseLeave += Control_Leave;
+		menuItemCopyToClipboardTisserandParameterRelativeToUranus.AccessibleDescription = "Copies to clipboard: Tisserand parameter relative to Uranus";
+		menuItemCopyToClipboardTisserandParameterRelativeToUranus.AccessibleName = "Copy to clipboard: Tisserand parameter relative to Uranus";
+		menuItemCopyToClipboardTisserandParameterRelativeToUranus.AccessibleRole = AccessibleRole.MenuItem;
+		menuItemCopyToClipboardTisserandParameterRelativeToUranus.AutoToolTip = true;
+		menuItemCopyToClipboardTisserandParameterRelativeToUranus.Image = (Image)resources.GetObject("menuItemCopyToClipboardTisserandParameterRelativeToUranus.Image");
+		menuItemCopyToClipboardTisserandParameterRelativeToUranus.Name = "menuItemCopyToClipboardTisserandParameterRelativeToUranus";
+		menuItemCopyToClipboardTisserandParameterRelativeToUranus.Size = new Size(120, 22);
+		menuItemCopyToClipboardTisserandParameterRelativeToUranus.Text = "&Uranus";
+		menuItemCopyToClipboardTisserandParameterRelativeToUranus.Click += MenuItemCopyToClipboardTisserandParameterRelativeToUranus_Click;
+		menuItemCopyToClipboardTisserandParameterRelativeToUranus.MouseEnter += Control_Enter;
+		menuItemCopyToClipboardTisserandParameterRelativeToUranus.MouseLeave += Control_Leave;
 		// 
-		// menuitemCopyToClipboardTisserandParameterRelativeToNeptune
+		// menuItemCopyToClipboardTisserandParameterRelativeToNeptune
 		// 
-		menuitemCopyToClipboardTisserandParameterRelativeToNeptune.AccessibleDescription = "Copies to clipboard: Tisserand parameter relative to Neptune";
-		menuitemCopyToClipboardTisserandParameterRelativeToNeptune.AccessibleName = "Copy to clipboard: Tisserand parameter relative to Neptune";
-		menuitemCopyToClipboardTisserandParameterRelativeToNeptune.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemCopyToClipboardTisserandParameterRelativeToNeptune.AutoToolTip = true;
-		menuitemCopyToClipboardTisserandParameterRelativeToNeptune.Image = (Image)resources.GetObject("menuitemCopyToClipboardTisserandParameterRelativeToNeptune.Image");
-		menuitemCopyToClipboardTisserandParameterRelativeToNeptune.Name = "menuitemCopyToClipboardTisserandParameterRelativeToNeptune";
-		menuitemCopyToClipboardTisserandParameterRelativeToNeptune.Size = new Size(120, 22);
-		menuitemCopyToClipboardTisserandParameterRelativeToNeptune.Text = "&Neptune";
-		menuitemCopyToClipboardTisserandParameterRelativeToNeptune.Click += MenuitemCopyToClipboardTisserandParameterRelativeToNeptune_Click;
-		menuitemCopyToClipboardTisserandParameterRelativeToNeptune.MouseEnter += Control_Enter;
-		menuitemCopyToClipboardTisserandParameterRelativeToNeptune.MouseLeave += Control_Leave;
-		// 
-		// kryptonManager
-		// 
-		kryptonManager.GlobalPaletteMode = PaletteMode.Global;
-		kryptonManager.ToolkitStrings.MessageBoxStrings.LessDetails = "L&ess Details...";
-		kryptonManager.ToolkitStrings.MessageBoxStrings.MoreDetails = "&More Details...";
+		menuItemCopyToClipboardTisserandParameterRelativeToNeptune.AccessibleDescription = "Copies to clipboard: Tisserand parameter relative to Neptune";
+		menuItemCopyToClipboardTisserandParameterRelativeToNeptune.AccessibleName = "Copy to clipboard: Tisserand parameter relative to Neptune";
+		menuItemCopyToClipboardTisserandParameterRelativeToNeptune.AccessibleRole = AccessibleRole.MenuItem;
+		menuItemCopyToClipboardTisserandParameterRelativeToNeptune.AutoToolTip = true;
+		menuItemCopyToClipboardTisserandParameterRelativeToNeptune.Image = (Image)resources.GetObject("menuItemCopyToClipboardTisserandParameterRelativeToNeptune.Image");
+		menuItemCopyToClipboardTisserandParameterRelativeToNeptune.Name = "menuItemCopyToClipboardTisserandParameterRelativeToNeptune";
+		menuItemCopyToClipboardTisserandParameterRelativeToNeptune.Size = new Size(120, 22);
+		menuItemCopyToClipboardTisserandParameterRelativeToNeptune.Text = "&Neptune";
+		menuItemCopyToClipboardTisserandParameterRelativeToNeptune.Click += MenuItemCopyToClipboardTisserandParameterRelativeToNeptune_Click;
+		menuItemCopyToClipboardTisserandParameterRelativeToNeptune.MouseEnter += Control_Enter;
+		menuItemCopyToClipboardTisserandParameterRelativeToNeptune.MouseLeave += Control_Leave;
 		// 
 		// toolStripSeparator1
 		// 
@@ -1469,6 +1466,44 @@ partial class TisserandParameterOfOneMinorPlanetForm
 		toolStripButtonInfo.Click += ToolStripButtonInfo_Click;
 		toolStripButtonInfo.MouseEnter += Control_Enter;
 		toolStripButtonInfo.MouseLeave += Control_Leave;
+		// 
+		// kryptonManager
+		// 
+		kryptonManager.GlobalPaletteMode = PaletteMode.Global;
+		kryptonManager.ToolkitStrings.MessageBoxStrings.LessDetails = "L&ess Details...";
+		kryptonManager.ToolkitStrings.MessageBoxStrings.MoreDetails = "&More Details...";
+		// 
+		// contextMenuShowControlsInStatusBar
+		// 
+		contextMenuShowControlsInStatusBar.AccessibleDescription = "Shows the context menu for the visibility of controls in the status bar";
+		contextMenuShowControlsInStatusBar.AccessibleName = "Context menu for the visibility of controls in the status bar";
+		contextMenuShowControlsInStatusBar.AccessibleRole = AccessibleRole.MenuPopup;
+		contextMenuShowControlsInStatusBar.AllowClickThrough = true;
+		contextMenuShowControlsInStatusBar.Font = new Font("Segoe UI", 9F);
+		contextMenuShowControlsInStatusBar.Items.AddRange(new ToolStripItem[] { toolStripMenuItemShowInformationLabel });
+		contextMenuShowControlsInStatusBar.Name = "contextMenuStrip";
+		contextMenuShowControlsInStatusBar.Size = new Size(198, 48);
+		contextMenuShowControlsInStatusBar.TabStop = true;
+		contextMenuShowControlsInStatusBar.Text = "Show controls in status bar";
+		contextMenuShowControlsInStatusBar.MouseEnter += Control_Enter;
+		contextMenuShowControlsInStatusBar.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemShowInformationLabel
+		// 
+		toolStripMenuItemShowInformationLabel.AccessibleDescription = "Determines whether the information label is visible or hidden";
+		toolStripMenuItemShowInformationLabel.AccessibleName = "Information label";
+		toolStripMenuItemShowInformationLabel.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemShowInformationLabel.AutoToolTip = true;
+		toolStripMenuItemShowInformationLabel.Checked = true;
+		toolStripMenuItemShowInformationLabel.CheckOnClick = true;
+		toolStripMenuItemShowInformationLabel.CheckState = CheckState.Checked;
+		toolStripMenuItemShowInformationLabel.Name = "toolStripMenuItemShowInformationLabel";
+		toolStripMenuItemShowInformationLabel.ShortcutKeyDisplayString = "";
+		toolStripMenuItemShowInformationLabel.Size = new Size(197, 22);
+		toolStripMenuItemShowInformationLabel.Text = "Show &information label";
+		toolStripMenuItemShowInformationLabel.Click += ToolStripMenuItemShowInformationLabel_Click;
+		toolStripMenuItemShowInformationLabel.MouseEnter += Control_Enter;
+		toolStripMenuItemShowInformationLabel.MouseLeave += Control_Leave;
 		// 
 		// TisserandParameterOfOneMinorPlanetForm
 		// 
@@ -1511,6 +1546,7 @@ partial class TisserandParameterOfOneMinorPlanetForm
 		toolStripIcons.ResumeLayout(false);
 		toolStripIcons.PerformLayout();
 		contextMenuFullCopyToClipboard.ResumeLayout(false);
+		contextMenuShowControlsInStatusBar.ResumeLayout(false);
 		ResumeLayout(false);
 	}
 
@@ -1593,16 +1629,18 @@ partial class TisserandParameterOfOneMinorPlanetForm
 	
 	// ── copy-to-clipboard toolbar button ────────────────────────────────────────
 	private ContextMenuStrip contextMenuFullCopyToClipboard;
-	private ToolStripMenuItem menuitemCopyToClipboardTisserandParameterRelativeToMercury;
-	private ToolStripMenuItem menuitemCopyToClipboardTisserandParameterRelativeToVenus;
-	private ToolStripMenuItem menuitemCopyToClipboardTisserandParameterRelativeToEarth;
-	private ToolStripMenuItem menuitemCopyToClipboardTisserandParameterRelativeToMars;
-	private ToolStripMenuItem menuitemCopyToClipboardTisserandParameterRelativeToJupiter;
-	private ToolStripMenuItem menuitemCopyToClipboardTisserandParameterRelativeToSaturn;
-	private ToolStripMenuItem menuitemCopyToClipboardTisserandParameterRelativeToUranus;
-	private ToolStripMenuItem menuitemCopyToClipboardTisserandParameterRelativeToNeptune;
+	private ToolStripMenuItem menuItemCopyToClipboardTisserandParameterRelativeToMercury;
+	private ToolStripMenuItem menuItemCopyToClipboardTisserandParameterRelativeToVenus;
+	private ToolStripMenuItem menuItemCopyToClipboardTisserandParameterRelativeToEarth;
+	private ToolStripMenuItem menuItemCopyToClipboardTisserandParameterRelativeToMars;
+	private ToolStripMenuItem menuItemCopyToClipboardTisserandParameterRelativeToJupiter;
+	private ToolStripMenuItem menuItemCopyToClipboardTisserandParameterRelativeToSaturn;
+	private ToolStripMenuItem menuItemCopyToClipboardTisserandParameterRelativeToUranus;
+	private ToolStripMenuItem menuItemCopyToClipboardTisserandParameterRelativeToNeptune;
 	private ToolStripDropDownButton toolStripDropDownButtonCopyToClipboard;
 	private ToolStripMenuItem toolStripMenuItemSaveAsTypst;
 	private ToolStripSeparator toolStripSeparator1;
 	private ToolStripButton toolStripButtonInfo;
+	private ContextMenuStrip contextMenuShowControlsInStatusBar;
+	private ToolStripMenuItem toolStripMenuItemShowInformationLabel;
 }
