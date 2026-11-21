@@ -24,23 +24,23 @@ namespace Planetoid_DB;
 
 /// <summary>Represents a dialog form that enables users to print a data sheet containing selected orbital elements.</summary>
 /// <remarks>This form provides options for users to choose which orbital elements to include in the printed data sheet. It includes controls for printing, print preview, print setup, and marking or unmarking all elements. The form is intended to be used as a modal dialog and does not appear in the taskbar.</remarks>
-    partial class PrintDataSheetForm
-    {
-        /// <summary>Required designer variable.</summary>
+	partial class PrintDataSheetForm
+	{
+		/// <summary>Required designer variable.</summary>
 	/// <remarks>This field stores the components used by the form.</remarks>
-        private IContainer components = null;
+		private IContainer components = null;
 
-        /// <summary>Clean up any resources being used.</summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+		/// <summary>Clean up any resources being used.</summary>
+		/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
 	/// <remarks>This method disposes of the resources used by the form.</remarks>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+		protected override void Dispose(bool disposing)
+		{
+			if (disposing && (components != null))
+			{
+				components.Dispose();
+			}
+			base.Dispose(disposing);
+		}
 
 	#region Windows Form Designer generated code
 
@@ -66,6 +66,8 @@ namespace Planetoid_DB;
 		toolStripSeparator2 = new ToolStripSeparator();
 		toolStripButtonMarkAll = new ToolStripButton();
 		toolStripButtonUnmarkAll = new ToolStripButton();
+		contextMenuShowControlsInStatusBar = new ContextMenuStrip(components);
+		toolStripMenuItemShowInformationLabel = new ToolStripMenuItem();
 		((ISupportInitialize)kryptonPanelMain).BeginInit();
 		kryptonPanelMain.SuspendLayout();
 		kryptonStatusStrip.SuspendLayout();
@@ -74,6 +76,7 @@ namespace Planetoid_DB;
 		toolStripContainer.TopToolStripPanel.SuspendLayout();
 		toolStripContainer.SuspendLayout();
 		kryptonToolStripIcons.SuspendLayout();
+		contextMenuShowControlsInStatusBar.SuspendLayout();
 		SuspendLayout();
 		// 
 		// checkedListBoxOrbitalElements
@@ -105,6 +108,7 @@ namespace Planetoid_DB;
 		kryptonPanelMain.AccessibleDescription = "Groups the data";
 		kryptonPanelMain.AccessibleName = "Panel";
 		kryptonPanelMain.AccessibleRole = AccessibleRole.Pane;
+		kryptonPanelMain.AutoScroll = true;
 		kryptonPanelMain.Controls.Add(checkedListBoxOrbitalElements);
 		kryptonPanelMain.Dock = DockStyle.Fill;
 		kryptonPanelMain.Location = new Point(0, 0);
@@ -121,6 +125,7 @@ namespace Planetoid_DB;
 		kryptonStatusStrip.AccessibleRole = AccessibleRole.StatusBar;
 		kryptonStatusStrip.AllowClickThrough = true;
 		kryptonStatusStrip.AllowItemReorder = true;
+		kryptonStatusStrip.ContextMenuStrip = contextMenuShowControlsInStatusBar;
 		kryptonStatusStrip.Dock = DockStyle.None;
 		kryptonStatusStrip.Font = new Font("Segoe UI", 9F);
 		kryptonStatusStrip.Items.AddRange(new ToolStripItem[] { labelInformation, toolStripProgressBarPrinting });
@@ -337,6 +342,38 @@ namespace Planetoid_DB;
 		toolStripButtonUnmarkAll.MouseEnter += Control_Enter;
 		toolStripButtonUnmarkAll.MouseLeave += Control_Leave;
 		// 
+		// contextMenuShowControlsInStatusBar
+		// 
+		contextMenuShowControlsInStatusBar.AccessibleDescription = "Shows the context menu for the visibility of controls in the status bar";
+		contextMenuShowControlsInStatusBar.AccessibleName = "Context menu for the visibility of controls in the status bar";
+		contextMenuShowControlsInStatusBar.AccessibleRole = AccessibleRole.MenuPopup;
+		contextMenuShowControlsInStatusBar.AllowClickThrough = true;
+		contextMenuShowControlsInStatusBar.Font = new Font("Segoe UI", 9F);
+		contextMenuShowControlsInStatusBar.Items.AddRange(new ToolStripItem[] { toolStripMenuItemShowInformationLabel });
+		contextMenuShowControlsInStatusBar.Name = "contextMenuStrip";
+		contextMenuShowControlsInStatusBar.Size = new Size(198, 48);
+		contextMenuShowControlsInStatusBar.TabStop = true;
+		contextMenuShowControlsInStatusBar.Text = "Show controls in status bar";
+		contextMenuShowControlsInStatusBar.MouseEnter += Control_Enter;
+		contextMenuShowControlsInStatusBar.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemShowInformationLabel
+		// 
+		toolStripMenuItemShowInformationLabel.AccessibleDescription = "Determines whether the information label is visible or hidden";
+		toolStripMenuItemShowInformationLabel.AccessibleName = "Information label";
+		toolStripMenuItemShowInformationLabel.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemShowInformationLabel.AutoToolTip = true;
+		toolStripMenuItemShowInformationLabel.Checked = true;
+		toolStripMenuItemShowInformationLabel.CheckOnClick = true;
+		toolStripMenuItemShowInformationLabel.CheckState = CheckState.Checked;
+		toolStripMenuItemShowInformationLabel.Name = "toolStripMenuItemShowInformationLabel";
+		toolStripMenuItemShowInformationLabel.ShortcutKeyDisplayString = "";
+		toolStripMenuItemShowInformationLabel.Size = new Size(197, 22);
+		toolStripMenuItemShowInformationLabel.Text = "Show &information label";
+		toolStripMenuItemShowInformationLabel.Click += ToolStripMenuItemShowInformationLabel_Click;
+		toolStripMenuItemShowInformationLabel.MouseEnter += Control_Enter;
+		toolStripMenuItemShowInformationLabel.MouseLeave += Control_Leave;
+		// 
 		// PrintDataSheetForm
 		// 
 		AccessibleDescription = "Prints a data sheet with some orbit elements";
@@ -371,6 +408,7 @@ namespace Planetoid_DB;
 		toolStripContainer.PerformLayout();
 		kryptonToolStripIcons.ResumeLayout(false);
 		kryptonToolStripIcons.PerformLayout();
+		contextMenuShowControlsInStatusBar.ResumeLayout(false);
 		ResumeLayout(false);
 
 	}
@@ -378,7 +416,7 @@ namespace Planetoid_DB;
 	#endregion
 
 	private KryptonCheckedListBox checkedListBoxOrbitalElements;
-        private KryptonPanel kryptonPanelMain;
+		private KryptonPanel kryptonPanelMain;
 	private KryptonStatusStrip kryptonStatusStrip;
 	private ToolStripStatusLabel labelInformation;
 	private ToolStripProgressBar toolStripProgressBarPrinting;
@@ -393,4 +431,6 @@ namespace Planetoid_DB;
 	private ToolStripButton toolStripButtonPrintSetup;
 	private ToolStripButton toolStripButtonCancelPrint;
 	private ToolStripSeparator toolStripSeparator1;
+	private ContextMenuStrip contextMenuShowControlsInStatusBar;
+	private ToolStripMenuItem toolStripMenuItemShowInformationLabel;
 }
