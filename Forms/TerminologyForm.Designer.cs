@@ -39,7 +39,7 @@ partial class TerminologyForm
 		{
 			components.Dispose();
 		}
-		base.Dispose(disposing);
+		base.Dispose(disposing: disposing);
 	}
 
 	#region Windows Form Designer generated code
@@ -57,6 +57,8 @@ partial class TerminologyForm
 		listBox = new KryptonListBox();
 		webBrowser = new KryptonWebBrowser();
 		kryptonManager = new KryptonManager(components);
+		contextMenuShowControlsInStatusBar = new ContextMenuStrip(components);
+		toolStripMenuItemShowInformationLabel = new ToolStripMenuItem();
 		toolStripContainer.BottomToolStripPanel.SuspendLayout();
 		toolStripContainer.ContentPanel.SuspendLayout();
 		toolStripContainer.SuspendLayout();
@@ -66,6 +68,7 @@ partial class TerminologyForm
 		splitContainer.Panel1.SuspendLayout();
 		(splitContainer.Panel2).BeginInit();
 		splitContainer.Panel2.SuspendLayout();
+		contextMenuShowControlsInStatusBar.SuspendLayout();
 		SuspendLayout();
 		// 
 		// toolStripContainer
@@ -121,6 +124,7 @@ partial class TerminologyForm
 		kryptonStatusStrip.AccessibleRole = AccessibleRole.StatusBar;
 		kryptonStatusStrip.AllowClickThrough = true;
 		kryptonStatusStrip.AllowItemReorder = true;
+		kryptonStatusStrip.ContextMenuStrip = contextMenuShowControlsInStatusBar;
 		kryptonStatusStrip.Dock = DockStyle.None;
 		kryptonStatusStrip.Font = new Font("Segoe UI", 9F);
 		kryptonStatusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
@@ -148,23 +152,43 @@ partial class TerminologyForm
 		// splitContainer
 		// 
 		splitContainer.AccessibleDescription = "Splits the pane in half with the list of terms you can look up and in the other half with the web browser";
-		splitContainer.AccessibleName = "Splits the pane in half with the list of terms you can look up and in the other half with the web browser";
-		splitContainer.AccessibleRole = AccessibleRole.Pane;
+		splitContainer.AccessibleName = "Terminology pane";
+		splitContainer.AccessibleRole = AccessibleRole.Grouping;
 		splitContainer.ContainerBackStyle = PaletteBackStyle.FormMain;
 		splitContainer.Dock = DockStyle.Fill;
 		splitContainer.Location = new Point(0, 0);
 		// 
 		// 
 		// 
+		splitContainer.Panel1.AccessibleDescription = "Shows the webbrowser with terminology documents";
+		splitContainer.Panel1.AccessibleName = "Webbrowser";
+		splitContainer.Panel1.AccessibleRole = AccessibleRole.Pane;
+		splitContainer.Panel1.AutoScroll = true;
 		splitContainer.Panel1.Controls.Add(listBox);
+		splitContainer.Panel1.Enter += Control_Enter;
+		splitContainer.Panel1.Leave += Control_Leave;
+		splitContainer.Panel1.MouseEnter += Control_Enter;
+		splitContainer.Panel1.MouseLeave += Control_Leave;
 		// 
 		// 
 		// 
+		splitContainer.Panel2.AccessibleDescription = "Shows the list of terms";
+		splitContainer.Panel2.AccessibleName = "List of terms";
+		splitContainer.Panel2.AccessibleRole = AccessibleRole.Pane;
+		splitContainer.Panel2.AutoScroll = true;
 		splitContainer.Panel2.Controls.Add(webBrowser);
+		splitContainer.Panel2.Enter += Control_Enter;
+		splitContainer.Panel2.Leave += Control_Leave;
+		splitContainer.Panel2.MouseEnter += Control_Enter;
+		splitContainer.Panel2.MouseLeave += Control_Leave;
 		splitContainer.SeparatorStyle = SeparatorStyle.HighProfile;
 		splitContainer.Size = new Size(820, 337);
 		splitContainer.SplitterDistance = 279;
 		splitContainer.TabIndex = 8;
+		splitContainer.Enter += Control_Enter;
+		splitContainer.Leave += Control_Leave;
+		splitContainer.MouseEnter += Control_Enter;
+		splitContainer.MouseLeave += Control_Leave;
 		// 
 		// listBox
 		// 
@@ -205,6 +229,38 @@ partial class TerminologyForm
 		kryptonManager.ToolkitStrings.MessageBoxStrings.LessDetails = "L&ess Details...";
 		kryptonManager.ToolkitStrings.MessageBoxStrings.MoreDetails = "&More Details...";
 		// 
+		// contextMenuShowControlsInStatusBar
+		// 
+		contextMenuShowControlsInStatusBar.AccessibleDescription = "Shows the context menu for the visibility of controls in the status bar";
+		contextMenuShowControlsInStatusBar.AccessibleName = "Context menu for the visibility of controls in the status bar";
+		contextMenuShowControlsInStatusBar.AccessibleRole = AccessibleRole.MenuPopup;
+		contextMenuShowControlsInStatusBar.AllowClickThrough = true;
+		contextMenuShowControlsInStatusBar.Font = new Font("Segoe UI", 9F);
+		contextMenuShowControlsInStatusBar.Items.AddRange(new ToolStripItem[] { toolStripMenuItemShowInformationLabel });
+		contextMenuShowControlsInStatusBar.Name = "contextMenuStrip";
+		contextMenuShowControlsInStatusBar.Size = new Size(198, 48);
+		contextMenuShowControlsInStatusBar.TabStop = true;
+		contextMenuShowControlsInStatusBar.Text = "Show controls in status bar";
+		contextMenuShowControlsInStatusBar.MouseEnter += Control_Enter;
+		contextMenuShowControlsInStatusBar.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemShowInformationLabel
+		// 
+		toolStripMenuItemShowInformationLabel.AccessibleDescription = "Determines whether the information label is visible or hidden";
+		toolStripMenuItemShowInformationLabel.AccessibleName = "Information label";
+		toolStripMenuItemShowInformationLabel.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemShowInformationLabel.AutoToolTip = true;
+		toolStripMenuItemShowInformationLabel.Checked = true;
+		toolStripMenuItemShowInformationLabel.CheckOnClick = true;
+		toolStripMenuItemShowInformationLabel.CheckState = CheckState.Checked;
+		toolStripMenuItemShowInformationLabel.Name = "toolStripMenuItemShowInformationLabel";
+		toolStripMenuItemShowInformationLabel.ShortcutKeyDisplayString = "";
+		toolStripMenuItemShowInformationLabel.Size = new Size(197, 22);
+		toolStripMenuItemShowInformationLabel.Text = "Show &information label";
+		toolStripMenuItemShowInformationLabel.Click += ToolStripMenuItemShowInformationLabel_Click;
+		toolStripMenuItemShowInformationLabel.MouseEnter += Control_Enter;
+		toolStripMenuItemShowInformationLabel.MouseLeave += Control_Leave;
+		// 
 		// TerminologyForm
 		// 
 		AccessibleDescription = "Informs about some definitions";
@@ -213,7 +269,7 @@ partial class TerminologyForm
 		AutoScaleDimensions = new SizeF(7F, 15F);
 		AutoScaleMode = AutoScaleMode.Font;
 		ClientSize = new Size(820, 359);
-		ControlBox = true;
+		ControlBox = false;
 		Controls.Add(toolStripContainer);
 		FormBorderStyle = FormBorderStyle.SizableToolWindow;
 		Icon = (Icon)resources.GetObject("$this.Icon");
@@ -238,6 +294,7 @@ partial class TerminologyForm
 		(splitContainer.Panel2).EndInit();
 		splitContainer.Panel2.ResumeLayout(false);
 		((ISupportInitialize)splitContainer).EndInit();
+		contextMenuShowControlsInStatusBar.ResumeLayout(false);
 		ResumeLayout(false);
 
 	}
@@ -250,4 +307,6 @@ partial class TerminologyForm
 	private KryptonListBox listBox;
 	private KryptonWebBrowser webBrowser;
 	private KryptonManager kryptonManager;
+	private ContextMenuStrip contextMenuShowControlsInStatusBar;
+	private ToolStripMenuItem toolStripMenuItemShowInformationLabel;
 }
