@@ -45,11 +45,9 @@ partial class ScatterplotsForm
 			_cancellationTokenSource?.Cancel();
 			_cancellationTokenSource?.Dispose();
 			_cancellationTokenSource = null;
-
 			components?.Dispose();
 		}
-
-		base.Dispose(disposing);
+		base.Dispose(disposing: disposing);
 	}
 
 	/// <summary>Initializes the components of the form.</summary>
@@ -87,6 +85,8 @@ partial class ScatterplotsForm
 		toolStripSeparator5 = new ToolStripSeparator();
 		toolStripButtonLogScaleY = new ToolStripButton();
 		kryptonManager = new KryptonManager(components);
+		contextMenuShowControlsInStatusBar = new ContextMenuStrip(components);
+		toolStripMenuItemShowInformationLabel = new ToolStripMenuItem();
 		toolStripContainer.BottomToolStripPanel.SuspendLayout();
 		toolStripContainer.ContentPanel.SuspendLayout();
 		toolStripContainer.TopToolStripPanel.SuspendLayout();
@@ -102,6 +102,7 @@ partial class ScatterplotsForm
 		kryptonPanelChart.SuspendLayout();
 		kryptonToolStripProgress.SuspendLayout();
 		kryptonToolStripToolbar.SuspendLayout();
+		contextMenuShowControlsInStatusBar.SuspendLayout();
 		SuspendLayout();
 		// 
 		// toolStripContainer
@@ -162,6 +163,7 @@ partial class ScatterplotsForm
 		kryptonStatusStrip.AccessibleRole = AccessibleRole.StatusBar;
 		kryptonStatusStrip.AllowClickThrough = true;
 		kryptonStatusStrip.AllowItemReorder = true;
+		kryptonStatusStrip.ContextMenuStrip = contextMenuShowControlsInStatusBar;
 		kryptonStatusStrip.Dock = DockStyle.None;
 		kryptonStatusStrip.Font = new Font("Segoe UI", 9F);
 		kryptonStatusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
@@ -197,6 +199,7 @@ partial class ScatterplotsForm
 		kryptonPanelMain.AccessibleDescription = "Contains the scatter plot and the data points list";
 		kryptonPanelMain.AccessibleName = "Main panel";
 		kryptonPanelMain.AccessibleRole = AccessibleRole.Pane;
+		kryptonPanelMain.AutoScroll = true;
 		kryptonPanelMain.Controls.Add(splitContainerMain);
 		kryptonPanelMain.Dock = DockStyle.Fill;
 		kryptonPanelMain.Location = new Point(0, 0);
@@ -222,10 +225,12 @@ partial class ScatterplotsForm
 		// 
 		// splitContainerMain.Panel1
 		// 
+		splitContainerMain.Panel1.AutoScroll = true;
 		splitContainerMain.Panel1.Controls.Add(kryptonPanelChart);
 		// 
 		// splitContainerMain.Panel2
 		// 
+		splitContainerMain.Panel2.AutoScroll = true;
 		splitContainerMain.Panel2.Controls.Add(listViewResults);
 		splitContainerMain.Size = new Size(872, 436);
 		splitContainerMain.SplitterDistance = 436;
@@ -240,6 +245,7 @@ partial class ScatterplotsForm
 		kryptonPanelChart.AccessibleDescription = "Displays the scatter plot using ScottPlot";
 		kryptonPanelChart.AccessibleName = "Scatter plot panel";
 		kryptonPanelChart.AccessibleRole = AccessibleRole.Pane;
+		kryptonPanelChart.AutoScroll = true;
 		kryptonPanelChart.Controls.Add(formsPlotScatterplot);
 		kryptonPanelChart.Dock = DockStyle.Fill;
 		kryptonPanelChart.Location = new Point(0, 0);
@@ -548,6 +554,38 @@ partial class ScatterplotsForm
 		kryptonManager.ToolkitStrings.MessageBoxStrings.LessDetails = "L&ess Details...";
 		kryptonManager.ToolkitStrings.MessageBoxStrings.MoreDetails = "&More Details...";
 		// 
+		// contextMenuShowControlsInStatusBar
+		// 
+		contextMenuShowControlsInStatusBar.AccessibleDescription = "Shows the context menu for the visibility of controls in the status bar";
+		contextMenuShowControlsInStatusBar.AccessibleName = "Context menu for the visibility of controls in the status bar";
+		contextMenuShowControlsInStatusBar.AccessibleRole = AccessibleRole.MenuPopup;
+		contextMenuShowControlsInStatusBar.AllowClickThrough = true;
+		contextMenuShowControlsInStatusBar.Font = new Font("Segoe UI", 9F);
+		contextMenuShowControlsInStatusBar.Items.AddRange(new ToolStripItem[] { toolStripMenuItemShowInformationLabel });
+		contextMenuShowControlsInStatusBar.Name = "contextMenuStrip";
+		contextMenuShowControlsInStatusBar.Size = new Size(198, 48);
+		contextMenuShowControlsInStatusBar.TabStop = true;
+		contextMenuShowControlsInStatusBar.Text = "Show controls in status bar";
+		contextMenuShowControlsInStatusBar.MouseEnter += Control_Enter;
+		contextMenuShowControlsInStatusBar.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemShowInformationLabel
+		// 
+		toolStripMenuItemShowInformationLabel.AccessibleDescription = "Determines whether the information label is visible or hidden";
+		toolStripMenuItemShowInformationLabel.AccessibleName = "Information label";
+		toolStripMenuItemShowInformationLabel.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemShowInformationLabel.AutoToolTip = true;
+		toolStripMenuItemShowInformationLabel.Checked = true;
+		toolStripMenuItemShowInformationLabel.CheckOnClick = true;
+		toolStripMenuItemShowInformationLabel.CheckState = CheckState.Checked;
+		toolStripMenuItemShowInformationLabel.Name = "toolStripMenuItemShowInformationLabel";
+		toolStripMenuItemShowInformationLabel.ShortcutKeyDisplayString = "";
+		toolStripMenuItemShowInformationLabel.Size = new Size(197, 22);
+		toolStripMenuItemShowInformationLabel.Text = "Show &information label";
+		toolStripMenuItemShowInformationLabel.Click += ToolStripMenuItemShowInformationLabel_Click;
+		toolStripMenuItemShowInformationLabel.MouseEnter += Control_Enter;
+		toolStripMenuItemShowInformationLabel.MouseLeave += Control_Leave;
+		// 
 		// ScatterplotsForm
 		// 
 		AccessibleDescription = "Plots all planetoids as a scatter plot of two user-selected orbital elements";
@@ -556,7 +594,7 @@ partial class ScatterplotsForm
 		AutoScaleDimensions = new SizeF(7F, 15F);
 		AutoScaleMode = AutoScaleMode.Font;
 		ClientSize = new Size(872, 508);
-		ControlBox = true;
+		ControlBox = false;
 		Controls.Add(toolStripContainer);
 		FormBorderStyle = FormBorderStyle.SizableToolWindow;
 		Icon = (Icon)resources.GetObject("$this.Icon");
@@ -589,6 +627,7 @@ partial class ScatterplotsForm
 		kryptonToolStripProgress.PerformLayout();
 		kryptonToolStripToolbar.ResumeLayout(false);
 		kryptonToolStripToolbar.PerformLayout();
+		contextMenuShowControlsInStatusBar.ResumeLayout(false);
 		ResumeLayout(false);
 	}
 
@@ -621,4 +660,6 @@ partial class ScatterplotsForm
 	private ToolStripLabel toolStripLabelProgress;
 	private KryptonProgressBarToolStripItem kryptonProgressBar;
 	private KryptonManager kryptonManager;
+	private ContextMenuStrip contextMenuShowControlsInStatusBar;
+	private ToolStripMenuItem toolStripMenuItemShowInformationLabel;
 }
