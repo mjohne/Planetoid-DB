@@ -28,8 +28,7 @@ partial class WorldMapForm
 {
 	#region Windows Form Designer generated code
 
-	/// <summary>Required method for Designer support - do not modify
-	/// the contents of this method with the code editor.</summary>
+	/// <summary>Required method for Designer support - do not modify the contents of this method with the code editor.</summary>
 	/// <remarks>This method initializes the components of the form.</remarks>
 	private void InitializeComponent()
 	{
@@ -48,6 +47,8 @@ partial class WorldMapForm
 		toolStripSeparator2 = new ToolStripSeparator();
 		labelCoordinates = new ToolStripLabel();
 		kryptonManager = new KryptonManager(components);
+		contextMenuShowControlsInStatusBar = new ContextMenuStrip(components);
+		toolStripMenuItemShowInformationLabel = new ToolStripMenuItem();
 		toolStripContainer.BottomToolStripPanel.SuspendLayout();
 		toolStripContainer.ContentPanel.SuspendLayout();
 		toolStripContainer.TopToolStripPanel.SuspendLayout();
@@ -55,6 +56,7 @@ partial class WorldMapForm
 		kryptonStatusStrip.SuspendLayout();
 		((ISupportInitialize)webView).BeginInit();
 		kryptonToolStrip.SuspendLayout();
+		contextMenuShowControlsInStatusBar.SuspendLayout();
 		SuspendLayout();
 		// 
 		// toolStripContainer
@@ -109,6 +111,7 @@ partial class WorldMapForm
 		kryptonStatusStrip.AccessibleRole = AccessibleRole.StatusBar;
 		kryptonStatusStrip.AllowClickThrough = true;
 		kryptonStatusStrip.AllowItemReorder = true;
+		kryptonStatusStrip.ContextMenuStrip = contextMenuShowControlsInStatusBar;
 		kryptonStatusStrip.Dock = DockStyle.None;
 		kryptonStatusStrip.Font = new Font("Segoe UI", 9F);
 		kryptonStatusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
@@ -255,6 +258,38 @@ partial class WorldMapForm
 		kryptonManager.ToolkitStrings.MessageBoxStrings.LessDetails = "L&ess Details...";
 		kryptonManager.ToolkitStrings.MessageBoxStrings.MoreDetails = "&More Details...";
 		// 
+		// contextMenuShowControlsInStatusBar
+		// 
+		contextMenuShowControlsInStatusBar.AccessibleDescription = "Shows the context menu for the visibility of controls in the status bar";
+		contextMenuShowControlsInStatusBar.AccessibleName = "Context menu for the visibility of controls in the status bar";
+		contextMenuShowControlsInStatusBar.AccessibleRole = AccessibleRole.MenuPopup;
+		contextMenuShowControlsInStatusBar.AllowClickThrough = true;
+		contextMenuShowControlsInStatusBar.Font = new Font("Segoe UI", 9F);
+		contextMenuShowControlsInStatusBar.Items.AddRange(new ToolStripItem[] { toolStripMenuItemShowInformationLabel });
+		contextMenuShowControlsInStatusBar.Name = "contextMenuStrip";
+		contextMenuShowControlsInStatusBar.Size = new Size(198, 48);
+		contextMenuShowControlsInStatusBar.TabStop = true;
+		contextMenuShowControlsInStatusBar.Text = "Show controls in status bar";
+		contextMenuShowControlsInStatusBar.MouseEnter += Control_Enter;
+		contextMenuShowControlsInStatusBar.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemShowInformationLabel
+		// 
+		toolStripMenuItemShowInformationLabel.AccessibleDescription = "Determines whether the information label is visible or hidden";
+		toolStripMenuItemShowInformationLabel.AccessibleName = "Information label";
+		toolStripMenuItemShowInformationLabel.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemShowInformationLabel.AutoToolTip = true;
+		toolStripMenuItemShowInformationLabel.Checked = true;
+		toolStripMenuItemShowInformationLabel.CheckOnClick = true;
+		toolStripMenuItemShowInformationLabel.CheckState = CheckState.Checked;
+		toolStripMenuItemShowInformationLabel.Name = "toolStripMenuItemShowInformationLabel";
+		toolStripMenuItemShowInformationLabel.ShortcutKeyDisplayString = "";
+		toolStripMenuItemShowInformationLabel.Size = new Size(197, 22);
+		toolStripMenuItemShowInformationLabel.Text = "Show &information label";
+		toolStripMenuItemShowInformationLabel.Click += ToolStripMenuItemShowInformationLabel_Click;
+		toolStripMenuItemShowInformationLabel.MouseEnter += Control_Enter;
+		toolStripMenuItemShowInformationLabel.MouseLeave += Control_Leave;
+		// 
 		// WorldMapForm
 		// 
 		AccessibleDescription = I18nStrings.WorldMapAccessibleDescription;
@@ -262,6 +297,7 @@ partial class WorldMapForm
 		AccessibleRole = AccessibleRole.Dialog;
 		AutoScaleDimensions = new SizeF(7F, 15F);
 		AutoScaleMode = AutoScaleMode.Font;
+		AutoScroll = true;
 		ClientSize = new Size(1000, 672);
 		ControlBox = false;
 		Controls.Add(toolStripContainer);
@@ -288,6 +324,7 @@ partial class WorldMapForm
 		((ISupportInitialize)webView).EndInit();
 		kryptonToolStrip.ResumeLayout(false);
 		kryptonToolStrip.PerformLayout();
+		contextMenuShowControlsInStatusBar.ResumeLayout(false);
 		ResumeLayout(false);
 	}
 
@@ -307,4 +344,6 @@ partial class WorldMapForm
 	private WebView2 webView;
 	private KryptonManager kryptonManager;
 	private IContainer components;
+	private ContextMenuStrip contextMenuShowControlsInStatusBar;
+	private ToolStripMenuItem toolStripMenuItemShowInformationLabel;
 }
