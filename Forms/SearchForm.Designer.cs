@@ -36,11 +36,9 @@ partial class SearchForm
 			_cancellationTokenSource?.Cancel();
 			_cancellationTokenSource?.Dispose();
 			_cancellationTokenSource = null;
-
 			components?.Dispose();
 		}
-
-		base.Dispose(disposing);
+		base.Dispose(disposing: disposing);
 	}
 
 	#region Windows Form Designer generated code
@@ -106,7 +104,6 @@ partial class SearchForm
 		toolStripContainer = new ToolStripContainer();
 		kryptonStatusStrip = new KryptonStatusStrip();
 		labelInformation = new ToolStripStatusLabel();
-		kryptonPanel = new KryptonPanel();
 		kryptonToolStripIcons = new KryptonToolStrip();
 		toolStripLabelSearch = new ToolStripLabel();
 		toolStripTextBoxSearch = new ToolStripTextBox();
@@ -119,6 +116,8 @@ partial class SearchForm
 		kryptonProgressBar = new KryptonProgressBarToolStripItem();
 		toolStripSeparator3 = new ToolStripSeparator();
 		toolStripButtonGoToObject = new ToolStripButton();
+		contextMenuShowControlsInStatusBar = new ContextMenuStrip(components);
+		toolStripMenuItemShowInformationLabel = new ToolStripMenuItem();
 		((System.ComponentModel.ISupportInitialize)kryptonPanelMain).BeginInit();
 		kryptonPanelMain.SuspendLayout();
 		((System.ComponentModel.ISupportInitialize)splitContainer).BeginInit();
@@ -132,9 +131,8 @@ partial class SearchForm
 		toolStripContainer.TopToolStripPanel.SuspendLayout();
 		toolStripContainer.SuspendLayout();
 		kryptonStatusStrip.SuspendLayout();
-		((System.ComponentModel.ISupportInitialize)kryptonPanel).BeginInit();
-		kryptonPanel.SuspendLayout();
 		kryptonToolStripIcons.SuspendLayout();
+		contextMenuShowControlsInStatusBar.SuspendLayout();
 		SuspendLayout();
 		// 
 		// kryptonPanelMain
@@ -142,6 +140,7 @@ partial class SearchForm
 		kryptonPanelMain.AccessibleDescription = "Groups the data";
 		kryptonPanelMain.AccessibleName = "Panel";
 		kryptonPanelMain.AccessibleRole = AccessibleRole.Pane;
+		kryptonPanelMain.AutoScroll = true;
 		kryptonPanelMain.Controls.Add(splitContainer);
 		kryptonPanelMain.Dock = DockStyle.Fill;
 		kryptonPanelMain.Location = new Point(0, 0);
@@ -914,7 +913,7 @@ partial class SearchForm
 		toolStripContainer.ContentPanel.AccessibleDescription = "Just a panel";
 		toolStripContainer.ContentPanel.AccessibleName = "Content panel";
 		toolStripContainer.ContentPanel.AccessibleRole = AccessibleRole.Pane;
-		toolStripContainer.ContentPanel.Controls.Add(kryptonPanel);
+		toolStripContainer.ContentPanel.Controls.Add(kryptonPanelMain);
 		toolStripContainer.ContentPanel.Size = new Size(851, 426);
 		toolStripContainer.Dock = DockStyle.Fill;
 		// 
@@ -953,6 +952,7 @@ partial class SearchForm
 		kryptonStatusStrip.AccessibleRole = AccessibleRole.StatusBar;
 		kryptonStatusStrip.AllowClickThrough = true;
 		kryptonStatusStrip.AllowItemReorder = true;
+		kryptonStatusStrip.ContextMenuStrip = contextMenuSaveToFile;
 		kryptonStatusStrip.Dock = DockStyle.None;
 		kryptonStatusStrip.Font = new Font("Segoe UI", 9F);
 		kryptonStatusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
@@ -982,24 +982,6 @@ partial class SearchForm
 		labelInformation.Text = "some information here";
 		labelInformation.MouseEnter += Control_Enter;
 		labelInformation.MouseLeave += Control_Leave;
-		// 
-		// kryptonPanel
-		// 
-		kryptonPanel.AccessibleDescription = "Groups the data";
-		kryptonPanel.AccessibleName = "Panel";
-		kryptonPanel.AccessibleRole = AccessibleRole.Pane;
-		kryptonPanel.Controls.Add(kryptonPanelMain);
-		kryptonPanel.Dock = DockStyle.Fill;
-		kryptonPanel.Location = new Point(0, 0);
-		kryptonPanel.Name = "kryptonPanel";
-		kryptonPanel.Size = new Size(851, 426);
-		kryptonPanel.TabIndex = 0;
-		kryptonPanel.TabStop = true;
-		kryptonPanel.Text = "Panel";
-		kryptonPanel.Enter += Control_Enter;
-		kryptonPanel.Leave += Control_Leave;
-		kryptonPanel.MouseEnter += Control_Enter;
-		kryptonPanel.MouseLeave += Control_Leave;
 		// 
 		// kryptonToolStripIcons
 		// 
@@ -1163,6 +1145,38 @@ partial class SearchForm
 		toolStripButtonGoToObject.MouseEnter += Control_Enter;
 		toolStripButtonGoToObject.MouseLeave += Control_Leave;
 		// 
+		// contextMenuShowControlsInStatusBar
+		// 
+		contextMenuShowControlsInStatusBar.AccessibleDescription = "Shows the context menu for the visibility of controls in the status bar";
+		contextMenuShowControlsInStatusBar.AccessibleName = "Context menu for the visibility of controls in the status bar";
+		contextMenuShowControlsInStatusBar.AccessibleRole = AccessibleRole.MenuPopup;
+		contextMenuShowControlsInStatusBar.AllowClickThrough = true;
+		contextMenuShowControlsInStatusBar.Font = new Font("Segoe UI", 9F);
+		contextMenuShowControlsInStatusBar.Items.AddRange(new ToolStripItem[] { toolStripMenuItemShowInformationLabel });
+		contextMenuShowControlsInStatusBar.Name = "contextMenuStrip";
+		contextMenuShowControlsInStatusBar.Size = new Size(198, 48);
+		contextMenuShowControlsInStatusBar.TabStop = true;
+		contextMenuShowControlsInStatusBar.Text = "Show controls in status bar";
+		contextMenuShowControlsInStatusBar.MouseEnter += Control_Enter;
+		contextMenuShowControlsInStatusBar.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemShowInformationLabel
+		// 
+		toolStripMenuItemShowInformationLabel.AccessibleDescription = "Determines whether the information label is visible or hidden";
+		toolStripMenuItemShowInformationLabel.AccessibleName = "Information label";
+		toolStripMenuItemShowInformationLabel.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemShowInformationLabel.AutoToolTip = true;
+		toolStripMenuItemShowInformationLabel.Checked = true;
+		toolStripMenuItemShowInformationLabel.CheckOnClick = true;
+		toolStripMenuItemShowInformationLabel.CheckState = CheckState.Checked;
+		toolStripMenuItemShowInformationLabel.Name = "toolStripMenuItemShowInformationLabel";
+		toolStripMenuItemShowInformationLabel.ShortcutKeyDisplayString = "";
+		toolStripMenuItemShowInformationLabel.Size = new Size(197, 22);
+		toolStripMenuItemShowInformationLabel.Text = "Show &information label";
+		toolStripMenuItemShowInformationLabel.Click += ToolStripMenuItemShowInformationLabel_Click;
+		toolStripMenuItemShowInformationLabel.MouseEnter += Control_Enter;
+		toolStripMenuItemShowInformationLabel.MouseLeave += Control_Leave;
+		// 
 		// SearchForm
 		// 
 		AccessibleDescription = "Dialog to search a word, a keyword or a number";
@@ -1201,10 +1215,9 @@ partial class SearchForm
 		toolStripContainer.PerformLayout();
 		kryptonStatusStrip.ResumeLayout(false);
 		kryptonStatusStrip.PerformLayout();
-		((System.ComponentModel.ISupportInitialize)kryptonPanel).EndInit();
-		kryptonPanel.ResumeLayout(false);
 		kryptonToolStripIcons.ResumeLayout(false);
 		kryptonToolStripIcons.PerformLayout();
+		contextMenuShowControlsInStatusBar.ResumeLayout(false);
 		ResumeLayout(false);
 
 	}
@@ -1221,7 +1234,6 @@ partial class SearchForm
 	private ToolStripContainer toolStripContainer;
 	private Krypton.Toolkit.KryptonStatusStrip kryptonStatusStrip;
 	private ToolStripStatusLabel labelInformation;
-	private Krypton.Toolkit.KryptonPanel kryptonPanel;
 	private Krypton.Toolkit.KryptonToolStrip kryptonToolStripIcons;
 	private ToolStripButton toolStripButtonSearch;
 	private ToolStripButton toolStripButtonCancel;
@@ -1279,4 +1291,6 @@ partial class SearchForm
 	private ToolStripSeparator toolStripSeparator3;
 	private ToolStripButton toolStripButtonGoToObject;
 	private ToolStripMenuItem toolStripMenuItemSaveAsTypst;
+	private ContextMenuStrip contextMenuShowControlsInStatusBar;
+	private ToolStripMenuItem toolStripMenuItemShowInformationLabel;
 }
