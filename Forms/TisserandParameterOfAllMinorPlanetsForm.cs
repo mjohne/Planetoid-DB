@@ -365,7 +365,7 @@ internal partial class TisserandParameterOfAllMinorPlanetsForm : BaseKryptonForm
 		_cancellationTokenSource = new CancellationTokenSource();
 		CancellationToken token = _cancellationTokenSource.Token;
 		// Create a local list to store results from the background calculation
-		List<TisserandRowResult> localResults = new(capacity: _planetoids.Count);
+		List<TisserandRowResult> localResults = [with(capacity: _planetoids.Count)];
 		// Create a progress reporter that updates the progress bar on the UI thread
 		IProgress<int> progress = new Progress<int>(handler: UpdateProgress);
 		try
@@ -482,6 +482,22 @@ internal partial class TisserandParameterOfAllMinorPlanetsForm : BaseKryptonForm
 			// Log a warning if the "Go to Object" button was clicked without any selection
 			logger.Warn(message: "Go to Object button clicked, but no item is selected.");
 		}
+	}
+
+	/// <summary>Shows or hides the information label according to the menu item's checked state.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data.</param>
+	private void ToolStripMenuItemShowInformationLabel_Click(object sender, EventArgs e)
+	{
+		// Log the action of clicking of ToolStripMenuItemShowInformationLabel
+		logger.Info(message: $"ToolStripMenuItemShowInformationLabel clicked.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		labelInformation.Visible = toolStripMenuItemShowInformationLabel.Checked;
+		// Log the new state of the visibility of the information label
+		logger.Info(message: $"Set the visibility of the information label to {labelInformation.Visible}.");
 	}
 
 	#endregion
