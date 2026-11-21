@@ -85,7 +85,7 @@ internal partial class PlanetaryInformationForm : BaseKryptonForm
 	/// <remarks>This property is used to provide a visual representation of the object in the debugger.</remarks>
 	private string DebuggerDisplay => ToString() ?? string.Empty;
 
-	/// <summary>Astronomical unit expressed in kilometres.</summary>
+	/// <summary>Astronomical unit expressed in kilometers.</summary>
 	/// <remarks>Used to convert distances from AU to km when composing the display values.</remarks>
 	private const double AuInKm = 149597870.700;
 
@@ -402,7 +402,7 @@ internal partial class PlanetaryInformationForm : BaseKryptonForm
 				columns[i] = ComputePlanetValues(p: planets[i], nowJd: nowJd);
 			}
 			// Build one ListViewItem per property row
-			List<ListViewItem> items = new(capacity: labels.Length);
+			List<ListViewItem> items = [with(capacity: labels.Length)];
 			for (int row = 0; row < labels.Length; row++)
 			{
 				ListViewItem item = new(text: labels[row]);
@@ -516,6 +516,26 @@ internal partial class PlanetaryInformationForm : BaseKryptonForm
 		// Apply the sort
 		listView.ListViewItemSorter = new ListViewItemComparer(column: e.Column, order: sortOrder);
 		listView.Sort();
+	}
+
+	#endregion
+
+	#region Click event handlers
+
+	/// <summary>Shows or hides the information label according to the menu item's checked state.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data.</param>
+	private void ToolStripMenuItemShowInformationLabel_Click(object sender, EventArgs e)
+	{
+		// Log the action of clicking of ToolStripMenuItemShowInformationLabel
+		logger.Info(message: $"ToolStripMenuItemShowInformationLabel clicked.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		labelInformation.Visible = toolStripMenuItemShowInformationLabel.Checked;
+		// Log the new state of the visibility of the information label
+		logger.Info(message: $"Set the visibility of the information label to {labelInformation.Visible}.");
 	}
 
 	#endregion
