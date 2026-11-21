@@ -471,7 +471,7 @@ internal partial class TableModeForm : BaseKryptonForm
 			// Parse the desired strings into PlanetoidRecords
 			List<PlanetoidRecord> parsedData = await Task.Run(function: () =>
 			{
-				List<PlanetoidRecord> tempResults = new(capacity: count);
+				List<PlanetoidRecord> tempResults = [with(capacity: count)];
 				IEnumerable<string> rangeToProcess = planetoidsDatabase.Skip(count: minIndex).Take(count: count);
 				int progressCounter = 0;
 				// Process each line in the specified range
@@ -613,6 +613,22 @@ internal partial class TableModeForm : BaseKryptonForm
 		stopwatch.Stop();
 		// Set the cancel flag to true to request cancellation
 		cancellationTokenSource?.Cancel();
+	}
+
+	/// <summary>Shows or hides the information label according to the menu item's checked state.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data.</param>
+	private void ToolStripMenuItemShowInformationLabel_Click(object sender, EventArgs e)
+	{
+		// Log the action of clicking of ToolStripMenuItemShowInformationLabel
+		logger.Info(message: $"ToolStripMenuItemShowInformationLabel clicked.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		labelInformation.Visible = toolStripMenuItemShowInformationLabel.Checked;
+		// Log the new state of the visibility of the information label
+		logger.Info(message: $"Set the visibility of the information label to {labelInformation.Visible}.");
 	}
 
 	#endregion
