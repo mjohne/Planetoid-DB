@@ -51,7 +51,7 @@ internal partial class MoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 
 	/// <summary>Case-insensitive lookup of valid planetoid designations.</summary>
 	/// <remarks>Used to avoid expensive recalculation attempts while the user is still typing partial text in either combo box.</remarks>
-	private readonly HashSet<string> _designationLookup = new(comparer: StringComparer.OrdinalIgnoreCase);
+	private readonly HashSet<string> _designationLookup = [with(comparer: StringComparer.OrdinalIgnoreCase)];
 
 	/// <summary>Guard flag to prevent re-entrant updates in the <c>TextChanged</c> handlers.</summary>
 	/// <remarks>Set to <see langword="true"/> while a programmatic combo-box update is in progress so that the <c>TextChanged</c> event does not trigger another recursive update cycle.</remarks>
@@ -169,6 +169,7 @@ internal partial class MoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>The method iterates through all planetoid lines, extracting the designation from each line and comparing it to the given name. The comparison is case-insensitive. If a match is found, the corresponding line is returned immediately. If no match is found after checking all lines, the method returns <see langword="null"/>.</remarks>
 	private string? FindLineByDesignation(string name)
 	{
+		ArgumentNullException.ThrowIfNull(argument: name);
 		foreach (string line in _planetoids)
 		{
 			string? designation = ExtractDesignation(line: line);
@@ -279,6 +280,23 @@ internal partial class MoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 		}
 	}
 
+
+	/// <summary>Recalculates the MOID only when both combo boxes contain exact valid designations.</summary>
+	/// <remarks>During typing, partial text is common. This method avoids expensive full-record scans until both values match known designations, and clears stale output otherwise.</remarks>
+	private void RecalculateMoidIfBothPlanetoidsAreValid()
+	{
+		string name1 = comboBoxPlanetoid1.Text.Trim();
+		string name2 = comboBoxPlanetoid2.Text.Trim();
+		if (_designationLookup.Contains(item: name1) && _designationLookup.Contains(item: name2))
+		{
+			CalculateAndDisplayMoid();
+		}
+		else
+		{
+			kryptonLabelMoidValue.Text = "-";
+		}
+	}
+
 	#endregion
 
 	#region form event handlers
@@ -319,6 +337,10 @@ internal partial class MoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 		}
 	}
 
+	#endregion
+
+	#region SelectionChangeCommitted event handlers
+
 	/// <summary>Handles the SelectionChangeCommitted event for either combo box and recalculates the MOID.</summary>
 	/// <param name="sender">Event source (one of the two planetoid combo boxes).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
@@ -332,21 +354,9 @@ internal partial class MoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 		CalculateAndDisplayMoid();
 	}
 
-	/// <summary>Recalculates the MOID only when both combo boxes contain exact valid designations.</summary>
-	/// <remarks>During typing, partial text is common. This method avoids expensive full-record scans until both values match known designations, and clears stale output otherwise.</remarks>
-	private void RecalculateMoidIfBothPlanetoidsAreValid()
-	{
-		string name1 = comboBoxPlanetoid1.Text.Trim();
-		string name2 = comboBoxPlanetoid2.Text.Trim();
-		if (_designationLookup.Contains(item: name1) && _designationLookup.Contains(item: name2))
-		{
-			CalculateAndDisplayMoid();
-		}
-		else
-		{
-			kryptonLabelMoidValue.Text = "-";
-		}
-	}
+	#endregion
+
+	#region TextChanged event handlers
 
 	/// <summary>Handles the TextChanged event for the first combo box. Applies a contains-based filter to the first combo box items.</summary>
 	/// <param name="sender">Event source (the first combo box).</param>
@@ -375,6 +385,10 @@ internal partial class MoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 		ApplyContainsFilter(comboBox: comboBoxPlanetoid2);
 		RecalculateMoidIfBothPlanetoidsAreValid();
 	}
+
+	#endregion
+
+	#region Click event handlers
 
 	/// <summary>Handles the Click event of the random-selection button for the first combo box. Picks a random entry from the first combo box and triggers a MOID recalculation.</summary>
 	/// <param name="sender">Event source (the first random button).</param>
@@ -412,6 +426,22 @@ internal partial class MoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 			comboBoxPlanetoid2.Text = _allNames[index];
 			CalculateAndDisplayMoid();
 		}
+	}
+
+	/// <summary>Shows or hides the information label according to the menu item's checked state.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data.</param>
+	private void ToolStripMenuItemShowInformationLabel_Click(object sender, EventArgs e)
+	{
+		// Log the action of clicking of ToolStripMenuItemShowInformationLabel
+		logger.Info(message: $"ToolStripMenuItemShowInformationLabel clicked.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		labelInformation.Visible = toolStripMenuItemShowInformationLabel.Checked;
+		// Log the new state of the visibility of the information label
+		logger.Info(message: $"Set the visibility of the information label to {labelInformation.Visible}.");
 	}
 
 	#endregion
