@@ -1,3 +1,161 @@
+## Planetoid-DB 0.9.34.97
+
+* Updated `README.md` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1331
+* Updated `CHANGELOG.md` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1332
+* Added processor usage in `PlanetoidDBForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1333
+* Set screen-centered start position in `CoordinateTransformationForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1334
+* Set screen-centered start position in `WorldMapForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1335
+* Refactored `DerivedElements` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1336
+* Refactored `TisserandParameterOfOneMinorPlanetForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1337
+* Added `EncounterVelocityOfOneMinorPlanetForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1338
+* Updated `TisserandParameterOfAllMinorPlanetsForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1339
+* Added `DateFormatterExtensions.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1340
+* Updated `TisserandParameterOfAllMinorPlanetsForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1341
+* Added `EncounterVelocityOfAllMinorPlanetsForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1342
+* Refactored `TisserandParameterOfAllMinorPlanetsForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1343
+* Refactored `EncounterVelocityOfAllMinorPlanetsForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1344
+* Updated comments and added ignored file patterns in `.gitignore` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1345
+* Refactored comments in `DerivedElements.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1346
+* Refactored comments in `SexagesimalTime.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1347
+* Refactored comments in `SexagesimalAngle.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1348
+* Refactored comments in `DistanceConverter.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1349
+* Refactored comments in `DistanceUnit.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1350
+* Refactored comments in `DateFormatterExtensions.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1351
+* Refactored comments in `MeasureConverter.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1352
+* Added `OrbitalArcCalculator.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1353
+* Added `JulianDates.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1354
+* Added new derived data to `DerivedOrbitElementsForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1355
+* Fixed typos in `DerivedOrbitElementsForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1356
+* Splitted `PlanetoidDBForm.EventHandlers` into individual files by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1357
+* Deleted `Forms/PlanetoidDBForm.EventHandlers.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1358
+* Added `PlanetoidDBForm.EventHandlers.SelectedIndexChanged.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1359
+* Fixed typos in `TisserandParameterOfAllMinorPlanetsForm.Designer.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1360
+* Fixed typos in `EncounterVelocityOfAllMinorPlanetsForm.Designer.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1361
+* Added `PlanetoidDBForm.EventHandlers.Opening.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1362
+* Refactored error handling in `PlanetoidDBForm.EventHandlers.DropDown.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1363
+* Added `PlanetaryInformationForm.PlanetData.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1364
+* Refactored error handling of all `Winform` code files by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1365
+* Added `SettingsImporter.SettingEntry.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1366
+* Refactored error handling of the `Helpers` files by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1367
+* Refactored error handling of the `Exporter` code files by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1368
+* Updated `.gitignore` to remove Visual Studio 6 files by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1369
+* Refactored error handling of the `Services` and `Models` code files by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1370
+* Refactored error handling of the `Tests` code files by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1371
+* Refactored logging on `Winform` initialization by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1372
+* Fixed wrong argument evaluation in `BulkObservationsDataDownloaderForm.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1373
+* Enabled `TableLayoutPanel` double buffering in `BulkObservationsDataDownloaderForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1374
+* Removed `Label` margins in `BulkObservationsDataDownloaderForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1375
+* Fixed wrong argument evaluation in `BaseKryptonForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1376
+* Refactored gui in `BulkObservationsDownloadErrorsForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1377
+* Updated `Microsoft.NET.Test.Sdk` to version 18.11.1 and `XUnit` to version 4.0.3 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1378
+* Added new derived data to `DerivedOrbitElementsForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1379
+* Added `Services/Models/EphemerisRow.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1380
+* Added `Helpers/AsteroidFamilyCluster.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1381
+* Added `Helpers/ProperOrbitalElement.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1382
+* Added `Helpers/AsteroidFamilySearch.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1383
+* Added `Helpers/AsteroidFamilyUiHelper.cs´ by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1384
+* Added `Helpers/AstDysProperElementsParser.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1385
+* Updated target framework to version 11.0 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1386
+* Updated `Microsoft.NET.Test.Sdk` tio version 18.12.0 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1387
+* Refactored `DebuggerDisplay` in `Forms` files by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1388
+* Refactored `DebuggerDisplay` in `Helpers` files by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1389
+* Refactored `DebuggerDisplay` in `Services` files by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1390
+* Renamed `PlanetoidDBForm` to `PlanetoidDbForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1391
+* Removed `Label` margins in `DatabaseInformationForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1392
+* Removed `Label` margins in `RecordsForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1393
+* Removed `Label` margins in `RecordsTop10Form` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1394
+* Removed `Label` margins in `MoidsAndMaxoidsOfOneMinorPlanetForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1395
+* Removed `Label` margins in `MoidsOfOneMinorPlanetForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1396
+* Removed `Label` margins in `MoidsRelativeToMinorPlanetsForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1397
+* Removed `Label` margins in `MaxoidsOfOneMinorPlanetForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1398
+* Removed `Label` margins in `FilterForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1399
+* Removed `Label` margins in `EncounterVelocityOfOneMinorPlanetForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1400
+* Removed `Label` margins in `DerivedOrbitElementsForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1401
+* Removed `Label` margins in `CoordinateTransformationForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1402
+* Removed `Label` margins in `CheckDatabaseForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1403
+* Added a generic message box method (`ShowInfoMessage`) in `BaseKryptonForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1404
+* Added `ThemeTestForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1405
+* Added `CalculateInterFocalDistance` in `DerivedElements` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1406
+* Revised helper classes list in README by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1407
+* Refined Apsidal passages in `DerivedElements` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1408
+* Added new definitions for the terminology by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1409
+* Added additional definitions for ther terminology by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1410
+* Added ` PlanetoidDbForm.EventHandlers.DoubleClick.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1411
+* Replaced `KryptonForm` with `BaseKryptonForm` in `ThemeTestForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1412
+* Refactored comments in `LicenseForm.Designer.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1413
+* Added `SoundTestForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1414
+* Added tooltips to `SoundTestForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1415
+* Refactored `ThemeTestForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1416
+* Added `GeometricAlbedoAdjustedDiameterForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1417
+* Added context menu of the visibility of the status bar's controls in `GeometricAlbedoAdjustedDiameterForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1418
+* Fixed typos in context menu of visibility in status bar`s controls by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1419
+* Added context menu of the visibility of the status bar's controls in `LogViewerForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1420
+* Added context menu of the visibility of the status bar's controls in `FilterForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1421
+* Added context menu of the visibility of the status bar's controls in `ExportDataSheetForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1422
+* Added context menu of the visibility of the status bar's controls in `EphemerisForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1423
+* Added context menu of the visibility of the status bar's controls in `EncounterVelocityOfOneMinorPlanetForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1424
+* Added context menu of the visibility of the status bar's controls in `EncounterVelocityOfAllMinorPlanetsForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1425
+* Added context menu of the visibility of the status bar's controls in `DownloaderForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1426
+* Added context menu of the visibility of the status bar's controls in `DistributionsForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1427
+* Added context menu of the visibility of the status bar's controls in `DistanceConversionForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1428
+* Added context menu of the visibility of the status bar's controls in `DerivedOrbitElementsForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1429
+* Added context menu of the visibility of the status bar's controls in `DatabaseDifferencesForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1430
+* Added context menu of the visibility of the status bar's controls in `CoordinateTransformationForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1431
+* Added context menu of the visibility of the status bar's controls in `CheckDatabaseForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1432
+* Added context menu of the visibility of the status bar's controls in `BulkObservationsDataDownloaderForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1433
+* Added context menu of the visibility of the status bar's controls in `BulkObservationsDownloadErrorsForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1434
+* Added context menu of the visibility of the status bar's controls in `AverageAsteroidForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1435
+* Added context menu of the visibility of the status bar's controls in `AsteroidFamiliesForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1436
+* Added context menu of the visibility of the status bar's controls in `AppInfoForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1437
+* Added context menu of the visibility of the status bar's controls in `ArchiveMpcorbForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1438
+* Added context menu of the visibility of the status bar's controls in `AEIDiagram3DForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1439
+* Added context menu of the visibility of the status bar's controls in `LicenseForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1440
+* Added context menu of the visibility of the status bar's controls in `ListReadableDesignationsForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1441
+* Added context menu of the visibility of the status bar's controls in `DatabaseInformationForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1442
+* Added context menu of the visibility of the status bar's controls in `WorldMapForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1443
+* Added context menu of the visibility of the status bar's controls in `TisserandParameterOfOneMinorPlanetForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1444
+* Added context menu of the visibility of the status bar's controls in `TisserandParameterOfAllMinorPlanetsForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1445
+* Added context menu of the visibility of the status bar's controls in `ThemeTestForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1446
+* Added context menu of the visibility of the status bar's controls in `TerminologyForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1447
+* Added context menu of the visibility of the status bar's controls in `TableModeForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1448
+* Added context menu of the visibility of the status bar's controls in `SoundTestForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1449
+* Added context menu of the visibility of the status bar's controls in `SettingsImportForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1450
+* Added context menu of the visibility of the status bar's controls in `SettingsForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1451
+* Added context menu of the visibility of the status bar's controls in `SettingsExportForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1452
+* Added context menu of the visibility of the status bar's controls in `SearchForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1453
+* Added context menu of the visibility of the status bar's controls in `ScatterplotsForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1454
+* Added context menu of the visibility of the status bar's controls in `RecordsTop10Form` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1456
+* Added context menu of the visibility of the status bar's controls in `RecordsForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1457
+* Added context menu of the visibility of the status bar's controls in `PrintDataSheetForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1458
+* Added context menu of the visibility of the status bar's controls in `PreloadForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1459
+* Added context menu of the visibility of the status bar's controls in `PlanetaryInformationForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1460
+* Added context menu of the visibility of the status bar's controls in `OrbitElementsGroupingForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1461
+* Added context menu of the visibility of the status bar's controls in `Orbit3DForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1462
+* Added context menu of the visibility of the status bar's controls in `Orbit2DTopViewForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1463
+* Added context menu of the visibility of the status bar's controls in `Orbit2DSideViewForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1464
+* Added context menu of the visibility of the status bar's controls in `ObservatoryCodesForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1465
+* Added context menu of the visibility of the status bar's controls in `ObservationsForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1466
+* Added context menu of the visibility of the status bar's controls in `NeaListDownloadForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1467
+* Added context menu of the visibility of the status bar's controls in `MoidsRelativeToMinorPlanetsForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1468
+* Added context menu of the visibility of the status bar's controls in `MoidsOfOneMinorPlanetForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1469
+* Added context menu of the visibility of the status bar's controls in `MoidsOfAllMinorPlanetsForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1470
+* Added context menu of the visibility of the status bar's controls in `MoidsAndMaxoidsOfOneMinorPlanetForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1471
+* Added context menu of the visibility of the status bar's controls in `MaxoidsRelativeToMinorPlanetsForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1472
+* Added context menu of the visibility of the status bar's controls in `MaxoidsOfOneMinorPlanetForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1473
+* Added context menu of the visibility of the status bar's controls in `MaxoidsOfAllMinorPlanetsForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1474
+* Updated documentation comments in `LicenseForm.Designer.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1475
+* Added `AcknoledgementsForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1476
+* Updated `PlanetoidDbForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1477
+* Updated internal database `demoset-10000.txt` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1478
+* Updated observatory codes by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1479
+* Updated `GlobalSuppressions.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1480
+* Updated `Microsoft.Web.WebView2` to version 1.0.4370.26 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1481
+* Updated `Planetoid-DB` to version 0.9.34.97 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1482
+* Updated publish profiles by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1483
+
+**Full Changelog**: https://github.com/mjohne/Planetoid-DB/compare/0.9.33.96.1329.5263...0.9.34.97.1483.5690
+
+
 ## Planetoid-DB 0.9.33.96
 
 * Replaced screenshot in `README.md ` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1265
@@ -56,8 +214,6 @@
 * Updated `Forms/README.md` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1329
 
 **Full Changelog**: https://github.com/mjohne/Planetoid-DB/compare/0.9.32.95.1263.5085...0.9.33,96.1329.5263
-
-<img width="868" height="449" alt="Screenshot of Planetoid-DB showing a tabular view of MPCORB.DAT orbital data" src="https://github.com/user-attachments/assets/d2f96dc0-3e1b-4046-a105-2f4144ffb2bc" />
 
 
 ## Planetoid-DB 0.9.32.95
