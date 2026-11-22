@@ -21,6 +21,7 @@ using Planetoid_DB.Forms;
 using Planetoid_DB.Helpers;
 using Planetoid_DB.Properties;
 
+using System.Diagnostics;
 using System.Globalization;
 
 namespace Planetoid_DB;
@@ -2114,14 +2115,185 @@ public partial class PlanetoidDbForm
 	private void ToolStripMenuItemCheckingDatabaseUpdatesOnStartup_Click(object sender, EventArgs e)
 	{
 		// Log the action of toggling the setting and the new checked state
+		logger.Info(message: $"Toggling the 'Checking Database Updates on Startup' setting. Check state: {toolStripMenuItemCheckingDatabaseUpdatesOnStartup.Checked}");
 		// Ensure that an event source was supplied
 		ArgumentNullException.ThrowIfNull(argument: sender);
 		// Ensure that the event data was supplied
 		ArgumentNullException.ThrowIfNull(argument: e);
-		logger.Info(message: $"Toggling the 'Checking Database Updates on Startup' setting. Check state: {toolStripMenuItemCheckingDatabaseUpdatesOnStartup.Checked}");
 		// Update the user setting based on the checked state of the menu item
 		Settings.Default.userCheckingDatabaseUpdatesOnStartup = toolStripMenuItemCheckingDatabaseUpdatesOnStartup.Checked;
 		Settings.Default.Save();
+	}
+
+	/// <summary>Applies the double-buffering optimization used to reduce flicker in the table layout and logs the operation. </summary>
+	/// <remarks>The operation updates the table layout panel for reduced flicker and notifies the user that the optimization was applied.</remarks>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data associated with the click.</param>
+	private void ToolStripMenuItemExecuteDoubleBuffering_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: "Execute double-buffering...");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		OptimizeTableLayoutPanelForFlickerReduction();
+		ShowInfoMessage(message: "Executed double-buffering.");
+		logger.Info(message: "Executed double-buffering.");
+	}
+
+	/// <summary>Builds the derived data context menu from the list view and displays a confirmation message.</summary>
+	/// <param name="sender">The object that raised the event.</param>
+	/// <param name="e">The event data.</param>
+	private void ToolStripMenuItemBuildDerivedDataContextMenuFromListView_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: "Building derived data context menu...");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		BuildDerivedDataContextMenuFromListView();
+		ShowInfoMessage(message: "Built derived data context menu.");
+		logger.Info(message: "Built derived data context menu.");
+	}
+
+	/// <summary>Registers Enter event handlers for the form and all descendant controls.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data.</param>
+	private void ToolStripMenuItemRegisterEnterEventHandler_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: "Registered Enter event handler...");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		// Register the enter handler for the specified control and all its descendants
+		RegisterEnterRecursive(control: this);
+		ShowInfoMessage(message: "Registered Enter event handler.");
+		logger.Info(message: "Registered Enter event handler.");
+	}
+
+	/// <summary>Registers Mouse-Enter event handlers for the form and all descendant controls.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data.</param>
+	private void ToolStripMenuItemRegisterMouseEnterEventHandler_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: "Registered Mouse-Enter event handler...");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		// Register the mouse-enter handler for the specified control and all its descendants
+		RegisterMouseEnterRecursive(control: this);
+		ShowInfoMessage(message: "Registered Mouse-Enter event handler.");
+		logger.Info(message: "Registered Mouse-Enter event handler.");
+	}
+
+	/// <summary>Registers Leave event handlers for the form and all descendant controls.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data.</param>
+	private void ToolStripMenuItemRegisterLeaveEventHandler_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: "Registered Leave event handler...");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		// Register the leave handler for the specified control and all its descendants
+		RegisterLeaveRecursive(control: this);
+		ShowInfoMessage(message: "Registered Leave event handler.");
+		logger.Info(message: "Registered Leave event handler.");
+	}
+
+	/// <summary>Registers Mouse-Leave event handlers for the form and all descendant controls.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data.</param>
+	private void ToolStripMenuItemRegisterMouseLeaveEventHandler_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: "Registered Mouse-Leave event handler...");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		// Register the mouse-leave handler for the specified control and all its descendants
+		RegisterMouseLeaveRecursive(control: this);
+		ShowInfoMessage(message: "Registered Mouse-Leave event handler.");
+		logger.Info(message: "Registered Mouse-Leave event handler.");
+	}
+
+	/// <summary>Registers Mouse-Move event handlers for the form and all descendant controls.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data.</param>
+	private void ToolStripMenuItemRegisterMouseMoveEventHandler_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: "Registered Mouse-Move event handler...");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		// Register the mouse-move handler for the specified control and all its descendants
+		RegisterMouseMoveRecursive(control: this);
+		ShowInfoMessage(message: "Registered Mouse-Move event handler.");
+		logger.Info(message: "Registered Mouse-Move event handler.");
+	}
+
+	/// <summary>Opens the theme test form as a modal dialog, matching the current form's topmost setting.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data.</param>
+	private void TestThemes_Click(object sender, EventArgs e)
+	{
+		// Log the action of opening the ThemeTestForm
+		logger.Info(message: "Opening ThemeTestForm...");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		// Create a new instance of the ThemeTestForm
+		using ThemeTestForm formThemeTest = new();
+		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
+		formThemeTest.TopMost = TopMost;
+		// Show the ThemeTestForm as a modal dialog
+		_ = formThemeTest.ShowDialog(owner: this);
+	}
+
+	/// <summary>Opens the sound test form as a modal dialog, matching the current form's topmost setting.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data.</param>
+	private void TestSounds_Click(object sender, EventArgs e)
+	{
+		// Log the action of opening the SoundTestForm
+		logger.Info(message: "Opening SoundTestForm...");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		// Create a new instance of the SoundTestForm
+		using SoundTestForm formSoundTest = new();
+		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
+		formSoundTest.TopMost = TopMost;
+		// Show the SoundTestForm as a modal dialog
+		_ = formSoundTest.ShowDialog(owner: this);
+	}
+
+	/// <summary>Opens the geometric albedo-adjusted diameter form as a modal dialog.</summary>
+	/// <remarks>Matches the form's topmost setting to the current form.</remarks>
+	/// <param name="sender">The object that raised the event.</param>
+	/// <param name="e">The event data.</param>
+	private void ToolStripMenuItemGeometricAlbedoAdjustedDiameter_Click(object sender, EventArgs e)
+	{
+		// Log the action of opening the GeometricAlbedoAdjustedDiameterForm
+		logger.Info(message: "Opening GeometricAlbedoAdjustedDiameterForm...");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		string textMag = labelMpcorbAbsoluteMagnitudeData.Text;
+		_ = double.TryParse(s: textMag, NumberStyles.Any, CultureInfo.InvariantCulture, result: out double resultMag);
+		// Create a new instance of the GeometricAlbedoAdjustedDiameterForm
+		using GeometricAlbedoAdjustedDiameterForm formGeometricAlbedoAdjustedDiameter = new(mag: resultMag);
+		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
+		formGeometricAlbedoAdjustedDiameter.TopMost = TopMost;
+		// Show the GeometricAlbedoAdjustedDiameterForm as a modal dialog
+		_ = formGeometricAlbedoAdjustedDiameter.ShowDialog(owner: this);
 	}
 
 	/// <summary>Checks and corrects saved bookmarks in all supported planetoid databases.</summary>
@@ -2388,7 +2560,7 @@ public partial class PlanetoidDbForm
 	/// <param name="e">The event data.</param>
 	private void ToolStripMenuItemWindowStateSnapBottom_Click(object sender, EventArgs e)
 	{
-		// Log the action of Clicking on ToolStripMenuItemWindowStateSnapBottm
+		// Log the action of Clicking on ToolStripMenuItemWindowStateSnapBottom
 		logger.Info(message: "Snap the application window on the lower half.");
 		// Ensure that an event source was supplied
 		ArgumentNullException.ThrowIfNull(argument: sender);
@@ -2525,7 +2697,7 @@ public partial class PlanetoidDbForm
 	/// <summary>Copies a formatted overview (Index, MPC-ID, Designation) of the selected row to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	private void CopyListViewFormatted_Click(object sender, EventArgs e)
+	private void CopyListViewDesignationFormattedOverview_Click(object sender, EventArgs e)
 	{
 		// Ensure that an event source was supplied
 		ArgumentNullException.ThrowIfNull(argument: sender);
@@ -2545,6 +2717,241 @@ public partial class PlanetoidDbForm
 				CopyToClipboard(text: formattedText);
 			}
 		}
+	}
+
+	/// <summary>Copies the derived data value for the selected list view row to the clipboard.</summary>
+	/// <remarks>If no row is selected, the operation has no effect.</remarks>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data.</param>
+	private void CopyListViewDerivedDataValue_Click(object sender, EventArgs e)
+	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		if (listViewDerivedData.SelectedIndices.Count > 0)
+		{
+			// Get the third cell of the selected row; value
+			string text = listViewDerivedData.SelectedItems[index: 0].SubItems[index: 2].Text;
+			logger.Info(message: $"Context menu: Copying formatted row overview for index {text}.");
+			CopyToClipboard(text: text);
+		}
+	}
+
+	/// <summary>Copies the formatted overview of the first selected derived-data row to the clipboard.</summary>
+	/// <remarks>Copies the element, unit, and value columns separated by tab characters when a row is selected.</remarks>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data.</param>
+	private void CopyListViewDerivedDataFormattedOverview_Click(object sender, EventArgs e)
+	{
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		if (listViewDerivedData.SelectedIndices.Count > 0)
+		{
+			// Get the first cell of the selected row; element
+			string firstCellText = listViewDerivedData.SelectedItems[index: 0].SubItems[index: 0].Text;
+			// Get the second cell of the selected row; unit
+			string secondCellText = listViewDerivedData.SelectedItems[index: 0].SubItems[index: 1].Text;
+			// Get the third cell of the selected row; value
+			string thirdCellText = listViewDerivedData.SelectedItems[index: 0].SubItems[index: 2].Text;
+			string formattedText = $"{firstCellText}\t{secondCellText}\t{thirdCellText}";
+			logger.Info(message: $"Context menu: Copying formatted row overview for index {formattedText}.");
+			CopyToClipboard(text: formattedText);
+		}
+	}
+
+	/// <summary>Opens the Windows calculator.</summary>
+	/// <remarks>Logs errors and displays an error message if the calculator cannot be started.</remarks>
+	/// <param name="sender">The object that raised the event.</param>
+	/// <param name="e">The event data.</param>
+	private void Calculator_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: "Opening calculator...");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		string errorMessage;
+		try
+		{
+			_ = Process.Start(startInfo: new ProcessStartInfo
+			{
+				FileName = "calc.exe",
+				UseShellExecute = true
+			});
+		}
+		catch (System.ComponentModel.Win32Exception ex)
+		{
+			errorMessage = $"The calculator could not be started.\n\n{ex.Message}";
+			logger.Error(exception: ex, message: errorMessage);
+			ShowErrorMessage(message: errorMessage);
+		}
+		catch (InvalidOperationException ex)
+		{
+			errorMessage = $"An error occurred while starting the calculator.\n\n{ex.Message}";
+			logger.Error(exception: ex, message: errorMessage);
+			ShowErrorMessage(message: errorMessage);
+		}
+	}
+
+	/// <summary>Handles the click event for the ToolStripMenuAcknoledgements. Opens the acknoledgements.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method is used to show the acknoledgements.</remarks>
+	private void ToolStripMenuItemAcknoledgements_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: "Showing archive form");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		ShowAcknoledgements();
+	}
+
+	/// <summary>Shows or hides the information label according to the menu item's checked state.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data.</param>
+	private void ToolStripMenuItemShowInformationLabel_Click(object sender, EventArgs e)
+	{
+		// Log the action of clicking of ToolStripMenuItemShowInformationLabel
+		logger.Info(message: $"ToolStripMenuItemShowInformationLabel clicked.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		labelInformation.Visible = toolStripMenuItemShowInformationLabel.Checked;
+		// Log the new state of the visibility of the information label
+		logger.Info(message: $"Set the visibility of the information label to {labelInformation.Visible}.");
+	}
+
+	/// <summary>Shows or hides the MPCORB.DAT update label according to the menu item's checked state.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data.</param>
+	private void ToolStripMenuItemShowMpcorbDatUpdateLabel_Click(object sender, EventArgs e)
+	{
+		// Log the action of clicking of ToolStripMenuItemShowMpcorbDatUpdateLabel
+		logger.Info(message: $"ToolStripMenuItemShowMpcorbDatUpdateLabel clicked.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		toolStripStatusLabelMpcorbDatUpdate.Visible = toolStripMenuItemShowMpcorbDatUpdateLabel.Checked;
+		// Log the new state of the visibility of the information label
+		logger.Info(message: $"Set the visibility of the information label to {labelInformation.Visible}.");
+	}
+
+	/// <summary>Shows or hides the ASTORB.DAT update label according to the menu item's checked state.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data.</param>
+	private void ToolStripMenuItemShowAstorbDatUpdateLabel_Click(object sender, EventArgs e)
+	{
+		// Log the action of clicking of ToolStripMenuItemShowAstorbDatUpdateLabel
+		logger.Info(message: $"ToolStripMenuItemShowAstorbDatUpdateLabel clicked.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		toolStripStatusLabelAstorbDatUpdate.Visible = toolStripMenuItemShowAstorbDatUpdateLabel.Checked;
+		// Log the new state of the visibility of the information label
+		logger.Info(message: $"Set the visibility of the information label to {labelInformation.Visible}.");
+	}
+
+	/// <summary>Shows or hides the mouse coordinates label according to the menu item's checked state.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data.</param>
+	private void ToolStripMenuItemShowMouseCoordinatesLabel_Click(object sender, EventArgs e)
+	{
+		// Log the action of clicking of ToolStripMenuItemShowMouseCoordinatesLabel
+		logger.Info(message: $"ToolStripMenuItemShowMouseCoordinatesLabel clicked.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		toolStripStatusLabelMouseCoordinates.Visible = toolStripMenuItemShowMouseCoordinatesLabel.Checked;
+		// Log the new state of the visibility of the information label
+		logger.Info(message: $"Set the visibility of the information label to {labelInformation.Visible}.");
+	}
+
+	/// <summary>Shows or hides the window size label according to the menu item's checked state.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data.</param>
+	private void ToolStripMenuItemShowWindowSizeLabel_Click(object sender, EventArgs e)
+	{
+		// Log the action of clicking of ToolStripMenuItemShowWindowSizeLabel
+		logger.Info(message: $"ToolStripMenuItemShowWindowSizeLabel clicked.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		toolStripStatusLabelWindowSize.Visible = toolStripMenuItemShowWindowSizeLabel.Checked;
+		// Log the new state of the visibility of the information label
+		logger.Info(message: $"Set the visibility of the information label to {labelInformation.Visible}.");
+	}
+
+	/// <summary>Shows or hides the time usage label according to the menu item's checked state.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data.</param>
+	private void ToolStripMenuItemShowTimeUsageLabel_Click(object sender, EventArgs e)
+	{
+		// Log the action of clicking of ToolStripMenuItemShowTimeUsageLabel
+		logger.Info(message: $"ToolStripMenuItemShowTimeUsageLabel clicked.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		labelTimeUsage.Visible = toolStripMenuItemShowTimeUsageLabel.Checked;
+		// Log the new state of the visibility of the information label
+		logger.Info(message: $"Set the visibility of the information label to {labelInformation.Visible}.");
+	}
+
+	/// <summary>Shows or hides the CPU usage label according to the menu item's checked state.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data.</param>
+	private void ToolStripMenuItemShowProcessorUsageLabel_Click(object sender, EventArgs e)
+	{
+		// Log the action of clicking of ToolStripMenuItemShowCpuUsageLabel
+		logger.Info(message: $"ToolStripMenuItemShowCpuUsageLabel clicked.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		labelProcessorUsage.Visible = toolStripMenuItemShowProcessorUsageLabel.Checked;
+		// Log the new state of the visibility of the information label
+		logger.Info(message: $"Set the visibility of the information label to {labelInformation.Visible}.");
+	}
+
+	/// <summary>Shows or hides the RAM usage label according to the menu item's checked state.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data.</param>
+	private void ToolStripMenuItemShowMemoryUsageLabel_Click(object sender, EventArgs e)
+	{
+		// Log the action of clicking of ToolStripMenuItemShowRamUsageLabel
+		logger.Info(message: $"ToolStripMenuItemShowRamUsageLabel clicked.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		labelMemoryUsage.Visible = toolStripMenuItemShowMemoryUsageLabel.Checked;
+		// Log the new state of the visibility of the information label
+		logger.Info(message: $"Set the visibility of the information label to {labelInformation.Visible}.");
+	}
+
+	/// <summary>Shows or hides the disk size label according to the menu item's checked state.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data.</param>
+	private void ToolStripMenuItemShowDiskSizeLabel_Click(object sender, EventArgs e)
+	{
+		// Log the action of clicking of ToolStripMenuItemShowDiskSizeLabel_
+		logger.Info(message: $"ToolStripMenuItemShowDiskSizeLabel_ clicked.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		labelDiskSizeUsage.Visible = toolStripMenuItemShowDiskSizeLabel.Checked;
+		// Log the new state of the visibility of the information label
+		logger.Info(message: $"Set the visibility of the information label to {labelInformation.Visible}.");
 	}
 
 	#region Bookmarks
@@ -2925,6 +3332,10 @@ public partial class PlanetoidDbForm
 	private void IconSetFatcow_Click(object sender, EventArgs e)
 	{
 		// TODO: Implement icon set change to Fatcow
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		_ = KryptonMessageBox.Show(owner: this, text: "Fatcow icon set not implemented yet", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
 
@@ -2935,6 +3346,10 @@ public partial class PlanetoidDbForm
 	private void IconSetSilk_Click(object sender, EventArgs e)
 	{
 		// TODO: Implement icon set change to Silk
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		_ = KryptonMessageBox.Show(owner: this, text: "Silk icon set not implemented yet", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
 
@@ -2945,6 +3360,10 @@ public partial class PlanetoidDbForm
 	private void IconSetFugue_Click(object sender, EventArgs e)
 	{
 		// TODO: Implement icon set change to Fugue
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		_ = KryptonMessageBox.Show(owner: this, text: "Fugue icon set not implemented yet", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
 
@@ -2955,6 +3374,10 @@ public partial class PlanetoidDbForm
 	private void EnableCopyingByDoubleClicking_Click(object sender, EventArgs e)
 	{
 		// TODO: Implement enable/disable copying by double-clicking
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		_ = KryptonMessageBox.Show(owner: this, text: "Enable copying by double-clicking not implemented yet", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
 
@@ -2965,6 +3388,10 @@ public partial class PlanetoidDbForm
 	private void EnableLinkingToTerminology_Click(object sender, EventArgs e)
 	{
 		// TODO: Implement enable/disable linking to terminology
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
 		_ = KryptonMessageBox.Show(owner: this, text: "Enable linking to terminology not implemented yet", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
 

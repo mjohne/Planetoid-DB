@@ -60,7 +60,7 @@ public partial class PlanetoidDbForm
 		// Ensure that the event data was supplied
 		ArgumentNullException.ThrowIfNull(argument: e);
 		//DiskSizeUsage();
-		toolStripStatusLabelMemoryUsage.Text = $"{Process.GetCurrentProcess().WorkingSet64 / (1024.0 * 1024.0):F2} MB";
+		labelMemoryUsage.Text = $"{Process.GetCurrentProcess().WorkingSet64 / (1024.0 * 1024.0):F2} MB";
 	}
 
 	/// <summary>Handles the tick event for showing the time usage.</summary>
@@ -74,7 +74,7 @@ public partial class PlanetoidDbForm
 		// Ensure that the event data was supplied
 		ArgumentNullException.ThrowIfNull(argument: e);
 		TimeSpan pastTime = stopWatch.Elapsed;
-		toolStripStatusLabelTimeUsage.Text = $"{pastTime.Hours:00}:{pastTime.Minutes:00}:{pastTime.Seconds:00}.{pastTime.Milliseconds:000}";
+		labelTimeUsage.Text = $"{pastTime.Hours:00}:{pastTime.Minutes:00}:{pastTime.Seconds:00}.{pastTime.Milliseconds:000}";
 	}
 
 	/// <summary>Handles the tick event for showing the processor usage.</summary>
@@ -98,7 +98,7 @@ public partial class PlanetoidDbForm
 		TimeSpan totalCpuTimeUsed = endCpuTime - startCpuTime;
 		// Calculate processor usage as a percentage (relative to all cores)
 		double cpuUsagePercentage = totalCpuTimeUsed.TotalMilliseconds / (passedTime.TotalMilliseconds * processorCount) * 100;
-		toolStripStatusLabelProcessorUsage.Text = $"{cpuUsagePercentage:F2} %";
+		labelProcessorUsage.Text = $"{cpuUsagePercentage:F2} %";
 	}
 
 	/// <summary>Updates the current planetoid position when the selection changes.</summary>

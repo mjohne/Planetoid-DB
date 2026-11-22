@@ -221,7 +221,7 @@ public partial class PlanetoidDbForm
 		long appDataBytes = GetDirectorySize(folderPath: appDataPath);
 		double totalMegabytes = totalBytes / (1024.0 * 1024.0);
 		double appDataMegabytes = appDataBytes / (1024.0 * 1024.0);
-		toolStripStatusLabelDiskSizeUsage.Text = $"{totalMegabytes:F2} MB + {appDataMegabytes:F2} MB";
+		labelDiskSizeUsage.Text = $"{totalMegabytes:F2} MB + {appDataMegabytes:F2} MB";
 	}
 
 	/// <summary>Tries to parse an integer from the input string.</summary>
@@ -357,7 +357,8 @@ public partial class PlanetoidDbForm
 			AddItemToListViewDerivedData(element: "Mean axis", unit: "AU", value: DerivedElements.CalculateMeanAxis(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
 			AddItemToListViewDerivedData(element: "Aphelion distance", unit: "AU", value: DerivedElements.CalculateAphelionDistance(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
 			AddItemToListViewDerivedData(element: "Perihelion distance", unit: "AU", value: DerivedElements.CalculatePerihelionDistance(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
-			AddItemToListViewDerivedData(element: "Linear eccentricity", unit: "---", value: DerivedElements.CalculateLinearEccentricity(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+			AddItemToListViewDerivedData(element: "Linear eccentricity", unit: "AU", value: DerivedElements.CalculateLinearEccentricity(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+			AddItemToListViewDerivedData(element: "Inter-focal distance", unit: "AU", value: DerivedElements.CalculateInterFocalDistance(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
 			AddItemToListViewDerivedData(element: "Semi-latus rectum", unit: "AU", value: DerivedElements.CalculateSemiLatusRectum(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
 			AddItemToListViewDerivedData(element: "Latus rectum", unit: "AU", value: DerivedElements.CalculateLatusRectum(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
 			AddItemToListViewDerivedData(element: "Mean distance from focus", unit: "AU", value: DerivedElements.CalculateMeanDistanceFromFocus(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
@@ -448,7 +449,7 @@ public partial class PlanetoidDbForm
 				listViewReadableDesignations.EndUpdate();
 			}
 		}
-
+		BuildDerivedDataContextMenuFromListView();
 		// Update bookmark UI state for the new position
 		UpdateBookmarkButtonState();
 		UpdateBookmarkMenuToggleState();
@@ -494,7 +495,6 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to jump to the record with the specified index or designation in the planetoids database.</remarks>
 	internal void JumpToRecord(string index, string designation)
 	{
-		ArgumentException.ThrowIfNullOrEmpty(argument: index);
 		ArgumentException.ThrowIfNullOrEmpty(argument: designation);
 		// Normalize search parameters
 		index = index?.Trim() ?? string.Empty;
@@ -1656,6 +1656,20 @@ public partial class PlanetoidDbForm
 		logger.Info(message: "Opening ArchiveMpcorbForm.");
 		// Show the archive form as a modal dialog
 		_ = formArchive.ShowDialog(owner: this);
+	}
+
+	/// <summary>Displays the acknoledgements form as a modal dialog, ensuring it remains on top of other windows.</summary>
+	/// <remarks>This method creates an instance of the AcknoledgementsForm and sets its TopMost property to true, which keeps the form above other application windows. The form is shown modally, meaning the user must interact with it before returning to the main application.</remarks>
+	private void ShowAcknoledgements()
+	{
+		// Create a new instance of the AcknoledgementsForm
+		using AcknoledgementsForm formAcknoledgements = new();
+		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
+		formAcknoledgements.TopMost = TopMost;
+		// Log the action of opening the AcknoledgementsForm
+		logger.Info(message: "Opening AcknoledgementsForm.");
+		// Show the AcknoledgementsForm form as a modal dialog
+		_ = formAcknoledgements.ShowDialog(owner: this);
 	}
 
 	/// <summary>Displays the archive comparison form as a modal dialog, allowing users to view differences between database archives.</summary>
