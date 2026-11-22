@@ -1589,7 +1589,7 @@ public partial class PlanetoidDbForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the encounter velocitys form for the currently selected minor planet.</remarks>
-	private void EncounterVelocitys_Click(object sender, EventArgs e)
+	private void EncounterVelocity_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Showing encounter velocitys of one minor planet form");
 		// Ensure that an event source was supplied
@@ -1603,7 +1603,7 @@ public partial class PlanetoidDbForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the encounter velocitys of all minor planets form.</remarks>
-	private void EncounterVelocitysOfAllMinorPlanets_Click(object sender, EventArgs e)
+	private void EncounterVelocitiesOfAllMinorPlanets_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Showing encounter velocitys of all minor planets form");
 		// Ensure that an event source was supplied
