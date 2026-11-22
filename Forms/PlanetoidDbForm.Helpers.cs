@@ -2260,7 +2260,7 @@ public partial class PlanetoidDbForm
 		toolStripMenuItemDistributions.Enabled = true;
 		toolStripMenuItemScatterPlots.Enabled = true;
 		toolStripMenuItemAEIDiagram3D.Enabled = true;
-		toolStripMenuItemOrbit.Enabled = true;
+		toolStripMenuItemOrbitVisualization.Enabled = true;
 		toolStripButtonDistributions.Enabled = true;
 		toolStripButtonScatterPlots.Enabled = true;
 		toolStripDropDownButtonOrbit.Enabled = true;
@@ -2294,7 +2294,7 @@ public partial class PlanetoidDbForm
 		toolStripMenuItemDistributions.Enabled = false;
 		toolStripMenuItemScatterPlots.Enabled = false;
 		toolStripMenuItemAEIDiagram3D.Enabled = false;
-		toolStripMenuItemOrbit.Enabled = false;
+		toolStripMenuItemOrbitVisualization.Enabled = false;
 		toolStripButtonDistributions.Enabled = false;
 		toolStripButtonScatterPlots.Enabled = false;
 		toolStripDropDownButtonOrbit.Enabled = false;

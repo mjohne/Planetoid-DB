@@ -61,10 +61,10 @@ partial class PlanetoidDbForm
 		toolStripMenuItemNavigateStep1000 = new ToolStripMenuItem();
 		toolStripMenuItemNavigateStep10000 = new ToolStripMenuItem();
 		toolStripMenuItemNavigateStep100000 = new ToolStripMenuItem();
+		toolStripSplitButtonStepForward = new ToolStripSplitButton();
 		toolStripSplitButtonStepBackward = new ToolStripSplitButton();
 		toolStripMenuItemNavigateSomeDataBackward = new ToolStripMenuItem();
 		toolStripMenuItemNavigateSomeDataForward = new ToolStripMenuItem();
-		toolStripSplitButtonStepForward = new ToolStripSplitButton();
 		toolStripSplitButtonHistoryBack = new ToolStripSplitButton();
 		toolStripSplitButtonHistoryForward = new ToolStripSplitButton();
 		toolStripSeparatorHistory = new ToolStripSeparator();
@@ -126,8 +126,8 @@ partial class PlanetoidDbForm
 		toolStripMenuItemRecordsNumberOfOppositions = new ToolStripMenuItem();
 		toolStripMenuItemRecordsNumberOfObservations = new ToolStripMenuItem();
 		toolStripMenuItemRecordsRmsResidual = new ToolStripMenuItem();
-		toolStripMenuItemRecords = new ToolStripMenuItem();
 		toolStripSplitButtonTopTenRecords = new ToolStripSplitButton();
+		toolStripMenuItemRecords = new ToolStripMenuItem();
 		toolStripMenuItemDistributions = new ToolStripMenuItem();
 		contextMenuFullCopyToClipboardOrbitalElements = new ContextMenuStrip(components);
 		toolStripMenuItemCopyToClipboardDerivedData = new ToolStripMenuItem();
@@ -152,10 +152,10 @@ partial class PlanetoidDbForm
 		toolStripMenuItemCopyToClipboardComputerName = new ToolStripMenuItem();
 		toolStripMenuItemCopyToClipboardFlags = new ToolStripMenuItem();
 		toolStripMenuItemCopyToClipboardDateOfTheLastObservation = new ToolStripMenuItem();
+		toolStripMenuItemCopyToClipboard = new ToolStripMenuItem();
 		toolStripMenuItemCopySpecificValuesInDesignationListView = new ToolStripMenuItem();
 		toolStripDropDownButtonCopyToClipboard = new ToolStripDropDownButton();
 		toolStripMenuItemCopySpecificValuesInDerivedDataListView = new ToolStripMenuItem();
-		toolStripMenuItemCopyToClipboard = new ToolStripMenuItem();
 		menuStrip = new MenuStrip();
 		contextMenuSystemTools = new ContextMenuStrip(components);
 		toolStripMenuItemExecuteDoubleBuffering = new ToolStripMenuItem();
@@ -179,46 +179,56 @@ partial class PlanetoidDbForm
 		toolStripSeparator13 = new ToolStripSeparator();
 		toolStripMenuItemRestart = new ToolStripMenuItem();
 		toolStripMenuItemExit = new ToolStripMenuItem();
+		toolStripMenuItemDatabaseInformation = new ToolStripMenuItem();
 		toolStripMenuItemEdit = new ToolStripMenuItem();
 		toolStripMenuItemCopyRawLine2 = new ToolStripMenuItem();
 		toolStripSeparator27 = new ToolStripSeparator();
 		toolStripMenuItemSearch = new ToolStripMenuItem();
 		toolStripMenuItemNavigation = new ToolStripMenuItem();
-		toolStripMenuItemRandomMinorPlanet = new ToolStripMenuItem();
+		toolStripMenuItemFilter = new ToolStripMenuItem();
+		toolStripMenuItemFilterEdit = new ToolStripMenuItem();
+		toolStripMenuItemFilterResetToDefault = new ToolStripMenuItem();
 		toolStripSeparatorNavigation1 = new ToolStripSeparator();
 		toolStripMenuItemNavigateToTheBeginning = new ToolStripMenuItem();
 		toolStripMenuItemNavigateToThePreviousData = new ToolStripMenuItem();
 		toolStripMenuItemNavigateToTheNextData = new ToolStripMenuItem();
 		toolStripMenuItemNavigateToTheEnd = new ToolStripMenuItem();
+		toolStripMenuItemRandomMinorPlanet = new ToolStripMenuItem();
 		toolStripSeparator11 = new ToolStripSeparator();
 		toolStripMenuItemListReadableDesignations = new ToolStripMenuItem();
-		toolStripMenuItemTools = new ToolStripMenuItem();
-		toolStripMenuItemGroupDataAndStatistics = new ToolStripMenuItem();
-		toolStripMenuItemDatabaseInformation = new ToolStripMenuItem();
-		toolStripMenuItemDataDecoders = new ToolStripMenuItem();
-		toolStripMenuItemDataDecoderReadableDesignation = new ToolStripMenuItem();
-		toolStripMenuItemDataDecoderEpoch = new ToolStripMenuItem();
-		toolStripMenuItemDataDecoderReference = new ToolStripMenuItem();
-		toolStripMenuItemDataDecoder4HexDigitFlags = new ToolStripMenuItem();
-		toolStripMenuItemDataDecoderDateOfLastObservation = new ToolStripMenuItem();
+		menuItemDataAndStatistics = new ToolStripMenuItem();
 		toolStripMenuItemTableMode = new ToolStripMenuItem();
+		toolStripMenuItemAverageAsteroid = new ToolStripMenuItem();
 		toolStripSeparator20 = new ToolStripSeparator();
 		toolStripMenuItemScatterPlots = new ToolStripMenuItem();
 		toolStripMenuItemAEIDiagram3D = new ToolStripMenuItem();
-		toolStripMenuItemGroupOrbitalAnalysis = new ToolStripMenuItem();
-		toolStripMenuItemFilter = new ToolStripMenuItem();
-		toolStripMenuItemFilterEdit = new ToolStripMenuItem();
-		toolStripMenuItemFilterResetToDefault = new ToolStripMenuItem();
-		toolStripMenuItemDerivedOrbitElements = new ToolStripMenuItem();
-		toolStripMenuItemOrbitElementsGrouping = new ToolStripMenuItem();
-		toolStripMenuItemAsteroidFamiliesDetection = new ToolStripMenuItem();
-		toolStripMenuItemOrbit = new ToolStripMenuItem();
+		toolStripMenuItemObservations = new ToolStripMenuItem();
+		toolStripMenuItemEphemerides = new ToolStripMenuItem();
+		toolStripMenuItemObservationLogs = new ToolStripMenuItem();
+		toolStripMenuItemBulkObservationsDataDownloader = new ToolStripMenuItem();
+		toolStripMenuItemObservatoryCodes = new ToolStripMenuItem();
+		toolStripSeparator32 = new ToolStripSeparator();
+		toolStripMenuItemPlanetaryInformation = new ToolStripMenuItem();
+		toolStripMenuItemWorldMap = new ToolStripMenuItem();
+		toolStripMenuItemCoordinateTransformation = new ToolStripMenuItem();
+		toolStripMenuItemDistanceConversion = new ToolStripMenuItem();
+		toolStripMenuItemAngleMeasureConversion = new ToolStripMenuItem();
+		menuItemOrbitalDynamicsAndMetrics = new ToolStripMenuItem();
+		toolStripMenuItemOrbitVisualization = new ToolStripMenuItem();
 		contextMenuOrbit = new ContextMenuStrip(components);
 		toolStripMenuItemOrbit2DTopView = new ToolStripMenuItem();
 		toolStripMenuItemOrbit2DSideView = new ToolStripMenuItem();
 		toolStripMenuItemOrbit3DView = new ToolStripMenuItem();
 		toolStripMenuItemOrrery = new ToolStripMenuItem();
-		toolStripMenuItemGroupProximityMetrics = new ToolStripMenuItem();
+		toolStripMenuItemOrbitalResonances = new ToolStripMenuItem();
+		toolStripMenuItemOrbitalResonancesOfOneMinorPlanet = new ToolStripMenuItem();
+		toolStripMenuItemOrbitalResonancesOfAllMinorPlanets = new ToolStripMenuItem();
+		toolStripMenuItemTisserandParameters = new ToolStripMenuItem();
+		toolStripMenuItemTisserandParameterOfOneMinorPlanet = new ToolStripMenuItem();
+		toolStripMenuItemTisserandParametersOfAllMinorPlanets = new ToolStripMenuItem();
+		toolStripMenuItemEncounterVelocities = new ToolStripMenuItem();
+		toolStripMenuItemEncounterVelocityOfOneMinorPlanet = new ToolStripMenuItem();
+		toolStripMenuItemEncounterVelocitiesOfAllMinorPlanets = new ToolStripMenuItem();
 		toolStripMenuItemMoids = new ToolStripMenuItem();
 		toolStripMenuItemMoidsOfOneMinorPlanet = new ToolStripMenuItem();
 		toolStripMenuItemMoidsOfAllMinorPlanets = new ToolStripMenuItem();
@@ -228,30 +238,17 @@ partial class PlanetoidDbForm
 		toolStripMenuItemMaxoidsOfAllMinorPlanets = new ToolStripMenuItem();
 		toolStripMenuItemMaxoidsRelativeToMinorPlanets = new ToolStripMenuItem();
 		toolStripMenuItemMoidsAndMaxoidsOfOneMinorPlanet = new ToolStripMenuItem();
+		toolStripMenuItemDerivedOrbitElements = new ToolStripMenuItem();
+		toolStripMenuItemAsteroidFamiliesDetection = new ToolStripMenuItem();
+		toolStripMenuItemOrbitElementsGrouping = new ToolStripMenuItem();
 		toolStripMenuItemGeometricAlbedoAdjustedDiameter = new ToolStripMenuItem();
-		toolStripMenuItemGroupDynamics = new ToolStripMenuItem();
-		toolStripMenuItemOrbitalResonances = new ToolStripMenuItem();
-		toolStripMenuItemOrbitalResonancesOfOneMinorPlanet = new ToolStripMenuItem();
-		toolStripMenuItemOrbitalResonancesOfAllMinorPlanets = new ToolStripMenuItem();
-		toolStripMenuItemTisserandParameters = new ToolStripMenuItem();
-		toolStripMenuItemTisserandParameterOfOneMinorPlanet = new ToolStripMenuItem();
-		toolStripMenuItemTisserandParametersOfAllMinorPlanets = new ToolStripMenuItem();
-		toolStripMenuItemEncounterVelocitys = new ToolStripMenuItem();
-		toolStripMenuItemEncounterVelocityOfOneMinorPlanet = new ToolStripMenuItem();
-		toolStripMenuItemEncounterVelocitysOfAllMinorPlanets = new ToolStripMenuItem();
-		toolStripMenuItemGroupEphemeridesAndPositions = new ToolStripMenuItem();
-		toolStripMenuItemEphemerides = new ToolStripMenuItem();
-		toolStripMenuItemPlanetaryInformation = new ToolStripMenuItem();
-		toolStripMenuItemAverageAsteroid = new ToolStripMenuItem();
-		toolStripMenuItemWorldMap = new ToolStripMenuItem();
-		toolStripMenuItemCoordinateTransformation = new ToolStripMenuItem();
-		toolStripMenuItemAngleMeasureConversion = new ToolStripMenuItem();
-		toolStripMenuItemDistanceConversion = new ToolStripMenuItem();
-		toolStripMenuItemObservations = new ToolStripMenuItem();
-		toolStripMenuItemObservationLogs = new ToolStripMenuItem();
-		toolStripMenuItemBulkObservationsDataDownloader = new ToolStripMenuItem();
-		toolStripMenuItemObservatoryCodes = new ToolStripMenuItem();
-		toolStripSeparatorToolsGroups = new ToolStripSeparator();
+		toolStripMenuItemUtilities = new ToolStripMenuItem();
+		toolStripMenuItemDataDecoders = new ToolStripMenuItem();
+		toolStripMenuItemDataDecoderReadableDesignation = new ToolStripMenuItem();
+		toolStripMenuItemDataDecoderEpoch = new ToolStripMenuItem();
+		toolStripMenuItemDataDecoderReference = new ToolStripMenuItem();
+		toolStripMenuItemDataDecoder4HexDigitFlags = new ToolStripMenuItem();
+		toolStripMenuItemDataDecoderDateOfLastObservation = new ToolStripMenuItem();
 		toolStripMenuItemTerminology = new ToolStripMenuItem();
 		toolStripMenuItemCalculator = new ToolStripMenuItem();
 		toolStripMenuItemExternalDataPages = new ToolStripMenuItem();
@@ -268,7 +265,7 @@ partial class PlanetoidDbForm
 		toolStripMenuItemExternalDataPageMp3CAtLe = new ToolStripMenuItem();
 		toolStripSeparator24 = new ToolStripSeparator();
 		toolStripMenuItemAllExternalDataPages = new ToolStripMenuItem();
-		toolStripDropDownButtonExternalDataPages = new ToolStripDropDownButton();
+		toolStripMenuItemExternalDataPages2 = new ToolStripMenuItem();
 		toolStripMenuItemUpdate = new ToolStripMenuItem();
 		toolStripMenuItemCheckDatabaseUpdates = new ToolStripMenuItem();
 		contextMenuCheckDatabaseUpdates = new ContextMenuStrip(components);
@@ -362,9 +359,9 @@ partial class PlanetoidDbForm
 		toolStripMenuItemOpenMPCORBWebsite = new ToolStripMenuItem();
 		toolStripSeparator2 = new ToolStripSeparator();
 		toolStripMenuItemLogViewer = new ToolStripMenuItem();
-		toolStripDropDownButtonOrbit = new ToolStripDropDownButton();
-		toolStripMenuItemExternalDataPages2 = new ToolStripMenuItem();
+		toolStripDropDownButtonExternalDataPages = new ToolStripDropDownButton();
 		toolStripDropDownButtonCheckUpdates = new ToolStripDropDownButton();
+		toolStripDropDownButtonOrbit = new ToolStripDropDownButton();
 		toolStripSeparator10 = new ToolStripSeparator();
 		toolStripSeparator16 = new ToolStripSeparator();
 		toolStripSeparator12 = new ToolStripSeparator();
@@ -744,7 +741,7 @@ partial class PlanetoidDbForm
 		contextMenuNavigationStep.Font = new Font("Segoe UI", 9F);
 		contextMenuNavigationStep.Items.AddRange(new ToolStripItem[] { toolStripMenuItemNavigateStep10, toolStripMenuItemNavigateStep100, toolStripMenuItemNavigateStep1000, toolStripMenuItemNavigateStep10000, toolStripMenuItemNavigateStep100000 });
 		contextMenuNavigationStep.Name = "contextMenu";
-		contextMenuNavigationStep.OwnerItem = toolStripSplitButtonStepForward;
+		contextMenuNavigationStep.OwnerItem = toolStripMenuItemNavigateSomeDataForward;
 		contextMenuNavigationStep.ShowCheckMargin = true;
 		contextMenuNavigationStep.ShowImageMargin = false;
 		contextMenuNavigationStep.Size = new Size(111, 114);
@@ -833,6 +830,23 @@ partial class PlanetoidDbForm
 		toolStripMenuItemNavigateStep100000.MouseLeave += (this.Control_Leave);
 		toolStripMenuItemNavigateStep100000.MouseMove += (this.MouseCoordinates_MouseMove);
 		// 
+		// toolStripSplitButtonStepForward
+		// 
+		toolStripSplitButtonStepForward.AccessibleDescription = "Navigates some data forward";
+		toolStripSplitButtonStepForward.AccessibleName = "Navigate some data forward";
+		toolStripSplitButtonStepForward.AccessibleRole = AccessibleRole.SplitButton;
+		toolStripSplitButtonStepForward.DisplayStyle = ToolStripItemDisplayStyle.Image;
+		toolStripSplitButtonStepForward.DropDown = contextMenuNavigationStep;
+		toolStripSplitButtonStepForward.Image = FatcowIcons16px.fatcow_control_fastforward_blue_16px;
+		toolStripSplitButtonStepForward.ImageTransparentColor = Color.Magenta;
+		toolStripSplitButtonStepForward.Name = "toolStripSplitButtonStepForward";
+		toolStripSplitButtonStepForward.Size = new Size(32, 22);
+		toolStripSplitButtonStepForward.Text = "Navigate some data forward";
+		toolStripSplitButtonStepForward.ButtonClick += (this.NavigateSomeDataForward_Click);
+		toolStripSplitButtonStepForward.MouseEnter += (this.Control_Enter);
+		toolStripSplitButtonStepForward.MouseLeave += (this.Control_Leave);
+		toolStripSplitButtonStepForward.MouseMove += (this.MouseCoordinates_MouseMove);
+		// 
 		// toolStripSplitButtonStepBackward
 		// 
 		toolStripSplitButtonStepBackward.AccessibleDescription = "Navigates some data backward";
@@ -881,23 +895,6 @@ partial class PlanetoidDbForm
 		toolStripMenuItemNavigateSomeDataForward.MouseEnter += (this.Control_Enter);
 		toolStripMenuItemNavigateSomeDataForward.MouseLeave += (this.Control_Leave);
 		toolStripMenuItemNavigateSomeDataForward.MouseMove += (this.MouseCoordinates_MouseMove);
-		// 
-		// toolStripSplitButtonStepForward
-		// 
-		toolStripSplitButtonStepForward.AccessibleDescription = "Navigates some data forward";
-		toolStripSplitButtonStepForward.AccessibleName = "Navigate some data forward";
-		toolStripSplitButtonStepForward.AccessibleRole = AccessibleRole.SplitButton;
-		toolStripSplitButtonStepForward.DisplayStyle = ToolStripItemDisplayStyle.Image;
-		toolStripSplitButtonStepForward.DropDown = contextMenuNavigationStep;
-		toolStripSplitButtonStepForward.Image = FatcowIcons16px.fatcow_control_fastforward_blue_16px;
-		toolStripSplitButtonStepForward.ImageTransparentColor = Color.Magenta;
-		toolStripSplitButtonStepForward.Name = "toolStripSplitButtonStepForward";
-		toolStripSplitButtonStepForward.Size = new Size(32, 22);
-		toolStripSplitButtonStepForward.Text = "Navigate some data forward";
-		toolStripSplitButtonStepForward.ButtonClick += (this.NavigateSomeDataForward_Click);
-		toolStripSplitButtonStepForward.MouseEnter += (this.Control_Enter);
-		toolStripSplitButtonStepForward.MouseLeave += (this.Control_Leave);
-		toolStripSplitButtonStepForward.MouseMove += (this.MouseCoordinates_MouseMove);
 		// 
 		// toolStripSplitButtonHistoryBack
 		// 
@@ -1012,7 +1009,7 @@ partial class PlanetoidDbForm
 		tableLayoutPanelMpcorbData.RowStyles.Add(new RowStyle());
 		tableLayoutPanelMpcorbData.RowStyles.Add(new RowStyle());
 		tableLayoutPanelMpcorbData.RowStyles.Add(new RowStyle());
-		tableLayoutPanelMpcorbData.Size = new Size(709, 223);
+		tableLayoutPanelMpcorbData.Size = new Size(965, 223);
 		tableLayoutPanelMpcorbData.TabIndex = 0;
 		tableLayoutPanelMpcorbData.TabStop = true;
 		tableLayoutPanelMpcorbData.Enter += (this.Control_Enter);
@@ -1342,7 +1339,7 @@ partial class PlanetoidDbForm
 		labelMpcorbSlopeParameterData.Location = new Point(545, 20);
 		labelMpcorbSlopeParameterData.Margin = new Padding(0);
 		labelMpcorbSlopeParameterData.Name = "labelMpcorbSlopeParameterData";
-		labelMpcorbSlopeParameterData.Size = new Size(164, 20);
+		labelMpcorbSlopeParameterData.Size = new Size(420, 20);
 		labelMpcorbSlopeParameterData.TabIndex = 23;
 		labelMpcorbSlopeParameterData.ToolTipValues.Description = "Shows the information of \"Slope parameter, G\".\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelMpcorbSlopeParameterData.ToolTipValues.EnableToolTips = true;
@@ -1368,7 +1365,7 @@ partial class PlanetoidDbForm
 		labelMpcorbReferenceData.Location = new Point(545, 40);
 		labelMpcorbReferenceData.Margin = new Padding(0);
 		labelMpcorbReferenceData.Name = "labelMpcorbReferenceData";
-		labelMpcorbReferenceData.Size = new Size(164, 20);
+		labelMpcorbReferenceData.Size = new Size(420, 20);
 		labelMpcorbReferenceData.TabIndex = 25;
 		labelMpcorbReferenceData.ToolTipValues.Description = "Shows the information of \"Reference\".\r\nClick to decode or double-click/right-click to copy the information to the clipboard.";
 		labelMpcorbReferenceData.ToolTipValues.EnableToolTips = true;
@@ -1394,7 +1391,7 @@ partial class PlanetoidDbForm
 		labelMpcorbNumberOfOppositionsData.Location = new Point(545, 60);
 		labelMpcorbNumberOfOppositionsData.Margin = new Padding(0);
 		labelMpcorbNumberOfOppositionsData.Name = "labelMpcorbNumberOfOppositionsData";
-		labelMpcorbNumberOfOppositionsData.Size = new Size(164, 20);
+		labelMpcorbNumberOfOppositionsData.Size = new Size(420, 20);
 		labelMpcorbNumberOfOppositionsData.TabIndex = 27;
 		labelMpcorbNumberOfOppositionsData.ToolTipValues.Description = "Shows the information of \"Number of oppositions\".\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelMpcorbNumberOfOppositionsData.ToolTipValues.EnableToolTips = true;
@@ -1419,7 +1416,7 @@ partial class PlanetoidDbForm
 		labelMpcorbNumberOfObservationsData.Location = new Point(545, 80);
 		labelMpcorbNumberOfObservationsData.Margin = new Padding(0);
 		labelMpcorbNumberOfObservationsData.Name = "labelMpcorbNumberOfObservationsData";
-		labelMpcorbNumberOfObservationsData.Size = new Size(164, 20);
+		labelMpcorbNumberOfObservationsData.Size = new Size(420, 20);
 		labelMpcorbNumberOfObservationsData.TabIndex = 29;
 		labelMpcorbNumberOfObservationsData.ToolTipValues.Description = "Shows the information of \"Number of observations\".\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelMpcorbNumberOfObservationsData.ToolTipValues.EnableToolTips = true;
@@ -1444,7 +1441,7 @@ partial class PlanetoidDbForm
 		labelMpcorbObservationSpanData.Location = new Point(545, 100);
 		labelMpcorbObservationSpanData.Margin = new Padding(0);
 		labelMpcorbObservationSpanData.Name = "labelMpcorbObservationSpanData";
-		labelMpcorbObservationSpanData.Size = new Size(164, 20);
+		labelMpcorbObservationSpanData.Size = new Size(420, 20);
 		labelMpcorbObservationSpanData.TabIndex = 31;
 		labelMpcorbObservationSpanData.ToolTipValues.Description = "Shows the information of \"Observation span\".\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelMpcorbObservationSpanData.ToolTipValues.EnableToolTips = true;
@@ -1469,7 +1466,7 @@ partial class PlanetoidDbForm
 		labelMpcorbRmsResidualData.Location = new Point(545, 120);
 		labelMpcorbRmsResidualData.Margin = new Padding(0);
 		labelMpcorbRmsResidualData.Name = "labelMpcorbRmsResidualData";
-		labelMpcorbRmsResidualData.Size = new Size(164, 20);
+		labelMpcorbRmsResidualData.Size = new Size(420, 20);
 		labelMpcorbRmsResidualData.TabIndex = 33;
 		labelMpcorbRmsResidualData.ToolTipValues.Description = "Shows the information of \"r.m.s residual (\")\".\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelMpcorbRmsResidualData.ToolTipValues.EnableToolTips = true;
@@ -1494,7 +1491,7 @@ partial class PlanetoidDbForm
 		labelMpcorbComputerNameData.Location = new Point(545, 140);
 		labelMpcorbComputerNameData.Margin = new Padding(0);
 		labelMpcorbComputerNameData.Name = "labelMpcorbComputerNameData";
-		labelMpcorbComputerNameData.Size = new Size(164, 20);
+		labelMpcorbComputerNameData.Size = new Size(420, 20);
 		labelMpcorbComputerNameData.TabIndex = 35;
 		labelMpcorbComputerNameData.ToolTipValues.Description = "Shows the information of \"Computer name\".\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelMpcorbComputerNameData.ToolTipValues.EnableToolTips = true;
@@ -1520,7 +1517,7 @@ partial class PlanetoidDbForm
 		labelMpcorbFlagsData.Location = new Point(545, 160);
 		labelMpcorbFlagsData.Margin = new Padding(0);
 		labelMpcorbFlagsData.Name = "labelMpcorbFlagsData";
-		labelMpcorbFlagsData.Size = new Size(164, 20);
+		labelMpcorbFlagsData.Size = new Size(420, 20);
 		labelMpcorbFlagsData.TabIndex = 37;
 		labelMpcorbFlagsData.ToolTipValues.Description = "Shows the information of \"4-hexdigit flags\".\r\nDouble-click to decode or right-click to copy the information to the clipboard.";
 		labelMpcorbFlagsData.ToolTipValues.EnableToolTips = true;
@@ -1547,7 +1544,7 @@ partial class PlanetoidDbForm
 		labelMpcorbDateLastObservationData.Location = new Point(545, 180);
 		labelMpcorbDateLastObservationData.Margin = new Padding(0);
 		labelMpcorbDateLastObservationData.Name = "labelMpcorbDateLastObservationData";
-		labelMpcorbDateLastObservationData.Size = new Size(164, 20);
+		labelMpcorbDateLastObservationData.Size = new Size(420, 20);
 		labelMpcorbDateLastObservationData.TabIndex = 39;
 		labelMpcorbDateLastObservationData.ToolTipValues.Description = "Shows the information of \"Date of last observation\".\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelMpcorbDateLastObservationData.ToolTipValues.EnableToolTips = true;
@@ -2154,7 +2151,7 @@ partial class PlanetoidDbForm
 		contextMenuTopTenRecords.Font = new Font("Segoe UI", 9F);
 		contextMenuTopTenRecords.Items.AddRange(new ToolStripItem[] { toolStripMenuItemRecordsMeanAnomalyAtTheEpoch, toolStripMenuItemRecordsArgumentOfThePerihelion, toolStripMenuItemRecordsLongitudeOfTheAscendingNode, toolStripMenuItemRecordsInclination, toolStripMenuItemRecordsOrbitalEccentricity, toolStripMenuItemRecordsMeanDailyMotion, toolStripMenuItemRecordsSemiMajorAxis, toolStripMenuItemRecordsAbsoluteMagnitude, toolStripMenuItemRecordsSlopeParameter, toolStripMenuItemRecordsNumberOfOppositions, toolStripMenuItemRecordsNumberOfObservations, toolStripMenuItemRecordsRmsResidual });
 		contextMenuTopTenRecords.Name = "contextMenuTopTenRecords";
-		contextMenuTopTenRecords.OwnerItem = toolStripSplitButtonTopTenRecords;
+		contextMenuTopTenRecords.OwnerItem = toolStripMenuItemRecords;
 		contextMenuTopTenRecords.Size = new Size(250, 268);
 		contextMenuTopTenRecords.TabStop = true;
 		contextMenuTopTenRecords.Text = "Top ten records";
@@ -2344,23 +2341,6 @@ partial class PlanetoidDbForm
 		toolStripMenuItemRecordsRmsResidual.MouseLeave += (this.Control_Leave);
 		toolStripMenuItemRecordsRmsResidual.MouseMove += (this.MouseCoordinates_MouseMove);
 		// 
-		// toolStripMenuItemRecords
-		// 
-		toolStripMenuItemRecords.AccessibleDescription = "Shows some top ten records";
-		toolStripMenuItemRecords.AccessibleName = "Top ten records";
-		toolStripMenuItemRecords.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemRecords.AutoToolTip = true;
-		toolStripMenuItemRecords.DropDown = contextMenuTopTenRecords;
-		toolStripMenuItemRecords.Image = FatcowIcons16px.fatcow_text_list_numbers_16px;
-		toolStripMenuItemRecords.Name = "toolStripMenuItemRecords";
-		toolStripMenuItemRecords.ShortcutKeyDisplayString = "Strg+R";
-		toolStripMenuItemRecords.Size = new Size(198, 22);
-		toolStripMenuItemRecords.Text = "Top ten &records";
-		toolStripMenuItemRecords.Click += (this.Records_Click);
-		toolStripMenuItemRecords.MouseEnter += (this.Control_Enter);
-		toolStripMenuItemRecords.MouseLeave += (this.Control_Leave);
-		toolStripMenuItemRecords.MouseMove += (this.MouseCoordinates_MouseMove);
-		// 
 		// toolStripSplitButtonTopTenRecords
 		// 
 		toolStripSplitButtonTopTenRecords.AccessibleDescription = "Shows the top ten records";
@@ -2378,6 +2358,23 @@ partial class PlanetoidDbForm
 		toolStripSplitButtonTopTenRecords.MouseLeave += (this.Control_Leave);
 		toolStripSplitButtonTopTenRecords.MouseMove += (this.MouseCoordinates_MouseMove);
 		// 
+		// toolStripMenuItemRecords
+		// 
+		toolStripMenuItemRecords.AccessibleDescription = "Shows some top ten records";
+		toolStripMenuItemRecords.AccessibleName = "Top ten records";
+		toolStripMenuItemRecords.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemRecords.AutoToolTip = true;
+		toolStripMenuItemRecords.DropDown = contextMenuTopTenRecords;
+		toolStripMenuItemRecords.Image = FatcowIcons16px.fatcow_text_list_numbers_16px;
+		toolStripMenuItemRecords.Name = "toolStripMenuItemRecords";
+		toolStripMenuItemRecords.ShortcutKeyDisplayString = "";
+		toolStripMenuItemRecords.Size = new Size(180, 22);
+		toolStripMenuItemRecords.Text = "Top ten &records";
+		toolStripMenuItemRecords.Click += (this.Records_Click);
+		toolStripMenuItemRecords.MouseEnter += (this.Control_Enter);
+		toolStripMenuItemRecords.MouseLeave += (this.Control_Leave);
+		toolStripMenuItemRecords.MouseMove += (this.MouseCoordinates_MouseMove);
+		// 
 		// toolStripMenuItemDistributions
 		// 
 		toolStripMenuItemDistributions.AccessibleDescription = "Shows some histograms";
@@ -2387,7 +2384,7 @@ partial class PlanetoidDbForm
 		toolStripMenuItemDistributions.Enabled = false;
 		toolStripMenuItemDistributions.Image = FatcowIcons16px.fatcow_chart_bar_16px;
 		toolStripMenuItemDistributions.Name = "toolStripMenuItemDistributions";
-		toolStripMenuItemDistributions.Size = new Size(198, 22);
+		toolStripMenuItemDistributions.Size = new Size(180, 22);
 		toolStripMenuItemDistributions.Text = "&Distributions";
 		toolStripMenuItemDistributions.Click += (this.Distributions_Click);
 		toolStripMenuItemDistributions.MouseEnter += (this.Control_Enter);
@@ -2403,7 +2400,7 @@ partial class PlanetoidDbForm
 		contextMenuFullCopyToClipboardOrbitalElements.Font = new Font("Segoe UI", 9F);
 		contextMenuFullCopyToClipboardOrbitalElements.Items.AddRange(new ToolStripItem[] { toolStripMenuItemCopyToClipboardDerivedData, toolStripMenuItemCopyToClipboardIndexNumber, toolStripMenuItemCopyToClipboardReadableDesignation, toolStripMenuItemCopyToClipboardEpoch, toolStripMenuItemCopyToClipboardMeanAnomalyAtTheEpoch, toolStripMenuItemCopyToClipboardArgumentOfThePerihelion, toolStripMenuItemCopyToClipboardLongitudeOfTheAscendingNode, toolStripMenuItemCopyToClipboardInclinationToTheEcliptic, toolStripMenuItemCopyToClipboardOrbitalEccentricity, toolStripMenuItemCopyToClipboardMeanDailyMotion, toolStripMenuItemCopyToClipboardSemiMajorAxis, toolStripMenuItemCopyToClipboardAbsoluteMagnitude, toolStripMenuItemCopyToClipboardSlopeParameter, toolStripMenuItemCopyToClipboardReference, toolStripMenuItemCopyToClipboardNumberOfOppositions, toolStripMenuItemCopyToClipboardNumberOfObservations, toolStripMenuItemCopyToClipboardObservationSpan, toolStripMenuItemCopyToClipboardRmsResidual, toolStripMenuItemCopyToClipboardComputerName, toolStripMenuItemCopyToClipboardFlags, toolStripMenuItemCopyToClipboardDateOfTheLastObservation });
 		contextMenuFullCopyToClipboardOrbitalElements.Name = "Context menu of copying to clipboard of orbital elements";
-		contextMenuFullCopyToClipboardOrbitalElements.OwnerItem = toolStripMenuItemCopyToClipboard;
+		contextMenuFullCopyToClipboardOrbitalElements.OwnerItem = toolStripMenuItemCopySpecificValuesInDerivedDataListView;
 		contextMenuFullCopyToClipboardOrbitalElements.Size = new Size(309, 466);
 		contextMenuFullCopyToClipboardOrbitalElements.TabStop = true;
 		contextMenuFullCopyToClipboardOrbitalElements.Text = "Copy to clipboard";
@@ -2744,6 +2741,21 @@ partial class PlanetoidDbForm
 		toolStripMenuItemCopyToClipboardDateOfTheLastObservation.MouseLeave += (this.Control_Leave);
 		toolStripMenuItemCopyToClipboardDateOfTheLastObservation.MouseMove += (this.MouseCoordinates_MouseMove);
 		// 
+		// toolStripMenuItemCopyToClipboard
+		// 
+		toolStripMenuItemCopyToClipboard.AccessibleDescription = "Copies specific values to clipboard";
+		toolStripMenuItemCopyToClipboard.AccessibleName = "Copy specific values to clipboard";
+		toolStripMenuItemCopyToClipboard.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemCopyToClipboard.AutoToolTip = true;
+		toolStripMenuItemCopyToClipboard.DropDown = contextMenuFullCopyToClipboardOrbitalElements;
+		toolStripMenuItemCopyToClipboard.Image = FatcowIcons16px.fatcow_page_white_copy_16px;
+		toolStripMenuItemCopyToClipboard.Name = "toolStripMenuItemCopyToClipboard";
+		toolStripMenuItemCopyToClipboard.Size = new Size(230, 22);
+		toolStripMenuItemCopyToClipboard.Text = "Copy specific &values";
+		toolStripMenuItemCopyToClipboard.MouseEnter += (this.Control_Enter);
+		toolStripMenuItemCopyToClipboard.MouseLeave += (this.Control_Leave);
+		toolStripMenuItemCopyToClipboard.MouseMove += (this.MouseCoordinates_MouseMove);
+		// 
 		// toolStripMenuItemCopySpecificValuesInDesignationListView
 		// 
 		toolStripMenuItemCopySpecificValuesInDesignationListView.AccessibleDescription = "Copies specific values";
@@ -2790,24 +2802,9 @@ partial class PlanetoidDbForm
 		toolStripMenuItemCopySpecificValuesInDerivedDataListView.MouseLeave += (this.Control_Leave);
 		toolStripMenuItemCopySpecificValuesInDerivedDataListView.MouseMove += (this.MouseCoordinates_MouseMove);
 		// 
-		// toolStripMenuItemCopyToClipboard
-		// 
-		toolStripMenuItemCopyToClipboard.AccessibleDescription = "Copies specific values to clipboard";
-		toolStripMenuItemCopyToClipboard.AccessibleName = "Copy specific values to clipboard";
-		toolStripMenuItemCopyToClipboard.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemCopyToClipboard.AutoToolTip = true;
-		toolStripMenuItemCopyToClipboard.DropDown = contextMenuFullCopyToClipboardOrbitalElements;
-		toolStripMenuItemCopyToClipboard.Image = FatcowIcons16px.fatcow_page_white_copy_16px;
-		toolStripMenuItemCopyToClipboard.Name = "toolStripMenuItemCopyToClipboard";
-		toolStripMenuItemCopyToClipboard.Size = new Size(230, 22);
-		toolStripMenuItemCopyToClipboard.Text = "Copy specific &values";
-		toolStripMenuItemCopyToClipboard.MouseEnter += (this.Control_Enter);
-		toolStripMenuItemCopyToClipboard.MouseLeave += (this.Control_Leave);
-		toolStripMenuItemCopyToClipboard.MouseMove += (this.MouseCoordinates_MouseMove);
-		// 
 		// menuStrip
 		// 
-		menuStrip.AccessibleDescription = "Shows the menubar";
+		menuStrip.AccessibleDescription = "Shows the menu bar";
 		menuStrip.AccessibleName = "Menu";
 		menuStrip.AccessibleRole = AccessibleRole.MenuBar;
 		menuStrip.AllowClickThrough = true;
@@ -2817,12 +2814,12 @@ partial class PlanetoidDbForm
 		menuStrip.Font = new Font("Segoe UI", 9F);
 		menuStrip.GripMargin = new Padding(3);
 		menuStrip.GripStyle = ToolStripGripStyle.Visible;
-		menuStrip.Items.AddRange(new ToolStripItem[] { toolStripMenuItemFile, toolStripMenuItemEdit, toolStripMenuItemNavigation, toolStripMenuItemTools, toolStripMenuItemExternalDataPages, toolStripMenuItemUpdate, toolStripMenuItemOptions, toolStripMenuItemBookmark, toolStripMenuItemWindow, toolStripMenuItemHelp });
+		menuStrip.Items.AddRange(new ToolStripItem[] { toolStripMenuItemFile, toolStripMenuItemEdit, toolStripMenuItemNavigation, menuItemDataAndStatistics, toolStripMenuItemObservations, menuItemOrbitalDynamicsAndMetrics, toolStripMenuItemUtilities, toolStripMenuItemExternalDataPages, toolStripMenuItemUpdate, toolStripMenuItemOptions, toolStripMenuItemBookmark, toolStripMenuItemWindow, toolStripMenuItemHelp });
 		menuStrip.Location = new Point(0, 0);
 		menuStrip.Name = "menuStrip";
 		menuStrip.Padding = new Padding(0);
 		menuStrip.ShowItemToolTips = true;
-		menuStrip.Size = new Size(1008, 24);
+		menuStrip.Size = new Size(1264, 24);
 		menuStrip.TabIndex = 0;
 		menuStrip.TabStop = true;
 		menuStrip.Text = "Menu";
@@ -3010,7 +3007,7 @@ partial class PlanetoidDbForm
 		toolStripMenuItemFile.AccessibleName = "File";
 		toolStripMenuItemFile.AccessibleRole = AccessibleRole.MenuItem;
 		toolStripMenuItemFile.AutoToolTip = true;
-		toolStripMenuItemFile.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemOpenLocalMpcorbDat, toolStripMenuItemExportDataEntry, toolStripMenuItemPrint, toolStripSeparatorFile1, toolStripMenuItemArchive, toolStripMenuItemCompareDatabases, toolStripSeparator13, toolStripMenuItemRestart, toolStripMenuItemExit });
+		toolStripMenuItemFile.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemOpenLocalMpcorbDat, toolStripMenuItemExportDataEntry, toolStripMenuItemPrint, toolStripSeparatorFile1, toolStripMenuItemDatabaseInformation, toolStripMenuItemArchive, toolStripMenuItemCompareDatabases, toolStripSeparator13, toolStripMenuItemRestart, toolStripMenuItemExit });
 		toolStripMenuItemFile.Name = "toolStripMenuItemFile";
 		toolStripMenuItemFile.Size = new Size(37, 24);
 		toolStripMenuItemFile.Text = "&File";
@@ -3146,6 +3143,21 @@ partial class PlanetoidDbForm
 		toolStripMenuItemExit.MouseLeave += (this.Control_Leave);
 		toolStripMenuItemExit.MouseMove += (this.MouseCoordinates_MouseMove);
 		// 
+		// toolStripMenuItemDatabaseInformation
+		// 
+		toolStripMenuItemDatabaseInformation.AccessibleDescription = "Shows the information of the MPCORB.DAT database";
+		toolStripMenuItemDatabaseInformation.AccessibleName = "Database information";
+		toolStripMenuItemDatabaseInformation.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemDatabaseInformation.AutoToolTip = true;
+		toolStripMenuItemDatabaseInformation.Image = FatcowIcons16px.fatcow_database_16px;
+		toolStripMenuItemDatabaseInformation.Name = "toolStripMenuItemDatabaseInformation";
+		toolStripMenuItemDatabaseInformation.Size = new Size(207, 22);
+		toolStripMenuItemDatabaseInformation.Text = "Database &information";
+		toolStripMenuItemDatabaseInformation.Click += (this.DatabaseInformation_Click);
+		toolStripMenuItemDatabaseInformation.MouseEnter += (this.Control_Enter);
+		toolStripMenuItemDatabaseInformation.MouseLeave += (this.Control_Leave);
+		toolStripMenuItemDatabaseInformation.MouseMove += (this.MouseCoordinates_MouseMove);
+		// 
 		// toolStripMenuItemEdit
 		// 
 		toolStripMenuItemEdit.AccessibleDescription = "Opens the menu \"Edit\"";
@@ -3207,7 +3219,7 @@ partial class PlanetoidDbForm
 		toolStripMenuItemNavigation.AccessibleName = "Navigation";
 		toolStripMenuItemNavigation.AccessibleRole = AccessibleRole.MenuItem;
 		toolStripMenuItemNavigation.AutoToolTip = true;
-		toolStripMenuItemNavigation.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemRandomMinorPlanet, toolStripSeparatorNavigation1, toolStripMenuItemNavigateToTheBeginning, toolStripMenuItemNavigateSomeDataBackward, toolStripMenuItemNavigateToThePreviousData, toolStripMenuItemNavigateToTheNextData, toolStripMenuItemNavigateSomeDataForward, toolStripMenuItemNavigateToTheEnd, toolStripSeparator11, toolStripMenuItemListReadableDesignations });
+		toolStripMenuItemNavigation.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemFilter, toolStripSeparatorNavigation1, toolStripMenuItemNavigateToTheBeginning, toolStripMenuItemNavigateSomeDataBackward, toolStripMenuItemNavigateToThePreviousData, toolStripMenuItemNavigateToTheNextData, toolStripMenuItemNavigateSomeDataForward, toolStripMenuItemNavigateToTheEnd, toolStripMenuItemRandomMinorPlanet, toolStripSeparator11, toolStripMenuItemListReadableDesignations });
 		toolStripMenuItemNavigation.Name = "toolStripMenuItemNavigation";
 		toolStripMenuItemNavigation.Size = new Size(77, 24);
 		toolStripMenuItemNavigation.Text = "&Navigation";
@@ -3215,20 +3227,51 @@ partial class PlanetoidDbForm
 		toolStripMenuItemNavigation.MouseLeave += (this.Control_Leave);
 		toolStripMenuItemNavigation.MouseMove += (this.MouseCoordinates_MouseMove);
 		// 
-		// toolStripMenuItemRandomMinorPlanet
+		// toolStripMenuItemFilter
 		// 
-		toolStripMenuItemRandomMinorPlanet.AccessibleDescription = "Loads a random minor planet";
-		toolStripMenuItemRandomMinorPlanet.AccessibleName = "Random minor planet";
-		toolStripMenuItemRandomMinorPlanet.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemRandomMinorPlanet.AutoToolTip = true;
-		toolStripMenuItemRandomMinorPlanet.Image = FatcowIcons16px.fatcow_dice_16px;
-		toolStripMenuItemRandomMinorPlanet.Name = "toolStripMenuItemRandomMinorPlanet";
-		toolStripMenuItemRandomMinorPlanet.Size = new Size(233, 22);
-		toolStripMenuItemRandomMinorPlanet.Text = "&Random minor planet";
-		toolStripMenuItemRandomMinorPlanet.Click += (this.LoadRandomMinorPlanet_Click);
-		toolStripMenuItemRandomMinorPlanet.MouseEnter += (this.Control_Enter);
-		toolStripMenuItemRandomMinorPlanet.MouseLeave += (this.Control_Leave);
-		toolStripMenuItemRandomMinorPlanet.MouseMove += (this.MouseCoordinates_MouseMove);
+		toolStripMenuItemFilter.AccessibleDescription = "Filters the orbital elements in several ranges";
+		toolStripMenuItemFilter.AccessibleName = "Filter";
+		toolStripMenuItemFilter.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemFilter.AutoToolTip = true;
+		toolStripMenuItemFilter.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemFilterEdit, toolStripMenuItemFilterResetToDefault });
+		toolStripMenuItemFilter.Image = FatcowIcons16px.fatcow_filter_16px;
+		toolStripMenuItemFilter.Name = "toolStripMenuItemFilter";
+		toolStripMenuItemFilter.Size = new Size(233, 22);
+		toolStripMenuItemFilter.Text = "Fil&ter";
+		toolStripMenuItemFilter.Click += (this.Filter_Click);
+		toolStripMenuItemFilter.MouseEnter += (this.Control_Enter);
+		toolStripMenuItemFilter.MouseLeave += (this.Control_Leave);
+		toolStripMenuItemFilter.MouseMove += (this.MouseCoordinates_MouseMove);
+		// 
+		// toolStripMenuItemFilterEdit
+		// 
+		toolStripMenuItemFilterEdit.AccessibleDescription = "Edits the filters of the orbital elements in several ranges";
+		toolStripMenuItemFilterEdit.AccessibleName = "Edit filter";
+		toolStripMenuItemFilterEdit.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemFilterEdit.AutoToolTip = true;
+		toolStripMenuItemFilterEdit.Image = FatcowIcons16px.fatcow_filter_advanced_16px;
+		toolStripMenuItemFilterEdit.Name = "toolStripMenuItemFilterEdit";
+		toolStripMenuItemFilterEdit.Size = new Size(156, 22);
+		toolStripMenuItemFilterEdit.Text = "&Edit filter";
+		toolStripMenuItemFilterEdit.Click += (this.Filter_Click);
+		toolStripMenuItemFilterEdit.MouseEnter += (this.Control_Enter);
+		toolStripMenuItemFilterEdit.MouseLeave += (this.Control_Leave);
+		toolStripMenuItemFilterEdit.MouseMove += (this.MouseCoordinates_MouseMove);
+		// 
+		// toolStripMenuItemFilterResetToDefault
+		// 
+		toolStripMenuItemFilterResetToDefault.AccessibleDescription = "Resets the filters of the orbital elements to the default ranges";
+		toolStripMenuItemFilterResetToDefault.AccessibleName = "Reset to default";
+		toolStripMenuItemFilterResetToDefault.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemFilterResetToDefault.AutoToolTip = true;
+		toolStripMenuItemFilterResetToDefault.Image = FatcowIcons16px.fatcow_filter_clear_16px;
+		toolStripMenuItemFilterResetToDefault.Name = "toolStripMenuItemFilterResetToDefault";
+		toolStripMenuItemFilterResetToDefault.Size = new Size(156, 22);
+		toolStripMenuItemFilterResetToDefault.Text = "&Reset to default";
+		toolStripMenuItemFilterResetToDefault.Click += (this.FilterReset_Click);
+		toolStripMenuItemFilterResetToDefault.MouseEnter += (this.Control_Enter);
+		toolStripMenuItemFilterResetToDefault.MouseLeave += (this.Control_Leave);
+		toolStripMenuItemFilterResetToDefault.MouseMove += (this.MouseCoordinates_MouseMove);
 		// 
 		// toolStripSeparatorNavigation1
 		// 
@@ -3301,6 +3344,21 @@ partial class PlanetoidDbForm
 		toolStripMenuItemNavigateToTheEnd.MouseLeave += (this.Control_Leave);
 		toolStripMenuItemNavigateToTheEnd.MouseMove += (this.MouseCoordinates_MouseMove);
 		// 
+		// toolStripMenuItemRandomMinorPlanet
+		// 
+		toolStripMenuItemRandomMinorPlanet.AccessibleDescription = "Loads a random minor planet";
+		toolStripMenuItemRandomMinorPlanet.AccessibleName = "Random minor planet";
+		toolStripMenuItemRandomMinorPlanet.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemRandomMinorPlanet.AutoToolTip = true;
+		toolStripMenuItemRandomMinorPlanet.Image = FatcowIcons16px.fatcow_dice_16px;
+		toolStripMenuItemRandomMinorPlanet.Name = "toolStripMenuItemRandomMinorPlanet";
+		toolStripMenuItemRandomMinorPlanet.Size = new Size(233, 22);
+		toolStripMenuItemRandomMinorPlanet.Text = "&Random minor planet";
+		toolStripMenuItemRandomMinorPlanet.Click += (this.LoadRandomMinorPlanet_Click);
+		toolStripMenuItemRandomMinorPlanet.MouseEnter += (this.Control_Enter);
+		toolStripMenuItemRandomMinorPlanet.MouseLeave += (this.Control_Leave);
+		toolStripMenuItemRandomMinorPlanet.MouseMove += (this.MouseCoordinates_MouseMove);
+		// 
 		// toolStripSeparator11
 		// 
 		toolStripSeparator11.AccessibleDescription = "Just a separator";
@@ -3327,132 +3385,19 @@ partial class PlanetoidDbForm
 		toolStripMenuItemListReadableDesignations.MouseLeave += (this.Control_Leave);
 		toolStripMenuItemListReadableDesignations.MouseMove += (this.MouseCoordinates_MouseMove);
 		// 
-		// toolStripMenuItemTools
+		// menuItemDataAndStatistics
 		// 
-		toolStripMenuItemTools.AccessibleDescription = "Opens the menu \"Tools\"";
-		toolStripMenuItemTools.AccessibleName = "Tools";
-		toolStripMenuItemTools.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemTools.AutoToolTip = true;
-		toolStripMenuItemTools.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemGroupDataAndStatistics, toolStripMenuItemGroupOrbitalAnalysis, toolStripMenuItemOrbit, toolStripMenuItemGroupProximityMetrics, toolStripMenuItemGroupDynamics, toolStripMenuItemGroupEphemeridesAndPositions, toolStripMenuItemObservations, toolStripSeparatorToolsGroups, toolStripMenuItemTerminology, toolStripMenuItemCalculator });
-		toolStripMenuItemTools.Name = "toolStripMenuItemTools";
-		toolStripMenuItemTools.Size = new Size(46, 24);
-		toolStripMenuItemTools.Text = "&Tools";
-		toolStripMenuItemTools.MouseEnter += (this.Control_Enter);
-		toolStripMenuItemTools.MouseLeave += (this.Control_Leave);
-		toolStripMenuItemTools.MouseMove += (this.MouseCoordinates_MouseMove);
-		// 
-		// toolStripMenuItemGroupDataAndStatistics
-		// 
-		toolStripMenuItemGroupDataAndStatistics.AccessibleDescription = "Data, views and statistics";
-		toolStripMenuItemGroupDataAndStatistics.AccessibleName = "Data & Statistics";
-		toolStripMenuItemGroupDataAndStatistics.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemGroupDataAndStatistics.AutoToolTip = true;
-		toolStripMenuItemGroupDataAndStatistics.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemDatabaseInformation, toolStripMenuItemDataDecoders, toolStripMenuItemTableMode, toolStripMenuItemRecords, toolStripSeparator20, toolStripMenuItemDistributions, toolStripMenuItemScatterPlots, toolStripMenuItemAEIDiagram3D });
-		toolStripMenuItemGroupDataAndStatistics.Name = "toolStripMenuItemGroupDataAndStatistics";
-		toolStripMenuItemGroupDataAndStatistics.Size = new Size(206, 22);
-		toolStripMenuItemGroupDataAndStatistics.Text = "Data && &statistics";
-		toolStripMenuItemGroupDataAndStatistics.MouseEnter += (this.Control_Enter);
-		toolStripMenuItemGroupDataAndStatistics.MouseLeave += (this.Control_Leave);
-		toolStripMenuItemGroupDataAndStatistics.MouseMove += (this.MouseCoordinates_MouseMove);
-		// 
-		// toolStripMenuItemDatabaseInformation
-		// 
-		toolStripMenuItemDatabaseInformation.AccessibleDescription = "Shows the information of the MPCORB.DAT database";
-		toolStripMenuItemDatabaseInformation.AccessibleName = "Database information";
-		toolStripMenuItemDatabaseInformation.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemDatabaseInformation.AutoToolTip = true;
-		toolStripMenuItemDatabaseInformation.Image = FatcowIcons16px.fatcow_database_16px;
-		toolStripMenuItemDatabaseInformation.Name = "toolStripMenuItemDatabaseInformation";
-		toolStripMenuItemDatabaseInformation.Size = new Size(198, 22);
-		toolStripMenuItemDatabaseInformation.Text = "Database &information";
-		toolStripMenuItemDatabaseInformation.Click += (this.DatabaseInformation_Click);
-		toolStripMenuItemDatabaseInformation.MouseEnter += (this.Control_Enter);
-		toolStripMenuItemDatabaseInformation.MouseLeave += (this.Control_Leave);
-		toolStripMenuItemDatabaseInformation.MouseMove += (this.MouseCoordinates_MouseMove);
-		// 
-		// toolStripMenuItemDataDecoders
-		// 
-		toolStripMenuItemDataDecoders.AccessibleDescription = "Shows the data decoders";
-		toolStripMenuItemDataDecoders.AccessibleName = "Data decoders";
-		toolStripMenuItemDataDecoders.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemDataDecoders.AutoToolTip = true;
-		toolStripMenuItemDataDecoders.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemDataDecoderReadableDesignation, toolStripMenuItemDataDecoderEpoch, toolStripMenuItemDataDecoderReference, toolStripMenuItemDataDecoder4HexDigitFlags, toolStripMenuItemDataDecoderDateOfLastObservation });
-		toolStripMenuItemDataDecoders.Name = "toolStripMenuItemDataDecoders";
-		toolStripMenuItemDataDecoders.Size = new Size(198, 22);
-		toolStripMenuItemDataDecoders.Text = "Data de&coders";
-		toolStripMenuItemDataDecoders.MouseEnter += (this.Control_Enter);
-		toolStripMenuItemDataDecoders.MouseLeave += (this.Control_Leave);
-		toolStripMenuItemDataDecoders.MouseMove += (this.MouseCoordinates_MouseMove);
-		// 
-		// toolStripMenuItemDataDecoderReadableDesignation
-		// 
-		toolStripMenuItemDataDecoderReadableDesignation.AccessibleDescription = "Opens the data decoder for the readable designation";
-		toolStripMenuItemDataDecoderReadableDesignation.AccessibleName = "Readable designation";
-		toolStripMenuItemDataDecoderReadableDesignation.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemDataDecoderReadableDesignation.AutoToolTip = true;
-		toolStripMenuItemDataDecoderReadableDesignation.Name = "toolStripMenuItemDataDecoderReadableDesignation";
-		toolStripMenuItemDataDecoderReadableDesignation.Size = new Size(228, 22);
-		toolStripMenuItemDataDecoderReadableDesignation.Text = "Readable &designation";
-		toolStripMenuItemDataDecoderReadableDesignation.Click += (this.LabelReadableDesignationData_Click);
-		toolStripMenuItemDataDecoderReadableDesignation.MouseEnter += (this.Control_Enter);
-		toolStripMenuItemDataDecoderReadableDesignation.MouseLeave += (this.Control_Leave);
-		toolStripMenuItemDataDecoderReadableDesignation.MouseMove += (this.MouseCoordinates_MouseMove);
-		// 
-		// toolStripMenuItemDataDecoderEpoch
-		// 
-		toolStripMenuItemDataDecoderEpoch.AccessibleDescription = "Opens the data decoder for the epoch";
-		toolStripMenuItemDataDecoderEpoch.AccessibleName = "Epoch (in packed form, .0 TT)";
-		toolStripMenuItemDataDecoderEpoch.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemDataDecoderEpoch.AutoToolTip = true;
-		toolStripMenuItemDataDecoderEpoch.Name = "toolStripMenuItemDataDecoderEpoch";
-		toolStripMenuItemDataDecoderEpoch.Size = new Size(228, 22);
-		toolStripMenuItemDataDecoderEpoch.Text = "&Epoch (in packed form, .0 TT)";
-		toolStripMenuItemDataDecoderEpoch.Click += (this.LabelEpochData_Click);
-		toolStripMenuItemDataDecoderEpoch.MouseEnter += (this.Control_Enter);
-		toolStripMenuItemDataDecoderEpoch.MouseLeave += (this.Control_Leave);
-		toolStripMenuItemDataDecoderEpoch.MouseMove += (this.MouseCoordinates_MouseMove);
-		// 
-		// toolStripMenuItemDataDecoderReference
-		// 
-		toolStripMenuItemDataDecoderReference.AccessibleDescription = "Opens the data decoder for the reference";
-		toolStripMenuItemDataDecoderReference.AccessibleName = "Reference";
-		toolStripMenuItemDataDecoderReference.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemDataDecoderReference.AutoToolTip = true;
-		toolStripMenuItemDataDecoderReference.Name = "toolStripMenuItemDataDecoderReference";
-		toolStripMenuItemDataDecoderReference.Size = new Size(228, 22);
-		toolStripMenuItemDataDecoderReference.Text = "&Reference";
-		toolStripMenuItemDataDecoderReference.Click += (this.LabelReferenceData_Click);
-		toolStripMenuItemDataDecoderReference.MouseEnter += (this.Control_Enter);
-		toolStripMenuItemDataDecoderReference.MouseLeave += (this.Control_Leave);
-		toolStripMenuItemDataDecoderReference.MouseMove += (this.MouseCoordinates_MouseMove);
-		// 
-		// toolStripMenuItemDataDecoder4HexDigitFlags
-		// 
-		toolStripMenuItemDataDecoder4HexDigitFlags.AccessibleDescription = "Opens the data decoder for the 4-hexdigit flags";
-		toolStripMenuItemDataDecoder4HexDigitFlags.AccessibleName = "4-hexdigit flags";
-		toolStripMenuItemDataDecoder4HexDigitFlags.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemDataDecoder4HexDigitFlags.AutoToolTip = true;
-		toolStripMenuItemDataDecoder4HexDigitFlags.Name = "toolStripMenuItemDataDecoder4HexDigitFlags";
-		toolStripMenuItemDataDecoder4HexDigitFlags.Size = new Size(228, 22);
-		toolStripMenuItemDataDecoder4HexDigitFlags.Text = "4-&hexdigit flags";
-		toolStripMenuItemDataDecoder4HexDigitFlags.Click += (this.LabelFlagsData_Click);
-		toolStripMenuItemDataDecoder4HexDigitFlags.MouseEnter += (this.Control_Enter);
-		toolStripMenuItemDataDecoder4HexDigitFlags.MouseLeave += (this.Control_Leave);
-		toolStripMenuItemDataDecoder4HexDigitFlags.MouseMove += (this.MouseCoordinates_MouseMove);
-		// 
-		// toolStripMenuItemDataDecoderDateOfLastObservation
-		// 
-		toolStripMenuItemDataDecoderDateOfLastObservation.AccessibleDescription = "Opens the data decoder for the date of last observation";
-		toolStripMenuItemDataDecoderDateOfLastObservation.AccessibleName = "Date of last observation";
-		toolStripMenuItemDataDecoderDateOfLastObservation.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemDataDecoderDateOfLastObservation.AutoToolTip = true;
-		toolStripMenuItemDataDecoderDateOfLastObservation.Name = "toolStripMenuItemDataDecoderDateOfLastObservation";
-		toolStripMenuItemDataDecoderDateOfLastObservation.Size = new Size(228, 22);
-		toolStripMenuItemDataDecoderDateOfLastObservation.Text = "Date of last &observation";
-		toolStripMenuItemDataDecoderDateOfLastObservation.Click += (this.LabelDateOfLastObservation_Click);
-		toolStripMenuItemDataDecoderDateOfLastObservation.MouseEnter += (this.Control_Enter);
-		toolStripMenuItemDataDecoderDateOfLastObservation.MouseLeave += (this.Control_Leave);
-		toolStripMenuItemDataDecoderDateOfLastObservation.MouseMove += (this.MouseCoordinates_MouseMove);
+		menuItemDataAndStatistics.AccessibleDescription = "Data, views and statistics";
+		menuItemDataAndStatistics.AccessibleName = "Data & statistics";
+		menuItemDataAndStatistics.AccessibleRole = AccessibleRole.MenuItem;
+		menuItemDataAndStatistics.AutoToolTip = true;
+		menuItemDataAndStatistics.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemTableMode, toolStripMenuItemRecords, toolStripMenuItemAverageAsteroid, toolStripSeparator20, toolStripMenuItemDistributions, toolStripMenuItemScatterPlots, toolStripMenuItemAEIDiagram3D });
+		menuItemDataAndStatistics.Name = "menuItemDataAndStatistics";
+		menuItemDataAndStatistics.Size = new Size(104, 24);
+		menuItemDataAndStatistics.Text = "Data && &statistics";
+		menuItemDataAndStatistics.MouseEnter += (this.Control_Enter);
+		menuItemDataAndStatistics.MouseLeave += (this.Control_Leave);
+		menuItemDataAndStatistics.MouseMove += (this.MouseCoordinates_MouseMove);
 		// 
 		// toolStripMenuItemTableMode
 		// 
@@ -3462,12 +3407,26 @@ partial class PlanetoidDbForm
 		toolStripMenuItemTableMode.AutoToolTip = true;
 		toolStripMenuItemTableMode.Image = FatcowIcons16px.fatcow_table_16px;
 		toolStripMenuItemTableMode.Name = "toolStripMenuItemTableMode";
-		toolStripMenuItemTableMode.Size = new Size(198, 22);
+		toolStripMenuItemTableMode.Size = new Size(180, 22);
 		toolStripMenuItemTableMode.Text = "&Table mode";
 		toolStripMenuItemTableMode.Click += (this.TableMode_Click);
 		toolStripMenuItemTableMode.MouseEnter += (this.Control_Enter);
 		toolStripMenuItemTableMode.MouseLeave += (this.Control_Leave);
 		toolStripMenuItemTableMode.MouseMove += (this.MouseCoordinates_MouseMove);
+		// 
+		// toolStripMenuItemAverageAsteroid
+		// 
+		toolStripMenuItemAverageAsteroid.AccessibleDescription = "Shows the theoretical average asteroid";
+		toolStripMenuItemAverageAsteroid.AccessibleName = "Average asteroid";
+		toolStripMenuItemAverageAsteroid.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemAverageAsteroid.AutoToolTip = true;
+		toolStripMenuItemAverageAsteroid.Name = "toolStripMenuItemAverageAsteroid";
+		toolStripMenuItemAverageAsteroid.Size = new Size(180, 22);
+		toolStripMenuItemAverageAsteroid.Text = "&Average asteroid";
+		toolStripMenuItemAverageAsteroid.Click += (this.AverageAsteroid_Click);
+		toolStripMenuItemAverageAsteroid.MouseEnter += (this.Control_Enter);
+		toolStripMenuItemAverageAsteroid.MouseLeave += (this.Control_Leave);
+		toolStripMenuItemAverageAsteroid.MouseMove += (this.MouseCoordinates_MouseMove);
 		// 
 		// toolStripSeparator20
 		// 
@@ -3475,7 +3434,7 @@ partial class PlanetoidDbForm
 		toolStripSeparator20.AccessibleName = "Just a separator";
 		toolStripSeparator20.AccessibleRole = AccessibleRole.Separator;
 		toolStripSeparator20.Name = "toolStripSeparator20";
-		toolStripSeparator20.Size = new Size(195, 6);
+		toolStripSeparator20.Size = new Size(177, 6);
 		toolStripSeparator20.MouseEnter += (this.Control_Enter);
 		toolStripSeparator20.MouseLeave += (this.Control_Leave);
 		toolStripSeparator20.MouseMove += (this.MouseCoordinates_MouseMove);
@@ -3489,7 +3448,7 @@ partial class PlanetoidDbForm
 		toolStripMenuItemScatterPlots.Enabled = false;
 		toolStripMenuItemScatterPlots.Image = FatcowIcons16px.fatcow_plotchart_16px;
 		toolStripMenuItemScatterPlots.Name = "toolStripMenuItemScatterPlots";
-		toolStripMenuItemScatterPlots.Size = new Size(198, 22);
+		toolStripMenuItemScatterPlots.Size = new Size(180, 22);
 		toolStripMenuItemScatterPlots.Text = "&Scatter plots";
 		toolStripMenuItemScatterPlots.Click += (this.ScatterPlots_Click);
 		toolStripMenuItemScatterPlots.MouseEnter += (this.Control_Enter);
@@ -3504,134 +3463,197 @@ partial class PlanetoidDbForm
 		toolStripMenuItemAEIDiagram3D.AutoToolTip = true;
 		toolStripMenuItemAEIDiagram3D.Enabled = false;
 		toolStripMenuItemAEIDiagram3D.Name = "toolStripMenuItemAEIDiagram3D";
-		toolStripMenuItemAEIDiagram3D.Size = new Size(198, 22);
+		toolStripMenuItemAEIDiagram3D.Size = new Size(180, 22);
 		toolStripMenuItemAEIDiagram3D.Text = "a/&e/i 3D diagram";
 		toolStripMenuItemAEIDiagram3D.Click += (this.AEIDiagram3D_Click);
 		toolStripMenuItemAEIDiagram3D.MouseEnter += (this.Control_Enter);
 		toolStripMenuItemAEIDiagram3D.MouseLeave += (this.Control_Leave);
 		toolStripMenuItemAEIDiagram3D.MouseMove += (this.MouseCoordinates_MouseMove);
 		// 
-		// toolStripMenuItemGroupOrbitalAnalysis
+		// toolStripMenuItemObservations
 		// 
-		toolStripMenuItemGroupOrbitalAnalysis.AccessibleDescription = "Orbital analysis tools";
-		toolStripMenuItemGroupOrbitalAnalysis.AccessibleName = "Orbital Analysis";
-		toolStripMenuItemGroupOrbitalAnalysis.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemGroupOrbitalAnalysis.AutoToolTip = true;
-		toolStripMenuItemGroupOrbitalAnalysis.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemFilter, toolStripMenuItemDerivedOrbitElements, toolStripMenuItemOrbitElementsGrouping, toolStripMenuItemAsteroidFamiliesDetection });
-		toolStripMenuItemGroupOrbitalAnalysis.Name = "toolStripMenuItemGroupOrbitalAnalysis";
-		toolStripMenuItemGroupOrbitalAnalysis.Size = new Size(206, 22);
-		toolStripMenuItemGroupOrbitalAnalysis.Text = "Orbital &analysis";
-		toolStripMenuItemGroupOrbitalAnalysis.MouseEnter += (this.Control_Enter);
-		toolStripMenuItemGroupOrbitalAnalysis.MouseLeave += (this.Control_Leave);
-		toolStripMenuItemGroupOrbitalAnalysis.MouseMove += (this.MouseCoordinates_MouseMove);
+		toolStripMenuItemObservations.AccessibleDescription = "Shows the observations";
+		toolStripMenuItemObservations.AccessibleName = "Observations";
+		toolStripMenuItemObservations.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemObservations.AutoToolTip = true;
+		toolStripMenuItemObservations.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemEphemerides, toolStripMenuItemObservationLogs, toolStripMenuItemBulkObservationsDataDownloader, toolStripMenuItemObservatoryCodes, toolStripSeparator32, toolStripMenuItemPlanetaryInformation, toolStripMenuItemWorldMap, toolStripMenuItemCoordinateTransformation, toolStripMenuItemDistanceConversion, toolStripMenuItemAngleMeasureConversion });
+		toolStripMenuItemObservations.Name = "toolStripMenuItemObservations";
+		toolStripMenuItemObservations.Size = new Size(88, 24);
+		toolStripMenuItemObservations.Text = "Obser&vations";
+		toolStripMenuItemObservations.MouseEnter += (this.Control_Enter);
+		toolStripMenuItemObservations.MouseLeave += (this.Control_Leave);
+		toolStripMenuItemObservations.MouseMove += (this.MouseCoordinates_MouseMove);
 		// 
-		// toolStripMenuItemFilter
+		// toolStripMenuItemEphemerides
 		// 
-		toolStripMenuItemFilter.AccessibleDescription = "Filters the orbital elements in several ranges";
-		toolStripMenuItemFilter.AccessibleName = "Filter";
-		toolStripMenuItemFilter.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemFilter.AutoToolTip = true;
-		toolStripMenuItemFilter.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemFilterEdit, toolStripMenuItemFilterResetToDefault });
-		toolStripMenuItemFilter.Image = FatcowIcons16px.fatcow_filter_16px;
-		toolStripMenuItemFilter.Name = "toolStripMenuItemFilter";
-		toolStripMenuItemFilter.Size = new Size(215, 22);
-		toolStripMenuItemFilter.Text = "&Filter";
-		toolStripMenuItemFilter.Click += (this.Filter_Click);
-		toolStripMenuItemFilter.MouseEnter += (this.Control_Enter);
-		toolStripMenuItemFilter.MouseLeave += (this.Control_Leave);
-		toolStripMenuItemFilter.MouseMove += (this.MouseCoordinates_MouseMove);
+		toolStripMenuItemEphemerides.AccessibleDescription = "Calculates the ephemerides of the current minor planet";
+		toolStripMenuItemEphemerides.AccessibleName = "Ephemerides";
+		toolStripMenuItemEphemerides.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemEphemerides.AutoToolTip = true;
+		toolStripMenuItemEphemerides.Name = "toolStripMenuItemEphemerides";
+		toolStripMenuItemEphemerides.Size = new Size(259, 22);
+		toolStripMenuItemEphemerides.Text = "&Ephemerides";
+		toolStripMenuItemEphemerides.Click += (this.Ephemerides_Click);
+		toolStripMenuItemEphemerides.MouseEnter += (this.Control_Enter);
+		toolStripMenuItemEphemerides.MouseLeave += (this.Control_Leave);
+		toolStripMenuItemEphemerides.MouseMove += (this.MouseCoordinates_MouseMove);
 		// 
-		// toolStripMenuItemFilterEdit
+		// toolStripMenuItemObservationLogs
 		// 
-		toolStripMenuItemFilterEdit.AccessibleDescription = "Edits the filters of the orbital elements in several ranges";
-		toolStripMenuItemFilterEdit.AccessibleName = "Edit filter";
-		toolStripMenuItemFilterEdit.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemFilterEdit.AutoToolTip = true;
-		toolStripMenuItemFilterEdit.Image = FatcowIcons16px.fatcow_filter_advanced_16px;
-		toolStripMenuItemFilterEdit.Name = "toolStripMenuItemFilterEdit";
-		toolStripMenuItemFilterEdit.Size = new Size(156, 22);
-		toolStripMenuItemFilterEdit.Text = "&Edit filter";
-		toolStripMenuItemFilterEdit.Click += (this.Filter_Click);
-		toolStripMenuItemFilterEdit.MouseEnter += (this.Control_Enter);
-		toolStripMenuItemFilterEdit.MouseLeave += (this.Control_Leave);
-		toolStripMenuItemFilterEdit.MouseMove += (this.MouseCoordinates_MouseMove);
+		toolStripMenuItemObservationLogs.AccessibleDescription = "Shows the observation logs of the minor planet from the MPC";
+		toolStripMenuItemObservationLogs.AccessibleName = "Observation logs";
+		toolStripMenuItemObservationLogs.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemObservationLogs.AutoToolTip = true;
+		toolStripMenuItemObservationLogs.Image = FatcowIcons16px.fatcow_find_16px;
+		toolStripMenuItemObservationLogs.Name = "toolStripMenuItemObservationLogs";
+		toolStripMenuItemObservationLogs.Size = new Size(259, 22);
+		toolStripMenuItemObservationLogs.Text = "&Observation logs";
+		toolStripMenuItemObservationLogs.ToolTipText = "Shows the observations of the minor planet";
+		toolStripMenuItemObservationLogs.Click += (this.Observations_Click);
+		toolStripMenuItemObservationLogs.MouseEnter += (this.Control_Enter);
+		toolStripMenuItemObservationLogs.MouseLeave += (this.Control_Leave);
+		toolStripMenuItemObservationLogs.MouseMove += (this.MouseCoordinates_MouseMove);
 		// 
-		// toolStripMenuItemFilterResetToDefault
+		// toolStripMenuItemBulkObservationsDataDownloader
 		// 
-		toolStripMenuItemFilterResetToDefault.AccessibleDescription = "Resets the filters of the orbital elements to the default ranges";
-		toolStripMenuItemFilterResetToDefault.AccessibleName = "Reset to default";
-		toolStripMenuItemFilterResetToDefault.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemFilterResetToDefault.AutoToolTip = true;
-		toolStripMenuItemFilterResetToDefault.Image = FatcowIcons16px.fatcow_filter_clear_16px;
-		toolStripMenuItemFilterResetToDefault.Name = "toolStripMenuItemFilterResetToDefault";
-		toolStripMenuItemFilterResetToDefault.Size = new Size(156, 22);
-		toolStripMenuItemFilterResetToDefault.Text = "&Reset to default";
-		toolStripMenuItemFilterResetToDefault.Click += (this.FilterReset_Click);
-		toolStripMenuItemFilterResetToDefault.MouseEnter += (this.Control_Enter);
-		toolStripMenuItemFilterResetToDefault.MouseLeave += (this.Control_Leave);
-		toolStripMenuItemFilterResetToDefault.MouseMove += (this.MouseCoordinates_MouseMove);
+		toolStripMenuItemBulkObservationsDataDownloader.AccessibleDescription = "Opens the bulk observations data downloader for a range of minor planets";
+		toolStripMenuItemBulkObservationsDataDownloader.AccessibleName = "Bulk observations data downloader";
+		toolStripMenuItemBulkObservationsDataDownloader.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemBulkObservationsDataDownloader.AutoToolTip = true;
+		toolStripMenuItemBulkObservationsDataDownloader.Image = FatcowIcons16px.fatcow_application_put_16px;
+		toolStripMenuItemBulkObservationsDataDownloader.Name = "toolStripMenuItemBulkObservationsDataDownloader";
+		toolStripMenuItemBulkObservationsDataDownloader.Size = new Size(259, 22);
+		toolStripMenuItemBulkObservationsDataDownloader.Text = "&Bulk observations data downloader";
+		toolStripMenuItemBulkObservationsDataDownloader.Click += (this.BulkObservationDataDownloader_Click);
+		toolStripMenuItemBulkObservationsDataDownloader.MouseEnter += (this.Control_Enter);
+		toolStripMenuItemBulkObservationsDataDownloader.MouseLeave += (this.Control_Leave);
+		toolStripMenuItemBulkObservationsDataDownloader.MouseMove += (this.MouseCoordinates_MouseMove);
 		// 
-		// toolStripMenuItemDerivedOrbitElements
+		// toolStripMenuItemObservatoryCodes
 		// 
-		toolStripMenuItemDerivedOrbitElements.AccessibleDescription = "Calculates derived orbital elements";
-		toolStripMenuItemDerivedOrbitElements.AccessibleName = "Derived orbital elements";
-		toolStripMenuItemDerivedOrbitElements.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemDerivedOrbitElements.AutoToolTip = true;
-		toolStripMenuItemDerivedOrbitElements.Image = FatcowIcons16px.fatcow_arrow_branch_16px;
-		toolStripMenuItemDerivedOrbitElements.Name = "toolStripMenuItemDerivedOrbitElements";
-		toolStripMenuItemDerivedOrbitElements.Size = new Size(215, 22);
-		toolStripMenuItemDerivedOrbitElements.Text = "Derived orbital &elements";
-		toolStripMenuItemDerivedOrbitElements.Click += (this.DerivedOrbitElements_Click);
-		toolStripMenuItemDerivedOrbitElements.MouseEnter += (this.Control_Enter);
-		toolStripMenuItemDerivedOrbitElements.MouseLeave += (this.Control_Leave);
-		toolStripMenuItemDerivedOrbitElements.MouseMove += (this.MouseCoordinates_MouseMove);
+		toolStripMenuItemObservatoryCodes.AccessibleDescription = "Lists the observatory codes";
+		toolStripMenuItemObservatoryCodes.AccessibleName = "Observatory codes";
+		toolStripMenuItemObservatoryCodes.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemObservatoryCodes.AutoToolTip = true;
+		toolStripMenuItemObservatoryCodes.Name = "toolStripMenuItemObservatoryCodes";
+		toolStripMenuItemObservatoryCodes.Size = new Size(259, 22);
+		toolStripMenuItemObservatoryCodes.Text = "Observatory &codes";
+		toolStripMenuItemObservatoryCodes.Click += (this.ObservatoryCodes_Click);
+		toolStripMenuItemObservatoryCodes.MouseEnter += (this.Control_Enter);
+		toolStripMenuItemObservatoryCodes.MouseLeave += (this.Control_Leave);
+		toolStripMenuItemObservatoryCodes.MouseMove += (this.MouseCoordinates_MouseMove);
 		// 
-		// toolStripMenuItemOrbitElementsGrouping
+		// toolStripSeparator32
 		// 
-		toolStripMenuItemOrbitElementsGrouping.AccessibleDescription = "Shows the orbit elements grouping";
-		toolStripMenuItemOrbitElementsGrouping.AccessibleName = "Orbit elements grouping";
-		toolStripMenuItemOrbitElementsGrouping.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemOrbitElementsGrouping.AutoToolTip = true;
-		toolStripMenuItemOrbitElementsGrouping.Image = FatcowIcons16px.fatcow_node_16px;
-		toolStripMenuItemOrbitElementsGrouping.Name = "toolStripMenuItemOrbitElementsGrouping";
-		toolStripMenuItemOrbitElementsGrouping.Size = new Size(215, 22);
-		toolStripMenuItemOrbitElementsGrouping.Text = "Orbit elements &grouping";
-		toolStripMenuItemOrbitElementsGrouping.Click += (this.OrbitElementsGrouping_Click);
-		toolStripMenuItemOrbitElementsGrouping.MouseEnter += (this.Control_Enter);
-		toolStripMenuItemOrbitElementsGrouping.MouseLeave += (this.Control_Leave);
-		toolStripMenuItemOrbitElementsGrouping.MouseMove += (this.MouseCoordinates_MouseMove);
+		toolStripSeparator32.AccessibleDescription = "Just a separator";
+		toolStripSeparator32.AccessibleName = "Just a separator";
+		toolStripSeparator32.AccessibleRole = AccessibleRole.Separator;
+		toolStripSeparator32.Name = "toolStripSeparator32";
+		toolStripSeparator32.Size = new Size(256, 6);
+		toolStripSeparator32.MouseEnter += (this.Control_Enter);
+		toolStripSeparator32.MouseLeave += (this.Control_Leave);
+		toolStripSeparator32.MouseMove += (this.MouseCoordinates_MouseMove);
 		// 
-		// toolStripMenuItemAsteroidFamiliesDetection
+		// toolStripMenuItemPlanetaryInformation
 		// 
-		toolStripMenuItemAsteroidFamiliesDetection.AccessibleDescription = "Shows the asteroid families detection";
-		toolStripMenuItemAsteroidFamiliesDetection.AccessibleName = "Asteroid families detection";
-		toolStripMenuItemAsteroidFamiliesDetection.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemAsteroidFamiliesDetection.AutoToolTip = true;
-		toolStripMenuItemAsteroidFamiliesDetection.Image = FatcowIcons16px.fatcow_node_magnifier_16px;
-		toolStripMenuItemAsteroidFamiliesDetection.Name = "toolStripMenuItemAsteroidFamiliesDetection";
-		toolStripMenuItemAsteroidFamiliesDetection.Size = new Size(215, 22);
-		toolStripMenuItemAsteroidFamiliesDetection.Text = "Asteroid families &detection";
-		toolStripMenuItemAsteroidFamiliesDetection.ToolTipText = "Asteroid families detection";
-		toolStripMenuItemAsteroidFamiliesDetection.Click += (this.AsteroidFamiliesDetection_Click);
-		toolStripMenuItemAsteroidFamiliesDetection.MouseEnter += (this.Control_Enter);
-		toolStripMenuItemAsteroidFamiliesDetection.MouseLeave += (this.Control_Leave);
-		toolStripMenuItemAsteroidFamiliesDetection.MouseMove += (this.MouseCoordinates_MouseMove);
+		toolStripMenuItemPlanetaryInformation.AccessibleDescription = "Shows orbital and physical properties of the eight planets";
+		toolStripMenuItemPlanetaryInformation.AccessibleName = "Planetary information";
+		toolStripMenuItemPlanetaryInformation.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemPlanetaryInformation.AutoToolTip = true;
+		toolStripMenuItemPlanetaryInformation.Image = FatcowIcons16px.fatcow_earth_night_16px;
+		toolStripMenuItemPlanetaryInformation.Name = "toolStripMenuItemPlanetaryInformation";
+		toolStripMenuItemPlanetaryInformation.ShortcutKeyDisplayString = "";
+		toolStripMenuItemPlanetaryInformation.Size = new Size(259, 22);
+		toolStripMenuItemPlanetaryInformation.Text = "&Planetary information";
+		toolStripMenuItemPlanetaryInformation.Click += (this.PlanetaryInformation_Click);
+		toolStripMenuItemPlanetaryInformation.MouseEnter += (this.Control_Enter);
+		toolStripMenuItemPlanetaryInformation.MouseLeave += (this.Control_Leave);
+		toolStripMenuItemPlanetaryInformation.MouseMove += (this.MouseCoordinates_MouseMove);
 		// 
-		// toolStripMenuItemOrbit
+		// toolStripMenuItemWorldMap
 		// 
-		toolStripMenuItemOrbit.AccessibleDescription = "Show the Orbit visualization";
-		toolStripMenuItemOrbit.AccessibleName = "Orbit visualization";
-		toolStripMenuItemOrbit.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemOrbit.AutoToolTip = true;
-		toolStripMenuItemOrbit.DropDown = contextMenuOrbit;
-		toolStripMenuItemOrbit.Enabled = false;
-		toolStripMenuItemOrbit.Image = FatcowIcons16px.fatcow_orbit_16px;
-		toolStripMenuItemOrbit.Name = "toolStripMenuItemOrbit";
-		toolStripMenuItemOrbit.Size = new Size(206, 22);
-		toolStripMenuItemOrbit.Text = "&Orbit visualization";
-		toolStripMenuItemOrbit.MouseEnter += (this.Control_Enter);
-		toolStripMenuItemOrbit.MouseLeave += (this.Control_Leave);
-		toolStripMenuItemOrbit.MouseMove += (this.MouseCoordinates_MouseMove);
+		toolStripMenuItemWorldMap.AccessibleDescription = "Shows the world map";
+		toolStripMenuItemWorldMap.AccessibleName = "World map";
+		toolStripMenuItemWorldMap.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemWorldMap.AutoToolTip = true;
+		toolStripMenuItemWorldMap.Image = FatcowIcons16px.fatcow_map_16px;
+		toolStripMenuItemWorldMap.Name = "toolStripMenuItemWorldMap";
+		toolStripMenuItemWorldMap.Size = new Size(259, 22);
+		toolStripMenuItemWorldMap.Text = "&World map";
+		toolStripMenuItemWorldMap.Click += (this.WorldMap_Click);
+		toolStripMenuItemWorldMap.MouseMove += (this.MouseCoordinates_MouseMove);
+		// 
+		// toolStripMenuItemCoordinateTransformation
+		// 
+		toolStripMenuItemCoordinateTransformation.AccessibleDescription = "Transforms astronomical coordinates";
+		toolStripMenuItemCoordinateTransformation.AccessibleName = "Coordinate transformation";
+		toolStripMenuItemCoordinateTransformation.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemCoordinateTransformation.AutoToolTip = true;
+		toolStripMenuItemCoordinateTransformation.Name = "toolStripMenuItemCoordinateTransformation";
+		toolStripMenuItemCoordinateTransformation.Size = new Size(259, 22);
+		toolStripMenuItemCoordinateTransformation.Text = "Coordinate &transformation";
+		toolStripMenuItemCoordinateTransformation.Click += (this.CoordinateTransformation_Click);
+		toolStripMenuItemCoordinateTransformation.MouseEnter += (this.Control_Enter);
+		toolStripMenuItemCoordinateTransformation.MouseLeave += (this.Control_Leave);
+		toolStripMenuItemCoordinateTransformation.MouseMove += (this.MouseCoordinates_MouseMove);
+		// 
+		// toolStripMenuItemDistanceConversion
+		// 
+		toolStripMenuItemDistanceConversion.AccessibleDescription = "Converts between different distances";
+		toolStripMenuItemDistanceConversion.AccessibleName = "Distance conversion";
+		toolStripMenuItemDistanceConversion.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemDistanceConversion.AutoToolTip = true;
+		toolStripMenuItemDistanceConversion.Name = "toolStripMenuItemDistanceConversion";
+		toolStripMenuItemDistanceConversion.Size = new Size(259, 22);
+		toolStripMenuItemDistanceConversion.Text = "&Distance conversion";
+		toolStripMenuItemDistanceConversion.Click += (this.DistanceConversion_Click);
+		toolStripMenuItemDistanceConversion.MouseEnter += (this.Control_Enter);
+		toolStripMenuItemDistanceConversion.MouseLeave += (this.Control_Leave);
+		toolStripMenuItemDistanceConversion.MouseMove += (this.MouseCoordinates_MouseMove);
+		// 
+		// toolStripMenuItemAngleMeasureConversion
+		// 
+		toolStripMenuItemAngleMeasureConversion.AccessibleDescription = "Converts between angle and time measure";
+		toolStripMenuItemAngleMeasureConversion.AccessibleName = "Angle measure conversion";
+		toolStripMenuItemAngleMeasureConversion.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemAngleMeasureConversion.AutoToolTip = true;
+		toolStripMenuItemAngleMeasureConversion.Name = "toolStripMenuItemAngleMeasureConversion";
+		toolStripMenuItemAngleMeasureConversion.Size = new Size(259, 22);
+		toolStripMenuItemAngleMeasureConversion.Text = "Angle &measure conversion";
+		toolStripMenuItemAngleMeasureConversion.Click += (this.AngleMeasureConversion_Click);
+		toolStripMenuItemAngleMeasureConversion.MouseEnter += (this.Control_Enter);
+		toolStripMenuItemAngleMeasureConversion.MouseLeave += (this.Control_Leave);
+		toolStripMenuItemAngleMeasureConversion.MouseMove += (this.MouseCoordinates_MouseMove);
+		// 
+		// menuItemOrbitalDynamicsAndMetrics
+		// 
+		menuItemOrbitalDynamicsAndMetrics.AccessibleDescription = "Orbital dynamics: Tisserand parameters and resonances";
+		menuItemOrbitalDynamicsAndMetrics.AccessibleName = "Dynamics";
+		menuItemOrbitalDynamicsAndMetrics.AccessibleRole = AccessibleRole.MenuItem;
+		menuItemOrbitalDynamicsAndMetrics.AutoToolTip = true;
+		menuItemOrbitalDynamicsAndMetrics.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemOrbitVisualization, toolStripMenuItemOrbitalResonances, toolStripMenuItemTisserandParameters, toolStripMenuItemEncounterVelocities, toolStripMenuItemMoids, toolStripMenuItemMaxoids, toolStripMenuItemMoidsAndMaxoidsOfOneMinorPlanet, toolStripMenuItemDerivedOrbitElements, toolStripMenuItemAsteroidFamiliesDetection, toolStripMenuItemOrbitElementsGrouping, toolStripMenuItemGeometricAlbedoAdjustedDiameter });
+		menuItemOrbitalDynamicsAndMetrics.Name = "menuItemOrbitalDynamicsAndMetrics";
+		menuItemOrbitalDynamicsAndMetrics.Size = new Size(164, 24);
+		menuItemOrbitalDynamicsAndMetrics.Text = "Orbital &dynamics && metrics";
+		menuItemOrbitalDynamicsAndMetrics.MouseEnter += (this.Control_Enter);
+		menuItemOrbitalDynamicsAndMetrics.MouseLeave += (this.Control_Leave);
+		menuItemOrbitalDynamicsAndMetrics.MouseMove += (this.MouseCoordinates_MouseMove);
+		// 
+		// toolStripMenuItemOrbitVisualization
+		// 
+		toolStripMenuItemOrbitVisualization.AccessibleDescription = "Shows the orbit visualization";
+		toolStripMenuItemOrbitVisualization.AccessibleName = "Orbit visualization";
+		toolStripMenuItemOrbitVisualization.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemOrbitVisualization.AutoToolTip = true;
+		toolStripMenuItemOrbitVisualization.DropDown = contextMenuOrbit;
+		toolStripMenuItemOrbitVisualization.Enabled = false;
+		toolStripMenuItemOrbitVisualization.Image = FatcowIcons16px.fatcow_orbit_16px;
+		toolStripMenuItemOrbitVisualization.Name = "toolStripMenuItemOrbitVisualization";
+		toolStripMenuItemOrbitVisualization.Size = new Size(295, 22);
+		toolStripMenuItemOrbitVisualization.Text = "Orbit &visualization";
+		toolStripMenuItemOrbitVisualization.MouseEnter += (this.Control_Enter);
+		toolStripMenuItemOrbitVisualization.MouseLeave += (this.Control_Leave);
+		toolStripMenuItemOrbitVisualization.MouseMove += (this.MouseCoordinates_MouseMove);
 		// 
 		// contextMenuOrbit
 		// 
@@ -3706,19 +3728,133 @@ partial class PlanetoidDbForm
 		toolStripMenuItemOrrery.MouseLeave += (this.Control_Leave);
 		toolStripMenuItemOrrery.MouseMove += (this.MouseCoordinates_MouseMove);
 		// 
-		// toolStripMenuItemGroupProximityMetrics
+		// toolStripMenuItemOrbitalResonances
 		// 
-		toolStripMenuItemGroupProximityMetrics.AccessibleDescription = "Proximity metrics: MOIDs and MAXOIDs";
-		toolStripMenuItemGroupProximityMetrics.AccessibleName = "Proximity Metrics";
-		toolStripMenuItemGroupProximityMetrics.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemGroupProximityMetrics.AutoToolTip = true;
-		toolStripMenuItemGroupProximityMetrics.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemMoids, toolStripMenuItemMaxoids, toolStripMenuItemMoidsAndMaxoidsOfOneMinorPlanet, toolStripMenuItemGeometricAlbedoAdjustedDiameter });
-		toolStripMenuItemGroupProximityMetrics.Name = "toolStripMenuItemGroupProximityMetrics";
-		toolStripMenuItemGroupProximityMetrics.Size = new Size(206, 22);
-		toolStripMenuItemGroupProximityMetrics.Text = "&Proximity && metrics";
-		toolStripMenuItemGroupProximityMetrics.MouseEnter += (this.Control_Enter);
-		toolStripMenuItemGroupProximityMetrics.MouseLeave += (this.Control_Leave);
-		toolStripMenuItemGroupProximityMetrics.MouseMove += (this.MouseCoordinates_MouseMove);
+		toolStripMenuItemOrbitalResonances.AccessibleDescription = "Shows the orbital resonances";
+		toolStripMenuItemOrbitalResonances.AccessibleName = "Orbital resonances";
+		toolStripMenuItemOrbitalResonances.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemOrbitalResonances.AutoToolTip = true;
+		toolStripMenuItemOrbitalResonances.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemOrbitalResonancesOfOneMinorPlanet, toolStripMenuItemOrbitalResonancesOfAllMinorPlanets });
+		toolStripMenuItemOrbitalResonances.Name = "toolStripMenuItemOrbitalResonances";
+		toolStripMenuItemOrbitalResonances.Size = new Size(295, 22);
+		toolStripMenuItemOrbitalResonances.Text = "Orbital &resonances";
+		toolStripMenuItemOrbitalResonances.MouseEnter += (this.Control_Enter);
+		toolStripMenuItemOrbitalResonances.MouseLeave += (this.Control_Leave);
+		toolStripMenuItemOrbitalResonances.MouseMove += (this.MouseCoordinates_MouseMove);
+		// 
+		// toolStripMenuItemOrbitalResonancesOfOneMinorPlanet
+		// 
+		toolStripMenuItemOrbitalResonancesOfOneMinorPlanet.AccessibleDescription = "Shows the orbital resonances of one minor planet";
+		toolStripMenuItemOrbitalResonancesOfOneMinorPlanet.AccessibleName = "Orbital resonances of one minor planet";
+		toolStripMenuItemOrbitalResonancesOfOneMinorPlanet.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemOrbitalResonancesOfOneMinorPlanet.AutoToolTip = true;
+		toolStripMenuItemOrbitalResonancesOfOneMinorPlanet.Image = FatcowIcons16px.fatcow_linechart_16px;
+		toolStripMenuItemOrbitalResonancesOfOneMinorPlanet.Name = "toolStripMenuItemOrbitalResonancesOfOneMinorPlanet";
+		toolStripMenuItemOrbitalResonancesOfOneMinorPlanet.Size = new Size(280, 22);
+		toolStripMenuItemOrbitalResonancesOfOneMinorPlanet.Text = "Orbital resonances of &one minor planet";
+		toolStripMenuItemOrbitalResonancesOfOneMinorPlanet.Click += (this.OrbitalResonances_Click);
+		toolStripMenuItemOrbitalResonancesOfOneMinorPlanet.MouseEnter += (this.Control_Enter);
+		toolStripMenuItemOrbitalResonancesOfOneMinorPlanet.MouseLeave += (this.Control_Leave);
+		toolStripMenuItemOrbitalResonancesOfOneMinorPlanet.MouseMove += (this.MouseCoordinates_MouseMove);
+		// 
+		// toolStripMenuItemOrbitalResonancesOfAllMinorPlanets
+		// 
+		toolStripMenuItemOrbitalResonancesOfAllMinorPlanets.AccessibleDescription = "Shows the orbital resonances of all minor planets";
+		toolStripMenuItemOrbitalResonancesOfAllMinorPlanets.AccessibleName = "Orbital resonances of all minor planets";
+		toolStripMenuItemOrbitalResonancesOfAllMinorPlanets.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemOrbitalResonancesOfAllMinorPlanets.AutoToolTip = true;
+		toolStripMenuItemOrbitalResonancesOfAllMinorPlanets.Image = FatcowIcons16px.fatcow_areachart_16px;
+		toolStripMenuItemOrbitalResonancesOfAllMinorPlanets.Name = "toolStripMenuItemOrbitalResonancesOfAllMinorPlanets";
+		toolStripMenuItemOrbitalResonancesOfAllMinorPlanets.Size = new Size(280, 22);
+		toolStripMenuItemOrbitalResonancesOfAllMinorPlanets.Text = "Orbital resonances of &all minor planets";
+		toolStripMenuItemOrbitalResonancesOfAllMinorPlanets.Click += (this.OrbitalResonancesOfAllMinorPlanets_Click);
+		toolStripMenuItemOrbitalResonancesOfAllMinorPlanets.MouseEnter += (this.Control_Enter);
+		toolStripMenuItemOrbitalResonancesOfAllMinorPlanets.MouseLeave += (this.Control_Leave);
+		toolStripMenuItemOrbitalResonancesOfAllMinorPlanets.MouseMove += (this.MouseCoordinates_MouseMove);
+		// 
+		// toolStripMenuItemTisserandParameters
+		// 
+		toolStripMenuItemTisserandParameters.AccessibleDescription = "Shows the Tisserand parameters";
+		toolStripMenuItemTisserandParameters.AccessibleName = "Tisserand parameters";
+		toolStripMenuItemTisserandParameters.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemTisserandParameters.AutoToolTip = true;
+		toolStripMenuItemTisserandParameters.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemTisserandParameterOfOneMinorPlanet, toolStripMenuItemTisserandParametersOfAllMinorPlanets });
+		toolStripMenuItemTisserandParameters.Name = "toolStripMenuItemTisserandParameters";
+		toolStripMenuItemTisserandParameters.Size = new Size(295, 22);
+		toolStripMenuItemTisserandParameters.Text = "&Tisserand parameters";
+		toolStripMenuItemTisserandParameters.MouseEnter += (this.Control_Enter);
+		toolStripMenuItemTisserandParameters.MouseLeave += (this.Control_Leave);
+		toolStripMenuItemTisserandParameters.MouseMove += (this.MouseCoordinates_MouseMove);
+		// 
+		// toolStripMenuItemTisserandParameterOfOneMinorPlanet
+		// 
+		toolStripMenuItemTisserandParameterOfOneMinorPlanet.AccessibleDescription = "Shows the Tisserand parameter of one minor planet";
+		toolStripMenuItemTisserandParameterOfOneMinorPlanet.AccessibleName = "Tisserand parameter of one minor planet";
+		toolStripMenuItemTisserandParameterOfOneMinorPlanet.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemTisserandParameterOfOneMinorPlanet.AutoToolTip = true;
+		toolStripMenuItemTisserandParameterOfOneMinorPlanet.Name = "toolStripMenuItemTisserandParameterOfOneMinorPlanet";
+		toolStripMenuItemTisserandParameterOfOneMinorPlanet.Size = new Size(290, 22);
+		toolStripMenuItemTisserandParameterOfOneMinorPlanet.Text = "Tisserand parameter of &one minor planet";
+		toolStripMenuItemTisserandParameterOfOneMinorPlanet.Click += (this.TisserandParameters_Click);
+		toolStripMenuItemTisserandParameterOfOneMinorPlanet.MouseEnter += (this.Control_Enter);
+		toolStripMenuItemTisserandParameterOfOneMinorPlanet.MouseLeave += (this.Control_Leave);
+		toolStripMenuItemTisserandParameterOfOneMinorPlanet.MouseMove += (this.MouseCoordinates_MouseMove);
+		// 
+		// toolStripMenuItemTisserandParametersOfAllMinorPlanets
+		// 
+		toolStripMenuItemTisserandParametersOfAllMinorPlanets.AccessibleDescription = "Shows the Tisserand parameters of all minor planets";
+		toolStripMenuItemTisserandParametersOfAllMinorPlanets.AccessibleName = "Tisserand parameters of all minor planets";
+		toolStripMenuItemTisserandParametersOfAllMinorPlanets.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemTisserandParametersOfAllMinorPlanets.AutoToolTip = true;
+		toolStripMenuItemTisserandParametersOfAllMinorPlanets.Name = "toolStripMenuItemTisserandParametersOfAllMinorPlanets";
+		toolStripMenuItemTisserandParametersOfAllMinorPlanets.Size = new Size(290, 22);
+		toolStripMenuItemTisserandParametersOfAllMinorPlanets.Text = "Tisserand parameters of &all minor planets";
+		toolStripMenuItemTisserandParametersOfAllMinorPlanets.Click += (this.TisserandParametersOfAllMinorPlanets_Click);
+		toolStripMenuItemTisserandParametersOfAllMinorPlanets.MouseEnter += (this.Control_Enter);
+		toolStripMenuItemTisserandParametersOfAllMinorPlanets.MouseLeave += (this.Control_Leave);
+		toolStripMenuItemTisserandParametersOfAllMinorPlanets.MouseMove += (this.MouseCoordinates_MouseMove);
+		// 
+		// toolStripMenuItemEncounterVelocities
+		// 
+		toolStripMenuItemEncounterVelocities.AccessibleDescription = "Shows the encounter velocities";
+		toolStripMenuItemEncounterVelocities.AccessibleName = "Encounter velocities";
+		toolStripMenuItemEncounterVelocities.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemEncounterVelocities.AutoToolTip = true;
+		toolStripMenuItemEncounterVelocities.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemEncounterVelocityOfOneMinorPlanet, toolStripMenuItemEncounterVelocitiesOfAllMinorPlanets });
+		toolStripMenuItemEncounterVelocities.Name = "toolStripMenuItemEncounterVelocities";
+		toolStripMenuItemEncounterVelocities.Size = new Size(295, 22);
+		toolStripMenuItemEncounterVelocities.Text = "&Encounter velocities";
+		toolStripMenuItemEncounterVelocities.MouseEnter += (this.Control_Enter);
+		toolStripMenuItemEncounterVelocities.MouseLeave += (this.Control_Leave);
+		toolStripMenuItemEncounterVelocities.MouseMove += (this.MouseCoordinates_MouseMove);
+		// 
+		// toolStripMenuItemEncounterVelocityOfOneMinorPlanet
+		// 
+		toolStripMenuItemEncounterVelocityOfOneMinorPlanet.AccessibleDescription = "Shows the encounter velocity of one minor planet";
+		toolStripMenuItemEncounterVelocityOfOneMinorPlanet.AccessibleName = "Encounter velocity of one minor planet";
+		toolStripMenuItemEncounterVelocityOfOneMinorPlanet.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemEncounterVelocityOfOneMinorPlanet.AutoToolTip = true;
+		toolStripMenuItemEncounterVelocityOfOneMinorPlanet.Name = "toolStripMenuItemEncounterVelocityOfOneMinorPlanet";
+		toolStripMenuItemEncounterVelocityOfOneMinorPlanet.Size = new Size(285, 22);
+		toolStripMenuItemEncounterVelocityOfOneMinorPlanet.Text = "Encounter velocity of &one minor planet";
+		toolStripMenuItemEncounterVelocityOfOneMinorPlanet.Click += (this.EncounterVelocity_Click);
+		toolStripMenuItemEncounterVelocityOfOneMinorPlanet.MouseEnter += (this.Control_Enter);
+		toolStripMenuItemEncounterVelocityOfOneMinorPlanet.MouseLeave += (this.Control_Leave);
+		toolStripMenuItemEncounterVelocityOfOneMinorPlanet.MouseMove += (this.MouseCoordinates_MouseMove);
+		// 
+		// toolStripMenuItemEncounterVelocitiesOfAllMinorPlanets
+		// 
+		toolStripMenuItemEncounterVelocitiesOfAllMinorPlanets.AccessibleDescription = "Shows the encounter velocities of &all minor planets";
+		toolStripMenuItemEncounterVelocitiesOfAllMinorPlanets.AccessibleName = "Encounter velocities of all minor planets";
+		toolStripMenuItemEncounterVelocitiesOfAllMinorPlanets.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemEncounterVelocitiesOfAllMinorPlanets.AutoToolTip = true;
+		toolStripMenuItemEncounterVelocitiesOfAllMinorPlanets.Name = "toolStripMenuItemEncounterVelocitiesOfAllMinorPlanets";
+		toolStripMenuItemEncounterVelocitiesOfAllMinorPlanets.Size = new Size(285, 22);
+		toolStripMenuItemEncounterVelocitiesOfAllMinorPlanets.Text = "Encounter velocities of &all minor planets";
+		toolStripMenuItemEncounterVelocitiesOfAllMinorPlanets.Click += (this.EncounterVelocitiesOfAllMinorPlanets_Click);
+		toolStripMenuItemEncounterVelocitiesOfAllMinorPlanets.MouseEnter += (this.Control_Enter);
+		toolStripMenuItemEncounterVelocitiesOfAllMinorPlanets.MouseLeave += (this.Control_Leave);
+		toolStripMenuItemEncounterVelocitiesOfAllMinorPlanets.MouseMove += (this.MouseCoordinates_MouseMove);
 		// 
 		// toolStripMenuItemMoids
 		// 
@@ -3853,6 +3989,52 @@ partial class PlanetoidDbForm
 		toolStripMenuItemMoidsAndMaxoidsOfOneMinorPlanet.MouseLeave += (this.Control_Leave);
 		toolStripMenuItemMoidsAndMaxoidsOfOneMinorPlanet.MouseMove += (this.MouseCoordinates_MouseMove);
 		// 
+		// toolStripMenuItemDerivedOrbitElements
+		// 
+		toolStripMenuItemDerivedOrbitElements.AccessibleDescription = "Calculates derived orbital elements";
+		toolStripMenuItemDerivedOrbitElements.AccessibleName = "Derived orbital elements";
+		toolStripMenuItemDerivedOrbitElements.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemDerivedOrbitElements.AutoToolTip = true;
+		toolStripMenuItemDerivedOrbitElements.Image = FatcowIcons16px.fatcow_arrow_branch_16px;
+		toolStripMenuItemDerivedOrbitElements.Name = "toolStripMenuItemDerivedOrbitElements";
+		toolStripMenuItemDerivedOrbitElements.Size = new Size(295, 22);
+		toolStripMenuItemDerivedOrbitElements.Text = "&Derived orbital elements";
+		toolStripMenuItemDerivedOrbitElements.Click += (this.DerivedOrbitElements_Click);
+		toolStripMenuItemDerivedOrbitElements.MouseEnter += (this.Control_Enter);
+		toolStripMenuItemDerivedOrbitElements.MouseLeave += (this.Control_Leave);
+		toolStripMenuItemDerivedOrbitElements.MouseMove += (this.MouseCoordinates_MouseMove);
+		// 
+		// toolStripMenuItemAsteroidFamiliesDetection
+		// 
+		toolStripMenuItemAsteroidFamiliesDetection.AccessibleDescription = "Shows the asteroid families detection";
+		toolStripMenuItemAsteroidFamiliesDetection.AccessibleName = "Asteroid families detection";
+		toolStripMenuItemAsteroidFamiliesDetection.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemAsteroidFamiliesDetection.AutoToolTip = true;
+		toolStripMenuItemAsteroidFamiliesDetection.Image = FatcowIcons16px.fatcow_node_magnifier_16px;
+		toolStripMenuItemAsteroidFamiliesDetection.Name = "toolStripMenuItemAsteroidFamiliesDetection";
+		toolStripMenuItemAsteroidFamiliesDetection.Size = new Size(295, 22);
+		toolStripMenuItemAsteroidFamiliesDetection.Text = "Asteroid &families detection";
+		toolStripMenuItemAsteroidFamiliesDetection.ToolTipText = "Asteroid families detection";
+		toolStripMenuItemAsteroidFamiliesDetection.Click += (this.AsteroidFamiliesDetection_Click);
+		toolStripMenuItemAsteroidFamiliesDetection.MouseEnter += (this.Control_Enter);
+		toolStripMenuItemAsteroidFamiliesDetection.MouseLeave += (this.Control_Leave);
+		toolStripMenuItemAsteroidFamiliesDetection.MouseMove += (this.MouseCoordinates_MouseMove);
+		// 
+		// toolStripMenuItemOrbitElementsGrouping
+		// 
+		toolStripMenuItemOrbitElementsGrouping.AccessibleDescription = "Shows the orbit elements grouping";
+		toolStripMenuItemOrbitElementsGrouping.AccessibleName = "Orbit elements grouping";
+		toolStripMenuItemOrbitElementsGrouping.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemOrbitElementsGrouping.AutoToolTip = true;
+		toolStripMenuItemOrbitElementsGrouping.Image = FatcowIcons16px.fatcow_node_16px;
+		toolStripMenuItemOrbitElementsGrouping.Name = "toolStripMenuItemOrbitElementsGrouping";
+		toolStripMenuItemOrbitElementsGrouping.Size = new Size(295, 22);
+		toolStripMenuItemOrbitElementsGrouping.Text = "Orbit elements &grouping";
+		toolStripMenuItemOrbitElementsGrouping.Click += (this.OrbitElementsGrouping_Click);
+		toolStripMenuItemOrbitElementsGrouping.MouseEnter += (this.Control_Enter);
+		toolStripMenuItemOrbitElementsGrouping.MouseLeave += (this.Control_Leave);
+		toolStripMenuItemOrbitElementsGrouping.MouseMove += (this.MouseCoordinates_MouseMove);
+		// 
 		// toolStripMenuItemGeometricAlbedoAdjustedDiameter
 		// 
 		toolStripMenuItemGeometricAlbedoAdjustedDiameter.AccessibleDescription = "Calculates the geometric albedo-adjusted diameter";
@@ -3861,336 +4043,109 @@ partial class PlanetoidDbForm
 		toolStripMenuItemGeometricAlbedoAdjustedDiameter.AutoToolTip = true;
 		toolStripMenuItemGeometricAlbedoAdjustedDiameter.Name = "toolStripMenuItemGeometricAlbedoAdjustedDiameter";
 		toolStripMenuItemGeometricAlbedoAdjustedDiameter.Size = new Size(295, 22);
-		toolStripMenuItemGeometricAlbedoAdjustedDiameter.Text = "&Geometric albedo-adjusted diameter";
+		toolStripMenuItemGeometricAlbedoAdjustedDiameter.Text = "Geometri&c albedo-adjusted diameter";
 		toolStripMenuItemGeometricAlbedoAdjustedDiameter.Click += (this.ToolStripMenuItemGeometricAlbedoAdjustedDiameter_Click);
 		toolStripMenuItemGeometricAlbedoAdjustedDiameter.MouseEnter += (this.Control_Enter);
 		toolStripMenuItemGeometricAlbedoAdjustedDiameter.MouseLeave += (this.Control_Leave);
 		toolStripMenuItemGeometricAlbedoAdjustedDiameter.MouseMove += (this.MouseCoordinates_MouseMove);
 		// 
-		// toolStripMenuItemGroupDynamics
+		// toolStripMenuItemUtilities
 		// 
-		toolStripMenuItemGroupDynamics.AccessibleDescription = "Orbital dynamics: Tisserand parameters and resonances";
-		toolStripMenuItemGroupDynamics.AccessibleName = "Dynamics";
-		toolStripMenuItemGroupDynamics.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemGroupDynamics.AutoToolTip = true;
-		toolStripMenuItemGroupDynamics.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemOrbitalResonances, toolStripMenuItemTisserandParameters, toolStripMenuItemEncounterVelocitys });
-		toolStripMenuItemGroupDynamics.Name = "toolStripMenuItemGroupDynamics";
-		toolStripMenuItemGroupDynamics.Size = new Size(206, 22);
-		toolStripMenuItemGroupDynamics.Text = "&Dynamics";
-		toolStripMenuItemGroupDynamics.MouseEnter += (this.Control_Enter);
-		toolStripMenuItemGroupDynamics.MouseLeave += (this.Control_Leave);
-		toolStripMenuItemGroupDynamics.MouseMove += (this.MouseCoordinates_MouseMove);
+		toolStripMenuItemUtilities.AccessibleDescription = "Opens the menu \"Utilities\"";
+		toolStripMenuItemUtilities.AccessibleName = "Tools";
+		toolStripMenuItemUtilities.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemUtilities.AutoToolTip = true;
+		toolStripMenuItemUtilities.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemDataDecoders, toolStripMenuItemTerminology, toolStripMenuItemCalculator });
+		toolStripMenuItemUtilities.Name = "toolStripMenuItemUtilities";
+		toolStripMenuItemUtilities.Size = new Size(58, 24);
+		toolStripMenuItemUtilities.Text = "Utilitie&s";
+		toolStripMenuItemUtilities.MouseEnter += (this.Control_Enter);
+		toolStripMenuItemUtilities.MouseLeave += (this.Control_Leave);
+		toolStripMenuItemUtilities.MouseMove += (this.MouseCoordinates_MouseMove);
 		// 
-		// toolStripMenuItemOrbitalResonances
+		// toolStripMenuItemDataDecoders
 		// 
-		toolStripMenuItemOrbitalResonances.AccessibleDescription = "Shows the orbital resonances";
-		toolStripMenuItemOrbitalResonances.AccessibleName = "Orbital resonances";
-		toolStripMenuItemOrbitalResonances.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemOrbitalResonances.AutoToolTip = true;
-		toolStripMenuItemOrbitalResonances.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemOrbitalResonancesOfOneMinorPlanet, toolStripMenuItemOrbitalResonancesOfAllMinorPlanets });
-		toolStripMenuItemOrbitalResonances.Name = "toolStripMenuItemOrbitalResonances";
-		toolStripMenuItemOrbitalResonances.Size = new Size(185, 22);
-		toolStripMenuItemOrbitalResonances.Text = "Orbital &resonances";
-		toolStripMenuItemOrbitalResonances.MouseEnter += (this.Control_Enter);
-		toolStripMenuItemOrbitalResonances.MouseLeave += (this.Control_Leave);
-		toolStripMenuItemOrbitalResonances.MouseMove += (this.MouseCoordinates_MouseMove);
+		toolStripMenuItemDataDecoders.AccessibleDescription = "Shows the data decoders";
+		toolStripMenuItemDataDecoders.AccessibleName = "Data decoders";
+		toolStripMenuItemDataDecoders.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemDataDecoders.AutoToolTip = true;
+		toolStripMenuItemDataDecoders.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemDataDecoderReadableDesignation, toolStripMenuItemDataDecoderEpoch, toolStripMenuItemDataDecoderReference, toolStripMenuItemDataDecoder4HexDigitFlags, toolStripMenuItemDataDecoderDateOfLastObservation });
+		toolStripMenuItemDataDecoders.Name = "toolStripMenuItemDataDecoders";
+		toolStripMenuItemDataDecoders.Size = new Size(180, 22);
+		toolStripMenuItemDataDecoders.Text = "&Data decoders";
+		toolStripMenuItemDataDecoders.MouseEnter += (this.Control_Enter);
+		toolStripMenuItemDataDecoders.MouseLeave += (this.Control_Leave);
+		toolStripMenuItemDataDecoders.MouseMove += (this.MouseCoordinates_MouseMove);
 		// 
-		// toolStripMenuItemOrbitalResonancesOfOneMinorPlanet
+		// toolStripMenuItemDataDecoderReadableDesignation
 		// 
-		toolStripMenuItemOrbitalResonancesOfOneMinorPlanet.AccessibleDescription = "Shows the orbital resonances of one minor planet";
-		toolStripMenuItemOrbitalResonancesOfOneMinorPlanet.AccessibleName = "Orbital resonances of one minor planet";
-		toolStripMenuItemOrbitalResonancesOfOneMinorPlanet.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemOrbitalResonancesOfOneMinorPlanet.AutoToolTip = true;
-		toolStripMenuItemOrbitalResonancesOfOneMinorPlanet.Image = FatcowIcons16px.fatcow_linechart_16px;
-		toolStripMenuItemOrbitalResonancesOfOneMinorPlanet.Name = "toolStripMenuItemOrbitalResonancesOfOneMinorPlanet";
-		toolStripMenuItemOrbitalResonancesOfOneMinorPlanet.Size = new Size(280, 22);
-		toolStripMenuItemOrbitalResonancesOfOneMinorPlanet.Text = "Orbital resonances of &one minor planet";
-		toolStripMenuItemOrbitalResonancesOfOneMinorPlanet.Click += (this.OrbitalResonances_Click);
-		toolStripMenuItemOrbitalResonancesOfOneMinorPlanet.MouseEnter += (this.Control_Enter);
-		toolStripMenuItemOrbitalResonancesOfOneMinorPlanet.MouseLeave += (this.Control_Leave);
-		toolStripMenuItemOrbitalResonancesOfOneMinorPlanet.MouseMove += (this.MouseCoordinates_MouseMove);
+		toolStripMenuItemDataDecoderReadableDesignation.AccessibleDescription = "Opens the data decoder for the readable designation";
+		toolStripMenuItemDataDecoderReadableDesignation.AccessibleName = "Readable designation";
+		toolStripMenuItemDataDecoderReadableDesignation.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemDataDecoderReadableDesignation.AutoToolTip = true;
+		toolStripMenuItemDataDecoderReadableDesignation.Name = "toolStripMenuItemDataDecoderReadableDesignation";
+		toolStripMenuItemDataDecoderReadableDesignation.Size = new Size(228, 22);
+		toolStripMenuItemDataDecoderReadableDesignation.Text = "Readable &designation";
+		toolStripMenuItemDataDecoderReadableDesignation.Click += (this.LabelReadableDesignationData_Click);
+		toolStripMenuItemDataDecoderReadableDesignation.MouseEnter += (this.Control_Enter);
+		toolStripMenuItemDataDecoderReadableDesignation.MouseLeave += (this.Control_Leave);
+		toolStripMenuItemDataDecoderReadableDesignation.MouseMove += (this.MouseCoordinates_MouseMove);
 		// 
-		// toolStripMenuItemOrbitalResonancesOfAllMinorPlanets
+		// toolStripMenuItemDataDecoderEpoch
 		// 
-		toolStripMenuItemOrbitalResonancesOfAllMinorPlanets.AccessibleDescription = "Shows the orbital resonances of all minor planets";
-		toolStripMenuItemOrbitalResonancesOfAllMinorPlanets.AccessibleName = "Orbital resonances of all minor planets";
-		toolStripMenuItemOrbitalResonancesOfAllMinorPlanets.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemOrbitalResonancesOfAllMinorPlanets.AutoToolTip = true;
-		toolStripMenuItemOrbitalResonancesOfAllMinorPlanets.Image = FatcowIcons16px.fatcow_areachart_16px;
-		toolStripMenuItemOrbitalResonancesOfAllMinorPlanets.Name = "toolStripMenuItemOrbitalResonancesOfAllMinorPlanets";
-		toolStripMenuItemOrbitalResonancesOfAllMinorPlanets.Size = new Size(280, 22);
-		toolStripMenuItemOrbitalResonancesOfAllMinorPlanets.Text = "Orbital resonances of &all minor planets";
-		toolStripMenuItemOrbitalResonancesOfAllMinorPlanets.Click += (this.OrbitalResonancesOfAllMinorPlanets_Click);
-		toolStripMenuItemOrbitalResonancesOfAllMinorPlanets.MouseEnter += (this.Control_Enter);
-		toolStripMenuItemOrbitalResonancesOfAllMinorPlanets.MouseLeave += (this.Control_Leave);
-		toolStripMenuItemOrbitalResonancesOfAllMinorPlanets.MouseMove += (this.MouseCoordinates_MouseMove);
+		toolStripMenuItemDataDecoderEpoch.AccessibleDescription = "Opens the data decoder for the epoch";
+		toolStripMenuItemDataDecoderEpoch.AccessibleName = "Epoch (in packed form, .0 TT)";
+		toolStripMenuItemDataDecoderEpoch.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemDataDecoderEpoch.AutoToolTip = true;
+		toolStripMenuItemDataDecoderEpoch.Name = "toolStripMenuItemDataDecoderEpoch";
+		toolStripMenuItemDataDecoderEpoch.Size = new Size(228, 22);
+		toolStripMenuItemDataDecoderEpoch.Text = "&Epoch (in packed form, .0 TT)";
+		toolStripMenuItemDataDecoderEpoch.Click += (this.LabelEpochData_Click);
+		toolStripMenuItemDataDecoderEpoch.MouseEnter += (this.Control_Enter);
+		toolStripMenuItemDataDecoderEpoch.MouseLeave += (this.Control_Leave);
+		toolStripMenuItemDataDecoderEpoch.MouseMove += (this.MouseCoordinates_MouseMove);
 		// 
-		// toolStripMenuItemTisserandParameters
+		// toolStripMenuItemDataDecoderReference
 		// 
-		toolStripMenuItemTisserandParameters.AccessibleDescription = "Shows the Tisserand parameters";
-		toolStripMenuItemTisserandParameters.AccessibleName = "Tisserand parameters";
-		toolStripMenuItemTisserandParameters.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemTisserandParameters.AutoToolTip = true;
-		toolStripMenuItemTisserandParameters.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemTisserandParameterOfOneMinorPlanet, toolStripMenuItemTisserandParametersOfAllMinorPlanets });
-		toolStripMenuItemTisserandParameters.Name = "toolStripMenuItemTisserandParameters";
-		toolStripMenuItemTisserandParameters.Size = new Size(185, 22);
-		toolStripMenuItemTisserandParameters.Text = "&Tisserand parameters";
-		toolStripMenuItemTisserandParameters.MouseEnter += (this.Control_Enter);
-		toolStripMenuItemTisserandParameters.MouseLeave += (this.Control_Leave);
-		toolStripMenuItemTisserandParameters.MouseMove += (this.MouseCoordinates_MouseMove);
+		toolStripMenuItemDataDecoderReference.AccessibleDescription = "Opens the data decoder for the reference";
+		toolStripMenuItemDataDecoderReference.AccessibleName = "Reference";
+		toolStripMenuItemDataDecoderReference.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemDataDecoderReference.AutoToolTip = true;
+		toolStripMenuItemDataDecoderReference.Name = "toolStripMenuItemDataDecoderReference";
+		toolStripMenuItemDataDecoderReference.Size = new Size(228, 22);
+		toolStripMenuItemDataDecoderReference.Text = "&Reference";
+		toolStripMenuItemDataDecoderReference.Click += (this.LabelReferenceData_Click);
+		toolStripMenuItemDataDecoderReference.MouseEnter += (this.Control_Enter);
+		toolStripMenuItemDataDecoderReference.MouseLeave += (this.Control_Leave);
+		toolStripMenuItemDataDecoderReference.MouseMove += (this.MouseCoordinates_MouseMove);
 		// 
-		// toolStripMenuItemTisserandParameterOfOneMinorPlanet
+		// toolStripMenuItemDataDecoder4HexDigitFlags
 		// 
-		toolStripMenuItemTisserandParameterOfOneMinorPlanet.AccessibleDescription = "Shows the Tisserand parameter of one minor planet";
-		toolStripMenuItemTisserandParameterOfOneMinorPlanet.AccessibleName = "Tisserand parameter of one minor planet";
-		toolStripMenuItemTisserandParameterOfOneMinorPlanet.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemTisserandParameterOfOneMinorPlanet.AutoToolTip = true;
-		toolStripMenuItemTisserandParameterOfOneMinorPlanet.Name = "toolStripMenuItemTisserandParameterOfOneMinorPlanet";
-		toolStripMenuItemTisserandParameterOfOneMinorPlanet.Size = new Size(290, 22);
-		toolStripMenuItemTisserandParameterOfOneMinorPlanet.Text = "Tisserand parameter of &one minor planet";
-		toolStripMenuItemTisserandParameterOfOneMinorPlanet.Click += (this.TisserandParameters_Click);
-		toolStripMenuItemTisserandParameterOfOneMinorPlanet.MouseEnter += (this.Control_Enter);
-		toolStripMenuItemTisserandParameterOfOneMinorPlanet.MouseLeave += (this.Control_Leave);
-		toolStripMenuItemTisserandParameterOfOneMinorPlanet.MouseMove += (this.MouseCoordinates_MouseMove);
+		toolStripMenuItemDataDecoder4HexDigitFlags.AccessibleDescription = "Opens the data decoder for the 4-hexdigit flags";
+		toolStripMenuItemDataDecoder4HexDigitFlags.AccessibleName = "4-hexdigit flags";
+		toolStripMenuItemDataDecoder4HexDigitFlags.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemDataDecoder4HexDigitFlags.AutoToolTip = true;
+		toolStripMenuItemDataDecoder4HexDigitFlags.Name = "toolStripMenuItemDataDecoder4HexDigitFlags";
+		toolStripMenuItemDataDecoder4HexDigitFlags.Size = new Size(228, 22);
+		toolStripMenuItemDataDecoder4HexDigitFlags.Text = "4-&hexdigit flags";
+		toolStripMenuItemDataDecoder4HexDigitFlags.Click += (this.LabelFlagsData_Click);
+		toolStripMenuItemDataDecoder4HexDigitFlags.MouseEnter += (this.Control_Enter);
+		toolStripMenuItemDataDecoder4HexDigitFlags.MouseLeave += (this.Control_Leave);
+		toolStripMenuItemDataDecoder4HexDigitFlags.MouseMove += (this.MouseCoordinates_MouseMove);
 		// 
-		// toolStripMenuItemTisserandParametersOfAllMinorPlanets
+		// toolStripMenuItemDataDecoderDateOfLastObservation
 		// 
-		toolStripMenuItemTisserandParametersOfAllMinorPlanets.AccessibleDescription = "Shows the Tisserand parameters of all minor planets";
-		toolStripMenuItemTisserandParametersOfAllMinorPlanets.AccessibleName = "Tisserand parameters of all minor planets";
-		toolStripMenuItemTisserandParametersOfAllMinorPlanets.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemTisserandParametersOfAllMinorPlanets.AutoToolTip = true;
-		toolStripMenuItemTisserandParametersOfAllMinorPlanets.Name = "toolStripMenuItemTisserandParametersOfAllMinorPlanets";
-		toolStripMenuItemTisserandParametersOfAllMinorPlanets.Size = new Size(290, 22);
-		toolStripMenuItemTisserandParametersOfAllMinorPlanets.Text = "Tisserand parameters of &all minor planets";
-		toolStripMenuItemTisserandParametersOfAllMinorPlanets.Click += (this.TisserandParametersOfAllMinorPlanets_Click);
-		toolStripMenuItemTisserandParametersOfAllMinorPlanets.MouseEnter += (this.Control_Enter);
-		toolStripMenuItemTisserandParametersOfAllMinorPlanets.MouseLeave += (this.Control_Leave);
-		toolStripMenuItemTisserandParametersOfAllMinorPlanets.MouseMove += (this.MouseCoordinates_MouseMove);
-		// 
-		// toolStripMenuItemEncounterVelocitys
-		// 
-		toolStripMenuItemEncounterVelocitys.AccessibleDescription = "Shows the encounter velocitys";
-		toolStripMenuItemEncounterVelocitys.AccessibleName = "Encounter velocitys";
-		toolStripMenuItemEncounterVelocitys.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemEncounterVelocitys.AutoToolTip = true;
-		toolStripMenuItemEncounterVelocitys.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemEncounterVelocityOfOneMinorPlanet, toolStripMenuItemEncounterVelocitysOfAllMinorPlanets });
-		toolStripMenuItemEncounterVelocitys.Name = "toolStripMenuItemEncounterVelocitys";
-		toolStripMenuItemEncounterVelocitys.Size = new Size(185, 22);
-		toolStripMenuItemEncounterVelocitys.Text = "Encounter &velocitys";
-		toolStripMenuItemEncounterVelocitys.MouseEnter += (this.Control_Enter);
-		toolStripMenuItemEncounterVelocitys.MouseLeave += (this.Control_Leave);
-		toolStripMenuItemEncounterVelocitys.MouseMove += (this.MouseCoordinates_MouseMove);
-		// 
-		// toolStripMenuItemEncounterVelocityOfOneMinorPlanet
-		// 
-		toolStripMenuItemEncounterVelocityOfOneMinorPlanet.AccessibleDescription = "Shows the encounter velocity of one minor planet";
-		toolStripMenuItemEncounterVelocityOfOneMinorPlanet.AccessibleName = "Encounter velocity of one minor planet";
-		toolStripMenuItemEncounterVelocityOfOneMinorPlanet.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemEncounterVelocityOfOneMinorPlanet.AutoToolTip = true;
-		toolStripMenuItemEncounterVelocityOfOneMinorPlanet.Name = "toolStripMenuItemEncounterVelocityOfOneMinorPlanet";
-		toolStripMenuItemEncounterVelocityOfOneMinorPlanet.Size = new Size(282, 22);
-		toolStripMenuItemEncounterVelocityOfOneMinorPlanet.Text = "Encounter velocity of &one minor planet";
-		toolStripMenuItemEncounterVelocityOfOneMinorPlanet.Click += (this.EncounterVelocitys_Click);
-		toolStripMenuItemEncounterVelocityOfOneMinorPlanet.MouseEnter += (this.Control_Enter);
-		toolStripMenuItemEncounterVelocityOfOneMinorPlanet.MouseLeave += (this.Control_Leave);
-		toolStripMenuItemEncounterVelocityOfOneMinorPlanet.MouseMove += (this.MouseCoordinates_MouseMove);
-		// 
-		// toolStripMenuItemEncounterVelocitysOfAllMinorPlanets
-		// 
-		toolStripMenuItemEncounterVelocitysOfAllMinorPlanets.AccessibleDescription = "Shows the encounter velocitys of &all minor planets";
-		toolStripMenuItemEncounterVelocitysOfAllMinorPlanets.AccessibleName = "Encounter velocitys of all minor planets";
-		toolStripMenuItemEncounterVelocitysOfAllMinorPlanets.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemEncounterVelocitysOfAllMinorPlanets.AutoToolTip = true;
-		toolStripMenuItemEncounterVelocitysOfAllMinorPlanets.Name = "toolStripMenuItemEncounterVelocitysOfAllMinorPlanets";
-		toolStripMenuItemEncounterVelocitysOfAllMinorPlanets.Size = new Size(282, 22);
-		toolStripMenuItemEncounterVelocitysOfAllMinorPlanets.Text = "Encounter velocitys of &all minor planets";
-		toolStripMenuItemEncounterVelocitysOfAllMinorPlanets.Click += (this.EncounterVelocitysOfAllMinorPlanets_Click);
-		toolStripMenuItemEncounterVelocitysOfAllMinorPlanets.MouseEnter += (this.Control_Enter);
-		toolStripMenuItemEncounterVelocitysOfAllMinorPlanets.MouseLeave += (this.Control_Leave);
-		toolStripMenuItemEncounterVelocitysOfAllMinorPlanets.MouseMove += (this.MouseCoordinates_MouseMove);
-		// 
-		// toolStripMenuItemGroupEphemeridesAndPositions
-		// 
-		toolStripMenuItemGroupEphemeridesAndPositions.AccessibleDescription = "Ephemerides and positional information";
-		toolStripMenuItemGroupEphemeridesAndPositions.AccessibleName = "Ephemerides and Positions";
-		toolStripMenuItemGroupEphemeridesAndPositions.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemGroupEphemeridesAndPositions.AutoToolTip = true;
-		toolStripMenuItemGroupEphemeridesAndPositions.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemEphemerides, toolStripMenuItemPlanetaryInformation, toolStripMenuItemAverageAsteroid, toolStripMenuItemWorldMap, toolStripMenuItemCoordinateTransformation, toolStripMenuItemAngleMeasureConversion, toolStripMenuItemDistanceConversion });
-		toolStripMenuItemGroupEphemeridesAndPositions.Name = "toolStripMenuItemGroupEphemeridesAndPositions";
-		toolStripMenuItemGroupEphemeridesAndPositions.Size = new Size(206, 22);
-		toolStripMenuItemGroupEphemeridesAndPositions.Text = "&Ephemerides && positions";
-		toolStripMenuItemGroupEphemeridesAndPositions.MouseEnter += (this.Control_Enter);
-		toolStripMenuItemGroupEphemeridesAndPositions.MouseLeave += (this.Control_Leave);
-		toolStripMenuItemGroupEphemeridesAndPositions.MouseMove += (this.MouseCoordinates_MouseMove);
-		// 
-		// toolStripMenuItemEphemerides
-		// 
-		toolStripMenuItemEphemerides.AccessibleDescription = "Calculates the ephemerides of the current minor planet";
-		toolStripMenuItemEphemerides.AccessibleName = "Ephemerides";
-		toolStripMenuItemEphemerides.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemEphemerides.AutoToolTip = true;
-		toolStripMenuItemEphemerides.Name = "toolStripMenuItemEphemerides";
-		toolStripMenuItemEphemerides.Size = new Size(232, 22);
-		toolStripMenuItemEphemerides.Text = "&Ephemerides";
-		toolStripMenuItemEphemerides.Click += (this.Ephemerides_Click);
-		toolStripMenuItemEphemerides.MouseEnter += (this.Control_Enter);
-		toolStripMenuItemEphemerides.MouseLeave += (this.Control_Leave);
-		toolStripMenuItemEphemerides.MouseMove += (this.MouseCoordinates_MouseMove);
-		// 
-		// toolStripMenuItemPlanetaryInformation
-		// 
-		toolStripMenuItemPlanetaryInformation.AccessibleDescription = "Shows orbital and physical properties of the eight planets";
-		toolStripMenuItemPlanetaryInformation.AccessibleName = "Planetary information";
-		toolStripMenuItemPlanetaryInformation.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemPlanetaryInformation.AutoToolTip = true;
-		toolStripMenuItemPlanetaryInformation.Image = FatcowIcons16px.fatcow_earth_night_16px;
-		toolStripMenuItemPlanetaryInformation.Name = "toolStripMenuItemPlanetaryInformation";
-		toolStripMenuItemPlanetaryInformation.ShortcutKeyDisplayString = "Strg+P";
-		toolStripMenuItemPlanetaryInformation.Size = new Size(232, 22);
-		toolStripMenuItemPlanetaryInformation.Text = "&Planetary information";
-		toolStripMenuItemPlanetaryInformation.Click += (this.PlanetaryInformation_Click);
-		toolStripMenuItemPlanetaryInformation.MouseEnter += (this.Control_Enter);
-		toolStripMenuItemPlanetaryInformation.MouseLeave += (this.Control_Leave);
-		toolStripMenuItemPlanetaryInformation.MouseMove += (this.MouseCoordinates_MouseMove);
-		// 
-		// toolStripMenuItemAverageAsteroid
-		// 
-		toolStripMenuItemAverageAsteroid.AccessibleDescription = "Shows the theoretical average asteroid";
-		toolStripMenuItemAverageAsteroid.AccessibleName = "Average asteroid";
-		toolStripMenuItemAverageAsteroid.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemAverageAsteroid.AutoToolTip = true;
-		toolStripMenuItemAverageAsteroid.Name = "toolStripMenuItemAverageAsteroid";
-		toolStripMenuItemAverageAsteroid.Size = new Size(232, 22);
-		toolStripMenuItemAverageAsteroid.Text = "&Average asteroid";
-		toolStripMenuItemAverageAsteroid.Click += (this.AverageAsteroid_Click);
-		toolStripMenuItemAverageAsteroid.MouseEnter += (this.Control_Enter);
-		toolStripMenuItemAverageAsteroid.MouseLeave += (this.Control_Leave);
-		toolStripMenuItemAverageAsteroid.MouseMove += (this.MouseCoordinates_MouseMove);
-		// 
-		// toolStripMenuItemWorldMap
-		// 
-		toolStripMenuItemWorldMap.AccessibleDescription = "Shows the world map";
-		toolStripMenuItemWorldMap.AccessibleName = "World map";
-		toolStripMenuItemWorldMap.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemWorldMap.AutoToolTip = true;
-		toolStripMenuItemWorldMap.Image = FatcowIcons16px.fatcow_map_16px;
-		toolStripMenuItemWorldMap.Name = "toolStripMenuItemWorldMap";
-		toolStripMenuItemWorldMap.Size = new Size(232, 22);
-		toolStripMenuItemWorldMap.Text = "&World map";
-		toolStripMenuItemWorldMap.Click += (this.WorldMap_Click);
-		toolStripMenuItemWorldMap.MouseMove += (this.MouseCoordinates_MouseMove);
-		// 
-		// toolStripMenuItemCoordinateTransformation
-		// 
-		toolStripMenuItemCoordinateTransformation.AccessibleDescription = "Transforms astronomical coordinates";
-		toolStripMenuItemCoordinateTransformation.AccessibleName = "Coordinate transformation";
-		toolStripMenuItemCoordinateTransformation.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemCoordinateTransformation.AutoToolTip = true;
-		toolStripMenuItemCoordinateTransformation.Name = "toolStripMenuItemCoordinateTransformation";
-		toolStripMenuItemCoordinateTransformation.Size = new Size(232, 22);
-		toolStripMenuItemCoordinateTransformation.Text = "&Coordinate transformation";
-		toolStripMenuItemCoordinateTransformation.Click += (this.CoordinateTransformation_Click);
-		toolStripMenuItemCoordinateTransformation.MouseEnter += (this.Control_Enter);
-		toolStripMenuItemCoordinateTransformation.MouseLeave += (this.Control_Leave);
-		toolStripMenuItemCoordinateTransformation.MouseMove += (this.MouseCoordinates_MouseMove);
-		// 
-		// toolStripMenuItemAngleMeasureConversion
-		// 
-		toolStripMenuItemAngleMeasureConversion.AccessibleDescription = "Converts between angle and time measure";
-		toolStripMenuItemAngleMeasureConversion.AccessibleName = "Angle measure conversion";
-		toolStripMenuItemAngleMeasureConversion.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemAngleMeasureConversion.AutoToolTip = true;
-		toolStripMenuItemAngleMeasureConversion.Name = "toolStripMenuItemAngleMeasureConversion";
-		toolStripMenuItemAngleMeasureConversion.Size = new Size(232, 22);
-		toolStripMenuItemAngleMeasureConversion.Text = "Angle &measure conversion";
-		toolStripMenuItemAngleMeasureConversion.Click += (this.AngleMeasureConversion_Click);
-		toolStripMenuItemAngleMeasureConversion.MouseEnter += (this.Control_Enter);
-		toolStripMenuItemAngleMeasureConversion.MouseLeave += (this.Control_Leave);
-		toolStripMenuItemAngleMeasureConversion.MouseMove += (this.MouseCoordinates_MouseMove);
-		// 
-		// toolStripMenuItemDistanceConversion
-		// 
-		toolStripMenuItemDistanceConversion.AccessibleDescription = "Converts between different distances";
-		toolStripMenuItemDistanceConversion.AccessibleName = "Distance conversion";
-		toolStripMenuItemDistanceConversion.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemDistanceConversion.AutoToolTip = true;
-		toolStripMenuItemDistanceConversion.Name = "toolStripMenuItemDistanceConversion";
-		toolStripMenuItemDistanceConversion.Size = new Size(232, 22);
-		toolStripMenuItemDistanceConversion.Text = "&Distance conversion";
-		toolStripMenuItemDistanceConversion.Click += (this.DistanceConversion_Click);
-		toolStripMenuItemDistanceConversion.MouseEnter += (this.Control_Enter);
-		toolStripMenuItemDistanceConversion.MouseLeave += (this.Control_Leave);
-		toolStripMenuItemDistanceConversion.MouseMove += (this.MouseCoordinates_MouseMove);
-		// 
-		// toolStripMenuItemObservations
-		// 
-		toolStripMenuItemObservations.AccessibleDescription = "Shows the observations";
-		toolStripMenuItemObservations.AccessibleName = "Observations";
-		toolStripMenuItemObservations.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemObservations.AutoToolTip = true;
-		toolStripMenuItemObservations.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemObservationLogs, toolStripMenuItemBulkObservationsDataDownloader, toolStripMenuItemObservatoryCodes });
-		toolStripMenuItemObservations.Name = "toolStripMenuItemObservations";
-		toolStripMenuItemObservations.Size = new Size(206, 22);
-		toolStripMenuItemObservations.Text = "Obser&vations";
-		toolStripMenuItemObservations.MouseEnter += (this.Control_Enter);
-		toolStripMenuItemObservations.MouseLeave += (this.Control_Leave);
-		toolStripMenuItemObservations.MouseMove += (this.MouseCoordinates_MouseMove);
-		// 
-		// toolStripMenuItemObservationLogs
-		// 
-		toolStripMenuItemObservationLogs.AccessibleDescription = "Shows the observation logs of the minor planet from the MPC";
-		toolStripMenuItemObservationLogs.AccessibleName = "Observation logs";
-		toolStripMenuItemObservationLogs.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemObservationLogs.AutoToolTip = true;
-		toolStripMenuItemObservationLogs.Image = FatcowIcons16px.fatcow_find_16px;
-		toolStripMenuItemObservationLogs.Name = "toolStripMenuItemObservationLogs";
-		toolStripMenuItemObservationLogs.Size = new Size(259, 22);
-		toolStripMenuItemObservationLogs.Text = "&Observation logs";
-		toolStripMenuItemObservationLogs.ToolTipText = "Shows the observations of the minor planet";
-		toolStripMenuItemObservationLogs.Click += (this.Observations_Click);
-		toolStripMenuItemObservationLogs.MouseEnter += (this.Control_Enter);
-		toolStripMenuItemObservationLogs.MouseLeave += (this.Control_Leave);
-		toolStripMenuItemObservationLogs.MouseMove += (this.MouseCoordinates_MouseMove);
-		// 
-		// toolStripMenuItemBulkObservationsDataDownloader
-		// 
-		toolStripMenuItemBulkObservationsDataDownloader.AccessibleDescription = "Opens the bulk observations data downloader for a range of minor planets";
-		toolStripMenuItemBulkObservationsDataDownloader.AccessibleName = "Bulk observations data downloader";
-		toolStripMenuItemBulkObservationsDataDownloader.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemBulkObservationsDataDownloader.AutoToolTip = true;
-		toolStripMenuItemBulkObservationsDataDownloader.Image = FatcowIcons16px.fatcow_application_put_16px;
-		toolStripMenuItemBulkObservationsDataDownloader.Name = "toolStripMenuItemBulkObservationsDataDownloader";
-		toolStripMenuItemBulkObservationsDataDownloader.Size = new Size(259, 22);
-		toolStripMenuItemBulkObservationsDataDownloader.Text = "&Bulk observations data downloader";
-		toolStripMenuItemBulkObservationsDataDownloader.Click += (this.BulkObservationDataDownloader_Click);
-		toolStripMenuItemBulkObservationsDataDownloader.MouseEnter += (this.Control_Enter);
-		toolStripMenuItemBulkObservationsDataDownloader.MouseLeave += (this.Control_Leave);
-		toolStripMenuItemBulkObservationsDataDownloader.MouseMove += (this.MouseCoordinates_MouseMove);
-		// 
-		// toolStripMenuItemObservatoryCodes
-		// 
-		toolStripMenuItemObservatoryCodes.AccessibleDescription = "Lists the observatory codes";
-		toolStripMenuItemObservatoryCodes.AccessibleName = "Observatory codes";
-		toolStripMenuItemObservatoryCodes.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemObservatoryCodes.AutoToolTip = true;
-		toolStripMenuItemObservatoryCodes.Name = "toolStripMenuItemObservatoryCodes";
-		toolStripMenuItemObservatoryCodes.Size = new Size(259, 22);
-		toolStripMenuItemObservatoryCodes.Text = "Observatory &codes";
-		toolStripMenuItemObservatoryCodes.Click += (this.ObservatoryCodes_Click);
-		toolStripMenuItemObservatoryCodes.MouseEnter += (this.Control_Enter);
-		toolStripMenuItemObservatoryCodes.MouseLeave += (this.Control_Leave);
-		toolStripMenuItemObservatoryCodes.MouseMove += (this.MouseCoordinates_MouseMove);
-		// 
-		// toolStripSeparatorToolsGroups
-		// 
-		toolStripSeparatorToolsGroups.AccessibleDescription = "Just a separator";
-		toolStripSeparatorToolsGroups.AccessibleName = "Just a separator";
-		toolStripSeparatorToolsGroups.AccessibleRole = AccessibleRole.Separator;
-		toolStripSeparatorToolsGroups.Name = "toolStripSeparatorToolsGroups";
-		toolStripSeparatorToolsGroups.Size = new Size(203, 6);
-		toolStripSeparatorToolsGroups.MouseEnter += (this.Control_Enter);
-		toolStripSeparatorToolsGroups.MouseLeave += (this.Control_Leave);
-		toolStripSeparatorToolsGroups.MouseMove += (this.MouseCoordinates_MouseMove);
+		toolStripMenuItemDataDecoderDateOfLastObservation.AccessibleDescription = "Opens the data decoder for the date of last observation";
+		toolStripMenuItemDataDecoderDateOfLastObservation.AccessibleName = "Date of last observation";
+		toolStripMenuItemDataDecoderDateOfLastObservation.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemDataDecoderDateOfLastObservation.AutoToolTip = true;
+		toolStripMenuItemDataDecoderDateOfLastObservation.Name = "toolStripMenuItemDataDecoderDateOfLastObservation";
+		toolStripMenuItemDataDecoderDateOfLastObservation.Size = new Size(228, 22);
+		toolStripMenuItemDataDecoderDateOfLastObservation.Text = "Date of last &observation";
+		toolStripMenuItemDataDecoderDateOfLastObservation.Click += (this.LabelDateOfLastObservation_Click);
+		toolStripMenuItemDataDecoderDateOfLastObservation.MouseEnter += (this.Control_Enter);
+		toolStripMenuItemDataDecoderDateOfLastObservation.MouseLeave += (this.Control_Leave);
+		toolStripMenuItemDataDecoderDateOfLastObservation.MouseMove += (this.MouseCoordinates_MouseMove);
 		// 
 		// toolStripMenuItemTerminology
 		// 
@@ -4200,8 +4155,8 @@ partial class PlanetoidDbForm
 		toolStripMenuItemTerminology.AutoToolTip = true;
 		toolStripMenuItemTerminology.Image = FatcowIcons16px.fatcow_text_list_bullets_16px;
 		toolStripMenuItemTerminology.Name = "toolStripMenuItemTerminology";
-		toolStripMenuItemTerminology.Size = new Size(206, 22);
-		toolStripMenuItemTerminology.Text = "Terminolog&y";
+		toolStripMenuItemTerminology.Size = new Size(180, 22);
+		toolStripMenuItemTerminology.Text = "&Terminology";
 		toolStripMenuItemTerminology.Click += (this.Terminology_Click);
 		toolStripMenuItemTerminology.MouseEnter += (this.Control_Enter);
 		toolStripMenuItemTerminology.MouseLeave += (this.Control_Leave);
@@ -4215,7 +4170,7 @@ partial class PlanetoidDbForm
 		toolStripMenuItemCalculator.AutoToolTip = true;
 		toolStripMenuItemCalculator.Image = FatcowIcons16px.fatcow_calculator_16px;
 		toolStripMenuItemCalculator.Name = "toolStripMenuItemCalculator";
-		toolStripMenuItemCalculator.Size = new Size(206, 22);
+		toolStripMenuItemCalculator.Size = new Size(180, 22);
 		toolStripMenuItemCalculator.Text = "&Calculator";
 		toolStripMenuItemCalculator.Click += (this.Calculator_Click);
 		toolStripMenuItemCalculator.MouseEnter += (this.Control_Enter);
@@ -4245,7 +4200,6 @@ partial class PlanetoidDbForm
 		contextMenuExternalDataPages.Font = new Font("Segoe UI", 9F);
 		contextMenuExternalDataPages.Items.AddRange(new ToolStripItem[] { toolStripMenuItemExternalDataPageMpcDatabase, toolStripMenuItemExternalDataPageJplSmallBodyDatabase, toolStripMenuItemExternalDataPageLowellMinorPlanetServices, toolStripMenuItemExternalDataPageAsteroidsDynamicSite, toolStripMenuItemExternalDataPageNearEarthObjectsDynamicSite, toolStripMenuItemExternalDataPageNearEarthObjectCoordinationCentre, toolStripMenuItemExternalDataPageSsoCard, toolStripMenuItemExternalDataPageNeotoolsOrbitVisualisationTool, toolStripMenuItemExternalDataPageMp3CAtOca, toolStripMenuItemExternalDataPageMp3CAtLe, toolStripSeparator24, toolStripMenuItemAllExternalDataPages });
 		contextMenuExternalDataPages.Name = "contextMenuStripExternalDataPages";
-		contextMenuExternalDataPages.OwnerItem = toolStripMenuItemExternalDataPages2;
 		contextMenuExternalDataPages.Size = new Size(332, 252);
 		contextMenuExternalDataPages.TabStop = true;
 		contextMenuExternalDataPages.Text = "External data pages";
@@ -4429,21 +4383,20 @@ partial class PlanetoidDbForm
 		toolStripMenuItemAllExternalDataPages.MouseLeave += (this.Control_Leave);
 		toolStripMenuItemAllExternalDataPages.MouseMove += (this.MouseCoordinates_MouseMove);
 		// 
-		// toolStripDropDownButtonExternalDataPages
+		// toolStripMenuItemExternalDataPages2
 		// 
-		toolStripDropDownButtonExternalDataPages.AccessibleDescription = "Show the tool bar button \"External data pages\"";
-		toolStripDropDownButtonExternalDataPages.AccessibleName = "External data pages";
-		toolStripDropDownButtonExternalDataPages.AccessibleRole = AccessibleRole.PushButton;
-		toolStripDropDownButtonExternalDataPages.DisplayStyle = ToolStripItemDisplayStyle.Image;
-		toolStripDropDownButtonExternalDataPages.DropDown = contextMenuExternalDataPages;
-		toolStripDropDownButtonExternalDataPages.Image = FatcowIcons16px.fatcow_external_16px;
-		toolStripDropDownButtonExternalDataPages.ImageTransparentColor = Color.Magenta;
-		toolStripDropDownButtonExternalDataPages.Name = "toolStripDropDownButtonExternalDataPages";
-		toolStripDropDownButtonExternalDataPages.Size = new Size(29, 22);
-		toolStripDropDownButtonExternalDataPages.Text = "External data pages";
-		toolStripDropDownButtonExternalDataPages.MouseEnter += (this.Control_Enter);
-		toolStripDropDownButtonExternalDataPages.MouseLeave += (this.Control_Leave);
-		toolStripDropDownButtonExternalDataPages.MouseMove += (this.MouseCoordinates_MouseMove);
+		toolStripMenuItemExternalDataPages2.AccessibleDescription = "Opens external data pages in the web browser";
+		toolStripMenuItemExternalDataPages2.AccessibleName = "External data pages";
+		toolStripMenuItemExternalDataPages2.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemExternalDataPages2.AutoToolTip = true;
+		toolStripMenuItemExternalDataPages2.DropDown = contextMenuExternalDataPages;
+		toolStripMenuItemExternalDataPages2.Image = FatcowIcons16px.fatcow_external_16px;
+		toolStripMenuItemExternalDataPages2.Name = "toolStripMenuItemExternalDataPages2";
+		toolStripMenuItemExternalDataPages2.Size = new Size(344, 22);
+		toolStripMenuItemExternalDataPages2.Text = "External data &pages";
+		toolStripMenuItemExternalDataPages2.MouseEnter += (this.Control_Enter);
+		toolStripMenuItemExternalDataPages2.MouseLeave += (this.Control_Leave);
+		toolStripMenuItemExternalDataPages2.MouseMove += (this.MouseCoordinates_MouseMove);
 		// 
 		// toolStripMenuItemUpdate
 		// 
@@ -5823,37 +5776,21 @@ partial class PlanetoidDbForm
 		toolStripMenuItemLogViewer.MouseLeave += (this.Control_Leave);
 		toolStripMenuItemLogViewer.MouseMove += (this.MouseCoordinates_MouseMove);
 		// 
-		// toolStripDropDownButtonOrbit
+		// toolStripDropDownButtonExternalDataPages
 		// 
-		toolStripDropDownButtonOrbit.AccessibleDescription = "Shows orbit visualization";
-		toolStripDropDownButtonOrbit.AccessibleName = "Orbit visualization";
-		toolStripDropDownButtonOrbit.AccessibleRole = AccessibleRole.DropList;
-		toolStripDropDownButtonOrbit.DisplayStyle = ToolStripItemDisplayStyle.Image;
-		toolStripDropDownButtonOrbit.DropDown = contextMenuOrbit;
-		toolStripDropDownButtonOrbit.Enabled = false;
-		toolStripDropDownButtonOrbit.Image = FatcowIcons16px.fatcow_orbit_16px;
-		toolStripDropDownButtonOrbit.ImageTransparentColor = Color.Magenta;
-		toolStripDropDownButtonOrbit.Name = "toolStripDropDownButtonOrbit";
-		toolStripDropDownButtonOrbit.Size = new Size(29, 22);
-		toolStripDropDownButtonOrbit.Text = "Orbit visualization";
-		toolStripDropDownButtonOrbit.MouseEnter += (this.Control_Enter);
-		toolStripDropDownButtonOrbit.MouseLeave += (this.Control_Leave);
-		toolStripDropDownButtonOrbit.MouseMove += (this.MouseCoordinates_MouseMove);
-		// 
-		// toolStripMenuItemExternalDataPages2
-		// 
-		toolStripMenuItemExternalDataPages2.AccessibleDescription = "Opens external data pages in the web browser";
-		toolStripMenuItemExternalDataPages2.AccessibleName = "External data pages";
-		toolStripMenuItemExternalDataPages2.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemExternalDataPages2.AutoToolTip = true;
-		toolStripMenuItemExternalDataPages2.DropDown = contextMenuExternalDataPages;
-		toolStripMenuItemExternalDataPages2.Image = FatcowIcons16px.fatcow_external_16px;
-		toolStripMenuItemExternalDataPages2.Name = "toolStripMenuItemExternalDataPages2";
-		toolStripMenuItemExternalDataPages2.Size = new Size(344, 22);
-		toolStripMenuItemExternalDataPages2.Text = "External data &pages";
-		toolStripMenuItemExternalDataPages2.MouseEnter += (this.Control_Enter);
-		toolStripMenuItemExternalDataPages2.MouseLeave += (this.Control_Leave);
-		toolStripMenuItemExternalDataPages2.MouseMove += (this.MouseCoordinates_MouseMove);
+		toolStripDropDownButtonExternalDataPages.AccessibleDescription = "Show the tool bar button \"External data pages\"";
+		toolStripDropDownButtonExternalDataPages.AccessibleName = "External data pages";
+		toolStripDropDownButtonExternalDataPages.AccessibleRole = AccessibleRole.PushButton;
+		toolStripDropDownButtonExternalDataPages.DisplayStyle = ToolStripItemDisplayStyle.Image;
+		toolStripDropDownButtonExternalDataPages.DropDown = contextMenuExternalDataPages;
+		toolStripDropDownButtonExternalDataPages.Image = FatcowIcons16px.fatcow_external_16px;
+		toolStripDropDownButtonExternalDataPages.ImageTransparentColor = Color.Magenta;
+		toolStripDropDownButtonExternalDataPages.Name = "toolStripDropDownButtonExternalDataPages";
+		toolStripDropDownButtonExternalDataPages.Size = new Size(29, 22);
+		toolStripDropDownButtonExternalDataPages.Text = "External data pages";
+		toolStripDropDownButtonExternalDataPages.MouseEnter += (this.Control_Enter);
+		toolStripDropDownButtonExternalDataPages.MouseLeave += (this.Control_Leave);
+		toolStripDropDownButtonExternalDataPages.MouseMove += (this.MouseCoordinates_MouseMove);
 		// 
 		// toolStripDropDownButtonCheckUpdates
 		// 
@@ -5870,6 +5807,23 @@ partial class PlanetoidDbForm
 		toolStripDropDownButtonCheckUpdates.MouseEnter += (this.Control_Enter);
 		toolStripDropDownButtonCheckUpdates.MouseLeave += (this.Control_Leave);
 		toolStripDropDownButtonCheckUpdates.MouseMove += (this.MouseCoordinates_MouseMove);
+		// 
+		// toolStripDropDownButtonOrbit
+		// 
+		toolStripDropDownButtonOrbit.AccessibleDescription = "Shows orbit visualization";
+		toolStripDropDownButtonOrbit.AccessibleName = "Orbit visualization";
+		toolStripDropDownButtonOrbit.AccessibleRole = AccessibleRole.DropList;
+		toolStripDropDownButtonOrbit.DisplayStyle = ToolStripItemDisplayStyle.Image;
+		toolStripDropDownButtonOrbit.DropDown = contextMenuOrbit;
+		toolStripDropDownButtonOrbit.Enabled = false;
+		toolStripDropDownButtonOrbit.Image = FatcowIcons16px.fatcow_orbit_16px;
+		toolStripDropDownButtonOrbit.ImageTransparentColor = Color.Magenta;
+		toolStripDropDownButtonOrbit.Name = "toolStripDropDownButtonOrbit";
+		toolStripDropDownButtonOrbit.Size = new Size(29, 22);
+		toolStripDropDownButtonOrbit.Text = "Orbit visualization";
+		toolStripDropDownButtonOrbit.MouseEnter += (this.Control_Enter);
+		toolStripDropDownButtonOrbit.MouseLeave += (this.Control_Leave);
+		toolStripDropDownButtonOrbit.MouseMove += (this.MouseCoordinates_MouseMove);
 		// 
 		// toolStripSeparator10
 		// 
@@ -5924,7 +5878,7 @@ partial class PlanetoidDbForm
 		toolStripContainer.ContentPanel.Controls.Add(splitContainerContentOuterLeftMiddle);
 		toolStripContainer.ContentPanel.Margin = new Padding(4, 3, 4, 3);
 		toolStripContainer.ContentPanel.RenderMode = ToolStripRenderMode.ManagerRenderMode;
-		toolStripContainer.ContentPanel.Size = new Size(1008, 633);
+		toolStripContainer.ContentPanel.Size = new Size(1264, 825);
 		toolStripContainer.Dock = DockStyle.Fill;
 		// 
 		// toolStripContainer.LeftToolStripPanel
@@ -5940,7 +5894,7 @@ partial class PlanetoidDbForm
 		toolStripContainer.RightToolStripPanel.AccessibleDescription = "Right part of the container panel";
 		toolStripContainer.RightToolStripPanel.AccessibleName = "Right part of the container panel";
 		toolStripContainer.RightToolStripPanel.AccessibleRole = AccessibleRole.Pane;
-		toolStripContainer.Size = new Size(1008, 729);
+		toolStripContainer.Size = new Size(1264, 921);
 		toolStripContainer.TabIndex = 16;
 		// 
 		// toolStripContainer.TopToolStripPanel
@@ -5974,7 +5928,7 @@ partial class PlanetoidDbForm
 		kryptonStatusStrip.ProgressBars = null;
 		kryptonStatusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
 		kryptonStatusStrip.ShowItemToolTips = true;
-		kryptonStatusStrip.Size = new Size(1008, 22);
+		kryptonStatusStrip.Size = new Size(1264, 22);
 		kryptonStatusStrip.TabIndex = 0;
 		kryptonStatusStrip.TabStop = true;
 		kryptonStatusStrip.Text = "Status bar";
@@ -6001,7 +5955,6 @@ partial class PlanetoidDbForm
 		contextMenuShowControlsInStatusBar.MouseEnter += (this.Control_Enter);
 		contextMenuShowControlsInStatusBar.MouseLeave += (this.Control_Leave);
 		contextMenuShowControlsInStatusBar.MouseMove += (this.MouseCoordinates_MouseMove);
-
 		// 
 		// toolStripMenuItemShowInformationLabel
 		// 
@@ -6357,7 +6310,7 @@ partial class PlanetoidDbForm
 		splitContainerContentOuterLeftMiddle.Panel2.MouseEnter += (this.Control_Enter);
 		splitContainerContentOuterLeftMiddle.Panel2.MouseLeave += (this.Control_Leave);
 		splitContainerContentOuterLeftMiddle.Panel2.MouseMove += (this.MouseCoordinates_MouseMove);
-		splitContainerContentOuterLeftMiddle.Size = new Size(1008, 633);
+		splitContainerContentOuterLeftMiddle.Size = new Size(1264, 825);
 		splitContainerContentOuterLeftMiddle.SplitterDistance = 293;
 		splitContainerContentOuterLeftMiddle.TabIndex = 2;
 		splitContainerContentOuterLeftMiddle.Enter += (this.Control_Enter);
@@ -6383,7 +6336,7 @@ partial class PlanetoidDbForm
 		listViewReadableDesignations.MultiSelect = false;
 		listViewReadableDesignations.Name = "listViewReadableDesignations";
 		listViewReadableDesignations.ShowItemToolTips = true;
-		listViewReadableDesignations.Size = new Size(293, 633);
+		listViewReadableDesignations.Size = new Size(293, 825);
 		listViewReadableDesignations.TabIndex = 11;
 		listViewReadableDesignations.UseCompatibleStateImageBehavior = false;
 		listViewReadableDesignations.View = View.Details;
@@ -7165,7 +7118,7 @@ partial class PlanetoidDbForm
 		splitContainerContentInnerMiddleRight.Panel2.MouseLeave += (this.Control_Leave);
 		splitContainerContentInnerMiddleRight.Panel2.MouseMove += (this.MouseCoordinates_MouseMove);
 		splitContainerContentInnerMiddleRight.Panel2Collapsed = true;
-		splitContainerContentInnerMiddleRight.Size = new Size(711, 633);
+		splitContainerContentInnerMiddleRight.Size = new Size(967, 825);
 		splitContainerContentInnerMiddleRight.SplitterDistance = 686;
 		splitContainerContentInnerMiddleRight.TabIndex = 3;
 		splitContainerContentInnerMiddleRight.Enter += (this.Control_Enter);
@@ -7230,7 +7183,7 @@ partial class PlanetoidDbForm
 		kryptonNavigatorMain.PageBackStyle = PaletteBackStyle.PanelClient;
 		kryptonNavigatorMain.Pages.AddRange(new Krypton.Navigator.KryptonPage[] { kryptonPageMpcorbDat, kryptonPageMpcorbJson, kryptonPageAstorbDat, kryptonPageAllnumCat, kryptonPageSingoppCat, kryptonPageUfitobsCat });
 		kryptonNavigatorMain.SelectedIndex = 0;
-		kryptonNavigatorMain.Size = new Size(711, 633);
+		kryptonNavigatorMain.Size = new Size(967, 825);
 		kryptonNavigatorMain.TabIndex = 0;
 		kryptonNavigatorMain.Text = "kryptonNavigatorMain";
 		kryptonNavigatorMain.ToolTipValues.Description = "Shows the database navigator";
@@ -7250,7 +7203,7 @@ partial class PlanetoidDbForm
 		kryptonPageMpcorbDat.LastVisibleSet = true;
 		kryptonPageMpcorbDat.MinimumSize = new Size(150, 50);
 		kryptonPageMpcorbDat.Name = "kryptonPageMpcorbDat";
-		kryptonPageMpcorbDat.Size = new Size(709, 606);
+		kryptonPageMpcorbDat.Size = new Size(965, 798);
 		kryptonPageMpcorbDat.Text = "MPCORB.DAT";
 		kryptonPageMpcorbDat.TextDescription = "Shows the MPCORB.DAT";
 		kryptonPageMpcorbDat.TextTitle = "MPCORB.DAT";
@@ -7280,7 +7233,7 @@ partial class PlanetoidDbForm
 		listViewDerivedData.MultiSelect = false;
 		listViewDerivedData.Name = "listViewDerivedData";
 		listViewDerivedData.ShowItemToolTips = true;
-		listViewDerivedData.Size = new Size(709, 383);
+		listViewDerivedData.Size = new Size(965, 575);
 		listViewDerivedData.TabIndex = 12;
 		listViewDerivedData.UseCompatibleStateImageBehavior = false;
 		listViewDerivedData.View = View.Details;
@@ -11689,7 +11642,7 @@ partial class PlanetoidDbForm
 		kryptonToolStripIcons.LayoutStyle = ToolStripLayoutStyle.HorizontalStackWithOverflow;
 		kryptonToolStripIcons.Location = new Point(0, 24);
 		kryptonToolStripIcons.Name = "kryptonToolStripIcons";
-		kryptonToolStripIcons.Size = new Size(1008, 25);
+		kryptonToolStripIcons.Size = new Size(1264, 25);
 		kryptonToolStripIcons.Stretch = true;
 		kryptonToolStripIcons.TabIndex = 1;
 		kryptonToolStripIcons.TabStop = true;
@@ -12015,7 +11968,7 @@ partial class PlanetoidDbForm
 		kryptonToolStripNavigation.Items.AddRange(new ToolStripItem[] { toolStripButtonStepToBegin, toolStripSplitButtonStepBackward, toolStripButtonStepBackwardOne, toolStripButtonStepForwardOne, toolStripSplitButtonStepForward, toolStripButtonStepToEnd, toolStripSeparator6, toolStripSplitButtonHistoryBack, toolStripSplitButtonHistoryForward, toolStripSeparator8, toolStripButtonLoadRandomMinorPlanet, toolStripSeparatorHistory, toolStripLabelIndexPosition, toolStripSeparator7, toolStripLabelGoToIndex, toolStripTextBoxGotoIndex, toolStripButtonGoToIndex, toolStripSeparator9, toolStripButtonFilter, toolStripButtonFilterResetToDefault, toolStripSeparatorBookmark, toolStripButtonBookmark });
 		kryptonToolStripNavigation.Location = new Point(0, 49);
 		kryptonToolStripNavigation.Name = "kryptonToolStripNavigation";
-		kryptonToolStripNavigation.Size = new Size(1008, 25);
+		kryptonToolStripNavigation.Size = new Size(1264, 25);
 		kryptonToolStripNavigation.Stretch = true;
 		kryptonToolStripNavigation.TabIndex = 2;
 		kryptonToolStripNavigation.TabStop = true;
@@ -12373,7 +12326,7 @@ partial class PlanetoidDbForm
 		this.AutoScaleDimensions = new SizeF(7F, 15F);
 		this.AutoScaleMode = AutoScaleMode.Font;
 		this.AutoValidate = AutoValidate.EnablePreventFocusChange;
-		this.ClientSize = new Size(1008, 729);
+		this.ClientSize = new Size(1264, 921);
 		this.Controls.Add(toolStripContainer);
 		this.FormTitleAlign = PaletteRelativeAlign.Center;
 		this.Icon = (Icon)resources.GetObject("$this.Icon");
@@ -12509,11 +12462,8 @@ partial class PlanetoidDbForm
 	private ToolStripSeparator toolStripSeparatorOptions1;
 	private ToolStripMenuItem toolStripMenuItemDistributions;
 	private ToolStripSeparator toolStripSeparatorOptions2;
-	private ToolStripMenuItem toolStripMenuItemGroupDataAndStatistics;
-	private ToolStripMenuItem toolStripMenuItemGroupOrbitalAnalysis;
-	private ToolStripMenuItem toolStripMenuItemGroupProximityMetrics;
-	private ToolStripMenuItem toolStripMenuItemGroupDynamics;
-	private ToolStripSeparator toolStripSeparatorToolsGroups;
+	private ToolStripMenuItem menuItemDataAndStatistics;
+	private ToolStripMenuItem menuItemOrbitalDynamicsAndMetrics;
 	private ToolStripContainer toolStripContainer;
 	private ToolStripMenuItem toolStripMenuItemStyle;
 	private Timer timerCheckForNewMpcorbDatFile;
@@ -12532,7 +12482,7 @@ partial class PlanetoidDbForm
 	private ToolStripMenuItem toolStripMenuItemNavigateToTheNextData;
 	private ToolStripMenuItem toolStripMenuItemNavigateSomeDataForward;
 	private ToolStripMenuItem toolStripMenuItemNavigateToTheEnd;
-	private ToolStripMenuItem toolStripMenuItemTools;
+	private ToolStripMenuItem toolStripMenuItemUtilities;
 	private ToolStripMenuItem toolStripMenuItemDatabaseInformation;
 	private ToolStripMenuItem toolStripMenuItemSettings;
 	private ToolStripMenuItem toolStripMenuItemExportSettings;
@@ -12869,7 +12819,7 @@ partial class PlanetoidDbForm
 	private ToolStripMenuItem toolStripMenuItemScatterPlots;
 	private ToolStripMenuItem toolStripMenuItemAverageAsteroid;
 	private ToolStripMenuItem toolStripMenuItemAEIDiagram3D;
-	private ToolStripMenuItem toolStripMenuItemOrbit;
+	private ToolStripMenuItem toolStripMenuItemOrbitVisualization;
 	private ToolStripMenuItem toolStripMenuItemShowAllnumCatUpdateIsAvailable;
 	private ToolStripSeparator toolStripSeparator18;
 	private ToolStripMenuItem toolStripMenuItemShowUfitobsCatUpdateIsAvailable;
@@ -12929,7 +12879,6 @@ partial class PlanetoidDbForm
 	private ToolStripMenuItem toolStripMenuItemBookmarkListUfitobsCat;
 	private ToolStripMenuItem toolStripMenuItemPlanetaryInformation;
 	private ToolStripSeparator toolStripSeparator20;
-	private ToolStripMenuItem toolStripMenuItemGroupEphemeridesAndPositions;
 	private ToolStripMenuItem toolStripMenuItemBookmarkAudit;
 	private ToolStripMenuItem toolStripMenuItemCoordinateTransformation;
 	private ToolStripMenuItem toolStripMenuItemOptionEnableUiSound;
@@ -12947,9 +12896,9 @@ partial class PlanetoidDbForm
 	private FileSystemWatcher fileSystemWatcherSystemDirectory;
 	private Timer timerProcessorUsage;
 	private ToolStripStatusLabel labelProcessorUsage;
-	private ToolStripMenuItem toolStripMenuItemEncounterVelocitys;
+	private ToolStripMenuItem toolStripMenuItemEncounterVelocities;
 	private ToolStripMenuItem toolStripMenuItemEncounterVelocityOfOneMinorPlanet;
-	private ToolStripMenuItem toolStripMenuItemEncounterVelocitysOfAllMinorPlanets;
+	private ToolStripMenuItem toolStripMenuItemEncounterVelocitiesOfAllMinorPlanets;
 	private ToolStripStatusLabel toolStripStatusLabelWindowSize;
 	private ToolStripStatusLabel toolStripStatusLabelMouseCoordinates;
 	private ToolStripMenuItem toolStripMenuItemWindow;
@@ -13089,4 +13038,5 @@ partial class PlanetoidDbForm
 	private ToolStripMenuItem toolStripMenuItemShowMouseCoordinatesLabel;
 	private ToolStripMenuItem toolStripMenuItemShowWindowSizeLabel;
 	private ToolStripMenuItem toolStripMenuItemShowDiskSizeLabel;
+	private ToolStripSeparator toolStripSeparator32;
 }

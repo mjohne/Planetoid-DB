@@ -141,11 +141,11 @@
   <metadata name="contextMenuSystemTools.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>1496, 124</value>
   </metadata>
-  <metadata name="contextMenuExternalDataPages.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>477, 124</value>
-  </metadata>
   <metadata name="contextMenuOrbit.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>478, 87</value>
+  </metadata>
+  <metadata name="contextMenuExternalDataPages.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>477, 124</value>
   </metadata>
   <metadata name="contextMenuCheckDatabaseUpdates.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>630, 87</value>
@@ -164,6 +164,9 @@
   </metadata>
   <metadata name="contextMenuListViewReadableDesignations.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>699, 124</value>
+  </metadata>
+  <metadata name="contextMenuSaveToFile.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>401, 13</value>
   </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>153</value>
@@ -6329,17 +6332,14 @@
         AwAAwAEAAIABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAADAAQAA8AEAAPwHAAD/HwAA
 </value>
   </data>
+  <metadata name="contextMenuListViewDerivedData.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>983, 124</value>
+  </metadata>
   <metadata name="kryptonToolStripIcons.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>463, 50</value>
   </metadata>
   <metadata name="kryptonToolStripNavigation.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 50</value>
-  </metadata>
-  <metadata name="contextMenuSaveToFile.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>401, 13</value>
-  </metadata>
-  <metadata name="contextMenuListViewDerivedData.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>983, 124</value>
   </metadata>
   <metadata name="backgroundWorkerLoadingDatabase.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>216, 50</value>
