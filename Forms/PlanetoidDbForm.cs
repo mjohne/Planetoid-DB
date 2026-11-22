@@ -18,9 +18,11 @@ using NLog;
 using Planetoid_DB.Forms;
 using Planetoid_DB.Helpers;
 using Planetoid_DB.Properties;
+using Planetoid_DB.Resources;
 
 using System.Diagnostics;
 using System.Text;
+using System.Text.Json;
 
 namespace Planetoid_DB;
 
@@ -98,7 +100,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 
 	/// <summary>Stores the MPCORB.JSON database entries.</summary>
 	/// <remarks>This list is used to store the loaded JSON object strings from the MPCORB.JSON file for display in the MPCORB.JSON tab.</remarks>
-	private readonly List<System.Text.Json.JsonElement> mpcorbJsonDatabase = [];
+	private readonly List<JsonElement> mpcorbJsonDatabase = [];
 
 	/// <summary>Stores a backup of the planetoids database.</summary>
 	/// <remarks>This list is used to store a backup of the planetoids database entries, which can be used for comparison or restoration purposes.</remarks>
@@ -196,6 +198,21 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <summary>Indicates whether shutdown sound playback has completed.</summary>
 	private bool isShutdownSoundPlaybackComplete;
 
+	/// <summary>Stores the index of the currently sorted column.</summary>
+	/// <remarks>This field stores the index of the currently sorted column.</remarks>
+	private int sortColumn = -1;
+
+	/// <summary>The value indicates how items in the currently sorted column are ordered:
+	/// <list type="bullet">
+	/// <item><description><see cref="SortOrder.None"/>: No sorting is applied.</description></item>
+	/// <item><description><see cref="SortOrder.Ascending"/>: Items are sorted in ascending order.</description></item>
+	/// <item><description><see cref="SortOrder.Descending"/>: Items are sorted in descending order.</description></item>
+	/// </list>
+	/// This field is typically updated when the user clicks a column header in the list view to toggle the sort order.</summary>
+	/// <remarks>This field stores the current sort order of the list view.</remarks>
+	private SortOrder sortOrder = SortOrder.None;
+
+
 	/*
 	private readonly IProgress<int>? downloadProgress;
 	private const int bufferSize = 81920; // 80 KB buffer size for downloading
@@ -246,24 +263,24 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <summary>Gets the ListView control used for export operations.</summary>
 	/// <remarks>Overrides the base export source to use this form's results list.</remarks>
 	/*
-if (listViewReadableDesignations.Focused)
-{
-	return listViewReadableDesignations;
-}
-return listViewDerivedData;
-*/
+		if (listViewReadableDesignations.Focused)
+		{
+			return listViewReadableDesignations;
+		}
+		return listViewDerivedData;
+	*/
 
 	protected override ListView? ExportListView => listViewReadableDesignations.Focused ? listViewReadableDesignations : listViewDerivedData;
 
 	/// <summary>Gets the title used for exported data.</summary>
 	/// <remarks>Overrides the base export title for this form's content.</remarks>
 	/*
-if (ExportListView == listViewReadableDesignations)
-{
-return "List of readable designations";
-}
-return "List of derived data";
-*/
+		if (ExportListView == listViewReadableDesignations)
+		{
+			return "List of readable designations";
+		}
+		return "List of derived data";
+	*/
 	protected override string ExportTitle => ExportListView == listViewReadableDesignations ? "List of readable designations" : "List of derived data";
 
 	/// <summary>Prepares the save dialog used for export operations.</summary>
@@ -290,6 +307,7 @@ return "List of derived data";
 		dialog.FileName = ExportListView == listViewReadableDesignations ? $"Readable-Designation-List.{ext}" : $"Derived-Data-List.{ext}";
 		return dialog.ShowDialog(owner: this) == DialogResult.OK;
 	}
+
 	#endregion
 
 	#region constructor
@@ -304,9 +322,16 @@ return "List of derived data";
 		InitializeComponent();
 		// Set the version text to the current assembly version
 		TextExtra = AssemblyInfo.AssemblyVersion;
-
+		//Register the mouse-move handler for the specified control and all its descendants
 		RegisterMouseMoveRecursive(control: this);
-
+		//Register the enter handler for the specified control and all its descendants
+		RegisterEnterRecursive(control: this);
+		//Register the mouse-enter handler for the specified control and all its descendants
+		RegisterMouseEnterRecursive(control: this);
+		//Register the leave handler for the specified control and all its descendants
+		RegisterLeaveRecursive(control: this);
+		//Register the mouse-Leave handler for the specified control and all its descendants
+		RegisterMouseLeaveRecursive(control: this);
 		// Apply comprehensive flicker reduction for the TableLayoutPanel
 		OptimizeTableLayoutPanelForFlickerReduction();
 		// Log the initialization without an MPCORB.DAT file path
@@ -346,11 +371,71 @@ return "List of derived data";
 		}
 	}
 
+	/// <summary>Registers the enter handler for the specified control and all its descendants.</summary>
+	/// <param name="control">The control whose enter events are registered.</param>
+	/// <remarks>This method recursively registers the Enter event handler for the specified control and all its child controls.</remarks>
+	private void RegisterEnterRecursive(Control control)
+	{
+		ArgumentNullException.ThrowIfNull(argument: control);
+		// Register the Enter event handler for the current control
+		control.Enter += Control_Enter;
+		// Recursively register the Enter event handler for all child controls
+		foreach (Control child in control.Controls)
+		{
+			RegisterEnterRecursive(control: child);
+		}
+	}
+
+	/// <summary>Registers the mouse-enter handler for the specified control and all its descendants.</summary>
+	/// <param name="control">The control whose mouse-enter events are registered.</param>
+	/// <remarks>This method recursively registers the MouseEnter event handler for the specified control and all its child controls.</remarks>
+	private void RegisterMouseEnterRecursive(Control control)
+	{
+		ArgumentNullException.ThrowIfNull(argument: control);
+		// Register the MouseEnter event handler for the current control
+		control.MouseEnter += Control_Enter;
+		// Recursively register the MouseEnter event handler for all child controls
+		foreach (Control child in control.Controls)
+		{
+			RegisterMouseEnterRecursive(control: child);
+		}
+	}
+
+	/// <summary>Registers the leave handler for the specified control and all its descendants.</summary>
+	/// <param name="control">The control whose leave events are registered.</param>
+	/// <remarks>This method recursively registers the leave event handler for the specified control and all its child controls.</remarks>
+	private void RegisterLeaveRecursive(Control control)
+	{
+		ArgumentNullException.ThrowIfNull(argument: control);
+		// Register the Leave event handler for the current control
+		control.Leave += Control_Leave;
+		// Recursively register the Leave event handler for all child controls
+		foreach (Control child in control.Controls)
+		{
+			RegisterLeaveRecursive(control: child);
+		}
+	}
+
+	/// <summary>Registers the mouse-leave handler for the specified control and all its descendants.</summary>
+	/// <param name="control">The control whose mouse-leave events are registered.</param>
+	/// <remarks>This method recursively registers the MouseLeave event handler for the specified control and all its child controls.</remarks>
+	private void RegisterMouseLeaveRecursive(Control control)
+	{
+		ArgumentNullException.ThrowIfNull(argument: control);
+		// Register the MouseLeave event handler for the current control
+		control.MouseLeave += Control_Leave;
+		// Recursively register the MouseLeave event handler for all child controls
+		foreach (Control child in control.Controls)
+		{
+			RegisterMouseLeaveRecursive(control: child);
+		}
+	}
+
 	/// <summary>Optimizes the TableLayoutPanels to eliminate flickering during label updates.</summary>
 	/// <remarks>This method enables double buffering and optimized painting styles on the MPCORB, ASTORB, ALLNUM.CAT, SINGOPP.CAT, and UFITOBS.CAT panels and all child labels.</remarks>
 	private void OptimizeTableLayoutPanelForFlickerReduction()
 	{
-		logger.Info(message: "Optimizing TableLayoutPanels for flicker reduction.");
+		logger.Info(message: "Optimizing TableLayoutPanels for flicker reduction...");
 		// Enable double buffering for the TableLayoutPanels and their child labels to reduce flickering during updates
 		DoubleBufferingHelper.EnableDoubleBuffering(control: tableLayoutPanelMpcorbData, includeChildLabels: true);
 		DoubleBufferingHelper.EnableDoubleBuffering(control: tableLayoutPanelMpcorbJsonData, includeChildLabels: true);
@@ -358,6 +443,45 @@ return "List of derived data";
 		DoubleBufferingHelper.EnableDoubleBuffering(control: tableLayoutPanelAllnumCatData, includeChildLabels: true);
 		DoubleBufferingHelper.EnableDoubleBuffering(control: tableLayoutPanelSingoppCatData, includeChildLabels: true);
 		DoubleBufferingHelper.EnableDoubleBuffering(control: tableLayoutPanelUfitobsCatData, includeChildLabels: true);
+	}
+
+	/// <summary>Builds the derived-data context menu with an item for each list-view entry to copy its value to the clipboard.</summary>
+	/// <remarks>Replaces the existing menu items and assigns the menu to the derived-data copy menu item.</remarks>
+	private void BuildDerivedDataContextMenuFromListView()
+	{
+		logger.Info(message: "Building the derived-data context menu with an item for each list-view entry to copy its value to the clipboard...");
+		contextMenuCopyToClipboardDerivedData.Items.Clear();
+		for (int i = 0; i < listViewDerivedData.Items.Count; i++)
+		{
+			string elementName = listViewDerivedData.Items[index: i].Text;
+			string sanitizedName = $"toolStripMenuItemCopyToClipboardDerivedData{new string(value: [.. elementName.Where(predicate: char.IsLetterOrDigit)])}";
+			ToolStripMenuItem item = new()
+			{
+				Name = sanitizedName,
+				Text = elementName,
+				Tag = i,
+				Image = FatcowIcons16px.fatcow_page_copy_16px,
+				AutoToolTip = true,
+				AccessibleRole = AccessibleRole.MenuItem,
+				AccessibleName = $"Copy to clipboard: {elementName}",
+				AccessibleDescription = $"Copies to clipboard: {elementName}"
+			};
+			item.Click += (s, _) =>
+			{
+				if (s is ToolStripMenuItem { Tag: int rowIndex } && rowIndex < listViewDerivedData.Items.Count)
+				{
+					string value = listViewDerivedData.Items[index: rowIndex].SubItems[index: 2].Text;
+					CopyToClipboard(text: value);
+				}
+				ArgumentNullException.ThrowIfNull(argument: _);
+			};
+			item.MouseEnter += Control_Enter;
+			item.MouseLeave += Control_Leave;
+			item.MouseMove += MouseCoordinates_MouseMove;
+			_ = contextMenuCopyToClipboardDerivedData.Items.Add(value: item);
+		}
+		toolStripMenuItemCopyToClipboardDerivedData.DropDown = contextMenuCopyToClipboardDerivedData;
+		logger.Info(message: "Built the derived-data context menu.");
 	}
 
 	#endregion
