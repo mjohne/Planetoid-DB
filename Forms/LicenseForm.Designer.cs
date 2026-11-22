@@ -334,6 +334,10 @@ partial class LicenseForm
 
 	/// <summary>Manages Krypton theme and palette settings for the form.</summary>
 	private KryptonManager kryptonManager;
+	
+	/// <summary>The context menu for showing controls in the status bar.</summary>
 	private ContextMenuStrip contextMenuShowControlsInStatusBar;
+
+	/// <summary>Gets or sets the menu item that controls whether the information label is shown.</summary>
 	private ToolStripMenuItem toolStripMenuItemShowInformationLabel;
 }
