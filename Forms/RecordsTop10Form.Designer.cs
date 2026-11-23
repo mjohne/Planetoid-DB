@@ -1008,14 +1008,14 @@ partial class RecordsTop10Form
 		contextMenuCopyToClipboard.MouseEnter += Control_Enter;
 		contextMenuCopyToClipboard.MouseLeave += Control_Leave;
 		// 
-		// toolStripMenuItemCopyToClipboardInContextMenu
+		// menuItemCopyToClipboardInContextMenu
 		// 
 		toolStripMenuItemCopyToClipboardInContextMenu.AccessibleDescription = "Copies the text/value to the clipboard";
 		toolStripMenuItemCopyToClipboardInContextMenu.AccessibleName = "Copy to clipboard";
 		toolStripMenuItemCopyToClipboardInContextMenu.AccessibleRole = AccessibleRole.MenuItem;
 		toolStripMenuItemCopyToClipboardInContextMenu.AutoToolTip = true;
 		toolStripMenuItemCopyToClipboardInContextMenu.Image = FatcowIcons16px.fatcow_page_copy_16px;
-		toolStripMenuItemCopyToClipboardInContextMenu.Name = "toolStripMenuItemCopyToClipboardInContextMenu";
+		toolStripMenuItemCopyToClipboardInContextMenu.Name = "menuItemCopyToClipboardInContextMenu";
 		toolStripMenuItemCopyToClipboardInContextMenu.ShortcutKeyDisplayString = "Ctrl+C";
 		toolStripMenuItemCopyToClipboardInContextMenu.ShortcutKeys = Keys.Control | Keys.C;
 		toolStripMenuItemCopyToClipboardInContextMenu.Size = new Size(211, 22);

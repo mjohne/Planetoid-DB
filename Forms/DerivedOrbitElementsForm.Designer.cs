@@ -262,14 +262,14 @@ partial class DerivedOrbitElementsForm
 		contextMenuOpenTerminology.MouseEnter += Control_Enter;
 		contextMenuOpenTerminology.MouseLeave += Control_Leave;
 		// 
-		// toolStripMenuItemOpenTerminology
+		// menuItemOpenTerminology
 		// 
 		toolStripMenuItemOpenTerminology.AccessibleDescription = "Opens the term in the terminology";
 		toolStripMenuItemOpenTerminology.AccessibleName = "Open in the terminology";
 		toolStripMenuItemOpenTerminology.AccessibleRole = AccessibleRole.MenuItem;
 		toolStripMenuItemOpenTerminology.AutoToolTip = true;
 		toolStripMenuItemOpenTerminology.Image = FatcowIcons16px.fatcow_text_list_bullets_16px;
-		toolStripMenuItemOpenTerminology.Name = "toolStripMenuItemOpenTerminology";
+		toolStripMenuItemOpenTerminology.Name = "menuItemOpenTerminology";
 		toolStripMenuItemOpenTerminology.ShortcutKeyDisplayString = "Strg+O";
 		toolStripMenuItemOpenTerminology.ShortcutKeys = Keys.Control | Keys.O;
 		toolStripMenuItemOpenTerminology.Size = new Size(249, 22);

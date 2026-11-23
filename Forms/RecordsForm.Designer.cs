@@ -902,14 +902,14 @@ partial class RecordsForm
 		contextMenuCopyToClipboard.MouseEnter += Control_Enter;
 		contextMenuCopyToClipboard.MouseLeave += Control_Leave;
 		// 
-		// toolStripMenuItemCopyToClipboardInContextMenu
+		// menuItemCopyToClipboardInContextMenu
 		// 
 		toolStripMenuItemCopyToClipboardInContextMenu.AccessibleDescription = "Copies the text/value to the clipboard";
 		toolStripMenuItemCopyToClipboardInContextMenu.AccessibleName = "Copy to clipboard";
 		toolStripMenuItemCopyToClipboardInContextMenu.AccessibleRole = AccessibleRole.MenuItem;
 		toolStripMenuItemCopyToClipboardInContextMenu.AutoToolTip = true;
 		toolStripMenuItemCopyToClipboardInContextMenu.Image = FatcowIcons16px.fatcow_page_copy_16px;
-		toolStripMenuItemCopyToClipboardInContextMenu.Name = "toolStripMenuItemCopyToClipboardInContextMenu";
+		toolStripMenuItemCopyToClipboardInContextMenu.Name = "menuItemCopyToClipboardInContextMenu";
 		toolStripMenuItemCopyToClipboardInContextMenu.ShortcutKeyDisplayString = "Ctrl+C";
 		toolStripMenuItemCopyToClipboardInContextMenu.ShortcutKeys = Keys.Control | Keys.C;
 		toolStripMenuItemCopyToClipboardInContextMenu.Size = new Size(211, 22);
@@ -2039,42 +2039,42 @@ partial class RecordsForm
 		contextMenuTopTenRecords.TabStop = true;
 		contextMenuTopTenRecords.Text = "Top ten records";
 		// 
-		// toolStripMenuItemRecordsMeanAnomalyAtTheEpoch
+		// menuItemRecordsMeanAnomalyAtTheEpoch
 		// 
 		toolStripMenuItemRecordsMeanAnomalyAtTheEpoch.AccessibleDescription = "Shows the record of the mean anomaly at the epoch";
 		toolStripMenuItemRecordsMeanAnomalyAtTheEpoch.AccessibleName = "Record of the mean anomaly at the epoch";
 		toolStripMenuItemRecordsMeanAnomalyAtTheEpoch.AccessibleRole = AccessibleRole.MenuItem;
 		toolStripMenuItemRecordsMeanAnomalyAtTheEpoch.AutoToolTip = true;
 		toolStripMenuItemRecordsMeanAnomalyAtTheEpoch.Image = FatcowIcons16px.fatcow_text_list_numbers_16px;
-		toolStripMenuItemRecordsMeanAnomalyAtTheEpoch.Name = "toolStripMenuItemRecordsMeanAnomalyAtTheEpoch";
+		toolStripMenuItemRecordsMeanAnomalyAtTheEpoch.Name = "menuItemRecordsMeanAnomalyAtTheEpoch";
 		toolStripMenuItemRecordsMeanAnomalyAtTheEpoch.Size = new Size(249, 22);
 		toolStripMenuItemRecordsMeanAnomalyAtTheEpoch.Text = "Mean anomaly at the epoch";
 		toolStripMenuItemRecordsMeanAnomalyAtTheEpoch.Click += RecordsMeanAnomalyAtTheEpoch_Click;
 		toolStripMenuItemRecordsMeanAnomalyAtTheEpoch.MouseEnter += Control_Enter;
 		toolStripMenuItemRecordsMeanAnomalyAtTheEpoch.MouseLeave += Control_Leave;
 		// 
-		// toolStripMenuItemRecordsArgumentOfThePerihelion
+		// menuItemRecordsArgumentOfThePerihelion
 		// 
 		toolStripMenuItemRecordsArgumentOfThePerihelion.AccessibleDescription = "Shows the record of the argument of the perihelion";
 		toolStripMenuItemRecordsArgumentOfThePerihelion.AccessibleName = "Record of the argument of the perihelion";
 		toolStripMenuItemRecordsArgumentOfThePerihelion.AccessibleRole = AccessibleRole.MenuItem;
 		toolStripMenuItemRecordsArgumentOfThePerihelion.AutoToolTip = true;
 		toolStripMenuItemRecordsArgumentOfThePerihelion.Image = FatcowIcons16px.fatcow_text_list_numbers_16px;
-		toolStripMenuItemRecordsArgumentOfThePerihelion.Name = "toolStripMenuItemRecordsArgumentOfThePerihelion";
+		toolStripMenuItemRecordsArgumentOfThePerihelion.Name = "menuItemRecordsArgumentOfThePerihelion";
 		toolStripMenuItemRecordsArgumentOfThePerihelion.Size = new Size(249, 22);
 		toolStripMenuItemRecordsArgumentOfThePerihelion.Text = "Argument of perihelion";
 		toolStripMenuItemRecordsArgumentOfThePerihelion.Click += RecordsArgumentOfThePerihelion_Click;
 		toolStripMenuItemRecordsArgumentOfThePerihelion.MouseEnter += Control_Enter;
 		toolStripMenuItemRecordsArgumentOfThePerihelion.MouseLeave += Control_Leave;
 		// 
-		// toolStripMenuItemRecordsLongitudeOfTheAscendingNode
+		// menuItemRecordsLongitudeOfTheAscendingNode
 		// 
 		toolStripMenuItemRecordsLongitudeOfTheAscendingNode.AccessibleDescription = "Shows the record of the longitude of the ascending node";
 		toolStripMenuItemRecordsLongitudeOfTheAscendingNode.AccessibleName = "Record of the longitude of the ascending node";
 		toolStripMenuItemRecordsLongitudeOfTheAscendingNode.AccessibleRole = AccessibleRole.MenuItem;
 		toolStripMenuItemRecordsLongitudeOfTheAscendingNode.AutoToolTip = true;
 		toolStripMenuItemRecordsLongitudeOfTheAscendingNode.Image = FatcowIcons16px.fatcow_text_list_numbers_16px;
-		toolStripMenuItemRecordsLongitudeOfTheAscendingNode.Name = "toolStripMenuItemRecordsLongitudeOfTheAscendingNode";
+		toolStripMenuItemRecordsLongitudeOfTheAscendingNode.Name = "menuItemRecordsLongitudeOfTheAscendingNode";
 		toolStripMenuItemRecordsLongitudeOfTheAscendingNode.Size = new Size(249, 22);
 		toolStripMenuItemRecordsLongitudeOfTheAscendingNode.Text = "Longitude of the ascending node";
 		toolStripMenuItemRecordsLongitudeOfTheAscendingNode.Click += RecordsLongitudeOfTheAscendingNode_Click;
@@ -2095,28 +2095,28 @@ partial class RecordsForm
 		toolStripMenuItemRecordsInclinationToTheEcliptic.MouseEnter += Control_Enter;
 		toolStripMenuItemRecordsInclinationToTheEcliptic.MouseLeave += Control_Leave;
 		// 
-		// toolStripMenuItemRecordsOrbitalEccentricity
+		// menuItemRecordsOrbitalEccentricity
 		// 
 		toolStripMenuItemRecordsOrbitalEccentricity.AccessibleDescription = "Shows the record of the orbital eccentricity";
 		toolStripMenuItemRecordsOrbitalEccentricity.AccessibleName = "Record of the orbital eccentricity";
 		toolStripMenuItemRecordsOrbitalEccentricity.AccessibleRole = AccessibleRole.MenuItem;
 		toolStripMenuItemRecordsOrbitalEccentricity.AutoToolTip = true;
 		toolStripMenuItemRecordsOrbitalEccentricity.Image = FatcowIcons16px.fatcow_text_list_numbers_16px;
-		toolStripMenuItemRecordsOrbitalEccentricity.Name = "toolStripMenuItemRecordsOrbitalEccentricity";
+		toolStripMenuItemRecordsOrbitalEccentricity.Name = "menuItemRecordsOrbitalEccentricity";
 		toolStripMenuItemRecordsOrbitalEccentricity.Size = new Size(249, 22);
 		toolStripMenuItemRecordsOrbitalEccentricity.Text = "Orbital eccentricity";
 		toolStripMenuItemRecordsOrbitalEccentricity.Click += RecordsOrbitalEccentricity_Click;
 		toolStripMenuItemRecordsOrbitalEccentricity.MouseEnter += Control_Enter;
 		toolStripMenuItemRecordsOrbitalEccentricity.MouseLeave += Control_Leave;
 		// 
-		// toolStripMenuItemRecordsMeanDailyMotion
+		// menuItemRecordsMeanDailyMotion
 		// 
 		toolStripMenuItemRecordsMeanDailyMotion.AccessibleDescription = "Shows the record of the mean daily motion";
 		toolStripMenuItemRecordsMeanDailyMotion.AccessibleName = "Record of the mean daily motion";
 		toolStripMenuItemRecordsMeanDailyMotion.AccessibleRole = AccessibleRole.MenuItem;
 		toolStripMenuItemRecordsMeanDailyMotion.AutoToolTip = true;
 		toolStripMenuItemRecordsMeanDailyMotion.Image = FatcowIcons16px.fatcow_text_list_numbers_16px;
-		toolStripMenuItemRecordsMeanDailyMotion.Name = "toolStripMenuItemRecordsMeanDailyMotion";
+		toolStripMenuItemRecordsMeanDailyMotion.Name = "menuItemRecordsMeanDailyMotion";
 		toolStripMenuItemRecordsMeanDailyMotion.Size = new Size(249, 22);
 		toolStripMenuItemRecordsMeanDailyMotion.Text = "Mean daily motion";
 		toolStripMenuItemRecordsMeanDailyMotion.Click += RecordsMeanDailyMotion_Click;

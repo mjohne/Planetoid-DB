@@ -70,7 +70,7 @@ internal partial class MoidCalculator
 	{
 		double[] moidValues = CalculateMoidsInPlanetOrder(
 			semiMajorAxis, eccentricity, inclinationDeg, longitudeAscendingNodeDeg, argumentPerihelionDeg, cancellationToken);
-		List<MoidResult> results = new(capacity: Planets.Length);
+		List<MoidResult> results = [with(capacity: Planets.Length)];
 		for (int i = 0; i < Planets.Length; i++)
 		{
 			results.Add(item: new MoidResult(PlanetName: Planets[i].Name, MoidAu: moidValues[i]));

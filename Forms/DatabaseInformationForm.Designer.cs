@@ -1236,7 +1236,7 @@ namespace Planetoid_DB;
 		kryptonToolStripIcons.MouseEnter += Control_Enter;
 		kryptonToolStripIcons.MouseLeave += Control_Leave;
 		// 
-		// toolStripDropDownButtonCopyToClipboard
+		// dropDownButtonCopyToClipboard
 		// 
 		toolStripDropDownButtonCopyToClipboard.AccessibleDescription = "Copies information to clipboard";
 		toolStripDropDownButtonCopyToClipboard.AccessibleName = "Copy to clipboard";
@@ -1244,7 +1244,7 @@ namespace Planetoid_DB;
 		toolStripDropDownButtonCopyToClipboard.DropDown = contextMenuFullCopyToClipboard;
 		toolStripDropDownButtonCopyToClipboard.Image = FatcowIcons16px.fatcow_page_copy_16px;
 		toolStripDropDownButtonCopyToClipboard.ImageTransparentColor = Color.Magenta;
-		toolStripDropDownButtonCopyToClipboard.Name = "toolStripDropDownButtonCopyToClipboard";
+		toolStripDropDownButtonCopyToClipboard.Name = "dropDownButtonCopyToClipboard";
 		toolStripDropDownButtonCopyToClipboard.Size = new Size(131, 22);
 		toolStripDropDownButtonCopyToClipboard.Text = "&Copy to clipboard";
 		toolStripDropDownButtonCopyToClipboard.Click += ToolStripDropDownButtonCopyToClipboard_Click;
