@@ -148,7 +148,7 @@ public partial class PlanetoidDbForm
 		// Call the generic method to show the database downloader form for MPCORB.DAT
 		ShowDatabaseDownloader(
 			downloadUrl: Settings.Default.systemMpcorbDatGzUrl,
-			updateAvailableMenuItem: toolStripMenuItemShowMpcorbDatUpdateIsAvailable,
+			updateAvailableMenuItem: menuItemShowMpcorbDatUpdateIsAvailable,
 			updateStatusItem: toolStripStatusLabelMpcorbDatUpdate);
 	}
 
@@ -161,7 +161,7 @@ public partial class PlanetoidDbForm
 		// Call the generic method to show the database downloader form for MPCORB.JSON
 		ShowDatabaseDownloader(
 			downloadUrl: Settings.Default.systemMpcorbJsonGzUrl,
-			updateAvailableMenuItem: toolStripMenuItemShowMpcorbJsonUpdateIsAvailable);
+			updateAvailableMenuItem: menuItemShowMpcorbJsonUpdateIsAvailable);
 	}
 
 	/// <summary>Shows the downloader form for the ASTORB.DAT database.</summary>
@@ -173,7 +173,7 @@ public partial class PlanetoidDbForm
 		// Call the generic method to show the database downloader form for ASTORB.DAT
 		ShowDatabaseDownloader(
 			downloadUrl: Settings.Default.systemAstorbDatGzUrl,
-			updateAvailableMenuItem: toolStripMenuItemShowAstorbDatUpdateIsAvailable,
+			updateAvailableMenuItem: menuItemShowAstorbDatUpdateIsAvailable,
 			updateStatusItem: toolStripStatusLabelAstorbDatUpdate);
 	}
 
@@ -186,7 +186,7 @@ public partial class PlanetoidDbForm
 		// Call the generic method to show the database downloader form for ALLNUM.CAT
 		ShowDatabaseDownloader(
 			downloadUrl: Settings.Default.systemAllnumCatUrl,
-			updateAvailableMenuItem: toolStripMenuItemShowAllnumCatUpdateIsAvailable);
+			updateAvailableMenuItem: menuItemShowAllnumCatUpdateIsAvailable);
 	}
 
 	/// <summary>Shows the downloader form for the UFITOBS.CAT database.</summary>
@@ -198,7 +198,7 @@ public partial class PlanetoidDbForm
 		// Call the generic method to show the database downloader form for UFITOBS.CAT
 		ShowDatabaseDownloader(
 			downloadUrl: Settings.Default.systemUfitobsCatUrl,
-			updateAvailableMenuItem: toolStripMenuItemShowUfitobsCatUpdateIsAvailable);
+			updateAvailableMenuItem: menuItemShowUfitobsCatUpdateIsAvailable);
 	}
 
 	/// <summary>Shows the downloader form for the SINGOPP.CAT database.</summary>
@@ -210,7 +210,7 @@ public partial class PlanetoidDbForm
 		// Call the generic method to show the database downloader form for SINGOPP.CAT
 		ShowDatabaseDownloader(
 			downloadUrl: Settings.Default.systemSingoppCatUrl,
-			updateAvailableMenuItem: toolStripMenuItemShowSingoppCatUpdateIsAvailable);
+			updateAvailableMenuItem: menuItemShowSingoppCatUpdateIsAvailable);
 	}
 
 	/// <summary>Checks if a remote database file is newer than the local file.</summary>

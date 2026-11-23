@@ -60,23 +60,23 @@ public partial class PlanetoidDbForm
 		// Ensure that the event data was supplied
 		ArgumentNullException.ThrowIfNull(argument: e);
 		// Set the checked state of the menu items to true for loading additional databases on startup
-		toolStripMenuItemLoadDatabaseOnStartupMpcorbJson.Checked = true;
-		toolStripMenuItemLoadDatabaseOnStartupAstorbDat.Checked = true;
-		toolStripMenuItemLoadDatabaseOnStartupAllnumCat.Checked = true;
-		toolStripMenuItemLoadDatabaseOnStartupSingoppCat.Checked = true;
-		toolStripMenuItemLoadDatabaseOnStartupUfitobsCat.Checked = true;
+		menuItemLoadDatabaseOnStartupMpcorbJson.Checked = true;
+		menuItemLoadDatabaseOnStartupAstorbDat.Checked = true;
+		menuItemLoadDatabaseOnStartupAllnumCat.Checked = true;
+		menuItemLoadDatabaseOnStartupSingoppCat.Checked = true;
+		menuItemLoadDatabaseOnStartupUfitobsCat.Checked = true;
 		// Update the visibility of the corresponding pages based on the checked state of the menu items
-		kryptonPageMpcorbJson.Visible = toolStripMenuItemLoadDatabaseOnStartupMpcorbJson.Checked;
-		kryptonPageAstorbDat.Visible = toolStripMenuItemLoadDatabaseOnStartupAstorbDat.Checked;
-		kryptonPageAllnumCat.Visible = toolStripMenuItemLoadDatabaseOnStartupAllnumCat.Checked;
-		kryptonPageSingoppCat.Visible = toolStripMenuItemLoadDatabaseOnStartupSingoppCat.Checked;
-		kryptonPageUfitobsCat.Visible = toolStripMenuItemLoadDatabaseOnStartupUfitobsCat.Checked;
+		kryptonPageMpcorbJson.Visible = menuItemLoadDatabaseOnStartupMpcorbJson.Checked;
+		kryptonPageAstorbDat.Visible = menuItemLoadDatabaseOnStartupAstorbDat.Checked;
+		kryptonPageAllnumCat.Visible = menuItemLoadDatabaseOnStartupAllnumCat.Checked;
+		kryptonPageSingoppCat.Visible = menuItemLoadDatabaseOnStartupSingoppCat.Checked;
+		kryptonPageUfitobsCat.Visible = menuItemLoadDatabaseOnStartupUfitobsCat.Checked;
 		// Save the user preferences for loading additional databases on startup
-		Settings.Default.userLoadAdditionalDatabaseOnStartupMpcorbJson = toolStripMenuItemLoadDatabaseOnStartupMpcorbJson.Checked;
-		Settings.Default.userLoadAdditionalDatabaseOnStartupAstorbDat = toolStripMenuItemLoadDatabaseOnStartupAstorbDat.Checked;
-		Settings.Default.userLoadAdditionalDatabaseOnStartupAllnumCat = toolStripMenuItemLoadDatabaseOnStartupAllnumCat.Checked;
-		Settings.Default.userLoadAdditionalDatabaseOnStartupSingoppCat = toolStripMenuItemLoadDatabaseOnStartupSingoppCat.Checked;
-		Settings.Default.userLoadAdditionalDatabaseOnStartupUfitobsCat = toolStripMenuItemLoadDatabaseOnStartupUfitobsCat.Checked;
+		Settings.Default.userLoadAdditionalDatabaseOnStartupMpcorbJson = menuItemLoadDatabaseOnStartupMpcorbJson.Checked;
+		Settings.Default.userLoadAdditionalDatabaseOnStartupAstorbDat = menuItemLoadDatabaseOnStartupAstorbDat.Checked;
+		Settings.Default.userLoadAdditionalDatabaseOnStartupAllnumCat = menuItemLoadDatabaseOnStartupAllnumCat.Checked;
+		Settings.Default.userLoadAdditionalDatabaseOnStartupSingoppCat = menuItemLoadDatabaseOnStartupSingoppCat.Checked;
+		Settings.Default.userLoadAdditionalDatabaseOnStartupUfitobsCat = menuItemLoadDatabaseOnStartupUfitobsCat.Checked;
 		Settings.Default.Save();
 	}
 

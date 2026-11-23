@@ -147,7 +147,7 @@ public partial class PlanetoidDbForm
 		// Clear the checked state of all other menu items
 		ToolStripMenuItem_Clear();
 		// Set the checked state of the menu item to true
-		toolStripMenuItemNavigateStep10.Checked = true;
+		menuItemNavigateStep10.Checked = true;
 	}
 
 	/// <summary>Handles the click event for the ToolStripMenuItem100. Sets the navigation step to 100 and updates the menu item checked state.</summary>
@@ -166,7 +166,7 @@ public partial class PlanetoidDbForm
 		// Clear the checked state of all other menu items
 		ToolStripMenuItem_Clear();
 		// Set the checked state of the menu item to true
-		toolStripMenuItemNavigateStep100.Checked = true;
+		menuItemNavigateStep100.Checked = true;
 	}
 
 	/// <summary>Handles the click event for the ToolStripMenuItem1000. Sets the navigation step to 1000 and updates the menu item checked state.</summary>
@@ -185,7 +185,7 @@ public partial class PlanetoidDbForm
 		// Clear the checked state of all other menu items
 		ToolStripMenuItem_Clear();
 		// Set the checked state of the menu item to true
-		toolStripMenuItemNavigateStep1000.Checked = true;
+		menuItemNavigateStep1000.Checked = true;
 	}
 
 	/// <summary>Handles the click event for the ToolStripMenuItem10000. Sets the navigation step to 10000 and updates the menu item checked state.</summary>
@@ -204,7 +204,7 @@ public partial class PlanetoidDbForm
 		// Clear the checked state of all other menu items
 		ToolStripMenuItem_Clear();
 		// Set the checked state of the menu item to true
-		toolStripMenuItemNavigateStep10000.Checked = true;
+		menuItemNavigateStep10000.Checked = true;
 	}
 
 	/// <summary>Handles the click event for the ToolStripMenuItem100000. Sets the navigation step to 100000 and updates the menu item checked state.</summary>
@@ -223,7 +223,7 @@ public partial class PlanetoidDbForm
 		// Clear the checked state of all other menu items
 		ToolStripMenuItem_Clear();
 		// Set the checked state of the menu item to true
-		toolStripMenuItemNavigateStep100000.Checked = true;
+		menuItemNavigateStep100000.Checked = true;
 	}
 
 	/// <summary>Handles the click event for the ToolStripMenuItemExit. Closes the application.</summary>
@@ -1473,7 +1473,7 @@ public partial class PlanetoidDbForm
 		ShowAsteroidFamiliesDetection();
 	}
 
-	/// <summary>Handles the click event for the MenuitemOrbitalResonancesOfAllMinorPlanets. Shows the orbital resonances of all minor planets form.</summary>
+	/// <summary>Handles the click event for the MenuItemOrbitalResonancesOfAllMinorPlanets. Shows the orbital resonances of all minor planets form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the orbital resonances of all minor planets form.</remarks>
@@ -1557,7 +1557,7 @@ public partial class PlanetoidDbForm
 		ShowMaxoidsOfAllMinorPlanets();
 	}
 
-	/// <summary>Handles the click event for the toolStripMenuItemIsserandParameterOfOneMinorPlanet. Shows the Tisserand parameters form.</summary>
+	/// <summary>Handles the click event for the menuItemIsserandParameterOfOneMinorPlanet. Shows the Tisserand parameters form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the Tisserand parameters form for the currently selected minor planet.</remarks>
@@ -1585,32 +1585,32 @@ public partial class PlanetoidDbForm
 		ShowTisserandParametersOfAllMinorPlanets();
 	}
 
-	/// <summary>Handles the click event for the toolStripMenuItemEncounterVelocityOfOneMinorPlanet. Shows the encounter velocitys form.</summary>
+	/// <summary>Handles the click event for the menuItemEncounterVelocityOfOneMinorPlanet. Shows the encounter velocities form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>This method is used to show the encounter velocitys form for the currently selected minor planet.</remarks>
+	/// <remarks>This method is used to show the encounter velocities form for the currently selected minor planet.</remarks>
 	private void EncounterVelocity_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: "Showing encounter velocitys of one minor planet form");
+		logger.Info(message: "Showing encounter velocities of one minor planet form");
 		// Ensure that an event source was supplied
 		ArgumentNullException.ThrowIfNull(argument: sender);
 		// Ensure that the event data was supplied
 		ArgumentNullException.ThrowIfNull(argument: e);
-		ShowEncounterVelocitys();
+		ShowEncounterVelocities();
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemEncounterVelocitysOfAllMinorPlanets. Shows the encounter velocitys of all minor planets form.</summary>
+	/// <summary>Handles the click event for the ToolStripMenuItemEncounterVelocitiesOfAllMinorPlanets. Shows the encounter velocities of all minor planets form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>This method is used to show the encounter velocitys of all minor planets form.</remarks>
+	/// <remarks>This method is used to show the encounter velocities of all minor planets form.</remarks>
 	private void EncounterVelocitiesOfAllMinorPlanets_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: "Showing encounter velocitys of all minor planets form");
+		logger.Info(message: "Showing encounter velocities of all minor planets form");
 		// Ensure that an event source was supplied
 		ArgumentNullException.ThrowIfNull(argument: sender);
 		// Ensure that the event data was supplied
 		ArgumentNullException.ThrowIfNull(argument: e);
-		ShowEncounterVelocitysOfAllMinorPlanets();
+		ShowEncounterVelocitiesOfAllMinorPlanets();
 	}
 
 	/// <summary>Handles the click event for the ToolStripMenuItemEphemerides. Shows the ephemerides form.</summary>
@@ -1994,13 +1994,13 @@ public partial class PlanetoidDbForm
 	private void ToolStripMenuItemLogging_Click(object sender, EventArgs e)
 	{
 		// Log the click event and the current checked state of the logging menu item
-		logger.Info(message: $"Logging menu item clicked. Checked state: {toolStripMenuItemLogging.Checked}");
+		logger.Info(message: $"Logging menu item clicked. Checked state: {menuItemLogging.Checked}");
 		// Ensure that an event source was supplied
 		ArgumentNullException.ThrowIfNull(argument: sender);
 		// Ensure that the event data was supplied
 		ArgumentNullException.ThrowIfNull(argument: e);
 		// Enable or disable logging based on the checked state of the menu item
-		if (toolStripMenuItemLogging.Checked)
+		if (menuItemLogging.Checked)
 		{
 			// Enable logging
 			LogManager.ResumeLogging();
@@ -2014,7 +2014,7 @@ public partial class PlanetoidDbForm
 			_ = LogManager.SuspendLogging();
 		}
 		// Save the logging preference to user settings
-		Settings.Default.userEnableLogging = toolStripMenuItemLogging.Checked;
+		Settings.Default.userEnableLogging = menuItemLogging.Checked;
 		Settings.Default.Save();
 	}
 
@@ -2024,15 +2024,15 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method toggles the visibility of the MPCORB.JSON tab and updates the user settings accordingly.</remarks>
 	private void ToolStripMenuItemLoadDatabaseOnStartupMpcorbJson_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Load Database on Startup for MPCORB.JSON menu item clicked. Checked state: {toolStripMenuItemLoadDatabaseOnStartupMpcorbJson.Checked}");
+		logger.Info(message: $"Load Database on Startup for MPCORB.JSON menu item clicked. Checked state: {menuItemLoadDatabaseOnStartupMpcorbJson.Checked}");
 		// Ensure that an event source was supplied
 		ArgumentNullException.ThrowIfNull(argument: sender);
 		// Ensure that the event data was supplied
 		ArgumentNullException.ThrowIfNull(argument: e);
 		// Toggle the visibility of the MPCORB.JSON tab based on the menu item checked state
-		kryptonPageMpcorbJson.Visible = toolStripMenuItemLoadDatabaseOnStartupMpcorbJson.Checked;
+		kryptonPageMpcorbJson.Visible = menuItemLoadDatabaseOnStartupMpcorbJson.Checked;
 		// Update the user setting to reflect the new state
-		Settings.Default.userLoadAdditionalDatabaseOnStartupMpcorbJson = toolStripMenuItemLoadDatabaseOnStartupMpcorbJson.Checked;
+		Settings.Default.userLoadAdditionalDatabaseOnStartupMpcorbJson = menuItemLoadDatabaseOnStartupMpcorbJson.Checked;
 		Settings.Default.Save();
 	}
 
@@ -2042,15 +2042,15 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method toggles the visibility of the ASTORB.DAT tab and updates the user settings accordingly.</remarks>
 	private void ToolStripMenuItemLoadDatabaseOnStartupAstorbDat_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Load Database on Startup for ASTORB.DAT menu item clicked. Checked state: {toolStripMenuItemLoadDatabaseOnStartupAstorbDat.Checked}");
+		logger.Info(message: $"Load Database on Startup for ASTORB.DAT menu item clicked. Checked state: {menuItemLoadDatabaseOnStartupAstorbDat.Checked}");
 		// Ensure that an event source was supplied
 		ArgumentNullException.ThrowIfNull(argument: sender);
 		// Ensure that the event data was supplied
 		ArgumentNullException.ThrowIfNull(argument: e);
 		// Toggle the visibility of the ASTORB.DAT tab based on the menu item checked state
-		kryptonPageAstorbDat.Visible = toolStripMenuItemLoadDatabaseOnStartupAstorbDat.Checked;
+		kryptonPageAstorbDat.Visible = menuItemLoadDatabaseOnStartupAstorbDat.Checked;
 		// Update the user setting to reflect the new state
-		Settings.Default.userLoadAdditionalDatabaseOnStartupAstorbDat = toolStripMenuItemLoadDatabaseOnStartupAstorbDat.Checked;
+		Settings.Default.userLoadAdditionalDatabaseOnStartupAstorbDat = menuItemLoadDatabaseOnStartupAstorbDat.Checked;
 		Settings.Default.Save();
 	}
 
@@ -2060,15 +2060,15 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method toggles the visibility of the ALLNUM.CAT tab and updates the user settings accordingly.</remarks>
 	private void ToolStripMenuItemLoadDatabaseOnStartupAllnumCat_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Load Database on Startup for ALLNUM.CAT menu item clicked. Checked state: {toolStripMenuItemLoadDatabaseOnStartupAllnumCat.Checked}");
+		logger.Info(message: $"Load Database on Startup for ALLNUM.CAT menu item clicked. Checked state: {menuItemLoadDatabaseOnStartupAllnumCat.Checked}");
 		// Ensure that an event source was supplied
 		ArgumentNullException.ThrowIfNull(argument: sender);
 		// Ensure that the event data was supplied
 		ArgumentNullException.ThrowIfNull(argument: e);
 		// Toggle the visibility of the ALLNUM.CAT tab based on the menu item checked state
-		kryptonPageAllnumCat.Visible = toolStripMenuItemLoadDatabaseOnStartupAllnumCat.Checked;
+		kryptonPageAllnumCat.Visible = menuItemLoadDatabaseOnStartupAllnumCat.Checked;
 		// Update the user setting to reflect the new state
-		Settings.Default.userLoadAdditionalDatabaseOnStartupAllnumCat = toolStripMenuItemLoadDatabaseOnStartupAllnumCat.Checked;
+		Settings.Default.userLoadAdditionalDatabaseOnStartupAllnumCat = menuItemLoadDatabaseOnStartupAllnumCat.Checked;
 		Settings.Default.Save();
 	}
 
@@ -2078,15 +2078,15 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method toggles the visibility of the SINGOPP.CAT tab and updates the user settings accordingly.</remarks>
 	private void ToolStripMenuItemLoadDatabaseOnStartupSingoppCat_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Load Database on Startup for SINGOPP.CAT menu item clicked. Checked state: {toolStripMenuItemLoadDatabaseOnStartupSingoppCat.Checked}");
+		logger.Info(message: $"Load Database on Startup for SINGOPP.CAT menu item clicked. Checked state: {menuItemLoadDatabaseOnStartupSingoppCat.Checked}");
 		// Ensure that an event source was supplied
 		ArgumentNullException.ThrowIfNull(argument: sender);
 		// Ensure that the event data was supplied
 		ArgumentNullException.ThrowIfNull(argument: e);
 		// Toggle the visibility of the SINGOPP.CAT tab based on the menu item checked state
-		kryptonPageSingoppCat.Visible = toolStripMenuItemLoadDatabaseOnStartupSingoppCat.Checked;
+		kryptonPageSingoppCat.Visible = menuItemLoadDatabaseOnStartupSingoppCat.Checked;
 		// Update the user setting to reflect the new state
-		Settings.Default.userLoadAdditionalDatabaseOnStartupSingoppCat = toolStripMenuItemLoadDatabaseOnStartupSingoppCat.Checked;
+		Settings.Default.userLoadAdditionalDatabaseOnStartupSingoppCat = menuItemLoadDatabaseOnStartupSingoppCat.Checked;
 		Settings.Default.Save();
 	}
 
@@ -2096,15 +2096,15 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method toggles the visibility of the UFITOBS.CAT tab and updates the user settings accordingly.</remarks>
 	private void ToolStripMenuItemLoadDatabaseOnStartupUfitobsCat_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Load Database on Startup for UFITOBS.CAT menu item clicked. Checked state: {toolStripMenuItemLoadDatabaseOnStartupUfitobsCat.Checked}");
+		logger.Info(message: $"Load Database on Startup for UFITOBS.CAT menu item clicked. Checked state: {menuItemLoadDatabaseOnStartupUfitobsCat.Checked}");
 		// Ensure that an event source was supplied
 		ArgumentNullException.ThrowIfNull(argument: sender);
 		// Ensure that the event data was supplied
 		ArgumentNullException.ThrowIfNull(argument: e);
 		// Toggle the visibility of the UFITOBS.CAT tab based on the menu item checked state
-		kryptonPageUfitobsCat.Visible = toolStripMenuItemLoadDatabaseOnStartupUfitobsCat.Checked;
+		kryptonPageUfitobsCat.Visible = menuItemLoadDatabaseOnStartupUfitobsCat.Checked;
 		// Update the user setting to reflect the new state
-		Settings.Default.userLoadAdditionalDatabaseOnStartupUfitobsCat = toolStripMenuItemLoadDatabaseOnStartupUfitobsCat.Checked;
+		Settings.Default.userLoadAdditionalDatabaseOnStartupUfitobsCat = menuItemLoadDatabaseOnStartupUfitobsCat.Checked;
 		Settings.Default.Save();
 	}
 
@@ -2115,13 +2115,13 @@ public partial class PlanetoidDbForm
 	private void ToolStripMenuItemCheckingDatabaseUpdatesOnStartup_Click(object sender, EventArgs e)
 	{
 		// Log the action of toggling the setting and the new checked state
-		logger.Info(message: $"Toggling the 'Checking Database Updates on Startup' setting. Check state: {toolStripMenuItemCheckingDatabaseUpdatesOnStartup.Checked}");
+		logger.Info(message: $"Toggling the 'Checking Database Updates on Startup' setting. Check state: {menuItemCheckingDatabaseUpdatesOnStartup.Checked}");
 		// Ensure that an event source was supplied
 		ArgumentNullException.ThrowIfNull(argument: sender);
 		// Ensure that the event data was supplied
 		ArgumentNullException.ThrowIfNull(argument: e);
 		// Update the user setting based on the checked state of the menu item
-		Settings.Default.userCheckingDatabaseUpdatesOnStartup = toolStripMenuItemCheckingDatabaseUpdatesOnStartup.Checked;
+		Settings.Default.userCheckingDatabaseUpdatesOnStartup = menuItemCheckingDatabaseUpdatesOnStartup.Checked;
 		Settings.Default.Save();
 	}
 
@@ -2625,7 +2625,7 @@ public partial class PlanetoidDbForm
 		SnapBottomRight();
 	}
 
-	/// <summary>Handles the Click event for the listViewDerivedDatas control. Shows a message box with the text of the first cell of the selected row.</summary>
+	/// <summary>Handles the Click event for the listViewDerivedData control. Shows a message box with the text of the first cell of the selected row.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method displays the content of the first column (sub-item 0) for the currently selected item in the list view.</remarks>
@@ -2796,18 +2796,18 @@ public partial class PlanetoidDbForm
 		}
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuAcknoledgements. Opens the acknoledgements.</summary>
+	/// <summary>Handles the click event for the ToolStripMenuAcknowledgements. Opens the acknowledgements.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>This method is used to show the acknoledgements.</remarks>
-	private void ToolStripMenuItemAcknoledgements_Click(object sender, EventArgs e)
+	/// <remarks>This method is used to show the acknowledgements.</remarks>
+	private void ToolStripMenuItemAcknowledgements_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Showing archive form");
 		// Ensure that an event source was supplied
 		ArgumentNullException.ThrowIfNull(argument: sender);
 		// Ensure that the event data was supplied
 		ArgumentNullException.ThrowIfNull(argument: e);
-		ShowAcknoledgements();
+		ShowAcknowledgements();
 	}
 
 	/// <summary>Shows or hides the information label according to the menu item's checked state.</summary>
@@ -2821,7 +2821,7 @@ public partial class PlanetoidDbForm
 		ArgumentNullException.ThrowIfNull(argument: sender);
 		// Ensure that the event data was supplied
 		ArgumentNullException.ThrowIfNull(argument: e);
-		labelInformation.Visible = toolStripMenuItemShowInformationLabel.Checked;
+		labelInformation.Visible = menuItemShowInformationLabel.Checked;
 		// Log the new state of the visibility of the information label
 		logger.Info(message: $"Set the visibility of the information label to {labelInformation.Visible}.");
 	}
@@ -2837,7 +2837,7 @@ public partial class PlanetoidDbForm
 		ArgumentNullException.ThrowIfNull(argument: sender);
 		// Ensure that the event data was supplied
 		ArgumentNullException.ThrowIfNull(argument: e);
-		toolStripStatusLabelMpcorbDatUpdate.Visible = toolStripMenuItemShowMpcorbDatUpdateLabel.Checked;
+		toolStripStatusLabelMpcorbDatUpdate.Visible = menuItemShowMpcorbDatUpdateLabel.Checked;
 		// Log the new state of the visibility of the information label
 		logger.Info(message: $"Set the visibility of the information label to {labelInformation.Visible}.");
 	}
@@ -2853,7 +2853,7 @@ public partial class PlanetoidDbForm
 		ArgumentNullException.ThrowIfNull(argument: sender);
 		// Ensure that the event data was supplied
 		ArgumentNullException.ThrowIfNull(argument: e);
-		toolStripStatusLabelAstorbDatUpdate.Visible = toolStripMenuItemShowAstorbDatUpdateLabel.Checked;
+		toolStripStatusLabelAstorbDatUpdate.Visible = menuItemShowAstorbDatUpdateLabel.Checked;
 		// Log the new state of the visibility of the information label
 		logger.Info(message: $"Set the visibility of the information label to {labelInformation.Visible}.");
 	}
@@ -2869,7 +2869,7 @@ public partial class PlanetoidDbForm
 		ArgumentNullException.ThrowIfNull(argument: sender);
 		// Ensure that the event data was supplied
 		ArgumentNullException.ThrowIfNull(argument: e);
-		toolStripStatusLabelMouseCoordinates.Visible = toolStripMenuItemShowMouseCoordinatesLabel.Checked;
+		toolStripStatusLabelMouseCoordinates.Visible = menuItemShowMouseCoordinatesLabel.Checked;
 		// Log the new state of the visibility of the information label
 		logger.Info(message: $"Set the visibility of the information label to {labelInformation.Visible}.");
 	}
@@ -2885,7 +2885,7 @@ public partial class PlanetoidDbForm
 		ArgumentNullException.ThrowIfNull(argument: sender);
 		// Ensure that the event data was supplied
 		ArgumentNullException.ThrowIfNull(argument: e);
-		toolStripStatusLabelWindowSize.Visible = toolStripMenuItemShowWindowSizeLabel.Checked;
+		toolStripStatusLabelWindowSize.Visible = menuItemShowWindowSizeLabel.Checked;
 		// Log the new state of the visibility of the information label
 		logger.Info(message: $"Set the visibility of the information label to {labelInformation.Visible}.");
 	}
@@ -2901,7 +2901,7 @@ public partial class PlanetoidDbForm
 		ArgumentNullException.ThrowIfNull(argument: sender);
 		// Ensure that the event data was supplied
 		ArgumentNullException.ThrowIfNull(argument: e);
-		labelTimeUsage.Visible = toolStripMenuItemShowTimeUsageLabel.Checked;
+		labelTimeUsage.Visible = menuItemShowTimeUsageLabel.Checked;
 		// Log the new state of the visibility of the information label
 		logger.Info(message: $"Set the visibility of the information label to {labelInformation.Visible}.");
 	}
@@ -2917,7 +2917,7 @@ public partial class PlanetoidDbForm
 		ArgumentNullException.ThrowIfNull(argument: sender);
 		// Ensure that the event data was supplied
 		ArgumentNullException.ThrowIfNull(argument: e);
-		labelProcessorUsage.Visible = toolStripMenuItemShowProcessorUsageLabel.Checked;
+		labelProcessorUsage.Visible = menuItemShowProcessorUsageLabel.Checked;
 		// Log the new state of the visibility of the information label
 		logger.Info(message: $"Set the visibility of the information label to {labelInformation.Visible}.");
 	}
@@ -2933,7 +2933,7 @@ public partial class PlanetoidDbForm
 		ArgumentNullException.ThrowIfNull(argument: sender);
 		// Ensure that the event data was supplied
 		ArgumentNullException.ThrowIfNull(argument: e);
-		labelMemoryUsage.Visible = toolStripMenuItemShowMemoryUsageLabel.Checked;
+		labelMemoryUsage.Visible = menuItemShowMemoryUsageLabel.Checked;
 		// Log the new state of the visibility of the information label
 		logger.Info(message: $"Set the visibility of the information label to {labelInformation.Visible}.");
 	}
@@ -2949,7 +2949,7 @@ public partial class PlanetoidDbForm
 		ArgumentNullException.ThrowIfNull(argument: sender);
 		// Ensure that the event data was supplied
 		ArgumentNullException.ThrowIfNull(argument: e);
-		labelDiskSizeUsage.Visible = toolStripMenuItemShowDiskSizeLabel.Checked;
+		labelDiskSizeUsage.Visible = menuItemShowDiskSizeLabel.Checked;
 		// Log the new state of the visibility of the information label
 		logger.Info(message: $"Set the visibility of the information label to {labelInformation.Visible}.");
 	}
@@ -3402,13 +3402,13 @@ public partial class PlanetoidDbForm
 	private void ToolStripMenuItemExperimentalFeatures_Click(object sender, EventArgs e)
 	{
 		// Log the click event and the current checked state of the experimental features menu item
-		logger.Info(message: $"Experimental Features menu item clicked. Checked state: {toolStripMenuItemExperimentalFeatures.Checked}");
+		logger.Info(message: $"Experimental Features menu item clicked. Checked state: {menuItemExperimentalFeatures.Checked}");
 		// Ensure that an event source was supplied
 		ArgumentNullException.ThrowIfNull(argument: sender);
 		// Ensure that the event data was supplied
 		ArgumentNullException.ThrowIfNull(argument: e);
 		// Toggle experimental features based on the current checked state of the menu item
-		if (toolStripMenuItemExperimentalFeatures.Checked)
+		if (menuItemExperimentalFeatures.Checked)
 		{
 			// If the experimental features menu item is checked, enable experimental features
 			EnableExperimentalFeatures();
@@ -3427,13 +3427,13 @@ public partial class PlanetoidDbForm
 	private void ToolStripMenuItemOptionEnableUiSound_Click(object sender, EventArgs e)
 	{
 		// Log the click event and the current checked state of the UI sound menu item
-		logger.Info(message: $"UI Sound menu item clicked. Checked state: {toolStripMenuItemOptionEnableUiSound.Checked}");
+		logger.Info(message: $"UI Sound menu item clicked. Checked state: {menuItemOptionEnableUiSound.Checked}");
 		// Ensure that an event source was supplied
 		ArgumentNullException.ThrowIfNull(argument: sender);
 		// Ensure that the event data was supplied
 		ArgumentNullException.ThrowIfNull(argument: e);
 		// Toggle UI sound based on the current checked state of the menu item
-		if (toolStripMenuItemOptionEnableUiSound.Checked)
+		if (menuItemOptionEnableUiSound.Checked)
 		{
 			// If the UI sound menu item is checked, enable UI sound
 			EnableUiSound();

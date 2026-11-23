@@ -126,38 +126,38 @@ public partial class PlanetoidDbForm
 		GotoCurrentMpcorbPosition(position: currentMpcorbPosition);
 		// TODO: remove the following if statement when the other databases are implemented, but keep the code for loading the other databases in place
 		// Check if experimental features are enabled and load the corresponding databases
-		if (toolStripMenuItemExperimentalFeatures.Checked)
+		if (menuItemExperimentalFeatures.Checked)
 		{
 			// If MPCORB.JSON is checked, load the MPCORB.JSON file and show the data for the same position (position 0 initially)
-			if (toolStripMenuItemLoadDatabaseOnStartupMpcorbJson.Checked)
+			if (menuItemLoadDatabaseOnStartupMpcorbJson.Checked)
 			{
 				LoadMpcorbJsonDatabase();
 				currentMpcorbJsonPosition = 0;
 				GotoCurrentMpcorbJsonPosition(position: currentMpcorbJsonPosition);
 			}
 			// If ASTORB.DAT is checked, load the ASTORB.DAT file and show the data for the same position (position 0 initially)
-			if (toolStripMenuItemLoadDatabaseOnStartupAstorbDat.Checked)
+			if (menuItemLoadDatabaseOnStartupAstorbDat.Checked)
 			{
 				LoadAstorbDatabase();
 				currentAstorbPosition = 0;
 				GotoCurrentAstorbPosition(position: currentAstorbPosition);
 			}
 			// If ALLNUM.CAT is checked, load the ALLNUM.CAT file and show the data for the same position (position 0 initially)
-			if (toolStripMenuItemLoadDatabaseOnStartupAllnumCat.Checked)
+			if (menuItemLoadDatabaseOnStartupAllnumCat.Checked)
 			{
 				LoadAllnumCatDatabase();
 				currentAllnumCatPosition = 0;
 				GotoCurrentAllnumCatPosition(position: currentAllnumCatPosition);
 			}
 			// If SINGOPP.CAT is checked, load the SINGOPP.CAT file and show the data for the same position (position 0 initially)
-			if (toolStripMenuItemLoadDatabaseOnStartupSingoppCat.Checked)
+			if (menuItemLoadDatabaseOnStartupSingoppCat.Checked)
 			{
 				LoadSingoppCatDatabase();
 				currentSingoppCatPosition = 0;
 				GotoCurrentSingoppCatPosition(position: currentSingoppCatPosition);
 			}
 			// If UFITOBS.CAT is checked, load the UFITOBS.CAT file and show the data for the same position (position 0 initially)
-			if (toolStripMenuItemLoadDatabaseOnStartupUfitobsCat.Checked)
+			if (menuItemLoadDatabaseOnStartupUfitobsCat.Checked)
 			{
 				LoadUfitobsCatDatabase();
 				currentUfitobsCatPosition = 0;
