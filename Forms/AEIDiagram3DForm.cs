@@ -235,7 +235,7 @@ internal partial class AEIDiagram3DForm : BaseKryptonForm
 		double rangeE = Math.Max(val1: 1E-9, val2: maxE - minE);
 		double rangeI = Math.Max(val1: 1E-9, val2: maxI - minI);
 		const float axisBase = 10f;
-		List<RenderPoint> renderPoints = new(capacity: validCount);
+		List<RenderPoint> renderPoints = [with(capacity: validCount)];
 		for (int i = 0; i < _rawPoints.Count; i++)
 		{
 			double a = _rawPoints[index: i].A;

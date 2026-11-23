@@ -1303,7 +1303,7 @@ partial class TisserandParameterOfOneMinorPlanetForm
 		toolStripIcons.MouseEnter += Control_Enter;
 		toolStripIcons.MouseLeave += Control_Leave;
 		// 
-		// toolStripDropDownButtonCopyToClipboard
+		// dropDownButtonCopyToClipboard
 		// 
 		toolStripDropDownButtonCopyToClipboard.AccessibleDescription = "Copies information to clipboard";
 		toolStripDropDownButtonCopyToClipboard.AccessibleName = "Copy to clipboard";
@@ -1311,7 +1311,7 @@ partial class TisserandParameterOfOneMinorPlanetForm
 		toolStripDropDownButtonCopyToClipboard.DropDown = contextMenuFullCopyToClipboard;
 		toolStripDropDownButtonCopyToClipboard.Image = FatcowIcons16px.fatcow_page_copy_16px;
 		toolStripDropDownButtonCopyToClipboard.ImageTransparentColor = Color.Magenta;
-		toolStripDropDownButtonCopyToClipboard.Name = "toolStripDropDownButtonCopyToClipboard";
+		toolStripDropDownButtonCopyToClipboard.Name = "dropDownButtonCopyToClipboard";
 		toolStripDropDownButtonCopyToClipboard.Size = new Size(131, 22);
 		toolStripDropDownButtonCopyToClipboard.Text = "&Copy to clipboard";
 		toolStripDropDownButtonCopyToClipboard.MouseEnter += Control_Enter;

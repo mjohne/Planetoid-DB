@@ -2,7 +2,7 @@
  * File:        BaseKryptonForm.cs
  * Project:     Planetoid-DB
  * Namespace:   Planetoid_DB.Forms
- * Description: Base form providing common behaviours for application forms.
+ * Description: Base form providing common behaviors for application forms.
  *
  * Author:      Michael Johne
  * Company:     Mijo Software
@@ -23,7 +23,7 @@ using System.Diagnostics;
 
 namespace Planetoid_DB.Forms;
 
-/// <summary>Base form providing common behaviours for application forms.</summary>
+/// <summary>Base form providing common behaviors for application forms.</summary>
 /// <remarks>This class serves as a base form for the application, providing common functionality and behaviors that can be shared across derived forms.</remarks>
 // You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.
 // You can customize the debugger display for this class by providing a property that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the DebuggerDisplay property is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this property should be used for the debugger display.

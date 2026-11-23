@@ -470,7 +470,7 @@ internal partial class OrreryForm : BaseKryptonForm
 	{
 		ArgumentOutOfRangeException.ThrowIfNegative(value: start);
 		ArgumentOutOfRangeException.ThrowIfNegative(value: end);
-		List<PlanetoidElements> planetoids = new(capacity: end - start + 1);
+		List<PlanetoidElements> planetoids = [with(capacity: end - start + 1)];
 		for (int idx = start - 1; idx < end; idx++)
 		{
 			if (TryParsePlanetoid(line: _sourceLines[index: idx], out PlanetoidElements elements))
