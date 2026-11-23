@@ -143,7 +143,7 @@ internal partial class LicenseForm : BaseKryptonForm
 	/// <exception cref="FileNotFoundException">Thrown when the embedded LICENSE resource cannot be found.</exception>
 	/// <exception cref="IOException">Propagated when file copy or delete operations fail.</exception>
 	/// <remarks>This method is used to save the LICENSE file to a user-specified location.</remarks>
-	private async void KryptonButtonSaveLicense_ClickAsync(object sender, EventArgs e)
+	private async void ButtonSaveLicense_ClickAsync(object sender, EventArgs e)
 	{
 		// Ensure that an event source was supplied
 		ArgumentNullException.ThrowIfNull(argument: sender);
@@ -164,7 +164,7 @@ internal partial class LicenseForm : BaseKryptonForm
 		}
 		catch (Exception ex)
 		{
-			logger.Error(ex, message: "Error saving license.");
+			logger.Error(exception: ex, message: "Error saving license.");
 			ShowErrorMessage(message: $"Error saving license: {ex.Message}");
 		}
 	}
@@ -173,7 +173,7 @@ internal partial class LicenseForm : BaseKryptonForm
 	/// <param name="sender">Event source (the copy button).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to copy the license text to the clipboard.</remarks>
-	private void KryptonButtonCopyLicenseToClipboard_Click(object sender, EventArgs e)
+	private void ButtonCopyLicenseToClipboard_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Copy License to Clipboard button clicked.");
 		// Ensure that an event source was supplied
@@ -181,23 +181,38 @@ internal partial class LicenseForm : BaseKryptonForm
 		// Ensure that the event data was supplied
 		ArgumentNullException.ThrowIfNull(argument: e);
 		// Copy the text from the KryptonTextBox to the clipboard
-		CopyToClipboard(text: kryptonTextBoxLicense.Text);
+		CopyToClipboard(text: textBoxLicense.Text);
 	}
 
 	/// <summary>Shows or hides the information label according to the menu item's checked state.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
-	private void ToolStripMenuItemShowInformationLabel_Click(object sender, EventArgs e)
+	private void MenuItemShowInformationLabel_Click(object sender, EventArgs e)
 	{
 		// Log the action of clicking of ToolStripMenuItemShowInformationLabel
-		logger.Info(message: $"ToolStripMenuItemShowInformationLabel clicked.");
+		logger.Info(message: $"MenuItemShowInformationLabel clicked.");
 		// Ensure that an event source was supplied
 		ArgumentNullException.ThrowIfNull(argument: sender);
 		// Ensure that the event data was supplied
 		ArgumentNullException.ThrowIfNull(argument: e);
-		labelInformation.Visible = toolStripMenuItemShowInformationLabel.Checked;
+		labelInformation.Visible = menuItemShowInformationLabel.Checked;
 		// Log the new state of the visibility of the information label
 		logger.Info(message: $"Set the visibility of the information label to {labelInformation.Visible}.");
+	}
+
+	/// <summary>Opens the GNU General Public License in the default web browser.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data.</param>
+	private void ButtonReadOnline_Click(object sender, EventArgs e)
+	{
+		// Log the action of clicking of ToolStripMenuItemShowInformationLabel
+		logger.Info(message: $"ButtonReadOnline clicked.");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		AudioPlayback.PlaySendDataSound();
+		OpenWebsite("https://www.gnu.org/licenses/gpl-3.0.html.en");
 	}
 
 	#endregion
