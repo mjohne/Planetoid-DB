@@ -50,172 +50,228 @@ partial class LicenseForm
 	{
 		components = new Container();
 		ComponentResourceManager resources = new ComponentResourceManager(typeof(LicenseForm));
-		kryptonPanelMain = new KryptonPanel();
-		kryptonButtonCopyLicenseToClipboard = new KryptonButton();
-		kryptonButtonSaveLicense = new KryptonButton();
-		kryptonButtonClose = new KryptonButton();
-		kryptonPictureBoxLicenseLogo = new KryptonPictureBox();
-		kryptonTextBoxLicense = new KryptonTextBox();
-		kryptonStatusStrip = new KryptonStatusStrip();
+		panelMain = new KryptonPanel();
+		buttonReadOnline = new KryptonButton();
+		buttonCopyLicenseToClipboard = new KryptonButton();
+		buttonSaveLicense = new KryptonButton();
+		buttonClose = new KryptonButton();
+		pictureBoxLicenseLogo = new KryptonPictureBox();
+		textBoxLicense = new KryptonTextBox();
+		statusStrip = new KryptonStatusStrip();
+		contextMenuShowControlsInStatusBar = new ContextMenuStrip(components);
+		menuItemShowInformationLabel = new ToolStripMenuItem();
 		labelInformation = new ToolStripStatusLabel();
 		saveFileDialog = new SaveFileDialog();
 		kryptonManager = new KryptonManager(components);
-		contextMenuShowControlsInStatusBar = new ContextMenuStrip(components);
-		toolStripMenuItemShowInformationLabel = new ToolStripMenuItem();
-		((ISupportInitialize)kryptonPanelMain).BeginInit();
-		kryptonPanelMain.SuspendLayout();
-		((ISupportInitialize)kryptonPictureBoxLicenseLogo).BeginInit();
-		kryptonStatusStrip.SuspendLayout();
+		((ISupportInitialize)panelMain).BeginInit();
+		panelMain.SuspendLayout();
+		((ISupportInitialize)pictureBoxLicenseLogo).BeginInit();
+		statusStrip.SuspendLayout();
 		contextMenuShowControlsInStatusBar.SuspendLayout();
 		SuspendLayout();
 		// 
-		// kryptonPanelMain
+		// panelMain
 		// 
-		kryptonPanelMain.AccessibleDescription = "Groups the data";
-		kryptonPanelMain.AccessibleName = "Panel";
-		kryptonPanelMain.AccessibleRole = AccessibleRole.Pane;
-		kryptonPanelMain.Controls.Add(kryptonButtonCopyLicenseToClipboard);
-		kryptonPanelMain.Controls.Add(kryptonButtonSaveLicense);
-		kryptonPanelMain.Controls.Add(kryptonButtonClose);
-		kryptonPanelMain.Controls.Add(kryptonPictureBoxLicenseLogo);
-		kryptonPanelMain.Controls.Add(kryptonTextBoxLicense);
-		kryptonPanelMain.Controls.Add(kryptonStatusStrip);
-		kryptonPanelMain.Dock = DockStyle.Fill;
-		kryptonPanelMain.Location = new Point(0, 0);
-		kryptonPanelMain.Name = "kryptonPanelMain";
-		kryptonPanelMain.PanelBackStyle = PaletteBackStyle.FormMain;
-		kryptonPanelMain.Size = new Size(577, 225);
-		kryptonPanelMain.TabIndex = 0;
-		kryptonPanelMain.TabStop = true;
+		panelMain.AccessibleDescription = "Groups the data";
+		panelMain.AccessibleName = "Panel";
+		panelMain.AccessibleRole = AccessibleRole.Pane;
+		panelMain.Controls.Add(buttonReadOnline);
+		panelMain.Controls.Add(buttonCopyLicenseToClipboard);
+		panelMain.Controls.Add(buttonSaveLicense);
+		panelMain.Controls.Add(buttonClose);
+		panelMain.Controls.Add(pictureBoxLicenseLogo);
+		panelMain.Controls.Add(textBoxLicense);
+		panelMain.Controls.Add(statusStrip);
+		panelMain.Dock = DockStyle.Fill;
+		panelMain.Location = new Point(0, 0);
+		panelMain.Name = "panelMain";
+		panelMain.PanelBackStyle = PaletteBackStyle.FormMain;
+		panelMain.Size = new Size(577, 243);
+		panelMain.TabIndex = 0;
+		panelMain.TabStop = true;
 		// 
-		// kryptonButtonCopyLicenseToClipboard
+		// buttonReadOnline
 		// 
-		kryptonButtonCopyLicenseToClipboard.AccessibleDescription = "Copies the license to the clipboard";
-		kryptonButtonCopyLicenseToClipboard.AccessibleName = "Copy the license to the clipboard";
-		kryptonButtonCopyLicenseToClipboard.AccessibleRole = AccessibleRole.PushButton;
-		kryptonButtonCopyLicenseToClipboard.Location = new Point(438, 105);
-		kryptonButtonCopyLicenseToClipboard.Name = "kryptonButtonCopyLicenseToClipboard";
-		kryptonButtonCopyLicenseToClipboard.Size = new Size(127, 25);
-		kryptonButtonCopyLicenseToClipboard.TabIndex = 1;
-		kryptonButtonCopyLicenseToClipboard.ToolTipValues.Description = "Copies the license to the clipboard.";
-		kryptonButtonCopyLicenseToClipboard.ToolTipValues.EnableToolTips = true;
-		kryptonButtonCopyLicenseToClipboard.ToolTipValues.Heading = "Copy the license to the clipboard";
-		kryptonButtonCopyLicenseToClipboard.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		kryptonButtonCopyLicenseToClipboard.Values.DropDownArrowColor = Color.Empty;
-		kryptonButtonCopyLicenseToClipboard.Values.Image = FatcowIcons16px.fatcow_clipboard_empty_16px;
-		kryptonButtonCopyLicenseToClipboard.Values.Text = "&Copy to clipboard";
-		kryptonButtonCopyLicenseToClipboard.Click += KryptonButtonCopyLicenseToClipboard_Click;
-		kryptonButtonCopyLicenseToClipboard.Enter += Control_Enter;
-		kryptonButtonCopyLicenseToClipboard.Leave += Control_Leave;
-		kryptonButtonCopyLicenseToClipboard.MouseEnter += Control_Enter;
-		kryptonButtonCopyLicenseToClipboard.MouseLeave += Control_Leave;
+		buttonReadOnline.AccessibleDescription = "Opens a web browser with the license (https://www.gnu.org/licenses/gpl-3.0.html.en)";
+		buttonReadOnline.AccessibleName = "Read online";
+		buttonReadOnline.AccessibleRole = AccessibleRole.PushButton;
+		buttonReadOnline.Location = new Point(438, 89);
+		buttonReadOnline.Name = "buttonReadOnline";
+		buttonReadOnline.Size = new Size(127, 25);
+		buttonReadOnline.TabIndex = 1;
+		buttonReadOnline.ToolTipValues.Description = "Opens a web browser with the license (https://www.gnu.org/licenses/gpl-3.0.html.en)";
+		buttonReadOnline.ToolTipValues.EnableToolTips = true;
+		buttonReadOnline.ToolTipValues.Heading = "Read online";
+		buttonReadOnline.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		buttonReadOnline.Values.DropDownArrowColor = Color.Empty;
+		buttonReadOnline.Values.Image = FatcowIcons16px.fatcow_external_16px;
+		buttonReadOnline.Values.Text = "&Read online";
+		buttonReadOnline.Click += ButtonReadOnline_Click;
+		buttonReadOnline.Enter += Control_Enter;
+		buttonReadOnline.Leave += Control_Leave;
+		buttonReadOnline.MouseEnter += Control_Enter;
+		buttonReadOnline.MouseLeave += Control_Leave;
 		// 
-		// kryptonButtonSaveLicense
+		// buttonCopyLicenseToClipboard
 		// 
-		kryptonButtonSaveLicense.AccessibleDescription = "Saves the license to the hard drive";
-		kryptonButtonSaveLicense.AccessibleName = "Save the license";
-		kryptonButtonSaveLicense.AccessibleRole = AccessibleRole.PushButton;
-		kryptonButtonSaveLicense.Location = new Point(439, 136);
-		kryptonButtonSaveLicense.Name = "kryptonButtonSaveLicense";
-		kryptonButtonSaveLicense.Size = new Size(127, 25);
-		kryptonButtonSaveLicense.TabIndex = 2;
-		kryptonButtonSaveLicense.ToolTipValues.Description = "Saves the license to the hard drive.";
-		kryptonButtonSaveLicense.ToolTipValues.EnableToolTips = true;
-		kryptonButtonSaveLicense.ToolTipValues.Heading = "Save the license";
-		kryptonButtonSaveLicense.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		kryptonButtonSaveLicense.Values.DropDownArrowColor = Color.Empty;
-		kryptonButtonSaveLicense.Values.Image = FatcowIcons16px.fatcow_diskette_16px;
-		kryptonButtonSaveLicense.Values.Text = "&Save license";
-		kryptonButtonSaveLicense.Click += KryptonButtonSaveLicense_ClickAsync;
-		kryptonButtonSaveLicense.Enter += Control_Enter;
-		kryptonButtonSaveLicense.Leave += Control_Leave;
-		kryptonButtonSaveLicense.MouseEnter += Control_Enter;
-		kryptonButtonSaveLicense.MouseLeave += Control_Leave;
+		buttonCopyLicenseToClipboard.AccessibleDescription = "Copies the license to the clipboard";
+		buttonCopyLicenseToClipboard.AccessibleName = "Copy the license to the clipboard";
+		buttonCopyLicenseToClipboard.AccessibleRole = AccessibleRole.PushButton;
+		buttonCopyLicenseToClipboard.Location = new Point(438, 120);
+		buttonCopyLicenseToClipboard.Name = "buttonCopyLicenseToClipboard";
+		buttonCopyLicenseToClipboard.Size = new Size(127, 25);
+		buttonCopyLicenseToClipboard.TabIndex = 2;
+		buttonCopyLicenseToClipboard.ToolTipValues.Description = "Copies the license to the clipboard.";
+		buttonCopyLicenseToClipboard.ToolTipValues.EnableToolTips = true;
+		buttonCopyLicenseToClipboard.ToolTipValues.Heading = "Copy the license to the clipboard";
+		buttonCopyLicenseToClipboard.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		buttonCopyLicenseToClipboard.Values.DropDownArrowColor = Color.Empty;
+		buttonCopyLicenseToClipboard.Values.Image = FatcowIcons16px.fatcow_clipboard_empty_16px;
+		buttonCopyLicenseToClipboard.Values.Text = "&Copy to clipboard";
+		buttonCopyLicenseToClipboard.Click += ButtonCopyLicenseToClipboard_Click;
+		buttonCopyLicenseToClipboard.Enter += Control_Enter;
+		buttonCopyLicenseToClipboard.Leave += Control_Leave;
+		buttonCopyLicenseToClipboard.MouseEnter += Control_Enter;
+		buttonCopyLicenseToClipboard.MouseLeave += Control_Leave;
 		// 
-		// kryptonButtonClose
+		// buttonSaveLicense
 		// 
-		kryptonButtonClose.AccessibleDescription = "Closes the form";
-		kryptonButtonClose.AccessibleName = "Close the form";
-		kryptonButtonClose.AccessibleRole = AccessibleRole.PushButton;
-		kryptonButtonClose.DialogResult = DialogResult.Cancel;
-		kryptonButtonClose.Location = new Point(439, 167);
-		kryptonButtonClose.Name = "kryptonButtonClose";
-		kryptonButtonClose.Size = new Size(127, 25);
-		kryptonButtonClose.TabIndex = 3;
-		kryptonButtonClose.ToolTipValues.Description = "Closes the form.";
-		kryptonButtonClose.ToolTipValues.EnableToolTips = true;
-		kryptonButtonClose.ToolTipValues.Heading = "Close";
-		kryptonButtonClose.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		kryptonButtonClose.Values.DropDownArrowColor = Color.Empty;
-		kryptonButtonClose.Values.Image = FatcowIcons16px.fatcow_cancel_16px;
-		kryptonButtonClose.Values.Text = "C&lose";
-		kryptonButtonClose.Enter += Control_Enter;
-		kryptonButtonClose.Leave += Control_Leave;
-		kryptonButtonClose.MouseEnter += Control_Enter;
-		kryptonButtonClose.MouseLeave += Control_Leave;
+		buttonSaveLicense.AccessibleDescription = "Saves the license to the hard drive";
+		buttonSaveLicense.AccessibleName = "Save the license";
+		buttonSaveLicense.AccessibleRole = AccessibleRole.PushButton;
+		buttonSaveLicense.Location = new Point(438, 151);
+		buttonSaveLicense.Name = "buttonSaveLicense";
+		buttonSaveLicense.Size = new Size(127, 25);
+		buttonSaveLicense.TabIndex = 3;
+		buttonSaveLicense.ToolTipValues.Description = "Saves the license to the hard drive.";
+		buttonSaveLicense.ToolTipValues.EnableToolTips = true;
+		buttonSaveLicense.ToolTipValues.Heading = "Save the license";
+		buttonSaveLicense.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		buttonSaveLicense.Values.DropDownArrowColor = Color.Empty;
+		buttonSaveLicense.Values.Image = FatcowIcons16px.fatcow_diskette_16px;
+		buttonSaveLicense.Values.Text = "&Save license";
+		buttonSaveLicense.Click += ButtonSaveLicense_ClickAsync;
+		buttonSaveLicense.Enter += Control_Enter;
+		buttonSaveLicense.Leave += Control_Leave;
+		buttonSaveLicense.MouseEnter += Control_Enter;
+		buttonSaveLicense.MouseLeave += Control_Leave;
 		// 
-		// kryptonPictureBoxLicenseLogo
+		// buttonClose
 		// 
-		kryptonPictureBoxLicenseLogo.AccessibleDescription = "Shows the logo of the license";
-		kryptonPictureBoxLicenseLogo.AccessibleName = "GPL Logo";
-		kryptonPictureBoxLicenseLogo.AccessibleRole = AccessibleRole.Graphic;
-		kryptonPictureBoxLicenseLogo.Image = (Image)resources.GetObject("kryptonPictureBoxLicenseLogo.Image");
-		kryptonPictureBoxLicenseLogo.Location = new Point(439, 12);
-		kryptonPictureBoxLicenseLogo.Name = "kryptonPictureBoxLicenseLogo";
-		kryptonPictureBoxLicenseLogo.Size = new Size(127, 71);
-		kryptonPictureBoxLicenseLogo.SizeMode = PictureBoxSizeMode.Zoom;
-		kryptonPictureBoxLicenseLogo.TabIndex = 8;
-		kryptonPictureBoxLicenseLogo.TabStop = false;
-		kryptonPictureBoxLicenseLogo.ToolTipValues.Description = "Shows the logo of the license.";
-		kryptonPictureBoxLicenseLogo.ToolTipValues.EnableToolTips = true;
-		kryptonPictureBoxLicenseLogo.ToolTipValues.Heading = "GPL v3 Logo";
-		kryptonPictureBoxLicenseLogo.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		kryptonPictureBoxLicenseLogo.MouseEnter += Control_Enter;
-		kryptonPictureBoxLicenseLogo.MouseLeave += Control_Leave;
+		buttonClose.AccessibleDescription = "Closes the form";
+		buttonClose.AccessibleName = "Close the form";
+		buttonClose.AccessibleRole = AccessibleRole.PushButton;
+		buttonClose.DialogResult = DialogResult.Cancel;
+		buttonClose.Location = new Point(438, 182);
+		buttonClose.Name = "buttonClose";
+		buttonClose.Size = new Size(127, 25);
+		buttonClose.TabIndex = 4;
+		buttonClose.ToolTipValues.Description = "Closes the form.";
+		buttonClose.ToolTipValues.EnableToolTips = true;
+		buttonClose.ToolTipValues.Heading = "Close";
+		buttonClose.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		buttonClose.Values.DropDownArrowColor = Color.Empty;
+		buttonClose.Values.Image = FatcowIcons16px.fatcow_cancel_16px;
+		buttonClose.Values.Text = "C&lose";
+		buttonClose.Enter += Control_Enter;
+		buttonClose.Leave += Control_Leave;
+		buttonClose.MouseEnter += Control_Enter;
+		buttonClose.MouseLeave += Control_Leave;
 		// 
-		// kryptonTextBoxLicense
+		// pictureBoxLicenseLogo
 		// 
-		kryptonTextBoxLicense.AccessibleDescription = "Shows the license";
-		kryptonTextBoxLicense.AccessibleName = "License";
-		kryptonTextBoxLicense.AccessibleRole = AccessibleRole.Text;
-		kryptonTextBoxLicense.InputControlStyle = InputControlStyle.PanelAlternate;
-		kryptonTextBoxLicense.Location = new Point(12, 12);
-		kryptonTextBoxLicense.Multiline = true;
-		kryptonTextBoxLicense.Name = "kryptonTextBoxLicense";
-		kryptonTextBoxLicense.ReadOnly = true;
-		kryptonTextBoxLicense.ScrollBars = ScrollBars.Both;
-		kryptonTextBoxLicense.Size = new Size(421, 180);
-		kryptonTextBoxLicense.TabIndex = 0;
-		kryptonTextBoxLicense.TabStop = false;
-		kryptonTextBoxLicense.Text = resources.GetString("kryptonTextBoxLicense.Text");
-		kryptonTextBoxLicense.ToolTipValues.Description = "Shows the license.";
-		kryptonTextBoxLicense.ToolTipValues.EnableToolTips = true;
-		kryptonTextBoxLicense.ToolTipValues.Heading = "License";
-		kryptonTextBoxLicense.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		kryptonTextBoxLicense.Enter += Control_Enter;
-		kryptonTextBoxLicense.Leave += Control_Leave;
-		kryptonTextBoxLicense.MouseEnter += Control_Enter;
-		kryptonTextBoxLicense.MouseLeave += Control_Leave;
+		pictureBoxLicenseLogo.AccessibleDescription = "Shows the logo of the license";
+		pictureBoxLicenseLogo.AccessibleName = "GPL Logo";
+		pictureBoxLicenseLogo.AccessibleRole = AccessibleRole.Graphic;
+		pictureBoxLicenseLogo.Image = (Image)resources.GetObject("pictureBoxLicenseLogo.Image");
+		pictureBoxLicenseLogo.Location = new Point(438, 12);
+		pictureBoxLicenseLogo.Name = "pictureBoxLicenseLogo";
+		pictureBoxLicenseLogo.Size = new Size(127, 71);
+		pictureBoxLicenseLogo.SizeMode = PictureBoxSizeMode.Zoom;
+		pictureBoxLicenseLogo.TabIndex = 8;
+		pictureBoxLicenseLogo.TabStop = false;
+		pictureBoxLicenseLogo.ToolTipValues.Description = "Shows the logo of the license.";
+		pictureBoxLicenseLogo.ToolTipValues.EnableToolTips = true;
+		pictureBoxLicenseLogo.ToolTipValues.Heading = "GPL v3 Logo";
+		pictureBoxLicenseLogo.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		pictureBoxLicenseLogo.MouseEnter += Control_Enter;
+		pictureBoxLicenseLogo.MouseLeave += Control_Leave;
 		// 
-		// kryptonStatusStrip
+		// textBoxLicense
 		// 
-		kryptonStatusStrip.AccessibleDescription = "Shows some information";
-		kryptonStatusStrip.AccessibleName = "Status bar with some information";
-		kryptonStatusStrip.AccessibleRole = AccessibleRole.StatusBar;
-		kryptonStatusStrip.AllowClickThrough = true;
-		kryptonStatusStrip.AllowItemReorder = true;
-		kryptonStatusStrip.ContextMenuStrip = contextMenuShowControlsInStatusBar;
-		kryptonStatusStrip.Font = new Font("Segoe UI", 9F);
-		kryptonStatusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
-		kryptonStatusStrip.Location = new Point(0, 203);
-		kryptonStatusStrip.Name = "kryptonStatusStrip";
-		kryptonStatusStrip.ProgressBars = null;
-		kryptonStatusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
-		kryptonStatusStrip.ShowItemToolTips = true;
-		kryptonStatusStrip.Size = new Size(577, 22);
-		kryptonStatusStrip.TabIndex = 4;
-		kryptonStatusStrip.TabStop = true;
-		kryptonStatusStrip.Text = "Status bar";
+		textBoxLicense.AccessibleDescription = "Shows the license";
+		textBoxLicense.AccessibleName = "License";
+		textBoxLicense.AccessibleRole = AccessibleRole.Text;
+		textBoxLicense.InputControlStyle = InputControlStyle.PanelAlternate;
+		textBoxLicense.Location = new Point(12, 12);
+		textBoxLicense.Multiline = true;
+		textBoxLicense.Name = "textBoxLicense";
+		textBoxLicense.ReadOnly = true;
+		textBoxLicense.ScrollBars = ScrollBars.Both;
+		textBoxLicense.Size = new Size(420, 195);
+		textBoxLicense.TabIndex = 0;
+		textBoxLicense.TabStop = false;
+		textBoxLicense.Text = resources.GetString("textBoxLicense.Text");
+		textBoxLicense.ToolTipValues.Description = "Shows the license.";
+		textBoxLicense.ToolTipValues.EnableToolTips = true;
+		textBoxLicense.ToolTipValues.Heading = "License";
+		textBoxLicense.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		textBoxLicense.Enter += Control_Enter;
+		textBoxLicense.Leave += Control_Leave;
+		textBoxLicense.MouseEnter += Control_Enter;
+		textBoxLicense.MouseLeave += Control_Leave;
+		// 
+		// statusStrip
+		// 
+		statusStrip.AccessibleDescription = "Shows some information";
+		statusStrip.AccessibleName = "Status bar with some information";
+		statusStrip.AccessibleRole = AccessibleRole.StatusBar;
+		statusStrip.AllowClickThrough = true;
+		statusStrip.AllowItemReorder = true;
+		statusStrip.ContextMenuStrip = contextMenuShowControlsInStatusBar;
+		statusStrip.Font = new Font("Segoe UI", 9F);
+		statusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
+		statusStrip.Location = new Point(0, 221);
+		statusStrip.Name = "statusStrip";
+		statusStrip.ProgressBars = null;
+		statusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
+		statusStrip.ShowItemToolTips = true;
+		statusStrip.Size = new Size(577, 22);
+		statusStrip.TabIndex = 5;
+		statusStrip.TabStop = true;
+		statusStrip.Text = "Status bar";
+		// 
+		// contextMenuShowControlsInStatusBar
+		// 
+		contextMenuShowControlsInStatusBar.AccessibleDescription = "Shows the context menu for the visibility of controls in the status bar";
+		contextMenuShowControlsInStatusBar.AccessibleName = "Context menu for the visibility of controls in the status bar";
+		contextMenuShowControlsInStatusBar.AccessibleRole = AccessibleRole.MenuPopup;
+		contextMenuShowControlsInStatusBar.AllowClickThrough = true;
+		contextMenuShowControlsInStatusBar.Font = new Font("Segoe UI", 9F);
+		contextMenuShowControlsInStatusBar.Items.AddRange(new ToolStripItem[] { menuItemShowInformationLabel });
+		contextMenuShowControlsInStatusBar.Name = "contextMenuStrip";
+		contextMenuShowControlsInStatusBar.Size = new Size(198, 26);
+		contextMenuShowControlsInStatusBar.TabStop = true;
+		contextMenuShowControlsInStatusBar.Text = "Show controls in status bar";
+		contextMenuShowControlsInStatusBar.MouseEnter += Control_Enter;
+		contextMenuShowControlsInStatusBar.MouseLeave += Control_Leave;
+		// 
+		// menuItemShowInformationLabel
+		// 
+		menuItemShowInformationLabel.AccessibleDescription = "Determines whether the information label is visible or hidden";
+		menuItemShowInformationLabel.AccessibleName = "Information label";
+		menuItemShowInformationLabel.AccessibleRole = AccessibleRole.MenuItem;
+		menuItemShowInformationLabel.AutoToolTip = true;
+		menuItemShowInformationLabel.Checked = true;
+		menuItemShowInformationLabel.CheckOnClick = true;
+		menuItemShowInformationLabel.CheckState = CheckState.Checked;
+		menuItemShowInformationLabel.Name = "menuItemShowInformationLabel";
+		menuItemShowInformationLabel.ShortcutKeyDisplayString = "";
+		menuItemShowInformationLabel.Size = new Size(197, 22);
+		menuItemShowInformationLabel.Text = "Show &information label";
+		menuItemShowInformationLabel.Click += MenuItemShowInformationLabel_Click;
+		menuItemShowInformationLabel.MouseEnter += Control_Enter;
+		menuItemShowInformationLabel.MouseLeave += Control_Leave;
 		// 
 		// labelInformation
 		// 
@@ -238,38 +294,6 @@ partial class LicenseForm
 		kryptonManager.ToolkitStrings.MessageBoxStrings.LessDetails = "L&ess Details...";
 		kryptonManager.ToolkitStrings.MessageBoxStrings.MoreDetails = "&More Details...";
 		// 
-		// contextMenuShowControlsInStatusBar
-		// 
-		contextMenuShowControlsInStatusBar.AccessibleDescription = "Shows the context menu for the visibility of controls in the status bar";
-		contextMenuShowControlsInStatusBar.AccessibleName = "Context menu for the visibility of controls in the status bar";
-		contextMenuShowControlsInStatusBar.AccessibleRole = AccessibleRole.MenuPopup;
-		contextMenuShowControlsInStatusBar.AllowClickThrough = true;
-		contextMenuShowControlsInStatusBar.Font = new Font("Segoe UI", 9F);
-		contextMenuShowControlsInStatusBar.Items.AddRange(new ToolStripItem[] { toolStripMenuItemShowInformationLabel });
-		contextMenuShowControlsInStatusBar.Name = "contextMenuStrip";
-		contextMenuShowControlsInStatusBar.Size = new Size(198, 26);
-		contextMenuShowControlsInStatusBar.TabStop = true;
-		contextMenuShowControlsInStatusBar.Text = "Show controls in status bar";
-		contextMenuShowControlsInStatusBar.MouseEnter += Control_Enter;
-		contextMenuShowControlsInStatusBar.MouseLeave += Control_Leave;
-		// 
-		// toolStripMenuItemShowInformationLabel
-		// 
-		toolStripMenuItemShowInformationLabel.AccessibleDescription = "Determines whether the information label is visible or hidden";
-		toolStripMenuItemShowInformationLabel.AccessibleName = "Information label";
-		toolStripMenuItemShowInformationLabel.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemShowInformationLabel.AutoToolTip = true;
-		toolStripMenuItemShowInformationLabel.Checked = true;
-		toolStripMenuItemShowInformationLabel.CheckOnClick = true;
-		toolStripMenuItemShowInformationLabel.CheckState = CheckState.Checked;
-		toolStripMenuItemShowInformationLabel.Name = "toolStripMenuItemShowInformationLabel";
-		toolStripMenuItemShowInformationLabel.ShortcutKeyDisplayString = "";
-		toolStripMenuItemShowInformationLabel.Size = new Size(197, 22);
-		toolStripMenuItemShowInformationLabel.Text = "Show &information label";
-		toolStripMenuItemShowInformationLabel.Click += ToolStripMenuItemShowInformationLabel_Click;
-		toolStripMenuItemShowInformationLabel.MouseEnter += Control_Enter;
-		toolStripMenuItemShowInformationLabel.MouseLeave += Control_Leave;
-		// 
 		// LicenseForm
 		// 
 		AccessibleDescription = "Shows the license information";
@@ -277,9 +301,9 @@ partial class LicenseForm
 		AccessibleRole = AccessibleRole.Dialog;
 		AutoScaleDimensions = new SizeF(7F, 15F);
 		AutoScaleMode = AutoScaleMode.Font;
-		ClientSize = new Size(577, 225);
+		ClientSize = new Size(577, 243);
 		ControlBox = false;
-		Controls.Add(kryptonPanelMain);
+		Controls.Add(panelMain);
 		FormBorderStyle = FormBorderStyle.FixedToolWindow;
 		Icon = (Icon)resources.GetObject("$this.Icon");
 		MaximizeBox = false;
@@ -293,12 +317,12 @@ partial class LicenseForm
 		Leave += Control_Enter;
 		MouseEnter += Control_Enter;
 		MouseLeave += Control_Enter;
-		((ISupportInitialize)kryptonPanelMain).EndInit();
-		kryptonPanelMain.ResumeLayout(false);
-		kryptonPanelMain.PerformLayout();
-		((ISupportInitialize)kryptonPictureBoxLicenseLogo).EndInit();
-		kryptonStatusStrip.ResumeLayout(false);
-		kryptonStatusStrip.PerformLayout();
+		((ISupportInitialize)panelMain).EndInit();
+		panelMain.ResumeLayout(false);
+		panelMain.PerformLayout();
+		((ISupportInitialize)pictureBoxLicenseLogo).EndInit();
+		statusStrip.ResumeLayout(false);
+		statusStrip.PerformLayout();
 		contextMenuShowControlsInStatusBar.ResumeLayout(false);
 		ResumeLayout(false);
 	}
@@ -306,31 +330,31 @@ partial class LicenseForm
 	#endregion
 
 	/// <summary>Gets or sets the main Krypton panel.</summary>
-	private KryptonPanel kryptonPanelMain;
+	private KryptonPanel panelMain;
 	
 	/// <summary>Gets or sets the status strip used in the form.</summary>
-	private KryptonStatusStrip kryptonStatusStrip;
+	private KryptonStatusStrip statusStrip;
 	
 	/// <summary>The status bar label that displays application information.</summary>
 	private ToolStripStatusLabel labelInformation;
 	
 	/// <summary>Represents the text box used to enter the license key.</summary>
-	private KryptonTextBox kryptonTextBoxLicense;
+	private KryptonTextBox textBoxLicense;
 	
 	/// <summary>Displays the license logo.</summary>
-	private KryptonPictureBox kryptonPictureBoxLicenseLogo;
+	private KryptonPictureBox pictureBoxLicenseLogo;
 
 	/// <summary>Gets or sets the button that closes the license form.</summary>
-	private KryptonButton kryptonButtonClose;
+	private KryptonButton buttonClose;
 	
 	/// <summary>The Krypton button that saves the license information.</summary>
-	private KryptonButton kryptonButtonSaveLicense;
+	private KryptonButton buttonSaveLicense;
 
 	/// <summary>Gets or sets the dialog used to select a file location for saving.</summary>
 	private SaveFileDialog saveFileDialog;
 
 	/// <summary>The button that copies the license text to the clipboard.</summary>
-	private KryptonButton kryptonButtonCopyLicenseToClipboard;
+	private KryptonButton buttonCopyLicenseToClipboard;
 
 	/// <summary>Manages Krypton theme and palette settings for the form.</summary>
 	private KryptonManager kryptonManager;
@@ -339,5 +363,8 @@ partial class LicenseForm
 	private ContextMenuStrip contextMenuShowControlsInStatusBar;
 
 	/// <summary>Gets or sets the menu item that controls whether the information label is shown.</summary>
-	private ToolStripMenuItem toolStripMenuItemShowInformationLabel;
+	private ToolStripMenuItem menuItemShowInformationLabel;
+	
+	/// <summary>Gets or sets the button used to read the license or related content online.</summary>
+	private KryptonButton buttonReadOnline;
 }
