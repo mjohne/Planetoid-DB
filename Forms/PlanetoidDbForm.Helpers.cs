@@ -1536,9 +1536,9 @@ public partial class PlanetoidDbForm
 		_ = formTisserandOfAll.ShowDialog(owner: this);
 	}
 
-	/// <summary>Shows the encounter velocitys form for the current planetoid.</summary>
+	/// <summary>Shows the encounter velocities form for the current planetoid.</summary>
 	/// <remarks>Parses the semi-major axis, eccentricity, and inclination from the UI labels and opens the <see cref="EncounterVelocityOfOneMinorPlanetForm"/>.</remarks>
-	private void ShowEncounterVelocitys()
+	private void ShowEncounterVelocities()
 	{
 		// Create a culture-specific format provider for parsing the orbital elements
 		IFormatProvider provider = CultureInfo.CreateSpecificCulture(name: "en");
@@ -1578,9 +1578,9 @@ public partial class PlanetoidDbForm
 		_ = formEncounterVelocity.ShowDialog(owner: this);
 	}
 
-	/// <summary>Shows the encounter velocitys of all minor planets form. Opens the form to compute the encounter velocitys for all planetoids relative to the solar system planets.</summary>
+	/// <summary>Shows the encounter velocities of all minor planets form. Opens the form to compute the encounter velocities for all planetoids relative to the solar system planets.</summary>
 	/// <remarks>Passes the full planetoids database to the form so it can iterate over all records.</remarks>
-	private void ShowEncounterVelocitysOfAllMinorPlanets()
+	private void ShowEncounterVelocitiesOfAllMinorPlanets()
 	{
 		// Create a new instance of the TisserandParameterOfAllMinorPlanetsForm
 		using EncounterVelocityOfAllMinorPlanetsForm formEncounterVelocityOfAll = new(planetoids: planetoidsDatabase);
@@ -1658,18 +1658,18 @@ public partial class PlanetoidDbForm
 		_ = formArchive.ShowDialog(owner: this);
 	}
 
-	/// <summary>Displays the acknoledgements form as a modal dialog, ensuring it remains on top of other windows.</summary>
-	/// <remarks>This method creates an instance of the AcknoledgementsForm and sets its TopMost property to true, which keeps the form above other application windows. The form is shown modally, meaning the user must interact with it before returning to the main application.</remarks>
-	private void ShowAcknoledgements()
+	/// <summary>Displays the acknowledgements form as a modal dialog, ensuring it remains on top of other windows.</summary>
+	/// <remarks>This method creates an instance of the AcknowledgementsForm and sets its TopMost property to true, which keeps the form above other application windows. The form is shown modally, meaning the user must interact with it before returning to the main application.</remarks>
+	private void ShowAcknowledgements()
 	{
-		// Create a new instance of the AcknoledgementsForm
-		using AcknoledgementsForm formAcknoledgements = new();
+		// Create a new instance of the AcknowledgementsForm
+		using AcknowledgementsForm formAcknowledgements = new();
 		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
-		formAcknoledgements.TopMost = TopMost;
-		// Log the action of opening the AcknoledgementsForm
-		logger.Info(message: "Opening AcknoledgementsForm.");
-		// Show the AcknoledgementsForm form as a modal dialog
-		_ = formAcknoledgements.ShowDialog(owner: this);
+		formAcknowledgements.TopMost = TopMost;
+		// Log the action of opening the AcknowledgementsForm
+		logger.Info(message: "Opening AcknowledgementsForm.");
+		// Show the AcknowledgementsForm form as a modal dialog
+		_ = formAcknowledgements.ShowDialog(owner: this);
 	}
 
 	/// <summary>Displays the archive comparison form as a modal dialog, allowing users to view differences between database archives.</summary>
@@ -2185,7 +2185,7 @@ public partial class PlanetoidDbForm
 	private void CheckStayOnTop()
 	{
 		// Set the form's TopMost property based on the checked state of the corresponding menu item
-		TopMost = toolStripMenuItemOptionStayOnTop.Checked;
+		TopMost = menuItemOptionStayOnTop.Checked;
 	}
 
 	/// <summary>Displays the form's <see cref="openFileDialog"/> to allow the user to choose a local MPCORB.DAT file and restarts the application to load the selected file if confirmed.</summary>
@@ -2257,14 +2257,14 @@ public partial class PlanetoidDbForm
 	private void EnableExperimentalFeatures(bool silent = false)
 	{
 		// Enable experimental features in the application
-		toolStripMenuItemDistributions.Enabled = true;
-		toolStripMenuItemScatterPlots.Enabled = true;
-		toolStripMenuItemAEIDiagram3D.Enabled = true;
-		toolStripMenuItemOrbitVisualization.Enabled = true;
-		toolStripButtonDistributions.Enabled = true;
-		toolStripButtonScatterPlots.Enabled = true;
-		toolStripDropDownButtonOrbit.Enabled = true;
-		toolStripMenuItemLoadAdditionalDatabasesOnStartup.Enabled = true;
+		menuItemDistributions.Enabled = true;
+		menuItemScatterPlots.Enabled = true;
+		menuItemAEIDiagram3D.Enabled = true;
+		menuItemOrbitVisualization.Enabled = true;
+		buttonDistributions.Enabled = true;
+		buttonScatterPlots.Enabled = true;
+		dropDownButtonOrbit.Enabled = true;
+		menuItemLoadAdditionalDatabasesOnStartup.Enabled = true;
 		// Persist and log only when the setting actually changes
 		if (!Settings.Default.userEnableExperimentalFeatures)
 		{
@@ -2291,14 +2291,14 @@ public partial class PlanetoidDbForm
 	private void DisableExperimentalFeatures(bool silent = false)
 	{
 		// Disable experimental features in the application
-		toolStripMenuItemDistributions.Enabled = false;
-		toolStripMenuItemScatterPlots.Enabled = false;
-		toolStripMenuItemAEIDiagram3D.Enabled = false;
-		toolStripMenuItemOrbitVisualization.Enabled = false;
-		toolStripButtonDistributions.Enabled = false;
-		toolStripButtonScatterPlots.Enabled = false;
-		toolStripDropDownButtonOrbit.Enabled = false;
-		toolStripMenuItemLoadAdditionalDatabasesOnStartup.Enabled = false;
+		menuItemDistributions.Enabled = false;
+		menuItemScatterPlots.Enabled = false;
+		menuItemAEIDiagram3D.Enabled = false;
+		menuItemOrbitVisualization.Enabled = false;
+		buttonDistributions.Enabled = false;
+		buttonScatterPlots.Enabled = false;
+		dropDownButtonOrbit.Enabled = false;
+		menuItemLoadAdditionalDatabasesOnStartup.Enabled = false;
 		// Persist and log only when the setting actually changes
 		if (Settings.Default.userEnableExperimentalFeatures)
 		{
@@ -2320,7 +2320,7 @@ public partial class PlanetoidDbForm
 	private void EnableUiSound()
 	{
 		// Enable UI sound in the application
-		toolStripMenuItemOptionEnableUiSound.Checked = true;
+		menuItemOptionEnableUiSound.Checked = true;
 		// Persist and log only when the setting actually changes
 		if (!Settings.Default.userEnableUiSound)
 		{
@@ -2337,7 +2337,7 @@ public partial class PlanetoidDbForm
 	private void DisableUiSound()
 	{
 		// Disable UI sound in the application
-		toolStripMenuItemOptionEnableUiSound.Checked = false;
+		menuItemOptionEnableUiSound.Checked = false;
 		// Persist and log only when the setting actually changes
 		if (Settings.Default.userEnableUiSound)
 		{
@@ -2476,9 +2476,9 @@ public partial class PlanetoidDbForm
 			// Col 207-214 (0-based 206,8): Tisserand parameter w.r.t. Jupiter
 			labelAstorbTisserandJupData.Text = ExtractField(span: entrySpan, start: 206, length: 8);
 			// Col 215-223 (0-based 214,9): Perihelion distance (AU)
-			labelAstorbPerihelionDistData.Text = ExtractField(span: entrySpan, start: 214, length: 9);
+			labelAstorbPerihelionDistanceData.Text = ExtractField(span: entrySpan, start: 214, length: 9);
 			// Col 224-232 (0-based 223,9): Aphelion distance (AU)
-			labelAstorbAphelionDistData.Text = ExtractField(span: entrySpan, start: 223, length: 9);
+			labelAstorbAphelionDistanceData.Text = ExtractField(span: entrySpan, start: 223, length: 9);
 			// Log the action of displaying the ASTORB record
 			logger.Info(message: $"ASTORB record at position {position} displayed.");
 		}
@@ -2530,8 +2530,8 @@ public partial class PlanetoidDbForm
 			labelAstorbPeriodData.Text = string.Empty;
 			labelAstorbPerihelionDateData.Text = string.Empty;
 			labelAstorbTisserandJupData.Text = string.Empty;
-			labelAstorbPerihelionDistData.Text = string.Empty;
-			labelAstorbAphelionDistData.Text = string.Empty;
+			labelAstorbPerihelionDistanceData.Text = string.Empty;
+			labelAstorbAphelionDistanceData.Text = string.Empty;
 		}
 		// Handle any unexpected exceptions during the clearing process
 		catch (Exception ex)
@@ -3284,7 +3284,7 @@ public partial class PlanetoidDbForm
 		// Determine if the current position is bookmarked
 		bool isBookmarked = IsMpcorbDatPositionBookmarked(position: currentMpcorbPosition);
 		// Update the toolbar button's checked state and icon based on the bookmark status
-		toolStripButtonBookmark.Checked = isBookmarked;
+		buttonBookmark.Checked = isBookmarked;
 	}
 
 	/// <summary>Updates the menu item bookmark toggle checked state based on the current MPCORB.DAT position.</summary>
@@ -3293,7 +3293,7 @@ public partial class PlanetoidDbForm
 		// Determine if the current position is bookmarked
 		bool isBookmarked = IsMpcorbDatPositionBookmarked(position: currentMpcorbPosition);
 		// Update the toolbar button's checked state and icon based on the bookmark status
-		toolStripMenuItemBookmarkToggle.Checked = isBookmarked;
+		menuItemBookmarkToggle.Checked = isBookmarked;
 	}
 
 	/// <summary>Populates the bookmark list drop-down for the given database with menu items for each stored bookmark entry.</summary>

@@ -59,19 +59,19 @@ public partial class PlanetoidDbForm
 		toolStripStatusLabelWindowSize.Text = $"{Size.Width}x{Size.Height}";
 
 		// Set the checked state of the enable UI sound menu item based on the user settings
-		toolStripMenuItemOptionEnableUiSound.Checked = Settings.Default.userEnableUiSound;
+		menuItemOptionEnableUiSound.Checked = Settings.Default.userEnableUiSound;
 		// Set the checked state of the logging menu item based on the user settings
-		toolStripMenuItemLogging.Checked = Settings.Default.userEnableLogging;
+		menuItemLogging.Checked = Settings.Default.userEnableLogging;
 		// Set the checked state of the check for database updates on startup menu item based on the user settings
-		toolStripMenuItemCheckingDatabaseUpdatesOnStartup.Checked = Settings.Default.userCheckingDatabaseUpdatesOnStartup;
+		menuItemCheckingDatabaseUpdatesOnStartup.Checked = Settings.Default.userCheckingDatabaseUpdatesOnStartup;
 		// Set the checked state of the load database on startup menu items based on the user settings
-		toolStripMenuItemLoadAdditionalDatabasesOnStartup.Enabled = Settings.Default.userEnableExperimentalFeatures;
+		menuItemLoadAdditionalDatabasesOnStartup.Enabled = Settings.Default.userEnableExperimentalFeatures;
 		// TODO: Remove this line when the other databases are implemented
-		toolStripMenuItemLoadDatabaseOnStartupMpcorbJson.Checked = Settings.Default.userLoadAdditionalDatabaseOnStartupMpcorbJson;
-		toolStripMenuItemLoadDatabaseOnStartupAstorbDat.Checked = Settings.Default.userLoadAdditionalDatabaseOnStartupAstorbDat;
-		toolStripMenuItemLoadDatabaseOnStartupAllnumCat.Checked = Settings.Default.userLoadAdditionalDatabaseOnStartupAllnumCat;
-		toolStripMenuItemLoadDatabaseOnStartupSingoppCat.Checked = Settings.Default.userLoadAdditionalDatabaseOnStartupSingoppCat;
-		toolStripMenuItemLoadDatabaseOnStartupUfitobsCat.Checked = Settings.Default.userLoadAdditionalDatabaseOnStartupUfitobsCat;
+		menuItemLoadDatabaseOnStartupMpcorbJson.Checked = Settings.Default.userLoadAdditionalDatabaseOnStartupMpcorbJson;
+		menuItemLoadDatabaseOnStartupAstorbDat.Checked = Settings.Default.userLoadAdditionalDatabaseOnStartupAstorbDat;
+		menuItemLoadDatabaseOnStartupAllnumCat.Checked = Settings.Default.userLoadAdditionalDatabaseOnStartupAllnumCat;
+		menuItemLoadDatabaseOnStartupSingoppCat.Checked = Settings.Default.userLoadAdditionalDatabaseOnStartupSingoppCat;
+		menuItemLoadDatabaseOnStartupUfitobsCat.Checked = Settings.Default.userLoadAdditionalDatabaseOnStartupUfitobsCat;
 		// Set the visibility of the additional database tabs to false initially
 		kryptonPageMpcorbJson.Visible = false;
 		kryptonPageAstorbDat.Visible = false;
@@ -79,7 +79,7 @@ public partial class PlanetoidDbForm
 		kryptonPageSingoppCat.Visible = false;
 		kryptonPageUfitobsCat.Visible = false;
 		// If the load additional databases on startup menu item is enabled, set the visibility of the corresponding tabs based on the user settings
-		if (toolStripMenuItemLoadAdditionalDatabasesOnStartup.Enabled)
+		if (menuItemLoadAdditionalDatabasesOnStartup.Enabled)
 		{
 			kryptonPageMpcorbJson.Visible = Settings.Default.userLoadAdditionalDatabaseOnStartupMpcorbJson;
 			kryptonPageAstorbDat.Visible = Settings.Default.userLoadAdditionalDatabaseOnStartupAstorbDat;
@@ -90,7 +90,7 @@ public partial class PlanetoidDbForm
 		// Check if experimental features are enabled in the settings and enable them if so
 		if (Settings.Default.userEnableExperimentalFeatures)
 		{
-			toolStripMenuItemExperimentalFeatures.Checked = Settings.Default.userEnableExperimentalFeatures;
+			menuItemExperimentalFeatures.Checked = Settings.Default.userEnableExperimentalFeatures;
 			EnableExperimentalFeatures(silent: true);
 		}
 		// Set the initial text of the MPCORB.DAT tab to indicate that the database is loading
@@ -155,7 +155,7 @@ public partial class PlanetoidDbForm
 		// Get the amount of hard drive space used by the program
 		DiskSizeUsage();
 		// Log the completion of the Load event of the form
-		logger.Info(message: "PlanetoidDBForm_Load event completed");
+		logger.Info(message: "PlanetoidDbForm_Load event completed");
 	}
 
 	/// <summary>Handles the shown event of the PlanetoidDBForm.</summary>
@@ -171,7 +171,7 @@ public partial class PlanetoidDbForm
 		// Check if an update is available for the MPCORB.DAT database and enable the timer for blinking the update label
 		if (IsMpcorbDatUpdateAvailable())
 		{
-			toolStripMenuItemShowMpcorbDatUpdateIsAvailable.Enabled = true;
+			menuItemShowMpcorbDatUpdateIsAvailable.Enabled = true;
 			toolStripStatusLabelMpcorbDatUpdate.Enabled = true;
 		}
 		// Otherwise, disable and hide the update label
@@ -183,7 +183,7 @@ public partial class PlanetoidDbForm
 		// Check if an update is available for the MPCORB.JSON database and enable the timer for blinking the update label
 		if (IsMpcorbJsonUpdateAvailable())
 		{
-			toolStripMenuItemShowMpcorbJsonUpdateIsAvailable.Enabled = true;
+			menuItemShowMpcorbJsonUpdateIsAvailable.Enabled = true;
 			//toolStripStatusLabelMpcorbJsonUpdate.Enabled = true;
 		}
 		// Otherwise, disable and hide the update label
@@ -195,7 +195,7 @@ public partial class PlanetoidDbForm
 		// Check if an update is available for the ASTORB.DAT database and enable the timer for blinking the update label
 		if (IsAstorbDatUpdateAvailable())
 		{
-			toolStripMenuItemShowAstorbDatUpdateIsAvailable.Enabled = true;
+			menuItemShowAstorbDatUpdateIsAvailable.Enabled = true;
 			toolStripStatusLabelAstorbDatUpdate.Enabled = true;
 		}
 		// Otherwise, disable and hide the update label
@@ -207,7 +207,7 @@ public partial class PlanetoidDbForm
 		// Check if an update is available for the ALLNUM.CAT database and enable the timer for blinking the update label
 		if (IsAllnumCatUpdateAvailable())
 		{
-			toolStripMenuItemShowAllnumCatUpdateIsAvailable.Enabled = true;
+			menuItemShowAllnumCatUpdateIsAvailable.Enabled = true;
 			//toolStripStatusLabelAllnumCatUpdate.Enabled = true;
 		}
 		// Otherwise, disable and hide the update label
@@ -219,7 +219,7 @@ public partial class PlanetoidDbForm
 		// Check if an update is available for the UFITOBS.CAT database and enable the timer for blinking the update label
 		if (IsUfitobsCatUpdateAvailable())
 		{
-			toolStripMenuItemShowUfitobsCatUpdateIsAvailable.Enabled = true;
+			menuItemShowUfitobsCatUpdateIsAvailable.Enabled = true;
 			//toolStripStatusLabelUfitobsCatUpdate.Enabled = true;
 		}
 		// Otherwise, disable and hide the update label
@@ -231,7 +231,7 @@ public partial class PlanetoidDbForm
 		// Check if an update is available for the SINGOPP.CAT database and enable the timer for blinking the update label
 		if (IsSingoppCatUpdateAvailable())
 		{
-			toolStripMenuItemShowSingoppCatUpdateIsAvailable.Enabled = true;
+			menuItemShowSingoppCatUpdateIsAvailable.Enabled = true;
 			//toolStripStatusLabelSingoppCatUpdate.Enabled = true;
 		}
 		// Otherwise, disable and hide the update label

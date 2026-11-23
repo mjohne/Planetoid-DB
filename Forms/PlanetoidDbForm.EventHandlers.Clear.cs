@@ -24,10 +24,10 @@ public partial class PlanetoidDbForm
 	private void ToolStripMenuItem_Clear()
 	{
 		// Clear the checked state of all navigation step menu items
-		toolStripMenuItemNavigateStep10.Checked = false;
-		toolStripMenuItemNavigateStep100.Checked = false;
-		toolStripMenuItemNavigateStep1000.Checked = false;
-		toolStripMenuItemNavigateStep10000.Checked = false;
-		toolStripMenuItemNavigateStep100000.Checked = false;
+		menuItemNavigateStep10.Checked = false;
+		menuItemNavigateStep100.Checked = false;
+		menuItemNavigateStep1000.Checked = false;
+		menuItemNavigateStep10000.Checked = false;
+		menuItemNavigateStep100000.Checked = false;
 	}
 }

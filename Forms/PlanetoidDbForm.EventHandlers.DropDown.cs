@@ -128,7 +128,7 @@ public partial class PlanetoidDbForm
 		// Log the action of populating the MPCORB.DAT bookmark drop-down
 		logger.Info(message: "Populating MPCORB.DAT bookmark drop-down...");
 		// Call the helper method to populate the drop-down with the current bookmarks for MPCORB.DAT
-		PopulateBookmarkDropDown(parentItem: toolStripMenuItemBookmarkListMpcorbDat, bookmarks: bookmarksMpcorbDat, onClickHandler: BookmarkNavigateMpcorbDat_Click);
+		PopulateBookmarkDropDown(parentItem: menuItemBookmarkListMpcorbDat, bookmarks: bookmarksMpcorbDat, onClickHandler: BookmarkNavigateMpcorbDat_Click);
 	}
 
 	/// <summary>Populates the MPCORB.JSON bookmark drop-down when the user opens it.</summary>
@@ -142,7 +142,7 @@ public partial class PlanetoidDbForm
 		// Log the action of populating the MPCORB.JSON bookmark drop-down
 		logger.Info(message: "Populating MPCORB.JSON bookmark drop-down...");
 		// Call the helper method to populate the drop-down with the current bookmarks for MPCORB.JSON
-		PopulateBookmarkDropDown(parentItem: toolStripMenuItemBookmarkListMpcorbJson, bookmarks: bookmarksMpcorbJson, onClickHandler: BookmarkNavigateMpcorbJson_Click);
+		PopulateBookmarkDropDown(parentItem: menuItemBookmarkListMpcorbJson, bookmarks: bookmarksMpcorbJson, onClickHandler: BookmarkNavigateMpcorbJson_Click);
 	}
 
 	/// <summary>Populates the ASTORB.DAT bookmark drop-down when the user opens it.</summary>
@@ -156,7 +156,7 @@ public partial class PlanetoidDbForm
 		// Log the action of populating the ASTORB.DAT bookmark drop-down
 		logger.Info(message: "Populating ASTORB.DAT bookmark drop-down...");
 		// Call the helper method to populate the drop-down with the current bookmarks for ASTORB.DAT
-		PopulateBookmarkDropDown(parentItem: toolStripMenuItemBookmarkListAstorbDat, bookmarks: bookmarksAstorbDat, onClickHandler: BookmarkNavigateAstorbDat_Click);
+		PopulateBookmarkDropDown(parentItem: menuItemBookmarkListAstorbDat, bookmarks: bookmarksAstorbDat, onClickHandler: BookmarkNavigateAstorbDat_Click);
 	}
 
 	/// <summary>Populates the ALLNUM.CAT bookmark drop-down when the user opens it.</summary>
@@ -170,7 +170,7 @@ public partial class PlanetoidDbForm
 		// Log the action of populating the ALLNUM.CAT bookmark drop-down
 		logger.Info(message: "Populating ALLNUM.CAT bookmark drop-down...");
 		// Call the helper method to populate the drop-down with the current bookmarks for ALLNUM.CAT
-		PopulateBookmarkDropDown(parentItem: toolStripMenuItemBookmarkListAllnumCat, bookmarks: bookmarksAllnumCat, onClickHandler: BookmarkNavigateAllnumCat_Click);
+		PopulateBookmarkDropDown(parentItem: menuItemBookmarkListAllnumCat, bookmarks: bookmarksAllnumCat, onClickHandler: BookmarkNavigateAllnumCat_Click);
 	}
 
 	/// <summary>Populates the SINGOPP.CAT bookmark drop-down when the user opens it.</summary>
@@ -184,7 +184,7 @@ public partial class PlanetoidDbForm
 		// Log the action of populating the SINGOPP.CAT bookmark drop-down
 		logger.Info(message: "Populating SINGOPP.CAT bookmark drop-down...");
 		// Call the helper method to populate the drop-down with the current bookmarks for SINGOPP.CAT
-		PopulateBookmarkDropDown(parentItem: toolStripMenuItemBookmarkListSingoppCat, bookmarks: bookmarksSingoppCat, onClickHandler: BookmarkNavigateSingoppCat_Click);
+		PopulateBookmarkDropDown(parentItem: menuItemBookmarkListSingoppCat, bookmarks: bookmarksSingoppCat, onClickHandler: BookmarkNavigateSingoppCat_Click);
 	}
 
 	/// <summary>Populates the UFITOBS.CAT bookmark drop-down when the user opens it.</summary>
@@ -198,7 +198,7 @@ public partial class PlanetoidDbForm
 		// Log the action of populating the UFITOBS.CAT bookmark drop-down
 		logger.Info(message: "Populating UFITOBS.CAT bookmark drop-down...");
 		// Call the helper method to populate the drop-down with the current bookmarks for UFITOBS.CAT
-		PopulateBookmarkDropDown(parentItem: toolStripMenuItemBookmarkListUfitobsCat, bookmarks: bookmarksUfitobsCat, onClickHandler: BookmarkNavigateUfitobsCat_Click);
+		PopulateBookmarkDropDown(parentItem: menuItemBookmarkListUfitobsCat, bookmarks: bookmarksUfitobsCat, onClickHandler: BookmarkNavigateUfitobsCat_Click);
 	}
 
 	#endregion
