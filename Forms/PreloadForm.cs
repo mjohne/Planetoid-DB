@@ -189,7 +189,7 @@ internal partial class PreloadForm : BaseKryptonForm
 	/// <param name="sender">Event source (the command link button).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is called when the Open Local File command link is clicked.</remarks>
-	private void KryptonCommandLinkButtonOpenLocalFile_Click(object sender, EventArgs e)
+	private void CommandLinkButtonOpenLocalFile_Click(object sender, EventArgs e)
 	{
 		// Log that the user clicked the Open Local File command link
 		logger.Info(message: "User clicked 'Open Local File' command link.");
@@ -205,7 +205,7 @@ internal partial class PreloadForm : BaseKryptonForm
 	/// <param name="sender">Event source (the command link button).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is called when the Download MPCORB.DAT command link is clicked.</remarks>
-	private void KryptonCommandLinkButtonDownloadMpcorbDat_Click(object sender, EventArgs e)
+	private void CommandLinkButtonDownloadMpcorbDat_Click(object sender, EventArgs e)
 	{
 		// Log that the user clicked the Download MPCORB.DAT command link
 		logger.Info(message: "User clicked 'Download MPCORB.DAT' command link.");
@@ -247,7 +247,7 @@ internal partial class PreloadForm : BaseKryptonForm
 	/// <param name="sender">Event source (the command link button).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is called when the Load Internal Demo Data command link is clicked.</remarks>
-	private void KryptonCommandLinkButtonLoadInternalDemoData_Click(object sender, EventArgs e)
+	private void CommandLinkButtonLoadInternalDemoData_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "User clicked 'Load Internal Demo Data' command link.");
 		// Ensure that an event source was supplied
@@ -279,7 +279,7 @@ internal partial class PreloadForm : BaseKryptonForm
 	/// <param name="sender">Event source (the command link button).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is called when the App Info command link is clicked.</remarks>
-	private void KryptonCommandLinkButtonAppInfo_Click(object sender, EventArgs e)
+	private void CommandLinkButtonAppInfo_Click(object sender, EventArgs e)
 	{
 		// Log that the user clicked the App Info command link
 		logger.Info(message: "User clicked 'App Info' command link.");
@@ -294,7 +294,7 @@ internal partial class PreloadForm : BaseKryptonForm
 	/// <summary>Shows or hides the information label according to the menu item's checked state.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
-	private void ToolStripMenuItemShowInformationLabel_Click(object sender, EventArgs e)
+	private void MenuItemShowInformationLabel_Click(object sender, EventArgs e)
 	{
 		// Log the action of clicking of ToolStripMenuItemShowInformationLabel
 		logger.Info(message: $"ToolStripMenuItemShowInformationLabel clicked.");
@@ -302,7 +302,7 @@ internal partial class PreloadForm : BaseKryptonForm
 		ArgumentNullException.ThrowIfNull(argument: sender);
 		// Ensure that the event data was supplied
 		ArgumentNullException.ThrowIfNull(argument: e);
-		labelInformation.Visible = toolStripMenuItemShowInformationLabel.Checked;
+		labelInformation.Visible = menuItemShowInformationLabel.Checked;
 		// Log the new state of the visibility of the information label
 		logger.Info(message: $"Set the visibility of the information label to {labelInformation.Visible}.");
 	}
