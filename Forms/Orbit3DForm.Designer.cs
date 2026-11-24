@@ -68,7 +68,7 @@ partial class Orbit3DForm
 		// toolStripContainer
 		// 
 		toolStripContainer.AccessibleDescription = "Container to arrange the toolbars";
-		toolStripContainer.AccessibleName = "Toolbar container";
+		toolStripContainer.AccessibleName = "Toolbar toolStripContainer";
 		toolStripContainer.AccessibleRole = AccessibleRole.Grouping;
 		// 
 		// toolStripContainer.BottomToolStripPanel
@@ -114,7 +114,7 @@ partial class Orbit3DForm
 		toolStripContainer.MouseEnter += Control_Enter;
 		toolStripContainer.MouseLeave += Control_Leave;
 		// 
-		// kryptonStatusStrip
+		// statusStrip
 		// 
 		kryptonStatusStrip.AccessibleDescription = "Shows orbital element information for the selected planetoid";
 		kryptonStatusStrip.AccessibleName = "Status bar with orbital information";
@@ -126,7 +126,7 @@ partial class Orbit3DForm
 		kryptonStatusStrip.Font = new Font("Segoe UI", 9F);
 		kryptonStatusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
 		kryptonStatusStrip.Location = new Point(0, 0);
-		kryptonStatusStrip.Name = "kryptonStatusStrip";
+		kryptonStatusStrip.Name = "statusStrip";
 		kryptonStatusStrip.ProgressBars = null;
 		kryptonStatusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
 		kryptonStatusStrip.ShowItemToolTips = true;
@@ -153,7 +153,7 @@ partial class Orbit3DForm
 		labelInformation.MouseEnter += Control_Enter;
 		labelInformation.MouseLeave += Control_Leave;
 		// 
-		// kryptonPanelMain
+		// panelMain
 		// 
 		kryptonPanelMain.AccessibleDescription = "Contains the 3D orbit visualization";
 		kryptonPanelMain.AccessibleName = "Main panel";
@@ -162,7 +162,7 @@ partial class Orbit3DForm
 		kryptonPanelMain.Controls.Add(panelGl);
 		kryptonPanelMain.Dock = DockStyle.Fill;
 		kryptonPanelMain.Location = new Point(0, 0);
-		kryptonPanelMain.Name = "kryptonPanelMain";
+		kryptonPanelMain.Name = "panelMain";
 		kryptonPanelMain.PanelBackStyle = PaletteBackStyle.FormMain;
 		kryptonPanelMain.Size = new Size(900, 575);
 		kryptonPanelMain.TabIndex = 0;
@@ -211,7 +211,7 @@ partial class Orbit3DForm
 		contextMenuShowControlsInStatusBar.MouseEnter += Control_Enter;
 		contextMenuShowControlsInStatusBar.MouseLeave += Control_Leave;
 		// 
-		// toolStripMenuItemShowInformationLabel
+		// menuItemShowInformationLabel
 		// 
 		toolStripMenuItemShowInformationLabel.AccessibleDescription = "Determines whether the information label is visible or hidden";
 		toolStripMenuItemShowInformationLabel.AccessibleName = "Information label";
@@ -220,7 +220,7 @@ partial class Orbit3DForm
 		toolStripMenuItemShowInformationLabel.Checked = true;
 		toolStripMenuItemShowInformationLabel.CheckOnClick = true;
 		toolStripMenuItemShowInformationLabel.CheckState = CheckState.Checked;
-		toolStripMenuItemShowInformationLabel.Name = "toolStripMenuItemShowInformationLabel";
+		toolStripMenuItemShowInformationLabel.Name = "menuItemShowInformationLabel";
 		toolStripMenuItemShowInformationLabel.ShortcutKeyDisplayString = "";
 		toolStripMenuItemShowInformationLabel.Size = new Size(197, 22);
 		toolStripMenuItemShowInformationLabel.Text = "Show &information label";

@@ -347,8 +347,8 @@ partial class PreloadForm
 	/// <remarks>This variable is used by the designer to manage the ToolStripStatusLabel component that displays information in the status strip.</remarks>
 	private ToolStripStatusLabel labelInformation;
 
-	/// <summary>Required designer variable for the KryptonPanel component that serves as the main container for the form's controls.</summary>
-	/// <remarks>This variable is used by the designer to manage the KryptonPanel component that serves as the main container for the form's controls.</remarks>
+	/// <summary>Required designer variable for the KryptonPanel component that serves as the main toolStripContainer for the form's controls.</summary>
+	/// <remarks>This variable is used by the designer to manage the KryptonPanel component that serves as the main toolStripContainer for the form's controls.</remarks>
 	private KryptonPanel panelMain;
 
 	/// <summary>Required designer variable for the KryptonCommandLinkButton component that opens a local file.</summary>

@@ -126,7 +126,7 @@ partial class FilterForm
 		contextMenuShowControlsInStatusBar.SuspendLayout();
 		SuspendLayout();
 		// 
-		// kryptonPanelMain
+		// panelMain
 		// 
 		kryptonPanelMain.AccessibleDescription = "Groups the data";
 		kryptonPanelMain.AccessibleName = "Panel";
@@ -135,7 +135,7 @@ partial class FilterForm
 		kryptonPanelMain.Controls.Add(tableLayoutPanel);
 		kryptonPanelMain.Dock = DockStyle.Fill;
 		kryptonPanelMain.Location = new Point(0, 0);
-		kryptonPanelMain.Name = "kryptonPanelMain";
+		kryptonPanelMain.Name = "panelMain";
 		kryptonPanelMain.Size = new Size(514, 290);
 		kryptonPanelMain.TabIndex = 0;
 		kryptonPanelMain.TabStop = true;
@@ -1515,7 +1515,7 @@ partial class FilterForm
 		labelHeaderElement.MouseEnter += Control_Enter;
 		labelHeaderElement.MouseLeave += Control_Leave;
 		// 
-		// kryptonStatusStrip
+		// statusStrip
 		// 
 		kryptonStatusStrip.AccessibleDescription = "Shows some information";
 		kryptonStatusStrip.AccessibleName = "Status bar with some information";
@@ -1527,7 +1527,7 @@ partial class FilterForm
 		kryptonStatusStrip.Font = new Font("Segoe UI", 9F);
 		kryptonStatusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
 		kryptonStatusStrip.Location = new Point(0, 0);
-		kryptonStatusStrip.Name = "kryptonStatusStrip";
+		kryptonStatusStrip.Name = "statusStrip";
 		kryptonStatusStrip.Padding = new Padding(1, 0, 16, 0);
 		kryptonStatusStrip.ProgressBars = null;
 		kryptonStatusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
@@ -1675,7 +1675,7 @@ partial class FilterForm
 		contextMenuShowControlsInStatusBar.MouseEnter += Control_Enter;
 		contextMenuShowControlsInStatusBar.MouseLeave += Control_Leave;
 		// 
-		// toolStripMenuItemShowInformationLabel
+		// menuItemShowInformationLabel
 		// 
 		toolStripMenuItemShowInformationLabel.AccessibleDescription = "Determines whether the information label is visible or hidden";
 		toolStripMenuItemShowInformationLabel.AccessibleName = "Information label";
@@ -1684,7 +1684,7 @@ partial class FilterForm
 		toolStripMenuItemShowInformationLabel.Checked = true;
 		toolStripMenuItemShowInformationLabel.CheckOnClick = true;
 		toolStripMenuItemShowInformationLabel.CheckState = CheckState.Checked;
-		toolStripMenuItemShowInformationLabel.Name = "toolStripMenuItemShowInformationLabel";
+		toolStripMenuItemShowInformationLabel.Name = "menuItemShowInformationLabel";
 		toolStripMenuItemShowInformationLabel.ShortcutKeyDisplayString = "";
 		toolStripMenuItemShowInformationLabel.Size = new Size(197, 22);
 		toolStripMenuItemShowInformationLabel.Text = "Show &information label";

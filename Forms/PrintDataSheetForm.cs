@@ -42,8 +42,8 @@ internal partial class PrintDataSheetForm : BaseKryptonForm
 	protected override ToolStripStatusLabel? StatusLabel => labelInformation;
 
 	/// <summary>Print document used for printing data sheets.</summary>
-	/// <remarks>This document is owned by the form component container and is disposed when the form is disposed.</remarks>
-	[SuppressMessage(category: "Usage", checkId: "CA2213:Disposable fields should be disposed", Justification = "The PrintDocument is registered with the form component container, which disposes it in the designer-generated Dispose method.")]
+	/// <remarks>This document is owned by the form component toolStripContainer and is disposed when the form is disposed.</remarks>
+	[SuppressMessage(category: "Usage", checkId: "CA2213:Disposable fields should be disposed", Justification = "The PrintDocument is registered with the form component toolStripContainer, which disposes it in the designer-generated Dispose method.")]
 	private readonly PrintDocument printDoc;
 	/// <summary>List of orbit elements to be printed.</summary>
 	/// <remarks>This list contains the values of the orbital elements that will be printed on the data sheet.</remarks>
@@ -69,9 +69,9 @@ internal partial class PrintDataSheetForm : BaseKryptonForm
 		InitializeComponent();
 		// Initialize the print document, register it for disposal with the form and subscribe to its events
 		printDoc = new PrintDocument();
-		// Ensure the form's component container is not null before adding the print document to it
-		IContainer componentContainer = components ?? throw new InvalidOperationException("The form component container was not initialized.");
-		// Add the print document to the component container for proper disposal
+		// Ensure the form's component toolStripContainer is not null before adding the print document to it
+		IContainer componentContainer = components ?? throw new InvalidOperationException("The form component toolStripContainer was not initialized.");
+		// Add the print document to the component toolStripContainer for proper disposal
 		componentContainer.Add(component: printDoc);
 		// Subscribe to the PrintPage and BeginPrint events of the print document
 		printDoc.PrintPage += PrintDoc_PrintPage;

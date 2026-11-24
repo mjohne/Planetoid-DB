@@ -103,7 +103,7 @@ namespace Planetoid_DB;
 		checkedListBoxOrbitalElements.MouseEnter += Control_Enter;
 		checkedListBoxOrbitalElements.MouseLeave += Control_Leave;
 		// 
-		// kryptonPanelMain
+		// panelMain
 		// 
 		kryptonPanelMain.AccessibleDescription = "Groups the data";
 		kryptonPanelMain.AccessibleName = "Panel";
@@ -112,13 +112,13 @@ namespace Planetoid_DB;
 		kryptonPanelMain.Controls.Add(checkedListBoxOrbitalElements);
 		kryptonPanelMain.Dock = DockStyle.Fill;
 		kryptonPanelMain.Location = new Point(0, 0);
-		kryptonPanelMain.Name = "kryptonPanelMain";
+		kryptonPanelMain.Name = "panelMain";
 		kryptonPanelMain.PanelBackStyle = PaletteBackStyle.FormMain;
 		kryptonPanelMain.Size = new Size(313, 308);
 		kryptonPanelMain.TabIndex = 0;
 		kryptonPanelMain.TabStop = true;
 		// 
-		// kryptonStatusStrip
+		// statusStrip
 		// 
 		kryptonStatusStrip.AccessibleDescription = "Shows some information";
 		kryptonStatusStrip.AccessibleName = "Status bar with some information";
@@ -130,7 +130,7 @@ namespace Planetoid_DB;
 		kryptonStatusStrip.Font = new Font("Segoe UI", 9F);
 		kryptonStatusStrip.Items.AddRange(new ToolStripItem[] { labelInformation, toolStripProgressBarPrinting });
 		kryptonStatusStrip.Location = new Point(0, 0);
-		kryptonStatusStrip.Name = "kryptonStatusStrip";
+		kryptonStatusStrip.Name = "statusStrip";
 		kryptonStatusStrip.Padding = new Padding(1, 0, 16, 0);
 		kryptonStatusStrip.ProgressBars = null;
 		kryptonStatusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
@@ -357,7 +357,7 @@ namespace Planetoid_DB;
 		contextMenuShowControlsInStatusBar.MouseEnter += Control_Enter;
 		contextMenuShowControlsInStatusBar.MouseLeave += Control_Leave;
 		// 
-		// toolStripMenuItemShowInformationLabel
+		// menuItemShowInformationLabel
 		// 
 		toolStripMenuItemShowInformationLabel.AccessibleDescription = "Determines whether the information label is visible or hidden";
 		toolStripMenuItemShowInformationLabel.AccessibleName = "Information label";
@@ -366,7 +366,7 @@ namespace Planetoid_DB;
 		toolStripMenuItemShowInformationLabel.Checked = true;
 		toolStripMenuItemShowInformationLabel.CheckOnClick = true;
 		toolStripMenuItemShowInformationLabel.CheckState = CheckState.Checked;
-		toolStripMenuItemShowInformationLabel.Name = "toolStripMenuItemShowInformationLabel";
+		toolStripMenuItemShowInformationLabel.Name = "menuItemShowInformationLabel";
 		toolStripMenuItemShowInformationLabel.ShortcutKeyDisplayString = "";
 		toolStripMenuItemShowInformationLabel.Size = new Size(197, 22);
 		toolStripMenuItemShowInformationLabel.Text = "Show &information label";

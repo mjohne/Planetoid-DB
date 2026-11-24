@@ -290,7 +290,7 @@ public partial class PlanetoidDbForm
 		finally
 		{
 			listViewReadableDesignations.EndUpdate();
-			//toolStripDropDownButtonSaveList.Enabled = true;
+			//dropDownButtonSaveList.Enabled = true;
 		}
 	}
 

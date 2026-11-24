@@ -61,10 +61,10 @@ partial class PlanetoidDbForm
 		menuItemNavigateStep1000 = new ToolStripMenuItem();
 		menuItemNavigateStep10000 = new ToolStripMenuItem();
 		menuItemNavigateStep100000 = new ToolStripMenuItem();
+		menuItemNavigateSomeDataForward = new ToolStripMenuItem();
 		splitButtonStepForward = new ToolStripSplitButton();
 		splitButtonStepBackward = new ToolStripSplitButton();
 		menuItemNavigateSomeDataBackward = new ToolStripMenuItem();
-		menuItemNavigateSomeDataForward = new ToolStripMenuItem();
 		toolStripSplitButtonHistoryBack = new ToolStripSplitButton();
 		toolStripSplitButtonHistoryForward = new ToolStripSplitButton();
 		separatorHistory = new ToolStripSeparator();
@@ -126,8 +126,8 @@ partial class PlanetoidDbForm
 		menuItemRecordsNumberOfOppositions = new ToolStripMenuItem();
 		menuItemRecordsNumberOfObservations = new ToolStripMenuItem();
 		menuItemRecordsRmsResidual = new ToolStripMenuItem();
-		splitButtonTopTenRecords = new ToolStripSplitButton();
 		menuItemRecords = new ToolStripMenuItem();
+		splitButtonTopTenRecords = new ToolStripSplitButton();
 		menuItemDistributions = new ToolStripMenuItem();
 		contextMenuFullCopyToClipboardOrbitalElements = new ContextMenuStrip(components);
 		menuItemCopyToClipboardDerivedData = new ToolStripMenuItem();
@@ -152,10 +152,10 @@ partial class PlanetoidDbForm
 		menuItemCopyToClipboardComputerName = new ToolStripMenuItem();
 		menuItemCopyToClipboardFlags = new ToolStripMenuItem();
 		menuItemCopyToClipboardDateOfTheLastObservation = new ToolStripMenuItem();
+		menuItemCopySpecificValuesInDerivedDataListView = new ToolStripMenuItem();
 		menuItemCopyToClipboard = new ToolStripMenuItem();
 		menuItemCopySpecificValuesInDesignationListView = new ToolStripMenuItem();
 		dropDownButtonCopyToClipboard = new ToolStripDropDownButton();
-		menuItemCopySpecificValuesInDerivedDataListView = new ToolStripMenuItem();
 		menuStrip = new MenuStrip();
 		contextMenuSystemTools = new ContextMenuStrip(components);
 		menuItemExecuteDoubleBuffering = new ToolStripMenuItem();
@@ -174,12 +174,12 @@ partial class PlanetoidDbForm
 		menuItemExportDataEntry = new ToolStripMenuItem();
 		menuItemPrint = new ToolStripMenuItem();
 		separatorFile1 = new ToolStripSeparator();
+		menuItemDatabaseInformation = new ToolStripMenuItem();
 		menuItemArchive = new ToolStripMenuItem();
 		menuItemCompareDatabases = new ToolStripMenuItem();
 		separator13 = new ToolStripSeparator();
 		menuItemRestart = new ToolStripMenuItem();
 		menuItemExit = new ToolStripMenuItem();
-		menuItemDatabaseInformation = new ToolStripMenuItem();
 		menuItemEdit = new ToolStripMenuItem();
 		menuItemCopyRawLine2 = new ToolStripMenuItem();
 		separator27 = new ToolStripSeparator();
@@ -198,6 +198,7 @@ partial class PlanetoidDbForm
 		menuItemListReadableDesignations = new ToolStripMenuItem();
 		menuItemDataAndStatistics = new ToolStripMenuItem();
 		menuItemTableMode = new ToolStripMenuItem();
+		menuItemPlanetaryInformation = new ToolStripMenuItem();
 		menuItemAverageAsteroid = new ToolStripMenuItem();
 		separator20 = new ToolStripSeparator();
 		menuItemScatterPlots = new ToolStripMenuItem();
@@ -208,7 +209,6 @@ partial class PlanetoidDbForm
 		menuItemBulkObservationsDataDownloader = new ToolStripMenuItem();
 		menuItemObservatoryCodes = new ToolStripMenuItem();
 		separator32 = new ToolStripSeparator();
-		menuItemPlanetaryInformation = new ToolStripMenuItem();
 		menuItemWorldMap = new ToolStripMenuItem();
 		menuItemCoordinateTransformation = new ToolStripMenuItem();
 		menuItemDistanceConversion = new ToolStripMenuItem();
@@ -220,6 +220,7 @@ partial class PlanetoidDbForm
 		menuItemOrbit2DSideView = new ToolStripMenuItem();
 		menuItemOrbit3DView = new ToolStripMenuItem();
 		menuItemOrrery = new ToolStripMenuItem();
+		dropDownButtonOrbit = new ToolStripDropDownButton();
 		menuItemOrbitalResonances = new ToolStripMenuItem();
 		menuItemOrbitalResonancesOfOneMinorPlanet = new ToolStripMenuItem();
 		menuItemOrbitalResonancesOfAllMinorPlanets = new ToolStripMenuItem();
@@ -265,7 +266,6 @@ partial class PlanetoidDbForm
 		menuItemExternalDataPageMp3CAtLe = new ToolStripMenuItem();
 		separator24 = new ToolStripSeparator();
 		menuItemAllExternalDataPages = new ToolStripMenuItem();
-		menuItemExternalDataPages2 = new ToolStripMenuItem();
 		menuItemUpdate = new ToolStripMenuItem();
 		menuItemCheckDatabaseUpdates = new ToolStripMenuItem();
 		contextMenuCheckDatabaseUpdates = new ContextMenuStrip(components);
@@ -275,6 +275,7 @@ partial class PlanetoidDbForm
 		menuItemCheckAllnumCatUpdate = new ToolStripMenuItem();
 		menuItemCheckUfitobsCatUpdate = new ToolStripMenuItem();
 		menuItemCheckSingoppCatUpdate = new ToolStripMenuItem();
+		dropDownButtonCheckUpdates = new ToolStripDropDownButton();
 		menuItemDownloadDatabases = new ToolStripMenuItem();
 		contextMenuDownloadDatabases = new ContextMenuStrip(components);
 		menuItemDownloadMpcorbDatInContext = new ToolStripMenuItem();
@@ -283,7 +284,6 @@ partial class PlanetoidDbForm
 		menuItemDownloadAllnumCatInContext = new ToolStripMenuItem();
 		menuItemDownloadUfitobsCatInContext = new ToolStripMenuItem();
 		menuItemDownloadSingoppCatInContext = new ToolStripMenuItem();
-		dropDownButtonDownloadDatabases = new ToolStripDropDownButton();
 		separator18 = new ToolStripSeparator();
 		menuItemShowMpcorbDatUpdateIsAvailable = new ToolStripMenuItem();
 		menuItemShowMpcorbJsonUpdateIsAvailable = new ToolStripMenuItem();
@@ -359,9 +359,9 @@ partial class PlanetoidDbForm
 		menuItemOpenMPCORBWebsite = new ToolStripMenuItem();
 		separator2 = new ToolStripSeparator();
 		menuItemLogViewer = new ToolStripMenuItem();
+		menuItemExternalDataPages2 = new ToolStripMenuItem();
+		dropDownButtonDownloadDatabases = new ToolStripDropDownButton();
 		dropDownButtonExternalDataPages = new ToolStripDropDownButton();
-		dropDownButtonCheckUpdates = new ToolStripDropDownButton();
-		dropDownButtonOrbit = new ToolStripDropDownButton();
 		separator10 = new ToolStripSeparator();
 		separator16 = new ToolStripSeparator();
 		separator12 = new ToolStripSeparator();
@@ -439,7 +439,6 @@ partial class PlanetoidDbForm
 		menuItemSaveAsXps = new ToolStripMenuItem();
 		menuItemSaveAsFictionBook2 = new ToolStripMenuItem();
 		menuItemSaveAsChm = new ToolStripMenuItem();
-		menuItemSaveListDerivedData = new ToolStripMenuItem();
 		separator25 = new ToolStripSeparator();
 		menuItemToggleBookmark = new ToolStripMenuItem();
 		splitContainerContentInnerMiddleRight = new SplitContainer();
@@ -454,6 +453,7 @@ partial class PlanetoidDbForm
 		menuItemCopyDerivedDataValueFormattedOverview = new ToolStripMenuItem();
 		menuItemCopyRawLine3 = new ToolStripMenuItem();
 		separator28 = new ToolStripSeparator();
+		menuItemSaveListDerivedData = new ToolStripMenuItem();
 		kryptonPageMpcorbJson = new Krypton.Navigator.KryptonPage();
 		tableLayoutPanelMpcorbJsonData = new KryptonTableLayoutPanel();
 		labelMpcorbJsonMpcdesDesc = new KryptonLabel();
@@ -679,6 +679,8 @@ partial class PlanetoidDbForm
 		fileSystemWatcherSystemDirectory = new FileSystemWatcher();
 		timerProcessorUsage = new Timer(components);
 		timerSelectionDebounce = new Timer(components);
+		menuItemCities = new ToolStripMenuItem();
+		separator33 = new ToolStripSeparator();
 		contextMenuNavigationStep.SuspendLayout();
 		tableLayoutPanelMpcorbData.SuspendLayout();
 		contextMenuCopyToClipboard.SuspendLayout();
@@ -741,7 +743,7 @@ partial class PlanetoidDbForm
 		contextMenuNavigationStep.Font = new Font("Segoe UI", 9F);
 		contextMenuNavigationStep.Items.AddRange(new ToolStripItem[] { menuItemNavigateStep10, menuItemNavigateStep100, menuItemNavigateStep1000, menuItemNavigateStep10000, menuItemNavigateStep100000 });
 		contextMenuNavigationStep.Name = "contextMenu";
-		contextMenuNavigationStep.OwnerItem = menuItemNavigateSomeDataForward;
+		contextMenuNavigationStep.OwnerItem = menuItemNavigateSomeDataBackward;
 		contextMenuNavigationStep.ShowCheckMargin = true;
 		contextMenuNavigationStep.ShowImageMargin = false;
 		contextMenuNavigationStep.Size = new Size(111, 114);
@@ -830,6 +832,22 @@ partial class PlanetoidDbForm
 		menuItemNavigateStep100000.MouseLeave += (this.Control_Leave);
 		menuItemNavigateStep100000.MouseMove += (this.MouseCoordinates_MouseMove);
 		// 
+		// menuItemNavigateSomeDataForward
+		// 
+		menuItemNavigateSomeDataForward.AccessibleDescription = "Navigates some data forward";
+		menuItemNavigateSomeDataForward.AccessibleName = "Navigates some data forward";
+		menuItemNavigateSomeDataForward.AccessibleRole = AccessibleRole.MenuItem;
+		menuItemNavigateSomeDataForward.AutoToolTip = true;
+		menuItemNavigateSomeDataForward.DropDown = contextMenuNavigationStep;
+		menuItemNavigateSomeDataForward.Image = FatcowIcons16px.fatcow_control_fastforward_blue_16px;
+		menuItemNavigateSomeDataForward.Name = "menuItemNavigateSomeDataForward";
+		menuItemNavigateSomeDataForward.Size = new Size(233, 22);
+		menuItemNavigateSomeDataForward.Text = "Navigate some data &forward";
+		menuItemNavigateSomeDataForward.Click += (this.NavigateSomeDataForward_Click);
+		menuItemNavigateSomeDataForward.MouseEnter += (this.Control_Enter);
+		menuItemNavigateSomeDataForward.MouseLeave += (this.Control_Leave);
+		menuItemNavigateSomeDataForward.MouseMove += (this.MouseCoordinates_MouseMove);
+		// 
 		// splitButtonStepForward
 		// 
 		splitButtonStepForward.AccessibleDescription = "Navigates some data forward";
@@ -879,22 +897,6 @@ partial class PlanetoidDbForm
 		menuItemNavigateSomeDataBackward.MouseEnter += (this.Control_Enter);
 		menuItemNavigateSomeDataBackward.MouseLeave += (this.Control_Leave);
 		menuItemNavigateSomeDataBackward.MouseMove += (this.MouseCoordinates_MouseMove);
-		// 
-		// menuItemNavigateSomeDataForward
-		// 
-		menuItemNavigateSomeDataForward.AccessibleDescription = "Navigates some data forward";
-		menuItemNavigateSomeDataForward.AccessibleName = "Navigates some data forward";
-		menuItemNavigateSomeDataForward.AccessibleRole = AccessibleRole.MenuItem;
-		menuItemNavigateSomeDataForward.AutoToolTip = true;
-		menuItemNavigateSomeDataForward.DropDown = contextMenuNavigationStep;
-		menuItemNavigateSomeDataForward.Image = FatcowIcons16px.fatcow_control_fastforward_blue_16px;
-		menuItemNavigateSomeDataForward.Name = "menuItemNavigateSomeDataForward";
-		menuItemNavigateSomeDataForward.Size = new Size(233, 22);
-		menuItemNavigateSomeDataForward.Text = "Navigate some data &forward";
-		menuItemNavigateSomeDataForward.Click += (this.NavigateSomeDataForward_Click);
-		menuItemNavigateSomeDataForward.MouseEnter += (this.Control_Enter);
-		menuItemNavigateSomeDataForward.MouseLeave += (this.Control_Leave);
-		menuItemNavigateSomeDataForward.MouseMove += (this.MouseCoordinates_MouseMove);
 		// 
 		// toolStripSplitButtonHistoryBack
 		// 
@@ -2151,7 +2153,7 @@ partial class PlanetoidDbForm
 		contextMenuTopTenRecords.Font = new Font("Segoe UI", 9F);
 		contextMenuTopTenRecords.Items.AddRange(new ToolStripItem[] { menuItemRecordsMeanAnomalyAtTheEpoch, menuItemRecordsArgumentOfThePerihelion, menuItemRecordsLongitudeOfTheAscendingNode, menuItemRecordsInclination, menuItemRecordsOrbitalEccentricity, menuItemRecordsMeanDailyMotion, menuItemRecordsSemiMajorAxis, menuItemRecordsAbsoluteMagnitude, menuItemRecordsSlopeParameter, menuItemRecordsNumberOfOppositions, menuItemRecordsNumberOfObservations, menuItemRecordsRmsResidual });
 		contextMenuTopTenRecords.Name = "contextMenuTopTenRecords";
-		contextMenuTopTenRecords.OwnerItem = menuItemRecords;
+		contextMenuTopTenRecords.OwnerItem = splitButtonTopTenRecords;
 		contextMenuTopTenRecords.Size = new Size(250, 268);
 		contextMenuTopTenRecords.TabStop = true;
 		contextMenuTopTenRecords.Text = "Top ten records";
@@ -2341,6 +2343,23 @@ partial class PlanetoidDbForm
 		menuItemRecordsRmsResidual.MouseLeave += (this.Control_Leave);
 		menuItemRecordsRmsResidual.MouseMove += (this.MouseCoordinates_MouseMove);
 		// 
+		// menuItemRecords
+		// 
+		menuItemRecords.AccessibleDescription = "Shows some top ten records";
+		menuItemRecords.AccessibleName = "Top ten records";
+		menuItemRecords.AccessibleRole = AccessibleRole.MenuItem;
+		menuItemRecords.AutoToolTip = true;
+		menuItemRecords.DropDown = contextMenuTopTenRecords;
+		menuItemRecords.Image = FatcowIcons16px.fatcow_text_list_numbers_16px;
+		menuItemRecords.Name = "menuItemRecords";
+		menuItemRecords.ShortcutKeyDisplayString = "";
+		menuItemRecords.Size = new Size(189, 22);
+		menuItemRecords.Text = "Top ten &records";
+		menuItemRecords.Click += (this.Records_Click);
+		menuItemRecords.MouseEnter += (this.Control_Enter);
+		menuItemRecords.MouseLeave += (this.Control_Leave);
+		menuItemRecords.MouseMove += (this.MouseCoordinates_MouseMove);
+		// 
 		// splitButtonTopTenRecords
 		// 
 		splitButtonTopTenRecords.AccessibleDescription = "Shows the top ten records";
@@ -2358,23 +2377,6 @@ partial class PlanetoidDbForm
 		splitButtonTopTenRecords.MouseLeave += (this.Control_Leave);
 		splitButtonTopTenRecords.MouseMove += (this.MouseCoordinates_MouseMove);
 		// 
-		// menuItemRecords
-		// 
-		menuItemRecords.AccessibleDescription = "Shows some top ten records";
-		menuItemRecords.AccessibleName = "Top ten records";
-		menuItemRecords.AccessibleRole = AccessibleRole.MenuItem;
-		menuItemRecords.AutoToolTip = true;
-		menuItemRecords.DropDown = contextMenuTopTenRecords;
-		menuItemRecords.Image = FatcowIcons16px.fatcow_text_list_numbers_16px;
-		menuItemRecords.Name = "menuItemRecords";
-		menuItemRecords.ShortcutKeyDisplayString = "";
-		menuItemRecords.Size = new Size(180, 22);
-		menuItemRecords.Text = "Top ten &records";
-		menuItemRecords.Click += (this.Records_Click);
-		menuItemRecords.MouseEnter += (this.Control_Enter);
-		menuItemRecords.MouseLeave += (this.Control_Leave);
-		menuItemRecords.MouseMove += (this.MouseCoordinates_MouseMove);
-		// 
 		// menuItemDistributions
 		// 
 		menuItemDistributions.AccessibleDescription = "Shows some histograms";
@@ -2384,7 +2386,7 @@ partial class PlanetoidDbForm
 		menuItemDistributions.Enabled = false;
 		menuItemDistributions.Image = FatcowIcons16px.fatcow_chart_bar_16px;
 		menuItemDistributions.Name = "menuItemDistributions";
-		menuItemDistributions.Size = new Size(180, 22);
+		menuItemDistributions.Size = new Size(189, 22);
 		menuItemDistributions.Text = "&Distributions";
 		menuItemDistributions.Click += (this.Distributions_Click);
 		menuItemDistributions.MouseEnter += (this.Control_Enter);
@@ -2400,7 +2402,7 @@ partial class PlanetoidDbForm
 		contextMenuFullCopyToClipboardOrbitalElements.Font = new Font("Segoe UI", 9F);
 		contextMenuFullCopyToClipboardOrbitalElements.Items.AddRange(new ToolStripItem[] { menuItemCopyToClipboardDerivedData, menuItemCopyToClipboardIndexNumber, menuItemCopyToClipboardReadableDesignation, menuItemCopyToClipboardEpoch, menuItemCopyToClipboardMeanAnomalyAtTheEpoch, menuItemCopyToClipboardArgumentOfThePerihelion, menuItemCopyToClipboardLongitudeOfTheAscendingNode, menuItemCopyToClipboardInclinationToTheEcliptic, menuItemCopyToClipboardOrbitalEccentricity, menuItemCopyToClipboardMeanDailyMotion, menuItemCopyToClipboardSemiMajorAxis, menuItemCopyToClipboardAbsoluteMagnitude, menuItemCopyToClipboardSlopeParameter, menuItemCopyToClipboardReference, menuItemCopyToClipboardNumberOfOppositions, menuItemCopyToClipboardNumberOfObservations, menuItemCopyToClipboardObservationSpan, menuItemCopyToClipboardRmsResidual, menuItemCopyToClipboardComputerName, menuItemCopyToClipboardFlags, menuItemCopyToClipboardDateOfTheLastObservation });
 		contextMenuFullCopyToClipboardOrbitalElements.Name = "Context menu of copying to clipboard of orbital elements";
-		contextMenuFullCopyToClipboardOrbitalElements.OwnerItem = menuItemCopySpecificValuesInDerivedDataListView;
+		contextMenuFullCopyToClipboardOrbitalElements.OwnerItem = dropDownButtonCopyToClipboard;
 		contextMenuFullCopyToClipboardOrbitalElements.Size = new Size(309, 466);
 		contextMenuFullCopyToClipboardOrbitalElements.TabStop = true;
 		contextMenuFullCopyToClipboardOrbitalElements.Text = "Copy to clipboard";
@@ -2741,6 +2743,21 @@ partial class PlanetoidDbForm
 		menuItemCopyToClipboardDateOfTheLastObservation.MouseLeave += (this.Control_Leave);
 		menuItemCopyToClipboardDateOfTheLastObservation.MouseMove += (this.MouseCoordinates_MouseMove);
 		// 
+		// menuItemCopySpecificValuesInDerivedDataListView
+		// 
+		menuItemCopySpecificValuesInDerivedDataListView.AccessibleDescription = "Copies specific values";
+		menuItemCopySpecificValuesInDerivedDataListView.AccessibleName = "Copy specific values";
+		menuItemCopySpecificValuesInDerivedDataListView.AccessibleRole = AccessibleRole.MenuItem;
+		menuItemCopySpecificValuesInDerivedDataListView.AutoToolTip = true;
+		menuItemCopySpecificValuesInDerivedDataListView.DropDown = contextMenuFullCopyToClipboardOrbitalElements;
+		menuItemCopySpecificValuesInDerivedDataListView.Image = FatcowIcons16px.fatcow_page_white_copy_16px;
+		menuItemCopySpecificValuesInDerivedDataListView.Name = "menuItemCopySpecificValuesInDerivedDataListView";
+		menuItemCopySpecificValuesInDerivedDataListView.Size = new Size(334, 22);
+		menuItemCopySpecificValuesInDerivedDataListView.Text = "Copy specific &values";
+		menuItemCopySpecificValuesInDerivedDataListView.MouseEnter += (this.Control_Enter);
+		menuItemCopySpecificValuesInDerivedDataListView.MouseLeave += (this.Control_Leave);
+		menuItemCopySpecificValuesInDerivedDataListView.MouseMove += (this.MouseCoordinates_MouseMove);
+		// 
 		// menuItemCopyToClipboard
 		// 
 		menuItemCopyToClipboard.AccessibleDescription = "Copies specific values to clipboard";
@@ -2786,21 +2803,6 @@ partial class PlanetoidDbForm
 		dropDownButtonCopyToClipboard.MouseEnter += (this.Control_Enter);
 		dropDownButtonCopyToClipboard.MouseLeave += (this.Control_Leave);
 		dropDownButtonCopyToClipboard.MouseMove += (this.MouseCoordinates_MouseMove);
-		// 
-		// menuItemCopySpecificValuesInDerivedDataListView
-		// 
-		menuItemCopySpecificValuesInDerivedDataListView.AccessibleDescription = "Copies specific values";
-		menuItemCopySpecificValuesInDerivedDataListView.AccessibleName = "Copy specific values";
-		menuItemCopySpecificValuesInDerivedDataListView.AccessibleRole = AccessibleRole.MenuItem;
-		menuItemCopySpecificValuesInDerivedDataListView.AutoToolTip = true;
-		menuItemCopySpecificValuesInDerivedDataListView.DropDown = contextMenuFullCopyToClipboardOrbitalElements;
-		menuItemCopySpecificValuesInDerivedDataListView.Image = FatcowIcons16px.fatcow_page_white_copy_16px;
-		menuItemCopySpecificValuesInDerivedDataListView.Name = "menuItemCopySpecificValuesInDerivedDataListView";
-		menuItemCopySpecificValuesInDerivedDataListView.Size = new Size(334, 22);
-		menuItemCopySpecificValuesInDerivedDataListView.Text = "Copy specific &values";
-		menuItemCopySpecificValuesInDerivedDataListView.MouseEnter += (this.Control_Enter);
-		menuItemCopySpecificValuesInDerivedDataListView.MouseLeave += (this.Control_Leave);
-		menuItemCopySpecificValuesInDerivedDataListView.MouseMove += (this.MouseCoordinates_MouseMove);
 		// 
 		// menuStrip
 		// 
@@ -3071,6 +3073,21 @@ partial class PlanetoidDbForm
 		separatorFile1.MouseLeave += (this.Control_Leave);
 		separatorFile1.MouseMove += (this.MouseCoordinates_MouseMove);
 		// 
+		// menuItemDatabaseInformation
+		// 
+		menuItemDatabaseInformation.AccessibleDescription = "Shows the information of the MPCORB.DAT database";
+		menuItemDatabaseInformation.AccessibleName = "Database information";
+		menuItemDatabaseInformation.AccessibleRole = AccessibleRole.MenuItem;
+		menuItemDatabaseInformation.AutoToolTip = true;
+		menuItemDatabaseInformation.Image = FatcowIcons16px.fatcow_database_16px;
+		menuItemDatabaseInformation.Name = "menuItemDatabaseInformation";
+		menuItemDatabaseInformation.Size = new Size(207, 22);
+		menuItemDatabaseInformation.Text = "Database &information";
+		menuItemDatabaseInformation.Click += (this.DatabaseInformation_Click);
+		menuItemDatabaseInformation.MouseEnter += (this.Control_Enter);
+		menuItemDatabaseInformation.MouseLeave += (this.Control_Leave);
+		menuItemDatabaseInformation.MouseMove += (this.MouseCoordinates_MouseMove);
+		// 
 		// menuItemArchive
 		// 
 		menuItemArchive.AccessibleDescription = "Archives the database";
@@ -3142,21 +3159,6 @@ partial class PlanetoidDbForm
 		menuItemExit.MouseEnter += (this.Control_Enter);
 		menuItemExit.MouseLeave += (this.Control_Leave);
 		menuItemExit.MouseMove += (this.MouseCoordinates_MouseMove);
-		// 
-		// menuItemDatabaseInformation
-		// 
-		menuItemDatabaseInformation.AccessibleDescription = "Shows the information of the MPCORB.DAT database";
-		menuItemDatabaseInformation.AccessibleName = "Database information";
-		menuItemDatabaseInformation.AccessibleRole = AccessibleRole.MenuItem;
-		menuItemDatabaseInformation.AutoToolTip = true;
-		menuItemDatabaseInformation.Image = FatcowIcons16px.fatcow_database_16px;
-		menuItemDatabaseInformation.Name = "menuItemDatabaseInformation";
-		menuItemDatabaseInformation.Size = new Size(207, 22);
-		menuItemDatabaseInformation.Text = "Database &information";
-		menuItemDatabaseInformation.Click += (this.DatabaseInformation_Click);
-		menuItemDatabaseInformation.MouseEnter += (this.Control_Enter);
-		menuItemDatabaseInformation.MouseLeave += (this.Control_Leave);
-		menuItemDatabaseInformation.MouseMove += (this.MouseCoordinates_MouseMove);
 		// 
 		// menuItemEdit
 		// 
@@ -3407,12 +3409,28 @@ partial class PlanetoidDbForm
 		menuItemTableMode.AutoToolTip = true;
 		menuItemTableMode.Image = FatcowIcons16px.fatcow_table_16px;
 		menuItemTableMode.Name = "menuItemTableMode";
-		menuItemTableMode.Size = new Size(180, 22);
+		menuItemTableMode.Size = new Size(189, 22);
 		menuItemTableMode.Text = "&Table mode";
 		menuItemTableMode.Click += (this.TableMode_Click);
 		menuItemTableMode.MouseEnter += (this.Control_Enter);
 		menuItemTableMode.MouseLeave += (this.Control_Leave);
 		menuItemTableMode.MouseMove += (this.MouseCoordinates_MouseMove);
+		// 
+		// menuItemPlanetaryInformation
+		// 
+		menuItemPlanetaryInformation.AccessibleDescription = "Shows orbital and physical properties of the eight planets";
+		menuItemPlanetaryInformation.AccessibleName = "Planetary information";
+		menuItemPlanetaryInformation.AccessibleRole = AccessibleRole.MenuItem;
+		menuItemPlanetaryInformation.AutoToolTip = true;
+		menuItemPlanetaryInformation.Image = FatcowIcons16px.fatcow_earth_night_16px;
+		menuItemPlanetaryInformation.Name = "menuItemPlanetaryInformation";
+		menuItemPlanetaryInformation.ShortcutKeyDisplayString = "";
+		menuItemPlanetaryInformation.Size = new Size(189, 22);
+		menuItemPlanetaryInformation.Text = "&Planetary information";
+		menuItemPlanetaryInformation.Click += (this.PlanetaryInformation_Click);
+		menuItemPlanetaryInformation.MouseEnter += (this.Control_Enter);
+		menuItemPlanetaryInformation.MouseLeave += (this.Control_Leave);
+		menuItemPlanetaryInformation.MouseMove += (this.MouseCoordinates_MouseMove);
 		// 
 		// menuItemAverageAsteroid
 		// 
@@ -3421,7 +3439,7 @@ partial class PlanetoidDbForm
 		menuItemAverageAsteroid.AccessibleRole = AccessibleRole.MenuItem;
 		menuItemAverageAsteroid.AutoToolTip = true;
 		menuItemAverageAsteroid.Name = "menuItemAverageAsteroid";
-		menuItemAverageAsteroid.Size = new Size(180, 22);
+		menuItemAverageAsteroid.Size = new Size(189, 22);
 		menuItemAverageAsteroid.Text = "&Average asteroid";
 		menuItemAverageAsteroid.Click += (this.AverageAsteroid_Click);
 		menuItemAverageAsteroid.MouseEnter += (this.Control_Enter);
@@ -3434,7 +3452,7 @@ partial class PlanetoidDbForm
 		separator20.AccessibleName = "Just a separator";
 		separator20.AccessibleRole = AccessibleRole.Separator;
 		separator20.Name = "separator20";
-		separator20.Size = new Size(177, 6);
+		separator20.Size = new Size(186, 6);
 		separator20.MouseEnter += (this.Control_Enter);
 		separator20.MouseLeave += (this.Control_Leave);
 		separator20.MouseMove += (this.MouseCoordinates_MouseMove);
@@ -3448,7 +3466,7 @@ partial class PlanetoidDbForm
 		menuItemScatterPlots.Enabled = false;
 		menuItemScatterPlots.Image = FatcowIcons16px.fatcow_plotchart_16px;
 		menuItemScatterPlots.Name = "menuItemScatterPlots";
-		menuItemScatterPlots.Size = new Size(180, 22);
+		menuItemScatterPlots.Size = new Size(189, 22);
 		menuItemScatterPlots.Text = "&Scatter plots";
 		menuItemScatterPlots.Click += (this.ScatterPlots_Click);
 		menuItemScatterPlots.MouseEnter += (this.Control_Enter);
@@ -3463,7 +3481,7 @@ partial class PlanetoidDbForm
 		menuItemAEIDiagram3D.AutoToolTip = true;
 		menuItemAEIDiagram3D.Enabled = false;
 		menuItemAEIDiagram3D.Name = "menuItemAEIDiagram3D";
-		menuItemAEIDiagram3D.Size = new Size(180, 22);
+		menuItemAEIDiagram3D.Size = new Size(189, 22);
 		menuItemAEIDiagram3D.Text = "a/&e/i 3D diagram";
 		menuItemAEIDiagram3D.Click += (this.AEIDiagram3D_Click);
 		menuItemAEIDiagram3D.MouseEnter += (this.Control_Enter);
@@ -3476,7 +3494,7 @@ partial class PlanetoidDbForm
 		menuItemObservations.AccessibleName = "Observations";
 		menuItemObservations.AccessibleRole = AccessibleRole.MenuItem;
 		menuItemObservations.AutoToolTip = true;
-		menuItemObservations.DropDownItems.AddRange(new ToolStripItem[] { menuItemEphemerides, menuItemObservationLogs, menuItemBulkObservationsDataDownloader, menuItemObservatoryCodes, separator32, menuItemWorldMap, menuItemCoordinateTransformation, menuItemDistanceConversion, menuItemAngleMeasureConversion });
+		menuItemObservations.DropDownItems.AddRange(new ToolStripItem[] { menuItemEphemerides, menuItemObservationLogs, menuItemBulkObservationsDataDownloader, menuItemObservatoryCodes, separator32, menuItemWorldMap, menuItemCities, separator33, menuItemCoordinateTransformation, menuItemDistanceConversion, menuItemAngleMeasureConversion });
 		menuItemObservations.Name = "menuItemObservations";
 		menuItemObservations.Size = new Size(88, 24);
 		menuItemObservations.Text = "Obser&vations";
@@ -3553,22 +3571,6 @@ partial class PlanetoidDbForm
 		separator32.MouseEnter += (this.Control_Enter);
 		separator32.MouseLeave += (this.Control_Leave);
 		separator32.MouseMove += (this.MouseCoordinates_MouseMove);
-		// 
-		// menuItemPlanetaryInformation
-		// 
-		menuItemPlanetaryInformation.AccessibleDescription = "Shows orbital and physical properties of the eight planets";
-		menuItemPlanetaryInformation.AccessibleName = "Planetary information";
-		menuItemPlanetaryInformation.AccessibleRole = AccessibleRole.MenuItem;
-		menuItemPlanetaryInformation.AutoToolTip = true;
-		menuItemPlanetaryInformation.Image = FatcowIcons16px.fatcow_earth_night_16px;
-		menuItemPlanetaryInformation.Name = "menuItemPlanetaryInformation";
-		menuItemPlanetaryInformation.ShortcutKeyDisplayString = "";
-		menuItemPlanetaryInformation.Size = new Size(259, 22);
-		menuItemPlanetaryInformation.Text = "&Planetary information";
-		menuItemPlanetaryInformation.Click += (this.PlanetaryInformation_Click);
-		menuItemPlanetaryInformation.MouseEnter += (this.Control_Enter);
-		menuItemPlanetaryInformation.MouseLeave += (this.Control_Leave);
-		menuItemPlanetaryInformation.MouseMove += (this.MouseCoordinates_MouseMove);
 		// 
 		// menuItemWorldMap
 		// 
@@ -3664,7 +3666,7 @@ partial class PlanetoidDbForm
 		contextMenuOrbit.Font = new Font("Segoe UI", 9F);
 		contextMenuOrbit.Items.AddRange(new ToolStripItem[] { menuItemOrbit2DTopView, menuItemOrbit2DSideView, menuItemOrbit3DView, menuItemOrrery });
 		contextMenuOrbit.Name = "contextMenuOrbit";
-		contextMenuOrbit.OwnerItem = dropDownButtonOrbit;
+		contextMenuOrbit.OwnerItem = menuItemOrbitVisualization;
 		contextMenuOrbit.Size = new Size(140, 92);
 		contextMenuOrbit.TabStop = true;
 		contextMenuOrbit.Text = "Orbit";
@@ -3727,6 +3729,23 @@ partial class PlanetoidDbForm
 		menuItemOrrery.MouseEnter += (this.Control_Enter);
 		menuItemOrrery.MouseLeave += (this.Control_Leave);
 		menuItemOrrery.MouseMove += (this.MouseCoordinates_MouseMove);
+		// 
+		// dropDownButtonOrbit
+		// 
+		dropDownButtonOrbit.AccessibleDescription = "Shows orbit visualization";
+		dropDownButtonOrbit.AccessibleName = "Orbit visualization";
+		dropDownButtonOrbit.AccessibleRole = AccessibleRole.DropList;
+		dropDownButtonOrbit.DisplayStyle = ToolStripItemDisplayStyle.Image;
+		dropDownButtonOrbit.DropDown = contextMenuOrbit;
+		dropDownButtonOrbit.Enabled = false;
+		dropDownButtonOrbit.Image = FatcowIcons16px.fatcow_orbit_16px;
+		dropDownButtonOrbit.ImageTransparentColor = Color.Magenta;
+		dropDownButtonOrbit.Name = "dropDownButtonOrbit";
+		dropDownButtonOrbit.Size = new Size(29, 22);
+		dropDownButtonOrbit.Text = "Orbit visualization";
+		dropDownButtonOrbit.MouseEnter += (this.Control_Enter);
+		dropDownButtonOrbit.MouseLeave += (this.Control_Leave);
+		dropDownButtonOrbit.MouseMove += (this.MouseCoordinates_MouseMove);
 		// 
 		// menuItemOrbitalResonances
 		// 
@@ -4071,7 +4090,7 @@ partial class PlanetoidDbForm
 		menuItemDataDecoders.AutoToolTip = true;
 		menuItemDataDecoders.DropDownItems.AddRange(new ToolStripItem[] { menuItemDataDecoderReadableDesignation, menuItemDataDecoderEpoch, menuItemDataDecoderReference, menuItemDataDecoder4HexDigitFlags, menuItemDataDecoderDateOfLastObservation });
 		menuItemDataDecoders.Name = "menuItemDataDecoders";
-		menuItemDataDecoders.Size = new Size(180, 22);
+		menuItemDataDecoders.Size = new Size(149, 22);
 		menuItemDataDecoders.Text = "&Data decoders";
 		menuItemDataDecoders.MouseEnter += (this.Control_Enter);
 		menuItemDataDecoders.MouseLeave += (this.Control_Leave);
@@ -4155,7 +4174,7 @@ partial class PlanetoidDbForm
 		menuItemTerminology.AutoToolTip = true;
 		menuItemTerminology.Image = FatcowIcons16px.fatcow_text_list_bullets_16px;
 		menuItemTerminology.Name = "menuItemTerminology";
-		menuItemTerminology.Size = new Size(180, 22);
+		menuItemTerminology.Size = new Size(149, 22);
 		menuItemTerminology.Text = "&Terminology";
 		menuItemTerminology.Click += (this.Terminology_Click);
 		menuItemTerminology.MouseEnter += (this.Control_Enter);
@@ -4170,7 +4189,7 @@ partial class PlanetoidDbForm
 		menuItemCalculator.AutoToolTip = true;
 		menuItemCalculator.Image = FatcowIcons16px.fatcow_calculator_16px;
 		menuItemCalculator.Name = "menuItemCalculator";
-		menuItemCalculator.Size = new Size(180, 22);
+		menuItemCalculator.Size = new Size(149, 22);
 		menuItemCalculator.Text = "&Calculator";
 		menuItemCalculator.Click += (this.Calculator_Click);
 		menuItemCalculator.MouseEnter += (this.Control_Enter);
@@ -4200,6 +4219,7 @@ partial class PlanetoidDbForm
 		contextMenuExternalDataPages.Font = new Font("Segoe UI", 9F);
 		contextMenuExternalDataPages.Items.AddRange(new ToolStripItem[] { menuItemExternalDataPageMpcDatabase, menuItemExternalDataPageJplSmallBodyDatabase, menuItemExternalDataPageLowellMinorPlanetServices, menuItemExternalDataPageAsteroidsDynamicSite, menuItemExternalDataPageNearEarthObjectsDynamicSite, menuItemExternalDataPageNearEarthObjectCoordinationCentre, menuItemExternalDataPageSsoCard, menuItemExternalDataPageNeotoolsOrbitVisualisationTool, menuItemExternalDataPageMp3CAtOca, menuItemExternalDataPageMp3CAtLe, separator24, menuItemAllExternalDataPages });
 		contextMenuExternalDataPages.Name = "contextMenuStripExternalDataPages";
+		contextMenuExternalDataPages.OwnerItem = dropDownButtonExternalDataPages;
 		contextMenuExternalDataPages.Size = new Size(332, 252);
 		contextMenuExternalDataPages.TabStop = true;
 		contextMenuExternalDataPages.Text = "External data pages";
@@ -4383,21 +4403,6 @@ partial class PlanetoidDbForm
 		menuItemAllExternalDataPages.MouseLeave += (this.Control_Leave);
 		menuItemAllExternalDataPages.MouseMove += (this.MouseCoordinates_MouseMove);
 		// 
-		// menuItemExternalDataPages2
-		// 
-		menuItemExternalDataPages2.AccessibleDescription = "Opens external data pages in the web browser";
-		menuItemExternalDataPages2.AccessibleName = "External data pages";
-		menuItemExternalDataPages2.AccessibleRole = AccessibleRole.MenuItem;
-		menuItemExternalDataPages2.AutoToolTip = true;
-		menuItemExternalDataPages2.DropDown = contextMenuExternalDataPages;
-		menuItemExternalDataPages2.Image = FatcowIcons16px.fatcow_external_16px;
-		menuItemExternalDataPages2.Name = "menuItemExternalDataPages2";
-		menuItemExternalDataPages2.Size = new Size(344, 22);
-		menuItemExternalDataPages2.Text = "External data &pages";
-		menuItemExternalDataPages2.MouseEnter += (this.Control_Enter);
-		menuItemExternalDataPages2.MouseLeave += (this.Control_Leave);
-		menuItemExternalDataPages2.MouseMove += (this.MouseCoordinates_MouseMove);
-		// 
 		// menuItemUpdate
 		// 
 		menuItemUpdate.AccessibleDescription = "Opens the menu \"Updates\"";
@@ -4436,7 +4441,7 @@ partial class PlanetoidDbForm
 		contextMenuCheckDatabaseUpdates.Font = new Font("Segoe UI", 9F);
 		contextMenuCheckDatabaseUpdates.Items.AddRange(new ToolStripItem[] { menuItemCheckMpcorbDatUpdate, menuItemCheckMpcorbJsonUpdate, menuItemCheckAstorbDatUpdate, menuItemCheckAllnumCatUpdate, menuItemCheckUfitobsCatUpdate, menuItemCheckSingoppCatUpdate });
 		contextMenuCheckDatabaseUpdates.Name = "contextMenuStripCheckUpdates";
-		contextMenuCheckDatabaseUpdates.OwnerItem = dropDownButtonCheckUpdates;
+		contextMenuCheckDatabaseUpdates.OwnerItem = menuItemCheckDatabaseUpdates;
 		contextMenuCheckDatabaseUpdates.Size = new Size(191, 136);
 		contextMenuCheckDatabaseUpdates.TabStop = true;
 		contextMenuCheckDatabaseUpdates.Text = "Check database updates";
@@ -4534,6 +4539,22 @@ partial class PlanetoidDbForm
 		menuItemCheckSingoppCatUpdate.MouseLeave += (this.Control_Leave);
 		menuItemCheckSingoppCatUpdate.MouseMove += (this.MouseCoordinates_MouseMove);
 		// 
+		// dropDownButtonCheckUpdates
+		// 
+		dropDownButtonCheckUpdates.AccessibleDescription = "Checks for updates of the databases";
+		dropDownButtonCheckUpdates.AccessibleName = "Check database updates";
+		dropDownButtonCheckUpdates.AccessibleRole = AccessibleRole.DropList;
+		dropDownButtonCheckUpdates.DisplayStyle = ToolStripItemDisplayStyle.Image;
+		dropDownButtonCheckUpdates.DropDown = contextMenuCheckDatabaseUpdates;
+		dropDownButtonCheckUpdates.Image = FatcowIcons16px.fatcow_database_lightning_16px;
+		dropDownButtonCheckUpdates.ImageTransparentColor = Color.Magenta;
+		dropDownButtonCheckUpdates.Name = "dropDownButtonCheckUpdates";
+		dropDownButtonCheckUpdates.Size = new Size(29, 22);
+		dropDownButtonCheckUpdates.Text = "Check database updates";
+		dropDownButtonCheckUpdates.MouseEnter += (this.Control_Enter);
+		dropDownButtonCheckUpdates.MouseLeave += (this.Control_Leave);
+		dropDownButtonCheckUpdates.MouseMove += (this.MouseCoordinates_MouseMove);
+		// 
 		// menuItemDownloadDatabases
 		// 
 		menuItemDownloadDatabases.AccessibleDescription = "Shows the database downloads";
@@ -4558,7 +4579,7 @@ partial class PlanetoidDbForm
 		contextMenuDownloadDatabases.Font = new Font("Segoe UI", 9F);
 		contextMenuDownloadDatabases.Items.AddRange(new ToolStripItem[] { menuItemDownloadMpcorbDatInContext, menuItemDownloadMpcorbJsonInContext, menuItemDownloadAstorbDatInContext, menuItemDownloadAllnumCatInContext, menuItemDownloadUfitobsCatInContext, menuItemDownloadSingoppCatInContext });
 		contextMenuDownloadDatabases.Name = "contextMenuStripDownloadDatabases";
-		contextMenuDownloadDatabases.OwnerItem = menuItemDownloadDatabases;
+		contextMenuDownloadDatabases.OwnerItem = dropDownButtonDownloadDatabases;
 		contextMenuDownloadDatabases.Size = new Size(212, 136);
 		contextMenuDownloadDatabases.TabStop = true;
 		contextMenuDownloadDatabases.Text = "Database downloads";
@@ -4655,22 +4676,6 @@ partial class PlanetoidDbForm
 		menuItemDownloadSingoppCatInContext.MouseEnter += (this.Control_Enter);
 		menuItemDownloadSingoppCatInContext.MouseLeave += (this.Control_Leave);
 		menuItemDownloadSingoppCatInContext.MouseMove += (this.MouseCoordinates_MouseMove);
-		// 
-		// dropDownButtonDownloadDatabases
-		// 
-		dropDownButtonDownloadDatabases.AccessibleDescription = "Downloads the databases";
-		dropDownButtonDownloadDatabases.AccessibleName = "Download databases";
-		dropDownButtonDownloadDatabases.AccessibleRole = AccessibleRole.SplitButton;
-		dropDownButtonDownloadDatabases.DisplayStyle = ToolStripItemDisplayStyle.Image;
-		dropDownButtonDownloadDatabases.DropDown = contextMenuDownloadDatabases;
-		dropDownButtonDownloadDatabases.Image = FatcowIcons16px.fatcow_package_go_16px;
-		dropDownButtonDownloadDatabases.ImageTransparentColor = Color.Magenta;
-		dropDownButtonDownloadDatabases.Name = "dropDownButtonDownloadDatabases";
-		dropDownButtonDownloadDatabases.Size = new Size(29, 22);
-		dropDownButtonDownloadDatabases.Text = "Download databases";
-		dropDownButtonDownloadDatabases.MouseEnter += (this.Control_Enter);
-		dropDownButtonDownloadDatabases.MouseLeave += (this.Control_Leave);
-		dropDownButtonDownloadDatabases.MouseMove += (this.MouseCoordinates_MouseMove);
 		// 
 		// separator18
 		// 
@@ -5708,7 +5713,7 @@ partial class PlanetoidDbForm
 		menuItemOpenWebsitePDB.AccessibleName = "Open Planetoid-DB homepage";
 		menuItemOpenWebsitePDB.AccessibleRole = AccessibleRole.MenuItem;
 		menuItemOpenWebsitePDB.AutoToolTip = true;
-		menuItemOpenWebsitePDB.Image = FatcowIcons16px.fatcow_house_16px;
+		menuItemOpenWebsitePDB.Image = FatcowIcons16px.fatcow_home_page_16px;
 		menuItemOpenWebsitePDB.Name = "menuItemOpenWebsitePDB";
 		menuItemOpenWebsitePDB.Size = new Size(236, 22);
 		menuItemOpenWebsitePDB.Text = "Open Planetoid-DB homepage";
@@ -5776,6 +5781,37 @@ partial class PlanetoidDbForm
 		menuItemLogViewer.MouseLeave += (this.Control_Leave);
 		menuItemLogViewer.MouseMove += (this.MouseCoordinates_MouseMove);
 		// 
+		// menuItemExternalDataPages2
+		// 
+		menuItemExternalDataPages2.AccessibleDescription = "Opens external data pages in the web browser";
+		menuItemExternalDataPages2.AccessibleName = "External data pages";
+		menuItemExternalDataPages2.AccessibleRole = AccessibleRole.MenuItem;
+		menuItemExternalDataPages2.AutoToolTip = true;
+		menuItemExternalDataPages2.DropDown = contextMenuExternalDataPages;
+		menuItemExternalDataPages2.Image = FatcowIcons16px.fatcow_external_16px;
+		menuItemExternalDataPages2.Name = "menuItemExternalDataPages2";
+		menuItemExternalDataPages2.Size = new Size(344, 22);
+		menuItemExternalDataPages2.Text = "External data &pages";
+		menuItemExternalDataPages2.MouseEnter += (this.Control_Enter);
+		menuItemExternalDataPages2.MouseLeave += (this.Control_Leave);
+		menuItemExternalDataPages2.MouseMove += (this.MouseCoordinates_MouseMove);
+		// 
+		// dropDownButtonDownloadDatabases
+		// 
+		dropDownButtonDownloadDatabases.AccessibleDescription = "Downloads the databases";
+		dropDownButtonDownloadDatabases.AccessibleName = "Download databases";
+		dropDownButtonDownloadDatabases.AccessibleRole = AccessibleRole.SplitButton;
+		dropDownButtonDownloadDatabases.DisplayStyle = ToolStripItemDisplayStyle.Image;
+		dropDownButtonDownloadDatabases.DropDown = contextMenuDownloadDatabases;
+		dropDownButtonDownloadDatabases.Image = FatcowIcons16px.fatcow_package_go_16px;
+		dropDownButtonDownloadDatabases.ImageTransparentColor = Color.Magenta;
+		dropDownButtonDownloadDatabases.Name = "dropDownButtonDownloadDatabases";
+		dropDownButtonDownloadDatabases.Size = new Size(29, 22);
+		dropDownButtonDownloadDatabases.Text = "Download databases";
+		dropDownButtonDownloadDatabases.MouseEnter += (this.Control_Enter);
+		dropDownButtonDownloadDatabases.MouseLeave += (this.Control_Leave);
+		dropDownButtonDownloadDatabases.MouseMove += (this.MouseCoordinates_MouseMove);
+		// 
 		// dropDownButtonExternalDataPages
 		// 
 		dropDownButtonExternalDataPages.AccessibleDescription = "Show the tool bar button \"External data pages\"";
@@ -5791,39 +5827,6 @@ partial class PlanetoidDbForm
 		dropDownButtonExternalDataPages.MouseEnter += (this.Control_Enter);
 		dropDownButtonExternalDataPages.MouseLeave += (this.Control_Leave);
 		dropDownButtonExternalDataPages.MouseMove += (this.MouseCoordinates_MouseMove);
-		// 
-		// dropDownButtonCheckUpdates
-		// 
-		dropDownButtonCheckUpdates.AccessibleDescription = "Checks for updates of the databases";
-		dropDownButtonCheckUpdates.AccessibleName = "Check database updates";
-		dropDownButtonCheckUpdates.AccessibleRole = AccessibleRole.DropList;
-		dropDownButtonCheckUpdates.DisplayStyle = ToolStripItemDisplayStyle.Image;
-		dropDownButtonCheckUpdates.DropDown = contextMenuCheckDatabaseUpdates;
-		dropDownButtonCheckUpdates.Image = FatcowIcons16px.fatcow_database_lightning_16px;
-		dropDownButtonCheckUpdates.ImageTransparentColor = Color.Magenta;
-		dropDownButtonCheckUpdates.Name = "dropDownButtonCheckUpdates";
-		dropDownButtonCheckUpdates.Size = new Size(29, 22);
-		dropDownButtonCheckUpdates.Text = "Check database updates";
-		dropDownButtonCheckUpdates.MouseEnter += (this.Control_Enter);
-		dropDownButtonCheckUpdates.MouseLeave += (this.Control_Leave);
-		dropDownButtonCheckUpdates.MouseMove += (this.MouseCoordinates_MouseMove);
-		// 
-		// dropDownButtonOrbit
-		// 
-		dropDownButtonOrbit.AccessibleDescription = "Shows orbit visualization";
-		dropDownButtonOrbit.AccessibleName = "Orbit visualization";
-		dropDownButtonOrbit.AccessibleRole = AccessibleRole.DropList;
-		dropDownButtonOrbit.DisplayStyle = ToolStripItemDisplayStyle.Image;
-		dropDownButtonOrbit.DropDown = contextMenuOrbit;
-		dropDownButtonOrbit.Enabled = false;
-		dropDownButtonOrbit.Image = FatcowIcons16px.fatcow_orbit_16px;
-		dropDownButtonOrbit.ImageTransparentColor = Color.Magenta;
-		dropDownButtonOrbit.Name = "dropDownButtonOrbit";
-		dropDownButtonOrbit.Size = new Size(29, 22);
-		dropDownButtonOrbit.Text = "Orbit visualization";
-		dropDownButtonOrbit.MouseEnter += (this.Control_Enter);
-		dropDownButtonOrbit.MouseLeave += (this.Control_Leave);
-		dropDownButtonOrbit.MouseMove += (this.MouseCoordinates_MouseMove);
 		// 
 		// separator10
 		// 
@@ -5855,20 +5858,20 @@ partial class PlanetoidDbForm
 		separator12.MouseEnter += (this.Control_Enter);
 		separator12.MouseLeave += (this.Control_Leave);
 		// 
-		// container
+		// toolStripContainer
 		// 
 		container.AccessibleDescription = "Container";
 		container.AccessibleName = "Container";
 		container.AccessibleRole = AccessibleRole.Pane;
 		// 
-		// container.BottomToolStripPanel
+		// toolStripContainer.BottomToolStripPanel
 		// 
 		container.BottomToolStripPanel.AccessibleDescription = "Lower part of the control panel";
 		container.BottomToolStripPanel.AccessibleName = "Lower part of the control panel";
 		container.BottomToolStripPanel.AccessibleRole = AccessibleRole.Pane;
 		container.BottomToolStripPanel.Controls.Add(kryptonStatusStrip);
 		// 
-		// container.ContentPanel
+		// toolStripContainer.ContentPanel
 		// 
 		container.ContentPanel.AccessibleDescription = "Group the controls";
 		container.ContentPanel.AccessibleName = "Container Panel";
@@ -5881,26 +5884,26 @@ partial class PlanetoidDbForm
 		container.ContentPanel.Size = new Size(1264, 825);
 		container.Dock = DockStyle.Fill;
 		// 
-		// container.LeftToolStripPanel
+		// toolStripContainer.LeftToolStripPanel
 		// 
-		container.LeftToolStripPanel.AccessibleDescription = "Left part of the container panel";
-		container.LeftToolStripPanel.AccessibleName = "Left part of the container panel";
+		container.LeftToolStripPanel.AccessibleDescription = "Left part of the toolStripContainer panel";
+		container.LeftToolStripPanel.AccessibleName = "Left part of the toolStripContainer panel";
 		container.LeftToolStripPanel.AccessibleRole = AccessibleRole.Pane;
 		container.Location = new Point(0, 0);
-		container.Name = "container";
+		container.Name = "toolStripContainer";
 		// 
-		// container.RightToolStripPanel
+		// toolStripContainer.RightToolStripPanel
 		// 
-		container.RightToolStripPanel.AccessibleDescription = "Right part of the container panel";
-		container.RightToolStripPanel.AccessibleName = "Right part of the container panel";
+		container.RightToolStripPanel.AccessibleDescription = "Right part of the toolStripContainer panel";
+		container.RightToolStripPanel.AccessibleName = "Right part of the toolStripContainer panel";
 		container.RightToolStripPanel.AccessibleRole = AccessibleRole.Pane;
 		container.Size = new Size(1264, 921);
 		container.TabIndex = 16;
 		// 
-		// container.TopToolStripPanel
+		// toolStripContainer.TopToolStripPanel
 		// 
-		container.TopToolStripPanel.AccessibleDescription = "Upper part of the container panel";
-		container.TopToolStripPanel.AccessibleName = "Upper part of the container panel";
+		container.TopToolStripPanel.AccessibleDescription = "Upper part of the toolStripContainer panel";
+		container.TopToolStripPanel.AccessibleName = "Upper part of the toolStripContainer panel";
 		container.TopToolStripPanel.AccessibleRole = AccessibleRole.Pane;
 		container.TopToolStripPanel.Controls.Add(menuStrip);
 		container.TopToolStripPanel.Controls.Add(kryptonToolStripIcons);
@@ -5911,7 +5914,7 @@ partial class PlanetoidDbForm
 		container.MouseLeave += (this.Control_Leave);
 		container.MouseMove += (this.MouseCoordinates_MouseMove);
 		// 
-		// kryptonStatusStrip
+		// statusStrip
 		// 
 		kryptonStatusStrip.AccessibleDescription = "Shows some information";
 		kryptonStatusStrip.AccessibleName = "Status bar with some information";
@@ -5924,7 +5927,7 @@ partial class PlanetoidDbForm
 		kryptonStatusStrip.Items.AddRange(new ToolStripItem[] { labelInformation, labelDiskSizeUsage, labelMemoryUsage, labelProcessorUsage, labelTimeUsage, toolStripStatusLabelWindowSize, toolStripStatusLabelMouseCoordinates, toolStripStatusLabelAstorbDatUpdate, toolStripStatusLabelMpcorbDatUpdate });
 		kryptonStatusStrip.LayoutStyle = ToolStripLayoutStyle.HorizontalStackWithOverflow;
 		kryptonStatusStrip.Location = new Point(0, 0);
-		kryptonStatusStrip.Name = "kryptonStatusStrip";
+		kryptonStatusStrip.Name = "statusStrip";
 		kryptonStatusStrip.ProgressBars = null;
 		kryptonStatusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
 		kryptonStatusStrip.ShowItemToolTips = true;
@@ -6277,8 +6280,8 @@ partial class PlanetoidDbForm
 		// 
 		// splitContainerContentOuterLeftMiddle
 		// 
-		splitContainerContentOuterLeftMiddle.AccessibleDescription = "Shows the split container for the outer left and the middle panel";
-		splitContainerContentOuterLeftMiddle.AccessibleName = "Split container for the outer left and the middle panel";
+		splitContainerContentOuterLeftMiddle.AccessibleDescription = "Shows the split toolStripContainer for the outer left and the middle panel";
+		splitContainerContentOuterLeftMiddle.AccessibleName = "Split toolStripContainer for the outer left and the middle panel";
 		splitContainerContentOuterLeftMiddle.AccessibleRole = AccessibleRole.Grouping;
 		splitContainerContentOuterLeftMiddle.Dock = DockStyle.Fill;
 		splitContainerContentOuterLeftMiddle.FixedPanel = FixedPanel.Panel1;
@@ -6287,8 +6290,8 @@ partial class PlanetoidDbForm
 		// 
 		// splitContainerContentOuterLeftMiddle.Panel1
 		// 
-		splitContainerContentOuterLeftMiddle.Panel1.AccessibleDescription = "Shows the left panel of split container for the outer left and the middle panelLeft panel of split container for the outer left and the middle panel";
-		splitContainerContentOuterLeftMiddle.Panel1.AccessibleName = "Left panel of split container for the outer left and the middle panel";
+		splitContainerContentOuterLeftMiddle.Panel1.AccessibleDescription = "Shows the left panel of split toolStripContainer for the outer left and the middle panelLeft panel of split toolStripContainer for the outer left and the middle panel";
+		splitContainerContentOuterLeftMiddle.Panel1.AccessibleName = "Left panel of split toolStripContainer for the outer left and the middle panel";
 		splitContainerContentOuterLeftMiddle.Panel1.AccessibleRole = AccessibleRole.Pane;
 		splitContainerContentOuterLeftMiddle.Panel1.AutoScroll = true;
 		splitContainerContentOuterLeftMiddle.Panel1.Controls.Add(listViewReadableDesignations);
@@ -6300,8 +6303,8 @@ partial class PlanetoidDbForm
 		// 
 		// splitContainerContentOuterLeftMiddle.Panel2
 		// 
-		splitContainerContentOuterLeftMiddle.Panel2.AccessibleDescription = "Shows the right panel of split container for the outer left and the middle panel";
-		splitContainerContentOuterLeftMiddle.Panel2.AccessibleName = "Right panel of split container for the outer left and the middle panel";
+		splitContainerContentOuterLeftMiddle.Panel2.AccessibleDescription = "Shows the right panel of split toolStripContainer for the outer left and the middle panel";
+		splitContainerContentOuterLeftMiddle.Panel2.AccessibleName = "Right panel of split toolStripContainer for the outer left and the middle panel";
 		splitContainerContentOuterLeftMiddle.Panel2.AccessibleRole = AccessibleRole.Pane;
 		splitContainerContentOuterLeftMiddle.Panel2.AutoScroll = true;
 		splitContainerContentOuterLeftMiddle.Panel2.Controls.Add(splitContainerContentInnerMiddleRight);
@@ -6473,7 +6476,7 @@ partial class PlanetoidDbForm
 		contextMenuSaveToFile.Font = new Font("Segoe UI", 9F);
 		contextMenuSaveToFile.Items.AddRange(new ToolStripItem[] { menuItemTextFiles, menuItemWriterDocuments, menuItemSpreadsheetDocuments, menuItemXmlDocuments, menuItemConfigurationFiles, menuItemDatabaseScripts, menuItemPortableDocuments });
 		contextMenuSaveToFile.Name = "contextMenuSaveList";
-		contextMenuSaveToFile.OwnerItem = menuItemSaveListReadableDesignations;
+		contextMenuSaveToFile.OwnerItem = menuItemSaveListDerivedData;
 		contextMenuSaveToFile.Size = new Size(202, 158);
 		contextMenuSaveToFile.TabStop = true;
 		contextMenuSaveToFile.Text = "&Save list";
@@ -7042,21 +7045,6 @@ partial class PlanetoidDbForm
 		menuItemSaveAsChm.MouseEnter += (this.Control_Enter);
 		menuItemSaveAsChm.MouseLeave += (this.Control_Leave);
 		// 
-		// menuItemSaveListDerivedData
-		// 
-		menuItemSaveListDerivedData.AccessibleDescription = "Saves the list of readable designations";
-		menuItemSaveListDerivedData.AccessibleName = "Save the list of readable designations";
-		menuItemSaveListDerivedData.AccessibleRole = AccessibleRole.MenuItem;
-		menuItemSaveListDerivedData.AutoToolTip = true;
-		menuItemSaveListDerivedData.DropDown = contextMenuSaveToFile;
-		menuItemSaveListDerivedData.Image = FatcowIcons16px.fatcow_save_as_16px;
-		menuItemSaveListDerivedData.Name = "menuItemSaveListDerivedData";
-		menuItemSaveListDerivedData.Size = new Size(334, 22);
-		menuItemSaveListDerivedData.Text = "&Save list";
-		menuItemSaveListDerivedData.MouseEnter += (this.Control_Enter);
-		menuItemSaveListDerivedData.MouseLeave += (this.Control_Leave);
-		menuItemSaveListDerivedData.MouseMove += (this.MouseCoordinates_MouseMove);
-		// 
 		// separator25
 		// 
 		separator25.AccessibleDescription = "Just a separator";
@@ -7085,8 +7073,8 @@ partial class PlanetoidDbForm
 		// 
 		// splitContainerContentInnerMiddleRight
 		// 
-		splitContainerContentInnerMiddleRight.AccessibleDescription = "Shows the split container for the inner middle and the right panel";
-		splitContainerContentInnerMiddleRight.AccessibleName = "Split container for the inner middle and the right panel";
+		splitContainerContentInnerMiddleRight.AccessibleDescription = "Shows the split toolStripContainer for the inner middle and the right panel";
+		splitContainerContentInnerMiddleRight.AccessibleName = "Split toolStripContainer for the inner middle and the right panel";
 		splitContainerContentInnerMiddleRight.AccessibleRole = AccessibleRole.Grouping;
 		splitContainerContentInnerMiddleRight.Dock = DockStyle.Fill;
 		splitContainerContentInnerMiddleRight.FixedPanel = FixedPanel.Panel2;
@@ -7095,8 +7083,8 @@ partial class PlanetoidDbForm
 		// 
 		// splitContainerContentInnerMiddleRight.Panel1
 		// 
-		splitContainerContentInnerMiddleRight.Panel1.AccessibleDescription = "Shows the left panel of split container for the inner middle and the right panel";
-		splitContainerContentInnerMiddleRight.Panel1.AccessibleName = "Left panel of split container for the inner middle and the right panel";
+		splitContainerContentInnerMiddleRight.Panel1.AccessibleDescription = "Shows the left panel of split toolStripContainer for the inner middle and the right panel";
+		splitContainerContentInnerMiddleRight.Panel1.AccessibleName = "Left panel of split toolStripContainer for the inner middle and the right panel";
 		splitContainerContentInnerMiddleRight.Panel1.AccessibleRole = AccessibleRole.Pane;
 		splitContainerContentInnerMiddleRight.Panel1.AutoScroll = true;
 		splitContainerContentInnerMiddleRight.Panel1.Controls.Add(kryptonNavigatorMain);
@@ -7108,8 +7096,8 @@ partial class PlanetoidDbForm
 		// 
 		// splitContainerContentInnerMiddleRight.Panel2
 		// 
-		splitContainerContentInnerMiddleRight.Panel2.AccessibleDescription = "Shows the right panel of split container for the inner middle and the right panel";
-		splitContainerContentInnerMiddleRight.Panel2.AccessibleName = "Right panel of split container for the inner middle and the right panel";
+		splitContainerContentInnerMiddleRight.Panel2.AccessibleDescription = "Shows the right panel of split toolStripContainer for the inner middle and the right panel";
+		splitContainerContentInnerMiddleRight.Panel2.AccessibleName = "Right panel of split toolStripContainer for the inner middle and the right panel";
 		splitContainerContentInnerMiddleRight.Panel2.AccessibleRole = AccessibleRole.Pane;
 		splitContainerContentInnerMiddleRight.Panel2.AutoScroll = true;
 		splitContainerContentInnerMiddleRight.Panel2.Enter += (this.Control_Enter);
@@ -7332,6 +7320,21 @@ partial class PlanetoidDbForm
 		separator28.MouseEnter += (this.Control_Enter);
 		separator28.MouseLeave += (this.Control_Leave);
 		separator28.MouseMove += (this.MouseCoordinates_MouseMove);
+		// 
+		// menuItemSaveListDerivedData
+		// 
+		menuItemSaveListDerivedData.AccessibleDescription = "Saves the list of readable designations";
+		menuItemSaveListDerivedData.AccessibleName = "Save the list of readable designations";
+		menuItemSaveListDerivedData.AccessibleRole = AccessibleRole.MenuItem;
+		menuItemSaveListDerivedData.AutoToolTip = true;
+		menuItemSaveListDerivedData.DropDown = contextMenuSaveToFile;
+		menuItemSaveListDerivedData.Image = FatcowIcons16px.fatcow_save_as_16px;
+		menuItemSaveListDerivedData.Name = "menuItemSaveListDerivedData";
+		menuItemSaveListDerivedData.Size = new Size(334, 22);
+		menuItemSaveListDerivedData.Text = "&Save list";
+		menuItemSaveListDerivedData.MouseEnter += (this.Control_Enter);
+		menuItemSaveListDerivedData.MouseLeave += (this.Control_Leave);
+		menuItemSaveListDerivedData.MouseMove += (this.MouseCoordinates_MouseMove);
 		// 
 		// kryptonPageMpcorbJson
 		// 
@@ -12318,6 +12321,26 @@ partial class PlanetoidDbForm
 		timerSelectionDebounce.Interval = 75;
 		timerSelectionDebounce.Tick += (this.TimerSelectionDebounce_Tick);
 		// 
+		// menuItemCities
+		// 
+		menuItemCities.AccessibleDescription = "Shows the list of cities";
+		menuItemCities.AccessibleName = "Cities";
+		menuItemCities.AccessibleRole = AccessibleRole.MenuItem;
+		menuItemCities.AutoToolTip = true;
+		menuItemCities.Image = FatcowIcons16px.fatcow_building_16px;
+		menuItemCities.Name = "menuItemCities";
+		menuItemCities.Size = new Size(259, 22);
+		menuItemCities.Text = "&Cities";
+		menuItemCities.Click += (this.Cities_Click);
+		// 
+		// separator33
+		// 
+		separator33.AccessibleDescription = "Just a separator";
+		separator33.AccessibleName = "Just a separator";
+		separator33.AccessibleRole = AccessibleRole.Separator;
+		separator33.Name = "separator33";
+		separator33.Size = new Size(256, 6);
+		// 
 		// PlanetoidDbForm
 		// 
 		this.AccessibleDescription = "Viewer for the MPC Orbit (MPCORB) Database";
@@ -13037,4 +13060,6 @@ partial class PlanetoidDbForm
 	private ToolStripMenuItem menuItemShowWindowSizeLabel;
 	private ToolStripMenuItem menuItemShowDiskSizeLabel;
 	private ToolStripSeparator separator32;
+	private ToolStripMenuItem menuItemCities;
+	private ToolStripSeparator separator33;
 }

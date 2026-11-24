@@ -86,7 +86,7 @@ partial class OrreryForm
 		// toolStripContainer
 		//
 		toolStripContainer.AccessibleDescription = "Container to arrange the toolbars";
-		toolStripContainer.AccessibleName = "Toolbar container";
+		toolStripContainer.AccessibleName = "Toolbar toolStripContainer";
 		toolStripContainer.AccessibleRole = AccessibleRole.Grouping;
 		//
 		// toolStripContainer.BottomToolStripPanel
@@ -108,7 +108,7 @@ partial class OrreryForm
 		//
 		toolStripContainer.TopToolStripPanel.Controls.Add(toolStripControls);
 		//
-		// kryptonStatusStrip
+		// statusStrip
 		//
 		kryptonStatusStrip.AccessibleDescription = "Shows information for the orrery";
 		kryptonStatusStrip.AccessibleName = "Status bar with orrery information";
@@ -119,7 +119,7 @@ partial class OrreryForm
 		kryptonStatusStrip.Font = new Font("Segoe UI", 9F);
 		kryptonStatusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
 		kryptonStatusStrip.Location = new Point(0, 0);
-		kryptonStatusStrip.Name = "kryptonStatusStrip";
+		kryptonStatusStrip.Name = "statusStrip";
 		kryptonStatusStrip.ProgressBars = null;
 		kryptonStatusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
 		kryptonStatusStrip.ShowItemToolTips = true;
@@ -142,7 +142,7 @@ partial class OrreryForm
 		labelInformation.MouseEnter += Control_Enter;
 		labelInformation.MouseLeave += Control_Leave;
 		//
-		// kryptonPanelMain
+		// panelMain
 		//
 		kryptonPanelMain.AccessibleDescription = "Contains the orrery visualization";
 		kryptonPanelMain.AccessibleName = "Main panel";
@@ -150,7 +150,7 @@ partial class OrreryForm
 		kryptonPanelMain.Controls.Add(panelGl);
 		kryptonPanelMain.Dock = DockStyle.Fill;
 		kryptonPanelMain.Location = new Point(0, 0);
-		kryptonPanelMain.Name = "kryptonPanelMain";
+		kryptonPanelMain.Name = "panelMain";
 		kryptonPanelMain.PanelBackStyle = PaletteBackStyle.FormMain;
 		kryptonPanelMain.Size = new Size(980, 578);
 		kryptonPanelMain.TabIndex = 0;
