@@ -307,9 +307,7 @@ internal partial class ObservatoryCodesForm : BaseKryptonForm
 			return;
 		}
 		// Determine the URL to use for downloading observatory codes, preferring user-defined settings over system defaults
-		string obsCodesUrl = string.IsNullOrWhiteSpace(value: Settings.Default.userObsCodesUrl)
-			? Settings.Default.systemObsCodesUrl
-			: Settings.Default.userObsCodesUrl;
+		string obsCodesUrl = string.IsNullOrWhiteSpace(value: Settings.Default.userObsCodesUrl) ? Settings.Default.systemObsCodesUrl : Settings.Default.userObsCodesUrl;
 		// Create and display the database downloader form with the specified download URL
 		using DownloaderForm downloaderForm = new(url: obsCodesUrl);
 		// Set the TopMost property of the downloader form to match the main form's TopMost property
