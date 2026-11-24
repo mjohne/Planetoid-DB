@@ -49,6 +49,14 @@ internal partial class ObservatoryCodesForm : BaseKryptonForm
 
 	#endregion
 
+	#region Constants
+
+	// Currently empty
+
+	#endregion
+
+	#region Fields
+
 	/// <summary>NLog logger instance.</summary>
 	/// <remarks>This logger is used throughout the form to log important events and errors.</remarks>
 	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
@@ -64,6 +72,8 @@ internal partial class ObservatoryCodesForm : BaseKryptonForm
 	/// <summary>Stores the sort order for the currently sorted column in the ListView.</summary>
 	/// <remarks>This field is updated when the user clicks a column header to toggle the sort order.</remarks>
 	private SortOrder sortOrder = SortOrder.None;
+
+	#endregion
 
 	#region Constructor
 
@@ -274,7 +284,7 @@ internal partial class ObservatoryCodesForm : BaseKryptonForm
 	/// <param name="sender">The source of the event, typically the ToolStripButton that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	/// <remarks>This method checks for network availability before opening a downloader form to fetch the latest observatory codes from the specified URL.</remarks>
-	private void ToolStripButtonDownloadLatestObsCodes_Click(object sender, EventArgs e)
+	private void ButtonDownloadLatestObsCodes_Click(object sender, EventArgs e)
 	{
 		// Log the menu item click event for debugging purposes
 		logger.Info(message: "Download Observatory Codes menu item clicked; checking network availability for observatory codes download.");
@@ -314,7 +324,7 @@ internal partial class ObservatoryCodesForm : BaseKryptonForm
 	/// <param name="sender">The source of the event, typically the ToolStripButton that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	/// <remarks>This method logs the action and opens the specified URL in the user's default web browser.</remarks>
-	private void ToolStripButtonOpenMpcObsCodesPage_Click(object sender, EventArgs e)
+	private void ButtonOpenMpcObsCodesPage_Click(object sender, EventArgs e)
 	{
 		// Log the menu item click event for debugging purposes
 		logger.Info(message: "Open MPC Observatory Codes page menu item clicked; preparing to open the page in the default web browser.");
@@ -335,7 +345,7 @@ internal partial class ObservatoryCodesForm : BaseKryptonForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The event data.</param>
 	/// <remarks>Opens the world map at the selected observatory when its coordinates are valid.</remarks>
-	private void ToolStripSplitButtonMarkOnMap_ButtonClick(object sender, EventArgs e)
+	private void SplitButtonMarkOnMap_ButtonClick(object sender, EventArgs e)
 	{
 		// Log the click on the button
 		logger.Info(message: "Mark on map button clicked.");
@@ -381,7 +391,7 @@ internal partial class ObservatoryCodesForm : BaseKryptonForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>Collects the coordinates of all rows with valid longitude and latitude and opens the world map with one labeled marker per observatory code.</remarks>
-	private void ToolStripMenuItemMarkAllOnMap_Click(object sender, EventArgs e)
+	private void MenuItemMarkAllOnMap_Click(object sender, EventArgs e)
 	{
 		// Log the click on the button
 		logger.Info(message: "Mark all on map menu item clicked.");
@@ -433,7 +443,7 @@ internal partial class ObservatoryCodesForm : BaseKryptonForm
 	/// <summary>Shows or hides the information label according to the menu item's checked state.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
-	private void ToolStripMenuItemShowInformationLabel_Click(object sender, EventArgs e)
+	private void MenuItemShowInformationLabel_Click(object sender, EventArgs e)
 	{
 		// Log the action of clicking of ToolStripMenuItemShowInformationLabel
 		logger.Info(message: $"ToolStripMenuItemShowInformationLabel clicked.");
@@ -441,7 +451,7 @@ internal partial class ObservatoryCodesForm : BaseKryptonForm
 		ArgumentNullException.ThrowIfNull(argument: sender);
 		// Ensure that the event data was supplied
 		ArgumentNullException.ThrowIfNull(argument: e);
-		labelInformation.Visible = toolStripMenuItemShowInformationLabel.Checked;
+		labelInformation.Visible = menuItemShowInformationLabel.Checked;
 		// Log the new state of the visibility of the information label
 		logger.Info(message: $"Set the visibility of the information label to {labelInformation.Visible}.");
 	}
