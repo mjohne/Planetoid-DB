@@ -61,10 +61,6 @@ internal partial class ObservatoryCodesForm : BaseKryptonForm
 	/// <remarks>This logger is used throughout the form to log important events and errors.</remarks>
 	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
-	/// <summary>Gets the status label used for displaying information in the status bar.</summary>
-	/// <remarks>Overrides the base class property to return the form-specific status label.</remarks>
-	protected override ToolStripStatusLabel? StatusLabel => labelInformation;
-
 	/// <summary>Stores the index of the currently sorted column in the ListView.</summary>
 	/// <remarks>A value of <c>-1</c> means no column is currently sorted.</remarks>
 	private int sortColumn = -1;
@@ -72,6 +68,14 @@ internal partial class ObservatoryCodesForm : BaseKryptonForm
 	/// <summary>Stores the sort order for the currently sorted column in the ListView.</summary>
 	/// <remarks>This field is updated when the user clicks a column header to toggle the sort order.</remarks>
 	private SortOrder sortOrder = SortOrder.None;
+
+	#endregion
+
+	#region Protected override properties
+
+	/// <summary>Gets the status label used for displaying contextual status messages.</summary>
+	/// <remarks>Overrides the base status label property to target <see cref="labelInformation"/>.</remarks>
+	protected override ToolStripStatusLabel? StatusLabel => labelInformation;
 
 	#endregion
 

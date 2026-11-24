@@ -68,7 +68,7 @@ partial class AcknowledgementsForm
 		contextMenuCopyToClipboard.SuspendLayout();
 		SuspendLayout();
 		// 
-		// kryptonPanelMain
+		// panelMain
 		// 
 		kryptonPanelMain.AccessibleDescription = "Groups the data";
 		kryptonPanelMain.AccessibleName = "Panel";
@@ -83,7 +83,7 @@ partial class AcknowledgementsForm
 		kryptonPanelMain.Controls.Add(kryptonStatusStrip);
 		kryptonPanelMain.Dock = DockStyle.Fill;
 		kryptonPanelMain.Location = new Point(0, 0);
-		kryptonPanelMain.Name = "kryptonPanelMain";
+		kryptonPanelMain.Name = "panelMain";
 		kryptonPanelMain.PanelBackStyle = Krypton.Toolkit.PaletteBackStyle.FormMain;
 		kryptonPanelMain.Size = new Size(601, 372);
 		kryptonPanelMain.TabIndex = 0;
@@ -216,7 +216,7 @@ partial class AcknowledgementsForm
 		labelAcknowledgements.MouseEnter += Control_Enter;
 		labelAcknowledgements.MouseLeave += Control_Enter;
 		// 
-		// kryptonStatusStrip
+		// statusStrip
 		// 
 		kryptonStatusStrip.AccessibleDescription = "Shows some information";
 		kryptonStatusStrip.AccessibleName = "Status bar with some information";
@@ -227,7 +227,7 @@ partial class AcknowledgementsForm
 		kryptonStatusStrip.Font = new Font("Segoe UI", 9F);
 		kryptonStatusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
 		kryptonStatusStrip.Location = new Point(0, 350);
-		kryptonStatusStrip.Name = "kryptonStatusStrip";
+		kryptonStatusStrip.Name = "statusStrip";
 		kryptonStatusStrip.ProgressBars = null;
 		kryptonStatusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
 		kryptonStatusStrip.ShowItemToolTips = true;
@@ -257,7 +257,7 @@ partial class AcknowledgementsForm
 		contextMenuShowControlsInStatusBar.MouseEnter += Control_Enter;
 		contextMenuShowControlsInStatusBar.MouseLeave += Control_Enter;
 		// 
-		// toolStripMenuItemShowInformationLabel
+		// menuItemShowInformationLabel
 		// 
 		toolStripMenuItemShowInformationLabel.AccessibleDescription = "Determines whether the information label is visible or hidden";
 		toolStripMenuItemShowInformationLabel.AccessibleName = "Information label";
@@ -266,7 +266,7 @@ partial class AcknowledgementsForm
 		toolStripMenuItemShowInformationLabel.Checked = true;
 		toolStripMenuItemShowInformationLabel.CheckOnClick = true;
 		toolStripMenuItemShowInformationLabel.CheckState = CheckState.Checked;
-		toolStripMenuItemShowInformationLabel.Name = "toolStripMenuItemShowInformationLabel";
+		toolStripMenuItemShowInformationLabel.Name = "menuItemShowInformationLabel";
 		toolStripMenuItemShowInformationLabel.ShortcutKeyDisplayString = "";
 		toolStripMenuItemShowInformationLabel.Size = new Size(197, 22);
 		toolStripMenuItemShowInformationLabel.Text = "Show &information label";
