@@ -138,5 +138,13 @@ namespace Planetoid_DB.Properties {
 				return ResourceManager.GetString("ObservatoryCodes", resourceCulture);
 			}
 		}
+		/// <summary>
+		///   Sucht eine lokalisierte Ressource vom Typ System.String.
+		/// </summary>
+		public static string cities {
+			get {
+				return ResourceManager.GetString("cities", resourceCulture);
+			}
+		}
 	}
 }
