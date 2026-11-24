@@ -1204,8 +1204,8 @@ partial class ObservatoryCodesForm
 
 	/// <summary>Gets or sets the menu item used to save data in CHM format.</summary>
 	private ToolStripMenuItem menuItemSaveAsChm;
-	
-	/// <summary>Represents the menu item that saves the current content as a Typst document.</summary>
+
+	/// <summary>Gets or sets the menu item used to save data in Typst format.</summary>
 	private ToolStripMenuItem menuItemSaveAsTypst;
 
 	/// <summary>Gets or sets the menu item used to mark all objects on the map.</summary>
