@@ -1,7 +1,7 @@
 /*
  * File:        WorldMapForm.cs
  * Project:     Planetoid-DB
- * Namespace:   Planetoid_DB
+ * Namespace:   Planetoid_DB.Form
  * Description: Represents a form that shows an interactive world map and returns the selected geographic coordinates.
  *
  * Author:      Michael Johne
@@ -25,7 +25,7 @@ using System.Globalization;
 using System.Text;
 using System.Text.Json;
 
-namespace Planetoid_DB;
+namespace Planetoid_DB.Form;
 
 /// <summary>Represents a form that shows an interactive world map and returns the selected geographic coordinates.</summary>
 /// <remarks>The map is rendered with Leaflet and OpenStreetMap tiles inside a WebView2 control. Clicking the map sets a marker; places can also be searched via OpenStreetMap Nominatim. After <see cref="Form.ShowDialog()"/> returns <see cref="DialogResult.OK"/>, <see cref="Latitude"/> and <see cref="Longitude"/> contain the selected position.</remarks>
@@ -33,6 +33,16 @@ namespace Planetoid_DB;
 [DebuggerDisplay(value: $"{{{nameof(DebuggerDisplay)},nq}}")]
 internal partial class WorldMapForm : BaseKryptonForm
 {
+	#region Const
+
+	/// <summary>Referrer sent with OpenStreetMap tile requests.</summary>
+	/// <remarks>This is required by the OpenStreetMap tile usage policy.</remarks>
+	private const string OpenStreetMapReferrer = "https://mjohne.github.io/Planetoid-DB/";
+
+	#endregion
+
+	#region Fields
+
 	/// <summary>NLog logger instance.</summary>
 	/// <remarks>This logger is used throughout the form to log important events and errors.</remarks>
 	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
@@ -45,11 +55,8 @@ internal partial class WorldMapForm : BaseKryptonForm
 	/// <remarks>This is used to cancel any ongoing geocoding requests when the form is closing.</remarks>
 	private readonly CancellationTokenSource cancellationTokenSource = new();
 
+	/// <summary>Indicates whether the cancellation token source has been disposed.</summary>
 	private bool cancellationTokenSourceDisposed;
-
-	/// <summary>Referer sent with OpenStreetMap tile requests.</summary>
-	/// <remarks>This is required by the OpenStreetMap tile usage policy.</remarks>
-	private const string OpenStreetMapReferer = "https://mjohne.github.io/Planetoid-DB/";
 
 	/// <summary>Format string for displaying coordinates in the status bar.</summary>
 	/// <remarks>This format string is parsed from the localized resource string <see cref="I18nStrings.WorldMapCoordinatesFormat"/>.</remarks>
@@ -132,6 +139,8 @@ internal partial class WorldMapForm : BaseKryptonForm
 	/// <summary>Gets the status label used for displaying information in the status bar.</summary>
 	/// <remarks>Overrides the base class property to return the form-specific status label.</remarks>
 	protected override ToolStripStatusLabel? StatusLabel => labelInformation;
+
+	#endregion
 
 	#region Constructor
 
@@ -233,7 +242,7 @@ internal partial class WorldMapForm : BaseKryptonForm
 		Longitude = longitude;
 		// Update the UI to reflect the selection
 		HasSelection = true;
-		buttonApply.Enabled = true;
+		buttonCommitCoordinates.Enabled = true;
 		// Update the status label with the formatted coordinates
 		labelCoordinates.Text = string.Format(CultureInfo.CurrentCulture, coordinatesFormat, latitude, longitude);
 	}
@@ -407,11 +416,11 @@ internal partial class WorldMapForm : BaseKryptonForm
 			// Log that WebView2 has been successfully initialized and event handlers are being attached
 			logger.Info(message: "WebView2 initialized successfully. Attaching event handlers.");
 			// Attach event handlers for navigation starting and web message received events
-			webView.CoreWebView2.NavigationStarting += CoreWebView2_NavigationStarting;
-			webView.CoreWebView2.WebMessageReceived += CoreWebView2_WebMessageReceived;
+			webView.CoreWebView2.NavigationStarting += WebView2_NavigationStarting;
+			webView.CoreWebView2.WebMessageReceived += WebView2_WebMessageReceived;
 			webView.CoreWebView2.AddWebResourceRequestedFilter(uri: "https://tile.openstreetmap.org/*", ResourceContext: CoreWebView2WebResourceContext.Image);
-			webView.CoreWebView2.WebResourceRequested += CoreWebView2_WebResourceRequested;
-			webView.CoreWebView2.NavigationCompleted += CoreWebView2_NavigationCompleted;
+			webView.CoreWebView2.WebResourceRequested += WebView2_WebResourceRequested;
+			webView.CoreWebView2.NavigationCompleted += WebView2_NavigationCompleted;
 			// Disable the default context menus in the WebView2 control to prevent right-click actions
 			webView.CoreWebView2.Settings.AreDefaultContextMenusEnabled = false;
 			// Log that the map HTML content is being loaded into the WebView2 control
@@ -462,7 +471,7 @@ internal partial class WorldMapForm : BaseKryptonForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The navigation event data.</param>
 	/// <remarks>Does nothing if the form was opened without a predefined position or if the navigation failed.</remarks>
-	private async void CoreWebView2_NavigationCompleted(object? sender, CoreWebView2NavigationCompletedEventArgs e)
+	private async void WebView2_NavigationCompleted(object? sender, CoreWebView2NavigationCompletedEventArgs e)
 	{
 		// Log that the WebView2 navigation has completed and the predefined marker check is starting
 		logger.Info(message: "WebView2 navigation completed. Checking if predefined marker should be set.");
@@ -518,21 +527,21 @@ internal partial class WorldMapForm : BaseKryptonForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The requested web resource.</param>
 	/// <remarks>Map HTML loaded through <see cref="CoreWebView2.NavigateToString(string)"/> has no HTTP referer by default.</remarks>
-	private void CoreWebView2_WebResourceRequested(object? sender, CoreWebView2WebResourceRequestedEventArgs e)
+	private void WebView2_WebResourceRequested(object? sender, CoreWebView2WebResourceRequestedEventArgs e)
 	{
 		// Log that a web resource request has been intercepted and the Referer header will be set
 		logger.Info(message: $"Web resource requested: {e.Request.Uri}. Setting Referer header to comply with OpenStreetMap tile usage policy.");
 		// Ensure that the event data was supplied
 		ArgumentNullException.ThrowIfNull(argument: e);
 		// Set the Referer header to comply with OpenStreetMap tile usage policy
-		e.Request.Headers.SetHeader(name: "Referer", value: OpenStreetMapReferer);
+		e.Request.Headers.SetHeader(name: "Referer", value: OpenStreetMapReferrer);
 	}
 
 	/// <summary>Opens user-selected web links externally without blocking internal WebView2 navigation.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The navigation event data.</param>
 	/// <remarks>Programmatic navigation is required for <see cref="CoreWebView2.NavigateToString(string)"/> and is therefore not canceled.</remarks>
-	private void CoreWebView2_NavigationStarting(object? sender, CoreWebView2NavigationStartingEventArgs e)
+	private void WebView2_NavigationStarting(object? sender, CoreWebView2NavigationStartingEventArgs e)
 	{
 		// Log that a navigation is starting and indicate whether it was user-initiated
 		logger.Info(message: $"Navigation starting to {e.Uri}. User initiated: {e.IsUserInitiated}");
@@ -576,7 +585,7 @@ internal partial class WorldMapForm : BaseKryptonForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The message event data.</param>
 	/// <remarks>The message contains either selected coordinates or an Escape-key notification.</remarks>
-	private void CoreWebView2_WebMessageReceived(object? sender, CoreWebView2WebMessageReceivedEventArgs e)
+	private void WebView2_WebMessageReceived(object? sender, CoreWebView2WebMessageReceivedEventArgs e)
 	{
 		// Log that a web message has been received from the map page
 		logger.Info(message: "Received web message from the map page.");
@@ -621,8 +630,8 @@ internal partial class WorldMapForm : BaseKryptonForm
 	/// <summary>Returns the selected coordinates and closes the form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The event data.</param>
-	/// <remarks>Sets <see cref="Form.DialogResult"/> to <see cref="DialogResult.OK"/>.</remarks>
-	private void ButtonApply_Click(object? sender, EventArgs e)
+	/// <remarks>Sets <see cref="DialogResult"/> to <see cref="DialogResult.OK"/>.</remarks>
+	private void ButtonCommitCoordinates_Click(object? sender, EventArgs e)
 	{
 		// Log that the OK button was clicked and the form will close with the selected coordinates
 		logger.Info(message: "OK button clicked. Closing form with selected coordinates.");
@@ -636,7 +645,7 @@ internal partial class WorldMapForm : BaseKryptonForm
 	/// <summary>Closes the form without returning coordinates.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The event data.</param>
-	/// <remarks>Sets <see cref="Form.DialogResult"/> to <see cref="DialogResult.Cancel"/>.</remarks>
+	/// <remarks>Sets <see cref="DialogResult"/> to <see cref="DialogResult.Cancel"/>.</remarks>
 	private void ButtonCancel_Click(object? sender, EventArgs e)
 	{
 		// Log that the Cancel button was clicked and the form will close without returning coordinates
@@ -704,7 +713,7 @@ internal partial class WorldMapForm : BaseKryptonForm
 	/// <summary>Shows or hides the information label according to the menu item's checked state.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
-	private void ToolStripMenuItemShowInformationLabel_Click(object sender, EventArgs e)
+	private void MenuItemShowInformationLabel_Click(object sender, EventArgs e)
 	{
 		// Log the action of clicking of ToolStripMenuItemShowInformationLabel
 		logger.Info(message: $"ToolStripMenuItemShowInformationLabel clicked.");
@@ -712,7 +721,7 @@ internal partial class WorldMapForm : BaseKryptonForm
 		ArgumentNullException.ThrowIfNull(argument: sender);
 		// Ensure that the event data was supplied
 		ArgumentNullException.ThrowIfNull(argument: e);
-		labelInformation.Visible = toolStripMenuItemShowInformationLabel.Checked;
+		labelInformation.Visible = menuItemShowInformationLabel.Checked;
 		// Log the new state of the visibility of the information label
 		logger.Info(message: $"Set the visibility of the information label to {labelInformation.Visible}.");
 	}
