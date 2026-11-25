@@ -74,6 +74,12 @@ internal partial class CitiesForm : BaseKryptonForm
 	/// <remarks>Created once and disposed when the form is disposed.</remarks>
 	private readonly Font? stateNodeFont;
 
+	private string textToCopyStateName = string.Empty;
+	private string textToCopyCityName = string.Empty;
+	private string textToCopyFormattedOverview = string.Empty;
+	private string textToCopyLatitudeValue = string.Empty;
+	private string textToCopyLongitudeValue = string.Empty;
+
 	#endregion
 
 	#region Public properties
@@ -618,6 +624,7 @@ internal partial class CitiesForm : BaseKryptonForm
 	{
 		ArgumentNullException.ThrowIfNull(argument: e);
 		CityListEntry? selectedEntry = GetSelectedEntry();
+		textToCopyStateName = textToCopyCityName = textToCopyFormattedOverview = textToCopyLatitudeValue = textToCopyLongitudeValue = string.Empty;
 		if (selectedEntry == null)
 		{
 			buttonCommitCoordinates.Enabled = false;
@@ -634,6 +641,11 @@ internal partial class CitiesForm : BaseKryptonForm
 		buttonCommitCoordinates.Enabled = true;
 		string latText = selectedEntry.Latitude.ToString(format: "F4", provider: CultureInfo.InvariantCulture);
 		string lonText = selectedEntry.Longitude.ToString(format: "F4", provider: CultureInfo.InvariantCulture);
+		textToCopyStateName = selectedEntry.State;
+		textToCopyCityName = selectedEntry.City;
+		textToCopyLatitudeValue = latText;
+		textToCopyLongitudeValue = lonText;
+		textToCopyFormattedOverview = $"{selectedEntry.State}\t{selectedEntry.City}\t{latText}\t{lonText}";
 		SetStatusBar(label: labelInformation, text: $"{selectedEntry.City} ({selectedEntry.State}) — {latText}, {lonText}");
 	}
 
@@ -732,7 +744,7 @@ internal partial class CitiesForm : BaseKryptonForm
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
 	/// <remarks>Commits the selected city's latitude and longitude and closes the dialog with <see cref="DialogResult.OK"/>.</remarks>
-	private void ToolStripButtonCommitCoordinates_Click(object? sender, EventArgs e)
+	private void ButtonCommitCoordinates_Click(object? sender, EventArgs e)
 	{
 		ArgumentNullException.ThrowIfNull(argument: e);
 		CommitSelectedCoordinates();
@@ -807,6 +819,116 @@ internal partial class CitiesForm : BaseKryptonForm
 		// Set the dialog result to Cancel to indicate that no coordinates have been selected
 		DialogResult = DialogResult.Cancel;
 		Close();
+	}
+
+	/// <summary>Copies the selected state name to the clipboard.</summary>
+	/// <remarks>Displays a warning when the state name is null or empty.</remarks>
+	/// <param name="sender">The object that raised the event.</param>
+	/// <param name="e">The event data.</param>
+	private void MenuItemCopyStateName_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: $"Copying the state name \"{textToCopyStateName}\" to the clipboard...");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		if (string.IsNullOrEmpty(value: textToCopyStateName))
+		{
+			string message = "The state name cannot be copied because it is empty or null.";
+			logger.Warn(message: message);
+			ShowWarnMessage(caption: I18nStrings.ErrorCaption, message: message);
+			return;
+		}
+		CopyToClipboard(text: textToCopyStateName);
+		logger.Info(message: $"The state name \"{textToCopyStateName}\" was copied.");
+	}
+
+	/// <summary>Copies the selected city name to the clipboard.</summary>
+	/// <remarks>Displays a warning when the city name is null or empty.</remarks>
+	/// <param name="sender">The object that raised the event.</param>
+	/// <param name="e">The event data.</param>
+	private void MenuItemCopyCityName_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: $"Copying the city name \"{textToCopyCityName}\" to the clipboard...");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		if (string.IsNullOrEmpty(value: textToCopyCityName))
+		{
+			string message = "The city name cannot be copied because it is empty or null.";
+			logger.Warn(message: message);
+			ShowWarnMessage(caption: I18nStrings.ErrorCaption, message: message);
+			return;
+		}
+		CopyToClipboard(text: textToCopyCityName);
+		logger.Info(message: $"The state name \"{textToCopyCityName}\" was copied.");
+	}
+
+	/// <summary>Copies the selected latitude value to the clipboard.</summary>
+	/// <remarks>Displays a warning when the latitude value is null or empty.</remarks>
+	/// <param name="sender">The object that raised the event.</param>
+	/// <param name="e">The event data.</param>
+	private void MenuItemCopyLatitudeValue_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: $"Copying the latitude value \"{textToCopyLatitudeValue}\" to the clipboard...");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		if (string.IsNullOrEmpty(value: textToCopyLatitudeValue))
+		{
+			string message = "The latitude value cannot be copied because it is empty or null.";
+			logger.Warn(message: message);
+			ShowWarnMessage(caption: I18nStrings.ErrorCaption, message: message);
+			return;
+		}
+		CopyToClipboard(text: textToCopyLatitudeValue);
+		logger.Info(message: $"The latitude value \"{textToCopyLatitudeValue}\" was copied.");
+	}
+
+	/// <summary>Copies the selected longitude value to the clipboard.</summary>
+	/// <remarks>Displays a warning when the longitude value is null or empty.</remarks>
+	/// <param name="sender">The object that raised the event.</param>
+	/// <param name="e">The event data.</param>
+	private void MenuItemCopyLongitudeValue_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: $"Copying the longitude value \"{textToCopyLongitudeValue}\" to the clipboard...");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		if (string.IsNullOrEmpty(value: textToCopyLongitudeValue))
+		{
+			string message = "The longitude value cannot be copied because it is empty or null.";
+			logger.Warn(message: message);
+			ShowWarnMessage(caption: I18nStrings.ErrorCaption, message: message);
+			return;
+		}
+		CopyToClipboard(text: textToCopyLongitudeValue);
+		logger.Info(message: $"The longitude value \"{textToCopyLongitudeValue}\" was copied.");
+	}
+
+	/// <summary>Copies the selected and formatted overview to the clipboard.</summary>
+	/// <remarks>Displays a warning when the formatted overview is null or empty.</remarks>
+	/// <param name="sender">The object that raised the event.</param>
+	/// <param name="e">The event data.</param>
+	private void MenuItemCopyValueFormattedOverview_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: $"Copying the formatted overview \"{textToCopyFormattedOverview}\" to the clipboard...");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		if (string.IsNullOrEmpty(value: textToCopyFormattedOverview))
+		{
+			string message = "The formatted overview cannot be copied because it is empty or null.";
+			logger.Warn(message: message);
+			ShowWarnMessage(caption: I18nStrings.ErrorCaption, message: message);
+			return;
+		}
+		CopyToClipboard(text: textToCopyFormattedOverview);
+		logger.Info(message: $"The formatted overview \"{textToCopyFormattedOverview}\" was copied.");
 	}
 
 	#endregion
