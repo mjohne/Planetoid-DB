@@ -59,12 +59,20 @@ partial class CitiesForm
 		columnHeaderCities = new ColumnHeader();
 		columnHeaderLatitude = new ColumnHeader();
 		columnHeaderLongitude = new ColumnHeader();
+		contextMenuCopyToClipboard = new ContextMenuStrip(components);
+		menuItemCopyStateName = new ToolStripMenuItem();
+		menuItemCopyCityName = new ToolStripMenuItem();
+		menuItemCopyLatitudeValue = new ToolStripMenuItem();
+		menuItemCopyLongitudeValue = new ToolStripMenuItem();
+		separator3 = new ToolStripSeparator();
+		menuItemCopyValueFormattedOverview = new ToolStripMenuItem();
 		toolStripMain = new KryptonToolStrip();
 		buttonCommitCoordinates = new ToolStripButton();
 		buttonCancel = new ToolStripButton();
 		separator1 = new ToolStripSeparator();
 		buttonExpandOrCollapseCitiesList = new ToolStripButton();
 		separator2 = new ToolStripSeparator();
+		dropDownButtonCopyToClipboard = new ToolStripDropDownButton();
 		dropDownButtonSaveList = new ToolStripDropDownButton();
 		contextMenuSaveToFile = new ContextMenuStrip(components);
 		menuItemTextFiles = new ToolStripMenuItem();
@@ -116,6 +124,7 @@ partial class CitiesForm
 		contextMenuShowControlsInStatusBar.SuspendLayout();
 		((System.ComponentModel.ISupportInitialize)panelMain).BeginInit();
 		panelMain.SuspendLayout();
+		contextMenuCopyToClipboard.SuspendLayout();
 		toolStripMain.SuspendLayout();
 		contextMenuSaveToFile.SuspendLayout();
 		SuspendLayout();
@@ -125,10 +134,6 @@ partial class CitiesForm
 		toolStripContainer.AccessibleDescription = "Groups the data";
 		toolStripContainer.AccessibleName = "Panel";
 		toolStripContainer.AccessibleRole = AccessibleRole.Pane;
-		toolStripContainer.Enter += Control_Enter;
-		toolStripContainer.Leave += Control_Leave;
-		toolStripContainer.MouseEnter += Control_Enter;
-		toolStripContainer.MouseLeave += Control_Leave;
 		// 
 		// toolStripContainer.BottomToolStripPanel
 		// 
@@ -144,7 +149,7 @@ partial class CitiesForm
 		toolStripContainer.ContentPanel.AccessibleRole = AccessibleRole.Pane;
 		toolStripContainer.ContentPanel.Controls.Add(panelMain);
 		toolStripContainer.ContentPanel.Margin = new Padding(4, 3, 4, 3);
-		toolStripContainer.ContentPanel.Size = new Size(464, 403);
+		toolStripContainer.ContentPanel.Size = new Size(517, 403);
 		toolStripContainer.Dock = DockStyle.Fill;
 		// 
 		// toolStripContainer.LeftToolStripPanel
@@ -160,7 +165,7 @@ partial class CitiesForm
 		toolStripContainer.RightToolStripPanel.AccessibleDescription = "Just a panel";
 		toolStripContainer.RightToolStripPanel.AccessibleName = "Right panel";
 		toolStripContainer.RightToolStripPanel.AccessibleRole = AccessibleRole.Pane;
-		toolStripContainer.Size = new Size(464, 450);
+		toolStripContainer.Size = new Size(517, 450);
 		toolStripContainer.TabIndex = 1;
 		toolStripContainer.Text = "toolStripContainer";
 		// 
@@ -170,6 +175,10 @@ partial class CitiesForm
 		toolStripContainer.TopToolStripPanel.AccessibleName = "Top panel";
 		toolStripContainer.TopToolStripPanel.AccessibleRole = AccessibleRole.Pane;
 		toolStripContainer.TopToolStripPanel.Controls.Add(toolStripMain);
+		toolStripContainer.Enter += Control_Enter;
+		toolStripContainer.Leave += Control_Leave;
+		toolStripContainer.MouseEnter += Control_Enter;
+		toolStripContainer.MouseLeave += Control_Leave;
 		// 
 		// statusStrip
 		// 
@@ -187,7 +196,7 @@ partial class CitiesForm
 		statusStrip.ProgressBars = null;
 		statusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
 		statusStrip.ShowItemToolTips = true;
-		statusStrip.Size = new Size(464, 22);
+		statusStrip.Size = new Size(517, 22);
 		statusStrip.TabIndex = 0;
 		statusStrip.TabStop = true;
 		statusStrip.Text = "Status bar";
@@ -254,7 +263,7 @@ partial class CitiesForm
 		panelMain.Location = new Point(0, 0);
 		panelMain.Name = "panelMain";
 		panelMain.PanelBackStyle = PaletteBackStyle.FormMain;
-		panelMain.Size = new Size(464, 403);
+		panelMain.Size = new Size(517, 403);
 		panelMain.TabIndex = 0;
 		panelMain.TabStop = true;
 		panelMain.Text = "Mainpanel";
@@ -270,6 +279,7 @@ partial class CitiesForm
 		listView.AccessibleRole = AccessibleRole.List;
 		listView.AllowColumnReorder = true;
 		listView.Columns.AddRange(new ColumnHeader[] { columnHeaderStates, columnHeaderCities, columnHeaderLatitude, columnHeaderLongitude });
+		listView.ContextMenuStrip = contextMenuCopyToClipboard;
 		listView.Dock = DockStyle.Fill;
 		listView.Font = new Font("Segoe UI", 9F);
 		listView.FullRowSelect = true;
@@ -278,7 +288,7 @@ partial class CitiesForm
 		listView.MultiSelect = false;
 		listView.Name = "listView";
 		listView.ShowItemToolTips = true;
-		listView.Size = new Size(464, 403);
+		listView.Size = new Size(517, 403);
 		listView.TabIndex = 0;
 		listView.UseCompatibleStateImageBehavior = false;
 		listView.View = View.Details;
@@ -286,8 +296,8 @@ partial class CitiesForm
 		listView.RetrieveVirtualItem += ListView_RetrieveVirtualItem;
 		listView.SelectedIndexChanged += ListView_SelectedIndexChanged;
 		listView.DoubleClick += ListView_DoubleClick;
-		listView.KeyDown += ListView_KeyDown;
 		listView.Enter += Control_Enter;
+		listView.KeyDown += ListView_KeyDown;
 		listView.Leave += Control_Leave;
 		listView.MouseEnter += Control_Enter;
 		listView.MouseLeave += Control_Leave;
@@ -306,13 +316,95 @@ partial class CitiesForm
 		// 
 		columnHeaderLatitude.Text = I18nStrings.ObservatoryCodesColumnLatitude;
 		columnHeaderLatitude.TextAlign = HorizontalAlignment.Right;
-		columnHeaderLatitude.Width = 70;
+		columnHeaderLatitude.Width = 100;
 		// 
 		// columnHeaderLongitude
 		// 
 		columnHeaderLongitude.Text = "Longitude";
 		columnHeaderLongitude.TextAlign = HorizontalAlignment.Right;
-		columnHeaderLongitude.Width = 70;
+		columnHeaderLongitude.Width = 100;
+		// 
+		// contextMenuCopyToClipboard
+		// 
+		contextMenuCopyToClipboard.AccessibleDescription = "Shows the context menu of copying to clipboard";
+		contextMenuCopyToClipboard.AccessibleName = "Context menu of copying to clipboard";
+		contextMenuCopyToClipboard.AccessibleRole = AccessibleRole.MenuPopup;
+		contextMenuCopyToClipboard.AllowClickThrough = true;
+		contextMenuCopyToClipboard.Font = new Font("Segoe UI", 9F);
+		contextMenuCopyToClipboard.Items.AddRange(new ToolStripItem[] { menuItemCopyStateName, menuItemCopyCityName, menuItemCopyLatitudeValue, menuItemCopyLongitudeValue, separator3, menuItemCopyValueFormattedOverview });
+		contextMenuCopyToClipboard.Name = "contextMenuStripListViewReadableDesignations";
+		contextMenuCopyToClipboard.OwnerItem = dropDownButtonCopyToClipboard;
+		contextMenuCopyToClipboard.Size = new Size(397, 120);
+		contextMenuCopyToClipboard.TabStop = true;
+		contextMenuCopyToClipboard.Text = "Context menu of copying to clipboard";
+		// 
+		// menuItemCopyStateName
+		// 
+		menuItemCopyStateName.AccessibleDescription = "Copies the state name";
+		menuItemCopyStateName.AccessibleName = "Copy state name";
+		menuItemCopyStateName.AccessibleRole = AccessibleRole.MenuItem;
+		menuItemCopyStateName.AutoToolTip = true;
+		menuItemCopyStateName.Image = FatcowIcons16px.fatcow_page_copy_16px;
+		menuItemCopyStateName.Name = "menuItemCopyStateName";
+		menuItemCopyStateName.Size = new Size(396, 22);
+		menuItemCopyStateName.Text = "Copy &state name";
+		menuItemCopyStateName.Click += MenuItemCopyStateName_Click;
+		// 
+		// menuItemCopyCityName
+		// 
+		menuItemCopyCityName.AccessibleDescription = "Copies the city name";
+		menuItemCopyCityName.AccessibleName = "Copy city name";
+		menuItemCopyCityName.AccessibleRole = AccessibleRole.MenuItem;
+		menuItemCopyCityName.AutoToolTip = true;
+		menuItemCopyCityName.Image = FatcowIcons16px.fatcow_page_copy_16px;
+		menuItemCopyCityName.Name = "menuItemCopyCityName";
+		menuItemCopyCityName.Size = new Size(396, 22);
+		menuItemCopyCityName.Text = "Copy &city name";
+		menuItemCopyCityName.Click += MenuItemCopyCityName_Click;
+		// 
+		// menuItemCopyLatitudeValue
+		// 
+		menuItemCopyLatitudeValue.AccessibleDescription = "Copies the latitude value";
+		menuItemCopyLatitudeValue.AccessibleName = "Copy latitude value";
+		menuItemCopyLatitudeValue.AccessibleRole = AccessibleRole.MenuItem;
+		menuItemCopyLatitudeValue.AutoToolTip = true;
+		menuItemCopyLatitudeValue.Image = FatcowIcons16px.fatcow_page_copy_16px;
+		menuItemCopyLatitudeValue.Name = "menuItemCopyLatitudeValue";
+		menuItemCopyLatitudeValue.Size = new Size(396, 22);
+		menuItemCopyLatitudeValue.Text = "Copy l&atitude value";
+		menuItemCopyLatitudeValue.Click += MenuItemCopyLatitudeValue_Click;
+		// 
+		// menuItemCopyLongitudeValue
+		// 
+		menuItemCopyLongitudeValue.AccessibleDescription = "Copies the longitude value";
+		menuItemCopyLongitudeValue.AccessibleName = "Copy longitude value";
+		menuItemCopyLongitudeValue.AccessibleRole = AccessibleRole.MenuItem;
+		menuItemCopyLongitudeValue.AutoToolTip = true;
+		menuItemCopyLongitudeValue.Image = FatcowIcons16px.fatcow_page_copy_16px;
+		menuItemCopyLongitudeValue.Name = "menuItemCopyLongitudeValue";
+		menuItemCopyLongitudeValue.Size = new Size(396, 22);
+		menuItemCopyLongitudeValue.Text = "Copy l&ongitude value";
+		menuItemCopyLongitudeValue.Click += MenuItemCopyLongitudeValue_Click;
+		// 
+		// separator3
+		// 
+		separator3.AccessibleDescription = "Just a separator";
+		separator3.AccessibleName = "Just a separator";
+		separator3.AccessibleRole = AccessibleRole.Separator;
+		separator3.Name = "separator3";
+		separator3.Size = new Size(393, 6);
+		// 
+		// menuItemCopyValueFormattedOverview
+		// 
+		menuItemCopyValueFormattedOverview.AccessibleDescription = "Copies a formatted overview (State / City / Latitude / Longitude)";
+		menuItemCopyValueFormattedOverview.AccessibleName = "Copy formatted overview (State / City / Latitude / Longitude)";
+		menuItemCopyValueFormattedOverview.AccessibleRole = AccessibleRole.MenuItem;
+		menuItemCopyValueFormattedOverview.AutoToolTip = true;
+		menuItemCopyValueFormattedOverview.Image = FatcowIcons16px.fatcow_table_row_insert_16px;
+		menuItemCopyValueFormattedOverview.Name = "menuItemCopyValueFormattedOverview";
+		menuItemCopyValueFormattedOverview.Size = new Size(396, 22);
+		menuItemCopyValueFormattedOverview.Text = "C&opy formatted &overview (State / City / Latitude / Longitude)";
+		menuItemCopyValueFormattedOverview.Click += MenuItemCopyValueFormattedOverview_Click;
 		// 
 		// toolStripMain
 		// 
@@ -323,10 +415,10 @@ partial class CitiesForm
 		toolStripMain.AllowItemReorder = true;
 		toolStripMain.Dock = DockStyle.None;
 		toolStripMain.Font = new Font("Segoe UI", 9F);
-		toolStripMain.Items.AddRange(new ToolStripItem[] { buttonCommitCoordinates, buttonCancel, separator1, buttonExpandOrCollapseCitiesList, separator2, dropDownButtonSaveList });
+		toolStripMain.Items.AddRange(new ToolStripItem[] { buttonCommitCoordinates, buttonCancel, separator1, buttonExpandOrCollapseCitiesList, separator2, dropDownButtonCopyToClipboard, dropDownButtonSaveList });
 		toolStripMain.Location = new Point(0, 0);
 		toolStripMain.Name = "toolStripMain";
-		toolStripMain.Size = new Size(464, 25);
+		toolStripMain.Size = new Size(517, 25);
 		toolStripMain.Stretch = true;
 		toolStripMain.TabIndex = 0;
 		toolStripMain.TabStop = true;
@@ -342,12 +434,12 @@ partial class CitiesForm
 		buttonCommitCoordinates.AccessibleName = "Commit the coordinates";
 		buttonCommitCoordinates.AccessibleRole = AccessibleRole.PushButton;
 		buttonCommitCoordinates.Enabled = false;
-		buttonCommitCoordinates.Image = (Image)resources.GetObject("buttonCommitCoordinates.Image");
+		buttonCommitCoordinates.Image = FatcowIcons16px.fatcow_tick_octagon_16px;
 		buttonCommitCoordinates.ImageTransparentColor = Color.Magenta;
 		buttonCommitCoordinates.Name = "buttonCommitCoordinates";
 		buttonCommitCoordinates.Size = new Size(136, 22);
 		buttonCommitCoordinates.Text = "&Commit coordinates";
-		buttonCommitCoordinates.Click += ToolStripButtonCommitCoordinates_Click;
+		buttonCommitCoordinates.Click += ButtonCommitCoordinates_Click;
 		buttonCommitCoordinates.MouseEnter += Control_Enter;
 		buttonCommitCoordinates.MouseLeave += Control_Leave;
 		// 
@@ -399,6 +491,20 @@ partial class CitiesForm
 		separator2.MouseEnter += Control_Enter;
 		separator2.MouseLeave += Control_Leave;
 		// 
+		// dropDownButtonCopyToClipboard
+		// 
+		dropDownButtonCopyToClipboard.AccessibleDescription = "Copies a selected name to clipboard";
+		dropDownButtonCopyToClipboard.AccessibleName = "Copy to clipboard";
+		dropDownButtonCopyToClipboard.AccessibleRole = AccessibleRole.PushButton;
+		dropDownButtonCopyToClipboard.DropDown = contextMenuCopyToClipboard;
+		dropDownButtonCopyToClipboard.Image = FatcowIcons16px.fatcow_page_white_copy_16px;
+		dropDownButtonCopyToClipboard.ImageTransparentColor = Color.Magenta;
+		dropDownButtonCopyToClipboard.Name = "dropDownButtonCopyToClipboard";
+		dropDownButtonCopyToClipboard.Size = new Size(131, 22);
+		dropDownButtonCopyToClipboard.Text = "C&opy to clipboard";
+		dropDownButtonCopyToClipboard.MouseEnter += Control_Enter;
+		dropDownButtonCopyToClipboard.MouseLeave += Control_Leave;
+		// 
 		// dropDownButtonSaveList
 		// 
 		dropDownButtonSaveList.AccessibleDescription = "Saves the list as file";
@@ -408,7 +514,7 @@ partial class CitiesForm
 		dropDownButtonSaveList.Image = FatcowIcons16px.fatcow_diskette_16px;
 		dropDownButtonSaveList.ImageTransparentColor = Color.Magenta;
 		dropDownButtonSaveList.Name = "dropDownButtonSaveList";
-		dropDownButtonSaveList.Size = new Size(78, 22);
+		dropDownButtonSaveList.Size = new Size(78, 20);
 		dropDownButtonSaveList.Text = "&Save list";
 		dropDownButtonSaveList.MouseEnter += Control_Enter;
 		dropDownButtonSaveList.MouseLeave += Control_Leave;
@@ -422,11 +528,10 @@ partial class CitiesForm
 		contextMenuSaveToFile.Font = new Font("Segoe UI", 9F);
 		contextMenuSaveToFile.Items.AddRange(new ToolStripItem[] { menuItemTextFiles, menuItemWriterDocuments, menuItemSpreadsheetDocuments, menuItemXmlDocuments, menuItemConfigurationFiles, menuItemDatabaseScripts, menuItemPortableDocuments });
 		contextMenuSaveToFile.Name = "contextMenuSaveList";
+		contextMenuSaveToFile.OwnerItem = dropDownButtonSaveList;
 		contextMenuSaveToFile.Size = new Size(202, 158);
 		contextMenuSaveToFile.TabStop = true;
 		contextMenuSaveToFile.Text = "&Save list";
-		contextMenuSaveToFile.MouseEnter += Control_Enter;
-		contextMenuSaveToFile.MouseLeave += Control_Leave;
 		contextMenuSaveToFile.Enter += Control_Enter;
 		contextMenuSaveToFile.Leave += Control_Leave;
 		contextMenuSaveToFile.MouseEnter += Control_Enter;
@@ -1003,7 +1108,7 @@ partial class CitiesForm
 		AutoScaleDimensions = new SizeF(7F, 15F);
 		AutoScaleMode = AutoScaleMode.Font;
 		AutoScroll = true;
-		ClientSize = new Size(464, 450);
+		ClientSize = new Size(517, 450);
 		ControlBox = false;
 		Controls.Add(toolStripContainer);
 		FormBorderStyle = FormBorderStyle.SizableToolWindow;
@@ -1032,6 +1137,7 @@ partial class CitiesForm
 		contextMenuShowControlsInStatusBar.ResumeLayout(false);
 		((System.ComponentModel.ISupportInitialize)panelMain).EndInit();
 		panelMain.ResumeLayout(false);
+		contextMenuCopyToClipboard.ResumeLayout(false);
 		toolStripMain.ResumeLayout(false);
 		toolStripMain.PerformLayout();
 		contextMenuSaveToFile.ResumeLayout(false);
@@ -1058,6 +1164,8 @@ partial class CitiesForm
 	/// <summary>Gets or sets the context menu that controls which elements are shown in the status bar.</summary>
 	private ContextMenuStrip contextMenuShowControlsInStatusBar;
 
+	/// <summary>Provides copy-to-clipboard commands in a context menu.</summary>
+	private ContextMenuStrip contextMenuCopyToClipboard;
 	/// <summary>Manages Krypton theme and visual style settings for the form.</summary>
 	private KryptonManager kryptonManager;
 
@@ -1087,6 +1195,9 @@ partial class CitiesForm
 
 	/// <summary>The drop-down button for saving lists in the toolbar.</summary>
 	private ToolStripDropDownButton dropDownButtonSaveList;
+
+	/// <summary>Gets or sets the drop-down button used to copy values to the clipboard.</summary>
+	private ToolStripDropDownButton dropDownButtonCopyToClipboard;
 
 	/// <summary>Represents the menu item used to access text-file options.</summary>
 	private ToolStripMenuItem menuItemTextFiles;
@@ -1210,11 +1321,28 @@ partial class CitiesForm
 	/// <summary>Gets or sets the menu item that toggles the visibility of the information label.</summary>
 	private ToolStripMenuItem menuItemShowInformationLabel;
 
+	/// <summary>Copies the formatted overview value.</summary>
+	private ToolStripMenuItem menuItemCopyValueFormattedOverview;
+
+	/// <summary>Represents the menu item that copies a state name.</summary>
+	private ToolStripMenuItem menuItemCopyStateName;
+
+	/// <summary>A menu item that copies the city name.</summary>
+	private ToolStripMenuItem menuItemCopyCityName;
+
+	/// <summary>Menu item that copies the latitude value.</summary>
+	private ToolStripMenuItem menuItemCopyLatitudeValue;
+
+	/// <summary>Represents the menu item used to copy a longitude value.</summary>
+	private ToolStripMenuItem menuItemCopyLongitudeValue;
 	/// <summary>A separator displayed in the form's tool strip.</summary>
 	private ToolStripSeparator separator1;
 
 	/// <summary>A separator displayed in the form's tool strip.</summary>
 	private ToolStripSeparator separator2;
+
+	/// <summary>Gets or sets the third tool strip separator used in the form.</summary>
+	private ToolStripSeparator separator3;
 
 	/// <summary>Gets or sets the status label that displays informational text.</summary>
 	private ToolStripStatusLabel labelInformation;
