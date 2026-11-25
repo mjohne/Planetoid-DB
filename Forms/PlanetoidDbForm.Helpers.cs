@@ -1468,17 +1468,15 @@ public partial class PlanetoidDbForm
 	}
 
 	/// <summary>Shows the ephemerides form for the current planetoid.</summary>
-	/// <remarks>Passes the raw MPCORB record of the current planetoid to the <see cref="EphemerisForm"/>.</remarks>
+	/// <remarks>Passes the raw MPCORB record of the current planetoid to the <see cref="EphemeridesForm"/>.</remarks>
 	private void ShowEphemerides()
 	{
 		// Create a new instance of the EphemerisForm
-		using EphemerisForm formEphemeris = new();
+		using EphemeridesForm formEphemeris = new();
 		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 		formEphemeris.TopMost = TopMost;
 		// Pass the raw MPCORB record of the current planetoid to the form
-		string? rawRecord = currentMpcorbPosition >= 0 && currentMpcorbPosition < planetoidsDatabase.Count
-			? planetoidsDatabase[index: currentMpcorbPosition]?.ToString()
-			: null;
+		string? rawRecord = currentMpcorbPosition >= 0 && currentMpcorbPosition < planetoidsDatabase.Count ? planetoidsDatabase[index: currentMpcorbPosition]?.ToString() : null;
 		formEphemeris.SetPlanetoidRecord(rawRecord: rawRecord);
 		// Show the ephemerides form as a modal dialog
 		_ = formEphemeris.ShowDialog(owner: this);

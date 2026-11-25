@@ -17,6 +17,7 @@ using Krypton.Toolkit;
 
 using NLog;
 
+using Planetoid_DB.Form;
 using Planetoid_DB.Forms;
 using Planetoid_DB.Helpers;
 using Planetoid_DB.Properties;
@@ -1557,7 +1558,7 @@ public partial class PlanetoidDbForm
 		ShowMaxoidsOfAllMinorPlanets();
 	}
 
-	/// <summary>Handles the click event for the menuItemIsserandParameterOfOneMinorPlanet. Shows the Tisserand parameters form.</summary>
+	/// <summary>Handles the click event for the menuItemTisserandParameterOfOneMinorPlanet. Shows the Tisserand parameters form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the Tisserand parameters form for the currently selected minor planet.</remarks>
@@ -1943,6 +1944,23 @@ public partial class PlanetoidDbForm
 		using ObservatoryCodesForm formObservatoryCodes = new();
 		formObservatoryCodes.TopMost = TopMost;
 		_ = formObservatoryCodes.ShowDialog(owner: this);
+	}
+
+	/// <summary>Opens the cities list in a modal dialog.</summary>
+	/// <remarks>The cities form inherits the main form's topmost state.</remarks>
+	/// <param name="sender">The object that raised the event.</param>
+	/// <param name="e">The event data.</param>
+	private void Cities_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: "Opening CitiesForm");
+		// Ensure that an event source was supplied
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Ensure that the event data was supplied
+		ArgumentNullException.ThrowIfNull(argument: e);
+		// Open the CitiesForm as a modal dialog to display the list of cities. The form is set to be topmost based on the current state of the main form to ensure it appears above other windows.
+		using CitiesForm formCities = new();
+		formCities.TopMost = TopMost;
+		_ = formCities.ShowDialog(owner: this);
 	}
 
 	/// <summary>Handles the Click event to display the orbit 2D top view.</summary>
