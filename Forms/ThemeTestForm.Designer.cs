@@ -43,40 +43,18 @@ partial class ThemeTestForm
 	{
 		components = new System.ComponentModel.Container();
 		System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ThemeTestForm));
-		kryptonThemeComboBox = new KryptonThemeComboBox();
 		kryptonManager = new KryptonManager(components);
 		kryptonPanelMain = new KryptonPanel();
-		kryptonStatusStrip = new KryptonStatusStrip();
-		labelInformation = new ToolStripStatusLabel();
+		kryptonThemeListBox = new KryptonThemeListBox();
+		statusStrip = new KryptonStatusStrip();
 		contextMenuShowControlsInStatusBar = new ContextMenuStrip(components);
-		toolStripMenuItemShowInformationLabel = new ToolStripMenuItem();
-		((System.ComponentModel.ISupportInitialize)kryptonThemeComboBox).BeginInit();
+		menuItemShowInformationLabel = new ToolStripMenuItem();
+		labelInformation = new ToolStripStatusLabel();
 		((System.ComponentModel.ISupportInitialize)kryptonPanelMain).BeginInit();
 		kryptonPanelMain.SuspendLayout();
-		kryptonStatusStrip.SuspendLayout();
+		statusStrip.SuspendLayout();
 		contextMenuShowControlsInStatusBar.SuspendLayout();
 		SuspendLayout();
-		// 
-		// kryptonThemeComboBox
-		// 
-		kryptonThemeComboBox.AccessibleDescription = "Lists the themes in a combo box";
-		kryptonThemeComboBox.AccessibleName = "Theme combo box";
-		kryptonThemeComboBox.AccessibleRole = AccessibleRole.ComboBox;
-		kryptonThemeComboBox.AllowButtonSpecToolTipPriority = true;
-		kryptonThemeComboBox.AllowButtonSpecToolTips = true;
-		kryptonThemeComboBox.Location = new Point(12, 12);
-		kryptonThemeComboBox.Name = "kryptonThemeComboBox";
-		kryptonThemeComboBox.Size = new Size(260, 22);
-		kryptonThemeComboBox.StateCommon.ComboBox.Content.TextH = PaletteRelativeAlign.Near;
-		kryptonThemeComboBox.TabIndex = 0;
-		kryptonThemeComboBox.ToolTipValues.Description = "Lists the themes in a combo box";
-		kryptonThemeComboBox.ToolTipValues.EnableToolTips = true;
-		kryptonThemeComboBox.ToolTipValues.Heading = "Theme combo box";
-		kryptonThemeComboBox.SelectedValueChanged += KryptonThemeComboBox_SelectedValueChanged;
-		kryptonThemeComboBox.Enter += Control_Enter;
-		kryptonThemeComboBox.Leave += Control_Leave;
-		kryptonThemeComboBox.MouseEnter += Control_Enter;
-		kryptonThemeComboBox.MouseLeave += Control_Leave;
 		// 
 		// kryptonManager
 		// 
@@ -90,13 +68,13 @@ partial class ThemeTestForm
 		kryptonPanelMain.AccessibleName = "Panel";
 		kryptonPanelMain.AccessibleRole = AccessibleRole.Pane;
 		kryptonPanelMain.AutoScroll = true;
-		kryptonPanelMain.Controls.Add(kryptonStatusStrip);
-		kryptonPanelMain.Controls.Add(kryptonThemeComboBox);
+		kryptonPanelMain.Controls.Add(kryptonThemeListBox);
+		kryptonPanelMain.Controls.Add(statusStrip);
 		kryptonPanelMain.Dock = DockStyle.Fill;
 		kryptonPanelMain.Location = new Point(0, 0);
 		kryptonPanelMain.Name = "kryptonPanelMain";
 		kryptonPanelMain.PanelBackStyle = PaletteBackStyle.FormMain;
-		kryptonPanelMain.Size = new Size(289, 81);
+		kryptonPanelMain.Size = new Size(212, 399);
 		kryptonPanelMain.TabIndex = 2;
 		kryptonPanelMain.TabStop = true;
 		kryptonPanelMain.Enter += Control_Enter;
@@ -104,29 +82,78 @@ partial class ThemeTestForm
 		kryptonPanelMain.MouseEnter += Control_Enter;
 		kryptonPanelMain.MouseLeave += Control_Leave;
 		// 
-		// kryptonStatusStrip
+		// kryptonThemeListBox
 		// 
-		kryptonStatusStrip.AccessibleDescription = "Shows some information";
-		kryptonStatusStrip.AccessibleName = "Status bar with some information";
-		kryptonStatusStrip.AccessibleRole = AccessibleRole.StatusBar;
-		kryptonStatusStrip.AllowClickThrough = true;
-		kryptonStatusStrip.AllowItemReorder = true;
-		kryptonStatusStrip.ContextMenuStrip = contextMenuShowControlsInStatusBar;
-		kryptonStatusStrip.Font = new Font("Segoe UI", 9F);
-		kryptonStatusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
-		kryptonStatusStrip.Location = new Point(0, 59);
-		kryptonStatusStrip.Name = "kryptonStatusStrip";
-		kryptonStatusStrip.ProgressBars = null;
-		kryptonStatusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
-		kryptonStatusStrip.ShowItemToolTips = true;
-		kryptonStatusStrip.Size = new Size(289, 22);
-		kryptonStatusStrip.TabIndex = 4;
-		kryptonStatusStrip.TabStop = true;
-		kryptonStatusStrip.Text = "Status bar";
-		kryptonStatusStrip.Enter += Control_Enter;
-		kryptonStatusStrip.Leave += Control_Leave;
-		kryptonStatusStrip.MouseEnter += Control_Enter;
-		kryptonStatusStrip.MouseLeave += Control_Leave;
+		kryptonThemeListBox.AccessibleDescription = "Lists the themes in a list box";
+		kryptonThemeListBox.AccessibleName = "Theme list box";
+		kryptonThemeListBox.AccessibleRole = AccessibleRole.List;
+		kryptonThemeListBox.Dock = DockStyle.Fill;
+		kryptonThemeListBox.HorizontalScrollbar = true;
+		kryptonThemeListBox.Location = new Point(0, 0);
+		kryptonThemeListBox.Name = "kryptonThemeListBox";
+		kryptonThemeListBox.Size = new Size(212, 377);
+		kryptonThemeListBox.TabIndex = 0;
+		kryptonThemeListBox.SelectedIndexChanged += KryptonThemeListBox_SelectedValueChanged;
+		kryptonThemeListBox.Enter += Control_Enter;
+		kryptonThemeListBox.Leave += Control_Leave;
+		kryptonThemeListBox.MouseEnter += Control_Enter;
+		kryptonThemeListBox.MouseLeave += Control_Leave;
+		// 
+		// statusStrip
+		// 
+		statusStrip.AccessibleDescription = "Shows some information";
+		statusStrip.AccessibleName = "Status bar with some information";
+		statusStrip.AccessibleRole = AccessibleRole.StatusBar;
+		statusStrip.AllowClickThrough = true;
+		statusStrip.AllowItemReorder = true;
+		statusStrip.ContextMenuStrip = contextMenuShowControlsInStatusBar;
+		statusStrip.Font = new Font("Segoe UI", 9F);
+		statusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
+		statusStrip.Location = new Point(0, 377);
+		statusStrip.Name = "statusStrip";
+		statusStrip.ProgressBars = null;
+		statusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
+		statusStrip.ShowItemToolTips = true;
+		statusStrip.Size = new Size(212, 22);
+		statusStrip.TabIndex = 1;
+		statusStrip.TabStop = true;
+		statusStrip.Text = "Status bar";
+		statusStrip.Enter += Control_Enter;
+		statusStrip.Leave += Control_Leave;
+		statusStrip.MouseEnter += Control_Enter;
+		statusStrip.MouseLeave += Control_Leave;
+		// 
+		// contextMenuShowControlsInStatusBar
+		// 
+		contextMenuShowControlsInStatusBar.AccessibleDescription = "Shows the context menu for the visibility of controls in the status bar";
+		contextMenuShowControlsInStatusBar.AccessibleName = "Context menu for the visibility of controls in the status bar";
+		contextMenuShowControlsInStatusBar.AccessibleRole = AccessibleRole.MenuPopup;
+		contextMenuShowControlsInStatusBar.AllowClickThrough = true;
+		contextMenuShowControlsInStatusBar.Font = new Font("Segoe UI", 9F);
+		contextMenuShowControlsInStatusBar.Items.AddRange(new ToolStripItem[] { menuItemShowInformationLabel });
+		contextMenuShowControlsInStatusBar.Name = "contextMenuStrip";
+		contextMenuShowControlsInStatusBar.Size = new Size(198, 26);
+		contextMenuShowControlsInStatusBar.TabStop = true;
+		contextMenuShowControlsInStatusBar.Text = "Show controls in status bar";
+		contextMenuShowControlsInStatusBar.MouseEnter += Control_Enter;
+		contextMenuShowControlsInStatusBar.MouseLeave += Control_Leave;
+		// 
+		// menuItemShowInformationLabel
+		// 
+		menuItemShowInformationLabel.AccessibleDescription = "Determines whether the information label is visible or hidden";
+		menuItemShowInformationLabel.AccessibleName = "Information label";
+		menuItemShowInformationLabel.AccessibleRole = AccessibleRole.MenuItem;
+		menuItemShowInformationLabel.AutoToolTip = true;
+		menuItemShowInformationLabel.Checked = true;
+		menuItemShowInformationLabel.CheckOnClick = true;
+		menuItemShowInformationLabel.CheckState = CheckState.Checked;
+		menuItemShowInformationLabel.Name = "menuItemShowInformationLabel";
+		menuItemShowInformationLabel.ShortcutKeyDisplayString = "";
+		menuItemShowInformationLabel.Size = new Size(197, 22);
+		menuItemShowInformationLabel.Text = "Show &information label";
+		menuItemShowInformationLabel.Click += MenuItemShowInformationLabel_Click;
+		menuItemShowInformationLabel.MouseEnter += Control_Enter;
+		menuItemShowInformationLabel.MouseLeave += Control_Leave;
 		// 
 		// labelInformation
 		// 
@@ -141,38 +168,6 @@ partial class ThemeTestForm
 		labelInformation.MouseEnter += Control_Enter;
 		labelInformation.MouseLeave += Control_Leave;
 		// 
-		// contextMenuShowControlsInStatusBar
-		// 
-		contextMenuShowControlsInStatusBar.AccessibleDescription = "Shows the context menu for the visibility of controls in the status bar";
-		contextMenuShowControlsInStatusBar.AccessibleName = "Context menu for the visibility of controls in the status bar";
-		contextMenuShowControlsInStatusBar.AccessibleRole = AccessibleRole.MenuPopup;
-		contextMenuShowControlsInStatusBar.AllowClickThrough = true;
-		contextMenuShowControlsInStatusBar.Font = new Font("Segoe UI", 9F);
-		contextMenuShowControlsInStatusBar.Items.AddRange(new ToolStripItem[] { toolStripMenuItemShowInformationLabel });
-		contextMenuShowControlsInStatusBar.Name = "contextMenuStrip";
-		contextMenuShowControlsInStatusBar.Size = new Size(198, 48);
-		contextMenuShowControlsInStatusBar.TabStop = true;
-		contextMenuShowControlsInStatusBar.Text = "Show controls in status bar";
-		contextMenuShowControlsInStatusBar.MouseEnter += Control_Enter;
-		contextMenuShowControlsInStatusBar.MouseLeave += Control_Leave;
-		// 
-		// toolStripMenuItemShowInformationLabel
-		// 
-		toolStripMenuItemShowInformationLabel.AccessibleDescription = "Determines whether the information label is visible or hidden";
-		toolStripMenuItemShowInformationLabel.AccessibleName = "Information label";
-		toolStripMenuItemShowInformationLabel.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemShowInformationLabel.AutoToolTip = true;
-		toolStripMenuItemShowInformationLabel.Checked = true;
-		toolStripMenuItemShowInformationLabel.CheckOnClick = true;
-		toolStripMenuItemShowInformationLabel.CheckState = CheckState.Checked;
-		toolStripMenuItemShowInformationLabel.Name = "toolStripMenuItemShowInformationLabel";
-		toolStripMenuItemShowInformationLabel.ShortcutKeyDisplayString = "";
-		toolStripMenuItemShowInformationLabel.Size = new Size(197, 22);
-		toolStripMenuItemShowInformationLabel.Text = "Show &information label";
-		toolStripMenuItemShowInformationLabel.Click += ToolStripMenuItemShowInformationLabel_Click;
-		toolStripMenuItemShowInformationLabel.MouseEnter += Control_Enter;
-		toolStripMenuItemShowInformationLabel.MouseLeave += Control_Leave;
-		// 
 		// ThemeTestForm
 		// 
 		AccessibleDescription = "Tests the themes";
@@ -180,7 +175,7 @@ partial class ThemeTestForm
 		AccessibleRole = AccessibleRole.Window;
 		AutoScaleDimensions = new SizeF(7F, 15F);
 		AutoScaleMode = AutoScaleMode.Font;
-		ClientSize = new Size(289, 81);
+		ClientSize = new Size(212, 399);
 		ControlBox = false;
 		Controls.Add(kryptonPanelMain);
 		FormBorderStyle = FormBorderStyle.SizableToolWindow;
@@ -196,36 +191,34 @@ partial class ThemeTestForm
 		Leave += Control_Enter;
 		MouseEnter += Control_Enter;
 		MouseLeave += Control_Enter;
-		((System.ComponentModel.ISupportInitialize)kryptonThemeComboBox).EndInit();
 		((System.ComponentModel.ISupportInitialize)kryptonPanelMain).EndInit();
 		kryptonPanelMain.ResumeLayout(false);
 		kryptonPanelMain.PerformLayout();
-		kryptonStatusStrip.ResumeLayout(false);
-		kryptonStatusStrip.PerformLayout();
+		statusStrip.ResumeLayout(false);
+		statusStrip.PerformLayout();
 		contextMenuShowControlsInStatusBar.ResumeLayout(false);
 		ResumeLayout(false);
 	}
 
 	#endregion
 
-	/// <summary>The theme selection control.</summary>
-	private KryptonThemeComboBox kryptonThemeComboBox;
+	/// <summary>A context menu that controls the display of controls in the status bar.</summary>
+	private ContextMenuStrip contextMenuShowControlsInStatusBar;
 
 	/// <summary>Manages Krypton theme and palette settings for the form.</summary>
 	private KryptonManager kryptonManager;
 	
 	/// <summary>Gets or sets the main Krypton panel.</summary>
 	private KryptonPanel kryptonPanelMain;
-	
-	/// <summary>Gets or sets the status strip used to display form status information.</summary>
-	private KryptonStatusStrip kryptonStatusStrip;
-	
+
 	/// <summary>Displays informational status text.</summary>
 	private ToolStripStatusLabel labelInformation;
-	
-	/// <summary>A context menu that controls the display of controls in the status bar.</summary>
-	private ContextMenuStrip contextMenuShowControlsInStatusBar;
+	/// <summary>Gets or sets the status strip used to display form status information.</summary>
+	private KryptonStatusStrip statusStrip;
+
+	/// <summary>The list box used to display and select available Krypton themes.</summary>
+	private KryptonThemeListBox kryptonThemeListBox;
 
 	/// <summary>Represents the menu item that controls display of the information label.</summary>
-	private ToolStripMenuItem toolStripMenuItemShowInformationLabel;
+	private ToolStripMenuItem menuItemShowInformationLabel;
 }
