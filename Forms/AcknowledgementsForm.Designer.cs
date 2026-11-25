@@ -130,8 +130,8 @@ partial class AcknowledgementsForm
 		// 
 		// kryptonButtonOpenWebsiteSao
 		// 
-		kryptonButtonOpenWebsiteSao.AccessibleDescription = "Opens the XYZ homepage";
-		kryptonButtonOpenWebsiteSao.AccessibleName = "XYZ homepage";
+		kryptonButtonOpenWebsiteSao.AccessibleDescription = "Opens the Smithsonian Astrophysical Observatory homepage";
+		kryptonButtonOpenWebsiteSao.AccessibleName = "Smithsonian Astrophysical Observatory homepage";
 		kryptonButtonOpenWebsiteSao.AccessibleRole = AccessibleRole.PushButton;
 		kryptonButtonOpenWebsiteSao.ButtonStyle = Krypton.Toolkit.ButtonStyle.Alternate;
 		kryptonButtonOpenWebsiteSao.Location = new Point(318, 303);
