@@ -58,7 +58,7 @@ public partial class ThemeTestForm : BaseKryptonForm
 
 	#endregion
 
-	#region form event handlers
+	#region Form event handlers
 
 	/// <summary>Fired when the preload form has finished loading. Clears the status area so no message is shown on startup.</summary>
 	/// <param name="sender">Event source (the form).</param>
@@ -101,15 +101,15 @@ public partial class ThemeTestForm : BaseKryptonForm
 	/// <summary>Logs the selected theme when a theme is selected.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
-	private void KryptonThemeComboBox_SelectedValueChanged(object sender, EventArgs e)
+	private void KryptonThemeListBox_SelectedValueChanged(object sender, EventArgs e)
 	{
 		// Ensure that an event source was supplied
 		ArgumentNullException.ThrowIfNull(argument: sender);
 		// Ensure that the event data was supplied
 		ArgumentNullException.ThrowIfNull(argument: e);
-		if (kryptonThemeComboBox.SelectedItem != null)
+		if (kryptonThemeListBox.SelectedItem != null)
 		{
-			string selectedText = kryptonThemeComboBox.SelectedItem.ToString() ?? string.Empty;
+			string selectedText = kryptonThemeListBox.SelectedItem.ToString() ?? string.Empty;
 			logger.Info($"Select theme item: {selectedText}.");
 		}
 	}
@@ -121,7 +121,7 @@ public partial class ThemeTestForm : BaseKryptonForm
 	/// <summary>Shows or hides the information label according to the menu item's checked state.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
-	private void ToolStripMenuItemShowInformationLabel_Click(object sender, EventArgs e)
+	private void MenuItemShowInformationLabel_Click(object sender, EventArgs e)
 	{
 		// Log the action of clicking of ToolStripMenuItemShowInformationLabel
 		logger.Info(message: $"ToolStripMenuItemShowInformationLabel clicked.");
@@ -129,7 +129,7 @@ public partial class ThemeTestForm : BaseKryptonForm
 		ArgumentNullException.ThrowIfNull(argument: sender);
 		// Ensure that the event data was supplied
 		ArgumentNullException.ThrowIfNull(argument: e);
-		labelInformation.Visible = toolStripMenuItemShowInformationLabel.Checked;
+		labelInformation.Visible = menuItemShowInformationLabel.Checked;
 		// Log the new state of the visibility of the information label
 		logger.Info(message: $"Set the visibility of the information label to {labelInformation.Visible}.");
 	}
