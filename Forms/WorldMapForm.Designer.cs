@@ -1,7 +1,7 @@
 /*
  * File:        WorldMapForm.Designer.cs
  * Project:     Planetoid-DB
- * Namespace:   Planetoid_DB
+ * Namespace:   Planetoid_DB.Form
  * Description: Designer file of the form that shows an interactive world map for selecting geographic coordinates.
  * Remarks:     This file contains the Windows Forms designer-generated code for the WorldMapForm.
  *
@@ -20,7 +20,7 @@ using Microsoft.Web.WebView2.WinForms;
 
 using System.ComponentModel;
 
-namespace Planetoid_DB;
+namespace Planetoid_DB.Form;
 
 /// <summary>Designer part of the form that shows an interactive world map for selecting geographic coordinates.</summary>
 /// <remarks>This form hosts a toolbar, a WebView2 control and a status bar inside a ToolStripContainer.</remarks>
@@ -36,27 +36,27 @@ partial class WorldMapForm
 		ComponentResourceManager resources = new ComponentResourceManager(typeof(WorldMapForm));
 		toolStripContainer = new ToolStripContainer();
 		kryptonStatusStrip = new KryptonStatusStrip();
+		contextMenuShowControlsInStatusBar = new ContextMenuStrip(components);
+		menuItemShowInformationLabel = new ToolStripMenuItem();
 		labelInformation = new ToolStripStatusLabel();
 		webView = new WebView2();
 		kryptonToolStrip = new KryptonToolStrip();
-		buttonApply = new ToolStripButton();
+		buttonCommitCoordinates = new ToolStripButton();
 		buttonCancel = new ToolStripButton();
-		toolStripSeparator1 = new ToolStripSeparator();
+		separator1 = new ToolStripSeparator();
 		textBoxSearch = new ToolStripTextBox();
 		buttonSearch = new ToolStripButton();
-		toolStripSeparator2 = new ToolStripSeparator();
+		separator2 = new ToolStripSeparator();
 		labelCoordinates = new ToolStripLabel();
 		kryptonManager = new KryptonManager(components);
-		contextMenuShowControlsInStatusBar = new ContextMenuStrip(components);
-		toolStripMenuItemShowInformationLabel = new ToolStripMenuItem();
 		toolStripContainer.BottomToolStripPanel.SuspendLayout();
 		toolStripContainer.ContentPanel.SuspendLayout();
 		toolStripContainer.TopToolStripPanel.SuspendLayout();
 		toolStripContainer.SuspendLayout();
 		kryptonStatusStrip.SuspendLayout();
+		contextMenuShowControlsInStatusBar.SuspendLayout();
 		((ISupportInitialize)webView).BeginInit();
 		kryptonToolStrip.SuspendLayout();
-		contextMenuShowControlsInStatusBar.SuspendLayout();
 		SuspendLayout();
 		// 
 		// toolStripContainer
@@ -104,7 +104,7 @@ partial class WorldMapForm
 		toolStripContainer.TopToolStripPanel.AccessibleRole = AccessibleRole.Pane;
 		toolStripContainer.TopToolStripPanel.Controls.Add(kryptonToolStrip);
 		// 
-		// statusStrip
+		// kryptonStatusStrip
 		// 
 		kryptonStatusStrip.AccessibleDescription = "Shows some information";
 		kryptonStatusStrip.AccessibleName = "Status bar with some information";
@@ -116,13 +116,45 @@ partial class WorldMapForm
 		kryptonStatusStrip.Font = new Font("Segoe UI", 9F);
 		kryptonStatusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
 		kryptonStatusStrip.Location = new Point(0, 0);
-		kryptonStatusStrip.Name = "statusStrip";
+		kryptonStatusStrip.Name = "kryptonStatusStrip";
 		kryptonStatusStrip.ProgressBars = null;
 		kryptonStatusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
 		kryptonStatusStrip.ShowItemToolTips = true;
 		kryptonStatusStrip.Size = new Size(1000, 22);
 		kryptonStatusStrip.TabIndex = 0;
 		kryptonStatusStrip.TabStop = true;
+		// 
+		// contextMenuShowControlsInStatusBar
+		// 
+		contextMenuShowControlsInStatusBar.AccessibleDescription = "Shows the context menu for the visibility of controls in the status bar";
+		contextMenuShowControlsInStatusBar.AccessibleName = "Context menu for the visibility of controls in the status bar";
+		contextMenuShowControlsInStatusBar.AccessibleRole = AccessibleRole.MenuPopup;
+		contextMenuShowControlsInStatusBar.AllowClickThrough = true;
+		contextMenuShowControlsInStatusBar.Font = new Font("Segoe UI", 9F);
+		contextMenuShowControlsInStatusBar.Items.AddRange(new ToolStripItem[] { menuItemShowInformationLabel });
+		contextMenuShowControlsInStatusBar.Name = "contextMenuStrip";
+		contextMenuShowControlsInStatusBar.Size = new Size(198, 26);
+		contextMenuShowControlsInStatusBar.TabStop = true;
+		contextMenuShowControlsInStatusBar.Text = "Show controls in status bar";
+		contextMenuShowControlsInStatusBar.MouseEnter += Control_Enter;
+		contextMenuShowControlsInStatusBar.MouseLeave += Control_Leave;
+		// 
+		// menuItemShowInformationLabel
+		// 
+		menuItemShowInformationLabel.AccessibleDescription = "Determines whether the information label is visible or hidden";
+		menuItemShowInformationLabel.AccessibleName = "Information label";
+		menuItemShowInformationLabel.AccessibleRole = AccessibleRole.MenuItem;
+		menuItemShowInformationLabel.AutoToolTip = true;
+		menuItemShowInformationLabel.Checked = true;
+		menuItemShowInformationLabel.CheckOnClick = true;
+		menuItemShowInformationLabel.CheckState = CheckState.Checked;
+		menuItemShowInformationLabel.Name = "menuItemShowInformationLabel";
+		menuItemShowInformationLabel.ShortcutKeyDisplayString = "";
+		menuItemShowInformationLabel.Size = new Size(197, 22);
+		menuItemShowInformationLabel.Text = "Show &information label";
+		menuItemShowInformationLabel.Click += MenuItemShowInformationLabel_Click;
+		menuItemShowInformationLabel.MouseEnter += Control_Enter;
+		menuItemShowInformationLabel.MouseLeave += Control_Leave;
 		// 
 		// labelInformation
 		// 
@@ -160,7 +192,7 @@ partial class WorldMapForm
 		kryptonToolStrip.AllowItemReorder = true;
 		kryptonToolStrip.Dock = DockStyle.None;
 		kryptonToolStrip.Font = new Font("Segoe UI", 9F);
-		kryptonToolStrip.Items.AddRange(new ToolStripItem[] { buttonApply, buttonCancel, toolStripSeparator1, textBoxSearch, buttonSearch, toolStripSeparator2, labelCoordinates });
+		kryptonToolStrip.Items.AddRange(new ToolStripItem[] { buttonCommitCoordinates, buttonCancel, separator1, textBoxSearch, buttonSearch, separator2, labelCoordinates });
 		kryptonToolStrip.Location = new Point(0, 0);
 		kryptonToolStrip.Name = "kryptonToolStrip";
 		kryptonToolStrip.Size = new Size(1000, 25);
@@ -169,19 +201,19 @@ partial class WorldMapForm
 		kryptonToolStrip.TabStop = true;
 		kryptonToolStrip.Text = "Toolbar of main functions";
 		// 
-		// buttonApply
+		// buttonCommitCoordinates
 		// 
-		buttonApply.AccessibleDescription = I18nStrings.WorldMapApplyAccessibleDescription;
-		buttonApply.AccessibleName = "Apply";
-		buttonApply.AccessibleRole = AccessibleRole.PushButton;
-		buttonApply.Enabled = false;
-		buttonApply.Image = Resources.FatcowIcons16px.fatcow_accept_button_16px;
-		buttonApply.Name = "buttonApply";
-		buttonApply.Size = new Size(43, 22);
-		buttonApply.Text = I18nStrings.WorldMapApplyText;
-		buttonApply.Click += ButtonApply_Click;
-		buttonApply.MouseEnter += Control_Enter;
-		buttonApply.MouseLeave += Control_Leave;
+		buttonCommitCoordinates.AccessibleDescription = I18nStrings.WorldMapApplyAccessibleDescription;
+		buttonCommitCoordinates.AccessibleName = "Commit coordinates";
+		buttonCommitCoordinates.AccessibleRole = AccessibleRole.PushButton;
+		buttonCommitCoordinates.Enabled = false;
+		buttonCommitCoordinates.Image = Resources.FatcowIcons16px.fatcow_accept_button_16px;
+		buttonCommitCoordinates.Name = "buttonCommitCoordinates";
+		buttonCommitCoordinates.Size = new Size(136, 22);
+		buttonCommitCoordinates.Text = "C&ommit coordinates";
+		buttonCommitCoordinates.Click += ButtonCommitCoordinates_Click;
+		buttonCommitCoordinates.MouseEnter += Control_Enter;
+		buttonCommitCoordinates.MouseLeave += Control_Leave;
 		// 
 		// buttonCancel
 		// 
@@ -196,13 +228,13 @@ partial class WorldMapForm
 		buttonCancel.MouseEnter += Control_Enter;
 		buttonCancel.MouseLeave += Control_Leave;
 		// 
-		// toolStripSeparator1
+		// separator1
 		// 
-		toolStripSeparator1.AccessibleDescription = "Just a separator";
-		toolStripSeparator1.AccessibleName = "Separator";
-		toolStripSeparator1.AccessibleRole = AccessibleRole.Separator;
-		toolStripSeparator1.Name = "toolStripSeparator1";
-		toolStripSeparator1.Size = new Size(6, 25);
+		separator1.AccessibleDescription = "Just a separator";
+		separator1.AccessibleName = "Separator";
+		separator1.AccessibleRole = AccessibleRole.Separator;
+		separator1.Name = "separator1";
+		separator1.Size = new Size(6, 25);
 		// 
 		// textBoxSearch
 		// 
@@ -230,13 +262,13 @@ partial class WorldMapForm
 		buttonSearch.MouseEnter += Control_Enter;
 		buttonSearch.MouseLeave += Control_Leave;
 		// 
-		// toolStripSeparator2
+		// separator2
 		// 
-		toolStripSeparator2.AccessibleDescription = "Just a separator";
-		toolStripSeparator2.AccessibleName = "Separator";
-		toolStripSeparator2.AccessibleRole = AccessibleRole.Separator;
-		toolStripSeparator2.Name = "toolStripSeparator2";
-		toolStripSeparator2.Size = new Size(6, 25);
+		separator2.AccessibleDescription = "Just a separator";
+		separator2.AccessibleName = "Separator";
+		separator2.AccessibleRole = AccessibleRole.Separator;
+		separator2.Name = "separator2";
+		separator2.Size = new Size(6, 25);
 		// 
 		// labelCoordinates
 		// 
@@ -257,38 +289,6 @@ partial class WorldMapForm
 		kryptonManager.GlobalPaletteMode = PaletteMode.Global;
 		kryptonManager.ToolkitStrings.MessageBoxStrings.LessDetails = "L&ess Details...";
 		kryptonManager.ToolkitStrings.MessageBoxStrings.MoreDetails = "&More Details...";
-		// 
-		// contextMenuShowControlsInStatusBar
-		// 
-		contextMenuShowControlsInStatusBar.AccessibleDescription = "Shows the context menu for the visibility of controls in the status bar";
-		contextMenuShowControlsInStatusBar.AccessibleName = "Context menu for the visibility of controls in the status bar";
-		contextMenuShowControlsInStatusBar.AccessibleRole = AccessibleRole.MenuPopup;
-		contextMenuShowControlsInStatusBar.AllowClickThrough = true;
-		contextMenuShowControlsInStatusBar.Font = new Font("Segoe UI", 9F);
-		contextMenuShowControlsInStatusBar.Items.AddRange(new ToolStripItem[] { toolStripMenuItemShowInformationLabel });
-		contextMenuShowControlsInStatusBar.Name = "contextMenuStrip";
-		contextMenuShowControlsInStatusBar.Size = new Size(198, 48);
-		contextMenuShowControlsInStatusBar.TabStop = true;
-		contextMenuShowControlsInStatusBar.Text = "Show controls in status bar";
-		contextMenuShowControlsInStatusBar.MouseEnter += Control_Enter;
-		contextMenuShowControlsInStatusBar.MouseLeave += Control_Leave;
-		// 
-		// menuItemShowInformationLabel
-		// 
-		toolStripMenuItemShowInformationLabel.AccessibleDescription = "Determines whether the information label is visible or hidden";
-		toolStripMenuItemShowInformationLabel.AccessibleName = "Information label";
-		toolStripMenuItemShowInformationLabel.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemShowInformationLabel.AutoToolTip = true;
-		toolStripMenuItemShowInformationLabel.Checked = true;
-		toolStripMenuItemShowInformationLabel.CheckOnClick = true;
-		toolStripMenuItemShowInformationLabel.CheckState = CheckState.Checked;
-		toolStripMenuItemShowInformationLabel.Name = "menuItemShowInformationLabel";
-		toolStripMenuItemShowInformationLabel.ShortcutKeyDisplayString = "";
-		toolStripMenuItemShowInformationLabel.Size = new Size(197, 22);
-		toolStripMenuItemShowInformationLabel.Text = "Show &information label";
-		toolStripMenuItemShowInformationLabel.Click += ToolStripMenuItemShowInformationLabel_Click;
-		toolStripMenuItemShowInformationLabel.MouseEnter += Control_Enter;
-		toolStripMenuItemShowInformationLabel.MouseLeave += Control_Leave;
 		// 
 		// WorldMapForm
 		// 
@@ -321,29 +321,61 @@ partial class WorldMapForm
 		toolStripContainer.PerformLayout();
 		kryptonStatusStrip.ResumeLayout(false);
 		kryptonStatusStrip.PerformLayout();
+		contextMenuShowControlsInStatusBar.ResumeLayout(false);
 		((ISupportInitialize)webView).EndInit();
 		kryptonToolStrip.ResumeLayout(false);
 		kryptonToolStrip.PerformLayout();
-		contextMenuShowControlsInStatusBar.ResumeLayout(false);
 		ResumeLayout(false);
 	}
 
 	#endregion
 
-	private ToolStripContainer toolStripContainer;
-	private KryptonStatusStrip kryptonStatusStrip;
-	private ToolStripStatusLabel labelInformation;
-	private KryptonToolStrip kryptonToolStrip;
-	private ToolStripButton buttonApply;
-	private ToolStripButton buttonCancel;
-	private ToolStripSeparator toolStripSeparator1;
-	private ToolStripTextBox textBoxSearch;
-	private ToolStripButton buttonSearch;
-	private ToolStripSeparator toolStripSeparator2;
-	private ToolStripLabel labelCoordinates;
-	private WebView2 webView;
-	private KryptonManager kryptonManager;
-	private IContainer components;
+
+	/// <summary>Provides the context menu used to show controls in the status bar.</summary>
 	private ContextMenuStrip contextMenuShowControlsInStatusBar;
-	private ToolStripMenuItem toolStripMenuItemShowInformationLabel;
+	
+	/// <summary>The container for components managed by the form.</summary>
+	private IContainer components;
+	
+	/// <summary>Represents the status strip hosted by the form.</summary>
+	private KryptonStatusStrip kryptonStatusStrip;
+	
+	/// <summary>The Krypton tool strip used by the form.</summary>
+	private KryptonToolStrip kryptonToolStrip;
+	
+	/// <summary>Manages Krypton theme settings and visual styles for the form.</summary>
+	private KryptonManager kryptonManager;
+	
+	/// <summary>Gets or sets the button that applies changes.</summary>
+	private ToolStripButton buttonCommitCoordinates;
+	
+	/// <summary>Represents the cancel button in the tool strip.</summary>
+	private ToolStripButton buttonCancel;
+	
+	/// <summary>Search button.</summary>
+	private ToolStripButton buttonSearch;
+	
+	/// <summary>Gets or sets the container that hosts the form's tool strip.</summary>
+	private ToolStripContainer toolStripContainer;
+	
+	/// <summary>Displays the current coordinates in the user interface.</summary>
+	private ToolStripLabel labelCoordinates;
+	
+	/// <summary>Represents the menu item used to show or hide the information label.</summary>
+	private ToolStripMenuItem menuItemShowInformationLabel;
+	
+	/// <summary>A separator control used to visually divide items in a toolbar or menu.</summary>
+	private ToolStripSeparator separator1;
+	
+	/// <summary>Represents the second separator in the tool strip.</summary>
+	private ToolStripSeparator separator2;
+	
+	/// <summary>Gets or sets the status label that displays information in the status strip.</summary>
+	private ToolStripStatusLabel labelInformation;
+	
+	/// <summary>The search text box.</summary>
+	private ToolStripTextBox textBoxSearch;
+	
+	/// <summary>The WebView2 control used to display the world map.</summary>
+	private WebView2 webView;
 }
