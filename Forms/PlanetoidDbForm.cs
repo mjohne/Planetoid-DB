@@ -454,7 +454,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		for (int i = 0; i < listViewDerivedData.Items.Count; i++)
 		{
 			string elementName = listViewDerivedData.Items[index: i].Text;
-			string sanitizedName = $"toolStripMenuItemCopyToClipboardDerivedData{new string(value: [.. elementName.Where(predicate: char.IsLetterOrDigit)])}";
+			string sanitizedName = $"menuItemCopyToClipboardDerivedData{new string(value: [.. elementName.Where(predicate: char.IsLetterOrDigit)])}";
 			ToolStripMenuItem item = new()
 			{
 				Name = sanitizedName,
@@ -480,7 +480,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 			item.MouseMove += MouseCoordinates_MouseMove;
 			_ = contextMenuCopyToClipboardDerivedData.Items.Add(value: item);
 		}
-		toolStripMenuItemCopyToClipboardDerivedData.DropDown = contextMenuCopyToClipboardDerivedData;
+		menuItemCopyToClipboardDerivedData.DropDown = contextMenuCopyToClipboardDerivedData;
 		logger.Info(message: "Built the derived-data context menu.");
 	}
 
