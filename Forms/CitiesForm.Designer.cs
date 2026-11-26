@@ -1166,6 +1166,7 @@ partial class CitiesForm
 
 	/// <summary>Provides copy-to-clipboard commands in a context menu.</summary>
 	private ContextMenuStrip contextMenuCopyToClipboard;
+	
 	/// <summary>Manages Krypton theme and visual style settings for the form.</summary>
 	private KryptonManager kryptonManager;
 
