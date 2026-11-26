@@ -13,8 +13,6 @@
  * See LICENSE file in the project root for license information.
  */
 
-using Krypton.Toolkit;
-
 using NLog;
 
 using Planetoid_DB.Forms;
@@ -46,13 +44,31 @@ internal partial class PlanetaryInformationForm : BaseKryptonForm
 
 	#endregion
 
+	#region Const
+
+	/// <summary>Astronomical unit expressed in kilometers.</summary>
+	/// <remarks>Used to convert distances from AU to km when composing the display values.</remarks>
+	private const double AuInKm = 149597870.700;
+
+	/// <summary>Standard gravitational parameter of the Sun in km^3/s^2.</summary>
+	/// <remarks>Used to compute perihelion and aphelion velocities via the vis-viva equation.</remarks>
+	private const double SunGmKm3PerS2 = 1.32712440018e11;
+
+	/// <summary>Number of seconds in a Julian year.</summary>
+	/// <remarks>Used to convert sidereal orbital periods from years to seconds when required.</remarks>
+	private const double SecondsPerJulianYear = 365.25 * 86400.0;
+
+	/// <summary>Julian Date of the J2000.0 epoch (2000 January 1.5 TT).</summary>
+	/// <remarks>Used as the reference epoch for propagating mean anomaly values to the current date.</remarks>
+	private const double J2000Jd = 2451545.0;
+
+	#endregion
+
+	#region Fields
+
 	/// <summary>NLog logger instance for the class.</summary>
 	/// <remarks>This logger is used to log messages and errors for the form.</remarks>
 	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
-
-	/// <summary>Gets the status label used for displaying information in the status bar.</summary>
-	/// <remarks>Overrides the base class property to return the form-specific status label.</remarks>
-	protected override ToolStripStatusLabel? StatusLabel => labelInformation;
 
 	/// <summary>Stores the index of the currently sorted column in the ListView.</summary>
 	/// <remarks>A value of <c>-1</c> means no column is currently sorted.</remarks>
@@ -61,6 +77,16 @@ internal partial class PlanetaryInformationForm : BaseKryptonForm
 	/// <summary>Stores the sort order for the currently sorted column in the ListView.</summary>
 	/// <remarks>This field is updated when the user clicks a column header to toggle the sort order.</remarks>
 	private SortOrder sortOrder = SortOrder.None;
+
+	#endregion
+
+	#region Protected override properties
+
+	/// <summary>Gets the status label used for displaying information in the status bar.</summary>
+	/// <remarks>Overrides the base class property to return the form-specific status label.</remarks>
+	protected override ToolStripStatusLabel? StatusLabel => labelInformation;
+
+	#endregion
 
 	#region Constructor
 
@@ -84,22 +110,6 @@ internal partial class PlanetaryInformationForm : BaseKryptonForm
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
 	/// <remarks>This property is used to provide a visual representation of the object in the debugger.</remarks>
 	private string DebuggerDisplay => ToString() ?? string.Empty;
-
-	/// <summary>Astronomical unit expressed in kilometers.</summary>
-	/// <remarks>Used to convert distances from AU to km when composing the display values.</remarks>
-	private const double AuInKm = 149597870.700;
-
-	/// <summary>Standard gravitational parameter of the Sun in km^3/s^2.</summary>
-	/// <remarks>Used to compute perihelion and aphelion velocities via the vis-viva equation.</remarks>
-	private const double SunGmKm3PerS2 = 1.32712440018e11;
-
-	/// <summary>Number of seconds in a Julian year.</summary>
-	/// <remarks>Used to convert sidereal orbital periods from years to seconds when required.</remarks>
-	private const double SecondsPerJulianYear = 365.25 * 86400.0;
-
-	/// <summary>Julian Date of the J2000.0 epoch (2000 January 1.5 TT).</summary>
-	/// <remarks>Used as the reference epoch for propagating mean anomaly values to the current date.</remarks>
-	private const double J2000Jd = 2451545.0;
 
 	/// <summary>Returns the reference dataset used to populate the ListView.</summary>
 	/// <returns>An array containing the base parameters of the eight planets in the canonical order Mercury..Neptune.</returns>
@@ -139,7 +149,7 @@ internal partial class PlanetaryInformationForm : BaseKryptonForm
 	/// <param name="eccentricAnomalyRad">The eccentric anomaly in radians.</param>
 	/// <param name="eccentricity">The numerical eccentricity of the orbit.</param>
 	/// <returns>The true anomaly in radians in the range <c>[0, 2π)</c>.</returns>
-	/// <remarks>Uses the standard half-angle formula; result is normalised to the range <c>[0, 2π)</c>.</remarks>
+	/// <remarks>Uses the standard half-angle formula; result is normalized to the range <c>[0, 2π)</c>.</remarks>
 	private static double TrueAnomalyFromEccentric(double eccentricAnomalyRad, double eccentricity)
 	{
 		double sqrt = Math.Sqrt(d: (1.0 + eccentricity) / (1.0 - eccentricity));
@@ -151,7 +161,7 @@ internal partial class PlanetaryInformationForm : BaseKryptonForm
 		return v;
 	}
 
-	/// <summary>Normalises an angle in degrees to the range <c>[0, 360)</c>.</summary>
+	/// <summary>Normalizes an angle in degrees to the range <c>[0, 360)</c>.</summary>
 	/// <param name="degrees">The input angle in degrees.</param>
 	/// <returns>The equivalent angle in the range <c>[0, 360)</c>.</returns>
 	/// <remarks>Used when computing derived angular quantities such as the longitude of the descending node.</remarks>
@@ -413,6 +423,11 @@ internal partial class PlanetaryInformationForm : BaseKryptonForm
 				items.Add(item: item);
 			}
 			listView.Items.AddRange(items: [.. items]);
+
+			// Populate the copy context menus based on the calculated ListView data
+			PopulateCopyContextMenu();
+			PopulateCopyPlanetColumnContextMenu();
+
 			// Update the status bar with the number of properties displayed
 			SetStatusBar(label: labelInformation, text: $"{listView.Items.Count} planetary properties loaded");
 		}
@@ -427,6 +442,142 @@ internal partial class PlanetaryInformationForm : BaseKryptonForm
 		{
 			listView.EndUpdate();
 			Cursor.Current = Cursors.Default;
+		}
+	}
+
+	/// <summary>Populates <see cref="contextMenuCopyToClipboardSpecificValue"/> with one parent menu item per planet and child menu items for each property.</summary>
+	/// <remarks>Reads the values directly from <see cref="listView"/> so the menu structure always matches the displayed rows and columns. Empty cell values (such as <see cref="double.NaN"/> entries for Earth) are disabled.</remarks>
+	private void PopulateCopyContextMenu()
+	{
+		logger.Debug(message: "Populating contextMenuCopyToClipboardPlanetaryInformation...");
+		contextMenuCopyToClipboardSpecificValue.SuspendLayout();
+		try
+		{
+			// Dispose any existing menu items cleanly before rebuilding
+			foreach (ToolStripItem existingItem in contextMenuCopyToClipboardSpecificValue.Items)
+			{
+				if (existingItem is ToolStripMenuItem planetMenu)
+				{
+					foreach (ToolStripItem subItem in planetMenu.DropDownItems)
+					{
+						subItem.Click -= CopyPlanetaryValueMenuItem_Click;
+						subItem.MouseEnter -= Control_Enter;
+						subItem.MouseLeave -= Control_Leave;
+					}
+					planetMenu.MouseEnter -= Control_Enter;
+					planetMenu.MouseLeave -= Control_Leave;
+				}
+				existingItem.Dispose();
+			}
+			contextMenuCopyToClipboardSpecificValue.Items.Clear();
+			// Column 0 is "Property", columns 1..8 represent Mercury..Neptune
+			for (int col = 1; col < listView.Columns.Count; col++)
+			{
+				string planetName = listView.Columns[index: col].Text;
+				// Strip potential sort indicator arrows if present
+				if (planetName.StartsWith(value: "▲ ", comparisonType: StringComparison.CurrentCulture) ||
+					planetName.StartsWith(value: "▼ ", comparisonType: StringComparison.CurrentCulture))
+				{
+					planetName = planetName[2..];
+				}
+				ToolStripMenuItem planetMenuItem = new(text: planetName)
+				{
+					Name = $"menuItemCopy{planetName}",
+					AutoToolTip = true,
+					AccessibleName = planetName,
+					AccessibleRole = AccessibleRole.MenuItem,
+					AccessibleDescription = $"Copies orbital and physical properties of {planetName}",
+					Image = Resources.FatcowIcons16px.fatcow_page_white_copy_16px
+				};
+				planetMenuItem.MouseEnter += Control_Enter;
+				planetMenuItem.MouseLeave += Control_Leave;
+				ToolStripItem[] propertyMenuItems = new ToolStripItem[listView.Items.Count];
+				for (int row = 0; row < listView.Items.Count; row++)
+				{
+					ListViewItem item = listView.Items[index: row];
+					string propertyLabel = item.Text;
+					string cellValue = col < item.SubItems.Count ? item.SubItems[index: col].Text : string.Empty;
+					bool hasValue = !string.IsNullOrWhiteSpace(value: cellValue);
+					ToolStripMenuItem propertyMenuItem = new(text: propertyLabel)
+					{
+						Tag = cellValue,
+						Enabled = hasValue,
+						AutoToolTip = true,
+						AccessibleName = $"{planetName} - {propertyLabel}",
+						AccessibleRole = AccessibleRole.MenuItem,
+						AccessibleDescription = hasValue
+							? $"Copies \"{propertyLabel}\" of {planetName} ({cellValue}) to the clipboard"
+							: $"{propertyLabel} is not available for {planetName}",
+						Image = Resources.FatcowIcons16px.fatcow_page_copy_16px
+					};
+					propertyMenuItem.Click += CopyPlanetaryValueMenuItem_Click;
+					propertyMenuItem.MouseEnter += Control_Enter;
+					propertyMenuItem.MouseLeave += Control_Leave;
+					propertyMenuItems[row] = propertyMenuItem;
+				}
+
+				planetMenuItem.DropDownItems.AddRange(toolStripItems: propertyMenuItems);
+				_ = contextMenuCopyToClipboardSpecificValue.Items.Add(value: planetMenuItem);
+			}
+
+			logger.Info(message: $"Populated contextMenuCopyToClipboardPlanetaryInformation with {contextMenuCopyToClipboardSpecificValue.Items.Count} planets.");
+		}
+		finally
+		{
+			contextMenuCopyToClipboardSpecificValue.ResumeLayout();
+		}
+	}
+
+	/// <summary>Populates <see cref="contextMenuCopyToClipboardPlanetColumns"/> with one menu item per planet to copy all properties of that planet line by line.</summary>
+	/// <remarks>Stores the corresponding column index of <see cref="listView"/> in each menu item's <see cref="ToolStripItem.Tag"/> so a single click handler can compose the lines dynamically.</remarks>
+	private void PopulateCopyPlanetColumnContextMenu()
+	{
+		logger.Debug(message: "Populating contextMenuCopyPlanetColumn...");
+		contextMenuCopyToClipboardPlanetColumns.SuspendLayout();
+		try
+		{
+			// Dispose any existing menu items cleanly before rebuilding
+			foreach (ToolStripItem existingItem in contextMenuCopyToClipboardPlanetColumns.Items)
+			{
+				existingItem.Click -= CopyPlanetColumnMenuItem_Click;
+				existingItem.MouseEnter -= Control_Enter;
+				existingItem.MouseLeave -= Control_Leave;
+				existingItem.Dispose();
+			}
+			contextMenuCopyToClipboardPlanetColumns.Items.Clear();
+
+			// Column 0 is "Property", columns 1..8 represent Mercury..Neptune
+			for (int col = 1; col < listView.Columns.Count; col++)
+			{
+				string planetName = listView.Columns[index: col].Text;
+				if (planetName.StartsWith(value: "▲ ", comparisonType: StringComparison.CurrentCulture) ||
+					planetName.StartsWith(value: "▼ ", comparisonType: StringComparison.CurrentCulture))
+				{
+					planetName = planetName[2..];
+				}
+
+				ToolStripMenuItem planetMenuItem = new(text: planetName)
+				{
+					Name = $"menuItemCopyPlanetColumn{planetName}",
+					Tag = col,
+					AutoToolTip = true,
+					AccessibleName = planetName,
+					AccessibleRole = AccessibleRole.MenuItem,
+					AccessibleDescription = $"Copies all orbital and physical properties of {planetName} line by line to the clipboard",
+					Image = Resources.FatcowIcons16px.fatcow_page_white_copy_16px
+				};
+				planetMenuItem.Click += CopyPlanetColumnMenuItem_Click;
+				planetMenuItem.MouseEnter += Control_Enter;
+				planetMenuItem.MouseLeave += Control_Leave;
+
+				_ = contextMenuCopyToClipboardPlanetColumns.Items.Add(value: planetMenuItem);
+			}
+
+			logger.Info(message: $"Populated contextMenuCopyPlanetColumn with {contextMenuCopyToClipboardPlanetColumns.Items.Count} planets.");
+		}
+		finally
+		{
+			contextMenuCopyToClipboardPlanetColumns.ResumeLayout();
 		}
 	}
 
@@ -538,67 +689,78 @@ internal partial class PlanetaryInformationForm : BaseKryptonForm
 		logger.Info(message: $"Set the visibility of the information label to {labelInformation.Visible}.");
 	}
 
-	#endregion
-
-	#region Testing right-click context menu behavior on KryptonListView
-
-	private bool rightMouseDownOnListView;
-
-	/// <summary>Handles mouse down on the KryptonListView and tracks right-button state.</summary>
-	/// <param name="sender">The event source.</param>
-	/// <param name="e">The mouse event arguments.</param>
-	/// <remarks>Sets a flag when the right mouse button is pressed down on the ListView, which is used to determine if a context menu should be shown on mouse up.</remarks>
-	private void ListView_MouseDown(object? sender, MouseEventArgs e)
+	/// <summary>Copies the value stored in the clicked menu item's <see cref="ToolStripItem.Tag"/> to the Windows clipboard.</summary>
+	/// <param name="sender">The clicked <see cref="ToolStripMenuItem"/>.</param>
+	/// <param name="e">The event data.</param>
+	/// <remarks>Handles the <see cref="ToolStripItem.Click"/> event for all planetary property sub-menu items.</remarks>
+	private void CopyPlanetaryValueMenuItem_Click(object? sender, EventArgs e)
 	{
+		// Log the action of clicking of ToolStripMenuItemShowInformationLabel
+		logger.Info(message: $"CopyPlanetaryValueMenuItem clicked.");
 		// Ensure that an event source was supplied
 		ArgumentNullException.ThrowIfNull(argument: sender);
 		// Ensure that the event data was supplied
 		ArgumentNullException.ThrowIfNull(argument: e);
-		// Track whether the right mouse button was pressed down on the ListView
-		rightMouseDownOnListView = e.Button == MouseButtons.Right;
+		if (sender is not ToolStripMenuItem { Tag: string valueToCopy } menuItem || string.IsNullOrEmpty(value: valueToCopy))
+		{
+			logger.Warn(message: "CopyPlanetaryValueMenuItem_Click triggered without a valid string value in Tag.");
+			return;
+		}
+		try
+		{
+			Clipboard.SetText(text: valueToCopy);
+			string planetName = menuItem.OwnerItem?.Text ?? "Planet";
+			string propertyName = menuItem.Text ?? "Property";
+			logger.Info(message: $"Copied '{valueToCopy}' ({planetName} - {propertyName}) to clipboard.");
+			SetStatusBar(label: labelInformation, text: $"Copied {planetName} – {propertyName}: {valueToCopy}");
+		}
+		catch (Exception ex)
+		{
+			logger.Error(exception: ex, message: "Failed to copy planetary value to clipboard.");
+			ShowErrorMessage(message: $"Failed to copy value to clipboard: {ex.Message}");
+		}
 	}
 
-	/// <summary>Handles mouse up on the KryptonListView and shows the save context menu on valid right-click release.</summary>
-	/// <param name="sender">The event source.</param>
-	/// <param name="e">The mouse event arguments.</param>
-	/// <remarks>Shows the context menu if the right mouse button was pressed down on the ListView and released over an item.</remarks>
-	private void ListView_MouseUp(object? sender, MouseEventArgs e)
+	/// <summary>Copies all property names and corresponding values of the selected planet column line by line to the Windows clipboard.</summary>
+	/// <param name="sender">The clicked <see cref="ToolStripMenuItem"/> representing a planet.</param>
+	/// <param name="e">The event data.</param>
+	/// <remarks>Reads the column index from <see cref="ToolStripItem.Tag"/> and formats each row of <see cref="listView"/> as <c>Property: Value</c>.</remarks>
+	private void CopyPlanetColumnMenuItem_Click(object? sender, EventArgs e)
 	{
-		// Ensure that an event source was supplied
+		logger.Info(message: "CopyPlanetColumnMenuItem clicked.");
 		ArgumentNullException.ThrowIfNull(argument: sender);
-		// Ensure that the event data was supplied
 		ArgumentNullException.ThrowIfNull(argument: e);
-		// Only show the context menu if the right mouse button was pressed down on the ListView and released over an item
-		if (!rightMouseDownOnListView || e.Button != MouseButtons.Right)
+
+		if (sender is not ToolStripMenuItem { Tag: int columnIndex } menuItem ||
+			columnIndex < 1 ||
+			columnIndex >= listView.Columns.Count)
 		{
-			// Reset the flag and exit if the right mouse button was not involved
+			logger.Warn(message: "CopyPlanetColumnMenuItem_Click triggered without a valid column index in Tag.");
 			return;
 		}
-		// Reset the flag to avoid showing the context menu multiple times
-		rightMouseDownOnListView = false;
-		// Ensure the sender is a KryptonListView before proceeding
-		if (sender is not KryptonListView listView)
+
+		try
 		{
-			// Log a warning if the sender is not a KryptonListView and exit
-			logger.Warn(message: "ListView_MouseUp event handler called with a sender that is not a KryptonListView.");
-			return;
+			string planetName = menuItem.Text ?? listView.Columns[index: columnIndex].Text;
+			List<string> lines = [with(capacity: listView.Items.Count)];
+			foreach (ListViewItem item in listView.Items)
+			{
+				string propertyLabel = item.Text;
+				string cellValue = columnIndex < item.SubItems.Count ? item.SubItems[index: columnIndex].Text : string.Empty;
+				lines.Add(item: $"{propertyLabel}: {cellValue}");
+			}
+
+			string textToCopy = string.Join(separator: Environment.NewLine, values: lines);
+			Clipboard.SetText(text: textToCopy);
+
+			logger.Info(message: $"Copied {lines.Count} planetary properties for {planetName} to clipboard.");
+			SetStatusBar(label: labelInformation, text: $"Copied all properties of {planetName} ({lines.Count} lines)");
 		}
-		// Perform a hit test to determine if the mouse is over an item in the ListView
-		ListViewHitTestInfo hit = listView.HitTest(point: e.Location);
-		// If the hit test did not return an item, exit without showing the context menu
-		if (hit.Item is null)
+		catch (Exception ex)
 		{
-			// Log a debug message indicating that the right-click was not on an item and exit
-			logger.Debug(message: "Right-click on KryptonListView did not hit an item; context menu will not be shown.");
-			return;
+			logger.Error(exception: ex, message: "Failed to copy planetary column to clipboard.");
+			ShowErrorMessage(message: $"Failed to copy planetary column to clipboard: {ex.Message}");
 		}
-		// If the item is not already selected, select it to ensure the context menu actions apply to the correct item
-		if (!hit.Item.Selected)
-		{
-			hit.Item.Selected = true;
-		}
-		// Show the context menu at the location of the mouse click
-		contextMenuSaveToFile.Show(control: listView, position: e.Location);
 	}
 
 	#endregion

@@ -107,8 +107,12 @@ partial class PlanetaryInformationForm
 		labelInformation = new ToolStripStatusLabel();
 		kryptonManager = new KryptonManager(components);
 		toolStripMain = new KryptonToolStrip();
+		dropDownButtonCopyToClipboard = new ToolStripDropDownButton();
+		contextMenuCopyToClipboardPlanetColumns = new ContextMenuStrip(components);
+		contextMenuCopyToClipboardSpecificValue = new ContextMenuStrip(components);
 		toolStripContainer = new ToolStripContainer();
-		contextMenuCopyToClipboardPlanetaryInformation = new ContextMenuStrip(components);
+		menuItemCopyToClipboardPlanetColums = new ToolStripMenuItem();
+		menuItemCopyToClipboardSpecificValues = new ToolStripMenuItem();
 		((ISupportInitialize)panelMain).BeginInit();
 		panelMain.SuspendLayout();
 		contextMenuSaveToFile.SuspendLayout();
@@ -220,7 +224,6 @@ partial class PlanetaryInformationForm
 		contextMenuSaveToFile.Font = new Font("Segoe UI", 9F);
 		contextMenuSaveToFile.Items.AddRange(new ToolStripItem[] { menuItemTextFiles, menuItemWriterDocuments, menuItemSpreadsheetDocuments, menuItemXmlDocuments, menuItemConfigurationFiles, menuItemDatabaseScripts, menuItemPortableDocuments });
 		contextMenuSaveToFile.Name = "contextMenuSaveList";
-		contextMenuSaveToFile.OwnerItem = dropDownButtonSaveList;
 		contextMenuSaveToFile.Size = new Size(202, 158);
 		contextMenuSaveToFile.TabStop = true;
 		contextMenuSaveToFile.Text = "&Save list";
@@ -888,7 +891,7 @@ partial class PlanetaryInformationForm
 		toolStripMain.AllowItemReorder = true;
 		toolStripMain.Dock = DockStyle.None;
 		toolStripMain.Font = new Font("Segoe UI", 9F);
-		toolStripMain.Items.AddRange(new ToolStripItem[] { dropDownButtonSaveList });
+		toolStripMain.Items.AddRange(new ToolStripItem[] { dropDownButtonCopyToClipboard, dropDownButtonSaveList });
 		toolStripMain.Location = new Point(0, 0);
 		toolStripMain.Name = "toolStripMain";
 		toolStripMain.Size = new Size(1000, 25);
@@ -900,6 +903,49 @@ partial class PlanetaryInformationForm
 		toolStripMain.Leave += Control_Leave;
 		toolStripMain.MouseEnter += Control_Enter;
 		toolStripMain.MouseLeave += Control_Leave;
+		// 
+		// dropDownButtonCopyToClipboard
+		// 
+		dropDownButtonCopyToClipboard.AccessibleDescription = "Copies some values to to the clipboard";
+		dropDownButtonCopyToClipboard.AccessibleName = "Copy to clipboard";
+		dropDownButtonCopyToClipboard.AccessibleRole = AccessibleRole.ButtonDropDown;
+		dropDownButtonCopyToClipboard.DropDownItems.AddRange(new ToolStripItem[] { menuItemCopyToClipboardPlanetColums, menuItemCopyToClipboardSpecificValues });
+		dropDownButtonCopyToClipboard.Image = Resources.FatcowIcons16px.fatcow_page_white_copy_16px;
+		dropDownButtonCopyToClipboard.ImageTransparentColor = Color.Magenta;
+		dropDownButtonCopyToClipboard.Name = "dropDownButtonCopyToClipboard";
+		dropDownButtonCopyToClipboard.Size = new Size(131, 22);
+		dropDownButtonCopyToClipboard.Text = "&Copy to clipboard";
+		dropDownButtonCopyToClipboard.MouseEnter += Control_Enter;
+		dropDownButtonCopyToClipboard.MouseLeave += Control_Leave;
+		// 
+		// contextMenuCopyToClipboardPlanetColumns
+		// 
+		contextMenuCopyToClipboardPlanetColumns.AccessibleDescription = "Copies the planet columns";
+		contextMenuCopyToClipboardPlanetColumns.AccessibleName = "Copy planet columns";
+		contextMenuCopyToClipboardPlanetColumns.AccessibleRole = AccessibleRole.MenuPopup;
+		contextMenuCopyToClipboardPlanetColumns.Font = new Font("Segoe UI", 9F);
+		contextMenuCopyToClipboardPlanetColumns.Name = "contextMenuCopyPlanetColumn";
+		contextMenuCopyToClipboardPlanetColumns.Size = new Size(61, 4);
+		contextMenuCopyToClipboardPlanetColumns.Text = "Copy planet columns";
+		contextMenuCopyToClipboardPlanetColumns.Enter += Control_Enter;
+		contextMenuCopyToClipboardPlanetColumns.Leave += Control_Leave;
+		contextMenuCopyToClipboardPlanetColumns.MouseEnter += Control_Enter;
+		contextMenuCopyToClipboardPlanetColumns.MouseLeave += Control_Leave;
+		// 
+		// contextMenuCopyToClipboardSpecificValue
+		// 
+		contextMenuCopyToClipboardSpecificValue.AccessibleDescription = "Copies the specific values";
+		contextMenuCopyToClipboardSpecificValue.AccessibleName = "Copy specific values";
+		contextMenuCopyToClipboardSpecificValue.AccessibleRole = AccessibleRole.MenuPopup;
+		contextMenuCopyToClipboardSpecificValue.AllowClickThrough = true;
+		contextMenuCopyToClipboardSpecificValue.Font = new Font("Segoe UI", 9F);
+		contextMenuCopyToClipboardSpecificValue.Name = "contextMenuCopyPlanetaryInformation";
+		contextMenuCopyToClipboardSpecificValue.Size = new Size(61, 4);
+		contextMenuCopyToClipboardSpecificValue.Text = "Copy specific values";
+		contextMenuCopyToClipboardSpecificValue.Enter += Control_Enter;
+		contextMenuCopyToClipboardSpecificValue.Leave += Control_Leave;
+		contextMenuCopyToClipboardSpecificValue.MouseEnter += Control_Enter;
+		contextMenuCopyToClipboardSpecificValue.MouseLeave += Control_Leave;
 		// 
 		// toolStripContainer
 		// 
@@ -951,20 +997,33 @@ partial class PlanetaryInformationForm
 		toolStripContainer.MouseEnter += Control_Enter;
 		toolStripContainer.MouseLeave += Control_Leave;
 		// 
-		// contextMenuCopyToClipboardPlanetaryInformation
+		// menuItemCopyToClipboardPlanetColums
 		// 
-		contextMenuCopyToClipboardPlanetaryInformation.AccessibleDescription = "Copies the planetary information";
-		contextMenuCopyToClipboardPlanetaryInformation.AccessibleName = "Copy planetary information";
-		contextMenuCopyToClipboardPlanetaryInformation.AccessibleRole = AccessibleRole.MenuPopup;
-		contextMenuCopyToClipboardPlanetaryInformation.AllowClickThrough = true;
-		contextMenuCopyToClipboardPlanetaryInformation.Font = new Font("Segoe UI", 9F);
-		contextMenuCopyToClipboardPlanetaryInformation.Name = "contextMenuCopyPlanetaryInformation";
-		contextMenuCopyToClipboardPlanetaryInformation.Size = new Size(181, 26);
-		contextMenuCopyToClipboardPlanetaryInformation.Text = "Copy planetary information";
-		contextMenuCopyToClipboardPlanetaryInformation.Enter += Control_Enter;
-		contextMenuCopyToClipboardPlanetaryInformation.Leave += Control_Leave;
-		contextMenuCopyToClipboardPlanetaryInformation.MouseEnter += Control_Enter;
-		contextMenuCopyToClipboardPlanetaryInformation.MouseLeave += Control_Leave;
+		menuItemCopyToClipboardPlanetColums.AccessibleDescription = "Copies planet columns";
+		menuItemCopyToClipboardPlanetColums.AccessibleName = "Copy planet columns";
+		menuItemCopyToClipboardPlanetColums.AccessibleRole = AccessibleRole.MenuItem;
+		menuItemCopyToClipboardPlanetColums.AutoToolTip = true;
+		menuItemCopyToClipboardPlanetColums.DropDown = contextMenuCopyToClipboardPlanetColumns;
+		menuItemCopyToClipboardPlanetColums.Image = Resources.FatcowIcons16px.fatcow_document_copies_16px;
+		menuItemCopyToClipboardPlanetColums.Name = "menuItemCopyToClipboardPlanetColums";
+		menuItemCopyToClipboardPlanetColums.Size = new Size(187, 22);
+		menuItemCopyToClipboardPlanetColums.Text = "Copy &planet columns";
+		menuItemCopyToClipboardPlanetColums.MouseEnter += Control_Enter;
+		menuItemCopyToClipboardPlanetColums.MouseLeave += Control_Leave;
+		// 
+		// menuItemCopyToClipboardSpecificValues
+		// 
+		menuItemCopyToClipboardSpecificValues.AccessibleDescription = "Copies the specific values";
+		menuItemCopyToClipboardSpecificValues.AccessibleName = "Copy specific values";
+		menuItemCopyToClipboardSpecificValues.AccessibleRole = AccessibleRole.MenuItem;
+		menuItemCopyToClipboardSpecificValues.AutoToolTip = true;
+		menuItemCopyToClipboardSpecificValues.DropDown = contextMenuCopyToClipboardSpecificValue;
+		menuItemCopyToClipboardSpecificValues.Image = Resources.FatcowIcons16px.fatcow_document_copies_16px;
+		menuItemCopyToClipboardSpecificValues.Name = "menuItemCopyToClipboardSpecificValues";
+		menuItemCopyToClipboardSpecificValues.Size = new Size(187, 22);
+		menuItemCopyToClipboardSpecificValues.Text = "Copy &specific values";
+		menuItemCopyToClipboardSpecificValues.MouseEnter += Control_Enter;
+		menuItemCopyToClipboardSpecificValues.MouseLeave += Control_Leave;
 		// 
 		// PlanetaryInformationForm
 		// 
@@ -1044,8 +1103,11 @@ partial class PlanetaryInformationForm
 	/// <summary>Gets or sets the context menu that controls which elements are shown in the status bar.</summary>
 	private ContextMenuStrip contextMenuShowControlsInStatusBar;
 
+	/// <summary>The context menu for copying planet column values to the clipboard.</summary>
+	private ContextMenuStrip contextMenuCopyToClipboardPlanetColumns;
+
 	/// <summary>Displays copy actions for planetary information.</summary>
-	private ContextMenuStrip contextMenuCopyToClipboardPlanetaryInformation;
+	private ContextMenuStrip contextMenuCopyToClipboardSpecificValue;
 	/// <summary>Manages Krypton theme and visual style settings for the form.</summary>
 	private KryptonManager kryptonManager;
 
@@ -1066,6 +1128,9 @@ partial class PlanetaryInformationForm
 
 	/// <summary>The drop-down button for saving lists in the toolbar.</summary>
 	private ToolStripDropDownButton dropDownButtonSaveList;
+
+	/// <summary>The drop-down button that provides copy-to-clipboard actions.</summary>
+	private ToolStripDropDownButton dropDownButtonCopyToClipboard;
 
 	/// <summary>Represents the menu item used to access text-file options.</summary>
 	private ToolStripMenuItem menuItemTextFiles;
@@ -1188,6 +1253,12 @@ partial class PlanetaryInformationForm
 
 	/// <summary>Gets or sets the menu item that toggles the visibility of the information label.</summary>
 	private ToolStripMenuItem menuItemShowInformationLabel;
+
+	/// <summary>The menu item used to copy planetary column values to the clipboard.</summary>
+	private ToolStripMenuItem menuItemCopyToClipboardPlanetColums;
+	
+	/// <summary>A menu item that copies specific values to the clipboard.</summary>
+	private ToolStripMenuItem menuItemCopyToClipboardSpecificValues;
 
 	/// <summary>Gets or sets the status label that displays informational text.</summary>
 	private ToolStripStatusLabel labelInformation;
