@@ -525,15 +525,15 @@ internal partial class PlanetaryInformationForm : BaseKryptonForm
 	/// <summary>Shows or hides the information label according to the menu item's checked state.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
-	private void ToolStripMenuItemShowInformationLabel_Click(object sender, EventArgs e)
+	private void MenuItemShowInformationLabel_Click(object sender, EventArgs e)
 	{
 		// Log the action of clicking of ToolStripMenuItemShowInformationLabel
-		logger.Info(message: $"ToolStripMenuItemShowInformationLabel clicked.");
+		logger.Info(message: $"MenuItemShowInformationLabel clicked.");
 		// Ensure that an event source was supplied
 		ArgumentNullException.ThrowIfNull(argument: sender);
 		// Ensure that the event data was supplied
 		ArgumentNullException.ThrowIfNull(argument: e);
-		labelInformation.Visible = toolStripMenuItemShowInformationLabel.Checked;
+		labelInformation.Visible = menuItemShowInformationLabel.Checked;
 		// Log the new state of the visibility of the information label
 		logger.Info(message: $"Set the visibility of the information label to {labelInformation.Visible}.");
 	}
@@ -548,7 +548,7 @@ internal partial class PlanetaryInformationForm : BaseKryptonForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The mouse event arguments.</param>
 	/// <remarks>Sets a flag when the right mouse button is pressed down on the ListView, which is used to determine if a context menu should be shown on mouse up.</remarks>
-	private void KryptonListView_MouseDown(object? sender, MouseEventArgs e)
+	private void ListView_MouseDown(object? sender, MouseEventArgs e)
 	{
 		// Ensure that an event source was supplied
 		ArgumentNullException.ThrowIfNull(argument: sender);
@@ -562,7 +562,7 @@ internal partial class PlanetaryInformationForm : BaseKryptonForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The mouse event arguments.</param>
 	/// <remarks>Shows the context menu if the right mouse button was pressed down on the ListView and released over an item.</remarks>
-	private void KryptonListView_MouseUp(object? sender, MouseEventArgs e)
+	private void ListView_MouseUp(object? sender, MouseEventArgs e)
 	{
 		// Ensure that an event source was supplied
 		ArgumentNullException.ThrowIfNull(argument: sender);
@@ -580,7 +580,7 @@ internal partial class PlanetaryInformationForm : BaseKryptonForm
 		if (sender is not KryptonListView listView)
 		{
 			// Log a warning if the sender is not a KryptonListView and exit
-			logger.Warn(message: "KryptonListView_MouseUp event handler called with a sender that is not a KryptonListView.");
+			logger.Warn(message: "ListView_MouseUp event handler called with a sender that is not a KryptonListView.");
 			return;
 		}
 		// Perform a hit test to determine if the mouse is over an item in the ListView
