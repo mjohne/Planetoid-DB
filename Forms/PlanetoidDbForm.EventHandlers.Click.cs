@@ -31,12 +31,12 @@ namespace Planetoid_DB;
 /// <remarks>This file contains all Click event handlers.</remarks>
 public partial class PlanetoidDbForm
 {
-	/// <summary>Handles the click event for the ToolStripStatusLabelDiskSizeUsage. Shows an information message box.</summary>
-	/// <summary>Handles the click event for the ToolStripStatusLabelDiskSizeUsage. Shows an information message box.</summary>
+	/// <summary>Handles the click event for the LabelDiskSizeUsage. Shows an information message box.</summary>
+	/// <summary>Handles the click event for the LabelDiskSizeUsage. Shows an information message box.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show an information message box.</remarks>
-	private void ToolStripStatusLabelDiskSizeUsage_Click(object sender, EventArgs e)
+	private void LabelDiskSizeUsage_Click(object sender, EventArgs e)
 	{
 		// Ensure that an event source was supplied
 		ArgumentNullException.ThrowIfNull(argument: sender);
@@ -46,7 +46,7 @@ public partial class PlanetoidDbForm
 		_ = KryptonMessageBox.Show(text: "This label indicates the hard drive space occupied by the program.\n\nThe first value refers to the program directory, and the second value refers to the user directory.", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemArchive. Opens the archive.</summary>
+	/// <summary>Handles the click event for the MenuItemArchive. Opens the archive.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the archive.</remarks>
@@ -60,7 +60,7 @@ public partial class PlanetoidDbForm
 		ShowArchive();
 	}
 
-	/// <summary>Handles the click event for the ToolStripButtonGoToIndex. Navigates to the specified index in the data.</summary>
+	/// <summary>Handles the click event for the ButtonGoToIndex. Navigates to the specified index in the data.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	///	<remarks>This method is used to navigate to a specific index in the data.</remarks>
@@ -74,7 +74,7 @@ public partial class PlanetoidDbForm
 		ArgumentNullException.ThrowIfNull(argument: e);
 		// Initialize the position variable to store the parsed index
 		int pos = 0;
-		// Try to parse the index from the ToolStripTextBoxGotoIndex
+		// Try to parse the index from the TextBoxGotoIndex
 		try
 		{
 			// Parse the index from the text box
@@ -118,7 +118,7 @@ public partial class PlanetoidDbForm
 		}
 	}
 
-	/// <summary>Handles the click event for the ToolStripButtonTerminology. Opens the terminology form with the specified index.</summary>
+	/// <summary>Handles the click event for the ButtonTerminology. Opens the terminology form with the specified index.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to open the terminology form with the specified index.</remarks>
@@ -132,7 +132,7 @@ public partial class PlanetoidDbForm
 		OpenTerminology(index: 0);
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItem10. Sets the navigation step to 10 and updates the menu item checked state.</summary>
+	/// <summary>Handles the click event for the MenuItem10. Sets the navigation step to 10 and updates the menu item checked state.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to navigate to a specific index in the data.</remarks>
@@ -146,12 +146,12 @@ public partial class PlanetoidDbForm
 		// Set the step position to 10
 		stepPosition = 10;
 		// Clear the checked state of all other menu items
-		ToolStripMenuItem_Clear();
+		MenuItem_Clear();
 		// Set the checked state of the menu item to true
 		menuItemNavigateStep10.Checked = true;
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItem100. Sets the navigation step to 100 and updates the menu item checked state.</summary>
+	/// <summary>Handles the click event for the MenuItem100. Sets the navigation step to 100 and updates the menu item checked state.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to navigate to a specific index in the data.</remarks>
@@ -165,12 +165,12 @@ public partial class PlanetoidDbForm
 		// Set the step position to 100
 		stepPosition = 100;
 		// Clear the checked state of all other menu items
-		ToolStripMenuItem_Clear();
+		MenuItem_Clear();
 		// Set the checked state of the menu item to true
 		menuItemNavigateStep100.Checked = true;
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItem1000. Sets the navigation step to 1000 and updates the menu item checked state.</summary>
+	/// <summary>Handles the click event for the MenuItem1000. Sets the navigation step to 1000 and updates the menu item checked state.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to navigate to a specific index in the data.</remarks>
@@ -184,12 +184,12 @@ public partial class PlanetoidDbForm
 		// Set the step position to 1000
 		stepPosition = 1000;
 		// Clear the checked state of all other menu items
-		ToolStripMenuItem_Clear();
+		MenuItem_Clear();
 		// Set the checked state of the menu item to true
 		menuItemNavigateStep1000.Checked = true;
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItem10000. Sets the navigation step to 10000 and updates the menu item checked state.</summary>
+	/// <summary>Handles the click event for the MenuItem10000. Sets the navigation step to 10000 and updates the menu item checked state.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to navigate to a specific index in the data.</remarks>
@@ -203,12 +203,12 @@ public partial class PlanetoidDbForm
 		// Set the step position to 10000
 		stepPosition = 10000;
 		// Clear the checked state of all other menu items
-		ToolStripMenuItem_Clear();
+		MenuItem_Clear();
 		// Set the checked state of the menu item to true
 		menuItemNavigateStep10000.Checked = true;
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItem100000. Sets the navigation step to 100000 and updates the menu item checked state.</summary>
+	/// <summary>Handles the click event for the MenuItem100000. Sets the navigation step to 100000 and updates the menu item checked state.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to navigate to a specific index in the data.</remarks>
@@ -222,12 +222,12 @@ public partial class PlanetoidDbForm
 		// Set the step position to 100000
 		stepPosition = 100000;
 		// Clear the checked state of all other menu items
-		ToolStripMenuItem_Clear();
+		MenuItem_Clear();
 		// Set the checked state of the menu item to true
 		menuItemNavigateStep100000.Checked = true;
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemExit. Closes the application.</summary>
+	/// <summary>Handles the click event for the MenuItemExit. Closes the application.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to close the application.</remarks>
@@ -241,7 +241,7 @@ public partial class PlanetoidDbForm
 		Close();
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemOpenWebsiteMPC. Opens the Minor Planet Center website.</summary>
+	/// <summary>Handles the click event for the MenuItemOpenWebsiteMPC. Opens the Minor Planet Center website.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to open the Minor Planet Center website.</remarks>
@@ -256,7 +256,7 @@ public partial class PlanetoidDbForm
 		OpenWebsite(fileName: Settings.Default.systemWebsiteMpc);
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemOpenMPCORBWebsite. Opens the MPCORB website.</summary>
+	/// <summary>Handles the click event for the MenuItemOpenMPCORBWebsite. Opens the MPCORB website.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to open the MPCORB website.</remarks>
@@ -271,7 +271,7 @@ public partial class PlanetoidDbForm
 		OpenWebsite(fileName: Settings.Default.systemWebsiteMpcorb);
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemDownloadMpcorbDat. Shows the downloader form for the MPCORB.DAT database.</summary>
+	/// <summary>Handles the click event for the MenuItemDownloadMpcorbDat. Shows the downloader form for the MPCORB.DAT database.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the downloader form for the MPCORB.DAT database.</remarks>
@@ -285,7 +285,7 @@ public partial class PlanetoidDbForm
 		ShowMpcorbDatDownloader();
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemDownloadMpcorbJson. Shows the downloader form for the MPCORB.JSON database.</summary>
+	/// <summary>Handles the click event for the MenuItemDownloadMpcorbJson. Shows the downloader form for the MPCORB.JSON database.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the downloader form for the MPCORB.JSON database.</remarks>
@@ -299,7 +299,7 @@ public partial class PlanetoidDbForm
 		ShowMpcorbJsonDownloader();
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemDownloadAstorbDat. Shows the downloader form for the ASTORB.DAT database.</summary>
+	/// <summary>Handles the click event for the MenuItemDownloadAstorbDat. Shows the downloader form for the ASTORB.DAT database.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the downloader form for the ASTORB.DAT database.</remarks>
@@ -313,7 +313,7 @@ public partial class PlanetoidDbForm
 		ShowAstorbDatDownloader();
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemDownloadAllnumCat. Shows the downloader form for the ALLNUM.CAT database.</summary>
+	/// <summary>Handles the click event for the MenuItemDownloadAllnumCat. Shows the downloader form for the ALLNUM.CAT database.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the downloader form for the ALLNUM.CAT database.</remarks>
@@ -327,7 +327,7 @@ public partial class PlanetoidDbForm
 		ShowAllnumCatDownloader();
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemDownloadUfitobsCat. Shows the downloader form for the UFITOBS.CAT database.</summary>
+	/// <summary>Handles the click event for the MenuItemDownloadUfitobsCat. Shows the downloader form for the UFITOBS.CAT database.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the downloader form for the UFITOBS.CAT database.</remarks>
@@ -341,7 +341,7 @@ public partial class PlanetoidDbForm
 		ShowUfitobsCatDownloader();
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemDownloadSingoppCat. Shows the downloader form for the SINGOPP.CAT database.</summary>
+	/// <summary>Handles the click event for the MenuItemDownloadSingoppCat. Shows the downloader form for the SINGOPP.CAT database.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the downloader form for the SINGOPP.CAT database.</remarks>
@@ -355,7 +355,7 @@ public partial class PlanetoidDbForm
 		ShowSingoppCatDownloader();
 	}
 
-	/// <summary>Handles the click event for the ToolStripButtonCheckMpcorbDatUpdate. Shows the MPCORB.DAT data check form.</summary>
+	/// <summary>Handles the click event for the ButtonCheckMpcorbDatUpdate. Shows the MPCORB.DAT data check form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	///	<remarks>
@@ -370,7 +370,7 @@ public partial class PlanetoidDbForm
 		ShowMpcorbDatUpdateCheck();
 	}
 
-	/// <summary>Handles the click event for the ToolStripButtonCheckMpcorbJsonUpdate. Shows the MPCORB.JSON data check form.</summary>
+	/// <summary>Handles the click event for the ButtonCheckMpcorbJsonUpdate. Shows the MPCORB.JSON data check form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	///	<remarks>
@@ -385,7 +385,7 @@ public partial class PlanetoidDbForm
 		ShowMpcorbJsonUpdateCheck();
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemCheckAstorbDat. Shows the ASTORB.DAT data check form.</summary>
+	/// <summary>Handles the click event for the MenuItemCheckAstorbDat. Shows the ASTORB.DAT data check form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the ASTORB.DAT data check form.</remarks>
@@ -399,7 +399,7 @@ public partial class PlanetoidDbForm
 		ShowAstorbDatUpdateCheck();
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemCheckAllnumCat. Shows the ALLNUM.CAT data check form.</summary>
+	/// <summary>Handles the click event for the MenuItemCheckAllnumCat. Shows the ALLNUM.CAT data check form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the ALLNUM.CAT data check form.</remarks>
@@ -413,7 +413,7 @@ public partial class PlanetoidDbForm
 		ShowAllnumCatUpdateCheck();
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemCheckUfitobsCat. Shows the UFITOBS.CAT data check form.</summary>
+	/// <summary>Handles the click event for the MenuItemCheckUfitobsCat. Shows the UFITOBS.CAT data check form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the UFITOBS.CAT data check form.</remarks>
@@ -427,7 +427,7 @@ public partial class PlanetoidDbForm
 		ShowUfitobsCatUpdateCheck();
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemCheckSingoppCat. Shows the SINGOPP.CAT data check form.</summary>
+	/// <summary>Handles the click event for the MenuItemCheckSingoppCat. Shows the SINGOPP.CAT data check form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the SINGOPP.CAT data check form.</remarks>
@@ -441,7 +441,7 @@ public partial class PlanetoidDbForm
 		ShowSingoppCatUpdateCheck();
 	}
 
-	/// <summary>Handles the click event for the ToolStripButtonAbout. Shows the application information form.</summary>
+	/// <summary>Handles the click event for the ButtonAbout. Shows the application information form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the application information form.</remarks>
@@ -455,7 +455,7 @@ public partial class PlanetoidDbForm
 		ShowAppInfo();
 	}
 
-	/// <summary>Handles the click event for the ToolStripButtonOpenWebsitePDB. Opens the Planetoid Database website.</summary>
+	/// <summary>Handles the click event for the ButtonOpenWebsitePDB. Opens the Planetoid Database website.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to open the Planetoid Database website.</remarks>
@@ -484,7 +484,7 @@ public partial class PlanetoidDbForm
 		OpenTableMode();
 	}
 
-	/// <summary>Handles the click event for the ToolStripButtonDatabaseInformation. Shows the database information form.</summary>
+	/// <summary>Handles the click event for the ButtonDatabaseInformation. Shows the database information form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	///	<remarks>
@@ -499,7 +499,7 @@ public partial class PlanetoidDbForm
 		ShowDatabaseInformation();
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemPrint. Shows the print data sheet form.</summary>
+	/// <summary>Handles the click event for the MenuItemPrint. Shows the print data sheet form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the print data sheet form.</remarks>
@@ -513,7 +513,7 @@ public partial class PlanetoidDbForm
 		PrintDataSheet();
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemSearch. Shows the search form.</summary>
+	/// <summary>Handles the click event for the MenuItemSearch. Shows the search form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the search form.</remarks>
@@ -527,7 +527,7 @@ public partial class PlanetoidDbForm
 		ShowSearch();
 	}
 
-	/// <summary>Handles the click event for the ToolStripButtonLoadRandomMinorPlanet. Loads a random minor planet from the database.</summary>
+	/// <summary>Handles the click event for the ButtonLoadRandomMinorPlanet. Loads a random minor planet from the database.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to load a random minor planet from the database.</remarks>
@@ -541,7 +541,7 @@ public partial class PlanetoidDbForm
 		LoadRandomMinorPlanet();
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemNavigateToTheBegin. Navigates to the beginning of the data.</summary>
+	/// <summary>Handles the click event for the MenuItemNavigateToTheBegin. Navigates to the beginning of the data.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to navigate to the beginning of the data.</remarks>
@@ -555,7 +555,7 @@ public partial class PlanetoidDbForm
 		NavigateToTheBeginOfTheData();
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemNavigateSomeDataBackward. Navigates backward by a specified step in the data.</summary>
+	/// <summary>Handles the click event for the MenuItemNavigateSomeDataBackward. Navigates backward by a specified step in the data.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to navigate backward by a specified step in the data.</remarks>
@@ -569,7 +569,7 @@ public partial class PlanetoidDbForm
 		NavigateSomeDataBackward();
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemNavigateToThePreviousData. Navigates to the previous data entry.</summary>
+	/// <summary>Handles the click event for the MenuItemNavigateToThePreviousData. Navigates to the previous data entry.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to navigate to the previous data entry.</remarks>
@@ -583,7 +583,7 @@ public partial class PlanetoidDbForm
 		NavigateToThePreviousData();
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemNavigateToTheNextData. Navigates to the next data entry.</summary>
+	/// <summary>Handles the click event for the MenuItemNavigateToTheNextData. Navigates to the next data entry.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to navigate to the next data entry.</remarks>
@@ -597,7 +597,7 @@ public partial class PlanetoidDbForm
 		NavigateToTheNextData();
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemNavigateSomeDataForward. Navigates forward by a specified step in the data.</summary>
+	/// <summary>Handles the click event for the MenuItemNavigateSomeDataForward. Navigates forward by a specified step in the data.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to navigate forward by a specified step in the data.</remarks>
@@ -611,7 +611,7 @@ public partial class PlanetoidDbForm
 		NavigateSomeDataForward();
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemNavigateToTheEnd. Navigates to the end of the data.</summary>
+	/// <summary>Handles the click event for the MenuItemNavigateToTheEnd. Navigates to the end of the data.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to navigate to the end of the data.</remarks>
@@ -625,7 +625,7 @@ public partial class PlanetoidDbForm
 		NavigateToTheEndOfTheData();
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemSettings. Shows the settings form.</summary>
+	/// <summary>Handles the click event for the MenuItemSettings. Shows the settings form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the settings form.</remarks>
@@ -639,7 +639,7 @@ public partial class PlanetoidDbForm
 		ShowSettings();
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemExportSettings. Shows the settings export form.</summary>
+	/// <summary>Handles the click event for the MenuItemExportSettings. Shows the settings export form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the settings export form.</remarks>
@@ -653,7 +653,7 @@ public partial class PlanetoidDbForm
 		ShowSettingsExport();
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemImportSettings. Shows the settings import form.</summary>
+	/// <summary>Handles the click event for the MenuItemImportSettings. Shows the settings import form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the settings import form.</remarks>
@@ -667,7 +667,7 @@ public partial class PlanetoidDbForm
 		ShowSettingsImport();
 	}
 
-	/// <summary>Handles the click event for the ToolStripButtonFilter. Shows the filter form.</summary>
+	/// <summary>Handles the click event for the ButtonFilter. Shows the filter form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the filter form.</remarks>
@@ -681,7 +681,7 @@ public partial class PlanetoidDbForm
 		ShowFilter();
 	}
 
-	/// <summary>Handles the click event for the ToolStripButtonFilterReset. Resets the filter and restores the original database.</summary>
+	/// <summary>Handles the click event for the ButtonFilterReset. Resets the filter and restores the original database.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to reset the filter and restore the original database.</remarks>
@@ -711,7 +711,7 @@ public partial class PlanetoidDbForm
 		logger.Info(message: $"Filter reset: database now contains {planetoidsDatabase.Count} records.");
 	}
 
-	/// <summary>Handles the click event for the ToolStripButtonDerivedOrbitElements. Shows the derived orbit elements form.</summary>
+	/// <summary>Handles the click event for the ButtonDerivedOrbitElements. Shows the derived orbit elements form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the derived orbit elements form.</remarks>
@@ -725,7 +725,7 @@ public partial class PlanetoidDbForm
 		ShowDerivedOrbitElements();
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemRestart. Restarts the application.</summary>
+	/// <summary>Handles the click event for the MenuItemRestart. Restarts the application.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to restart the application.</remarks>
@@ -739,7 +739,7 @@ public partial class PlanetoidDbForm
 		Restart();
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemStayOnTop. Checks if the form should stay on top of other windows.</summary>
+	/// <summary>Handles the click event for the MenuItemStayOnTop. Checks if the form should stay on top of other windows.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to check if the form should stay on top of other windows.</remarks>
@@ -753,7 +753,7 @@ public partial class PlanetoidDbForm
 		CheckStayOnTop();
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuIndexNumberCopyToClipboard_Click. Copies the index number to the clipboard.</summary>
+	/// <summary>Handles the click event for the MenuIndexNumberCopyToClipboard_Click. Copies the index number to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to copy the index number to the clipboard.</remarks>
@@ -767,7 +767,7 @@ public partial class PlanetoidDbForm
 		CopyToClipboard(text: labelMpcorbIndexData.Text);
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemCopyToClipboardReadableDesignation. Copies the readable designation to the clipboard.</summary>
+	/// <summary>Handles the click event for the MenuItemCopyToClipboardReadableDesignation. Copies the readable designation to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to copy the readable designation to the clipboard.</remarks>
@@ -781,7 +781,7 @@ public partial class PlanetoidDbForm
 		CopyToClipboard(text: labelMpcorbReadableDesignationData.Text);
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemCopyToClipboardEpoch. Copies the epoch to the clipboard.</summary>
+	/// <summary>Handles the click event for the MenuItemCopyToClipboardEpoch. Copies the epoch to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to copy the epoch to the clipboard.</remarks>
@@ -795,7 +795,7 @@ public partial class PlanetoidDbForm
 		CopyToClipboard(text: labelMpcorbEpochData.Text);
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemCopyToClipboardMeanAnomaly. Copies the mean anomaly to the clipboard.</summary>
+	/// <summary>Handles the click event for the MenuItemCopyToClipboardMeanAnomaly. Copies the mean anomaly to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to copy the mean anomaly to the clipboard.</remarks>
@@ -809,7 +809,7 @@ public partial class PlanetoidDbForm
 		CopyToClipboard(text: labelMpcorbMeanAnomalyAtTheEpochData.Text);
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemCopyToClipboardArgumentOfThePerihelion. Copies the argument of perihelion to the clipboard.</summary>
+	/// <summary>Handles the click event for the MenuItemCopyToClipboardArgumentOfThePerihelion. Copies the argument of perihelion to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to copy the argument of perihelion to the clipboard.</remarks>
@@ -823,7 +823,7 @@ public partial class PlanetoidDbForm
 		CopyToClipboard(text: labelMpcorbArgumentOfThePerihelionData.Text);
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemCopyToClipboardLongitudeOfTheAscendingNode. Copies the longitude of the ascending node to the clipboard.</summary>
+	/// <summary>Handles the click event for the MenuItemCopyToClipboardLongitudeOfTheAscendingNode. Copies the longitude of the ascending node to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to copy the longitude of the ascending node to the clipboard.</remarks>
@@ -837,7 +837,7 @@ public partial class PlanetoidDbForm
 		CopyToClipboard(text: labelMpcorbLongitudeOfTheAscendingNodeData.Text);
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemCopyToClipboardInclinationToTheEcliptic. Copies the inclination to the ecliptic data to the clipboard.</summary>
+	/// <summary>Handles the click event for the MenuItemCopyToClipboardInclinationToTheEcliptic. Copies the inclination to the ecliptic data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to copy the inclination to the ecliptic data to the clipboard.</remarks>
@@ -851,7 +851,7 @@ public partial class PlanetoidDbForm
 		CopyToClipboard(text: labelMpcorbInclinationToTheEclipticData.Text);
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemCopyToClipboardOrbitalEccentricity. Copies the orbital eccentricity data to the clipboard.</summary>
+	/// <summary>Handles the click event for the MenuItemCopyToClipboardOrbitalEccentricity. Copies the orbital eccentricity data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to copy the orbital eccentricity data to the clipboard.</remarks>
@@ -865,7 +865,7 @@ public partial class PlanetoidDbForm
 		CopyToClipboard(text: labelMpcorbOrbitalEccentricityData.Text);
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemCopyToClipboardMeanDailyMotion. Copies the mean daily motion data to the clipboard.</summary>
+	/// <summary>Handles the click event for the MenuItemCopyToClipboardMeanDailyMotion. Copies the mean daily motion data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to copy the mean daily motion data to the clipboard.</remarks>
@@ -879,7 +879,7 @@ public partial class PlanetoidDbForm
 		CopyToClipboard(text: labelMpcorbMeanDailyMotionData.Text);
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemCopyToClipboardSemiMajorAxis. Copies the semi-major axis data to the clipboard.</summary>
+	/// <summary>Handles the click event for the MenuItemCopyToClipboardSemiMajorAxis. Copies the semi-major axis data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to copy the semi-major axis data to the clipboard.</remarks>
@@ -893,7 +893,7 @@ public partial class PlanetoidDbForm
 		CopyToClipboard(text: labelMpcorbSemiMajorAxisData.Text);
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemCopyToClipboardAbsoluteMagnitude. Copies the absolute magnitude data to the clipboard.</summary>
+	/// <summary>Handles the click event for the MenuItemCopyToClipboardAbsoluteMagnitude. Copies the absolute magnitude data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to copy the absolute magnitude data to the clipboard.</remarks>
@@ -907,7 +907,7 @@ public partial class PlanetoidDbForm
 		CopyToClipboard(text: labelMpcorbAbsoluteMagnitudeData.Text);
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemCopyToClipboardSlopeParameter. Copies the slope parameter data to the clipboard.</summary>
+	/// <summary>Handles the click event for the MenuItemCopyToClipboardSlopeParameter. Copies the slope parameter data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to copy the slope parameter data to the clipboard.</remarks>
@@ -921,7 +921,7 @@ public partial class PlanetoidDbForm
 		CopyToClipboard(text: labelMpcorbSlopeParameterData.Text);
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemCopyToClipboardReference. Copies the reference data to the clipboard.</summary>
+	/// <summary>Handles the click event for the MenuItemCopyToClipboardReference. Copies the reference data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to copy the reference data to the clipboard.</remarks>
@@ -935,7 +935,7 @@ public partial class PlanetoidDbForm
 		CopyToClipboard(text: labelMpcorbReferenceData.Text);
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemCopyToClipboardNumberOfOppositions. Copies the number of oppositions data to the clipboard.</summary>
+	/// <summary>Handles the click event for the MenuItemCopyToClipboardNumberOfOppositions. Copies the number of oppositions data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to copy the number of oppositions data to the clipboard.</remarks>
@@ -949,7 +949,7 @@ public partial class PlanetoidDbForm
 		CopyToClipboard(text: labelMpcorbNumberOfOppositionsData.Text);
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemCopyToClipboardNumberOfObservations. Copies the number of observations data to the clipboard.</summary>
+	/// <summary>Handles the click event for the MenuItemCopyToClipboardNumberOfObservations. Copies the number of observations data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to copy the number of observations data to the clipboard.</remarks>
@@ -963,7 +963,7 @@ public partial class PlanetoidDbForm
 		CopyToClipboard(text: labelMpcorbNumberOfObservationsData.Text);
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemCopyToClipboardObservationSpan. Copies the observation span data to the clipboard.</summary>
+	/// <summary>Handles the click event for the MenuItemCopyToClipboardObservationSpan. Copies the observation span data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to copy the observation span data to the clipboard.</remarks>
@@ -977,7 +977,7 @@ public partial class PlanetoidDbForm
 		CopyToClipboard(text: labelMpcorbObservationSpanData.Text);
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemCopyToClipboardRmsResidual. Copies the RMS residual data to the clipboard.</summary>
+	/// <summary>Handles the click event for the MenuItemCopyToClipboardRmsResidual. Copies the RMS residual data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to copy the RMS residual data to the clipboard.</remarks>
@@ -991,7 +991,7 @@ public partial class PlanetoidDbForm
 		CopyToClipboard(text: labelMpcorbRmsResidualData.Text);
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemCopyToClipboardComputerName. Copies the computer name data to the clipboard.</summary>
+	/// <summary>Handles the click event for the MenuItemCopyToClipboardComputerName. Copies the computer name data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to copy the computer name data to the clipboard.</remarks>
@@ -1005,7 +1005,7 @@ public partial class PlanetoidDbForm
 		CopyToClipboard(text: labelMpcorbComputerNameData.Text);
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemCopyToClipboardDateOfLastObservation. Copies the date of last observation data to the clipboard.</summary>
+	/// <summary>Handles the click event for the MenuItemCopyToClipboardDateOfLastObservation. Copies the date of last observation data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to copy the date of last observation data to the clipboard.</remarks>
@@ -1019,7 +1019,7 @@ public partial class PlanetoidDbForm
 		CopyToClipboard(text: labelMpcorbDateLastObservationData.Text);
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemCopyToClipboardFlags. Copies the flags data to the clipboard.</summary>
+	/// <summary>Handles the click event for the MenuItemCopyToClipboardFlags. Copies the flags data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to copy the flags data to the clipboard.</remarks>
@@ -1033,7 +1033,7 @@ public partial class PlanetoidDbForm
 		CopyToClipboard(text: labelMpcorbFlagsData.Text);
 	}
 
-	/// <summary>Handles the click event for the ToolStripButtonExport. Exports the data sheet.</summary>
+	/// <summary>Handles the click event for the ButtonExport. Exports the data sheet.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to export the data sheet.</remarks>
@@ -1047,7 +1047,7 @@ public partial class PlanetoidDbForm
 		ExportDataSheet();
 	}
 
-	/// <summary>Handles the button click event for the ToolStripSplitButtonTopTenRecords. Shows the records main form.</summary>
+	/// <summary>Handles the button click event for the SplitButtonTopTenRecords. Shows the records main form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the records main form.</remarks>
@@ -1061,7 +1061,7 @@ public partial class PlanetoidDbForm
 		ShowRecords();
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemRecordsMeanAnomalyAtTheEpoch. Shows the top ten records form for mean anomaly at the epoch.</summary>
+	/// <summary>Handles the click event for the MenuItemRecordsMeanAnomalyAtTheEpoch. Shows the top ten records form for mean anomaly at the epoch.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the top ten records form for mean anomaly at the epoch.</remarks>
@@ -1076,7 +1076,7 @@ public partial class PlanetoidDbForm
 		ShowRecordsTop10(selectedElement: "Mean anomaly at the epoch");
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemRecordsArgumentOfThePerihelion. Shows the top ten records form for the argument of the perihelion.</summary>
+	/// <summary>Handles the click event for the MenuItemRecordsArgumentOfThePerihelion. Shows the top ten records form for the argument of the perihelion.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the top ten records form for the argument of the perihelion.</remarks>
@@ -1091,7 +1091,7 @@ public partial class PlanetoidDbForm
 		ShowRecordsTop10(selectedElement: "Argument of the perihelion");
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemRecordsLongitudeOfTheAscendingNode. Shows the top ten records form for the longitude of the ascending node.</summary>
+	/// <summary>Handles the click event for the MenuItemRecordsLongitudeOfTheAscendingNode. Shows the top ten records form for the longitude of the ascending node.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the top ten records form for the longitude of the ascending node.</remarks>
@@ -1106,7 +1106,7 @@ public partial class PlanetoidDbForm
 		ShowRecordsTop10(selectedElement: "Longitude of the ascending node");
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemRecordsInclination. Shows the top ten records form for inclination.</summary>
+	/// <summary>Handles the click event for the MenuItemRecordsInclination. Shows the top ten records form for inclination.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the top ten records form for inclination.</remarks>
@@ -1121,7 +1121,7 @@ public partial class PlanetoidDbForm
 		ShowRecordsTop10(selectedElement: "Inclination");
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemRecordsOrbitalEccentricity. Shows the top ten records form for orbital eccentricity.</summary>
+	/// <summary>Handles the click event for the MenuItemRecordsOrbitalEccentricity. Shows the top ten records form for orbital eccentricity.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the top ten records form for orbital eccentricity.</remarks>
@@ -1136,7 +1136,7 @@ public partial class PlanetoidDbForm
 		ShowRecordsTop10(selectedElement: "Orbital eccentricity");
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemRecordsMeanDailyMotion. Shows the top ten records form for mean daily motion.</summary>
+	/// <summary>Handles the click event for the MenuItemRecordsMeanDailyMotion. Shows the top ten records form for mean daily motion.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the top ten records form for mean daily motion.</remarks>
@@ -1151,7 +1151,7 @@ public partial class PlanetoidDbForm
 		ShowRecordsTop10(selectedElement: "Mean daily motion");
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemRecordsSemiMajorAxis. Shows the top ten records form for semi-major axis.</summary>
+	/// <summary>Handles the click event for the MenuItemRecordsSemiMajorAxis. Shows the top ten records form for semi-major axis.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the top ten records form for semi-major axis.</remarks>
@@ -1166,7 +1166,7 @@ public partial class PlanetoidDbForm
 		ShowRecordsTop10(selectedElement: "Semi-major axis");
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemRecordsAbsoluteMagnitude. Shows the top ten records form for absolute magnitude.</summary>
+	/// <summary>Handles the click event for the MenuItemRecordsAbsoluteMagnitude. Shows the top ten records form for absolute magnitude.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the top ten records form for absolute magnitude.</remarks>
@@ -1181,7 +1181,7 @@ public partial class PlanetoidDbForm
 		ShowRecordsTop10(selectedElement: "Absolute magnitude");
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemRecordsSlopeParameter. Shows the top ten records form for slope parameter.</summary>
+	/// <summary>Handles the click event for the MenuItemRecordsSlopeParameter. Shows the top ten records form for slope parameter.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the top ten records form for slope parameter.</remarks>
@@ -1196,7 +1196,7 @@ public partial class PlanetoidDbForm
 		ShowRecordsTop10(selectedElement: "Slope parameter");
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemRecordsNumberOfOppositions. Shows the top ten records form for number of oppositions.</summary>
+	/// <summary>Handles the click event for the MenuItemRecordsNumberOfOppositions. Shows the top ten records form for number of oppositions.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the top ten records form for number of oppositions.</remarks>
@@ -1211,7 +1211,7 @@ public partial class PlanetoidDbForm
 		ShowRecordsTop10(selectedElement: "Number of oppositions");
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemRecordsNumberOfObservations. Shows the top ten records form for number of observations.</summary>
+	/// <summary>Handles the click event for the MenuItemRecordsNumberOfObservations. Shows the top ten records form for number of observations.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the top ten records form for number of observations.</remarks>
@@ -1226,7 +1226,7 @@ public partial class PlanetoidDbForm
 		ShowRecordsTop10(selectedElement: "Number of observations");
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemRecordsRmsResidual. Shows the top ten records form for RMS residual.</summary>
+	/// <summary>Handles the click event for the MenuItemRecordsRmsResidual. Shows the top ten records form for RMS residual.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the top ten records form for RMS residual.</remarks>
@@ -1376,7 +1376,7 @@ public partial class PlanetoidDbForm
 		_ = formWorldMap.ShowDialog(owner: this);
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemListReadableDesignations. Lists readable designations.</summary>
+	/// <summary>Handles the click event for the MenuItemListReadableDesignations. Lists readable designations.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the distribution form for the selected parameter.</remarks>
@@ -1390,7 +1390,7 @@ public partial class PlanetoidDbForm
 		ListReadableDesignations();
 	}
 
-	/// <summary>Handles the click event for the ToolStripButtonLicense. Opens the license.</summary>
+	/// <summary>Handles the click event for the ButtonLicense. Opens the license.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the license.</remarks>
@@ -1418,7 +1418,7 @@ public partial class PlanetoidDbForm
 		ShowCompareArchives();
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemOrbitalResonances. Shows the orbital resonances form.</summary>
+	/// <summary>Handles the click event for the MenuItemOrbitalResonances. Shows the orbital resonances form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the orbital resonances form.</remarks>
@@ -1432,7 +1432,7 @@ public partial class PlanetoidDbForm
 		ShowOrbitalResonances();
 	}
 
-	/// <summary>Handles the Click event of the ToolStripButtonObservations. Shows the observations form.</summary>
+	/// <summary>Handles the Click event of the ButtonObservations. Shows the observations form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the observations form.</remarks>
@@ -1446,7 +1446,7 @@ public partial class PlanetoidDbForm
 		ShowObservations();
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemOrbitElementsGrouping. Shows the orbit elements grouping form.</summary>
+	/// <summary>Handles the click event for the MenuItemOrbitElementsGrouping. Shows the orbit elements grouping form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the orbit elements grouping form.</remarks>
@@ -1460,7 +1460,7 @@ public partial class PlanetoidDbForm
 		ShowOrbitElementsGrouping();
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemAsteroidFamiliesDetection. Shows the asteroid families form.</summary>
+	/// <summary>Handles the click event for the MenuItemAsteroidFamiliesDetection. Shows the asteroid families form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the asteroid families form.</remarks>
@@ -1488,7 +1488,7 @@ public partial class PlanetoidDbForm
 		ShowOrbitalResonancesOfAllMinorPlanets();
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemMoids. Shows the MOIDs form.</summary>
+	/// <summary>Handles the click event for the MenuItemMoids. Shows the MOIDs form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the MOIDs form for the currently selected minor planet.</remarks>
@@ -1502,7 +1502,7 @@ public partial class PlanetoidDbForm
 		ShowMoids();
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemMaxoids. Shows the MAXOIDs form.</summary>
+	/// <summary>Handles the click event for the MenuItemMaxoids. Shows the MAXOIDs form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the MAXOIDs form for the currently selected minor planet.</remarks>
@@ -1516,7 +1516,7 @@ public partial class PlanetoidDbForm
 		ShowMaxoids();
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemMoidsAndMaxoids. Shows the MOIDs and MAXOIDs form.</summary>
+	/// <summary>Handles the click event for the MenuItemMoidsAndMaxoids. Shows the MOIDs and MAXOIDs form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the MOIDs and MAXOIDs form for the currently selected minor planet.</remarks>
@@ -1530,7 +1530,7 @@ public partial class PlanetoidDbForm
 		ShowMoidsAndMaxoids();
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemMoidsOfAllMinorPlanets. Shows the MOIDs of all minor planets form.</summary>
+	/// <summary>Handles the click event for the MenuItemMoidsOfAllMinorPlanets. Shows the MOIDs of all minor planets form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the MOIDs of all minor planets form.</remarks>
@@ -1544,7 +1544,7 @@ public partial class PlanetoidDbForm
 		ShowMoidsOfAllMinorPlanets();
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemMaxoidsOfAllMinorPlanets. Shows the MAXOIDs of all minor planets form.</summary>
+	/// <summary>Handles the click event for the MenuItemMaxoidsOfAllMinorPlanets. Shows the MAXOIDs of all minor planets form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the MAXOIDs of all minor planets form.</remarks>
@@ -1572,7 +1572,7 @@ public partial class PlanetoidDbForm
 		ShowTisserandParameters();
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemTisserandParametersOfAllMinorPlanets. Shows the Tisserand parameters of all minor planets form.</summary>
+	/// <summary>Handles the click event for the MenuItemTisserandParametersOfAllMinorPlanets. Shows the Tisserand parameters of all minor planets form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the Tisserand parameters of all minor planets form.</remarks>
@@ -1600,7 +1600,7 @@ public partial class PlanetoidDbForm
 		ShowEncounterVelocities();
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemEncounterVelocitiesOfAllMinorPlanets. Shows the encounter velocities of all minor planets form.</summary>
+	/// <summary>Handles the click event for the MenuItemEncounterVelocitiesOfAllMinorPlanets. Shows the encounter velocities of all minor planets form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the encounter velocities of all minor planets form.</remarks>
@@ -1614,7 +1614,7 @@ public partial class PlanetoidDbForm
 		ShowEncounterVelocitiesOfAllMinorPlanets();
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemEphemerides. Shows the ephemerides form.</summary>
+	/// <summary>Handles the click event for the MenuItemEphemerides. Shows the ephemerides form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the ephemerides form for the currently selected minor planet.</remarks>
@@ -1628,7 +1628,7 @@ public partial class PlanetoidDbForm
 		ShowEphemerides();
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemBulkObservationDataDownloader_Click. Shows the bulk observations data downloader form.</summary>
+	/// <summary>Handles the click event for the MenuItemBulkObservationDataDownloader_Click. Shows the bulk observations data downloader form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the bulk observations data downloader form.</remarks>
@@ -1642,7 +1642,7 @@ public partial class PlanetoidDbForm
 		ShowBulkObservationDataDownloader();
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemMoidsRelativeToMinorPlanets. Shows the MOIDs relative to minor planets form.</summary>
+	/// <summary>Handles the click event for the MenuItemMoidsRelativeToMinorPlanets. Shows the MOIDs relative to minor planets form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method opens the form for calculating the MOID between two user-selected minor planets.</remarks>
@@ -1656,7 +1656,7 @@ public partial class PlanetoidDbForm
 		ShowMoidsRelativeToMinorPlanets();
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemMaxoidsRelativeToMinorPlanets. Shows the MAXOIDs relative to minor planets form.</summary>
+	/// <summary>Handles the click event for the MenuItemMaxoidsRelativeToMinorPlanets. Shows the MAXOIDs relative to minor planets form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method opens the form for calculating the MAXOID between two user-selected minor planets.</remarks>
@@ -2005,11 +2005,11 @@ public partial class PlanetoidDbForm
 		ShowOrbit3DView();
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemLogging menu item. Toggles logging on or off based on the checked state of the menu item and updates user settings accordingly.</summary>
-	/// <param name="sender">The source of the event, typically the ToolStripMenuItemLogging menu item.</param>
+	/// <summary>Handles the click event for the MenuItemLogging menu item. Toggles logging on or off based on the checked state of the menu item and updates user settings accordingly.</summary>
+	/// <param name="sender">The source of the event, typically the MenuItemLogging menu item.</param>
 	/// <param name="e">The event data associated with the click event.</param>
-	/// <remarks>This method enables or disables logging based on the checked state of the ToolStripMenuItemLogging menu item. It also updates the user settings to reflect the current logging preference and enables or disables the logging level menu items accordingly.</remarks>
-	private void ToolStripMenuItemLogging_Click(object sender, EventArgs e)
+	/// <remarks>This method enables or disables logging based on the checked state of the MenuItemLogging menu item. It also updates the user settings to reflect the current logging preference and enables or disables the logging level menu items accordingly.</remarks>
+	private void MenuItemLogging_Click(object sender, EventArgs e)
 	{
 		// Log the click event and the current checked state of the logging menu item
 		logger.Info(message: $"Logging menu item clicked. Checked state: {menuItemLogging.Checked}");
@@ -2040,7 +2040,7 @@ public partial class PlanetoidDbForm
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 	/// <remarks>This method toggles the visibility of the MPCORB.JSON tab and updates the user settings accordingly.</remarks>
-	private void ToolStripMenuItemLoadDatabaseOnStartupMpcorbJson_Click(object sender, EventArgs e)
+	private void MenuItemLoadDatabaseOnStartupMpcorbJson_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Load Database on Startup for MPCORB.JSON menu item clicked. Checked state: {menuItemLoadDatabaseOnStartupMpcorbJson.Checked}");
 		// Ensure that an event source was supplied
@@ -2058,7 +2058,7 @@ public partial class PlanetoidDbForm
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 	/// <remarks>This method toggles the visibility of the ASTORB.DAT tab and updates the user settings accordingly.</remarks>
-	private void ToolStripMenuItemLoadDatabaseOnStartupAstorbDat_Click(object sender, EventArgs e)
+	private void MenuItemLoadDatabaseOnStartupAstorbDat_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Load Database on Startup for ASTORB.DAT menu item clicked. Checked state: {menuItemLoadDatabaseOnStartupAstorbDat.Checked}");
 		// Ensure that an event source was supplied
@@ -2076,7 +2076,7 @@ public partial class PlanetoidDbForm
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 	/// <remarks>This method toggles the visibility of the ALLNUM.CAT tab and updates the user settings accordingly.</remarks>
-	private void ToolStripMenuItemLoadDatabaseOnStartupAllnumCat_Click(object sender, EventArgs e)
+	private void MenuItemLoadDatabaseOnStartupAllnumCat_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Load Database on Startup for ALLNUM.CAT menu item clicked. Checked state: {menuItemLoadDatabaseOnStartupAllnumCat.Checked}");
 		// Ensure that an event source was supplied
@@ -2094,7 +2094,7 @@ public partial class PlanetoidDbForm
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 	/// <remarks>This method toggles the visibility of the SINGOPP.CAT tab and updates the user settings accordingly.</remarks>
-	private void ToolStripMenuItemLoadDatabaseOnStartupSingoppCat_Click(object sender, EventArgs e)
+	private void MenuItemLoadDatabaseOnStartupSingoppCat_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Load Database on Startup for SINGOPP.CAT menu item clicked. Checked state: {menuItemLoadDatabaseOnStartupSingoppCat.Checked}");
 		// Ensure that an event source was supplied
@@ -2112,7 +2112,7 @@ public partial class PlanetoidDbForm
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 	/// <remarks>This method toggles the visibility of the UFITOBS.CAT tab and updates the user settings accordingly.</remarks>
-	private void ToolStripMenuItemLoadDatabaseOnStartupUfitobsCat_Click(object sender, EventArgs e)
+	private void MenuItemLoadDatabaseOnStartupUfitobsCat_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Load Database on Startup for UFITOBS.CAT menu item clicked. Checked state: {menuItemLoadDatabaseOnStartupUfitobsCat.Checked}");
 		// Ensure that an event source was supplied
@@ -2130,7 +2130,7 @@ public partial class PlanetoidDbForm
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">The event data associated with the click event.</param>
 	/// <remarks>This method updates the user setting for checking database updates on startup and saves the settings.</remarks>
-	private void ToolStripMenuItemCheckingDatabaseUpdatesOnStartup_Click(object sender, EventArgs e)
+	private void MenuItemCheckingDatabaseUpdatesOnStartup_Click(object sender, EventArgs e)
 	{
 		// Log the action of toggling the setting and the new checked state
 		logger.Info(message: $"Toggling the 'Checking Database Updates on Startup' setting. Check state: {menuItemCheckingDatabaseUpdatesOnStartup.Checked}");
@@ -2147,7 +2147,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>The operation updates the table layout panel for reduced flicker and notifies the user that the optimization was applied.</remarks>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data associated with the click.</param>
-	private void ToolStripMenuItemExecuteDoubleBuffering_Click(object sender, EventArgs e)
+	private void MenuItemExecuteDoubleBuffering_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Execute double-buffering...");
 		// Ensure that an event source was supplied
@@ -2162,7 +2162,7 @@ public partial class PlanetoidDbForm
 	/// <summary>Builds the derived data context menu from the list view and displays a confirmation message.</summary>
 	/// <param name="sender">The object that raised the event.</param>
 	/// <param name="e">The event data.</param>
-	private void ToolStripMenuItemBuildDerivedDataContextMenuFromListView_Click(object sender, EventArgs e)
+	private void MenuItemBuildDerivedDataContextMenuFromListView_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Building derived data context menu...");
 		// Ensure that an event source was supplied
@@ -2177,7 +2177,7 @@ public partial class PlanetoidDbForm
 	/// <summary>Registers Enter event handlers for the form and all descendant controls.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
-	private void ToolStripMenuItemRegisterEnterEventHandler_Click(object sender, EventArgs e)
+	private void MenuItemRegisterEnterEventHandler_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Registered Enter event handler...");
 		// Ensure that an event source was supplied
@@ -2193,7 +2193,7 @@ public partial class PlanetoidDbForm
 	/// <summary>Registers Mouse-Enter event handlers for the form and all descendant controls.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
-	private void ToolStripMenuItemRegisterMouseEnterEventHandler_Click(object sender, EventArgs e)
+	private void MenuItemRegisterMouseEnterEventHandler_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Registered Mouse-Enter event handler...");
 		// Ensure that an event source was supplied
@@ -2209,7 +2209,7 @@ public partial class PlanetoidDbForm
 	/// <summary>Registers Leave event handlers for the form and all descendant controls.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
-	private void ToolStripMenuItemRegisterLeaveEventHandler_Click(object sender, EventArgs e)
+	private void MenuItemRegisterLeaveEventHandler_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Registered Leave event handler...");
 		// Ensure that an event source was supplied
@@ -2225,7 +2225,7 @@ public partial class PlanetoidDbForm
 	/// <summary>Registers Mouse-Leave event handlers for the form and all descendant controls.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
-	private void ToolStripMenuItemRegisterMouseLeaveEventHandler_Click(object sender, EventArgs e)
+	private void MenuItemRegisterMouseLeaveEventHandler_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Registered Mouse-Leave event handler...");
 		// Ensure that an event source was supplied
@@ -2241,7 +2241,7 @@ public partial class PlanetoidDbForm
 	/// <summary>Registers Mouse-Move event handlers for the form and all descendant controls.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
-	private void ToolStripMenuItemRegisterMouseMoveEventHandler_Click(object sender, EventArgs e)
+	private void MenuItemRegisterMouseMoveEventHandler_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Registered Mouse-Move event handler...");
 		// Ensure that an event source was supplied
@@ -2296,7 +2296,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>Matches the form's topmost setting to the current form.</remarks>
 	/// <param name="sender">The object that raised the event.</param>
 	/// <param name="e">The event data.</param>
-	private void ToolStripMenuItemGeometricAlbedoAdjustedDiameter_Click(object sender, EventArgs e)
+	private void MenuItemGeometricAlbedoAdjustedDiameter_Click(object sender, EventArgs e)
 	{
 		// Log the action of opening the GeometricAlbedoAdjustedDiameterForm
 		logger.Info(message: "Opening GeometricAlbedoAdjustedDiameterForm...");
@@ -2478,9 +2478,9 @@ public partial class PlanetoidDbForm
 	/// <summary>Maximizes the window.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
-	private void ToolStripMenuItemWindowStateMaximize_Click(object sender, EventArgs e)
+	private void MenuItemWindowStateMaximize_Click(object sender, EventArgs e)
 	{
-		// Log the action of Clicking on ToolStripMenuItemWindowStateMaximize
+		// Log the action of Clicking on MenuItemWindowStateMaximize
 		logger.Info(message: "Maximize the application window.");
 		// Ensure that an event source was supplied
 		ArgumentNullException.ThrowIfNull(argument: sender);
@@ -2492,9 +2492,9 @@ public partial class PlanetoidDbForm
 	/// <summary>Minimizes the window.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
-	private void ToolStripMenuItemWindowStateMinimize_Click(object sender, EventArgs e)
+	private void MenuItemWindowStateMinimize_Click(object sender, EventArgs e)
 	{
-		// Log the action of Clicking on ToolStripMenuItemWindowStateMinimize
+		// Log the action of Clicking on MenuItemWindowStateMinimize
 		logger.Info(message: "Minimize the application window.");
 		// Ensure that an event source was supplied
 		ArgumentNullException.ThrowIfNull(argument: sender);
@@ -2506,9 +2506,9 @@ public partial class PlanetoidDbForm
 	/// <summary>Sets the window state to normal.</summary>
 	/// <param name="sender">The object that raised the event.</param>
 	/// <param name="e">The event data.</param>
-	private void ToolStripMenuItemWindowStateNormal_Click(object sender, EventArgs e)
+	private void MenuItemWindowStateNormal_Click(object sender, EventArgs e)
 	{
-		// Log the action of Clicking on ToolStripMenuItemWindowStateNormal
+		// Log the action of Clicking on MenuItemWindowStateNormal
 		logger.Info(message: "Normalize the application window.");
 		// Ensure that an event source was supplied
 		ArgumentNullException.ThrowIfNull(argument: sender);
@@ -2520,9 +2520,9 @@ public partial class PlanetoidDbForm
 	/// <summary>Centers the window on the screen.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
-	private void ToolStripMenuItemWindowStateCenterToScreen_Click(object sender, EventArgs e)
+	private void MenuItemWindowStateCenterToScreen_Click(object sender, EventArgs e)
 	{
-		// Log the action of Clicking on ToolStripMenuItemWindowStateCenterToScreen
+		// Log the action of Clicking on MenuItemWindowStateCenterToScreen
 		logger.Info(message: "Center the application window to the screen.");
 		// Ensure that an event source was supplied
 		ArgumentNullException.ThrowIfNull(argument: sender);
@@ -2534,9 +2534,9 @@ public partial class PlanetoidDbForm
 	/// <summary>Handles the menu item click and snaps the window to the left.</summary>
 	/// <param name="sender">The object that raised the event.</param>
 	/// <param name="e">The event data.</param>
-	private void ToolStripMenuItemWindowStateSnapLeft_Click(object sender, EventArgs e)
+	private void MenuItemWindowStateSnapLeft_Click(object sender, EventArgs e)
 	{
-		// Log the action of Clicking on ToolStripMenuItemWindowStateSnapLeft
+		// Log the action of Clicking on MenuItemWindowStateSnapLeft
 		logger.Info(message: "Snap the application window on the left side.");
 		// Ensure that an event source was supplied
 		ArgumentNullException.ThrowIfNull(argument: sender);
@@ -2548,9 +2548,9 @@ public partial class PlanetoidDbForm
 	/// <summary>Snaps the window to the right.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
-	private void ToolStripMenuItemWindowStateSnapRight_Click(object sender, EventArgs e)
+	private void MenuItemWindowStateSnapRight_Click(object sender, EventArgs e)
 	{
-		// Log the action of Clicking on ToolStripMenuItemWindowStateSnapRight
+		// Log the action of Clicking on MenuItemWindowStateSnapRight
 		logger.Info(message: "Snap the application window on the right side.");
 		// Ensure that an event source was supplied
 		ArgumentNullException.ThrowIfNull(argument: sender);
@@ -2562,9 +2562,9 @@ public partial class PlanetoidDbForm
 	/// <summary>Snaps the window to the top.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
-	private void ToolStripMenuItemWindowStateSnapTop_Click(object sender, EventArgs e)
+	private void MenuItemWindowStateSnapTop_Click(object sender, EventArgs e)
 	{
-		// Log the action of Clicking on ToolStripMenuItemWindowStateSnapTop
+		// Log the action of Clicking on MenuItemWindowStateSnapTop
 		logger.Info(message: "Snap the application window on the upper half.");
 		// Ensure that an event source was supplied
 		ArgumentNullException.ThrowIfNull(argument: sender);
@@ -2576,9 +2576,9 @@ public partial class PlanetoidDbForm
 	/// <summary>Snaps the window to the bottom of the screen.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
-	private void ToolStripMenuItemWindowStateSnapBottom_Click(object sender, EventArgs e)
+	private void MenuItemWindowStateSnapBottom_Click(object sender, EventArgs e)
 	{
-		// Log the action of Clicking on ToolStripMenuItemWindowStateSnapBottom
+		// Log the action of Clicking on MenuItemWindowStateSnapBottom
 		logger.Info(message: "Snap the application window on the lower half.");
 		// Ensure that an event source was supplied
 		ArgumentNullException.ThrowIfNull(argument: sender);
@@ -2590,9 +2590,9 @@ public partial class PlanetoidDbForm
 	/// <summary>Snaps the window to the top-left corner.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
-	private void ToolStripMenuItemWindowStateSnapTopLeft_Click(object sender, EventArgs e)
+	private void MenuItemWindowStateSnapTopLeft_Click(object sender, EventArgs e)
 	{
-		// Log the action of Clicking on ToolStripMenuItemWindowStateSnapTopLeft
+		// Log the action of Clicking on MenuItemWindowStateSnapTopLeft
 		logger.Info(message: "Snap the application window to the upper left corner.");
 		// Ensure that an event source was supplied
 		ArgumentNullException.ThrowIfNull(argument: sender);
@@ -2604,9 +2604,9 @@ public partial class PlanetoidDbForm
 	/// <summary>Snaps the window to the top-right of the screen.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
-	private void ToolStripMenuItemWindowStateSnapTopRight_Click(object sender, EventArgs e)
+	private void MenuItemWindowStateSnapTopRight_Click(object sender, EventArgs e)
 	{
-		// Log the action of Clicking on ToolStripMenuItemWindowStateSnapTopRight
+		// Log the action of Clicking on MenuItemWindowStateSnapTopRight
 		logger.Info(message: "Snap the application window to the upper right corner.");
 		// Ensure that an event source was supplied
 		ArgumentNullException.ThrowIfNull(argument: sender);
@@ -2618,9 +2618,9 @@ public partial class PlanetoidDbForm
 	/// <summary>Snaps the window to the bottom-left corner.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
-	private void ToolStripMenuItemWindowStateSnapBottomLeft_Click(object sender, EventArgs e)
+	private void MenuItemWindowStateSnapBottomLeft_Click(object sender, EventArgs e)
 	{
-		// Log the action of Clicking on ToolStripMenuItemWindowStateSnapBottomLeft
+		// Log the action of Clicking on MenuItemWindowStateSnapBottomLeft
 		logger.Info(message: "Snap the application window to the lower left corner.");
 		// Ensure that an event source was supplied
 		ArgumentNullException.ThrowIfNull(argument: sender);
@@ -2632,9 +2632,9 @@ public partial class PlanetoidDbForm
 	/// <summary>Snaps the window to the bottom-right corner.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
-	private void ToolStripMenuItemWindowStateSnapBottomRight_Click(object sender, EventArgs e)
+	private void MenuItemWindowStateSnapBottomRight_Click(object sender, EventArgs e)
 	{
-		// Log the action of Clicking on ToolStripMenuItemWindowStateSnapBottomCenter
+		// Log the action of Clicking on MenuItemWindowStateSnapBottomCenter
 		logger.Info(message: "Snap the application window to the lower right corner.");
 		// Ensure that an event source was supplied
 		ArgumentNullException.ThrowIfNull(argument: sender);
@@ -2814,11 +2814,11 @@ public partial class PlanetoidDbForm
 		}
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuAcknowledgements. Opens the acknowledgements.</summary>
+	/// <summary>Handles the click event for the MenuAcknowledgements. Opens the acknowledgements.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the acknowledgements.</remarks>
-	private void ToolStripMenuItemAcknowledgements_Click(object sender, EventArgs e)
+	private void MenuItemAcknowledgements_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: "Showing archive form");
 		// Ensure that an event source was supplied
@@ -2831,10 +2831,10 @@ public partial class PlanetoidDbForm
 	/// <summary>Shows or hides the information label according to the menu item's checked state.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
-	private void ToolStripMenuItemShowInformationLabel_Click(object sender, EventArgs e)
+	private void MenuItemShowInformationLabel_Click(object sender, EventArgs e)
 	{
-		// Log the action of clicking of ToolStripMenuItemShowInformationLabel
-		logger.Info(message: $"ToolStripMenuItemShowInformationLabel clicked.");
+		// Log the action of clicking of MenuItemShowInformationLabel
+		logger.Info(message: $"MenuItemShowInformationLabel clicked.");
 		// Ensure that an event source was supplied
 		ArgumentNullException.ThrowIfNull(argument: sender);
 		// Ensure that the event data was supplied
@@ -2847,15 +2847,15 @@ public partial class PlanetoidDbForm
 	/// <summary>Shows or hides the MPCORB.DAT update label according to the menu item's checked state.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
-	private void ToolStripMenuItemShowMpcorbDatUpdateLabel_Click(object sender, EventArgs e)
+	private void MenuItemShowMpcorbDatUpdateLabel_Click(object sender, EventArgs e)
 	{
-		// Log the action of clicking of ToolStripMenuItemShowMpcorbDatUpdateLabel
-		logger.Info(message: $"ToolStripMenuItemShowMpcorbDatUpdateLabel clicked.");
+		// Log the action of clicking of MenuItemShowMpcorbDatUpdateLabel
+		logger.Info(message: $"MenuItemShowMpcorbDatUpdateLabel clicked.");
 		// Ensure that an event source was supplied
 		ArgumentNullException.ThrowIfNull(argument: sender);
 		// Ensure that the event data was supplied
 		ArgumentNullException.ThrowIfNull(argument: e);
-		toolStripStatusLabelMpcorbDatUpdate.Visible = menuItemShowMpcorbDatUpdateLabel.Checked;
+		labelMpcorbDatUpdate.Visible = menuItemShowMpcorbDatUpdateLabel.Checked;
 		// Log the new state of the visibility of the information label
 		logger.Info(message: $"Set the visibility of the information label to {labelInformation.Visible}.");
 	}
@@ -2863,15 +2863,15 @@ public partial class PlanetoidDbForm
 	/// <summary>Shows or hides the ASTORB.DAT update label according to the menu item's checked state.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
-	private void ToolStripMenuItemShowAstorbDatUpdateLabel_Click(object sender, EventArgs e)
+	private void MenuItemShowAstorbDatUpdateLabel_Click(object sender, EventArgs e)
 	{
-		// Log the action of clicking of ToolStripMenuItemShowAstorbDatUpdateLabel
-		logger.Info(message: $"ToolStripMenuItemShowAstorbDatUpdateLabel clicked.");
+		// Log the action of clicking of MenuItemShowAstorbDatUpdateLabel
+		logger.Info(message: $"MenuItemShowAstorbDatUpdateLabel clicked.");
 		// Ensure that an event source was supplied
 		ArgumentNullException.ThrowIfNull(argument: sender);
 		// Ensure that the event data was supplied
 		ArgumentNullException.ThrowIfNull(argument: e);
-		toolStripStatusLabelAstorbDatUpdate.Visible = menuItemShowAstorbDatUpdateLabel.Checked;
+		labelAstorbDatUpdate.Visible = menuItemShowAstorbDatUpdateLabel.Checked;
 		// Log the new state of the visibility of the information label
 		logger.Info(message: $"Set the visibility of the information label to {labelInformation.Visible}.");
 	}
@@ -2879,15 +2879,15 @@ public partial class PlanetoidDbForm
 	/// <summary>Shows or hides the mouse coordinates label according to the menu item's checked state.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
-	private void ToolStripMenuItemShowMouseCoordinatesLabel_Click(object sender, EventArgs e)
+	private void MenuItemShowMouseCoordinatesLabel_Click(object sender, EventArgs e)
 	{
-		// Log the action of clicking of ToolStripMenuItemShowMouseCoordinatesLabel
-		logger.Info(message: $"ToolStripMenuItemShowMouseCoordinatesLabel clicked.");
+		// Log the action of clicking of MenuItemShowMouseCoordinatesLabel
+		logger.Info(message: $"MenuItemShowMouseCoordinatesLabel clicked.");
 		// Ensure that an event source was supplied
 		ArgumentNullException.ThrowIfNull(argument: sender);
 		// Ensure that the event data was supplied
 		ArgumentNullException.ThrowIfNull(argument: e);
-		toolStripStatusLabelMouseCoordinates.Visible = menuItemShowMouseCoordinatesLabel.Checked;
+		labelMouseCoordinates.Visible = menuItemShowMouseCoordinatesLabel.Checked;
 		// Log the new state of the visibility of the information label
 		logger.Info(message: $"Set the visibility of the information label to {labelInformation.Visible}.");
 	}
@@ -2895,15 +2895,15 @@ public partial class PlanetoidDbForm
 	/// <summary>Shows or hides the window size label according to the menu item's checked state.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
-	private void ToolStripMenuItemShowWindowSizeLabel_Click(object sender, EventArgs e)
+	private void MenuItemShowWindowSizeLabel_Click(object sender, EventArgs e)
 	{
-		// Log the action of clicking of ToolStripMenuItemShowWindowSizeLabel
-		logger.Info(message: $"ToolStripMenuItemShowWindowSizeLabel clicked.");
+		// Log the action of clicking of MenuItemShowWindowSizeLabel
+		logger.Info(message: $"MenuItemShowWindowSizeLabel clicked.");
 		// Ensure that an event source was supplied
 		ArgumentNullException.ThrowIfNull(argument: sender);
 		// Ensure that the event data was supplied
 		ArgumentNullException.ThrowIfNull(argument: e);
-		toolStripStatusLabelWindowSize.Visible = menuItemShowWindowSizeLabel.Checked;
+		labelWindowSize.Visible = menuItemShowWindowSizeLabel.Checked;
 		// Log the new state of the visibility of the information label
 		logger.Info(message: $"Set the visibility of the information label to {labelInformation.Visible}.");
 	}
@@ -2911,10 +2911,10 @@ public partial class PlanetoidDbForm
 	/// <summary>Shows or hides the time usage label according to the menu item's checked state.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
-	private void ToolStripMenuItemShowTimeUsageLabel_Click(object sender, EventArgs e)
+	private void MenuItemShowTimeUsageLabel_Click(object sender, EventArgs e)
 	{
-		// Log the action of clicking of ToolStripMenuItemShowTimeUsageLabel
-		logger.Info(message: $"ToolStripMenuItemShowTimeUsageLabel clicked.");
+		// Log the action of clicking of MenuItemShowTimeUsageLabel
+		logger.Info(message: $"MenuItemShowTimeUsageLabel clicked.");
 		// Ensure that an event source was supplied
 		ArgumentNullException.ThrowIfNull(argument: sender);
 		// Ensure that the event data was supplied
@@ -2927,10 +2927,10 @@ public partial class PlanetoidDbForm
 	/// <summary>Shows or hides the CPU usage label according to the menu item's checked state.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
-	private void ToolStripMenuItemShowProcessorUsageLabel_Click(object sender, EventArgs e)
+	private void MenuItemShowProcessorUsageLabel_Click(object sender, EventArgs e)
 	{
-		// Log the action of clicking of ToolStripMenuItemShowCpuUsageLabel
-		logger.Info(message: $"ToolStripMenuItemShowCpuUsageLabel clicked.");
+		// Log the action of clicking of MenuItemShowCpuUsageLabel
+		logger.Info(message: $"MenuItemShowCpuUsageLabel clicked.");
 		// Ensure that an event source was supplied
 		ArgumentNullException.ThrowIfNull(argument: sender);
 		// Ensure that the event data was supplied
@@ -2943,10 +2943,10 @@ public partial class PlanetoidDbForm
 	/// <summary>Shows or hides the RAM usage label according to the menu item's checked state.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
-	private void ToolStripMenuItemShowMemoryUsageLabel_Click(object sender, EventArgs e)
+	private void MenuItemShowMemoryUsageLabel_Click(object sender, EventArgs e)
 	{
-		// Log the action of clicking of ToolStripMenuItemShowRamUsageLabel
-		logger.Info(message: $"ToolStripMenuItemShowRamUsageLabel clicked.");
+		// Log the action of clicking of MenuItemShowRamUsageLabel
+		logger.Info(message: $"MenuItemShowRamUsageLabel clicked.");
 		// Ensure that an event source was supplied
 		ArgumentNullException.ThrowIfNull(argument: sender);
 		// Ensure that the event data was supplied
@@ -2959,10 +2959,10 @@ public partial class PlanetoidDbForm
 	/// <summary>Shows or hides the disk size label according to the menu item's checked state.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
-	private void ToolStripMenuItemShowDiskSizeLabel_Click(object sender, EventArgs e)
+	private void MenuItemShowDiskSizeLabel_Click(object sender, EventArgs e)
 	{
-		// Log the action of clicking of ToolStripMenuItemShowDiskSizeLabel_
-		logger.Info(message: $"ToolStripMenuItemShowDiskSizeLabel_ clicked.");
+		// Log the action of clicking of MenuItemShowDiskSizeLabel_
+		logger.Info(message: $"MenuItemShowDiskSizeLabel_ clicked.");
 		// Ensure that an event source was supplied
 		ArgumentNullException.ThrowIfNull(argument: sender);
 		// Ensure that the event data was supplied
@@ -3413,7 +3413,7 @@ public partial class PlanetoidDbForm
 		_ = KryptonMessageBox.Show(owner: this, text: "Enable linking to terminology not implemented yet", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
 
-	/// <summary>Handles the click event for the ToolStripMenuItemExperimentalFeatures. Toggles the experimental features on or off based on the current state.</summary>
+	/// <summary>Handles the click event for the MenuItemExperimentalFeatures. Toggles the experimental features on or off based on the current state.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method checks the checked state of the experimental features menu item and calls the appropriate method to enable or disable experimental features.</remarks>

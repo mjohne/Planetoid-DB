@@ -186,14 +186,14 @@ partial class MoidsOfOneMinorPlanetForm
 		contextMenuCopyToClipboard.MouseEnter += Control_Enter;
 		contextMenuCopyToClipboard.MouseLeave += Control_Leave;
 		// 
-		// toolStripMenuItemCopyToClipboard
+		// menuItemCopyToClipboard
 		// 
 		toolStripMenuItemCopyToClipboard.AccessibleDescription = "Copies the MOID value to the clipboard";
 		toolStripMenuItemCopyToClipboard.AccessibleName = "Copy to clipboard";
 		toolStripMenuItemCopyToClipboard.AccessibleRole = AccessibleRole.MenuItem;
 		toolStripMenuItemCopyToClipboard.AutoToolTip = true;
 		toolStripMenuItemCopyToClipboard.Image = FatcowIcons16px.fatcow_page_copy_16px;
-		toolStripMenuItemCopyToClipboard.Name = "toolStripMenuItemCopyToClipboard";
+		toolStripMenuItemCopyToClipboard.Name = "menuItemCopyToClipboard";
 		toolStripMenuItemCopyToClipboard.ShortcutKeyDisplayString = "Strg+C";
 		toolStripMenuItemCopyToClipboard.ShortcutKeys = Keys.Control | Keys.C;
 		toolStripMenuItemCopyToClipboard.Size = new Size(213, 22);

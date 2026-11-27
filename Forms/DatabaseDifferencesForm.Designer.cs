@@ -955,14 +955,14 @@ partial class DatabaseDifferencesForm
 		contextMenuCopyToClipboard.MouseEnter += Control_Enter;
 		contextMenuCopyToClipboard.MouseLeave += Control_Leave;
 		// 
-		// toolStripMenuItemCopyToClipboard
+		// menuItemCopyToClipboard
 		// 
 		toolStripMenuItemCopyToClipboard.AccessibleDescription = "Copies the text/value to the clipboard";
 		toolStripMenuItemCopyToClipboard.AccessibleName = "Copy to clipboard";
 		toolStripMenuItemCopyToClipboard.AccessibleRole = AccessibleRole.MenuItem;
 		toolStripMenuItemCopyToClipboard.AutoToolTip = true;
 		toolStripMenuItemCopyToClipboard.Image = Resources.FatcowIcons16px.fatcow_page_copy_16px;
-		toolStripMenuItemCopyToClipboard.Name = "toolStripMenuItemCopyToClipboard";
+		toolStripMenuItemCopyToClipboard.Name = "menuItemCopyToClipboard";
 		toolStripMenuItemCopyToClipboard.ShortcutKeyDisplayString = "Strg+C";
 		toolStripMenuItemCopyToClipboard.ShortcutKeys = Keys.Control | Keys.C;
 		toolStripMenuItemCopyToClipboard.Size = new Size(213, 22);
@@ -1194,12 +1194,12 @@ partial class DatabaseDifferencesForm
 		toolStripButtonCancel.MouseEnter += Control_Enter;
 		toolStripButtonCancel.MouseLeave += Control_Leave;
 		// 
-		// toolStripSeparator1
+		// separator1
 		// 
 		toolStripSeparator1.AccessibleDescription = "Just a separator";
 		toolStripSeparator1.AccessibleName = "Just a separator";
 		toolStripSeparator1.AccessibleRole = AccessibleRole.Separator;
-		toolStripSeparator1.Name = "toolStripSeparator1";
+		toolStripSeparator1.Name = "separator1";
 		toolStripSeparator1.Size = new Size(6, 25);
 		toolStripSeparator1.MouseEnter += Control_Enter;
 		toolStripSeparator1.MouseLeave += Control_Leave;

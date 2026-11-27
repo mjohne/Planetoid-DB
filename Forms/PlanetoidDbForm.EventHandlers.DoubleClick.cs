@@ -51,7 +51,7 @@ public partial class PlanetoidDbForm
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 	/// <remarks>This method sets the checked state of the menu items to true and updates the visibility of the corresponding pages based on the checked state.</remarks>
-	private void ToolStripMenuItemLoadAdditionalDatabasesOnStartup_DoubleClick(object sender, EventArgs e)
+	private void MenuItemLoadAdditionalDatabasesOnStartup_DoubleClick(object sender, EventArgs e)
 	{
 		// Log the action of loading additional databases on startup via double-click
 		logger.Info(message: "Loading additional databases on startup via double-click.");

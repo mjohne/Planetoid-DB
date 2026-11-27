@@ -49,6 +49,6 @@ public partial class PlanetoidDbForm
 		// Ensure that the event data was supplied
 		ArgumentNullException.ThrowIfNull(argument: e);
 		Point clientPoint = PointToClient(p: Cursor.Position);
-		toolStripStatusLabelMouseCoordinates.Text = $"{clientPoint.X}x{clientPoint.Y}";
+		labelMouseCoordinates.Text = $"{clientPoint.X}x{clientPoint.Y}";
 	}
 }

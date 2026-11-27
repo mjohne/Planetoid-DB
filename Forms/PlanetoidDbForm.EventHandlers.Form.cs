@@ -56,7 +56,7 @@ public partial class PlanetoidDbForm
 			Settings.Default.Save();
 		}
 
-		toolStripStatusLabelWindowSize.Text = $"{Size.Width}x{Size.Height}";
+		labelWindowSize.Text = $"{Size.Width}x{Size.Height}";
 
 		// Set the checked state of the enable UI sound menu item based on the user settings
 		menuItemOptionEnableUiSound.Checked = Settings.Default.userEnableUiSound;
@@ -172,73 +172,73 @@ public partial class PlanetoidDbForm
 		if (IsMpcorbDatUpdateAvailable())
 		{
 			menuItemShowMpcorbDatUpdateIsAvailable.Enabled = true;
-			toolStripStatusLabelMpcorbDatUpdate.Enabled = true;
+			labelMpcorbDatUpdate.Enabled = true;
 		}
 		// Otherwise, disable and hide the update label
 		else
 		{
-			toolStripStatusLabelMpcorbDatUpdate.Enabled = false;
-			toolStripStatusLabelMpcorbDatUpdate.Visible = false;
+			labelMpcorbDatUpdate.Enabled = false;
+			labelMpcorbDatUpdate.Visible = false;
 		}
 		// Check if an update is available for the MPCORB.JSON database and enable the timer for blinking the update label
 		if (IsMpcorbJsonUpdateAvailable())
 		{
 			menuItemShowMpcorbJsonUpdateIsAvailable.Enabled = true;
-			//toolStripStatusLabelMpcorbJsonUpdate.Enabled = true;
+			//labelMpcorbJsonUpdate.Enabled = true;
 		}
 		// Otherwise, disable and hide the update label
 		else
 		{
-			//toolStripStatusLabelMpcorbJsonUpdate.Enabled = false;
-			//toolStripStatusLabelMpcorbJsonUpdate.Visible = false;
+			//labelMpcorbJsonUpdate.Enabled = false;
+			//labelMpcorbJsonUpdate.Visible = false;
 		}
 		// Check if an update is available for the ASTORB.DAT database and enable the timer for blinking the update label
 		if (IsAstorbDatUpdateAvailable())
 		{
 			menuItemShowAstorbDatUpdateIsAvailable.Enabled = true;
-			toolStripStatusLabelAstorbDatUpdate.Enabled = true;
+			labelAstorbDatUpdate.Enabled = true;
 		}
 		// Otherwise, disable and hide the update label
 		else
 		{
-			toolStripStatusLabelAstorbDatUpdate.Enabled = false;
-			toolStripStatusLabelAstorbDatUpdate.Visible = false;
+			labelAstorbDatUpdate.Enabled = false;
+			labelAstorbDatUpdate.Visible = false;
 		}
 		// Check if an update is available for the ALLNUM.CAT database and enable the timer for blinking the update label
 		if (IsAllnumCatUpdateAvailable())
 		{
 			menuItemShowAllnumCatUpdateIsAvailable.Enabled = true;
-			//toolStripStatusLabelAllnumCatUpdate.Enabled = true;
+			//labelAllnumCatUpdate.Enabled = true;
 		}
 		// Otherwise, disable and hide the update label
 		else
 		{
-			//toolStripStatusLabelAllnumCatUpdate.Enabled = false;
-			//toolStripStatusLabelAllnumCatUpdate.Visible = false;
+			//labelAllnumCatUpdate.Enabled = false;
+			//labelAllnumCatUpdate.Visible = false;
 		}
 		// Check if an update is available for the UFITOBS.CAT database and enable the timer for blinking the update label
 		if (IsUfitobsCatUpdateAvailable())
 		{
 			menuItemShowUfitobsCatUpdateIsAvailable.Enabled = true;
-			//toolStripStatusLabelUfitobsCatUpdate.Enabled = true;
+			//labelUfitobsCatUpdate.Enabled = true;
 		}
 		// Otherwise, disable and hide the update label
 		else
 		{
-			//toolStripStatusLabelUfitobsCatUpdate.Enabled = false;
-			//toolStripStatusLabelUfitobsCatUpdate.Visible = false;
+			//labelUfitobsCatUpdate.Enabled = false;
+			//labelUfitobsCatUpdate.Visible = false;
 		}
 		// Check if an update is available for the SINGOPP.CAT database and enable the timer for blinking the update label
 		if (IsSingoppCatUpdateAvailable())
 		{
 			menuItemShowSingoppCatUpdateIsAvailable.Enabled = true;
-			//toolStripStatusLabelSingoppCatUpdate.Enabled = true;
+			//labelSingoppCatUpdate.Enabled = true;
 		}
 		// Otherwise, disable and hide the update label
 		else
 		{
-			//toolStripStatusLabelSingoppCatUpdate.Enabled = false;
-			//toolStripStatusLabelSingoppCatUpdate.Visible = false;
+			//labelSingoppCatUpdate.Enabled = false;
+			//labelSingoppCatUpdate.Visible = false;
 		}
 		// Check if the form should stay on top of other windows
 		CheckStayOnTop();
@@ -387,6 +387,6 @@ public partial class PlanetoidDbForm
 		ArgumentNullException.ThrowIfNull(argument: sender);
 		// Ensure that the event data was supplied
 		ArgumentNullException.ThrowIfNull(argument: e);
-		toolStripStatusLabelWindowSize.Text = $"{Size.Width}x{Size.Height}";
+		labelWindowSize.Text = $"{Size.Width}x{Size.Height}";
 	}
 }

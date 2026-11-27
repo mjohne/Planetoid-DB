@@ -76,7 +76,7 @@ partial class SplashScreenForm
 		toolTip.SetToolTip(progressBarSplash, "Loads the data");
 		progressBarSplash.Values.Text = "Loading data...";
 		// 
-		// contextMenuStripCopyToClipboard
+		// contextMenuCopyToClipboard
 		// 
 		contextMenuStripCopyToClipboard.AccessibleDescription = "Shows the context menu for copying database information to the clipboard";
 		contextMenuStripCopyToClipboard.AccessibleName = "Context menu for copying database information to the clipboard";
@@ -90,14 +90,14 @@ partial class SplashScreenForm
 		contextMenuStripCopyToClipboard.Text = "Copy to clipboard";
 		toolTip.SetToolTip(contextMenuStripCopyToClipboard, "Context Menu for copying to clipboard");
 		// 
-		// toolStripMenuItemCopyToClipboard
+		// menuItemCopyToClipboard
 		// 
 		toolStripMenuItemCopyToClipboard.AccessibleDescription = "Copies the text/value to the clipboard";
 		toolStripMenuItemCopyToClipboard.AccessibleName = "Copy to clipboard";
 		toolStripMenuItemCopyToClipboard.AccessibleRole = AccessibleRole.MenuItem;
 		toolStripMenuItemCopyToClipboard.AutoToolTip = true;
 		toolStripMenuItemCopyToClipboard.Image = Resources.FatcowIcons16px.fatcow_page_copy_16px;
-		toolStripMenuItemCopyToClipboard.Name = "toolStripMenuItemCopyToClipboard";
+		toolStripMenuItemCopyToClipboard.Name = "menuItemCopyToClipboard";
 		toolStripMenuItemCopyToClipboard.ShortcutKeyDisplayString = "Strg+C";
 		toolStripMenuItemCopyToClipboard.ShortcutKeys = Keys.Control | Keys.C;
 		toolStripMenuItemCopyToClipboard.Size = new Size(213, 22);

@@ -149,7 +149,7 @@ public partial class PlanetoidDbForm
 		ShowDatabaseDownloader(
 			downloadUrl: Settings.Default.systemMpcorbDatGzUrl,
 			updateAvailableMenuItem: menuItemShowMpcorbDatUpdateIsAvailable,
-			updateStatusItem: toolStripStatusLabelMpcorbDatUpdate);
+			updateStatusItem: labelMpcorbDatUpdate);
 	}
 
 	/// <summary>Shows the downloader form for the MPCORB.JSON database.</summary>
@@ -174,7 +174,7 @@ public partial class PlanetoidDbForm
 		ShowDatabaseDownloader(
 			downloadUrl: Settings.Default.systemAstorbDatGzUrl,
 			updateAvailableMenuItem: menuItemShowAstorbDatUpdateIsAvailable,
-			updateStatusItem: toolStripStatusLabelAstorbDatUpdate);
+			updateStatusItem: labelAstorbDatUpdate);
 	}
 
 	/// <summary>Shows the downloader form for the ALLNUM.CAT database.</summary>
