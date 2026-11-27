@@ -292,7 +292,7 @@ public partial class PlanetoidDbForm
 		if (position < 0 || position >= planetoidsDatabase.Count)
 		{
 			ClearCurrentRecordDisplay();
-			toolStripLabelIndexPosition.ToolTipText = "Index: 0";
+			labelIndexPosition.ToolTipText = "Index: 0";
 			return;
 		}
 		// Get entry string once to avoid repeated ToString() calls
@@ -315,7 +315,7 @@ public partial class PlanetoidDbForm
 		try
 		{
 			// Batch all text updates with minimal overhead
-			toolStripLabelIndexPosition.ToolTipText = $"Index: {position + 1}/{planetoidsDatabase.Count}";
+			labelIndexPosition.ToolTipText = $"Index: {position + 1}/{planetoidsDatabase.Count}";
 			// Update all labels in one go - use cached string reference
 			labelMpcorbIndexData.Text = ExtractField(span: entrySpan, start: 0, length: 7);
 			labelMpcorbAbsoluteMagnitudeData.Text = ExtractField(span: entrySpan, start: 8, length: 5);
@@ -337,7 +337,7 @@ public partial class PlanetoidDbForm
 			labelMpcorbFlagsData.Text = ExtractField(span: entrySpan, start: 161, length: 4);
 			labelMpcorbReadableDesignationData.Text = ExtractField(span: entrySpan, start: 166, length: 28);
 			labelMpcorbDateLastObservationData.Text = ExtractField(span: entrySpan, start: 194, length: 8);
-			toolStripLabelIndexPosition.Text = $@"{I18nStrings.Index}: {position + 1:N0} / {planetoidsDatabase.Count:N0}";
+			labelIndexPosition.Text = $@"{I18nStrings.Index}: {position + 1:N0} / {planetoidsDatabase.Count:N0}";
 
 			listViewDerivedData.Items.Clear();
 
@@ -460,7 +460,7 @@ public partial class PlanetoidDbForm
 	private void ClearCurrentRecordDisplay()
 	{
 		// Clear all labels in the data panel and the index indicator
-		toolStripLabelIndexPosition.Text = string.Empty;
+		labelIndexPosition.Text = string.Empty;
 		// Suspend the layout of the TableLayoutPanel to prevent flickering during label updates
 		tableLayoutPanelMpcorbData.SuspendLayout();
 		// Clear all labels in the TableLayoutPanel
@@ -801,10 +801,10 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method should be called whenever the history stacks change. The drop-down menus are populated lazily in the DropDownOpening handlers.</remarks>
 	private void UpdateHistoryNavigationButtons()
 	{
-		// Enable/disable the back button depending on whether there is any back history
-		toolStripSplitButtonHistoryBack.Enabled = navigationHistoryBack.Count > 0;
-		// Enable/disable the forward button depending on whether there is any forward history
-		toolStripSplitButtonHistoryForward.Enabled = navigationHistoryForward.Count > 0;
+		// Enable/disable the back buttons depending on whether there is any back history
+		splitButtonHistoryBack.Enabled = menuItemHistoryBack.Enabled = navigationHistoryBack.Count > 0;
+		// Enable/disable the forward buttons depending on whether there is any forward history
+		splitButtonHistoryForward.Enabled = menuItemHistoryForward.Enabled = navigationHistoryForward.Count > 0;
 	}
 
 	/// <summary>Navigates back one step in the planetoid history.</summary>
