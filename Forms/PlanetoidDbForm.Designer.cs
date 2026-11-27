@@ -390,10 +390,10 @@ partial class PlanetoidDbForm
 		labelMemoryUsage = new ToolStripStatusLabel();
 		labelProcessorUsage = new ToolStripStatusLabel();
 		labelTimeUsage = new ToolStripStatusLabel();
-		toolStripStatusLabelWindowSize = new ToolStripStatusLabel();
-		toolStripStatusLabelMouseCoordinates = new ToolStripStatusLabel();
-		toolStripStatusLabelAstorbDatUpdate = new ToolStripStatusLabel();
-		toolStripStatusLabelMpcorbDatUpdate = new ToolStripStatusLabel();
+		labelWindowSize = new ToolStripStatusLabel();
+		labelMouseCoordinates = new ToolStripStatusLabel();
+		labelAstorbDatUpdate = new ToolStripStatusLabel();
+		labelMpcorbDatUpdate = new ToolStripStatusLabel();
 		splitContainerContentOuterLeftMiddle = new SplitContainer();
 		listViewReadableDesignations = new ListView();
 		columnHeaderInternalIndex = new ColumnHeader();
@@ -2866,7 +2866,7 @@ partial class PlanetoidDbForm
 		menuItemExecuteDoubleBuffering.Name = "menuItemExecuteDoubleBuffering";
 		menuItemExecuteDoubleBuffering.Size = new Size(265, 22);
 		menuItemExecuteDoubleBuffering.Text = "Execute double-buffering";
-		menuItemExecuteDoubleBuffering.Click += (this.ToolStripMenuItemExecuteDoubleBuffering_Click);
+		menuItemExecuteDoubleBuffering.Click += (this.MenuItemExecuteDoubleBuffering_Click);
 		menuItemExecuteDoubleBuffering.MouseEnter += (this.Control_Enter);
 		menuItemExecuteDoubleBuffering.MouseLeave += (this.Control_Leave);
 		menuItemExecuteDoubleBuffering.MouseMove += (this.MouseCoordinates_MouseMove);
@@ -2881,7 +2881,7 @@ partial class PlanetoidDbForm
 		menuItemBuildDerivedDataContextMenuFromListView.Name = "menuItemBuildDerivedDataContextMenuFromListView";
 		menuItemBuildDerivedDataContextMenuFromListView.Size = new Size(265, 22);
 		menuItemBuildDerivedDataContextMenuFromListView.Text = "Build derived data context menu";
-		menuItemBuildDerivedDataContextMenuFromListView.Click += (this.ToolStripMenuItemBuildDerivedDataContextMenuFromListView_Click);
+		menuItemBuildDerivedDataContextMenuFromListView.Click += (this.MenuItemBuildDerivedDataContextMenuFromListView_Click);
 		menuItemBuildDerivedDataContextMenuFromListView.MouseEnter += (this.Control_Enter);
 		menuItemBuildDerivedDataContextMenuFromListView.MouseLeave += (this.Control_Leave);
 		menuItemBuildDerivedDataContextMenuFromListView.MouseMove += (this.MouseCoordinates_MouseMove);
@@ -2907,7 +2907,7 @@ partial class PlanetoidDbForm
 		menuItemRegisterEnterEventHandler.Name = "menuItemRegisterEnterEventHandler";
 		menuItemRegisterEnterEventHandler.Size = new Size(265, 22);
 		menuItemRegisterEnterEventHandler.Text = "Register enter event handler";
-		menuItemRegisterEnterEventHandler.Click += (this.ToolStripMenuItemRegisterEnterEventHandler_Click);
+		menuItemRegisterEnterEventHandler.Click += (this.MenuItemRegisterEnterEventHandler_Click);
 		menuItemRegisterEnterEventHandler.MouseEnter += (this.Control_Enter);
 		menuItemRegisterEnterEventHandler.MouseLeave += (this.Control_Leave);
 		menuItemRegisterEnterEventHandler.MouseMove += (this.MouseCoordinates_MouseMove);
@@ -2922,7 +2922,7 @@ partial class PlanetoidDbForm
 		menuItemRegisterMouseEnterEventHandler.Name = "menuItemRegisterMouseEnterEventHandler";
 		menuItemRegisterMouseEnterEventHandler.Size = new Size(265, 22);
 		menuItemRegisterMouseEnterEventHandler.Text = "Register mouse-enter event handler";
-		menuItemRegisterMouseEnterEventHandler.Click += (this.ToolStripMenuItemRegisterMouseEnterEventHandler_Click);
+		menuItemRegisterMouseEnterEventHandler.Click += (this.MenuItemRegisterMouseEnterEventHandler_Click);
 		menuItemRegisterMouseEnterEventHandler.MouseEnter += (this.Control_Enter);
 		menuItemRegisterMouseEnterEventHandler.MouseLeave += (this.Control_Leave);
 		menuItemRegisterMouseEnterEventHandler.MouseMove += (this.MouseCoordinates_MouseMove);
@@ -2937,7 +2937,7 @@ partial class PlanetoidDbForm
 		menuItemRegisterLeaveEventHandler.Name = "menuItemRegisterLeaveEventHandler";
 		menuItemRegisterLeaveEventHandler.Size = new Size(265, 22);
 		menuItemRegisterLeaveEventHandler.Text = "Register leave event handler";
-		menuItemRegisterLeaveEventHandler.Click += (this.ToolStripMenuItemRegisterLeaveEventHandler_Click);
+		menuItemRegisterLeaveEventHandler.Click += (this.MenuItemRegisterLeaveEventHandler_Click);
 		menuItemRegisterLeaveEventHandler.MouseEnter += (this.Control_Enter);
 		menuItemRegisterLeaveEventHandler.MouseLeave += (this.Control_Leave);
 		menuItemRegisterLeaveEventHandler.MouseMove += (this.MouseCoordinates_MouseMove);
@@ -2952,7 +2952,7 @@ partial class PlanetoidDbForm
 		menuItemRegisterMouseLeaveEventHandler.Name = "menuItemRegisterMouseLeaveEventHandler";
 		menuItemRegisterMouseLeaveEventHandler.Size = new Size(265, 22);
 		menuItemRegisterMouseLeaveEventHandler.Text = "Register mouse-leave event handler";
-		menuItemRegisterMouseLeaveEventHandler.Click += (this.ToolStripMenuItemRegisterMouseLeaveEventHandler_Click);
+		menuItemRegisterMouseLeaveEventHandler.Click += (this.MenuItemRegisterMouseLeaveEventHandler_Click);
 		menuItemRegisterMouseLeaveEventHandler.MouseEnter += (this.Control_Enter);
 		menuItemRegisterMouseLeaveEventHandler.MouseLeave += (this.Control_Leave);
 		menuItemRegisterMouseLeaveEventHandler.MouseMove += (this.MouseCoordinates_MouseMove);
@@ -2967,7 +2967,7 @@ partial class PlanetoidDbForm
 		menuItemRegisterMouseMoveEventHandler.Name = "menuItemRegisterMouseMoveEventHandler";
 		menuItemRegisterMouseMoveEventHandler.Size = new Size(265, 22);
 		menuItemRegisterMouseMoveEventHandler.Text = "Register mouse-move event handler";
-		menuItemRegisterMouseMoveEventHandler.Click += (this.ToolStripMenuItemRegisterMouseMoveEventHandler_Click);
+		menuItemRegisterMouseMoveEventHandler.Click += (this.MenuItemRegisterMouseMoveEventHandler_Click);
 		menuItemRegisterMouseMoveEventHandler.MouseEnter += (this.Control_Enter);
 		menuItemRegisterMouseMoveEventHandler.MouseLeave += (this.Control_Leave);
 		menuItemRegisterMouseMoveEventHandler.MouseMove += (this.MouseCoordinates_MouseMove);
@@ -3412,8 +3412,8 @@ partial class PlanetoidDbForm
 		menuItemHistoryForward.Name = "menuItemHistoryForward";
 		menuItemHistoryForward.Size = new Size(233, 22);
 		menuItemHistoryForward.Text = "Navigate forwar&d in history";
-		menuItemHistoryForward.DropDownOpening += (this.HistoryBack_DropDownOpening);
-		menuItemHistoryForward.Click += (this.HistoryBack_ButtonClick);
+		menuItemHistoryForward.DropDownOpening += (this.HistoryForward_DropDownOpening);
+		menuItemHistoryForward.Click += (this.HistoryForward_ButtonClick);
 		menuItemHistoryForward.MouseEnter += (this.Control_Enter);
 		menuItemHistoryForward.MouseLeave += (this.Control_Leave);
 		menuItemHistoryForward.MouseMove += (this.MouseCoordinates_MouseMove);
@@ -4151,7 +4151,7 @@ partial class PlanetoidDbForm
 		menuItemGeometricAlbedoAdjustedDiameter.Name = "menuItemGeometricAlbedoAdjustedDiameter";
 		menuItemGeometricAlbedoAdjustedDiameter.Size = new Size(295, 22);
 		menuItemGeometricAlbedoAdjustedDiameter.Text = "Geometri&c albedo-adjusted diameter";
-		menuItemGeometricAlbedoAdjustedDiameter.Click += (this.ToolStripMenuItemGeometricAlbedoAdjustedDiameter_Click);
+		menuItemGeometricAlbedoAdjustedDiameter.Click += (this.MenuItemGeometricAlbedoAdjustedDiameter_Click);
 		menuItemGeometricAlbedoAdjustedDiameter.MouseEnter += (this.Control_Enter);
 		menuItemGeometricAlbedoAdjustedDiameter.MouseLeave += (this.Control_Leave);
 		menuItemGeometricAlbedoAdjustedDiameter.MouseMove += (this.MouseCoordinates_MouseMove);
@@ -5134,7 +5134,7 @@ partial class PlanetoidDbForm
 		menuItemCheckingDatabaseUpdatesOnStartup.Name = "menuItemCheckingDatabaseUpdatesOnStartup";
 		menuItemCheckingDatabaseUpdatesOnStartup.Size = new Size(276, 22);
 		menuItemCheckingDatabaseUpdatesOnStartup.Text = "Checking &database updates on startup";
-		menuItemCheckingDatabaseUpdatesOnStartup.Click += (this.ToolStripMenuItemCheckingDatabaseUpdatesOnStartup_Click);
+		menuItemCheckingDatabaseUpdatesOnStartup.Click += (this.MenuItemCheckingDatabaseUpdatesOnStartup_Click);
 		menuItemCheckingDatabaseUpdatesOnStartup.MouseEnter += (this.Control_Enter);
 		menuItemCheckingDatabaseUpdatesOnStartup.MouseLeave += (this.Control_Leave);
 		menuItemCheckingDatabaseUpdatesOnStartup.MouseMove += (this.MouseCoordinates_MouseMove);
@@ -5151,7 +5151,7 @@ partial class PlanetoidDbForm
 		menuItemLoadAdditionalDatabasesOnStartup.Name = "menuItemLoadAdditionalDatabasesOnStartup";
 		menuItemLoadAdditionalDatabasesOnStartup.Size = new Size(276, 22);
 		menuItemLoadAdditionalDatabasesOnStartup.Text = "Load &additional databases on startup";
-		menuItemLoadAdditionalDatabasesOnStartup.DoubleClick += (this.ToolStripMenuItemLoadAdditionalDatabasesOnStartup_DoubleClick);
+		menuItemLoadAdditionalDatabasesOnStartup.DoubleClick += (this.MenuItemLoadAdditionalDatabasesOnStartup_DoubleClick);
 		menuItemLoadAdditionalDatabasesOnStartup.MouseEnter += (this.Control_Enter);
 		menuItemLoadAdditionalDatabasesOnStartup.MouseLeave += (this.Control_Leave);
 		menuItemLoadAdditionalDatabasesOnStartup.MouseMove += (this.MouseCoordinates_MouseMove);
@@ -5186,7 +5186,7 @@ partial class PlanetoidDbForm
 		menuItemLoadDatabaseOnStartupMpcorbJson.Name = "menuItemLoadDatabaseOnStartupMpcorbJson";
 		menuItemLoadDatabaseOnStartupMpcorbJson.Size = new Size(154, 22);
 		menuItemLoadDatabaseOnStartupMpcorbJson.Text = "MPCORB.JSON";
-		menuItemLoadDatabaseOnStartupMpcorbJson.Click += (this.ToolStripMenuItemLoadDatabaseOnStartupMpcorbJson_Click);
+		menuItemLoadDatabaseOnStartupMpcorbJson.Click += (this.MenuItemLoadDatabaseOnStartupMpcorbJson_Click);
 		menuItemLoadDatabaseOnStartupMpcorbJson.MouseEnter += (this.Control_Enter);
 		menuItemLoadDatabaseOnStartupMpcorbJson.MouseLeave += (this.Control_Leave);
 		menuItemLoadDatabaseOnStartupMpcorbJson.MouseMove += (this.MouseCoordinates_MouseMove);
@@ -5202,7 +5202,7 @@ partial class PlanetoidDbForm
 		menuItemLoadDatabaseOnStartupAstorbDat.Name = "menuItemLoadDatabaseOnStartupAstorbDat";
 		menuItemLoadDatabaseOnStartupAstorbDat.Size = new Size(154, 22);
 		menuItemLoadDatabaseOnStartupAstorbDat.Text = "ASTORB.DAT";
-		menuItemLoadDatabaseOnStartupAstorbDat.Click += (this.ToolStripMenuItemLoadDatabaseOnStartupAstorbDat_Click);
+		menuItemLoadDatabaseOnStartupAstorbDat.Click += (this.MenuItemLoadDatabaseOnStartupAstorbDat_Click);
 		menuItemLoadDatabaseOnStartupAstorbDat.MouseEnter += (this.Control_Enter);
 		menuItemLoadDatabaseOnStartupAstorbDat.MouseLeave += (this.Control_Leave);
 		menuItemLoadDatabaseOnStartupAstorbDat.MouseMove += (this.MouseCoordinates_MouseMove);
@@ -5218,7 +5218,7 @@ partial class PlanetoidDbForm
 		menuItemLoadDatabaseOnStartupAllnumCat.Name = "menuItemLoadDatabaseOnStartupAllnumCat";
 		menuItemLoadDatabaseOnStartupAllnumCat.Size = new Size(154, 22);
 		menuItemLoadDatabaseOnStartupAllnumCat.Text = "ALLNUM.CAT";
-		menuItemLoadDatabaseOnStartupAllnumCat.Click += (this.ToolStripMenuItemLoadDatabaseOnStartupAllnumCat_Click);
+		menuItemLoadDatabaseOnStartupAllnumCat.Click += (this.MenuItemLoadDatabaseOnStartupAllnumCat_Click);
 		menuItemLoadDatabaseOnStartupAllnumCat.MouseEnter += (this.Control_Enter);
 		menuItemLoadDatabaseOnStartupAllnumCat.MouseLeave += (this.Control_Leave);
 		menuItemLoadDatabaseOnStartupAllnumCat.MouseMove += (this.MouseCoordinates_MouseMove);
@@ -5234,7 +5234,7 @@ partial class PlanetoidDbForm
 		menuItemLoadDatabaseOnStartupSingoppCat.Name = "menuItemLoadDatabaseOnStartupSingoppCat";
 		menuItemLoadDatabaseOnStartupSingoppCat.Size = new Size(154, 22);
 		menuItemLoadDatabaseOnStartupSingoppCat.Text = "SINGOPP.CAT";
-		menuItemLoadDatabaseOnStartupSingoppCat.Click += (this.ToolStripMenuItemLoadDatabaseOnStartupSingoppCat_Click);
+		menuItemLoadDatabaseOnStartupSingoppCat.Click += (this.MenuItemLoadDatabaseOnStartupSingoppCat_Click);
 		menuItemLoadDatabaseOnStartupSingoppCat.MouseEnter += (this.Control_Enter);
 		menuItemLoadDatabaseOnStartupSingoppCat.MouseLeave += (this.Control_Leave);
 		menuItemLoadDatabaseOnStartupSingoppCat.MouseMove += (this.MouseCoordinates_MouseMove);
@@ -5250,7 +5250,7 @@ partial class PlanetoidDbForm
 		menuItemLoadDatabaseOnStartupUfitobsCat.Name = "menuItemLoadDatabaseOnStartupUfitobsCat";
 		menuItemLoadDatabaseOnStartupUfitobsCat.Size = new Size(154, 22);
 		menuItemLoadDatabaseOnStartupUfitobsCat.Text = "UFITOBS.CAT";
-		menuItemLoadDatabaseOnStartupUfitobsCat.Click += (this.ToolStripMenuItemLoadDatabaseOnStartupUfitobsCat_Click);
+		menuItemLoadDatabaseOnStartupUfitobsCat.Click += (this.MenuItemLoadDatabaseOnStartupUfitobsCat_Click);
 		menuItemLoadDatabaseOnStartupUfitobsCat.MouseEnter += (this.Control_Enter);
 		menuItemLoadDatabaseOnStartupUfitobsCat.MouseLeave += (this.Control_Leave);
 		menuItemLoadDatabaseOnStartupUfitobsCat.MouseMove += (this.MouseCoordinates_MouseMove);
@@ -5266,7 +5266,7 @@ partial class PlanetoidDbForm
 		menuItemLogging.Name = "menuItemLogging";
 		menuItemLogging.Size = new Size(276, 22);
 		menuItemLogging.Text = "Enable lo&gging";
-		menuItemLogging.Click += (this.ToolStripMenuItemLogging_Click);
+		menuItemLogging.Click += (this.MenuItemLogging_Click);
 		menuItemLogging.MouseEnter += (this.Control_Enter);
 		menuItemLogging.MouseLeave += (this.Control_Leave);
 		menuItemLogging.MouseMove += (this.MouseCoordinates_MouseMove);
@@ -5572,7 +5572,7 @@ partial class PlanetoidDbForm
 		menuItemWindowStateMaximize.Name = "menuItemWindowStateMaximize";
 		menuItemWindowStateMaximize.Size = new Size(171, 22);
 		menuItemWindowStateMaximize.Text = "M&aximize";
-		menuItemWindowStateMaximize.Click += (this.ToolStripMenuItemWindowStateMaximize_Click);
+		menuItemWindowStateMaximize.Click += (this.MenuItemWindowStateMaximize_Click);
 		menuItemWindowStateMaximize.MouseEnter += (this.Control_Enter);
 		menuItemWindowStateMaximize.MouseLeave += (this.Control_Leave);
 		menuItemWindowStateMaximize.MouseMove += (this.MouseCoordinates_MouseMove);
@@ -5586,7 +5586,7 @@ partial class PlanetoidDbForm
 		menuItemWindowStateMinimize.Name = "menuItemWindowStateMinimize";
 		menuItemWindowStateMinimize.Size = new Size(171, 22);
 		menuItemWindowStateMinimize.Text = "M&inimize";
-		menuItemWindowStateMinimize.Click += (this.ToolStripMenuItemWindowStateMinimize_Click);
+		menuItemWindowStateMinimize.Click += (this.MenuItemWindowStateMinimize_Click);
 		menuItemWindowStateMinimize.MouseEnter += (this.Control_Enter);
 		menuItemWindowStateMinimize.MouseLeave += (this.Control_Leave);
 		menuItemWindowStateMinimize.MouseMove += (this.MouseCoordinates_MouseMove);
@@ -5600,7 +5600,7 @@ partial class PlanetoidDbForm
 		menuItemWindowStateNormal.Name = "menuItemWindowStateNormal";
 		menuItemWindowStateNormal.Size = new Size(171, 22);
 		menuItemWindowStateNormal.Text = "R&estore";
-		menuItemWindowStateNormal.Click += (this.ToolStripMenuItemWindowStateNormal_Click);
+		menuItemWindowStateNormal.Click += (this.MenuItemWindowStateNormal_Click);
 		menuItemWindowStateNormal.MouseEnter += (this.Control_Enter);
 		menuItemWindowStateNormal.MouseLeave += (this.Control_Leave);
 		menuItemWindowStateNormal.MouseMove += (this.MouseCoordinates_MouseMove);
@@ -5614,7 +5614,7 @@ partial class PlanetoidDbForm
 		menuItemWindowStateCenterToScreen.Name = "menuItemWindowStateCenterToScreen";
 		menuItemWindowStateCenterToScreen.Size = new Size(171, 22);
 		menuItemWindowStateCenterToScreen.Text = "&Center to screen";
-		menuItemWindowStateCenterToScreen.Click += (this.ToolStripMenuItemWindowStateCenterToScreen_Click);
+		menuItemWindowStateCenterToScreen.Click += (this.MenuItemWindowStateCenterToScreen_Click);
 		menuItemWindowStateCenterToScreen.MouseEnter += (this.Control_Enter);
 		menuItemWindowStateCenterToScreen.MouseLeave += (this.Control_Leave);
 		menuItemWindowStateCenterToScreen.MouseMove += (this.MouseCoordinates_MouseMove);
@@ -5639,7 +5639,7 @@ partial class PlanetoidDbForm
 		menuItemWindowStateSnapLeft.Name = "menuItemWindowStateSnapLeft";
 		menuItemWindowStateSnapLeft.Size = new Size(171, 22);
 		menuItemWindowStateSnapLeft.Text = "Snap &left";
-		menuItemWindowStateSnapLeft.Click += (this.ToolStripMenuItemWindowStateSnapLeft_Click);
+		menuItemWindowStateSnapLeft.Click += (this.MenuItemWindowStateSnapLeft_Click);
 		menuItemWindowStateSnapLeft.MouseEnter += (this.Control_Enter);
 		menuItemWindowStateSnapLeft.MouseLeave += (this.Control_Leave);
 		menuItemWindowStateSnapLeft.MouseMove += (this.MouseCoordinates_MouseMove);
@@ -5653,7 +5653,7 @@ partial class PlanetoidDbForm
 		menuItemWindowStateSnapRight.Name = "menuItemWindowStateSnapRight";
 		menuItemWindowStateSnapRight.Size = new Size(171, 22);
 		menuItemWindowStateSnapRight.Text = "Snap &right";
-		menuItemWindowStateSnapRight.Click += (this.ToolStripMenuItemWindowStateSnapRight_Click);
+		menuItemWindowStateSnapRight.Click += (this.MenuItemWindowStateSnapRight_Click);
 		menuItemWindowStateSnapRight.MouseEnter += (this.Control_Enter);
 		menuItemWindowStateSnapRight.MouseLeave += (this.Control_Leave);
 		menuItemWindowStateSnapRight.MouseMove += (this.MouseCoordinates_MouseMove);
@@ -5667,7 +5667,7 @@ partial class PlanetoidDbForm
 		menuItemWindowStateSnapTop.Name = "menuItemWindowStateSnapTop";
 		menuItemWindowStateSnapTop.Size = new Size(171, 22);
 		menuItemWindowStateSnapTop.Text = "Snap &top";
-		menuItemWindowStateSnapTop.Click += (this.ToolStripMenuItemWindowStateSnapTop_Click);
+		menuItemWindowStateSnapTop.Click += (this.MenuItemWindowStateSnapTop_Click);
 		menuItemWindowStateSnapTop.MouseEnter += (this.Control_Enter);
 		menuItemWindowStateSnapTop.MouseLeave += (this.Control_Leave);
 		menuItemWindowStateSnapTop.MouseMove += (this.MouseCoordinates_MouseMove);
@@ -5681,7 +5681,7 @@ partial class PlanetoidDbForm
 		menuItemWindowStateSnapBottom.Name = "menuItemWindowStateSnapBottom";
 		menuItemWindowStateSnapBottom.Size = new Size(171, 22);
 		menuItemWindowStateSnapBottom.Text = "Snap &bottom";
-		menuItemWindowStateSnapBottom.Click += (this.ToolStripMenuItemWindowStateSnapBottom_Click);
+		menuItemWindowStateSnapBottom.Click += (this.MenuItemWindowStateSnapBottom_Click);
 		menuItemWindowStateSnapBottom.MouseEnter += (this.Control_Enter);
 		menuItemWindowStateSnapBottom.MouseLeave += (this.Control_Leave);
 		menuItemWindowStateSnapBottom.MouseMove += (this.MouseCoordinates_MouseMove);
@@ -5706,7 +5706,7 @@ partial class PlanetoidDbForm
 		menuItemWindowStateSnapTopLeft.Name = "menuItemWindowStateSnapTopLeft";
 		menuItemWindowStateSnapTopLeft.Size = new Size(171, 22);
 		menuItemWindowStateSnapTopLeft.Text = "Snap t&op left";
-		menuItemWindowStateSnapTopLeft.Click += (this.ToolStripMenuItemWindowStateSnapTopLeft_Click);
+		menuItemWindowStateSnapTopLeft.Click += (this.MenuItemWindowStateSnapTopLeft_Click);
 		menuItemWindowStateSnapTopLeft.MouseEnter += (this.Control_Enter);
 		menuItemWindowStateSnapTopLeft.MouseLeave += (this.Control_Leave);
 		menuItemWindowStateSnapTopLeft.MouseMove += (this.MouseCoordinates_MouseMove);
@@ -5720,7 +5720,7 @@ partial class PlanetoidDbForm
 		menuItemWindowStateSnapTopRight.Name = "menuItemWindowStateSnapTopRight";
 		menuItemWindowStateSnapTopRight.Size = new Size(171, 22);
 		menuItemWindowStateSnapTopRight.Text = "Snap to&p right";
-		menuItemWindowStateSnapTopRight.Click += (this.ToolStripMenuItemWindowStateSnapTopRight_Click);
+		menuItemWindowStateSnapTopRight.Click += (this.MenuItemWindowStateSnapTopRight_Click);
 		menuItemWindowStateSnapTopRight.MouseEnter += (this.Control_Enter);
 		menuItemWindowStateSnapTopRight.MouseLeave += (this.Control_Leave);
 		menuItemWindowStateSnapTopRight.MouseMove += (this.MouseCoordinates_MouseMove);
@@ -5734,7 +5734,7 @@ partial class PlanetoidDbForm
 		menuItemWindowStateSnapBottomLeft.Name = "menuItemWindowStateSnapBottomLeft";
 		menuItemWindowStateSnapBottomLeft.Size = new Size(171, 22);
 		menuItemWindowStateSnapBottomLeft.Text = "Snap bottom le&ft";
-		menuItemWindowStateSnapBottomLeft.Click += (this.ToolStripMenuItemWindowStateSnapBottomLeft_Click);
+		menuItemWindowStateSnapBottomLeft.Click += (this.MenuItemWindowStateSnapBottomLeft_Click);
 		menuItemWindowStateSnapBottomLeft.MouseEnter += (this.Control_Enter);
 		menuItemWindowStateSnapBottomLeft.MouseLeave += (this.Control_Leave);
 		menuItemWindowStateSnapBottomLeft.MouseMove += (this.MouseCoordinates_MouseMove);
@@ -5748,7 +5748,7 @@ partial class PlanetoidDbForm
 		menuItemWindowStateSnapBottomRight.Name = "menuItemWindowStateSnapBottomRight";
 		menuItemWindowStateSnapBottomRight.Size = new Size(171, 22);
 		menuItemWindowStateSnapBottomRight.Text = "Snap bottom rig&ht";
-		menuItemWindowStateSnapBottomRight.Click += (this.ToolStripMenuItemWindowStateSnapBottomRight_Click);
+		menuItemWindowStateSnapBottomRight.Click += (this.MenuItemWindowStateSnapBottomRight_Click);
 		menuItemWindowStateSnapBottomRight.MouseEnter += (this.Control_Enter);
 		menuItemWindowStateSnapBottomRight.MouseLeave += (this.Control_Leave);
 		menuItemWindowStateSnapBottomRight.MouseMove += (this.MouseCoordinates_MouseMove);
@@ -5822,7 +5822,7 @@ partial class PlanetoidDbForm
 		menuItemAcknowledgements.Name = "menuItemAcknowledgements";
 		menuItemAcknowledgements.Size = new Size(236, 22);
 		menuItemAcknowledgements.Text = "A&cknowledgements";
-		menuItemAcknowledgements.Click += (this.ToolStripMenuItemAcknowledgements_Click);
+		menuItemAcknowledgements.Click += (this.MenuItemAcknowledgements_Click);
 		menuItemAcknowledgements.MouseEnter += (this.Control_Enter);
 		menuItemAcknowledgements.MouseLeave += (this.Control_Leave);
 		menuItemAcknowledgements.MouseMove += (this.MouseCoordinates_MouseMove);
@@ -6022,7 +6022,7 @@ partial class PlanetoidDbForm
 		statusStrip.ContextMenuStrip = contextMenuShowControlsInStatusBar;
 		statusStrip.Dock = DockStyle.None;
 		statusStrip.Font = new Font("Segoe UI", 9F);
-		statusStrip.Items.AddRange(new ToolStripItem[] { labelInformation, labelDiskSizeUsage, labelMemoryUsage, labelProcessorUsage, labelTimeUsage, toolStripStatusLabelWindowSize, toolStripStatusLabelMouseCoordinates, toolStripStatusLabelAstorbDatUpdate, toolStripStatusLabelMpcorbDatUpdate });
+		statusStrip.Items.AddRange(new ToolStripItem[] { labelInformation, labelDiskSizeUsage, labelMemoryUsage, labelProcessorUsage, labelTimeUsage, labelWindowSize, labelMouseCoordinates, labelAstorbDatUpdate, labelMpcorbDatUpdate });
 		statusStrip.LayoutStyle = ToolStripLayoutStyle.HorizontalStackWithOverflow;
 		statusStrip.Location = new Point(0, 0);
 		statusStrip.Name = "statusStrip";
@@ -6070,7 +6070,7 @@ partial class PlanetoidDbForm
 		menuItemShowInformationLabel.ShortcutKeyDisplayString = "";
 		menuItemShowInformationLabel.Size = new Size(219, 22);
 		menuItemShowInformationLabel.Text = "Show &information label";
-		menuItemShowInformationLabel.Click += (this.ToolStripMenuItemShowInformationLabel_Click);
+		menuItemShowInformationLabel.Click += (this.MenuItemShowInformationLabel_Click);
 		menuItemShowInformationLabel.MouseEnter += (this.Control_Enter);
 		menuItemShowInformationLabel.MouseLeave += (this.Control_Leave);
 		menuItemShowInformationLabel.MouseMove += (this.MouseCoordinates_MouseMove);
@@ -6087,7 +6087,7 @@ partial class PlanetoidDbForm
 		menuItemShowMpcorbDatUpdateLabel.Name = "menuItemShowMpcorbDatUpdateLabel";
 		menuItemShowMpcorbDatUpdateLabel.Size = new Size(219, 22);
 		menuItemShowMpcorbDatUpdateLabel.Text = "Show MPCORB.DAT update";
-		menuItemShowMpcorbDatUpdateLabel.Click += (this.ToolStripMenuItemShowMpcorbDatUpdateLabel_Click);
+		menuItemShowMpcorbDatUpdateLabel.Click += (this.MenuItemShowMpcorbDatUpdateLabel_Click);
 		menuItemShowMpcorbDatUpdateLabel.MouseEnter += (this.Control_Enter);
 		menuItemShowMpcorbDatUpdateLabel.MouseLeave += (this.Control_Leave);
 		menuItemShowMpcorbDatUpdateLabel.MouseMove += (this.MouseCoordinates_MouseMove);
@@ -6104,7 +6104,7 @@ partial class PlanetoidDbForm
 		menuItemShowAstorbDatUpdateLabel.Name = "menuItemShowAstorbDatUpdateLabel";
 		menuItemShowAstorbDatUpdateLabel.Size = new Size(219, 22);
 		menuItemShowAstorbDatUpdateLabel.Text = "Show ASTORB.DAT update";
-		menuItemShowAstorbDatUpdateLabel.Click += (this.ToolStripMenuItemShowAstorbDatUpdateLabel_Click);
+		menuItemShowAstorbDatUpdateLabel.Click += (this.MenuItemShowAstorbDatUpdateLabel_Click);
 		menuItemShowAstorbDatUpdateLabel.MouseEnter += (this.Control_Enter);
 		menuItemShowAstorbDatUpdateLabel.MouseLeave += (this.Control_Leave);
 		menuItemShowAstorbDatUpdateLabel.MouseMove += (this.MouseCoordinates_MouseMove);
@@ -6121,7 +6121,7 @@ partial class PlanetoidDbForm
 		menuItemShowMouseCoordinatesLabel.Name = "menuItemShowMouseCoordinatesLabel";
 		menuItemShowMouseCoordinatesLabel.Size = new Size(219, 22);
 		menuItemShowMouseCoordinatesLabel.Text = "Show mouse coordinates";
-		menuItemShowMouseCoordinatesLabel.Click += (this.ToolStripMenuItemShowMouseCoordinatesLabel_Click);
+		menuItemShowMouseCoordinatesLabel.Click += (this.MenuItemShowMouseCoordinatesLabel_Click);
 		menuItemShowMouseCoordinatesLabel.MouseEnter += (this.Control_Enter);
 		menuItemShowMouseCoordinatesLabel.MouseLeave += (this.Control_Leave);
 		menuItemShowMouseCoordinatesLabel.MouseMove += (this.MouseCoordinates_MouseMove);
@@ -6138,7 +6138,7 @@ partial class PlanetoidDbForm
 		menuItemShowWindowSizeLabel.Name = "menuItemShowWindowSizeLabel";
 		menuItemShowWindowSizeLabel.Size = new Size(219, 22);
 		menuItemShowWindowSizeLabel.Text = "Show window size";
-		menuItemShowWindowSizeLabel.Click += (this.ToolStripMenuItemShowWindowSizeLabel_Click);
+		menuItemShowWindowSizeLabel.Click += (this.MenuItemShowWindowSizeLabel_Click);
 		menuItemShowWindowSizeLabel.MouseEnter += (this.Control_Enter);
 		menuItemShowWindowSizeLabel.MouseLeave += (this.Control_Leave);
 		menuItemShowWindowSizeLabel.MouseMove += (this.MouseCoordinates_MouseMove);
@@ -6155,7 +6155,7 @@ partial class PlanetoidDbForm
 		menuItemShowTimeUsageLabel.Name = "menuItemShowTimeUsageLabel";
 		menuItemShowTimeUsageLabel.Size = new Size(219, 22);
 		menuItemShowTimeUsageLabel.Text = "Show time usage";
-		menuItemShowTimeUsageLabel.Click += (this.ToolStripMenuItemShowTimeUsageLabel_Click);
+		menuItemShowTimeUsageLabel.Click += (this.MenuItemShowTimeUsageLabel_Click);
 		menuItemShowTimeUsageLabel.MouseEnter += (this.Control_Enter);
 		menuItemShowTimeUsageLabel.MouseLeave += (this.Control_Leave);
 		menuItemShowTimeUsageLabel.MouseMove += (this.MouseCoordinates_MouseMove);
@@ -6172,7 +6172,7 @@ partial class PlanetoidDbForm
 		menuItemShowProcessorUsageLabel.Name = "menuItemShowProcessorUsageLabel";
 		menuItemShowProcessorUsageLabel.Size = new Size(219, 22);
 		menuItemShowProcessorUsageLabel.Text = "Show CPU usage";
-		menuItemShowProcessorUsageLabel.Click += (this.ToolStripMenuItemShowProcessorUsageLabel_Click);
+		menuItemShowProcessorUsageLabel.Click += (this.MenuItemShowProcessorUsageLabel_Click);
 		menuItemShowProcessorUsageLabel.MouseEnter += (this.Control_Enter);
 		menuItemShowProcessorUsageLabel.MouseLeave += (this.Control_Leave);
 		menuItemShowProcessorUsageLabel.MouseMove += (this.MouseCoordinates_MouseMove);
@@ -6189,7 +6189,7 @@ partial class PlanetoidDbForm
 		menuItemShowMemoryUsageLabel.Name = "menuItemShowMemoryUsageLabel";
 		menuItemShowMemoryUsageLabel.Size = new Size(219, 22);
 		menuItemShowMemoryUsageLabel.Text = "Show RAM usage";
-		menuItemShowMemoryUsageLabel.Click += (this.ToolStripMenuItemShowMemoryUsageLabel_Click);
+		menuItemShowMemoryUsageLabel.Click += (this.MenuItemShowMemoryUsageLabel_Click);
 		menuItemShowMemoryUsageLabel.MouseEnter += (this.Control_Enter);
 		menuItemShowMemoryUsageLabel.MouseLeave += (this.Control_Leave);
 		menuItemShowMemoryUsageLabel.MouseMove += (this.MouseCoordinates_MouseMove);
@@ -6206,7 +6206,7 @@ partial class PlanetoidDbForm
 		menuItemShowDiskSizeLabel.Name = "menuItemShowDiskSizeLabel";
 		menuItemShowDiskSizeLabel.Size = new Size(219, 22);
 		menuItemShowDiskSizeLabel.Text = "Show disk size";
-		menuItemShowDiskSizeLabel.Click += (this.ToolStripMenuItemShowDiskSizeLabel_Click);
+		menuItemShowDiskSizeLabel.Click += (this.MenuItemShowDiskSizeLabel_Click);
 		menuItemShowDiskSizeLabel.MouseEnter += (this.Control_Enter);
 		menuItemShowDiskSizeLabel.MouseLeave += (this.Control_Leave);
 		menuItemShowDiskSizeLabel.MouseMove += (this.MouseCoordinates_MouseMove);
@@ -6241,7 +6241,7 @@ partial class PlanetoidDbForm
 		labelDiskSizeUsage.Size = new Size(67, 17);
 		labelDiskSizeUsage.Text = "Disk size";
 		labelDiskSizeUsage.ToolTipText = "Disk size usage";
-		labelDiskSizeUsage.Click += (this.ToolStripStatusLabelDiskSizeUsage_Click);
+		labelDiskSizeUsage.Click += (this.LabelDiskSizeUsage_Click);
 		labelDiskSizeUsage.MouseEnter += (this.Control_Enter);
 		labelDiskSizeUsage.MouseLeave += (this.Control_Leave);
 		labelDiskSizeUsage.MouseMove += (this.MouseCoordinates_MouseMove);
@@ -6300,81 +6300,81 @@ partial class PlanetoidDbForm
 		labelTimeUsage.MouseLeave += (this.Control_Leave);
 		labelTimeUsage.MouseMove += (this.MouseCoordinates_MouseMove);
 		// 
-		// toolStripStatusLabelWindowSize
+		// labelWindowSize
 		// 
-		toolStripStatusLabelWindowSize.AccessibleDescription = "Shows the window size";
-		toolStripStatusLabelWindowSize.AccessibleName = "Window size";
-		toolStripStatusLabelWindowSize.AccessibleRole = AccessibleRole.StaticText;
-		toolStripStatusLabelWindowSize.Alignment = ToolStripItemAlignment.Right;
-		toolStripStatusLabelWindowSize.Image = FatcowIcons16px.fatcow_application_16px;
-		toolStripStatusLabelWindowSize.LinkBehavior = LinkBehavior.HoverUnderline;
-		toolStripStatusLabelWindowSize.LinkColor = SystemColors.ControlText;
-		toolStripStatusLabelWindowSize.Margin = new Padding(5, 3, 0, 2);
-		toolStripStatusLabelWindowSize.Name = "toolStripStatusLabelWindowSize";
-		toolStripStatusLabelWindowSize.Size = new Size(89, 17);
-		toolStripStatusLabelWindowSize.Text = "Window size";
-		toolStripStatusLabelWindowSize.ToolTipText = "Window size";
-		toolStripStatusLabelWindowSize.MouseEnter += (this.Control_Enter);
-		toolStripStatusLabelWindowSize.MouseLeave += (this.Control_Leave);
-		toolStripStatusLabelWindowSize.MouseMove += (this.MouseCoordinates_MouseMove);
+		labelWindowSize.AccessibleDescription = "Shows the window size";
+		labelWindowSize.AccessibleName = "Window size";
+		labelWindowSize.AccessibleRole = AccessibleRole.StaticText;
+		labelWindowSize.Alignment = ToolStripItemAlignment.Right;
+		labelWindowSize.Image = FatcowIcons16px.fatcow_application_16px;
+		labelWindowSize.LinkBehavior = LinkBehavior.HoverUnderline;
+		labelWindowSize.LinkColor = SystemColors.ControlText;
+		labelWindowSize.Margin = new Padding(5, 3, 0, 2);
+		labelWindowSize.Name = "labelWindowSize";
+		labelWindowSize.Size = new Size(89, 17);
+		labelWindowSize.Text = "Window size";
+		labelWindowSize.ToolTipText = "Window size";
+		labelWindowSize.MouseEnter += (this.Control_Enter);
+		labelWindowSize.MouseLeave += (this.Control_Leave);
+		labelWindowSize.MouseMove += (this.MouseCoordinates_MouseMove);
 		// 
-		// toolStripStatusLabelMouseCoordinates
+		// labelMouseCoordinates
 		// 
-		toolStripStatusLabelMouseCoordinates.AccessibleDescription = "Shows the Mouse coordinates";
-		toolStripStatusLabelMouseCoordinates.AccessibleName = "Mouse coordinates";
-		toolStripStatusLabelMouseCoordinates.AccessibleRole = AccessibleRole.StaticText;
-		toolStripStatusLabelMouseCoordinates.Alignment = ToolStripItemAlignment.Right;
-		toolStripStatusLabelMouseCoordinates.Image = FatcowIcons16px.fatcow_cursor_16px;
-		toolStripStatusLabelMouseCoordinates.LinkBehavior = LinkBehavior.HoverUnderline;
-		toolStripStatusLabelMouseCoordinates.LinkColor = SystemColors.ControlText;
-		toolStripStatusLabelMouseCoordinates.Margin = new Padding(5, 3, 0, 2);
-		toolStripStatusLabelMouseCoordinates.Name = "toolStripStatusLabelMouseCoordinates";
-		toolStripStatusLabelMouseCoordinates.Size = new Size(59, 17);
-		toolStripStatusLabelMouseCoordinates.Text = "Mouse";
-		toolStripStatusLabelMouseCoordinates.ToolTipText = "Mouse coordinates";
-		toolStripStatusLabelMouseCoordinates.MouseEnter += (this.Control_Enter);
-		toolStripStatusLabelMouseCoordinates.MouseLeave += (this.Control_Leave);
-		toolStripStatusLabelMouseCoordinates.MouseMove += (this.MouseCoordinates_MouseMove);
+		labelMouseCoordinates.AccessibleDescription = "Shows the Mouse coordinates";
+		labelMouseCoordinates.AccessibleName = "Mouse coordinates";
+		labelMouseCoordinates.AccessibleRole = AccessibleRole.StaticText;
+		labelMouseCoordinates.Alignment = ToolStripItemAlignment.Right;
+		labelMouseCoordinates.Image = FatcowIcons16px.fatcow_cursor_16px;
+		labelMouseCoordinates.LinkBehavior = LinkBehavior.HoverUnderline;
+		labelMouseCoordinates.LinkColor = SystemColors.ControlText;
+		labelMouseCoordinates.Margin = new Padding(5, 3, 0, 2);
+		labelMouseCoordinates.Name = "labelMouseCoordinates";
+		labelMouseCoordinates.Size = new Size(59, 17);
+		labelMouseCoordinates.Text = "Mouse";
+		labelMouseCoordinates.ToolTipText = "Mouse coordinates";
+		labelMouseCoordinates.MouseEnter += (this.Control_Enter);
+		labelMouseCoordinates.MouseLeave += (this.Control_Leave);
+		labelMouseCoordinates.MouseMove += (this.MouseCoordinates_MouseMove);
 		// 
-		// toolStripStatusLabelAstorbDatUpdate
+		// labelAstorbDatUpdate
 		// 
-		toolStripStatusLabelAstorbDatUpdate.AccessibleDescription = "Shows whether an ASTORB.DAT update is available";
-		toolStripStatusLabelAstorbDatUpdate.AccessibleName = "ASTORB.DAT update available";
-		toolStripStatusLabelAstorbDatUpdate.AccessibleRole = AccessibleRole.StaticText;
-		toolStripStatusLabelAstorbDatUpdate.Alignment = ToolStripItemAlignment.Right;
-		toolStripStatusLabelAstorbDatUpdate.AutoToolTip = true;
-		toolStripStatusLabelAstorbDatUpdate.Image = FatcowIcons16px.fatcow_new_16px;
-		toolStripStatusLabelAstorbDatUpdate.IsLink = true;
-		toolStripStatusLabelAstorbDatUpdate.LinkBehavior = LinkBehavior.HoverUnderline;
-		toolStripStatusLabelAstorbDatUpdate.LinkColor = SystemColors.ControlText;
-		toolStripStatusLabelAstorbDatUpdate.Margin = new Padding(5, 3, 0, 2);
-		toolStripStatusLabelAstorbDatUpdate.Name = "toolStripStatusLabelAstorbDatUpdate";
-		toolStripStatusLabelAstorbDatUpdate.Size = new Size(129, 17);
-		toolStripStatusLabelAstorbDatUpdate.Text = "ASTORB.DAT update";
-		toolStripStatusLabelAstorbDatUpdate.Click += (this.DownloadAstorbDat_Click);
-		toolStripStatusLabelAstorbDatUpdate.MouseEnter += (this.Control_Enter);
-		toolStripStatusLabelAstorbDatUpdate.MouseLeave += (this.Control_Leave);
-		toolStripStatusLabelAstorbDatUpdate.MouseMove += (this.MouseCoordinates_MouseMove);
+		labelAstorbDatUpdate.AccessibleDescription = "Shows whether an ASTORB.DAT update is available";
+		labelAstorbDatUpdate.AccessibleName = "ASTORB.DAT update available";
+		labelAstorbDatUpdate.AccessibleRole = AccessibleRole.StaticText;
+		labelAstorbDatUpdate.Alignment = ToolStripItemAlignment.Right;
+		labelAstorbDatUpdate.AutoToolTip = true;
+		labelAstorbDatUpdate.Image = FatcowIcons16px.fatcow_new_16px;
+		labelAstorbDatUpdate.IsLink = true;
+		labelAstorbDatUpdate.LinkBehavior = LinkBehavior.HoverUnderline;
+		labelAstorbDatUpdate.LinkColor = SystemColors.ControlText;
+		labelAstorbDatUpdate.Margin = new Padding(5, 3, 0, 2);
+		labelAstorbDatUpdate.Name = "labelAstorbDatUpdate";
+		labelAstorbDatUpdate.Size = new Size(129, 17);
+		labelAstorbDatUpdate.Text = "ASTORB.DAT update";
+		labelAstorbDatUpdate.Click += (this.DownloadAstorbDat_Click);
+		labelAstorbDatUpdate.MouseEnter += (this.Control_Enter);
+		labelAstorbDatUpdate.MouseLeave += (this.Control_Leave);
+		labelAstorbDatUpdate.MouseMove += (this.MouseCoordinates_MouseMove);
 		// 
-		// toolStripStatusLabelMpcorbDatUpdate
+		// labelMpcorbDatUpdate
 		// 
-		toolStripStatusLabelMpcorbDatUpdate.AccessibleDescription = "Shows whether an MPCORB.DAT update is available";
-		toolStripStatusLabelMpcorbDatUpdate.AccessibleName = "MPCORB.DAT update available";
-		toolStripStatusLabelMpcorbDatUpdate.AccessibleRole = AccessibleRole.StaticText;
-		toolStripStatusLabelMpcorbDatUpdate.Alignment = ToolStripItemAlignment.Right;
-		toolStripStatusLabelMpcorbDatUpdate.AutoToolTip = true;
-		toolStripStatusLabelMpcorbDatUpdate.Image = FatcowIcons16px.fatcow_new_16px;
-		toolStripStatusLabelMpcorbDatUpdate.IsLink = true;
-		toolStripStatusLabelMpcorbDatUpdate.LinkBehavior = LinkBehavior.HoverUnderline;
-		toolStripStatusLabelMpcorbDatUpdate.LinkColor = SystemColors.ControlText;
-		toolStripStatusLabelMpcorbDatUpdate.Margin = new Padding(5, 3, 0, 2);
-		toolStripStatusLabelMpcorbDatUpdate.Name = "toolStripStatusLabelMpcorbDatUpdate";
-		toolStripStatusLabelMpcorbDatUpdate.Size = new Size(136, 17);
-		toolStripStatusLabelMpcorbDatUpdate.Text = "MPCORB.DAT update";
-		toolStripStatusLabelMpcorbDatUpdate.Click += (this.DownloadMpcorbDat_Click);
-		toolStripStatusLabelMpcorbDatUpdate.MouseEnter += (this.Control_Enter);
-		toolStripStatusLabelMpcorbDatUpdate.MouseLeave += (this.Control_Leave);
-		toolStripStatusLabelMpcorbDatUpdate.MouseMove += (this.MouseCoordinates_MouseMove);
+		labelMpcorbDatUpdate.AccessibleDescription = "Shows whether an MPCORB.DAT update is available";
+		labelMpcorbDatUpdate.AccessibleName = "MPCORB.DAT update available";
+		labelMpcorbDatUpdate.AccessibleRole = AccessibleRole.StaticText;
+		labelMpcorbDatUpdate.Alignment = ToolStripItemAlignment.Right;
+		labelMpcorbDatUpdate.AutoToolTip = true;
+		labelMpcorbDatUpdate.Image = FatcowIcons16px.fatcow_new_16px;
+		labelMpcorbDatUpdate.IsLink = true;
+		labelMpcorbDatUpdate.LinkBehavior = LinkBehavior.HoverUnderline;
+		labelMpcorbDatUpdate.LinkColor = SystemColors.ControlText;
+		labelMpcorbDatUpdate.Margin = new Padding(5, 3, 0, 2);
+		labelMpcorbDatUpdate.Name = "labelMpcorbDatUpdate";
+		labelMpcorbDatUpdate.Size = new Size(136, 17);
+		labelMpcorbDatUpdate.Text = "MPCORB.DAT update";
+		labelMpcorbDatUpdate.Click += (this.DownloadMpcorbDat_Click);
+		labelMpcorbDatUpdate.MouseEnter += (this.Control_Enter);
+		labelMpcorbDatUpdate.MouseLeave += (this.Control_Leave);
+		labelMpcorbDatUpdate.MouseMove += (this.MouseCoordinates_MouseMove);
 		// 
 		// splitContainerContentOuterLeftMiddle
 		// 
@@ -12068,7 +12068,7 @@ partial class PlanetoidDbForm
 		buttonAcknowledgements.Name = "buttonAcknowledgements";
 		buttonAcknowledgements.Size = new Size(23, 22);
 		buttonAcknowledgements.Text = "A&cknowledgements";
-		buttonAcknowledgements.Click += (this.ToolStripMenuItemAcknowledgements_Click);
+		buttonAcknowledgements.Click += (this.MenuItemAcknowledgements_Click);
 		buttonAcknowledgements.MouseEnter += (this.Control_Enter);
 		buttonAcknowledgements.MouseLeave += (this.Control_Leave);
 		buttonAcknowledgements.MouseMove += (this.MouseCoordinates_MouseMove);
@@ -12566,7 +12566,7 @@ partial class PlanetoidDbForm
 	private ToolStripMenuItem menuItemOptions;
 	private BackgroundWorker backgroundWorkerLoadingDatabase;
 	private ToolStripStatusLabel labelInformation;
-	private ToolStripStatusLabel toolStripStatusLabelMpcorbDatUpdate;
+	private ToolStripStatusLabel labelMpcorbDatUpdate;
 	private KryptonToolStrip kryptonToolStripIcons;
 	private ToolStripButton buttonAbout;
 	private ToolStripSeparator separator1;
@@ -12936,7 +12936,7 @@ partial class PlanetoidDbForm
 	private ToolStripMenuItem menuItemShowMpcorbDatUpdateIsAvailable;
 	private ToolStripMenuItem menuItemShowAstorbDatUpdateIsAvailable;
 	private Timer timerCheckForNewAstorbDatFile;
-	private ToolStripStatusLabel toolStripStatusLabelAstorbDatUpdate;
+	private ToolStripStatusLabel labelAstorbDatUpdate;
 	private ToolStripSeparator separator12;
 	private ToolStripMenuItem menuItemMoidsAndMaxoidsOfOneMinorPlanet;
 	private ToolStripMenuItem menuItemFilterEdit;
@@ -13033,8 +13033,8 @@ partial class PlanetoidDbForm
 	private ToolStripMenuItem menuItemEncounterVelocities;
 	private ToolStripMenuItem menuItemEncounterVelocityOfOneMinorPlanet;
 	private ToolStripMenuItem menuItemEncounterVelocitiesOfAllMinorPlanets;
-	private ToolStripStatusLabel toolStripStatusLabelWindowSize;
-	private ToolStripStatusLabel toolStripStatusLabelMouseCoordinates;
+	private ToolStripStatusLabel labelWindowSize;
+	private ToolStripStatusLabel labelMouseCoordinates;
 	private ToolStripMenuItem menuItemWindow;
 	private ToolStripMenuItem menuItemWindowStateMaximize;
 	private ToolStripMenuItem menuItemWindowStateMinimize;

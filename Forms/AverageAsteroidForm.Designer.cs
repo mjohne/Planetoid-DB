@@ -1017,24 +1017,24 @@ partial class AverageAsteroidForm
 		toolStripButtonCancel.MouseEnter += Control_Enter;
 		toolStripButtonCancel.MouseLeave += Control_Leave;
 		// 
-		// toolStripSeparator2
+		// separator2
 		// 
 		toolStripSeparator2.AccessibleDescription = "Just a separator";
 		toolStripSeparator2.AccessibleName = "Separator";
 		toolStripSeparator2.AccessibleRole = AccessibleRole.Separator;
-		toolStripSeparator2.Name = "toolStripSeparator2";
+		toolStripSeparator2.Name = "separator2";
 		toolStripSeparator2.Size = new Size(6, 26);
 		toolStripSeparator2.MouseEnter += Control_Enter;
 		toolStripSeparator2.MouseLeave += Control_Leave;
 		// 
-		// toolStripMenuItemCopyToClipboard
+		// menuItemCopyToClipboard
 		// 
 		toolStripMenuItemCopyToClipboard.AccessibleDescription = "Copies the text/value to the clipboard";
 		toolStripMenuItemCopyToClipboard.AccessibleName = "Copy to clipboard";
 		toolStripMenuItemCopyToClipboard.AccessibleRole = AccessibleRole.MenuItem;
 		toolStripMenuItemCopyToClipboard.AutoToolTip = true;
 		toolStripMenuItemCopyToClipboard.Image = FatcowIcons16px.fatcow_page_copy_16px;
-		toolStripMenuItemCopyToClipboard.Name = "toolStripMenuItemCopyToClipboard";
+		toolStripMenuItemCopyToClipboard.Name = "menuItemCopyToClipboard";
 		toolStripMenuItemCopyToClipboard.ShortcutKeyDisplayString = "Strg+C";
 		toolStripMenuItemCopyToClipboard.ShortcutKeys = Keys.Control | Keys.C;
 		toolStripMenuItemCopyToClipboard.Size = new Size(130, 26);
@@ -1043,12 +1043,12 @@ partial class AverageAsteroidForm
 		toolStripMenuItemCopyToClipboard.MouseEnter += Control_Enter;
 		toolStripMenuItemCopyToClipboard.MouseLeave += Control_Leave;
 		// 
-		// toolStripSeparator1
+		// separator1
 		// 
 		toolStripSeparator1.AccessibleDescription = "Just a separator";
 		toolStripSeparator1.AccessibleName = "Separator";
 		toolStripSeparator1.AccessibleRole = AccessibleRole.Separator;
-		toolStripSeparator1.Name = "toolStripSeparator1";
+		toolStripSeparator1.Name = "separator1";
 		toolStripSeparator1.Size = new Size(6, 26);
 		toolStripSeparator1.MouseEnter += Control_Enter;
 		toolStripSeparator1.MouseLeave += Control_Leave;

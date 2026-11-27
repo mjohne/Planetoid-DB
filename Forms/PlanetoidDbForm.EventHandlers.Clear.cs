@@ -21,7 +21,7 @@ public partial class PlanetoidDbForm
 {
 	/// <summary>Clears the checked state of all navigation step menu items.</summary>
 	/// <remarks>This method is used to clear the checked state of all navigation step menu items.</remarks>
-	private void ToolStripMenuItem_Clear()
+	private void MenuItem_Clear()
 	{
 		// Clear the checked state of all navigation step menu items
 		menuItemNavigateStep10.Checked = false;
