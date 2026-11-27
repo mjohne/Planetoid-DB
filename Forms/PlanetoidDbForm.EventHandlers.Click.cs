@@ -67,7 +67,7 @@ public partial class PlanetoidDbForm
 	private void GoToIndex_Click(object? sender, EventArgs? e)
 	{
 		// Log the navigation action with the specified index
-		logger.Info(message: $"Navigating to index: {toolStripTextBoxGotoIndex.Text}");
+		logger.Info(message: $"Navigating to index: {textBoxGoToIndex.Text}");
 		// Ensure that an event source was supplied
 		ArgumentNullException.ThrowIfNull(argument: sender);
 		// Ensure that the event data was supplied
@@ -78,7 +78,7 @@ public partial class PlanetoidDbForm
 		try
 		{
 			// Parse the index from the text box
-			pos = int.Parse(s: toolStripTextBoxGotoIndex.Text, provider: CultureInfo.CurrentCulture);
+			pos = int.Parse(s: textBoxGoToIndex.Text, provider: CultureInfo.CurrentCulture);
 		}
 		// Catch any exceptions that occur during parsing
 		catch (Exception ex)
@@ -3417,7 +3417,7 @@ public partial class PlanetoidDbForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method checks the checked state of the experimental features menu item and calls the appropriate method to enable or disable experimental features.</remarks>
-	private void ToolStripMenuItemExperimentalFeatures_Click(object sender, EventArgs e)
+	private void MenuItemExperimentalFeatures_Click(object sender, EventArgs e)
 	{
 		// Log the click event and the current checked state of the experimental features menu item
 		logger.Info(message: $"Experimental Features menu item clicked. Checked state: {menuItemExperimentalFeatures.Checked}");
@@ -3442,7 +3442,7 @@ public partial class PlanetoidDbForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method checks the checked state of the UI Sound menu item and calls the appropriate method to enable or disable UI sound.</remarks>
-	private void ToolStripMenuItemOptionEnableUiSound_Click(object sender, EventArgs e)
+	private void MenuItemOptionEnableUiSound_Click(object sender, EventArgs e)
 	{
 		// Log the click event and the current checked state of the UI sound menu item
 		logger.Info(message: $"UI Sound menu item clicked. Checked state: {menuItemOptionEnableUiSound.Checked}");

@@ -13,6 +13,8 @@
  * See LICENSE file in the project root for license information.
  */
 
+using Planetoid_DB.Resources;
+
 namespace Planetoid_DB;
 
 /// <summary>Partial class containing event handler methods for the <see cref="PlanetoidDbForm"/>.</summary>
@@ -32,7 +34,7 @@ public partial class PlanetoidDbForm
 		// Ensure that the event data was supplied
 		ArgumentNullException.ThrowIfNull(argument: e);
 		// Clear existing items in the back-history drop-down menu
-		toolStripSplitButtonHistoryBack.DropDownItems.Clear();
+		contextMenuHistoryBack.Items.Clear();
 		// Build items from the back-history (top = most recent)
 		int[] backPositions = [.. navigationHistoryBack];
 		// Iterate through each position in the back-history
@@ -51,7 +53,8 @@ public partial class PlanetoidDbForm
 				AutoToolTip = true,
 				AccessibleRole = AccessibleRole.MenuItem,
 				AccessibleName = label,
-				AccessibleDescription = $"Navigate to history position {capturedPos + 1} ({label})"
+				AccessibleDescription = $"Navigate to history position {capturedPos + 1} ({label})",
+				Image = FatcowIcons16px.fatcow_page_16px
 			};
 			// Handle the click event for the history item
 			item.Click += (s, ev) =>
@@ -63,7 +66,7 @@ public partial class PlanetoidDbForm
 			item.MouseEnter += Control_Enter;
 			item.MouseLeave += Control_Leave;
 			// Add the item to the back-history drop-down menu
-			_ = toolStripSplitButtonHistoryBack.DropDownItems.Add(value: item);
+			_ = contextMenuHistoryBack.Items.Add(value: item);
 		}
 	}
 
@@ -78,7 +81,7 @@ public partial class PlanetoidDbForm
 		// Ensure that the event data was supplied
 		ArgumentNullException.ThrowIfNull(argument: e);
 		// Clear existing items in the forward-history drop-down menu
-		toolStripSplitButtonHistoryForward.DropDownItems.Clear();
+		contextMenuHistoryForward.Items.Clear();
 		// Build items from the forward-history (top = most recent)
 		int[] forwardPositions = [.. navigationHistoryForward];
 		// Iterate through each position in the forward-history
@@ -97,7 +100,9 @@ public partial class PlanetoidDbForm
 				AutoToolTip = true,
 				AccessibleRole = AccessibleRole.MenuItem,
 				AccessibleName = label,
-				AccessibleDescription = $"Navigate to history position {capturedPos + 1} ({label})"
+				AccessibleDescription = $"Navigate to history position {capturedPos + 1} ({label})",
+				Image = FatcowIcons16px.fatcow_page_16px
+
 			};
 			// Handle the click event for the history item
 			item.Click += (s, ev) =>
@@ -109,7 +114,7 @@ public partial class PlanetoidDbForm
 			item.MouseEnter += Control_Enter;
 			item.MouseLeave += Control_Leave;
 			// Add the item to the forward-history drop-down menu
-			_ = toolStripSplitButtonHistoryForward.DropDownItems.Add(value: item);
+			_ = contextMenuHistoryForward.Items.Add(value: item);
 		}
 	}
 
